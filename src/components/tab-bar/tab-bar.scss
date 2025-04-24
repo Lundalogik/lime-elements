@@ -1,4 +1,3 @@
-@use '../../style/functions';
 @use '../../style/internal/lime-theme';
 @use '@material/tab-bar/mdc-tab-bar';
 @use '@material/tab-scroller/mdc-tab-scroller';
@@ -6,11 +5,10 @@
 @use '@material/tab/mdc-tab';
 
 $tab-background-color: var(--contrast-300);
-$tab-border-radius: functions.pxToRem(10);
-$tab-active-outer-edge-curve-size: functions.pxToRem(12);
-$tab-separator-width: functions.pxToRem(2);
+$tab-border-radius: 0.625rem;
+$tab-active-outer-edge-curve-size: 0.75rem;
+$tab-separator-width: 0.125rem;
 $tab-separator-background-color: rgb(var(--contrast-600));
-$tab-scroller-fade-width: 65;
 
 @import './partial-styles/tab-bar-scroller.scss';
 
@@ -54,7 +52,7 @@ $tab-scroller-fade-width: 65;
     border: {
         style: solid;
         color: transparent;
-        width: functions.pxToRem(4);
+        width: 0.25rem;
     }
     opacity: 0.7;
 
@@ -66,9 +64,9 @@ $tab-scroller-fade-width: 65;
 
 .mdc-tab {
     border-radius: 0;
-    padding-right: functions.pxToRem(20);
-    padding-left: functions.pxToRem(20);
-    min-width: functions.pxToRem(40);
+    padding-right: 1.25rem;
+    padding-left: 1.25rem;
+    min-width: 2.5rem;
     background-color: transparent;
     flex: 0 0 auto;
 
@@ -80,12 +78,12 @@ $tab-scroller-fade-width: 65;
             display: block;
             background-color: $tab-separator-background-color;
             width: $tab-separator-width;
-            height: functions.pxToRem(16);
+            height: 1rem;
             margin: auto;
             position: absolute;
             top: 0;
             bottom: 0;
-            border-radius: functions.pxToRem(16);
+            border-radius: 1rem;
             right: -$tab-separator-width;
         }
 
@@ -133,7 +131,7 @@ $tab-scroller-fade-width: 65;
 }
 
 .mdc-tab__content {
-    gap: functions.pxToRem(6);
+    gap: 0.375rem;
 }
 
 .mdc-tab {
