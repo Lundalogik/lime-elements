@@ -1,3 +1,12 @@
+## [38.9.5](https://github.com/Lundalogik/lime-elements/compare/v38.9.4...v38.9.5) (2025-04-24)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure a tall `readonly` editor does not overflow its container ([287698d](https://github.com/Lundalogik/lime-elements/commit/287698d88824271d6800bf917141efc5baabf0df))
+* **text-editor:** ensure smooth scrolling experience on iOS ([fc2a8ce](https://github.com/Lundalogik/lime-elements/commit/fc2a8ce40d0bd995193d8b136eaa956d98efadb2))
+
 ## [38.9.4](https://github.com/Lundalogik/lime-elements/compare/v38.9.3...v38.9.4) (2025-04-24)
 
 
