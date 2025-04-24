@@ -11,6 +11,7 @@
 }
 
 $min-height: 5rem;
+$min-height-condensed: calc($min-height / 2);
 
 :host(limel-text-editor) {
     --limel-notched-outline-z-index: 2; // since `div.toolbar` has `z-index: 1;`
@@ -61,9 +62,9 @@ $min-height: 5rem;
     --limel-text-editor-padding: 0.75rem 1rem 0.75rem 1rem;
     --limel-text-editor-placeholder-top: 0;
 
-    min-height: calc($min-height / 2);
+    min-height: $min-height-condensed;
     limel-prosemirror-adapter {
-        min-height: calc($min-height / 2);
+        min-height: $min-height-condensed;
     }
 }
 
