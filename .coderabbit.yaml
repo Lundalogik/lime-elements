@@ -97,9 +97,11 @@ reviews:
 
   path_instructions:
     - path: '**/*.tsx'
-      instructions: Our `.tsx` files are typically using StencilJS, not React.
+      instructions: Our `.tsx` files are typically using StencilJS, not React. When a developer wants to return multiple top-level JSX elements from the `render` method, they will sometimes wrap them in an array literal. In these cases, rather than recommending they add `key` properties to the elements, recommend removing the hardcoded array literal. Recommend wrapping the elements in StencilJS's special `<Host>` element.
     - path: '**/*.{ts,tsx}'
       instructions: Imports from other files in the same module (lime-elements) must use relative paths. Using absolute paths for imports will cause the production build to fail.
+    - path: '**/*.{tsx,scss}'
+      instructions: Almost all our components use shadow-DOM. Therefore, we have no need of BEM-style class names in our CSS.
     - path: 'src/components/**/examples/**/*.{ts,tsx}'
       instructions: These files are an exception to the rule that all imports should use relative paths. When these example files import something that is publically exported by lime-elements, the import should be made from `@limetech/lime-elements`. If they import something from another file inside the `example` folder, the import should use a relative path.
 

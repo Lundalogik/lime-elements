@@ -1,0 +1,6 @@
+---
+description: When you need to return multiple top-level JSX elements from the `render` method
+globs:
+alwaysApply: false
+---
+When returning multiple JSX elements from the `render` method, never wrap them in an array literal. Instead, always wrap them in the special `<Host>` element. When there is already a single top-level element, it does not have to be wrapped in `<Host>`.
