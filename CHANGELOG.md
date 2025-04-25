@@ -1,3 +1,13 @@
+## [38.9.6](https://github.com/Lundalogik/lime-elements/compare/v38.9.5...v38.9.6) (2025-04-25)
+
+
+### Bug Fixes
+
+
+* **tab-bar:** improve the scrolling experience, when clicking the scroll buttons ([f1790f7](https://github.com/Lundalogik/lime-elements/commit/f1790f7ba1b3f43206995546745838bd49303673))
+* **tab-bar:** render scroll buttons smaller ([f4c993d](https://github.com/Lundalogik/lime-elements/commit/f4c993de0ba493cad5ee4c905595a01f6fde7d4f))
+* **tab-bar:** render tabs slightly smaller ([def1e71](https://github.com/Lundalogik/lime-elements/commit/def1e71a549ed7dd968afa5d63534f9badc764eb))
+
 ## [38.9.5](https://github.com/Lundalogik/lime-elements/compare/v38.9.4...v38.9.5) (2025-04-24)
 
 
