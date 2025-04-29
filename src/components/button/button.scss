@@ -78,11 +78,6 @@ button {
     }
 }
 
-.icon {
-    width: 1.25rem;
-    flex-shrink: 0;
-}
-
 .label {
     font-size: 0.875rem;
     font-weight: 600;
@@ -95,6 +90,8 @@ limel-spinner {
 }
 
 limel-icon {
+    width: 1.25rem;
+    flex-shrink: 0;
     vertical-align: top;
 }
 
