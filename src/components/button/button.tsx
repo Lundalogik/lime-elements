@@ -3,6 +3,8 @@ import {
     makeEnterClickable,
     removeEnterClickable,
 } from '../../util/make-enter-clickable';
+import { Icon } from '../../global/shared-types/icon.types';
+import { getIconName, getIconTitle } from '../icon/get-icon-props';
 
 /**
  * @exampleComponent limel-example-button-basic
@@ -45,7 +47,7 @@ export class Button {
      * Set icon for the button
      */
     @Prop({ reflect: true })
-    public icon: string;
+    public icon: string | Icon;
 
     /**
      * Set to `true` to disable the button.
@@ -97,7 +99,7 @@ export class Button {
                     aria-busy={this.loading ? 'true' : 'false'}
                     aria-live="polite"
                 >
-                    {this.renderIcon()}
+                    {this.renderIcon(this.icon)}
                     {this.renderLabel()}
                     {this.renderSpinner()}
                     <svg viewBox="0 0 30 30">{this.renderLoadingIcons()}</svg>
@@ -147,12 +149,42 @@ export class Button {
         ];
     }
 
-    private renderIcon() {
-        if (!this.icon) {
+    private renderIcon(icon?: string | Icon) {
+        const iconName = getIconName(icon);
+        if (!iconName) {
             return;
         }
 
-        return <limel-icon name={this.icon} />;
+        const title = getIconTitle(icon);
+
+        if (!this.label && !title) {
+            const WARNING_MESSAGE =
+                '⚠️ Accessibility warning: `limel-button` has no `label` and its `icon` has no `title`. ' +
+                'This creates an inaccessible button for screen reader users. ' +
+                'Please add either a `label`, a `title` to the `icon`, or use a `limel-tooltip`. ' +
+                'See https://lundalogik.github.io/lime-elements/versions/latest/#/component/limel-button/ ' +
+                'for more information.';
+            // eslint-disable-next-line no-console
+            console.warn(WARNING_MESSAGE);
+        }
+
+        let iconColor: string | undefined;
+
+        if (typeof icon === 'object') {
+            iconColor = icon.color;
+        }
+
+        const iconProps = {
+            role: 'presentation',
+            name: iconName,
+            'aria-label': title,
+            'aria-hidden': title ? null : 'true', // Use null instead of 'false' to remove attribute
+            style: {
+                color: iconColor,
+            },
+        };
+
+        return <limel-icon {...iconProps} />;
     }
 
     private renderLabel() {
