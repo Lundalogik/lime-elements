@@ -152,7 +152,7 @@ export class Button {
             return;
         }
 
-        return <limel-icon class="icon" name={this.icon} />;
+        return <limel-icon name={this.icon} />;
     }
 
     private renderLabel() {
