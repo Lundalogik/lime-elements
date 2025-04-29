@@ -1,0 +1,2 @@
+import{r as t,h as l,H as e}from"./index-2714248e.js";const n=class{constructor(l){t(this,l)}render(){return l(e,null,l("limel-button",{icon:"plus_math"}),l("limel-button",{icon:"plus_math",label:"Contact"}),l("limel-button",{icon:{name:"plus_math",title:"Add New"},label:"Contact"}))}};export{n as limel_example_button_icon};
+//# sourceMappingURL=limel-example-button-icon.entry.js.map
