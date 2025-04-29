@@ -54,6 +54,10 @@ export class TooltipUsageExample {
                     </div>
                 </div>
             </div>,
+            <limel-example-do-do-not
+                doDescription="aa"
+                doNotDescription="aa"
+            />,
         ];
     }
 }
