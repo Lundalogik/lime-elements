@@ -1,3 +1,11 @@
+## [38.10.0](https://github.com/Lundalogik/lime-elements/compare/v38.9.6...v38.10.0) (2025-04-29)
+
+
+### Features
+
+
+* **ai-avatar:** add new component ([29b0b05](https://github.com/Lundalogik/lime-elements/commit/29b0b052508233795e61a684c755ceb435ee6646))
+
 ## [38.9.6](https://github.com/Lundalogik/lime-elements/compare/v38.9.5...v38.9.6) (2025-04-25)
 
 
