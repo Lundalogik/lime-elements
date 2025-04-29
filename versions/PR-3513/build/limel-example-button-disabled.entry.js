@@ -1,2 +1,2 @@
-import{r as e,h as t}from"./index-6156b4fd.js";const s=class{constructor(t){e(this,t)}render(){return t("limel-button",{label:"My Button",disabled:true,onClick:this.onClick})}onClick(){console.log("This should never happen, since the button is disabled.")}};export{s as limel_example_button_disabled};
+import{r as e,h as t}from"./index-2714248e.js";const s=class{constructor(t){e(this,t)}render(){return t("limel-button",{label:"My Button",disabled:true,onClick:this.onClick})}onClick(){console.log("This should never happen, since the button is disabled.")}};export{s as limel_example_button_disabled};
 //# sourceMappingURL=limel-example-button-disabled.entry.js.map
