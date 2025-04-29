@@ -7,10 +7,6 @@
 
 @use '@material/textfield';
 @use '@material/textfield/icon';
-@use '@material/notched-outline/mdc-notched-outline';
-@use '@material/floating-label';
-@use '@material/floating-label/mdc-floating-label';
-@use '@material/ripple';
 @use '@material/list';
 @use '@material/elevation';
 @use '@material/menu-surface';
@@ -47,14 +43,9 @@
 @include textfield.core-styles;
 @include icon.icon-core-styles;
 
-@include shared_input-select-picker.outlined-style-overrides;
 @include shared_input-select-picker.readonly-overrides;
-@include shared_input-select-picker.cropped-label-hack;
-@include shared_input-select-picker.disabled-overrides;
 @include shared_input-select-picker.leading-icon;
 @include shared_input-select-picker.trailing-icon;
-@include shared_input-select-picker.floating-label-overrides;
-@include shared_input-select-picker.lime-empty-value-for-readonly;
 @include shared_input-select-picker.lime-looks-like-input-value;
 
 .lime-text-field--empty {
@@ -62,6 +53,24 @@
         @include shared_input-select-picker.looks-disabled;
         pointer-events: none;
         box-shadow: none !important;
+    }
+}
+
+limel-notched-outline {
+    &[has-value],
+    &:focus-within {
+        .mdc-text-field__affix {
+            opacity: 1;
+        }
+    }
+}
+
+:host(limel-input-field:not([type='textarea'])) {
+    .limel-notched-outline {
+        // Needed only for Safari,
+        // to ensure that the outlines are not rendered
+        // larger than the input element.
+        height: shared_input-select-picker.$height-of-mdc-text-field;
     }
 }
 
@@ -141,6 +150,15 @@
 
 .mdc-deprecated-list-item {
     cursor: pointer;
+}
+
+.mdc-text-field__input {
+    .mdc-text-field:not(.mdc-text-field--disabled) & {
+        color: shared_input-select-picker.$input-text-color;
+    }
+    .mdc-text-field.mdc-text-field--disabled & {
+        color: shared_input-select-picker.$input-text-color-disabled;
+    }
 }
 
 input.mdc-text-field__input {

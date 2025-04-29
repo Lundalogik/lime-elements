@@ -15,13 +15,24 @@ import {
 import { createRandomString } from '../../util/random-string';
 
 /**
+ * A collapsible section can be used to group related content together
+ * and hide the group when not needed.
+ * Using this component can help to:
+ * - Save vertical space by hiding non-essential content
+ * - Improve content organization and scannability of the user interface
+ * - Reduce cognitive load by displaying only a set of relevant information at a time
+ * - Or disclose complex information, progressively to the user
+ *
  * @slot - Content to put inside the collapsible section
- * @exampleComponent limel-example-collapsible-section
+ * @slot header - Optional slot for custom header content
+ *
+ * @exampleComponent limel-example-collapsible-section-basic
  * @exampleComponent limel-example-collapsible-section-actions
  * @exampleComponent limel-example-collapsible-section-with-custom-header-component
- * @exampleComponent limel-example-collapsible-section-css-props
  * @exampleComponent limel-example-collapsible-section-external-control
  * @exampleComponent limel-example-collapsible-section-with-slider
+ * @exampleComponent limel-example-collapsible-section-invalid
+ * @exampleComponent limel-example-collapsible-section-css-props
  */
 @Component({
     tag: 'limel-collapsible-section',
@@ -40,6 +51,13 @@ export class CollapsibleSection {
      */
     @Prop({ reflect: true })
     public header: string;
+
+    /**
+     * `true` if the section is invalid, `false` if valid.
+     * This can be used to indicate that the content inside the section is invalid.
+     */
+    @Prop({ reflect: true })
+    public invalid = false;
 
     /**
      * Actions to place to the far right inside the header
@@ -88,7 +106,10 @@ export class CollapsibleSection {
 
     public render() {
         return (
-            <section class={`${this.isOpen ? 'open' : ''}`}>
+            <section
+                class={`${this.isOpen ? 'open' : ''}`}
+                aria-invalid={this.invalid}
+            >
                 <header>
                     <button
                         class="open-close-toggle"

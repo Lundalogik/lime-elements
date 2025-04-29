@@ -158,6 +158,10 @@ export class TextEditor implements FormComponent<string> {
      * - `minimal`: A compact editor appearance, ideal for limited space
      *    scenarios such as mobile devices. In this mode, the toolbar is hidden
      *    until the editor is focused.
+     * - `no-toolbar`: A basic textarea appearance without any text styling toolbar.
+     *    This mode is suitable for scenarios where you want to provide a simple
+     *    text input without any visible formatting options; but still provide
+     *    support for markdown syntax and rich text, using hotkeys or when pasting.
      */
     @Prop({ reflect: true })
     public ui?: EditorUiType = 'standard';
@@ -175,7 +179,7 @@ export class TextEditor implements FormComponent<string> {
      * @alpha
      */
     @Event()
-    private imagePasted: EventEmitter<ImageInserter>;
+    private readonly imagePasted: EventEmitter<ImageInserter>;
 
     /**
      * Dispatched when a image is removed from the editor
@@ -184,7 +188,7 @@ export class TextEditor implements FormComponent<string> {
      * @alpha
      */
     @Event()
-    private imageRemoved: EventEmitter<ImageInfo>;
+    private readonly imageRemoved: EventEmitter<ImageInfo>;
 
     /**
      * Dispatched if a trigger character is detected.
@@ -215,8 +219,8 @@ export class TextEditor implements FormComponent<string> {
     @Event()
     public triggerChange: EventEmitter<TriggerEventDetail>;
 
-    private helperTextId: string;
-    private editorId: string;
+    private readonly helperTextId: string;
+    private readonly editorId: string;
 
     public constructor() {
         this.helperTextId = createRandomString();
@@ -225,43 +229,40 @@ export class TextEditor implements FormComponent<string> {
 
     public render() {
         return (
-            <Host
-                class={{
-                    'has-helper-text': !!this.helperText,
-                }}
-            >
-                <span class="notched-outline">
-                    <span class="leading-outline" />
-                    {this.renderLabel()}
-                    <span class="trailing-outline" />
-                </span>
-                {this.renderEditor()}
+            <Host>
+                <limel-notched-outline
+                    labelId={this.editorId}
+                    label={this.label}
+                    required={this.required}
+                    invalid={this.invalid}
+                    disabled={this.disabled}
+                    readonly={this.readonly}
+                    hasValue={!!this.value}
+                    hasFloatingLabel={true}
+                >
+                    {this.renderEditor()}
+                    {this.renderPlaceholder()}
+                </limel-notched-outline>
+                {this.renderHelperLine()}
             </Host>
         );
     }
 
     private renderEditor() {
-        if (this.readonly && !this.value) {
-            return [
-                <span class="lime-looks-like-input-value">–</span>,
-                this.renderHelperLine(),
-            ];
-        }
-
         if (this.readonly) {
-            return [
+            return (
                 <limel-markdown
+                    slot="content"
                     value={this.value}
                     aria-controls={this.helperTextId}
                     id={this.editorId}
-                />,
-                this.renderPlaceholder(),
-                this.renderHelperLine(),
-            ];
+                />
+            );
         }
 
-        return [
+        return (
             <limel-prosemirror-adapter
+                slot="content"
                 aria-placeholder={this.placeholder}
                 contentType={this.contentType}
                 onChange={this.handleChange}
@@ -272,24 +273,13 @@ export class TextEditor implements FormComponent<string> {
                 aria-controls={this.helperTextId}
                 id={this.editorId}
                 aria-disabled={this.disabled}
+                aria-invalid={this.invalid}
+                aria-required={this.required}
                 language={this.language}
                 triggerCharacters={this.triggers}
                 disabled={this.disabled}
-            />,
-            this.renderPlaceholder(),
-            this.renderHelperLine(),
-        ];
-    }
-
-    private renderLabel() {
-        if (!this.label) {
-            return;
-        }
-
-        return (
-            <span class="notch">
-                <label htmlFor={this.editorId}>{this.label}</label>
-            </span>
+                ui={this.ui}
+            />
         );
     }
 
@@ -299,7 +289,7 @@ export class TextEditor implements FormComponent<string> {
         }
 
         return (
-            <span class="placeholder" aria-hidden="true">
+            <span class="placeholder" aria-hidden="true" slot="content">
                 {this.placeholder}
             </span>
         );

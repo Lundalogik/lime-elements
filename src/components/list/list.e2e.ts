@@ -52,6 +52,7 @@ describe('limel-list', () => {
             items = [{ text: 'item 1', disabled: true }];
             await limelList.setProperty('items', items);
             await page.waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 0));
         });
         it('renders the item', () => {
             expect(innerList.children).toHaveLength(1);

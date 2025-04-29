@@ -6,19 +6,15 @@
  * @prop --text-editor-fade-out-background-color: the color of the fade-out effect at the top and bottom of the text editor, when the text-editor is in readonly state. Defaults to rgb(var(--contrast-100)).
  */
 
-@include shared_input-select-picker.lime-looks-like-input-value;
-.lime-looks-like-input-value {
-    padding: var(--limel-text-editor-padding);
-}
-
 * {
     box-sizing: border-box;
 }
 
+$min-height: 5rem;
+$min-height-condensed: calc($min-height / 2);
+
 :host(limel-text-editor) {
-    --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color};
-    --limel-text-editor-background-color: #{shared_input-select-picker.$background-color-normal};
-    --limel-text-editor-label-color: #{shared_input-select-picker.$label-color};
+    --limel-notched-outline-z-index: 2; // since `div.toolbar` has `z-index: 1;`
     --limel-prosemirror-adapter-toolbar-opacity: 0.6;
     --limel-text-editor-padding: 0.25rem 1rem 0.75rem 1rem;
     --limel-prosemirror-adapter-toolbar-grid-template-rows: 1fr;
@@ -37,7 +33,7 @@
 
     width: 100%;
     min-width: 5rem;
-    min-height: 5rem;
+    min-height: $min-height;
     height: 100%;
     max-height: var(
         --text-editor-max-height,
@@ -55,21 +51,21 @@
 }
 
 :host(limel-text-editor[ui='minimal']:not(:focus-within)) {
-    --limel-text-editor-padding: 0.75rem 1rem 0.75rem 1rem;
     --limel-prosemirror-adapter-toolbar-grid-template-rows: 0fr;
     --limel-prosemirror-adapter-toolbar-grid-template-rows-transition-duration: 0.46s;
     --limel-prosemirror-adapter-action-bar-padding-top-bottom: 0;
     --limel-prosemirror-adapter-toolbar-opacity: 0;
+}
+
+:host(limel-text-editor[ui='minimal']:not(:focus-within)),
+:host(limel-text-editor[ui='no-toolbar']) {
+    --limel-text-editor-padding: 0.75rem 1rem 0.75rem 1rem;
     --limel-text-editor-placeholder-top: 0;
-    min-height: 2.5rem;
-}
 
-:host(limel-text-editor:hover) {
-    --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color--hovered};
-}
-
-:host(limel-text-editor:focus-within) {
-    --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color--focused};
+    min-height: $min-height-condensed;
+    limel-prosemirror-adapter {
+        min-height: $min-height-condensed;
+    }
 }
 
 :host(limel-text-editor:focus-within),
@@ -80,28 +76,24 @@
 }
 
 :host(limel-text-editor[disabled]:not([disabled='false'])) {
-    @include shared_input-select-picker.looks-disabled;
-
     limel-prosemirror-adapter {
+        @include shared_input-select-picker.looks-disabled;
         pointer-events: none;
     }
-}
-
-:host(limel-text-editor[invalid]:not([invalid='false'])) {
-    --limel-text-editor-outline-color: var(--lime-error-text-color);
 }
 
 :host(limel-text-editor[readonly]:not([readonly='false'])) {
     --limel-text-editor-padding: 0.75rem 1rem 0.75rem 1rem;
     --limel-text-editor-placeholder-top: 0;
-    --limel-text-editor-outline-color: transparent;
-    --limel-text-editor-background-color: transparent;
 
     limel-markdown {
         // displayed when `readonly` instead of the adapter
         display: block;
         padding: var(--limel-text-editor-padding);
+
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        height: 100%;
 
         &:before,
         &:after {
@@ -138,74 +130,6 @@
     }
 }
 
-.notched-outline {
-    transition: bottom
-        var(--limel-h-l-grid-template-rows-transition-speed, 0.46s)
-        cubic-bezier(1, 0.09, 0, 0.89);
-    pointer-events: none;
-    position: absolute;
-    inset: 0;
-    bottom: var(--limel-text-editor-notched-outline-bottom, 0);
-
-    display: flex;
-    background-color: var(--limel-text-editor-background-color);
-}
-
-.leading-outline,
-.notch,
-.trailing-outline {
-    transition: border-color 0.2s ease;
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--limel-text-editor-outline-color);
-}
-
-.leading-outline {
-    flex-shrink: 0;
-    width: 0.75rem;
-    border-right-width: 0;
-    border-top-left-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
-}
-
-.notch {
-    flex-shrink: 0;
-
-    position: relative;
-    z-index: 2;
-
-    border-top-width: 0;
-    border-right-width: 0;
-    border-left-width: 0;
-
-    max-width: calc(100% - 1.5rem);
-}
-
-.trailing-outline {
-    flex-grow: 1;
-    border-left-width: 0;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
-}
-
-label {
-    transform: translateY(-50%);
-
-    @include mixins.truncate-text;
-    display: block;
-    padding: 0 0.25rem;
-
-    color: var(--limel-text-editor-label-color);
-    font-size: 0.65rem; // `10.4px` similar to MDC's floating label
-    letter-spacing: var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);
-
-    :host(limel-text-editor[required]:not([required='false'])) & {
-        &::after {
-            content: '*';
-        }
-    }
-}
-
 .placeholder {
     transition-property: top;
     transition-duration: var(
@@ -231,18 +155,13 @@ limel-prosemirror-adapter {
     flex-grow: 1;
 
     min-width: 0;
-    min-height: 0;
+    min-height: $min-height;
     height: 100%;
     overflow: hidden auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 @include mixins.hide-helper-line-when-not-needed(limel-text-editor);
-:host(limel-text-editor.has-helper-text:focus-within),
-:host(limel-text-editor.has-helper-text[invalid]:not([invalid='false'])) {
-    .notched-outline {
-        --limel-text-editor-notched-outline-bottom: 1rem;
-    }
-}
 
 :host(limel-text-editor[allow-resize]) {
     limel-prosemirror-adapter {

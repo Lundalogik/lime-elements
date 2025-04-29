@@ -1,4 +1,7 @@
-@use '../../style/functions';
+@use '../../../style/mixins';
+
+$tab-scroller-fade-width: 4rem;
+$space-around-buttons: 0.25rem;
 
 .scroll-fade,
 .scroll-button {
@@ -13,15 +16,11 @@
 .scroll-fade {
     top: 0;
     height: 100%;
-    width: functions.pxToRem($tab-scroller-fade-width);
+    width: $tab-scroller-fade-width;
     pointer-events: none;
 
     &.left {
-        transform: translate3d(
-            functions.pxToRem(0 - $tab-scroller-fade-width),
-            0,
-            0
-        );
+        transform: translate3d(-#{$tab-scroller-fade-width}, 0, 0);
         left: 0;
         background: linear-gradient(
             270deg,
@@ -32,11 +31,7 @@
     }
 
     &.right {
-        transform: translate3d(
-            functions.pxToRem($tab-scroller-fade-width),
-            0,
-            0
-        );
+        transform: translate3d($tab-scroller-fade-width, 0, 0);
         right: 0;
         background: linear-gradient(
             90deg,
@@ -48,32 +43,42 @@
 }
 
 .scroll-button {
-    --icon-background-color: rgb(var(--contrast-100));
     display: flex;
     align-items: center;
     top: 0;
     bottom: 0;
 
     &.left {
-        transform: translate3d(
-            functions.pxToRem(0 - $tab-scroller-fade-width),
-            0,
-            0
-        );
-        left: functions.pxToRem(4);
+        transform: translate3d(-#{$tab-scroller-fade-width}, 0, 0);
+        left: $space-around-buttons;
     }
 
     &.right {
-        transform: translate3d(
-            functions.pxToRem($tab-scroller-fade-width),
-            0,
-            0
-        );
-        right: functions.pxToRem(4);
+        transform: translate3d($tab-scroller-fade-width, 0, 0);
+        right: $space-around-buttons;
     }
 
     &:hover {
         transform: translate3d(0, 0, 0);
+    }
+
+    button {
+        all: unset;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 1.25rem;
+        height: calc(100% - calc(#{$space-around-buttons} * 2));
+        border-radius: 0.25rem;
+
+        &:not(:disabled) {
+            @include mixins.is-elevated-clickable;
+        }
+    }
+
+    limel-icon {
+        width: 1rem;
     }
 }
 

@@ -1,3 +1,109 @@
+## [38.9.6](https://github.com/Lundalogik/lime-elements/compare/v38.9.5...v38.9.6) (2025-04-25)
+
+
+### Bug Fixes
+
+
+* **tab-bar:** improve the scrolling experience, when clicking the scroll buttons ([f1790f7](https://github.com/Lundalogik/lime-elements/commit/f1790f7ba1b3f43206995546745838bd49303673))
+* **tab-bar:** render scroll buttons smaller ([f4c993d](https://github.com/Lundalogik/lime-elements/commit/f4c993de0ba493cad5ee4c905595a01f6fde7d4f))
+* **tab-bar:** render tabs slightly smaller ([def1e71](https://github.com/Lundalogik/lime-elements/commit/def1e71a549ed7dd968afa5d63534f9badc764eb))
+
+## [38.9.5](https://github.com/Lundalogik/lime-elements/compare/v38.9.4...v38.9.5) (2025-04-24)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure a tall `readonly` editor does not overflow its container ([287698d](https://github.com/Lundalogik/lime-elements/commit/287698d88824271d6800bf917141efc5baabf0df))
+* **text-editor:** ensure smooth scrolling experience on iOS ([fc2a8ce](https://github.com/Lundalogik/lime-elements/commit/fc2a8ce40d0bd995193d8b136eaa956d98efadb2))
+
+## [38.9.4](https://github.com/Lundalogik/lime-elements/compare/v38.9.3...v38.9.4) (2025-04-24)
+
+
+### Bug Fixes
+
+
+* **select:** ensure label floats, when a labeled empty option is selected ([625db3c](https://github.com/Lundalogik/lime-elements/commit/625db3caa9b57418521bc0adeb7c21633e6abd11))
+
+## [38.9.3](https://github.com/Lundalogik/lime-elements/compare/v38.9.2...v38.9.3) (2025-04-23)
+
+
+### Bug Fixes
+
+
+* **chip-set:** make input value color respect dark mode again ([71067e6](https://github.com/Lundalogik/lime-elements/commit/71067e65addc2415080c7f3d3142f9556cfaf0c5))
+* **input-field:** make input value color respect dark mode again ([43be7a4](https://github.com/Lundalogik/lime-elements/commit/43be7a4d68054826e36bd81ed34e7a76fea2c130))
+* **select:** make input value color respect dark mode again ([68ea1e5](https://github.com/Lundalogik/lime-elements/commit/68ea1e530fc60cf6901603989d8addb4af2e3e7d))
+
+## [38.9.2](https://github.com/Lundalogik/lime-elements/compare/v38.9.1...v38.9.2) (2025-04-22)
+
+
+### Bug Fixes
+
+
+* **table:** add empty space after the last row ([971695c](https://github.com/Lundalogik/lime-elements/commit/971695c61e36519ecaedcd27bc0c2da8d4ba5e2d))
+
+## [38.9.1](https://github.com/Lundalogik/lime-elements/compare/v38.9.0...v38.9.1) (2025-04-22)
+
+
+### Bug Fixes
+
+
+* **input-field:** render empty fields with correct height on Safari ([292da76](https://github.com/Lundalogik/lime-elements/commit/292da76eb36d314c0958a74d9e9bbfecb65dca88))
+
+## [38.9.0](https://github.com/Lundalogik/lime-elements/compare/v38.8.1...v38.9.0) (2025-04-22)
+
+
+### Features
+
+
+* **text-editor:** add a new `ui` type for rendering the component without a toolbar ([86c0dba](https://github.com/Lundalogik/lime-elements/commit/86c0dbaa4a79851d928baca5bda96ab52a853866))
+
+## [38.8.1](https://github.com/Lundalogik/lime-elements/compare/v38.8.0...v38.8.1) (2025-04-22)
+
+
+### Bug Fixes
+
+
+* **input-field:** ensure label is vertically center aligned, in dialog ([3f2feee](https://github.com/Lundalogik/lime-elements/commit/3f2feee34a510591343fc6e3fac0e1fd6320d495))
+
+## [38.8.0](https://github.com/Lundalogik/lime-elements/compare/v38.7.2...v38.8.0) (2025-04-16)
+
+
+### Features
+
+
+* **collapsible-section:** add `invalid` prop ([ef1b73a](https://github.com/Lundalogik/lime-elements/commit/ef1b73a70118d8e85e37257f232397726fc630aa))
+
+## [38.7.2](https://github.com/Lundalogik/lime-elements/compare/v38.7.1...v38.7.2) (2025-04-16)
+
+
+### Bug Fixes
+
+
+* **text-editor:** improve accessibility, using more aria roles ([6eb35c2](https://github.com/Lundalogik/lime-elements/commit/6eb35c2666961707963a85efbd7d916e9cb7c477))
+
+## [38.7.1](https://github.com/Lundalogik/lime-elements/compare/v38.7.0...v38.7.1) (2025-04-01)
+
+
+### Bug Fixes
+
+
+* **action-bar:** show expand button only when more than one action exists ([0aace07](https://github.com/Lundalogik/lime-elements/commit/0aace07b6a20f4bded4f8e8837a2c2c386139456))
+
+## [38.7.0](https://github.com/Lundalogik/lime-elements/compare/v38.6.0...v38.7.0) (2025-03-31)
+
+
+### Features
+
+
+* **action-bar:** add collapsible functionality ([b2b33ed](https://github.com/Lundalogik/lime-elements/commit/b2b33ed1d69e861e39a9affafeedf7e82cc1386a))
+
+### Bug Fixes
+
+
+* **index:** set default language to English ([c794547](https://github.com/Lundalogik/lime-elements/commit/c7945476264c66abd71ae908c7cc61dfdb3ad143))
+
 ## [38.6.0](https://github.com/Lundalogik/lime-elements/compare/v38.5.0...v38.6.0) (2025-03-25)
 
 

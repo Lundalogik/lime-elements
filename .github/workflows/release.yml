@@ -32,7 +32,7 @@ jobs:
     - name: Read .nvmrc
       run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
       id: nvm
-    - uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
+    - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - run: node -v && npm -v
@@ -52,7 +52,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE }}
         GH_USERNAME: lime-opensource
         GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN_ads }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         CI: true
     - name: Configure AWS and Upload to S3
       if: steps.semantic.outputs.new_release_published == 'true'

@@ -1,0 +1,6 @@
+---
+description:
+globs: src/components/**/*.tsx,src/components/**/*.scss
+alwaysApply: false
+---
+Almost all our components use shadow-DOM. Therefore, we have no need of BEM-style class names in our CSS.

@@ -153,6 +153,8 @@ export namespace Components {
     export interface LimelActionBar {
         "accessibleLabel"?: string;
         "actions": Array<ActionBarItem | ListSeparator>;
+        "collapsible": boolean;
+        "language": Languages;
         "layout"?: 'fullWidth' | 'floating';
         "openDirection": OpenDirection;
     }
@@ -166,6 +168,7 @@ export namespace Components {
     export interface LimelActionBarOverflowMenu {
         "items": Array<MenuItem | ListSeparator>;
         "openDirection": OpenDirection;
+        "overFlowIcon"?: Icon;
     }
     export interface LimelBadge {
         "label"?: number | string;
@@ -303,10 +306,10 @@ export namespace Components {
         "readonly": boolean;
         "value": string;
     }
-    // (undocumented)
     export interface LimelCollapsibleSection {
         "actions": Action[];
         "header": string;
+        "invalid": boolean;
         "isOpen": boolean;
     }
     export interface LimelColorPicker {
@@ -552,6 +555,17 @@ export namespace Components {
         "allowClicksElement": HTMLElement;
         "open": boolean;
     }
+    export interface LimelNotchedOutline {
+        "disabled": boolean;
+        "hasFloatingLabel": boolean;
+        "hasLeadingIcon": boolean;
+        "hasValue": boolean;
+        "invalid": boolean;
+        "label"?: string;
+        "labelId"?: string;
+        "readonly": boolean;
+        "required": boolean;
+    }
     // (undocumented)
     export interface LimelPicker {
         "actionPosition": ActionPosition;
@@ -612,6 +626,7 @@ export namespace Components {
         "language": Languages;
         // @alpha
         "triggerCharacters": TriggerCharacter[];
+        "ui": EditorUiType;
         "value": string;
     }
     // (undocumented)
@@ -808,7 +823,7 @@ export type EditorTextLink = {
 };
 
 // @beta (undocumented)
-export type EditorUiType = 'standard' | 'minimal';
+export type EditorUiType = 'standard' | 'minimal' | 'no-toolbar';
 
 // Warning: (ae-missing-release-tag) "EventEmitter" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -1116,6 +1131,8 @@ export namespace JSX {
         // (undocumented)
         "limel-menu-surface": LimelMenuSurface;
         // (undocumented)
+        "limel-notched-outline": LimelNotchedOutline;
+        // (undocumented)
         "limel-picker": LimelPicker;
         // (undocumented)
         "limel-popover": LimelPopover;
@@ -1169,6 +1186,8 @@ export namespace JSX {
     export interface LimelActionBar {
         "accessibleLabel"?: string;
         "actions"?: Array<ActionBarItem | ListSeparator>;
+        "collapsible"?: boolean;
+        "language"?: Languages;
         "layout"?: 'fullWidth' | 'floating';
         "onItemSelected"?: (event: LimelActionBarCustomEvent<ActionBarItem>) => void;
         "openDirection"?: OpenDirection;
@@ -1185,6 +1204,7 @@ export namespace JSX {
         "items"?: Array<MenuItem | ListSeparator>;
         "onSelect"?: (event: LimelActionBarOverflowMenuCustomEvent<ActionBarItem>) => void;
         "openDirection"?: OpenDirection;
+        "overFlowIcon"?: Icon;
     }
     export interface LimelBadge {
         "label"?: number | string;
@@ -1330,10 +1350,10 @@ export namespace JSX {
         "readonly"?: boolean;
         "value"?: string;
     }
-    // (undocumented)
     export interface LimelCollapsibleSection {
         "actions"?: Action[];
         "header"?: string;
+        "invalid"?: boolean;
         "isOpen"?: boolean;
         "onAction"?: (event: LimelCollapsibleSectionCustomEvent<Action>) => void;
         "onClose"?: (event: LimelCollapsibleSectionCustomEvent<void>) => void;
@@ -1612,6 +1632,17 @@ export namespace JSX {
         "onDismiss"?: (event: LimelMenuSurfaceCustomEvent<void>) => void;
         "open"?: boolean;
     }
+    export interface LimelNotchedOutline {
+        "disabled"?: boolean;
+        "hasFloatingLabel"?: boolean;
+        "hasLeadingIcon"?: boolean;
+        "hasValue"?: boolean;
+        "invalid"?: boolean;
+        "label"?: string;
+        "labelId"?: string;
+        "readonly"?: boolean;
+        "required"?: boolean;
+    }
     // (undocumented)
     export interface LimelPicker {
         "actionPosition"?: ActionPosition;
@@ -1683,6 +1714,7 @@ export namespace JSX {
         "onImageRemoved"?: (event: LimelProsemirrorAdapterCustomEvent<ImageInfo>) => void;
         // @alpha
         "triggerCharacters"?: TriggerCharacter[];
+        "ui"?: EditorUiType;
         "value"?: string;
     }
     // (undocumented)
