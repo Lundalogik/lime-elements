@@ -9,19 +9,22 @@ When it comes to details such as placement of action buttons, choice of labels, 
 <br/>
 <br/>
 
-*****
+---
 
 ## Placement
+
 On a user interface which is designed for a left-to-right script like English, action buttons of a footer (for example in a dialog) are typically located at the bottom-right corner.
 
 When there are two buttons placed together, the button that represents a positive action is always on the right side, and the one which presents a negative one is on the left.
 
 A positive action could be an action that:
-- takes the user forwards or to next step; e.g. *Next*, *Skip*, or *Continue*
-- is primary, and most probably the one that users is going to select, e.g. *Save*, *Update*, *Send* (or even *Delete* which is a negative notion, but can be an expected or "primary" action, depending on the context, like in a confirm deletion dialog)
+
+- takes the user forwards or to next step; e.g. _Next_, _Skip_, or _Continue_
+- is primary, and most probably the one that users is going to select, e.g. _Save_, _Update_, _Send_ (or even _Delete_ which is a negative notion, but can be an expected or "primary" action, depending on the context, like in a confirm deletion dialog)
 
 A negative action could be an action that:
-- takes the user back, dismisses a dialog, or cancels an ongoing process; e.g. *Back*, *Cancel*, *Discard*
+
+- takes the user back, dismisses a dialog, or cancels an ongoing process; e.g. _Back_, _Cancel_, _Discard_
 - is secondary, which means it is not likely that users clicks it in that context
 
 <limel-example-action-buttons-placement></limel-example-action-buttons-placement>
@@ -30,16 +33,14 @@ A negative action could be an action that:
 In [`limel-dialog`](#/components/limel-dialog), there is a `slot` called `button`, which is a "flexbox". It automatically aligns its child elements to the right side. All you need to do is add `slot="button"` to the elements you wish to appear in the slot.
 
 ```tsx
-<limel-button
-    label="OK"
-    slot="button"
-/>
+<limel-button label="OK" slot="button" />
 ```
+
 :::
 
 <br/>
 
-*****
+---
 
 ## Primary versus secondary actions
 
@@ -52,6 +53,7 @@ One of the action buttons is normally the primary action. That is the action tha
 A primary button has a stronger visual weight, and appearing more distinct makes it easier for users to chose the correct, safe, or promoted action.
 
 You can use this visual distinction to promote the action that is safer, even if that action may not be the primary action. You can do so because sometimes:
+
 - it can be hard to identify the intention of the user
 - the action may be irreversible or risky
 
@@ -59,7 +61,7 @@ You can use this visual distinction to promote the action that is safer, even if
 
 <br/>
 
-*****
+---
 
 ## Choosing good labels
 
@@ -70,15 +72,16 @@ Labels you use should make sense together. You are usually dealing with contradi
 Labels must make each option as clear as possible. An explicit label give users more confidence in selecting the correct action.
 
 :::note
+
 - Use a label that explains what the button does, rather than a generic label (such as “OK”, or "Yes").
 - Using verbs as labels instead of nouns is better, because a verb describes the action better.
-:::
+  :::
 
 <limel-example-action-buttons-choosing-explicit-labels></limel-example-action-buttons-choosing-explicit-labels>
 
 <br/>
 
-*****
+---
 
 ## Providing a third alternative action
 
@@ -90,7 +93,6 @@ This prompt can offer two main actions of "Save" and "Discard" (which means "sav
 
 The action that takes users one step back in the process is intentionally placed on the left side. This makes it easier for users to mentally separate the other two. Additionally, the placement makes it easier to connect the action to the notion of going back. (For left-to-right scripts. Left and right will of course have reversed meaning in right-to-left script, which is precisely why the CSS properties for these things use values like `flex-start` and `flex-end`, rather than `left` and `right`. See below.)
 
-:::tip
 If buttons are placed in a full width flex container that has `justify-content: flex-end;`, these styles will align the targeted button to left side of the flex box. See "Example with three action buttons" in the [documentation for `limel-dialog`](#/component/limel-dialog/).
 
 ```scss
@@ -99,11 +101,8 @@ If buttons are placed in a full width flex container that has `justify-content: 
     margin-right: auto;
 }
 ```
-:::
 
-<br/>
-
-*****
+---
 
 ## Adding more meaning with colors and icons
 

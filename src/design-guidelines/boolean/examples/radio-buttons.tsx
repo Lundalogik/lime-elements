@@ -25,31 +25,20 @@ export class BooleanRadioButtonsExample {
 
     public render() {
         return (
-            <div class="do-dont-container">
-                <div class="do">
-                    <limel-header
-                        heading="Example of boolean questions in a form"
-                        subheading="using radio buttons"
-                    />
-                    <div class="container" style={{ pointerEvents: 'none' }}>
-                        <p> ···</p>
-                        <p>
-                            Do you want to receive our news and updates via
-                            email?
-                        </p>
-                        <limel-list
-                            type="radio"
-                            items={this.items1}
-                            onChange={this.handleChange1}
-                        />
-                        <p>Who can see your profile?</p>
-                        <limel-list
-                            type="radio"
-                            items={this.items2}
-                            onChange={this.handleChange2}
-                        />
-                    </div>
-                </div>
+            <div class="container" style={{ pointerEvents: 'none' }}>
+                <p> ···</p>
+                <p>Do you want to receive our news and updates via email?</p>
+                <limel-list
+                    type="radio"
+                    items={this.items1}
+                    onChange={this.handleChange1}
+                />
+                <p>Who can see your profile?</p>
+                <limel-list
+                    type="radio"
+                    items={this.items2}
+                    onChange={this.handleChange2}
+                />
             </div>
         );
     }

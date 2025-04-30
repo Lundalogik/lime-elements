@@ -1,13 +1,11 @@
-@import '../../../design-guidelines/_generic-example-styles/do-dont';
-
 * {
     box-sizing: border-box;
 }
 
 .container {
-    padding: 0 1rem 1rem 1rem;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 limel-switch {
@@ -22,7 +20,6 @@ limel-switch {
     display: flex;
     gap: 0.5rem;
     width: 100%;
-    padding: 0 0.5rem 0.5rem 0.5rem;
     justify-content: flex-end;
 }
 

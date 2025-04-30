@@ -7,40 +7,34 @@ import { Component, h } from '@stencil/core';
 })
 export class ActionButtonsChoosingLabelsExample {
     public render() {
-        return [
-            <div class="do-dont-container action-buttons-examples">
-                <div class="do-not">
-                    <limel-header
-                        icon="brake_warning"
-                        heading="Don't"
-                    ></limel-header>
-                    <div class="fake-dialog-container shows-full-dialog">
-                        <div class="fake-dialog">
-                            <p>
-                                <b>Bad</b> usage of labels
-                            </p>
-                            <div class="action-bar">
-                                <limel-button label="Close" />
-                                <limel-button label="Save" primary={true} />
-                            </div>
+        return (
+            <limel-example-do-do-not>
+                <div slot="do" class="fake-dialog-container shows-full-dialog">
+                    <div class="fake-dialog">
+                        <p>
+                            <b>Good</b> usage of labels
+                        </p>
+                        <div class="action-bar">
+                            <limel-button label="Discard" />
+                            <limel-button label="Save" primary={true} />
                         </div>
                     </div>
                 </div>
-                <div class="do">
-                    <limel-header icon="ok" heading="Do"></limel-header>
-                    <div class="fake-dialog-container shows-full-dialog">
-                        <div class="fake-dialog">
-                            <p>
-                                <b>Good</b> usage of labels
-                            </p>
-                            <div class="action-bar">
-                                <limel-button label="Discard" />
-                                <limel-button label="Save" primary={true} />
-                            </div>
+                <div
+                    slot="do-not"
+                    class="fake-dialog-container shows-full-dialog"
+                >
+                    <div class="fake-dialog">
+                        <p>
+                            <b>Bad</b> usage of labels
+                        </p>
+                        <div class="action-bar">
+                            <limel-button label="Close" />
+                            <limel-button label="Save" primary={true} />
                         </div>
                     </div>
                 </div>
-            </div>,
-        ];
+            </limel-example-do-do-not>
+        );
     }
 }

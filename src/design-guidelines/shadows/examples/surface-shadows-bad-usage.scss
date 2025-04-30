@@ -16,20 +16,6 @@
     border-radius: functions.pxToRem(8);
 }
 
-.do {
-    .box {
-        background-color: rgb(var(--contrast-400));
-        margin: functions.pxToRem(32) 0;
-        padding-top: functions.pxToRem(4);
-    }
-}
-
-.do-not {
-    .box {
-        box-shadow: var(--shadow-depth-64);
-    }
-}
-
 limel-icon {
     color: rgb(var(--color-white));
     background-color: rgb(var(--color-sky-light));
@@ -37,5 +23,3 @@ limel-icon {
     margin-right: functions.pxToRem(8);
     transform: translateY(functions.pxToRem(3));
 }
-
-@import '../../_generic-example-styles/_do-dont';

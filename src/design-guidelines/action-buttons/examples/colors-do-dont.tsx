@@ -1,4 +1,4 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, Host } from '@stencil/core';
 
 @Component({
     tag: 'limel-example-action-buttons-colors-do-dont',
@@ -7,11 +7,13 @@ import { Component, h } from '@stencil/core';
 })
 export class ActionButtonsColorsDoDontsExample {
     public render() {
-        return [
-            <div class="do-dont-container action-buttons-examples">
-                <div class="do">
-                    <limel-header icon="ok" heading="Do"></limel-header>
-                    <div class="fake-dialog-container shows-full-dialog">
+        return (
+            <Host>
+                <limel-example-do-do-not>
+                    <div
+                        slot="do"
+                        class="fake-dialog-container shows-full-dialog"
+                    >
                         <div class="fake-dialog">
                             <limel-header
                                 icon="delete_message"
@@ -38,10 +40,39 @@ export class ActionButtonsColorsDoDontsExample {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="do">
-                    <limel-header icon="ok" heading="Do"></limel-header>
-                    <div class="fake-dialog-container shows-full-dialog">
+                    <div
+                        slot="do-not"
+                        class="fake-dialog-container shows-full-dialog"
+                    >
+                        <div class="fake-dialog">
+                            <limel-header
+                                icon="delete_message"
+                                heading="Delete 23 items?"
+                                class="delete"
+                            />
+                            <p>
+                                You are about to delete 23 items. This is a
+                                permanent action and <b>cannot be undone</b>!
+                            </p>
+                            <div class="action-bar">
+                                <limel-button
+                                    label="Don't delete"
+                                    icon="cancel"
+                                />
+                                <limel-button
+                                    label="Delete"
+                                    icon="trash"
+                                    primary={true}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </limel-example-do-do-not>
+                <limel-example-do-do-not>
+                    <div
+                        slot="do"
+                        class="fake-dialog-container shows-full-dialog"
+                    >
                         <div class="fake-dialog">
                             <limel-header
                                 icon="delete_message"
@@ -63,8 +94,32 @@ export class ActionButtonsColorsDoDontsExample {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>,
-        ];
+                    <div
+                        slot="do-not"
+                        class="fake-dialog-container shows-full-dialog"
+                    >
+                        <div class="fake-dialog">
+                            <limel-header
+                                icon="delete_message"
+                                heading="Delete selected items?"
+                                class="delete"
+                            />
+                            <p>
+                                Deleted items <b>can be restored</b> from the
+                                trash later at any time!
+                            </p>
+                            <div class="action-bar">
+                                <limel-button label="Don't delete" />
+                                <limel-button
+                                    label="Delete"
+                                    icon="trash"
+                                    primary={true}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </limel-example-do-do-not>
+            </Host>
+        );
     }
 }
