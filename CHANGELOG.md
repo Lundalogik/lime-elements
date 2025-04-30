@@ -1,3 +1,11 @@
+## [38.11.0](https://github.com/Lundalogik/lime-elements/compare/v38.10.0...v38.11.0) (2025-04-30)
+
+
+### Features
+
+
+* **button:** implement the `Icon` interface to improve accessibility ([49e0735](https://github.com/Lundalogik/lime-elements/commit/49e07351ff49785dfa1af2d92e45bfbc639e71e6))
+
 ## [38.10.0](https://github.com/Lundalogik/lime-elements/compare/v38.9.6...v38.10.0) (2025-04-29)
 
 
