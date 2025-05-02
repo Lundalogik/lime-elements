@@ -94,16 +94,12 @@ export interface ImageInserter {
 /**
  * @alpha
  */
-export enum ImageState {
-    LOADING = 'loading',
-    FAILED = 'failed',
-    SUCCESS = 'success',
-}
+export type EditorImageState = 'loading' | 'failed' | 'success';
 
 /**
  * @alpha
  */
-export interface ImageInfo {
+export interface EditorImage {
     /**
      * Unique ID of the image file.
      */
@@ -116,7 +112,22 @@ export interface ImageInfo {
     /**
      * The current state of the image.
      */
-    state: ImageState;
+    state: EditorImageState;
+}
+
+/**
+ * @alpha
+ */
+export interface EditorLink {
+    /**
+     * The URL of the link.
+     */
+    href: string;
+
+    /**
+     * The text associated with the link.
+     */
+    text: string;
 }
 
 /**
@@ -155,4 +166,22 @@ export interface TriggerEventDetail {
      * Current value of the trigger
      */
     value: string;
+}
+
+/**
+ *
+ * @alpha
+ *
+ * Interface representing metadata extracted from the editor document
+ */
+export interface EditorMetadata {
+    /**
+     * Collection of image elements found in the document
+     */
+    images: EditorImage[];
+
+    /**
+     * Collection of link elements found in the document
+     */
+    links: EditorLink[];
 }

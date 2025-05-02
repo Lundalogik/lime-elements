@@ -1,7 +1,7 @@
 import { EditorView, NodeView } from 'prosemirror-view';
 import { Node } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
-import { ImageState } from '../../../text-editor.types';
+import { EditorImageState } from '../../../text-editor.types';
 import translate from '../../../../../global/translations';
 import { Languages } from '../../../../date-picker/date.types';
 
@@ -174,19 +174,20 @@ class ImageView implements NodeView {
         this.cleanUpPreviousState();
         this.dom.className = `image-wrapper state-${this.node.attrs.state}`;
 
-        if (this.node.attrs.state === ImageState.LOADING) {
-            this.createLoadingState();
-        } else if (this.node.attrs.state === ImageState.SUCCESS) {
-            this.createSuccessState();
-        } else if (this.node.attrs.state === ImageState.FAILED) {
-            this.createFailedState();
-        }
+        const stateHandlers: Record<EditorImageState, () => void> = {
+            loading: this.createLoadingState,
+            success: this.createSuccessState,
+            failed: this.createFailedState,
+        };
+
+        const state: EditorImageState = this.node.attrs.state;
+        stateHandlers[state]?.();
     };
 
     private transitioningBetweenSuccessStates = (newNode: Node): boolean => {
         return (
-            this.node.attrs.state === ImageState.SUCCESS &&
-            newNode.attrs.state === ImageState.SUCCESS
+            this.node.attrs.state === 'success' &&
+            newNode.attrs.state === 'success'
         );
     };
 

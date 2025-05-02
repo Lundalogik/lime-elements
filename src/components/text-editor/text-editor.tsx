@@ -7,7 +7,8 @@ import {
     TriggerCharacter,
     TriggerEventDetail,
     ImageInserter,
-    ImageInfo,
+    EditorImage,
+    EditorMetadata,
 } from './text-editor.types';
 import { EditorUiType } from './types';
 
@@ -186,9 +187,20 @@ export class TextEditor implements FormComponent<string> {
      *
      * @private
      * @alpha
+     * @deprecated - This event is deprecated and will be removed in a future version.
+     * Use the `metadataChange` event instead to track image removals.
      */
     @Event()
-    private readonly imageRemoved: EventEmitter<ImageInfo>;
+    private readonly imageRemoved: EventEmitter<EditorImage>;
+
+    /**
+     * Dispatched when the metadata of the editor changes
+     *
+     * @private
+     * @alpha
+     */
+    @Event()
+    private readonly metadataChange: EventEmitter<EditorMetadata>;
 
     /**
      * Dispatched if a trigger character is detected.
@@ -268,6 +280,7 @@ export class TextEditor implements FormComponent<string> {
                 onChange={this.handleChange}
                 onImagePasted={this.handleImagePasted}
                 onImageRemoved={this.handleImageRemoved}
+                onMetadataChange={this.handleMetadataChange}
                 customElements={this.customElements}
                 value={this.value}
                 aria-controls={this.helperTextId}
@@ -330,8 +343,14 @@ export class TextEditor implements FormComponent<string> {
         this.imagePasted.emit(event.detail);
     };
 
-    private handleImageRemoved = (event: CustomEvent<ImageInfo>) => {
+    private handleMetadataChange = (event: CustomEvent<EditorMetadata>) => {
         event.stopPropagation();
+        this.metadataChange.emit(event.detail);
+    };
+
+    private handleImageRemoved = (event: CustomEvent<EditorImage>) => {
+        event.stopPropagation();
+        // eslint-disable-next-line sonarjs/deprecation
         this.imageRemoved.emit(event.detail);
     };
 }

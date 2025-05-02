@@ -1,28 +1,17 @@
-import { Plugin, PluginKey, Transaction, StateField } from 'prosemirror-state';
+import { Plugin, PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { createFileInfo } from '../../../../../util/files';
 import { FileInfo } from '../../../../../global/shared-types/file.types';
-import {
-    ImageInserter,
-    ImageInfo,
-    ImageState,
-} from '../../../text-editor.types';
+import { ImageInserter, EditorImageState } from '../../../text-editor.types';
 import { Node, Slice, Fragment } from 'prosemirror-model';
-import { imageCache } from './node';
+import { ImageNodeAttrs } from './node';
 
 export const pluginKey = new PluginKey('imageInserterPlugin');
 
 type ImagePastedCallback = (data: ImageInserter) => CustomEvent<ImageInserter>;
 
-type ImageRemovedCallback = (data: ImageInfo) => CustomEvent<ImageInfo>;
-
-type PluginState = {
-    insertedImages: Record<string, Node>;
-};
-
 export const createImageInserterPlugin = (
     imagePastedCallback: ImagePastedCallback,
-    imageRemovedCallback: ImageRemovedCallback,
 ) => {
     return new Plugin({
         key: pluginKey,
@@ -36,57 +25,7 @@ export const createImageInserterPlugin = (
                 },
             },
         },
-        state: {
-            init: (): PluginState => {
-                return { insertedImages: {} };
-            },
-            apply: (tr, pluginState): PluginState => {
-                const newState = { ...pluginState };
-
-                newState.insertedImages = getImagesFromTransaction(tr);
-                findAndHandleRemovedImages(
-                    imageRemovedCallback,
-                    pluginState.insertedImages,
-                    newState.insertedImages,
-                );
-
-                return newState;
-            },
-        } as StateField<PluginState>,
     });
-};
-
-const getImagesFromTransaction = (tr: Transaction): Record<string, Node> => {
-    const images: Record<string, Node> = {};
-    tr.doc.descendants((node) => {
-        if (node.type.name === 'image') {
-            images[node.attrs.fileInfoId] = node;
-        }
-    });
-
-    return images;
-};
-
-const findAndHandleRemovedImages = (
-    imageRemovedCallback: ImageRemovedCallback,
-    previousImages: Record<string, Node>,
-    newImages: Record<string, Node>,
-) => {
-    const removedKeys = Object.keys(previousImages).filter(
-        (key) => !(key in newImages),
-    );
-
-    for (const removedKey of removedKeys) {
-        const removedImage = previousImages[removedKey];
-        const imageInfo: ImageInfo = {
-            fileInfoId: removedImage.attrs.fileInfoId,
-            src: removedImage.attrs.src,
-            state: removedImage.attrs.state,
-        };
-        imageRemovedCallback(imageInfo);
-
-        imageCache.delete(removedImage.attrs.fileInfoId);
-    }
 };
 
 export const imageInserterFactory = (
@@ -107,12 +46,12 @@ const createThumbnailInserter =
         const { state, dispatch } = view;
         const { schema } = state;
 
-        const placeholderNode = schema.nodes.image.create({
-            src: base64Data,
-            alt: fileInfo.filename,
-            fileInfoId: fileInfo.id,
-            state: ImageState.LOADING,
-        });
+        const imageNodeAttrs = createImageNodeAttrs(
+            base64Data,
+            fileInfo,
+            'loading',
+        );
+        const placeholderNode = schema.nodes.image.create(imageNodeAttrs);
 
         const transaction = state.tr.replaceSelectionWith(placeholderNode);
 
@@ -127,12 +66,12 @@ const createImageInserter =
         const tr = state.tr;
         state.doc.descendants((node, pos) => {
             if (node.attrs.fileInfoId === fileInfo.id) {
-                const imageNode = schema.nodes.image.create({
-                    src: src ? src : node.attrs.src,
-                    alt: fileInfo.filename,
-                    fileInfoId: fileInfo.id,
-                    state: ImageState.SUCCESS,
-                });
+                const imageNodeAttrs = createImageNodeAttrs(
+                    src ? src : node.attrs.src,
+                    fileInfo,
+                    'success',
+                );
+                const imageNode = schema.nodes.image.create(imageNodeAttrs);
 
                 tr.replaceWith(pos, pos + node.nodeSize, imageNode);
 
@@ -151,12 +90,13 @@ const createFailedThumbnailInserter =
         const tr = state.tr;
         state.doc.descendants((node, pos) => {
             if (node.attrs.fileInfoId === fileInfo.id) {
-                const errorPlaceholderNode = schema.nodes.image.create({
-                    src: node.attrs.src,
-                    alt: fileInfo.filename,
-                    fileInfoId: fileInfo.id,
-                    state: ImageState.FAILED,
-                });
+                const imageNodeAttrs = createImageNodeAttrs(
+                    node.attrs.src,
+                    fileInfo,
+                    'failed',
+                );
+                const errorPlaceholderNode =
+                    schema.nodes.image.create(imageNodeAttrs);
 
                 tr.replaceWith(pos, pos + node.nodeSize, errorPlaceholderNode);
 
@@ -166,6 +106,19 @@ const createFailedThumbnailInserter =
 
         dispatch(tr);
     };
+
+function createImageNodeAttrs(
+    src: string,
+    fileInfo: FileInfo,
+    state: EditorImageState,
+): ImageNodeAttrs {
+    return {
+        src: src,
+        alt: fileInfo.filename,
+        fileInfoId: fileInfo.id,
+        state: state,
+    };
+}
 
 /**
  * Check if a given ProseMirror node or fragment contains any image nodes.

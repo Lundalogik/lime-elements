@@ -820,6 +820,28 @@ export interface DockMenu {
     };
 }
 
+// @alpha (undocumented)
+export interface EditorImage {
+    fileInfoId: string;
+    src: string;
+    state: EditorImageState;
+}
+
+// @alpha (undocumented)
+export type EditorImageState = 'loading' | 'failed' | 'success';
+
+// @alpha (undocumented)
+export interface EditorLink {
+    href: string;
+    text: string;
+}
+
+// @alpha
+export interface EditorMetadata {
+    images: EditorImage[];
+    links: EditorLink[];
+}
+
 // @beta
 export type EditorTextLink = {
     text?: string;
@@ -987,29 +1009,12 @@ interface Image_2 {
 export { Image_2 as Image }
 
 // @alpha (undocumented)
-export interface ImageInfo {
-    fileInfoId: string;
-    src: string;
-    state: ImageState;
-}
-
-// @alpha (undocumented)
 export interface ImageInserter {
     // (undocumented)
     fileInfo: FileInfo;
     insertFailedThumbnail: () => void;
     insertImage: (src?: string) => void;
     insertThumbnail: () => void;
-}
-
-// @alpha (undocumented)
-export enum ImageState {
-    // (undocumented)
-    FAILED = "failed",
-    // (undocumented)
-    LOADING = "loading",
-    // (undocumented)
-    SUCCESS = "success"
 }
 
 // @public (undocumented)
@@ -1721,7 +1726,9 @@ export namespace JSX {
         // @alpha
         "onImagePasted"?: (event: LimelProsemirrorAdapterCustomEvent<ImageInserter>) => void;
         // @alpha
-        "onImageRemoved"?: (event: LimelProsemirrorAdapterCustomEvent<ImageInfo>) => void;
+        "onImageRemoved"?: (event: LimelProsemirrorAdapterCustomEvent<EditorImage>) => void;
+        // @alpha
+        "onMetadataChange"?: (event: LimelProsemirrorAdapterCustomEvent<EditorMetadata>) => void;
         // @alpha
         "triggerCharacters"?: TriggerCharacter[];
         "ui"?: EditorUiType;
@@ -1846,8 +1853,10 @@ export namespace JSX {
         "onChange"?: (event: LimelTextEditorCustomEvent<string>) => void;
         // @alpha
         "onImagePasted"?: (event: LimelTextEditorCustomEvent<ImageInserter>) => void;
+        // @alpha @deprecated
+        "onImageRemoved"?: (event: LimelTextEditorCustomEvent<EditorImage>) => void;
         // @alpha
-        "onImageRemoved"?: (event: LimelTextEditorCustomEvent<ImageInfo>) => void;
+        "onMetadataChange"?: (event: LimelTextEditorCustomEvent<EditorMetadata>) => void;
         // @alpha
         "onTriggerChange"?: (event: LimelTextEditorCustomEvent<TriggerEventDetail>) => void;
         // @alpha
