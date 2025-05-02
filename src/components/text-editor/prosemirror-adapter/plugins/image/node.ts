@@ -1,5 +1,5 @@
-import { NodeSpec, Node, Attrs, DOMOutputSpec } from 'prosemirror-model';
-import { ImageState } from '../../../text-editor.types';
+import { NodeSpec, Node, DOMOutputSpec } from 'prosemirror-model';
+import { EditorImageState } from '../../../text-editor.types';
 import { MarkdownSerializerState } from 'prosemirror-markdown';
 import { Languages } from '../../../../date-picker/date.types';
 import translate from '../../../../../global/translations';
@@ -43,47 +43,67 @@ export function hasImageNode(node: Node): boolean {
 function createImageNodeMarkdownSerializer(
     language: Languages,
 ): MarkdownSerializerFunction {
-    return (state: MarkdownSerializerState, node: Node) => {
-        if (node.attrs.state === ImageState.FAILED) {
-            const text = translate.get('editor-image-view.failed', language, {
-                filename: node.attrs.alt || 'file',
-            });
-            state.write(`<span>${text}</span>`);
+    return (markdownSerializerState: MarkdownSerializerState, node: Node) => {
+        const { state, alt, src, width, maxWidth } = node.attrs;
 
+        if (!isEditorImageState(state)) {
             return;
-        } else if (node.attrs.state === ImageState.LOADING) {
-            const text = translate.get('editor-image-view.loading', language, {
-                filename: node.attrs.alt || 'file',
-            });
-            state.write(`<span>${text}</span>`);
+        }
+
+        if (state === 'success') {
+            const imageHTML = getImageHTML(src, alt, width, maxWidth);
+            markdownSerializerState.write(imageHTML);
 
             return;
         }
 
-        let imageHTML = `<img src="${node.attrs.src}"`;
-
-        if (node.attrs.alt) {
-            imageHTML += ` alt="${node.attrs.alt}"`;
-        }
-
-        const style = [];
-
-        if (node.attrs.width) {
-            style.push(`width: ${node.attrs.width};`);
-        }
-
-        if (node.attrs.maxWidth) {
-            style.push(`max-width: ${node.attrs.maxWidth};`);
-        }
-
-        if (style.length > 0) {
-            imageHTML += ` style="${style.join(' ')}"`;
-        }
-
-        imageHTML += ' />';
-
-        state.write(imageHTML);
+        const statusHTML = getStatusHTML(state, alt, language);
+        markdownSerializerState.write(statusHTML);
     };
+}
+
+function getStatusHTML(
+    state: EditorImageState,
+    alt: string,
+    language: Languages,
+): string {
+    const key = state === 'failed' ? 'failed' : 'loading';
+    const text = translate.get(`editor-image-view.${key}`, language, {
+        filename: alt || 'file',
+    });
+
+    return `<span>${text}</span>`;
+}
+
+function getImageHTML(
+    src: string,
+    alt: string,
+    width: string,
+    maxWidth: string,
+): string {
+    const style = [];
+
+    if (width) {
+        style.push(`width: ${width};`);
+    }
+
+    if (maxWidth) {
+        style.push(`max-width: ${maxWidth};`);
+    }
+
+    const styleAttribute =
+        style.length > 0 ? ` style="${style.join(' ')}"` : '';
+
+    return `<img src="${src}" alt="${alt}"${styleAttribute} />`;
+}
+
+export interface ImageNodeAttrs {
+    src: string;
+    alt: string;
+    state: EditorImageState;
+    fileInfoId: string | number;
+    width?: string;
+    maxWidth?: string;
 }
 
 function createImageNodeSpec(language: Languages): NodeSpec {
@@ -96,41 +116,65 @@ function createImageNodeSpec(language: Languages): NodeSpec {
             fileInfoId: { default: '' },
             width: { default: '' },
             maxWidth: { default: '100%' },
-            state: { default: '' },
+            state: { default: 'success' },
         },
         toDOM: (node): DOMOutputSpec => {
-            if (node.attrs.state === ImageState.FAILED) {
-                return createStatusSpan('failed', node, language);
-            } else if (node.attrs.state === ImageState.LOADING) {
-                return createStatusSpan('loading', node, language);
+            if (!isEditorImageState(node.attrs.state)) {
+                return;
             }
 
-            let img = imageCache.get(node.attrs.fileInfoId);
-            if (img) {
-                updateImageElement(img, node);
-            } else {
-                img = createImageElement(node);
-                imageCache.set(node.attrs.fileInfoId, img);
+            if (node.attrs.state === 'success') {
+                return getOrCreateImageElement(node.attrs.fileInfoId, node);
             }
 
-            return img;
+            return createStatusSpanForState(node.attrs.state, node, language);
         },
         parseDOM: [
             {
                 tag: 'img',
-                getAttrs: (dom: HTMLElement): Attrs => {
+                getAttrs: (dom: HTMLElement): ImageNodeAttrs => {
                     return {
                         src: dom.getAttribute('src') || '',
                         alt: dom.getAttribute('alt') || 'file',
                         width: dom.style.width || '',
                         maxWidth: '100%',
-                        state: ImageState.SUCCESS,
+                        state: 'success',
                         fileInfoId: crypto.randomUUID(),
                     };
                 },
             },
         ],
     };
+}
+
+function isEditorImageState(state: unknown): state is EditorImageState {
+    return state === 'loading' || state === 'failed' || state === 'success';
+}
+
+function getOrCreateImageElement(
+    fileInfoId: string,
+    node: Node,
+): HTMLImageElement {
+    let img = imageCache.get(fileInfoId);
+
+    if (img) {
+        updateImageElement(img, node);
+    } else {
+        img = createImageElement(node);
+        imageCache.set(fileInfoId, img);
+    }
+
+    return img;
+}
+
+function createStatusSpanForState(
+    state: EditorImageState,
+    node: Node,
+    language: Languages,
+): HTMLSpanElement {
+    const statusKey = state === 'failed' ? 'failed' : 'loading';
+
+    return createStatusSpan(statusKey, node, language);
 }
 
 function createStatusSpan(

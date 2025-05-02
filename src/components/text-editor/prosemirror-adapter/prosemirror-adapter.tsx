@@ -34,10 +34,7 @@ import { isItem } from '../../../components/action-bar/isItem';
 import { cloneDeep, debounce } from 'lodash-es';
 import { Languages } from '../../date-picker/date.types';
 import { strikethrough } from './menu/menu-schema-extender';
-import {
-    EditorLinkMenuEventDetail,
-    createLinkPlugin,
-} from './plugins/link-plugin';
+import { createLinkPlugin } from './plugins/link-plugin';
 import { createImageInserterPlugin } from './plugins/image/inserter';
 import { createImageViewPlugin } from './plugins/image/view';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
@@ -48,11 +45,17 @@ import { createTriggerPlugin } from './plugins/trigger/factory';
 import {
     TriggerCharacter,
     ImageInserter,
-    ImageInfo,
+    EditorImage,
+    EditorMetadata,
+    EditorLink,
 } from '../text-editor.types';
 import { getTableNodes, getTableEditingPlugins } from './plugins/table-plugin';
 import { getImageNode, imageCache } from './plugins/image/node';
 import { EditorUiType } from '../types';
+import {
+    getMetadataFromDoc,
+    hasMetadataChanged,
+} from '../utils/metadata-utils';
 
 const DEBOUNCE_TIMEOUT = 300;
 
@@ -153,6 +156,8 @@ export class ProsemirrorAdapter {
     private lastEmittedValue: string;
     private changeWaiting = false;
 
+    private metadata: EditorMetadata = { images: [], links: [] };
+
     /**
      *  Used to stop change event emitting as result of getting updated value from consumer
      */
@@ -180,7 +185,16 @@ export class ProsemirrorAdapter {
      * @alpha
      */
     @Event()
-    private imageRemoved: EventEmitter<ImageInfo>;
+    private imageRemoved: EventEmitter<EditorImage>;
+
+    /**
+     * Dispatched when the metadata of the editor changes (images and links)
+     *
+     * @private
+     * @alpha
+     */
+    @Event()
+    private metadataChange: EventEmitter<EditorMetadata>;
 
     constructor() {
         this.portalId = createRandomString();
@@ -404,10 +418,7 @@ export class ProsemirrorAdapter {
                     this.contentConverter,
                 ),
                 createLinkPlugin(this.handleNewLinkSelection),
-                createImageInserterPlugin(
-                    this.imagePasted.emit,
-                    this.imageRemoved.emit,
-                ),
+                createImageInserterPlugin(this.imagePasted.emit),
                 createImageViewPlugin(this.language),
                 createMenuStateTrackingPlugin(
                     editorMenuTypesArray,
@@ -456,6 +467,10 @@ export class ProsemirrorAdapter {
         const tr = this.view.state.tr;
         tr.replaceWith(0, tr.doc.content.size, prosemirrorDoc.content);
         this.view.dispatch(tr);
+
+        const metadata = getMetadataFromDoc(this.view.state.doc);
+        this.metadataEmitter(metadata);
+
         this.suppressChangeEvent = false;
     }
 
@@ -473,10 +488,38 @@ export class ProsemirrorAdapter {
             return;
         }
 
+        const metadata = getMetadataFromDoc(newState.doc);
+        this.metadataEmitter(metadata);
+
         this.lastEmittedValue = content;
         this.changeWaiting = true;
         this.changeEmitter(content);
     };
+
+    private metadataEmitter(metadata: EditorMetadata) {
+        if (hasMetadataChanged(this.metadata, metadata)) {
+            this.removeImagesFromCache(this.metadata, metadata);
+            this.metadata = metadata;
+            this.metadataChange.emit(metadata);
+        }
+    }
+
+    private removeImagesFromCache(
+        oldMetadata: EditorMetadata,
+        newMetadata: EditorMetadata,
+    ) {
+        const removedImages = oldMetadata.images.filter(
+            (oldImage) =>
+                !newMetadata.images.some(
+                    (newImage) => newImage.fileInfoId === oldImage.fileInfoId,
+                ),
+        );
+
+        removedImages.forEach((image) => {
+            imageCache.delete(image.fileInfoId);
+            this.imageRemoved.emit(image);
+        });
+    }
 
     private handleActionBarItem = (
         event: CustomEvent<ActionBarItem<EditorMenuTypes>>,
@@ -534,9 +577,7 @@ export class ProsemirrorAdapter {
         this.link.href = href || 'https://';
     };
 
-    private handleOpenLinkMenu = (
-        event: CustomEvent<EditorLinkMenuEventDetail>,
-    ) => {
+    private handleOpenLinkMenu = (event: CustomEvent<EditorLink>) => {
         event.stopImmediatePropagation();
         const { href, text } = event.detail;
         this.link = { href: href, text: text };

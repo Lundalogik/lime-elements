@@ -2,9 +2,10 @@ import { Component, h, State, Host } from '@stencil/core';
 import {
     ImageInserter,
     FileInfo,
-    ImageInfo,
+    EditorImage,
     LimelTextEditorCustomEvent,
     LimelCheckboxCustomEvent,
+    EditorMetadata,
 } from '@limetech/lime-elements';
 /**
  * Handling inline images (with external file storage)
@@ -41,6 +42,8 @@ export class TextEditorWithInlineImagesExample {
     @State()
     private uploadImageFails = false;
 
+    private metadata: EditorMetadata = { links: [], images: [] };
+
     public render() {
         return (
             <Host>
@@ -48,7 +51,7 @@ export class TextEditorWithInlineImagesExample {
                     value={this.value}
                     onChange={this.handleChange}
                     onImagePasted={this.handleImagePasted}
-                    onImageRemoved={this.handleImageRemoved}
+                    onMetadataChange={this.handleMetadataChange}
                 />
                 <limel-checkbox
                     label="Upload image fails - insert failed thumbnail"
@@ -109,19 +112,38 @@ export class TextEditorWithInlineImagesExample {
         }
     };
 
-    private handleImageRemoved = (
-        event: LimelTextEditorCustomEvent<ImageInfo>,
+    private handleMetadataChange = (
+        event: LimelTextEditorCustomEvent<EditorMetadata>,
     ) => {
-        const imageInfo = event.detail;
-        console.log(`Image deleted: ${imageInfo.fileInfoId}`);
+        const removedImages = this.getRemovedImages(
+            this.metadata,
+            event.detail,
+        );
 
-        try {
-            throw new Error('Not implemented.');
-        } catch (error) {
-            console.error(
-                `Failed to delete image ${imageInfo.fileInfoId}`,
-                error,
-            );
-        }
+        removedImages.forEach((image) => {
+            if (image.state === 'success') {
+                this.removeImage(image);
+            }
+        });
+
+        this.metadata = event.detail;
     };
+
+    private getRemovedImages(
+        oldMetadata: EditorMetadata,
+        newMetadata: EditorMetadata,
+    ): EditorImage[] {
+        const newImageIds = new Set(
+            newMetadata.images.map((image) => image.fileInfoId),
+        );
+
+        return oldMetadata.images.filter(
+            (image) => !newImageIds.has(image.fileInfoId),
+        );
+    }
+
+    private removeImage(image: EditorImage) {
+        // Remove image from external file storage if desired.
+        console.log(`Image removed: ${image.fileInfoId}`);
+    }
 }

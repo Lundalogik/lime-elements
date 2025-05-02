@@ -4,15 +4,11 @@ import { schema } from 'prosemirror-schema-basic';
 import { Mark } from 'prosemirror-model';
 import { isExternalLink, isValidUrl } from '../menu/menu-commands';
 import { EditorMenuTypes, MouseButtons } from '../menu/types';
+import { EditorLink } from '../../text-editor.types';
 
 export const linkPluginKey = new PluginKey('linkPlugin');
 
 export type UpdateLinkCallback = (text: string, href: string) => void;
-
-export interface EditorLinkMenuEventDetail {
-    href: string;
-    text: string;
-}
 
 const updateLink = (
     view: EditorView,
@@ -138,14 +134,11 @@ const processModClickEvent = (view: EditorView, event: MouseEvent): boolean => {
 };
 
 const openLinkMenu = (view: EditorView, href: string, text: string) => {
-    const event = new CustomEvent<EditorLinkMenuEventDetail>(
-        'open-editor-link-menu',
-        {
-            detail: { href: href, text: text },
-            bubbles: true,
-            composed: true,
-        },
-    );
+    const event = new CustomEvent<EditorLink>('open-editor-link-menu', {
+        detail: { href: href, text: text },
+        bubbles: true,
+        composed: true,
+    });
     view.dom.dispatchEvent(event);
 };
 
