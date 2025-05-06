@@ -1,3 +1,11 @@
+## [38.11.1](https://github.com/Lundalogik/lime-elements/compare/v38.11.0...v38.11.1) (2025-05-06)
+
+
+### Bug Fixes
+
+
+* use relative imports ([750dd96](https://github.com/Lundalogik/lime-elements/commit/750dd96cc568cf432c4892774a775c6817611bff))
+
 ## [38.11.0](https://github.com/Lundalogik/lime-elements/compare/v38.10.0...v38.11.0) (2025-04-30)
 
 
