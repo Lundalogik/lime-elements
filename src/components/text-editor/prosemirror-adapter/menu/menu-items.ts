@@ -1,5 +1,5 @@
-import { ActionBarItem } from 'src/components/action-bar/action-bar.types';
-import { ListSeparator } from 'src/components/list/list-item.types';
+import { ActionBarItem } from '../../../action-bar/action-bar.types';
+import { ListSeparator } from '../../../list/list-item.types';
 import { EditorMenuTypes } from './types';
 import { cloneDeep } from 'lodash-es';
 

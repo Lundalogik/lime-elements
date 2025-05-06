@@ -16,8 +16,8 @@ import { schema } from 'prosemirror-schema-basic';
 import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
 import { keymap } from 'prosemirror-keymap';
-import { ActionBarItem } from 'src/components/action-bar/action-bar.types';
-import { ListSeparator } from 'src/components/list/list-item.types';
+import { ActionBarItem } from '../../../components/action-bar/action-bar.types';
+import { ListSeparator } from '../../../components/list/list-item.types';
 import { MenuCommandFactory } from './menu/menu-commands';
 import { menuTranslationIDs, getTextEditorMenuItems } from './menu/menu-items';
 import { ContentTypeConverter } from '../utils/content-type-converter';
@@ -28,9 +28,9 @@ import {
     EditorTextLink,
     editorMenuTypesArray,
 } from './menu/types';
-import translate from 'src/global/translations';
-import { createRandomString } from 'src/util/random-string';
-import { isItem } from 'src/components/action-bar/isItem';
+import translate from '../../../global/translations';
+import { createRandomString } from '../../../util/random-string';
+import { isItem } from '../../../components/action-bar/isItem';
 import { cloneDeep, debounce } from 'lodash-es';
 import { Languages } from '../../date-picker/date.types';
 import { strikethrough } from './menu/menu-schema-extender';

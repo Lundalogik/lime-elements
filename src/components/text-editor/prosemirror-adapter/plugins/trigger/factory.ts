@@ -3,7 +3,7 @@ import { EditorView } from 'prosemirror-view';
 import {
     Trigger,
     TriggerCharacter,
-} from 'src/components/text-editor/text-editor.types';
+} from '../../../../text-editor/text-editor.types';
 import { ContentTypeConverter } from '../../../utils/content-type-converter';
 import { getTextInputHandler } from './factory-helpers/text-input-handler';
 import { getAppendTransactionHandler } from './factory-helpers/append-transaction-handler';

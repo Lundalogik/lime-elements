@@ -1,6 +1,6 @@
 import { EditorView } from 'prosemirror-view';
-import { Trigger } from 'src/components/text-editor/text-editor.types';
-import { ContentTypeConverter } from 'src/components/text-editor/utils/content-type-converter';
+import { Trigger } from '../../../../../text-editor/text-editor.types';
+import { ContentTypeConverter } from '../../../../../text-editor/utils/content-type-converter';
 jest.mock('./send-trigger-event', () => ({
     sendTriggerEvent: jest.fn(),
 }));

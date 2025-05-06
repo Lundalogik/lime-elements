@@ -2,8 +2,8 @@ import { EditorView } from 'prosemirror-view';
 import {
     Trigger,
     TriggerEventDetail,
-} from 'src/components/text-editor/text-editor.types';
-import { ContentTypeConverter } from 'src/components/text-editor/utils/content-type-converter';
+} from '../../../../../text-editor/text-editor.types';
+import { ContentTypeConverter } from '../../../../../text-editor/utils/content-type-converter';
 import { inserterFactory } from '../inserter';
 
 export const getTriggerEventDetail = (
