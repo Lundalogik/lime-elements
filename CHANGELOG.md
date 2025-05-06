@@ -1,3 +1,11 @@
+## [38.12.0](https://github.com/Lundalogik/lime-elements/compare/v38.11.1...v38.12.0) (2025-05-06)
+
+
+### Features
+
+
+* **text-editor:** add metadata event for notifying about metadata changes (images and links) ([d811891](https://github.com/Lundalogik/lime-elements/commit/d81189189a00330b236ecc16cf5f6dfe39d9480c))
+
 ## [38.11.1](https://github.com/Lundalogik/lime-elements/compare/v38.11.0...v38.11.1) (2025-05-06)
 
 
