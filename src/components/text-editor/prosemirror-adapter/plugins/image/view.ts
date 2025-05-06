@@ -2,7 +2,7 @@ import { EditorView, NodeView } from 'prosemirror-view';
 import { Node } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
 import { ImageState } from '../../../text-editor.types';
-import translate from 'src/global/translations';
+import translate from '../../../../../global/translations';
 import { Languages } from '../../../../date-picker/date.types';
 
 const MIN_WIDTH = 10;

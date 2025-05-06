@@ -2,7 +2,7 @@ jest.mock('./send-trigger-event', () => ({
     sendTriggerEvent: jest.fn(),
 }));
 
-import { TriggerCharacter } from 'src/interface';
+import { TriggerCharacter } from '@limetech/lime-elements';
 import { sendTriggerEvent } from './send-trigger-event';
 import { getTextInputHandler } from './text-input-handler';
 

@@ -1,6 +1,9 @@
-import { LimelChipCustomEvent } from '@limetech/lime-elements';
+import {
+    LimelChipCustomEvent,
+    ListSeparator,
+    MenuItem,
+} from '@limetech/lime-elements';
 import { Component, State, h } from '@stencil/core';
-import { ListSeparator, MenuItem } from 'src/interface';
 
 /**
  * When an array of menu items is provided, the chip will render

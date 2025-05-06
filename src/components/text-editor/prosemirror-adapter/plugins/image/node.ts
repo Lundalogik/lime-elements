@@ -2,7 +2,7 @@ import { NodeSpec, Node, Attrs, DOMOutputSpec } from 'prosemirror-model';
 import { ImageState } from '../../../text-editor.types';
 import { MarkdownSerializerState } from 'prosemirror-markdown';
 import { Languages } from '../../../../date-picker/date.types';
-import translate from 'src/global/translations';
+import translate from '../../../../../global/translations';
 
 export const imageCache = new Map<string, HTMLImageElement>();
 

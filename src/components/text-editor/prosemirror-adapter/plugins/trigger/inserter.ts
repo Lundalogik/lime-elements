@@ -4,7 +4,7 @@ import {
     TextEditor,
     TextEditorNode,
     Trigger,
-} from 'src/components/text-editor/text-editor.types';
+} from '../../../../text-editor/text-editor.types';
 import { ContentTypeConverter } from '../../../utils/content-type-converter';
 import { createHtmlInserter } from './create-html-inserter';
 

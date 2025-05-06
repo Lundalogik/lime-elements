@@ -3,7 +3,7 @@ import { monitorTriggeredText } from './monitor-triggered-text';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { ContentTypeConverter } from '../../../../utils/content-type-converter';
-import { Trigger } from 'src/components/text-editor/text-editor.types';
+import { Trigger } from '../../../../../text-editor/text-editor.types';
 
 export const getAppendTransactionHandler = (
     getCurrentView: () => EditorView | null,

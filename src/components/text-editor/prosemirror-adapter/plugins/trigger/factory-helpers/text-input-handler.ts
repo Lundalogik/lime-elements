@@ -4,7 +4,7 @@ import { sendTriggerEvent } from './send-trigger-event';
 import {
     Trigger,
     TriggerCharacter,
-} from 'src/components/text-editor/text-editor.types';
+} from '../../../../../text-editor/text-editor.types';
 import { ContentTypeConverter } from '../../../../utils/content-type-converter';
 
 export const getTextInputHandler = (

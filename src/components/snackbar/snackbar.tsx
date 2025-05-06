@@ -13,7 +13,7 @@ import {
 } from '@stencil/core';
 import translate from '../../global/translations';
 import { SnackbarContainer } from './container';
-import { createRandomString } from 'src/util/random-string';
+import { createRandomString } from '../../util/random-string';
 
 const container = new SnackbarContainer();
 const hideAnimationDuration = 300;
