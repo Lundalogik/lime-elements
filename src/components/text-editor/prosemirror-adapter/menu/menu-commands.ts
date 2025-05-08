@@ -153,6 +153,16 @@ export const isExternalLink = (url: string): boolean => {
     return !url.startsWith(window.location.origin);
 };
 
+const preserveSelection = (
+    state: EditorState,
+    tr: Transaction,
+): Transaction => {
+    const { $from, $to } = state.selection;
+    const newSelection = TextSelection.create(tr.doc, $from.pos, $to.pos);
+
+    return tr.setSelection(newSelection);
+};
+
 /**
  * Toggles or wraps a node type based on the selection and parameters.
  * - Toggles to paragraph if the selection is of the specified type.
@@ -174,43 +184,97 @@ const toggleNodeType = (
     const paragraphType = schema.nodes.paragraph;
 
     return (state, dispatch) => {
-        const { $from, $to } = state.selection;
+        const { $from } = state.selection;
 
-        const hasActiveWrap = $from.node($from.depth - 1).type === nodeType;
-
-        if (
-            state.selection instanceof TextSelection &&
-            // Ensure selection is within the same parent block
-            // We don't want toggling block types across multiple blocks
-            $from.sameParent($from.doc.resolve($to.pos))
-        ) {
-            if ($from.parent.type === nodeType) {
-                if (dispatch) {
-                    dispatch(
-                        state.tr.setBlockType(
-                            $from.pos,
-                            $to.pos,
-                            paragraphType,
-                        ),
-                    );
-                }
-
-                return true;
-            } else {
-                if (hasActiveWrap) {
-                    return lift(state, dispatch);
-                }
-
-                if (shouldWrap) {
-                    return wrapIn(nodeType, attrs)(state, dispatch);
-                } else {
-                    return setBlockType(nodeType, attrs)(state, dispatch);
-                }
-            }
+        if (!isSameParentBlock(state)) {
+            return false;
         }
 
-        return false;
+        if ($from.parent.type === nodeType) {
+            return handleSameNodeType(state, dispatch, schema, paragraphType);
+        } else {
+            return handleDifferentNodeType(
+                state,
+                dispatch,
+                nodeType,
+                attrs,
+                shouldWrap,
+                schema,
+                paragraphType,
+            );
+        }
     };
+};
+
+const isSameParentBlock = (state: EditorState): boolean => {
+    const { $from, $to } = state.selection;
+
+    return (
+        state.selection instanceof TextSelection &&
+        $from.sameParent($from.doc.resolve($to.pos))
+    );
+};
+
+const handleSameNodeType = (
+    state: EditorState,
+    dispatch: (tr: Transaction) => void,
+    schema: Schema,
+    paragraphType: NodeType,
+): boolean => {
+    let tr = state.tr
+        .setBlockType(
+            state.selection.$from.pos,
+            state.selection.$to.pos,
+            paragraphType,
+        )
+        .setMeta('preserveWhitespace', true);
+    tr.replaceSelectionWith(
+        schema.text(state.selection.$from.parent.textContent),
+    );
+    tr = preserveSelection(state, tr);
+
+    if (dispatch) {
+        dispatch(tr);
+    }
+
+    return true;
+};
+
+const handleDifferentNodeType = (
+    state: EditorState,
+    dispatch: (tr: Transaction) => void,
+    nodeType: NodeType,
+    attrs: Attrs,
+    shouldWrap: boolean,
+    schema: Schema,
+    paragraphType: NodeType,
+): boolean => {
+    const { $from, $to } = state.selection;
+    const hasActiveWrap = $from.node($from.depth - 1).type === nodeType;
+
+    if (hasActiveWrap) {
+        return lift(state, dispatch);
+    }
+
+    if (shouldWrap) {
+        return wrapIn(nodeType, attrs)(state, dispatch);
+    } else {
+        let tr = state.tr
+            .setBlockType($from.pos, $to.pos, nodeType, attrs)
+            .setMeta('preserveWhitespace', true);
+        if (nodeType === paragraphType) {
+            const selectedText = state.doc.textBetween($from.pos, $to.pos, '');
+            tr.replaceSelectionWith(schema.text(selectedText));
+        }
+
+        tr = preserveSelection(state, tr);
+
+        if (dispatch) {
+            dispatch(tr);
+        }
+
+        return true;
+    }
 };
 
 export const isValidUrl = (text: string): boolean => {
