@@ -1,3 +1,11 @@
+## [38.12.1](https://github.com/Lundalogik/lime-elements/compare/v38.12.0...v38.12.1) (2025-05-08)
+
+
+### Bug Fixes
+
+
+* **ai-avatar:** ui improvement ([54b69a4](https://github.com/Lundalogik/lime-elements/commit/54b69a453da48cdc56b3c363ee412bad384b5e07))
+
 ## [38.12.0](https://github.com/Lundalogik/lime-elements/compare/v38.11.1...v38.12.0) (2025-05-06)
 
 
