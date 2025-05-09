@@ -9,7 +9,7 @@ import {
     Watch,
     h,
 } from '@stencil/core';
-import { EditorState, Transaction } from 'prosemirror-state';
+import { EditorState, Transaction, Selection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Schema, DOMParser } from 'prosemirror-model';
 import { schema } from 'prosemirror-schema-basic';
@@ -155,7 +155,8 @@ export class ProsemirrorAdapter {
     private actionBarElement: HTMLElement;
     private lastEmittedValue: string;
     private changeWaiting = false;
-
+    private transactionFired = false;
+    private lastClickedPos: number | null = null;
     private metadata: EditorMetadata = { images: [], links: [] };
 
     /**
@@ -258,6 +259,7 @@ export class ProsemirrorAdapter {
             this.handleOpenLinkMenu,
         );
         this.view?.dom?.removeEventListener('blur', this.handleBlur);
+        this.view?.dom?.removeEventListener('mousedown', this.handleMouseDown);
         this.view?.destroy();
     }
 
@@ -360,6 +362,7 @@ export class ProsemirrorAdapter {
         );
 
         this.view.dom.addEventListener('blur', this.handleBlur);
+        this.view.dom.addEventListener('mousedown', this.handleMouseDown);
 
         if (this.value) {
             this.updateView(this.value);
@@ -475,6 +478,7 @@ export class ProsemirrorAdapter {
     }
 
     private handleTransaction = (transaction: Transaction) => {
+        this.transactionFired = true;
         const newState = this.view.state.apply(transaction);
         this.view.updateState(newState);
 
@@ -569,6 +573,22 @@ export class ProsemirrorAdapter {
     private handleFocus = () => {
         if (!this.disabled) {
             this.view?.focus();
+
+            // Workaround: On some focus interactions (especially clicking the first line and the last line),
+            // ProseMirror does not dispatch a transaction or update the selection. This can cause
+            // the cursor to fall back to the end of the document instead of placing it where the user clicked.
+            //
+            // To detect this, we wait one tick after focus. If no transaction has fired by then,
+            // we assume the selection is unresolved and manually move the cursor to the last clicked position.
+            this.transactionFired = false;
+            setTimeout(() => {
+                if (!this.transactionFired && this.lastClickedPos) {
+                    const { doc, tr } = this.view.state;
+                    const resolvedPos = doc.resolve(this.lastClickedPos);
+                    const selection = Selection.near(resolvedPos);
+                    this.view.dispatch(tr.setSelection(selection));
+                }
+            }, 0);
         }
     };
 
@@ -582,6 +602,12 @@ export class ProsemirrorAdapter {
         const { href, text } = event.detail;
         this.link = { href: href, text: text };
         this.isLinkMenuOpen = true;
+    };
+
+    private handleMouseDown = (event: MouseEvent) => {
+        const coords = { left: event.clientX, top: event.clientY };
+        const result = this.view.posAtCoords(coords);
+        this.lastClickedPos = result?.pos ?? null;
     };
 
     private changeEmitter = debounce((value: string) => {
