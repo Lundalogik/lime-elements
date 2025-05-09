@@ -194,9 +194,43 @@ const processPasteEvent = (
         return false;
     }
 
+    const isImageFilePasted = handlePastedImages(view, clipboardData);
+
+    const filteredSlice = new Slice(
+        filterImageNodes(slice.content),
+        slice.openStart,
+        slice.openEnd,
+    );
+
+    if (filteredSlice.content.childCount < slice.content.childCount) {
+        const { state, dispatch } = view;
+        const tr = state.tr.replaceSelection(filteredSlice);
+        dispatch(tr);
+
+        return true;
+    }
+
+    return isImageFilePasted;
+};
+
+/**
+ * Processes any image files found in the clipboard data and dispatches an imagePasted event.
+ *
+ * @param view - The ProseMirror editor view
+ * @param clipboardData - The clipboard data transfer object containing potential image files
+ * @returns True if at least one valid image file was found and processed, false otherwise
+ */
+function handlePastedImages(
+    view: EditorView,
+    clipboardData: DataTransfer,
+): boolean {
+    let isImageFilePasted = false;
     const files = Array.from(clipboardData.files || []);
+
     for (const file of files) {
-        if (file.type.startsWith('image/')) {
+        if (isImageFile(file, clipboardData)) {
+            isImageFilePasted = true;
+
             const reader = new FileReader();
             reader.onloadend = () => {
                 view.dom.dispatchEvent(
@@ -214,19 +248,28 @@ const processPasteEvent = (
         }
     }
 
-    const filteredSlice = new Slice(
-        filterImageNodes(slice.content),
-        slice.openStart,
-        slice.openEnd,
-    );
+    return isImageFilePasted;
+}
 
-    if (filteredSlice.content.childCount < slice.content.childCount) {
-        const { state, dispatch } = view;
-        const tr = state.tr.replaceSelection(filteredSlice);
-        dispatch(tr);
-
-        return true;
+/**
+ * Determines if a file is an image that should be processed by the image handler.
+ *
+ * This function checks both the file's MIME type and the clipboard HTML content.
+ * It specifically filters out Excel tables that are copied as images to prevent
+ * them from being processed as regular images when they should be handled as tables.
+ *
+ * @param file - The file object to check
+ * @param clipboardData - The full clipboard data transfer object to examine for context
+ * @returns True if the file is an image that should be processed, false otherwise
+ */
+function isImageFile(file: File, clipboardData: DataTransfer): boolean {
+    const isContentTypeImage = file.type.startsWith('image/');
+    if (!isContentTypeImage) {
+        return false;
     }
 
-    return files.length > 0;
-};
+    const html = clipboardData?.getData('text/html')?.toLowerCase() ?? '';
+    const isProbablyFromExcel = html.includes('<table');
+
+    return !isProbablyFromExcel;
+}
