@@ -7,6 +7,12 @@
 $border-radius: 0.25rem;
 $value-top: 0.62rem;
 
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
 limel-notched-outline {
     --limel-notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color};
     --limel-notched-outline-background-color: #{shared_input-select-picker.$background-color-normal};
@@ -14,12 +20,6 @@ limel-notched-outline {
     display: block;
     width: 100%;
     height: 100%;
-
-    *,
-    *:before,
-    *:after {
-        box-sizing: border-box;
-    }
 }
 
 .limel-notched-outline {
