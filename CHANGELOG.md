@@ -1,3 +1,11 @@
+## [38.12.2](https://github.com/Lundalogik/lime-elements/compare/v38.12.1...v38.12.2) (2025-05-12)
+
+
+### Bug Fixes
+
+
+* **input-field:** ensure that the helper line doesn't render outside of the component ([16b31fe](https://github.com/Lundalogik/lime-elements/commit/16b31fe4b89ac30f7e8626e6d7783e4410deebbd))
+
 ## [38.12.1](https://github.com/Lundalogik/lime-elements/compare/v38.12.0...v38.12.1) (2025-05-08)
 
 
