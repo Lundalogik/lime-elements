@@ -25,6 +25,7 @@ limel-notched-outline {
 .limel-notched-outline {
     position: relative;
     width: 100%;
+    height: 100%;
 
     [slot='content'] {
         background-color: var(--limel-notched-outline-background-color);
