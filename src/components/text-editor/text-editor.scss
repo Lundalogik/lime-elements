@@ -160,7 +160,8 @@ limel-prosemirror-adapter {
 
     min-width: 0;
     min-height: $min-height;
-    height: 100%;
+    height: 100%; // this can be overwritten by user's manual resizing
+    max-height: 100%;
     overflow: hidden auto;
     -webkit-overflow-scrolling: touch;
 }
