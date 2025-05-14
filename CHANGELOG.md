@@ -1,3 +1,12 @@
+## [38.12.3](https://github.com/Lundalogik/lime-elements/compare/v38.12.2...v38.12.3) (2025-05-14)
+
+
+### Bug Fixes
+
+
+* **text-editor:** do not allow a resizable editor to grow larger than its container ([00b58ed](https://github.com/Lundalogik/lime-elements/commit/00b58ed1fe1827fff29f09f749be521590bf69b9))
+* **text-editor:** prevent content from overflowing container with specified height ([c7fc61d](https://github.com/Lundalogik/lime-elements/commit/c7fc61dbeef3b8fdca7cce6ea3d2fd25b773e171))
+
 ## [38.12.2](https://github.com/Lundalogik/lime-elements/compare/v38.12.1...v38.12.2) (2025-05-12)
 
 
