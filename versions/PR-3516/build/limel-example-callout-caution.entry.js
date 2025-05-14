@@ -1,0 +1,2 @@
+import{r as e,h as t}from"./index-2714248e.js";const o=class{constructor(t){e(this,t)}render(){return t("limel-callout",{type:"caution"},"I hope you read this.")}};export{o as limel_example_callout_caution};
+//# sourceMappingURL=limel-example-callout-caution.entry.js.map
