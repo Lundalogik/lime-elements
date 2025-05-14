@@ -43,6 +43,10 @@ $min-height-condensed: calc($min-height / 2);
         )
     );
     padding: 1px; // prevents visual defects that can appear due to the backdrop-filter and closeness to borders
+
+    limel-notched-outline {
+        height: 100%; // overrides the default `height: fit-content;`
+    }
 }
 
 :host(limel-text-editor:focus-within),
