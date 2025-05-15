@@ -1,25 +1,25 @@
-import { r as registerInstance, g as getElement } from './index-3601b4dc.js';
+import { r as registerInstance, c as getElement } from './index-2f7cd895.js';
 
 const ContextConsumer = class {
-  constructor(hostRef) {
-    registerInstance(this, hostRef);
-    this.context = {};
-    this.renderer = () => null;
-  }
-  connectedCallback() {
-    if (this.subscribe != null) {
-      this.unsubscribe = this.subscribe(this.el, 'context');
+    constructor(hostRef) {
+        registerInstance(this, hostRef);
+        this.context = {};
+        this.renderer = () => null;
     }
-  }
-  disconnectedCallback() {
-    if (this.unsubscribe != null) {
-      this.unsubscribe();
+    connectedCallback() {
+        if (this.subscribe != null) {
+            this.unsubscribe = this.subscribe(this.el, 'context');
+        }
     }
-  }
-  render() {
-    return this.renderer(Object.assign({}, this.context));
-  }
-  get el() { return getElement(this); }
+    disconnectedCallback() {
+        if (this.unsubscribe != null) {
+            this.unsubscribe();
+        }
+    }
+    render() {
+        return this.renderer(Object.assign({}, this.context));
+    }
+    get el() { return getElement(this); }
 };
 
 export { ContextConsumer as context_consumer };

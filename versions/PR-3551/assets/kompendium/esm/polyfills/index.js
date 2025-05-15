@@ -8,7 +8,7 @@ export function applyPolyfills() {
       promises.push(import(/* webpackChunkName: "polyfills-dom" */ './dom.js'));
     }
 
-    var checkIfURLIsSupported = function() {
+    function checkIfURLIsSupported() {
       try {
         var u = new URL('b', 'http://a');
         u.pathname = 'c%20d';
@@ -16,7 +16,7 @@ export function applyPolyfills() {
       } catch (e) {
         return false;
       }
-    };
+    }
 
     if (
       'function' !== typeof Object.assign || !Object.entries ||

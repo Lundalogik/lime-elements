@@ -43,6 +43,7 @@ a:not([class]) {
 /* Make images easier to work with */
 img {
   max-width: 100%;
+  display: block;
 }
 
 /* Natural flow and rhythm in articles by default */
@@ -63,44 +64,6 @@ select {
     scroll-behavior: auto !important;
   }
 }
-:root {
-  --width-nav-panel: 16rem;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-.loading-screen {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-.loading-screen-icon {
-  animation: spin 0.35s linear infinite;
-  border-radius: 50%;
-  border-style: solid;
-  border-width: 0.125rem;
-  border-color: rgb(var(--kompendium-color-blue-default));
-  border-top-color: transparent;
-  display: inline-block;
-  height: 1.25rem;
-  width: 1.25rem;
-}
-
-.loading-screen-text {
-  padding-left: 0.75rem;
-  color: rgb(var(--kompendium-contrast-1100));
-}
-
 :host {
   display: block;
   margin: 0;
@@ -108,18 +71,11 @@ select {
 }
 
 main {
-  padding: 1.25rem 2rem;
   margin-left: var(--width-nav-panel);
-}
-main kompendium-guide {
-  display: block;
-  width: 100%;
-  max-width: 60rem;
 }
 
 @media (max-width: 1000px) {
   main {
-    padding-top: 2.625rem;
     margin-left: 0;
   }
 }

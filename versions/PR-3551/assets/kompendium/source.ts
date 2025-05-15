@@ -14,17 +14,17 @@ export interface JsonDocsSource {
 
 export async function addSources(docs: JsonDocs): Promise<JsonDocs> {
     const components = await Promise.all(
-        docs.components?.map(addComponentSources) || [],
+        docs.components?.map(addComponentSources) || []
     );
 
     return {
         ...docs,
-        components: components,
+        components,
     };
 }
 
 export async function addComponentSources(
-    component: JsonDocsComponent,
+    component: JsonDocsComponent
 ): Promise<any> {
     const sources = await getSources(component);
 
@@ -35,20 +35,20 @@ export async function addComponentSources(
 }
 
 export async function getSources(
-    component: JsonDocsComponent,
+    component: JsonDocsComponent
 ): Promise<JsonDocsSource[]> {
     const source = await readFile(component.filePath);
     const styleNames = getStyleFiles(source);
     const styles = await Promise.all(
-        styleNames.map(getStyle(component.dirPath)),
+        styleNames.map(getStyle(component.dirPath))
     );
-    const links = await getLinkedSourceFiles(component);
+    const links = await getLinks(component);
 
     return [
         {
             filename: component.fileName,
             type: 'tsx',
-            source: source,
+            source,
         },
         ...styles,
         ...links,
@@ -75,55 +75,38 @@ export function getStyleFiles(source: string): string[] {
     return result;
 }
 
-const getStyle =
-    (path: string) =>
-    async (name: string): Promise<JsonDocsSource> => {
-        const source = await readFile([path, name].join('/'));
-
-        return {
-            filename: name,
-            type: 'scss',
-            source: source,
-        };
+const getStyle = (path: string) => async (
+    name: string
+): Promise<JsonDocsSource> => {
+    const source = await readFile([path, name].join('/'));
+    return {
+        filename: name,
+        type: 'scss',
+        source: source,
     };
+};
 
-async function getLinkedSourceFiles(
-    component: JsonDocsComponent,
+async function getLinks(
+    component: JsonDocsComponent
 ): Promise<JsonDocsSource[]> {
-    const deprecatedLinkTags = component.docsTags.filter(
-        (tag) => tag.name === 'link',
-    );
-    if (deprecatedLinkTags.length > 0) {
-        // eslint-disable-next-line no-console
-        console.warn(
-            'Using the @link tag to link source files for display alongside examples is deprecated. ' +
-                'Use @sourceFile instead.',
-        );
-    }
+    const linkTags = component.docsTags.filter((tag) => tag.name === 'link');
 
-    const linkTags = component.docsTags.filter(
-        (tag) => tag.name === 'sourceFile',
-    );
-    const backwardsCompatibleLinkTags = [...linkTags, ...deprecatedLinkTags];
-
-    return Promise.all<JsonDocsSource>(
-        backwardsCompatibleLinkTags.map(getLink(component)),
-    );
+    return Promise.all<JsonDocsSource>(linkTags.map(getLink(component)));
 }
 
-const getLink =
-    (component: JsonDocsComponent) =>
-    async (tag: JsonDocsTag): Promise<JsonDocsSource> => {
-        let source: string;
-        try {
-            source = await readFile(join(component.dirPath, tag.text));
-        } catch {
-            source = `File ${tag.text} not found`;
-        }
+const getLink = (component: JsonDocsComponent) => async (
+    tag: JsonDocsTag
+): Promise<JsonDocsSource> => {
+    let source: string;
+    try {
+        source = await readFile(join(component.dirPath, tag.text));
+    } catch {
+        source = `File ${tag.text} not found`;
+    }
 
-        return {
-            filename: tag.text,
-            type: extname(tag.text).replace('.', '') as any,
-            source: source,
-        };
+    return {
+        filename: tag.text,
+        type: extname(tag.text).replace('.', '') as any,
+        source: source,
     };
+};

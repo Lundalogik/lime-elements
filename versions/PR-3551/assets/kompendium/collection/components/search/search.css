@@ -43,6 +43,7 @@ a:not([class]) {
 /* Make images easier to work with */
 img {
   max-width: 100%;
+  display: block;
 }
 
 /* Natural flow and rhythm in articles by default */
@@ -67,90 +68,26 @@ select {
   display: block;
 }
 
-:host(:focus) .result.has-results,
-:host(:focus-within) .result.has-results {
-  display: block;
-}
-
-@keyframes display-search-results {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, -1.25rem, -1rem) rotateX(10deg);
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: translate3d(0, 0, 0) rotateX(0);
-  }
-}
 .search-box {
-  z-index: 1;
   display: flex;
   flex-direction: column;
-  position: relative;
-  perspective: 60rem;
-}
-.search-box .result.has-results {
-  animation: display-search-results 0.28s ease-out forwards;
-  position: absolute;
-  background: rgb(var(--kompendium-contrast-200));
-  padding: 0.5rem;
-  margin-top: 2rem;
-  width: 100%;
-  border-radius: 5px;
-  box-shadow: var(--kompendium-shadow-depth-16);
-  display: none;
-  max-height: calc(100vh - 6rem);
-  overflow-y: auto;
-}
-.search-box .result.has-results li a {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out;
-  display: block;
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.25rem;
-}
-.search-box .result.has-results li a:hover {
-  box-shadow: var(--kompendium-button-shadow-hovered);
-}
-.search-box .result.has-results li a:active {
-  box-shadow: var(--kompendium-button-shadow-pressed);
-  transform: translate3d(0, 0.08rem, 0);
-}
-.search-box .result.has-results li a:focus {
-  outline: none;
-}
-.search-box .result.has-results li a:focus-visible {
-  outline: none;
-  box-shadow: var(--kompendium-shadow-depth-8-focused);
-}
-.search-box .result.has-results li:hover a {
-  background: rgb(var(--kompendium-contrast-100));
 }
 
 input {
   transition: background-color 0.2s ease;
   border: 0;
   border-radius: 0.25rem;
-  padding: 0 0.25rem 0 2.25rem;
-  color: rgb(var(--kompendium-contrast-1200));
+  padding: 0 0.5rem;
+  color: rgb(var(--contrast-1200));
+  background-color: rgb(var(--contrast-300));
   height: 2rem;
   line-height: 2rem;
-  -webkit-appearance: textfield;
-  background-color: rgb(var(--kompendium-contrast-300));
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5" clip-rule="evenodd" viewBox="0 0 400 400"><defs/><path fill="none" d="M0 0h400v400H0z"/><path d="M275.621 258.31l-16.962 16.979 50.965 50.964.008.009c4.637 4.637 12.268 4.637 16.905 0l.032-.033c4.687-4.687 4.642-12.33.025-16.946l-50.964-50.965-.009-.008z" fill="rgb(48,48,66)"/><circle cx="200" cy="200" r="99.5" fill="rgb(33,150,243)" fill-opacity=".3" stroke="rgb(48,48,66)" stroke-width="13.27" transform="translate(19.096 19.096) scale(.90452)"/><ellipse cx="163.443" cy="186.777" rx="32.324" ry="22.133" fill="rgb(255,255,255)" fill-opacity=".3" transform="rotate(-45 128.405 173.5)"/></svg>');
-  background-repeat: no-repeat;
-  background-position: left center;
 }
 input::placeholder {
-  color: rgb(var(--kompendium-contrast-800));
+  color: rgb(var(--contrast-800));
 }
 input:active, input:focus, input:hover {
-  background-color: rgb(var(--kompendium-contrast-200));
+  background-color: rgb(var(--contrast-200));
 }
 input:focus {
   outline: none;
@@ -161,21 +98,14 @@ input::-webkit-search-cancel-button {
   height: 1.25rem;
   width: 1.25rem;
   border-radius: 50%;
+  margin-right: -0.25rem;
   cursor: pointer;
-  background-color: rgb(var(--kompendium-contrast-800));
+  background-color: rgb(var(--contrast-800));
   background-repeat: no-repeat;
   background-position: center;
   background-size: 0.75rem;
   background-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs/><path fill='rgb(255,255,255)' d='M7.219 5.781L5.78 7.22 14.563 16 5.78 24.781 7.22 26.22 16 17.437l8.781 8.782 1.438-1.438L17.437 16l8.782-8.781L24.78 5.78 16 14.563z'/></svg>");
 }
 input::-webkit-search-cancel-button:hover {
-  background-color: rgb(var(--kompendium-contrast-1000));
-}
-
-a {
-  text-decoration: none;
-  color: unset;
-}
-a:hover, a.active {
-  color: rgb(var(--kompendium-color-blue-default));
+  background-color: rgb(var(--contrast-1000));
 }

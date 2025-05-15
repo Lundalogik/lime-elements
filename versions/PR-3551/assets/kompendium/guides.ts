@@ -1,49 +1,44 @@
+import glob from 'glob';
 import { basename, dirname, resolve } from 'path';
+import { markdownToHtml } from './markdown';
 import { readFile } from './filesystem';
-import { KompendiumGuide, KompendiumConfig, Guide } from '../types';
 
-export async function findGuides(
-    config: Partial<KompendiumConfig>,
-): Promise<KompendiumGuide[]> {
-    const nodes = config.guides.map(createMenuNode('/')).flat();
-    const promises = nodes.map(createGuide);
-
-    return Promise.all(promises);
+export interface KompendiumGuide {
+    dirPath?: string;
+    fileName?: string;
+    filePath?: string;
+    data: Record<string, any>;
+    content: string;
 }
 
-interface MenuNode {
-    menupath: string;
-    filepath: string;
+export async function findGuides(): Promise<KompendiumGuide[]> {
+    return new Promise((resolve) => {
+        glob('./src/**/*.md', {}, async (_, files) => {
+            const guides = await Promise.all<KompendiumGuide>(
+                files.map(createGuide)
+            );
+            resolve(guides.filter(hasPath));
+        });
+    });
 }
 
-export const createMenuNode =
-    (path: string) =>
-    (guide: Guide): MenuNode | MenuNode[] => {
-        if (typeof guide !== 'string') {
-            const newPath = path + guide.name + '/';
-
-            return guide.children.map(createMenuNode(newPath)).flat();
-        }
-
-        return {
-            menupath: path,
-            filepath: guide,
-        };
-    };
-
-export const createGuide = async ({
-    menupath: path,
-    filepath,
-}: MenuNode): Promise<KompendiumGuide> => {
+export async function createGuide(filepath: string): Promise<KompendiumGuide> {
     const content = await readFile(filepath);
+    const file = await markdownToHtml(content);
 
     return {
         dirPath: dirname(filepath),
         fileName: basename(filepath),
         filePath: resolve(filepath),
-        data: {
-            path: path + basename(filepath),
-        },
+        data: file.data,
         content: content,
     };
-};
+}
+
+export function hasPath(guide: KompendiumGuide): boolean {
+    if (typeof guide?.data?.frontmatter !== 'object') {
+        return false;
+    }
+
+    return 'path' in guide.data.frontmatter;
+}

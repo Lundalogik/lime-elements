@@ -1,9 +1,10 @@
-import { KompendiumGuide, KompendiumConfig, Guide } from '../types';
-export declare function findGuides(config: Partial<KompendiumConfig>): Promise<KompendiumGuide[]>;
-interface MenuNode {
-  menupath: string;
-  filepath: string;
+export interface KompendiumGuide {
+    dirPath?: string;
+    fileName?: string;
+    filePath?: string;
+    data: Record<string, any>;
+    content: string;
 }
-export declare const createMenuNode: (path: string) => (guide: Guide) => MenuNode | MenuNode[];
-export declare const createGuide: ({ menupath: path, filepath, }: MenuNode) => Promise<KompendiumGuide>;
-export {};
+export declare function findGuides(): Promise<KompendiumGuide[]>;
+export declare function createGuide(filepath: string): Promise<KompendiumGuide>;
+export declare function hasPath(guide: KompendiumGuide): boolean;
