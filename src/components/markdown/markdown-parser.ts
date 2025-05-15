@@ -35,7 +35,7 @@ export async function markdownToHTML(
         text = text.replace(/(?<!\\)([\n\r])/g, '  $1');
     }
 
-    const file = await unified()
+    const processor = unified()
         .use(remarkParse)
         .use(remarkGfm)
         .use(remarkRehype, { allowDangerousHtml: true })
@@ -50,11 +50,31 @@ export async function markdownToHTML(
                 // the value of the `style` attribute, if there is one.
                 visit(tree, 'element', sanitizeStyle);
             };
-        })
-        .use(rehypeStringify)
-        .process(text);
+        });
+
+    if (options?.lazyLoadImages) {
+        processor.use(setupLazyLoadImages);
+    }
+
+    const file = await processor.use(rehypeStringify).process(text);
 
     return file.toString();
+}
+
+function setupLazyLoadImages() {
+    return (tree: Node) => {
+        visit(tree, 'element', (node: any) => {
+            if (node.tagName === 'img') {
+                node.properties = node.properties || {};
+                node.properties.loading = 'lazy';
+
+                if (node.properties.src) {
+                    node.properties['data-src'] = node.properties.src;
+                    node.properties.src = undefined;
+                }
+            }
+        });
+    };
 }
 
 /**
@@ -125,4 +145,5 @@ export interface MarkdownToHTMLOptions {
      */
     forceHardLineBreaks?: boolean;
     whitelist?: CustomElementDefinition[];
+    lazyLoadImages?: boolean;
 }

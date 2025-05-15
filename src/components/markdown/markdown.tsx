@@ -2,6 +2,7 @@ import { Component, h, Prop, Watch } from '@stencil/core';
 import { markdownToHTML } from './markdown-parser';
 import { globalConfig } from '../../global/config';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
+import { ImageLazyLoader } from './image-lazy-loader';
 
 /**
  * The Markdown component receives markdown syntax
@@ -48,25 +49,42 @@ export class Markdown {
     public whitelist?: CustomElementDefinition[] =
         globalConfig.markdownWhitelist;
 
+    /**
+     * Enable lazy loading for images
+     */
+    @Prop()
+    public lazyLoadImages = false;
+
     @Watch('value')
     public async textChanged() {
         try {
             const html = await markdownToHTML(this.value, {
                 forceHardLineBreaks: true,
                 whitelist: this.whitelist ?? [],
+                lazyLoadImages: this.lazyLoadImages,
             });
+
             this.rootElement.innerHTML = html;
+
+            if (this.lazyLoadImages) {
+                this.imageLazyLoader.setupLazyLoading(this.rootElement);
+            }
         } catch (error) {
             // eslint-disable-next-line no-console
             console.error(error);
         }
     }
 
+    private rootElement: HTMLDivElement;
+    private imageLazyLoader: ImageLazyLoader = new ImageLazyLoader();
+
     public async componentDidLoad() {
         this.textChanged();
     }
 
-    private rootElement: HTMLDivElement;
+    public disconnectedCallback() {
+        this.imageLazyLoader.disconnect();
+    }
 
     public render() {
         return [
