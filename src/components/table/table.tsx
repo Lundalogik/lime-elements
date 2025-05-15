@@ -41,11 +41,7 @@ const FIRST_PAGE = 1;
  * @exampleComponent limel-example-table-layout-low-density
  * @exampleComponent limel-example-table-interactive-rows
  */
-@Component({
-    tag: 'limel-table',
-    styleUrl: 'table.scss',
-    shadow: true,
-})
+@Component({ tag: 'limel-table', styleUrl: 'table.scss', shadow: true })
 export class Table {
     /**
      * Data to be displayed in the table
@@ -102,6 +98,16 @@ export class Table {
      */
     @Prop({ mutable: true })
     public activeRow: RowData;
+
+    /**
+     * Array of rows that have been active
+     */
+    private activeRowHistory: Tabulator.RowComponent[] = [];
+
+    /**
+     * Maximum number of rows to keep in the active row history
+     */
+    private static readonly MAX_ACTIVE_ROW_HISTORY = 2;
 
     /**
      * Set to `true` to enable reordering of the columns by dragging them
@@ -638,10 +644,7 @@ export class Table {
 
         const columnSorters = sorters.map(createColumnSorter(this.columns));
 
-        const load = {
-            page: currentPage,
-            sorters: columnSorters,
-        };
+        const load = { page: currentPage, sorters: columnSorters };
 
         // In order to make limel-table behave more like a controlled component,
         // we always return the existing data from this function, therefore
@@ -705,7 +708,16 @@ export class Table {
             this.activeRow = row.getData();
         }
 
+        const clickedRow = this.tabulator.getRow(row.getData().id);
+        this.activeRowHistory.push(clickedRow);
+
+        // Keep the history array limited to the last two rows
+        if (this.activeRowHistory.length > Table.MAX_ACTIVE_ROW_HISTORY) {
+            this.activeRowHistory.shift();
+        }
+
         this.activate.emit(this.activeRow);
+        this.formatRows();
     }
 
     private getActiveRows: () => Tabulator.RowComponent[] = () => {
@@ -744,6 +756,15 @@ export class Table {
             row.getElement().classList.add('active');
         } else {
             row.getElement().classList.remove('active');
+        }
+
+        const previousActiveRow =
+            this.activeRowHistory.length > 1 ? this.activeRowHistory[0] : null;
+
+        if (previousActiveRow === row) {
+            row.getElement().classList.add('recent-active');
+        } else {
+            row.getElement().classList.remove('recent-active');
         }
 
         const interactiveFeedbackElement = row
@@ -788,10 +809,7 @@ export class Table {
             return {};
         }
 
-        return {
-            movableColumns: true,
-            columnMoved: this.handleMoveColumn,
-        };
+        return { movableColumns: true, columnMoved: this.handleMoveColumn };
     };
 
     private handleMoveColumn = (_, components: Tabulator.ColumnComponent[]) => {
@@ -810,11 +828,7 @@ export class Table {
 
     render() {
         return (
-            <Host
-                class={{
-                    'has-low-density': this.layout === 'lowDensity',
-                }}
-            >
+            <Host class={{ 'has-low-density': this.layout === 'lowDensity' }}>
                 <div
                     id="tabulator-container"
                     class={{
