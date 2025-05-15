@@ -4,6 +4,7 @@ import { Plugin } from 'prosemirror-state';
 import { EditorImageState } from '../../../text-editor.types';
 import translate from '../../../../../global/translations';
 import { Languages } from '../../../../date-picker/date.types';
+import { applyImageStyles } from './node';
 
 const MIN_WIDTH = 10;
 
@@ -44,12 +45,27 @@ class ImageView implements NodeView {
         this.img = document.createElement('img');
         this.img.src = node.attrs.src;
         this.img.alt = node.attrs.alt;
-        this.img.style.maxWidth = node.attrs.maxWidth;
-        this.img.style.width = node.attrs.width;
+        applyImageStyles(this.img, node);
+
+        this.img.onload = () => {
+            this.persistDimensions();
+        };
 
         this.dom.appendChild(this.img);
 
         this.transitionBetweenStates();
+    }
+
+    private persistDimensions() {
+        this.view.dispatch(
+            this.view.state.tr.setNodeMarkup(this.getPos(), undefined, {
+                ...this.node.attrs,
+                height: `${this.img.offsetHeight}px`,
+                width: `${this.img.offsetWidth}px`,
+                minHeight: `${this.img.offsetHeight}px`,
+                minWidth: `${this.img.offsetWidth}px`,
+            }),
+        );
     }
 
     private createResizeHandle = (position: 'bottom-right' | 'top-left') => {
@@ -106,13 +122,7 @@ class ImageView implements NodeView {
             window.removeEventListener('pointerup', onPointerUp);
             handle.setAttribute('aria-grabbed', 'false');
 
-            this.view.dispatch(
-                this.view.state.tr.setNodeMarkup(this.getPos(), undefined, {
-                    ...this.node.attrs,
-                    width: this.img.style.width,
-                    height: this.node.attrs.height,
-                }),
-            );
+            this.persistDimensions();
         };
 
         window.addEventListener('pointermove', onPointerMove);
@@ -197,8 +207,7 @@ class ImageView implements NodeView {
         if (!this.transitioningBetweenSuccessStates(node)) {
             this.img.src = node.attrs.src;
             this.img.alt = node.attrs.alt;
-            this.img.style.maxWidth = node.attrs.maxWidth;
-            this.img.style.width = node.attrs.width;
+            applyImageStyles(this.img, node);
         }
 
         this.node = node;
