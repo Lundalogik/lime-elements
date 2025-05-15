@@ -10,4 +10,7 @@ export const allowedCssProperties = [
     'text-decoration-thickness',
     'text-decoration',
     'width',
+    'height',
+    'min-width',
+    'min-height',
 ];

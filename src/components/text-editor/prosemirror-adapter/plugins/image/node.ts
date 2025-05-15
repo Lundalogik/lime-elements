@@ -21,6 +21,14 @@ export function getImageNodeMarkdownSerializer(
     return { image: createImageNodeMarkdownSerializer(language) };
 }
 
+export function applyImageStyles(img: HTMLImageElement, node: Node) {
+    img.style.height = node.attrs.height;
+    img.style.width = node.attrs.width;
+    img.style.minHeight = node.attrs.minHeight;
+    img.style.minWidth = node.attrs.minWidth;
+    img.style.maxWidth = node.attrs.maxWidth;
+}
+
 /**
  * Recursively checks if a ProseMirror node or
  * any of its child nodes is an image node.
@@ -44,20 +52,19 @@ function createImageNodeMarkdownSerializer(
     language: Languages,
 ): MarkdownSerializerFunction {
     return (markdownSerializerState: MarkdownSerializerState, node: Node) => {
-        const { state, alt, src, width, maxWidth } = node.attrs;
-
+        const state = node.attrs.state;
         if (!isEditorImageState(state)) {
             return;
         }
 
         if (state === 'success') {
-            const imageHTML = getImageHTML(src, alt, width, maxWidth);
+            const imageHTML = getImageHTML(node.attrs as ImageNodeAttrs);
             markdownSerializerState.write(imageHTML);
 
             return;
         }
 
-        const statusHTML = getStatusHTML(state, alt, language);
+        const statusHTML = getStatusHTML(state, node.attrs.alt, language);
         markdownSerializerState.write(statusHTML);
     };
 }
@@ -75,26 +82,33 @@ function getStatusHTML(
     return `<span>${text}</span>`;
 }
 
-function getImageHTML(
-    src: string,
-    alt: string,
-    width: string,
-    maxWidth: string,
-): string {
+function getImageHTML(attrs: ImageNodeAttrs): string {
     const style = [];
 
-    if (width) {
-        style.push(`width: ${width};`);
+    if (attrs.height) {
+        style.push(`height: ${attrs.height};`);
     }
 
-    if (maxWidth) {
-        style.push(`max-width: ${maxWidth};`);
+    if (attrs.width) {
+        style.push(`width: ${attrs.width};`);
+    }
+
+    if (attrs.minHeight) {
+        style.push(`min-height: ${attrs.minHeight};`);
+    }
+
+    if (attrs.minWidth) {
+        style.push(`min-width: ${attrs.minWidth};`);
+    }
+
+    if (attrs.maxWidth) {
+        style.push(`max-width: ${attrs.maxWidth};`);
     }
 
     const styleAttribute =
         style.length > 0 ? ` style="${style.join(' ')}"` : '';
 
-    return `<img src="${src}" alt="${alt}"${styleAttribute} />`;
+    return `<img src="${attrs.src}" alt="${attrs.alt}"${styleAttribute} />`;
 }
 
 export interface ImageNodeAttrs {
@@ -102,7 +116,10 @@ export interface ImageNodeAttrs {
     alt: string;
     state: EditorImageState;
     fileInfoId: string | number;
+    height?: string;
     width?: string;
+    minHeight?: string;
+    minWidth?: string;
     maxWidth?: string;
 }
 
@@ -114,7 +131,10 @@ function createImageNodeSpec(language: Languages): NodeSpec {
             src: { default: '' },
             alt: { default: '' },
             fileInfoId: { default: '' },
+            height: { default: '' },
             width: { default: '' },
+            minHeight: { default: '' },
+            minWidth: { default: '' },
             maxWidth: { default: '100%' },
             state: { default: 'success' },
         },
@@ -196,8 +216,7 @@ function updateImageElement(
     node: Node,
 ): HTMLImageElement {
     img.alt = node.attrs.alt;
-    img.style.maxWidth = node.attrs.maxWidth;
-    img.style.width = node.attrs.width;
+    applyImageStyles(img, node);
 
     return img;
 }
@@ -206,8 +225,7 @@ function createImageElement(node: Node): HTMLImageElement {
     const img = document.createElement('img');
     img.src = node.attrs.src;
     img.alt = node.attrs.alt;
-    img.style.maxWidth = node.attrs.maxWidth;
-    img.style.width = node.attrs.width;
+    applyImageStyles(img, node);
 
     return img;
 }
