@@ -1,7 +1,6 @@
-import { MenuItem } from './config';
 import { JsonDocsComponent, JsonDocs } from '../stencil-public-runtime';
-import { KompendiumGuide } from './guides';
-export declare function createMenu(docs: JsonDocs, guides: KompendiumGuide[]): MenuItem[];
+import { MenuItem, KompendiumGuide, TypeDescription } from '../types';
+export declare function createMenu(docs: JsonDocs, guides: KompendiumGuide[], types: TypeDescription[]): MenuItem[];
 export declare const addGuide: (menu: MenuItem[], path: string) => (guide: KompendiumGuide) => void;
 export declare function createComponentMenu(docs: JsonDocs): MenuItem;
 export declare function isExample(component: JsonDocsComponent): boolean;
@@ -10,3 +9,4 @@ export declare function getComponentMenu(component: JsonDocsComponent): MenuItem
 export declare function getComponentTitle(tag: string): string;
 export declare function createApiMenu(): MenuItem;
 export declare function createVersionMenu(): MenuItem;
+export declare function getTypeMenu(type: TypeDescription): MenuItem;

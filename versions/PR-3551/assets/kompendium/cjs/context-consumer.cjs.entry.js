@@ -2,28 +2,28 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const index = require('./index-ae7b1a30.js');
+const index = require('./index-4264cbf1.js');
 
 const ContextConsumer = class {
-    constructor(hostRef) {
-        index.registerInstance(this, hostRef);
-        this.context = {};
-        this.renderer = () => null;
+  constructor(hostRef) {
+    index.registerInstance(this, hostRef);
+    this.context = {};
+    this.renderer = () => null;
+  }
+  connectedCallback() {
+    if (this.subscribe != null) {
+      this.unsubscribe = this.subscribe(this.el, 'context');
     }
-    connectedCallback() {
-        if (this.subscribe != null) {
-            this.unsubscribe = this.subscribe(this.el, 'context');
-        }
+  }
+  disconnectedCallback() {
+    if (this.unsubscribe != null) {
+      this.unsubscribe();
     }
-    disconnectedCallback() {
-        if (this.unsubscribe != null) {
-            this.unsubscribe();
-        }
-    }
-    render() {
-        return this.renderer(Object.assign({}, this.context));
-    }
-    get el() { return index.getElement(this); }
+  }
+  render() {
+    return this.renderer(Object.assign({}, this.context));
+  }
+  get el() { return index.getElement(this); }
 };
 
 exports.context_consumer = ContextConsumer;

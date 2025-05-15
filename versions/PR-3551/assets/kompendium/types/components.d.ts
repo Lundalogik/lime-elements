@@ -5,12 +5,17 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
+import { PropsFactory } from "./components/playground/playground.types";
 import { JsonDocs, JsonDocsComponent, JsonDocsTag } from "./stencil-public-runtime";
 import { MatchResults } from "@stencil/router";
-import { KompendiumData, MenuItem } from "./kompendium/config";
+import { KompendiumData, MenuItem, TypeDescription } from "./types";
 import { ProplistItem } from "./components/proplist/proplist";
 export namespace Components {
     interface KompendiumApp {
+        /**
+          * Factory for creating props for example components
+         */
+        "examplePropsFactory"?: PropsFactory;
         /**
           * Path to `kompendium.json`
          */
@@ -18,17 +23,9 @@ export namespace Components {
     }
     interface KompendiumCode {
         /**
-          * Source code
-         */
-        "code": string;
-        /**
           * The language of the code
          */
         "language": string;
-        /**
-          * @ignore
-         */
-        "random": number;
     }
     interface KompendiumComponent {
         /**
@@ -36,9 +33,38 @@ export namespace Components {
          */
         "docs": JsonDocs;
         /**
+          * Factory for creating props for example components
+         */
+        "examplePropsFactory": PropsFactory;
+        /**
           * Matched route parameters
          */
         "match": MatchResults;
+        /**
+          * Component schemas
+         */
+        "schemas": Array<Record<string, any>>;
+    }
+    interface KompendiumDarkmodeSwitch {
+    }
+    interface KompendiumDebug {
+        /**
+          * The generated documentation data
+         */
+        "docs": JsonDocs;
+        /**
+          * Factory for creating props for example components
+          * @returns props
+         */
+        "examplePropsFactory"?: PropsFactory;
+        /**
+          * Matched route parameters
+         */
+        "match": MatchResults;
+        /**
+          * Component schemas
+         */
+        "schemas": Array<Record<string, any>>;
     }
     interface KompendiumExampleCode {
     }
@@ -59,6 +85,14 @@ export namespace Components {
          */
         "header": string;
         /**
+          * Index containing searchable documents
+         */
+        "index": any;
+        /**
+          * Optional logo to display instead of the header
+         */
+        "logo": string;
+        /**
           * The menu to display
          */
         "menu": MenuItem[];
@@ -68,6 +102,15 @@ export namespace Components {
           * The component to display
          */
         "component": JsonDocsComponent;
+        /**
+          * Factory for creating props for example components
+          * @returns props
+         */
+        "propsFactory"?: PropsFactory;
+        /**
+          * Schema for the component
+         */
+        "schema": Record<string, any>;
     }
     interface KompendiumProplist {
         /**
@@ -76,6 +119,10 @@ export namespace Components {
         "items": ProplistItem[];
     }
     interface KompendiumSearch {
+        /**
+          * Index containing searchable documents
+         */
+        "index": any;
     }
     interface KompendiumTaglist {
         /**
@@ -86,6 +133,13 @@ export namespace Components {
           * List of tags to render
          */
         "tags": JsonDocsTag[];
+    }
+    interface KompendiumType {
+        /**
+          * Matched route parameters
+         */
+        "match": MatchResults;
+        "types": TypeDescription[];
     }
 }
 declare global {
@@ -106,6 +160,18 @@ declare global {
     var HTMLKompendiumComponentElement: {
         prototype: HTMLKompendiumComponentElement;
         new (): HTMLKompendiumComponentElement;
+    };
+    interface HTMLKompendiumDarkmodeSwitchElement extends Components.KompendiumDarkmodeSwitch, HTMLStencilElement {
+    }
+    var HTMLKompendiumDarkmodeSwitchElement: {
+        prototype: HTMLKompendiumDarkmodeSwitchElement;
+        new (): HTMLKompendiumDarkmodeSwitchElement;
+    };
+    interface HTMLKompendiumDebugElement extends Components.KompendiumDebug, HTMLStencilElement {
+    }
+    var HTMLKompendiumDebugElement: {
+        prototype: HTMLKompendiumDebugElement;
+        new (): HTMLKompendiumDebugElement;
     };
     interface HTMLKompendiumExampleCodeElement extends Components.KompendiumExampleCode, HTMLStencilElement {
     }
@@ -161,10 +227,18 @@ declare global {
         prototype: HTMLKompendiumTaglistElement;
         new (): HTMLKompendiumTaglistElement;
     };
+    interface HTMLKompendiumTypeElement extends Components.KompendiumType, HTMLStencilElement {
+    }
+    var HTMLKompendiumTypeElement: {
+        prototype: HTMLKompendiumTypeElement;
+        new (): HTMLKompendiumTypeElement;
+    };
     interface HTMLElementTagNameMap {
         "kompendium-app": HTMLKompendiumAppElement;
         "kompendium-code": HTMLKompendiumCodeElement;
         "kompendium-component": HTMLKompendiumComponentElement;
+        "kompendium-darkmode-switch": HTMLKompendiumDarkmodeSwitchElement;
+        "kompendium-debug": HTMLKompendiumDebugElement;
         "kompendium-example-code": HTMLKompendiumExampleCodeElement;
         "kompendium-example-markdown": HTMLKompendiumExampleMarkdownElement;
         "kompendium-guide": HTMLKompendiumGuideElement;
@@ -174,10 +248,15 @@ declare global {
         "kompendium-proplist": HTMLKompendiumProplistElement;
         "kompendium-search": HTMLKompendiumSearchElement;
         "kompendium-taglist": HTMLKompendiumTaglistElement;
+        "kompendium-type": HTMLKompendiumTypeElement;
     }
 }
 declare namespace LocalJSX {
     interface KompendiumApp {
+        /**
+          * Factory for creating props for example components
+         */
+        "examplePropsFactory"?: PropsFactory;
         /**
           * Path to `kompendium.json`
          */
@@ -185,17 +264,9 @@ declare namespace LocalJSX {
     }
     interface KompendiumCode {
         /**
-          * Source code
-         */
-        "code"?: string;
-        /**
           * The language of the code
          */
         "language"?: string;
-        /**
-          * @ignore
-         */
-        "random"?: number;
     }
     interface KompendiumComponent {
         /**
@@ -203,9 +274,38 @@ declare namespace LocalJSX {
          */
         "docs"?: JsonDocs;
         /**
+          * Factory for creating props for example components
+         */
+        "examplePropsFactory"?: PropsFactory;
+        /**
           * Matched route parameters
          */
         "match"?: MatchResults;
+        /**
+          * Component schemas
+         */
+        "schemas"?: Array<Record<string, any>>;
+    }
+    interface KompendiumDarkmodeSwitch {
+    }
+    interface KompendiumDebug {
+        /**
+          * The generated documentation data
+         */
+        "docs"?: JsonDocs;
+        /**
+          * Factory for creating props for example components
+          * @returns props
+         */
+        "examplePropsFactory"?: PropsFactory;
+        /**
+          * Matched route parameters
+         */
+        "match"?: MatchResults;
+        /**
+          * Component schemas
+         */
+        "schemas"?: Array<Record<string, any>>;
     }
     interface KompendiumExampleCode {
     }
@@ -226,6 +326,14 @@ declare namespace LocalJSX {
          */
         "header"?: string;
         /**
+          * Index containing searchable documents
+         */
+        "index"?: any;
+        /**
+          * Optional logo to display instead of the header
+         */
+        "logo"?: string;
+        /**
           * The menu to display
          */
         "menu"?: MenuItem[];
@@ -235,6 +343,15 @@ declare namespace LocalJSX {
           * The component to display
          */
         "component"?: JsonDocsComponent;
+        /**
+          * Factory for creating props for example components
+          * @returns props
+         */
+        "propsFactory"?: PropsFactory;
+        /**
+          * Schema for the component
+         */
+        "schema"?: Record<string, any>;
     }
     interface KompendiumProplist {
         /**
@@ -243,6 +360,10 @@ declare namespace LocalJSX {
         "items"?: ProplistItem[];
     }
     interface KompendiumSearch {
+        /**
+          * Index containing searchable documents
+         */
+        "index"?: any;
     }
     interface KompendiumTaglist {
         /**
@@ -254,10 +375,19 @@ declare namespace LocalJSX {
          */
         "tags"?: JsonDocsTag[];
     }
+    interface KompendiumType {
+        /**
+          * Matched route parameters
+         */
+        "match"?: MatchResults;
+        "types"?: TypeDescription[];
+    }
     interface IntrinsicElements {
         "kompendium-app": KompendiumApp;
         "kompendium-code": KompendiumCode;
         "kompendium-component": KompendiumComponent;
+        "kompendium-darkmode-switch": KompendiumDarkmodeSwitch;
+        "kompendium-debug": KompendiumDebug;
         "kompendium-example-code": KompendiumExampleCode;
         "kompendium-example-markdown": KompendiumExampleMarkdown;
         "kompendium-guide": KompendiumGuide;
@@ -267,6 +397,7 @@ declare namespace LocalJSX {
         "kompendium-proplist": KompendiumProplist;
         "kompendium-search": KompendiumSearch;
         "kompendium-taglist": KompendiumTaglist;
+        "kompendium-type": KompendiumType;
     }
 }
 export { LocalJSX as JSX };
@@ -276,6 +407,8 @@ declare module "@stencil/core" {
             "kompendium-app": LocalJSX.KompendiumApp & JSXBase.HTMLAttributes<HTMLKompendiumAppElement>;
             "kompendium-code": LocalJSX.KompendiumCode & JSXBase.HTMLAttributes<HTMLKompendiumCodeElement>;
             "kompendium-component": LocalJSX.KompendiumComponent & JSXBase.HTMLAttributes<HTMLKompendiumComponentElement>;
+            "kompendium-darkmode-switch": LocalJSX.KompendiumDarkmodeSwitch & JSXBase.HTMLAttributes<HTMLKompendiumDarkmodeSwitchElement>;
+            "kompendium-debug": LocalJSX.KompendiumDebug & JSXBase.HTMLAttributes<HTMLKompendiumDebugElement>;
             "kompendium-example-code": LocalJSX.KompendiumExampleCode & JSXBase.HTMLAttributes<HTMLKompendiumExampleCodeElement>;
             "kompendium-example-markdown": LocalJSX.KompendiumExampleMarkdown & JSXBase.HTMLAttributes<HTMLKompendiumExampleMarkdownElement>;
             "kompendium-guide": LocalJSX.KompendiumGuide & JSXBase.HTMLAttributes<HTMLKompendiumGuideElement>;
@@ -285,6 +418,7 @@ declare module "@stencil/core" {
             "kompendium-proplist": LocalJSX.KompendiumProplist & JSXBase.HTMLAttributes<HTMLKompendiumProplistElement>;
             "kompendium-search": LocalJSX.KompendiumSearch & JSXBase.HTMLAttributes<HTMLKompendiumSearchElement>;
             "kompendium-taglist": LocalJSX.KompendiumTaglist & JSXBase.HTMLAttributes<HTMLKompendiumTaglistElement>;
+            "kompendium-type": LocalJSX.KompendiumType & JSXBase.HTMLAttributes<HTMLKompendiumTypeElement>;
         }
     }
 }

@@ -1,49 +1,49 @@
-import { MenuItem } from './config';
 import { JsonDocsComponent, JsonDocs } from '@stencil/core/internal';
-import { KompendiumGuide } from './guides';
 import startCase from 'lodash/startCase';
+import { MenuItem, KompendiumGuide, TypeDescription } from '../types';
 
 export function createMenu(
     docs: JsonDocs,
-    guides: KompendiumGuide[]
+    guides: KompendiumGuide[],
+    types: TypeDescription[],
 ): MenuItem[] {
-    const menu = [createComponentMenu(docs)];
+    let menu = [];
 
     guides.forEach(addGuide(menu, ''));
+    menu = [...menu, createComponentMenu(docs), createTypeMenu(types)];
 
     return menu;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const addGuide = (menu: MenuItem[], path: string) => (
-    guide: KompendiumGuide
-) => {
-    const subPath: string = guide.data.frontmatter.path.replace(path, '');
-    const parts = subPath.split('/');
-    const parentPath = `${path}/${parts[1]}`;
-    let submenu = menu.find((item) => item.path === parentPath);
+export const addGuide =
+    (menu: MenuItem[], path: string) => (guide: KompendiumGuide) => {
+        const subPath: string = guide.data.path.replace(path, '');
+        const parts = subPath.split('/');
+        const parentPath = `${path}/${parts[1]}`;
+        let submenu = menu.find((item) => item.path === parentPath + '/');
 
-    if (!submenu && parts.length === 2) {
-        const title = getGuideTitle(guide);
-        menu.push({
-            path: guide.data.frontmatter.path,
-            title: title,
-            children: [],
-        });
-        return;
-    }
+        if (!submenu && parts.length === 2) {
+            const title = getGuideTitle(guide);
+            menu.push({
+                path: guide.data.path + '/',
+                title: title,
+                children: [],
+            });
 
-    if (!submenu) {
-        submenu = {
-            path: parentPath,
-            title: startCase(parts[1]),
-            children: [],
-        };
-        menu.push(submenu);
-    }
+            return;
+        }
 
-    addGuide(submenu.children, parentPath)(guide);
-};
+        if (!submenu) {
+            submenu = {
+                path: parentPath + '/',
+                title: startCase(parts[1]),
+                children: [],
+            };
+            menu.push(submenu);
+        }
+
+        addGuide(submenu.children, parentPath)(guide);
+    };
 
 function getGuideTitle(guide: KompendiumGuide): string {
     const regex = /^#\s?(.+?)$/m;
@@ -56,9 +56,8 @@ export function createComponentMenu(docs: JsonDocs): MenuItem {
     const components = docs.components || [];
 
     return {
-        path: '/component',
+        path: '/component/',
         title: 'Components',
-        icon: 'cubes',
         children: components
             .filter(isNotExample)
             .filter(isPublic)
@@ -76,13 +75,13 @@ function isNotExample(component: JsonDocsComponent) {
 
 export function isPublic(component: JsonDocsComponent): boolean {
     return !component.docsTags.find((tag) =>
-        ['internal', 'private', 'ignore'].includes(tag.name)
+        ['internal', 'private', 'ignore'].includes(tag.name),
     );
 }
 
 export function getComponentMenu(component: JsonDocsComponent): MenuItem {
     return {
-        path: `/component/${component.tag}`,
+        path: `/component/${component.tag}/`,
         title: getComponentTitle(component.tag),
         children: [
             getComponentPropertyMenu(component),
@@ -101,7 +100,7 @@ function getComponentPropertyMenu(component: JsonDocsComponent): MenuItem {
 
     return {
         title: 'Properties',
-        path: `/component/${component.tag}/properties`,
+        path: `/component/${component.tag}/properties/`,
     };
 }
 
@@ -112,7 +111,7 @@ function getComponentEventMenu(component: JsonDocsComponent): MenuItem {
 
     return {
         title: 'Events',
-        path: `/component/${component.tag}/events`,
+        path: `/component/${component.tag}/events/`,
     };
 }
 
@@ -123,7 +122,7 @@ function getComponentMethodMenu(component: JsonDocsComponent): MenuItem {
 
     return {
         title: 'Methods',
-        path: `/component/${component.tag}/methods`,
+        path: `/component/${component.tag}/methods/`,
     };
 }
 
@@ -134,7 +133,7 @@ function getComponentSlotMenu(component: JsonDocsComponent): MenuItem {
 
     return {
         title: 'Slots',
-        path: `/component/${component.tag}/slots`,
+        path: `/component/${component.tag}/slots/`,
     };
 }
 
@@ -145,7 +144,7 @@ function getComponentStyleMenu(component: JsonDocsComponent): MenuItem {
 
     return {
         title: 'Styles',
-        path: `/component/${component.tag}/styles`,
+        path: `/component/${component.tag}/styles/`,
     };
 }
 
@@ -157,16 +156,30 @@ export function getComponentTitle(tag: string): string {
 
 export function createApiMenu(): MenuItem {
     return {
-        path: '/api',
+        path: '/api/',
         title: 'API',
-        icon: 'code',
     };
 }
 
 export function createVersionMenu(): MenuItem {
     return {
-        path: '/version',
+        path: '/version/',
         title: 'Versions',
-        icon: 'code-branch',
+    };
+}
+
+function createTypeMenu(types: TypeDescription[]): MenuItem {
+    return {
+        path: '/type/',
+        title: 'Types',
+        children: types.map(getTypeMenu),
+    };
+}
+
+export function getTypeMenu(type: TypeDescription): MenuItem {
+    return {
+        path: `/type/${type.name}/`,
+        title: type.name,
+        children: [],
     };
 }

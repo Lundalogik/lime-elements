@@ -2,31 +2,31 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const index = require('./index-ae7b1a30.js');
-const activeRouter = require('./active-router-3b8a7e93.js');
+const index = require('./index-4264cbf1.js');
+const activeRouter = require('./active-router-64317b4c.js');
 
 // Get the URL for this route link without the root from the router
 const getUrl = (url, root) => {
-    // Don't allow double slashes
-    if (url.charAt(0) == '/' && root.charAt(root.length - 1) == '/') {
-        return root.slice(0, root.length - 1) + url;
-    }
-    return root + url;
+  // Don't allow double slashes
+  if (url.charAt(0) == '/' && root.charAt(root.length - 1) == '/') {
+    return root.slice(0, root.length - 1) + url;
+  }
+  return root + url;
 };
 const Redirect = class {
-    constructor(hostRef) {
-        index.registerInstance(this, hostRef);
+  constructor(hostRef) {
+    index.registerInstance(this, hostRef);
+  }
+  componentWillLoad() {
+    if (this.history && this.root && this.url) {
+      return this.history.replace(getUrl(this.url, this.root));
     }
-    componentWillLoad() {
-        if (this.history && this.root && this.url) {
-            return this.history.replace(getUrl(this.url, this.root));
-        }
-    }
-    get el() { return index.getElement(this); }
+  }
+  get el() { return index.getElement(this); }
 };
 activeRouter.ActiveRouter.injectProps(Redirect, [
-    'history',
-    'root'
+  'history',
+  'root'
 ]);
 
 exports.stencil_router_redirect = Redirect;
