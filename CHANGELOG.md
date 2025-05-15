@@ -1,3 +1,11 @@
+## [38.12.4](https://github.com/Lundalogik/lime-elements/compare/v38.12.3...v38.12.4) (2025-05-15)
+
+
+### Bug Fixes
+
+
+* **text-editor:** force selection on focus when ProseMirror fails to dispatch transaction ([0df8231](https://github.com/Lundalogik/lime-elements/commit/0df8231247e1ee7ceb4bbf297f571f9812d1dd00))
+
 ## [38.12.3](https://github.com/Lundalogik/lime-elements/compare/v38.12.2...v38.12.3) (2025-05-14)
 
 
