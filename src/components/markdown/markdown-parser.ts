@@ -11,6 +11,7 @@ import { visit } from 'unist-util-visit';
 import { sanitizeStyle } from './sanitize-style';
 import { Node } from 'unist';
 import { Schema } from 'rehype-sanitize/lib';
+import { createLazyLoadImagesPlugin } from './image-markdown-plugin';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 
 /**
@@ -35,7 +36,7 @@ export async function markdownToHTML(
         text = text.replace(/(?<!\\)([\n\r])/g, '  $1');
     }
 
-    const processor = unified()
+    const file = await unified()
         .use(remarkParse)
         .use(remarkGfm)
         .use(remarkRehype, { allowDangerousHtml: true })
@@ -50,31 +51,12 @@ export async function markdownToHTML(
                 // the value of the `style` attribute, if there is one.
                 visit(tree, 'element', sanitizeStyle);
             };
-        });
-
-    if (options?.lazyLoadImages) {
-        processor.use(setupLazyLoadImages);
-    }
-
-    const file = await processor.use(rehypeStringify).process(text);
+        })
+        .use(createLazyLoadImagesPlugin(options?.lazyLoadImages))
+        .use(rehypeStringify)
+        .process(text);
 
     return file.toString();
-}
-
-function setupLazyLoadImages() {
-    return (tree: Node) => {
-        visit(tree, 'element', (node: any) => {
-            if (node.tagName === 'img') {
-                node.properties = node.properties || {};
-                node.properties.loading = 'lazy';
-
-                if (node.properties.src) {
-                    node.properties['data-src'] = node.properties.src;
-                    node.properties.src = undefined;
-                }
-            }
-        });
-    };
 }
 
 /**
