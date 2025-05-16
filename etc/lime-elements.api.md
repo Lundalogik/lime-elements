@@ -528,6 +528,7 @@ export namespace Components {
         "type": ListType;
     }
     export interface LimelMarkdown {
+        "lazyLoadImages": boolean;
         "value": string;
         // @alpha
         "whitelist"?: CustomElementDefinition[];
@@ -1612,6 +1613,7 @@ export namespace JSX {
         "type"?: ListType;
     }
     export interface LimelMarkdown {
+        "lazyLoadImages"?: boolean;
         "value"?: string;
         // @alpha
         "whitelist"?: CustomElementDefinition[];

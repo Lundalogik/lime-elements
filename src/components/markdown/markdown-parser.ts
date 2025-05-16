@@ -11,6 +11,7 @@ import { visit } from 'unist-util-visit';
 import { sanitizeStyle } from './sanitize-style';
 import { Node } from 'unist';
 import { Schema } from 'rehype-sanitize/lib';
+import { createLazyLoadImagesPlugin } from './image-markdown-plugin';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 
 /**
@@ -51,6 +52,7 @@ export async function markdownToHTML(
                 visit(tree, 'element', sanitizeStyle);
             };
         })
+        .use(createLazyLoadImagesPlugin(options?.lazyLoadImages))
         .use(rehypeStringify)
         .process(text);
 
@@ -125,4 +127,5 @@ export interface MarkdownToHTMLOptions {
      */
     forceHardLineBreaks?: boolean;
     whitelist?: CustomElementDefinition[];
+    lazyLoadImages?: boolean;
 }
