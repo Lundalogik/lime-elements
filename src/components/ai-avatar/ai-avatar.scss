@@ -28,8 +28,6 @@
 
 .core,
 .orbitals {
-    mix-blend-mode: overlay;
-
     position: absolute;
     z-index: 10;
     inset: 0;
@@ -40,19 +38,25 @@
     justify-content: center;
 
     aspect-ratio: 1;
-    width: clamp(0.375rem, 20%, 3.5rem);
 
     border-radius: 50%;
 }
 
 .core {
+    opacity: 0.8;
+    width: 70%;
     animation: breathe 3s ease infinite;
     animation-play-state: var(--ai-avatar-animation-play-state, paused);
-    background-color: rgb(var(--color-glaucous-lighter));
+
+    background-color: inherit;
     box-shadow: var(--shadow-depth-8);
+    backdrop-filter: blur(1rem);
 }
 
 .orbitals {
+    mix-blend-mode: overlay;
+    width: clamp(0.375rem, 20%, 3.5rem);
+
     animation: rotate 5s linear infinite;
     animation-play-state: var(--ai-avatar-animation-play-state, paused);
 
@@ -106,7 +110,7 @@
         transform: scale(1);
     }
     50% {
-        transform: scale(0.7);
+        transform: scale(0.9);
     }
 }
 
