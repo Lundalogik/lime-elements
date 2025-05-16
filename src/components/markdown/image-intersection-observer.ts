@@ -1,29 +1,20 @@
-export class ImageLazyLoader {
+export class ImageIntersectionObserver {
     private observer: IntersectionObserver;
 
     /**
-     * Setup lazy loading for all images in a container element
-     * @param containerElement - The element containing images to lazy load
+     * @param containerElement - The element containing images to observe.
      */
-    public setupLazyLoading(containerElement: HTMLElement) {
-        this.disconnect();
-
-        const images = containerElement.querySelectorAll('img');
-        if (!images.length) {
-            return;
-        }
-
+    public constructor(containerElement: HTMLElement) {
         this.observer = new IntersectionObserver(this.handleIntersection);
 
+        const images = containerElement.querySelectorAll('img');
         images.forEach((img) => {
             this.observer.observe(img);
         });
     }
 
     public disconnect() {
-        if (this.observer) {
-            this.observer.disconnect();
-        }
+        this.observer.disconnect();
     }
 
     private readonly handleIntersection = (

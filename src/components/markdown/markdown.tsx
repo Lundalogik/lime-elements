@@ -2,7 +2,7 @@ import { Component, h, Prop, Watch } from '@stencil/core';
 import { markdownToHTML } from './markdown-parser';
 import { globalConfig } from '../../global/config';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
-import { ImageLazyLoader } from './image-lazy-loader';
+import { ImageIntersectionObserver } from './image-intersection-observer';
 
 /**
  * The Markdown component receives markdown syntax
@@ -58,6 +58,8 @@ export class Markdown {
     @Watch('value')
     public async textChanged() {
         try {
+            this.cleanupImageIntersectionObserver();
+
             const html = await markdownToHTML(this.value, {
                 forceHardLineBreaks: true,
                 whitelist: this.whitelist ?? [],
@@ -66,9 +68,7 @@ export class Markdown {
 
             this.rootElement.innerHTML = html;
 
-            if (this.lazyLoadImages) {
-                this.imageLazyLoader.setupLazyLoading(this.rootElement);
-            }
+            this.setupImageIntersectionObserver();
         } catch (error) {
             // eslint-disable-next-line no-console
             console.error(error);
@@ -76,14 +76,14 @@ export class Markdown {
     }
 
     private rootElement: HTMLDivElement;
-    private imageLazyLoader: ImageLazyLoader = new ImageLazyLoader();
+    private imageIntersectionObserver: ImageIntersectionObserver;
 
     public async componentDidLoad() {
         this.textChanged();
     }
 
     public disconnectedCallback() {
-        this.imageLazyLoader.disconnect();
+        this.cleanupImageIntersectionObserver();
     }
 
     public render() {
@@ -93,5 +93,20 @@ export class Markdown {
                 ref={(el) => (this.rootElement = el as HTMLDivElement)}
             />,
         ];
+    }
+
+    private setupImageIntersectionObserver() {
+        if (this.lazyLoadImages) {
+            this.imageIntersectionObserver = new ImageIntersectionObserver(
+                this.rootElement,
+            );
+        }
+    }
+
+    private cleanupImageIntersectionObserver() {
+        if (this.imageIntersectionObserver) {
+            this.imageIntersectionObserver.disconnect();
+            this.imageIntersectionObserver = null;
+        }
     }
 }
