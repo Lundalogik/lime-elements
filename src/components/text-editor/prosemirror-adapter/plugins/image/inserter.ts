@@ -255,21 +255,45 @@ function handlePastedImages(
  * Determines if a file is an image that should be processed by the image handler.
  *
  * This function checks both the file's MIME type and the clipboard HTML content.
- * It specifically filters out Excel tables that are copied as images to prevent
- * them from being processed as regular images when they should be handled as tables.
+ * It filters out HTML content from Excel and HTML tables, as they are not relevant for image processing.
  *
  * @param file - The file object to check
  * @param clipboardData - The full clipboard data transfer object to examine for context
  * @returns True if the file is an image that should be processed, false otherwise
  */
 function isImageFile(file: File, clipboardData: DataTransfer): boolean {
-    const isContentTypeImage = file.type.startsWith('image/');
-    if (!isContentTypeImage) {
+    if (!isContentTypeImage(file)) {
         return false;
     }
 
     const html = clipboardData?.getData('text/html')?.toLowerCase() ?? '';
-    const isProbablyFromExcel = html.includes('<table');
 
-    return !isProbablyFromExcel;
+    return !isHtmlFromExcel(html) && !isHtmlTable(html);
+}
+
+function isContentTypeImage(file: File): boolean {
+    if (!file?.type) {
+        return false;
+    }
+
+    return file.type.startsWith('image/');
+}
+
+function isHtmlFromExcel(html: string): boolean {
+    if (!html) {
+        return false;
+    }
+
+    return (
+        html.includes('name=generator content="microsoft excel"') ||
+        html.includes('xmlns:x="urn:schemas-microsoft-com:office:excel"')
+    );
+}
+
+function isHtmlTable(html: string): boolean {
+    if (!html) {
+        return false;
+    }
+
+    return html.includes('<table');
 }
