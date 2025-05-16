@@ -105,8 +105,7 @@ function getImageHTML(attrs: ImageNodeAttrs): string {
         style.push(`max-width: ${attrs.maxWidth};`);
     }
 
-    const styleAttribute =
-        style.length > 0 ? ` style="${style.join(' ')}"` : '';
+    const styleAttribute = style.length > 0 ? ` style="${style.join('')}"` : '';
 
     return `<img src="${attrs.src}" alt="${attrs.alt}"${styleAttribute} />`;
 }
