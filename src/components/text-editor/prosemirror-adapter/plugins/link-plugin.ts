@@ -1,8 +1,7 @@
 import { Plugin, PluginKey, TextSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { schema } from 'prosemirror-schema-basic';
-import { Mark } from 'prosemirror-model';
-import { isExternalLink, isValidUrl } from '../menu/menu-commands';
+import { Mark, Fragment, Node, Schema } from 'prosemirror-model';
+import { isExternalLink } from '../menu/menu-commands';
 import { EditorMenuTypes, MouseButtons } from '../menu/types';
 import { EditorLink } from '../../text-editor.types';
 
@@ -173,41 +172,191 @@ const processClickEvent = (view: EditorView, event: MouseEvent): boolean => {
     return true;
 };
 
+/**
+ * Regular expression for matching URLs, mailto links, and phone links
+ */
+const URL_REGEX = /(https?:\/\/[^\s<>"']+|mailto:[^\s<>"']+|tel:[^\s<>"']+)/g;
+
+/**
+ * Checks if the text contains any URLs, mailto links, or phone links
+ */
+const hasUrls = (text: string): boolean => {
+    // Reset regex before use
+    URL_REGEX.lastIndex = 0;
+
+    return URL_REGEX.test(text);
+};
+
+/**
+ * Creates a text node with the provided content
+ */
+const createTextNode = (schema: Schema, content: string): Node => {
+    return schema.text(content);
+};
+
+/**
+ * Creates a link node with the provided URL
+ */
+const createLinkNode = (schema: Schema, url: string): Node => {
+    const linkMark = schema.marks.link.create({
+        href: url,
+        title: url,
+        // Only set _blank for http/https links, not for mailto/tel
+        target: url.startsWith('http') && isExternalLink(url) ? '_blank' : null,
+    });
+
+    return schema.text(url, [linkMark]);
+};
+
+/**
+ * Finds all link matches in the provided text
+ */
+const findLinkMatches = (
+    text: string,
+): Array<{ url: string; start: number; end: number }> => {
+    const matches = [];
+    let match: RegExpExecArray | null;
+
+    // Reset regex before use
+    URL_REGEX.lastIndex = 0;
+
+    while ((match = URL_REGEX.exec(text)) !== null) {
+        matches.push({
+            url: match[0],
+            start: match.index,
+            end: match.index + match[0].length,
+        });
+    }
+
+    return matches;
+};
+
+/**
+ * Creates text nodes with links for any URLs, mailto links, or phone links found in the text
+ */
+const createNodesWithLinks = (text: string, schema: Schema): Node[] => {
+    const nodes: Node[] = [];
+    const matches = findLinkMatches(text);
+
+    if (matches.length === 0) {
+        // No links found, just return the text as a single node
+        return [createTextNode(schema, text)];
+    }
+
+    let lastIndex = 0;
+
+    // Process each match
+    for (const match of matches) {
+        // Add text before the current link if any
+        if (match.start > lastIndex) {
+            nodes.push(
+                createTextNode(schema, text.slice(lastIndex, match.start)),
+            );
+        }
+
+        // Add the link node
+        nodes.push(createLinkNode(schema, match.url));
+
+        lastIndex = match.end;
+    }
+
+    // Add any remaining text after the last link
+    if (lastIndex < text.length) {
+        nodes.push(createTextNode(schema, text.slice(lastIndex)));
+    }
+
+    return nodes;
+};
+
+/**
+ * Pastes nodes at the current selection
+ * @param view - The editor view
+ * @param nodes - Array of nodes to paste
+ */
+const pasteAsLink = (view: EditorView, nodes: Node[]) => {
+    if (nodes.length === 0) {
+        return;
+    }
+
+    if (isSingleLinkNode(nodes)) {
+        insertSingleLink(view, nodes[0]);
+    } else {
+        insertNodeFragment(view, nodes);
+    }
+};
+
+/**
+ * Checks if the nodes array contains just a single link node
+ */
+const isSingleLinkNode = (nodes: Node[]): boolean => {
+    if (nodes.length !== 1) {
+        return false;
+    }
+
+    const node = nodes[0];
+
+    // Must be text with non-empty content
+    if (!node.isText || !node.text || node.text.trim() === '') {
+        return false;
+    }
+
+    // Must have a link mark (even if there are other marks, we just care about link presence)
+    return !!node.marks.find((mark) => mark.type.name === 'link');
+};
+
+/**
+ * Inserts a single link node, applying it to selected text if present
+ */
+const insertSingleLink = (view: EditorView, linkNode: Node) => {
+    const { state, dispatch } = view;
+    const { from, to } = state.selection;
+
+    const linkMark = linkNode.marks.find((mark) => mark.type.name === 'link');
+
+    // Use selected text if there's a selection, otherwise use the URL
+    const selectedText =
+        state.doc.textBetween(from, to, ' ') || linkMark.attrs.href;
+
+    // Insert the text and add the link mark
+    dispatch(
+        state.tr
+            .insertText(selectedText, from, to)
+            .addMark(from, from + selectedText.length, linkMark),
+    );
+};
+
+/**
+ * Inserts multiple nodes as a fragment at the current selection
+ * @param view - The editor view
+ * @param nodes - Array of nodes to insert
+ */
+const insertNodeFragment = (view: EditorView, nodes: Node[]) => {
+    const { state, dispatch } = view;
+    const { from, to } = state.selection;
+
+    // Create a fragment from the array of nodes
+    const fragment = Fragment.fromArray(nodes);
+
+    // Replace the current selection with the fragment
+    dispatch(state.tr.replaceWith(from, to, fragment));
+};
+
+/**
+ * Handles pasted content, converting URLs to links
+ */
 const processPasteEvent = (
     view: EditorView,
     event: ClipboardEvent,
 ): boolean => {
-    const clipboardData = event.clipboardData;
-    if (!clipboardData) {
+    const text = event.clipboardData?.getData('text/plain');
+    if (!text || !hasUrls(text)) {
         return false;
     }
 
-    const text = clipboardData.getData('text/plain');
+    const nodes = createNodesWithLinks(text, view.state.schema);
+    pasteAsLink(view, nodes);
 
-    // Process as a link if the text is a valid URL
-    if (isValidUrl(text)) {
-        pasteAsLink(view, text);
-
-        return true;
-    }
-
-    return false;
-};
-
-const pasteAsLink = (view: EditorView, href: string) => {
-    const { state, dispatch } = view;
-    const { from, to } = state.selection;
-    const linkMark = schema.marks.link.create({
-        href: href,
-        title: href,
-        target: isExternalLink(href) ? '_blank' : null,
-    });
-    const selectedText = state.doc.textBetween(from, to, ' ') || href;
-    const transaction = state.tr
-        .insertText(selectedText, from, to)
-        .addMark(from, from + selectedText.length, linkMark);
-
-    dispatch(transaction);
+    return true;
 };
 
 export const createLinkPlugin = (updateLinkCallback?: UpdateLinkCallback) => {
