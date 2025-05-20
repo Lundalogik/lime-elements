@@ -1,3 +1,11 @@
+## [38.13.0](https://github.com/Lundalogik/lime-elements/compare/v38.12.5...v38.13.0) (2025-05-20)
+
+
+### Features
+
+
+* **markdown:** add option to lazy load images ([19e8feb](https://github.com/Lundalogik/lime-elements/commit/19e8feb1d8a48f2d636a004d0f671bcf35e4737f))
+
 ## [38.12.5](https://github.com/Lundalogik/lime-elements/compare/v38.12.4...v38.12.5) (2025-05-19)
 
 
