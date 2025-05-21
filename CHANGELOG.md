@@ -1,3 +1,11 @@
+## [38.13.1](https://github.com/Lundalogik/lime-elements/compare/v38.13.0...v38.13.1) (2025-05-21)
+
+
+### Bug Fixes
+
+
+* **text-editor:** prevent Excel tables from being processed as images when pasted ([8ec93fb](https://github.com/Lundalogik/lime-elements/commit/8ec93fbeb751ba3c984d572a117a71de40f5c94a))
+
 ## [38.13.0](https://github.com/Lundalogik/lime-elements/compare/v38.12.5...v38.13.0) (2025-05-20)
 
 
