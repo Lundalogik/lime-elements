@@ -35,15 +35,18 @@ interface CollapsibleItemProps {
 export class CollapsibleItemTemplate extends React.Component {
     state = {
         isOpen: false,
+        invalid: false,
     };
 
     constructor(public props: CollapsibleItemProps) {
         super(props);
         this.handleAction = this.handleAction.bind(this);
         this.isDeepEmpty = this.isDeepEmpty.bind(this);
+        this.checkInvalidFields = this.checkInvalidFields.bind(this);
 
         this.state = {
             isOpen: this.isDeepEmpty(props.data),
+            invalid: false,
         };
     }
 
@@ -55,10 +58,14 @@ export class CollapsibleItemTemplate extends React.Component {
         section.addEventListener('open', this.handleOpen);
 
         this.setActions(section);
+        // Check for invalid fields on mount
+        this.checkInvalidFields();
     }
 
     public componentDidUpdate() {
         this.setActions(this.section);
+        // Check for invalid fields on update
+        this.checkInvalidFields();
     }
 
     public componentWillUnmount() {
@@ -83,6 +90,7 @@ export class CollapsibleItemTemplate extends React.Component {
                     this.section = section;
                 },
                 'is-open': this.state.isOpen,
+                invalid: this.state.invalid,
             },
             children,
         );
@@ -135,5 +143,36 @@ export class CollapsibleItemTemplate extends React.Component {
         }
 
         return Object.values(data).every(this.isDeepEmpty);
+    }
+
+    /**
+     * Check for any invalid fields within the section's children
+     * and update the invalid state accordingly
+     */
+    private checkInvalidFields() {
+        // First, make sure we have a section to check
+        if (!this.section) {
+            return;
+        }
+
+        // Find any invalid elements inside the section
+        // (using the section as a root element)
+        const invalidElements = Array.from(
+            this.section.querySelectorAll('[invalid]'),
+        ).filter((el) => {
+            // Make sure the invalid element is within this section's children
+            // and not from another section
+            return this.section.contains(el);
+        });
+
+        // Check if we have any invalid elements
+        const hasInvalidFields = invalidElements.length > 0;
+
+        // Only update state if the invalid status has changed
+        if (this.state.invalid !== hasInvalidFields) {
+            this.setState({
+                invalid: hasInvalidFields,
+            });
+        }
     }
 }
