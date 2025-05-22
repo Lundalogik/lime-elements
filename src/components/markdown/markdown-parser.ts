@@ -3,7 +3,6 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import remarkGfm from 'remark-gfm';
 import rehypeParse from 'rehype-parse';
-import rehypeExternalLinks from 'rehype-external-links';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
 import rehypeRaw from 'rehype-raw';
@@ -13,6 +12,7 @@ import { Node } from 'unist';
 import { Schema } from 'rehype-sanitize/lib';
 import { createLazyLoadImagesPlugin } from './image-markdown-plugin';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
+import { createLinksPlugin } from './link-markdown-plugin';
 
 /**
  * Takes a string as input and returns a new string
@@ -40,8 +40,8 @@ export async function markdownToHTML(
         .use(remarkParse)
         .use(remarkGfm)
         .use(remarkRehype, { allowDangerousHtml: true })
-        .use(rehypeExternalLinks, { target: '_blank' })
         .use(rehypeRaw)
+        .use(createLinksPlugin())
         .use(rehypeSanitize, {
             ...getWhiteList(options?.whitelist ?? []),
         })
@@ -107,6 +107,7 @@ function getWhiteList(allowedComponents: CustomElementDefinition[]): Schema {
                 ...(defaultSchema.attributes.p ?? []),
                 ['className', 'MsoNormal'],
             ], // Allow the class 'MsoNormal' on <p> elements
+            a: [...(defaultSchema.attributes.a ?? []), 'referrerpolicy'], // Allow referrerpolicy on <a> elements
             '*': asteriskAttributeWhitelist,
         },
     };
