@@ -3,6 +3,7 @@ import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
 import { findWrapping, liftTarget } from 'prosemirror-transform';
 import { Command, EditorState, TextSelection } from 'prosemirror-state';
 import { EditorMenuTypes, EditorTextLink, LevelMapping } from './types';
+import { getLinkAttributes } from '../plugins/link/utils';
 
 type CommandFunction = (
     schema: Schema,
@@ -82,23 +83,17 @@ const createInsertLinkCommand: CommandFunction = (
 ): CommandWithActive => {
     const command: Command = (state, dispatch) => {
         const { from, to } = state.selection;
+        const linkMark = schema.marks.link.create(
+            getLinkAttributes(link.href, link.href),
+        );
+
         if (from === to) {
             // If no text is selected, insert new text with link
-            const linkMark = schema.marks.link.create({
-                href: link.href,
-                title: link.href,
-                target: isExternalLink(link.href) ? '_blank' : null,
-            });
             const linkText = link.text || link.href;
             const newLink = schema.text(linkText, [linkMark]);
             dispatch(state.tr.insert(from, newLink));
         } else {
             // If text is selected, replace selected text with link text
-            const linkMark = schema.marks.link.create({
-                href: link.href,
-                title: link.href,
-                target: isExternalLink(link.href) ? '_blank' : null,
-            });
             const selectedText = state.doc.textBetween(from, to, ' ');
             const newLink = schema.text(link.text || selectedText, [linkMark]);
             dispatch(state.tr.replaceWith(from, to, newLink));
