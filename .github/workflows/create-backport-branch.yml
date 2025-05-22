@@ -38,49 +38,62 @@ jobs:
     steps:
       - name: Extract Last Release Major and Minor Versions
         id: extract_last_versions
+        env:
+          LAST_RELEASE_VERSION: ${{ inputs.last_release_version }}
         run: |
-          last_version='${{ inputs.last_release_version }}'
+          last_version=$LAST_RELEASE_VERSION
           IFS='.' read -r last_major last_minor last_patch <<< "$last_version"
-          echo "last_major=$last_major" >> $GITHUB_OUTPUT
-          echo "last_minor=$last_minor" >> $GITHUB_OUTPUT
+          echo "last_major=$last_major" >> "$GITHUB_OUTPUT"
+          echo "last_minor=$last_minor" >> "$GITHUB_OUTPUT"
           echo "last major: $last_major"
           echo "last minor: $last_minor"
 
       - name: Extract New Release Major and Minor Versions
         id: extract_new_versions
+        env:
+          NEW_RELEASE_VERSION: ${{ inputs.new_release_version }}
         run: |
-          new_version='${{ inputs.new_release_version }}'
+          new_version=$NEW_RELEASE_VERSION
           IFS='.' read -r new_major new_minor new_patch <<< "$new_version"
-          echo "new_major=$new_major" >> $GITHUB_OUTPUT
-          echo "new_minor=$new_minor" >> $GITHUB_OUTPUT
+          echo "new_major=$new_major" >> "$GITHUB_OUTPUT"
+          echo "new_minor=$new_minor" >> "$GITHUB_OUTPUT"
           echo "new major: $new_major"
           echo "new minor: $new_minor"
 
       - name: Determine Bump Type
         id: determine_bump
+        env:
+          NEW_MAJOR: ${{ steps.extract_new_versions.outputs.new_major }}
+          NEW_MINOR: ${{ steps.extract_new_versions.outputs.new_minor }}
+          LAST_MAJOR: ${{ steps.extract_last_versions.outputs.last_major }}
+          LAST_MINOR: ${{ steps.extract_last_versions.outputs.last_minor }}
         run: |
-          new_major='${{ steps.extract_new_versions.outputs.new_major }}'
-          new_minor='${{ steps.extract_new_versions.outputs.new_minor }}'
-          last_major='${{ steps.extract_last_versions.outputs.last_major }}'
-          last_minor='${{ steps.extract_last_versions.outputs.last_minor }}'
+          new_major=$NEW_MAJOR
+          new_minor=$NEW_MINOR
+          last_major=$LAST_MAJOR
+          last_minor=$LAST_MINOR
 
           if [ "$new_major" -gt "$last_major" ]; then
-            echo "bump_type=major" >> $GITHUB_OUTPUT
+            echo "bump_type=major" >> "$GITHUB_OUTPUT"
             echo 'bump type is `major`'
           elif [ "$new_major" -eq "$last_major" ] && [ "$new_minor" -gt "$last_minor" ]; then
-            echo "bump_type=minor" >> $GITHUB_OUTPUT
+            echo "bump_type=minor" >> "$GITHUB_OUTPUT"
             echo 'bump type is `minor`'
           else
-            echo "bump_type=patch" >> $GITHUB_OUTPUT
+            echo "bump_type=patch" >> "$GITHUB_OUTPUT"
             echo 'bump type is `patch` or other'
           fi
 
       - name: Determine Branch Name
         id: determine_branch_name
+        env:
+          BUMP_TYPE: ${{ steps.determine_bump.outputs.bump_type }}
+          LAST_MAJOR: ${{ steps.extract_last_versions.outputs.last_major }}
+          LAST_MINOR: ${{ steps.extract_last_versions.outputs.last_minor }}
         run: |
-          bump_type='${{ steps.determine_bump.outputs.bump_type }}'
-          last_major='${{ steps.extract_last_versions.outputs.last_major }}'
-          last_minor='${{ steps.extract_last_versions.outputs.last_minor }}'
+          bump_type=$BUMP_TYPE
+          last_major=$LAST_MAJOR
+          last_minor=$LAST_MINOR
 
           if [ "$bump_type" = "major" ]; then
             branch_name="${last_major}.x.x"
@@ -89,19 +102,22 @@ jobs:
           else
             branch_name=""
           fi
-          echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
+          echo "branch_name=$branch_name" >> "$GITHUB_OUTPUT"
           echo "branch name: $branch_name"
 
       - name: Set Last Release Git Tag
         id: set_git_tag
         if: ${{ steps.determine_branch_name.outputs.branch_name != '' }}
+        env:
+          LAST_RELEASE_GIT_TAG_INPUT: ${{ inputs.last_release_git_tag }}
+          LAST_RELEASE_VERSION_INPUT: ${{ inputs.last_release_version }}
         run: |
-          if [ -z "${{ inputs.last_release_git_tag }}" ]; then
-            git_tag="v${{ inputs.last_release_version }}"
+          if [ -z "$LAST_RELEASE_GIT_TAG_INPUT" ]; then
+            git_tag="v$LAST_RELEASE_VERSION_INPUT"
           else
-            git_tag="${{ inputs.last_release_git_tag }}"
+            git_tag="$LAST_RELEASE_GIT_TAG_INPUT"
           fi
-          echo "last_release_git_tag=${git_tag}" >> $GITHUB_OUTPUT
+          echo "last_release_git_tag=${git_tag}" >> "$GITHUB_OUTPUT"
           echo "last release git tag: ${git_tag}"
 
       - name: Checkout Code
@@ -113,9 +129,12 @@ jobs:
 
       - name: Create Release Branch
         if: ${{ steps.determine_branch_name.outputs.branch_name != '' }}
+        env:
+          LAST_RELEASE_GIT_TAG: ${{ steps.set_git_tag.outputs.last_release_git_tag }}
+          BRANCH_NAME: ${{ steps.determine_branch_name.outputs.branch_name }}
         run: |
-          git fetch origin "refs/tags/${{ steps.set_git_tag.outputs.last_release_git_tag }}:refs/tags/${{ steps.set_git_tag.outputs.last_release_git_tag }}"
-          git checkout "${{ steps.set_git_tag.outputs.last_release_git_tag }}"
-          git checkout -b "${{ steps.determine_branch_name.outputs.branch_name }}"
-          git push origin "${{ steps.determine_branch_name.outputs.branch_name }}"
-          echo "branch created: ${{ steps.determine_branch_name.outputs.branch_name }}"
+          git fetch origin "refs/tags/$LAST_RELEASE_GIT_TAG:refs/tags/$LAST_RELEASE_GIT_TAG"
+          git checkout "$LAST_RELEASE_GIT_TAG"
+          git checkout -b "$BRANCH_NAME"
+          git push origin "$BRANCH_NAME"
+          echo "branch created: $BRANCH_NAME"

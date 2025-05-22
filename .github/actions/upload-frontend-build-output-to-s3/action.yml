@@ -23,8 +23,10 @@ runs:
   - name: Upload to S3
     working-directory: ${{ inputs.frontend-path }}
     shell: bash
+    env:
+      PACKAGE_VERSION: ${{ inputs.package-version }}
     run: |
-      PKG_NAME=$(npm pkg get name | tr -d '"')
+      PKG_NAME=$(npm pkg get name | tr -d '\"')
       FILENAME=$(npm pack | tail -n1)
-      tar -xvf $FILENAME
-      aws s3 cp package s3://limecloud-static-files/packages/$PKG_NAME/${{ inputs.package-version }} --recursive --follow-symlinks
+      tar -xvf "$FILENAME"
+      aws s3 cp "package" "s3://limecloud-static-files/packages/$PKG_NAME/$PACKAGE_VERSION" --recursive --follow-symlinks
