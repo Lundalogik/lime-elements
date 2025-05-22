@@ -41,9 +41,16 @@ jobs:
     - run: git config --global user.name "Lime Technologies OSS"
     - name: Publish docs
       if: inputs.buildOnly == false
-      run: npm run docs:publish -- --v=${{ inputs.version }} ${{ inputs.forcePush && '--forcePush' }}
       env:
+        DOCS_VERSION: ${{ inputs.version }}
+        FORCE_PUSH: ${{ inputs.forcePush }}
         GH_TOKEN: ${{ secrets.PUBLISH_DOCS }}
+      run: |
+        if [ "$FORCE_PUSH" = "true" ]; then
+          npm run docs:publish -- --v="$DOCS_VERSION" --forcePush
+        else
+          npm run docs:publish -- --v="$DOCS_VERSION"
+        fi
     - name: Build docs, but do not publish
       if: inputs.buildOnly
       run: npm run docs:build

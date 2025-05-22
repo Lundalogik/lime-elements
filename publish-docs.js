@@ -50,11 +50,6 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>]
     --noTeardown    Run no cleanup at end of script. Implies --noCleanOnFail.
     --noCleanOnFail Do not run cleanup if script fails. Unless --noTeardown
                     is set, cleanup will still be run if script is successful.
-
-    --authorName    Commit author name. Will update the local git config if set.
-                    Will use existing git config if omitted.
-    --authorEmail   Commit author email address. Will update the local git
-                    config if set. Will use existing git config if omitted.
     `);
 } else if (removeSpecific || pruneDev) {
     let commitMessage;
@@ -385,19 +380,17 @@ function commit(message) {
     message = message || `chore(docs): create docs ${version}`;
     shell.cd('docsDist');
 
-    if (argv.authorName) {
-        shell.echo('setting git config user.name');
-        shell.exec(`git config --local user.name '${argv.authorName}'`);
-    }
-
-    if (argv.authorEmail) {
-        shell.echo('setting git config user.email');
-        shell.exec(`git config --local user.email '${argv.authorEmail}'`);
-    }
-
     shell.exec('git add -A --ignore-errors');
 
-    if (shell.exec(`git commit -m "${message}"`).code !== 0) {
+    const result = shell.exec('git commit -m "$COMMIT_MESSAGE"', {
+        env: { ...process.env, COMMIT_MESSAGE: message },
+    });
+    // If commit fails for any reason other than "nothing to commit", treat as error
+    if (
+        result.code !== 0 &&
+        !result.stdout.includes('nothing to commit') &&
+        !result.stdout.includes('no changes added to commit')
+    ) {
         shell.echo('git commit failed!');
         shell.cd('..');
         teardown();
