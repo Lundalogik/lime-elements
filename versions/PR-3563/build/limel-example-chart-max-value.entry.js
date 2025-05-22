@@ -1,0 +1,2 @@
+import{r,h as e}from"./index-2714248e.js";import{c as t}from"./chart-items-stack-7b8bd703.js";const a=class{constructor(e){r(this,e)}render(){return e("limel-chart",{items:t,maxValue:512})}};export{a as limel_example_chart_max_value};
+//# sourceMappingURL=limel-example-chart-max-value.entry.js.map
