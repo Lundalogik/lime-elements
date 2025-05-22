@@ -27,4 +27,7 @@ jobs:
     - run: npm ci
     - run: git config --global user.email "93315277+lime-opensource@users.noreply.github.com"
     - run: git config --global user.name "Lime Technologies OSS"
-    - run: npm run docs:publish -- --remove=PR-${{ github.event.pull_request.number }}
+    - name: Remove PR docs
+      env:
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+      run: npm run docs:publish -- --remove="PR-$PR_NUMBER"
