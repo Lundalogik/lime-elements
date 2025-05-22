@@ -96,6 +96,7 @@ We iterate through each position within the selection range and check if any anc
     ```
 
 **Code**:
+
 ```typescript
 const createInsertLinkCommand: CommandFunction = (
     schema: Schema,
@@ -104,29 +105,27 @@ const createInsertLinkCommand: CommandFunction = (
 ): CommandWithActive => {
     const command: Command = (state, dispatch) => {
         const { from, to } = state.selection;
+        const linkMark = schema.marks.link.create(
+            getLinkAttributes(link.href, link.href),
+        );
+
         if (from === to) {
-            const linkMark = schema.marks.link.create({
-                href: link.href,
-                title: link.href,
-                target: isExternalLink(link.href) ? '_blank' : null,
-            });
+            // If no text is selected, insert new text with link
             const linkText = link.text || link.href;
             const newLink = schema.text(linkText, [linkMark]);
             dispatch(state.tr.insert(from, newLink));
         } else {
-            const linkMark = schema.marks.link.create({
-                href: link.href,
-                title: link.href,
-                target: isExternalLink(link.href) ? '_blank' : null,
-            });
+            // If text is selected, replace selected text with link text
             const selectedText = state.doc.textBetween(from, to, ' ');
             const newLink = schema.text(link.text || selectedText, [linkMark]);
             dispatch(state.tr.replaceWith(from, to, newLink));
         }
+
         return true;
     };
 
     setActiveMethodForMark(command, schema.marks.link);
+
     return command;
 };
 ```

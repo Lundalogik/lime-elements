@@ -1,9 +1,9 @@
 import { Plugin, PluginKey, TextSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Mark, Fragment, Node, Schema } from 'prosemirror-model';
-import { isExternalLink } from '../menu/menu-commands';
-import { EditorMenuTypes, MouseButtons } from '../menu/types';
-import { EditorLink } from '../../text-editor.types';
+import { EditorMenuTypes, MouseButtons } from '../../menu/types';
+import { EditorLink } from '../../../text-editor.types';
+import { getLinkAttributes } from './utils';
 
 export const linkPluginKey = new PluginKey('linkPlugin');
 
@@ -198,12 +198,7 @@ const createTextNode = (schema: Schema, content: string): Node => {
  * Creates a link node with the provided URL
  */
 const createLinkNode = (schema: Schema, url: string): Node => {
-    const linkMark = schema.marks.link.create({
-        href: url,
-        title: url,
-        // Only set _blank for http/https links, not for mailto/tel
-        target: url.startsWith('http') && isExternalLink(url) ? '_blank' : null,
-    });
+    const linkMark = schema.marks.link.create(getLinkAttributes(url, url));
 
     return schema.text(url, [linkMark]);
 };
