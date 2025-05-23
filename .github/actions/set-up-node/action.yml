@@ -23,6 +23,7 @@ runs:
     - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
+        cache: 'npm'
     - name: Verify Node.js setup
       shell: bash
       run: node -v && npm -v
