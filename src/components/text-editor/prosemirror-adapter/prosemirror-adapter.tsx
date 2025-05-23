@@ -34,7 +34,8 @@ import { isItem } from '../../../components/action-bar/isItem';
 import { cloneDeep, debounce } from 'lodash-es';
 import { Languages } from '../../date-picker/date.types';
 import { strikethrough } from './menu/menu-schema-extender';
-import { createLinkPlugin } from './plugins/link-plugin';
+import { createLinkPlugin } from './plugins/link/link-plugin';
+import { linkMarkSpec } from './plugins/link/link-mark-spec';
 import { createImageInserterPlugin } from './plugins/image/inserter';
 import { createImageViewPlugin } from './plugins/image/view';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
@@ -390,6 +391,7 @@ export class ProsemirrorAdapter {
             nodes: nodes,
             marks: schema.spec.marks.append({
                 strikethrough: strikethrough,
+                link: linkMarkSpec,
             }),
         });
     }

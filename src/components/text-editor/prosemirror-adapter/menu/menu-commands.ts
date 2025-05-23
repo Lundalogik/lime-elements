@@ -1,13 +1,9 @@
 import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
 import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
 import { findWrapping, liftTarget } from 'prosemirror-transform';
-import {
-    Command,
-    EditorState,
-    Transaction,
-    TextSelection,
-} from 'prosemirror-state';
+import { Command, EditorState, TextSelection } from 'prosemirror-state';
 import { EditorMenuTypes, EditorTextLink, LevelMapping } from './types';
+import { getLinkAttributes } from '../plugins/link/utils';
 
 type CommandFunction = (
     schema: Schema,
@@ -87,23 +83,17 @@ const createInsertLinkCommand: CommandFunction = (
 ): CommandWithActive => {
     const command: Command = (state, dispatch) => {
         const { from, to } = state.selection;
+        const linkMark = schema.marks.link.create(
+            getLinkAttributes(link.href, link.href),
+        );
+
         if (from === to) {
             // If no text is selected, insert new text with link
-            const linkMark = schema.marks.link.create({
-                href: link.href,
-                title: link.href,
-                target: isExternalLink(link.href) ? '_blank' : null,
-            });
             const linkText = link.text || link.href;
             const newLink = schema.text(linkText, [linkMark]);
             dispatch(state.tr.insert(from, newLink));
         } else {
             // If text is selected, replace selected text with link text
-            const linkMark = schema.marks.link.create({
-                href: link.href,
-                title: link.href,
-                target: isExternalLink(link.href) ? '_blank' : null,
-            });
             const selectedText = state.doc.textBetween(from, to, ' ');
             const newLink = schema.text(link.text || selectedText, [linkMark]);
             dispatch(state.tr.replaceWith(from, to, newLink));
@@ -213,16 +203,6 @@ const toggleNodeType = (
     };
 };
 
-export const isValidUrl = (text: string): boolean => {
-    try {
-        new URL(text);
-    } catch {
-        return false;
-    }
-
-    return true;
-};
-
 const createSetNodeTypeCommand = (
     schema: Schema,
     nodeType: string,
@@ -319,35 +299,6 @@ const createListCommand = (
     return command;
 };
 
-const copyPasteLinkCommand: Command = (
-    state: EditorState,
-    dispatch: (tr: Transaction) => void,
-) => {
-    const { from, to } = state.selection;
-    if (from === to) {
-        return false;
-    }
-
-    const clipboardData = (window as any).clipboardData;
-    if (!clipboardData) {
-        return false;
-    }
-
-    const copyPastedText = clipboardData.getData('text');
-    if (!isValidUrl(copyPastedText)) {
-        return false;
-    }
-
-    const linkMark = state.schema.marks.link.create({
-        href: copyPastedText,
-        target: isExternalLink(copyPastedText) ? '_blank' : null,
-    });
-
-    const selectedText = state.doc.textBetween(from, to, ' ');
-    const newLink = state.schema.text(selectedText, [linkMark]);
-    dispatch(state.tr.replaceWith(from, to, newLink));
-};
-
 const commandMapping: CommandMapping = {
     strong: createToggleMarkCommand,
     em: createToggleMarkCommand,
@@ -411,7 +362,6 @@ export class MenuCommandFactory {
             'Mod-Shift-X': this.getCommand(EditorMenuTypes.Strikethrough),
             'Mod-`': this.getCommand(EditorMenuTypes.Code),
             'Mod-Shift-C': this.getCommand(EditorMenuTypes.CodeBlock),
-            'Mod-v': copyPasteLinkCommand,
         };
     }
 }

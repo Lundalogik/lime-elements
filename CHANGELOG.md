@@ -1,3 +1,12 @@
+## [38.13.2](https://github.com/Lundalogik/lime-elements/compare/v38.13.1...v38.13.2) (2025-05-23)
+
+
+### Bug Fixes
+
+
+* **markdown/text-editor:** properly handle internal vs external link targets ([e42123b](https://github.com/Lundalogik/lime-elements/commit/e42123b41fe2f3025c910325e37b2ac12c907cfb))
+* **text-editor:** don't interpret `:` as links when pasting ([9509540](https://github.com/Lundalogik/lime-elements/commit/9509540f3591ab7401a53a5de48ca774a63ef2b2))
+
 ## [38.13.1](https://github.com/Lundalogik/lime-elements/compare/v38.13.0...v38.13.1) (2025-05-21)
 
 

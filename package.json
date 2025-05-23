@@ -1,6 +1,6 @@
 {
   "name": "@limetech/lime-elements",
-  "version": "38.13.1",
+  "version": "38.13.2",
   "description": "Lime Elements",
   "author": "Lime Technologies",
   "license": "Apache-2.0",
@@ -95,7 +95,6 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-shadow-dom-retarget-events": "^1.1.0",
-    "rehype-external-links": "^3.0.0",
     "rehype-parse": "^9.0.1",
     "rehype-raw": "^7.0.0",
     "rehype-sanitize": "^6.0.0",
