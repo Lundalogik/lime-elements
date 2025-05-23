@@ -29,13 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-    - name: Read .nvmrc
-      run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
-      id: nvm
-    - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
-      with:
-        node-version: "${{ steps.nvm.outputs.NVMRC }}"
-    - run: node -v && npm -v
+    - uses: ./.github/actions/set-up-node
     - run: npm ci
     - run: git config --global user.email "93315277+lime-opensource@users.noreply.github.com"
     - run: git config --global user.name "Lime Technologies OSS"

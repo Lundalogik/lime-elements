@@ -1,0 +1,29 @@
+name: 'Set Up Node.js'
+description: 'Set up Node.js using the version specified in .nvmrc'
+
+outputs:
+  node-version:
+    description: 'The Node.js version that was set up'
+    value: ${{ steps.nvm.outputs.NVMRC }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Read .nvmrc
+      id: nvm
+      shell: bash
+      run: |
+        if [[ -f .nvmrc && -s .nvmrc ]]; then
+          read -r NVMRC_CONTENT < .nvmrc
+        else
+          echo "⚠️ .nvmrc file missing or empty, defaulting to LTS"
+          NVMRC_CONTENT="lts/*"
+        fi
+        printf 'NVMRC=%s\n' "$NVMRC_CONTENT" >> $GITHUB_OUTPUT
+    - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      with:
+        node-version: "${{ steps.nvm.outputs.NVMRC }}"
+        cache: 'npm'
+    - name: Verify Node.js setup
+      shell: bash
+      run: echo "✅ Node $(node -v), npm $(npm -v)"
