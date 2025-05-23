@@ -1,2 +1,0 @@
-import{r,h as e}from"./index-2714248e.js";const o=class{constructor(e){r(this,e);this.items=[{text:"step 1",icon:{name:"fish",color:"rgb(var(--color-red-default))"}},{text:"Step 2",icon:{name:"cat",color:"rgb(var(--color-orange-default))"}},{text:"Step 3",icon:{name:"dog",color:"rgb(var(--color-blue-default))"}}]}render(){return e("limel-breadcrumbs",{items:this.items})}};export{o as limel_example_breadcrumbs_icon_color};
-//# sourceMappingURL=limel-example-breadcrumbs-icon-color.entry.js.map
