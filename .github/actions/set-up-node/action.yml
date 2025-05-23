@@ -26,4 +26,4 @@ runs:
         cache: 'npm'
     - name: Verify Node.js setup
       shell: bash
-      run: node -v && npm -v
+      run: echo "✅ Node $(node -v), npm $(npm -v)"
