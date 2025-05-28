@@ -1,3 +1,17 @@
+## [38.13.3](https://github.com/Lundalogik/lime-elements/compare/v38.13.2...v38.13.3) (2025-05-28)
+
+
+### Bug Fixes
+
+
+* **ai-avatar:** improve visual design ([7883141](https://github.com/Lundalogik/lime-elements/commit/78831410db31a899a9cdfbe3fc9c8ba50476ed68))
+* **ai-avatar:** prevent overlying other content on the screen ([d3d94ae](https://github.com/Lundalogik/lime-elements/commit/d3d94ae00dbdafc79cc35cacba6c0045037beecc))
+
+### Performance Improvements
+
+
+* **ai-avatar:** prevent constantly running animations ([0ec454e](https://github.com/Lundalogik/lime-elements/commit/0ec454e666749aa78f66f7a2fc20d536375e935f))
+
 ## [38.13.2](https://github.com/Lundalogik/lime-elements/compare/v38.13.1...v38.13.2) (2025-05-23)
 
 
