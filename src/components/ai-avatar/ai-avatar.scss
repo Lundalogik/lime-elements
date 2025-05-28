@@ -22,7 +22,7 @@
 
 :host(limel-ai-avatar[is-thinking]:not([is-thinking='false'])) {
     --ai-avatar-animation-play-state: running;
-    --ai-avatar-orbitals-opacity: 1;
+    --ai-avatar-orbitals-opacity: 0.6;
     --ai-avatar-orbitals-animation-play-state: running;
 }
 
@@ -48,13 +48,12 @@
     animation: breathe 3s ease infinite
         var(--ai-avatar-animation-play-state, paused);
 
-    background-color: inherit;
-    box-shadow: var(--shadow-depth-8);
-    backdrop-filter: blur(1rem);
+    background-color: rgb(var(--color-glaucous-darker), 0.6);
+    mix-blend-mode: plus-lighter;
 }
 
 .orbitals {
-    mix-blend-mode: overlay;
+    mix-blend-mode: plus-lighter;
     width: clamp(0.375rem, 20%, 3.5rem);
 
     animation: rotate 5s linear infinite
@@ -110,7 +109,7 @@
         transform: scale(1);
     }
     50% {
-        transform: scale(0.9);
+        transform: scale(0.86);
     }
 }
 
