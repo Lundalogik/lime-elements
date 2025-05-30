@@ -1,3 +1,11 @@
+## [38.13.4](https://github.com/Lundalogik/lime-elements/compare/v38.13.3...v38.13.4) (2025-05-30)
+
+
+### Bug Fixes
+
+
+* **ai-avatar:** reduce white background effect ([cf1f042](https://github.com/Lundalogik/lime-elements/commit/cf1f04285eb768ae5683744b99558e37722b6dfb))
+
 ## [38.13.3](https://github.com/Lundalogik/lime-elements/compare/v38.13.2...v38.13.3) (2025-05-28)
 
 
