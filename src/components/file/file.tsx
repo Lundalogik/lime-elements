@@ -147,7 +147,7 @@ export class File {
     }
 
     private dropZoneTip = (): string => {
-        return this.getTranslation('drag-and-drop-tips');
+        return this.getTranslation('file.drag-and-drop-tips');
     };
 
     private handleNewFiles = (event: CustomEvent<FileInfo[]>) => {
@@ -226,6 +226,6 @@ export class File {
     }
 
     private getTranslation(key: string) {
-        return translate.get(`file.${key}`, this.language);
+        return translate.get(key, this.language);
     }
 }
