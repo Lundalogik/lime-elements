@@ -15,9 +15,10 @@
  * @prop --textarea-height: Height of the field when type is set to `textarea`
  */
 
-:host {
+:host(limel-input-field) {
     position: relative;
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
 
 :host([hidden]) {
@@ -26,6 +27,10 @@
 
 :host([type='textarea']) {
     height: var(--textarea-height, 100%);
+
+    limel-notched-outline {
+        flex-grow: 1;
+    }
 
     .mdc-text-field.mdc-text-field--textarea {
         height: var(--textarea-height, 100%);
