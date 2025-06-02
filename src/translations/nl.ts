@@ -19,7 +19,7 @@ export default {
     'chip-set.clear-all': 'Alles wissen',
     'snackbar.dismiss': 'Sluiten',
     'file.drag-and-drop-tips':
-        'Sleep & bestand en zet het hier neer of klik om te bladeren.',
+        'Sleep een bestand hierheen of klik om te bladeren.',
     'file-viewer.message.unsupported-filetype':
         'Kan dit bestand niet weergeven!',
     'file-viewer.download': 'Downloaden',
