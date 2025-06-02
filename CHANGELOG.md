@@ -1,3 +1,11 @@
+## [38.13.5](https://github.com/Lundalogik/lime-elements/compare/v38.13.4...v38.13.5) (2025-06-02)
+
+
+### Bug Fixes
+
+
+* **input-field:** ensure `type` `textarea` stretches within given vertical space ([4095eca](https://github.com/Lundalogik/lime-elements/commit/4095eca955cae25ad83a82a7392ff259617c6527))
+
 ## [38.13.4](https://github.com/Lundalogik/lime-elements/compare/v38.13.3...v38.13.4) (2025-05-30)
 
 
