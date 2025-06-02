@@ -290,7 +290,11 @@ export class FileViewer {
                     size="large"
                     role="presentation"
                 />
-                <p>{this.getTranslation('message.unsupported-filetype')}</p>
+                <p>
+                    {this.getTranslation(
+                        'file-viewer.message.unsupported-filetype',
+                    )}
+                </p>
                 {this.renderDownloadButton()}
             </div>
         );
@@ -316,8 +320,8 @@ export class FileViewer {
         // eslint-disable-next-line multiline-ternary
         const label = this.isFullscreen
             ? // eslint-disable-next-line multiline-ternary
-              this.getTranslation('exit-fullscreen')
-            : this.getTranslation('open-in-fullscreen');
+              this.getTranslation('file-viewer.exit-fullscreen')
+            : this.getTranslation('file-viewer.open-in-fullscreen');
 
         return [
             <button
@@ -352,7 +356,7 @@ export class FileViewer {
             >
                 <limel-icon name="download_2" />
                 <limel-tooltip
-                    label={this.getTranslation('download')}
+                    label={this.getTranslation('file-viewer.download')}
                     elementId="tooltip-download"
                     openDirection="left"
                 />
@@ -376,7 +380,7 @@ export class FileViewer {
             >
                 <limel-icon name="external_link" />
                 <limel-tooltip
-                    label={this.getTranslation('open-in-new-tab')}
+                    label={this.getTranslation('file-viewer.open-in-new-tab')}
                     elementId="tooltip-new-tab"
                     openDirection="left"
                 />
@@ -404,7 +408,7 @@ export class FileViewer {
                 >
                     <limel-icon name="menu_2" />
                     <limel-tooltip
-                        label={this.getTranslation('more-actions')}
+                        label={this.getTranslation('file-viewer.more-actions')}
                         elementId="tooltip-more"
                         openDirection="left"
                     />
@@ -439,6 +443,6 @@ export class FileViewer {
     };
 
     private getTranslation(key: string) {
-        return translate.get(`file-viewer.${key}`, this.language);
+        return translate.get(key, this.language);
     }
 }
