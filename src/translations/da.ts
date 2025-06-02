@@ -18,6 +18,8 @@ export default {
     'date-picker.year.heading': 'År',
     'chip-set.clear-all': 'Ryd alle',
     'snackbar.dismiss': 'Luk',
+    'file.drag-and-drop-tips':
+        'Træk & slip filen her, eller klik for at gennemse.',
     'file-viewer.message.unsupported-filetype': 'Denne fil kan ikke vises!',
     'file-viewer.download': 'Hent',
     'file-viewer.exit-fullscreen': 'Afslut fuldskærm',
