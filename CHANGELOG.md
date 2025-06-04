@@ -1,3 +1,11 @@
+## [38.13.6](https://github.com/Lundalogik/lime-elements/compare/v38.13.5...v38.13.6) (2025-06-04)
+
+
+### Bug Fixes
+
+
+* **card:** avoid rendering an empty markdown ([7b16cf7](https://github.com/Lundalogik/lime-elements/commit/7b16cf70170df070dd2f19ac0563aa1738d6f111))
+
 ## [38.13.5](https://github.com/Lundalogik/lime-elements/compare/v38.13.4...v38.13.5) (2025-06-02)
 
 
