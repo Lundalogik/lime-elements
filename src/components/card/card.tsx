@@ -195,6 +195,10 @@ export class Card {
     }
 
     private renderValue() {
+        if (!this.value) {
+            return;
+        }
+
         return <limel-markdown value={this.value} />;
     }
 
