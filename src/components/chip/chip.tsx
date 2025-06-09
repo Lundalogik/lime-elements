@@ -78,6 +78,7 @@ interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {
  * @exampleComponent limel-example-chip-menu
  * @exampleComponent limel-example-chip-loading
  * @exampleComponent limel-example-chip-progress
+ * @exampleComponent limel-example-chip-readonly-border
  * @exampleComponent limel-example-chip-aria-role
  */
 @Component({
