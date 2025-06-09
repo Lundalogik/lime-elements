@@ -1,3 +1,11 @@
+## [38.14.0](https://github.com/Lundalogik/lime-elements/compare/v38.13.7...v38.14.0) (2025-06-09)
+
+
+### Features
+
+
+* **chip:** add custom css prop for border in readonly mode ([305daaa](https://github.com/Lundalogik/lime-elements/commit/305daaaf0e618038fd5be7ded72ef55fc2193af2))
+
 ## [38.13.7](https://github.com/Lundalogik/lime-elements/compare/v38.13.6...v38.13.7) (2025-06-09)
 
 
