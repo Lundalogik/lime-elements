@@ -1,2 +1,0 @@
-import{r as e,h as r}from"./index-2714248e.js";const l=":host(limel-example-badge){--badge-background-color:rgb(var(--color-red-default))}";const o=class{constructor(r){e(this,r)}render(){return r("limel-badge",null)}};o.style=l;export{o as limel_example_badge};
-//# sourceMappingURL=limel-example-badge.entry.js.map
