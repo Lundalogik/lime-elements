@@ -1,3 +1,12 @@
+## [38.13.7](https://github.com/Lundalogik/lime-elements/compare/v38.13.6...v38.13.7) (2025-06-09)
+
+
+### Bug Fixes
+
+
+* **file:** add missing translations for dropzone tips ([edb9203](https://github.com/Lundalogik/lime-elements/commit/edb920320a945466f48b3dfcab9911985772da15)), closes [#3570](https://github.com/Lundalogik/lime-elements/issues/3570)
+* **file:** improve Dutch translation of dropzone hint ([c679376](https://github.com/Lundalogik/lime-elements/commit/c679376bf0a0562ddd17a74ca29e42ce50975b0d))
+
 ## [38.13.6](https://github.com/Lundalogik/lime-elements/compare/v38.13.5...v38.13.6) (2025-06-04)
 
 
