@@ -169,14 +169,19 @@ export class MenuListRenderer {
     private renderText = (item: MenuItem) => {
         if (this.isSimpleItem(item)) {
             return (
-                <span class="mdc-deprecated-list-item__text">{item.text}</span>
+                <span class="mdc-deprecated-list-item__text" title={item.text}>
+                    {item.text}
+                </span>
             );
         }
 
         return (
             <div class="mdc-deprecated-list-item__text">
                 <div class="mdc-deprecated-list-item__primary-command-text">
-                    <div class="mdc-deprecated-list-item__primary-text">
+                    <div
+                        class="mdc-deprecated-list-item__primary-text"
+                        title={item.text}
+                    >
                         {item.text}
                     </div>
                     {this.renderCommandText(item)}
