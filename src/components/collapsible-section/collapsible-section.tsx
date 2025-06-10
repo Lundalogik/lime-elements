@@ -13,6 +13,12 @@ import {
     removeEnterClickable,
 } from '../../util/make-enter-clickable';
 import { createRandomString } from '../../util/random-string';
+import { Icon } from '../../global/shared-types/icon.types';
+import {
+    getIconColor,
+    getIconName,
+    getIconTitle,
+} from '../icon/get-icon-props';
 
 /**
  * A collapsible section can be used to group related content together
@@ -32,6 +38,7 @@ import { createRandomString } from '../../util/random-string';
  * @exampleComponent limel-example-collapsible-section-external-control
  * @exampleComponent limel-example-collapsible-section-with-slider
  * @exampleComponent limel-example-collapsible-section-invalid
+ * @exampleComponent limel-example-collapsible-section-icon
  * @exampleComponent limel-example-collapsible-section-css-props
  */
 @Component({
@@ -51,6 +58,12 @@ export class CollapsibleSection {
      */
     @Prop({ reflect: true })
     public header: string;
+
+    /**
+     * Icon to display in the header of the section
+     */
+    @Prop()
+    public icon?: string | Icon;
 
     /**
      * `true` if the section is invalid, `false` if valid.
@@ -124,6 +137,7 @@ export class CollapsibleSection {
                         <div class="line" />
                         <div class="line" />
                     </div>
+                    {this.renderIcon()}
                     {this.renderHeading()}
                     <div class="divider-line" role="presentation" />
                     {this.renderHeaderSlot()}
@@ -154,6 +168,27 @@ export class CollapsibleSection {
         } else {
             this.close.emit();
         }
+    };
+
+    private renderIcon = () => {
+        if (!this.icon) {
+            return;
+        }
+
+        const name = getIconName(this.icon);
+        const color = getIconColor(this.icon);
+        const title = getIconTitle(this.icon);
+
+        return (
+            <limel-icon
+                name={name}
+                aria-label={title}
+                aria-hidden={title ? null : 'true'}
+                style={{
+                    color: `${color}`,
+                }}
+            />
+        );
     };
 
     private renderHeading = () => {

@@ -86,9 +86,14 @@ header {
     align-items: center;
     display: flex;
     justify-content: space-between;
+    gap: 0.5rem;
 
     padding-left: 0.5rem;
     height: shared_input-select-picker.$height-of-mdc-text-field;
+}
+
+limel-icon {
+    width: 1.5rem;
 }
 
 .title {
@@ -99,8 +104,6 @@ header {
     justify-self: flex-start;
 
     user-select: none; // mostly to improve experience on Android, where tapping on sections selects the text too
-
-    padding-right: 0.5rem;
 
     // Below tries to render text in two lines,
     // and then truncate if there is no more space
@@ -116,9 +119,9 @@ header {
     height: 0.125rem;
     border-radius: 1rem;
     background-color: var(--header-stroke-color, rgb(var(--contrast-900)));
-    margin-right: 0.5rem;
 
     opacity: 0;
+    margin-right: 0.5rem;
 
     section.open & {
         opacity: 0.16;
