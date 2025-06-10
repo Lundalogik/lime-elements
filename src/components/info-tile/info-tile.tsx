@@ -147,9 +147,6 @@ export class InfoTile {
                     aria-live="polite"
                     class={{
                         'is-clickable': !!this.link?.href && !this.disabled,
-                        'has-circular-progress':
-                            !!this.progress?.value ||
-                            this.progress?.value === 0,
                     }}
                 >
                     {this.renderIcon()}

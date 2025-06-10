@@ -115,7 +115,7 @@ a {
         width: max(10%, 3rem);
     }
 
-    .has-circular-progress & {
+    a:has(limel-circular-progress) & {
         top: unset;
         bottom: 0.5rem;
         --icon-min-size: 1.5rem;
@@ -257,7 +257,7 @@ $l: 62.5rem; //1000px
     .icon {
         top: 0.25rem;
         right: 0.5rem;
-        .has-circular-progress & {
+        .a:has(limel-circular-progress) & {
             right: 0.25rem;
             bottom: 0.25rem;
         }
@@ -323,7 +323,8 @@ $l: 62.5rem; //1000px
         text-align: center;
         // -webkit-line-clamp: 3;
     }
-    .has-circular-progress {
+
+    a:has(limel-circular-progress) {
         .icon {
             position: absolute;
             top: 0.5rem;
