@@ -1,3 +1,17 @@
+## [38.15.0](https://github.com/Lundalogik/lime-elements/compare/v38.14.0...v38.15.0) (2025-06-10)
+
+
+### Features
+
+
+* **collapsible-section:** add icon prop ([0843fbf](https://github.com/Lundalogik/lime-elements/commit/0843fbfb976070fe3a80cb1a027d0af1dc15e4c9))
+
+### Bug Fixes
+
+
+* **collapsible-section:** improve accessibility ([fa1b6a8](https://github.com/Lundalogik/lime-elements/commit/fa1b6a818aa01600c44d8c0b7289069ea2f2539f))
+* **collapsible-section:** prevent empty headings when heading is unspecified ([344d63a](https://github.com/Lundalogik/lime-elements/commit/344d63a95e9e20b268b1316133ddde30d34f24a9))
+
 ## [38.14.0](https://github.com/Lundalogik/lime-elements/compare/v38.13.7...v38.14.0) (2025-06-09)
 
 
