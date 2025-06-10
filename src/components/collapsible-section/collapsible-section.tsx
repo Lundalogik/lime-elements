@@ -87,6 +87,7 @@ export class CollapsibleSection {
     private host: HTMLElement;
 
     private bodyId = createRandomString();
+    private headingId = createRandomString();
 
     public componentDidRender() {
         const button = this.host.shadowRoot.querySelector(
@@ -109,6 +110,7 @@ export class CollapsibleSection {
             <section
                 class={`${this.isOpen ? 'open' : ''}`}
                 aria-invalid={this.invalid}
+                aria-labelledby={this.header ? this.headingId : null}
             >
                 <header>
                     <button
@@ -123,7 +125,7 @@ export class CollapsibleSection {
                         <div class="line" />
                     </div>
                     {this.renderHeading()}
-                    <div class="divider-line" />
+                    <div class="divider-line" role="presentation" />
                     {this.renderHeaderSlot()}
                     {this.renderActions()}
                 </header>
@@ -160,7 +162,10 @@ export class CollapsibleSection {
         }
 
         return (
-            <h2 class="title mdc-typography mdc-typography--headline2">
+            <h2
+                class="title mdc-typography mdc-typography--headline2"
+                id={this.headingId}
+            >
                 {this.header}
             </h2>
         );
