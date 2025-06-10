@@ -122,9 +122,7 @@ export class CollapsibleSection {
                         <div class="line" />
                         <div class="line" />
                     </div>
-                    <h2 class="title mdc-typography mdc-typography--headline2">
-                        {this.header}
-                    </h2>
+                    {this.renderHeading()}
                     <div class="divider-line" />
                     {this.renderHeaderSlot()}
                     {this.renderActions()}
@@ -154,6 +152,18 @@ export class CollapsibleSection {
         } else {
             this.close.emit();
         }
+    };
+
+    private renderHeading = () => {
+        if (!this.header) {
+            return;
+        }
+
+        return (
+            <h2 class="title mdc-typography mdc-typography--headline2">
+                {this.header}
+            </h2>
+        );
     };
 
     private renderActions = () => {
