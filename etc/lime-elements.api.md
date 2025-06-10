@@ -313,6 +313,7 @@ export namespace Components {
     export interface LimelCollapsibleSection {
         "actions": Action[];
         "header": string;
+        "icon"?: string | Icon;
         "invalid": boolean;
         "isOpen": boolean;
     }
@@ -1369,6 +1370,7 @@ export namespace JSX {
     export interface LimelCollapsibleSection {
         "actions"?: Action[];
         "header"?: string;
+        "icon"?: string | Icon;
         "invalid"?: boolean;
         "isOpen"?: boolean;
         "onAction"?: (event: LimelCollapsibleSectionCustomEvent<Action>) => void;
