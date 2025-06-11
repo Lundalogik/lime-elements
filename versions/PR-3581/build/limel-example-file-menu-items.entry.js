@@ -1,0 +1,2 @@
+import{r as e,h as t}from"./index-2714248e.js";const i=class{constructor(t){e(this,t);this.handleChange=e=>{this.value=e.detail;console.log("onChange",this.value)};this.value={filename:"deal.pdf",id:123};this.menuItems=[{text:"Download",icon:"download",value:1},{text:"Share",icon:"share",value:2}]}render(){return t("limel-file",{label:"Attach a file",onChange:this.handleChange,value:this.value,menuItems:this.menuItems})}};export{i as limel_example_file_menu_items};
+//# sourceMappingURL=limel-example-file-menu-items.entry.js.map
