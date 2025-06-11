@@ -1,3 +1,11 @@
+## [38.16.0](https://github.com/Lundalogik/lime-elements/compare/v38.15.0...v38.16.0) (2025-06-11)
+
+
+### Features
+
+
+* **info-tile:** add a primary `slot` ([a8d36ef](https://github.com/Lundalogik/lime-elements/commit/a8d36ef4b7ae616b19c46f2b7ccde19fa2390343))
+
 ## [38.15.0](https://github.com/Lundalogik/lime-elements/compare/v38.14.0...v38.15.0) (2025-06-10)
 
 
