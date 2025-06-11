@@ -29,4 +29,10 @@ export interface Link {
      * for more info.
      */
     target?: string;
+
+    /**
+     * The `rel` attribute for the link. Set this to `"noopener noreferrer"`
+     * when `target="_blank"` is used, for improved security.
+     */
+    rel?: string;
 }

@@ -2378,6 +2378,7 @@ export interface LimeSchemaOptions {
 // @public
 export interface Link {
     href: string;
+    rel?: string;
     target?: string;
     text?: string;
     title?: string;
