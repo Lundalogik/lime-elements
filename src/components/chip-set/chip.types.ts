@@ -115,3 +115,8 @@ export interface Chip<T = any> {
  * @beta
  */
 export type ChipType = 'default' | 'filter';
+
+export interface MenuItemEvent {
+    chip: Chip;
+    menuItem: MenuItem;
+}

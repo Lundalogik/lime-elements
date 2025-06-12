@@ -1340,6 +1340,7 @@ export namespace JSX {
         "onChange"?: (event: LimelChipSetCustomEvent<Chip | Chip[]>) => void;
         "onInput"?: (event: LimelChipSetCustomEvent<string>) => void;
         "onInteract"?: (event: LimelChipSetCustomEvent<Chip>) => void;
+        "onMenuItemSelected"?: (event: LimelChipSetCustomEvent<MenuItemEvent>) => void;
         "onStartEdit"?: (event: LimelChipSetCustomEvent<void>) => void;
         "onStopEdit"?: (event: LimelChipSetCustomEvent<void>) => void;
         "readonly"?: boolean;
@@ -2431,6 +2432,16 @@ interface MenuItem<T = any> {
 }
 export { MenuItem }
 export { MenuItem as MenuItem1 }
+
+// Warning: (ae-missing-release-tag) "MenuItemEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface MenuItemEvent {
+    // (undocumented)
+    chip: Chip;
+    // (undocumented)
+    menuItem: MenuItem;
+}
 
 // @public
 export type MenuLoader = (item: MenuItem) => Promise<Array<MenuItem | ListSeparator>>;
