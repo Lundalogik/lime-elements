@@ -1,5 +1,7 @@
+import { MenuItem } from '../../components';
 import { Icon } from '../../global/shared-types/icon.types';
 import { Color } from './color.types';
+import { ListSeparator } from './separator.types';
 
 /**
  * @public
@@ -81,4 +83,9 @@ export interface FileInfo {
      * be left undefined or set to `null`.
      */
     href?: string;
+
+    /**
+     * Custom menu items for the file.
+     */
+    menuItems?: Array<MenuItem | ListSeparator>;
 }
