@@ -1,3 +1,11 @@
+## [38.16.1](https://github.com/Lundalogik/lime-elements/compare/v38.16.0...v38.16.1) (2025-06-12)
+
+
+### Bug Fixes
+
+
+* **menu:** ensure `surfaceWidth` respects long items' width, when set to `inherit-from-items` ([9a58a31](https://github.com/Lundalogik/lime-elements/commit/9a58a31971b68b1ac001b5799c833f6f8f01c855))
+
 ## [38.16.0](https://github.com/Lundalogik/lime-elements/compare/v38.15.0...v38.16.0) (2025-06-11)
 
 
