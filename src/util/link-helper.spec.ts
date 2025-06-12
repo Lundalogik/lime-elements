@@ -1,4 +1,4 @@
-import { getTarget, getHref, prependProtocol } from './link-helper';
+import { getTarget, getHref, prependProtocol, getRel } from './link-helper';
 
 describe('limeLinkHelper', () => {
     let element;
@@ -87,6 +87,74 @@ describe('limeLinkHelper', () => {
             it('does not alter input', () => {
                 isValid = false;
                 expect(prependProtocol('')).toEqual('');
+            });
+        });
+    });
+
+    describe('getRel', () => {
+        [
+            {
+                description:
+                    'returns "noopener noreferrer" for target="_blank"',
+                target: '_blank',
+                explicitRel: undefined,
+                expected: 'noopener noreferrer',
+            },
+            {
+                description:
+                    'returns "noopener noreferrer" for target="_BLANK" (case-insensitive)',
+                target: '_BLANK',
+                explicitRel: undefined,
+                expected: 'noopener noreferrer',
+            },
+            {
+                description:
+                    'returns "noopener noreferrer" when target has surrounding whitespace',
+                target: ' _blank ',
+                explicitRel: undefined,
+                expected: 'noopener noreferrer',
+            },
+            {
+                description: 'returns undefined for other targets',
+                target: '_self',
+                explicitRel: undefined,
+                expected: undefined,
+            },
+            {
+                description: 'returns undefined if target is not set',
+                target: undefined,
+                explicitRel: undefined,
+                expected: undefined,
+            },
+            {
+                description: 'prioritizes explicitRel over target',
+                target: '_blank',
+                explicitRel: 'custom',
+                expected: 'custom',
+            },
+            {
+                description: 'trims whitespace from explicitRel',
+                target: '_blank',
+                explicitRel: '  custom  ',
+                expected: 'custom',
+            },
+            {
+                description:
+                    'returns undefined if explicitRel consists only of whitespace',
+                target: '_blank',
+                explicitRel: '   ',
+                expected: undefined,
+            },
+            {
+                description:
+                    'returns undefined if explicitRel is an empty string',
+                target: '_blank',
+                explicitRel: '',
+                expected: undefined,
+            },
+        ].forEach(({ description, target, explicitRel, expected }) => {
+            it(description, () => {
+                expect(getRel(target, explicitRel)).toBe(expected);
             });
         });
     });
