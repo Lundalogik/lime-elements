@@ -876,7 +876,7 @@ export class InputField {
                     open={this.showCompletions}
                     allowClicksElement={this.limelInputField}
                     style={{
-                        '--mdc-menu-min-width': '100%',
+                        '--menu-surface-width': '100%',
                         'max-height': 'inherit',
                         display: 'flex',
                     }}
