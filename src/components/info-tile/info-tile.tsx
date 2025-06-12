@@ -2,6 +2,7 @@ import { Component, Prop, h, Element, Host, State } from '@stencil/core';
 import { InfoTileProgress } from '../info-tile/info-tile.types';
 import { Link } from '../../global/shared-types/link.types';
 import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
+import { getRel } from '../../util/link-helper';
 
 /**
  * This component can be used on places such as a start page or a dashboard.
@@ -138,6 +139,7 @@ export class InfoTile {
             this.checkProps(this?.link?.title);
 
         const link = !this.disabled ? this.link?.href : '#';
+        const rel = getRel(this.link?.target, this.link?.rel);
 
         return (
             <Host
@@ -149,6 +151,7 @@ export class InfoTile {
                     title={this.link?.title}
                     href={link}
                     target={this.link?.target}
+                    rel={rel}
                     tabindex="0"
                     aria-label={extendedAriaLabel}
                     aria-disabled={this.disabled}
