@@ -63,3 +63,26 @@ function isRelativeLink(input: string) {
 function hasRelativeProtocol(input: string) {
     return input.startsWith('//');
 }
+
+/**
+ * Returns the appropriate `rel` attribute value for a link.
+ *
+ * If an explicit `rel` value is provided, it will be used.
+ * Otherwise, when `target` is `_blank`, automatically returns
+ * `"noopener noreferrer"` for improved security.
+ *
+ * @param target - The target attribute value (e.g., "_blank", "_self")
+ * @param explicitRel - An explicitly provided rel attribute value
+ * @returns The rel attribute value to use, or undefined if none needed
+ */
+export function getRel(target?: string | null, explicitRel?: string | null) {
+    if (explicitRel !== undefined) {
+        return explicitRel.trim() || undefined;
+    }
+
+    if (target?.trim().toLowerCase() === '_blank') {
+        return 'noopener noreferrer';
+    }
+
+    return undefined;
+}
