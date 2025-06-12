@@ -234,7 +234,7 @@ export class Menu {
                         onDismiss={this.onClose}
                         style={{
                             ...cssProperties,
-                            '--mdc-menu-min-width': menuSurfaceWidth,
+                            '--menu-surface-width': menuSurfaceWidth,
                             '--limel-menu-surface-display': 'flex',
                             '--limel-menu-surface-flex-direction': 'column',
                         }}
