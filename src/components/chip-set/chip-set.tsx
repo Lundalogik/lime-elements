@@ -1,4 +1,4 @@
-import { Chip, ChipType } from '../chip-set/chip.types';
+import { Chip, ChipType, MenuItemEvent } from '../chip-set/chip.types';
 import { Languages } from '../date-picker/date.types';
 import { MDCTextField } from '@material/textfield';
 import {
@@ -16,7 +16,7 @@ import { handleKeyboardEvent } from './chip-set-input-helpers';
 import translate from '../../global/translations';
 import { getHref, getTarget } from '../../util/link-helper';
 import { isEqual } from 'lodash-es';
-import { LimelChipCustomEvent } from '../../components';
+import { LimelChipCustomEvent, MenuItem } from '../../components';
 import { createRandomString } from '../../util/random-string';
 
 const INPUT_FIELD_TABINDEX = 1;
@@ -204,6 +204,12 @@ export class ChipSet {
      */
     @Event()
     private readonly change: EventEmitter<Chip | Chip[]>;
+
+    /**
+     * Dispatched when a chip's menuItem is selected
+     */
+    @Event()
+    private readonly menuItemSelected: EventEmitter<MenuItemEvent>;
 
     /**
      * Emitted when an input chip set has received focus and editing in the text field has started
@@ -617,6 +623,7 @@ export class ChipSet {
             type: chipType,
             removable: removable,
             menuItems: chip.menuItems,
+            onMenuItemSelected: this.handleMenuItemSelected(chip),
             onClick: this.catchInputChipClicks(chip),
             onRemove: this.handleRemoveChip,
             ...(chip.href && {
@@ -627,6 +634,17 @@ export class ChipSet {
             }),
         };
     }
+
+    private readonly handleMenuItemSelected =
+        (chip: Chip) => (event: CustomEvent<MenuItem>) => {
+            event.stopPropagation();
+            const menuItem = event.detail;
+            if (!menuItem) {
+                return;
+            }
+
+            this.menuItemSelected.emit({ chip: chip, menuItem: menuItem });
+        };
 
     private readonly catchInputChipClicks = (chip: Chip) => (event: Event) => {
         /*

@@ -1,5 +1,5 @@
 import translate from '../../global/translations';
-import { Chip } from '../chip-set/chip.types';
+import { Chip, MenuItemEvent } from '../chip-set/chip.types';
 import { Languages } from '../date-picker/date.types';
 import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 import {
@@ -9,6 +9,8 @@ import {
     getFileIcon,
 } from '../../util/file-metadata';
 import { FileInfo } from '../../global/shared-types/file.types';
+import { ListSeparator } from '../../global/shared-types/separator.types';
+import { MenuItem } from '../../components';
 
 const DEFAULT_FILE_CHIP: Chip = {
     id: null,
@@ -47,6 +49,7 @@ const DEFAULT_FILE_CHIP: Chip = {
  *
  * @exampleComponent limel-example-file
  * @exampleComponent limel-example-file-custom-icon
+ * @exampleComponent limel-example-file-menu-items
  * @exampleComponent limel-example-file-accepted-types
  * @exampleComponent limel-example-file-composite
  */
@@ -105,6 +108,18 @@ export class File {
      */
     @Prop()
     public language: Languages = 'en';
+
+    /**
+     * Any menu items to be displayed in the file chip.
+     */
+    @Prop()
+    public menuItems: Array<MenuItem | ListSeparator> = [];
+
+    /**
+     * Dispatched when a file's menuitem is selected/deselected
+     */
+    @Event()
+    public menuItemSelected: EventEmitter<MenuItemEvent>;
 
     /**
      * Dispatched when a file is selected/deselected
@@ -172,6 +187,7 @@ export class File {
                     backgroundColor: getFileBackgroundColor(this.value),
                 },
                 href: this.value.href,
+                menuItems: this.menuItems,
             },
         ];
     }
