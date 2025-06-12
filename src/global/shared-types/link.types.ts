@@ -31,8 +31,11 @@ export interface Link {
     target?: string;
 
     /**
-     * Rel attribute for the link. Set this to `"noopener noreferrer"`
+     * Rel attribute for the link.
+     * Unless explicitly provided, in our components, this is
+     * automatically set to `"noopener noreferrer"`
      * when `target="_blank"` is used, for improved security.
+     * Providing an empty string will override the default.
      */
     rel?: string;
 }
