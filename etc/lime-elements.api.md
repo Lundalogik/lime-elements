@@ -383,6 +383,7 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "language": Languages;
+        "menuItems": Array<MenuItem | ListSeparator>;
         "readonly": boolean;
         "required": boolean;
         "value": FileInfo;
@@ -1456,8 +1457,10 @@ export namespace JSX {
         "invalid"?: boolean;
         "label"?: string;
         "language"?: Languages;
+        "menuItems"?: Array<MenuItem | ListSeparator>;
         "onChange"?: (event: LimelFileCustomEvent<FileInfo>) => void;
         "onInteract"?: (event: LimelFileCustomEvent<number | string>) => void;
+        "onMenuItemSelected"?: (event: LimelFileCustomEvent<MenuItemEvent>) => void;
         "readonly"?: boolean;
         "required"?: boolean;
         "value"?: FileInfo;
