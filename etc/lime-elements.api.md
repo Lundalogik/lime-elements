@@ -881,6 +881,7 @@ export interface FileInfo {
     iconColor?: Color;
     id: number | string;
     lastModified?: Date;
+    menuItems?: Array<MenuItem | ListSeparator>;
     size?: number;
 }
 
