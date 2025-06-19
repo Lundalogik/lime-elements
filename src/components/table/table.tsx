@@ -460,16 +460,7 @@ export class Table {
         // If that's the case lets just create the table no
         // matter if its rendered or not.
         if (!('ResizeObserver' in window)) {
-            this.tabulator = new TabulatorFull(table, this.getOptions());
-            this.tabulator.on('rowClick', this.onClickRow);
-            this.tabulator.on('dataSorting', this.handleDataSorting);
-            this.tabulator.on('pageLoaded', this.handlePageLoaded);
-            this.tabulator.on('columnMoved', this.handleMoveColumn);
-            this.tabulator.on('tableBuilt', () => {
-                console.log('Tabulator is now fully initialized.');
-                this.initialized = true;
-                this.updateData(this.data, []);
-            });
+            this.tabulator = this.createTabulator(table);
             this.setSelection();
 
             return;
@@ -477,22 +468,32 @@ export class Table {
 
         const observer = new ResizeObserver(() => {
             requestAnimationFrame(() => {
-                this.tabulator = new TabulatorFull(table, this.getOptions());
-                this.tabulator.on('rowClick', this.onClickRow);
-                this.tabulator.on('dataSorting', this.handleDataSorting);
-                this.tabulator.on('pageLoaded', this.handlePageLoaded);
-                this.tabulator.on('columnMoved', this.handleMoveColumn);
-                this.tabulator.on('tableBuilt', () => {
-                    console.log('Tabulator is now fully initialized.');
-                    this.initialized = true;
-                    this.updateData(this.data, []);
-                });
+                this.tabulator = this.createTabulator(table);
                 this.setSelection();
                 observer.unobserve(table);
                 observer.disconnect();
             });
         });
         observer.observe(table);
+    }
+
+    private createTabulator(table: HTMLElement): Tabulator {
+        const tabulator = new TabulatorFull(table, this.getOptions());
+        tabulator.on('rowClick', this.onClickRow);
+        tabulator.on('dataSorting', this.handleDataSorting);
+        tabulator.on('pageLoaded', this.handlePageLoaded);
+        tabulator.on('columnMoved', this.handleMoveColumn);
+        tabulator.on('renderComplete', this.handleRenderComplete);
+        tabulator.on('tableBuilt', () => {
+            this.initialized = true;
+            if (this.isRemoteMode()) {
+                this.tabulator.setData('https://localhost');
+            } else {
+                this.updateData(this.data, []);
+            }
+        });
+
+        return tabulator;
     }
 
     private initTableSelection() {
@@ -527,7 +528,6 @@ export class Table {
             data: this.data,
             layout: mapLayout(this.layout),
             columns: this.getColumnDefinitions(),
-            renderComplete: this.handleRenderComplete,
             ...ajaxOptions,
             ...paginationOptions,
             rowFormatter: this.formatRow,
@@ -613,6 +613,10 @@ export class Table {
             ajaxURL: remoteUrl,
             ajaxRequestFunc: this.requestData,
             ajaxRequesting: this.handleAjaxRequesting,
+            ajaxParams: {
+                page: this.tabulator?.getPage() || FIRST_PAGE,
+                sorters: this.tabulator?.getSorters() || [],
+            },
         };
     }
 
@@ -652,6 +656,7 @@ export class Table {
         }
 
         return {
+            pagination: true,
             paginationMode: this.isRemoteMode() ? 'remote' : 'local',
             paginationSize: this.pageSize,
             paginationInitialPage: this.page,
@@ -824,6 +829,10 @@ export class Table {
     };
 
     private handleMoveColumn = (_, components: TabulatorColumnComponent[]) => {
+        if (!this.movableColumns) {
+            return;
+        }
+
         const columns = components.map(this.findColumn).filter((c) => c);
         this.changeColumns.emit(columns);
     };
@@ -838,6 +847,8 @@ export class Table {
     };
 
     render() {
+        const totalRows = this.totalRows || this.data.length;
+
         return (
             <Host
                 class={{
@@ -847,7 +858,7 @@ export class Table {
                 <div
                     id="tabulator-container"
                     class={{
-                        'has-pagination': this.totalRows > this.pageSize,
+                        'has-pagination': totalRows > this.pageSize,
                         'has-aggregation': this.hasAggregation(this.columns),
                         'has-movable-columns': this.movableColumns,
                         'has-rowselector': this.selectable,
