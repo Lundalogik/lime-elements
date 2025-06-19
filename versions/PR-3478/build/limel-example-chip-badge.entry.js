@@ -1,2 +1,2 @@
-import{r as a,h as e}from"./index-6156b4fd.js";const t=":host{display:flex;flex-wrap:wrap;gap:0.5rem}";const n=class{constructor(e){a(this,e)}render(){return[e("limel-chip",{text:"Batman",icon:"batman_old",badge:2005}),e("limel-chip",{text:"Batman",icon:"batman_new",badge:"NEW"})]}};n.style=t;export{n as limel_example_chip_badge};
+import{r as e,h as a}from"./index-2714248e.js";const t=":host{display:flex;flex-wrap:wrap;gap:0.5rem}";const n=class{constructor(a){e(this,a)}render(){return[a("limel-chip",{text:"Batman",icon:"batman_old",badge:2005}),a("limel-chip",{text:"Batman",icon:"batman_new",badge:"NEW"})]}};n.style=t;export{n as limel_example_chip_badge};
 //# sourceMappingURL=limel-example-chip-badge.entry.js.map
