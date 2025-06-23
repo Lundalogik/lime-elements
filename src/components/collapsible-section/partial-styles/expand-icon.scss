@@ -1,5 +1,9 @@
 .expand-icon {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     height: 1.875rem;
     margin: 0 0 0 0.5rem;
     width: 0.75rem;
@@ -9,10 +13,7 @@
 
 .line {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: auto;
     margin: auto;
 
     width: 100%;
@@ -40,39 +41,6 @@
         transition:
             opacity 0.2s ease,
             transform 0.18s ease;
-    }
-
-    section.open & {
-        &:first-of-type,
-        &:last-of-type {
-            transition:
-                opacity 0.2s ease 0.1s,
-                transform 0.4s ease 0.3s;
-        }
-        &:first-of-type {
-            transform: rotate3d(0, 0, 1, 0deg);
-        }
-
-        &:last-of-type {
-            transform: rotate3d(0, 0, 1, 0deg);
-        }
-
-        &:nth-of-type(2),
-        &:nth-of-type(3) {
-            transition:
-                opacity 1s ease,
-                transform 0.4s ease;
-        }
-
-        &:nth-of-type(2) {
-            transform: translate3d(0, -1rem, 0);
-            opacity: 0;
-        }
-
-        &:nth-of-type(3) {
-            transform: translate3d(0, 1rem, 0);
-            opacity: 0;
-        }
     }
 }
 
@@ -106,6 +74,40 @@
 }
 
 section.open {
+    .line {
+        &:first-of-type,
+        &:last-of-type {
+            transition:
+                opacity 0.2s ease 0.1s,
+                transform 0.4s ease 0.3s;
+        }
+
+        &:first-of-type {
+            transform: rotate3d(0, 0, 1, 0deg);
+        }
+
+        &:last-of-type {
+            transform: rotate3d(0, 0, 1, 0deg);
+        }
+
+        &:nth-of-type(2),
+        &:nth-of-type(3) {
+            transition:
+                opacity 1s ease,
+                transform 0.4s ease;
+        }
+
+        &:nth-of-type(2) {
+            transform: translate3d(0, -1rem, 0);
+            opacity: 0;
+        }
+
+        &:nth-of-type(3) {
+            transform: translate3d(0, 1rem, 0);
+            opacity: 0;
+        }
+    }
+
     .open-close-toggle:hover + .expand-icon {
         .line {
             &:first-of-type,
