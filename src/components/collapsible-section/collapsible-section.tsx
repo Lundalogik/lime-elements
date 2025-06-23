@@ -19,6 +19,8 @@ import {
     getIconName,
     getIconTitle,
 } from '../icon/get-icon-props';
+import translate from '../../global/translations';
+import { Languages } from '../date-picker/date.types';
 
 /**
  * A collapsible section can be used to group related content together
@@ -79,6 +81,13 @@ export class CollapsibleSection {
     public actions: Action[];
 
     /**
+     * Defines the language for translations.
+     * Will translate the translatable strings on the components.
+     */
+    @Prop({ reflect: true })
+    public language: Languages = 'en';
+
+    /**
      * Emitted when the section is expanded
      */
     @Event()
@@ -131,6 +140,7 @@ export class CollapsibleSection {
                         onClick={this.onClick}
                         aria-controls={this.bodyId}
                         aria-expanded={this.isOpen ? 'true' : 'false'}
+                        aria-label={this.getCollapsibleSectionAriaLabel()}
                         type="button"
                     />
                     {this.renderExpandCollapseSign()}
@@ -245,5 +255,19 @@ export class CollapsibleSection {
     private handleActionClick = (action: Action) => (event: MouseEvent) => {
         event.stopPropagation();
         this.action.emit(action);
+    };
+
+    private getCollapsibleSectionAriaLabel = (): string => {
+        const heading = this.header ? `"${this.header}"` : ' ';
+
+        if (!this.isOpen) {
+            return translate.get('collapsible-section.open', this.language, {
+                header: heading,
+            });
+        }
+
+        return translate.get('collapsible-section.close', this.language, {
+            header: heading,
+        });
     };
 }
