@@ -316,6 +316,7 @@ export namespace Components {
         "icon"?: string | Icon;
         "invalid": boolean;
         "isOpen": boolean;
+        "language": Languages;
     }
     export interface LimelColorPicker {
         "helperText": string;
@@ -1373,6 +1374,7 @@ export namespace JSX {
         "icon"?: string | Icon;
         "invalid"?: boolean;
         "isOpen"?: boolean;
+        "language"?: Languages;
         "onAction"?: (event: LimelCollapsibleSectionCustomEvent<Action>) => void;
         "onClose"?: (event: LimelCollapsibleSectionCustomEvent<void>) => void;
         "onOpen"?: (event: LimelCollapsibleSectionCustomEvent<void>) => void;

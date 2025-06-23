@@ -12,6 +12,8 @@ export default {
     'callout.tip': 'Conseil',
     'callout.caution': 'Prudence',
     'callout.warning': 'Avertissement',
+    'collapsible-section.open': 'Ouvrir la section { header }',
+    'collapsible-section.close': 'Fermer la section { header }',
     'date-picker.today': "Aujourd'hui",
     'date-picker.month.heading': 'Mois',
     'date-picker.quarter.heading': 'Trimestre',
