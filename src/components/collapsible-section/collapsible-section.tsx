@@ -131,12 +131,7 @@ export class CollapsibleSection {
                         onClick={this.onClick}
                         aria-controls={this.bodyId}
                     />
-                    <div class="expand-icon">
-                        <div class="line" />
-                        <div class="line" />
-                        <div class="line" />
-                        <div class="line" />
-                    </div>
+                    {this.renderExpandCollapseSign()}
                     {this.renderIcon()}
                     {this.renderHeading()}
                     <div class="divider-line" role="presentation" />
@@ -168,6 +163,17 @@ export class CollapsibleSection {
         } else {
             this.close.emit();
         }
+    };
+
+    private renderExpandCollapseSign = () => {
+        return (
+            <div class="expand-icon">
+                <div class="line" />
+                <div class="line" />
+                <div class="line" />
+                <div class="line" />
+            </div>
+        );
     };
 
     private renderIcon = () => {
