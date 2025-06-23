@@ -130,6 +130,8 @@ export class CollapsibleSection {
                         class="open-close-toggle"
                         onClick={this.onClick}
                         aria-controls={this.bodyId}
+                        aria-expanded={this.isOpen ? 'true' : 'false'}
+                        type="button"
                     />
                     {this.renderExpandCollapseSign()}
                     {this.renderIcon()}
@@ -142,6 +144,7 @@ export class CollapsibleSection {
                     class="body"
                     aria-hidden={String(!this.isOpen)}
                     id={this.bodyId}
+                    role="region"
                 >
                     <slot />
                 </div>
@@ -167,7 +170,7 @@ export class CollapsibleSection {
 
     private renderExpandCollapseSign = () => {
         return (
-            <div class="expand-icon">
+            <div class="expand-icon" role="presentation" aria-hidden="true">
                 <div class="line" />
                 <div class="line" />
                 <div class="line" />
