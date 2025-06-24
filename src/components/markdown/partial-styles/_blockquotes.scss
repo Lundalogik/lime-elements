@@ -1,30 +1,29 @@
 blockquote {
     position: relative;
-    font-weight: 100;
-    font-size: 0.875rem;
     max-width: 100%;
-    line-height: 1.4;
-    margin: 0;
-    padding: 0.5rem 1.25rem;
-    border-radius: 0.05rem 0.75rem;
-    background-color: rgb(var(--contrast-300));
+    margin: 0.75rem 0;
+    padding: 0.5rem;
+
+    border-left: 0.25rem solid rgb(var(--contrast-500));
+    background-color: rgb(var(--contrast-200));
 
     &:before,
     &:after {
         position: absolute;
-        font-size: 2.75rem;
+        line-height: 0;
+        font-size: 2rem;
         opacity: 0.4;
     }
 
     &:before {
         content: '“';
-        left: 0;
-        top: -0.75rem;
+        left: -0.5rem;
+        top: 0.5rem;
     }
 
     &:after {
         content: '”';
-        right: 0;
-        bottom: -2rem;
+        right: -0.25rem;
+        bottom: -0.25rem;
     }
 }
