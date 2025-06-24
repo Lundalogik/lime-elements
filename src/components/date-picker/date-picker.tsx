@@ -13,6 +13,7 @@ import { DateType, Languages } from '../date-picker/date.types';
 import { InputType } from '../input-field/input-field.types';
 import { DateFormatter } from './dateFormatter';
 import { MDCTextField } from '@material/textfield';
+import { getComputedStyles } from '../../util/computed-styles';
 
 // tslint:disable:no-duplicate-string
 const nativeTypeForConsumerType: { [key: string]: InputType } = {
@@ -153,6 +154,9 @@ export class DatePicker {
     @State()
     private showPortal = false;
 
+    @State()
+    private computedStyles: Record<string, string> = {};
+
     private useNative: boolean;
     private nativeType: InputType;
     private nativeFormat: string;
@@ -185,6 +189,16 @@ export class DatePicker {
         this.updateInternalFormatAndType();
     }
 
+    public connectedCallback() {
+        this.setComputedStyles();
+    }
+
+    private async setComputedStyles() {
+        this.computedStyles = await getComputedStyles(this.host, [
+            '--dropdown-z-index',
+        ]);
+    }
+
     public disconnectedCallback() {
         this.hideCalendar();
     }
@@ -214,10 +228,7 @@ export class DatePicker {
             );
         }
 
-        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
-        );
-
+        const dropdownZIndex = this.computedStyles['--dropdown-z-index'];
         const formatter = this.formatter || this.formatValue;
 
         return [

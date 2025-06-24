@@ -25,6 +25,7 @@ import { JSXBase } from '@stencil/core/internal';
 import { createRandomString } from '../../util/random-string';
 import { LimelListCustomEvent } from '../../components';
 import { globalConfig } from '../../global/config';
+import { getComputedStyles } from '../../util/computed-styles';
 
 interface LinkProperties {
     href: string;
@@ -247,6 +248,9 @@ export class InputField {
     @State()
     public showCompletions: boolean = false;
 
+    @State()
+    private computedStyles: Record<string, string> = {};
+
     private inputElement?: HTMLInputElement | HTMLTextAreaElement;
     private mdcTextField: MDCTextField;
     private completionsList: ListItem[] = [];
@@ -264,6 +268,13 @@ export class InputField {
 
     public connectedCallback() {
         this.initialize();
+        this.setComputedStyles();
+    }
+
+    private async setComputedStyles() {
+        this.computedStyles = await getComputedStyles(this.limelInputField, [
+            '--dropdown-z-index',
+        ]);
     }
 
     public componentDidLoad() {
@@ -861,9 +872,7 @@ export class InputField {
             return;
         }
 
-        const dropdownZIndex = getComputedStyle(
-            this.limelInputField,
-        ).getPropertyValue('--dropdown-z-index');
+        const dropdownZIndex = this.computedStyles['--dropdown-z-index'];
 
         return (
             <limel-portal
