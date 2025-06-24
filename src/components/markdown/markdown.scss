@@ -14,6 +14,17 @@
 @forward './partial-styles/kbd';
 @forward './partial-styles/_adjust-for-table-cell';
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+
+    & :where(:not(img, video, svg, canvas, iframe)) {
+        min-width: 0;
+        min-height: 0;
+    }
+}
+
 // body-text
 hr {
     border-top: 1px solid rgb(var(--contrast-700));
