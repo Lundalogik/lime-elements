@@ -1,3 +1,14 @@
+## [38.16.2](https://github.com/Lundalogik/lime-elements/compare/v38.16.1...v38.16.2) (2025-06-24)
+
+
+### Bug Fixes
+
+
+* **collapsible-section:** animate the expand / shrink icon when focused via keyboard ([37e0997](https://github.com/Lundalogik/lime-elements/commit/37e0997d7cee6e556a4dbc3b24a6ce79d8520777))
+* **collapsible-section:** better visualize the expand icon ([2578d5a](https://github.com/Lundalogik/lime-elements/commit/2578d5abf9b5f75e22a60a8bd9784d5c76600262))
+* **collapsible-section:** improve accessibility, using `aria-label` for the toggle button ([626f4bc](https://github.com/Lundalogik/lime-elements/commit/626f4bc6f04eb08ab4e7d4b814cb80f8ffa3f1db))
+* **collapsible-section:** improve accessibility, using various `aria` attributes ([0369744](https://github.com/Lundalogik/lime-elements/commit/0369744f28fd13c0e7b471d6e6b5f233ff6991fe))
+
 ## [38.16.1](https://github.com/Lundalogik/lime-elements/compare/v38.16.0...v38.16.1) (2025-06-12)
 
 
