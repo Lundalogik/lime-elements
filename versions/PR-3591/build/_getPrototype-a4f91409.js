@@ -1,0 +1,2 @@
+import{d as e}from"./_defineProperty-b19e9c3e.js";import{o as r}from"./_getTag-1aa9af35.js";function a(r,a,t){if(a=="__proto__"&&e){e(r,a,{configurable:true,enumerable:true,value:t,writable:true})}else{r[a]=t}}var t=r(Object.getPrototypeOf,Object);export{a as b,t as g};
+//# sourceMappingURL=_getPrototype-a4f91409.js.map

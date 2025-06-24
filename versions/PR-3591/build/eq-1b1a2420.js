@@ -1,0 +1,2 @@
+var r=9007199254740991;var n=/^(?:0|[1-9]\d*)$/;function e(e,t){var u=typeof e;t=t==null?r:t;return!!t&&(u=="number"||u!="symbol"&&n.test(e))&&(e>-1&&e%1==0&&e<t)}function t(r,n){return r===n||r!==r&&n!==n}export{t as e,e as i};
+//# sourceMappingURL=eq-1b1a2420.js.map

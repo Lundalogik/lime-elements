@@ -1,0 +1,2 @@
+import{b as t}from"./isObjectLike-79358e6b.js";import{i as o}from"./isObject-7039fcda.js";var e="[object AsyncFunction]",r="[object Function]",c="[object GeneratorFunction]",i="[object Proxy]";function n(n){if(!o(n)){return false}var s=t(n);return s==r||s==c||s==e||s==i}export{n as i};
+//# sourceMappingURL=isFunction-d705db7f.js.map
