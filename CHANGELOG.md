@@ -1,3 +1,19 @@
+## [38.17.0](https://github.com/Lundalogik/lime-elements/compare/v38.16.2...v38.17.0) (2025-06-24)
+
+
+### Features
+
+
+* **link.types:** add `rel` as a prop ([204346b](https://github.com/Lundalogik/lime-elements/commit/204346b94acb9aee4dc1b07d9ef5454c60d8613c))
+
+### Bug Fixes
+
+
+* **chip:** prevent potential security vulnerability for `window.opener` attacks ([6e08912](https://github.com/Lundalogik/lime-elements/commit/6e089129f03a5fcddb9ca5a03575e8b76367d203))
+* **info-tile:** prevent potential security vulnerability for `window.opener` attacks ([9f8c8b9](https://github.com/Lundalogik/lime-elements/commit/9f8c8b978877fc852f4c8d1113f8a98db1708284))
+* **input-field:** prevent potential security vulnerability for `window.opener` attacks ([3db511d](https://github.com/Lundalogik/lime-elements/commit/3db511dc92c2fc12a1472ad17a905f7fdac4a485))
+* **shortcut:** prevent potential security vulnerability for `window.opener` attacks ([cd1d9b5](https://github.com/Lundalogik/lime-elements/commit/cd1d9b587fa5111a5c67f6efc9156fdeb662ec9c))
+
 ## [38.16.2](https://github.com/Lundalogik/lime-elements/compare/v38.16.1...v38.16.2) (2025-06-24)
 
 
