@@ -26,4 +26,24 @@ blockquote {
         right: -0.25rem;
         bottom: -0.25rem;
     }
+
+    blockquote {
+        padding-top: 0;
+        padding-right: 0;
+        padding-bottom: 0;
+        padding-left: 0.25rem;
+
+        border-color: rgb(var(--contrast-700));
+        border-left-width: 1px;
+
+        &:before,
+        &:after {
+            display: none;
+        }
+    }
+
+    &:has(> blockquote) {
+        padding-left: 0.25rem;
+        padding-bottom: 0;
+    }
 }
