@@ -62,9 +62,7 @@ export class IconButtonCompositeExample {
     private handleChange = (control) => (event: CustomEvent) => {
         this.props = {
             ...this.props,
-            ...{
-                [control.property]: (event.detail && control.value) || null,
-            },
+            [control.property]: (event.detail && control.value) || null,
         };
     };
 
