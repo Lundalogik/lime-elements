@@ -1,3 +1,12 @@
+## [38.17.1](https://github.com/Lundalogik/lime-elements/compare/v38.17.0...v38.17.1) (2025-06-26)
+
+
+### Bug Fixes
+
+
+* **markdown:** better render nested `blockquote`s ([eda9751](https://github.com/Lundalogik/lime-elements/commit/eda97518d13aa1cffc7c70ef6d441c47595817a9))
+* **markdown:** improve how `blockquote`s are visualized ([97d753f](https://github.com/Lundalogik/lime-elements/commit/97d753fdb599af4e696545b9fcf8230c6d7d7330))
+
 ## [38.17.0](https://github.com/Lundalogik/lime-elements/compare/v38.16.2...v38.17.0) (2025-06-24)
 
 
