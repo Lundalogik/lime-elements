@@ -51,4 +51,5 @@ export * from './components/table/table.types';
 export * from './global/shared-types/separator.types';
 export * from './global/shared-types/icon.types';
 export * from './global/shared-types/image.types';
+export * from './global/shared-types/color.types';
 export * from './components/text-editor/text-editor.types';

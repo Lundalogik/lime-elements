@@ -64,7 +64,7 @@ export type CalloutType = 'note' | 'important' | 'tip' | 'caution' | 'warning';
 // @beta
 export interface ChartItem<T extends number | [number, number] = number | [number, number]> {
     clickable?: boolean;
-    color?: string;
+    color?: Color;
     formattedValue?: string;
     text: string;
     value: T;
@@ -76,9 +76,9 @@ export interface Chip<T = any> {
     href?: string;
     icon?: string | Icon;
     // @deprecated
-    iconBackgroundColor?: string;
+    iconBackgroundColor?: Color;
     // @deprecated
-    iconFillColor?: string;
+    iconFillColor?: Color;
     // @deprecated
     iconTitle?: string;
     id: number | string;
@@ -104,6 +104,11 @@ export interface ClosingActions {
     // (undocumented)
     scrimClick: boolean;
 }
+
+// Warning: (ae-incompatible-release-tags) The symbol "Color" is marked as @public, but its signature references "_Internal" which is marked as @internal
+//
+// @public
+export type Color = `rgb(var(${_Internal.HueColor | _Internal.BlackColor | _Internal.WhiteColor | _Internal.ContrastColor | _Internal.BrandColor}))` | (string & {});
 
 // @public (undocumented)
 export type ColorScheme = 'dark' | 'light' | 'auto';
@@ -871,9 +876,9 @@ export interface FileInfo {
     href?: string;
     icon?: string | Icon;
     // @deprecated
-    iconBackgroundColor?: string;
+    iconBackgroundColor?: Color;
     // @deprecated
-    iconColor?: string;
+    iconColor?: Color;
     id: number | string;
     lastModified?: Date;
     size?: number;
@@ -891,10 +896,10 @@ export type FlexContainerJustify = 'start' | 'end' | 'center' | 'space-between' 
 // @public
 export interface FlowItem extends ListItem {
     // @deprecated
-    iconColor?: string;
+    iconColor?: Color;
     isOffProgress?: boolean;
-    passedColor?: string;
-    selectedColor?: string;
+    passedColor?: Color;
+    selectedColor?: Color;
 }
 
 // @public (undocumented)
@@ -994,8 +999,8 @@ export interface Help {
 
 // @public
 export interface Icon {
-    backgroundColor?: string;
-    color?: string;
+    backgroundColor?: Color;
+    color?: Color;
     name: string;
     title?: string;
 }
@@ -1031,6 +1036,28 @@ export interface InfoTileProgress {
 
 // @public (undocumented)
 export type InputType = 'date' | 'datetime-local' | 'email' | 'month' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'textarea' | 'time' | 'url' | 'urlAsText' | 'week';
+
+// @internal (undocumented)
+export namespace _Internal {
+    // (undocumented)
+    export type BlackColor = '--color-black';
+    // (undocumented)
+    export type BrandColor = `--lime-brand-color-${BrandHue}`;
+    // (undocumented)
+    export type BrandHue = 'lime-green' | 'ocean-teal' | 'aqua' | 'bubblegum' | 'sunny-orange' | 'cool-grey';
+    // (undocumented)
+    export type Brightness = 'lighter' | 'light' | 'default' | 'dark' | 'darker';
+    // (undocumented)
+    export type ContrastColor = `--contrast-${ContrastValue}`;
+    // (undocumented)
+    export type ContrastValue = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 1000 | 1100 | 1200 | 1300 | 1400 | 1500 | 1600 | 1700;
+    // (undocumented)
+    export type Hue = 'red' | 'pink' | 'magenta' | 'purple' | 'violet' | 'indigo' | 'blue' | 'cyan' | 'teal' | 'green' | 'lime' | 'yellow' | 'amber' | 'orange' | 'coral' | 'brown' | 'grey' | 'glaucous';
+    // (undocumented)
+    export type HueColor = `--color-${Hue}-${Brightness}`;
+    // (undocumented)
+    export type WhiteColor = '--color-white';
+}
 
 // Warning: (ae-missing-release-tag) "LocalJSX" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -2396,7 +2423,7 @@ export interface ListItem<T = any> {
     disabled?: boolean;
     icon?: string | Icon;
     // @deprecated
-    iconColor?: string;
+    iconColor?: Color;
     image?: Image_2;
     primaryComponent?: ListComponent;
     secondaryText?: string;
@@ -2423,7 +2450,7 @@ interface MenuItem<T = any> {
     disabled?: boolean;
     icon?: string | Icon;
     // @deprecated
-    iconColor?: string;
+    iconColor?: Color;
     items?: Array<MenuItem<T> | ListSeparator> | MenuLoader;
     // @internal
     parentItem?: MenuItem;
@@ -2452,7 +2479,7 @@ interface Option_2<T extends string = string> {
     disabled?: boolean;
     icon?: string | Icon;
     // @deprecated
-    iconColor?: string;
+    iconColor?: Color;
     secondaryText?: string;
     text: string;
     value: T;
@@ -2493,7 +2520,7 @@ export interface Tab {
     badge?: number | string;
     icon?: string | Icon;
     // @deprecated
-    iconColor?: string;
+    iconColor?: Color;
     id: number | string;
     text?: string;
 }
