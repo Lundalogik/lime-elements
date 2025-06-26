@@ -1,3 +1,11 @@
+## [38.18.0](https://github.com/Lundalogik/lime-elements/compare/v38.17.1...v38.18.0) (2025-06-26)
+
+
+### Features
+
+
+* **color:** add autocomplete for defined colors ([7872ad8](https://github.com/Lundalogik/lime-elements/commit/7872ad870e0eeb122b0d4945d417f39f2101248e))
+
 ## [38.17.1](https://github.com/Lundalogik/lime-elements/compare/v38.17.0...v38.17.1) (2025-06-26)
 
 
