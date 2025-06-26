@@ -6,12 +6,13 @@ import {
     Event,
     EventEmitter,
     Watch,
+    State,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
-import { zipObject } from 'lodash-es';
 import { portalContains } from '../portal/contains';
 import { ESCAPE } from '../../util/keycodes';
 import { OpenDirection } from '../menu/menu.types';
+import { getComputedStyles } from '../../util/computed-styles';
 
 /**
  * A popover is an impermanent layer that is displayed on top of other content
@@ -82,6 +83,9 @@ export class Popover {
     @Event()
     private close: EventEmitter<void>;
 
+    @State()
+    private computedStyles: Record<string, string> = {};
+
     @Element()
     private host: HTMLLimelPopoverElement;
 
@@ -95,6 +99,21 @@ export class Popover {
     @Watch('open')
     protected watchOpen() {
         this.setupGlobalHandlers();
+    }
+
+    public connectedCallback() {
+        this.setComputedStyles();
+    }
+
+    private async setComputedStyles() {
+        const propertyNames = [
+            '--popover-surface-width',
+            '--popover-body-background-color',
+            '--popover-border-radius',
+            '--popover-box-shadow',
+            '--popover-z-index',
+        ] as const;
+        this.computedStyles = await getComputedStyles(this.host, propertyNames);
     }
 
     public componentWillLoad() {
@@ -120,9 +139,7 @@ export class Popover {
 
     public render() {
         const cssProperties = this.getCssProperties();
-        const popoverZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--popover-z-index',
-        );
+        const popoverZIndex = this.computedStyles['--popover-z-index'];
 
         return (
             <div class="trigger-anchor">
@@ -153,18 +170,10 @@ export class Popover {
     }
 
     private getCssProperties() {
-        const propertyNames = [
-            '--popover-surface-width',
-            '--popover-body-background-color',
-            '--popover-border-radius',
-            '--popover-box-shadow',
-        ];
-        const style = getComputedStyle(this.host);
-        const values = propertyNames.map((property) => {
-            return style.getPropertyValue(property);
-        });
-
-        return zipObject(propertyNames, values);
+        return {
+            ...this.computedStyles,
+            '--popover-z-index': undefined,
+        };
     }
 
     private handleGlobalKeyPress = (event: KeyboardEvent) => {

@@ -17,6 +17,7 @@ import { ENTER, SPACE } from '../../util/keycodes';
 import { isMultiple } from '../../util/multiple';
 import { createRandomString } from '../../util/random-string';
 import { SelectTemplate, triggerIconColorWarning } from './select.template';
+import { getComputedStyles } from '../../util/computed-styles';
 
 /**
  * @exampleComponent limel-example-select
@@ -110,6 +111,9 @@ export class Select {
     @State()
     private menuOpen: boolean = false;
 
+    @State()
+    private computedStyles: Record<string, string> = {};
+
     private hasChanged: boolean = false;
     private checkValid: boolean = false;
     private mdcSelectHelperText: MDCSelectHelperText;
@@ -130,6 +134,13 @@ export class Select {
 
     public connectedCallback() {
         this.initialize();
+        this.setComputedStyles();
+    }
+
+    private async setComputedStyles() {
+        this.computedStyles = await getComputedStyles(this.host, [
+            '--dropdown-z-index',
+        ]);
     }
 
     public componentWillLoad() {
@@ -179,9 +190,7 @@ export class Select {
     }
 
     public render() {
-        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
-        );
+        const dropdownZIndex = this.computedStyles['--dropdown-z-index'];
 
         return (
             <SelectTemplate

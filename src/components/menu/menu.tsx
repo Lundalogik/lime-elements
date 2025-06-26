@@ -9,7 +9,7 @@ import {
     State,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
-import { zipObject, isFunction } from 'lodash-es';
+import { isFunction } from 'lodash-es';
 import {
     LimelBreadcrumbsCustomEvent,
     LimelInputFieldCustomEvent,
@@ -32,6 +32,7 @@ import {
     ARROW_UP,
     TAB,
 } from '../../util/keycodes';
+import { getComputedStyles } from '../../util/computed-styles';
 
 interface MenuCrumbItem extends BreadcrumbsItem {
     menuItem?: MenuItem;
@@ -192,6 +193,9 @@ export class Menu {
     @State()
     private searchResults: Array<MenuItem | ListSeparator> | null;
 
+    @State()
+    private computedStyles: Record<string, string> = {};
+
     private list: HTMLLimelMenuListElement;
     private searchInput: HTMLLimelInputFieldElement;
     private portalId: string;
@@ -202,6 +206,24 @@ export class Menu {
         this.portalId = createRandomString();
     }
 
+    public connectedCallback() {
+        this.setComputedStyles();
+    }
+
+    private async setComputedStyles() {
+        const propertyNames = [
+            '--menu-surface-width',
+            '--list-grid-item-max-width',
+            '--list-grid-item-min-width',
+            '--list-grid-gap',
+            '--notification-badge-background-color',
+            '--notification-badge-text-color',
+            '--dropdown-z-index',
+        ] as const;
+
+        this.computedStyles = await getComputedStyles(this.host, propertyNames);
+    }
+
     public componentDidRender() {
         const slotElement = this.host.shadowRoot.querySelector('slot');
         slotElement.assignedElements().forEach(this.setTriggerAttributes);
@@ -210,9 +232,7 @@ export class Menu {
     public render() {
         const cssProperties = this.getCssProperties();
 
-        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
-        );
+        const dropdownZIndex = this.computedStyles['--dropdown-z-index'];
 
         const menuSurfaceWidth = this.getMenuSurfaceWidth(
             cssProperties['--menu-surface-width'],
@@ -653,22 +673,10 @@ export class Menu {
     };
 
     private getCssProperties() {
-        const propertyNames = [
-            '--menu-surface-width',
-            '--list-grid-item-max-width',
-            '--list-grid-item-min-width',
-            '--list-grid-gap',
-            '--notification-badge-background-color',
-            '--notification-badge-text-color',
-        ] as const;
-        const style = getComputedStyle(this.host);
-        const values = propertyNames.map((property) => {
-            return style.getPropertyValue(property);
-        });
-
-        type PropName = (typeof propertyNames)[number];
-
-        return zipObject(propertyNames, values) as Record<PropName, string>;
+        return {
+            ...this.computedStyles,
+            '--dropdown-z-index': undefined,
+        };
     }
 
     private setListElement = (element: HTMLLimelMenuListElement) => {

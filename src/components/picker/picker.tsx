@@ -23,6 +23,7 @@ import {
 import { getIconFillColor, getIconName } from '../icon/get-icon-props';
 import { PickerValue } from './value.types';
 import { DebouncedFunc, debounce } from 'lodash-es';
+import { getComputedStyles } from '../../util/computed-styles';
 
 const SEARCH_DEBOUNCE = 300;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
@@ -205,6 +206,9 @@ export class Picker {
     @State()
     private chips: Chip[] = [];
 
+    @State()
+    private computedStyles: Record<string, string> = {};
+
     @Element()
     private host: HTMLLimelPickerElement;
 
@@ -239,6 +243,16 @@ export class Picker {
 
     public componentDidLoad() {
         this.chipSet = this.host.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
+    }
+
+    public connectedCallback() {
+        this.setComputedStyles();
+    }
+
+    private async setComputedStyles() {
+        this.computedStyles = await getComputedStyles(this.host, [
+            '--dropdown-z-index',
+        ]);
     }
 
     public disconnectedCallback() {
@@ -489,9 +503,7 @@ export class Picker {
     }
 
     private renderPortal(content: any[] = []) {
-        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
-        );
+        const dropdownZIndex = this.computedStyles['--dropdown-z-index'];
 
         return (
             <limel-portal

@@ -4,6 +4,7 @@ import { createRandomString } from '../../util/random-string';
 import { OpenDirection } from '../menu/menu.types';
 import { getOwnerElement } from './getOwnerElement';
 import { TooltipTimer } from './tooltipTimer';
+import { getComputedStyles } from '../../util/computed-styles';
 
 const DEFAULT_MAX_LENGTH = 50;
 
@@ -98,6 +99,9 @@ export class Tooltip {
     @State()
     private open: boolean;
 
+    @State()
+    private computedStyles: Record<string, string> = {};
+
     private portalId: string;
     private tooltipId: string;
     private ownerElement: HTMLElement;
@@ -116,6 +120,13 @@ export class Tooltip {
         this.ownerElement = getOwnerElement(this.elementId, this.host);
         this.setOwnerAriaLabel();
         this.addListeners();
+        this.setComputesdStyles();
+    }
+
+    private async setComputesdStyles() {
+        this.computedStyles = await getComputedStyles(this.host, [
+            '--tooltip-z-index',
+        ]);
     }
 
     public disconnectedCallback() {
@@ -123,9 +134,7 @@ export class Tooltip {
     }
 
     public render(): JSX.Element {
-        const tooltipZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--tooltip-z-index',
-        );
+        const tooltipZIndex = this.computedStyles['--tooltip-z-index'];
 
         return (
             <div class="trigger-anchor">
