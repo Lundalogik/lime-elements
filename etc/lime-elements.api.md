@@ -389,6 +389,7 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "language": Languages;
+        "menuItems": Array<MenuItem | ListSeparator>;
         "readonly": boolean;
         "required": boolean;
         "value": FileInfo;
@@ -1368,6 +1369,7 @@ export namespace JSX {
         "onChange"?: (event: LimelChipSetCustomEvent<Chip | Chip[]>) => void;
         "onInput"?: (event: LimelChipSetCustomEvent<string>) => void;
         "onInteract"?: (event: LimelChipSetCustomEvent<Chip>) => void;
+        "onMenuItemSelected"?: (event: LimelChipSetCustomEvent<MenuItemEvent>) => void;
         "onStartEdit"?: (event: LimelChipSetCustomEvent<void>) => void;
         "onStopEdit"?: (event: LimelChipSetCustomEvent<void>) => void;
         "readonly"?: boolean;
@@ -1484,8 +1486,10 @@ export namespace JSX {
         "invalid"?: boolean;
         "label"?: string;
         "language"?: Languages;
+        "menuItems"?: Array<MenuItem | ListSeparator>;
         "onChange"?: (event: LimelFileCustomEvent<FileInfo>) => void;
         "onInteract"?: (event: LimelFileCustomEvent<number | string>) => void;
+        "onMenuItemSelected"?: (event: LimelFileCustomEvent<MenuItemEvent>) => void;
         "readonly"?: boolean;
         "required"?: boolean;
         "value"?: FileInfo;
@@ -2461,6 +2465,16 @@ interface MenuItem<T = any> {
 }
 export { MenuItem }
 export { MenuItem as MenuItem1 }
+
+// Warning: (ae-missing-release-tag) "MenuItemEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface MenuItemEvent {
+    // (undocumented)
+    chip: Chip;
+    // (undocumented)
+    menuItem: MenuItem;
+}
 
 // @public
 export type MenuLoader = (item: MenuItem) => Promise<Array<MenuItem | ListSeparator>>;
