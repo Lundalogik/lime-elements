@@ -21,7 +21,7 @@ import {
 import { InputType } from '../input-field/input-field.types';
 import { ListItem } from '../list/list-item.types';
 import { getHref, getTarget, getRel } from '../../util/link-helper';
-import { JSXBase } from '@stencil/core/internal';
+import { JSXBase, Method } from '@stencil/core/internal';
 import { createRandomString } from '../../util/random-string';
 import { LimelListCustomEvent } from '../../components';
 import { globalConfig } from '../../global/config';
@@ -55,7 +55,7 @@ const RESIZE_HANDLER_DEBOUNCE_TIMEOUT = 100;
  */
 @Component({
     tag: 'limel-input-field',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'input-field.scss',
 })
 export class InputField {
@@ -247,6 +247,11 @@ export class InputField {
 
     @State()
     public showCompletions: boolean = false;
+
+    @Method()
+    public async focus() {
+        this.mdcTextField?.focus();
+    }
 
     private inputElement?: HTMLInputElement | HTMLTextAreaElement;
     private mdcTextField: MDCTextField;
