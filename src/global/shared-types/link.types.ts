@@ -29,4 +29,13 @@ export interface Link {
      * for more info.
      */
     target?: string;
+
+    /**
+     * The `rel` attribute for the link.
+     * Unless explicitly provided, in our components, this is
+     * automatically set to `"noopener noreferrer"`
+     * when `target="_blank"` is used, for improved security.
+     * Providing an empty string will override the default.
+     */
+    rel?: string;
 }

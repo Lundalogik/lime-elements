@@ -12,6 +12,8 @@ export default {
     'callout.tip': 'Tip',
     'callout.caution': 'Caution',
     'callout.warning': 'Warning',
+    'collapsible-section.open': 'Open { header } section',
+    'collapsible-section.close': 'Close { header } section',
     'date-picker.today': 'Today',
     'date-picker.month.heading': 'Month',
     'date-picker.quarter.heading': 'Quarter',

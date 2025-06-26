@@ -1,3 +1,39 @@
+## [38.17.1](https://github.com/Lundalogik/lime-elements/compare/v38.17.0...v38.17.1) (2025-06-26)
+
+
+### Bug Fixes
+
+
+* **markdown:** better render nested `blockquote`s ([eda9751](https://github.com/Lundalogik/lime-elements/commit/eda97518d13aa1cffc7c70ef6d441c47595817a9))
+* **markdown:** improve how `blockquote`s are visualized ([97d753f](https://github.com/Lundalogik/lime-elements/commit/97d753fdb599af4e696545b9fcf8230c6d7d7330))
+
+## [38.17.0](https://github.com/Lundalogik/lime-elements/compare/v38.16.2...v38.17.0) (2025-06-24)
+
+
+### Features
+
+
+* **link.types:** add `rel` as a prop ([204346b](https://github.com/Lundalogik/lime-elements/commit/204346b94acb9aee4dc1b07d9ef5454c60d8613c))
+
+### Bug Fixes
+
+
+* **chip:** prevent potential security vulnerability for `window.opener` attacks ([6e08912](https://github.com/Lundalogik/lime-elements/commit/6e089129f03a5fcddb9ca5a03575e8b76367d203))
+* **info-tile:** prevent potential security vulnerability for `window.opener` attacks ([9f8c8b9](https://github.com/Lundalogik/lime-elements/commit/9f8c8b978877fc852f4c8d1113f8a98db1708284))
+* **input-field:** prevent potential security vulnerability for `window.opener` attacks ([3db511d](https://github.com/Lundalogik/lime-elements/commit/3db511dc92c2fc12a1472ad17a905f7fdac4a485))
+* **shortcut:** prevent potential security vulnerability for `window.opener` attacks ([cd1d9b5](https://github.com/Lundalogik/lime-elements/commit/cd1d9b587fa5111a5c67f6efc9156fdeb662ec9c))
+
+## [38.16.2](https://github.com/Lundalogik/lime-elements/compare/v38.16.1...v38.16.2) (2025-06-24)
+
+
+### Bug Fixes
+
+
+* **collapsible-section:** animate the expand / shrink icon when focused via keyboard ([37e0997](https://github.com/Lundalogik/lime-elements/commit/37e0997d7cee6e556a4dbc3b24a6ce79d8520777))
+* **collapsible-section:** better visualize the expand icon ([2578d5a](https://github.com/Lundalogik/lime-elements/commit/2578d5abf9b5f75e22a60a8bd9784d5c76600262))
+* **collapsible-section:** improve accessibility, using `aria-label` for the toggle button ([626f4bc](https://github.com/Lundalogik/lime-elements/commit/626f4bc6f04eb08ab4e7d4b814cb80f8ffa3f1db))
+* **collapsible-section:** improve accessibility, using various `aria` attributes ([0369744](https://github.com/Lundalogik/lime-elements/commit/0369744f28fd13c0e7b471d6e6b5f233ff6991fe))
+
 ## [38.16.1](https://github.com/Lundalogik/lime-elements/compare/v38.16.0...v38.16.1) (2025-06-12)
 
 

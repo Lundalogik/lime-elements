@@ -34,7 +34,7 @@ describe('createFileInfo', () => {
 
         expect(result.id).toBeDefined();
 
-        const { id: h, ...resultWithoutId } = result;
+        const { id: _id, ...resultWithoutId } = result;
 
         expect(resultWithoutId).toMatchObject(expectedFileInfo);
     });

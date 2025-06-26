@@ -10,6 +10,7 @@ import {
 import { Icon } from '../../global/shared-types/icon.types';
 import { Languages } from '../date-picker/date.types';
 import { Link } from '../../global/shared-types/link.types';
+import { getRel } from '../../util/link-helper';
 import { getIconName } from '../icon/get-icon-props';
 import {
     makeEnterClickable,
@@ -251,6 +252,8 @@ export class Chip implements ChipInterface {
     };
 
     private renderAsLink = () => {
+        const rel = getRel(this.link?.target, this.link?.rel);
+
         return [
             <a
                 id={'chip-' + this.identifier}
@@ -258,6 +261,7 @@ export class Chip implements ChipInterface {
                 href={this.link.href}
                 title={this.link.title}
                 target={this.link.target}
+                rel={rel}
                 aria-disabled={this.disabled || this.readonly}
                 tabindex={this.disabled || this.readonly ? -1 : 0}
                 onKeyDown={this.handleDeleteKeyDown}
