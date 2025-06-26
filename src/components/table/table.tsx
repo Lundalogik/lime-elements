@@ -545,9 +545,7 @@ export class Table {
         if (aggregate) {
             column.aggregator = (
                 col?: Column,
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 _values?: any[],
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 _data?: any[],
             ) => {
                 if (!col) {
