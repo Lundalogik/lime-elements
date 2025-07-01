@@ -70,7 +70,6 @@ export class Markdown {
 
             this.setupImageIntersectionObserver();
         } catch (error) {
-            // eslint-disable-next-line no-console
             console.error(error);
         }
     }
@@ -98,7 +97,7 @@ export class Markdown {
     private setupImageIntersectionObserver() {
         if (this.lazyLoadImages) {
             this.imageIntersectionObserver = new ImageIntersectionObserver(
-                this.rootElement,
+                this.rootElement
             );
         }
     }

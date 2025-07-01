@@ -77,7 +77,7 @@ export class CircularProgress {
         };
 
         const currentPercentage = (this.value * PERCENT) / this.maxValue + '%';
-        const value = Math.round(this.value * 10) / 10; // eslint-disable-line no-magic-numbers
+        const value = Math.round(this.value * 10) / 10;
 
         return (
             <div

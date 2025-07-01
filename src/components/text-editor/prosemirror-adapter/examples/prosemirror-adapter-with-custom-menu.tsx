@@ -24,7 +24,7 @@ export class ProsemirrorAdapterWithCustomMenuExample {
     }
 
     private handleChange = (
-        event: LimelProsemirrorAdapterCustomEvent<string>,
+        event: LimelProsemirrorAdapterCustomEvent<string>
     ): void => {
         event.stopPropagation();
 

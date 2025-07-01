@@ -44,7 +44,7 @@ export class SnackbarPersistentExample {
 
     private snackbarOnAction = () => {
         console.log(
-            'Great! You have just agreed with our terms & conditions without reading it.',
+            'Great! You have just agreed with our terms & conditions without reading it.'
         );
         this.isOpen = false;
     };

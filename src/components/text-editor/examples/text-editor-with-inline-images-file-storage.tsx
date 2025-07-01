@@ -63,7 +63,7 @@ export class TextEditorWithInlineImagesExample {
     }
 
     private handleFailedThumbnailChange = (
-        event: LimelCheckboxCustomEvent<boolean>,
+        event: LimelCheckboxCustomEvent<boolean>
     ) => {
         this.uploadImageFails = event.detail;
     };
@@ -73,7 +73,7 @@ export class TextEditorWithInlineImagesExample {
     };
 
     private handleImagePasted = async (
-        event: LimelTextEditorCustomEvent<ImageInserter>,
+        event: LimelTextEditorCustomEvent<ImageInserter>
     ) => {
         const imageInserter = event.detail;
 
@@ -107,17 +107,17 @@ export class TextEditorWithInlineImagesExample {
             return imageSrc;
         } catch (error) {
             console.error(
-                `Failed to upload image ${fileInfo.filename}: ${error}`,
+                `Failed to upload image ${fileInfo.filename}: ${error}`
             );
         }
     };
 
     private handleMetadataChange = (
-        event: LimelTextEditorCustomEvent<EditorMetadata>,
+        event: LimelTextEditorCustomEvent<EditorMetadata>
     ) => {
         const removedImages = this.getRemovedImages(
             this.metadata,
-            event.detail,
+            event.detail
         );
 
         removedImages.forEach((image) => {
@@ -131,14 +131,14 @@ export class TextEditorWithInlineImagesExample {
 
     private getRemovedImages(
         oldMetadata: EditorMetadata,
-        newMetadata: EditorMetadata,
+        newMetadata: EditorMetadata
     ): EditorImage[] {
         const newImageIds = new Set(
-            newMetadata.images.map((image) => image.fileInfoId),
+            newMetadata.images.map((image) => image.fileInfoId)
         );
 
         return oldMetadata.images.filter(
-            (image) => !newImageIds.has(image.fileInfoId),
+            (image) => !newImageIds.has(image.fileInfoId)
         );
     }
 

@@ -10,7 +10,7 @@ import { Icon } from '../../global/shared-types/icon.types';
  */
 export function getIconName(
     // eslint-disable-next-line sonarjs/use-type-alias
-    icon: string | Icon | undefined,
+    icon: string | Icon | undefined
 ): string | undefined {
     if (!!icon && typeof icon === 'object' && 'name' in icon) {
         return icon.name;
@@ -36,7 +36,7 @@ export function getIconName(
  */
 export function getIconColor(
     icon: string | Icon | undefined,
-    iconColor?: string | undefined,
+    iconColor?: string | undefined
 ): string | undefined {
     if (!!icon && typeof icon === 'object' && 'color' in icon) {
         return icon.color;
@@ -62,7 +62,7 @@ export function getIconColor(
  */
 export function getIconFillColor(
     icon: string | Icon | undefined,
-    iconFillColor?: string | undefined,
+    iconFillColor?: string | undefined
 ): string | undefined {
     if (!!icon && typeof icon === 'object' && 'color' in icon) {
         return icon.color;
@@ -86,7 +86,7 @@ export function getIconFillColor(
  */
 export function getIconBackgroundColor(
     icon: string | Icon | undefined,
-    iconBackgroundColor?: string | undefined,
+    iconBackgroundColor?: string | undefined
 ): string | undefined {
     if (!!icon && typeof icon === 'object' && 'backgroundColor' in icon) {
         return icon.backgroundColor;
@@ -109,7 +109,7 @@ export function getIconBackgroundColor(
  */
 export function getIconTitle(
     icon: string | Icon | undefined,
-    iconTitle?: string | undefined,
+    iconTitle?: string | undefined
 ): string | undefined {
     if (!!icon && typeof icon === 'object' && 'title' in icon) {
         return icon.title;

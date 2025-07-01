@@ -164,7 +164,7 @@ export class TableExampleSelectableRows {
 
     private sumProperty = (
         items: Person[],
-        valueProvider: (person: Person) => number,
+        valueProvider: (person: Person) => number
     ) => {
         return items.reduce((s, person) => s + valueProvider(person), 0);
     };

@@ -6,7 +6,7 @@ export class DatePicker extends Picker {
     public constructor(
         language: string,
         change: EventEmitter,
-        dateFormat: string = 'L',
+        dateFormat: string = 'L'
     ) {
         super(language, change, dateFormat);
     }

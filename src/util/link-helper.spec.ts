@@ -33,7 +33,7 @@ describe('limeLinkHelper', () => {
     describe('when input begins with "https"', () => {
         it('is NOT prepended with http://', () => {
             expect(getHref('https://limetest@web')).toEqual(
-                'https://limetest@web',
+                'https://limetest@web'
             );
         });
     });
@@ -79,7 +79,7 @@ describe('limeLinkHelper', () => {
             it('prepends value with https://', () => {
                 isValid = true;
                 expect(prependProtocol('lime.tech')).toEqual(
-                    'https://lime.tech',
+                    'https://lime.tech'
                 );
             });
         });

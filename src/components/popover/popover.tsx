@@ -121,7 +121,7 @@ export class Popover {
     public render() {
         const cssProperties = this.getCssProperties();
         const popoverZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--popover-z-index',
+            '--popover-z-index'
         );
 
         return (

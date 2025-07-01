@@ -145,7 +145,7 @@ export class PickerStaticActionsExample {
     }
 
     private setBehavior(
-        event: LimelSelectCustomEvent<Option<ActionScrollBehavior>>,
+        event: LimelSelectCustomEvent<Option<ActionScrollBehavior>>
     ) {
         this.actionScrollBehavior = event.detail;
     }

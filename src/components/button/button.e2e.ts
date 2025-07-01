@@ -262,7 +262,7 @@ describe('limel-button', () => {
                     await page.waitForChanges();
                 });
                 testNotLoading(
-                    'the visual state becomes "not loading" after 2 seconds',
+                    'the visual state becomes "not loading" after 2 seconds'
                 );
             });
         }

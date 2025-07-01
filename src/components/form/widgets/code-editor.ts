@@ -31,7 +31,7 @@ export class CodeEditor extends React.Component {
         event: React.SyntheticEvent<
             HTMLLimelCodeEditorElement,
             CustomEvent<string>
-        >,
+        >
     ) {
         const props = this.props;
         event.stopPropagation();

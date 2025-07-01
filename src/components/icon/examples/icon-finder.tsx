@@ -34,7 +34,7 @@ export class IconFinder {
 
     private readonly loadIconIndex = async () => {
         const response = await fetch(
-            'https://lundalogik.github.io/lime-icons8/assets/icon-index.json',
+            'https://lundalogik.github.io/lime-icons8/assets/icon-index.json'
         );
         const json = await response?.json?.();
         this.indexedIcons = json;
@@ -87,7 +87,7 @@ export class IconFinder {
     };
 
     private readonly onInput = (
-        event: LimelChipSetCustomEvent<string> | InputEvent,
+        event: LimelChipSetCustomEvent<string> | InputEvent
     ) => {
         if (event instanceof CustomEvent) {
             this.textValue = event.detail;
@@ -110,7 +110,7 @@ export class IconFinder {
         this.indexedIcons.forEach((icon: Icon) => {
             this.value.forEach((search: Chip) => {
                 const hits = icon.tags.filter((tag) =>
-                    tag.includes(search.text),
+                    tag.includes(search.text)
                 );
                 if (hits.length || icon.id.includes(search.text)) {
                     this.icons.push(icon);
@@ -121,7 +121,7 @@ export class IconFinder {
     };
 
     private readonly chipSetOnChange = (
-        event: LimelChipSetCustomEvent<Chip[]>,
+        event: LimelChipSetCustomEvent<Chip[]>
     ) => {
         this.value = event.detail;
         this.searchIcons();

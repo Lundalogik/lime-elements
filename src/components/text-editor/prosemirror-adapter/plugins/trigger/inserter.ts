@@ -11,7 +11,7 @@ import { createHtmlInserter } from './create-html-inserter';
 export const inserterFactory = (
     view: EditorView,
     contentConverter: ContentTypeConverter,
-    trigger: Trigger,
+    trigger: Trigger
 ): TextEditor => {
     return {
         insert: createNodeAndTextInserter(view, trigger),
@@ -19,7 +19,7 @@ export const inserterFactory = (
             view,
             contentConverter,
             trigger.position,
-            dispatchTransaction,
+            dispatchTransaction
         ),
         stopTrigger: () => stopTriggerTransaction(view),
     };
@@ -34,7 +34,6 @@ const createNodeAndTextInserter =
         try {
             node = createNode(input, schema);
         } catch (error) {
-            // eslint-disable-next-line no-console
             console.error(error.message);
 
             return;
@@ -58,7 +57,7 @@ const stopTriggerTransaction = (view: EditorView): void => {
 const dispatchTransaction = (
     view: EditorView,
     startPos: number,
-    fragment: Fragment | Node,
+    fragment: Fragment | Node
 ): void => {
     const state = view.state;
     const fromPos = state.selection.$from.pos;
@@ -92,12 +91,12 @@ const createNode = (input: TextEditorNode | string, schema: Schema): Node => {
 
 const getCustomNode = (name: string, schema: Schema): NodeType => {
     const customNode = Object.values(schema.nodes).find(
-        (prosemirrorNode) => prosemirrorNode.name === name,
+        (prosemirrorNode) => prosemirrorNode.name === name
     );
 
     if (!customNode) {
         throw new Error(
-            `No custom element has been registered for node ${name}`,
+            `No custom element has been registered for node ${name}`
         );
     }
 

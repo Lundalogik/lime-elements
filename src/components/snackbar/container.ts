@@ -36,7 +36,7 @@ export class SnackbarContainer {
         popover?.hidePopover();
 
         this.snackbarElements = this.snackbarElements.filter(
-            (item) => item !== snackbar,
+            (item) => item !== snackbar
         );
         this.emitOffsets();
     }
@@ -47,7 +47,7 @@ export class SnackbarContainer {
             snackbar.dispatchEvent(
                 new CustomEvent('changeOffset', {
                     detail: offset,
-                }),
+                })
             );
             offset += this.getPopover(snackbar).getBoundingClientRect().height;
         });

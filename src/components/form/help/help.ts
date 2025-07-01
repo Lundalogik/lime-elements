@@ -1,6 +1,10 @@
 import React from 'react';
 import { FormSchema } from '../form.types';
 
+/**
+ *
+ * @param schema
+ */
 export function getHelpComponent(schema: FormSchema) {
     const help = schema.lime?.help;
 

@@ -8,7 +8,7 @@ export const monitorTriggeredText = (
     activeTrigger: Trigger,
     cursorPosition: number,
     contentConverter: ContentTypeConverter,
-    view: EditorView,
+    view: EditorView
 ): string => {
     let newValue = '';
     if (cursorPosition > activeTrigger.position) {
@@ -16,7 +16,7 @@ export const monitorTriggeredText = (
         newValue = doc.textBetween(
             activeTrigger.position + 1,
             cursorPosition,
-            '',
+            ''
         );
     }
 
@@ -25,7 +25,7 @@ export const monitorTriggeredText = (
         view,
         contentConverter,
         activeTrigger,
-        newValue,
+        newValue
     );
 
     return newValue;

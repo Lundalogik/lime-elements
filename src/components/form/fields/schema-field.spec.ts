@@ -15,7 +15,7 @@ describe('getFactoryProps', () => {
                     {
                         propsFactory: () => ({ foo: 'bar' }),
                     },
-                    {},
+                    {}
                 );
                 expect(props).toEqual({ foo: 'bar' });
             });
@@ -27,7 +27,7 @@ describe('getFactoryProps', () => {
                     {
                         propsFactory: () => null,
                     },
-                    {},
+                    {}
                 );
                 expect(props).toEqual({});
             });

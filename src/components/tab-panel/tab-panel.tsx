@@ -121,7 +121,7 @@ export class TabPanel {
             element.style.display = 'none';
         }
 
-        element['tab'] = tab; // eslint-disable-line @typescript-eslint/dot-notation
+        element['tab'] = tab;
     }
 
     private handleChangeTabs(event: CustomEvent<Tab>) {

@@ -53,7 +53,7 @@ export class MenuOpenDirectionExample {
             } as Option<OpenDirection>;
         });
         this.selectedOpenDirection = this.availableOpenDirections.find(
-            (v) => v.value === 'bottom-start',
+            (v) => v.value === 'bottom-start'
         );
     }
 
@@ -76,7 +76,7 @@ export class MenuOpenDirectionExample {
     }
 
     private handleNewSelection = (
-        event: LimelSelectCustomEvent<Option<OpenDirection>>,
+        event: LimelSelectCustomEvent<Option<OpenDirection>>
     ) => {
         this.selectedOpenDirection = event.detail;
     };

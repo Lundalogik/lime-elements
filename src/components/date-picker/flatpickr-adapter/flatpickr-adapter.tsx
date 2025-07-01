@@ -80,7 +80,7 @@ export class DatePickerCalendar {
                 this.picker = new DateOnlyPicker(
                     this.language,
                     this.change,
-                    this.format,
+                    this.format
                 );
                 break;
 
@@ -88,7 +88,7 @@ export class DatePickerCalendar {
                 this.picker = new TimePicker(
                     this.language,
                     this.change,
-                    this.format,
+                    this.format
                 );
                 break;
 
@@ -96,7 +96,7 @@ export class DatePickerCalendar {
                 this.picker = new WeekPicker(
                     this.language,
                     this.change,
-                    this.format,
+                    this.format
                 );
                 break;
 
@@ -105,7 +105,7 @@ export class DatePickerCalendar {
                     this.language,
                     this.change,
                     translate,
-                    this.format,
+                    this.format
                 );
                 break;
 
@@ -114,7 +114,7 @@ export class DatePickerCalendar {
                     this.language,
                     this.change,
                     translate,
-                    this.format,
+                    this.format
                 );
                 break;
             case 'year':
@@ -122,7 +122,7 @@ export class DatePickerCalendar {
                     this.language,
                     this.change,
                     translate,
-                    this.format,
+                    this.format
                 );
                 break;
 
@@ -131,7 +131,7 @@ export class DatePickerCalendar {
                 this.picker = new DatetimePicker(
                     this.language,
                     this.change,
-                    this.format,
+                    this.format
                 );
                 break;
         }

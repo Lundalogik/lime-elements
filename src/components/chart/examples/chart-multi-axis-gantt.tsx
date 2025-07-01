@@ -60,12 +60,12 @@ export class ChartMultiAxisWithNegativeStartValuesExample {
 
     private getSelectedOrientation() {
         return this.orientations.find(
-            (option) => option.value === this.orientation,
+            (option) => option.value === this.orientation
         );
     }
 
     private handleOrientationChange = (
-        event: LimelSelectCustomEvent<Option<string>>,
+        event: LimelSelectCustomEvent<Option<string>>
     ) => {
         this.orientation = event.detail.value as 'landscape' | 'portrait';
     };
@@ -75,7 +75,7 @@ export class ChartMultiAxisWithNegativeStartValuesExample {
     }
 
     private handleTypeChange = (
-        event: LimelSelectCustomEvent<Option<string>>,
+        event: LimelSelectCustomEvent<Option<string>>
     ) => {
         this.type = event.detail.value as 'bar' | 'dot';
     };

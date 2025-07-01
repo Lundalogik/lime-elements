@@ -170,7 +170,7 @@ export class Checkbox {
                 cssClasses.ANIM_INDETERMINATE_CHECKED,
                 cssClasses.ANIM_INDETERMINATE_UNCHECKED,
                 cssClasses.ANIM_UNCHECKED_CHECKED,
-                cssClasses.ANIM_UNCHECKED_INDETERMINATE,
+                cssClasses.ANIM_UNCHECKED_INDETERMINATE
             );
         }
     };

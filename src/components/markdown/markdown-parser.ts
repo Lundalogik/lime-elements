@@ -30,7 +30,7 @@ import { createLinksPlugin } from './link-markdown-plugin';
  */
 export async function markdownToHTML(
     text: string,
-    options?: MarkdownToHTMLOptions,
+    options?: MarkdownToHTMLOptions
 ): Promise<string> {
     if (options?.forceHardLineBreaks) {
         text = text.replace(/(?<!\\)([\n\r])/g, '  $1');
@@ -68,7 +68,7 @@ export async function markdownToHTML(
  */
 export async function sanitizeHTML(
     html: string,
-    whitelist?: CustomElementDefinition[],
+    whitelist?: CustomElementDefinition[]
 ): Promise<string> {
     const file = await unified()
         .use(rehypeParse)

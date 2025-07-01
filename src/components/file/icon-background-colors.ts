@@ -127,6 +127,10 @@ const filetypeBackgroundColorTable: Record<string, string> = {
     dbf: DATA_ICON_BACKGROUND_COLOR,
 };
 
+/**
+ *
+ * @param extension
+ */
 export function getIconBackgroundColorForFile(extension: string): string {
     return (
         filetypeBackgroundColorTable[extension.toLowerCase()] ||

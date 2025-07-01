@@ -10,13 +10,13 @@ import { ContentTypeConverter } from '../../../../utils/content-type-converter';
 export const getTextInputHandler = (
     contentConverter: ContentTypeConverter,
     triggerCharacters: TriggerCharacter[],
-    updateActiveTrigger: (trigger: Trigger | null) => void,
+    updateActiveTrigger: (trigger: Trigger | null) => void
 ) => {
     return (
         view: EditorView,
         _from: number,
         _to: number,
-        text: string,
+        text: string
     ): boolean => {
         if (!triggerCharacters.includes(text as TriggerCharacter)) {
             return false;
@@ -37,7 +37,7 @@ export const getTextInputHandler = (
                 view,
                 contentConverter,
                 trigger,
-                text,
+                text
             );
         }
 

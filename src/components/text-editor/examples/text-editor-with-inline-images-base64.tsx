@@ -45,7 +45,7 @@ export class TextEditorWithInlineImagesExample {
     };
 
     private handleImagePasted = async (
-        event: LimelTextEditorCustomEvent<ImageInserter>,
+        event: LimelTextEditorCustomEvent<ImageInserter>
     ) => {
         const imageInserter = event.detail;
 

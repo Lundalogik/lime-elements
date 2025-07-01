@@ -165,7 +165,7 @@ describe('normalizeBackgroundColor', () => {
             const css = { background: colorValue };
             const result = normalizeBackgroundColor(css);
             expect(result['background-color']).toBe(colorValue);
-        },
+        }
     );
 
     it('does not add a `background-color` property if `background` is not a valid CSS color', () => {
@@ -195,7 +195,7 @@ describe('isValidCssColorValue', () => {
             'returns true for valid named color "%s"',
             (color) => {
                 expect(isValidCssColorValue(color)).toBe(true);
-            },
+            }
         );
 
         it('returns false for an invalid named color', () => {
@@ -208,7 +208,7 @@ describe('isValidCssColorValue', () => {
             'returns true for valid hex code "%s"',
             (color) => {
                 expect(isValidCssColorValue(color)).toBe(true);
-            },
+            }
         );
 
         it('returns false for an invalid hex code', () => {
@@ -248,7 +248,7 @@ describe('isValidCssColorValue', () => {
             'returns false for special CSS values "%s" not supported',
             (value) => {
                 expect(isValidCssColorValue(value)).toBe(false);
-            },
+            }
         );
     });
 });

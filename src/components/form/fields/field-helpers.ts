@@ -51,7 +51,7 @@ export const resetDependentFields = (oldData, newData, schema, rootSchema) => {
     // data that has changed in the current onChange event
     const dependentPropertyKeys = getDifferentKeys(
         newSchema.properties,
-        currentSchema.properties,
+        currentSchema.properties
     );
 
     // Reset keys that are dependent on the changed value.

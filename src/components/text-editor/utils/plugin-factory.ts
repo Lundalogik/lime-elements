@@ -15,7 +15,7 @@ type MutableAttrs = {
 };
 
 export const createNodeSpec: NodeSpecFactory = (
-    config: CustomElementDefinition,
+    config: CustomElementDefinition
 ): NodeSpec => {
     const attributeSpecs: AttributeSpecs = {};
     config.attributes.forEach((attribute) => (attributeSpecs[attribute] = {}));
@@ -39,7 +39,7 @@ export const createNodeSpec: NodeSpecFactory = (
                     config.attributes.forEach(
                         (attribute: string) =>
                             (attributes[attribute] =
-                                dom.getAttribute(attribute)),
+                                dom.getAttribute(attribute))
                     );
 
                     return attributes as Attrs;

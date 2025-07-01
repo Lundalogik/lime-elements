@@ -121,12 +121,12 @@ export const tiltFollowingTheCursor =
             y: topY - the3dElementBounds.height / CENTER_DIVISOR,
         };
         const distance = Math.sqrt(
-            center.x ** CENTER_DIVISOR + center.y ** CENTER_DIVISOR,
+            center.x ** CENTER_DIVISOR + center.y ** CENTER_DIVISOR
         );
 
         const scalingFactor = Math.sqrt(
             Math.min(the3dElementBounds.width, the3dElementBounds.height) /
-                SCALING_BASE,
+                SCALING_BASE
         );
 
         const rotate3d = `
@@ -143,7 +143,7 @@ export const tiltFollowingTheCursor =
         `;
         element.style.setProperty(
             '--limel-3d-hover-effect-glow-position',
-            glowPosition,
+            glowPosition
         );
     };
 

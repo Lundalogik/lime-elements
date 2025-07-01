@@ -20,7 +20,7 @@ export class ArrayFieldTemplate extends React.Component {
             renderTitle(this.props.title),
             renderDescription(this.props.schema.description),
             this.props.items.map(this.renderItem),
-            this.renderAddButton(),
+            this.renderAddButton()
         );
     }
 

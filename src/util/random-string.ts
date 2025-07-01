@@ -18,7 +18,7 @@ function legacyCreateRandomString() {
     /* eslint-disable sonarjs/pseudo-random */
     return (
         String.fromCharCode(
-            ASCII_A + Math.floor(Math.random() * NUMBER_OF_LETTERS),
+            ASCII_A + Math.floor(Math.random() * NUMBER_OF_LETTERS)
         ) +
         Math.random().toString(USE_HEX).substring(SKIP_LEADING_ZERODOT) +
         Math.random().toString(USE_HEX).substring(SKIP_LEADING_ZERODOT)

@@ -329,7 +329,7 @@ export class Slider {
     }
 
     private changeHandler = (
-        event: CustomEvent<MDCSliderChangeEventDetail>,
+        event: CustomEvent<MDCSliderChangeEventDetail>
     ) => {
         let value = event.detail.value;
         const step = this.multiplyByFactor(this.step);
@@ -380,7 +380,7 @@ export class Slider {
 
     private setPercentageClass = (value: number) => {
         this.percentageClass = getPercentageClass(
-            (value - this.valuemin) / (this.valuemax - this.valuemin),
+            (value - this.valuemin) / (this.valuemax - this.valuemin)
         );
     };
 

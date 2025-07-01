@@ -11,7 +11,7 @@ export const sendTriggerEvent = (
     view: EditorView,
     contentConverter: ContentTypeConverter,
     trigger: Trigger,
-    value: string,
+    value: string
 ) => {
     const event = new CustomEvent<TriggerEventDetail>(type, {
         detail: getTriggerEventDetail(view, contentConverter, trigger, value),

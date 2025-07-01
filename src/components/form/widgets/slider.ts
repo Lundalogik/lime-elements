@@ -17,7 +17,7 @@ export class Slider extends React.Component {
         const additionalProps = getAdditionalProps(props.schema);
 
         if (isPercent(schema)) {
-            factor = 100; // eslint-disable-line no-magic-numbers
+            factor = 100;
             unit = '%';
         }
 

@@ -24,7 +24,7 @@ module.exports = {
                 writerOpts: {
                     commitPartial: readFileSync(
                         join(__dirname, 'commit.hbs'),
-                        'utf-8',
+                        'utf-8'
                     ),
                 },
             },
@@ -34,7 +34,6 @@ module.exports = {
             '@semantic-release/exec',
             {
                 prepareCmd:
-                    // eslint-disable-next-line no-template-curly-in-string
                     'sed -i "s/sonar\\.projectVersion=.*/sonar.projectVersion=${nextRelease.version}/" sonar-project.properties',
             },
         ],

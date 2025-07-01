@@ -18,7 +18,7 @@ export function getMetadataFromDoc(doc: Node): EditorMetadata {
             metadata.images.push(extractImageMetadata(node));
         } else if (isTextNodeWithMarks(node)) {
             extractLinkMetadata(node).forEach((link) =>
-                metadata.links.push(link),
+                metadata.links.push(link)
             );
         }
 
@@ -63,7 +63,7 @@ function extractLinkMetadata(node: Node): EditorLink[] {
  */
 export function hasMetadataChanged(
     oldMetadata: EditorMetadata,
-    newMetadata: EditorMetadata,
+    newMetadata: EditorMetadata
 ): boolean {
     return (
         hasDifferentLengths(oldMetadata, newMetadata) ||
@@ -74,7 +74,7 @@ export function hasMetadataChanged(
 
 function hasDifferentLengths(
     oldMetadata: EditorMetadata,
-    newMetadata: EditorMetadata,
+    newMetadata: EditorMetadata
 ): boolean {
     return (
         oldMetadata.images.length !== newMetadata.images.length ||
@@ -84,7 +84,7 @@ function hasDifferentLengths(
 
 function hasDifferentLinks(
     oldLinks: EditorLink[],
-    newLinks: EditorLink[],
+    newLinks: EditorLink[]
 ): boolean {
     const oldLinkCounts = getLinkFrequencyMap(oldLinks);
     const newLinkCounts = getLinkFrequencyMap(newLinks);
@@ -94,7 +94,7 @@ function hasDifferentLinks(
 
 function hasDifferentImages(
     oldImages: EditorImage[],
-    newImages: EditorImage[],
+    newImages: EditorImage[]
 ): boolean {
     const oldImageCounts = getImageFrequencyMap(oldImages);
     const newImageCounts = getImageFrequencyMap(newImages);
@@ -104,6 +104,7 @@ function hasDifferentImages(
 
 /**
  * Creates a frequency map for images based on their key properties
+ * @param images
  */
 function getImageFrequencyMap(images: EditorImage[]): Map<string, number> {
     const countMap = new Map<string, number>();
@@ -119,6 +120,7 @@ function getImageFrequencyMap(images: EditorImage[]): Map<string, number> {
 
 /**
  * Creates a frequency map for links based on their key properties
+ * @param links
  */
 function getLinkFrequencyMap(links: EditorLink[]): Map<string, number> {
     const countMap = new Map<string, number>();
@@ -134,10 +136,12 @@ function getLinkFrequencyMap(links: EditorLink[]): Map<string, number> {
 
 /**
  * Compares two frequency maps for equality
+ * @param map1
+ * @param map2
  */
 function areFrequencyMapsEqual(
     map1: Map<string, number>,
-    map2: Map<string, number>,
+    map2: Map<string, number>
 ): boolean {
     if (map1.size !== map2.size) {
         return false;

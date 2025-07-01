@@ -28,7 +28,7 @@ describe('createHtmlInserter', () => {
             { state: { schema: schema } } as any, // Mock EditorView
             mockContentConverter,
             0, // startPos
-            mockDispatchTransaction,
+            mockDispatchTransaction
         );
 
         const inputHtml = '<strong>Test</strong>';
@@ -36,7 +36,7 @@ describe('createHtmlInserter', () => {
 
         expect(mockContentConverter.parseAsHTML).toHaveBeenCalledWith(
             inputHtml,
-            schema,
+            schema
         );
         expect(mockDispatchTransaction).toHaveBeenCalledTimes(1);
     });
@@ -46,7 +46,7 @@ describe('createHtmlInserter', () => {
             { state: { schema: schema } } as any,
             mockContentConverter,
             0,
-            mockDispatchTransaction,
+            mockDispatchTransaction
         );
 
         const inputHtml = '<div><p>Unclosed tag';
@@ -54,7 +54,7 @@ describe('createHtmlInserter', () => {
 
         expect(mockContentConverter.parseAsHTML).toHaveBeenCalledWith(
             inputHtml,
-            schema,
+            schema
         );
         expect(mockDispatchTransaction).toHaveBeenCalledTimes(1);
     });
@@ -64,7 +64,7 @@ describe('createHtmlInserter', () => {
             { state: { schema: schema } } as any,
             mockContentConverter,
             0,
-            mockDispatchTransaction,
+            mockDispatchTransaction
         );
 
         const inputHtml = '<div><span color="#FF0000">Nested</span></div>';
@@ -76,7 +76,7 @@ describe('createHtmlInserter', () => {
         const dispatchedArgs = mockDispatchTransaction.mock.calls[0];
         const dispatchedFragment = dispatchedArgs[2];
         const fragmentArray = dispatchedFragment.content.map((node) =>
-            node.toJSON(),
+            node.toJSON()
         );
 
         // Check the structure and content of the fragment

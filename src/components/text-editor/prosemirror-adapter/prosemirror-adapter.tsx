@@ -215,7 +215,7 @@ export class ProsemirrorAdapter {
 
         const currentContent = this.contentConverter.serialize(
             this.view,
-            this.schema,
+            this.schema
         );
 
         // If the new value is the same as the current content, do nothing
@@ -248,7 +248,7 @@ export class ProsemirrorAdapter {
 
         this.host.addEventListener(
             'open-editor-link-menu',
-            this.handleOpenLinkMenu,
+            this.handleOpenLinkMenu
         );
     }
 
@@ -257,7 +257,7 @@ export class ProsemirrorAdapter {
 
         this.host.removeEventListener(
             'open-editor-link-menu',
-            this.handleOpenLinkMenu,
+            this.handleOpenLinkMenu
         );
         this.view?.dom?.removeEventListener('blur', this.handleBlur);
         this.view?.dom?.removeEventListener('mousedown', this.handleMouseDown);
@@ -319,20 +319,20 @@ export class ProsemirrorAdapter {
         if (this.contentType === 'markdown') {
             this.contentConverter = new MarkdownConverter(
                 this.customElements,
-                this.language,
+                this.language
             );
         } else if (this.contentType === 'html') {
             this.contentConverter = new HTMLConverter(this.customElements);
         } else {
             throw new Error(
-                `Unsupported content type: ${this.contentType}. Only 'markdown' and 'html' are supported.`,
+                `Unsupported content type: ${this.contentType}. Only 'markdown' and 'html' are supported.`
             );
         }
     }
 
     private getActionBarItems = () => {
         this.actionBarItems = getTextEditorMenuItems().map(
-            this.getTranslatedItem,
+            this.getTranslatedItem
         );
     };
 
@@ -359,7 +359,7 @@ export class ProsemirrorAdapter {
             {
                 state: this.createEditorState(initialDoc),
                 dispatchTransaction: this.handleTransaction,
-            },
+            }
         );
 
         this.view.dom.addEventListener('blur', this.handleBlur);
@@ -403,7 +403,7 @@ export class ProsemirrorAdapter {
             initialContentElement.innerHTML =
                 await this.contentConverter.parseAsHTML(
                     this.value,
-                    this.schema,
+                    this.schema
                 );
         } else {
             initialContentElement.innerHTML = '<p></p>';
@@ -420,7 +420,7 @@ export class ProsemirrorAdapter {
                 keymap(this.menuCommandFactory.buildKeymap()),
                 createTriggerPlugin(
                     this.triggerCharacters,
-                    this.contentConverter,
+                    this.contentConverter
                 ),
                 createLinkPlugin(this.handleNewLinkSelection),
                 createImageInserterPlugin(this.imagePasted.emit),
@@ -428,7 +428,7 @@ export class ProsemirrorAdapter {
                 createMenuStateTrackingPlugin(
                     editorMenuTypesArray,
                     this.menuCommandFactory,
-                    this.updateActiveActionBarItems,
+                    this.updateActiveActionBarItems
                 ),
                 createActionBarInteractionPlugin(this.menuCommandFactory),
                 ...getTableEditingPlugins(this.contentType === 'html'),
@@ -438,7 +438,7 @@ export class ProsemirrorAdapter {
 
     private updateActiveActionBarItems = (
         activeTypes: Record<EditorMenuTypes, boolean>,
-        allowedTypes: Record<EditorMenuTypes, boolean>,
+        allowedTypes: Record<EditorMenuTypes, boolean>
     ) => {
         const newItems = getTextEditorMenuItems().map((item) => {
             if (isItem(item)) {
@@ -453,7 +453,7 @@ export class ProsemirrorAdapter {
         });
 
         this.actionBarItems = newItems.filter((item) =>
-            isItem(item) ? item.allowed : true,
+            isItem(item) ? item.allowed : true
         );
     };
 
@@ -461,10 +461,10 @@ export class ProsemirrorAdapter {
         this.suppressChangeEvent = true;
         const html = await this.contentConverter.parseAsHTML(
             content,
-            this.schema,
+            this.schema
         );
         const prosemirrorDOMparser = DOMParser.fromSchema(
-            this.view.state.schema,
+            this.view.state.schema
         );
         const domParser = new window.DOMParser();
         const doc = domParser.parseFromString(html, 'text/html');
@@ -512,13 +512,13 @@ export class ProsemirrorAdapter {
 
     private removeImagesFromCache(
         oldMetadata: EditorMetadata,
-        newMetadata: EditorMetadata,
+        newMetadata: EditorMetadata
     ) {
         const removedImages = oldMetadata.images.filter(
             (oldImage) =>
                 !newMetadata.images.some(
-                    (newImage) => newImage.fileInfoId === oldImage.fileInfoId,
-                ),
+                    (newImage) => newImage.fileInfoId === oldImage.fileInfoId
+                )
         );
 
         removedImages.forEach((image) => {
@@ -528,7 +528,7 @@ export class ProsemirrorAdapter {
     }
 
     private handleActionBarItem = (
-        event: CustomEvent<ActionBarItem<EditorMenuTypes>>,
+        event: CustomEvent<ActionBarItem<EditorMenuTypes>>
     ) => {
         event.preventDefault();
         event.stopImmediatePropagation();

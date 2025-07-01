@@ -79,7 +79,7 @@ export class TextEditorUiExample {
     };
 
     private readonly handleNewSelection = (
-        event: LimelSelectCustomEvent<Option<EditorUiType>>,
+        event: LimelSelectCustomEvent<Option<EditorUiType>>
     ) => {
         this.selectedUi = event.detail;
     };

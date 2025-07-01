@@ -104,7 +104,7 @@ export class Card {
 
     public componentWillLoad() {
         const { handleMouseEnter, handleMouseLeave } = getMouseEventHandlers(
-            this.host,
+            this.host
         );
         this.handleMouseEnter = handleMouseEnter;
         this.handleMouseLeave = handleMouseLeave;
@@ -203,7 +203,7 @@ export class Card {
     }
 
     private handleActionSelect = (
-        event: CustomEvent<ActionBarItem | ListSeparator>,
+        event: CustomEvent<ActionBarItem | ListSeparator>
     ) => {
         event.stopPropagation();
         if (isItem(event.detail)) {

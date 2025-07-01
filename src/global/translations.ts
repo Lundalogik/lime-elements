@@ -31,7 +31,7 @@ export class Translations {
             REGEX,
             (match: string, mergeCodeKey: string) => {
                 return params[mergeCodeKey] || match;
-            },
+            }
         );
     }
 }
