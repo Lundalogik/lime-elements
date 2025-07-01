@@ -41,7 +41,7 @@ export class PickerValueAsObjectExample {
                     limetype: string;
                 }>
             >
-        >,
+        >
     ) => {
         this.selectedItems = event.detail;
     };
@@ -49,7 +49,7 @@ export class PickerValueAsObjectExample {
     private onInteract = (
         event: LimelPickerCustomEvent<
             ListItem<{ id: string; limetype: string }>
-        >,
+        >
     ) => {
         console.log('Value interacted with:', event.detail);
     };

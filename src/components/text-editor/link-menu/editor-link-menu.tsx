@@ -180,7 +180,7 @@ export class TextEditorLinkMenu {
     };
 
     private handleLinkInputAction = (
-        event: LimelInputFieldCustomEvent<void>,
+        event: LimelInputFieldCustomEvent<void>
     ) => {
         window.open(this.link.href, '_blank');
         event.stopPropagation();

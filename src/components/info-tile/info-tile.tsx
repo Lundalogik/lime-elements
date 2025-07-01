@@ -118,7 +118,7 @@ export class InfoTile {
 
     public componentWillLoad() {
         const { handleMouseEnter, handleMouseLeave } = getMouseEventHandlers(
-            this.host,
+            this.host
         );
         this.handleMouseEnter = handleMouseEnter;
         this.handleMouseLeave = handleMouseLeave;
@@ -138,7 +138,7 @@ export class InfoTile {
             this.checkProps(this?.progress?.suffix) +
             this.checkProps(this?.link?.title);
 
-        const link = !this.disabled ? this.link?.href : '#';
+        const link = this.disabled ? '#' : this.link?.href;
         const rel = getRel(this.link?.target, this.link?.rel);
 
         return (
@@ -184,7 +184,7 @@ export class InfoTile {
     }
 
     private checkProps(propValue) {
-        return !propValue ? '' : propValue + ' ';
+        return propValue ? propValue + ' ' : '';
     }
 
     private renderPrefix = () => {

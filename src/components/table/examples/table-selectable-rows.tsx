@@ -147,7 +147,8 @@ export class TableExampleSelectableRows {
     };
 
     private getStaminaAggregate = () => {
-        const items = this.selection.length ? this.selection : this.tableData;
+        const items =
+            this.selection.length > 0 ? this.selection : this.tableData;
         const stamina = items.map((d) => Number.parseInt(d.stamina, 10));
         const minStamina = Math.min(...stamina);
         const maxStamina = Math.max(...stamina);
@@ -164,13 +165,14 @@ export class TableExampleSelectableRows {
 
     private sumProperty = (
         items: Person[],
-        valueProvider: (person: Person) => number,
+        valueProvider: (person: Person) => number
     ) => {
         return items.reduce((s, person) => s + valueProvider(person), 0);
     };
 
     private getAgeAggregate = () => {
-        const items = this.selection.length ? this.selection : this.tableData;
+        const items =
+            this.selection.length > 0 ? this.selection : this.tableData;
         const sum = this.sumProperty(items, (p) => p.age);
         const avg = sum / items.length || 0;
 
@@ -181,7 +183,8 @@ export class TableExampleSelectableRows {
     };
 
     private getHeightAggregate = () => {
-        const items = this.selection.length ? this.selection : this.tableData;
+        const items =
+            this.selection.length > 0 ? this.selection : this.tableData;
         const sum = this.sumProperty(items, (p) => p.height);
 
         return {

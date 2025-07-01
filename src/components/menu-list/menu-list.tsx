@@ -51,7 +51,7 @@ export class MenuList {
      * `maxLinesSecondaryText`. If consumer enters zero or negative
      * numbers we default to 1; and if they type decimals we round up.
      */
-    // eslint-disable-next-line no-magic-numbers
+
     @Prop() maxLinesSecondaryText: number = 3;
 
     @Element()
@@ -124,7 +124,8 @@ export class MenuList {
         this.mdcMenu = new MDCMenu(element);
         this.mdcMenu.hasTypeahead = true;
         this.mdcMenu.wrapFocus = true;
-        this.mdcMenu.items.forEach((item) => new MDCRipple(item));
+        // eslint-disable-next-line sonarjs/constructor-for-side-effects
+        for (const item of this.mdcMenu.items) new MDCRipple(item);
     };
 
     private setupListeners = () => {
@@ -175,9 +176,8 @@ export class MenuList {
 
     private triggerIconColorWarning() {
         if (this.items?.some((item) => 'iconColor' in item)) {
-            /* eslint-disable-next-line no-console */
             console.warn(
-                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`.",
+                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
             );
         }
     }

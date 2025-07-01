@@ -88,7 +88,7 @@ export class ProgressFlow {
     private renderRegularFlowItem = (
         item: FlowItem,
         index: number,
-        array: FlowItem[],
+        array: FlowItem[]
     ) => {
         return (
             <limel-progress-flow-item
@@ -113,7 +113,7 @@ export class ProgressFlow {
     private renderEndPhaseItem = (
         item: FlowItem,
         index: number,
-        array: FlowItem[],
+        array: FlowItem[]
     ) => {
         return (
             <limel-progress-flow-item
@@ -141,7 +141,6 @@ export class ProgressFlow {
     };
 
     private getItemStyle(flowItem: FlowItem) {
-        // eslint-disable-next-line sonarjs/deprecation
         const color = getIconColor(flowItem.icon, flowItem.iconColor);
         const style: any = {};
 
@@ -168,11 +167,9 @@ export class ProgressFlow {
             const selectedItemLeftPosition =
                 selectedElement.offsetLeft - this.element.offsetLeft;
             const selectedElementLeftPositionCentered =
-                // eslint-disable-next-line no-magic-numbers
                 selectedItemLeftPosition - this.element.offsetWidth / 2;
             const selectedElementCentered =
                 selectedElementLeftPositionCentered +
-                // eslint-disable-next-line no-magic-numbers
                 selectedElement.offsetWidth / 2;
             this.element.scrollTo({
                 behavior: 'smooth',
@@ -187,11 +184,9 @@ export class ProgressFlow {
 
     private triggerIconColorWarning() {
         for (const flowItem of this.flowItems) {
-            // eslint-disable-next-line sonarjs/deprecation
             if (flowItem.iconColor) {
-                /* eslint-disable-next-line no-console */
                 console.warn(
-                    "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`.",
+                    "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
                 );
             }
         }

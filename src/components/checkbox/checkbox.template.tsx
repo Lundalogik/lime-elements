@@ -18,7 +18,7 @@ interface CheckboxTemplateProps {
 }
 
 export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
-    props,
+    props
 ) => {
     const inputProps = {};
     if (props.readonly) {

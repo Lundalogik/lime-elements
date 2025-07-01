@@ -45,7 +45,7 @@ describe('getAppendTransactionHandler', () => {
             getCurrentView,
             getActiveTrigger,
             resetActiveTrigger,
-            contentConverter,
+            contentConverter
         );
         handler([], oldState, newState);
 
@@ -59,7 +59,7 @@ describe('getAppendTransactionHandler', () => {
             getCurrentView,
             getActiveTrigger,
             resetActiveTrigger,
-            contentConverter,
+            contentConverter
         );
         handler([], oldState, newState);
 
@@ -76,12 +76,12 @@ describe('getAppendTransactionHandler', () => {
             getCurrentView,
             getActiveTrigger,
             resetActiveTrigger,
-            contentConverter,
+            contentConverter
         );
         handler(
             [{ mock: 'transaction' } as unknown as Transaction],
             oldState,
-            newState,
+            newState
         );
 
         expect(getActiveTrigger).toHaveBeenCalled();
@@ -90,7 +90,7 @@ describe('getAppendTransactionHandler', () => {
             { character: '@', position: 5 },
             resetActiveTrigger,
             contentConverter,
-            mockView,
+            mockView
         );
         expect(resetActiveTrigger).toHaveBeenCalled(); // Confirm callback is called
         expect(monitorTriggeredText).not.toHaveBeenCalled(); // Ensure no further calls are made
@@ -105,7 +105,7 @@ describe('getAppendTransactionHandler', () => {
             getCurrentView,
             getActiveTrigger,
             resetActiveTrigger,
-            contentConverter,
+            contentConverter
         );
         handler([], oldState, newState);
 
@@ -116,7 +116,7 @@ describe('getAppendTransactionHandler', () => {
             { character: '@', position: 5 },
             newState.selection.from,
             contentConverter,
-            mockView,
+            mockView
         );
     });
 
@@ -129,7 +129,7 @@ describe('getAppendTransactionHandler', () => {
             getCurrentView,
             getActiveTrigger,
             resetActiveTrigger,
-            contentConverter,
+            contentConverter
         );
         handler([], oldState, newState);
 
@@ -140,7 +140,7 @@ describe('getAppendTransactionHandler', () => {
             { character: '@', position: 5 },
             newState.selection.from,
             contentConverter,
-            getCurrentView(),
+            getCurrentView()
         );
     });
 
@@ -154,14 +154,14 @@ describe('getAppendTransactionHandler', () => {
                 expect(cursorPosition).toEqual(newState.selection.from);
 
                 return 'some text';
-            },
+            }
         );
 
         const handler = getAppendTransactionHandler(
             getCurrentView,
             getActiveTrigger,
             resetActiveTrigger,
-            contentConverter,
+            contentConverter
         );
         handler([], oldState, newState);
 

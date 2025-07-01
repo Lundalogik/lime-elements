@@ -22,6 +22,10 @@ export function sanitizeStyle(node: any) {
  * @returns a sanitized version of the input string
  */
 
+/**
+ *
+ * @param styleValue
+ */
 export function sanitizeStyleValue(styleValue: string): string {
     try {
         const css = parse(styleValue);
@@ -32,7 +36,6 @@ export function sanitizeStyleValue(styleValue: string): string {
             .map(([key, value]) => `${key}: ${value}`)
             .join('; ');
     } catch (error) {
-        // eslint-disable-next-line no-console
         console.error('Failed to parse style value', styleValue, error);
 
         return '';
@@ -48,6 +51,10 @@ export function sanitizeStyleValue(styleValue: string): string {
  * @returns a modified copy of the input object
  */
 
+/**
+ *
+ * @param css
+ */
 export function normalizeBackgroundColor(css: Record<string, string>) {
     const result = { ...css };
     delete result.background;

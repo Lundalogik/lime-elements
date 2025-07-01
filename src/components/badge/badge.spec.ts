@@ -10,10 +10,10 @@ describe('limel-badge', () => {
     });
 
     it('Badge: returns 99.9k (5 digits), not round up to 100k', () => {
-        expect(abbreviate(99940)).toBe('99.9k');
+        expect(abbreviate(99_940)).toBe('99.9k');
     });
 
     it('Badge: returns 1M (6 digits)', () => {
-        expect(abbreviate(999990)).toBe('1M');
+        expect(abbreviate(999_990)).toBe('1M');
     });
 });

@@ -29,7 +29,7 @@ export class ListRenderer {
 
     public render(
         items: Array<ListItem | ListSeparator>,
-        config: ListRendererConfig = {},
+        config: ListRendererConfig = {}
     ) {
         items = items || [];
         this.config = { ...this.defaultConfig, ...config };
@@ -47,14 +47,17 @@ export class ListRenderer {
 
         let role;
         switch (this.config.type) {
-            case 'checkbox':
+            case 'checkbox': {
                 role = 'group';
                 break;
-            case 'radio':
+            }
+            case 'radio': {
                 role = 'radiogroup';
                 break;
-            default:
+            }
+            default: {
                 role = 'listbox';
+            }
         }
 
         this.applyTabIndexToItemAtIndex =
@@ -88,7 +91,7 @@ export class ListRenderer {
      * @returns the index as per the description
      */
     private getIndexForWhichToApplyTabIndex = (
-        items: Array<ListItem | ListSeparator>,
+        items: Array<ListItem | ListSeparator>
     ) => {
         let result;
         for (let i = 0, max = items.length; i < max; i += 1) {
@@ -126,7 +129,7 @@ export class ListRenderer {
      */
     private renderListItem = (
         item: ListItem | ListSeparator,
-        index: number,
+        index: number
     ) => {
         if ('separator' in item) {
             return (
@@ -237,7 +240,6 @@ export class ListRenderer {
             return;
         }
 
-        // eslint-disable-next-line sonarjs/deprecation
         const color = getIconColor(item.icon, item.iconColor);
         const title = getIconTitle(item.icon);
 
@@ -306,7 +308,7 @@ export class ListRenderer {
     private renderVariantListItem = (
         config: ListRendererConfig,
         item: ListItem,
-        index: number,
+        index: number
     ) => {
         let itemTemplate;
         if (config.type === 'radio') {
@@ -356,7 +358,7 @@ export class ListRenderer {
     private renderVariantListItemContent = (
         config: ListRendererConfig,
         item: ListItem,
-        itemTemplate: any,
+        itemTemplate: any
     ) => {
         if (this.hasIcons) {
             return [

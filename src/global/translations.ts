@@ -22,16 +22,16 @@ const REGEX = /\{\s*(\w+)\s*\}/g;
 
 export class Translations {
     public get(key: string, language = 'en', params?: object): string {
-        const translation = allTranslations[language][key];
+        const translation: string = allTranslations[language][key];
         if (!translation) {
             return key;
         }
 
-        return translation.replace(
+        return translation.replaceAll(
             REGEX,
             (match: string, mergeCodeKey: string) => {
                 return params[mergeCodeKey] || match;
-            },
+            }
         );
     }
 }

@@ -23,10 +23,20 @@ export const colors = [
 
 export const brightnesses = ['lighter', 'light', 'default', 'dark', 'darker'];
 
+/**
+ *
+ * @param color
+ * @param brightness
+ */
 export function getColorName(color: string, brightness: string): string {
     return `--color-${color}-${brightness}`;
 }
 
+/**
+ *
+ * @param color
+ * @param brightness
+ */
 export function getCssColor(color: string, brightness: string): string {
     return `rgb(var(${getColorName(color, brightness)}))`;
 }

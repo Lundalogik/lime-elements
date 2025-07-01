@@ -87,10 +87,10 @@ export class FileDropzoneTypeFilteringExample {
     };
 
     private handleAcceptedFiles = (event: CustomEvent<FileInfo[]>) => {
-        this.files = this.files.concat(event.detail);
+        this.files = [...this.files, ...event.detail];
     };
 
     private handleRejectedFiles = (event: CustomEvent<FileInfo[]>) => {
-        this.rejectedFiles = this.rejectedFiles.concat(event.detail);
+        this.rejectedFiles = [...this.rejectedFiles, ...event.detail];
     };
 }

@@ -13,7 +13,7 @@ import { MenuItem, OpenDirection } from '../menu/menu.types';
 import { ActionBarItem } from './action-bar.types';
 import { Languages } from './../date-picker/date.types';
 import translate from './../../global/translations';
-import { isItem } from './isItem';
+import { isItem } from './is-item';
 import { Icon } from '../../global/shared-types/icon.types';
 
 /**
@@ -144,7 +144,7 @@ export class ActionBar {
     public render() {
         this.hasRendered = true;
         let overflowActions: Array<MenuItem | ListSeparator> = [];
-        if (this.actions.length) {
+        if (this.actions.length > 0) {
             overflowActions = this.actions.slice(this.overflowCutoff);
         }
 
@@ -170,7 +170,7 @@ export class ActionBar {
 
     private readonly renderActionBarItem = (
         item: ActionBarItem,
-        index: number,
+        index: number
     ) => {
         return (
             <limel-action-bar-item
@@ -183,7 +183,7 @@ export class ActionBar {
     };
 
     private readonly renderOverflowMenu = (
-        items: Array<MenuItem | ListSeparator>,
+        items: Array<MenuItem | ListSeparator>
     ) => {
         if (!(this.actions.length - this.overflowCutoff)) {
             return;
@@ -243,7 +243,7 @@ export class ActionBar {
     }
 
     private readonly handleSelect = (
-        event: CustomEvent<ActionBarItem | ListSeparator>,
+        event: CustomEvent<ActionBarItem | ListSeparator>
     ) => {
         event.stopPropagation();
         if (isItem(event.detail)) {
@@ -265,14 +265,14 @@ export class ActionBar {
     };
 
     private readonly handleIntersection = (
-        entries: IntersectionObserverEntry[],
+        entries: IntersectionObserverEntry[]
     ) => {
         const intersectingItems = entries.filter(
-            (entry) => entry.isIntersecting,
+            (entry) => entry.isIntersecting
         );
 
         const notIntersectingItems = entries.filter(
-            (entry) => !entry.isIntersecting,
+            (entry) => !entry.isIntersecting
         );
 
         if (this.isFirstIntersectionCheck) {
@@ -291,7 +291,7 @@ export class ActionBar {
         const options = {
             root: this.host.shadowRoot.querySelector('.items'),
             rootMargin: '0px',
-            threshold: 1.0,
+            threshold: 1,
         };
 
         this.overflowCutoff = this.actions.length;
@@ -301,14 +301,14 @@ export class ActionBar {
 
         this.intersectionObserver = new IntersectionObserver(
             this.handleIntersection,
-            options,
+            options
         );
 
-        this.host.shadowRoot
-            .querySelectorAll('limel-action-bar-item')
-            .forEach((actionBarItem) => {
-                this.observe(actionBarItem);
-            });
+        for (const actionBarItem of this.host.shadowRoot.querySelectorAll(
+            'limel-action-bar-item'
+        )) {
+            this.observe(actionBarItem);
+        }
     }
 
     private observe(actionBarItem: HTMLLimelActionBarItemElement) {
@@ -319,14 +319,14 @@ export class ActionBar {
     private haveItemsChanged() {
         const someItemRemoved = this.actionBarItems.some(
             (actionBarItem: HTMLLimelActionBarItemElement) =>
-                !this.host.shadowRoot.contains(actionBarItem),
+                !this.host.shadowRoot.contains(actionBarItem)
         );
 
-        const someItemAdded = Array.from(
-            this.host.shadowRoot.querySelectorAll('limel-action-bar-item'),
-        ).some(
+        const someItemAdded = [
+            ...this.host.shadowRoot.querySelectorAll('limel-action-bar-item'),
+        ].some(
             (actionBarItem: HTMLLimelActionBarItemElement) =>
-                !this.actionBarItems.includes(actionBarItem),
+                !this.actionBarItems.includes(actionBarItem)
         );
 
         return someItemRemoved || someItemAdded;

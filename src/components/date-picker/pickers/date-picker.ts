@@ -1,12 +1,12 @@
 import flatpickr from 'flatpickr';
 import { EventEmitter } from '@stencil/core';
-import { Picker } from './Picker';
+import { Picker } from './picker';
 
 export class DatePicker extends Picker {
     public constructor(
         language: string,
         change: EventEmitter,
-        dateFormat: string = 'L',
+        dateFormat: string = 'L'
     ) {
         super(language, change, dateFormat);
     }

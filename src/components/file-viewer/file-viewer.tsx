@@ -292,7 +292,7 @@ export class FileViewer {
                 />
                 <p>
                     {this.getTranslation(
-                        'file-viewer.message.unsupported-filetype',
+                        'file-viewer.message.unsupported-filetype'
                     )}
                 </p>
                 {this.renderDownloadButton()}
@@ -317,10 +317,9 @@ export class FileViewer {
         }
 
         const icon = this.isFullscreen ? 'multiply' : 'fit_to_width';
-        // eslint-disable-next-line multiline-ternary
+
         const label = this.isFullscreen
-            ? // eslint-disable-next-line multiline-ternary
-              this.getTranslation('file-viewer.exit-fullscreen')
+            ? this.getTranslation('file-viewer.exit-fullscreen')
             : this.getTranslation('file-viewer.open-in-fullscreen');
 
         return [
@@ -350,7 +349,7 @@ export class FileViewer {
                 class="button--download"
                 id="tooltip-download"
                 role="button"
-                download={this.filename ? this.filename : ''}
+                download={this.filename ?? ''}
                 href={this.fileUrl}
                 target="_blank"
             >

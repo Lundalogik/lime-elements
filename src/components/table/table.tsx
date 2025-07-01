@@ -300,7 +300,7 @@ export class Table {
             .filter((c) => c.getField());
 
         const oldColumnsInTable = columnsInTable.map((c) =>
-            oldColumns.find((old) => old.field === c.getField()),
+            oldColumns.find((old) => old.field === c.getField())
         );
 
         if (this.areSameColumns(newColumns, oldColumnsInTable)) {
@@ -314,7 +314,7 @@ export class Table {
     @Watch('aggregates')
     protected updateAggregates(
         newAggregates: ColumnAggregate[],
-        oldAggregates: ColumnAggregate[],
+        oldAggregates: ColumnAggregate[]
     ) {
         if (!this.tabulator) {
             return;
@@ -356,7 +356,7 @@ export class Table {
     @Watch('sorting')
     protected updateSorting(
         newValue: ColumnSorter[],
-        oldValue: ColumnSorter[],
+        oldValue: ColumnSorter[]
     ) {
         const newSorting = this.getColumnSorter(newValue);
         const oldSorting = this.getColumnSorter(oldValue);
@@ -383,7 +383,7 @@ export class Table {
 
     private areEqualIds(
         newIds: Array<string | number>,
-        oldIds: Array<string | number>,
+        oldIds: Array<string | number>
     ): boolean {
         const newIdSet = new Set(newIds);
         const oldIdSet = new Set(oldIds);
@@ -396,7 +396,7 @@ export class Table {
 
     private isSameOrder(
         newIds: Array<string | number>,
-        oldIds: Array<string | number>,
+        oldIds: Array<string | number>
     ): boolean {
         return newIds.every((id, index) => id === oldIds[index]);
     }
@@ -410,7 +410,7 @@ export class Table {
 
     private haveSameAggregateFields(
         newAggregates: ColumnAggregate[],
-        oldAggregates: ColumnAggregate[],
+        oldAggregates: ColumnAggregate[]
     ) {
         const oldAggregateFields = oldAggregates?.map((a) => a.field) || [];
 
@@ -467,7 +467,7 @@ export class Table {
             this.tableSelection = new TableSelection(
                 () => this.tabulator,
                 this.pool,
-                this.select,
+                this.select
             );
             this.tableSelection.setSelection(this.selection);
         }
@@ -508,7 +508,7 @@ export class Table {
     }
 
     private getInitialSorting(): Tabulator.Sorter[] {
-        if (this.currentSorting && this.currentSorting.length) {
+        if (this.currentSorting && this.currentSorting.length > 0) {
             return this.getColumnSorter(this.currentSorting);
         }
 
@@ -543,17 +543,13 @@ export class Table {
 
         const aggregate = this.aggregates.find((a) => a.field === column.field);
         if (aggregate) {
-            column.aggregator = (
-                col?: Column,
-                _values?: any[],
-                _data?: any[],
-            ) => {
+            column.aggregator = (col?: Column) => {
                 if (!col) {
-                    return undefined;
+                    return;
                 }
 
                 const value = this.aggregates.find(
-                    (a) => a.field === col.field,
+                    (a) => a.field === col.field
                 )?.value;
 
                 if (col.formatter) {
@@ -646,7 +642,7 @@ export class Table {
         // relying on the consumer component to handle the loading
         // state via the loading prop, if it actually decides to load new data.
         const resolveExistingData = Promise.resolve({
-            last_page: this.calculatePageCount(), // eslint-disable-line camelcase
+            last_page: this.calculatePageCount(),
             data: this.data,
         });
 
@@ -692,7 +688,7 @@ export class Table {
     }
 
     private onClickRow(_ev, row: Tabulator.RowComponent): void {
-        if (typeof row.getPosition === 'undefined') {
+        if (row.getPosition === undefined) {
             // Not a data row, probably a CalcComponent
             return;
         }
@@ -734,6 +730,7 @@ export class Table {
     };
 
     private formatRows() {
+        // eslint-disable-next-line unicorn/no-array-for-each
         this.tabulator.getRows().forEach(this.formatRow);
     }
 
@@ -746,7 +743,7 @@ export class Table {
 
         const interactiveFeedbackElement = row
             .getElement()
-            .getElementsByClassName('interactive-feedback');
+            .querySelectorAll('.interactive-feedback');
         if (interactiveFeedbackElement.length === 0) {
             const element = row.getElement().ownerDocument.createElement('div');
             element.classList.add('interactive-feedback');
@@ -793,7 +790,7 @@ export class Table {
     };
 
     private handleMoveColumn = (_, components: Tabulator.ColumnComponent[]) => {
-        const columns = components.map(this.findColumn).filter((c) => c);
+        const columns = components.map(this.findColumn).filter(Boolean);
         this.changeColumns.emit(columns);
     };
 
@@ -854,7 +851,7 @@ export class Table {
             >
                 <limel-checkbox
                     onChange={this.selectAllOnChange}
-                    disabled={!this.data.length}
+                    disabled={this.data.length === 0}
                     checked={this.tableSelection?.hasSelection}
                     indeterminate={
                         this.tableSelection?.hasSelection &&
@@ -867,7 +864,7 @@ export class Table {
 
     private renderEmptyMessage() {
         const showEmptyMessage =
-            !this.loading && !this.data.length && this.emptyMessage;
+            !this.loading && this.data.length === 0 && this.emptyMessage;
 
         return (
             <div

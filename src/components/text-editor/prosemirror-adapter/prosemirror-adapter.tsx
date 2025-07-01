@@ -30,7 +30,7 @@ import {
 } from './menu/types';
 import translate from '../../../global/translations';
 import { createRandomString } from '../../../util/random-string';
-import { isItem } from '../../../components/action-bar/isItem';
+import { isItem } from '../../action-bar/is-item';
 import { cloneDeep, debounce } from 'lodash-es';
 import { Languages } from '../../date-picker/date.types';
 import { strikethrough } from './menu/menu-schema-extender';
@@ -215,7 +215,7 @@ export class ProsemirrorAdapter {
 
         const currentContent = this.contentConverter.serialize(
             this.view,
-            this.schema,
+            this.schema
         );
 
         // If the new value is the same as the current content, do nothing
@@ -248,7 +248,7 @@ export class ProsemirrorAdapter {
 
         this.host.addEventListener(
             'open-editor-link-menu',
-            this.handleOpenLinkMenu,
+            this.handleOpenLinkMenu
         );
     }
 
@@ -257,7 +257,7 @@ export class ProsemirrorAdapter {
 
         this.host.removeEventListener(
             'open-editor-link-menu',
-            this.handleOpenLinkMenu,
+            this.handleOpenLinkMenu
         );
         this.view?.dom?.removeEventListener('blur', this.handleBlur);
         this.view?.dom?.removeEventListener('mousedown', this.handleMouseDown);
@@ -275,7 +275,7 @@ export class ProsemirrorAdapter {
     }
 
     renderToolbar() {
-        if (!this.actionBarItems.length || this.ui === 'no-toolbar') {
+        if (this.actionBarItems.length === 0 || this.ui === 'no-toolbar') {
             return;
         }
 
@@ -319,20 +319,20 @@ export class ProsemirrorAdapter {
         if (this.contentType === 'markdown') {
             this.contentConverter = new MarkdownConverter(
                 this.customElements,
-                this.language,
+                this.language
             );
         } else if (this.contentType === 'html') {
             this.contentConverter = new HTMLConverter(this.customElements);
         } else {
             throw new Error(
-                `Unsupported content type: ${this.contentType}. Only 'markdown' and 'html' are supported.`,
+                `Unsupported content type: ${this.contentType}. Only 'markdown' and 'html' are supported.`
             );
         }
     }
 
     private getActionBarItems = () => {
         this.actionBarItems = getTextEditorMenuItems().map(
-            this.getTranslatedItem,
+            this.getTranslatedItem
         );
     };
 
@@ -359,7 +359,7 @@ export class ProsemirrorAdapter {
             {
                 state: this.createEditorState(initialDoc),
                 dispatchTransaction: this.handleTransaction,
-            },
+            }
         );
 
         this.view.dom.addEventListener('blur', this.handleBlur);
@@ -373,12 +373,12 @@ export class ProsemirrorAdapter {
     private initializeSchema() {
         let nodes = schema.spec.nodes;
 
-        this.customElements.forEach((customElement) => {
+        for (const customElement of this.customElements) {
             const newNodeSpec = createNodeSpec(customElement);
             const nodeName = customElement.tagName;
 
             nodes = nodes.append({ [nodeName]: newNodeSpec });
-        });
+        }
         nodes = addListNodes(nodes, 'paragraph block*', 'block');
 
         if (this.contentType === 'html') {
@@ -403,7 +403,7 @@ export class ProsemirrorAdapter {
             initialContentElement.innerHTML =
                 await this.contentConverter.parseAsHTML(
                     this.value,
-                    this.schema,
+                    this.schema
                 );
         } else {
             initialContentElement.innerHTML = '<p></p>';
@@ -420,7 +420,7 @@ export class ProsemirrorAdapter {
                 keymap(this.menuCommandFactory.buildKeymap()),
                 createTriggerPlugin(
                     this.triggerCharacters,
-                    this.contentConverter,
+                    this.contentConverter
                 ),
                 createLinkPlugin(this.handleNewLinkSelection),
                 createImageInserterPlugin(this.imagePasted.emit),
@@ -428,7 +428,7 @@ export class ProsemirrorAdapter {
                 createMenuStateTrackingPlugin(
                     editorMenuTypesArray,
                     this.menuCommandFactory,
-                    this.updateActiveActionBarItems,
+                    this.updateActiveActionBarItems
                 ),
                 createActionBarInteractionPlugin(this.menuCommandFactory),
                 ...getTableEditingPlugins(this.contentType === 'html'),
@@ -438,7 +438,7 @@ export class ProsemirrorAdapter {
 
     private updateActiveActionBarItems = (
         activeTypes: Record<EditorMenuTypes, boolean>,
-        allowedTypes: Record<EditorMenuTypes, boolean>,
+        allowedTypes: Record<EditorMenuTypes, boolean>
     ) => {
         const newItems = getTextEditorMenuItems().map((item) => {
             if (isItem(item)) {
@@ -453,7 +453,7 @@ export class ProsemirrorAdapter {
         });
 
         this.actionBarItems = newItems.filter((item) =>
-            isItem(item) ? item.allowed : true,
+            isItem(item) ? item.allowed : true
         );
     };
 
@@ -461,10 +461,10 @@ export class ProsemirrorAdapter {
         this.suppressChangeEvent = true;
         const html = await this.contentConverter.parseAsHTML(
             content,
-            this.schema,
+            this.schema
         );
         const prosemirrorDOMparser = DOMParser.fromSchema(
-            this.view.state.schema,
+            this.view.state.schema
         );
         const domParser = new window.DOMParser();
         const doc = domParser.parseFromString(html, 'text/html');
@@ -512,23 +512,23 @@ export class ProsemirrorAdapter {
 
     private removeImagesFromCache(
         oldMetadata: EditorMetadata,
-        newMetadata: EditorMetadata,
+        newMetadata: EditorMetadata
     ) {
         const removedImages = oldMetadata.images.filter(
             (oldImage) =>
                 !newMetadata.images.some(
-                    (newImage) => newImage.fileInfoId === oldImage.fileInfoId,
-                ),
+                    (newImage) => newImage.fileInfoId === oldImage.fileInfoId
+                )
         );
 
-        removedImages.forEach((image) => {
+        for (const image of removedImages) {
             imageCache.delete(image.fileInfoId);
             this.imageRemoved.emit(image);
-        });
+        }
     }
 
     private handleActionBarItem = (
-        event: CustomEvent<ActionBarItem<EditorMenuTypes>>,
+        event: CustomEvent<ActionBarItem<EditorMenuTypes>>
     ) => {
         event.preventDefault();
         event.stopImmediatePropagation();

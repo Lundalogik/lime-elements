@@ -14,22 +14,22 @@ export interface ActiveMenuItems {
 
 export type UpdateMenuItemsCallBack = (
     activeTypes: Record<EditorMenuTypes, boolean>,
-    allowedTypes: Record<EditorMenuTypes, boolean>,
+    allowedTypes: Record<EditorMenuTypes, boolean>
 ) => void;
 
 export const getMenuItemStates = (
     menuTypes: EditorMenuTypes[],
     menuCommandFactory: MenuCommandFactory,
-    view: EditorView,
+    view: EditorView
 ): ActiveMenuItems => {
     const activeTypes: Record<EditorMenuTypes, boolean> = {};
     const allowedTypes: Record<EditorMenuTypes, boolean> = {};
 
-    menuTypes.forEach((type) => {
+    for (const type of menuTypes) {
         const command: CommandWithActive = menuCommandFactory.getCommand(type);
         activeTypes[type] = !!command?.active?.(view.state) || false;
         allowedTypes[type] = !!(command?.allowed?.(view.state) ?? true);
-    });
+    }
 
     return { active: activeTypes, allowed: allowedTypes };
 };
@@ -37,7 +37,7 @@ export const getMenuItemStates = (
 export const createMenuStateTrackingPlugin = (
     menuTypes: EditorMenuTypes[],
     menuCommandFactory: MenuCommandFactory,
-    updateCallback: UpdateMenuItemsCallBack,
+    updateCallback: UpdateMenuItemsCallBack
 ) => {
     return new Plugin<ActiveMenuItems>({
         key: actionBarPluginKey,
@@ -48,7 +48,7 @@ export const createMenuStateTrackingPlugin = (
             apply: (tr, menuStates) => {
                 const newMenuStates = tr.getMeta(actionBarPluginKey);
 
-                return newMenuStates ? newMenuStates : menuStates;
+                return newMenuStates ?? menuStates;
             },
         },
         view: () => ({
@@ -57,17 +57,17 @@ export const createMenuStateTrackingPlugin = (
                 const menuItemStates = getMenuItemStates(
                     menuTypes,
                     menuCommandFactory,
-                    view,
+                    view
                 );
                 if (!isEqual(oldItemStates, menuItemStates)) {
                     const tr = view.state.tr.setMeta(
                         actionBarPluginKey,
-                        menuItemStates,
+                        menuItemStates
                     );
                     view.dispatch(tr);
                     updateCallback(
                         menuItemStates.active,
-                        menuItemStates.allowed,
+                        menuItemStates.allowed
                     );
                 }
             },

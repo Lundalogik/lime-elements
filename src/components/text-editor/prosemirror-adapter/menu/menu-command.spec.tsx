@@ -21,7 +21,7 @@ describe('MenuCommandFactory', () => {
             nodes: addListNodes(
                 basicSchema.spec.nodes,
                 'paragraph block*',
-                'block',
+                'block'
             ),
             marks: basicSchema.spec.marks.append({
                 strikethrough: strikethrough,
@@ -41,7 +41,7 @@ describe('MenuCommandFactory', () => {
         };
 
         const doc = DOMParser.fromSchema(mySchema).parse(
-            document.createElement('div'),
+            document.createElement('div')
         );
 
         state = EditorState.create({
@@ -53,7 +53,7 @@ describe('MenuCommandFactory', () => {
         });
 
         document.body.innerHTML = '<div id="editor"></div>';
-        const editorDiv = document.getElementById('editor');
+        const editorDiv = document.querySelector('#editor');
 
         view = new EditorView(editorDiv!, {
             state: state,
@@ -65,10 +65,10 @@ describe('MenuCommandFactory', () => {
     });
 
     it('getCommand returns a command function for each EditorMenuTypes', () => {
-        Object.values(EditorMenuTypes).forEach((type) => {
+        for (const type of Object.values(EditorMenuTypes)) {
             const command = factory.getCommand(type);
             expect(typeof command).toBe('function');
-        });
+        }
     });
 
     it('buildKeymap returns a keymap object', () => {

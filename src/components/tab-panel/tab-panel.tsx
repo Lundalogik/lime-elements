@@ -75,6 +75,7 @@ export class TabPanel {
 
         slot.addEventListener('slotchange', this.setSlotElements);
         this.setSlotElements();
+        // eslint-disable-next-line unicorn/no-array-for-each
         this.tabs.forEach(this.setTabStatus);
     }
 
@@ -86,6 +87,7 @@ export class TabPanel {
     @Watch('tabs')
     public tabsChanged() {
         this.hidePanels();
+        // eslint-disable-next-line unicorn/no-array-for-each
         this.tabs.forEach(this.setTabStatus);
     }
 
@@ -105,7 +107,8 @@ export class TabPanel {
     private setSlotElements() {
         const slot = this.getSlot();
         this.hidePanels();
-        this.slotElements = [].slice.call(slot.assignedElements());
+        this.slotElements = Array.prototype.slice.call(slot.assignedElements());
+        // eslint-disable-next-line unicorn/no-array-for-each
         this.tabs.forEach(this.setTabStatus);
     }
 
@@ -121,7 +124,7 @@ export class TabPanel {
             element.style.display = 'none';
         }
 
-        element['tab'] = tab; // eslint-disable-line @typescript-eslint/dot-notation
+        element['tab'] = tab;
     }
 
     private handleChangeTabs(event: CustomEvent<Tab>) {
@@ -145,8 +148,8 @@ export class TabPanel {
     }
 
     private hidePanels() {
-        this.slotElements.forEach((element) => {
+        for (const element of this.slotElements) {
             element.style.display = 'none';
-        });
+        }
     }
 }

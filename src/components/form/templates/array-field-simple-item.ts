@@ -55,7 +55,7 @@ export class SimpleItemTemplate extends React.Component {
             this.props.item.children,
             this.renderRemoveButton(item),
             this.renderMoveUpButton(item),
-            this.renderMoveDownButton(item),
+            this.renderMoveDownButton(item)
         );
     }
 

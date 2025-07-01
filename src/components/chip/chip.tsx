@@ -458,7 +458,7 @@ export class Chip implements ChipInterface {
     }
 
     private handleActionMenuSelect = (
-        event: LimelMenuCustomEvent<MenuItem>,
+        event: LimelMenuCustomEvent<MenuItem>
     ) => {
         const menuItem = event.detail;
 

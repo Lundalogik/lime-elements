@@ -20,7 +20,7 @@ export class BadgeExample {
     private label1: number = 5;
     private label2: number = 995;
     private label3: number = 9951;
-    private label4: number = 999990;
+    private label4: number = 999_990;
 
     public render() {
         return [

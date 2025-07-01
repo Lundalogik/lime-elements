@@ -59,13 +59,13 @@ describe('menu-state-tracking-plugin', () => {
             };
 
             menuCommandFactory.getCommand = jest.fn(
-                (type) => mockCommands[type],
+                (type) => mockCommands[type]
             );
 
             const result = getMenuItemStates(
                 mockMenuTypes,
                 menuCommandFactory,
-                view as EditorView,
+                view as EditorView
             );
 
             expect(result).toEqual({
@@ -104,7 +104,7 @@ describe('menu-state-tracking-plugin', () => {
             const result = getMenuItemStates(
                 mockMenuTypes,
                 menuCommandFactory,
-                view as EditorView,
+                view as EditorView
             );
 
             expect(result).toEqual({
@@ -127,7 +127,7 @@ describe('menu-state-tracking-plugin', () => {
             const plugin: Plugin = createMenuStateTrackingPlugin(
                 mockMenuTypes,
                 menuCommandFactory,
-                updateCallback,
+                updateCallback
             );
 
             expect(plugin).toBeInstanceOf(Plugin);
@@ -138,7 +138,7 @@ describe('menu-state-tracking-plugin', () => {
             const plugin = createMenuStateTrackingPlugin(
                 mockMenuTypes,
                 menuCommandFactory,
-                updateCallback,
+                updateCallback
             );
 
             const mockTransaction = {
@@ -163,7 +163,7 @@ describe('menu-state-tracking-plugin', () => {
             const plugin = createMenuStateTrackingPlugin(
                 mockMenuTypes,
                 menuCommandFactory,
-                updateCallback,
+                updateCallback
             );
 
             const mockTransaction = {

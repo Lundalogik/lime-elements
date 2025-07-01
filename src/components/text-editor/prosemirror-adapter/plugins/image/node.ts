@@ -8,19 +8,32 @@ export const imageCache = new Map<string, HTMLImageElement>();
 
 type MarkdownSerializerFunction = (
     state: MarkdownSerializerState,
-    node: Node,
+    node: Node
 ) => void;
 
+/**
+ *
+ * @param language
+ */
 export function getImageNode(language: Languages): Record<string, NodeSpec> {
     return { image: createImageNodeSpec(language) };
 }
 
+/**
+ *
+ * @param language
+ */
 export function getImageNodeMarkdownSerializer(
-    language: Languages,
+    language: Languages
 ): Record<string, MarkdownSerializerFunction> {
     return { image: createImageNodeMarkdownSerializer(language) };
 }
 
+/**
+ *
+ * @param img
+ * @param node
+ */
 export function applyImageStyles(img: HTMLImageElement, node: Node) {
     img.style.height = node.attrs.height;
     img.style.width = node.attrs.width;
@@ -32,6 +45,7 @@ export function applyImageStyles(img: HTMLImageElement, node: Node) {
 /**
  * Recursively checks if a ProseMirror node or
  * any of its child nodes is an image node.
+ * @param node
  */
 export function hasImageNode(node: Node): boolean {
     if (node.type.name === 'image') {
@@ -49,7 +63,7 @@ export function hasImageNode(node: Node): boolean {
 }
 
 function createImageNodeMarkdownSerializer(
-    language: Languages,
+    language: Languages
 ): MarkdownSerializerFunction {
     return (markdownSerializerState: MarkdownSerializerState, node: Node) => {
         const state = node.attrs.state;
@@ -72,7 +86,7 @@ function createImageNodeMarkdownSerializer(
 function getStatusHTML(
     state: EditorImageState,
     alt: string,
-    language: Languages,
+    language: Languages
 ): string {
     const key = state === 'failed' ? 'failed' : 'loading';
     const text = translate.get(`editor-image-view.${key}`, language, {
@@ -172,7 +186,7 @@ function isEditorImageState(state: unknown): state is EditorImageState {
 
 function getOrCreateImageElement(
     fileInfoId: string,
-    node: Node,
+    node: Node
 ): HTMLImageElement {
     let img = imageCache.get(fileInfoId);
 
@@ -189,7 +203,7 @@ function getOrCreateImageElement(
 function createStatusSpanForState(
     state: EditorImageState,
     node: Node,
-    language: Languages,
+    language: Languages
 ): HTMLSpanElement {
     const statusKey = state === 'failed' ? 'failed' : 'loading';
 
@@ -199,7 +213,7 @@ function createStatusSpanForState(
 function createStatusSpan(
     key: string,
     node: Node,
-    language: Languages,
+    language: Languages
 ): HTMLSpanElement {
     const text = translate.get(`editor-image-view.${key}`, language, {
         filename: node.attrs.alt || 'file',
@@ -212,7 +226,7 @@ function createStatusSpan(
 
 function updateImageElement(
     img: HTMLImageElement,
-    node: Node,
+    node: Node
 ): HTMLImageElement {
     img.alt = node.attrs.alt;
     applyImageStyles(img, node);

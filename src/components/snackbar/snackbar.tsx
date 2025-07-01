@@ -74,7 +74,6 @@ export class Snackbar {
      * - or the snackbar needs to be closed programmatically.
      */
     @Prop({ reflect: true })
-    // eslint-disable-next-line no-magic-numbers
     public timeout?: number = 5000;
 
     /**
@@ -163,9 +162,8 @@ export class Snackbar {
      */
     @Method()
     public async show() {
-        // eslint-disable-next-line no-console
         console.warn(
-            'The `show` method in `limel-snackbar` is deprecated. Please use the `open` property instead.',
+            'The `show` method in `limel-snackbar` is deprecated. Please use the `open` property instead.'
         );
         if (!this.open) {
             this.handleOpen();
@@ -186,8 +184,8 @@ export class Snackbar {
                 this.handleClose,
                 Math.max(
                     this.timeout - hideAnimationDuration,
-                    hideAnimationDuration,
-                ),
+                    hideAnimationDuration
+                )
             );
         }
     };
@@ -240,7 +238,7 @@ export class Snackbar {
 
     private setAriaRoles() {
         if (!this.open) {
-            return undefined;
+            return;
         }
 
         if (!this.timeout || this.timeout === -1) {

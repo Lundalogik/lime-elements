@@ -180,10 +180,10 @@ export class TabBar {
         this.mdcTabBar.focusOnActivate = true;
         this.mdcTabBar.useAutomaticActivation = true;
         this.scrollArea = element.querySelector(
-            '.mdc-tab-scroller__scroll-area',
+            '.mdc-tab-scroller__scroll-area'
         );
         this.scrollContent = element.querySelector(
-            '.mdc-tab-scroller__scroll-content',
+            '.mdc-tab-scroller__scroll-content'
         );
 
         this.setupListeners();
@@ -200,7 +200,7 @@ export class TabBar {
         if (this.mdcTabBar) {
             this.mdcTabBar.unlisten(
                 TAB_ACTIVATED_EVENT,
-                this.handleTabActivated,
+                this.handleTabActivated
             );
             this.mdcTabBar.destroy();
         }
@@ -219,6 +219,7 @@ export class TabBar {
 
         difference(newTabs, this.tabs)
             .sort(this.sortByInactive)
+            // eslint-disable-next-line unicorn/no-array-for-each
             .forEach((tab: Tab) => {
                 this.changeTab.emit(tab);
             });
@@ -235,7 +236,7 @@ export class TabBar {
         const scrollRight = Math.floor(
             this.scrollContent.getBoundingClientRect().width -
                 this.scrollArea.getBoundingClientRect().width -
-                scrollLeft,
+                scrollLeft
         );
 
         if (scrollLeft > HIDE_SCROLL_BUTTONS_WHEN_SCROLLED_LESS_THAN_PX) {
@@ -290,7 +291,7 @@ export class TabBar {
         }
 
         const name = getIconName(tab.icon);
-        // eslint-disable-next-line sonarjs/deprecation
+
         const color = getIconColor(tab.icon, tab.iconColor);
         const style = { color: '' };
 
@@ -339,11 +340,9 @@ export class TabBar {
     }
 
     private triggerIconColorWarning() {
-        // eslint-disable-next-line sonarjs/deprecation
         if (this.tabs.some((tab) => tab.iconColor)) {
-            /* eslint-disable-next-line no-console */
             console.warn(
-                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`.",
+                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
             );
         }
     }

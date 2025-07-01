@@ -452,7 +452,7 @@ export class InputField {
     };
 
     private renderInput = (
-        properties: JSXBase.InputHTMLAttributes<HTMLInputElement>,
+        properties: JSXBase.InputHTMLAttributes<HTMLInputElement>
     ) => {
         if (this.type === 'textarea') {
             return;
@@ -473,7 +473,7 @@ export class InputField {
     };
 
     private renderTextarea = (
-        properties: JSXBase.TextareaHTMLAttributes<HTMLTextAreaElement>,
+        properties: JSXBase.TextareaHTMLAttributes<HTMLTextAreaElement>
     ) => {
         if (this.type !== 'textarea') {
             return;
@@ -638,7 +638,7 @@ export class InputField {
     };
 
     private setInputElement = (
-        element?: HTMLInputElement | HTMLTextAreaElement,
+        element?: HTMLInputElement | HTMLTextAreaElement
     ) => {
         if (element) {
             this.inputElement = element;
@@ -683,16 +683,19 @@ export class InputField {
     private getLink = () => {
         const props: LinkProperties = { href: '' };
         switch (this.type) {
-            case 'email':
+            case 'email': {
                 props.href = `mailto:${this.value}`;
                 break;
-            case 'tel':
+            }
+            case 'tel': {
                 props.href = `tel:${this.value}`;
                 break;
-            default:
+            }
+            default: {
                 props.href = getHref(this.value);
                 props.target = getTarget(this.value);
                 props.rel = getRel(props.target);
+            }
         }
 
         return props;
@@ -775,7 +778,7 @@ export class InputField {
         let renderValue = this.value;
         if (this.formatNumber && this.value) {
             renderValue = new Intl.NumberFormat(this.locale).format(
-                Number(this.value),
+                Number(this.value)
             );
             if (renderValue === 'NaN') {
                 return;
@@ -823,7 +826,7 @@ export class InputField {
         event.preventDefault();
         if (isForwardTab || isDown) {
             const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:first-child',
+                '.mdc-deprecated-list-item:first-child'
             );
             listElement.focus();
 
@@ -832,14 +835,14 @@ export class InputField {
 
         if (isUp) {
             const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:last-child',
+                '.mdc-deprecated-list-item:last-child'
             );
             listElement.focus();
         }
     };
 
     private handleCompletionChange = (
-        event: LimelListCustomEvent<ListItem>,
+        event: LimelListCustomEvent<ListItem>
     ) => {
         event.stopPropagation();
         if (!event.detail) {
@@ -859,12 +862,12 @@ export class InputField {
     };
 
     private renderAutocompleteList = () => {
-        if (this.type === 'textarea' || !this.completions.length) {
+        if (this.type === 'textarea' || this.completions.length === 0) {
             return;
         }
 
         const dropdownZIndex = getComputedStyle(
-            this.limelInputField,
+            this.limelInputField
         ).getPropertyValue('--dropdown-z-index');
 
         return (
@@ -892,7 +895,7 @@ export class InputField {
 
     private renderListResult = () => {
         const filteredCompletions: ListItem[] = this.filterCompletions(
-            this.getCurrentValue(),
+            this.getCurrentValue()
         );
         if (!filteredCompletions || filteredCompletions.length === 0) {
             return null;
@@ -924,10 +927,8 @@ export class InputField {
             return this.completionsList;
         }
 
-        return this.completionsList.filter(
-            (completion) =>
-                completion.text.toLowerCase().indexOf(filter.toLowerCase()) >
-                -1,
+        return this.completionsList.filter((completion) =>
+            completion.text.toLowerCase().includes(filter.toLowerCase())
         );
     };
 

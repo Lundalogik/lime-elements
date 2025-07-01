@@ -1,3 +1,7 @@
+/**
+ *
+ * @param value
+ */
 export function getPercentageClass(value: number) {
     const tenPercent = 0.1;
     const twentyPercent = 0.2;

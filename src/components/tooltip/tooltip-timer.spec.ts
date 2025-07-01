@@ -1,4 +1,4 @@
-import { TooltipTimer } from './tooltipTimer'; // Adjust the import path as necessary
+import { TooltipTimer } from './tooltip-timer'; // Adjust the import path as necessary
 
 describe('TooltipTimer', () => {
     jest.useFakeTimers();
@@ -16,7 +16,7 @@ describe('TooltipTimer', () => {
         const tooltipTimer = new TooltipTimer(
             showCallback,
             hideCallback,
-            delayForShowing,
+            delayForShowing
         );
 
         tooltipTimer.showAfterDelay();
@@ -30,7 +30,7 @@ describe('TooltipTimer', () => {
         const tooltipTimer = new TooltipTimer(
             showCallback,
             hideCallback,
-            delayForShowing,
+            delayForShowing
         );
 
         tooltipTimer.showAfterDelay();
@@ -45,7 +45,7 @@ describe('TooltipTimer', () => {
         const tooltipTimer = new TooltipTimer(
             showCallback,
             hideCallback,
-            delayForShowing,
+            delayForShowing
         );
 
         tooltipTimer.hide();
@@ -56,7 +56,7 @@ describe('TooltipTimer', () => {
         const tooltipTimer = new TooltipTimer(
             showCallback,
             hideCallback,
-            delayForShowing,
+            delayForShowing
         );
 
         tooltipTimer.showAfterDelay();
@@ -78,7 +78,7 @@ describe('TooltipTimer', () => {
             tooltipTimer = new TooltipTimer(
                 showCallback,
                 hideCallback,
-                delayForShowing,
+                delayForShowing
             );
 
             tooltipTimer.showAfterDelay();

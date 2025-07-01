@@ -32,7 +32,7 @@ describe('table selection', () => {
         tableSelection = new TestTableSelection(
             () => table,
             new ElementPool(document),
-            { emit: emitSelect },
+            { emit: emitSelect }
         );
     });
 
@@ -42,7 +42,7 @@ describe('table selection', () => {
         const rowCheckboxMap = new Map<any, { checked: boolean }>();
         const makeCell: (row: any, data: any) => Tabulator.CellComponent = (
             row: any,
-            data: any,
+            data: any
         ) => {
             const checkbox = { checked: false };
             rowCheckboxMap.set(data, checkbox);
@@ -58,7 +58,7 @@ describe('table selection', () => {
 
         const makeRow: (
             data: any,
-            position: number,
+            position: number
         ) => Tabulator.RowComponent = (data, position) => {
             const row: Partial<Tabulator.RowComponent> = {
                 getData: () => data,

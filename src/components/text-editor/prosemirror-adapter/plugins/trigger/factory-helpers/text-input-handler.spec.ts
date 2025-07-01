@@ -31,7 +31,7 @@ describe('getTextInputHandler', () => {
         textInputHandler = getTextInputHandler(
             contentConverter,
             validTriggerCharacters,
-            onTriggerStart,
+            onTriggerStart
         );
         jest.clearAllMocks();
     });
@@ -50,7 +50,7 @@ describe('getTextInputHandler', () => {
                 mockEditorView,
                 contentConverter,
                 { character: '@', position: from },
-                '@',
+                '@'
             );
             expect(activeTrigger).toEqual({ character: '@', position: from });
         });
@@ -68,7 +68,7 @@ describe('getTextInputHandler', () => {
                 mockEditorView,
                 contentConverter,
                 { character: '@', position: from },
-                '@',
+                '@'
             );
             expect(activeTrigger).toEqual({ character: '@', position: from });
         });
@@ -86,7 +86,7 @@ describe('getTextInputHandler', () => {
                 mockEditorView,
                 contentConverter,
                 { character: '@', position: from },
-                '@',
+                '@'
             );
             expect(activeTrigger).toEqual({ character: '@', position: from });
         });
@@ -106,7 +106,7 @@ describe('getTextInputHandler', () => {
                 mockEditorView,
                 contentConverter,
                 { character: '@', position: from },
-                '@',
+                '@'
             );
             expect(activeTrigger).toEqual({ character: '@', position: from });
         });
@@ -136,7 +136,7 @@ describe('getTextInputHandler', () => {
     });
 
     // Test each valid trigger character
-    validTriggerCharacters.forEach((char) => {
+    for (const char of validTriggerCharacters) {
         it(`starts trigger session with ${char} character`, () => {
             const from = 5;
             const to = 6;
@@ -149,12 +149,12 @@ describe('getTextInputHandler', () => {
                 mockEditorView,
                 contentConverter,
                 { character: char, position: from },
-                char,
+                char
             );
             expect(activeTrigger).toEqual({
                 character: char,
                 position: from,
             });
         });
-    });
+    }
 });

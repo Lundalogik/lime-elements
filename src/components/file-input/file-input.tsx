@@ -72,8 +72,9 @@ export class FileInput {
     private fileInputId = createRandomString();
 
     public componentDidLoad() {
+        // eslint-disable-next-line unicorn/prefer-query-selector
         this.fileInput = this.element.shadowRoot.getElementById(
-            this.fileInputId,
+            this.fileInputId
         ) as HTMLInputElement;
     }
 
@@ -138,7 +139,7 @@ export class FileInput {
     }
 
     private handleFileChange = (event: Event) => {
-        const files = Array.from(this.fileInput.files);
+        const files = [...this.fileInput.files];
         if (files.length > 0) {
             event.stopPropagation();
             this.filesSelected.emit(files.map(createFileInfo));

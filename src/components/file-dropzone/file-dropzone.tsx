@@ -144,12 +144,12 @@ export class FileDropzone {
             return;
         }
 
-        const files: File[] = Array.from(event.dataTransfer.files);
+        const files: File[] = [...event.dataTransfer.files];
         const fileInfos: FileInfo[] = files.map(createFileInfo);
 
         const [acceptedFileInfos, rejectedFileInfos] = partition(
             fileInfos,
-            (file) => isTypeAccepted(file, this.accept),
+            (file) => isTypeAccepted(file, this.accept)
         );
 
         if (acceptedFileInfos.length > 0) {

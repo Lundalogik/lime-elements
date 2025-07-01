@@ -33,7 +33,7 @@ describe('limeLinkHelper', () => {
     describe('when input begins with "https"', () => {
         it('is NOT prepended with http://', () => {
             expect(getHref('https://limetest@web')).toEqual(
-                'https://limetest@web',
+                'https://limetest@web'
             );
         });
     });
@@ -67,11 +67,11 @@ describe('limeLinkHelper', () => {
                     value: 'eight.com',
                 },
             ];
-            linksWithTargetBlank.forEach((link) => {
+            for (const link of linksWithTargetBlank) {
                 it('it returns _blank as a target"', () => {
                     expect(getTarget(link.value)).toEqual('_blank');
                 });
-            });
+            }
         });
     });
     describe('prependProtocol', () => {
@@ -79,7 +79,7 @@ describe('limeLinkHelper', () => {
             it('prepends value with https://', () => {
                 isValid = true;
                 expect(prependProtocol('lime.tech')).toEqual(
-                    'https://lime.tech',
+                    'https://lime.tech'
                 );
             });
         });
@@ -92,7 +92,7 @@ describe('limeLinkHelper', () => {
     });
 
     describe('getRel', () => {
-        [
+        for (const { description, target, explicitRel, expected } of [
             {
                 description:
                     'returns "noopener noreferrer" for target="_blank"',
@@ -152,10 +152,10 @@ describe('limeLinkHelper', () => {
                 explicitRel: '',
                 expected: undefined,
             },
-        ].forEach(({ description, target, explicitRel, expected }) => {
+        ]) {
             it(description, () => {
                 expect(getRel(target, explicitRel)).toBe(expected);
             });
-        });
+        }
     });
 });

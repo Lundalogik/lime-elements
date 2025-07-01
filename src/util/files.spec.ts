@@ -3,10 +3,10 @@ import { createFileInfo, isTypeAccepted } from './files';
 describe('createFileInfo', () => {
     beforeAll(() => {
         // Mock Crypto
-        if (typeof global.crypto === 'undefined') {
+        if (global.crypto === undefined) {
             (global.crypto as Partial<Crypto>) = {
                 randomUUID: jest.fn(
-                    () => '12345678-1234-1234-1234-123456789abc',
+                    () => '12345678-1234-1234-1234-123456789abc'
                 ),
             };
         }
@@ -60,22 +60,19 @@ describe('isTypeAccepted', () => {
         (accept: string, expected: boolean[]) => {
             it(`${expected[0] ? 'accepts' : 'does not accept'} image/png`, () => {
                 expect(
-                    isTypeAccepted({ contentType: 'image/png' } as any, accept),
+                    isTypeAccepted({ contentType: 'image/png' } as any, accept)
                 ).toEqual(expected[0]);
             });
 
             it(`${expected[1] ? 'accepts' : 'does not accept'} image/jpg`, () => {
                 expect(
-                    isTypeAccepted({ contentType: 'image/jpg' } as any, accept),
+                    isTypeAccepted({ contentType: 'image/jpg' } as any, accept)
                 ).toEqual(expected[1]);
             });
 
             it(`${expected[2] ? 'accepts' : 'does not accept'} video/webp`, () => {
                 expect(
-                    isTypeAccepted(
-                        { contentType: 'video/webp' } as any,
-                        accept,
-                    ),
+                    isTypeAccepted({ contentType: 'video/webp' } as any, accept)
                 ).toEqual(expected[2]);
             });
 
@@ -83,10 +80,10 @@ describe('isTypeAccepted', () => {
                 expect(
                     isTypeAccepted(
                         { contentType: 'document/pdf' } as any,
-                        accept,
-                    ),
+                        accept
+                    )
                 ).toEqual(expected[3]);
             });
-        },
+        }
     );
 });

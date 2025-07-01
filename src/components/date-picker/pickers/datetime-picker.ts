@@ -1,12 +1,12 @@
 import flatpickr from 'flatpickr';
 import { EventEmitter } from '@stencil/core';
-import { Picker } from './Picker';
+import { Picker } from './picker';
 
 export class DatetimePicker extends Picker {
     public constructor(
         language: string,
         change: EventEmitter,
-        dateFormat: string = 'L - LT',
+        dateFormat: string = 'L - LT'
     ) {
         super(language, change, dateFormat);
     }
@@ -15,7 +15,7 @@ export class DatetimePicker extends Picker {
         return {
             enableTime: true,
             weekNumbers: !nativePicker,
-            time_24hr: true, // eslint-disable-line camelcase
+            time_24hr: true,
             minuteIncrement: 5,
         };
     }

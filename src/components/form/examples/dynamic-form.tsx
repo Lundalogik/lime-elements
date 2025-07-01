@@ -69,8 +69,8 @@ export class DynamicFormExample {
             if (json) {
                 this.schema = json;
             }
-        } catch (e) {
-            console.log(e);
+        } catch (error) {
+            console.log(error);
         }
     };
 

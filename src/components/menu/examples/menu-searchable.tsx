@@ -26,7 +26,7 @@ export class MenuSubItemsExample {
         ...CascadingMenuItems,
         {
             text: 'Long sub list',
-            items: Array.from(Array(50), (_value, index) => {
+            items: Array.from(Array.from({ length: 50 }), (_value, index) => {
                 return {
                     text: `Item ${index + 1}`,
                 };

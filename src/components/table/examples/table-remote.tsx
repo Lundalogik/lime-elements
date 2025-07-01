@@ -66,6 +66,7 @@ export class TableExampleRemote {
     /**
      * This will only handle how to compare strings. This means the two number
      * columns in the example will not be sorted in the correct way
+     * @param sorter
      */
     private compareBy = (sorter: ColumnSorter) => (a: Bird, b: Bird) => {
         const column = sorter.column;
@@ -84,6 +85,9 @@ export class TableExampleRemote {
      *
      * `values` and `rowsData` are not needed in this example since they only
      * contain the values for the data that is currently loaded in the table
+     * @param column
+     * @param values
+     * @param rowsData
      */
     private calculateAverage(column: Column, values: any[], rowsData: Bird[]) {
         console.log(values, rowsData);

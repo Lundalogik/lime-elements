@@ -11,7 +11,7 @@ import { createRandomString } from '../../util/random-string';
 import { isAndroidDevice, isIOSDevice } from '../../util/device';
 import { DateType, Languages } from '../date-picker/date.types';
 import { InputType } from '../input-field/input-field.types';
-import { DateFormatter } from './dateFormatter';
+import { DateFormatter } from './date-formatter';
 import { MDCTextField } from '@material/textfield';
 
 // tslint:disable:no-duplicate-string
@@ -215,7 +215,7 @@ export class DatePicker {
         }
 
         const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
+            '--dropdown-z-index'
         );
 
         const formatter = this.formatter || this.formatValue;
@@ -273,7 +273,7 @@ export class DatePicker {
         event.stopPropagation();
         const date = this.dateFormatter.parseDate(
             event.detail,
-            this.internalFormat,
+            this.internalFormat
         );
         this.change.emit(date);
     }
@@ -295,7 +295,7 @@ export class DatePicker {
             this.preventBlurFromCalendarContainer,
             {
                 capture: true,
-            },
+            }
         );
     }
 
@@ -317,7 +317,7 @@ export class DatePicker {
         document.removeEventListener('mousedown', this.documentClickListener);
         document.removeEventListener(
             'blur',
-            this.preventBlurFromCalendarContainer,
+            this.preventBlurFromCalendarContainer
         );
 
         if (!this.pickerIsAutoClosing()) {
@@ -329,7 +329,7 @@ export class DatePicker {
         // Flatpickr removes the focus from the input field
         // but the 'visual focus' is still there
         const mdcTextField = new MDCTextField(
-            this.textField.shadowRoot.querySelector('.mdc-text-field'),
+            this.textField.shadowRoot.querySelector('.mdc-text-field')
         );
         mdcTextField.getDefaultFoundation().deactivateFocus();
         mdcTextField.valid = !this.invalid;

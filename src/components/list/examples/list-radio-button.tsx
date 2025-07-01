@@ -28,9 +28,9 @@ export class ListRadioButtonExample {
     private selectedItem: ListItem | ListSeparator;
 
     constructor() {
-        this.selectedItem = this.items.filter((item: ListItem) => {
+        this.selectedItem = this.items.find((item: ListItem) => {
             return !!item.selected;
-        })[0];
+        });
     }
 
     public render() {

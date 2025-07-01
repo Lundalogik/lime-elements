@@ -40,14 +40,14 @@ test('the component renders', () => {
 });
 
 test('the component renders all colors in the palette', () => {
-    colors.forEach((color) => {
-        brightnesses.forEach((brightness) => {
+    for (const color of colors) {
+        for (const brightness of brightnesses) {
             const swatchElement = getSwatchElement(color, brightness);
             expect(swatchElement).toEqualHtml(`
                 <button class="--color-${color}-${brightness} swatch"></button>
             `);
-        });
-    });
+        }
+    }
 });
 
 test('a new value is emitted when a swatch is clicked', async () => {
@@ -60,7 +60,7 @@ test('a new value is emitted when a swatch is clicked', async () => {
     expect(handleChange).toHaveBeenCalledWith(
         expect.objectContaining({
             detail: 'rgb(var(--color-pink-light))',
-        }),
+        })
     );
 });
 
@@ -83,12 +83,12 @@ function getPickerElement(): HTMLLimelColorPickerElement {
 
 function getPaletteElement(): HTMLLimelColorPickerPaletteElement {
     return getPickerElement().shadowRoot.querySelector(
-        'limel-color-picker-palette',
+        'limel-color-picker-palette'
     );
 }
 
 function getSwatchElement(color: string, brightness: string): HTMLDivElement {
     return getPaletteElement().shadowRoot.querySelector(
-        `.--color-${color}-${brightness}`,
+        `.--color-${color}-${brightness}`
     );
 }

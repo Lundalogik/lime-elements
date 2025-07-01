@@ -67,7 +67,7 @@ export class MenuSubMenuLazyLoadingInfiniteExample {
     }
 
     private handleLoadSubItems = async (
-        item: MenuItem,
+        item: MenuItem
     ): Promise<MenuItem[]> => {
         return new Promise<MenuItem[]>((resolve) => {
             // Simulate some network delay

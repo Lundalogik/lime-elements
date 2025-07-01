@@ -49,7 +49,7 @@ export class TextEditorUiExample {
 
     public render() {
         const placeholderText =
-            this.selectedUi.value !== 'standard' ? 'Write a comment…' : '';
+            this.selectedUi.value === 'standard' ? '' : 'Write a comment…';
 
         return (
             <Host>
@@ -79,7 +79,7 @@ export class TextEditorUiExample {
     };
 
     private readonly handleNewSelection = (
-        event: LimelSelectCustomEvent<Option<EditorUiType>>,
+        event: LimelSelectCustomEvent<Option<EditorUiType>>
     ) => {
         this.selectedUi = event.detail;
     };

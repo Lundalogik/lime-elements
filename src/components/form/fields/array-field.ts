@@ -60,8 +60,8 @@ export class ArrayField extends React.Component<ArrayProps> {
 
         // Find all items in the new data list that do not match
         // the old data
-        for (let i = 0; i < oldData.length; i++) {
-            if (newData[i] === oldData[i]) {
+        for (const [i, oldDatum] of oldData.entries()) {
+            if (newData[i] === oldDatum) {
                 continue;
             }
 
@@ -76,7 +76,7 @@ export class ArrayField extends React.Component<ArrayProps> {
                 oldData[i],
                 newData[i],
                 schema.items,
-                rootSchema,
+                rootSchema
             );
         }
 

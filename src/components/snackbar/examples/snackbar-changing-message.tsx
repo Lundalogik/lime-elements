@@ -30,17 +30,17 @@ export class SnackbarExample {
     }
 
     private triggerSnackbarWithChangingMessage = () => {
-        const trigger = (message, timeoutMs) => {
-            setTimeout(() => {
-                this.message = message;
-                this.isOpen = true;
-            }, timeoutMs);
-        };
+        this.trigger('We will show you a new message in 5 seconds', 0);
+        this.trigger('You will see another message in 5 seconds', 5000);
+        this.trigger('The last message comes in 5 seconds', 10_000);
+        this.trigger('There will be no more messages!', 15_000);
+    };
 
-        trigger('We will show you a new message in 5 seconds', 0);
-        trigger('You will see another message in 5 seconds', 5000);
-        trigger('The last message comes in 5 seconds', 10000);
-        trigger('There will be no more messages!', 15000);
+    private trigger = (message: string, timeoutMs: number) => {
+        setTimeout(() => {
+            this.message = message;
+            this.isOpen = true;
+        }, timeoutMs);
     };
 
     private handleHide = () => {

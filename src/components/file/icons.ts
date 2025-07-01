@@ -124,6 +124,10 @@ const filetypeIconTable: Record<string, string> = {
     dbf: DATA_ICON,
 };
 
+/**
+ *
+ * @param extension
+ */
 export function getIconForFile(extension: string): string {
     return filetypeIconTable[extension.toLowerCase()] || DEFAULT_ICON;
 }

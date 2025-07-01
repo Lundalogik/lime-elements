@@ -11,7 +11,7 @@ export const pluginKey = new PluginKey('imageInserterPlugin');
 type ImagePastedCallback = (data: ImageInserter) => CustomEvent<ImageInserter>;
 
 export const createImageInserterPlugin = (
-    imagePastedCallback: ImagePastedCallback,
+    imagePastedCallback: ImagePastedCallback
 ) => {
     return new Plugin({
         key: pluginKey,
@@ -31,7 +31,7 @@ export const createImageInserterPlugin = (
 export const imageInserterFactory = (
     view: EditorView,
     base64Data: string,
-    fileInfo: FileInfo,
+    fileInfo: FileInfo
 ): ImageInserter => {
     return {
         fileInfo: fileInfo,
@@ -49,7 +49,7 @@ const createThumbnailInserter =
         const imageNodeAttrs = createImageNodeAttrs(
             base64Data,
             fileInfo,
-            'loading',
+            'loading'
         );
         const placeholderNode = schema.nodes.image.create(imageNodeAttrs);
 
@@ -67,9 +67,9 @@ const createImageInserter =
         state.doc.descendants((node, pos) => {
             if (node.attrs.fileInfoId === fileInfo.id) {
                 const imageNodeAttrs = createImageNodeAttrs(
-                    src ? src : node.attrs.src,
+                    src ?? node.attrs.src,
                     fileInfo,
-                    'success',
+                    'success'
                 );
                 const imageNode = schema.nodes.image.create(imageNodeAttrs);
 
@@ -93,7 +93,7 @@ const createFailedThumbnailInserter =
                 const imageNodeAttrs = createImageNodeAttrs(
                     node.attrs.src,
                     fileInfo,
-                    'failed',
+                    'failed'
                 );
                 const errorPlaceholderNode =
                     schema.nodes.image.create(imageNodeAttrs);
@@ -110,7 +110,7 @@ const createFailedThumbnailInserter =
 function createImageNodeAttrs(
     src: string,
     fileInfo: FileInfo,
-    state: EditorImageState,
+    state: EditorImageState
 ): ImageNodeAttrs {
     return {
         src: src,
@@ -132,6 +132,7 @@ const isImageNode = (node: Node | Fragment): boolean => {
         }
 
         let found = false;
+        // eslint-disable-next-line unicorn/no-array-for-each
         node.content.forEach((child) => {
             if (isImageNode(child)) {
                 found = true;
@@ -141,6 +142,7 @@ const isImageNode = (node: Node | Fragment): boolean => {
         return found;
     } else if (node instanceof Fragment) {
         let found = false;
+        // eslint-disable-next-line unicorn/no-array-for-each
         node.forEach((child) => {
             if (isImageNode(child)) {
                 found = true;
@@ -161,6 +163,7 @@ const isImageNode = (node: Node | Fragment): boolean => {
 const filterImageNodes = (fragment: Fragment): Fragment => {
     const filteredChildren: Node[] = [];
 
+    // eslint-disable-next-line unicorn/no-array-for-each
     fragment.forEach((child) => {
         if (!isImageNode(child)) {
             if (child.content.size > 0) {
@@ -182,12 +185,13 @@ const filterImageNodes = (fragment: Fragment): Fragment => {
  *
  * @param view - The ProseMirror editor view.
  * @param event - The paste event.
+ * @param slice
  * @returns A boolean; True if an image file was pasted to prevent default paste behavior, otherwise false.
  */
 const processPasteEvent = (
     view: EditorView,
     event: ClipboardEvent,
-    slice: Slice,
+    slice: Slice
 ): boolean => {
     const clipboardData = event.clipboardData;
     if (!clipboardData) {
@@ -199,7 +203,7 @@ const processPasteEvent = (
     const filteredSlice = new Slice(
         filterImageNodes(slice.content),
         slice.openStart,
-        slice.openEnd,
+        slice.openEnd
     );
 
     if (filteredSlice.content.childCount < slice.content.childCount) {
@@ -222,10 +226,10 @@ const processPasteEvent = (
  */
 function handlePastedImages(
     view: EditorView,
-    clipboardData: DataTransfer,
+    clipboardData: DataTransfer
 ): boolean {
     let isImageFilePasted = false;
-    const files = Array.from(clipboardData.files || []);
+    const files = [...(clipboardData.files || [])];
 
     for (const file of files) {
         if (isImageFile(file, clipboardData)) {
@@ -238,9 +242,9 @@ function handlePastedImages(
                         detail: imageInserterFactory(
                             view,
                             reader.result as string,
-                            createFileInfo(file),
+                            createFileInfo(file)
                         ),
-                    }),
+                    })
                 );
             };
 

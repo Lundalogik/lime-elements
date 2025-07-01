@@ -43,7 +43,7 @@ describe('limel-icon', () => {
 
     it('renders with a badge when the badge and size props are provided', async () => {
         await page.setContent(
-            '<limel-icon name="unit-test" size="small" badge></limel-icon>',
+            '<limel-icon name="unit-test" size="small" badge></limel-icon>'
         );
         await page.waitForChanges();
 

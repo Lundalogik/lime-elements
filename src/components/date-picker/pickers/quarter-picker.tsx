@@ -2,21 +2,22 @@ import flatpickr from 'flatpickr';
 import { EventEmitter } from '@stencil/core';
 import { range } from 'lodash-es';
 import moment from 'moment/moment';
-import { Picker } from './Picker';
+import { Picker } from './picker';
 
 import { h } from 'jsx-dom';
 import { Translations } from '../../../global/translations';
 
+const MONTHSPERQUARTER = 3;
 const NBROFMONTHS = 12;
 
-export class MonthPicker extends Picker {
-    private months = [];
+export class QuarterPicker extends Picker {
+    private quarters = [];
 
     public constructor(
         language: string,
-        change: EventEmitter<Date>,
+        protected change: EventEmitter<Date>,
         private translations: Translations,
-        dateFormat: string = 'MM/YYYY',
+        dateFormat: string = '[Q]Q YYYY'
     ) {
         super(language, change, dateFormat);
         this.handleChange = this.handleChange.bind(this);
@@ -31,11 +32,11 @@ export class MonthPicker extends Picker {
         if (!this.nativePicker) {
             this.flatpickr.prevMonthNav.addEventListener(
                 'mousedown',
-                this.prevYear,
+                this.prevYear
             );
             this.flatpickr.nextMonthNav.addEventListener(
                 'mousedown',
-                this.nextYear,
+                this.nextYear
             );
         }
     }
@@ -45,11 +46,11 @@ export class MonthPicker extends Picker {
         if (!this.nativePicker) {
             this.flatpickr?.prevMonthNav?.removeEventListener(
                 'mousedown',
-                this.prevYear,
+                this.prevYear
             );
             this.flatpickr?.nextMonthNav?.removeEventListener(
                 'mousedown',
-                this.nextYear,
+                this.nextYear
             );
         }
     }
@@ -68,37 +69,37 @@ export class MonthPicker extends Picker {
     }
 
     protected handleChange(selectedDates, dateString, fp) {
-        this.selectMonth(selectedDates, dateString, fp);
+        this.selectQuarter(selectedDates, dateString, fp);
     }
 
     protected handleClose(selectedDates) {
         return super.handleClose(selectedDates).then(() => {
-            this.selectMonth(
+            this.selectQuarter(
                 this.flatpickr.selectedDates,
                 this.flatpickr.input.value,
-                this.flatpickr,
+                this.flatpickr
             );
         });
     }
 
     private handleReady(_, __, fp) {
-        this.bootstrapMonthPicker(fp);
-        this.selectMonth(fp.selectedDates, fp.input.value, fp);
+        this.bootstrapQuarterPicker(fp);
+        this.selectQuarter(fp.selectedDates, fp.input.value, fp);
     }
 
-    private bootstrapMonthPicker(fp) {
+    private bootstrapQuarterPicker(fp) {
         if (!this.nativePicker) {
             fp.innerContainer.remove();
             fp.calendarContainer
-                .getElementsByClassName('flatpickr-monthDropdown-months')[0]
+                .querySelectorAll('.flatpickr-monthDropdown-months')[0]
                 .replaceWith(this.renderHeading());
-            fp.calendarContainer.appendChild(this.renderMonthsPicker(fp));
+            fp.calendarContainer.append(this.renderQuarterPicker(fp));
         }
     }
 
     private renderHeading(): any {
         return (
-            <span className="datepicker-month-heading">
+            <span className="datepicker-quarter-heading">
                 {this.getLocalizedHeading()}
             </span>
         );
@@ -106,79 +107,93 @@ export class MonthPicker extends Picker {
 
     private getLocalizedHeading() {
         return this.translations.get(
-            'date-picker.month.heading',
-            this.language,
+            'date-picker.quarter.heading',
+            this.language
         );
     }
 
-    private renderMonthsPicker(fp): any {
-        return (
-            <div className="datepicker-months-container">
-                {range(NBROFMONTHS).map((index) => {
-                    const renderedMonth = this.renderMonth(index, fp);
-                    this.months.push(renderedMonth);
+    private renderQuarterPicker(fp): any {
+        const startQuarter = 1;
+        const endQuarter = 5;
 
-                    return renderedMonth;
+        return (
+            <div className="datepicker-quarters-container">
+                {range(startQuarter, endQuarter).map((quarter) => {
+                    const renderedQuarter = this.renderQuarter(quarter, fp);
+                    this.quarters.push(renderedQuarter);
+
+                    return renderedQuarter;
                 })}
             </div>
         );
     }
 
-    private renderMonth(month, fp): any {
+    private renderQuarter(quarter, fp): any {
         return (
             <div
-                className="datepicker-month"
+                className="datepicker-quarter"
+                id={`datepicker-quarter-${quarter}`}
                 onClick={() => {
-                    const date = moment([fp.currentYear]).month(month).toDate();
+                    const date = moment([fp.currentYear])
+                        .quarter(quarter)
+                        .toDate();
                     fp.setDate(date, true);
                     fp.close();
                 }}
             >
-                {moment()
-                    .month(month)
-                    .locale(this.getMomentLang())
-                    .format('MMM')}
+                {`Q${quarter}`}
+                {this.renderQuarterMonths(quarter)}
             </div>
         );
     }
 
-    private selectMonth(selectedDates, dateString, fp) {
+    private renderQuarterMonths(quarter): any {
+        const months = Array.from(
+            Array.from({ length: MONTHSPERQUARTER }),
+            (_, index) => {
+                return moment()
+                    .month(index + (quarter - 1) * MONTHSPERQUARTER)
+                    .locale(this.getMomentLang())
+                    .format('MMM');
+            }
+        );
+
+        return months.map((month) => {
+            return <span className="datepicker-month-in-quarter">{month}</span>;
+        });
+    }
+
+    private selectQuarter(selectedDates, dateString, fp) {
         if (!this.nativePicker) {
-            this.months.forEach((month) => {
-                month.classList.remove('selected');
-            });
+            for (const quarter of this.quarters) {
+                quarter.classList.remove('selected');
+            }
 
             if (
                 dateString !== '' &&
                 selectedDates[0] &&
                 selectedDates[0].getFullYear() === fp.currentYear
             ) {
-                this.months[selectedDates[0].getMonth()].classList.add(
-                    'selected',
+                const i = Math.floor(
+                    selectedDates[0].getMonth() / MONTHSPERQUARTER
                 );
+                const selectedQuarter = this.quarters[i];
+                selectedQuarter.classList.add('selected');
             }
         }
     }
 
-    private prevYear() {
+    private prevYear(event) {
         if (!this.nativePicker) {
-            // Preventing default or stopping the event from propagating doesn't
-            // stop flatpickr from moving one month on its own, so we let it do
-            // that, and then move the other 11 months to make it a full year.
-            // /Ads
-            const monthsToMove = 11;
-            this.flatpickr.changeMonth(-monthsToMove);
+            event.stopImmediatePropagation();
+            this.flatpickr.changeMonth(-NBROFMONTHS);
         }
     }
 
-    private nextYear() {
+    private nextYear(event) {
         if (!this.nativePicker) {
-            // Preventing default or stopping the event from propagating doesn't
-            // stop flatpickr from moving one month on its own, so we let it do
-            // that, and then move the other 11 months to make it a full year.
-            // /Ads
-            const monthsToMove = 11;
-            this.flatpickr.changeMonth(monthsToMove);
+            event.stopImmediatePropagation();
+            this.flatpickr.changeMonth(NBROFMONTHS);
         }
     }
 }

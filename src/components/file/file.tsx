@@ -209,7 +209,7 @@ export class File {
 
     private handleChipSetChange = (event: CustomEvent) => {
         event.stopPropagation();
-        const file = !event.detail.length ? event.detail[0] : null;
+        const file = event.detail.length === 0 ? event.detail[0] : null;
         if (!file) {
             this.change.emit(file);
         }

@@ -10,7 +10,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { getPercentageClass } from './getPercentageClass';
+import { getPercentageClass } from './get-percentage-class';
 import { createRandomString } from '../../util/random-string';
 
 const DEFAULT_FACTOR = 1;
@@ -329,7 +329,7 @@ export class Slider {
     }
 
     private changeHandler = (
-        event: CustomEvent<MDCSliderChangeEventDetail>,
+        event: CustomEvent<MDCSliderChangeEventDetail>
     ) => {
         let value = event.detail.value;
         const step = this.multiplyByFactor(this.step);
@@ -371,7 +371,7 @@ export class Slider {
 
     private getValue = () => {
         let value = this.value;
-        if (!isFinite(value)) {
+        if (!Number.isFinite(value)) {
             value = this.valuemin;
         }
 
@@ -380,7 +380,7 @@ export class Slider {
 
     private setPercentageClass = (value: number) => {
         this.percentageClass = getPercentageClass(
-            (value - this.valuemin) / (this.valuemax - this.valuemin),
+            (value - this.valuemin) / (this.valuemax - this.valuemin)
         );
     };
 

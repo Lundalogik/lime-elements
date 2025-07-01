@@ -12,18 +12,22 @@ export const fakeServer = {
         return new Promise((resolve) => {
             setTimeout(() => {
                 switch (item.value) {
-                    case 'format_menu':
+                    case 'format_menu': {
                         resolve(formatItems);
                         break;
-                    case 'edit_menu':
+                    }
+                    case 'edit_menu': {
                         resolve(editItems);
                         break;
-                    case 'bullets_menu':
+                    }
+                    case 'bullets_menu': {
                         resolve(bulletsAndNumberingItems);
                         break;
-                    default:
+                    }
+                    default: {
                         resolve([]);
                         break;
+                    }
                 }
             }, NETWORK_DELAY);
         });

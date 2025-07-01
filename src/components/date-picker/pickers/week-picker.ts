@@ -1,13 +1,13 @@
 import flatpickr from 'flatpickr';
 import weekSelectPlugin from 'flatpickr/dist/plugins/weekSelect/weekSelect';
 import { EventEmitter } from '@stencil/core';
-import { Picker } from './Picker';
+import { Picker } from './picker';
 
 export class WeekPicker extends Picker {
     public constructor(
         language: string,
         change: EventEmitter,
-        dateFormat: string = '[w] W GGGG',
+        dateFormat: string = '[w] W GGGG'
     ) {
         super(language, change, dateFormat);
     }

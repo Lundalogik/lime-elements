@@ -194,7 +194,7 @@ export class Chart {
                     role="presentation"
                 >
                     <limel-badge label={value} />
-                </div>,
+                </div>
             );
         }
 
@@ -247,7 +247,7 @@ export class Chart {
         item: ChartItem,
         index: number,
         size: number,
-        offset: number,
+        offset: number
     ): Record<string, string> {
         const style: Record<string, string> = {
             '--limel-chart-item-offset': `${offset}`,
@@ -356,7 +356,7 @@ export class Chart {
         const maxRange = Math.max(...this.items.map(this.getMaximumValue));
         const totalSum = this.items.reduce(
             (sum, item) => sum + this.getMaximumValue(item),
-            0,
+            0
         );
 
         let finalMaxRange = this.maxValue ?? maxRange;
@@ -386,7 +386,7 @@ export class Chart {
 
     private calculateAxisIncrement(
         items: ChartItem[],
-        steps: number = DEFAULT_INCREMENT_SIZE,
+        steps: number = DEFAULT_INCREMENT_SIZE
     ) {
         const maxValue = Math.max(
             ...items.map((item) => {
@@ -396,11 +396,11 @@ export class Chart {
                 }
 
                 return value;
-            }),
+            })
         );
 
         const roughStep = maxValue / steps;
-        // eslint-disable-next-line no-magic-numbers
+
         const magnitude = 10 ** Math.floor(Math.log10(roughStep));
 
         return Math.ceil(roughStep / magnitude) * magnitude;

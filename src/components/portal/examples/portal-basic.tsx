@@ -59,7 +59,7 @@ export class PortalBasicExample {
         const root = this.host.shadowRoot.querySelector('.root');
         this.container = root.querySelector('.container');
 
-        root.removeChild(this.container);
+        this.container.remove();
     };
 
     private handleConnect = () => {
@@ -68,7 +68,7 @@ export class PortalBasicExample {
         }
 
         const root = this.host.shadowRoot.querySelector('.root');
-        root.appendChild(this.container);
+        root.append(this.container);
         this.container = null;
     };
 

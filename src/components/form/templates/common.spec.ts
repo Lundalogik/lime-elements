@@ -116,7 +116,7 @@ const schemaRequiredProperty: any = { ...schema };
 schemaRequiredProperty.required = ['data'];
 
 describe('findTitle()', () => {
-    [
+    for (const { input, output } of [
         {
             input: ['test', {}, schema],
             output: 'test',
@@ -189,10 +189,10 @@ describe('findTitle()', () => {
             input: [{ props: { limetype: 'deal' } }, schema, schema],
             output: null,
         },
-    ].forEach(({ input, output }) => {
+    ]) {
         const inputJson = JSON.stringify(input[1]);
         it(`returns ${output} when called with ${inputJson}`, () => {
             expect(findTitle.apply(null, input)).toEqual(output); // eslint-disable-line prefer-spread
         });
-    });
+    }
 });

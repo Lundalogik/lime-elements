@@ -5,7 +5,7 @@ import {
 } from './file-metadata';
 
 describe('file metadata', () => {
-    [
+    for (const { description, input, expectedOutput } of [
         {
             description: 'with a known file extension',
             input: {
@@ -54,7 +54,7 @@ describe('file metadata', () => {
                 iconBackgroundColor: 'rgba(var(--color-sky-lighter), 0.4)',
             },
         },
-    ].forEach(({ description, input, expectedOutput }) => {
+    ]) {
         describe(description, () => {
             describe('getFileIcon', () => {
                 it('returns the expected icon name', () => {
@@ -64,17 +64,17 @@ describe('file metadata', () => {
             describe('getFileColor', () => {
                 it('returns the expected color', () => {
                     expect(getFileColor(input)).toEqual(
-                        expectedOutput.iconColor,
+                        expectedOutput.iconColor
                     );
                 });
             });
             describe('getFileBackgroundColor', () => {
                 it('returns the expected color', () => {
                     expect(getFileBackgroundColor(input)).toEqual(
-                        expectedOutput.iconBackgroundColor,
+                        expectedOutput.iconBackgroundColor
                     );
                 });
             });
         });
-    });
+    }
 });

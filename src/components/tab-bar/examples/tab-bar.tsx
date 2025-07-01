@@ -36,7 +36,7 @@ export class TabBarExample {
                 name: 'administrator_female',
                 color: 'var(--lime-orange)',
             },
-            badge: 99940,
+            badge: 99_940,
         },
         {
             id: 4,
@@ -45,7 +45,7 @@ export class TabBarExample {
                 name: 'surprised',
                 color: 'var(--lime-blue)',
             },
-            badge: 999990,
+            badge: 999_990,
         },
         {
             id: 5,
@@ -54,7 +54,7 @@ export class TabBarExample {
                 name: 'female',
                 color: 'var(--lime-deep-red)',
             },
-            badge: 940000,
+            badge: 940_000,
         },
         {
             id: 6,
@@ -63,7 +63,7 @@ export class TabBarExample {
                 name: 'friends',
                 color: 'var(--lime-yellow)',
             },
-            badge: 1290000,
+            badge: 1_290_000,
         },
         {
             id: 7,

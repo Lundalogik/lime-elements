@@ -266,7 +266,7 @@ export class ChipSet {
     }
 
     private initialize() {
-        if (this.value.length) {
+        if (this.value.length > 0) {
             this.selectedChipIds = this.value
                 .filter((chip) => chip.selected)
                 .map((chip) => chip.id);
@@ -320,7 +320,7 @@ export class ChipSet {
 
         if (this.type === 'input') {
             this.mdcTextField = new MDCTextField(
-                this.host.shadowRoot.querySelector('.mdc-text-field'),
+                this.host.shadowRoot.querySelector('.mdc-text-field')
             );
         }
     }
@@ -355,7 +355,7 @@ export class ChipSet {
                 'mdc-text-field--outlined': true,
                 'mdc-chip-set--input': true,
                 'lime-text-field--readonly': this.readonly,
-                'has-chips': this.value.length !== 0,
+                'has-chips': this.value.length > 0,
                 'has-leading-icon': this.leadingIcon !== null,
                 'has-clear-all-button': this.clearAllButton,
             });
@@ -453,7 +453,7 @@ export class ChipSet {
 
     private readonly floatLabelAbove = () => {
         if (
-            !!this.value.length ||
+            this.value.length > 0 ||
             this.editMode ||
             this.readonly ||
             this.textValue
@@ -669,7 +669,7 @@ export class ChipSet {
     }
 
     private isChipSelected(id: number | string): boolean {
-        return !!this.selectedChipIds.find((chipId) => chipId === id);
+        return this.selectedChipIds.includes(id);
     }
 
     private updateFilterTypeSelectedIds(id: number | string): void {
@@ -682,7 +682,7 @@ export class ChipSet {
 
     private removeChipIdFromSelectedChipIds(id: number | string): void {
         this.selectedChipIds = this.selectedChipIds.filter(
-            (chipId) => chipId !== id,
+            (chipId) => chipId !== id
         );
     }
 
@@ -691,7 +691,7 @@ export class ChipSet {
     }
 
     private readonly handleRemoveChip = (
-        event: LimelChipCustomEvent<string | number>,
+        event: LimelChipCustomEvent<string | number>
     ) => {
         this.removeChip(event.detail);
     };
@@ -754,16 +754,12 @@ export class ChipSet {
         for (const chip of value) {
             if (
                 chip.icon &&
-                // eslint-disable-next-line sonarjs/deprecation
                 (chip.iconFillColor ||
-                    // eslint-disable-next-line sonarjs/deprecation
                     chip.iconBackgroundColor ||
-                    // eslint-disable-next-line sonarjs/deprecation
                     chip.iconTitle)
             ) {
-                /* eslint-disable-next-line no-console */
                 console.warn(
-                    "The `iconFillColor`, `iconBackgroundColor`, and `iconTitle` props are deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name', `iconBackgroundColor: 'color-name', and `iconTitle: 'title'`, write `icon { name: 'icon-name', color: 'color-name', backgroundColor: 'color-name', title: 'title' }`.",
+                    "The `iconFillColor`, `iconBackgroundColor`, and `iconTitle` props are deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name', `iconBackgroundColor: 'color-name', and `iconTitle: 'title'`, write `icon { name: 'icon-name', color: 'color-name', backgroundColor: 'color-name', title: 'title' }`."
                 );
             }
         }

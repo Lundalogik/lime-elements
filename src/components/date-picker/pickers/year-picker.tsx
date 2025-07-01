@@ -2,7 +2,7 @@ import flatpickr from 'flatpickr';
 import { EventEmitter } from '@stencil/core';
 import { range } from 'lodash-es';
 import moment, { Moment } from 'moment/moment';
-import { Picker } from './Picker';
+import { Picker } from './picker';
 
 import { h } from 'jsx-dom';
 import { Translations } from '../../../global/translations';
@@ -16,7 +16,7 @@ export class YearPicker extends Picker {
         language: string,
         change: EventEmitter<Date>,
         private translations: Translations,
-        dateFormat: string = 'YYYY',
+        dateFormat: string = 'YYYY'
     ) {
         super(language, change, dateFormat);
         this.handleChange = this.handleChange.bind(this);
@@ -29,11 +29,11 @@ export class YearPicker extends Picker {
         if (!this.nativePicker) {
             this.flatpickr.prevMonthNav.addEventListener(
                 'mousedown',
-                this.prevYears,
+                this.prevYears
             );
             this.flatpickr.nextMonthNav.addEventListener(
                 'mousedown',
-                this.nextYears,
+                this.nextYears
             );
         }
     }
@@ -43,11 +43,11 @@ export class YearPicker extends Picker {
         if (!this.nativePicker) {
             this.flatpickr?.prevMonthNav?.removeEventListener(
                 'mousedown',
-                this.prevYears,
+                this.prevYears
             );
             this.flatpickr?.nextMonthNav?.removeEventListener(
                 'mousedown',
-                this.nextYears,
+                this.nextYears
             );
         }
     }
@@ -63,25 +63,25 @@ export class YearPicker extends Picker {
     };
 
     private addYears(nbrYears: number) {
-        this.years.forEach((year) => {
+        for (const year of this.years) {
             year.add(nbrYears, 'years');
-        });
-        this.yearElements.forEach((el, index) => {
+        }
+        for (const [index, el] of this.yearElements.entries()) {
             el.innerHTML = moment(this.years[index])
                 .locale(this.getMomentLang())
                 .format('YYYY');
-        });
+        }
         this.setSelectedYear();
     }
 
     private setSelectedYear() {
-        this.yearElements.forEach((year) => {
-            if (year.innerText === this.selectedYear) {
+        for (const year of this.yearElements) {
+            if (year.textContent === this.selectedYear) {
                 year.classList.add('selected');
             } else {
                 year.classList.remove('selected');
             }
-        });
+        }
     }
 
     public getConfig(nativePicker: boolean): flatpickr.Options.Options {
@@ -104,7 +104,7 @@ export class YearPicker extends Picker {
         return super.handleClose(selectedDates).then(() => {
             this.selectYear(
                 this.flatpickr.selectedDates,
-                this.flatpickr.input.value,
+                this.flatpickr.input.value
             );
         });
     }
@@ -119,9 +119,9 @@ export class YearPicker extends Picker {
             fp.innerContainer.remove();
             fp.currentYearElement.parentNode.remove();
             fp.calendarContainer
-                .getElementsByClassName('flatpickr-month')[0]
+                .querySelectorAll('.flatpickr-month')[0]
                 .replaceWith(this.renderHeading());
-            fp.calendarContainer.appendChild(this.renderYearPicker(fp));
+            fp.calendarContainer.append(this.renderYearPicker(fp));
         }
     }
 
@@ -138,7 +138,6 @@ export class YearPicker extends Picker {
     }
 
     private renderYearPicker(fp): any {
-        // eslint-disable-next-line no-magic-numbers
         const halfInterval = YEAR_INTERVAL / 2;
 
         return (
@@ -172,18 +171,18 @@ export class YearPicker extends Picker {
 
     private selectYear(selectedDates, dateString) {
         if (!this.nativePicker) {
-            this.yearElements.forEach((year) => {
+            for (const year of this.yearElements) {
                 if (
                     dateString !== '' &&
                     selectedDates[0] &&
-                    Number(year.innerText) === selectedDates[0].getFullYear()
+                    Number(year.textContent) === selectedDates[0].getFullYear()
                 ) {
-                    this.selectedYear = year.innerText;
+                    this.selectedYear = year.textContent;
                     year.classList.add('selected');
                 } else {
                     year.classList.remove('selected');
                 }
-            });
+            }
         }
     }
 }

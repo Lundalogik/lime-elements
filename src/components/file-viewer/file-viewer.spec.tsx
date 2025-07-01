@@ -10,7 +10,7 @@ describe('limel-file-viewer', () => {
         { url: 'example.xyz', type: 'unknown' },
     ];
 
-    testCases.forEach((testCase) => {
+    for (const testCase of testCases) {
         it(`renders a ${testCase.type} viewer`, async () => {
             const page = await newSpecPage({
                 components: [FileViewer],
@@ -19,7 +19,7 @@ describe('limel-file-viewer', () => {
 
             expect(page.root).toBeDefined();
         });
-    });
+    }
 });
 
 describe('limel-file-viewer officeViewer', () => {
@@ -29,7 +29,7 @@ describe('limel-file-viewer officeViewer', () => {
         { url: 'example.odp', officeViewer: 'microsoft-office' },
     ];
 
-    testCases.forEach((testCase) => {
+    for (const testCase of testCases) {
         it(`renders using ${testCase.officeViewer} officeViewer`, async () => {
             const page = await newSpecPage({
                 components: [FileViewer],
@@ -38,5 +38,5 @@ describe('limel-file-viewer officeViewer', () => {
 
             expect(page.root).toBeDefined();
         });
-    });
+    }
 });

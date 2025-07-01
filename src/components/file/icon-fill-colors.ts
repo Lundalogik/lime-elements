@@ -123,6 +123,10 @@ const filetypeFillColorTable: Record<string, string> = {
     dbf: DATA_ICON_FILL_COLOR,
 };
 
+/**
+ *
+ * @param extension
+ */
 export function getIconFillColorForFile(extension: string): string {
     return (
         filetypeFillColorTable[extension.toLowerCase()] ||

@@ -4,7 +4,7 @@ import { chartItems } from './chart-items-area';
 
 /**
  * Line chart
- * * A line chart connects data points with a continuous line,
+ * A line chart connects data points with a continuous line,
  * often used for displaying trends over intervals.
  *
  * It's good for:
@@ -72,12 +72,12 @@ export class ChartTypeLineExample {
 
     private getSelectedOrientation() {
         return this.orientations.find(
-            (option) => option.value === this.orientation,
+            (option) => option.value === this.orientation
         );
     }
 
     private handleOrientationChange = (
-        event: LimelSelectCustomEvent<Option<string>>,
+        event: LimelSelectCustomEvent<Option<string>>
     ) => {
         this.orientation = event.detail.value as 'landscape' | 'portrait';
     };

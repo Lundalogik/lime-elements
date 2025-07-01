@@ -8,9 +8,9 @@ export class ImageIntersectionObserver {
         this.observer = new IntersectionObserver(this.handleIntersection);
 
         const images = containerElement.querySelectorAll('img');
-        images.forEach((img) => {
+        for (const img of images) {
             this.observer.observe(img);
-        });
+        }
     }
 
     public disconnect() {
@@ -18,20 +18,20 @@ export class ImageIntersectionObserver {
     }
 
     private readonly handleIntersection = (
-        entries: IntersectionObserverEntry[],
+        entries: IntersectionObserverEntry[]
     ) => {
-        entries.forEach((entry) => {
+        for (const entry of entries) {
             if (entry.isIntersecting) {
                 const img = entry.target as HTMLImageElement;
-                const dataSrc = img.getAttribute('data-src');
+                const dataSrc = img.dataset.src;
 
                 if (dataSrc) {
                     img.setAttribute('src', dataSrc);
-                    img.removeAttribute('data-src');
+                    delete img.dataset.src;
                 }
 
                 this.observer.unobserve(img);
             }
-        });
+        }
     };
 }

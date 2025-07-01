@@ -9,7 +9,7 @@ export class TooltipTimer {
     constructor(
         showCallback: Function,
         hideCallback: Function,
-        delayForShowing: number = DEFAULT_DELAY_FOR_SHOWING,
+        delayForShowing: number = DEFAULT_DELAY_FOR_SHOWING
     ) {
         this.showCallback = showCallback;
         this.hideCallback = hideCallback;
@@ -20,7 +20,7 @@ export class TooltipTimer {
         if (!this.timerHandle) {
             this.timerHandle = setTimeout(
                 this.showCallback,
-                this.delayForShowing,
+                this.delayForShowing
             );
         }
     }

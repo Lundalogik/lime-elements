@@ -67,7 +67,7 @@ export class HelperLine {
                 class={{
                     invalid: this.invalid,
                 }}
-                style={!this.hasContent() ? { display: 'none' } : {}}
+                style={this.hasContent() ? {} : { display: 'none' }}
                 aria-hidden={!this.hasContent()}
             >
                 <div>

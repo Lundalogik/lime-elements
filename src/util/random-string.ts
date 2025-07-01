@@ -17,11 +17,14 @@ function legacyCreateRandomString() {
 
     /* eslint-disable sonarjs/pseudo-random */
     return (
+        // eslint-disable-next-line unicorn/prefer-code-point
         String.fromCharCode(
-            ASCII_A + Math.floor(Math.random() * NUMBER_OF_LETTERS),
+            ASCII_A + Math.floor(Math.random() * NUMBER_OF_LETTERS)
         ) +
-        Math.random().toString(USE_HEX).substring(SKIP_LEADING_ZERODOT) +
-        Math.random().toString(USE_HEX).substring(SKIP_LEADING_ZERODOT)
+        Math.random()
+            .toString(USE_HEX)
+            .slice(Math.max(0, SKIP_LEADING_ZERODOT)) +
+        Math.random().toString(USE_HEX).slice(Math.max(0, SKIP_LEADING_ZERODOT))
     );
     /* eslint-enable sonarjs/pseudo-random */
 }

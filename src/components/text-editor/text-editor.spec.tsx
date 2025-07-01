@@ -19,13 +19,13 @@ describe('limel-text-editor', () => {
         getAttributesRecursively(textEditor, ids, 'id');
 
         const notchedOutline = textEditor.shadowRoot.querySelector(
-            'limel-notched-outline',
+            'limel-notched-outline'
         );
         expect(notchedOutline).not.toBeFalsy();
         expect(notchedOutline.getAttribute('hasfloatinglabel')).toBe('');
 
         const prosemirrorAdapter = textEditor.shadowRoot.querySelector(
-            'limel-prosemirror-adapter',
+            'limel-prosemirror-adapter'
         );
         expect(prosemirrorAdapter).not.toBeFalsy();
         expect(prosemirrorAdapter.getAttribute('contenttype')).toBe('markdown');
@@ -93,7 +93,7 @@ describe('limel-text-editor', () => {
         'Props get passed down into the adapter',
         async (
             props: { [key: string]: { attribute: string; value: any } },
-            expected: string[],
+            expected: string[]
         ) => {
             await createPage(mapValues(props, 'value'));
 
@@ -103,10 +103,10 @@ describe('limel-text-editor', () => {
                         return textEditor.shadowRoot
                             .querySelector('limel-prosemirror-adapter')
                             .getAttribute(prop.attribute);
-                    },
-                ),
+                    }
+                )
             ).toEqual(expected);
-        },
+        }
     );
 
     describe('placeholder', () => {
@@ -130,7 +130,7 @@ describe('limel-text-editor', () => {
 
             expect(helperline).not.toBeFalsy();
             expect(helperline.getAttribute('helperText')).toEqual(
-                'my helpertext',
+                'my helpertext'
             );
         });
 
@@ -154,7 +154,7 @@ describe('limel-text-editor', () => {
 
         test('it renders the label', () => {
             const notchedOutline = textEditor.shadowRoot.querySelector(
-                'limel-notched-outline',
+                'limel-notched-outline'
             );
             expect(notchedOutline).not.toBeFalsy();
             expect(notchedOutline.getAttribute('label')).toEqual('my label');

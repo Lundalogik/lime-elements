@@ -53,7 +53,7 @@ export class InMemoryIconCache {
 
         // Some of the icons in the Icons8 library have hard coded black color on some of the paths.
         // In order to apply coloring with CSS, these have to be set to 'currentColor'
-        svgData = svgData.replace(/#000000/g, 'currentColor');
+        svgData = svgData.replaceAll('#000000', 'currentColor');
         if (!this.validSvg(svgData)) {
             throw new Error('Invalid SVG');
         }
@@ -76,9 +76,9 @@ export class InMemoryIconCache {
      */
     private resolvePromises(name, svgData) {
         const resolves = this.resolveFunctions[name];
-        resolves.forEach((resolve) => {
+        for (const resolve of resolves) {
             resolve(svgData);
-        });
+        }
         this.resolveFunctions[name] = null;
     }
 }

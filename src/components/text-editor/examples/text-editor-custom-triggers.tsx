@@ -111,7 +111,7 @@ export class TextEditorCustomTriggersExample {
     protected watchTagValue() {
         if (this.isPickerOpen) {
             this.visibleItems = this.items.filter((item: MenuItem<number>) =>
-                item.text.toLowerCase().includes(this.tagValue),
+                item.text.toLowerCase().includes(this.tagValue)
             );
         }
     }
@@ -145,7 +145,7 @@ export class TextEditorCustomTriggersExample {
 
         if (event.key === ENTER || event.key === TAB) {
             const selectedItem: MenuItem | undefined = this.visibleItems.find(
-                (item) => item.selected,
+                (item) => item.selected
             );
 
             if (selectedItem) {
@@ -160,12 +160,12 @@ export class TextEditorCustomTriggersExample {
     };
 
     private moveSelection = (
-        direction: typeof ARROW_UP | typeof ARROW_DOWN,
+        direction: typeof ARROW_UP | typeof ARROW_DOWN
     ) => {
         const increment = direction === ARROW_DOWN ? 1 : -1;
         const numberOfItems = this.visibleItems.length;
         const currentSelectionIndex = this.visibleItems.findIndex(
-            (item) => item.selected,
+            (item) => item.selected
         );
 
         const selectionIndex =
@@ -184,7 +184,7 @@ export class TextEditorCustomTriggersExample {
     };
 
     private setSelection = (selectionIndex: number) => {
-        let selectedItemId = undefined;
+        let selectedItemId;
         this.visibleItems = this.visibleItems.map((item, index) => {
             const isSelected = index === selectionIndex;
 
@@ -301,7 +301,7 @@ export class TextEditorCustomTriggersExample {
     };
 
     private handleListInteraction = (
-        event: LimelMenuListCustomEvent<MenuItem<number>>,
+        event: LimelMenuListCustomEvent<MenuItem<number>>
     ) => {
         this.insertItem(event.detail);
     };
@@ -324,7 +324,7 @@ export class TextEditorCustomTriggersExample {
                 .insertHtml(`<strong>${item.text}</strong>`)
                 .then(() => console.log('HTML inserted successfully'))
                 .catch((error) =>
-                    console.error('Error inserting HTML:', error),
+                    console.error('Error inserting HTML:', error)
                 );
 
             return;

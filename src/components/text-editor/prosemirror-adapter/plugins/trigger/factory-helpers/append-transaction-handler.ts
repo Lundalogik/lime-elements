@@ -9,12 +9,12 @@ export const getAppendTransactionHandler = (
     getCurrentView: () => EditorView | null,
     getActiveTrigger: () => Trigger | null,
     resetActiveTrigger: () => void,
-    contentConverter: ContentTypeConverter,
+    contentConverter: ContentTypeConverter
 ) => {
     return (
         transactions: Transaction[],
         _oldState: EditorState,
-        newState: EditorState,
+        newState: EditorState
     ): Transaction => {
         const activeTrigger = getActiveTrigger();
 
@@ -27,7 +27,7 @@ export const getAppendTransactionHandler = (
             activeTrigger,
             resetActiveTrigger,
             contentConverter,
-            getCurrentView(),
+            getCurrentView()
         );
 
         if (triggerRemoved) {
@@ -41,7 +41,7 @@ export const getAppendTransactionHandler = (
             activeTrigger,
             newState.selection.from,
             contentConverter,
-            getCurrentView(),
+            getCurrentView()
         );
     };
 };
