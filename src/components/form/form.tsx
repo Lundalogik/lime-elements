@@ -192,8 +192,8 @@ export class Form {
                         ObjectField: CustomObjectField as any,
                     },
                 },
-                [],
-            ),
+                []
+            )
         );
     }
 
@@ -288,7 +288,7 @@ export class Form {
                 message: error.message,
                 // For some reason 'schemaPath' is missing from the AjvError type definition:
                 // https://github.com/rjsf-team/react-jsonschema-form/issues/2140
-                // eslint-disable-next-line @typescript-eslint/dot-notation
+
                 schemaPath: error['schemaPath'],
             };
         });

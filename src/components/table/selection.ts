@@ -108,7 +108,7 @@ export class Selection {
 
     private toggleRange = (
         fromIndex: number,
-        toIndex: number,
+        toIndex: number
     ): SelectionChangeSet => {
         const select = !this.selectedItems.has(this.getDataByIndex(toIndex));
 

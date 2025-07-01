@@ -34,13 +34,13 @@ export class ExampleDoDoNot {
                     'do',
                     'checkmark',
                     'Do',
-                    this.doDescription,
+                    this.doDescription
                 )}
                 {this.renderSection(
                     'do-not',
                     'multiply',
                     "Don't",
-                    this.doNotDescription,
+                    this.doNotDescription
                 )}
             </Host>
         );
@@ -50,7 +50,7 @@ export class ExampleDoDoNot {
         type: string,
         iconName: string,
         title: string,
-        description?: string,
+        description?: string
     ) {
         const titleId = `${type}-title`;
         const descriptionId = description ? `${type}-description` : undefined;

@@ -73,7 +73,7 @@ export class FileInput {
 
     public componentDidLoad() {
         this.fileInput = this.element.shadowRoot.getElementById(
-            this.fileInputId,
+            this.fileInputId
         ) as HTMLInputElement;
     }
 

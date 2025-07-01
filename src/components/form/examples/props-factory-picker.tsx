@@ -96,16 +96,16 @@ export class PropsFactoryPickerExample implements FormComponent<number> {
     public componentWillLoad() {
         console.log(
             'propsFactory-picker - this.injectedObject.someProp:',
-            this.injectedObject.someProp,
+            this.injectedObject.someProp
         );
         console.log(
             'propsFactory-picker - this.injectedString:',
-            this.injectedString,
+            this.injectedString
         );
     }
 
     private handleChange = (
-        event: LimelPickerCustomEvent<ListItem<number>>,
+        event: LimelPickerCustomEvent<ListItem<number>>
     ) => {
         event.stopPropagation();
         this.change.emit(event.detail?.value);

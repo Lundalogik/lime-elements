@@ -52,7 +52,7 @@ export class FormExample {
         this.valid = event.detail.valid;
         console.log(
             'Basic form with validation - handleFormValidate:',
-            event.detail,
+            event.detail
         );
     };
 

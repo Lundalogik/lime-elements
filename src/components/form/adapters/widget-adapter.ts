@@ -121,12 +121,12 @@ export class LimeElementsWidgetAdapter extends React.Component<WidgetAdapterProp
                 onChange: this.handleChange,
                 onBlur: this.handleBlur,
             }),
-            getHelpComponent(this.props.widgetProps.schema),
+            getHelpComponent(this.props.widgetProps.schema)
         );
     }
 
     private handleChange = (
-        event: React.SyntheticEvent<Element, CustomEvent>,
+        event: React.SyntheticEvent<Element, CustomEvent>
     ) => {
         this.props.events.change(event.nativeEvent);
     };

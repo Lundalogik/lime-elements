@@ -89,7 +89,7 @@ export class PickerCompositeExample {
     private handleChange = (
         event: CustomEvent<
             ListItem<number | string> | Array<ListItem<number | string>>
-        >,
+        >
     ) => {
         this.props = {
             ...this.props,
@@ -103,7 +103,7 @@ export class PickerCompositeExample {
             return !(this.props.value as any)?.find?.(
                 (selectedItem: ListItem<number | string>) => {
                     return item.value === selectedItem.value;
-                },
+                }
             );
         });
     };

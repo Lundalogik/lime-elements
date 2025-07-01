@@ -32,7 +32,7 @@ class ImageView implements NodeView {
         node: Node,
         view: EditorView,
         getPos: () => number,
-        language: Languages,
+        language: Languages
     ) {
         this.node = node;
         this.view = view;
@@ -64,7 +64,7 @@ class ImageView implements NodeView {
                 width: `${this.img.offsetWidth}px`,
                 minHeight: `${this.img.offsetHeight}px`,
                 minWidth: `${this.img.offsetWidth}px`,
-            }),
+            })
         );
     }
 
@@ -74,7 +74,7 @@ class ImageView implements NodeView {
         handle.setAttribute('role', 'slider');
         handle.setAttribute(
             'aria-label',
-            translate.get('editor-image-view.resize-handle', this.language),
+            translate.get('editor-image-view.resize-handle', this.language)
         );
         handle.setAttribute('tabindex', '0');
         handle.setAttribute('aria-valuemin', MIN_WIDTH.toString());
@@ -92,7 +92,7 @@ class ImageView implements NodeView {
 
     private onResizeStart = (
         event: PointerEvent,
-        position: 'bottom-right' | 'top-left',
+        position: 'bottom-right' | 'top-left'
     ) => {
         event.preventDefault();
         const handle = event.target as HTMLElement;
@@ -112,7 +112,7 @@ class ImageView implements NodeView {
                 resizeHandle.setAttribute('aria-valuenow', newWidth.toString());
                 resizeHandle.setAttribute(
                     'aria-valuetext',
-                    `${newWidth} pixels`,
+                    `${newWidth} pixels`
                 );
             });
         };
@@ -136,7 +136,7 @@ class ImageView implements NodeView {
             'aria-label',
             translate.get('editor-image-view.loading', this.language, {
                 filename: this.node.attrs.alt || 'file',
-            }),
+            })
         );
 
         const spinnerElement = document.createElement('limel-linear-progress');
@@ -151,7 +151,7 @@ class ImageView implements NodeView {
             'aria-label',
             translate.get('editor-image-view.success', this.language, {
                 filename: this.node.attrs.alt || 'file',
-            }),
+            })
         );
 
         const bottomRightHandle = this.createResizeHandle('bottom-right');
@@ -168,7 +168,7 @@ class ImageView implements NodeView {
             'aria-label',
             translate.get('editor-image-view.failed', this.language, {
                 filename: this.node.attrs.alt || 'file',
-            }),
+            })
         );
     };
 

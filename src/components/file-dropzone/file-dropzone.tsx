@@ -149,7 +149,7 @@ export class FileDropzone {
 
         const [acceptedFileInfos, rejectedFileInfos] = partition(
             fileInfos,
-            (file) => isTypeAccepted(file, this.accept),
+            (file) => isTypeAccepted(file, this.accept)
         );
 
         if (acceptedFileInfos.length > 0) {

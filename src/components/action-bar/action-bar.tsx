@@ -170,7 +170,7 @@ export class ActionBar {
 
     private readonly renderActionBarItem = (
         item: ActionBarItem,
-        index: number,
+        index: number
     ) => {
         return (
             <limel-action-bar-item
@@ -183,7 +183,7 @@ export class ActionBar {
     };
 
     private readonly renderOverflowMenu = (
-        items: Array<MenuItem | ListSeparator>,
+        items: Array<MenuItem | ListSeparator>
     ) => {
         if (!(this.actions.length - this.overflowCutoff)) {
             return;
@@ -243,7 +243,7 @@ export class ActionBar {
     }
 
     private readonly handleSelect = (
-        event: CustomEvent<ActionBarItem | ListSeparator>,
+        event: CustomEvent<ActionBarItem | ListSeparator>
     ) => {
         event.stopPropagation();
         if (isItem(event.detail)) {
@@ -265,14 +265,14 @@ export class ActionBar {
     };
 
     private readonly handleIntersection = (
-        entries: IntersectionObserverEntry[],
+        entries: IntersectionObserverEntry[]
     ) => {
         const intersectingItems = entries.filter(
-            (entry) => entry.isIntersecting,
+            (entry) => entry.isIntersecting
         );
 
         const notIntersectingItems = entries.filter(
-            (entry) => !entry.isIntersecting,
+            (entry) => !entry.isIntersecting
         );
 
         if (this.isFirstIntersectionCheck) {
@@ -301,7 +301,7 @@ export class ActionBar {
 
         this.intersectionObserver = new IntersectionObserver(
             this.handleIntersection,
-            options,
+            options
         );
 
         this.host.shadowRoot
@@ -319,14 +319,14 @@ export class ActionBar {
     private haveItemsChanged() {
         const someItemRemoved = this.actionBarItems.some(
             (actionBarItem: HTMLLimelActionBarItemElement) =>
-                !this.host.shadowRoot.contains(actionBarItem),
+                !this.host.shadowRoot.contains(actionBarItem)
         );
 
         const someItemAdded = Array.from(
-            this.host.shadowRoot.querySelectorAll('limel-action-bar-item'),
+            this.host.shadowRoot.querySelectorAll('limel-action-bar-item')
         ).some(
             (actionBarItem: HTMLLimelActionBarItemElement) =>
-                !this.actionBarItems.includes(actionBarItem),
+                !this.actionBarItems.includes(actionBarItem)
         );
 
         return someItemRemoved || someItemAdded;

@@ -320,7 +320,7 @@ export class ChipSet {
 
         if (this.type === 'input') {
             this.mdcTextField = new MDCTextField(
-                this.host.shadowRoot.querySelector('.mdc-text-field'),
+                this.host.shadowRoot.querySelector('.mdc-text-field')
             );
         }
     }
@@ -682,7 +682,7 @@ export class ChipSet {
 
     private removeChipIdFromSelectedChipIds(id: number | string): void {
         this.selectedChipIds = this.selectedChipIds.filter(
-            (chipId) => chipId !== id,
+            (chipId) => chipId !== id
         );
     }
 
@@ -691,7 +691,7 @@ export class ChipSet {
     }
 
     private readonly handleRemoveChip = (
-        event: LimelChipCustomEvent<string | number>,
+        event: LimelChipCustomEvent<string | number>
     ) => {
         this.removeChip(event.detail);
     };
@@ -754,16 +754,12 @@ export class ChipSet {
         for (const chip of value) {
             if (
                 chip.icon &&
-                // eslint-disable-next-line sonarjs/deprecation
                 (chip.iconFillColor ||
-                    // eslint-disable-next-line sonarjs/deprecation
                     chip.iconBackgroundColor ||
-                    // eslint-disable-next-line sonarjs/deprecation
                     chip.iconTitle)
             ) {
-                /* eslint-disable-next-line no-console */
                 console.warn(
-                    "The `iconFillColor`, `iconBackgroundColor`, and `iconTitle` props are deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name', `iconBackgroundColor: 'color-name', and `iconTitle: 'title'`, write `icon { name: 'icon-name', color: 'color-name', backgroundColor: 'color-name', title: 'title' }`.",
+                    "The `iconFillColor`, `iconBackgroundColor`, and `iconTitle` props are deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name', `iconBackgroundColor: 'color-name', and `iconTitle: 'title'`, write `icon { name: 'icon-name', color: 'color-name', backgroundColor: 'color-name', title: 'title' }`."
                 );
             }
         }

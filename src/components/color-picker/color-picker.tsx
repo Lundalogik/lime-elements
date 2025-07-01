@@ -146,7 +146,7 @@ export class ColorPicker implements FormComponent {
     };
 
     private setColorPickerPaletteElement = (
-        element: HTMLLimelColorPickerPaletteElement,
+        element: HTMLLimelColorPickerPaletteElement
     ) => {
         this.contentElement = element;
     };

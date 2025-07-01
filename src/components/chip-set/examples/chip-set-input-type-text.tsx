@@ -68,7 +68,7 @@ export class ChipSetInputExample {
     }
 
     private handleInput = (
-        event: LimelChipSetCustomEvent<string> | InputEvent,
+        event: LimelChipSetCustomEvent<string> | InputEvent
     ) => {
         if (event instanceof CustomEvent) {
             this.textValue = event.detail;

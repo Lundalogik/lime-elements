@@ -300,7 +300,7 @@ export class Table {
             .filter((c) => c.getField());
 
         const oldColumnsInTable = columnsInTable.map((c) =>
-            oldColumns.find((old) => old.field === c.getField()),
+            oldColumns.find((old) => old.field === c.getField())
         );
 
         if (this.areSameColumns(newColumns, oldColumnsInTable)) {
@@ -314,7 +314,7 @@ export class Table {
     @Watch('aggregates')
     protected updateAggregates(
         newAggregates: ColumnAggregate[],
-        oldAggregates: ColumnAggregate[],
+        oldAggregates: ColumnAggregate[]
     ) {
         if (!this.tabulator) {
             return;
@@ -356,7 +356,7 @@ export class Table {
     @Watch('sorting')
     protected updateSorting(
         newValue: ColumnSorter[],
-        oldValue: ColumnSorter[],
+        oldValue: ColumnSorter[]
     ) {
         const newSorting = this.getColumnSorter(newValue);
         const oldSorting = this.getColumnSorter(oldValue);
@@ -383,7 +383,7 @@ export class Table {
 
     private areEqualIds(
         newIds: Array<string | number>,
-        oldIds: Array<string | number>,
+        oldIds: Array<string | number>
     ): boolean {
         const newIdSet = new Set(newIds);
         const oldIdSet = new Set(oldIds);
@@ -396,7 +396,7 @@ export class Table {
 
     private isSameOrder(
         newIds: Array<string | number>,
-        oldIds: Array<string | number>,
+        oldIds: Array<string | number>
     ): boolean {
         return newIds.every((id, index) => id === oldIds[index]);
     }
@@ -410,7 +410,7 @@ export class Table {
 
     private haveSameAggregateFields(
         newAggregates: ColumnAggregate[],
-        oldAggregates: ColumnAggregate[],
+        oldAggregates: ColumnAggregate[]
     ) {
         const oldAggregateFields = oldAggregates?.map((a) => a.field) || [];
 
@@ -467,7 +467,7 @@ export class Table {
             this.tableSelection = new TableSelection(
                 () => this.tabulator,
                 this.pool,
-                this.select,
+                this.select
             );
             this.tableSelection.setSelection(this.selection);
         }
@@ -543,17 +543,13 @@ export class Table {
 
         const aggregate = this.aggregates.find((a) => a.field === column.field);
         if (aggregate) {
-            column.aggregator = (
-                col?: Column,
-                _values?: any[],
-                _data?: any[],
-            ) => {
+            column.aggregator = (col?: Column) => {
                 if (!col) {
                     return undefined;
                 }
 
                 const value = this.aggregates.find(
-                    (a) => a.field === col.field,
+                    (a) => a.field === col.field
                 )?.value;
 
                 if (col.formatter) {
@@ -646,7 +642,7 @@ export class Table {
         // relying on the consumer component to handle the loading
         // state via the loading prop, if it actually decides to load new data.
         const resolveExistingData = Promise.resolve({
-            last_page: this.calculatePageCount(), // eslint-disable-line camelcase
+            last_page: this.calculatePageCount(),
             data: this.data,
         });
 

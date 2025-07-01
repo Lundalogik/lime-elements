@@ -9,7 +9,7 @@ export class LazyLoader {
     private cache: Record<string, Array<MenuItem | ListSeparator>> = {};
 
     public loadItems = async (
-        subMenu: MenuItem,
+        subMenu: MenuItem
     ): Promise<Array<MenuItem | ListSeparator>> => {
         // First check if the items are already in the cache.
         const cachedItems = this.getFromCache(subMenu);
@@ -46,7 +46,7 @@ export class LazyLoader {
 
     private setToCache(
         parentItem: MenuItem,
-        items: Array<MenuItem | ListSeparator>,
+        items: Array<MenuItem | ListSeparator>
     ): void {
         this.cache[parentItem.value] = items;
     }

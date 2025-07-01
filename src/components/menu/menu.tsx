@@ -211,11 +211,11 @@ export class Menu {
         const cssProperties = this.getCssProperties();
 
         const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
+            '--dropdown-z-index'
         );
 
         const menuSurfaceWidth = this.getMenuSurfaceWidth(
-            cssProperties['--menu-surface-width'],
+            cssProperties['--menu-surface-width']
         );
 
         return (
@@ -332,7 +332,7 @@ export class Menu {
     };
 
     private handleBreadcrumbsSelect = (
-        event: LimelBreadcrumbsCustomEvent<MenuCrumbItem>,
+        event: LimelBreadcrumbsCustomEvent<MenuCrumbItem>
     ) => {
         if (!event.detail.menuItem) {
             this.currentSubMenu = null;
@@ -418,7 +418,7 @@ export class Menu {
     };
 
     private handleTextInput = async (
-        event: LimelInputFieldCustomEvent<string>,
+        event: LimelInputFieldCustomEvent<string>
     ) => {
         event.stopPropagation();
 
@@ -469,7 +469,7 @@ export class Menu {
         if (isForwardTab || isDown) {
             const listItems =
                 this.list.shadowRoot.querySelectorAll<HTMLElement>(
-                    '.mdc-deprecated-list-item',
+                    '.mdc-deprecated-list-item'
                 );
             const listElement = listItems[0];
             listElement?.focus();
@@ -480,7 +480,7 @@ export class Menu {
         if (isUp) {
             const listItems =
                 this.list.shadowRoot.querySelectorAll<HTMLElement>(
-                    '.mdc-deprecated-list-item',
+                    '.mdc-deprecated-list-item'
                 );
             const listElement = listItems[listItems.length - 1];
             listElement?.focus();
@@ -530,7 +530,7 @@ export class Menu {
 
     private getCurrentItem = (): MenuItem => {
         const activeItem = this.list?.shadowRoot?.querySelector(
-            '[role="menuitem"][tabindex="0"]',
+            '[role="menuitem"][tabindex="0"]'
         );
         const attrIndex = activeItem?.attributes?.getNamedItem('data-index');
         const dataIndex = parseInt(attrIndex?.value || '0', 10);
@@ -599,7 +599,7 @@ export class Menu {
 
     private handleSelect = async (
         menuItem: MenuItem,
-        selectOnEmptyChildren: boolean = true,
+        selectOnEmptyChildren: boolean = true
     ) => {
         if (Array.isArray(menuItem?.items) && menuItem.items.length > 0) {
             this.selectedMenuItem = menuItem;
@@ -712,10 +712,10 @@ export class Menu {
         const menuItems = this.visibleItems.filter(this.isMenuItem);
         const selectedIndex = Math.max(
             menuItems.findIndex((item) => item.selected),
-            0,
+            0
         );
         const menuElements: HTMLElement[] = Array.from(
-            this.list.shadowRoot.querySelectorAll('[role="menuitem"]'),
+            this.list.shadowRoot.querySelectorAll('[role="menuitem"]')
         );
         menuElements[selectedIndex]?.focus();
     };

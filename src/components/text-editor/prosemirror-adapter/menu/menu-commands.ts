@@ -8,7 +8,7 @@ import { getLinkAttributes } from '../plugins/link/utils';
 type CommandFunction = (
     schema: Schema,
     mark: EditorMenuTypes,
-    link?: EditorTextLink,
+    link?: EditorTextLink
 ) => CommandWithActive;
 
 interface CommandMapping {
@@ -22,7 +22,7 @@ export interface CommandWithActive extends Command {
 
 const setActiveMethodForMark = (
     command: CommandWithActive,
-    markType: MarkType,
+    markType: MarkType
 ) => {
     command.active = (state) => {
         const { from, $from, to, empty } = state.selection;
@@ -37,7 +37,7 @@ const setActiveMethodForMark = (
 const setActiveMethodForNode = (
     command: CommandWithActive,
     nodeType: NodeType,
-    level?: number,
+    level?: number
 ) => {
     command.active = (state) => {
         const { $from } = state.selection;
@@ -57,7 +57,7 @@ const setActiveMethodForNode = (
 
 const setActiveMethodForWrap = (
     command: CommandWithActive,
-    nodeType: NodeType,
+    nodeType: NodeType
 ) => {
     command.active = (state) => {
         const { from, to } = state.selection;
@@ -79,12 +79,12 @@ const setActiveMethodForWrap = (
 const createInsertLinkCommand: CommandFunction = (
     schema: Schema,
     _: EditorMenuTypes,
-    link?: EditorTextLink,
+    link?: EditorTextLink
 ): CommandWithActive => {
     const command: Command = (state, dispatch) => {
         const { from, to } = state.selection;
         const linkMark = schema.marks.link.create(
-            getLinkAttributes(link.href, link.href),
+            getLinkAttributes(link.href, link.href)
         );
 
         if (from === to) {
@@ -110,7 +110,7 @@ const createInsertLinkCommand: CommandFunction = (
 const createToggleMarkCommand = (
     schema: Schema,
     markName: string,
-    link?: EditorTextLink,
+    link?: EditorTextLink
 ): CommandWithActive => {
     const markType: MarkType | undefined = schema.marks[markName];
     if (!markType) {
@@ -127,7 +127,7 @@ const createToggleMarkCommand = (
 
 const getAttributes = (
     markName: string,
-    link: EditorTextLink,
+    link: EditorTextLink
 ): Attrs | null => {
     if (markName === EditorMenuTypes.Link && link.href) {
         return {
@@ -158,7 +158,7 @@ const toggleNodeType = (
     schema: Schema,
     type: string,
     attrs: Attrs = {},
-    shouldWrap: boolean = false,
+    shouldWrap: boolean = false
 ): Command => {
     const nodeType = schema.nodes[type];
     const paragraphType = schema.nodes.paragraph;
@@ -177,11 +177,7 @@ const toggleNodeType = (
             if ($from.parent.type === nodeType) {
                 if (dispatch) {
                     dispatch(
-                        state.tr.setBlockType(
-                            $from.pos,
-                            $to.pos,
-                            paragraphType,
-                        ),
+                        state.tr.setBlockType($from.pos, $to.pos, paragraphType)
                     );
                 }
 
@@ -206,7 +202,7 @@ const toggleNodeType = (
 const createSetNodeTypeCommand = (
     schema: Schema,
     nodeType: string,
-    level?: number,
+    level?: number
 ): CommandWithActive => {
     const type: NodeType | undefined = schema.nodes[nodeType];
     if (!type) {
@@ -231,7 +227,7 @@ const createSetNodeTypeCommand = (
 
 const createWrapInCommand = (
     schema: Schema,
-    nodeType: string,
+    nodeType: string
 ): CommandWithActive => {
     const type: NodeType | undefined = schema.nodes[nodeType];
     if (!type) {
@@ -286,7 +282,7 @@ const toggleList = (listType) => {
 
 const createListCommand = (
     schema: Schema,
-    listType: string,
+    listType: string
 ): CommandWithActive => {
     const type: NodeType | undefined = schema.nodes[listType];
     if (!type) {
@@ -310,30 +306,29 @@ const commandMapping: CommandMapping = {
         createSetNodeTypeCommand(
             schema,
             LevelMapping.Heading,
-            LevelMapping.one,
+            LevelMapping.one
         ),
     headerlevel2: (schema) =>
         createSetNodeTypeCommand(
             schema,
             LevelMapping.Heading,
-            LevelMapping.two,
+            LevelMapping.two
         ),
     headerlevel3: (schema) =>
         createSetNodeTypeCommand(
             schema,
             LevelMapping.Heading,
-            LevelMapping.three,
+            LevelMapping.three
         ),
     blockquote: (schema) =>
         createWrapInCommand(schema, EditorMenuTypes.Blockquote),
-    /* eslint-disable camelcase */
+
     code_block: (schema) =>
         createSetNodeTypeCommand(schema, EditorMenuTypes.CodeBlock),
     ordered_list: (schema) =>
         createListCommand(schema, EditorMenuTypes.OrderedList),
     bullet_list: (schema) =>
         createListCommand(schema, EditorMenuTypes.BulletList),
-    /* eslint-enable camelcase */
 };
 
 export class MenuCommandFactory {

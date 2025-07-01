@@ -12,7 +12,7 @@ import { chartItems } from './chart-items-stack';
  * The only thing each item needs is a `text`, a `value`, and a your
  * choice of `color`.
  *
- * * A stacked bar chart builds creates a data visualization
+ * A stacked bar chart builds creates a data visualization
  * by stacking multiple data series in each bar.
  *
  * It's good for:

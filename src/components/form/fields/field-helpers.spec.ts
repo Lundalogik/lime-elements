@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { isCustomObjectSchema, resetDependentFields } from './field-helpers';
 
 describe('resetDependentFields()', () => {
@@ -155,8 +154,8 @@ describe('resetDependentFields()', () => {
                 oldData,
                 newData,
                 schemaWithReferences,
-                schemaWithReferences,
-            ),
+                schemaWithReferences
+            )
         ).toEqual({
             type: 'Object',
         });
@@ -178,8 +177,8 @@ describe('resetDependentFields()', () => {
                 oldData,
                 newData,
                 schemaWithReferences,
-                schemaWithReferences,
-            ),
+                schemaWithReferences
+            )
         ).toEqual({
             type: 'String',
             value: 'cheese',

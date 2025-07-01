@@ -12,7 +12,7 @@ describe('limel-select (native)', () => {
             `);
             limelSelect = await page.find('limel-select');
             label = await page.find(
-                'limel-select >>> .limel-notched-outline--notch label',
+                'limel-select >>> .limel-notched-outline--notch label'
             );
         });
         it('displays the correct label', () => {
@@ -178,7 +178,7 @@ describe('limel-select (native)', () => {
             beforeEach(async () => {
                 spy = await page.spyOnEvent('change');
                 const appleOption = await innerSelect.find(
-                    'option[value="apple"]',
+                    'option[value="apple"]'
                 );
                 await appleOption.click();
             });
@@ -195,7 +195,7 @@ describe('limel-select (native)', () => {
                 beforeEach(async () => {
                     spy = await page.spyOnEvent('change');
                     const appleOption = await innerSelect.find(
-                        'option[value="lime"]',
+                        'option[value="lime"]'
                     );
                     await page.keyboard.down('Shift');
                     await appleOption.click();
@@ -227,7 +227,7 @@ describe('limel-select (menu)', () => {
             `);
             limelSelect = await page.find('limel-select');
             label = await page.find(
-                'limel-select >>> .limel-notched-outline--notch label',
+                'limel-select >>> .limel-notched-outline--notch label'
             );
         });
         it('displays the correct label', () => {

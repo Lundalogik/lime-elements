@@ -30,7 +30,7 @@ export class MarkdownRenderContentExample {
     }
 
     private handleMarkdownChange = (
-        event: LimelInputFieldCustomEvent<string>,
+        event: LimelInputFieldCustomEvent<string>
     ) => {
         this.markdown = event.detail;
     };

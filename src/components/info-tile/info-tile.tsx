@@ -118,7 +118,7 @@ export class InfoTile {
 
     public componentWillLoad() {
         const { handleMouseEnter, handleMouseLeave } = getMouseEventHandlers(
-            this.host,
+            this.host
         );
         this.handleMouseEnter = handleMouseEnter;
         this.handleMouseLeave = handleMouseLeave;

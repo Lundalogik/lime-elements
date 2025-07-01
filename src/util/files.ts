@@ -6,6 +6,10 @@ import {
     getFileIcon,
 } from './file-metadata';
 
+/**
+ *
+ * @param file
+ */
 export function createFileInfo(file: File): FileInfo {
     const limeFile: FileInfo = {
         id: crypto.randomUUID(),
@@ -24,6 +28,11 @@ export function createFileInfo(file: File): FileInfo {
     return limeFile;
 }
 
+/**
+ *
+ * @param file
+ * @param accept
+ */
 export function isTypeAccepted(file: FileInfo, accept?: string): boolean {
     if (accept === undefined || accept === '*') {
         return true;

@@ -310,7 +310,7 @@ export class Portal {
         this.popperInstance = createPopper(
             this.anchor || this.host,
             this.container,
-            config,
+            config
         );
     }
 
@@ -380,7 +380,7 @@ export class Portal {
     private setContainerHeight() {
         const viewHeight = Math.max(
             document.documentElement.clientHeight || 0,
-            window.innerHeight || 0,
+            window.innerHeight || 0
         );
 
         const { top, bottom } = this.host.getBoundingClientRect();

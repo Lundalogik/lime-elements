@@ -10,7 +10,7 @@ export const detectTriggerRemoval = (
     activeTrigger: Trigger | null,
     resetActiveTrigger: () => void,
     contentConverter: ContentTypeConverter,
-    view: EditorView,
+    view: EditorView
 ): boolean => {
     if (!activeTrigger || activeTrigger.position < 1) {
         return false;
@@ -28,7 +28,7 @@ export const detectTriggerRemoval = (
                 const text = slice.content.textBetween(
                     0,
                     slice.content.size,
-                    '',
+                    ''
                 );
 
                 // Check if the trigger character has been removed
@@ -40,7 +40,7 @@ export const detectTriggerRemoval = (
                         view,
                         contentConverter,
                         activeTrigger,
-                        '',
+                        ''
                     );
 
                     return true;

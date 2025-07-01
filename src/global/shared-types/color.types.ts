@@ -1,5 +1,3 @@
-/* eslint-disable no-magic-numbers */
-
 /**
  * Defined colors and any color that can be used.
  *
@@ -10,12 +8,12 @@
  */
 export type Color =
     | `rgb(var(${_Internal.HueColor | _Internal.BlackColor | _Internal.WhiteColor | _Internal.ContrastColor | _Internal.BrandColor}))`
-    // eslint-disable-next-line sonarjs/no-useless-intersection
     | (string & {});
 
 /**
  * @internal
  */
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace _Internal {
     /**
      * @internal

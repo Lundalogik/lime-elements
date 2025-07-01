@@ -31,7 +31,7 @@ describe('limel-progress-flow', () => {
             progressFlow.setProperty('flowItems', flowItems);
             await page.waitForChanges();
             progressFlowItems = await page.findAll(
-                'limel-progress-flow >>> limel-progress-flow-item',
+                'limel-progress-flow >>> limel-progress-flow-item'
             );
         });
 
@@ -85,7 +85,7 @@ describe('limel-progress-flow', () => {
                 await page.waitForChanges();
                 disabledItems = await getPropertyValueOnItems(
                     progressFlowItems,
-                    'disabled',
+                    'disabled'
                 );
             });
 
@@ -103,11 +103,11 @@ describe('limel-progress-flow', () => {
                 await page.waitForChanges();
                 disabledItems = await getPropertyValueOnItems(
                     progressFlowItems,
-                    'disabled',
+                    'disabled'
                 );
                 readonlyItems = await getPropertyValueOnItems(
                     progressFlowItems,
-                    'readonly',
+                    'readonly'
                 );
             });
 
@@ -133,7 +133,7 @@ describe('limel-progress-flow', () => {
             progressFlow.setProperty('flowItems', flowItems);
             await page.waitForChanges();
             offProgressItems = await page.findAll(
-                'limel-progress-flow >>> .off-progress-item',
+                'limel-progress-flow >>> .off-progress-item'
             );
         });
 
@@ -146,7 +146,7 @@ describe('limel-progress-flow', () => {
             expect(firstOffProgressStep).toEqualText('Agreement');
             expect(firstOffProgressStep).toHaveClass('first-off-progress-item');
             expect(firstOffProgressStep).not.toHaveClass(
-                'last-off-progress-item',
+                'last-off-progress-item'
             );
         });
 
@@ -154,7 +154,7 @@ describe('limel-progress-flow', () => {
             const firstOffProgressStep = offProgressItems[1];
             expect(firstOffProgressStep).toEqualText('Rejected');
             expect(firstOffProgressStep).not.toHaveClass(
-                'first-off-progress-item',
+                'first-off-progress-item'
             );
             expect(firstOffProgressStep).toHaveClass('last-off-progress-item');
         });
@@ -173,7 +173,7 @@ describe('limel-progress-flow', () => {
                 progressFlow.setProperty('flowItems', flowItems);
                 await page.waitForChanges();
                 progressFlowItems = await page.findAll(
-                    'limel-progress-flow >>> limel-progress-flow-item',
+                    'limel-progress-flow >>> limel-progress-flow-item'
                 );
                 await progressFlowItems[0].click();
             });
@@ -194,7 +194,7 @@ describe('limel-progress-flow', () => {
                 progressFlow.setProperty('flowItems', flowItems);
                 await page.waitForChanges();
                 progressFlowItems = await page.findAll(
-                    'limel-progress-flow >>> limel-progress-flow-item',
+                    'limel-progress-flow >>> limel-progress-flow-item'
                 );
                 await progressFlowItems[0].click();
             });
@@ -208,10 +208,10 @@ describe('limel-progress-flow', () => {
 
 async function getPropertyValueOnItems(
     progressFlowItems: E2EElement[],
-    property: string,
+    property: string
 ) {
     return Promise.all(
-        progressFlowItems.map(async (item) => item.getProperty(property)),
+        progressFlowItems.map(async (item) => item.getProperty(property))
     );
 }
 

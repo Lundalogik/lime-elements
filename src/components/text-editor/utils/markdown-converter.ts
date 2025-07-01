@@ -16,11 +16,11 @@ import { Languages } from '../../date-picker/date.types';
 
 type MarkdownSerializerFunction = (
     state: MarkdownSerializerState,
-    node: ProseMirrorNode,
+    node: ProseMirrorNode
 ) => void;
 
 const createMarkdownSerializerFunction = (
-    config: CustomElementDefinition,
+    config: CustomElementDefinition
 ): MarkdownSerializerFunction => {
     return (state: MarkdownSerializerState, node: ProseMirrorNode) => {
         const tagOpen =
@@ -39,7 +39,7 @@ const createMarkdownSerializerFunction = (
 
 const buildMarkdownSerializer = (
     plugins: CustomElementDefinition[],
-    language: Languages,
+    language: Languages
 ): MarkdownSerializer => {
     const customNodes = {};
 

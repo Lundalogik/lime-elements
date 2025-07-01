@@ -29,7 +29,7 @@ describe('limel-table', () => {
     async function getFirstRowCells() {
         await page.waitForChanges();
         const row = await tableContainer.find(
-            '.tabulator-table .tabulator-row',
+            '.tabulator-table .tabulator-row'
         );
         if (!row) {
             throw new Error('no row found');
@@ -55,7 +55,7 @@ describe('limel-table', () => {
         it('renders', async () => {
             await render({ columns: columns });
             const headers = await tableContainer.findAll(
-                '[role="columnheader"]',
+                '[role="columnheader"]'
             );
 
             expect(headers.length).toEqual(2);
@@ -74,7 +74,7 @@ describe('limel-table', () => {
             // apparently data MUST come before columns
             await render({ data: data, columns: columns });
             const headers = await tableContainer.findAll(
-                '[role="columnheader"]',
+                '[role="columnheader"]'
             );
             const [headerA, headerB] = headers;
 
@@ -109,10 +109,10 @@ describe('limel-table', () => {
                 columns: columns,
             });
             const headers = await tableContainer.findAll(
-                '[role="columnheader"]',
+                '[role="columnheader"]'
             );
             const rowSelectors = await tableContainer.findAll(
-                '.tabulator-table > .tabulator-row > .tabulator-cell > limel-checkbox',
+                '.tabulator-table > .tabulator-row > .tabulator-cell > limel-checkbox'
             );
 
             expect(rowSelectors.length).toEqual(2);
@@ -130,11 +130,11 @@ describe('limel-table', () => {
                 columns: columns,
             });
             const selectAllCheckbox = await tableContainer.find(
-                '.select-all limel-checkbox',
+                '.select-all limel-checkbox'
             );
 
             expect(
-                await selectAllCheckbox.getProperty('indeterminate'),
+                await selectAllCheckbox.getProperty('indeterminate')
             ).toBeFalsy();
             expect(await selectAllCheckbox.getProperty('checked')).toBeFalsy();
         });
@@ -151,7 +151,7 @@ describe('limel-table', () => {
                 selection: [{ id: 1 }],
             });
             const rowSelectors = await tableContainer.findAll(
-                '.tabulator-table > .tabulator-row > .tabulator-cell > limel-checkbox',
+                '.tabulator-table > .tabulator-row > .tabulator-cell > limel-checkbox'
             );
 
             expect(await rowSelectors[0].getProperty('checked')).toBeTruthy();

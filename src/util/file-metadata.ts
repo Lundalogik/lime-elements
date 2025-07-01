@@ -8,6 +8,10 @@ import {
     getIconName,
 } from '../components/icon/get-icon-props';
 
+/**
+ *
+ * @param file
+ */
 export function getFileIcon(file: FileInfo) {
     const name = getIconName(file.icon);
 
@@ -23,8 +27,11 @@ export function getFileIcon(file: FileInfo) {
     return getIconForFile(extension);
 }
 
+/**
+ *
+ * @param file
+ */
 export function getFileColor(file: FileInfo) {
-    // eslint-disable-next-line sonarjs/deprecation
     const color = getIconColor(file.icon, file.iconColor);
 
     if (color) {
@@ -39,11 +46,15 @@ export function getFileColor(file: FileInfo) {
     return getIconFillColorForFile(extension);
 }
 
+/**
+ *
+ * @param file
+ */
 export function getFileBackgroundColor(file: FileInfo) {
     const backgroundColor = getIconBackgroundColor(
         file.icon,
-        // eslint-disable-next-line sonarjs/deprecation
-        file.iconBackgroundColor,
+
+        file.iconBackgroundColor
     );
 
     if (backgroundColor) {
@@ -58,6 +69,10 @@ export function getFileBackgroundColor(file: FileInfo) {
     return getIconBackgroundColorForFile(extension);
 }
 
+/**
+ *
+ * @param file
+ */
 export function getFileExtensionTitle(file: FileInfo) {
     const name = getIconName(file.icon);
 
@@ -68,6 +83,10 @@ export function getFileExtensionTitle(file: FileInfo) {
     return getExtension(file);
 }
 
+/**
+ *
+ * @param file
+ */
 export function getExtension(file: FileInfo) {
     if (!file) {
         return;

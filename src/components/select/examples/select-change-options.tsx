@@ -130,7 +130,7 @@ export class SelectExample {
     };
 
     private handleOptionsGroupChange = (
-        event: LimelSelectCustomEvent<Option>,
+        event: LimelSelectCustomEvent<Option>
     ) => {
         event.stopPropagation();
         this.currentOptionGroup = +event.detail.value;

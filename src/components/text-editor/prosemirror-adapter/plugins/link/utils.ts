@@ -1,8 +1,13 @@
 import { LinkMarkAttrs } from './link-mark-spec';
 
+/**
+ *
+ * @param url
+ * @param title
+ */
 export function getLinkAttributes(
     url: string,
-    title: string | null,
+    title: string | null
 ): LinkMarkAttrs {
     if (isExternalUrl(url)) {
         return {

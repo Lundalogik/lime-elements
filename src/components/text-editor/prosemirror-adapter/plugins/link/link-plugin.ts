@@ -11,7 +11,7 @@ export type UpdateLinkCallback = (text: string, href: string) => void;
 
 const updateLink = (
     view: EditorView,
-    updateLinkCallback?: UpdateLinkCallback,
+    updateLinkCallback?: UpdateLinkCallback
 ) => {
     const { from, to } = view.state.selection;
 
@@ -54,7 +54,7 @@ const findStart = (doc, pos, href) => {
             !node.marks.some(
                 (mark: Mark) =>
                     mark.type.name === EditorMenuTypes.Link &&
-                    mark.attrs.href === href,
+                    mark.attrs.href === href
             )
         ) {
             break;
@@ -81,7 +81,7 @@ const findEnd = (doc, pos, href) => {
             !node.marks.some(
                 (mark) =>
                     mark.type.name === EditorMenuTypes.Link &&
-                    mark.attrs.href === href,
+                    mark.attrs.href === href
             )
         ) {
             break;
@@ -107,7 +107,7 @@ const getLinkDataAtPosition = (view: EditorView, event: MouseEvent) => {
     }
 
     const linkMark = node.marks.find(
-        (mark) => mark.type.name === EditorMenuTypes.Link,
+        (mark) => mark.type.name === EditorMenuTypes.Link
     );
     if (!linkMark) {
         return null;
@@ -162,7 +162,7 @@ const processClickEvent = (view: EditorView, event: MouseEvent): boolean => {
         if (linkData) {
             const { href, text, from, to } = linkData;
             const transaction = view.state.tr.setSelection(
-                TextSelection.create(view.state.doc, from, to),
+                TextSelection.create(view.state.doc, from, to)
             );
             view.dispatch(transaction);
             openLinkMenu(view, href, text);
@@ -179,6 +179,7 @@ const URL_REGEX = /(https?:\/\/[^\s<>"']+|mailto:[^\s<>"']+|tel:[^\s<>"']+)/g;
 
 /**
  * Checks if the text contains any URLs, mailto links, or phone links
+ * @param text
  */
 const hasUrls = (text: string): boolean => {
     // Reset regex before use
@@ -189,6 +190,8 @@ const hasUrls = (text: string): boolean => {
 
 /**
  * Creates a text node with the provided content
+ * @param schema
+ * @param content
  */
 const createTextNode = (schema: Schema, content: string): Node => {
     return schema.text(content);
@@ -196,6 +199,8 @@ const createTextNode = (schema: Schema, content: string): Node => {
 
 /**
  * Creates a link node with the provided URL
+ * @param schema
+ * @param url
  */
 const createLinkNode = (schema: Schema, url: string): Node => {
     const linkMark = schema.marks.link.create(getLinkAttributes(url, url));
@@ -205,9 +210,10 @@ const createLinkNode = (schema: Schema, url: string): Node => {
 
 /**
  * Finds all link matches in the provided text
+ * @param text
  */
 const findLinkMatches = (
-    text: string,
+    text: string
 ): Array<{ url: string; start: number; end: number }> => {
     const matches = [];
     let match: RegExpExecArray | null;
@@ -228,6 +234,8 @@ const findLinkMatches = (
 
 /**
  * Creates text nodes with links for any URLs, mailto links, or phone links found in the text
+ * @param text
+ * @param schema
  */
 const createNodesWithLinks = (text: string, schema: Schema): Node[] => {
     const nodes: Node[] = [];
@@ -245,7 +253,7 @@ const createNodesWithLinks = (text: string, schema: Schema): Node[] => {
         // Add text before the current link if any
         if (match.start > lastIndex) {
             nodes.push(
-                createTextNode(schema, text.slice(lastIndex, match.start)),
+                createTextNode(schema, text.slice(lastIndex, match.start))
             );
         }
 
@@ -282,6 +290,7 @@ const pasteAsLink = (view: EditorView, nodes: Node[]) => {
 
 /**
  * Checks if the nodes array contains just a single link node
+ * @param nodes
  */
 const isSingleLinkNode = (nodes: Node[]): boolean => {
     if (nodes.length !== 1) {
@@ -301,6 +310,8 @@ const isSingleLinkNode = (nodes: Node[]): boolean => {
 
 /**
  * Inserts a single link node, applying it to selected text if present
+ * @param view
+ * @param linkNode
  */
 const insertSingleLink = (view: EditorView, linkNode: Node) => {
     const { state, dispatch } = view;
@@ -316,7 +327,7 @@ const insertSingleLink = (view: EditorView, linkNode: Node) => {
     dispatch(
         state.tr
             .insertText(selectedText, from, to)
-            .addMark(from, from + selectedText.length, linkMark),
+            .addMark(from, from + selectedText.length, linkMark)
     );
 };
 
@@ -338,10 +349,12 @@ const insertNodeFragment = (view: EditorView, nodes: Node[]) => {
 
 /**
  * Handles pasted content, converting URLs to links
+ * @param view
+ * @param event
  */
 const processPasteEvent = (
     view: EditorView,
-    event: ClipboardEvent,
+    event: ClipboardEvent
 ): boolean => {
     const text = event.clipboardData?.getData('text/plain');
     if (!text || !hasUrls(text)) {

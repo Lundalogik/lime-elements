@@ -18,7 +18,7 @@ export class ImageIntersectionObserver {
     }
 
     private readonly handleIntersection = (
-        entries: IntersectionObserverEntry[],
+        entries: IntersectionObserverEntry[]
     ) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {

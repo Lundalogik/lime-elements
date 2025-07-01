@@ -22,13 +22,13 @@ describe('limel-collapsible-section', () => {
             `);
             limelCollapsible = await page.find('limel-collapsible-section');
             collapsibleHeader = await page.find(
-                'limel-collapsible-section >>> header',
+                'limel-collapsible-section >>> header'
             );
             collapsibleToggle = await page.find(
-                'limel-collapsible-section >>> .open-close-toggle',
+                'limel-collapsible-section >>> .open-close-toggle'
             );
             collapsibleBody = await page.find(
-                'limel-collapsible-section >>> .body',
+                'limel-collapsible-section >>> .body'
             );
         });
         it('displays the correct header', () => {
@@ -41,7 +41,7 @@ describe('limel-collapsible-section', () => {
         it('is collapsed', async () => {
             expect(await limelCollapsible.getProperty('isOpen')).toEqual(false);
             expect(await collapsibleBody.getAttribute('aria-hidden')).toEqual(
-                'true',
+                'true'
             );
             const slot = await collapsibleBody.find('slot');
             expect(await slot.isVisible()).toBeFalsy();
@@ -69,10 +69,10 @@ describe('limel-collapsible-section', () => {
 
             it('opens', async () => {
                 expect(await limelCollapsible.getProperty('isOpen')).toEqual(
-                    true,
+                    true
                 );
                 expect(
-                    await collapsibleBody.getAttribute('aria-hidden'),
+                    await collapsibleBody.getAttribute('aria-hidden')
                 ).toEqual('false');
                 await new Promise((resolve) => setTimeout(resolve, 300));
                 const slot = await collapsibleBody.find('slot');
@@ -97,7 +97,7 @@ describe('limel-collapsible-section', () => {
 
                 it('closes', async () => {
                     expect(
-                        await limelCollapsible.getProperty('isOpen'),
+                        await limelCollapsible.getProperty('isOpen')
                     ).toEqual(false);
                     const slot = await collapsibleBody.find('slot');
                     expect(await slot.isVisible()).toBeFalsy();
@@ -122,7 +122,7 @@ describe('limel-collapsible-section', () => {
 
                 it('does NOT close', async () => {
                     expect(
-                        await limelCollapsible.getProperty('isOpen'),
+                        await limelCollapsible.getProperty('isOpen')
                     ).toEqual(true);
                     const slot = await collapsibleBody.find('slot');
                     expect(await slot.isVisible()).toBeTruthy();
@@ -151,7 +151,7 @@ describe('limel-collapsible-section', () => {
 
             it('opens', async () => {
                 expect(await limelCollapsible.getProperty('isOpen')).toEqual(
-                    true,
+                    true
                 );
                 const slot = await collapsibleBody.find('slot');
                 await new Promise((resolve) => setTimeout(resolve, 300));
@@ -176,7 +176,7 @@ describe('limel-collapsible-section', () => {
 
                 it('closes', async () => {
                     expect(
-                        await limelCollapsible.getProperty('isOpen'),
+                        await limelCollapsible.getProperty('isOpen')
                     ).toEqual(false);
                     const slot = await collapsibleBody.find('slot');
                     expect(await slot.isVisible()).toBeFalsy();
@@ -203,7 +203,7 @@ describe('limel-collapsible-section', () => {
 
                 it('does NOT close', async () => {
                     expect(
-                        await limelCollapsible.getProperty('isOpen'),
+                        await limelCollapsible.getProperty('isOpen')
                     ).toEqual(true);
                     const slot = await collapsibleBody.find('slot');
                     expect(await slot.isVisible()).toBeTruthy();
@@ -229,14 +229,14 @@ describe('limel-collapsible-section', () => {
                     'limel-collapsible-section',
                     (element: HTMLLimelCollapsibleSectionElement) => {
                         element.isOpen = true;
-                    },
+                    }
                 );
                 await page.waitForChanges();
             });
 
             it('opens', async () => {
                 expect(await limelCollapsible.getProperty('isOpen')).toEqual(
-                    true,
+                    true
                 );
                 const slot = await collapsibleBody.find('slot');
                 await new Promise((resolve) => setTimeout(resolve, 300));
@@ -259,14 +259,14 @@ describe('limel-collapsible-section', () => {
                         'limel-collapsible-section',
                         (element: HTMLLimelCollapsibleSectionElement) => {
                             element.isOpen = false;
-                        },
+                        }
                     );
                     await page.waitForChanges();
                 });
 
                 it('closes', async () => {
                     expect(
-                        await limelCollapsible.getProperty('isOpen'),
+                        await limelCollapsible.getProperty('isOpen')
                     ).toEqual(false);
                     const slot = await collapsibleBody.find('slot');
                     expect(await slot.isVisible()).toBeFalsy();
@@ -298,11 +298,11 @@ describe('limel-collapsible-section', () => {
                     (element: any, value) => {
                         element.actions = value;
                     },
-                    actions as any[],
+                    actions as any[]
                 );
                 await page.waitForChanges();
                 actionButton = await page.find(
-                    'limel-collapsible-section >>> limel-icon-button',
+                    'limel-collapsible-section >>> limel-icon-button'
                 );
                 actionEventSpy = await page.spyOnEvent('action');
             });
@@ -319,7 +319,7 @@ describe('limel-collapsible-section', () => {
                 it('emits `action` event', async () => {
                     expect(actionEventSpy).toHaveReceivedEvent();
                     expect(actionEventSpy).toHaveReceivedEventDetail(
-                        actions[0],
+                        actions[0]
                     );
                 });
             });

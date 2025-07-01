@@ -74,7 +74,7 @@ export class ChipSetFilterBadgeExample {
         }
 
         const index = this.chips.findIndex(
-            (chips) => chips.id === event.detail.id,
+            (chips) => chips.id === event.detail.id
         );
         updatedChips[index] = event.detail;
         this.chips = updatedChips;

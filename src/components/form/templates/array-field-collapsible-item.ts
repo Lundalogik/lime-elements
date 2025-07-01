@@ -84,7 +84,7 @@ export class CollapsibleItemTemplate extends React.Component {
                 },
                 'is-open': this.state.isOpen,
             },
-            children,
+            children
         );
     }
 

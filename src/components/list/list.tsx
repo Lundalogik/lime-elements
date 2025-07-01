@@ -75,7 +75,7 @@ export class List {
      * `maxLinesSecondaryText`. If consumer enters zero or negative
      * numbers we default to 1; and if they type decimals we round up.
      */
-    // eslint-disable-next-line no-magic-numbers
+
     @Prop() maxLinesSecondaryText: number = 3;
 
     @Element()
@@ -166,7 +166,7 @@ export class List {
                     .map((item: ListItem) => listItems.indexOf(item));
             } else {
                 const selectedIndex = listItems.findIndex(
-                    (item: ListItem) => item.selected,
+                    (item: ListItem) => item.selected
                 );
 
                 if (selectedIndex === -1) {
@@ -191,7 +191,7 @@ export class List {
         }
 
         const element = this.element.shadowRoot.querySelector(
-            '.mdc-deprecated-list',
+            '.mdc-deprecated-list'
         );
         if (!element) {
             return;
@@ -209,7 +209,7 @@ export class List {
         this.mdcList.unlisten(ACTION_EVENT, this.handleAction);
 
         this.selectable = ['selectable', 'radio', 'checkbox'].includes(
-            this.type,
+            this.type
         );
         this.multiple = this.type === 'checkbox';
 
@@ -296,9 +296,8 @@ export class List {
 
     private triggerIconColorWarning() {
         if (this.items?.some((item) => 'iconColor' in item)) {
-            /* eslint-disable-next-line no-console */
             console.warn(
-                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`.",
+                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
             );
         }
     }

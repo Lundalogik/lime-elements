@@ -14,7 +14,7 @@
 export function getAttributesRecursively(
     node: Element,
     attributes: string[],
-    attribute: string = 'id',
+    attribute: string = 'id'
 ) {
     if (node.children && node.getAttribute(attribute)) {
         attributes.push(node.getAttribute(attribute));

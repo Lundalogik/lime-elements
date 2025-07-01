@@ -21,7 +21,7 @@ describe('MenuCommandFactory', () => {
             nodes: addListNodes(
                 basicSchema.spec.nodes,
                 'paragraph block*',
-                'block',
+                'block'
             ),
             marks: basicSchema.spec.marks.append({
                 strikethrough: strikethrough,
@@ -41,7 +41,7 @@ describe('MenuCommandFactory', () => {
         };
 
         const doc = DOMParser.fromSchema(mySchema).parse(
-            document.createElement('div'),
+            document.createElement('div')
         );
 
         state = EditorState.create({

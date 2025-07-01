@@ -108,7 +108,7 @@ export class Tooltip {
         this.tooltipId = createRandomString();
         this.tooltipTimer = new TooltipTimer(
             () => (this.open = true),
-            () => (this.open = false),
+            () => (this.open = false)
         );
     }
 
@@ -124,7 +124,7 @@ export class Tooltip {
 
     public render(): JSX.Element {
         const tooltipZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--tooltip-z-index',
+            '--tooltip-z-index'
         );
 
         return (

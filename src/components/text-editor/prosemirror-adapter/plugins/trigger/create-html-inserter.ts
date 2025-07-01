@@ -9,8 +9,8 @@ export const createHtmlInserter = (
     dispatchTransaction: (
         view: EditorView,
         startPos: number,
-        fragment: Fragment | Node,
-    ) => void,
+        fragment: Fragment | Node
+    ) => void
 ): ((input: string) => Promise<void>) => {
     const schema = view.state.schema;
 

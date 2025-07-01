@@ -55,20 +55,20 @@ class EnterClickable {
         this.element.addEventListener(
             'click',
             this.callbacks.clickHandler,
-            true,
+            true
         );
     }
 
     public disable() {
         this.element.removeEventListener(
             'keydown',
-            this.callbacks.keydownHandler,
+            this.callbacks.keydownHandler
         );
         this.element.removeEventListener('keyup', this.callbacks.keyupHandler);
         this.element.removeEventListener(
             'click',
             this.callbacks.clickHandler,
-            true,
+            true
         );
     }
 }
@@ -87,6 +87,10 @@ export function makeEnterClickable(element: HTMLElement) {
     }
 }
 
+/**
+ *
+ * @param element
+ */
 export function removeEnterClickable(element: HTMLElement) {
     const enterClickable: EnterClickable = eventHandlers.get(element);
     if (enterClickable) {

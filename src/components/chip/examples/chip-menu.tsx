@@ -76,7 +76,7 @@ export class ChipMenuExample {
     };
 
     private handleMenuItemSelected = (
-        event: LimelChipCustomEvent<MenuItem>,
+        event: LimelChipCustomEvent<MenuItem>
     ) => {
         this.menuItemSelected = event.detail;
     };

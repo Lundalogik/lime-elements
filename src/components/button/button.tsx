@@ -164,7 +164,7 @@ export class Button {
                 'Please add either a `label`, a `title` to the `icon`, or use a `limel-tooltip`. ' +
                 'See https://lundalogik.github.io/lime-elements/versions/latest/#/component/limel-button/ ' +
                 'for more information.';
-            // eslint-disable-next-line no-console
+
             console.warn(WARNING_MESSAGE);
         }
 

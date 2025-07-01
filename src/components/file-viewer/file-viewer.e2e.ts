@@ -22,7 +22,7 @@ describe('limel-file-viewer', () => {
         });
         it('displays the image given by url', () => {
             expect(contentElement.getAttribute('src')).toEqualText(
-                '/assets/misc-files/service-pnp-pga-07100-07149_150px.gif',
+                '/assets/misc-files/service-pnp-pga-07100-07149_150px.gif'
             );
         });
         it('shows button controls', async () => {
@@ -60,7 +60,7 @@ describe('limel-file-viewer', () => {
         });
         it('displays the text file using the object element', () => {
             expect(contentElement.getAttribute('data')).toEqualText(
-                '/assets/misc-files/file.txt',
+                '/assets/misc-files/file.txt'
             );
         });
         it('shows button controls', async () => {
@@ -88,7 +88,7 @@ describe('limel-file-viewer', () => {
         it('displays the video using the video element', async () => {
             const sourceElement = await contentElement.find('source');
             expect(sourceElement.getAttribute('src')).toEqualText(
-                '/assets/misc-files/20736707-sd_426_240_30fps.mkv',
+                '/assets/misc-files/20736707-sd_426_240_30fps.mkv'
             );
         });
         it('does not show button controls', async () => {
@@ -112,7 +112,7 @@ describe('limel-file-viewer', () => {
         it('displays the audio using the audio element', async () => {
             const sourceElement = await contentElement.find('source');
             expect(sourceElement.getAttribute('src')).toEqualText(
-                '/assets/misc-files/Gorilla-SoundBible.com-1576451741.mp3',
+                '/assets/misc-files/Gorilla-SoundBible.com-1576451741.mp3'
             );
         });
         it('does not show button controls', async () => {

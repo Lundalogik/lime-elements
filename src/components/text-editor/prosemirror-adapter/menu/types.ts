@@ -24,7 +24,7 @@ export type EditorMenuTypes =
     (typeof EditorMenuTypes)[keyof typeof EditorMenuTypes];
 
 export const editorMenuTypesArray: EditorMenuTypes[] = Object.values(
-    EditorMenuTypes,
+    EditorMenuTypes
 ) as EditorMenuTypes[];
 
 /**

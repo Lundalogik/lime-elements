@@ -18,7 +18,7 @@ export class Row extends React.Component<RowProps> {
                 className: classes.join(' '),
             },
             this.renderMainInformation(),
-            this.renderDescription(),
+            this.renderDescription()
         );
     }
 
@@ -36,14 +36,14 @@ export class Row extends React.Component<RowProps> {
             { className: 'main-information' },
             this.renderIcon(),
             this.renderTitle(),
-            this.renderChildren(),
+            this.renderChildren()
         );
     }
     private renderTitle() {
         return React.createElement(
             'h1',
             { className: 'title' },
-            this.schema?.title,
+            this.schema?.title
         );
     }
 
@@ -52,7 +52,7 @@ export class Row extends React.Component<RowProps> {
             return React.createElement(
                 'p',
                 { className: 'description' },
-                this.schema.description,
+                this.schema.description
             );
         }
     }

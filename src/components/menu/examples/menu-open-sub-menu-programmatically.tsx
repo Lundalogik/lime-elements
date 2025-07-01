@@ -84,7 +84,7 @@ export class MenuOpenSubMenuProgrammaticallyExample {
 
     private buttonClick = () => {
         const formatMenuItem = this.rootItems.find(
-            (i) => i.text === 'Format',
+            (i) => i.text === 'Format'
         ) as MenuItem;
 
         const menuToOpen = (
