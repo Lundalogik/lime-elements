@@ -1,4 +1,3 @@
-/* eslint-disable tsdoc/syntax */
 /**
  * Utility functions for creating a 3D tilt hover effect.
  *
@@ -102,7 +101,6 @@
  *   is the only way to achieve the 3D effect, as the host serves as the parent
  *   and must maintain proper isolation for the effect.
  */
-/* eslint-enable tsdoc/syntax */
 
 export const MOUSE_SCALE_FACTOR = 100;
 export const SCALING_BASE = 50;

@@ -543,11 +543,7 @@ export class Table {
 
         const aggregate = this.aggregates.find((a) => a.field === column.field);
         if (aggregate) {
-            column.aggregator = (
-                col?: Column,
-                _values?: any[],
-                _data?: any[]
-            ) => {
+            column.aggregator = (col?: Column) => {
                 if (!col) {
                     return undefined;
                 }

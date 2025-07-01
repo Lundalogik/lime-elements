@@ -12,8 +12,8 @@ export { EventEmitter } from '@stencil/core';
 declare module 'json-schema' {
     interface JSONSchema7 {
         /**
-         * @internal
          * Unique identifier for the schema
+         * @internal
          */
         id?: string;
 

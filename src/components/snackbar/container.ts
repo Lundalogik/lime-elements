@@ -15,8 +15,7 @@ export class SnackbarContainer {
     public add(snackbar: HTMLLimelSnackbarElement) {
         const popover = this.getPopover(snackbar);
 
-        // Stencil does not seem to recognise the existance of showPopover
-        // @ts-ignore
+        // @ts-expect-error Stencil does not seem to recognise the existance of showPopover
         popover?.showPopover();
 
         this.snackbarElements = [snackbar, ...this.snackbarElements];
@@ -31,8 +30,7 @@ export class SnackbarContainer {
     public remove(snackbar: HTMLLimelSnackbarElement): void {
         const popover = this.getPopover(snackbar);
 
-        // Stencil does not seem to recognise the existance of hidePopover
-        // @ts-ignore
+        // @ts-expect-error Stencil does not seem to recognise the existance of hidePopover
         popover?.hidePopover();
 
         this.snackbarElements = this.snackbarElements.filter(
