@@ -108,9 +108,10 @@ export class CodeEditor {
         this.darkMode.removeEventListener('change', this.handleChangeDarkMode);
 
         const editorElement = this.host.shadowRoot.querySelector('.editor');
-        editorElement?.childNodes.forEach((child) => {
+        // eslint-disable-next-line no-unsafe-optional-chaining
+        for (const child of editorElement?.childNodes) {
             child.remove();
-        });
+        }
     }
 
     public componentDidRender() {
@@ -162,7 +163,7 @@ export class CodeEditor {
 
         const editor = CodeMirror(
             this.host.shadowRoot.querySelector('.editor'),
-            options,
+            options
         );
 
         editor.on('change', this.handleChange);
@@ -171,9 +172,9 @@ export class CodeEditor {
         // the space count
         editor.setOption('extraKeys', {
             Tab: (codeMirror) => {
-                const spaces = Array(
-                    codeMirror.getOption('indentUnit') + 1,
-                ).join(' ');
+                const spaces = [codeMirror.getOption('indentUnit') + 1].join(
+                    ' '
+                );
                 codeMirror.replaceSelection(spaces);
             },
         });
@@ -199,7 +200,6 @@ export class CodeEditor {
             if (this.lint) {
                 gutters.push('CodeMirror-lint-markers');
                 if (!('jsonlint' in window)) {
-                    // eslint-disable-next-line @typescript-eslint/dot-notation
                     window['jsonlint'] = jslint;
                 }
             }

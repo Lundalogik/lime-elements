@@ -49,7 +49,7 @@ export class Selection {
      * @returns The selected items
      */
     get items(): any[] {
-        return Array.from(this.selectedItems);
+        return [...this.selectedItems];
     }
 
     /**
@@ -108,7 +108,7 @@ export class Selection {
 
     private toggleRange = (
         fromIndex: number,
-        toIndex: number,
+        toIndex: number
     ): SelectionChangeSet => {
         const select = !this.selectedItems.has(this.getDataByIndex(toIndex));
 

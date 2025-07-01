@@ -9,7 +9,7 @@ import {
 } from '@stencil/core';
 import { Image } from '../../global/shared-types/image.types';
 import { Icon } from '../../global/shared-types/icon.types';
-import { isItem } from '../action-bar/isItem';
+import { isItem } from '../action-bar/is-item';
 import { getIconName } from '../icon/get-icon-props';
 import { ListSeparator } from '../../global/shared-types/separator.types';
 import { ActionBarItem } from '../action-bar/action-bar.types';
@@ -104,7 +104,7 @@ export class Card {
 
     public componentWillLoad() {
         const { handleMouseEnter, handleMouseLeave } = getMouseEventHandlers(
-            this.host,
+            this.host
         );
         this.handleMouseEnter = handleMouseEnter;
         this.handleMouseLeave = handleMouseLeave;
@@ -157,7 +157,7 @@ export class Card {
     private renderIcon() {
         const icon = getIconName(this.icon);
         const color =
-            typeof this.icon !== 'string' ? this.icon?.color : undefined;
+            typeof this.icon === 'string' ? undefined : this.icon?.color;
 
         if (!icon) {
             return;
@@ -203,7 +203,7 @@ export class Card {
     }
 
     private handleActionSelect = (
-        event: CustomEvent<ActionBarItem | ListSeparator>,
+        event: CustomEvent<ActionBarItem | ListSeparator>
     ) => {
         event.stopPropagation();
         if (isItem(event.detail)) {
@@ -212,7 +212,7 @@ export class Card {
     };
 
     private renderActionBar() {
-        if (!this.actions.length) {
+        if (this.actions.length === 0) {
             return;
         }
 

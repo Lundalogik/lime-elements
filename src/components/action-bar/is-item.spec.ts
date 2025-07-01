@@ -1,6 +1,6 @@
 import { ListSeparator } from '../list/list-item.types';
 import { ActionBarItem } from './action-bar.types';
-import { isItem } from './isItem';
+import { isItem } from './is-item';
 
 describe('isItem', () => {
     it('returns true when item is an ActionBarItem', () => {

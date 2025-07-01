@@ -207,14 +207,15 @@ export class Portal {
             portalSource: this.host,
         });
 
+        // eslint-disable-next-line unicorn/no-array-for-each
         content.forEach((element: HTMLElement) => {
             this.parents.set(element, element.parentElement);
-            this.container.appendChild(element);
+            this.container.append(element);
         });
     }
 
     private attachContainer() {
-        this.getParent().appendChild(this.container);
+        this.getParent().append(this.container);
     }
 
     private removeContainer() {
@@ -222,16 +223,17 @@ export class Portal {
             return;
         }
 
-        Array.from(this.container.children).forEach((element: HTMLElement) => {
+        // eslint-disable-next-line unicorn/no-array-for-each
+        [...this.container.children].forEach((element: HTMLElement) => {
             const parent = this.parents.get(element);
             if (!parent) {
                 return;
             }
 
-            parent.appendChild(element);
+            parent.append(element);
         });
 
-        this.container.parentElement.removeChild(this.container);
+        this.container.remove();
     }
 
     private hideContainer() {
@@ -299,9 +301,9 @@ export class Portal {
     }
 
     private setContainerStyles() {
-        Object.keys(this.containerStyle).forEach((property) => {
+        for (const property of Object.keys(this.containerStyle)) {
             this.container.style[property] = this.containerStyle[property];
-        });
+        }
     }
 
     private createPopper() {
@@ -310,7 +312,7 @@ export class Portal {
         this.popperInstance = createPopper(
             this.anchor || this.host,
             this.container,
-            config,
+            config
         );
     }
 
@@ -380,7 +382,7 @@ export class Portal {
     private setContainerHeight() {
         const viewHeight = Math.max(
             document.documentElement.clientHeight || 0,
-            window.innerHeight || 0,
+            window.innerHeight || 0
         );
 
         const { top, bottom } = this.host.getBoundingClientRect();

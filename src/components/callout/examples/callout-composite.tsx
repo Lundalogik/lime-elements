@@ -96,7 +96,7 @@ export class CalloutCompositeExample {
     public render() {
         const content = this.props?.content?.replace(
             '[type]',
-            this.props?.type ?? '',
+            this.props?.type ?? ''
         );
 
         return [

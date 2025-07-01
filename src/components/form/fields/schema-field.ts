@@ -45,7 +45,6 @@ const hasCustomComponent = (schema): boolean => {
     try {
         verifyCustomComponentIsDefined(name);
     } catch {
-        // eslint-disable-next-line no-console
         console.warn(`Custom component ${name} not defined`);
 
         return false;
@@ -59,7 +58,7 @@ const verifyCustomComponentIsDefined = (elementName): void => {
 
     if (!supportsCustomElements) {
         throw new Error(
-            'Custom form elements are not supported by this browser!',
+            'Custom form elements are not supported by this browser!'
         );
     }
 
@@ -69,7 +68,7 @@ const verifyCustomComponentIsDefined = (elementName): void => {
 };
 
 const getCustomComponent = (
-    schema,
+    schema
 ): { name: string; props: { [key: string]: any } } => {
     const name = schema.lime?.component?.name;
     const props = schema.lime?.component?.props || {};
@@ -86,7 +85,7 @@ const getCustomComponent = (
  */
 export function getFactoryProps(
     formContext: any,
-    schema: FormSchema,
+    schema: FormSchema
 ): Record<string, any> {
     const factory: (schema: FormSchema) => Record<string, any> =
         formContext.propsFactory;
@@ -121,7 +120,7 @@ export class SchemaField extends React.Component<FieldProps> {
         }
 
         if (Array.isArray(value)) {
-            return !!value.length;
+            return value.length > 0;
         }
 
         if (value instanceof Date) {
@@ -167,7 +166,7 @@ export class SchemaField extends React.Component<FieldProps> {
         }
 
         if (!isEmpty(errorSchema) && '__errors' in errorSchema) {
-            return capitalize(errorSchema.__errors[0]); // eslint-disable-line no-underscore-dangle
+            return capitalize(errorSchema.__errors[0]);
         }
 
         return schema.description;
@@ -180,7 +179,7 @@ export class SchemaField extends React.Component<FieldProps> {
     }
 
     private handleCustomComponentChange(
-        event: React.SyntheticEvent<Element, CustomEvent>,
+        event: React.SyntheticEvent<Element, CustomEvent>
     ) {
         const { schema } = this.props;
         event.stopPropagation();
@@ -204,7 +203,7 @@ export class SchemaField extends React.Component<FieldProps> {
             formData,
             data,
             schema,
-            rootSchema,
+            rootSchema
         );
 
         this.props.onChange(newData);
@@ -248,7 +247,7 @@ export class SchemaField extends React.Component<FieldProps> {
 
     private renderCustomComponent(props: FieldProps) {
         const { name, props: userDefinedComponentProps } = getCustomComponent(
-            props.schema,
+            props.schema
         );
 
         verifyCustomComponentIsDefined(name);
@@ -266,7 +265,7 @@ export class SchemaField extends React.Component<FieldProps> {
                 classNames: 'form-group field field-custom',
             },
             component,
-            getHelpComponent(props.schema),
+            getHelpComponent(props.schema)
         );
     }
 

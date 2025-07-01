@@ -29,7 +29,7 @@ interface SelectTemplateProps {
 }
 
 export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
-    props,
+    props
 ) => {
     const value = props.value;
     let hasValue = !!props.value;
@@ -164,7 +164,7 @@ const ShowIcon: FunctionalComponent<
 };
 
 const HelperText: FunctionalComponent<{ text: string; isValid: boolean }> = (
-    props,
+    props
 ) => {
     if (typeof props.text !== 'string') {
         return;
@@ -271,7 +271,7 @@ function isSelected(option: Option, value: Option | Option[]): boolean {
 function createMenuItems(
     options: Array<Option | ListSeparator>,
     value: Option | Option[],
-    selectIsRequired = false,
+    selectIsRequired = false
 ): Array<ListItem<Option> | ListSeparator> {
     const menuOptionFilter = getMenuOptionFilter(selectIsRequired);
 
@@ -286,7 +286,7 @@ function createMenuItems(
         const selected = isSelected(option, value);
         const { text, secondaryText, disabled } = option;
         const name = getIconName(option.icon);
-        // eslint-disable-next-line sonarjs/deprecation
+
         const color = getIconColor(option.icon, option.iconColor);
 
         if (!name) {
@@ -336,7 +336,7 @@ function getMenuOptionFilter(selectIsRequired: boolean) {
 }
 
 function getSelectedText(value: Option | Option[]): string {
-    const isEmptyValue = !value || (isMultiple(value) && !value.length);
+    const isEmptyValue = !value || (isMultiple(value) && value.length === 0);
     if (isEmptyValue) {
         return '';
     }
@@ -370,14 +370,16 @@ function getSelectedIcon(value: any) {
     );
 }
 
+/**
+ *
+ * @param options
+ */
 export function triggerIconColorWarning(options: Option[]) {
-    options.forEach((option) => {
-        // eslint-disable-next-line sonarjs/deprecation
+    for (const option of options) {
         if (option.iconColor) {
-            /* eslint-disable-next-line no-console */
             console.warn(
-                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`.",
+                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
             );
         }
-    });
+    }
 }

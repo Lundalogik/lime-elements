@@ -4,7 +4,7 @@ import { chartItems } from './chart-items-pie';
 /**
  * Pie chart
  * A pie chart represents data as slices of a circle, with each slice’s size proportional to its value.
- * *
+ *
  * It's good for:
  * - Showing the proportions of a whole.
  * - Visualizing data composition for easy understanding.

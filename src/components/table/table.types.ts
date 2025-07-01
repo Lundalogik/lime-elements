@@ -192,7 +192,7 @@ export enum ColumnAggregatorType {
 export type ColumnAggregatorFunction<T = object> = (
     column?: Column,
     values?: any[],
-    data?: T[],
+    data?: T[]
 ) => any;
 
 /**

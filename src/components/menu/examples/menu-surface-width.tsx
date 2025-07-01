@@ -71,7 +71,7 @@ export class MenuSurfaceWidthExample {
         ] as SurfaceWidthOption[];
 
         this.selectedSurfaceWidth = this.availableSurfaceWidths.find(
-            (v) => v.value === 'inherit-from-items',
+            (v) => v.value === 'inherit-from-items'
         );
     }
 
@@ -100,7 +100,7 @@ export class MenuSurfaceWidthExample {
     }
 
     private handleNewSelection = (
-        event: LimelSelectCustomEvent<SurfaceWidthOption>,
+        event: LimelSelectCustomEvent<SurfaceWidthOption>
     ) => {
         this.selectedSurfaceWidth = event.detail;
     };

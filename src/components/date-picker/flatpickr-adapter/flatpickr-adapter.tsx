@@ -1,14 +1,14 @@
 import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 import { DateType, Languages } from '../../date-picker/date.types';
 import translate from '../../../global/translations';
-import { DatePicker as DateOnlyPicker } from '../pickers/DatePicker';
-import { DatetimePicker } from '../pickers/DatetimePicker';
-import { MonthPicker } from '../pickers/MonthPicker';
-import { Picker } from '../pickers/Picker';
-import { QuarterPicker } from '../pickers/QuarterPicker';
-import { TimePicker } from '../pickers/TimePicker';
-import { WeekPicker } from '../pickers/WeekPicker';
-import { YearPicker } from '../pickers/YearPicker';
+import { DatePicker as DateOnlyPicker } from '../pickers/date-picker';
+import { DatetimePicker } from '../pickers/datetime-picker';
+import { MonthPicker } from '../pickers/month-picker';
+import { Picker } from '../pickers/picker';
+import { QuarterPicker } from '../pickers/quarter-picker';
+import { TimePicker } from '../pickers/time-picker';
+import { WeekPicker } from '../pickers/week-picker';
+import { YearPicker } from '../pickers/year-picker';
 
 /**
  * This component is internal and only supposed to be used by
@@ -76,64 +76,70 @@ export class DatePickerCalendar {
 
     public componentWillLoad() {
         switch (this.type) {
-            case 'date':
+            case 'date': {
                 this.picker = new DateOnlyPicker(
                     this.language,
                     this.change,
-                    this.format,
+                    this.format
                 );
                 break;
+            }
 
-            case 'time':
+            case 'time': {
                 this.picker = new TimePicker(
                     this.language,
                     this.change,
-                    this.format,
+                    this.format
                 );
                 break;
+            }
 
-            case 'week':
+            case 'week': {
                 this.picker = new WeekPicker(
                     this.language,
                     this.change,
-                    this.format,
+                    this.format
                 );
                 break;
+            }
 
-            case 'month':
+            case 'month': {
                 this.picker = new MonthPicker(
                     this.language,
                     this.change,
                     translate,
-                    this.format,
+                    this.format
                 );
                 break;
+            }
 
-            case 'quarter':
+            case 'quarter': {
                 this.picker = new QuarterPicker(
                     this.language,
                     this.change,
                     translate,
-                    this.format,
+                    this.format
                 );
                 break;
-            case 'year':
+            }
+            case 'year': {
                 this.picker = new YearPicker(
                     this.language,
                     this.change,
                     translate,
-                    this.format,
+                    this.format
                 );
                 break;
+            }
 
-            case 'datetime':
-            default:
+            default: {
                 this.picker = new DatetimePicker(
                     this.language,
                     this.change,
-                    this.format,
+                    this.format
                 );
                 break;
+            }
         }
 
         if (this.formatter) {

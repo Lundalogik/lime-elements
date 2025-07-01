@@ -129,7 +129,7 @@ export class ChipSetInputExample {
     }
 
     private handleInput = (
-        event: LimelChipSetCustomEvent<string> | InputEvent,
+        event: LimelChipSetCustomEvent<string> | InputEvent
     ) => {
         if (event instanceof CustomEvent) {
             this.textValue = event.detail;
@@ -152,7 +152,7 @@ export class ChipSetInputExample {
     };
 
     private handleInteraction = (event: CustomEvent<Chip>) => {
-        console.log('Chip interacted with: ', event.detail);
+        console.log('Chip interacted with:', event.detail);
     };
 
     private createChip = (name: string): Chip => {

@@ -15,10 +15,10 @@ type MutableAttrs = {
 };
 
 export const createNodeSpec: NodeSpecFactory = (
-    config: CustomElementDefinition,
+    config: CustomElementDefinition
 ): NodeSpec => {
     const attributeSpecs: AttributeSpecs = {};
-    config.attributes.forEach((attribute) => (attributeSpecs[attribute] = {}));
+    for (const attribute of config.attributes) attributeSpecs[attribute] = {};
 
     const tag = `${config.tagName}[${config.attributes.map((attr) => attr).join('][')}]`;
 
@@ -36,10 +36,11 @@ export const createNodeSpec: NodeSpecFactory = (
                 tag: tag,
                 getAttrs: (dom: Element): Attrs => {
                     const attributes: MutableAttrs = {};
+                    // eslint-disable-next-line unicorn/no-array-for-each
                     config.attributes.forEach(
                         (attribute: string) =>
                             (attributes[attribute] =
-                                dom.getAttribute(attribute)),
+                                dom.getAttribute(attribute))
                     );
 
                     return attributes as Attrs;

@@ -92,7 +92,7 @@ describe('limel-breadcrumbs', () => {
                             </li>
                         </ol>
                     </mock:shadow-root>
-                </limel-breadcrumbs>`,
+                </limel-breadcrumbs>`
             );
         });
 
@@ -121,8 +121,7 @@ describe('limel-breadcrumbs', () => {
             const oList: HTMLOListElement =
                 page.root.shadowRoot.querySelector('ol');
             expect(
-                // eslint-disable-next-line @typescript-eslint/dot-notation
-                oList.style['_styles'].get('--limel-breadcrumbs-divider'),
+                oList.style['_styles'].get('--limel-breadcrumbs-divider')
             ).toEqual("'+'");
         });
     });
@@ -154,7 +153,7 @@ describe('limel-breadcrumbs', () => {
                             </li>
                         </ol>
                     </mock:shadow-root>
-                </limel-breadcrumbs>`,
+                </limel-breadcrumbs>`
             );
         });
     });
@@ -162,7 +161,7 @@ describe('limel-breadcrumbs', () => {
 
 async function initializeComponent(
     items: BreadcrumbsItem[],
-    divider: string = '›',
+    divider: string = '›'
 ) {
     handleSelect = jest.fn();
     page = await newSpecPage({

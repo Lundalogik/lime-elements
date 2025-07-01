@@ -47,7 +47,7 @@ export class ListCheckboxExample {
     private handleChange = (event: LimelListCustomEvent<ListItem[]>) => {
         this.selectedItems = event.detail;
         this.items = this.items.map((item: ListItem) => {
-            const selected = !!event.detail.find((selectedItem: ListItem) => {
+            const selected = event.detail.some((selectedItem: ListItem) => {
                 return selectedItem.value === item.value;
             });
 

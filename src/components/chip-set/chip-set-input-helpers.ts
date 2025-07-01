@@ -12,10 +12,10 @@ import {
  * Lets the user select, activate, and remove chips with the keyboard.
  *
  * @param event - event
-
+ 
  */
 export function handleKeyboardEvent(event: KeyboardEvent) {
-    if (this.textValue.length) {
+    if (this.textValue.length > 0) {
         // If there is any text in the input field, keyboard input should
         // navigate the text, not the chips.
         return;

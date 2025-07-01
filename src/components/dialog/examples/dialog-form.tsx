@@ -174,7 +174,7 @@ export class DialogFormExample {
     };
 
     private handleFormValidation = (
-        event: LimelFormCustomEvent<ValidationStatus>,
+        event: LimelFormCustomEvent<ValidationStatus>
     ) => {
         console.debug('Validation status:', event.detail);
         this.isFormValid = event.detail.valid;
@@ -183,7 +183,7 @@ export class DialogFormExample {
     private submitForm = () => {
         this.isSaving = true;
         alert(
-            `${this.formValue?.name} is ${this.formValue?.age} years old. Favorite color is ${this.formValue?.color}.`,
+            `${this.formValue?.name} is ${this.formValue?.age} years old. Favorite color is ${this.formValue?.color}.`
         );
         this.closeDialog();
     };

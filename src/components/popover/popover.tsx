@@ -103,6 +103,7 @@ export class Popover {
 
     public componentDidRender() {
         const slotElement = this.host.shadowRoot.querySelector('slot');
+        // eslint-disable-next-line unicorn/no-array-for-each
         slotElement.assignedElements().forEach(this.setTriggerAttributes);
     }
 
@@ -121,7 +122,7 @@ export class Popover {
     public render() {
         const cssProperties = this.getCssProperties();
         const popoverZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--popover-z-index',
+            '--popover-z-index'
         );
 
         return (
@@ -186,10 +187,10 @@ export class Popover {
         };
 
         for (const [key, value] of Object.entries(attributes)) {
-            if (!value) {
-                element.removeAttribute(key);
-            } else {
+            if (value) {
                 element.setAttribute(key, String(value));
+            } else {
+                element.removeAttribute(key);
             }
         }
     };

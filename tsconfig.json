@@ -6,7 +6,7 @@
     "declarationMap": true,
     "sourceMap": true,
     "experimentalDecorators": true,
-    "lib": ["dom", "es7"],
+    "lib": ["dom", "es2022", "DOM.Iterable"],
     "moduleResolution": "node",
     "module": "esnext",
     "target": "es2017",

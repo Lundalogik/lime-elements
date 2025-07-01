@@ -2,8 +2,8 @@ import { Component, h, Prop, Element, State } from '@stencil/core';
 import { JSX } from 'react';
 import { createRandomString } from '../../util/random-string';
 import { OpenDirection } from '../menu/menu.types';
-import { getOwnerElement } from './getOwnerElement';
-import { TooltipTimer } from './tooltipTimer';
+import { getOwnerElement } from './get-owner-element';
+import { TooltipTimer } from './tooltip-timer';
 
 const DEFAULT_MAX_LENGTH = 50;
 
@@ -108,7 +108,7 @@ export class Tooltip {
         this.tooltipId = createRandomString();
         this.tooltipTimer = new TooltipTimer(
             () => (this.open = true),
-            () => (this.open = false),
+            () => (this.open = false)
         );
     }
 
@@ -124,7 +124,7 @@ export class Tooltip {
 
     public render(): JSX.Element {
         const tooltipZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--tooltip-z-index',
+            '--tooltip-z-index'
         );
 
         return (

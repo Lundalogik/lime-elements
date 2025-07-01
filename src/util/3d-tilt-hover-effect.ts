@@ -1,4 +1,3 @@
-/* eslint-disable tsdoc/syntax */
 /**
  * Utility functions for creating a 3D tilt hover effect.
  *
@@ -102,7 +101,6 @@
  *   is the only way to achieve the 3D effect, as the host serves as the parent
  *   and must maintain proper isolation for the effect.
  */
-/* eslint-enable tsdoc/syntax */
 
 export const MOUSE_SCALE_FACTOR = 100;
 export const SCALING_BASE = 50;
@@ -121,12 +119,12 @@ export const tiltFollowingTheCursor =
             y: topY - the3dElementBounds.height / CENTER_DIVISOR,
         };
         const distance = Math.sqrt(
-            center.x ** CENTER_DIVISOR + center.y ** CENTER_DIVISOR,
+            center.x ** CENTER_DIVISOR + center.y ** CENTER_DIVISOR
         );
 
         const scalingFactor = Math.sqrt(
             Math.min(the3dElementBounds.width, the3dElementBounds.height) /
-                SCALING_BASE,
+                SCALING_BASE
         );
 
         const rotate3d = `
@@ -143,7 +141,7 @@ export const tiltFollowingTheCursor =
         `;
         element.style.setProperty(
             '--limel-3d-hover-effect-glow-position',
-            glowPosition,
+            glowPosition
         );
     };
 

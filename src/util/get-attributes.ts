@@ -14,19 +14,19 @@
 export function getAttributesRecursively(
     node: Element,
     attributes: string[],
-    attribute: string = 'id',
+    attribute: string = 'id'
 ) {
     if (node.children && node.getAttribute(attribute)) {
         attributes.push(node.getAttribute(attribute));
     }
 
     if (node.shadowRoot) {
-        for (const child of Array.from(node.shadowRoot.children)) {
+        for (const child of node.shadowRoot.children) {
             getAttributesRecursively(child, attributes, attribute);
         }
     }
 
-    for (const child of Array.from(node.children)) {
+    for (const child of node.children) {
         getAttributesRecursively(child, attributes, attribute);
     }
 }

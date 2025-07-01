@@ -90,11 +90,11 @@ export class PickerValueAsObjectWithActionsExample {
                     limetype: string;
                 }>
             >
-        >,
+        >
     ) => {
         this.selectedItems = [...event.detail].map((item) => {
             const itemActions = ACTIONS.find((action) =>
-                Object.prototype.hasOwnProperty.call(action, item.value.id),
+                Object.prototype.hasOwnProperty.call(action, item.value.id)
             );
 
             return {
@@ -107,7 +107,7 @@ export class PickerValueAsObjectWithActionsExample {
     private onInteract = (
         event: LimelPickerCustomEvent<
             ListItem<{ id: string; limetype: string }>
-        >,
+        >
     ) => {
         console.log('Value interacted with:', event.detail);
     };

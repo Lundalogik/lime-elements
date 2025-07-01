@@ -4,8 +4,6 @@ import { MenuItem } from '../menu/menu.types';
 import { Image } from '../../global/shared-types/image.types';
 import { Color } from '../../global/shared-types/color.types';
 
-export { ListSeparator };
-
 /**
  * List item.
  * @public
@@ -87,3 +85,5 @@ export interface ListComponent {
      */
     props?: Record<string, any>;
 }
+
+export { ListSeparator } from '../../global/shared-types/separator.types';

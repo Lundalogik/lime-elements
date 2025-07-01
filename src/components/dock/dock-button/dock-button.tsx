@@ -87,7 +87,7 @@ export class DockButton {
 
         if (!this.intersectionObserver) {
             this.intersectionObserver = new IntersectionObserver(
-                this.focusCustomComponentElement,
+                this.focusCustomComponentElement
             );
             this.intersectionObserver.observe(this.customComponentElement);
         }
@@ -119,7 +119,7 @@ export class DockButton {
 
     private renderButton(
         handleClick: (event: MouseEvent) => void,
-        slot?: string,
+        slot?: string
     ) {
         return (
             <button
@@ -206,10 +206,10 @@ export class DockButton {
     }
 
     private focusCustomComponentElement = (
-        entries: IntersectionObserverEntry[],
+        entries: IntersectionObserverEntry[]
     ) => {
         const entry = entries.find(
-            (e) => e.target === this.customComponentElement,
+            (e) => e.target === this.customComponentElement
         );
         if (!entry) {
             return;

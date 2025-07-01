@@ -10,7 +10,7 @@ export const getTriggerEventDetail = (
     view: EditorView,
     contentConverter: ContentTypeConverter,
     trigger: Trigger,
-    value: string,
+    value: string
 ): TriggerEventDetail => {
     const returnValue = {
         trigger: trigger.character,

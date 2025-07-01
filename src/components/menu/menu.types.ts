@@ -144,7 +144,7 @@ export interface MenuItem<T = any> {
  * @public
  */
 export type MenuSearcher = (
-    query: string,
+    query: string
 ) => Promise<Array<MenuItem | ListSeparator>>;
 
 /**
@@ -157,5 +157,5 @@ export type MenuSearcher = (
  * @public
  */
 export type MenuLoader = (
-    item: MenuItem,
+    item: MenuItem
 ) => Promise<Array<MenuItem | ListSeparator>>;

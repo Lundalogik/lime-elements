@@ -85,7 +85,7 @@ export class FileViewerOfficeExample {
             } as Option<OfficeViewer>;
         });
         this.selectedOfficeViewer = this.availableOfficeViewers.find(
-            (v) => v.value === 'microsoft-office',
+            (v) => v.value === 'microsoft-office'
         );
     }
 
@@ -136,7 +136,7 @@ export class FileViewerOfficeExample {
     };
 
     private handleNewSelection = (
-        event: LimelSelectCustomEvent<Option<OfficeViewer>>,
+        event: LimelSelectCustomEvent<Option<OfficeViewer>>
     ) => {
         this.selectedOfficeViewer = event.detail;
     };

@@ -1,3 +1,1 @@
-import config from '@limetech/eslint-config/prettier.config.js';
-
-export default config;
+export { default } from '@limetech/eslint-config/prettier.config.js';

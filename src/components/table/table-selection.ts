@@ -25,10 +25,10 @@ export class TableSelection {
     constructor(
         private getTable: () => Tabulator,
         private pool: ElementPool,
-        private selectEvent: EventEmitter<RowData[]>,
+        private selectEvent: EventEmitter<RowData[]>
     ) {
         this.selection = new Selection((index) =>
-            getRowId(this.getRowByIndex(index).getData()),
+            getRowId(this.getRowByIndex(index).getData())
         );
     }
 
@@ -56,7 +56,7 @@ export class TableSelection {
         if (
             this.selection.size === data.length &&
             this.selection.items.every(
-                (oldItem, index) => oldItem === newItems[index],
+                (oldItem, index) => oldItem === newItems[index]
             )
         ) {
             return;
@@ -64,12 +64,11 @@ export class TableSelection {
 
         this.selection.items = newItems;
         const rows = this.getActiveRows();
-        rows.forEach((row) =>
+        for (const row of rows)
             this.updateRowSelector(
                 row,
-                this.selection.has(getRowId(row.getData())),
-            ),
-        );
+                this.selection.has(getRowId(row.getData()))
+            );
     }
 
     /**
@@ -79,7 +78,7 @@ export class TableSelection {
      * @returns The column definitions with the checkbox column prepended to it
      */
     public getColumnDefinitions(
-        columnDefinitions: Tabulator.ColumnDefinition[],
+        columnDefinitions: Tabulator.ColumnDefinition[]
     ): Tabulator.ColumnDefinition[] {
         return [this.getRowSelectorColumnDefinition(), ...columnDefinitions];
     }
@@ -124,7 +123,7 @@ export class TableSelection {
      */
     protected rowSelectorCellClick = (
         ev: PointerEvent,
-        cell: Tabulator.CellComponent,
+        cell: Tabulator.CellComponent
     ): void => {
         ev.stopPropagation();
         ev.preventDefault();
@@ -134,11 +133,11 @@ export class TableSelection {
 
         if (ev.shiftKey) {
             this.updateRowSelectors(
-                this.selection.toggleSelectionFromLastIndex(rowPosition),
+                this.selection.toggleSelectionFromLastIndex(rowPosition)
             );
         } else {
             this.updateRowSelectors(
-                this.selection.toggleSelection(rowPosition),
+                this.selection.toggleSelection(rowPosition)
             );
         }
 
@@ -154,14 +153,13 @@ export class TableSelection {
     };
 
     private updateRowSelectors = (changeSet: SelectionChangeSet): void => {
-        changeSet.indexes
-            .map(this.getRowByIndex)
-            .forEach((row) => this.updateRowSelector(row, changeSet.selected));
+        for (const row of changeSet.indexes.map(this.getRowByIndex))
+            this.updateRowSelector(row, changeSet.selected);
     };
 
     private updateRowSelector = (
         row: Tabulator.RowComponent,
-        checked: boolean,
+        checked: boolean
     ): void => {
         const cell = row.getCells()[0];
         if (cell) {

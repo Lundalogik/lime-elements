@@ -58,7 +58,7 @@ export class BreadcrumbsButtonsExample {
     }
 
     private handleSelect = (
-        event: LimelBreadcrumbsCustomEvent<BreadcrumbsItem>,
+        event: LimelBreadcrumbsCustomEvent<BreadcrumbsItem>
     ) => {
         this.selectedItem = event.detail;
     };

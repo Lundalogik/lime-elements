@@ -4,6 +4,10 @@ import { isArrayType, isObjectType } from '../schema';
 import { FormSchema } from '../form.types';
 import { JSONSchema7 } from 'json-schema';
 
+/**
+ *
+ * @param title
+ */
 export function renderTitle(title: string) {
     if (!title) {
         return;
@@ -12,10 +16,14 @@ export function renderTitle(title: string) {
     return React.createElement(
         'h1',
         { className: 'mdc-typography mdc-typography--headline1' },
-        title,
+        title
     );
 }
 
+/**
+ *
+ * @param description
+ */
 export function renderDescription(description: string) {
     if (!description) {
         return;
@@ -24,7 +32,7 @@ export function renderDescription(description: string) {
     return React.createElement(
         'p',
         { className: 'mdc-typography mdc-typography--body1' },
-        description,
+        description
     );
 }
 
@@ -43,7 +51,7 @@ export function renderDescription(description: string) {
 export function findTitle(
     data: any,
     fieldSchema: JSONSchema7,
-    formSchema: JSONSchema7,
+    formSchema: JSONSchema7
 ) {
     if (!data) {
         return null;
@@ -59,7 +67,7 @@ export function findTitle(
 
     const subSchema = findSubSchema(
         fieldSchema as FormSchema,
-        formSchema as FormSchema,
+        formSchema as FormSchema
     );
 
     data = sortDataByProperties(data, subSchema.properties);
@@ -84,7 +92,7 @@ function sortDataByProperties(data: any, properties: object) {
     }
 
     const newData = {};
-    Object.keys(properties).forEach((key) => (newData[key] = data[key]));
+    for (const key of Object.keys(properties)) newData[key] = data[key];
 
     return newData;
 }
@@ -97,11 +105,11 @@ function findFirstEntry(data: any, subSchema: FormSchema) {
         ...Object.entries(data),
     ];
 
-    return entries.filter((entry) => {
+    return entries.find((entry) => {
         const value = entry[1];
 
         return !!value && typeof value !== 'boolean';
-    })[0];
+    });
 }
 
 function getRequiredEntry(data: any, subSchema: FormSchema) {
@@ -110,7 +118,7 @@ function getRequiredEntry(data: any, subSchema: FormSchema) {
     }
 
     const firstNonEmptyRequiredKey = Object.keys(data).find((key) =>
-        subSchema.required.includes(key),
+        subSchema.required.includes(key)
     );
     if (!firstNonEmptyRequiredKey) {
         return [null, null];

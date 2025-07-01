@@ -9,7 +9,7 @@ const getCommandSymbols = (): {
     shift: string;
 } => {
     const macUserAgent = /Macintosh|MacIntel|MacPPC|Mac68K/;
-    if (macUserAgent.exec(navigator.userAgent)) {
+    if (macUserAgent.test(navigator.userAgent)) {
         return { mod: '⌘', option: '⌥', shift: '⇧' };
     }
 
@@ -126,11 +126,11 @@ export const menuTranslationIDs = {
     headerlevel1: 'editor-menu.h1',
     headerlevel2: 'editor-menu.h2',
     headerlevel3: 'editor-menu.h3',
-    /* eslint-disable camelcase */
+
     bullet_list: 'editor-menu.bulleted-list',
     ordered_list: 'editor-menu.numbered-list',
     code_block: 'editor-menu.code-block',
-    /* eslint-enable camelcase */
+
     blockquote: 'editor-menu.blockquote',
     link: 'editor-menu.link',
     strikethrough: 'editor-menu.strikethrough',

@@ -137,7 +137,7 @@ export class Select {
 
         // It should not be possible to render the native select for consumers, but we still want to make it testable.
         // We can set this attribute in tests to force rendering of the native select
-        if (this.host.hasAttribute('data-native')) {
+        if (Object.hasOwn(this.host.dataset, 'native')) {
             this.isMobileDevice = true;
         }
     }
@@ -180,7 +180,7 @@ export class Select {
 
     public render() {
         const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
+            '--dropdown-z-index'
         );
 
         return (
@@ -227,7 +227,7 @@ export class Select {
 
         setTimeout(() => {
             const list: HTMLElement = document.querySelector(
-                `#${this.portalId} limel-menu-surface limel-list`,
+                `#${this.portalId} limel-menu-surface limel-list`
             );
             const firstItem: HTMLElement =
                 list?.shadowRoot?.querySelector('[tabindex]');
@@ -240,13 +240,13 @@ export class Select {
 
     private setTriggerFocus() {
         const trigger: HTMLElement = this.host.shadowRoot.querySelector(
-            '.limel-select-trigger',
+            '.limel-select-trigger'
         );
         trigger.focus();
     }
 
     private handleMenuChange(
-        event: CustomEvent<Array<ListItem<Option>> | ListItem<Option>>,
+        event: CustomEvent<Array<ListItem<Option>> | ListItem<Option>>
     ) {
         event.stopPropagation();
 
@@ -322,7 +322,7 @@ export class Select {
         event.stopPropagation();
 
         const element: HTMLSelectElement = this.host.shadowRoot.querySelector(
-            'select.limel-select__native-control',
+            'select.limel-select__native-control'
         );
         const options = Array.apply(null, element.options) // eslint-disable-line prefer-spread
             .filter((optionElement: HTMLOptionElement) => {
@@ -330,7 +330,7 @@ export class Select {
             })
             .map((optionElement: HTMLOptionElement) => {
                 return this.getOptionsExcludingSeparators().find(
-                    (o) => o.value === optionElement.value,
+                    (o) => o.value === optionElement.value
                 );
             });
 
@@ -346,7 +346,7 @@ export class Select {
 
     private getOptionsExcludingSeparators(): Option[] {
         return this.options.filter(
-            (option): option is Option => !('separator' in option),
+            (option): option is Option => !('separator' in option)
         );
     }
 }

@@ -48,7 +48,7 @@ export class PickerMultipleExample {
     }
 
     private onChange = (
-        event: LimelPickerCustomEvent<Array<ListItem<number>>>,
+        event: LimelPickerCustomEvent<Array<ListItem<number>>>
     ) => {
         this.selectedItems = [...event.detail];
         this.updateAvailableItems();
@@ -56,7 +56,7 @@ export class PickerMultipleExample {
 
     private updateAvailableItems = () => {
         this.availableItems = this.allItems.filter((item) => {
-            return !this.selectedItems.find((selectedItem) => {
+            return !this.selectedItems.some((selectedItem) => {
                 return item.value === selectedItem.value;
             });
         });

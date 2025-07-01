@@ -32,7 +32,7 @@ describe('limel-chip', () => {
 
     it('renders with a badge when the badge prop is provided', async () => {
         await page.setContent(
-            '<limel-chip text="Test chip" badge="5"></limel-chip>',
+            '<limel-chip text="Test chip" badge="5"></limel-chip>'
         );
 
         const element = await page.find('limel-chip >>> limel-badge');
@@ -41,7 +41,7 @@ describe('limel-chip', () => {
 
     it('renders with a remove button when the removable prop is true', async () => {
         await page.setContent(
-            '<limel-chip text="Test chip" removable></limel-chip>',
+            '<limel-chip text="Test chip" removable></limel-chip>'
         );
 
         const element = await page.find('limel-chip >>> .remove-button');

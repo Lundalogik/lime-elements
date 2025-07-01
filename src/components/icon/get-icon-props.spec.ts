@@ -39,7 +39,8 @@ describe('getIconName', () => {
     });
 });
 
-[
+// eslint-disable-next-line prefer-const
+for (let { func, iconPropertyName, attributeName } of [
     {
         func: getIconColor,
         iconPropertyName: 'color',
@@ -60,7 +61,7 @@ describe('getIconName', () => {
         iconPropertyName: 'title',
         attributeName: 'iconTitle',
     },
-].forEach(({ func, iconPropertyName, attributeName }) => {
+]) {
     describe(`${func.name}`, () => {
         let icon: string | Icon;
         let attribute: string | undefined;
@@ -108,6 +109,7 @@ describe('getIconName', () => {
             });
             describe(`and ${attributeName} is provided`, () => {
                 beforeEach(() => {
+                    // eslint-disable-next-line sonarjs/updated-loop-counter
                     attributeName = 'blue';
                 });
                 it(`returns the icon.${iconPropertyName} value`, () => {
@@ -117,6 +119,7 @@ describe('getIconName', () => {
             });
             describe(`and ${attributeName} is \`undefined\``, () => {
                 beforeEach(() => {
+                    // eslint-disable-next-line sonarjs/updated-loop-counter
                     attributeName = undefined;
                 });
                 it(`returns the icon.${iconPropertyName} value`, () => {
@@ -216,4 +219,4 @@ describe('getIconName', () => {
             });
         });
     });
-});
+}

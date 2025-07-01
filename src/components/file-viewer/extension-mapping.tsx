@@ -1,3 +1,8 @@
+/**
+ *
+ * @param fileName
+ * @param url
+ */
 export function detectExtension(fileName, url): any {
     const pathLike = fileName || url;
     if (!pathLike) {

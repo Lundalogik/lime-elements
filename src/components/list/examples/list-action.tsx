@@ -32,6 +32,6 @@ export class ListActionExample {
     }
 
     private onSelectAction(event: LimelListCustomEvent<ListItem>) {
-        console.log('Executing action: ', event.detail);
+        console.log('Executing action:', event.detail);
     }
 }

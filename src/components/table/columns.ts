@@ -53,7 +53,7 @@ export const formatHeader = (column: Column) => (): string | HTMLElement => {
 
     const titleElement = document.createElement('span');
     titleElement.setAttribute('class', 'title-component-text');
-    titleElement.innerText = column.title;
+    titleElement.textContent = column.title;
 
     const customElement = document.createElement(column.headerComponent.name);
     customElement.setAttribute('class', 'title-component-slot');
@@ -69,8 +69,8 @@ export const formatHeader = (column: Column) => (): string | HTMLElement => {
 
     setElementProperties(customElement, props);
 
-    headerElement.appendChild(titleElement);
-    headerElement.appendChild(customElement);
+    headerElement.append(titleElement);
+    headerElement.append(customElement);
 
     return headerElement;
 };
@@ -84,18 +84,17 @@ export const formatHeader = (column: Column) => (): string | HTMLElement => {
  */
 export function createFormatter(
     column: Column,
-    pool: ElementPool,
+    pool: ElementPool
 ): Tabulator.Formatter {
     if (!column.component?.name) {
         return formatCell;
     }
 
     if (!columnElementExists(column)) {
-        // eslint-disable-next-line no-console
         console.warn(
             `Failed to render custom component for column "${column.field.toString()}". Custom element <${
                 column.component.name
-            }/> does not exist. Using the default formatter.`,
+            }/> does not exist. Using the default formatter.`
         );
 
         return formatCell;
@@ -129,7 +128,7 @@ function columnElementExists(column: Column<any>) {
  */
 export function formatCell(
     cell: Tabulator.CellComponent,
-    column: Column,
+    column: Column
 ): string {
     const data = cell.getData();
     let value = cell.getValue();
@@ -158,7 +157,7 @@ export function createCustomComponent(
     cell: Tabulator.CellComponent,
     column: Column,
     value: string,
-    pool: ElementPool,
+    pool: ElementPool
 ): HTMLElement {
     const field = cell.getField();
     const data = cell.getData();
@@ -198,10 +197,10 @@ export function setElementProperties(element: HTMLElement, props: object) {
     Object.assign(element, properties);
 
     const listeners = pickBy(props, isEventListener);
-    Object.entries(listeners).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(listeners)) {
         const event = getEventName(key);
         element.addEventListener(event, value as any);
-    });
+    }
 }
 
 /**
@@ -231,13 +230,12 @@ function isEventListener(value: any, key: string): boolean {
  * @returns the name of the event
  */
 function getEventName(eventListener: string): string {
-    // eslint-disable-next-line no-magic-numbers
     return eventListener.charAt(2).toLowerCase() + eventListener.slice(3);
 }
 
 function createResizeObserver(
     element: HTMLElement,
-    column: Tabulator.ColumnComponent,
+    column: Tabulator.ColumnComponent
 ) {
     if (!('ResizeObserver' in window)) {
         return;
@@ -289,6 +287,10 @@ export const createColumnSorter =
         };
     };
 
+/**
+ *
+ * @param column
+ */
 export function getColumnAggregator(column: Column): Tabulator.ColumnCalc {
     const aggregator = column.aggregator;
     if (isAggregatorFunction(aggregator)) {

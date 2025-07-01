@@ -43,9 +43,9 @@ export class ConfigComponent {
             return;
         }
 
-        Object.keys(this.config).forEach((key) => {
+        for (const key of Object.keys(this.config)) {
             globalConfig[key] = this.config[key];
-        });
+        }
     }
 
     public render() {

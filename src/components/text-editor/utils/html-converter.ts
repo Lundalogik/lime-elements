@@ -28,10 +28,10 @@ export class HTMLConverter implements ContentTypeConverter {
         }
 
         const div = document.createElement('div');
-        div.appendChild(
+        div.append(
             DOMSerializer.fromSchema(view.state.schema).serializeFragment(
-                view.state.doc.content,
-            ),
+                view.state.doc.content
+            )
         );
 
         return div.innerHTML;

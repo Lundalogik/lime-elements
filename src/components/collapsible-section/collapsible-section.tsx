@@ -113,7 +113,7 @@ export class CollapsibleSection {
 
     public componentDidRender() {
         const button = this.host.shadowRoot.querySelector(
-            '.open-close-toggle',
+            '.open-close-toggle'
         ) as HTMLElement;
 
         makeEnterClickable(button);
@@ -121,7 +121,7 @@ export class CollapsibleSection {
 
     public disconnectedCallback() {
         const button = this.host.shadowRoot.querySelector(
-            '.open-close-toggle',
+            '.open-close-toggle'
         ) as HTMLElement;
 
         removeEnterClickable(button);

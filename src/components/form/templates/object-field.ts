@@ -29,7 +29,7 @@ function renderFieldWithTitle(props: LimeObjectFieldTemplateProps) {
         {},
         renderTitle(props.title),
         renderDescription(props.description),
-        renderProperties(props.properties, props.schema),
+        renderProperties(props.properties, props.schema)
     );
 }
 
@@ -42,18 +42,18 @@ function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
             header: props.title,
             id: getSchemaObjectPropertyPath(
                 props.formContext.schema,
-                props.idSchema,
+                props.idSchema
             ),
             'is-open': defaultOpen,
         },
         renderDescription(props.description),
-        renderProperties(props.properties, props.schema),
+        renderProperties(props.properties, props.schema)
     );
 }
 
 function getSchemaObjectPropertyPath(
     schema: JSONSchema7,
-    subSchema: JSONSchema7,
+    subSchema: JSONSchema7
 ) {
     const refPrefixLength = 2;
     const matchAllForwardSlashes = /\//g;
@@ -67,7 +67,7 @@ function getSchemaObjectPropertyPath(
 
 function renderProperties(
     properties: ObjectFieldProperty[],
-    schema: JSONSchema7,
+    schema: JSONSchema7
 ) {
     const layout = schema.lime?.layout;
 
@@ -76,7 +76,7 @@ function renderProperties(
 
 function renderLayout(
     properties: ObjectFieldProperty[],
-    layout: Partial<LimeLayoutOptions>,
+    layout: Partial<LimeLayoutOptions>
 ) {
     const type = layout?.type || 'default';
     const layouts: Record<FormLayoutType, Function> = {
@@ -94,20 +94,20 @@ function renderDefaultLayout(properties: ObjectFieldProperty[]) {
         {
             className: 'limel-form-layout--default',
         },
-        properties.map((element) => element.content),
+        properties.map((element) => element.content)
     );
 }
 
 function renderGridLayout(
     properties: ObjectFieldProperty[],
-    layout: FormLayoutOptions,
+    layout: FormLayoutOptions
 ) {
     return React.createElement(
         GridLayout,
         {
             options: layout,
         },
-        properties.map((element) => element.content),
+        properties.map((element) => element.content)
     );
 }
 
@@ -115,7 +115,7 @@ function renderRowLayout(properties: ObjectFieldProperty[]) {
     return React.createElement(
         RowLayout,
         {},
-        properties.map((element) => element.content),
+        properties.map((element) => element.content)
     );
 }
 

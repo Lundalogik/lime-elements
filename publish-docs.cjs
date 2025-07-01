@@ -1,6 +1,6 @@
 /* eslint-env node */
 const shell = require('shelljs');
-const fs = require('fs');
+const fs = require('node:fs');
 const replace = require('replace-in-file');
 const argv = require('yargs').argv;
 
@@ -120,7 +120,7 @@ function cloneDocsRepo() {
 
     if (
         shell.exec(
-            'git clone --single-branch --branch gh-pages https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git docsDist',
+            'git clone --single-branch --branch gh-pages https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git docsDist'
         ).code !== 0
     ) {
         shell.echo('git clone failed!');
@@ -221,7 +221,7 @@ function copyBuildOutput() {
         shell.cp(
             '-R',
             `www${BASE_URL}versions/${version}`,
-            'docsDist/versions/',
+            'docsDist/versions/'
         ).code !== 0
     ) {
         shell.echo('copying output failed!');
@@ -243,7 +243,7 @@ function copyBuildOutput() {
         shell.cp('docs-index.html', `docsDist/versions/${version}/`).code !== 0
     ) {
         shell.echo(
-            '[WARNING] Copying docs-index.html failed. Not critical, continuing.',
+            '[WARNING] Copying docs-index.html failed. Not critical, continuing.'
         );
     }
 
@@ -254,11 +254,11 @@ function copyBuildOutput() {
         shell.cp(
             '-f',
             'docsDist/versions/latest/docs-index.html',
-            'docsDist/index.html',
+            'docsDist/index.html'
         ).code !== 0
     ) {
         shell.echo(
-            '[WARNING] Copying docs-index.html from `latest` failed. Not critical, continuing.',
+            '[WARNING] Copying docs-index.html from `latest` failed. Not critical, continuing.'
         );
     }
 }
@@ -282,7 +282,7 @@ function updateVersionList() {
         .filter((file) => file !== 'latest' && file !== 'next');
     fs.writeFileSync(
         'versions.js',
-        `window.versions = ${JSON.stringify(files)};`,
+        `window.versions = ${JSON.stringify(files)};`
     );
 
     shell.cd('..');
@@ -318,7 +318,7 @@ function pruneOldPatchVersions() {
 
     let lastCheckedVersion = fullVersions.shift();
     const versionsToDelete = [];
-    fullVersions.forEach((item) => {
+    for (const item of fullVersions) {
         const lastChecked = lastCheckedVersion.match(fullVersionRegex);
         const current = item.match(fullVersionRegex);
 
@@ -327,16 +327,16 @@ function pruneOldPatchVersions() {
         }
 
         lastCheckedVersion = item;
-    });
+    }
     // -------
 
-    versionsToDelete.forEach((item) => {
+    for (const item of versionsToDelete) {
         remove(item);
 
         if (runCommit) {
             commit(`chore(docs): remove ${argv.remove}`);
         }
-    });
+    }
 }
 
 function createSymlinkForRelease(versions, alias) {
@@ -361,16 +361,15 @@ function createSymlinkForRelease(versions, alias) {
 function createSymlink(folder, alias) {
     shell.cd('docsDist/versions');
 
-    if (shell.ln('-sf', `${folder}`, alias).code !== 0) {
-        if (
-            shell.rm(alias).code !== 0 ||
-            shell.ln('-sf', `${folder}`, alias).code !== 0
-        ) {
-            shell.echo(`Creating symlink '${alias}' failed!`);
-            shell.cd('../..');
-            teardown();
-            shell.exit(1);
-        }
+    if (
+        shell.ln('-sf', `${folder}`, alias).code !== 0 &&
+        (shell.rm(alias).code !== 0 ||
+            shell.ln('-sf', `${folder}`, alias).code !== 0)
+    ) {
+        shell.echo(`Creating symlink '${alias}' failed!`);
+        shell.cd('../..');
+        teardown();
+        shell.exit(1);
     }
 
     shell.cd('../..');
@@ -414,7 +413,7 @@ function push() {
         shell.exec(
             `git push ${
                 forcePush ? '--force' : ''
-            } https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git HEAD:gh-pages`,
+            } https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git HEAD:gh-pages`
         ).code !== 0
     ) {
         shell.echo('git push failed!');
@@ -429,7 +428,7 @@ function push() {
 function teardown(finished) {
     if (finished || cleanOnFail) {
         shell.exec(
-            'git checkout src/index.html src/index.md stencil.config.docs.ts',
+            'git checkout src/index.html src/index.md stencil.config.docs.ts'
         );
         shell.echo('Removing docs repo clone in docsDist.');
         shell.exec('rm -rf docsDist');

@@ -11,7 +11,7 @@ import { sendTriggerEvent } from './factory-helpers/send-trigger-event';
 
 export const createTriggerPlugin = (
     triggerCharacters: TriggerCharacter[],
-    contentConverter: ContentTypeConverter,
+    contentConverter: ContentTypeConverter
 ) => {
     let pluginView: EditorView | null = null;
     let activeTrigger: Trigger | null = null;
@@ -35,14 +35,14 @@ export const createTriggerPlugin = (
     const textInputHandler = getTextInputHandler(
         contentConverter,
         triggerCharacters,
-        updateActiveTrigger,
+        updateActiveTrigger
     );
 
     const appendTransactionHandler = getAppendTransactionHandler(
         getCurrentView,
         getActiveTrigger,
         resetActiveTrigger,
-        contentConverter,
+        contentConverter
     );
 
     return new Plugin({
@@ -63,7 +63,7 @@ export const createTriggerPlugin = (
                         pluginView,
                         contentConverter,
                         activeTrigger,
-                        '',
+                        ''
                     );
                     resetActiveTrigger();
                 }

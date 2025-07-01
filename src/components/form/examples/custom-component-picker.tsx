@@ -88,7 +88,7 @@ export class CustomPickerExample implements FormComponent<number> {
     ];
 
     private handleChange = (
-        event: LimelPickerCustomEvent<ListItem<number>>,
+        event: LimelPickerCustomEvent<ListItem<number>>
     ) => {
         event.stopPropagation();
         this.change.emit(event.detail?.value);

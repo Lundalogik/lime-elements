@@ -20,7 +20,7 @@ describe('portalContains', () => {
             element = document.createElement('span');
             child = document.createElement('span');
 
-            element.appendChild(child);
+            element.append(child);
         });
 
         it('returns true', () => {
@@ -44,7 +44,7 @@ describe('portalContains', () => {
             element = document.createElement('test-component');
             child = document.createElement('span');
 
-            element.shadowRoot.appendChild(child);
+            element.shadowRoot.append(child);
         });
 
         it('returns true', () => {
@@ -64,7 +64,7 @@ describe('portalContains', () => {
 
             element = document.createElement('test-component');
             const portal = document.createElement('div');
-            element.shadowRoot.appendChild(portal);
+            element.shadowRoot.append(portal);
 
             const container = document.createElement('div');
             container.classList.add('limel-portal--container');
@@ -73,10 +73,10 @@ describe('portalContains', () => {
             });
 
             const containerContent = document.createElement('test-component');
-            container.appendChild(containerContent);
+            container.append(containerContent);
 
             child = document.createElement('span');
-            containerContent.shadowRoot.appendChild(child);
+            containerContent.shadowRoot.append(child);
         });
 
         it('returns true', () => {

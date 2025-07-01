@@ -126,7 +126,7 @@ export class ActionBarButton {
 
         if ('icon' in this.item) {
             const name = getIconName(this.item.icon);
-            // eslint-disable-next-line sonarjs/deprecation
+
             const color = getIconColor(this.item.icon, this.item.iconColor);
             const title = getIconTitle(this.item.icon);
 
@@ -177,11 +177,9 @@ export class ActionBarButton {
     }
 
     private triggerIconColorWarning() {
-        // eslint-disable-next-line sonarjs/deprecation
         if (this.isItem(this.item) && this.item.iconColor) {
-            /* eslint-disable-next-line no-console */
             console.warn(
-                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`.",
+                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
             );
         }
     }

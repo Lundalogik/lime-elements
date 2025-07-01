@@ -63,7 +63,7 @@ export class Shortcut {
 
     public componentWillLoad() {
         const { handleMouseEnter, handleMouseLeave } = getMouseEventHandlers(
-            this.host,
+            this.host
         );
         this.handleMouseEnter = handleMouseEnter;
         this.handleMouseLeave = handleMouseLeave;
@@ -113,8 +113,6 @@ export class Shortcut {
         if (this.link?.title) {
             return this.link.title;
         }
-
-        return undefined;
     };
 
     private renderNotification = () => {

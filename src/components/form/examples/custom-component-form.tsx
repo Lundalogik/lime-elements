@@ -40,7 +40,7 @@ export class CustomComponentFormExample {
     @State()
     private formData: CustomComponentFormData = {
         name: 'My superhero deal',
-        value: 1000000,
+        value: 1_000_000,
         hero: 1001,
     };
 

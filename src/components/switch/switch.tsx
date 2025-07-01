@@ -119,7 +119,7 @@ export class Switch {
 
     private initialize() {
         const element = this.host.shadowRoot.querySelector(
-            '.mdc-switch',
+            '.mdc-switch'
         ) as HTMLButtonElement;
         if (!element) {
             return;

@@ -1,4 +1,4 @@
-jest.mock('./tooltipTimer', () => {
+jest.mock('./tooltip-timer', () => {
     return {
         TooltipTimer: jest
             .fn()

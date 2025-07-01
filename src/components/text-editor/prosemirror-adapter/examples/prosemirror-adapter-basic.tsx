@@ -23,7 +23,7 @@ export class ProsemirrorAdapterBasicExample {
     }
 
     private handleChange = (
-        event: LimelProsemirrorAdapterCustomEvent<string>,
+        event: LimelProsemirrorAdapterCustomEvent<string>
     ): void => {
         event.stopPropagation();
 

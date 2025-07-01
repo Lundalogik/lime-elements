@@ -42,7 +42,8 @@ import { EditorUiType } from './types';
     styleUrl: 'text-editor.scss',
 })
 export class TextEditor implements FormComponent<string> {
-    /** The type of content that the editor should handle and emit, defaults to `markdown`
+    /**
+     * The type of content that the editor should handle and emit, defaults to `markdown`
      *
      * Assumed to be set only once, so not reactive to changes
      */
@@ -350,7 +351,7 @@ export class TextEditor implements FormComponent<string> {
 
     private handleImageRemoved = (event: CustomEvent<EditorImage>) => {
         event.stopPropagation();
-        // eslint-disable-next-line sonarjs/deprecation
+
         this.imageRemoved.emit(event.detail);
     };
 }

@@ -329,7 +329,7 @@ export class Picker {
 
     private createChip = (listItem: ListItem): Chip => {
         const name = getIconName(listItem.icon);
-        // eslint-disable-next-line sonarjs/deprecation
+
         const color = getIconFillColor(listItem.icon, listItem.iconColor);
         const valueId = this.getValueId(listItem);
 
@@ -397,7 +397,7 @@ export class Picker {
     }
 
     private removeUnusedPropertiesOnAction(
-        action: ListItem<Action>,
+        action: ListItem<Action>
     ): ListItem<Action> {
         return {
             ...action,
@@ -490,7 +490,7 @@ export class Picker {
 
     private renderPortal(content: any[] = []) {
         const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
+            '--dropdown-z-index'
         );
 
         return (
@@ -570,7 +570,7 @@ export class Picker {
     };
 
     private defaultSearcher: Searcher = async (
-        query: string,
+        query: string
     ): Promise<ListItem[]> => {
         if (query === '') {
             return this.allItems.slice(0, DEFAULT_SEARCHER_MAX_RESULTS);
@@ -595,7 +595,7 @@ export class Picker {
      * @param event - event
      */
     private handleListChange(
-        event: LimelListCustomEvent<ListItem<PickerValue>>,
+        event: LimelListCustomEvent<ListItem<PickerValue>>
     ) {
         event.stopPropagation();
         if (!this.value || this.value !== event.detail) {
@@ -624,7 +624,7 @@ export class Picker {
      * @param event - event
      */
     private handleActionListChange(
-        event: LimelListCustomEvent<ListItem<Action>>,
+        event: LimelListCustomEvent<ListItem<Action>>
     ) {
         event.stopPropagation();
         if (!event.detail) {
@@ -695,7 +695,7 @@ export class Picker {
 
         if (isForwardTab || isDown) {
             const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:first-child',
+                '.mdc-deprecated-list-item:first-child'
             );
             listElement.focus();
 
@@ -704,7 +704,7 @@ export class Picker {
 
         if (isUp) {
             const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:last-child',
+                '.mdc-deprecated-list-item:last-child'
             );
             listElement.focus();
         }

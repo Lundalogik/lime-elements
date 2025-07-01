@@ -10,10 +10,10 @@ describe('detectExtension', () => {
         { input: 'example.xyz', expected: 'unknown' },
     ];
 
-    testCases.forEach((testCase) => {
+    for (const testCase of testCases) {
         it(`should detect ${testCase.expected} extension`, () => {
             const result = detectExtension(testCase.input, '');
             expect(result).toBe(testCase.expected);
         });
-    });
+    }
 });

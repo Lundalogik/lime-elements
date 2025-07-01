@@ -3,7 +3,7 @@ import { MenuCommandFactory } from '../menu/menu-commands';
 import { EditorMenuTypes } from '../menu/types';
 
 export const actionBarInteractionPluginKey = new PluginKey(
-    'actionBarInteractionPlugin',
+    'actionBarInteractionPlugin'
 );
 
 const dispatchMenuCommand = (command, view) => {
@@ -22,7 +22,7 @@ const dispatchMenuCommand = (command, view) => {
 };
 
 export const createActionBarInteractionPlugin = (
-    menuCommandFactory: MenuCommandFactory,
+    menuCommandFactory: MenuCommandFactory
 ) => {
     return new Plugin({
         key: actionBarInteractionPluginKey,
@@ -37,7 +37,6 @@ export const createActionBarInteractionPlugin = (
                         const command = menuCommandFactory.getCommand(value);
                         dispatchMenuCommand(command, view);
                     } catch (error) {
-                        // eslint-disable-next-line no-console
                         console.error(`Error executing command: ${error}`);
                     }
 
@@ -52,11 +51,10 @@ export const createActionBarInteractionPlugin = (
                         try {
                             const command = menuCommandFactory.getCommand(
                                 type,
-                                link,
+                                link
                             );
                             dispatchMenuCommand(command, view);
                         } catch (error) {
-                            // eslint-disable-next-line no-console
                             console.error(`Error executing command: ${error}`);
                         }
                     }

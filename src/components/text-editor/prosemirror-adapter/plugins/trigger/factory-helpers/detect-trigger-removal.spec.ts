@@ -36,7 +36,7 @@ describe('detectTriggerRemoval', () => {
             { character: '@', position: 5 },
             resetActiveTrigger,
             contentConverter,
-            mockView,
+            mockView
         );
 
         expect(resetActiveTrigger).toHaveBeenCalled();
@@ -45,7 +45,7 @@ describe('detectTriggerRemoval', () => {
             mockView,
             contentConverter,
             { character: '@', position: 5 },
-            '',
+            ''
         );
         expect(result).toBe(true);
     });
@@ -67,7 +67,7 @@ describe('detectTriggerRemoval', () => {
             { character: '@', position: 5 },
             resetActiveTrigger,
             contentConverter,
-            mockView,
+            mockView
         );
 
         expect(resetActiveTrigger).not.toHaveBeenCalled();
@@ -92,7 +92,7 @@ describe('detectTriggerRemoval', () => {
             null, // No active trigger
             resetActiveTrigger,
             contentConverter,
-            mockView,
+            mockView
         );
 
         expect(resetActiveTrigger).not.toHaveBeenCalled();
@@ -117,7 +117,7 @@ describe('detectTriggerRemoval', () => {
             { character: '@', position: -1 }, // Invalid position
             resetActiveTrigger,
             contentConverter,
-            mockView,
+            mockView
         );
 
         expect(resetActiveTrigger).not.toHaveBeenCalled();
@@ -137,7 +137,7 @@ describe('detectTriggerRemoval', () => {
             { character: '@', position: 5 },
             resetActiveTrigger,
             contentConverter,
-            mockView,
+            mockView
         );
 
         expect(resetActiveTrigger).not.toHaveBeenCalled();
@@ -162,7 +162,7 @@ describe('detectTriggerRemoval', () => {
             { character: '@', position: 5 },
             resetActiveTrigger,
             contentConverter,
-            mockView,
+            mockView
         );
 
         expect(resetActiveTrigger).toHaveBeenCalled();
@@ -171,7 +171,7 @@ describe('detectTriggerRemoval', () => {
             mockView,
             contentConverter,
             { character: '@', position: 5 },
-            '',
+            ''
         );
         expect(result).toBe(true);
     });

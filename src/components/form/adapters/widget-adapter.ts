@@ -39,7 +39,7 @@ export class LimeElementsWidgetAdapter extends React.Component<WidgetAdapterProp
         }
 
         if (Array.isArray(value)) {
-            return !!value.length;
+            return value.length > 0;
         }
 
         if (value instanceof Date) {
@@ -47,7 +47,7 @@ export class LimeElementsWidgetAdapter extends React.Component<WidgetAdapterProp
         }
 
         if (typeof value === 'object') {
-            return !!Object.entries(value).length;
+            return Object.entries(value).length > 0;
         }
 
         return true;
@@ -121,12 +121,12 @@ export class LimeElementsWidgetAdapter extends React.Component<WidgetAdapterProp
                 onChange: this.handleChange,
                 onBlur: this.handleBlur,
             }),
-            getHelpComponent(this.props.widgetProps.schema),
+            getHelpComponent(this.props.widgetProps.schema)
         );
     }
 
     private handleChange = (
-        event: React.SyntheticEvent<Element, CustomEvent>,
+        event: React.SyntheticEvent<Element, CustomEvent>
     ) => {
         this.props.events.change(event.nativeEvent);
     };

@@ -79,7 +79,7 @@ export class SplitButton {
         return (
             <Host
                 class={{
-                    'has-menu': !!this.items.length,
+                    'has-menu': this.items.length > 0,
                 }}
                 onClick={this.filterClickWhenDisabled}
             >
@@ -97,7 +97,7 @@ export class SplitButton {
     }
 
     private renderMenu = () => {
-        if (!this.items.length) {
+        if (this.items.length === 0) {
             return;
         }
 

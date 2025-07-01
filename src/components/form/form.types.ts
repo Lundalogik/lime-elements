@@ -12,8 +12,8 @@ export { EventEmitter } from '@stencil/core';
 declare module 'json-schema' {
     interface JSONSchema7 {
         /**
-         * @internal
          * Unique identifier for the schema
+         * @internal
          */
         id?: string;
 
@@ -258,7 +258,7 @@ export interface GridLayoutOptions
      * When specified on a component within the grid, the component will take
      * up the the specified number of columns in the form
      */
-    // eslint-disable-next-line no-magic-numbers
+
     colSpan?: 1 | 2 | 3 | 4 | 5 | 'all';
 
     /**
@@ -270,7 +270,7 @@ export interface GridLayoutOptions
     /**
      * Number of columns to use in the layout
      */
-    // eslint-disable-next-line no-magic-numbers
+
     columns?: 1 | 2 | 3 | 4 | 5;
 
     /**

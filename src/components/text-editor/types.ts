@@ -1,8 +1,8 @@
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 
 /**
- * @private
  * set to private to avoid usage while under development
+ * @private
  */
 export type TextEditorPlugin = {
     node: CustomElementDefinition[];

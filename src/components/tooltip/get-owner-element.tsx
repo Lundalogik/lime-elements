@@ -1,6 +1,11 @@
+/**
+ *
+ * @param id
+ * @param startingPoint
+ */
 export function getOwnerElement(
     id: string,
-    startingPoint: Node,
+    startingPoint: Node
 ): HTMLElement | undefined {
     let element: Node = startingPoint;
 

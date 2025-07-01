@@ -32,7 +32,7 @@ class ImageView implements NodeView {
         node: Node,
         view: EditorView,
         getPos: () => number,
-        language: Languages,
+        language: Languages
     ) {
         this.node = node;
         this.view = view;
@@ -47,11 +47,11 @@ class ImageView implements NodeView {
         this.img.alt = node.attrs.alt;
         applyImageStyles(this.img, node);
 
-        this.img.onload = () => {
+        this.img.addEventListener('load', () => {
             this.persistDimensions();
-        };
+        });
 
-        this.dom.appendChild(this.img);
+        this.dom.append(this.img);
 
         this.transitionBetweenStates();
     }
@@ -64,7 +64,7 @@ class ImageView implements NodeView {
                 width: `${this.img.offsetWidth}px`,
                 minHeight: `${this.img.offsetHeight}px`,
                 minWidth: `${this.img.offsetWidth}px`,
-            }),
+            })
         );
     }
 
@@ -74,7 +74,7 @@ class ImageView implements NodeView {
         handle.setAttribute('role', 'slider');
         handle.setAttribute(
             'aria-label',
-            translate.get('editor-image-view.resize-handle', this.language),
+            translate.get('editor-image-view.resize-handle', this.language)
         );
         handle.setAttribute('tabindex', '0');
         handle.setAttribute('aria-valuemin', MIN_WIDTH.toString());
@@ -92,7 +92,7 @@ class ImageView implements NodeView {
 
     private onResizeStart = (
         event: PointerEvent,
-        position: 'bottom-right' | 'top-left',
+        position: 'bottom-right' | 'top-left'
     ) => {
         event.preventDefault();
         const handle = event.target as HTMLElement;
@@ -108,13 +108,13 @@ class ImageView implements NodeView {
             this.img.style.width = `${newWidth}px`;
 
             const handles = this.dom.querySelectorAll('.resize-handle');
-            handles.forEach((resizeHandle) => {
+            for (const resizeHandle of handles) {
                 resizeHandle.setAttribute('aria-valuenow', newWidth.toString());
                 resizeHandle.setAttribute(
                     'aria-valuetext',
-                    `${newWidth} pixels`,
+                    `${newWidth} pixels`
                 );
-            });
+            }
         };
 
         const onPointerUp = () => {
@@ -136,12 +136,12 @@ class ImageView implements NodeView {
             'aria-label',
             translate.get('editor-image-view.loading', this.language, {
                 filename: this.node.attrs.alt || 'file',
-            }),
+            })
         );
 
         const spinnerElement = document.createElement('limel-linear-progress');
         spinnerElement.setAttribute('indeterminate', 'true');
-        this.dom.appendChild(spinnerElement);
+        this.dom.append(spinnerElement);
     };
 
     private createSuccessState = () => {
@@ -151,14 +151,14 @@ class ImageView implements NodeView {
             'aria-label',
             translate.get('editor-image-view.success', this.language, {
                 filename: this.node.attrs.alt || 'file',
-            }),
+            })
         );
 
         const bottomRightHandle = this.createResizeHandle('bottom-right');
         const topLeftHandle = this.createResizeHandle('top-left');
 
-        this.dom.appendChild(bottomRightHandle);
-        this.dom.appendChild(topLeftHandle);
+        this.dom.append(bottomRightHandle);
+        this.dom.append(topLeftHandle);
     };
 
     private createFailedState = () => {
@@ -168,16 +168,16 @@ class ImageView implements NodeView {
             'aria-label',
             translate.get('editor-image-view.failed', this.language, {
                 filename: this.node.attrs.alt || 'file',
-            }),
+            })
         );
     };
 
     private cleanUpPreviousState = () => {
-        Array.from(this.dom.childNodes).forEach((child) => {
+        for (const child of this.dom.childNodes) {
             if (!(child instanceof HTMLImageElement)) {
                 child.remove();
             }
-        });
+        }
     };
 
     private transitionBetweenStates = () => {

@@ -30,15 +30,15 @@ export class PopoverSurface {
 
     private appendElement() {
         const portalContainer = this.host.shadowRoot.querySelector(
-            '.limel-popover-surface',
+            '.limel-popover-surface'
         );
 
-        Array.from(this.contentCollection).forEach((child) => {
+        for (const child of this.contentCollection) {
             if (child.slot === 'trigger') {
-                return;
+                continue;
             }
 
-            portalContainer.appendChild(child);
-        });
+            portalContainer.append(child);
+        }
     }
 }

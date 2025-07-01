@@ -27,7 +27,7 @@ describe('monitorTriggeredText', () => {
             activeTrigger,
             2, // Cursor position after "A"
             contentTypeConverter,
-            view,
+            view
         );
 
         // Ensure textBetween was called starting after the trigger position
@@ -38,7 +38,7 @@ describe('monitorTriggeredText', () => {
             view,
             contentTypeConverter,
             activeTrigger,
-            'A',
+            'A'
         );
     });
 
@@ -57,7 +57,7 @@ describe('monitorTriggeredText', () => {
             activeTrigger,
             2, // Cursor position directly after trigger
             contentTypeConverter,
-            view,
+            view
         );
 
         expect(doc.textBetween).toHaveBeenCalledWith(2, 2, '');
@@ -67,7 +67,7 @@ describe('monitorTriggeredText', () => {
             view,
             contentTypeConverter,
             activeTrigger,
-            '',
+            ''
         );
     });
 
@@ -86,7 +86,7 @@ describe('monitorTriggeredText', () => {
             activeTrigger,
             11, // Cursor position at the end of "Some Text"
             contentTypeConverter,
-            view,
+            view
         );
 
         expect(doc.textBetween).toHaveBeenCalledWith(2, 11, '');
@@ -96,7 +96,7 @@ describe('monitorTriggeredText', () => {
             view,
             contentTypeConverter,
             activeTrigger,
-            'Some Text',
+            'Some Text'
         );
     });
 
@@ -115,7 +115,7 @@ describe('monitorTriggeredText', () => {
             activeTrigger,
             2, // Cursor position after the whitespace
             contentTypeConverter,
-            view,
+            view
         );
 
         expect(doc.textBetween).toHaveBeenCalledWith(2, 2, '');
@@ -125,7 +125,7 @@ describe('monitorTriggeredText', () => {
             view,
             contentTypeConverter,
             activeTrigger,
-            ' ',
+            ' '
         );
     });
 
@@ -150,28 +150,28 @@ describe('monitorTriggeredText', () => {
             activeTrigger,
             7,
             contentTypeConverter,
-            view,
+            view
         ); // '@'
         monitorTriggeredText(
             mockDoc,
             activeTrigger,
             8,
             contentTypeConverter,
-            view,
+            view
         ); // '@w'
         monitorTriggeredText(
             mockDoc,
             activeTrigger,
             9,
             contentTypeConverter,
-            view,
+            view
         ); // '@wo'
         monitorTriggeredText(
             mockDoc,
             activeTrigger,
             10,
             contentTypeConverter,
-            view,
+            view
         ); // '@wol'
 
         expect(mockDoc.textBetween).toHaveBeenNthCalledWith(1, 8, 8, '');
@@ -183,7 +183,7 @@ describe('monitorTriggeredText', () => {
             view,
             contentTypeConverter,
             activeTrigger,
-            '',
+            ''
         );
         expect(sendTriggerEvent).toHaveBeenNthCalledWith(
             2,
@@ -191,7 +191,7 @@ describe('monitorTriggeredText', () => {
             view,
             contentTypeConverter,
             activeTrigger,
-            'w',
+            'w'
         );
         expect(sendTriggerEvent).toHaveBeenNthCalledWith(
             3,
@@ -199,7 +199,7 @@ describe('monitorTriggeredText', () => {
             view,
             contentTypeConverter,
             activeTrigger,
-            'wo',
+            'wo'
         );
         expect(sendTriggerEvent).toHaveBeenNthCalledWith(
             4,
@@ -207,7 +207,7 @@ describe('monitorTriggeredText', () => {
             view,
             contentTypeConverter,
             activeTrigger,
-            'wol',
+            'wol'
         );
     });
 });

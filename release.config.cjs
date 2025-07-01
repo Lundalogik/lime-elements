@@ -1,6 +1,6 @@
 /* eslint-env node */
-const { readFileSync } = require('fs');
-const { join } = require('path');
+const { readFileSync } = require('node:fs');
+const path = require('node:path');
 
 module.exports = {
     branches: [
@@ -23,8 +23,8 @@ module.exports = {
                 preset: 'conventionalcommits',
                 writerOpts: {
                     commitPartial: readFileSync(
-                        join(__dirname, 'commit.hbs'),
-                        'utf-8',
+                        path.join(__dirname, 'commit.hbs'),
+                        'utf8'
                     ),
                 },
             },
@@ -34,7 +34,6 @@ module.exports = {
             '@semantic-release/exec',
             {
                 prepareCmd:
-                    // eslint-disable-next-line no-template-curly-in-string
                     'sed -i "s/sonar\\.projectVersion=.*/sonar.projectVersion=${nextRelease.version}/" sonar-project.properties',
             },
         ],

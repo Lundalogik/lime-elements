@@ -77,7 +77,7 @@ export class PickerPicturesExample {
     }
 
     private onChange = (
-        event: LimelPickerCustomEvent<Array<ListItem<number>>>,
+        event: LimelPickerCustomEvent<Array<ListItem<number>>>
     ) => {
         this.selectedItems = [...event.detail];
     };

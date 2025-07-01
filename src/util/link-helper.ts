@@ -1,3 +1,7 @@
+/**
+ *
+ * @param value
+ */
 export function getHref(value: string) {
     const href = value ? String(value.trim()) : '';
     if (isValid(href)) {
@@ -7,6 +11,10 @@ export function getHref(value: string) {
     return prependProtocol(href);
 }
 
+/**
+ *
+ * @param value
+ */
 export function getTarget(value: string) {
     const url = getHref(value);
     if (isRelativeLink(url)) {
@@ -16,6 +24,10 @@ export function getTarget(value: string) {
     return '_blank';
 }
 
+/**
+ *
+ * @param input
+ */
 export function prependProtocol(input: string) {
     if (!input) {
         return input;
@@ -32,6 +44,10 @@ function isValid(href: string) {
     );
 }
 
+/**
+ *
+ * @param input
+ */
 export function hasKnownProtocol(input: string) {
     const knownProtocols = [
         'ftp',
@@ -83,6 +99,4 @@ export function getRel(target?: string | null, explicitRel?: string | null) {
     if (target?.trim().toLowerCase() === '_blank') {
         return 'noopener noreferrer';
     }
-
-    return undefined;
 }
