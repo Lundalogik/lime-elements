@@ -12,6 +12,8 @@ export default {
     'callout.tip': 'Vinkki',
     'callout.caution': 'Varoitus',
     'callout.warning': 'Varoitus',
+    'collapsible-section.open': 'Avaa { header } osio',
+    'collapsible-section.close': 'Sulje { header } osio',
     'date-picker.today': 'Tänään',
     'date-picker.month.heading': 'Kuukausi',
     'date-picker.quarter.heading': 'Vuosineljännes',

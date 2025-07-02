@@ -175,28 +175,6 @@ to read on GitHub as well as in various git tools.
 
 The **footer** can contain a [closing reference to an issue](https://help.github.com/articles/closing-issues-via-commit-messages/).
 
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-
-**lime-elements** is [**commitizen**](https://commitizen.github.io/cz-cli/) friendly, and has **commitizen** installed locally. When committing, you are encouraged to use **commitizen** instead of `git commit`, to help ensure a valid commit message.
-
-To commit using **commitizen**, run either
-
-```bash
-$ npm run cm
-```
-
-or
-
-```bash
-$ npx git-cz
-```
-
-If you install **commitizen** globally (`npm i -g commitizen`), you can run:
-
-```bash
-$ git cz
-```
-
 **Please note**:
 It's perfectly fine to have temporary commits not following these rules when working on a pull request branch. It's better to make several smaller commits while developing, than to make a single commit that includes more than one change. If necessary, we'll be happy to help you formulate the final commit messages before accepting your pull request. *However*, please make sure to write *some* description of the changes in each commit.
 

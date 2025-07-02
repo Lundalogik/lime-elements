@@ -4,30 +4,12 @@ import iconCache from '../../global/icon-cache/factory';
 import { IconSize } from './icon.types';
 
 /**
- * Search for an icon and **click on it to copy its name to clipboard**.
- * <limel-example-icon-finder />
- *
- * *******
- *
  * :::important
  * To install your icon set correctly, please read the [documentation here](#/).
  * :::
  *
  * The size and color of the icon is normally set in CSS, however there are a few
  * standard sizes defined that can be used with the `size` property.
- *
- * :::note
- * There are icons included in the `@lundalogik/lime-icons8` package which are
- * designed by our designers at Lime.
- * The names of these icons start with `-lime-`, which makes them easy to
- * find using the Icon Finder tool below.
- *
- * Some of the multi-colored `-lime-` icons use our own CSS variables
- * (instead of HEX or RGB) values to visualize their colors. Thus, you must import
- * our color palette css files into your project to render the icons properly.
- * Read more about our [Color System](#/DesignGuidelines/color-system.md/)
- * and how to do this.
- * :::
  *
  * @exampleComponent limel-example-icon-name
  * @exampleComponent limel-example-icon-size

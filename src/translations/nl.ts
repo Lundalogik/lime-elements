@@ -12,6 +12,8 @@ export default {
     'callout.tip': 'Tip',
     'callout.caution': 'Waarschuwing',
     'callout.warning': 'Waarschuwing',
+    'collapsible-section.open': 'Open { header } sectie',
+    'collapsible-section.close': 'Sluit { header } sectie',
     'date-picker.today': 'Vandaag',
     'date-picker.month.heading': 'Maand',
     'date-picker.quarter.heading': 'Kwartaal',

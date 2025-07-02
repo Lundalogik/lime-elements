@@ -1,5 +1,6 @@
 import { Component, Prop, h, Element, Host } from '@stencil/core';
 import { Link } from '../../global/shared-types/link.types';
+import { getRel } from '../../util/link-helper';
 import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
 
 /**
@@ -69,6 +70,8 @@ export class Shortcut {
     }
 
     public render() {
+        const rel = getRel(this.link?.target, this.link?.rel);
+
         return (
             <Host
                 onMouseEnter={this.handleMouseEnter}
@@ -78,6 +81,7 @@ export class Shortcut {
                     aria-disabled={this.disabled}
                     href={this.link?.href}
                     target={this.link?.target}
+                    rel={rel}
                     tabindex="0"
                     aria-label={this.getAriaLabel()}
                     title={this.link?.title}

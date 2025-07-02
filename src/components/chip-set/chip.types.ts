@@ -2,6 +2,7 @@ import { Image } from '../../global/shared-types/image.types';
 import { Icon } from '../../global/shared-types/icon.types';
 import { MenuItem } from '../menu/menu.types';
 import { ListSeparator } from '../list/list-item.types';
+import { Color } from '../../global/shared-types/color.types';
 
 /**
  * @public
@@ -40,7 +41,7 @@ export interface Chip<T = any> {
      * },
      * ```
      */
-    iconFillColor?: string;
+    iconFillColor?: Color;
 
     /**
      * `title` attribute of the icon
@@ -70,7 +71,7 @@ export interface Chip<T = any> {
      * },
      * ```
      */
-    iconBackgroundColor?: string;
+    iconBackgroundColor?: Color;
 
     /**
      * Whether the chip should be removable. Not valid for `choice`.

@@ -12,6 +12,8 @@ export default {
     'callout.tip': 'Tip',
     'callout.caution': 'Advarsel',
     'callout.warning': 'Advarsel',
+    'collapsible-section.open': 'Åbn { header } sektion',
+    'collapsible-section.close': 'Luk { header } sektion',
     'date-picker.today': 'Idag',
     'date-picker.month.heading': 'Måned',
     'date-picker.quarter.heading': 'Kvartal',

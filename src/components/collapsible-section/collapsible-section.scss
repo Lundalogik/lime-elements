@@ -37,7 +37,8 @@
     );
     border-radius: var(--border-radius-of-header);
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
         background-color: var(
             --open-header-background-color,
             rgb(var(--contrast-300))
@@ -51,7 +52,8 @@
         );
         border-radius: var(--border-radius-of-header)
             var(--border-radius-of-header) 0 0;
-        &:hover {
+        &:hover,
+        &:focus-visible {
             background-color: var(
                 --open-header-background-color,
                 rgb(var(--contrast-300))
@@ -180,7 +182,9 @@ section.open {
     }
 }
 
-header:hover {
+header:hover,
+header:has(.open-close-toggle:hover),
+header:has(.open-close-toggle:focus-visible) {
     + .body {
         will-change: grid-template-rows;
 

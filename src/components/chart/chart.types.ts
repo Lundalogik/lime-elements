@@ -1,3 +1,5 @@
+import { Color } from '../../global/shared-types/color.types';
+
 /**
  * Chart component props.
  * @beta
@@ -25,7 +27,7 @@ export interface ChartItem<
      * It is recommended to use distinct colors for each item,
      * and make sure there is enough contrast between colors of adjacent items.
      */
-    color?: string;
+    color?: Color;
 
     /**
      * When set to `true`, the item will become clickable,

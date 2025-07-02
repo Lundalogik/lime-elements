@@ -55,7 +55,7 @@ export class FileDropzoneExample {
     }
 
     private handleDrop = (event: CustomEvent<FileInfo[]>) => {
-        this.files = [...this.files.concat(event.detail)];
+        this.files = this.files.concat(event.detail);
     };
 
     private setDisabled = (event: CustomEvent<boolean>) => {

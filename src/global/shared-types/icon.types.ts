@@ -1,3 +1,5 @@
+import { Color } from './color.types';
+
 /**
  * This interface is used to specify which icon to use in many components,
  * along with related properties, like color.
@@ -12,12 +14,12 @@ export interface Icon {
     /**
      * Color of the icon.
      */
-    color?: string;
+    color?: Color;
 
     /**
      * Background color of the icon.
      */
-    backgroundColor?: string;
+    backgroundColor?: Color;
 
     /**
      * Used primarily to improve accessibility for users who

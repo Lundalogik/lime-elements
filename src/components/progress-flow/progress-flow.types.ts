@@ -1,3 +1,4 @@
+import { Color } from '../../global/shared-types/color.types';
 import { ListItem } from '../list/list-item.types';
 
 /**
@@ -14,12 +15,12 @@ export interface FlowItem extends ListItem {
     /**
      * Background color of selected step.
      */
-    selectedColor?: string;
+    selectedColor?: Color;
 
     /**
      * Background color of the step, when it is passed.
      */
-    passedColor?: string;
+    passedColor?: Color;
 
     /**
      * Fill color of the icon on the step,
@@ -35,5 +36,5 @@ export interface FlowItem extends ListItem {
      * },
      * ```
      */
-    iconColor?: string;
+    iconColor?: Color;
 }

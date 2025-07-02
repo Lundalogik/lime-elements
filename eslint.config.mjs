@@ -76,13 +76,6 @@ export default [
             semi: ['error', 'always'],
             'prettier/prettier': 'error',
 
-            '@typescript-eslint/no-unused-vars': [
-                'error',
-                {
-                    varsIgnorePattern: '^h$',
-                },
-            ],
-
             '@typescript-eslint/array-type': [
                 'error',
                 {

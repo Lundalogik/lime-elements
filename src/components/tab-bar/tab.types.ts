@@ -1,3 +1,4 @@
+import { Color } from '../../global/shared-types/color.types';
 import { Icon } from '../../global/shared-types/icon.types';
 
 /**
@@ -38,7 +39,7 @@ export interface Tab {
      * },
      * ```
      */
-    iconColor?: string;
+    iconColor?: Color;
 
     /**
      * Shows a badge within the tab with a specified label
