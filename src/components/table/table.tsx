@@ -46,6 +46,7 @@ const FIRST_PAGE = 1;
  * @exampleComponent limel-example-table-header-menu
  * @exampleComponent limel-example-table-movable-columns
  * @exampleComponent limel-example-table-sorting-disabled
+ * @exampleComponent limel-example-table-pagination
  * @exampleComponent limel-example-table-local
  * @exampleComponent limel-example-table-remote
  * @exampleComponent limel-example-table-activate-row
@@ -186,6 +187,14 @@ export class Table {
      */
     @Prop({ reflect: true })
     public language: Languages = 'en';
+
+    /**
+     * Location of the pagination controls.
+     * - `top`: Display pagination controls at the top of the table
+     * - `bottom`: Display pagination controls at the bottom of the table (default)
+     */
+    @Prop({ reflect: true })
+    public paginationLocation: 'top' | 'bottom' = 'bottom';
 
     /**
      * Emitted when `mode` is `remote` and the table is loading new data. The
@@ -896,6 +905,7 @@ export class Table {
             <Host
                 class={{
                     'has-low-density': this.layout === 'lowDensity',
+                    'has-pagination-on-top': this.paginationLocation === 'top',
                 }}
             >
                 <div
