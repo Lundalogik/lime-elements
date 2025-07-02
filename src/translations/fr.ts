@@ -12,12 +12,16 @@ export default {
     'callout.tip': 'Conseil',
     'callout.caution': 'Prudence',
     'callout.warning': 'Avertissement',
+    'collapsible-section.open': 'Ouvrir la section { header }',
+    'collapsible-section.close': 'Fermer la section { header }',
     'date-picker.today': "Aujourd'hui",
     'date-picker.month.heading': 'Mois',
     'date-picker.quarter.heading': 'Trimestre',
     'date-picker.year.heading': 'Année',
     'chip-set.clear-all': 'Tout effacer',
     'snackbar.dismiss': 'Fermer',
+    'file.drag-and-drop-tips':
+        'Glissez-déposez votre fichier ici, ou cliquez pour parcourir.',
     'file-viewer.message.unsupported-filetype':
         "Impossible d'afficher ce fichier!",
     'file-viewer.download': 'Télécharger',

@@ -12,12 +12,16 @@ export default {
     'callout.tip': 'Vinkki',
     'callout.caution': 'Varoitus',
     'callout.warning': 'Varoitus',
+    'collapsible-section.open': 'Avaa { header } osio',
+    'collapsible-section.close': 'Sulje { header } osio',
     'date-picker.today': 'Tänään',
     'date-picker.month.heading': 'Kuukausi',
     'date-picker.quarter.heading': 'Vuosineljännes',
     'date-picker.year.heading': 'Vuosi',
     'chip-set.clear-all': 'Tyhjennä kaikki',
     'snackbar.dismiss': 'Sulje',
+    'file.drag-and-drop-tips':
+        'Vedä & pudota tiedostosi tähän, tai napsauta selataksesi.',
     'file-viewer.message.unsupported-filetype':
         'Tätä tiedostoa ei voi näyttää!',
     'file-viewer.download': 'Ladata',

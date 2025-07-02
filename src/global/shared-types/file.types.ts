@@ -1,4 +1,5 @@
 import { Icon } from '../../global/shared-types/icon.types';
+import { Color } from './color.types';
 
 /**
  * @public
@@ -57,7 +58,7 @@ export interface FileInfo {
      * },
      * ```
      */
-    iconColor?: string;
+    iconColor?: Color;
 
     /**
      * Background color of the icon. Overrides `--icon-background-color`.
@@ -72,7 +73,7 @@ export interface FileInfo {
      * },
      * ```
      */
-    iconBackgroundColor?: string;
+    iconBackgroundColor?: Color;
 
     /**
      * URL where the file can be downloaded. Note that this is optional. If the

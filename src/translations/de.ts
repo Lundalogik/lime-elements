@@ -12,12 +12,16 @@ export default {
     'callout.tip': 'Tipp',
     'callout.caution': 'Vorsicht',
     'callout.warning': 'Warnung',
+    'collapsible-section.open': '{ header } Bereich öffnen',
+    'collapsible-section.close': '{ header } Bereich schließen',
     'date-picker.today': 'Heute',
     'date-picker.month.heading': 'Monat',
     'date-picker.quarter.heading': 'Quartal',
     'date-picker.year.heading': 'Jahr',
     'chip-set.clear-all': 'Alles löschen',
     'snackbar.dismiss': 'Schließen',
+    'file.drag-and-drop-tips':
+        'Ziehen Sie Ihre Datei hierher oder klicken Sie, um zu durchsuchen.',
     'file-viewer.message.unsupported-filetype':
         'Diese Datei kann nicht angezeigt werden!',
     'file-viewer.download': 'Herunterladen',

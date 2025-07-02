@@ -1,5 +1,6 @@
 import { ListSeparator } from '../../global/shared-types/separator.types';
 import { Icon } from '../../global/shared-types/icon.types';
+import { Color } from '../../global/shared-types/color.types';
 
 /**
  * The direction in which the menu should open.
@@ -93,7 +94,7 @@ export interface MenuItem<T = any> {
      * },
      * ```
      */
-    iconColor?: string;
+    iconColor?: Color;
 
     /**
      * True if the menu item should be selected.

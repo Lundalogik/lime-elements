@@ -23,7 +23,7 @@ export class CardImageExample {
         const image = {
             src: 'https://unsplash.it/800/800/?random',
             alt: 'Remember to provide a meaningful alt text, to improve accessibility',
-            loading: 'lazy' as 'lazy',
+            loading: 'lazy' as const,
         };
 
         return (

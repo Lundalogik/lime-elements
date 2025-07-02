@@ -21,10 +21,10 @@
     flex-direction: var(--limel-menu-surface-flex-direction, row);
     max-height: inherit;
     position: relative;
-    --mdc-menu-max-width: var(
-        --menu-surface-width,
-        min(calc(100vw - 2rem), 20rem)
-    );
+    --mdc-menu-max-width: calc(
+        100vw - 2rem
+    ); // just overriding MDC's pixel-based default (`calc(100vw - 32px)`) with a `rem` value
+    width: var(--menu-surface-width, auto);
     background-color: var(--lime-elevated-surface-background-color);
 }
 

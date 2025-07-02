@@ -20,7 +20,7 @@ import {
 } from '../../util/keycodes';
 import { InputType } from '../input-field/input-field.types';
 import { ListItem } from '../list/list-item.types';
-import { getHref, getTarget } from '../../util/link-helper';
+import { getHref, getTarget, getRel } from '../../util/link-helper';
 import { JSXBase } from '@stencil/core/internal';
 import { createRandomString } from '../../util/random-string';
 import { LimelListCustomEvent } from '../../components';
@@ -29,6 +29,7 @@ import { globalConfig } from '../../global/config';
 interface LinkProperties {
     href: string;
     target?: string;
+    rel?: string;
 }
 
 const CHANGE_EVENT_DEBOUNCE_TIMEOUT = 300;
@@ -691,6 +692,7 @@ export class InputField {
             default:
                 props.href = getHref(this.value);
                 props.target = getTarget(this.value);
+                props.rel = getRel(props.target);
         }
 
         return props;
@@ -876,7 +878,7 @@ export class InputField {
                     open={this.showCompletions}
                     allowClicksElement={this.limelInputField}
                     style={{
-                        '--mdc-menu-min-width': '100%',
+                        '--menu-surface-width': '100%',
                         'max-height': 'inherit',
                         display: 'flex',
                     }}

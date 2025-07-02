@@ -1,7 +1,8 @@
-import { Component, Prop, h, Element, Host } from '@stencil/core';
+import { Component, Prop, h, Element, Host, State } from '@stencil/core';
 import { InfoTileProgress } from '../info-tile/info-tile.types';
 import { Link } from '../../global/shared-types/link.types';
 import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
+import { getRel } from '../../util/link-helper';
 
 /**
  * This component can be used on places such as a start page or a dashboard.
@@ -16,6 +17,7 @@ import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
  * @exampleComponent limel-example-info-tile-badge
  * @exampleComponent limel-example-info-tile-progress
  * @exampleComponent limel-example-info-tile-loading
+ * @exampleComponent limel-example-info-tile-primary-slot
  * @exampleComponent limel-example-info-tile-styling
  */
 @Component({
@@ -105,6 +107,12 @@ export class InfoTile {
     @Element()
     private host: HTMLElement;
 
+    /**
+     * `true` when something is assigned to the `primary` slot
+     */
+    @State()
+    private hasPrimarySlot = false;
+
     private handleMouseEnter: () => void;
     private handleMouseLeave: () => void;
 
@@ -114,6 +122,7 @@ export class InfoTile {
         );
         this.handleMouseEnter = handleMouseEnter;
         this.handleMouseLeave = handleMouseLeave;
+        this.updateHasPrimarySlotContent();
     }
 
     public render() {
@@ -130,16 +139,19 @@ export class InfoTile {
             this.checkProps(this?.link?.title);
 
         const link = !this.disabled ? this.link?.href : '#';
+        const rel = getRel(this.link?.target, this.link?.rel);
 
         return (
             <Host
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
+                class={{ 'has-primary-slot-content': this.hasPrimarySlot }}
             >
                 <a
                     title={this.link?.title}
                     href={link}
                     target={this.link?.target}
+                    rel={rel}
                     tabindex="0"
                     aria-label={extendedAriaLabel}
                     aria-disabled={this.disabled}
@@ -147,13 +159,14 @@ export class InfoTile {
                     aria-live="polite"
                     class={{
                         'is-clickable': !!this.link?.href && !this.disabled,
-                        'has-circular-progress':
-                            !!this.progress?.value ||
-                            this.progress?.value === 0,
                     }}
                 >
                     {this.renderIcon()}
                     {this.renderProgress()}
+                    <slot
+                        name="primary"
+                        onSlotchange={this.updateHasPrimarySlotContent}
+                    />
                     <div class="value-group">
                         {this.renderPrefix()}
                         <div class="value-and-suffix">
@@ -213,21 +226,32 @@ export class InfoTile {
         }
     };
 
+    private updateHasPrimarySlotContent = (e?: Event) => {
+        const slot =
+            (e?.target as HTMLSlotElement) ??
+            this.host.shadowRoot.querySelector('slot[name="primary"]');
+        this.hasPrimarySlot = slot && slot.assignedElements().length > 0;
+    };
+
     private renderProgress = () => {
-        if (this.progress?.value || this.progress?.value === 0) {
-            return (
-                <limel-circular-progress
-                    class="progress"
-                    prefix={this.progress.prefix}
-                    value={this.progress.value}
-                    suffix={this.progress.suffix}
-                    maxValue={this.progress.maxValue}
-                    displayPercentageColors={
-                        this.progress.displayPercentageColors
-                    }
-                />
-            );
+        if (this.hasPrimarySlot) {
+            return;
         }
+
+        if (!this.progress?.value && this.progress?.value !== 0) {
+            return;
+        }
+
+        return (
+            <limel-circular-progress
+                class="progress"
+                prefix={this.progress.prefix}
+                value={this.progress.value}
+                suffix={this.progress.suffix}
+                maxValue={this.progress.maxValue}
+                displayPercentageColors={this.progress.displayPercentageColors}
+            />
+        );
     };
 
     private renderLabel = () => {

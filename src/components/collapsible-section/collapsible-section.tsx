@@ -13,6 +13,14 @@ import {
     removeEnterClickable,
 } from '../../util/make-enter-clickable';
 import { createRandomString } from '../../util/random-string';
+import { Icon } from '../../global/shared-types/icon.types';
+import {
+    getIconColor,
+    getIconName,
+    getIconTitle,
+} from '../icon/get-icon-props';
+import translate from '../../global/translations';
+import { Languages } from '../date-picker/date.types';
 
 /**
  * A collapsible section can be used to group related content together
@@ -32,6 +40,7 @@ import { createRandomString } from '../../util/random-string';
  * @exampleComponent limel-example-collapsible-section-external-control
  * @exampleComponent limel-example-collapsible-section-with-slider
  * @exampleComponent limel-example-collapsible-section-invalid
+ * @exampleComponent limel-example-collapsible-section-icon
  * @exampleComponent limel-example-collapsible-section-css-props
  */
 @Component({
@@ -53,6 +62,12 @@ export class CollapsibleSection {
     public header: string;
 
     /**
+     * Icon to display in the header of the section
+     */
+    @Prop()
+    public icon?: string | Icon;
+
+    /**
      * `true` if the section is invalid, `false` if valid.
      * This can be used to indicate that the content inside the section is invalid.
      */
@@ -64,6 +79,13 @@ export class CollapsibleSection {
      */
     @Prop()
     public actions: Action[];
+
+    /**
+     * Defines the language for translations.
+     * Will translate the translatable strings on the components.
+     */
+    @Prop({ reflect: true })
+    public language: Languages = 'en';
 
     /**
      * Emitted when the section is expanded
@@ -87,6 +109,7 @@ export class CollapsibleSection {
     private host: HTMLElement;
 
     private bodyId = createRandomString();
+    private headingId = createRandomString();
 
     public componentDidRender() {
         const button = this.host.shadowRoot.querySelector(
@@ -109,23 +132,21 @@ export class CollapsibleSection {
             <section
                 class={`${this.isOpen ? 'open' : ''}`}
                 aria-invalid={this.invalid}
+                aria-labelledby={this.header ? this.headingId : null}
             >
                 <header>
                     <button
                         class="open-close-toggle"
                         onClick={this.onClick}
                         aria-controls={this.bodyId}
+                        aria-expanded={this.isOpen ? 'true' : 'false'}
+                        aria-label={this.getCollapsibleSectionAriaLabel()}
+                        type="button"
                     />
-                    <div class="expand-icon">
-                        <div class="line" />
-                        <div class="line" />
-                        <div class="line" />
-                        <div class="line" />
-                    </div>
-                    <h2 class="title mdc-typography mdc-typography--headline2">
-                        {this.header}
-                    </h2>
-                    <div class="divider-line" />
+                    {this.renderExpandCollapseSign()}
+                    {this.renderIcon()}
+                    {this.renderHeading()}
+                    <div class="divider-line" role="presentation" />
                     {this.renderHeaderSlot()}
                     {this.renderActions()}
                 </header>
@@ -133,6 +154,7 @@ export class CollapsibleSection {
                     class="body"
                     aria-hidden={String(!this.isOpen)}
                     id={this.bodyId}
+                    role="region"
                 >
                     <slot />
                 </div>
@@ -154,6 +176,53 @@ export class CollapsibleSection {
         } else {
             this.close.emit();
         }
+    };
+
+    private renderExpandCollapseSign = () => {
+        return (
+            <div class="expand-icon" role="presentation" aria-hidden="true">
+                <div class="line" />
+                <div class="line" />
+                <div class="line" />
+                <div class="line" />
+            </div>
+        );
+    };
+
+    private renderIcon = () => {
+        if (!this.icon) {
+            return;
+        }
+
+        const name = getIconName(this.icon);
+        const color = getIconColor(this.icon);
+        const title = getIconTitle(this.icon);
+
+        return (
+            <limel-icon
+                name={name}
+                aria-label={title}
+                aria-hidden={title ? null : 'true'}
+                style={{
+                    color: `${color}`,
+                }}
+            />
+        );
+    };
+
+    private renderHeading = () => {
+        if (!this.header) {
+            return;
+        }
+
+        return (
+            <h2
+                class="title mdc-typography mdc-typography--headline2"
+                id={this.headingId}
+            >
+                {this.header}
+            </h2>
+        );
     };
 
     private renderActions = () => {
@@ -186,5 +255,19 @@ export class CollapsibleSection {
     private handleActionClick = (action: Action) => (event: MouseEvent) => {
         event.stopPropagation();
         this.action.emit(action);
+    };
+
+    private getCollapsibleSectionAriaLabel = (): string => {
+        const heading = this.header ? `"${this.header}"` : ' ';
+
+        if (!this.isOpen) {
+            return translate.get('collapsible-section.open', this.language, {
+                header: heading,
+            });
+        }
+
+        return translate.get('collapsible-section.close', this.language, {
+            header: heading,
+        });
     };
 }

@@ -1,3 +1,102 @@
+## [38.18.0](https://github.com/Lundalogik/lime-elements/compare/v38.17.1...v38.18.0) (2025-06-26)
+
+
+### Features
+
+
+* **color:** add autocomplete for defined colors ([7872ad8](https://github.com/Lundalogik/lime-elements/commit/7872ad870e0eeb122b0d4945d417f39f2101248e))
+
+## [38.17.1](https://github.com/Lundalogik/lime-elements/compare/v38.17.0...v38.17.1) (2025-06-26)
+
+
+### Bug Fixes
+
+
+* **markdown:** better render nested `blockquote`s ([eda9751](https://github.com/Lundalogik/lime-elements/commit/eda97518d13aa1cffc7c70ef6d441c47595817a9))
+* **markdown:** improve how `blockquote`s are visualized ([97d753f](https://github.com/Lundalogik/lime-elements/commit/97d753fdb599af4e696545b9fcf8230c6d7d7330))
+
+## [38.17.0](https://github.com/Lundalogik/lime-elements/compare/v38.16.2...v38.17.0) (2025-06-24)
+
+
+### Features
+
+
+* **link.types:** add `rel` as a prop ([204346b](https://github.com/Lundalogik/lime-elements/commit/204346b94acb9aee4dc1b07d9ef5454c60d8613c))
+
+### Bug Fixes
+
+
+* **chip:** prevent potential security vulnerability for `window.opener` attacks ([6e08912](https://github.com/Lundalogik/lime-elements/commit/6e089129f03a5fcddb9ca5a03575e8b76367d203))
+* **info-tile:** prevent potential security vulnerability for `window.opener` attacks ([9f8c8b9](https://github.com/Lundalogik/lime-elements/commit/9f8c8b978877fc852f4c8d1113f8a98db1708284))
+* **input-field:** prevent potential security vulnerability for `window.opener` attacks ([3db511d](https://github.com/Lundalogik/lime-elements/commit/3db511dc92c2fc12a1472ad17a905f7fdac4a485))
+* **shortcut:** prevent potential security vulnerability for `window.opener` attacks ([cd1d9b5](https://github.com/Lundalogik/lime-elements/commit/cd1d9b587fa5111a5c67f6efc9156fdeb662ec9c))
+
+## [38.16.2](https://github.com/Lundalogik/lime-elements/compare/v38.16.1...v38.16.2) (2025-06-24)
+
+
+### Bug Fixes
+
+
+* **collapsible-section:** animate the expand / shrink icon when focused via keyboard ([37e0997](https://github.com/Lundalogik/lime-elements/commit/37e0997d7cee6e556a4dbc3b24a6ce79d8520777))
+* **collapsible-section:** better visualize the expand icon ([2578d5a](https://github.com/Lundalogik/lime-elements/commit/2578d5abf9b5f75e22a60a8bd9784d5c76600262))
+* **collapsible-section:** improve accessibility, using `aria-label` for the toggle button ([626f4bc](https://github.com/Lundalogik/lime-elements/commit/626f4bc6f04eb08ab4e7d4b814cb80f8ffa3f1db))
+* **collapsible-section:** improve accessibility, using various `aria` attributes ([0369744](https://github.com/Lundalogik/lime-elements/commit/0369744f28fd13c0e7b471d6e6b5f233ff6991fe))
+
+## [38.16.1](https://github.com/Lundalogik/lime-elements/compare/v38.16.0...v38.16.1) (2025-06-12)
+
+
+### Bug Fixes
+
+
+* **menu:** ensure `surfaceWidth` respects long items' width, when set to `inherit-from-items` ([9a58a31](https://github.com/Lundalogik/lime-elements/commit/9a58a31971b68b1ac001b5799c833f6f8f01c855))
+
+## [38.16.0](https://github.com/Lundalogik/lime-elements/compare/v38.15.0...v38.16.0) (2025-06-11)
+
+
+### Features
+
+
+* **info-tile:** add a primary `slot` ([a8d36ef](https://github.com/Lundalogik/lime-elements/commit/a8d36ef4b7ae616b19c46f2b7ccde19fa2390343))
+
+## [38.15.0](https://github.com/Lundalogik/lime-elements/compare/v38.14.0...v38.15.0) (2025-06-10)
+
+
+### Features
+
+
+* **collapsible-section:** add icon prop ([0843fbf](https://github.com/Lundalogik/lime-elements/commit/0843fbfb976070fe3a80cb1a027d0af1dc15e4c9))
+
+### Bug Fixes
+
+
+* **collapsible-section:** improve accessibility ([fa1b6a8](https://github.com/Lundalogik/lime-elements/commit/fa1b6a818aa01600c44d8c0b7289069ea2f2539f))
+* **collapsible-section:** prevent empty headings when heading is unspecified ([344d63a](https://github.com/Lundalogik/lime-elements/commit/344d63a95e9e20b268b1316133ddde30d34f24a9))
+
+## [38.14.0](https://github.com/Lundalogik/lime-elements/compare/v38.13.7...v38.14.0) (2025-06-09)
+
+
+### Features
+
+
+* **chip:** add custom css prop for border in readonly mode ([305daaa](https://github.com/Lundalogik/lime-elements/commit/305daaaf0e618038fd5be7ded72ef55fc2193af2))
+
+## [38.13.7](https://github.com/Lundalogik/lime-elements/compare/v38.13.6...v38.13.7) (2025-06-09)
+
+
+### Bug Fixes
+
+
+* **file:** add missing translations for dropzone tips ([edb9203](https://github.com/Lundalogik/lime-elements/commit/edb920320a945466f48b3dfcab9911985772da15)), closes [#3570](https://github.com/Lundalogik/lime-elements/issues/3570)
+* **file:** improve Dutch translation of dropzone hint ([c679376](https://github.com/Lundalogik/lime-elements/commit/c679376bf0a0562ddd17a74ca29e42ce50975b0d))
+
+## [38.13.6](https://github.com/Lundalogik/lime-elements/compare/v38.13.5...v38.13.6) (2025-06-04)
+
+
+### Bug Fixes
+
+
+* **card:** avoid rendering an empty markdown ([7b16cf7](https://github.com/Lundalogik/lime-elements/commit/7b16cf70170df070dd2f19ac0563aa1738d6f111))
+
 ## [38.13.5](https://github.com/Lundalogik/lime-elements/compare/v38.13.4...v38.13.5) (2025-06-02)
 
 

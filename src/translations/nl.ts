@@ -12,12 +12,16 @@ export default {
     'callout.tip': 'Tip',
     'callout.caution': 'Waarschuwing',
     'callout.warning': 'Waarschuwing',
+    'collapsible-section.open': 'Open { header } sectie',
+    'collapsible-section.close': 'Sluit { header } sectie',
     'date-picker.today': 'Vandaag',
     'date-picker.month.heading': 'Maand',
     'date-picker.quarter.heading': 'Kwartaal',
     'date-picker.year.heading': 'Jaar',
     'chip-set.clear-all': 'Alles wissen',
     'snackbar.dismiss': 'Sluiten',
+    'file.drag-and-drop-tips':
+        'Sleep een bestand hierheen of klik om te bladeren.',
     'file-viewer.message.unsupported-filetype':
         'Kan dit bestand niet weergeven!',
     'file-viewer.download': 'Downloaden',

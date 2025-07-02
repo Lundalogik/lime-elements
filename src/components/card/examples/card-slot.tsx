@@ -14,7 +14,7 @@ export class CardSlotExample {
         const image = {
             src: 'https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?q=80&w=2778&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
             alt: 'A picture of a girl, listening to music with headphones',
-            loading: 'lazy' as 'lazy',
+            loading: 'lazy' as const,
         };
 
         return (
