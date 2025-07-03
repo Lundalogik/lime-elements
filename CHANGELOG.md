@@ -1,3 +1,16 @@
+## [38.19.0](https://github.com/Lundalogik/lime-elements/compare/v38.18.0...v38.19.0) (2025-07-03)
+
+
+### Features
+
+
+* **chip:** add `size` prop ([bb08627](https://github.com/Lundalogik/lime-elements/commit/bb08627a7e21eef330b6c547f3e74e639388b876))
+
+### Bug Fixes
+
+
+* **table:** render chips inside table cells smaller, to fit into the cell ([41ad788](https://github.com/Lundalogik/lime-elements/commit/41ad7884c3f03d090f4419b21a8fc7261319a5ab))
+
 ## [38.18.0](https://github.com/Lundalogik/lime-elements/compare/v38.17.1...v38.18.0) (2025-06-26)
 
 
