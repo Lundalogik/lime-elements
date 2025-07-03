@@ -271,6 +271,7 @@ export namespace Components {
         "readonly": boolean;
         "removable": boolean;
         "selected": boolean;
+        "size": 'small' | 'default';
         "text": string;
         // @beta
         "type"?: ChipType;
@@ -1348,6 +1349,7 @@ export namespace JSX {
         "readonly"?: boolean;
         "removable"?: boolean;
         "selected"?: boolean;
+        "size"?: 'small' | 'default';
         "text"?: string;
         // @beta
         "type"?: ChipType;

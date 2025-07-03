@@ -79,6 +79,7 @@ interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {
  * @exampleComponent limel-example-chip-menu
  * @exampleComponent limel-example-chip-loading
  * @exampleComponent limel-example-chip-progress
+ * @exampleComponent limel-example-chip-size
  * @exampleComponent limel-example-chip-readonly-border
  * @exampleComponent limel-example-chip-aria-role
  */
@@ -188,6 +189,12 @@ export class Chip implements ChipInterface {
      */
     @Prop({ reflect: true })
     public identifier?: number | string = crypto.randomUUID();
+
+    /**
+     * Defines the size of the chip.
+     */
+    @Prop({ reflect: true })
+    public size: 'small' | 'default' = 'default';
 
     /**
      * When provided, the chip will render an ellipsis menu with the supplied items.

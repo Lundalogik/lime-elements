@@ -7,12 +7,17 @@
 */
 
 :host(limel-chip) {
-    --limel-chip-height: 1.75rem;
+    --limel-chip-height: var(--limel-chip-size, 1.75rem);
     --limel-chip-gap: 0.5rem;
     isolation: isolate;
     display: inline-flex;
     align-items: center;
     min-width: 0;
+}
+
+:host(limel-chip[size='small']) {
+    --limel-chip-height: 1.5rem;
+    --limel-chip-gap: 0.25rem;
 }
 
 * {
@@ -33,7 +38,11 @@
     height: var(--limel-chip-height);
 
     border-radius: var(--limel-chip-height);
-    font-size: 0.875rem;
+    font-size: clamp(
+        0.8125rem /* 13px */,
+        calc(var(--limel-chip-height) - 0.875rem /* 14px */),
+        1rem
+    );
     padding: 0 0.125rem;
 
     &:has(limel-icon),
