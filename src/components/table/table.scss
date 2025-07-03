@@ -30,6 +30,7 @@ $height-of-aggregations-row: 1.5rem;
     --table-arrow-color--active: var(--mdc-theme-primary);
 
     --table-text-color: var(--mdc-theme-text-primary-on-background);
+    --limel-chip-size: 1.25rem;
 }
 
 @import './partial-styles/_table-main-layout';
@@ -162,6 +163,10 @@ $height-of-aggregations-row: 1.5rem;
     font-weight: bold;
     font-size: functions.pxToRem(20);
     pointer-events: none;
+}
+
+limel-chip {
+    transform: translateY(-0.15rem);
 }
 
 @import './partial-styles/tabulator-arrow';
