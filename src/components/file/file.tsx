@@ -47,6 +47,7 @@ const DEFAULT_FILE_CHIP: Chip = {
  *
  * @exampleComponent limel-example-file
  * @exampleComponent limel-example-file-custom-icon
+ * @exampleComponent limel-example-file-menu-items
  * @exampleComponent limel-example-file-accepted-types
  * @exampleComponent limel-example-file-composite
  */
@@ -172,6 +173,7 @@ export class File {
                     backgroundColor: getFileBackgroundColor(this.value),
                 },
                 href: this.value.href,
+                menuItems: this.value.menuItems,
             },
         ];
     }
