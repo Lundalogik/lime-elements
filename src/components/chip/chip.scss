@@ -183,6 +183,7 @@ limel-badge {
     @include mixins.truncate-text;
     line-height: 1.2;
     padding: 0 0.5rem;
+    font-size: var(--limel-theme-default-font-size);
 }
 
 .trailing-button {

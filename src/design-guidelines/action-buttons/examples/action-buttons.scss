@@ -23,7 +23,7 @@ $dialog-border-radius: 0.75rem;
     }
 
     p {
-        font-size: 0.875rem;
+        font-size: var(--limel-theme-default-font-size);
         opacity: 0.7;
         align-self: flex-start;
         padding: 0 0.75rem;

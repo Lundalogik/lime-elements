@@ -73,7 +73,7 @@ $limel-progress-flow-divider: 1;
     width: 100%;
     height: var(--step-height);
     border: none;
-    font-size: functions.pxToRem(14);
+    font-size: var(--limel-theme-default-font-size);
 
     &.disabled {
         cursor: not-allowed;

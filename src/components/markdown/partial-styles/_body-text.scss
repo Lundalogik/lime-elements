@@ -10,7 +10,7 @@
 
 p,
 li {
-    font-size: 0.875rem;
+    font-size: var(--limel-theme-default-font-size);
     word-break: break-word;
 }
 

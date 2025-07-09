@@ -26,7 +26,7 @@
     display: inline-grid;
     grid-auto-flow: column;
     margin: functions.pxToRem(2) !important;
-    font-size: functions.pxToRem(14);
+    font-size: var(--limel-theme-default-font-size);
 
     &:not(:last-child) {
         &:after {

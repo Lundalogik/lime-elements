@@ -75,13 +75,13 @@
 
         flex-grow: 1;
         color: var(--limel-theme-on-surface-color);
-        font-size: var(--mdc-typography-subtitle1-font-size, 0.875rem);
+        font-size: 0.875rem;
     }
 
     .description {
         margin: 0;
         color: var(--limel-theme-text-secondary-on-background-color);
-        font-size: var(--mdc-typography-body2-font-size, 0.8125rem);
+        font-size: 0.8125rem;
         line-height: 1.5;
     }
 

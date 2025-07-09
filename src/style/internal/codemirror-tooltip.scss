@@ -11,7 +11,9 @@
     );
 
     font-family: monospace;
-    font-size: 0.875rem; // 14px, like the default code editor's font size
+    font-size: var(
+        --limel-theme-default-font-size
+    ); // 14px, like the default code editor's font size
     white-space: pre-wrap;
     // overflow: hidden; // Why `hidden`?
 
