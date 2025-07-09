@@ -1,4 +1,3 @@
-@use '../../style/internal/lime-typography';
 @use '../../style/internal/shared_input-select-picker';
 
 /**
@@ -9,8 +8,6 @@
  * @prop --form-background-color-of-even-rows: Background of even rows in the form, when layout type is `row`. Defaults to `transparent`.
  * @prop --form-background-color-of-odd-rows:Background of odd rows in the form, when layout type is `row`. Defaults to `--contrast-200`.
  */
-
-@include lime-typography.core-styles;
 
 .form-group {
     min-width: 0;
