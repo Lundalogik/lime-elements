@@ -1,8 +1,6 @@
 @use '../../style/functions';
 @use '../../style/mixins';
 
-@use '../../style/internal/lime-theme';
-
 :host {
     display: inline-block;
 }
