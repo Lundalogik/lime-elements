@@ -8,7 +8,7 @@
 }
 
 text {
-    font-size: 0.875rem; // 14px
+    font-size: var(--limel-theme-default-font-size); // 14px
     line-height: 1.25;
     display: flex;
     column-gap: 1rem;

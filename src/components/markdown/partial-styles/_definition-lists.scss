@@ -12,7 +12,7 @@ dl {
     dt,
     dd {
         padding: $border-radius 0.5rem;
-        font-size: 0.875rem;
+        font-size: var(--limel-theme-default-font-size);
         margin: 0;
 
         &:nth-of-type(even) {

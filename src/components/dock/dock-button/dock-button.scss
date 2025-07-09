@@ -21,7 +21,7 @@
     height: var(--dock-item-height);
 
     border-radius: functions.pxToRem(6);
-    font-size: functions.pxToRem(14);
+    font-size: var(--limel-theme-default-font-size);
     padding: 0 0.5rem;
     min-width: var(--dock-item-height);
 

@@ -24,7 +24,7 @@
     background-color: rgba(var(--contrast-300), 0.9);
     color: rgb(var(--contrast-1100));
 
-    font-size: 0.875rem;
+    font-size: var(--limel-theme-default-font-size);
 }
 
 iframe {

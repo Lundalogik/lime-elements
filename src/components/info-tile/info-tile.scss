@@ -163,7 +163,7 @@ slot[name='primary'] {
         var(--label-max-size)
     );
     @supports not (container-type: size) {
-        font-size: 0.875rem;
+        font-size: var(--limel-theme-default-font-size);
     }
 }
 

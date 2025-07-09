@@ -1,6 +1,5 @@
 // These are exported for external use.
 
-@use '../style/internal/lime-typography';
 @use '../style/_theme-color-variables';
 @use '../style/colors.scss';
 @use '../style/shadows.scss';
@@ -25,6 +24,9 @@
     // background color which interferes with this lightened surface,
     // or provides a poor contrast.
     --lime-elevated-surface-background-color: rgb(var(--contrast-100));
+
+    // The default font size for Lime Elements components.
+    --limel-theme-default-font-size: 0.875rem; //14px
 }
 
 // ⚠️ This section below is commented out.

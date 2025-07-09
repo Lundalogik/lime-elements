@@ -29,7 +29,7 @@
         display: inline-block;
         vertical-align: bottom;
 
-        font-size: 0.875rem; // Same as `<p>`s
+        font-size: var(--limel-theme-default-font-size); // Same as `<p>`s
         margin: 0 0.25rem 0 0;
         letter-spacing: normal;
         font-weight: 500;
