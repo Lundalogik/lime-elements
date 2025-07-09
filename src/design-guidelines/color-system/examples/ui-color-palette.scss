@@ -18,7 +18,7 @@
 .usage {
     ul {
         padding-inline-start: functions.pxToRem(16);
-        font-size: functions.pxToRem(14);
+        font-size: var(--limel-theme-default-font-size);
         color: rgb(var(--contrast-1300));
         margin: 0 0 functions.pxToRem(16) 0;
     }

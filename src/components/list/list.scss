@@ -46,8 +46,14 @@ $list-mdc-list-item: 0;
     color: var(--limel-theme-text-primary-on-background-color);
 }
 
+.mdc-deprecated-list-item__text,
+.mdc-deprecated-list-item__primary-text {
+    font-size: var(--limel-theme-default-font-size);
+}
+
 .mdc-deprecated-list-item__secondary-text {
     opacity: 0.6;
+    font-size: 0.8125rem; //13px
 }
 
 .mdc-deprecated-list-item--disabled {

@@ -37,6 +37,8 @@ $tab-separator-background-color: rgb(var(--contrast-600));
     font-family: inherit;
     font-weight: 400;
     letter-spacing: normal;
+    font-size: var(--limel-theme-default-font-size);
+    text-transform: none;
 }
 
 .mdc-tab-indicator {

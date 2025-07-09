@@ -1,8 +1,6 @@
 @use '../../style/internal/z-index';
 @use '../functions';
 
-@use '../../style/internal/lime-typography';
-
 @use '@material/textfield';
 
 // Visual styles that unify the look & feel and behavior of
@@ -35,7 +33,7 @@ $height-of-mdc-helper-text-block: 0.9375rem;
 $mdc-chip-background-color: rgb(var(--contrast-100));
 
 $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo before in MD's helper texts, which sets their distance to the element on top of it. Originally in MD, this value is 1rem. In Lime Elements, we need to make it less due to our layout needs.
-$cropped-label-hack--font-size: 0.875rem; //14px
+$cropped-label-hack--font-size: var(--limel-theme-default-font-size); //14px
 
 @mixin looks-disabled() {
     cursor: not-allowed;
@@ -47,7 +45,7 @@ $cropped-label-hack--font-size: 0.875rem; //14px
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
 
-    font-size: functions.pxToRem(14);
+    font-size: var(--limel-theme-default-font-size);
     font-weight: 400;
     letter-spacing: 0.009375em;
     color: $label-color;
@@ -59,7 +57,7 @@ $cropped-label-hack--font-size: 0.875rem; //14px
     -webkit-font-smoothing: antialiased;
 
     color: $input-text-color;
-    font-size: functions.pxToRem(14);
+    font-size: var(--limel-theme-default-font-size);
     font-weight: 400;
     letter-spacing: 0.009375em;
 }

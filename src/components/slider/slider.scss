@@ -57,6 +57,10 @@ div[slot='content'] {
             var(--limel-theme-primary-color)
         );
     }
+
+    .mdc-slider__value-indicator-text {
+        font-size: 0.8125rem; //13px
+    }
 }
 
 .mdc-slider .mdc-slider__value-indicator-text {

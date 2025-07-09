@@ -36,6 +36,7 @@ limel-notched-outline:not([invalid]:not([invalid='false'])) {
     // other font-related styles that might be set by MDC,
     // such as `letter-spacing` or `font-size`.
     font-family: inherit;
+    font-size: var(--limel-theme-default-font-size);
 }
 
 .mdc-select__dropdown-icon-graphic {

@@ -38,6 +38,7 @@ limel-dynamic-label {
     // other font-related styles that might be set by MDC,
     // such as `letter-spacing` or `font-size`.
     font-family: inherit;
+    font-size: var(--limel-theme-default-font-size);
 }
 
 .mdc-form-field {
