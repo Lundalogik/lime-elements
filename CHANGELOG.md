@@ -1,3 +1,11 @@
+## [38.19.2](https://github.com/Lundalogik/lime-elements/compare/v38.19.1...v38.19.2) (2025-07-10)
+
+
+### Bug Fixes
+
+
+* **file:** enable menus in chips in file picker ([bb94fb1](https://github.com/Lundalogik/lime-elements/commit/bb94fb1f2b12a4d1660a5b270fb07cb6d89948b2))
+
 ## [38.19.1](https://github.com/Lundalogik/lime-elements/compare/v38.19.0...v38.19.1) (2025-07-10)
 
 
