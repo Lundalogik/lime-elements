@@ -54,7 +54,7 @@
     "codemirror": "^5.65.9",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.13",
-    "eslint": "^9.30.0",
+    "eslint": "^9.30.1",
     "flatpickr": "^4.6.13",
     "globals": "^16.0.0",
     "html-escaper": "^3.0.3",
