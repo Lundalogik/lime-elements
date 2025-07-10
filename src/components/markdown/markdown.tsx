@@ -35,7 +35,7 @@ export class Markdown {
      * as text.
      */
     @Prop()
-    public value: string;
+    public value: string = '';
 
     /**
      * Whitelisted html elements.
