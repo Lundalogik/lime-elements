@@ -1,3 +1,11 @@
+## [38.19.1](https://github.com/Lundalogik/lime-elements/compare/v38.19.0...v38.19.1) (2025-07-10)
+
+
+### Bug Fixes
+
+
+* **markdown:** initialize value property with empty string when undefined ([8e24eba](https://github.com/Lundalogik/lime-elements/commit/8e24ebad705cc3239fb63a3dbad984b7187d5581))
+
 ## [38.19.0](https://github.com/Lundalogik/lime-elements/compare/v38.18.0...v38.19.0) (2025-07-03)
 
 
