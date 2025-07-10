@@ -12,13 +12,27 @@ We invite you to leverage our web-component library and design system. It can st
 
 For a full list of components, along with live examples, please visit the [documentation](https://lundalogik.github.io/lime-elements/).
 
-[![Version](https://img.shields.io/npm/v/@limetech/lime-elements.svg)](https://www.npmjs.com/package/@limetech/lime-elements) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+### Project Status
+
+[![Version](https://img.shields.io/npm/v/@limetech/lime-elements.svg)](https://www.npmjs.com/package/@limetech/lime-elements) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![npm downloads](https://img.shields.io/npm/dt/@limetech/lime-elements.svg)](https://www.npmjs.com/package/@limetech/lime-elements)
+
+### Quality & Reliability
+
+[![Build Status](https://github.com/Lundalogik/lime-elements/workflows/Release/badge.svg)](https://github.com/Lundalogik/lime-elements/actions) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Lundalogik_lime-elements&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Lundalogik_lime-elements) [![Bundle Size](https://packagephobia.com/badge?p=@limetech/lime-elements)](https://packagephobia.com/result?p=@limetech/lime-elements) [![Known Vulnerabilities](https://snyk.io/test/github/Lundalogik/lime-elements/badge.svg)](https://snyk.io/test/github/Lundalogik/lime-elements) [![Dependencies](https://img.shields.io/librariesio/github/Lundalogik/lime-elements)](https://libraries.io/github/Lundalogik/lime-elements)
+
+### Technology & Standards
+
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/) [![Stencil](https://img.shields.io/badge/Built%20with-Stencil-16161d.svg?logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTcuNzkgMC45NGMtLjQ2LS4zLTEuMDgtLjMtMS41NSAwTDEuNDIgNC4xOUMuOSA0LjUyLjkgNS4yOCAxLjQyIDUuNkw3IDEwIDguNjMgOC43OSAxMy42MyA1LjZjLjUyLS4zMy41Mi0xLjA5IDAtMS40MUw3LjggMC45NHoiIGZpbGw9IiNmZmYiLz4KPC9zdmc+)](https://stenciljs.com/) [![Web Components](https://img.shields.io/badge/Web%20Components-Ready-29ABE2.svg)](https://www.webcomponents.org/) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+### Community & Activity
+
+[![GitHub stars](https://img.shields.io/github/stars/Lundalogik/lime-elements?style=social)](https://github.com/Lundalogik/lime-elements) [![GitHub issues](https://img.shields.io/github/issues/Lundalogik/lime-elements)](https://github.com/Lundalogik/lime-elements/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/Lundalogik/lime-elements)](https://github.com/Lundalogik/lime-elements/pulls) [![Commits](https://img.shields.io/github/commit-activity/m/Lundalogik/lime-elements)](https://github.com/Lundalogik/lime-elements/graphs/commit-activity)
 
 ---
 
 ## Getting Started
 
--   To install, run `npm install @limetech/lime-elements`.
+- To install, run `npm install @limetech/lime-elements`.
 
 ### Requirements
 
@@ -54,11 +68,11 @@ Providing your own icons is crucial as many of our components use an `Icon` inte
 
 ##### How to Set Up Your Icons Folder
 
--   **For _Lime_ products:**
+- **For _Lime_ products:**
 
     To use `@lundalogik/lime-icons8`, the `/assets` folder from `@lundalogik/lime-icons8` must be made available on the web-server.
 
--   **For _non-Lime_ products:**
+- **For _non-Lime_ products:**
 
     To use a different icon set, the icons must be placed in a folder structure that looks like this: `assets/icons/<name-of-icon>.svg`
 
@@ -92,12 +106,12 @@ Remember: All components can change, but `@beta` components change more often an
 
 ## Getting help
 
--   If you have a general question, or are in need of support, please open a [Question issue](https://github.com/Lundalogik/lime-elements/issues/new?template=03_question.md) on GitHub.
+- If you have a general question, or are in need of support, please open a [Question issue](https://github.com/Lundalogik/lime-elements/issues/new?template=03_question.md) on GitHub.
 
 ---
 
 ## Contributing
 
--   To build and run the documentation locally on your machine, run `npm start`.
--   To see what other scripts are available, run `npm run`.
--   Please read our [guidelines for contributers](https://github.com/Lundalogik/lime-elements/CONTRIBUTING.md)
+- To build and run the documentation locally on your machine, run `npm start`.
+- To see what other scripts are available, run `npm run`.
+- Please read our [guidelines for contributers](https://github.com/Lundalogik/lime-elements/CONTRIBUTING.md)
