@@ -1,16 +1,27 @@
-# Lime Elements
+# <img src="https://raw.githubusercontent.com/Lundalogik/lime-elements/main/icon.png" alt="Lime Elements Logo" style="width: 2.5rem; vertical-align: middle;"> Lime Elements
 
-In the ever-evolving landscape of web-applications, streamlining the creation of user interfaces (UIs) has become paramount. This is where web-component libraries and design systems come into play, offering a powerful combination to accelerate development, enhance consistency, and foster collaboration among developers.
+**Modern Web Components for Enterprise Applications**
 
-Web-component libraries and design systems are crucial in the rapidly evolving web-applications landscape, accelerating development, enhancing consistency, and promoting collaboration.
+_A comprehensive design system and component library built with Stencil_
 
-Sponsored by [Lime Technologies](https://www.lime-technologies.com/), Lime Elements is an open-source component library and a design system. It provides a high-quality set of well-designed, well-documented UI components, crafted in Stencil for enterprise-level products.
+---
 
-Our top developers and designers continuously improve Lime Elements, fixing bugs and adding new features. It serves as Lime Technologies' central repository for UI guidelines, standards, and components, ensuring a consistent brand experience across all our applications. Lime Elements standardizes colors, typography, layouts, and interactions for a cohesive, accessible user experience.
+## Why Lime Elements?
 
-We invite you to leverage our web-component library and design system. It can streamline development, enhance consistency, ease collaboration, and deliver exceptional user experiences. Lime Elements can be instrumental in creating modern, scalable, and accessible web applications that resonate with users worldwide.
+- 🚀 **Enterprise-Ready** - Battle-tested components used in production applications
+- 🎨 **Design System** - Consistent UX/UI design with comprehensive usage guidelines
+- ⚡ **Web Standards** - Built with Stencil, works with any framework
+- 👾 **TypeScript** - Full type safety and excellent developer experience
+- ♿ **Accessible** - Built with accessibility in mind
+- ⚙️ **Customizable** - Extensive styling options
 
-For a full list of components, along with live examples, please visit the [documentation](https://lundalogik.github.io/lime-elements/).
+---
+
+Sponsored by <img src="https://www.lime-technologies.com/wp-content/uploads/2024/04/cropped-favicon-lime-192x192.png" alt="Lime Technologies Logo" style="width: 1rem; vertical-align: middle;"> [Lime Technologies](https://www.lime-technologies.com/), Lime Elements is a production-ready component library and design system built with Stencil. Our enterprise-grade components help you create consistent, scalable, and accessible web applications faster.
+
+Whether you're building from scratch or enhancing existing applications, Lime Elements provides the building blocks for exceptional user experiences that work across all modern frameworks.
+
+Visit our [📚 **Documentation**](https://lundalogik.github.io/lime-elements/) for comprehensive guides and examples, or install directly from [📦 **NPM**](https://www.npmjs.com/package/@limetech/lime-elements).
 
 ### Project Status
 
@@ -27,6 +38,29 @@ For a full list of components, along with live examples, please visit the [docum
 ### Community & Activity
 
 [![GitHub stars](https://img.shields.io/github/stars/Lundalogik/lime-elements?style=social)](https://github.com/Lundalogik/lime-elements) [![GitHub issues](https://img.shields.io/github/issues/Lundalogik/lime-elements)](https://github.com/Lundalogik/lime-elements/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/Lundalogik/lime-elements)](https://github.com/Lundalogik/lime-elements/pulls) [![Commits](https://img.shields.io/github/commit-activity/m/Lundalogik/lime-elements)](https://github.com/Lundalogik/lime-elements/graphs/commit-activity)
+
+---
+
+## Quick Start
+
+```bash
+# Install the package
+npm install @limetech/lime-elements
+
+# Import and use in your project
+import '@limetech/lime-elements/dist/lime-elements/lime-elements.esm.js';
+```
+
+```html
+<!-- Use components in your HTML -->
+<limel-input-field
+    label="Name"
+    placeholder="Enter your full name"
+></limel-input-field>
+<limel-button primary="true" label="Submit"></limel-button>
+```
+
+**[Try it live in our playground](https://lundalogik.github.io/lime-elements/versions/latest/#/)**
 
 ---
 
@@ -104,14 +138,49 @@ Remember: All components can change, but `@beta` components change more often an
 
 ---
 
-## Getting help
+## Community & Support
 
-- If you have a general question, or are in need of support, please open a [Question issue](https://github.com/Lundalogik/lime-elements/issues/new?template=03_question.md) on GitHub.
+- 💬 **Questions?** [create an issue](https://github.com/Lundalogik/lime-elements/issues/new?template=03_question.md)
+- 🐛 **Found a bug?** [Report it here](https://github.com/Lundalogik/lime-elements/issues/new?template=01_bug_report.md)
+- 💡 **Feature request?** [Share your ideas](https://github.com/Lundalogik/lime-elements/issues/new?template=02_feature_request.md)
+- 🆕 **What's new?** Check our [changelog](https://github.com/Lundalogik/lime-elements/blob/main/CHANGELOG.md) for latest updates
 
 ---
 
 ## Contributing
 
-- To build and run the documentation locally on your machine, run `npm start`.
-- To see what other scripts are available, run `npm run`.
-- Please read our [guidelines for contributers](https://github.com/Lundalogik/lime-elements/CONTRIBUTING.md)
+We welcome contributions from the community! Here's how you can help:
+
+- 🔍 **Found an issue?** Feel free to fix it and submit a PR
+- 📝 **Improve docs?** Documentation improvements are always appreciated
+- 🎨 **Design feedback?** Share your UX insights
+- 🧪 **Testing?** Help us test new features and report bugs
+
+**Quick setup:**
+
+```bash
+git clone https://github.com/Lundalogik/lime-elements.git
+cd lime-elements
+npm install
+npm start  # Starts local development server
+```
+
+📋 **[Read our full contributing guidelines](https://github.com/Lundalogik/lime-elements/blob/main/CONTRIBUTING.md)**
+
+---
+
+## 📄 License
+
+Lime Elements is open source software licensed under the [Apache 2.0 License](https://opensource.org/licenses/Apache-2.0).
+
+---
+
+<div align="center">
+
+**Built with ❤️ by your friends at [Lime Technologies](https://www.lime-technologies.com/)**
+
+_Empowering developers to create amazing user experiences_
+
+[⭐ Star us on GitHub](https://github.com/Lundalogik/lime-elements) • [📚 Documentation](https://lundalogik.github.io/lime-elements/) • [📦 NPM](https://www.npmjs.com/package/@limetech/lime-elements)
+
+</div>
