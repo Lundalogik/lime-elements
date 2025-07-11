@@ -20,7 +20,7 @@
     width: var(--percentage, 0%);
 
     border-radius: 0.25rem;
-    background-color: var(--mdc-theme-primary);
+    background-color: var(--lime-primary-color, var(--mdc-theme-primary));
 }
 
 :host(limel-linear-progress[indeterminate]) {
@@ -37,7 +37,10 @@
             height: 100%;
             border-radius: 0.25rem;
             opacity: 0;
-            background-color: var(--mdc-theme-primary);
+            background-color: var(
+                --lime-primary-color,
+                var(--mdc-theme-primary)
+            );
         }
 
         &:before {
