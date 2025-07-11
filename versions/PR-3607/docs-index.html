@@ -94,7 +94,7 @@
         <script src="versions.js" defer></script>
     </head>
     <body>
-        <div class="container">
+        <main class="container">
             <header class="header">
                 <h1>
                     <img
@@ -153,7 +153,8 @@
                 <div class="search-box">
                     <div class="search-icon">🔍</div>
                     <input
-                        type="text"
+                        aria-label="Filter versions"
+                        type="search"
                         class="search-input"
                         placeholder="Find versions..."
                         id="searchInput"
@@ -212,7 +213,7 @@
                     >
                 </p>
             </footer>
-        </div>
+        </main>
 
         <script>
             // Sort versions in descending order
