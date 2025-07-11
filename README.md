@@ -89,7 +89,7 @@ font-family: 'Roboto', Arial, Verdana, sans-serif;
 
 #### 2. Icons
 
-At Lime, we utilize the [_Windows 10_ icon set from **Icons8**](https://icons8.com/icons/windows). You may notice these icons in our components, such as the magnifying glass icon displayed as a leading icon on an input field.
+At Lime, we utilize the [_Windows 11 Outline_ icon set from **Icons8**](https://icons8.com/icons/fluency-systems-regular). You may notice these icons in our components, such as the magnifying glass icon displayed as a leading icon on an input field.
 
 If you're using Lime Elements in a non-Lime product, you'll need to provide your own icons. We're unable to redistribute Icons8's assets with our package due to licensing restrictions.
 
