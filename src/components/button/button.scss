@@ -54,10 +54,13 @@ button {
 
     :host(limel-button[primary]) & {
         &:not(:disabled) {
-            color: var(--mdc-theme-on-primary, rgb(var(--color-white)));
+            color: var(
+                --lime-on-primary-color,
+                var(--mdc-theme-on-primary, rgb(var(--color-white)))
+            );
             background-color: var(
-                --mdc-theme-primary,
-                rgb(var(--color-teal-default))
+                --lime-primary-color,
+                var(--mdc-theme-primary, rgb(var(--color-teal-default)))
             );
         }
         &:disabled {
@@ -67,7 +70,10 @@ button {
 
     :host(limel-button:not([primary])) & {
         &:not(:disabled) {
-            color: var(--mdc-theme-primary, rgb(var(--color-teal-default)));
+            color: var(
+                --lime-primary-color,
+                var(--mdc-theme-primary, rgb(var(--color-teal-default)))
+            );
         }
         &:disabled {
             color: rgba(var(--contrast-1600), 0.37);
@@ -141,7 +147,7 @@ svg {
 
 .outlined {
     border: 1px solid;
-    border-color: var(--mdc-theme-primary);
+    border-color: var(--lime-primary-color, var(--mdc-theme-primary));
 }
 
 @keyframes shake {
