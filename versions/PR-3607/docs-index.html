@@ -1,52 +1,137 @@
-<!DOCTYPE html>
+<!doctype html>
 <html dir="ltr" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lime Elements Documentation</title>
-    <script src="versions.js"></script>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <h1>Lime Elements Documentation</h1>
+        <!-- Primary Meta Tags -->
+        <title>
+            Lime Elements - Modern Web Component Library, built with Stencil
+        </title>
+        <meta
+            name="title"
+            content="Lime Elements - Modern Web Component Library, built with Stencil"
+        />
+        <meta
+            name="description"
+            content="Modern, accessible, and beautiful web components built with Stencil and TypeScript. Browse documentation for all versions of Lime Elements UI library."
+        />
+        <meta
+            name="keywords"
+            content="web components, stencil, lime elements, ui library, design system, typescript, accessibility"
+        />
+        <meta name="author" content="Lime Technologies" />
 
-    <p>
-        <a href="https://github.com/Lundalogik/lime-elements/blob/main/CHANGELOG.md">CHANGELOG</a>
-    </p>
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:url"
+            content="https://lundalogik.github.io/lime-elements/"
+        />
+        <meta
+            property="og:title"
+            content="Lime Elements - Modern Web Component Library, built with Stencil"
+        />
+        <meta
+            property="og:description"
+            content="Modern, accessible, and beautiful web components built with Stencil and TypeScript for exceptional user interfaces."
+        />
+        <meta
+            property="og:image"
+            content="https://raw.githubusercontent.com/Lundalogik/lime-elements/main/icon.png"
+        />
 
-    <section id="versions"></section>
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta
+            property="twitter:url"
+            content="https://lundalogik.github.io/lime-elements/"
+        />
+        <meta
+            property="twitter:title"
+            content="Lime Elements - Modern Web Component Library, built with Stencil"
+        />
+        <meta
+            property="twitter:description"
+            content="Modern, accessible, and beautiful web components built with Stencil and TypeScript for exceptional user interfaces."
+        />
+        <meta
+            property="twitter:image"
+            content="https://raw.githubusercontent.com/Lundalogik/lime-elements/main/icon.png"
+        />
 
-    <script>
-        var body = document.getElementById('versions');
-        window.versions.sort(function(a, b) {
-            a = a.split('.');
-            b = b.split('.');
-            if (a[0] !== b[0]) {
-                return +b[0] - +a[0];
-            }
-            if (a[1] !== b[1]) {
-                return +b[1] - +a[1];
-            }
-            if (a[2] !== b[2]) {
-                if (a[2].substring(0, 1) !== b[2].substring(0,1)) {
-                    return +b[2].substring(0, 1) - +a[2].substring(0, 1);
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="src/favicon.svg" />
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://raw.githubusercontent.com/Lundalogik/lime-elements/main/icon.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            href="https://raw.githubusercontent.com/Lundalogik/lime-elements/main/icon.png"
+        />
+
+        <!-- Theme Color -->
+        <meta name="theme-color" content="#6FCDB6" />
+        <meta name="msapplication-TileColor" content="#6FCDB6" />
+
+        <!-- Preconnect to external domains for performance -->
+        <link rel="preconnect" href="https://raw.githubusercontent.com" />
+        <link rel="preconnect" href="https://github.com" />
+
+        <!-- Canonical URL -->
+        <link
+            rel="canonical"
+            href="https://lundalogik.github.io/lime-elements/"
+        />
+
+        <!-- Scripts -->
+        <script src="versions.js"></script>
+    </head>
+    <body>
+        <h1>Lime Elements Documentation</h1>
+
+        <p>
+            <a
+                href="https://github.com/Lundalogik/lime-elements/blob/main/CHANGELOG.md"
+                >CHANGELOG</a
+            >
+        </p>
+
+        <section id="versions"></section>
+
+        <script>
+            var body = document.getElementById('versions');
+            window.versions.sort(function (a, b) {
+                a = a.split('.');
+                b = b.split('.');
+                if (a[0] !== b[0]) {
+                    return +b[0] - +a[0];
                 }
-                return b[2].substring(0, 1) > a[2].substring(0, 1) ? 1 : -1;
-            }
-        });
-        createLink(`versions/latest/`, 'Latest Release');
-        window.versions.forEach(function(version, index) {
-            createLink(`versions/${version}/`, version);
-        });
+                if (a[1] !== b[1]) {
+                    return +b[1] - +a[1];
+                }
+                if (a[2] !== b[2]) {
+                    if (a[2].substring(0, 1) !== b[2].substring(0, 1)) {
+                        return +b[2].substring(0, 1) - +a[2].substring(0, 1);
+                    }
+                    return b[2].substring(0, 1) > a[2].substring(0, 1) ? 1 : -1;
+                }
+            });
+            createLink(`versions/latest/`, 'Latest Release');
+            window.versions.forEach(function (version, index) {
+                createLink(`versions/${version}/`, version);
+            });
 
-        function createLink(href, text) {
-            var link = document.createElement('a');
-            link.href = href;
-            link.appendChild(document.createTextNode(text));
-            body.appendChild(link);
-            body.appendChild(document.createElement('br'));
-        }
-    </script>
-</body>
+            function createLink(href, text) {
+                var link = document.createElement('a');
+                link.href = href;
+                link.appendChild(document.createTextNode(text));
+                body.appendChild(link);
+                body.appendChild(document.createElement('br'));
+            }
+        </script>
+    </body>
 </html>
