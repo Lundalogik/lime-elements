@@ -1,6 +1,22 @@
 @use '../../../style/mixins';
 @use '../../../style/functions';
+@use '../../../style/theme-color-variables';
+@use '../../../style/color-palette-extended';
 
+@mixin table-row-selected-indicator($border-color, $z-index) {
+    &:before {
+        $width-of-selected-row-indicator: 0.2rem;
+        content: '';
+        display: inline-block;
+        box-sizing: border-box;
+        position: sticky;
+        z-index: $z-index;
+        inset: 0 0 auto 0;
+        border: $width-of-selected-row-indicator solid $border-color;
+        border-radius: 1rem;
+        margin-right: -$width-of-selected-row-indicator * 2;
+    }
+}
 .interactive-feedback {
     // This is a div, injected by us into all rows.
     // We use it to visualize interactive feedback.
@@ -45,19 +61,10 @@
                 box-shadow: var(--button-shadow-inset-pressed);
             }
 
-            &:before {
-                $width-of-selected-row-indicator: 0.2rem;
-                content: '';
-                display: inline-block;
-                box-sizing: border-box;
-                position: sticky;
-                z-index: $table--has-interactive-rows--selectable-row--hover + 1;
-                inset: 0 0 auto 0;
-                border: $width-of-selected-row-indicator solid
-                    var(--mdc-theme-primary);
-                border-radius: 1rem;
-                margin-right: -$width-of-selected-row-indicator * 2;
-            }
+            @include table-row-selected-indicator(
+                var(--mdc-theme-primary),
+                $table--has-interactive-rows--selectable-row--hover + 1
+            );
         }
     }
 }
@@ -88,6 +95,12 @@
                 }
             }
         }
+    }
+    .recent-active {
+        @include table-row-selected-indicator(
+            rgb(var(--contrast-700)),
+            $table--has-interactive-rows--selectable-row--hover + 1
+        );
     }
 }
 
