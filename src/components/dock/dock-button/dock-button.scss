@@ -1,5 +1,6 @@
 @use '../../../style/mixins';
 @use '../../../style/functions';
+@use '../../../style/internal/variables';
 
 .button {
     all: unset;
