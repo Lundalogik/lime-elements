@@ -1,5 +1,6 @@
 @use '../../style/functions';
 @use '../../style/mixins';
+@use '../../style/internal/lime-theme';
 
 /**
  * @prop --circular-progress-size: Determines the visual size of the visualization. This does not override the `size` property if it is specified.
