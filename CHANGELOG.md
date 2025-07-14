@@ -1,3 +1,17 @@
+## [38.19.3](https://github.com/Lundalogik/lime-elements/compare/v38.19.2...v38.19.3) (2025-07-14)
+
+
+### Reverts
+
+
+* Revert "chore(lime-theme): remove unused theme variables" ([bd1b885](https://github.com/Lundalogik/lime-elements/commit/bd1b8859041a99636a479e77f18e51375aa66f0a))
+* Revert "chore(style): remove old unused brand colors file" ([05e70e3](https://github.com/Lundalogik/lime-elements/commit/05e70e3325a3889d322d9e682d84d875665b9e88))
+* Revert "chore(lime-theme): remove unnecessary use of mixins" ([ebb83fd](https://github.com/Lundalogik/lime-elements/commit/ebb83fdac883db0ed70f398042a37d6c8895574c))
+* Revert "chore(components): remove imported `lime-theme` from several components styles" ([923054b](https://github.com/Lundalogik/lime-elements/commit/923054b969998ef443ce4b7d515e4d5b68c6b849))
+* Revert "chore(style): remove `lime-theme.scss`" ([3fe5026](https://github.com/Lundalogik/lime-elements/commit/3fe502610ee8a6708e660bb1ce2f4e8ffdb64ebe))
+* Revert "chore(style): remove `lime-typography.scss`" ([78ff6b4](https://github.com/Lundalogik/lime-elements/commit/78ff6b4a34b0bbe33a137e7ab8352b7f31c8a33f))
+* Revert "chore(style): remove unnecessary `variables.scss` file" ([fce041f](https://github.com/Lundalogik/lime-elements/commit/fce041f61a8fa9390373b1a852bd97e16bc85911))
+
 ## [38.19.2](https://github.com/Lundalogik/lime-elements/compare/v38.19.1...v38.19.2) (2025-07-10)
 
 
