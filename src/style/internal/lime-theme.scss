@@ -7,4 +7,9 @@
  * Avoid that unless there's very good reason for it!
  */
 
+@use '../_theme-color-variables';
 @use './lime-typography';
+
+:host {
+    @include theme-color-variables.theme-color-variables;
+}
