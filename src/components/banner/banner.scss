@@ -1,3 +1,4 @@
+@use '../../style/internal/variables';
 @use '../../style/functions';
 
 /**
@@ -6,7 +7,7 @@
  */
 
 .lime-banner {
-    min-height: 3.25rem;
+    min-height: variables.$lime-banner-height;
     display: none;
     background-color: rgba(var(--contrast-100), 0.7);
     backdrop-filter: blur(functions.pxToRem(5));

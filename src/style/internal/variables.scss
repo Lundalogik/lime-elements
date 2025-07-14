@@ -1,0 +1,10 @@
+/*
+ * This file is imported into every component!
+ *
+ * Nothing in this file may output any CSS
+ * without being explicitly used by outside code.
+ */
+
+@use '../functions';
+
+$lime-banner-height: functions.pxToRem(52) !default;

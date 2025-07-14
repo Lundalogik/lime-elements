@@ -1,5 +1,6 @@
 @use '../../style/mixins';
 @use '../../style/functions';
+@use '../../style/internal/variables';
 
 /**
 * @prop --dock-expanded-max-width: The maximum width of the Dock when it is expanded. Defaults to `max-content` which means the Dock will adjust its width to the widest dock item.
