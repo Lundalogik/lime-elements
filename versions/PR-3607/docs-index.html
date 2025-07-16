@@ -62,7 +62,7 @@
         />
 
         <!-- Favicon -->
-        <link rel="icon" type="image/svg+xml" href="src/favicon.svg" />
+        <link rel="icon" type="image/svg+xml" href="favicon.svg" />
         <link
             rel="icon"
             type="image/png"
@@ -218,25 +218,38 @@
         <script>
             // Sort versions in descending order
             function sortVersions(a, b) {
-                // Simple semantic version comparison
-                const parseVersion = (v) => {
-                    const parts = v.split('.');
-                    return {
-                        major: parseInt(parts[0]) || 0,
-                        minor: parseInt(parts[1]) || 0,
-                        patch: parseInt(parts[2]) || 0,
-                        full: v,
-                    };
-                };
+                const collator = new Intl.Collator('en', { numeric: true });
 
-                const vA = parseVersion(a);
-                const vB = parseVersion(b);
+                const partsA = a.split(/-(.*)/s);
+                const partsB = b.split(/-(.*)/s);
 
-                if (vA.major !== vB.major) return vB.major - vA.major;
-                if (vA.minor !== vB.minor) return vB.minor - vA.minor;
-                if (vA.patch !== vB.patch) return vB.patch - vA.patch;
+                const mainA = partsA[0];
+                const preA = partsA[1];
+                const mainB = partsB[0];
+                const preB = partsB[1];
 
-                return b.localeCompare(a);
+                const mainCompare = collator.compare(mainB, mainA);
+                if (mainCompare !== 0) {
+                    return mainCompare;
+                }
+
+                if (preA === undefined && preB !== undefined) {
+                    // a is stable, b is pre-release. a > b.
+                    // For descending sort, a should come first. Return a negative value.
+                    return -1;
+                }
+
+                if (preA !== undefined && preB === undefined) {
+                    // b is stable, a is pre-release. b > a.
+                    // For descending sort, b should come first. Return a positive value.
+                    return 1;
+                }
+
+                // Both are stable or both are pre-releases.
+                // In both cases, a full string comparison with the collator works.
+                // For pre-releases like 'beta' vs 'alpha', this will sort them alphabetically.
+                // To sort 'beta' > 'alpha' we can reverse the order of comparison
+                return collator.compare(b, a);
             }
 
             // Categorize and display versions
