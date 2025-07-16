@@ -33,7 +33,8 @@ export class PopoverSurface {
             '.limel-popover-surface'
         );
 
-        for (const child of this.contentCollection) {
+        const childElementsCopy = [...this.contentCollection];
+        for (const child of childElementsCopy) {
             if (child.slot === 'trigger') {
                 continue;
             }
