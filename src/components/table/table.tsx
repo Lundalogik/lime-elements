@@ -21,6 +21,7 @@ import { isEqual, has } from 'lodash-es';
 import { ElementPool } from './element-pool';
 import { TableSelection } from './table-selection';
 import { mapLayout, Layout } from './layout';
+import { areRowsEqual } from './utils';
 
 const FIRST_PAGE = 1;
 
@@ -377,7 +378,8 @@ export class Table {
 
         return (
             !this.areEqualIds(newIds, oldIds) ||
-            !this.isSameOrder(newIds, oldIds)
+            !this.isSameOrder(newIds, oldIds) ||
+            !areRowsEqual(newData, oldData)
         );
     }
 

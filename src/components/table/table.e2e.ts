@@ -158,4 +158,55 @@ describe('limel-table', () => {
             expect(await rowSelectors[1].getProperty('checked')).toBeFalsy();
         });
     });
+
+    describe('basic data rendering', () => {
+        it('renders table data correctly', async () => {
+            const columns = [
+                { field: 'name', title: 'Name' },
+                { field: 'age', title: 'Age' },
+            ];
+            const data = [
+                { id: 1, name: 'John', age: 30 },
+                { id: 2, name: 'Jane', age: 25 },
+            ];
+
+            await render({ data, columns });
+
+            const rows = await tableContainer.findAll('.tabulator-row');
+            expect(rows.length).toBe(2);
+
+            const firstRowContent = await getFirstRowContent();
+            expect(firstRowContent).toEqual(['John', '30']);
+        });
+    });
+
+    describe('empty state', () => {
+        it('handles empty data gracefully', async () => {
+            const columns = [{ field: 'name', title: 'Name' }];
+
+            await render({ data: [], columns });
+
+            const rows = await tableContainer.findAll('.tabulator-row');
+            expect(rows.length).toBe(0);
+        });
+    });
+
+    describe('data updates', () => {
+        it('updates table when data changes', async () => {
+            const columns = [{ field: 'name', title: 'Name' }];
+            const initialData = [{ id: 1, name: 'John' }];
+
+            await render({ data: initialData, columns });
+
+            let firstRowContent = await getFirstRowContent();
+            expect(firstRowContent).toEqual(['John']);
+
+            const updatedData = [{ id: 1, name: 'Jane' }];
+            table.setProperty('data', updatedData);
+            await page.waitForChanges();
+
+            firstRowContent = await getFirstRowContent();
+            expect(firstRowContent).toEqual(['Jane']);
+        });
+    });
 });
