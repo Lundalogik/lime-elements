@@ -171,13 +171,6 @@ function build() {
         };
         replace.sync(options);
 
-        options = {
-            files: ['src/index.md'],
-            from: /<version\\>/g,
-            to: `${version}`,
-        };
-        replace.sync(options);
-
         shell.exec('git diff --name-status');
     } catch (error) {
         shell.echo('Error occurred:', error);
@@ -438,9 +431,7 @@ function push() {
 
 function teardown(finished) {
     if (finished || cleanOnFail) {
-        shell.exec(
-            'git checkout src/index.html src/index.md stencil.config.docs.ts'
-        );
+        shell.exec('git checkout src/index.html stencil.config.docs.ts');
         shell.echo('Removing docs repo clone in docsDist.');
         shell.exec('rm -rf docsDist');
     }
