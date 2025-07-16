@@ -2,7 +2,7 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 import config from '@limetech/eslint-config';
 
 export default defineConfig([
-    globalIgnores(['.kompendium', 'api-extractor.json']),
+    globalIgnores(['.kompendium', 'api-extractor.json', 'docsDist']),
     ...config,
     {
         files: ['**/*.{ts,tsx}'],
