@@ -217,7 +217,7 @@
 
         <script>
             // Sort versions in descending order
-            window.versions.sort(function (a, b) {
+            function sortVersions(a, b) {
                 // Simple semantic version comparison
                 const parseVersion = (v) => {
                     const parts = v.split('.');
@@ -237,7 +237,7 @@
                 if (vA.patch !== vB.patch) return vB.patch - vA.patch;
 
                 return b.localeCompare(a);
-            });
+            }
 
             // Categorize and display versions
             function categorizeVersions() {
@@ -340,6 +340,7 @@
             // Initialize everything when the page loads
             document.addEventListener('DOMContentLoaded', function () {
                 if (window.versions && window.versions.length > 0) {
+                    window.versions.sort(sortVersions);
                     categorizeVersions();
                     initializeSearch();
                 } else {
@@ -353,6 +354,7 @@
             } else {
                 // Already loaded
                 if (window.versions && window.versions.length > 0) {
+                    window.versions.sort(sortVersions);
                     categorizeVersions();
                     initializeSearch();
                 } else {
