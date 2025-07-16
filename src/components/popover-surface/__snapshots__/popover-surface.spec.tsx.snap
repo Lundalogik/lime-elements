@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render component with one child 1`] = `
+<limel-popover-surface>
+  <mock:shadow-root>
+    <div class="limel-popover-surface" tabindex="0">
+      <div>
+        Child 1
+      </div>
+    </div>
+  </mock:shadow-root>
+</limel-popover-surface>
+`;
+
+exports[`render component with trigger element 1`] = `
+<limel-popover-surface>
+  <mock:shadow-root>
+    <div class="limel-popover-surface" tabindex="0"></div>
+  </mock:shadow-root>
+</limel-popover-surface>
+`;
+
+exports[`render component with two children 1`] = `
+<limel-popover-surface>
+  <mock:shadow-root>
+    <div class="limel-popover-surface" tabindex="0">
+      <div>
+        Child 1
+      </div>
+      <div>
+        Child 2
+      </div>
+    </div>
+  </mock:shadow-root>
+</limel-popover-surface>
+`;
+
+exports[`render component without children 1`] = `
+<limel-popover-surface>
+  <mock:shadow-root>
+    <div class="limel-popover-surface" tabindex="0"></div>
+  </mock:shadow-root>
+</limel-popover-surface>
+`;
