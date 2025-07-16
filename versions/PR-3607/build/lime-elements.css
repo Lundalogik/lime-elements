@@ -1,4 +1,34 @@
-@charset "UTF-8";:root{--lime-deep-red:rgb(var(--lime-brand-color-deep-red));--lime-red:rgb(var(--lime-brand-color-sellable-orange));--lime-orange:rgb(var(--lime-brand-color-orange));--lime-yellow:rgb(var(--lime-brand-color-yellow));--lime-green:rgb(var(--lime-brand-color-lime-green));--lime-turquoise:rgb(var(--lime-brand-color-flexible-turquoise));--lime-blue:rgb(var(--lime-brand-color-simple-blue));--lime-dark-blue:rgb(var(--lime-brand-color-dark-blue));--lime-magenta:rgb(var(--lime-brand-color-loving-magenta));--lime-light-grey:rgb(var(--lime-brand-color-light-grey));--lime-dark-grey:rgb(var(--lime-brand-color-grey));--color-percent--0:rgb(var(--color-gray-default));--color-percent--0to10:rgb(var(--color-red-dark));--color-percent--10to20:rgb(var(--color-red-default));--color-percent--20to30:rgb(var(--color-coral-default));--color-percent--30to40:rgb(var(--color-orange-default));--color-percent--40to50:rgb(var(--color-amber-default));--color-percent--50to60:rgb(var(--color-yellow-default));--color-percent--60to70:rgb(var(--color-grass-default));--color-percent--70to80:rgb(var(--color-lime-default));--color-percent--80to90:rgb(var(--color-teal-default));--color-percent--90to100:rgb(var(--color-teal-dark))}:root{--shadow-brighten-edges-inside:0 -1px 0.26rem rgb(var(--color-white), 0.06) inset,
+@charset "UTF-8";:host{--mdc-theme-primary:var(
+      --lime-primary-color,
+      rgb(var(--color-teal-default))
+  );--mdc-theme-secondary:var(
+      --lime-secondary-color,
+      rgb(var(--contrast-1100))
+  );--mdc-theme-on-primary:var(
+      --lime-on-primary-color,
+      rgb(var(--contrast-100))
+  );--mdc-theme-on-secondary:var(
+      --lime-on-secondary-color,
+      rgb(var(--contrast-100))
+  );--mdc-theme-text-disabled-on-background:var(
+      --lime-text-disabled-on-background-color,
+      rgba(var(--contrast-1700), 0.38)
+  );--mdc-theme-text-primary-on-background:var(
+      --lime-text-primary-on-background-color,
+      rgba(var(--contrast-1700), 0.87)
+  );--mdc-theme-text-secondary-on-background:var(
+      --lime-text-secondary-on-background-color,
+      rgba(var(--contrast-1700), 0.54)
+  );--mdc-theme-error:var(
+      --lime-error-background-color,
+      rgb(var(--color-red-dark))
+  );--lime-error-text-color:rgb(var(--color-red-darker));--mdc-theme-surface:var(
+      --lime-surface-background-color,
+      rgb(var(--contrast-100))
+  );--mdc-theme-on-surface:var(
+      --lime-on-surface-color,
+      rgb(var(--contrast-1500))
+  )}:root{--lime-deep-red:rgb(var(--lime-brand-color-deep-red));--lime-red:rgb(var(--lime-brand-color-sellable-orange));--lime-orange:rgb(var(--lime-brand-color-orange));--lime-yellow:rgb(var(--lime-brand-color-yellow));--lime-green:rgb(var(--lime-brand-color-lime-green));--lime-turquoise:rgb(var(--lime-brand-color-flexible-turquoise));--lime-blue:rgb(var(--lime-brand-color-simple-blue));--lime-dark-blue:rgb(var(--lime-brand-color-dark-blue));--lime-magenta:rgb(var(--lime-brand-color-loving-magenta));--lime-light-grey:rgb(var(--lime-brand-color-light-grey));--lime-dark-grey:rgb(var(--lime-brand-color-grey));--color-percent--0:rgb(var(--color-gray-default));--color-percent--0to10:rgb(var(--color-red-dark));--color-percent--10to20:rgb(var(--color-red-default));--color-percent--20to30:rgb(var(--color-coral-default));--color-percent--30to40:rgb(var(--color-orange-default));--color-percent--40to50:rgb(var(--color-amber-default));--color-percent--50to60:rgb(var(--color-yellow-default));--color-percent--60to70:rgb(var(--color-grass-default));--color-percent--70to80:rgb(var(--color-lime-default));--color-percent--80to90:rgb(var(--color-teal-default));--color-percent--90to100:rgb(var(--color-teal-dark))}:root{--shadow-brighten-edges-inside:0 -1px 0.26rem rgb(var(--color-white), 0.06) inset,
       0 0 0 1px rgb(var(--color-white), 0.06) inset;--shadow-brighten-edges-outside:0 0.125rem 0.26rem rgb(var(--color-white), 0.06),
       0 0 0 1px rgb(var(--color-white), 0.06);--shadow-focused-state:0 0 0 0.125rem var(--mdc-theme-primary);--shadow-error-state:0 0 0 0.125rem rgb(var(--color-red-default));--button-shadow-normal:0 0.09375rem 0.225rem 0 rgb(var(--color-black), 0.232),
       0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.208),
