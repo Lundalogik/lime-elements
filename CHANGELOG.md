@@ -1,3 +1,11 @@
+## [38.19.5](https://github.com/Lundalogik/lime-elements/compare/v38.19.4...v38.19.5) (2025-07-17)
+
+
+### Bug Fixes
+
+
+* **table:** check for new data in table rows when refresh is triggered ([9ae00de](https://github.com/Lundalogik/lime-elements/commit/9ae00de4ba6a87c81db756c9e29c68c0e32730a6))
+
 ## [38.19.4](https://github.com/Lundalogik/lime-elements/compare/v38.19.3...v38.19.4) (2025-07-17)
 
 
