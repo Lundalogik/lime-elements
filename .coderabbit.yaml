@@ -123,6 +123,13 @@ reviews:
         publically exported by lime-elements, the import should be made from
         `@limetech/lime-elements`. If they import something from another file
         inside the `example` folder, the import should use a relative path.
+    - path: 'src/components/**/*.tsx'
+      instructions: >
+        When contributors add new props to existing components in the
+        lime-elements repository, they should always add documentation examples
+        that demonstrate the new prop's usage and explain how it works. This
+        helps with user adoption, feature discoverability, and maintains
+        comprehensive documentation.
 
   # Abort the in-progress review if the pull request is closed or merged.
   abort_on_close: true
