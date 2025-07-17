@@ -1,3 +1,11 @@
+## [38.19.4](https://github.com/Lundalogik/lime-elements/compare/v38.19.3...v38.19.4) (2025-07-17)
+
+
+### Bug Fixes
+
+
+* **popover:** ensure content is added to portal container ([ed9071c](https://github.com/Lundalogik/lime-elements/commit/ed9071c2cf10cfd99b1c9c21b54eae3ddb137cd9)), closes [Lundalogik/crm-client#184](https://github.com/Lundalogik/crm-client/issues/184)
+
 ## [38.19.3](https://github.com/Lundalogik/lime-elements/compare/v38.19.2...v38.19.3) (2025-07-14)
 
 
