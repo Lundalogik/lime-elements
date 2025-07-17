@@ -120,7 +120,7 @@ reviews:
       instructions: >
         These files are an exception to the rule that all imports should use
         relative paths. When these example files import something that is
-        publically exported by lime-elements, the import should be made from
+        publicly exported by lime-elements, the import should be made from
         `@limetech/lime-elements`. If they import something from another file
         inside the `example` folder, the import should use a relative path.
     - path: 'src/components/**/*.tsx'
