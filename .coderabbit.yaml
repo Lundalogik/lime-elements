@@ -21,10 +21,10 @@ reviews:
   # Approve the review once CodeRabbit's comments are resolved.
   request_changes_workflow: false
 
-  # Generate a high level summary of the changes in the PR/MR description.
+  # Generate a high level summary of the changes in the PR description.
   high_level_summary: true
 
-  # Placeholder in the PR/MR description that gets replaced with the high level
+  # Placeholder in the PR description that gets replaced with the high level
   # summary.
   high_level_summary_placeholder: '@coderabbitai summary'
 
@@ -79,10 +79,13 @@ reviews:
   # the walkthrough.
   suggested_reviewers: true
 
+  # Automatically assign suggested reviewers to the pull request
+  auto_assign_reviewers: false
+
   # Generate a poem in the walkthrough comment.
   poem: false
 
-  # Provide guidelines for suggesting labels for the PR/MR.
+  # Provide guidelines for suggesting labels for the PR.
   # When specific labels or instructions are provided, only those labels are
   # considered, though previous examples are still used to inform
   # the suggestions. If no such labels are provided, suggestions are based
@@ -107,6 +110,10 @@ reviews:
 
   # Abort the in-progress review if the pull request is closed or merged.
   abort_on_close: true
+
+  # Disable caching of code and dependencies. This will force CodeRabbit to
+  # download the code and dependencies fresh from the repository each time.
+  disable_cache: false
 
   auto_review:
     # Automatic code review
@@ -135,7 +142,16 @@ reviews:
       # Allow CodeRabbit to generate docstrings for PRs.
       enabled: true
 
+    unit_tests:
+      # Allow CodeRabbit to generate unit tests for PRs.
+      enabled: true
+
   tools:
+    ast-grep:
+      rule_dirs: []
+      util_dirs: []
+      essential_rules: true
+      packages: []
     shellcheck:
       enabled: true
     ruff:
@@ -147,23 +163,27 @@ reviews:
       timeout_ms: 90000
     languagetool:
       enabled: true
-      enabled_only: false
-      level: default
       enabled_rules: []
       disabled_rules: []
       enabled_categories: []
       disabled_categories: []
+      enabled_only: false
+      level: default
     biome:
       enabled: true
     hadolint:
       enabled: true
     swiftlint:
-      enabled: false
+      enabled: true
     phpstan:
-      enabled: false
+      enabled: true
       level: default
+    phpmd:
+      enabled: true
+    phpcs:
+      enabled: true
     golangci-lint:
-      enabled: false
+      enabled: true
     yamllint:
       enabled: true
     gitleaks:
@@ -171,30 +191,51 @@ reviews:
     checkov:
       enabled: true
     detekt:
-      enabled: false
+      enabled: true
     eslint:
+      enabled: false
+    flake8:
       enabled: true
     rubocop:
-      enabled: false
+      enabled: true
     buf:
-      enabled: false
+      enabled: true
     regal:
-      enabled: false
+      enabled: true
     actionlint:
       enabled: true
     pmd:
-      enabled: false
+      enabled: true
     cppcheck:
-      enabled: false
+      enabled: true
     semgrep:
       enabled: true
     circleci:
-      enabled: false
-    ast-grep:
-      packages: []
-      rule_dirs: []
-      util_dirs: []
-      essential_rules: true
+      enabled: true
+    clippy:
+      enabled: true
+    sqlfluff:
+      enabled: true
+    prismaLint:
+      enabled: true
+    pylint:
+      enabled: true
+    oxc:
+      enabled: true
+    shopifyThemeCheck:
+      enabled: true
+    luacheck:
+      enabled: true
+    brakeman:
+      enabled: true
+    dotenvLint:
+      enabled: true
+    htmlhint:
+      enabled: true
+    checkmake:
+      enabled: true
+  pre_merge_checks: {}
+
 chat:
   # Enable the bot to reply automatically without requiring the user to tag it.
   auto_reply: false
@@ -203,16 +244,39 @@ chat:
       # Enable the Jira integration for opening issues, etc. 'auto' disables
       # the integration for public repositories.
       usage: disabled
+
     linear:
       # Enable the Linear integration for opening issues, etc. 'auto' disables
       # the integration for public repositories.
       usage: disabled
+
 knowledge_base:
   # Opt out of all knowledge base features that require data retention.
   opt_out: false
+
   web_search:
     # Enable the web search integration.
     enabled: true
+
+  # CodeRabbit will analyse and learn from your organization's code guidelines,
+  # which you can mention in the file patterns section. These guidelines will
+  # then be used to conduct thorough code reviews.
+  code_guidelines:
+    # Enable CodeRabbit to enforce your organization's coding standards
+    # during reviews.
+    enabled: true
+
+    # Specify files for your coding guideline documents in this section.
+    # CodeRabbit will scan these files to understand your team's standards and
+    # apply them during code reviews.
+    # Multiple files supported.
+    # File names are case-sensitive.
+    #
+    # Common files like: (**/.cursorrules, .github/copilot-instructions.md,
+    # **/CLAUDE.md, **/GEMINI.md, **/.cursor/rules/*, **/.windsurfrules,
+    # **/.clinerules/*, **/.rules/*, **/AGENT.md) are included by default
+    filePatterns: []
+
   learnings:
     # Specify the scope of learnings to use for the knowledge base.
     # 'local' uses the repository's learnings,
@@ -220,6 +284,7 @@ knowledge_base:
     # 'auto' uses repository's learnings for public repositories and
     # organization's learnings for private repositories.
     scope: auto
+
   issues:
     # Specify the scope of git platform (GitHub/GitLab) issues to use for the
     # knowledge base.
@@ -228,12 +293,24 @@ knowledge_base:
     # 'auto' uses repository's issues for public repositories and
     # organization's issues for private repositories.
     scope: auto
+
   jira:
+    # Enable the Jira knowledge base integration.
+    # 'auto' disables the integration for public repositories.
     usage: disabled
+
+    # Specify the Jira project keys to use for the knowledge base.
     project_keys: []
+
   linear:
+    # Enable the Linear knowledge base integration.
+    # 'auto' disables the integration for public repositories.
     usage: disabled
+
+    # Specify the Linear team keys (identifiers) to use for the knowledge base.
+    # E.g. 'ENG'
     team_keys: []
+
   pull_requests:
     # Specify the scope of pull requests to use for the knowledge base.
     # 'local' uses the repository's pull requests,
@@ -241,7 +318,17 @@ knowledge_base:
     # 'auto' uses repository's pull requests for public repositories and
     # organization's pull requests for private repositories.
     scope: auto
+
 code_generation:
   docstrings:
     # Natural language in which you want CodeRabbit to generate docstrings.
     language: en-US
+
+    # Provide additional guidelines for docstring generation
+    # based on file paths.
+    path_instructions: []
+
+  unit_tests:
+    # Provide additional guidelines for unit test generation
+    # based on file paths.
+    path_instructions: []
