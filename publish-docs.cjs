@@ -171,13 +171,6 @@ function build() {
         };
         replace.sync(options);
 
-        options = {
-            files: ['src/index.md'],
-            from: /<version\\>/g,
-            to: `${version}`,
-        };
-        replace.sync(options);
-
         shell.exec('git diff --name-status');
     } catch (error) {
         shell.echo('Error occurred:', error);
@@ -238,27 +231,38 @@ function copyBuildOutput() {
         shell.exit(1);
     }
 
-    shell.echo(`Copying docs-index.html to 'docsDist/versions/${version}/'`);
+    shell.echo(
+        `Copying docs-index.html and docs-index.css to 'docsDist/versions/${version}/'`
+    );
     if (
-        shell.cp('docs-index.html', `docsDist/versions/${version}/`).code !== 0
+        shell.cp('docs-index.html', `docsDist/versions/${version}/`).code !==
+            0 ||
+        shell.cp('docs-index.css', `docsDist/versions/${version}/`).code !== 0
     ) {
         shell.echo(
-            '[WARNING] Copying docs-index.html failed. Not critical, continuing.'
+            '[WARNING] Copying docs-index.html or docs-index.css failed. Not critical, continuing.'
         );
     }
 
     updateVersionList();
 
-    shell.echo('Copying docs-index.html from `latest` version');
+    shell.echo(
+        'Copying docs-index.html and docs-index.css from `latest` version'
+    );
     if (
         shell.cp(
             '-f',
             'docsDist/versions/latest/docs-index.html',
             'docsDist/index.html'
+        ).code !== 0 ||
+        shell.cp(
+            '-f',
+            'docsDist/versions/latest/docs-index.css',
+            'docsDist/docs-index.css'
         ).code !== 0
     ) {
         shell.echo(
-            '[WARNING] Copying docs-index.html from `latest` failed. Not critical, continuing.'
+            '[WARNING] Copying docs-index.html or docs-index.css from `latest` failed. Not critical, continuing.'
         );
     }
 }
@@ -427,9 +431,7 @@ function push() {
 
 function teardown(finished) {
     if (finished || cleanOnFail) {
-        shell.exec(
-            'git checkout src/index.html src/index.md stencil.config.docs.ts'
-        );
+        shell.exec('git checkout src/index.html stencil.config.docs.ts');
         shell.echo('Removing docs repo clone in docsDist.');
         shell.exec('rm -rf docsDist');
     }
