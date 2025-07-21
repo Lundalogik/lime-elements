@@ -1,3 +1,12 @@
+## [38.19.6](https://github.com/Lundalogik/lime-elements/compare/v38.19.5...v38.19.6) (2025-07-21)
+
+
+### Bug Fixes
+
+
+* **form:** array item reordering now works correctly ([64b9afe](https://github.com/Lundalogik/lime-elements/commit/64b9afeb13e01bb27589dba6aa576a16bbbd8049))
+* **form:** resolve warnings for disabled prop modification ([e7a16ab](https://github.com/Lundalogik/lime-elements/commit/e7a16ab579939d3279096047025feac3647389d1))
+
 ## [38.19.5](https://github.com/Lundalogik/lime-elements/compare/v38.19.4...v38.19.5) (2025-07-17)
 
 
