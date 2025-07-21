@@ -51,7 +51,7 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.0.4",
     "@types/tabulator-tables": "^4.9.4",
-    "codemirror": "^5.65.9",
+    "codemirror": "^6.0.2",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.13",
     "eslint": "^9.31.0",
