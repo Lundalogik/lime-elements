@@ -37,7 +37,7 @@ describe('Editor State Utilities', () => {
 
             if (node) {
                 const hasStrongMark = node.marks.some(
-                    (m) => m.type.name === 'strong',
+                    (m) => m.type.name === 'strong'
                 );
                 expect(hasStrongMark).toBe(true);
             }

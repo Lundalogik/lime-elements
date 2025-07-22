@@ -14,7 +14,7 @@ import { createTestSchema } from './schema-builder';
 export function createEditorState(
     content?: string,
     schema?: Schema,
-    plugins: Plugin[] = [],
+    plugins: Plugin[] = []
 ): EditorState {
     const editorSchema = schema || createTestSchema();
 
@@ -43,7 +43,7 @@ export function createEditorStateWithSelection(
     from: number,
     to: number,
     schema?: Schema,
-    plugins: Plugin[] = [],
+    plugins: Plugin[] = []
 ): EditorState {
     const editorSchema = schema || createTestSchema();
 
@@ -69,7 +69,7 @@ export function createEditorStateWithSelection(
 export function setTextSelection(
     state: EditorState,
     from: number,
-    to: number = from,
+    to: number = from
 ): EditorState {
     const selection = TextSelection.create(state.doc, from, to);
 
@@ -99,7 +99,7 @@ function parseContentToDoc(content: string, schema: Schema) {
  */
 export function createDocumentWithText(
     text: string = '',
-    schema?: Schema,
+    schema?: Schema
 ): EditorState {
     const content = text ? `<p>${text}</p>` : '<p></p>';
 
