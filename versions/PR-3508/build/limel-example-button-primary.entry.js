@@ -1,2 +1,2 @@
-import{r,h as t}from"./index-6156b4fd.js";const e=class{constructor(t){r(this,t)}render(){return t("limel-button",{label:"My Button",primary:true})}};export{e as limel_example_button_primary};
+import{r,h as t}from"./index-2714248e.js";const e=class{constructor(t){r(this,t)}render(){return t("limel-button",{label:"My Button",primary:true})}};export{e as limel_example_button_primary};
 //# sourceMappingURL=limel-example-button-primary.entry.js.map
