@@ -37,6 +37,11 @@ export function createTestSchema(): Schema {
  * Allows for more flexibility in testing specific schema behaviors.
  *
  * @param options - Configuration options for the schema
+ * @param options.addLists - Whether to include list nodes (default: true)
+ * @param options.addStrikethrough - Whether to include strikethrough mark (default: true)
+ * @param options.addUnderline - Whether to include underline mark (default: true)
+ * @param options.customMarks - Custom marks to append to the schema
+ * @param options.customNodes - Custom nodes to append to the schema
  * @returns A customized ProseMirror Schema
  */
 export function createCustomTestSchema(options: {
@@ -78,9 +83,9 @@ export function createCustomTestSchema(options: {
     }
 
     if (options.customNodes) {
-        Object.entries(options.customNodes).forEach(([name, spec]) => {
+        for (const [name, spec] of Object.entries(options.customNodes)) {
             nodes = nodes.addToEnd(name, spec);
-        });
+        }
     }
 
     return new Schema({ nodes: nodes, marks: marks });
