@@ -19,7 +19,6 @@ export class MockDataTransfer {
     };
 
     constructor() {
-        // Update items.length when files changes
         Object.defineProperty(this.items, 'length', {
             get: () => this.files.length,
         });
@@ -100,33 +99,13 @@ export interface PasteData {
  * @returns Whether the paste event was handled by the editor
  */
 export function simulatePaste(view: EditorView, content: PasteData): boolean {
-    // Use our MockDataTransfer if native DataTransfer is not available
-    const dataTransfer =
-        typeof DataTransfer !== 'undefined'
-            ? new DataTransfer()
-            : new MockDataTransfer();
+    const dataTransfer = createDataTransfer(content);
 
-    if (content.text) {
-        dataTransfer.setData('text/plain', content.text);
-    }
-
-    if (content.html) {
-        dataTransfer.setData('text/html', content.html);
-    }
-
-    if (content.files) {
-        for (const file of content.files) {
-            dataTransfer.items.add(file);
-        }
-    }
-
-    // Create a mock event that we can dispatch
     const pasteEvent = new CustomEvent('paste', {
         bubbles: true,
         cancelable: true,
     });
 
-    // Add clipboardData property manually
     Object.defineProperty(pasteEvent, 'clipboardData', {
         value: dataTransfer,
         writable: false,
@@ -212,29 +191,8 @@ export function simulateDragAndDrop(
     const domNode = view.dom;
     let eventHandled = true;
 
-    // Use our MockDataTransfer if native DataTransfer is not available
-    const dataTransfer =
-        typeof DataTransfer !== 'undefined'
-            ? new DataTransfer()
-            : new MockDataTransfer();
+    const dataTransfer = dragData ? createDataTransfer(dragData) : undefined;
 
-    if (dragData) {
-        if (dragData.text) {
-            dataTransfer.setData('text/plain', dragData.text);
-        }
-
-        if (dragData.html) {
-            dataTransfer.setData('text/html', dragData.html);
-        }
-
-        if (dragData.files) {
-            for (const file of dragData.files) {
-                dataTransfer.items.add(file);
-            }
-        }
-    }
-
-    // Make sure elementFromPoint is available
     if (typeof document.elementFromPoint === 'undefined') {
         (document as any).elementFromPoint = () => view.dom;
     }
@@ -257,17 +215,18 @@ export function simulateDragAndDrop(
             cancelable: true,
         });
 
-        // Add required properties
-        Object.defineProperties(event, {
+        const props: PropertyDescriptorMap = {
             clientX: { value: x },
             clientY: { value: y },
-            dataTransfer: { value: dataTransfer },
-        });
+        };
+        if (dataTransfer) {
+            props.dataTransfer = { value: dataTransfer };
+        }
+        Object.defineProperties(event, props);
 
         return event;
     };
 
-    // Add drag events using custom creation
     events.push(
         createCustomDragEvent('dragstart', startX, startY),
         createCustomDragEvent('dragover', endX, endY),
@@ -285,4 +244,34 @@ export function simulateDragAndDrop(
     }
 
     return eventHandled;
+}
+
+
+/**
+ * Creates a DataTransfer object and populates it with the provided content
+ *
+ * @param content - The content to add to the DataTransfer object
+ * @returns A populated DataTransfer object
+ */
+function createDataTransfer(content: PasteData): DataTransfer | MockDataTransfer {
+    const dataTransfer =
+        typeof DataTransfer !== 'undefined'
+            ? new DataTransfer()
+            : new MockDataTransfer();
+
+    if (content.text) {
+        dataTransfer.setData('text/plain', content.text);
+    }
+
+    if (content.html) {
+        dataTransfer.setData('text/html', content.html);
+    }
+
+    if (content.files) {
+        for (const file of content.files) {
+            dataTransfer.items.add(file);
+        }
+    }
+
+    return dataTransfer;
 }
