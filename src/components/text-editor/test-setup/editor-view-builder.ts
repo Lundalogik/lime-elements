@@ -37,7 +37,6 @@ export function createEditorView(
 
     const view = new EditorView(container, viewProps);
 
-    // If dispatch spy has a setView method, call it with the created view
     if (dispatchSpy && typeof (dispatchSpy as any).setView === 'function') {
         (dispatchSpy as any).setView(view);
     }
@@ -52,21 +51,16 @@ export function createEditorView(
  * @returns A Jest mock function that can be used as a dispatch spy
  */
 export function createDispatchSpy(autoUpdate = true): jest.Mock {
-    // Store the view reference for auto-updating
     let viewRef: EditorView;
 
-    // Create the spy function
     const spy = jest.fn((transaction) => {
-        // If autoUpdate is enabled and we have a view reference, update the state
         if (autoUpdate && viewRef) {
             viewRef.updateState(viewRef.state.apply(transaction));
         }
 
-        // Return the transaction for easier testing
         return transaction;
     });
 
-    // Add method to set the view
     (spy as any).setView = (view: EditorView) => {
         viewRef = view;
     };
@@ -87,9 +81,7 @@ export function cleanupEditorView(
 ): void {
     view.destroy();
 
-    if (container && container.parentNode) {
-        container.parentNode.removeChild(container);
-    }
+    container?.parentNode?.removeChild(container);
 }
 
 /**
