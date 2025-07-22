@@ -135,12 +135,12 @@ describe('Editor View Utilities', () => {
 
         it('should remove container from DOM if provided', () => {
             const customContainer = document.createElement('div');
-            document.body.appendChild(customContainer);
+            document.body.append(customContainer);
 
             const result = createEditorView(
                 undefined,
                 undefined,
-                customContainer,
+                customContainer
             );
             view = result.view;
             container = result.container;
@@ -173,33 +173,52 @@ describe('Editor View Utilities', () => {
         });
 
         it('should create mock DOM if none exists', () => {
-            global.window = undefined;
-            global.document = undefined;
+            const originalWindow = global.window;
+            const originalDocument = global.document;
 
-            const cleanup = mockProseMirrorDOMEnvironment();
+            try {
+                global.window = undefined;
+                global.document = undefined;
 
-            expect(global.window).toBeDefined();
-            expect(global.document).toBeDefined();
-            expect(global.document.createElement).toBeDefined();
+                const cleanup = mockProseMirrorDOMEnvironment();
 
-            cleanup();
+                expect(global.window).toBeDefined();
+                expect(global.document).toBeDefined();
+                expect(global.document.createElement).toBeDefined();
 
-            expect(global.window).toBeUndefined();
-            expect(global.document).toBeUndefined();
+                cleanup();
+
+                expect(global.window).toBeUndefined();
+                expect(global.document).toBeUndefined();
+            } finally {
+                global.window = originalWindow;
+                global.document = originalDocument;
+            }
         });
 
         it('should not modify existing DOM environment', () => {
-            global.window = { existingProp: true } as any;
-            global.document = { existingProp: true } as any;
+            const originalWindow = global.window;
+            const originalDocument = global.document;
+            let cleanup: () => void;
 
-            const cleanup = mockProseMirrorDOMEnvironment();
+            try {
+                global.window = { existingProp: true } as any;
+                global.document = { existingProp: true } as any;
 
-            expect((global.window as any).existingProp).toBe(true);
-            expect((global.document as any).existingProp).toBe(true);
+                cleanup = mockProseMirrorDOMEnvironment();
 
+                expect((global.window as any).existingProp).toBe(true);
+                expect((global.document as any).existingProp).toBe(true);
 
-            expect(global.window).toEqual({ existingProp: true });
-            expect(global.document).toEqual({ existingProp: true });
+                expect(global.window).toEqual({ existingProp: true });
+                expect(global.document).toEqual({ existingProp: true });
+            } finally {
+                if (cleanup) {
+                    cleanup();
+                }
+                global.window = originalWindow;
+                global.document = originalDocument;
+            }
         });
     });
 });

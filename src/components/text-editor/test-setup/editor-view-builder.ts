@@ -14,11 +14,11 @@ import { createTestSchema } from './schema-builder';
 export function createEditorView(
     state?: EditorState,
     dispatchSpy?: jest.Mock,
-    parentElement?: HTMLElement,
+    parentElement?: HTMLElement
 ): { view: EditorView; container: HTMLElement } {
     const container = parentElement || document.createElement('div');
     if (!parentElement) {
-        document.body.appendChild(container);
+        document.body.append(container);
     }
 
     const editorState =
@@ -77,11 +77,11 @@ export function createDispatchSpy(autoUpdate = true): jest.Mock {
  */
 export function cleanupEditorView(
     view: EditorView,
-    container?: HTMLElement,
+    container?: HTMLElement
 ): void {
     view.destroy();
 
-    container?.parentNode?.removeChild(container);
+    container?.remove();
 }
 
 /**
