@@ -41,7 +41,7 @@ describe('Command Testing Utilities', () => {
             // Check that some text was added (but don't rely on specific ordering)
             expect(result.newState.doc.textContent).toContain('Test');
             expect(result.newState.doc.textContent).toContain(
-                'additional text',
+                'additional text'
             );
         });
     });
@@ -78,7 +78,7 @@ describe('Command Testing Utilities', () => {
 
             expect(commandResult.newState.doc.textContent).toContain('Initial');
             expect(commandResult.newState.doc.textContent).toContain(
-                'Modified',
+                'Modified'
             );
         });
 
@@ -141,7 +141,7 @@ describe('Command Testing Utilities', () => {
                 viewCommand,
                 state,
                 {
-                    shouldApply: true,
+                    shouldApply: true
                 },
             );
 
@@ -173,12 +173,12 @@ describe('Command Testing Utilities', () => {
 
             const result1 = testHelloCommand(state1, {
                 shouldApply: true,
-                docContentAfter: 'Hello World',
+                docContentAfter: 'Hello World'
             });
 
             const result2 = testHelloCommand(state2, {
                 shouldApply: true,
-                docContentAfter: 'Hello Universe',
+                docContentAfter: 'Hello Universe'
             });
 
             expect(result1.result).toBe(true);

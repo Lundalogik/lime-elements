@@ -63,10 +63,10 @@ export function getCommandResult(
  * @param command - The ProseMirror command to test
  * @param state - The editor state to apply the command to
  * @param expected - An object containing expected values to verify
- * @param shouldApply - Whether the command should be applicable to the state
- * @param docContentAfter - Optional expected document content after applying command
- * @param docSizeAfter - Optional expected document size after applying command
- * @param includesContent - Optional content to check if it exists in the document content
+ * @param expected.shouldApply - Whether the command should be applicable to the state
+ * @param expected.docContentAfter - Optional expected document content after applying command
+ * @param expected.docSizeAfter - Optional expected document size after applying command
+ * @param expected.includesContent - Optional content to check if it exists in the document content
  * @returns The result of applying the command for further assertions if needed
  */
 export function testCommand(
@@ -95,11 +95,9 @@ export function testCommand(
         if (expected.includesContent) {
             if (Array.isArray(expected.includesContent)) {
                 // Check that all strings in the array are contained in the doc content
-                expected.includesContent.forEach((content) => {
-                    expect(commandResult.newState.doc.textContent).toContain(
-                        content,
-                    );
-                });
+                for (const content of expected.includesContent) {
+                    expect(commandResult.newState.doc.textContent).toContain(content);
+                }
             } else {
                 expect(commandResult.newState.doc.textContent).toContain(
                     expected.includesContent,
@@ -123,6 +121,9 @@ export function testCommand(
  * @param command - The command to test
  * @param state - The editor state to apply the command to
  * @param expected - Expected results after command execution
+ * @param expected.shouldApply - Whether the command should be applicable to the state
+ * @param expected.docContentAfter - Optional expected document content after applying command
+ * @param expected.docSizeAfter - Optional expected document size after applying command
  * @returns An extended result containing the command result and the created view
  */
 export function testCommandWithView(
