@@ -46,9 +46,9 @@ describe('Table Plugin', () => {
             const tableNodes = getTableNodes();
             let nodes = baseSchema.spec.nodes;
 
-            Object.entries(tableNodes).forEach(([name, spec]) => {
+            for (const [name, spec] of Object.entries(tableNodes)) {
                 nodes = nodes.addToEnd(name, spec);
-            });
+            }
 
             const schema = new Schema({
                 nodes: nodes,
@@ -87,9 +87,9 @@ describe('Table Plugin', () => {
             const tableNodes = getTableNodes();
             let nodes = baseSchema.spec.nodes;
 
-            Object.entries(tableNodes).forEach(([name, spec]) => {
+            for (const [name, spec] of Object.entries(tableNodes)) {
                 nodes = nodes.addToEnd(name, spec);
-            });
+            }
 
             const schema = new Schema({
                 nodes: nodes,
