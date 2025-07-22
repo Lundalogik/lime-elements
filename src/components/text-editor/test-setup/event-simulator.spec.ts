@@ -23,7 +23,7 @@ describe('Event Simulation Utilities', () => {
         view = result.view;
         container = result.container;
 
-        document.body.appendChild(container);
+        document.body.append(container);
     });
 
     afterEach(() => {
@@ -101,7 +101,7 @@ describe('Event Simulation Utilities', () => {
             const event = dispatchEventSpy.mock.calls[0][0] as any;
             const clipboardData = event.clipboardData;
             expect(clipboardData.getData('text/html')).toBe(
-                '<p>Formatted <strong>content</strong></p>',
+                '<p>Formatted <strong>content</strong></p>'
             );
 
             dispatchEventSpy.mockRestore();
@@ -148,7 +148,7 @@ describe('Event Simulation Utilities', () => {
             expect(dispatchEventSpy).toHaveBeenCalledTimes(5);
 
             const eventTypes = dispatchEventSpy.mock.calls.map(
-                (call) => call[0].type,
+                (call) => call[0].type
             );
             expect(eventTypes).toEqual([
                 'mousedown',
@@ -184,7 +184,7 @@ describe('Event Simulation Utilities', () => {
                 'Dragged text',
             );
             expect(dragstart.dataTransfer.getData('text/html')).toBe(
-                '<p>Dragged HTML</p>',
+                '<p>Dragged HTML</p>'
             );
 
             dispatchEventSpy.mockRestore();

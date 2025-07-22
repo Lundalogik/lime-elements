@@ -1,4 +1,3 @@
-/* eslint-disable multiline-ternary */
 import { EditorView } from 'prosemirror-view';
 
 /**
@@ -62,7 +61,7 @@ export interface KeyModifiers {
 export function simulateKeyPress(
     view: EditorView,
     key: string,
-    modifiers: KeyModifiers = {},
+    modifiers: KeyModifiers = {}
 ): boolean {
     const options: KeyboardEventInit = {
         key: key,
@@ -132,7 +131,7 @@ export function simulateClick(
     view: EditorView,
     clientX: number,
     clientY: number,
-    options: { button?: number; detail?: number } = {},
+    options: { button?: number; detail?: number } = {}
 ): boolean {
     // Create a basic event that doesn't rely on elementFromPoint
     const mouseEvent = new MouseEvent('mousedown', {
@@ -141,11 +140,11 @@ export function simulateClick(
         clientX: clientX,
         clientY: clientY,
         button: options.button || 0, // 0 = left button
-        detail: options.detail || 1, // 1 = single click
+        detail: options.detail || 1 // 1 = single click
     });
 
     // Add a noop implementation for coordinate methods that might be missing
-    if (typeof document.elementFromPoint === 'undefined') {
+    if (document.elementFromPoint === undefined) {
         // For tests, just pretend the click always hits the editor
         // This prevents errors when ProseMirror calls elementFromPoint
         (view.dom as any).getBoundingClientRect = () => ({
@@ -158,7 +157,7 @@ export function simulateClick(
         });
 
         // Mock elementFromPoint to avoid errors
-        if (typeof document.elementFromPoint === 'undefined') {
+        if (document.elementFromPoint === undefined) {
             (document as any).elementFromPoint = () => view.dom;
         }
     }
@@ -186,14 +185,14 @@ export function simulateDragAndDrop(
     startY: number,
     endX: number,
     endY: number,
-    dragData?: PasteData,
+    dragData?: PasteData
 ): boolean {
     const domNode = view.dom;
     let eventHandled = true;
 
     const dataTransfer = dragData ? createDataTransfer(dragData) : undefined;
 
-    if (typeof document.elementFromPoint === 'undefined') {
+    if (document.elementFromPoint === undefined) {
         (document as any).elementFromPoint = () => view.dom;
     }
 
@@ -235,8 +234,8 @@ export function simulateDragAndDrop(
             bubbles: true,
             cancelable: true,
             clientX: endX,
-            clientY: endY,
-        }),
+            clientY: endY
+        })
     );
 
     for (const event of events) {
@@ -251,9 +250,15 @@ export function simulateDragAndDrop(
  * Creates a DataTransfer object and populates it with the provided content
  *
  * @param content - The content to add to the DataTransfer object
+ * @typedef {Object} PasteData
+ * @property {string} [text]
+ * @property {string} [html]
+ * @property {File[]} [files]
  * @returns A populated DataTransfer object
  */
-function createDataTransfer(content: PasteData): DataTransfer | MockDataTransfer {
+function createDataTransfer(
+    content: PasteData
+): DataTransfer | MockDataTransfer {
     const dataTransfer =
         typeof DataTransfer !== 'undefined'
             ? new DataTransfer()
