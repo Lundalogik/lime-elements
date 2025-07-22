@@ -149,10 +149,10 @@ describe('Content Generation Utilities', () => {
                 expect(firstChild.type.name).toBe('bullet_list');
                 expect(firstChild.childCount).toBe(3);
 
-                for (let i = 0; i < items.length; i++) {
+                for (const [i, item] of items.entries()) {
                     const listItem = firstChild.child(i);
                     expect(listItem.type.name).toBe('list_item');
-                    expect(listItem.textContent).toBe(items[i]);
+                    expect(listItem.textContent).toBe(item);
                 }
             }
         });

@@ -41,7 +41,7 @@ export function createDocWithHTML(html: string, schema?: Schema): EditorState {
 export function createDocWithFormattedText(
     text: string,
     marks: MarkSpec[],
-    schema?: Schema,
+    schema?: Schema
 ): EditorState {
     const editorSchema = schema || createTestSchema();
 
@@ -63,7 +63,7 @@ export function createDocWithFormattedText(
 function createTextNodeWithMarks(
     text: string,
     marks: MarkSpec[],
-    schema: Schema,
+    schema: Schema
 ): Node {
     const appliedMarks: Mark[] = marks.map((markSpec) => {
         const markType = schema.marks[markSpec.type];
@@ -88,7 +88,7 @@ function createTextNodeWithMarks(
  */
 export function createDocWithBulletList(
     items: string[],
-    schema?: Schema,
+    schema?: Schema
 ): EditorState {
     const editorSchema = schema || createTestSchema();
 
@@ -101,7 +101,7 @@ export function createDocWithBulletList(
 
     const bulletList = editorSchema.nodes.bullet_list.create(
         null,
-        Fragment.from(listItems),
+        Fragment.from(listItems)
     );
 
     const doc = editorSchema.nodes.doc.createAndFill(null, bulletList);
@@ -120,14 +120,14 @@ export function createDocWithBulletList(
 export function createDocWithHeading(
     text: string,
     level: number = 1,
-    schema?: Schema,
+    schema?: Schema
 ): EditorState {
     const editorSchema = schema || createTestSchema();
 
     const textNode = editorSchema.text(text);
     const heading = editorSchema.nodes.heading.create(
         { level: level },
-        textNode,
+        textNode
     );
 
     const doc = editorSchema.nodes.doc.createAndFill(null, heading);
@@ -144,7 +144,7 @@ export function createDocWithHeading(
  */
 export function createDocWithBlockquote(
     text: string,
-    schema?: Schema,
+    schema?: Schema
 ): EditorState {
     const editorSchema = schema || createTestSchema();
 
@@ -166,7 +166,7 @@ export function createDocWithBlockquote(
  */
 export function createDocWithCodeBlock(
     code: string,
-    schema?: Schema,
+    schema?: Schema
 ): EditorState {
     const editorSchema = schema || createTestSchema();
 
