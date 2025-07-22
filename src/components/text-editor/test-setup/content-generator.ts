@@ -1,4 +1,4 @@
-import { Schema, Mark, Fragment, Node } from 'prosemirror-model';
+import { Schema, Mark, Fragment, Node, MarkSpec } from 'prosemirror-model';
 import { createTestSchema } from './schema-builder';
 import { createEditorState } from './editor-state-builder';
 import { EditorState } from 'prosemirror-state';
@@ -28,14 +28,6 @@ export function createDocWithHTML(html: string, schema?: Schema): EditorState {
     const editorSchema = schema || createTestSchema();
 
     return createEditorState(html, editorSchema);
-}
-
-/**
- * Mark specification for applying formatting to text
- */
-export interface MarkSpec {
-    type: string;
-    attrs?: Record<string, any>;
 }
 
 /**

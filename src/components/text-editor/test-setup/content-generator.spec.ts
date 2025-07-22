@@ -8,8 +8,8 @@ import {
     createDocWithHeading,
     createDocWithBlockquote,
     createDocWithCodeBlock,
-    MarkSpec,
 } from './content-generator';
+import { MarkSpec } from 'prosemirror-model';
 
 describe('Content Generation Utilities', () => {
     describe('createDocWithText', () => {
@@ -49,7 +49,6 @@ describe('Content Generation Utilities', () => {
             expect(state).toBeInstanceOf(EditorState);
             expect(state.doc.textContent).toBe('HeadingParagraph with bold');
 
-            // Check the structure
             const firstChild = state.doc.firstChild;
             const secondChild = state.doc.child(1);
 
@@ -66,7 +65,6 @@ describe('Content Generation Utilities', () => {
             const state = createDocWithHTML('');
 
             expect(state).toBeInstanceOf(EditorState);
-            // Should at least have a valid document structure
             expect(state.doc.childCount).toBeGreaterThan(0);
         });
     });
@@ -81,7 +79,6 @@ describe('Content Generation Utilities', () => {
             expect(state).toBeInstanceOf(EditorState);
             expect(state.doc.textContent).toBe(text);
 
-            // Check that marks were applied
             const firstChild = state.doc.firstChild;
             expect(firstChild).toBeDefined();
 
@@ -114,7 +111,6 @@ describe('Content Generation Utilities', () => {
 
             const state = createDocWithFormattedText(text, marks);
 
-            // Check mark attributes
             const firstChild = state.doc.firstChild;
             if (firstChild && firstChild.firstChild) {
                 const linkMark = firstChild.firstChild.marks.find(
@@ -146,7 +142,6 @@ describe('Content Generation Utilities', () => {
 
             expect(state).toBeInstanceOf(EditorState);
 
-            // Check structure
             const firstChild = state.doc.firstChild;
             expect(firstChild).toBeDefined();
 
@@ -154,7 +149,6 @@ describe('Content Generation Utilities', () => {
                 expect(firstChild.type.name).toBe('bullet_list');
                 expect(firstChild.childCount).toBe(3);
 
-                // Check each list item
                 for (let i = 0; i < items.length; i++) {
                     const listItem = firstChild.child(i);
                     expect(listItem.type.name).toBe('list_item');
@@ -187,7 +181,6 @@ describe('Content Generation Utilities', () => {
             expect(state).toBeInstanceOf(EditorState);
             expect(state.doc.textContent).toBe(text);
 
-            // Check structure
             const firstChild = state.doc.firstChild;
             expect(firstChild).toBeDefined();
 
@@ -215,14 +208,12 @@ describe('Content Generation Utilities', () => {
             expect(state).toBeInstanceOf(EditorState);
             expect(state.doc.textContent).toBe(text);
 
-            // Check structure
             const firstChild = state.doc.firstChild;
             expect(firstChild).toBeDefined();
 
             if (firstChild) {
                 expect(firstChild.type.name).toBe('blockquote');
 
-                // Blockquote should contain a paragraph
                 const paragraph = firstChild.firstChild;
                 expect(paragraph).toBeDefined();
 
@@ -242,7 +233,6 @@ describe('Content Generation Utilities', () => {
             expect(state).toBeInstanceOf(EditorState);
             expect(state.doc.textContent).toBe(code);
 
-            // Check structure
             const firstChild = state.doc.firstChild;
             expect(firstChild).toBeDefined();
 
