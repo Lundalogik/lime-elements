@@ -103,8 +103,8 @@ describe('Content Generation Utilities', () => {
                 {
                     type: 'link',
                     attrs: {
-                        href: 'https://example.com',
-                        title: 'Example',
+                        href: { default: 'https://example.com' },
+                        title: { default: 'Example' },
                     },
                 },
             ];
@@ -112,15 +112,19 @@ describe('Content Generation Utilities', () => {
             const state = createDocWithFormattedText(text, marks);
 
             const firstChild = state.doc.firstChild;
-            if (firstChild && firstChild.firstChild) {
+            if (firstChild?.firstChild) {
                 const linkMark = firstChild.firstChild.marks.find(
                     (m) => m.type.name === 'link',
                 );
                 expect(linkMark).toBeDefined();
 
                 if (linkMark) {
-                    expect(linkMark.attrs.href).toBe('https://example.com');
-                    expect(linkMark.attrs.title).toBe('Example');
+                    expect(linkMark.attrs.href).toEqual({
+                        default: 'https://example.com',
+                    });
+                    expect(linkMark.attrs.title).toEqual({
+                        default: 'Example',
+                    });
                 }
             }
         });
