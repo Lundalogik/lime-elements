@@ -41,12 +41,10 @@ export function getCommandResult(
         null,
     );
 
-    // If command returned false immediately, it couldn't be applied to this state
     if (!commandResult) {
         return { result: false };
     }
 
-    // If we have a transaction, create the new state
     let newState: EditorState | undefined;
     if (transaction) {
         newState = state.apply(transaction);
@@ -136,13 +134,11 @@ export function testCommandWithView(
         docSizeAfter?: number;
     },
 ): { result: CommandResult; view: EditorView; container: HTMLElement } {
-    // Create a view for the command
     const { view, container } = createEditorView(state);
 
     let result = false;
     let transaction: Transaction | undefined;
 
-    // Apply command with the view
     const commandResult = command(
         state,
         (tr) => {
@@ -153,7 +149,6 @@ export function testCommandWithView(
         view,
     );
 
-    // Build result object
     const commandResultObj: CommandResult = {
         result: commandResult && result,
     };
@@ -163,7 +158,6 @@ export function testCommandWithView(
         commandResultObj.newState = state.apply(transaction);
     }
 
-    // Perform assertions
     expect(commandResultObj.result).toBe(expected.shouldApply);
 
     if (expected.shouldApply && commandResultObj.newState) {
