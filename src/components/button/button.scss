@@ -56,10 +56,13 @@ button {
 
     :host(limel-button[primary]) & {
         &:not(:disabled) {
-            color: var(--mdc-theme-on-primary, rgb(var(--color-white)));
+            color: var(
+                --lime-on-primary-color,
+                var(--limel-theme-on-primary-color)
+            );
             background-color: var(
-                --mdc-theme-primary,
-                rgb(var(--color-teal-default))
+                --lime-primary-color,
+                var(--limel-theme-primary-color)
             );
         }
         &:disabled {
@@ -69,7 +72,7 @@ button {
 
     :host(limel-button:not([primary])) & {
         &:not(:disabled) {
-            color: var(--mdc-theme-primary, rgb(var(--color-teal-default)));
+            color: var(--lime-primary-color, var(--limel-theme-primary-color));
         }
         &:disabled {
             color: rgba(var(--contrast-1600), 0.37);
@@ -137,13 +140,13 @@ svg {
 }
 
 .just-failed {
-    background-color: var(--lime-error-text-color) !important;
+    background-color: var(--limel-theme-error-color) !important;
     animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
 .outlined {
     border: 1px solid;
-    border-color: var(--mdc-theme-primary);
+    border-color: var(--lime-primary-color, var(--limel-theme-primary-color));
 }
 
 @keyframes shake {

@@ -70,7 +70,10 @@
             box-shadow: var(--shadow-depth-16);
 
             &:before {
-                border-top-color: var(--mdc-theme-primary);
+                border-top-color: var(
+                    --lime-primary-color,
+                    var(--limel-theme-primary-color)
+                );
             }
         }
     }
@@ -85,6 +88,9 @@
 .mdc-slider__value-indicator {
     .mdc-slider:not(.mdc-slider--disabled) &,
     :host(limel-slider[readonly]) & {
-        background-color: var(--mdc-theme-primary);
+        background-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
     }
 }

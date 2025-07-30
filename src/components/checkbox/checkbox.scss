@@ -8,7 +8,10 @@
 
 @mixin custom-checkbox-styles {
     // This is used in other components too, such as `limel-list`
-    --mdc-checkbox-checked-color: var(--mdc-theme-primary);
+    --mdc-checkbox-checked-color: var(
+        --lime-primary-color,
+        var(--limel-theme-primary-color)
+    );
     --mdc-checkbox-unchecked-color: var(
         --checkbox-unchecked-border-color,
         rgb(var(--contrast-900))
@@ -59,7 +62,7 @@ limel-dynamic-label {
                     :indeterminate
                 )
                 ~ .mdc-checkbox__background {
-                border-color: var(--lime-error-text-color);
+                border-color: var(--limel-theme-error-color);
             }
         }
         .mdc-checkbox__native-control {
@@ -89,13 +92,15 @@ limel-dynamic-label {
         padding-top: 0.75rem;
         padding-left: 0;
 
+        color: var(--limel-theme-text-primary-on-background-color);
+
         &.mdc-checkbox--required::after {
             margin-left: 0.0625rem;
             content: '*';
         }
 
         &.mdc-checkbox--invalid {
-            color: var(--lime-error-text-color);
+            color: var(--limel-theme-error-text-color);
         }
     }
 }

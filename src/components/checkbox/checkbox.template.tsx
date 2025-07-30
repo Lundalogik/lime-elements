@@ -26,7 +26,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
         if (props.checked) {
             icon = {
                 name: 'ok',
-                color: 'var(--mdc-theme-primary)',
+                color: 'var(--lime-primary-color, var(--limel-theme-primary-color))',
             };
         }
 
