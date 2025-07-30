@@ -10,7 +10,10 @@
 
 $lime-text-field-outline-color: rgba(var(--contrast-700), 0.65);
 $lime-text-field-outline-color--hovered: rgba(var(--contrast-700), 1);
-$lime-text-field-outline-color--focused: var(--mdc-theme-primary);
+$lime-text-field-outline-color--focused: var(
+    --lime-primary-color,
+    var(--limel-theme-primary-color)
+);
 
 $background-color-normal: rgba(var(--contrast-200), 0.5);
 $background-color-hovered: rgba(var(--contrast-200), 1);
@@ -240,7 +243,8 @@ $cropped-label-hack--font-size: 0.875rem; //14px
             }
 
             &:focus-visible {
-                box-shadow: 0 0 0 functions.pxToRem(2) var(--mdc-theme-primary) !important; // has to be `!important` since we're using `box-shadow` insted of `outline` which is also used in `hover` mode
+                box-shadow: 0 0 0 functions.pxToRem(2)
+                    var(--lime-primary-color, var(--limel-theme-primary-color)) !important; // has to be `!important` since we're using `box-shadow` insted of `outline` which is also used in `hover` mode
             }
         }
         &:not(.mdc-text-field--disabled):hover {
@@ -262,7 +266,7 @@ $cropped-label-hack--font-size: 0.875rem; //14px
         &.mdc-text-field--invalid {
             i.mdc-text-field__icon.invalid-icon {
                 limel-icon {
-                    color: var(--lime-error-text-color);
+                    color: var(--limel-theme-error-text-color);
                 }
             }
         }
@@ -301,7 +305,7 @@ $cropped-label-hack--font-size: 0.875rem; //14px
         &.mdc-text-field--invalid {
             & + .mdc-text-field-helper-line {
                 .mdc-text-field-helper-text--validation-msg {
-                    color: var(--lime-error-text-color);
+                    color: var(--limel-theme-error-text-color);
                 }
             }
         }

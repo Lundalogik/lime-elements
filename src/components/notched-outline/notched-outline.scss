@@ -177,10 +177,12 @@ limel-notched-outline {
 
     &[invalid]:not([invalid='false']) {
         &:not([disabled]:not([disabled='false'])) {
-            --limel-notched-outline-border-color: var(--lime-error-text-color);
+            --limel-notched-outline-border-color: var(
+                --limel-theme-error-text-color
+            );
             &:hover {
                 --limel-notched-outline-border-color: var(
-                    --lime-error-text-color
+                    --limel-theme-error-color
                 );
             }
         }
@@ -188,7 +190,7 @@ limel-notched-outline {
         .limel-notched-outline--notch {
             label {
                 &:after {
-                    color: var(--lime-error-text-color);
+                    color: var(--limel-theme-error-text-color);
                 }
             }
         }

@@ -2,13 +2,13 @@
 
 :host(.static-actions-list) {
     z-index: $list-static-actions-list;
-    background-color: var(--mdc-theme-surface);
+    background-color: var(--limel-theme-surface-background-color);
 }
 
 :host(.has-position-sticky) {
     position: sticky;
     box-shadow: 0 0 functions.pxToRem(12) functions.pxToRem(8)
-        var(--mdc-theme-surface);
+        var(--limel-theme-surface-background-color);
 }
 
 :host(.has-position-sticky.is-on-top) {

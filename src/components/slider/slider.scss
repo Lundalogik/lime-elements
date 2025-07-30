@@ -34,6 +34,31 @@ div[slot='content'] {
 .mdc-slider {
     height: shared_input-select-picker.$height-of-mdc-text-field;
     margin: 0 0.75rem;
+
+    .mdc-slider__track--inactive {
+        background-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
+    }
+
+    .mdc-slider__track--active_fill {
+        border-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
+    }
+
+    .mdc-slider__thumb-knob {
+        border-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
+        background-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
+    }
 }
 
 .mdc-slider .mdc-slider__value-indicator-text {

@@ -138,7 +138,7 @@ export class Switch {
             if (this.value) {
                 icon = {
                     name: 'ok',
-                    color: 'var(--mdc-theme-primary)',
+                    color: 'var(--lime-primary-color, var(--limel-theme-primary-color))',
                 };
             }
 

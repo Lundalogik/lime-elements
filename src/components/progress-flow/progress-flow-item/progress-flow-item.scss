@@ -12,7 +12,7 @@ $limel-progress-flow-divider: 1;
     );
     --step-background--selected: var(
         --progress-flow-step-background-color--selected,
-        var(--mdc-theme-primary)
+        var(--lime-primary-color, var(--limel-theme-primary-color))
     );
     --step-background--passed: var(
         --progress-flow-step-background-color--passed,
@@ -25,7 +25,7 @@ $limel-progress-flow-divider: 1;
     );
     --step-text--selected: var(
         --progress-flow-step-text-color--selected,
-        var(--mdc-theme-on-primary)
+        var(--lime-on-primary-color, var(--limel-theme-on-primary-color))
     );
     --step-text--passed: var(
         --progress-flow-step-text-color--passed,

@@ -1,43 +1,57 @@
 @mixin theme-color-variables() {
+    // ==========================
+    // We need to keep these custom css vars. Because they are unfortunately
+    // used by some consumers as theming or styling hacks.
     --mdc-theme-primary: var(
         --lime-primary-color,
-        rgb(var(--color-teal-default))
-    );
-    --mdc-theme-secondary: var(
-        --lime-secondary-color,
-        rgb(var(--contrast-1100))
+        var(--limel-theme-primary-color)
     );
     --mdc-theme-on-primary: var(
         --lime-on-primary-color,
-        rgb(var(--contrast-100))
-    );
-    --mdc-theme-on-secondary: var(
-        --lime-on-secondary-color,
-        rgb(var(--contrast-100))
+        var(--limel-theme-on-primary-color)
     );
     --mdc-theme-text-disabled-on-background: var(
-        --lime-text-disabled-on-background-color,
-        rgba(var(--contrast-1700), 0.38)
+        --limel-theme-text-disabled-on-background-color
     );
     --mdc-theme-text-primary-on-background: var(
-        --lime-text-primary-on-background-color,
-        rgba(var(--contrast-1700), 0.87)
+        --limel-theme-text-primary-on-background-color
     );
     --mdc-theme-text-secondary-on-background: var(
-        --lime-text-secondary-on-background-color,
-        rgba(var(--contrast-1700), 0.54)
+        --limel-theme-text-secondary-on-background-color
     );
-    --mdc-theme-error: var(
-        --lime-error-background-color,
-        rgb(var(--color-red-dark))
+    --mdc-theme-surface: var(--limel-theme-surface-background-color);
+    --mdc-theme-on-surface: var(--limel-theme-on-surface-color);
+    // We keep them as safety, even though the consumer should
+    // be encouraged to follow our theming guidelines
+    // and use the publicly declared CSS custom props like
+    // `--lime-primary-color` or `--lime-on-primary-color` instead.
+    //
+    // The "secondary" colors have never been used in the Lime design system,
+    // so we keep them commented out.
+    // --mdc-theme-secondary: var(--limel-theme-secondary-color);
+    // --mdc-theme-on-secondary: var(--limel-theme-on-secondary-color);
+    // ==========================
+
+    --limel-theme-primary-color: rgb(var(--color-teal-default));
+    --limel-theme-on-primary-color: rgb(var(--contrast-100));
+    // We never use secondary colors,
+    // but we keep them just in case.
+    // --limel-theme-secondary-color: rgb(var(--contrast-1100));
+    // --limel-theme-on-secondary-color: rgb(var(--contrast-100));
+    --limel-theme-text-disabled-on-background-color: rgb(
+        var(--contrast-1700),
+        0.38
     );
-    --lime-error-text-color: rgb(var(--color-red-darker));
-    --mdc-theme-surface: var(
-        --lime-surface-background-color,
-        rgb(var(--contrast-100))
+    --limel-theme-text-primary-on-background-color: rgb(
+        var(--contrast-1700),
+        0.87
     );
-    --mdc-theme-on-surface: var(
-        --lime-on-surface-color,
-        rgb(var(--contrast-1500))
+    --limel-theme-text-secondary-on-background-color: rgb(
+        var(--contrast-1700),
+        0.54
     );
+    --limel-theme-error-color: rgb(var(--color-red-dark));
+    --limel-theme-error-text-color: rgb(var(--color-red-darker));
+    --limel-theme-surface-background-color: rgb(var(--contrast-100));
+    --limel-theme-on-surface-color: rgb(var(--contrast-1500));
 }

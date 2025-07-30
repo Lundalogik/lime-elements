@@ -37,7 +37,9 @@
                 background-color: transparent; // has to be here, otherwise disabled buttons will also get a background
 
                 &.active {
-                    background-color: var(--mdc-theme-surface);
+                    background-color: var(
+                        --limel-theme-surface-background-color
+                    );
                     box-shadow: var(--button-shadow-inset);
                 }
 
@@ -80,7 +82,7 @@ button.tabulator-page {
                 style: solid;
                 color: transparent;
                 width: 0.25rem 0 0.25rem 0.4rem;
-                left-color: var(--mdc-theme-on-surface);
+                left-color: var(--limel-theme-on-surface-color);
             }
         }
     }
@@ -90,7 +92,7 @@ button.tabulator-page {
         &:before {
             height: 0.5rem;
             width: 0.125rem;
-            background-color: var(--mdc-theme-on-surface);
+            background-color: var(--limel-theme-on-surface-color);
         }
     }
 

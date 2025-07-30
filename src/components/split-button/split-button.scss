@@ -42,14 +42,14 @@ limel-menu {
 
     &:not([disabled]) {
         color: var(
-            --mdc-theme-primary,
-            rgb(var(--color-teal-default))
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
         ); // similar to limel-button text
 
         &.primary {
             color: var(
-                --mdc-theme-on-primary,
-                rgb(var(--color-white))
+                --lime-on-primary-color,
+                var(--limel-theme-on-primary-color)
             ); // similar to limel-button text
         }
     }
