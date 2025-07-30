@@ -50,7 +50,10 @@
 
 .lime-circular-progress {
     --size: var(--circular-progress-size, 3rem);
-    --fill-color: var(--circular-progress-fill-color, var(--mdc-theme-primary));
+    --fill-color: var(
+        --circular-progress-fill-color,
+        var(--lime-primary-color, var(--limel-theme-primary-color))
+    );
     --track-color: var(
         --circular-progress-track-color,
         rgb(var(--contrast-400))

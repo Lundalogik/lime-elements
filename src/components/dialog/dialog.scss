@@ -91,7 +91,7 @@ $responsive-body-padding: 3vw; // 3% of viewport's width
         );
         @include mixins.fade-out-overflowed-content-on-edges(vertically);
 
-        color: var(--mdc-theme-on-surface);
+        color: var(--limel-theme-on-surface-color);
         padding-left: var(
             --dialog-padding-left-right,
             min(1.25rem, $responsive-body-padding)

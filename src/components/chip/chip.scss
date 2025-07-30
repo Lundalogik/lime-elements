@@ -109,7 +109,7 @@
         }
     }
     .text {
-        color: var(--mdc-theme-primary);
+        color: var(--lime-primary-color, var(--limel-theme-primary-color));
     }
 }
 

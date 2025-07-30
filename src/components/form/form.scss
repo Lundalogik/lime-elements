@@ -150,7 +150,7 @@ limel-code-editor {
 }
 
 .form-error {
-    color: var(--mdc-theme-error, #b00020);
+    color: var(--limel-theme-error-color);
     font-size: 0.6875rem;
     line-height: 1.5;
     visibility: inherit;
@@ -217,7 +217,10 @@ limel-code-editor {
                 margin: auto;
                 left: -0.75rem;
 
-                background-color: var(--mdc-theme-primary);
+                background-color: var(
+                    --lime-primary-color,
+                    var(--limel-theme-primary-color)
+                );
                 width: 0.125rem;
                 height: var(--mdc-typography-headline1-line-height);
                 border-radius: 0.125rem;

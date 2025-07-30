@@ -55,7 +55,10 @@ button {
         &:not(:hover) {
             box-shadow: var(--button-shadow-inset);
         }
-        color: var(--mdc-theme-primary) !important;
+        color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        ) !important;
     }
 }
 

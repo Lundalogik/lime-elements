@@ -147,16 +147,16 @@ $tab-separator-background-color: rgb(var(--contrast-600));
     .mdc-tab__text-label {
         transition: color 0.2s ease;
         padding-left: 0 !important;
-        color: var(--mdc-theme-on-surface);
+        color: var(--limel-theme-on-surface-color);
     }
     &:hover {
         .mdc-tab__text-label {
-            color: var(--mdc-theme-text-primary-on-background);
+            color: var(--limel-theme-text-primary-on-background-color);
         }
     }
     &.mdc-tab--active {
         .mdc-tab__text-label {
-            color: var(--mdc-theme-primary);
+            color: var(--lime-primary-color, var(--limel-theme-primary-color));
         }
     }
 }

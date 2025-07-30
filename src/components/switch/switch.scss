@@ -57,10 +57,22 @@ $scale-factor: 0.8;
     --mdc-switch-unselected-focus-track-color: rgb(var(--contrast-800));
     --mdc-switch-unselected-pressed-track-color: rgb(var(--contrast-800));
     --mdc-switch-unselected-hover-track-color: rgb(var(--contrast-800));
-    --mdc-switch-selected-focus-track-color: var(--mdc-theme-primary);
-    --mdc-switch-selected-pressed-track-color: var(--mdc-theme-primary);
-    --mdc-switch-selected-track-color: var(--mdc-theme-primary);
-    --mdc-switch-selected-hover-track-color: var(--mdc-theme-primary);
+    --mdc-switch-selected-focus-track-color: var(
+        --lime-primary-color,
+        var(--limel-theme-primary-color)
+    );
+    --mdc-switch-selected-pressed-track-color: var(
+        --lime-primary-color,
+        var(--limel-theme-primary-color)
+    );
+    --mdc-switch-selected-track-color: var(
+        --lime-primary-color,
+        var(--limel-theme-primary-color)
+    );
+    --mdc-switch-selected-hover-track-color: var(
+        --lime-primary-color,
+        var(--limel-theme-primary-color)
+    );
 
     --mdc-switch-handle-elevation: var(--button-shadow-normal);
     --mdc-switch-disabled-track-opacity: 0.4;
@@ -78,7 +90,7 @@ $scale-factor: 0.8;
 
 label {
     @include lime-typography.typography(body2);
-    color: var(--mdc-theme-on-surface);
+    color: var(--limel-theme-on-surface-color);
     padding-top: 0.375rem;
     line-height: normal;
     letter-spacing: normal;

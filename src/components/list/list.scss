@@ -44,6 +44,19 @@ $list-mdc-list-item: 0;
     // other font-related styles that might be set by MDC,
     // such as `letter-spacing` or `font-size`.
     font-family: inherit;
+    color: var(--limel-theme-text-primary-on-background-color);
+}
+
+.mdc-deprecated-list-item__secondary-text {
+    opacity: 0.6;
+}
+
+.mdc-deprecated-list-item--disabled {
+    .mdc-deprecated-list-item__text,
+    .mdc-deprecated-list-item__primary-text,
+    .mdc-deprecated-list-item__secondary-text {
+        color: var(--limel-theme-text-disabled-on-background-color);
+    }
 }
 
 .mdc-deprecated-list {
@@ -240,7 +253,10 @@ $list-mdc-list-item: 0;
 
 .mdc-deprecated-list-item.mdc-deprecated-list-item--selected {
     &:before {
-        background-color: var(--mdc-theme-primary);
+        background-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
         opacity: 0.15;
     }
 }

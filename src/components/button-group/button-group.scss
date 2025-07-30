@@ -96,7 +96,7 @@
             // which gets focused, which is inside this element…
             // and we are removing or hiding the visual appearance of the button
             outline: none;
-            color: var(--mdc-theme-primary);
+            color: var(--lime-primary-color, var(--limel-theme-primary-color));
         }
 
         &:only-child {
@@ -113,7 +113,7 @@
     }
 
     &.mdc-chip--selected {
-        background-color: var(--mdc-theme-surface);
+        background-color: var(--limel-theme-surface-background-color);
         box-shadow: var(--button-shadow-inset);
 
         &:active {
