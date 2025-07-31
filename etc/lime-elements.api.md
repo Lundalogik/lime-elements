@@ -213,7 +213,6 @@ export namespace Components {
         "language": Languages;
         "type"?: CalloutType;
     }
-    // @beta
     export interface LimelCard {
         "actions"?: Array<ActionBarItem | ListSeparator>;
         "clickable": boolean;
@@ -1087,8 +1086,6 @@ export namespace JSX {
         "limel-button-group": LimelButtonGroup;
         // (undocumented)
         "limel-callout": LimelCallout;
-        // Warning: (ae-incompatible-release-tags) The symbol ""limel-card"" is marked as @public, but its signature references "JSX" which is marked as @beta
-        //
         // (undocumented)
         "limel-card": LimelCard;
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-chart"" is marked as @public, but its signature references "JSX" which is marked as @beta
@@ -1283,7 +1280,6 @@ export namespace JSX {
         "language"?: Languages;
         "type"?: CalloutType;
     }
-    // @beta
     export interface LimelCard {
         "actions"?: Array<ActionBarItem | ListSeparator>;
         "clickable"?: boolean;
