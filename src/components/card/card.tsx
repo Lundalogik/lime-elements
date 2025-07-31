@@ -27,7 +27,6 @@ import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
  * @exampleComponent limel-example-card-orientation
  * @exampleComponent limel-example-card-slot
  * @exampleComponent limel-example-card-styling
- * @beta
  */
 @Component({
     tag: 'limel-card',
