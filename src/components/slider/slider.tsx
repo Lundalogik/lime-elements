@@ -68,6 +68,12 @@ export class Slider {
     public helperText: string;
 
     /**
+     * Set to `true` to indicate that the slider is required.
+     */
+    @Prop({ reflect: true })
+    public required = false;
+
+    /**
      * Set to `true` to indicate that the current value of the slider is invalid.
      */
     @Prop({ reflect: true })
