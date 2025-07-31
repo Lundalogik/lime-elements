@@ -173,55 +173,8 @@ export class Slider {
                     hasFloatingLabel={true}
                 >
                     <div slot="content">
-                        <div class="slider__content-range-container">
-                            <span class="slider__content-min-label">
-                                {this.multiplyByFactor(this.valuemin)}
-                                {this.unit}
-                            </span>
-                            <span class="slider__content-max-label">
-                                {this.multiplyByFactor(this.valuemax)}
-                                {this.unit}
-                            </span>
-                        </div>
-                        <div
-                            class={{
-                                'mdc-slider': true,
-                                'mdc-slider--discrete': true,
-                                'mdc-slider--disabled':
-                                    this.disabled || this.readonly,
-                            }}
-                        >
-                            <input
-                                class="mdc-slider__input"
-                                type="range"
-                                min={this.multiplyByFactor(this.valuemin)}
-                                max={this.multiplyByFactor(this.valuemax)}
-                                value={this.multiplyByFactor(this.value)}
-                                name="volume"
-                                aria-labelledby={this.labelId}
-                                aria-controls={this.helperTextId}
-                                {...inputProps}
-                            />
-                            <div class="mdc-slider__track">
-                                <div class="mdc-slider__track--inactive"></div>
-                                <div class="mdc-slider__track--active">
-                                    <div class="mdc-slider__track--active_fill"></div>
-                                </div>
-                            </div>
-                            <div class="mdc-slider__thumb">
-                                <div
-                                    class="mdc-slider__value-indicator-container"
-                                    aria-hidden="true"
-                                >
-                                    <div class="mdc-slider__value-indicator">
-                                        <span class="mdc-slider__value-indicator-text">
-                                            {this.multiplyByFactor(this.value)}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="mdc-slider__thumb-knob"></div>
-                            </div>
-                        </div>
+                        {this.renderRangeContainer()}
+                        {this.renderSliderContainer(inputProps)}
                     </div>
                 </limel-notched-outline>
                 {this.renderHelperLine()}
@@ -259,6 +212,82 @@ export class Slider {
 
         this.reCreateSliderWithStep();
     }
+
+    private renderRangeContainer = () => {
+        return (
+            <div class="slider__content-range-container">
+                <span class="slider__content-min-label">
+                    {this.multiplyByFactor(this.valuemin)}
+                    {this.unit}
+                </span>
+                <span class="slider__content-max-label">
+                    {this.multiplyByFactor(this.valuemax)}
+                    {this.unit}
+                </span>
+            </div>
+        );
+    };
+
+    private renderSliderContainer = (inputProps: any) => {
+        return (
+            <div
+                class={{
+                    'mdc-slider': true,
+                    'mdc-slider--discrete': true,
+                    'mdc-slider--disabled': this.disabled || this.readonly,
+                }}
+            >
+                {this.renderSliderInput(inputProps)}
+                {this.renderTrack()}
+                {this.renderThumb()}
+            </div>
+        );
+    };
+
+    private renderSliderInput = (inputProps: any) => {
+        return (
+            <input
+                class="mdc-slider__input"
+                type="range"
+                min={this.multiplyByFactor(this.valuemin)}
+                max={this.multiplyByFactor(this.valuemax)}
+                value={this.multiplyByFactor(this.value)}
+                name="volume"
+                aria-labelledby={this.labelId}
+                aria-controls={this.helperTextId}
+                {...inputProps}
+            />
+        );
+    };
+
+    private renderTrack = () => {
+        return (
+            <div class="mdc-slider__track">
+                <div class="mdc-slider__track--inactive" />
+                <div class="mdc-slider__track--active">
+                    <div class="mdc-slider__track--active_fill" />
+                </div>
+            </div>
+        );
+    };
+
+    private renderThumb = () => {
+        return (
+            <div class="mdc-slider__thumb">
+                <div
+                    class="mdc-slider__value-indicator-container"
+                    aria-hidden="true"
+                >
+                    <div class="mdc-slider__value-indicator">
+                        <span class="mdc-slider__value-indicator-text">
+                            {this.multiplyByFactor(this.value)}
+                        </span>
+                    </div>
+                </div>
+                <div class="mdc-slider__thumb-knob" />
+            </div>
+        );
+    };
 
     private renderHelperLine = () => {
         if (!this.helperText) {
