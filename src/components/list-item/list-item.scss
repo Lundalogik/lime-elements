@@ -1,0 +1,154 @@
+@use '../../style/mixins';
+@forward '../checkbox/checkbox.scss';
+@forward '../radio-button-group/radio-button.scss';
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+:host(limel-list-item:hover) {
+    transition: background-color 0.2s ease;
+}
+
+:host(limel-list-item) {
+    transition: background-color 0.6s ease;
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    padding: 0 1rem;
+    background-color: rgb(var(--contrast-100));
+}
+
+:host(limel-list-item[disabled]:not([disabled='false'])) {
+    cursor: not-allowed;
+
+    .text,
+    limel-icon,
+    img {
+        opacity: 0.4;
+    }
+}
+
+:host(limel-list-item:not([disabled]):not([disabled='true']):hover),
+:host(limel-list-item:not([disabled]):not([disabled='true']):focus-visible),
+:host(limel-list-item:not([disabled]):not([disabled='true']):focus-within) {
+    background-color: rgb(var(--contrast-400));
+}
+
+:host(limel-list-item[type='option'][selected]:not([selected='false'])):before {
+    content: '';
+    position: absolute;
+    inset: 0;
+
+    background-color: var(--limel-theme-primary-color);
+    opacity: 0.2;
+    border-radius: inherit;
+}
+
+.text,
+limel-icon,
+img {
+    pointer-events: none;
+}
+
+.text {
+    flex-grow: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 0.5rem 0;
+
+    color: var(--limel-theme-text-primary-on-background-color);
+}
+
+.label {
+    font-size: var(--limel-theme-default-font-size);
+    line-height: 1rem;
+
+    :host(limel-list-item[role='menuitem']) & {
+        font-size: var(--limel-theme-default-small-font-size);
+    }
+}
+
+.description {
+    font-size: var(--limel-theme-default-small-font-size);
+    opacity: 0.6;
+}
+
+limel-icon {
+    color: var(--limel-theme-text-secondary-on-background-color);
+    flex-shrink: 0;
+    margin-left: -0.5rem;
+
+    &:has(+ img) {
+        margin-left: 0;
+        position: absolute;
+        top: 0.125rem;
+        left: 0.125rem;
+        padding: 0.1875rem;
+        width: 1.25rem;
+        background-color: rgb(var(--contrast-200), 0.8);
+    }
+}
+
+img {
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    box-shadow: 0 0 0 1px rgb(var(--contrast-800), 0.5);
+}
+
+:host(limel-list-item) {
+    .label {
+        @include mixins.truncate-text();
+    }
+
+    .description {
+        @include mixins.truncate-text-on-line(var(--maxLinesSecondaryText));
+        line-height: 1rem;
+    }
+}
+
+limel-menu {
+    margin-right: -0.5rem;
+    // Sometimes, `primaryComponent`s in list items need to get
+    // `order: 2;` to be placed after the text. But since the default `order`
+    // of all lit item children is `0`, we need to push the menu to the far right
+    // by giving it a bigger order number. Also, by making this into a variable
+    // we can handle other edge-cases in consuming components.
+    order: var(--limel-list-item-menu-order, 3);
+}
+
+// Checkbox and radios
+.boolean-input {
+    width: var(--limel-boolean-input-box-size);
+    margin-left: -0.25rem;
+    &.checkbox {
+        margin-right: 0.25rem;
+    }
+
+    :host:has(limel-icon) &,
+    :host:has(img) & {
+        margin-right: -0.25rem;
+        margin-left: 0;
+        order: 2;
+    }
+}
+
+.boolean-input-label {
+    @include mixins.truncate-text();
+    opacity: 0;
+    width: var(--limel-boolean-input-box-size);
+}
+// ====================
