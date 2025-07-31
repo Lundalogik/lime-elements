@@ -99,7 +99,6 @@ export class Checkbox {
     /**
      * The labels to use to clarify what kind of data is being visualized,
      * when the component is `readonly`.
-     * @beta
      */
     @Prop()
     public readonlyLabels?: Array<Label<boolean>> = [];
