@@ -443,6 +443,7 @@ export namespace Components {
         "transformErrors"?: (errors: FormError[]) => FormError[];
         "value": object;
     }
+    // @deprecated
     export interface LimelGrid {
     }
     export interface LimelHeader {
@@ -1549,6 +1550,7 @@ export namespace JSX {
         "transformErrors"?: (errors: FormError[]) => FormError[];
         "value"?: object;
     }
+    // @deprecated
     export interface LimelGrid {
     }
     export interface LimelHeader {
