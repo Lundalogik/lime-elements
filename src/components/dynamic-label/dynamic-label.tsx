@@ -18,7 +18,6 @@ import { Icon } from '../../interface';
  *
  * @exampleComponent limel-example-dynamic-label
  * @exampleComponent limel-example-dynamic-label-readonly-boolean
- * @beta
  */
 @Component({
     tag: 'limel-dynamic-label',

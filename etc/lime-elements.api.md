@@ -252,7 +252,6 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "readonly": boolean;
-        // @beta
         "readonlyLabels"?: Array<Label<boolean>>;
         "required": boolean;
     }
@@ -378,7 +377,6 @@ export namespace Components {
         "item": DockItem;
         "useMobileLayout"?: boolean;
     }
-    // @beta
     export interface LimelDynamicLabel {
         "defaultLabel": Omit<Label, 'value'>;
         "labels": Label[];
@@ -707,7 +705,6 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "readonly": boolean;
-        // @beta
         "readonlyLabels"?: Array<Label<boolean>>;
         "value": boolean;
     }
@@ -1124,8 +1121,6 @@ export namespace JSX {
         "limel-dock": LimelDock;
         // (undocumented)
         "limel-dock-button": LimelDockButton;
-        // Warning: (ae-incompatible-release-tags) The symbol ""limel-dynamic-label"" is marked as @public, but its signature references "JSX" which is marked as @beta
-        //
         // (undocumented)
         "limel-dynamic-label": LimelDynamicLabel;
         // (undocumented)
@@ -1330,7 +1325,6 @@ export namespace JSX {
         "label"?: string;
         "onChange"?: (event: LimelCheckboxCustomEvent<boolean>) => void;
         "readonly"?: boolean;
-        // @beta
         "readonlyLabels"?: Array<Label<boolean>>;
         "required"?: boolean;
     }
@@ -1476,7 +1470,6 @@ export namespace JSX {
         "onMenuOpen"?: (event: LimelDockButtonCustomEvent<DockItem>) => void;
         "useMobileLayout"?: boolean;
     }
-    // @beta
     export interface LimelDynamicLabel {
         "defaultLabel"?: Omit<Label, 'value'>;
         "labels"?: Label[];
@@ -1840,7 +1833,6 @@ export namespace JSX {
         "label"?: string;
         "onChange"?: (event: LimelSwitchCustomEvent<boolean>) => void;
         "readonly"?: boolean;
-        // @beta
         "readonlyLabels"?: Array<Label<boolean>>;
         "value"?: boolean;
     }
@@ -1932,7 +1924,7 @@ export namespace JSX {
     }
 }
 
-// @beta (undocumented)
+// @public
 export interface Label<T = LabelValue> {
     icon?: string | Icon;
     text?: string;
