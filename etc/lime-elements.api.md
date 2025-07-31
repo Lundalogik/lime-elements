@@ -532,6 +532,21 @@ export namespace Components {
         "maxLinesSecondaryText": number;
         "type": ListType;
     }
+    export interface LimelListItem {
+        "actions"?: ListItem['actions'];
+        "badgeIcon": boolean;
+        "disabled": boolean;
+        "icon"?: string | ListItem['icon'];
+        "iconSize": IconSize;
+        "image"?: ListItem['image'];
+        "language": Languages;
+        "primaryComponent"?: ListItem['primaryComponent'];
+        "secondaryText"?: string;
+        "selected": boolean;
+        "text": string;
+        "type": 'listitem' | 'menuitem' | 'option' | 'radio' | 'checkbox';
+        "value"?: any;
+    }
     export interface LimelMarkdown {
         "lazyLoadImages": boolean;
         "value": string;
@@ -1169,6 +1184,8 @@ export namespace JSX {
         // (undocumented)
         "limel-list": LimelList;
         // (undocumented)
+        "limel-list-item": LimelListItem;
+        // (undocumented)
         "limel-markdown": LimelMarkdown;
         // (undocumented)
         "limel-menu": LimelMenu;
@@ -1649,6 +1666,25 @@ export namespace JSX {
         "onInteract"?: (event: LimelListCustomEvent<ListItem>) => void;
         "onSelect"?: (event: LimelListCustomEvent<ListItem | ListItem[]>) => void;
         "type"?: ListType;
+    }
+    export interface LimelListItem {
+        "actions"?: ListItem['actions'];
+        "badgeIcon"?: boolean;
+        "disabled"?: boolean;
+        "icon"?: string | ListItem['icon'];
+        "iconSize"?: IconSize;
+        "image"?: ListItem['image'];
+        "language"?: Languages;
+        "onInteract"?: (event: LimelListItemCustomEvent<{
+            selected: boolean;
+            item: ListItem;
+        }>) => void;
+        "primaryComponent"?: ListItem['primaryComponent'];
+        "secondaryText"?: string;
+        "selected"?: boolean;
+        "text"?: string;
+        "type"?: 'listitem' | 'menuitem' | 'option' | 'radio' | 'checkbox';
+        "value"?: any;
     }
     export interface LimelMarkdown {
         "lazyLoadImages"?: boolean;
@@ -2227,6 +2263,16 @@ export interface LimelListCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelListElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelListItemCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelListItemCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelListItemElement;
 }
 
 // Warning: (ae-missing-release-tag) "LimelMenuCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
