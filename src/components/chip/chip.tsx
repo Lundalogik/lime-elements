@@ -163,7 +163,6 @@ export class Chip implements ChipInterface {
      * Set to `filter` to render the chip with a distinct style
      * suitable for visualizing filters.
      *
-     * @beta
      */
     @Prop({ reflect: true })
     public type?: ChipType = 'default';

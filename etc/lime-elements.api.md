@@ -91,7 +91,7 @@ export interface Chip<T = any> {
     value?: T;
 }
 
-// @beta
+// @public
 export type ChipType = 'default' | 'filter';
 
 // @public (undocumented)
@@ -271,7 +271,6 @@ export namespace Components {
         "selected": boolean;
         "size": 'small' | 'default';
         "text": string;
-        // @beta
         "type"?: ChipType;
     }
     export interface LimelChipSet {
@@ -1343,7 +1342,6 @@ export namespace JSX {
         "selected"?: boolean;
         "size"?: 'small' | 'default';
         "text"?: string;
-        // @beta
         "type"?: ChipType;
     }
     export interface LimelChipSet {
