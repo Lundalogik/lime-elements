@@ -666,6 +666,7 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "readonly": boolean;
+        "required": boolean;
         "step": number;
         "unit": string;
         "value": number;
@@ -1789,6 +1790,7 @@ export namespace JSX {
         "label"?: string;
         "onChange"?: (event: LimelSliderCustomEvent<number>) => void;
         "readonly"?: boolean;
+        "required"?: boolean;
         "step"?: number;
         "unit"?: string;
         "value"?: number;
