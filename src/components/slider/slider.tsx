@@ -68,6 +68,12 @@ export class Slider {
     public helperText: string;
 
     /**
+     * Set to `true` to indicate that the current value of the slider is invalid.
+     */
+    @Prop({ reflect: true })
+    public invalid = false;
+
+    /**
      * Unit to display next to the value
      */
     @Prop({ reflect: true })
@@ -249,6 +255,7 @@ export class Slider {
             <limel-helper-line
                 helperText={this.helperText}
                 helperTextId={this.helperTextId}
+                invalid={this.invalid}
             />
         );
     };
