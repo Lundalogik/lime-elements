@@ -20,6 +20,7 @@ import {
  * This centralizes styles and functionality, and helps reduce redundant code
  * in consumer components such as `limel-list` and `limel-menu-list`.
  * @exampleComponent limel-example-list-item-basic
+ * @exampleComponent limel-example-list-item-icon
  * @exampleComponent limel-example-list-item-interactive
  * @private
  */

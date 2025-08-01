@@ -28,9 +28,9 @@
 :host(limel-list-item:not([disabled]:not([disabled='true']))) {
 }
 
-:host(limel-list-item:not([disabled]:not([disabled='true']))):hover,
-:host(limel-list-item:not([disabled]:not([disabled='true']))):focus-visible,
-:host(limel-list-item:not([disabled]:not([disabled='true']))):focus-within {
+:host(limel-list-item:not([disabled]:not([disabled='true'])):hover),
+:host(limel-list-item:not([disabled]:not([disabled='true'])):focus-visible),
+:host(limel-list-item:not([disabled]:not([disabled='true'])):focus-within) {
     background-color: rgb(var(--contrast-400));
 }
 
