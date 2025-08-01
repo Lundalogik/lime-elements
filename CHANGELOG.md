@@ -1,3 +1,18 @@
+## [38.20.0](https://github.com/Lundalogik/lime-elements/compare/v38.19.6...v38.20.0) (2025-08-01)
+
+
+### Features
+
+
+* **card:** remove beta tag ([4bd9e20](https://github.com/Lundalogik/lime-elements/commit/4bd9e205cbf51c8cf9cd44f15c55572dbe7eb99f))
+* **chip:** remove beta tag of the `type` prop ([07a1d36](https://github.com/Lundalogik/lime-elements/commit/07a1d3651beb0e02dc8e5e4a172022eaf1ac1ee7))
+* **dynamic-label:** remove beta tag ([5620a20](https://github.com/Lundalogik/lime-elements/commit/5620a20bfae5f849ff17b793667dd010ecfc39ea))
+
+### Bug Fixes
+
+
+* **checkbox:** improve layout of dynamic-label ([16702aa](https://github.com/Lundalogik/lime-elements/commit/16702aa7332f0ffdf48004b7110974560606dc40))
+
 ## [38.19.6](https://github.com/Lundalogik/lime-elements/compare/v38.19.5...v38.19.6) (2025-07-21)
 
 
