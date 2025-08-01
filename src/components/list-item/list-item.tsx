@@ -188,14 +188,7 @@ export class ListItem implements ListItemType {
             return;
         }
 
-        return (
-            <img
-                src={this.image.src}
-                alt={this.image.alt}
-                loading="lazy"
-                object-fit="cover"
-            />
-        );
+        return <img src={this.image.src} alt={this.image.alt} loading="lazy" />;
     };
 
     private filterClickWhenDisabled = (event: MouseEvent) => {

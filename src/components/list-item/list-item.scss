@@ -51,8 +51,13 @@
     border-radius: inherit;
 }
 
-.text {
+.text,
+limel-icon,
+img {
     pointer-events: none;
+}
+
+.text {
     flex-grow: 1;
 
     display: flex;
@@ -75,8 +80,6 @@ label {
 }
 
 limel-icon {
-    pointer-events: none;
-
     flex-shrink: 0;
     width: 1.5rem;
 
