@@ -6,8 +6,12 @@
     box-sizing: border-box;
 }
 
-:host(limel-list-item) {
+:host(limel-list-item:hover) {
     transition: background-color 0.2s ease;
+}
+
+:host(limel-list-item) {
+    transition: background-color 0.6s ease;
     position: relative;
     isolation: isolate;
     box-sizing: border-box;
@@ -16,7 +20,7 @@
     align-items: center;
     gap: 0.5rem;
 
-    padding: 0 0.5rem;
+    padding: 0 1rem;
     background-color: rgb(var(--contrast-100));
 }
 
@@ -75,4 +79,22 @@ limel-icon {
 
     flex-shrink: 0;
     width: 1.5rem;
+
+    &:has(+ img) {
+        position: absolute;
+        top: 0.125rem;
+        left: 0.125rem;
+        padding: 0.1875rem;
+        width: 1.25rem;
+        background-color: rgb(var(--contrast-200), 0.8);
+    }
+}
+
+img {
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    box-shadow: 0 0 0 1px rgb(var(--contrast-800), 0.5);
 }

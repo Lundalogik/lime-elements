@@ -21,6 +21,7 @@ import {
  * in consumer components such as `limel-list` and `limel-menu-list`.
  * @exampleComponent limel-example-list-item-basic
  * @exampleComponent limel-example-list-item-icon
+ * @exampleComponent limel-example-list-item-pictures
  * @exampleComponent limel-example-list-item-interactive
  * @private
  */
@@ -187,7 +188,14 @@ export class ListItem implements ListItemType {
             return;
         }
 
-        return <img src={this.image.src} alt={this.image.alt} loading="lazy" />;
+        return (
+            <img
+                src={this.image.src}
+                alt={this.image.alt}
+                loading="lazy"
+                object-fit="cover"
+            />
+        );
     };
 
     private filterClickWhenDisabled = (event: MouseEvent) => {
