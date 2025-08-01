@@ -1,0 +1,78 @@
+@use '../../style/mixins';
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+:host(limel-list-item) {
+    transition: background-color 0.2s ease;
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    padding: 0 0.5rem;
+    background-color: rgb(var(--contrast-100));
+}
+
+:host(limel-list-item[disabled]:not([disabled='false'])) {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+:host(limel-list-item:not([disabled]:not([disabled='true']))) {
+}
+
+:host(limel-list-item:not([disabled]:not([disabled='true']))):hover,
+:host(limel-list-item:not([disabled]:not([disabled='true']))):focus-visible,
+:host(limel-list-item:not([disabled]:not([disabled='true']))):focus-within {
+    background-color: rgb(var(--contrast-400));
+}
+
+:host(limel-list-item[selected]:not([selected='false'])):before {
+    cursor: pointer;
+    content: '';
+    position: absolute;
+    inset: 0;
+
+    background-color: var(
+        --mdc-theme-primary
+    ); // TODO: replace with lime's own global props
+    opacity: 0.2;
+    border-radius: inherit;
+}
+
+.text {
+    pointer-events: none;
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    padding: 0.5rem 0;
+    // TODO: replace with lime's own global props
+    color: rgb(var(--contrast-1100));
+}
+
+label {
+    // TODO: replace with lime's own global props
+    font-size: 0.875rem; // 14px
+}
+
+.description {
+    font-size: 0.8125rem; // 13px
+    opacity: 0.6;
+}
+
+limel-icon {
+    pointer-events: none;
+
+    flex-shrink: 0;
+    width: 1.5rem;
+}

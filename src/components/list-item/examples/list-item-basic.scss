@@ -1,0 +1,15 @@
+:host(limel-example-list-item-basic) {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 0.25rem;
+
+    background: url("data:image/svg+xml;charset=utf-8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' style='fill-rule:evenodd;'><path fill='rgba(186,186,192,0.16)' d='M0 0h4v4H0zM4 4h4v4H4z'/></svg>");
+    background-size: 0.5rem;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
