@@ -64,7 +64,10 @@
 
     &:has(.resize-handle[aria-grabbed='true']) {
         &::before {
-            border-color: var(--mdc-theme-primary);
+            border-color: var(
+                --lime-primary-color,
+                var(--limel-theme-primary-color)
+            );
             opacity: 0.8;
             box-shadow: var(--shadow-depth-16), var(--shadow-depth-8);
         }
@@ -115,7 +118,10 @@
     &:hover,
     &:focus-visible {
         opacity: 1;
-        background-color: var(--mdc-theme-primary);
+        background-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
     }
 
     &:hover,

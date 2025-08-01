@@ -5,41 +5,41 @@
 }
 
 :host(.displays-percentage-colors[readonly]) {
-    --mdc-theme-on-surface: var(--mdc-theme-primary);
+    --mdc-theme-on-surface: var(--lime-primary-color);
 }
 
 :host(.displays-percentage-colors.percent-0) {
-    --mdc-theme-primary: var(--color-percent--0);
+    --lime-primary-color: var(--color-percent--0);
 }
 :host(.displays-percentage-colors.percent-0-10) {
-    --mdc-theme-primary: var(--color-percent--0to10);
+    --lime-primary-color: var(--color-percent--0to10);
 }
 :host(.displays-percentage-colors.percent-10-20) {
-    --mdc-theme-primary: var(--color-percent--10to20);
+    --lime-primary-color: var(--color-percent--10to20);
 }
 :host(.displays-percentage-colors.percent-20-30) {
-    --mdc-theme-primary: var(--color-percent--20to30);
+    --lime-primary-color: var(--color-percent--20to30);
 }
 :host(.displays-percentage-colors.percent-30-40) {
-    --mdc-theme-primary: var(--color-percent--30to40);
+    --lime-primary-color: var(--color-percent--30to40);
 }
 :host(.displays-percentage-colors.percent-40-50) {
-    --mdc-theme-primary: var(--color-percent--40to50);
+    --lime-primary-color: var(--color-percent--40to50);
 }
 :host(.displays-percentage-colors.percent-50-60) {
-    --mdc-theme-primary: var(--color-percent--50to60);
+    --lime-primary-color: var(--color-percent--50to60);
 }
 :host(.displays-percentage-colors.percent-60-70) {
-    --mdc-theme-primary: var(--color-percent--60to70);
+    --lime-primary-color: var(--color-percent--60to70);
 }
 :host(.displays-percentage-colors.percent-70-80) {
-    --mdc-theme-primary: var(--color-percent--70to80);
+    --lime-primary-color: var(--color-percent--70to80);
 }
 :host(.displays-percentage-colors.percent-80-90) {
-    --mdc-theme-primary: var(--color-percent--80to90);
+    --lime-primary-color: var(--color-percent--80to90);
 }
 :host(.displays-percentage-colors.percent-90-100) {
-    --mdc-theme-primary: var(--color-percent--90to100);
+    --lime-primary-color: var(--color-percent--90to100);
 }
 :host(.displays-percentage-colors.percent-30-40),
 :host(.displays-percentage-colors.percent-40-50),

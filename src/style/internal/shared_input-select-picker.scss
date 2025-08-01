@@ -1,8 +1,6 @@
 @use '../../style/internal/z-index';
 @use '../functions';
 
-@use '../../style/internal/lime-theme';
-
 @use '@material/textfield';
 
 // Visual styles that unify the look & feel and behavior of
@@ -10,7 +8,10 @@
 
 $lime-text-field-outline-color: rgba(var(--contrast-700), 0.65);
 $lime-text-field-outline-color--hovered: rgba(var(--contrast-700), 1);
-$lime-text-field-outline-color--focused: var(--mdc-theme-primary);
+$lime-text-field-outline-color--focused: var(
+    --lime-primary-color,
+    var(--limel-theme-primary-color)
+);
 
 $background-color-normal: rgba(var(--contrast-200), 0.5);
 $background-color-hovered: rgba(var(--contrast-200), 1);
@@ -32,7 +33,7 @@ $height-of-mdc-helper-text-block: 0.9375rem;
 $mdc-chip-background-color: rgb(var(--contrast-100));
 
 $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo before in MD's helper texts, which sets their distance to the element on top of it. Originally in MD, this value is 1rem. In Lime Elements, we need to make it less due to our layout needs.
-$cropped-label-hack--font-size: 0.875rem; //14px
+$cropped-label-hack--font-size: var(--limel-theme-default-font-size); //14px
 
 @mixin looks-disabled() {
     cursor: not-allowed;
@@ -44,7 +45,7 @@ $cropped-label-hack--font-size: 0.875rem; //14px
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
 
-    font-size: functions.pxToRem(14);
+    font-size: var(--limel-theme-default-font-size);
     font-weight: 400;
     letter-spacing: 0.009375em;
     color: $label-color;
@@ -56,7 +57,7 @@ $cropped-label-hack--font-size: 0.875rem; //14px
     -webkit-font-smoothing: antialiased;
 
     color: $input-text-color;
-    font-size: functions.pxToRem(14);
+    font-size: var(--limel-theme-default-font-size);
     font-weight: 400;
     letter-spacing: 0.009375em;
 }
@@ -240,7 +241,8 @@ $cropped-label-hack--font-size: 0.875rem; //14px
             }
 
             &:focus-visible {
-                box-shadow: 0 0 0 functions.pxToRem(2) var(--mdc-theme-primary) !important; // has to be `!important` since we're using `box-shadow` insted of `outline` which is also used in `hover` mode
+                box-shadow: 0 0 0 functions.pxToRem(2)
+                    var(--lime-primary-color, var(--limel-theme-primary-color)) !important; // has to be `!important` since we're using `box-shadow` insted of `outline` which is also used in `hover` mode
             }
         }
         &:not(.mdc-text-field--disabled):hover {
@@ -262,7 +264,7 @@ $cropped-label-hack--font-size: 0.875rem; //14px
         &.mdc-text-field--invalid {
             i.mdc-text-field__icon.invalid-icon {
                 limel-icon {
-                    color: var(--lime-error-text-color);
+                    color: var(--limel-theme-error-text-color);
                 }
             }
         }
@@ -301,7 +303,7 @@ $cropped-label-hack--font-size: 0.875rem; //14px
         &.mdc-text-field--invalid {
             & + .mdc-text-field-helper-line {
                 .mdc-text-field-helper-text--validation-msg {
-                    color: var(--lime-error-text-color);
+                    color: var(--limel-theme-error-text-color);
                 }
             }
         }

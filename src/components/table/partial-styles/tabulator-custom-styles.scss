@@ -54,7 +54,7 @@
                 z-index: $table--has-interactive-rows--selectable-row--hover + 1;
                 inset: 0 0 auto 0;
                 border: $width-of-selected-row-indicator solid
-                    var(--mdc-theme-primary);
+                    var(--lime-primary-color, var(--limel-theme-primary-color));
                 border-radius: 1rem;
                 margin-right: -$width-of-selected-row-indicator * 2;
             }

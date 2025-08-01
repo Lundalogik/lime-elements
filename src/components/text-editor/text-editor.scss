@@ -151,7 +151,7 @@ $min-height-condensed: calc($min-height / 2);
 
     padding: var(--limel-text-editor-padding);
     font-style: italic;
-    font-size: 0.875rem;
+    font-size: var(--limel-theme-default-font-size);
     color: shared_input-select-picker.$input-placeholder-color;
 }
 

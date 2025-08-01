@@ -48,7 +48,7 @@ ol {
 
     color: var(--limel-breadcrumbs-item-text-color);
     border-radius: 100vw;
-    font-size: 0.875rem;
+    font-size: var(--limel-theme-default-font-size);
     padding: 0 0.25rem;
 
     &:not(:has(.text)) {

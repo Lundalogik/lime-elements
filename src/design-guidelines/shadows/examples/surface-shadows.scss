@@ -44,7 +44,7 @@
     width: 100%;
     padding: 0 functions.pxToRem(16);
 
-    font-size: functions.pxToRem(14);
+    font-size: var(--limel-theme-default-font-size);
     background-color: var(--lime-elevated-surface-background-color);
     z-index: 1;
 }
