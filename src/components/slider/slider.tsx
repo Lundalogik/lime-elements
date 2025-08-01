@@ -68,6 +68,18 @@ export class Slider {
     public helperText: string;
 
     /**
+     * Set to `true` to indicate that the slider is required.
+     */
+    @Prop({ reflect: true })
+    public required = false;
+
+    /**
+     * Set to `true` to indicate that the current value of the slider is invalid.
+     */
+    @Prop({ reflect: true })
+    public invalid = false;
+
+    /**
      * Unit to display next to the value
      */
     @Prop({ reflect: true })
@@ -150,60 +162,21 @@ export class Slider {
 
         return (
             <Host class={this.getContainerClassList()}>
-                <label
-                    class="slider__label mdc-floating-label mdc-floating-label--float-above"
-                    id={this.labelId}
+                <limel-notched-outline
+                    labelId={this.labelId}
+                    label={this.label}
+                    required={this.required}
+                    invalid={this.invalid}
+                    disabled={this.disabled}
+                    readonly={this.readonly}
+                    hasValue={!!this.value}
+                    hasFloatingLabel={true}
                 >
-                    {this.label}
-                </label>
-                <div class="slider__content-range-container">
-                    <span class="slider__content-min-label">
-                        {this.multiplyByFactor(this.valuemin)}
-                        {this.unit}
-                    </span>
-                    <span class="slider__content-max-label">
-                        {this.multiplyByFactor(this.valuemax)}
-                        {this.unit}
-                    </span>
-                </div>
-                <div
-                    class={{
-                        'mdc-slider': true,
-                        'mdc-slider--discrete': true,
-                        'mdc-slider--disabled': this.disabled || this.readonly,
-                    }}
-                >
-                    <input
-                        class="mdc-slider__input"
-                        type="range"
-                        min={this.multiplyByFactor(this.valuemin)}
-                        max={this.multiplyByFactor(this.valuemax)}
-                        value={this.multiplyByFactor(this.value)}
-                        name="volume"
-                        aria-labelledby={this.labelId}
-                        aria-controls={this.helperTextId}
-                        {...inputProps}
-                    />
-                    <div class="mdc-slider__track">
-                        <div class="mdc-slider__track--inactive"></div>
-                        <div class="mdc-slider__track--active">
-                            <div class="mdc-slider__track--active_fill"></div>
-                        </div>
+                    <div slot="content">
+                        {this.renderRangeContainer()}
+                        {this.renderSliderContainer(inputProps)}
                     </div>
-                    <div class="mdc-slider__thumb">
-                        <div
-                            class="mdc-slider__value-indicator-container"
-                            aria-hidden="true"
-                        >
-                            <div class="mdc-slider__value-indicator">
-                                <span class="mdc-slider__value-indicator-text">
-                                    {this.multiplyByFactor(this.value)}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="mdc-slider__thumb-knob"></div>
-                    </div>
-                </div>
+                </limel-notched-outline>
                 {this.renderHelperLine()}
             </Host>
         );
@@ -240,6 +213,82 @@ export class Slider {
         this.reCreateSliderWithStep();
     }
 
+    private renderRangeContainer = () => {
+        return (
+            <div class="slider__content-range-container">
+                <span class="slider__content-min-label">
+                    {this.multiplyByFactor(this.valuemin)}
+                    {this.unit}
+                </span>
+                <span class="slider__content-max-label">
+                    {this.multiplyByFactor(this.valuemax)}
+                    {this.unit}
+                </span>
+            </div>
+        );
+    };
+
+    private renderSliderContainer = (inputProps: any) => {
+        return (
+            <div
+                class={{
+                    'mdc-slider': true,
+                    'mdc-slider--discrete': true,
+                    'mdc-slider--disabled': this.disabled || this.readonly,
+                }}
+            >
+                {this.renderSliderInput(inputProps)}
+                {this.renderTrack()}
+                {this.renderThumb()}
+            </div>
+        );
+    };
+
+    private renderSliderInput = (inputProps: any) => {
+        return (
+            <input
+                class="mdc-slider__input"
+                type="range"
+                min={this.multiplyByFactor(this.valuemin)}
+                max={this.multiplyByFactor(this.valuemax)}
+                value={this.multiplyByFactor(this.value)}
+                name="volume"
+                aria-labelledby={this.labelId}
+                aria-controls={this.helperTextId}
+                {...inputProps}
+            />
+        );
+    };
+
+    private renderTrack = () => {
+        return (
+            <div class="mdc-slider__track">
+                <div class="mdc-slider__track--inactive" />
+                <div class="mdc-slider__track--active">
+                    <div class="mdc-slider__track--active_fill" />
+                </div>
+            </div>
+        );
+    };
+
+    private renderThumb = () => {
+        return (
+            <div class="mdc-slider__thumb">
+                <div
+                    class="mdc-slider__value-indicator-container"
+                    aria-hidden="true"
+                >
+                    <div class="mdc-slider__value-indicator">
+                        <span class="mdc-slider__value-indicator-text">
+                            {this.multiplyByFactor(this.value)}
+                        </span>
+                    </div>
+                </div>
+                <div class="mdc-slider__thumb-knob" />
+            </div>
+        );
+    };
+
     private renderHelperLine = () => {
         if (!this.helperText) {
             return;
@@ -249,6 +298,7 @@ export class Slider {
             <limel-helper-line
                 helperText={this.helperText}
                 helperTextId={this.helperTextId}
+                invalid={this.invalid}
             />
         );
     };
