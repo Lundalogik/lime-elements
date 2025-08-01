@@ -1,4 +1,4 @@
-import{_ as n,a as t,M as e,g as i,c as r}from"./ponyfill-d79e8edd.js";
+import{_ as n,a as t,M as e,f as i,c as r}from"./ponyfill-228a9cce.js";
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -65,4 +65,4 @@ import{_ as n,a as t,M as e,g as i,c as r}from"./ponyfill-d79e8edd.js";
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */var s=function(t){n(e,t);function e(){return t!==null&&t.apply(this,arguments)||this}e.attachTo=function(n){return new e(n)};e.prototype.shake=function(n){this.foundation.shake(n)};e.prototype.float=function(n){this.foundation.float(n)};e.prototype.setRequired=function(n){this.foundation.setRequired(n)};e.prototype.getWidth=function(){return this.foundation.getWidth()};e.prototype.getDefaultFoundation=function(){var n=this;var t={addClass:function(t){return n.root.classList.add(t)},removeClass:function(t){return n.root.classList.remove(t)},getWidth:function(){return i(n.root)},registerInteractionHandler:function(t,e){return n.listen(t,e)},deregisterInteractionHandler:function(t,e){return n.unlisten(t,e)}};return new a(t)};return e}(r);export{a as M,s as a};
-//# sourceMappingURL=component-11d78c21.js.map
+//# sourceMappingURL=component-45f0e9e2.js.map
