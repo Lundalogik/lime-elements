@@ -38,7 +38,13 @@
   );--mdc-theme-on-primary:var(
       --lime-on-primary-color,
       var(--limel-theme-on-primary-color)
-  );--limel-theme-primary-color:rgb(var(--color-teal-default));--limel-theme-on-primary-color:rgb(var(--contrast-100));--limel-theme-text-disabled-on-background-color:rgb(
+  );--mdc-theme-text-disabled-on-background:var(
+      --limel-theme-text-disabled-on-background-color
+  );--mdc-theme-text-primary-on-background:var(
+      --limel-theme-text-primary-on-background-color
+  );--mdc-theme-text-secondary-on-background:var(
+      --limel-theme-text-secondary-on-background-color
+  );--mdc-theme-surface:var(--limel-theme-surface-background-color);--mdc-theme-on-surface:var(--limel-theme-on-surface-color);--limel-theme-primary-color:rgb(var(--color-teal-default));--limel-theme-on-primary-color:rgb(var(--contrast-100));--limel-theme-text-disabled-on-background-color:rgb(
       var(--contrast-1700),
       0.38
   );--limel-theme-text-primary-on-background-color:rgb(
