@@ -1,0 +1,2 @@
+import{r as e,h as r}from"./index-2714248e.js";const s=class{constructor(r){e(this,r);this.handleChange=e=>{e.stopPropagation();this.text=e.detail};this.text=""}render(){return[r("limel-prosemirror-adapter",{onChange:this.handleChange}),r("limel-example-value",{value:this.text})]}};export{s as limel_example_prosemirror_adapter_basic};
+//# sourceMappingURL=limel-example-prosemirror-adapter-basic.entry.js.map
