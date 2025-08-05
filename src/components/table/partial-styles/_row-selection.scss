@@ -6,9 +6,7 @@ $checkbox-distance-to-left-edge: 0.5rem;
 
 .select-all,
 .limel-table--row-selector {
-    // prevent the checkbox affecting the row height
-    --mdc-checkbox-touch-target-size: 1.125rem;
-    --mdc-checkbox-ripple-size: 2.5rem;
+    --limel-checkbox-min-height: 1.25rem; // as big as the box itself
 }
 
 .select-all {
@@ -26,6 +24,7 @@ $checkbox-distance-to-left-edge: 0.5rem;
 
     text-overflow: unset !important; // Otherwise a `…` will be rendered besides the checkbox, since we truncate all cells
     padding-left: $checkbox-distance-to-left-edge !important;
+    padding-top: 0.25rem !important;
 
     limel-checkbox {
         margin-top: functions.pxToRem(1);

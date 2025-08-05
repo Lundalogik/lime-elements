@@ -1,8 +1,6 @@
 @use '../../style/functions';
 @use '../../style/mixins';
 
-@use '../checkbox/checkbox.scss';
-
 @use '@material/list';
 
 $list-border-radius: 0.375rem; // 6px
@@ -25,7 +23,6 @@ $list-mdc-list-item: 0;
 :host(limel-list) {
     display: block;
     isolation: isolate;
-    @include checkbox.custom-checkbox-styles;
 }
 
 :host([hidden]) {
@@ -142,6 +139,10 @@ $list-mdc-list-item: 0;
         line-height: 100%;
         margin-right: -0.5rem;
         order: var(--limel-list-meta-order, 3);
+
+        &:has(.checkbox) {
+            margin-right: 0.5rem;
+        }
     }
 
     .mdc-deprecated-list-item__graphic {
