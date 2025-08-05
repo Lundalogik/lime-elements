@@ -1,3 +1,11 @@
+## [38.21.1](https://github.com/Lundalogik/lime-elements/compare/v38.21.0...v38.21.1) (2025-08-05)
+
+
+### Bug Fixes
+
+
+* **limel-checkbox:** align readonly icon and label ([43b1504](https://github.com/Lundalogik/lime-elements/commit/43b150424a6566546ff1294f7dc77464a882180d))
+
 ## [38.21.0](https://github.com/Lundalogik/lime-elements/compare/v38.20.0...v38.21.0) (2025-08-05)
 
 
