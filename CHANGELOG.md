@@ -1,3 +1,12 @@
+## [38.21.0](https://github.com/Lundalogik/lime-elements/compare/v38.20.0...v38.21.0) (2025-08-05)
+
+
+### Features
+
+
+* **slider:** add `required` prop ([246a8a9](https://github.com/Lundalogik/lime-elements/commit/246a8a94f95382408dd84ebe61e03de4eb6128fc))
+* **slider:** enable indicating `invalid` state ([bcc3cfa](https://github.com/Lundalogik/lime-elements/commit/bcc3cfa43a108138ef10ec4f8c15346c627e1a30))
+
 ## [38.20.0](https://github.com/Lundalogik/lime-elements/compare/v38.19.6...v38.20.0) (2025-08-01)
 
 
