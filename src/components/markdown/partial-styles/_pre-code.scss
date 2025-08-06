@@ -3,7 +3,7 @@
 
 code {
     @include mixins.font-family(monospace);
-    font-size: functions.pxToRem(13);
+    font-size: var(--limel-theme-default-small-font-size);
     letter-spacing: functions.pxToRem(-0.2);
     color: rgb(var(--contrast-1300));
 

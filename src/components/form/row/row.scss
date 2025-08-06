@@ -81,7 +81,7 @@
     .description {
         margin: 0;
         color: var(--limel-theme-text-secondary-on-background-color);
-        font-size: 0.8125rem;
+        font-size: var(--limel-theme-default-small-font-size);
         line-height: 1.5;
     }
 

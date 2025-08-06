@@ -59,7 +59,7 @@ div[slot='content'] {
     }
 
     .mdc-slider__value-indicator-text {
-        font-size: 0.8125rem; //13px
+        font-size: var(--limel-theme-default-small-font-size); //13px
     }
 }
 
