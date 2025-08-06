@@ -51,7 +51,7 @@ aside {
     color: rgb(var(--contrast-100));
 
     -webkit-font-smoothing: antialiased;
-    font-size: 0.8125rem;
+    font-size: var(--limel-theme-default-small-font-size);
     font-weight: 400;
     padding: 0 0.25rem;
 

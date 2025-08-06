@@ -22,7 +22,7 @@
     margin: functions.pxToRem(4);
     // added space to visualize keyboard-focused items
     .mdc-deprecated-list-item[role='menuitem'] {
-        font-size: functions.pxToRem(13);
+        font-size: var(--limel-theme-default-small-font-size);
 
         .mdc-deprecated-list-item__graphic {
             margin-right: 0;

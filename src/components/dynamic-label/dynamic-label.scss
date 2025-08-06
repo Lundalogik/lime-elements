@@ -24,7 +24,9 @@ limel-icon {
 
 label {
     flex-grow: 1;
-    font-size: 0.8125rem; // `13px`, Like Checkbox & Switch
+    font-size: var(
+        --limel-theme-default-small-font-size
+    ); // `13px`, Like Checkbox & Switch
     line-height: normal;
     color: var(--limel-theme-on-surface-color);
     padding-top: 0.375rem;

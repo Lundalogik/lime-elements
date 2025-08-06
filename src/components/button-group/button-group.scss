@@ -123,7 +123,7 @@
 }
 
 .mdc-chip__text {
-    font-size: functions.pxToRem(13);
+    font-size: var(--limel-theme-default-small-font-size);
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
