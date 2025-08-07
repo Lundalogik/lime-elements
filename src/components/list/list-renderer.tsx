@@ -4,7 +4,7 @@ import { MenuItem } from '../menu/menu.types';
 import { h } from '@stencil/core';
 import { CheckboxTemplate } from '../checkbox/checkbox.template';
 import { ListRendererConfig } from './list-renderer-config';
-import { RadioButtonTemplate } from './radio-button/radio-button.template';
+import { RadioButtonTemplate } from '../radio-button-group/radio-button.template';
 import {
     getIconColor,
     getIconName,
