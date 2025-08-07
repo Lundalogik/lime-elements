@@ -51,4 +51,6 @@ export default {
     'progress-bar': 'Edistymispalkki',
     'ai-avatar.label': 'Tekoälyavatar',
     'ai-avatar.thinking': 'ajattelee',
+    'table.select-all': 'Valitse kaikki rivit',
+    'table.select-row': 'Valitse tämä rivi',
 };

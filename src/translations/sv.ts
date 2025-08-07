@@ -50,4 +50,6 @@ export default {
     'progress-bar': 'Förloppsindikator',
     'ai-avatar.label': 'AI-avatar',
     'ai-avatar.thinking': 'tänker',
+    'table.select-all': 'Markera alla rader',
+    'table.select-row': 'Markera denna rad',
 };

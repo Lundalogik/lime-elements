@@ -52,4 +52,6 @@ export default {
     'progress-bar': 'Fortschrittsbalken',
     'ai-avatar.label': 'KI-Avatar',
     'ai-avatar.thinking': 'denkt',
+    'table.select-all': 'Alle Zeilen auswählen',
+    'table.select-row': 'Diese Zeile auswählen',
 };

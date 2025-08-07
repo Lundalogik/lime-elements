@@ -50,4 +50,6 @@ export default {
     'snackbar.dismiss': 'Lukk',
     'ai-avatar.label': 'KI-avatar',
     'ai-avatar.thinking': 'tenker',
+    'table.select-all': 'Velg alle rader',
+    'table.select-row': 'Velg denne raden',
 };
