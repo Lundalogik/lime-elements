@@ -52,4 +52,6 @@ export default {
     'progress-bar': 'Barre de progression',
     'ai-avatar.label': 'Avatar IA',
     'ai-avatar.thinking': 'en réflexion',
+    'table.select-all': 'Sélectionner toutes les lignes',
+    'table.select-row': 'Sélectionner cette ligne',
 };

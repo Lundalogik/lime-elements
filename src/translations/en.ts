@@ -50,4 +50,6 @@ export default {
     'progress-bar': 'Progress bar',
     'ai-avatar.label': 'AI Avatar',
     'ai-avatar.thinking': 'thinking',
+    'table.select-all': 'Select all rows',
+    'table.select-row': 'Select this row',
 };

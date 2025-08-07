@@ -50,4 +50,6 @@ export default {
     'progress-bar': 'Fremskridtsindikator',
     'ai-avatar.label': 'AI-avatar',
     'ai-avatar.thinking': 'tænker',
+    'table.select-all': 'Vælg alle rækker',
+    'table.select-row': 'Vælg denne række',
 };

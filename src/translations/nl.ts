@@ -52,4 +52,6 @@ export default {
     'progress-bar': 'Voortgangsbalk',
     'ai-avatar.label': 'AI-avatar',
     'ai-avatar.thinking': 'aan het denken',
+    'table.select-all': 'Alle rijen selecteren',
+    'table.select-row': 'Deze rij selecteren',
 };
