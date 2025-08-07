@@ -71,6 +71,19 @@ label {
     .invalid:not(.readonly) & {
         color: var(--limel-theme-error-text-color);
     }
+
+    :host(limel-checkbox.hide-label) &,
+    .hide-label & {
+        // this helper class of `hide-label` can be added for example to the `host` element,
+        // or if the `CheckboxTemplate` is imported to other components, the class can be
+        // added to the `checkbox` element itself
+        // and be used internally by other components such as `limel-table`
+        // to hide the `<label>`, while still keeping the checkbox
+        // both clickable for the users, and accessible for screen readers
+        @include mixins.truncate-text();
+        opacity: 0;
+        width: $box-size;
+    }
 }
 
 .box {
