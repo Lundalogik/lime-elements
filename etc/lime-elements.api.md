@@ -639,6 +639,14 @@ export namespace Components {
         "ui": EditorUiType;
         "value": string;
     }
+    // @beta
+    export interface LimelRadioButtonGroup {
+        "badgeIcons": boolean;
+        "disabled": boolean;
+        "items": Array<ListItem | ListSeparator>;
+        "maxLinesSecondaryText": number;
+        "selectedItem"?: ListItem<string | number>;
+    }
     // (undocumented)
     export interface LimelSelect {
         "disabled": boolean;
@@ -1186,6 +1194,10 @@ export namespace JSX {
         //
         // (undocumented)
         "limel-prosemirror-adapter": LimelProsemirrorAdapter;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-radio-button-group"" is marked as @public, but its signature references "JSX" which is marked as @beta
+        //
+        // (undocumented)
+        "limel-radio-button-group": LimelRadioButtonGroup;
         // (undocumented)
         "limel-select": LimelSelect;
         // (undocumented)
@@ -1762,6 +1774,15 @@ export namespace JSX {
         "ui"?: EditorUiType;
         "value"?: string;
     }
+    // @beta
+    export interface LimelRadioButtonGroup {
+        "badgeIcons"?: boolean;
+        "disabled"?: boolean;
+        "items"?: Array<ListItem | ListSeparator>;
+        "maxLinesSecondaryText"?: number;
+        "onChange"?: (event: LimelRadioButtonGroupCustomEvent<ListItem<string | number | undefined>>) => void;
+        "selectedItem"?: ListItem<string | number>;
+    }
     // (undocumented)
     export interface LimelSelect {
         "disabled"?: boolean;
@@ -2286,6 +2307,16 @@ export interface LimelProsemirrorAdapterCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelProsemirrorAdapterElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelRadioButtonGroupCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelRadioButtonGroupCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelRadioButtonGroupElement;
 }
 
 // Warning: (ae-missing-release-tag) "LimelSelectCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
