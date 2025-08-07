@@ -22,6 +22,8 @@ import { ElementPool } from './element-pool';
 import { TableSelection } from './table-selection';
 import { mapLayout, Layout } from './layout';
 import { areRowsEqual } from './utils';
+import { Languages } from '../date-picker/date.types';
+import translate from '../../global/translations';
 
 const FIRST_PAGE = 1;
 
@@ -157,6 +159,12 @@ export class Table {
      */
     @Prop()
     public selection: object[];
+
+    /**
+     * Defines the language for translations.
+     */
+    @Prop({ reflect: true })
+    public language: Languages = 'en';
 
     /**
      * Emitted when `mode` is `remote` and the table is loading new data. The
@@ -852,6 +860,7 @@ export class Table {
                 style={{ display: showSelectAll ? 'inline-block' : 'none' }}
             >
                 <limel-checkbox
+                    class="hide-label"
                     onChange={this.selectAllOnChange}
                     disabled={this.data.length === 0}
                     checked={this.tableSelection?.hasSelection}
@@ -859,6 +868,7 @@ export class Table {
                         this.tableSelection?.hasSelection &&
                         this.selection?.length < this.data.length
                     }
+                    label={this.getTranslation('table.select-all')}
                 />
             </div>
         );
@@ -877,4 +887,8 @@ export class Table {
             </div>
         );
     }
+
+    private getTranslation = (key: string) => {
+        return translate.get(key, this.language);
+    };
 }

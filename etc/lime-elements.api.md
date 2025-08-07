@@ -718,6 +718,7 @@ export namespace Components {
         "columns": Column[];
         "data": object[];
         "emptyMessage": string;
+        "language": Languages;
         "layout": Layout;
         "loading": boolean;
         "mode": 'local' | 'remote';
@@ -1845,6 +1846,7 @@ export namespace JSX {
         "columns"?: Column[];
         "data"?: object[];
         "emptyMessage"?: string;
+        "language"?: Languages;
         "layout"?: Layout;
         "loading"?: boolean;
         "mode"?: 'local' | 'remote';
