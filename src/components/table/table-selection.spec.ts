@@ -32,7 +32,8 @@ describe('table selection', () => {
         tableSelection = new TestTableSelection(
             () => table,
             new ElementPool(document),
-            { emit: emitSelect }
+            { emit: emitSelect },
+            jest.fn((key: string) => key)
         );
     });
 
