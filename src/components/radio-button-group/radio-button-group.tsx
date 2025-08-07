@@ -29,7 +29,7 @@ import { LimelListCustomEvent } from '@limetech/lime-elements';
  */
 @Component({
     tag: 'limel-radio-button-group',
-    shadow: true,
+    shadow: false,
 })
 export class RadioButtonGroup {
     /**
