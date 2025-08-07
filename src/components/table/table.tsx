@@ -477,7 +477,8 @@ export class Table {
             this.tableSelection = new TableSelection(
                 () => this.tabulator,
                 this.pool,
-                this.select
+                this.select,
+                (key: string) => this.getTranslation(key)
             );
             this.tableSelection.setSelection(this.selection);
         }
