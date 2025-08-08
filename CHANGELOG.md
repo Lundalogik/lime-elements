@@ -1,3 +1,12 @@
+## [38.21.2](https://github.com/Lundalogik/lime-elements/compare/v38.21.1...v38.21.2) (2025-08-08)
+
+
+### Bug Fixes
+
+
+* **table:** add a label for the "Select all rows" checkbox ([246acc0](https://github.com/Lundalogik/lime-elements/commit/246acc04bafb476be7b97219da12bee4f3490cb2))
+* **table:** add a label for the checkboxes of individual rows ([1fccde6](https://github.com/Lundalogik/lime-elements/commit/1fccde6507867cf7f7f17f864af6284a879ea6c9))
+
 ## [38.21.1](https://github.com/Lundalogik/lime-elements/compare/v38.21.0...v38.21.1) (2025-08-05)
 
 
