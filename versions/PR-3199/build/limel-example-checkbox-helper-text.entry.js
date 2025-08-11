@@ -1,2 +1,2 @@
-import{r as e,h as t}from"./index-6156b4fd.js";const l=class{constructor(t){e(this,t)}render(){return t("section",null,t("div",null,t("limel-checkbox",{label:"I accept terms of use",helperText:"You need to accept to be able to continue…",id:"terms"})))}};export{l as limel_example_checkbox_helper_text};
+import{r as e,h as t}from"./index-2714248e.js";const l=class{constructor(t){e(this,t)}render(){return t("section",null,t("div",null,t("limel-checkbox",{label:"I accept terms of use",helperText:"You need to accept to be able to continue…",id:"terms"})))}};export{l as limel_example_checkbox_helper_text};
 //# sourceMappingURL=limel-example-checkbox-helper-text.entry.js.map
