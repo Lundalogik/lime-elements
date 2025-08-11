@@ -1,5 +1,3 @@
-import { MDCCheckbox, cssClasses } from '@material/checkbox';
-import { MDCFormField } from '@material/form-field';
 import {
     Component,
     Element,
@@ -115,25 +113,28 @@ export class Checkbox {
 
     @Element()
     private limelCheckbox: HTMLLimelCheckboxElement;
-
-    private formField: MDCFormField;
-    private mdcCheckbox: MDCCheckbox;
     private id: string = createRandomString();
     private helperTextId: string = createRandomString();
 
     @Watch('checked')
     protected handleCheckedChange(newValue: boolean) {
-        if (!this.mdcCheckbox) {
+        const input = this.getCheckboxElement();
+        if (!input) {
             return;
         }
 
-        this.mdcCheckbox.checked = newValue;
+        input.checked = newValue;
     }
 
     @Watch('indeterminate')
     protected handleIndeterminateChange(newValue: boolean) {
-        this.mdcCheckbox.checked = this.checked;
-        this.mdcCheckbox.indeterminate = newValue;
+        const input = this.getCheckboxElement();
+        if (!input) {
+            return;
+        }
+
+        input.checked = this.checked || newValue;
+        input.indeterminate = newValue;
     }
 
     @Watch('readonly')
@@ -158,19 +159,10 @@ export class Checkbox {
     }
 
     private destroyMDCInstances = () => {
-        this.mdcCheckbox?.destroy();
-        this.formField?.destroy();
-
-        const checkboxElement = this.getCheckboxElement();
-        if (checkboxElement) {
-            checkboxElement.classList.remove(
-                cssClasses.ANIM_CHECKED_INDETERMINATE,
-                cssClasses.ANIM_CHECKED_UNCHECKED,
-                cssClasses.ANIM_INDETERMINATE_CHECKED,
-                cssClasses.ANIM_INDETERMINATE_UNCHECKED,
-                cssClasses.ANIM_UNCHECKED_CHECKED,
-                cssClasses.ANIM_UNCHECKED_INDETERMINATE
-            );
+        const input = this.getCheckboxElement();
+        if (input) {
+            delete input.dataset['indeterminate'];
+            input.indeterminate = false;
         }
     };
 
@@ -208,24 +200,26 @@ export class Checkbox {
     };
 
     private initialize = () => {
-        const element =
-            this.limelCheckbox.shadowRoot.querySelector('.mdc-form-field');
-        if (!element) {
+        const input = this.getCheckboxElement();
+        if (!input) {
             return;
         }
 
-        this.formField = new MDCFormField(element);
-        this.mdcCheckbox = new MDCCheckbox(this.getCheckboxElement());
-        this.formField.input = this.mdcCheckbox;
+        input.indeterminate = this.indeterminate;
+        input.checked = this.checked || this.indeterminate;
     };
 
     private getCheckboxElement = () => {
-        return this.limelCheckbox.shadowRoot.querySelector('.mdc-checkbox');
+        return this.limelCheckbox.shadowRoot.querySelector(
+            'input[type="checkbox"]'
+        ) as HTMLInputElement;
     };
 
     private onChange = (event: Event) => {
         event.stopPropagation();
-        this.change.emit(this.mdcCheckbox.checked);
+        const input = event.currentTarget as HTMLInputElement;
+        const isChecked = input?.checked ?? this.checked;
+        this.change.emit(isChecked);
         this.modified = true;
     };
 }
