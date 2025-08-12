@@ -39,6 +39,9 @@
 
 .box {
     &:after {
+        height: 0.125rem;
+        width: 0.25rem;
+
         .indeterminate & {
             opacity: 1;
             width: calc(var(--limel-boolean-input-box-size) - 0.5rem);
@@ -47,6 +50,8 @@
 }
 
 .checkbox {
+    --limel-boolean-input-box-border-radius: 0.25rem;
+
     svg.check-mark {
         position: absolute;
         z-index: 1;

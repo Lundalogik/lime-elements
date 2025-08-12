@@ -21,7 +21,8 @@
     ); // helps align with other fields in the form, or within table rows
     width: 100%;
 
-    input[type='checkbox'] {
+    input[type='checkbox'],
+    input[type='radio'] {
         // Hide the native checkbox
         @include mixins.visually-hidden;
         -webkit-appearance: none;
@@ -97,7 +98,7 @@ label.boolean-input-label {
     height: var(--limel-boolean-input-box-size);
 
     margin-right: var(--limel-boolean-input-gap-size);
-    border-radius: 0.25rem;
+    border-radius: var(--limel-boolean-input-box-border-radius);
     border: 0.125rem solid;
 
     border-color: var(
@@ -110,7 +111,8 @@ label.boolean-input-label {
     );
 
     .checked &,
-    .boolean-input:has(input[type='checkbox']:checked) & {
+    .boolean-input:has(input[type='checkbox']:checked) &,
+    .boolean-input:has(input[type='radio']:checked) & {
         background-color: var(
             --lime-primary-color,
             var(--limel-theme-primary-color)
@@ -143,7 +145,8 @@ label.boolean-input-label {
         inset: -0.1875rem; // 3px
         border-radius: inherit;
 
-        .boolean-input:has(input[type='checkbox']:focus-visible) & {
+        .boolean-input:has(input[type='checkbox']:focus-visible) &,
+        .boolean-input:has(input[type='radio']:focus-visible) & {
             will-change: box-shadow;
 
             box-shadow: var(--shadow-depth-8-focused);
@@ -151,21 +154,25 @@ label.boolean-input-label {
     }
 
     &:after {
-        // For indicating the indeterminate state
+        // For indicating the indeterminate state in checkbox
+        // For indicating the the checked state in radio
         transition:
             opacity 0.2s ease,
-            width 0.4s ease;
+            width 0.4s ease,
+            box-shadow 0.6s cubic-bezier(0.68, -0.55, 0, 1.87),
+            transform 0.6s cubic-bezier(0.68, -0.55, 0, 1.87);
         content: '';
         position: absolute;
         inset: 0;
         margin: auto;
 
-        height: 0.125rem;
-        width: 0.25rem;
-
         border-radius: 1rem;
         opacity: 0;
 
         background-color: rgb(var(--color-white));
+
+        .boolean-input:not(.disabled):has(label.boolean-input-label:hover) & {
+            will-change: opacity, box-shadow, transform, width;
+        }
     }
 }
