@@ -76,11 +76,18 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
                 {...inputProps}
             />
             <div class="box">
-                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <svg
+                    class="check-mark"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                >
                     <path fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
                 </svg>
             </div>
-            <label htmlFor={props.id}>{props.label}</label>
+            <label class="boolean-input-label" htmlFor={props.id}>
+                {props.label}
+            </label>
         </div>,
         <HelperText
             text={props.helperText}

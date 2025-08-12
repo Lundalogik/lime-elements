@@ -1,3 +1,28 @@
+/**
+* :::important
+* The `CheckboxTemplate` can be imported and used in the HTML of
+* other components, to render a non-functional and decorative checkbox in
+* their UI. An example of this is the list component.
+* This means the content of `CheckboxTemplate` will become a part of the
+* consumer's DOM structure.
+*
+* Additionally, the consumer components' also need to import the current `.scss`
+* file into their own styles file, for the checkbox to be rendered correctly!
+* This means, if the styles in this file are not "specific" enough,
+* there is a risk that the consumer component's styles are affected by
+* our styles here.
+*
+* For instance if the consumer has a `<label>` or `<svg>` element,
+* it might unintentionally inherit styles from the checkbox; unless we
+* make the such styles more specific here.
+*
+* Naturally, we cannot mitigate all sorts of potential styling problems.
+* The consumer component should be aware of this issue too.
+* But we can ensure that our styles here both make sense,
+* are readable, and are as specific as possible to avoid unintended side effects.
+* :::
+*/
+
 @use '../../style/mixins';
 
 /**
@@ -30,17 +55,17 @@ $gap-size: 0.5rem;
         2.5rem
     ); // helps align with other fields in the form, or within table rows
     width: 100%;
+
+    input[type='checkbox'] {
+        // Hide the native checkbox
+        @include mixins.visually-hidden;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
 }
 
-input[type='checkbox'] {
-    // Hide the native checkbox
-    @include mixins.visually-hidden;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-
-label {
+label.boolean-input-label {
     // Ensure the label is always clickable, even when empty
     min-width: $box-size;
     min-height: $box-size;
@@ -132,12 +157,12 @@ label {
         opacity: 0.4;
     }
 
-    .checkbox:not(.disabled):has(label:hover) & {
+    .checkbox:not(.disabled):has(label.boolean-input-label:hover) & {
         will-change: box-shadow;
         box-shadow: var(--button-shadow-hovered);
     }
 
-    .checkbox:not(.disabled):has(label:active) & {
+    .checkbox:not(.disabled):has(label.boolean-input-label:active) & {
         will-change: box-shadow;
         box-shadow: var(--button-shadow-pressed);
     }
@@ -182,37 +207,41 @@ label {
     }
 }
 
-svg {
-    position: absolute;
-    z-index: 1;
-    inset: 0;
+.checkbox {
+    svg.check-mark {
+        position: absolute;
+        z-index: 1;
+        inset: 0;
 
-    transform: translate3d(-0.125rem, -0.125rem, 0);
+        transform: translate3d(-0.125rem, -0.125rem, 0);
 
-    width: $box-size;
-    height: $box-size;
+        width: $box-size;
+        height: $box-size;
 
-    padding: 0.25rem;
+        padding: 0.25rem;
 
-    color: rgb(var(--color-white));
-    opacity: 0;
+        color: rgb(var(--color-white));
+        opacity: 0;
 
-    stroke-width: 0.1875rem; // 3px
-    stroke: currentColor;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-
-    path {
-        stroke-dashoffset: 29.7833;
-        stroke-dasharray: 29.7833;
-        transition: stroke-dashoffset 180ms cubic-bezier(0.4, 0, 0.6, 1);
-    }
-
-    .checkbox:not(.indeterminate):has(input[type='checkbox']:checked) & {
-        opacity: 1;
+        stroke-width: 0.1875rem; // 3px
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
 
         path {
-            stroke-dashoffset: 0;
+            stroke-dashoffset: 29.7833;
+            stroke-dasharray: 29.7833;
+            transition: stroke-dashoffset 180ms cubic-bezier(0.4, 0, 0.6, 1);
+        }
+    }
+
+    &:not(.indeterminate):has(input[type='checkbox']:checked) {
+        svg.check-mark {
+            opacity: 1;
+
+            path {
+                stroke-dashoffset: 0;
+            }
         }
     }
 }
