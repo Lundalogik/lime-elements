@@ -54,6 +54,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
             class={{
                 'mdc-form-field': true, // required by MDC to work
                 'mdc-checkbox': true, // required by MDC to work
+                'boolean-input': true,
                 checkbox: true,
                 checked: props.checked,
                 invalid: props.invalid,
