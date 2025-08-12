@@ -123,7 +123,7 @@ export class Checkbox {
             return;
         }
 
-        input.checked = newValue;
+        input.checked = newValue || this.indeterminate;
     }
 
     @Watch('indeterminate')
