@@ -43,7 +43,7 @@ $gap-size: 0.5rem;
     box-sizing: border-box;
 }
 
-.checkbox {
+.boolean-input {
     position: relative;
     isolation: isolate;
 
@@ -142,7 +142,7 @@ label.boolean-input-label {
     );
 
     .checked &,
-    .checkbox:has(input[type='checkbox']:checked) & {
+    .boolean-input:has(input[type='checkbox']:checked) & {
         background-color: var(
             --lime-primary-color,
             var(--limel-theme-primary-color)
@@ -157,12 +157,12 @@ label.boolean-input-label {
         opacity: 0.4;
     }
 
-    .checkbox:not(.disabled):has(label.boolean-input-label:hover) & {
+    .boolean-input:not(.disabled):has(label.boolean-input-label:hover) & {
         will-change: box-shadow;
         box-shadow: var(--button-shadow-hovered);
     }
 
-    .checkbox:not(.disabled):has(label.boolean-input-label:active) & {
+    .boolean-input:not(.disabled):has(label.boolean-input-label:active) & {
         will-change: box-shadow;
         box-shadow: var(--button-shadow-pressed);
     }
@@ -175,7 +175,7 @@ label.boolean-input-label {
         inset: -0.1875rem; // 3px
         border-radius: inherit;
 
-        .checkbox:has(input[type='checkbox']:focus-visible) & {
+        .boolean-input:has(input[type='checkbox']:focus-visible) & {
             will-change: box-shadow;
 
             box-shadow: var(--shadow-depth-8-focused);
