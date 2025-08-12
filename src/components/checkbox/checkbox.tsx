@@ -209,10 +209,12 @@ export class Checkbox {
         input.checked = this.checked || this.indeterminate;
     };
 
-    private getCheckboxElement = () => {
-        return this.limelCheckbox.shadowRoot.querySelector(
-            'input[type="checkbox"]'
-        ) as HTMLInputElement;
+    private getCheckboxElement = (): HTMLInputElement | null => {
+        return (
+            this.limelCheckbox?.shadowRoot?.querySelector(
+                'input[type="checkbox"]'
+            ) || null
+        );
     };
 
     private onChange = (event: Event) => {
