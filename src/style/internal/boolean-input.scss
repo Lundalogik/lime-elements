@@ -1,0 +1,171 @@
+@use '../mixins';
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+.boolean-input {
+    --limel-boolean-input-box-size: 1.25rem;
+    --limel-boolean-input-gap-size: 0.5rem;
+    position: relative;
+    isolation: isolate;
+
+    display: flex;
+    align-items: center;
+
+    min-height: var(
+        --limel-checkbox-min-height,
+        2.5rem
+    ); // helps align with other fields in the form, or within table rows
+    width: 100%;
+
+    input[type='checkbox'] {
+        // Hide the native checkbox
+        @include mixins.visually-hidden;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+}
+
+label.boolean-input-label {
+    // Ensure the label is always clickable, even when empty
+    min-width: var(--limel-boolean-input-box-size);
+    min-height: var(--limel-boolean-input-box-size);
+    padding-top: 0.125rem;
+    // ====
+
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+
+    font-size: var(--limel-theme-default-small-font-size);
+    color: var(--limel-theme-text-primary-on-background-color);
+
+    padding-left: calc(
+        var(--limel-boolean-input-box-size) +
+            var(--limel-boolean-input-gap-size)
+    );
+
+    .disabled:not([readonly]):not([readonly='true']) & {
+        cursor: not-allowed;
+        color: var(--limel-theme-text-disabled-color);
+    }
+
+    .required & {
+        &:after {
+            margin-left: 0.0625rem;
+            content: '*';
+        }
+    }
+
+    .invalid:not(.readonly) & {
+        color: var(--limel-theme-error-text-color);
+    }
+
+    :host(limel-checkbox.hide-label) &,
+    .hide-label & {
+        // this helper class of `hide-label` can be added for example to the `host` element,
+        // or if the `CheckboxTemplate` is imported to other components, the class can be
+        // added to the `checkbox` element itself
+        // and be used internally by other components such as `limel-table`
+        // to hide the `<label>`, while still keeping the checkbox
+        // both clickable for the users, and accessible for screen readers
+        @include mixins.truncate-text();
+        opacity: 0;
+        width: var(--limel-boolean-input-box-size);
+    }
+}
+
+.box {
+    position: absolute; // since `label` is the clickable part,
+    // and thus needs to
+    // stretch below the checkbox
+    pointer-events: none;
+
+    transition:
+        border-color 0.4s ease 0.2s,
+        background-color 0.2s ease,
+        box-shadow var(--limel-clickable-transform-speed, 0.4s) ease;
+
+    display: inline-block;
+    vertical-align: middle;
+
+    width: var(--limel-boolean-input-box-size);
+    height: var(--limel-boolean-input-box-size);
+
+    margin-right: var(--limel-boolean-input-gap-size);
+    border-radius: 0.25rem;
+    border: 0.125rem solid;
+
+    border-color: var(
+        --checkbox-unchecked-border-color,
+        rgb(var(--contrast-900))
+    );
+    background-color: var(
+        --limel-checkbox-background-color,
+        rgb(var(--contrast-300))
+    );
+
+    .checked &,
+    .boolean-input:has(input[type='checkbox']:checked) & {
+        background-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
+        border-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
+    }
+
+    .disabled & {
+        opacity: 0.4;
+    }
+
+    .boolean-input:not(.disabled):has(label.boolean-input-label:hover) & {
+        will-change: box-shadow;
+        box-shadow: var(--button-shadow-hovered);
+    }
+
+    .boolean-input:not(.disabled):has(label.boolean-input-label:active) & {
+        will-change: box-shadow;
+        box-shadow: var(--button-shadow-pressed);
+    }
+
+    &:before {
+        // For indicating the hover or focused state
+        transition: mixins.$clickable-normal-state-transitions;
+        content: '';
+        position: absolute;
+        inset: -0.1875rem; // 3px
+        border-radius: inherit;
+
+        .boolean-input:has(input[type='checkbox']:focus-visible) & {
+            will-change: box-shadow;
+
+            box-shadow: var(--shadow-depth-8-focused);
+        }
+    }
+
+    &:after {
+        // For indicating the indeterminate state
+        transition:
+            opacity 0.2s ease,
+            width 0.4s ease;
+        content: '';
+        position: absolute;
+        inset: 0;
+        margin: auto;
+
+        height: 0.125rem;
+        width: 0.25rem;
+
+        border-radius: 1rem;
+        opacity: 0;
+
+        background-color: rgb(var(--color-white));
+    }
+}
