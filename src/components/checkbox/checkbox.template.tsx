@@ -47,6 +47,12 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
 
     if (props.indeterminate) {
         inputProps['data-indeterminate'] = 'true';
+        inputProps['aria-checked'] = 'mixed';
+    } else {
+        inputProps['data-indeterminate'] = 'false';
+        if (typeof props.checked === 'boolean') {
+            inputProps['aria-checked'] = String(props.checked);
+        }
     }
 
     return [
