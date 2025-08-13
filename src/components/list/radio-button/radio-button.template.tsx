@@ -12,27 +12,25 @@ export const RadioButtonTemplate: FunctionalComponent<
     RadioButtonTemplateProps
 > = (props) => {
     return (
-        <div class="mdc-form-field">
-            <div
-                class={{
-                    'boolean-input': true,
-                    'radio-button': true,
-                    checked: props.checked,
-                    disabled: props.disabled,
-                }}
-            >
-                <input
-                    type="radio"
-                    id={props.id}
-                    checked={props.checked}
-                    disabled={props.disabled}
-                    onChange={props.onChange}
-                />
-                <div class="box" />
-                <label class="boolean-input-label" htmlFor={props.id}>
-                    {props.label}
-                </label>
-            </div>
+        <div
+            class={{
+                'boolean-input': true,
+                'radio-button': true,
+                checked: props.checked,
+                disabled: props.disabled,
+            }}
+        >
+            <input
+                type="radio"
+                id={props.id}
+                checked={props.checked}
+                disabled={props.disabled}
+                onChange={props.onChange}
+            />
+            <div class="box" />
+            <label class="boolean-input-label" htmlFor={props.id}>
+                {props.label}
+            </label>
         </div>
     );
 };
