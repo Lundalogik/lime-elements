@@ -107,7 +107,7 @@ limel-notched-outline {
             );
             font-size: var(
                 --limel-notched-outline-label-font-size,
-                #{shared_input-select-picker.$cropped-label-hack--font-size}
+                var(--limel-theme-default-font-size)
             );
             letter-spacing: var(
                 --mdc-typography-subtitle1-letter-spacing,
