@@ -28,27 +28,10 @@ $input-text-color-disabled: rgba(var(--contrast-1400), 0.5);
 $helper-text-color: $label-color;
 
 $height-of-mdc-text-field: 2.5rem; //This is written directly in `rem`, becurse the variable used to calculate things elsewhere
-$height-of-mdc-helper-text-block: 0.9375rem;
-
-$mdc-chip-background-color: rgb(var(--contrast-100));
-
-$height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo before in MD's helper texts, which sets their distance to the element on top of it. Originally in MD, this value is 1rem. In Lime Elements, we need to make it less due to our layout needs.
-$cropped-label-hack--font-size: var(--limel-theme-default-font-size); //14px
 
 @mixin looks-disabled() {
     cursor: not-allowed;
     opacity: 0.4;
-}
-
-@mixin looks-like-input-label() {
-    line-height: functions.pxToRem(28);
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
-
-    font-size: var(--limel-theme-default-font-size);
-    font-weight: 400;
-    letter-spacing: 0.009375em;
-    color: $label-color;
 }
 
 @mixin looks-like-input-value() {
@@ -59,30 +42,8 @@ $cropped-label-hack--font-size: var(--limel-theme-default-font-size); //14px
     color: $input-text-color;
     font-size: var(--limel-theme-default-font-size);
     font-weight: 400;
+    font-family: inherit;
     letter-spacing: 0.009375em;
-}
-
-@mixin cropped-label-hack {
-    // Some font size applied to `label--float-above` causes the labels to get cut off
-    // when an empty field gets focused
-    .mdc-text-field--outlined.mdc-text-field--with-leading-icon.mdc-notched-outline--upgraded,
-    .mdc-text-field--outlined.mdc-text-field--with-leading-icon
-        .mdc-notched-outline--upgraded,
-    .mdc-text-field--outlined.mdc-text-field--textarea.mdc-notched-outline--upgraded,
-    .mdc-text-field--outlined.mdc-text-field--textarea
-        .mdc-notched-outline--upgraded,
-    .mdc-text-field--outlined.mdc-notched-outline--upgraded,
-    .mdc-text-field--outlined .mdc-notched-outline--upgraded {
-        .mdc-floating-label--float-above {
-            //font-size: 1rem; This is what we get from MD now, which causes the miscalculations
-            font-size: $cropped-label-hack--font-size;
-            // of course this is `14px` and the other one is `16px`.
-            // Unfortunately MD scales the floating label down, by applying a
-            // `transform` & `scale(0.75)` which is probably why they had to increase
-            // the font-size, to make it more readable.
-            // This is why I don't like this hack.
-        }
-    }
 }
 
 @mixin input-field-placeholder {
@@ -90,128 +51,6 @@ $cropped-label-hack--font-size: var(--limel-theme-default-font-size); //14px
         color: $input-placeholder-color !important;
         font-size: var(--limel-theme-default-font-size) !important;
         font-family: inherit !important;
-    }
-}
-
-@mixin floating-label-overrides {
-    .mdc-text-field__input,
-    .mdc-floating-label {
-        // As long as this component is depended on MDC,
-        // we need to force it to be font-agnostic.
-        // When MDC-dependency is removed, this block can also be removed.
-        // However, on removal of MDC-dependency, we should also make sure to check
-        // other font-related styles that might be set by MDC,
-        // such as `letter-spacing` or `font-size`.
-        font-family: inherit;
-    }
-
-    .mdc-text-field {
-        &:not(.mdc-text-field--disabled) {
-            .mdc-floating-label {
-                color: $label-color;
-            }
-            .mdc-text-field__input {
-                color: $input-text-color;
-            }
-        }
-        &.mdc-text-field--disabled {
-            .mdc-floating-label {
-                color: $label-color-disabled;
-            }
-            .mdc-text-field__input {
-                color: $input-text-color-disabled;
-            }
-        }
-    }
-
-    .mdc-floating-label--float-above {
-        transform: translateY(#{functions.pxToRem(-27)}) scale(0.75) !important;
-
-        .mdc-text-field--with-leading-icon & {
-            transform: translateY(#{functions.pxToRem(-25)})
-                translateX(#{functions.pxToRem(-20)}) scale(0.75) !important;
-        }
-    }
-}
-
-@mixin outlined-style-overrides {
-    .mdc-text-field.mdc-text-field--outlined {
-        transition: background-color 0.2s ease;
-        border-radius: functions.pxToRem(4);
-
-        .mdc-notched-outline__leading,
-        .mdc-notched-outline__notch,
-        .mdc-notched-outline__trailing {
-            transition: border-color 0.2s ease;
-        }
-
-        &:not(.mdc-text-field--disabled) {
-            background-color: $background-color-normal;
-
-            &:hover {
-                background-color: $background-color-hovered;
-            }
-        }
-
-        &.mdc-text-field--focused {
-            background-color: $background-color-focused;
-        }
-
-        &.mdc-text-field--disabled {
-            background-color: $background-color-disabled;
-        }
-
-        &:not(.mdc-text-field--disabled):not(.mdc-text-field--invalid):not(
-                .force-invalid
-            ) {
-            .mdc-notched-outline__leading,
-            .mdc-notched-outline__notch,
-            .mdc-notched-outline__trailing {
-                border-color: $lime-text-field-outline-color;
-            }
-
-            &:not(.mdc-text-field--focused):not(.mdc-text-field--invalid):not(
-                    .force-invalid
-                ) {
-                &:hover .mdc-notched-outline {
-                    .mdc-notched-outline__leading,
-                    .mdc-notched-outline__notch,
-                    .mdc-notched-outline__trailing {
-                        border-color: $lime-text-field-outline-color--hovered;
-                    }
-                }
-            }
-
-            &.mdc-text-field--focused {
-                .mdc-notched-outline__leading,
-                .mdc-notched-outline__notch,
-                .mdc-notched-outline__trailing {
-                    border-color: $lime-text-field-outline-color--focused;
-                }
-            }
-        }
-    }
-
-    .mdc-text-field,
-    .mdc-text-field.mdc-text-field--focused {
-        .mdc-notched-outline__leading,
-        .mdc-notched-outline__notch,
-        .mdc-notched-outline__trailing {
-            border-width: 1px;
-        }
-    }
-
-    .mdc-text-field.mdc-text-field--focused.mdc-text-field--outlined {
-        .mdc-notched-outline--notched {
-            .mdc-notched-outline__notch {
-                padding-top: 0;
-            }
-        }
-    }
-
-    .mdc-text-field__icon {
-        color: $input-text-leading-icon-color;
-        flex-shrink: 0;
     }
 }
 
@@ -344,12 +183,6 @@ $cropped-label-hack--font-size: var(--limel-theme-default-font-size); //14px
                 }
             }
         }
-    }
-}
-
-@mixin disabled-overrides {
-    .mdc-text-field--disabled {
-        background-color: transparent;
     }
 }
 
