@@ -156,6 +156,9 @@ limel-notched-outline {
 }
 
 .mdc-text-field__input {
+    font-size: var(--limel-theme-default-font-size) !important;
+    font-family: inherit !important;
+
     .mdc-text-field:not(.mdc-text-field--disabled) & {
         color: shared_input-select-picker.$input-text-color;
     }
