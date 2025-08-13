@@ -88,6 +88,8 @@ $cropped-label-hack--font-size: var(--limel-theme-default-font-size); //14px
 @mixin input-field-placeholder {
     &::placeholder {
         color: $input-placeholder-color !important;
+        font-size: var(--limel-theme-default-font-size) !important;
+        font-family: inherit !important;
     }
 }
 
