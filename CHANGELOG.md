@@ -1,3 +1,11 @@
+## [38.21.3](https://github.com/Lundalogik/lime-elements/compare/v38.21.2...v38.21.3) (2025-08-14)
+
+
+### Bug Fixes
+
+
+* **input-field:** ensure font is correctly rendered ([31961cb](https://github.com/Lundalogik/lime-elements/commit/31961cb9dbbf9f837b793a1c3211fe62cd2a236f))
+
 ## [38.21.2](https://github.com/Lundalogik/lime-elements/compare/v38.21.1...v38.21.2) (2025-08-08)
 
 
