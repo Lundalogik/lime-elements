@@ -47,13 +47,17 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
 
     if (props.indeterminate) {
         inputProps['data-indeterminate'] = 'true';
+        inputProps['aria-checked'] = 'mixed';
+    } else {
+        inputProps['data-indeterminate'] = 'false';
+        if (typeof props.checked === 'boolean') {
+            inputProps['aria-checked'] = String(props.checked);
+        }
     }
 
     return [
         <div
             class={{
-                'mdc-form-field': true, // required by MDC to work
-                'mdc-checkbox': true, // required by MDC to work
                 'boolean-input': true,
                 checkbox: true,
                 checked: props.checked,
@@ -66,7 +70,6 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
         >
             <input
                 type="checkbox"
-                class="mdc-checkbox__native-control" // required by MDC to work
                 id={props.id}
                 checked={props.checked}
                 disabled={props.disabled || props.readonly}
