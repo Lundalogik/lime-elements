@@ -1,3 +1,11 @@
+## [38.22.0](https://github.com/Lundalogik/lime-elements/compare/v38.21.4...v38.22.0) (2025-08-18)
+
+
+### Features
+
+
+* **radio-button-group:** add new component ([141b721](https://github.com/Lundalogik/lime-elements/commit/141b721409cdc2d01578568f1113f8214936c16e))
+
 ## [38.21.4](https://github.com/Lundalogik/lime-elements/compare/v38.21.3...v38.21.4) (2025-08-18)
 
 
