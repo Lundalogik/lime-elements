@@ -18,6 +18,10 @@ updates:
           - "eslint"
           - "eslint-*"
           - "prettier"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
     ignore:
       - dependency-name: "@rjsf/core"
         update-types: ["version-update:semver-major"]

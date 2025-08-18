@@ -23,6 +23,16 @@ jobs:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
     - uses: ./.github/actions/set-up-node
     - run: npm ci
+    - name: Ensure installed React and React-DOM versions match
+      run: |
+        REACT_VERSION=$(npm ls react --depth=0 --json | jq -r '.dependencies.react.version')
+        REACT_DOM_VERSION=$(npm ls react-dom --depth=0 --json | jq -r '.dependencies["react-dom"].version')
+        echo "Installed React: $REACT_VERSION"
+        echo "Installed React-DOM: $REACT_DOM_VERSION"
+        if [ "$REACT_VERSION" != "$REACT_DOM_VERSION" ]; then
+          echo "ERROR: Installed React and React-DOM versions must match!"
+          exit 1
+        fi
     - run: npm run build
     - run: npm run build # Needed to avoid incremental build quirks
     - run: npm run api:verify
