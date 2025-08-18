@@ -1,3 +1,12 @@
+## [38.21.4](https://github.com/Lundalogik/lime-elements/compare/v38.21.3...v38.21.4) (2025-08-18)
+
+
+### Bug Fixes
+
+
+* **checkbox:** improve accessibility by better handling indeterminate state ([7b8308b](https://github.com/Lundalogik/lime-elements/commit/7b8308b0b3c70547ce5d8bc208dd16db52486176))
+* **checkbox:** prevent early lifecycle crashes ([710a954](https://github.com/Lundalogik/lime-elements/commit/710a954164cf6a9fafab0619e59cb4534fe97d20))
+
 ## [38.21.3](https://github.com/Lundalogik/lime-elements/compare/v38.21.2...v38.21.3) (2025-08-14)
 
 
