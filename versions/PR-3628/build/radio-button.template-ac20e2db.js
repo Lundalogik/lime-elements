@@ -1,0 +1,2 @@
+import{h as e}from"./index-2714248e.js";const o=o=>e("div",{class:{"boolean-input":true,"radio-button":true,checked:o.checked,disabled:o.disabled}},e("input",{type:"radio",id:o.id,checked:o.checked,disabled:o.disabled,onChange:o.onChange}),e("div",{class:"box"}),e("label",{class:"boolean-input-label",htmlFor:o.id},o.label));export{o as R};
+//# sourceMappingURL=radio-button.template-ac20e2db.js.map

@@ -1,2 +1,0 @@
-import{h as e}from"./index-2714248e.js";const d=d=>e("div",{class:"mdc-form-field"},e("div",{class:{"boolean-input":true,"radio-button":true,checked:d.checked,disabled:d.disabled}},e("input",{type:"radio",id:d.id,checked:d.checked,disabled:d.disabled,onChange:d.onChange}),e("div",{class:"box"}),e("label",{class:"boolean-input-label",htmlFor:d.id},d.label)));export{d as R};
-//# sourceMappingURL=radio-button.template-ef6bfdcd.js.map
