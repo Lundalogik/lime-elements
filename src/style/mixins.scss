@@ -72,8 +72,8 @@ $clickable-normal-state-transitions: (
 );
 
 @mixin is-elevated-clickable(
-    $color: var(--mdc-theme-on-surface),
-    $color--hovered: var(--mdc-theme-on-surface),
+    $color: var(--limel-theme-on-surface-color),
+    $color--hovered: var(--limel-theme-on-surface-color),
     $background-color: var(--lime-elevated-surface-background-color),
     $background-color--hovered: var(--lime-elevated-surface-background-color)
 ) {
@@ -116,11 +116,11 @@ $clickable-normal-state-transitions: (
 }
 
 @mixin is-elevated-inset-clickable(
-    $color: var(--mdc-theme-on-surface),
-    $color--hovered: var(--mdc-theme-on-surface),
+    $color: var(--limel-theme-on-surface-color),
+    $color--hovered: var(--limel-theme-on-surface-color),
     $background-color: var(--lime-elevated-surface-background-color),
     $background-color--hovered: var(--lime-elevated-surface-background-color),
-    $background-color--inset: var(--mdc-theme-surface)
+    $background-color--inset: var(--limel-theme-surface-background-color)
 ) {
     transition: $clickable-normal-state-transitions;
 
@@ -162,9 +162,9 @@ $clickable-normal-state-transitions: (
 }
 
 @mixin is-flat-clickable(
-    $color: var(--mdc-theme-on-surface),
+    $color: var(--limel-theme-on-surface-color),
     $background-color: transparent,
-    $color--hovered: var(--mdc-theme-on-surface),
+    $color--hovered: var(--limel-theme-on-surface-color),
     $background-color--hovered: var(--lime-elevated-surface-background-color)
 ) {
     transition: $clickable-normal-state-transitions;
@@ -205,11 +205,11 @@ $clickable-normal-state-transitions: (
 }
 
 @mixin is-flat-inset-clickable(
-    $color: var(--mdc-theme-on-surface),
+    $color: var(--limel-theme-on-surface-color),
     $background-color: transparent,
-    $color--hovered: var(--mdc-theme-on-surface),
+    $color--hovered: var(--limel-theme-on-surface-color),
     $background-color--hovered: var(--lime-elevated-surface-background-color),
-    $background-color--inset: var(--mdc-theme-surface)
+    $background-color--inset: var(--limel-theme-surface-background-color)
 ) {
     transition: $clickable-normal-state-transitions;
 

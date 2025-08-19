@@ -91,7 +91,7 @@ export interface Chip<T = any> {
     value?: T;
 }
 
-// @beta
+// @public
 export type ChipType = 'default' | 'filter';
 
 // @public (undocumented)
@@ -213,7 +213,6 @@ export namespace Components {
         "language": Languages;
         "type"?: CalloutType;
     }
-    // @beta
     export interface LimelCard {
         "actions"?: Array<ActionBarItem | ListSeparator>;
         "clickable": boolean;
@@ -252,7 +251,6 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "readonly": boolean;
-        // @beta
         "readonlyLabels"?: Array<Label<boolean>>;
         "required": boolean;
     }
@@ -273,7 +271,6 @@ export namespace Components {
         "selected": boolean;
         "size": 'small' | 'default';
         "text": string;
-        // @beta
         "type"?: ChipType;
     }
     export interface LimelChipSet {
@@ -378,7 +375,6 @@ export namespace Components {
         "item": DockItem;
         "useMobileLayout"?: boolean;
     }
-    // @beta
     export interface LimelDynamicLabel {
         "defaultLabel": Omit<Label, 'value'>;
         "labels": Label[];
@@ -443,6 +439,7 @@ export namespace Components {
         "transformErrors"?: (errors: FormError[]) => FormError[];
         "value": object;
     }
+    // @deprecated
     export interface LimelGrid {
     }
     export interface LimelHeader {
@@ -642,6 +639,14 @@ export namespace Components {
         "ui": EditorUiType;
         "value": string;
     }
+    // @beta
+    export interface LimelRadioButtonGroup {
+        "badgeIcons": boolean;
+        "disabled": boolean;
+        "items": Array<ListItem | ListSeparator>;
+        "maxLinesSecondaryText": number;
+        "selectedItem"?: ListItem<string | number>;
+    }
     // (undocumented)
     export interface LimelSelect {
         "disabled": boolean;
@@ -666,8 +671,10 @@ export namespace Components {
         "disabled": boolean;
         "factor": number;
         "helperText": string;
+        "invalid": boolean;
         "label": string;
         "readonly": boolean;
+        "required": boolean;
         "step": number;
         "unit": string;
         "value": number;
@@ -706,7 +713,6 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "readonly": boolean;
-        // @beta
         "readonlyLabels"?: Array<Label<boolean>>;
         "value": boolean;
     }
@@ -720,6 +726,7 @@ export namespace Components {
         "columns": Column[];
         "data": object[];
         "emptyMessage": string;
+        "language": Languages;
         "layout": Layout;
         "loading": boolean;
         "mode": 'local' | 'remote';
@@ -1089,8 +1096,6 @@ export namespace JSX {
         "limel-button-group": LimelButtonGroup;
         // (undocumented)
         "limel-callout": LimelCallout;
-        // Warning: (ae-incompatible-release-tags) The symbol ""limel-card"" is marked as @public, but its signature references "JSX" which is marked as @beta
-        //
         // (undocumented)
         "limel-card": LimelCard;
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-chart"" is marked as @public, but its signature references "JSX" which is marked as @beta
@@ -1123,8 +1128,6 @@ export namespace JSX {
         "limel-dock": LimelDock;
         // (undocumented)
         "limel-dock-button": LimelDockButton;
-        // Warning: (ae-incompatible-release-tags) The symbol ""limel-dynamic-label"" is marked as @public, but its signature references "JSX" which is marked as @beta
-        //
         // (undocumented)
         "limel-dynamic-label": LimelDynamicLabel;
         // (undocumented)
@@ -1191,6 +1194,10 @@ export namespace JSX {
         //
         // (undocumented)
         "limel-prosemirror-adapter": LimelProsemirrorAdapter;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-radio-button-group"" is marked as @public, but its signature references "JSX" which is marked as @beta
+        //
+        // (undocumented)
+        "limel-radio-button-group": LimelRadioButtonGroup;
         // (undocumented)
         "limel-select": LimelSelect;
         // (undocumented)
@@ -1287,7 +1294,6 @@ export namespace JSX {
         "language"?: Languages;
         "type"?: CalloutType;
     }
-    // @beta
     export interface LimelCard {
         "actions"?: Array<ActionBarItem | ListSeparator>;
         "clickable"?: boolean;
@@ -1329,7 +1335,6 @@ export namespace JSX {
         "label"?: string;
         "onChange"?: (event: LimelCheckboxCustomEvent<boolean>) => void;
         "readonly"?: boolean;
-        // @beta
         "readonlyLabels"?: Array<Label<boolean>>;
         "required"?: boolean;
     }
@@ -1352,7 +1357,6 @@ export namespace JSX {
         "selected"?: boolean;
         "size"?: 'small' | 'default';
         "text"?: string;
-        // @beta
         "type"?: ChipType;
     }
     export interface LimelChipSet {
@@ -1475,7 +1479,6 @@ export namespace JSX {
         "onMenuOpen"?: (event: LimelDockButtonCustomEvent<DockItem>) => void;
         "useMobileLayout"?: boolean;
     }
-    // @beta
     export interface LimelDynamicLabel {
         "defaultLabel"?: Omit<Label, 'value'>;
         "labels"?: Label[];
@@ -1549,6 +1552,7 @@ export namespace JSX {
         "transformErrors"?: (errors: FormError[]) => FormError[];
         "value"?: object;
     }
+    // @deprecated
     export interface LimelGrid {
     }
     export interface LimelHeader {
@@ -1770,6 +1774,15 @@ export namespace JSX {
         "ui"?: EditorUiType;
         "value"?: string;
     }
+    // @beta
+    export interface LimelRadioButtonGroup {
+        "badgeIcons"?: boolean;
+        "disabled"?: boolean;
+        "items"?: Array<ListItem | ListSeparator>;
+        "maxLinesSecondaryText"?: number;
+        "onChange"?: (event: LimelRadioButtonGroupCustomEvent<ListItem<string | number | undefined>>) => void;
+        "selectedItem"?: ListItem<string | number>;
+    }
     // (undocumented)
     export interface LimelSelect {
         "disabled"?: boolean;
@@ -1795,9 +1808,11 @@ export namespace JSX {
         "disabled"?: boolean;
         "factor"?: number;
         "helperText"?: string;
+        "invalid"?: boolean;
         "label"?: string;
         "onChange"?: (event: LimelSliderCustomEvent<number>) => void;
         "readonly"?: boolean;
+        "required"?: boolean;
         "step"?: number;
         "unit"?: string;
         "value"?: number;
@@ -1838,7 +1853,6 @@ export namespace JSX {
         "label"?: string;
         "onChange"?: (event: LimelSwitchCustomEvent<boolean>) => void;
         "readonly"?: boolean;
-        // @beta
         "readonlyLabels"?: Array<Label<boolean>>;
         "value"?: boolean;
     }
@@ -1853,6 +1867,7 @@ export namespace JSX {
         "columns"?: Column[];
         "data"?: object[];
         "emptyMessage"?: string;
+        "language"?: Languages;
         "layout"?: Layout;
         "loading"?: boolean;
         "mode"?: 'local' | 'remote';
@@ -1930,7 +1945,7 @@ export namespace JSX {
     }
 }
 
-// @beta (undocumented)
+// @public
 export interface Label<T = LabelValue> {
     icon?: string | Icon;
     text?: string;
@@ -2292,6 +2307,16 @@ export interface LimelProsemirrorAdapterCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelProsemirrorAdapterElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelRadioButtonGroupCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelRadioButtonGroupCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelRadioButtonGroupElement;
 }
 
 // Warning: (ae-missing-release-tag) "LimelSelectCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)

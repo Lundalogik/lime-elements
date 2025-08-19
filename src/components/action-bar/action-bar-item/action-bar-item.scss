@@ -40,7 +40,7 @@ button {
     color: var(--limel-action-bar-item-text-color);
 
     border-radius: var(--action-bar-item-height);
-    font-size: functions.pxToRem(14);
+    font-size: var(--limel-theme-default-font-size);
     padding: 0 0.25rem;
 
     &:has(.text) {
@@ -55,7 +55,10 @@ button {
         &:not(:hover) {
             box-shadow: var(--button-shadow-inset);
         }
-        color: var(--mdc-theme-primary) !important;
+        color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        ) !important;
     }
 }
 

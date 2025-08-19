@@ -112,7 +112,6 @@ export interface Chip<T = any> {
 
 /**
  * This type is used to determine the visual style and behavior of a Chip component.
- *
- * @beta
+ * @public
  */
 export type ChipType = 'default' | 'filter';

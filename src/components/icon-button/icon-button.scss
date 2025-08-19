@@ -30,7 +30,7 @@ button {
     &:disabled {
         cursor: not-allowed;
 
-        color: var(--mdc-theme-text-disabled-on-background);
+        color: var(--limel-theme-text-disabled-on-background-color);
     }
 }
 

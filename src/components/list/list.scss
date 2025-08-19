@@ -1,9 +1,6 @@
 @use '../../style/functions';
 @use '../../style/mixins';
 
-@use '../../style/internal/lime-theme';
-@use '../checkbox/checkbox.scss';
-
 @use '@material/list';
 
 $list-border-radius: 0.375rem; // 6px
@@ -26,7 +23,6 @@ $list-mdc-list-item: 0;
 :host(limel-list) {
     display: block;
     isolation: isolate;
-    @include checkbox.custom-checkbox-styles;
 }
 
 :host([hidden]) {
@@ -44,6 +40,25 @@ $list-mdc-list-item: 0;
     // other font-related styles that might be set by MDC,
     // such as `letter-spacing` or `font-size`.
     font-family: inherit;
+    color: var(--limel-theme-text-primary-on-background-color);
+}
+
+.mdc-deprecated-list-item__text,
+.mdc-deprecated-list-item__primary-text {
+    font-size: var(--limel-theme-default-font-size);
+}
+
+.mdc-deprecated-list-item__secondary-text {
+    opacity: 0.6;
+    font-size: var(--limel-theme-default-small-font-size); //13px
+}
+
+.mdc-deprecated-list-item--disabled {
+    .mdc-deprecated-list-item__text,
+    .mdc-deprecated-list-item__primary-text,
+    .mdc-deprecated-list-item__secondary-text {
+        color: var(--limel-theme-text-disabled-on-background-color);
+    }
 }
 
 .mdc-deprecated-list {
@@ -79,7 +94,7 @@ $list-mdc-list-item: 0;
         all: unset;
         @include mixins.truncate-text;
         color: rgb(var(--contrast-900));
-        font-size: 0.8125rem; // 13px
+        font-size: var(--limel-theme-default-small-font-size); // 13px
     }
 
     .mdc-deprecated-list-item {
@@ -124,6 +139,10 @@ $list-mdc-list-item: 0;
         line-height: 100%;
         margin-right: -0.5rem;
         order: var(--limel-list-meta-order, 3);
+
+        &:has(.checkbox) {
+            margin-right: 0.5rem;
+        }
     }
 
     .mdc-deprecated-list-item__graphic {
@@ -240,7 +259,10 @@ $list-mdc-list-item: 0;
 
 .mdc-deprecated-list-item.mdc-deprecated-list-item--selected {
     &:before {
-        background-color: var(--mdc-theme-primary);
+        background-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
         opacity: 0.15;
     }
 }
@@ -288,7 +310,7 @@ img {
 
 @import '../checkbox/checkbox.scss';
 
-@import './radio-button/radio-button.scss';
+@import '../radio-button-group/radio-button.scss';
 
 @import './partial-styles/custom-styles.scss';
 @import './partial-styles/enable-multiline-text.scss';

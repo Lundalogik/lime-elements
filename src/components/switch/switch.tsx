@@ -85,7 +85,6 @@ export class Switch {
     /**
      * The labels to use to clarify what kind of data is being visualized,
      * when the component is `readonly`.
-     * @beta
      */
     @Prop()
     public readonlyLabels?: Array<Label<boolean>> = [];
@@ -139,7 +138,7 @@ export class Switch {
             if (this.value) {
                 icon = {
                     name: 'ok',
-                    color: 'var(--mdc-theme-primary)',
+                    color: 'var(--lime-primary-color, var(--limel-theme-primary-color))',
                 };
             }
 

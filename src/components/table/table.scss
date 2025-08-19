@@ -27,9 +27,12 @@ $height-of-aggregations-row: 1.5rem;
     --table-row-background-color--active: var(--contrast-300);
 
     --table-arrow-color: var(--contrast-800);
-    --table-arrow-color--active: var(--mdc-theme-primary);
+    --table-arrow-color--active: var(
+        --lime-primary-color,
+        var(--limel-theme-primary-color)
+    );
 
-    --table-text-color: var(--mdc-theme-text-primary-on-background);
+    --table-text-color: var(--limel-theme-text-primary-on-background-color);
     --limel-chip-size: 1.25rem;
 }
 

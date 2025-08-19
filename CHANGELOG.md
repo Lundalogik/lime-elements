@@ -1,3 +1,69 @@
+## [38.22.0](https://github.com/Lundalogik/lime-elements/compare/v38.21.4...v38.22.0) (2025-08-18)
+
+
+### Features
+
+
+* **radio-button-group:** add new component ([141b721](https://github.com/Lundalogik/lime-elements/commit/141b721409cdc2d01578568f1113f8214936c16e))
+
+## [38.21.4](https://github.com/Lundalogik/lime-elements/compare/v38.21.3...v38.21.4) (2025-08-18)
+
+
+### Bug Fixes
+
+
+* **checkbox:** improve accessibility by better handling indeterminate state ([7b8308b](https://github.com/Lundalogik/lime-elements/commit/7b8308b0b3c70547ce5d8bc208dd16db52486176))
+* **checkbox:** prevent early lifecycle crashes ([710a954](https://github.com/Lundalogik/lime-elements/commit/710a954164cf6a9fafab0619e59cb4534fe97d20))
+
+## [38.21.3](https://github.com/Lundalogik/lime-elements/compare/v38.21.2...v38.21.3) (2025-08-14)
+
+
+### Bug Fixes
+
+
+* **input-field:** ensure font is correctly rendered ([31961cb](https://github.com/Lundalogik/lime-elements/commit/31961cb9dbbf9f837b793a1c3211fe62cd2a236f))
+
+## [38.21.2](https://github.com/Lundalogik/lime-elements/compare/v38.21.1...v38.21.2) (2025-08-08)
+
+
+### Bug Fixes
+
+
+* **table:** add a label for the "Select all rows" checkbox ([246acc0](https://github.com/Lundalogik/lime-elements/commit/246acc04bafb476be7b97219da12bee4f3490cb2))
+* **table:** add a label for the checkboxes of individual rows ([1fccde6](https://github.com/Lundalogik/lime-elements/commit/1fccde6507867cf7f7f17f864af6284a879ea6c9))
+
+## [38.21.1](https://github.com/Lundalogik/lime-elements/compare/v38.21.0...v38.21.1) (2025-08-05)
+
+
+### Bug Fixes
+
+
+* **limel-checkbox:** align readonly icon and label ([43b1504](https://github.com/Lundalogik/lime-elements/commit/43b150424a6566546ff1294f7dc77464a882180d))
+
+## [38.21.0](https://github.com/Lundalogik/lime-elements/compare/v38.20.0...v38.21.0) (2025-08-05)
+
+
+### Features
+
+
+* **slider:** add `required` prop ([246a8a9](https://github.com/Lundalogik/lime-elements/commit/246a8a94f95382408dd84ebe61e03de4eb6128fc))
+* **slider:** enable indicating `invalid` state ([bcc3cfa](https://github.com/Lundalogik/lime-elements/commit/bcc3cfa43a108138ef10ec4f8c15346c627e1a30))
+
+## [38.20.0](https://github.com/Lundalogik/lime-elements/compare/v38.19.6...v38.20.0) (2025-08-01)
+
+
+### Features
+
+
+* **card:** remove beta tag ([4bd9e20](https://github.com/Lundalogik/lime-elements/commit/4bd9e205cbf51c8cf9cd44f15c55572dbe7eb99f))
+* **chip:** remove beta tag of the `type` prop ([07a1d36](https://github.com/Lundalogik/lime-elements/commit/07a1d3651beb0e02dc8e5e4a172022eaf1ac1ee7))
+* **dynamic-label:** remove beta tag ([5620a20](https://github.com/Lundalogik/lime-elements/commit/5620a20bfae5f849ff17b793667dd010ecfc39ea))
+
+### Bug Fixes
+
+
+* **checkbox:** improve layout of dynamic-label ([16702aa](https://github.com/Lundalogik/lime-elements/commit/16702aa7332f0ffdf48004b7110974560606dc40))
+
 ## [38.19.6](https://github.com/Lundalogik/lime-elements/compare/v38.19.5...v38.19.6) (2025-07-21)
 
 

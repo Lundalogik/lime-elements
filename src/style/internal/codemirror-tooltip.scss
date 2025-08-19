@@ -4,11 +4,16 @@
     transition: opacity 0.4s ease 0s;
     opacity: 0;
 
-    color: var(--mdc-theme-text-primary-on-background);
-    background-color: var(--mdc-theme-on-primary);
+    color: var(--limel-theme-text-primary-on-background-color);
+    background-color: var(
+        --lime-on-primary-color,
+        var(--limel-theme-on-primary-color)
+    );
 
     font-family: monospace;
-    font-size: 0.875rem; // 14px, like the default code editor's font size
+    font-size: var(
+        --limel-theme-default-font-size
+    ); // 14px, like the default code editor's font size
     white-space: pre-wrap;
     // overflow: hidden; // Why `hidden`?
 

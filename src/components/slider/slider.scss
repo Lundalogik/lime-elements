@@ -2,25 +2,67 @@
 @use '../../style/functions';
 @use '../../style/internal/shared_input-select-picker';
 
-@use '../../style/internal/lime-theme';
-
 @use '@material/slider/styles';
-@use '@material/floating-label/mdc-floating-label';
 
 :host(limel-slider) {
     isolation: isolate;
     position: relative;
-
     display: flex;
     flex-direction: column;
+}
+
+:host(limel-slider:not([invalid]):not([invalid='true'])),
+// We don't want the gray notched outlines around the slider by default
+:host(limel-slider[disabled]:not([disabled='false'])) {
+    .limel-notched-outline {
+        --limel-notched-outline-border-color: transparent;
+        --limel-notched-outline-background-color: transparent;
+    }
+    // and we don't want the `disabled` but `invalid` slider to show any
+    // red lines. Since users cannot do anything to fix a disabled but invalid slider
+}
+
+div[slot='content'] {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 0.25rem;
 }
 
 .mdc-slider {
     height: shared_input-select-picker.$height-of-mdc-text-field;
     margin: 0 0.75rem;
+
+    .mdc-slider__track--inactive {
+        background-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
+    }
+
+    .mdc-slider__track--active_fill {
+        border-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
+    }
+
+    .mdc-slider__thumb-knob {
+        border-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
+        background-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
+    }
+
+    .mdc-slider__value-indicator-text {
+        font-size: var(--limel-theme-default-small-font-size); //13px
+    }
 }
 
-.mdc-floating-label,
 .mdc-slider .mdc-slider__value-indicator-text {
     // As long as this component is depended on MDC,
     // we need to force it to be font-agnostic.
@@ -29,16 +71,6 @@
     // other font-related styles that might be set by MDC,
     // such as `letter-spacing` or `font-size`.
     font-family: inherit;
-}
-
-.slider__label {
-    padding-left: functions.pxToRem(20);
-    top: 0.75rem; // To place its label on the same height as other `floating-label`s in a form
-
-    color: shared_input-select-picker.$label-color;
-    :host(limel-slider.disabled:not(.readonly)) & {
-        color: shared_input-select-picker.$label-color-disabled;
-    }
 }
 
 .slider__content-range-container {

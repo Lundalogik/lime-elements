@@ -21,11 +21,13 @@ export class TableSelection {
      * @param getTable - Function that returns the Tabulator instance
      * @param pool - The element pool used to cache the checkbox components
      * @param selectEvent - The event emitter to use when checkboxes are toggled
+     * @param getTranslation - Function to get translated strings
      */
     constructor(
         private getTable: () => Tabulator,
         private pool: ElementPool,
-        private selectEvent: EventEmitter<RowData[]>
+        private selectEvent: EventEmitter<RowData[]>,
+        private getTranslation: (key: string) => string
     ) {
         this.selection = new Selection((index) =>
             getRowId(this.getRowByIndex(index).getData())
@@ -106,7 +108,9 @@ export class TableSelection {
             const element = this.pool.get(LIMEL_CHECKBOX);
             setElementProperties(element, {
                 checked: this.selection.has(getRowId(cell.getData())),
+                label: this.getTranslation('table.select-row'),
             });
+            element.classList.add('hide-label');
             element.style.display = 'inline-block';
 
             return element;

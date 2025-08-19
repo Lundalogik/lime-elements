@@ -51,7 +51,7 @@ aside {
     color: rgb(var(--contrast-100));
 
     -webkit-font-smoothing: antialiased;
-    font-size: 0.8125rem;
+    font-size: var(--limel-theme-default-small-font-size);
     font-weight: 400;
     padding: 0 0.25rem;
 
@@ -75,9 +75,11 @@ aside {
 }
 
 .dismiss {
-    --mdc-theme-on-surface: rgb(var(--contrast-100)); // color of the X icon
+    --limel-theme-on-surface-color: rgb(
+        var(--contrast-100)
+    ); // color of the X icon
     --icon-background-color: var(--lime-elevated-surface-background-color);
-    --fill-color: var(--mdc-theme-primary);
+    --fill-color: var(--lime-primary-color, var(--limel-theme-primary-color));
     --track-color: rgb(var(--contrast-800), 0.2);
     transition:
         opacity 0.1s ease,

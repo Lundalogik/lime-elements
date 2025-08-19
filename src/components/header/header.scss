@@ -66,7 +66,7 @@
 
 .subheading {
     color: var(--header-subheading-color, rgb(var(--contrast-900)));
-    font-size: functions.pxToRem(13);
+    font-size: var(--limel-theme-default-small-font-size);
     font-weight: 400;
 }
 

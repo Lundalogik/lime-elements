@@ -1,11 +1,11 @@
 import { Component, h } from '@stencil/core';
 
 /**
- * The `limel-grid` component creates a grid which can be used to control the
- * layout of other components. It uses CSS [grid-template-areas](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas)
- * to enable easy configuration of its child-elements.
+ * This component is deprecated and will be removed in a future version of
+ * Lime Elements. Please use CSS for your flexible container needs 🙂
  *
- * @exampleComponent limel-example-grid
+ * @deprecated Please use CSS instead https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout
+ * @private
  * @slot - Grid content
  */
 @Component({
@@ -14,6 +14,12 @@ import { Component, h } from '@stencil/core';
     styleUrl: 'grid.scss',
 })
 export class Grid {
+    public componentWillLoad() {
+        console.warn(
+            'limel-grid is deprecated, please use CSS instead: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout'
+        );
+    }
+
     public render() {
         return <slot />;
     }

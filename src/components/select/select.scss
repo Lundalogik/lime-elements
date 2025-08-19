@@ -36,6 +36,7 @@ limel-notched-outline:not([invalid]:not([invalid='false'])) {
     // other font-related styles that might be set by MDC,
     // such as `letter-spacing` or `font-size`.
     font-family: inherit;
+    font-size: var(--limel-theme-default-font-size);
 }
 
 .mdc-select__dropdown-icon-graphic {
@@ -127,7 +128,10 @@ limel-notched-outline:not([invalid]:not([invalid='false'])) {
 
                 .mdc-select__dropdown-icon {
                     svg {
-                        fill: var(--mdc-theme-primary);
+                        fill: var(
+                            --lime-primary-color,
+                            var(--limel-theme-primary-color)
+                        );
                     }
                 }
 
@@ -146,7 +150,7 @@ limel-notched-outline:not([invalid]:not([invalid='false'])) {
     &.limel-select--invalid {
         .limel-select__selected-option__text,
         .invalid-icon {
-            color: var(--lime-error-text-color);
+            color: var(--limel-theme-error-text-color);
         }
     }
 }

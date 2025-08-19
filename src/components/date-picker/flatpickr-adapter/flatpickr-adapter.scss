@@ -1,4 +1,3 @@
-@use '../../../style/internal/lime-theme';
 @use '../../../style/functions';
 @use '../../../style/mixins';
 
@@ -84,19 +83,32 @@ svg {
     &.endRange,
     &.inRange,
     &.selected:hover {
-        border-color: var(--mdc-theme-primary);
-        color: var(--mdc-theme-on-primary);
-        background: var(--mdc-theme-primary);
+        border-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
+        color: var(
+            --lime-on-primary-color,
+            var(--limel-theme-on-primary-color)
+        );
+        background: var(--lime-primary-color, var(--limel-theme-primary-color));
     }
 
     &.today {
-        border-color: var(--mdc-theme-on-primary);
-        box-shadow: 0 0 0 0.125rem var(--mdc-theme-primary);
+        border-color: var(
+            --lime-on-primary-color,
+            var(--limel-theme-on-primary-color)
+        );
+        box-shadow: 0 0 0 0.125rem
+            var(--lime-primary-color, var(--limel-theme-primary-color));
 
         &:hover {
             &:not(.selected) {
                 background-color: transparent;
-                color: var(--mdc-theme-primary);
+                color: var(
+                    --lime-primary-color,
+                    var(--limel-theme-primary-color)
+                );
             }
             &:before {
                 top: -60%;
@@ -139,7 +151,7 @@ svg {
     border-top: 1px solid rgb(var(--contrast-400));
 
     input {
-        color: var(--mdc-theme-on-surface);
+        color: var(--limel-theme-on-surface-color);
     }
 
     input,
@@ -274,8 +286,11 @@ svg {
     text-align: center;
 
     &.selected {
-        color: var(--mdc-theme-on-primary);
-        background: var(--mdc-theme-primary);
+        color: var(
+            --lime-on-primary-color,
+            var(--limel-theme-on-primary-color)
+        );
+        background: var(--lime-primary-color, var(--limel-theme-primary-color));
     }
 }
 

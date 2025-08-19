@@ -1,104 +1,98 @@
-@use '../../style/internal/lime-theme';
-@use '@material/checkbox';
-@use '@material/form-field';
+/**
+* :::important
+* The `CheckboxTemplate` can be imported and used in the HTML of
+* other components, to render a non-functional and decorative checkbox in
+* their UI. An example of this is the list component.
+* This means the content of `CheckboxTemplate` will become a part of the
+* consumer's DOM structure.
+*
+* Additionally, the consumer components' also need to import the current `.scss`
+* file into their own styles file, for the checkbox to be rendered correctly!
+* This means, if the styles in this file are not "specific" enough,
+* there is a risk that the consumer component's styles are affected by
+* our styles here.
+*
+* For instance if the consumer has a `<label>` or `<svg>` element,
+* it might unintentionally inherit styles from the checkbox; unless we
+* make the such styles more specific here.
+*
+* Naturally, we cannot mitigate all sorts of potential styling problems.
+* The consumer component should be aware of this issue too.
+* But we can ensure that our styles here both make sense,
+* are readable, and are as specific as possible to avoid unintended side effects.
+* :::
+*/
+
+@use '../../style/mixins';
 
 /**
 * @prop --checkbox-unchecked-border-color: Affects the border color of the default state of the checkbox (when it is not checked). Defaults to `--contrast-900`.
 */
 
-@mixin custom-checkbox-styles {
-    // This is used in other components too, such as `limel-list`
-    --mdc-checkbox-checked-color: var(--mdc-theme-primary);
-    --mdc-checkbox-unchecked-color: var(
-        --checkbox-unchecked-border-color,
-        rgb(var(--contrast-900))
-    );
-    --lime-checkbox-unchecked-color: rgb(var(--contrast-300));
-}
+@forward '../../style/internal/boolean-input.scss';
 
 :host(limel-checkbox) {
-    @include custom-checkbox-styles;
-    min-height: 2.5rem;
+    min-height: var(--limel-checkbox-min-height, 2.5rem); // prevents flickering
+    // when switching between `readonly` and normal states in `limel-checkbox`,
+    // but not where `CheckboxTemplate` is imported & used.
+}
+
+.box {
+    &:after {
+        height: 0.125rem;
+        width: 0.25rem;
+
+        .indeterminate & {
+            opacity: 1;
+            width: calc(var(--limel-boolean-input-box-size) - 0.5rem);
+        }
+    }
+}
+
+.checkbox {
+    --limel-boolean-input-box-border-radius: 0.25rem;
+
+    svg.check-mark {
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+
+        transform: translate3d(-0.125rem, -0.125rem, 0);
+
+        width: var(--limel-boolean-input-box-size);
+        height: var(--limel-boolean-input-box-size);
+
+        padding: 0.25rem;
+
+        color: rgb(var(--color-white));
+        opacity: 0;
+
+        stroke-width: 0.1875rem; // 3px
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+
+        path {
+            stroke-dashoffset: 29.7833;
+            stroke-dasharray: 29.7833;
+            transition: stroke-dashoffset 180ms cubic-bezier(0.4, 0, 0.6, 1);
+        }
+    }
+
+    &:not(.indeterminate):has(input[type='checkbox']:checked) {
+        svg.check-mark {
+            opacity: 1;
+
+            path {
+                stroke-dashoffset: 0;
+            }
+        }
+    }
 }
 
 limel-dynamic-label {
     margin-top: 0.375rem;
-    margin-left: 0.25rem;
+    margin-left: -0.25rem;
 }
 
-@include checkbox.core-styles;
-@include form-field.core-styles;
-
-.mdc-form-field {
-    // As long as this component is depended on MDC,
-    // we need to force it to be font-agnostic.
-    // When MDC-dependency is removed, this block can also be removed.
-    // However, on removal of MDC-dependency, we should also make sure to check
-    // other font-related styles that might be set by MDC,
-    // such as `letter-spacing` or `font-size`.
-    font-family: inherit;
-}
-
-.mdc-form-field {
-    display: flex;
-    align-items: flex-start;
-
-    .mdc-checkbox {
-        .mdc-checkbox__native-control {
-            &[disabled],
-            &:enabled {
-                &:not(:checked):not(:indeterminate) {
-                    ~ .mdc-checkbox__background {
-                        background-color: var(--lime-checkbox-unchecked-color);
-                    }
-                }
-            }
-        }
-
-        &.mdc-checkbox--invalid {
-            .mdc-checkbox__native-control:enabled:not(:checked):not(
-                    :indeterminate
-                )
-                ~ .mdc-checkbox__background {
-                border-color: var(--lime-error-text-color);
-            }
-        }
-        .mdc-checkbox__native-control {
-            &:focus-visible {
-                + .mdc-checkbox__background {
-                    &:after {
-                        content: '';
-                        display: block;
-                        position: absolute;
-                        inset: -0.25rem;
-                        border-radius: 0.25rem;
-                        box-shadow: var(--shadow-depth-8-focused);
-                    }
-                }
-            }
-        }
-    }
-    .mdc-checkbox--disabled {
-        opacity: 0.5;
-    }
-
-    label {
-        cursor: pointer;
-        line-height: normal;
-        letter-spacing: normal;
-
-        padding-top: 0.75rem;
-        padding-left: 0;
-
-        &.mdc-checkbox--required::after {
-            margin-left: 0.0625rem;
-            content: '*';
-        }
-
-        &.mdc-checkbox--invalid {
-            color: var(--lime-error-text-color);
-        }
-    }
-}
-
-@import './partial-styles/_helper-text.scss';
+@include mixins.hide-helper-line-when-not-needed(limel-checkbox);
