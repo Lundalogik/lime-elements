@@ -49,6 +49,7 @@ import { Languages } from '../date-picker/date.types';
  * @exampleComponent limel-example-list-item-checkbox
  * @exampleComponent limel-example-list-item-actions
  * @exampleComponent limel-example-list-item-primary-component
+ * @exampleComponent limel-example-list-item-command-text
  * @private
  */
 @Component({
