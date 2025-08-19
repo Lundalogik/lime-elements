@@ -568,6 +568,11 @@ export namespace Components {
         "searcher": MenuSearcher;
         "surfaceWidth": SurfaceWidth;
     }
+    export interface LimelMenuItemMeta {
+        "badge"?: string | number;
+        "commandText"?: string;
+        "showChevron": boolean;
+    }
     // (undocumented)
     export interface LimelMenuList {
         "badgeIcons": boolean;
@@ -1190,6 +1195,8 @@ export namespace JSX {
         // (undocumented)
         "limel-menu": LimelMenu;
         // (undocumented)
+        "limel-menu-item-meta": LimelMenuItemMeta;
+        // (undocumented)
         "limel-menu-list": LimelMenuList;
         // (undocumented)
         "limel-menu-surface": LimelMenuSurface;
@@ -1707,6 +1714,11 @@ export namespace JSX {
         "rootItem"?: BreadcrumbsItem;
         "searcher"?: MenuSearcher;
         "surfaceWidth"?: SurfaceWidth;
+    }
+    export interface LimelMenuItemMeta {
+        "badge"?: string | number;
+        "commandText"?: string;
+        "showChevron"?: boolean;
     }
     // (undocumented)
     export interface LimelMenuList {
