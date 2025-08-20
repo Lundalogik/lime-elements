@@ -1,5 +1,5 @@
 import { LimelListCustomEvent, ListItem } from '@limetech/lime-elements';
-import { Component, h } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
 
 /**
  * List with action menu
@@ -9,6 +9,9 @@ import { Component, h } from '@stencil/core';
     shadow: true,
 })
 export class ListActionExample {
+    @State()
+    private lastEvent: string = 'No actions yet';
+
     private actionItems: Array<ListItem<number>> = [
         { text: 'Go to my fab object', value: 10 },
         { text: 'Delete object', value: 11 },
@@ -22,16 +25,24 @@ export class ListActionExample {
             actions: this.actionItems,
         },
         { text: 'Smash Up!', value: 2, icon: 'alien' },
-        { text: 'Pandemic', value: 3, icon: 'virus' },
-        { text: 'Catan', value: 4, icon: 'wheat' },
-        { text: 'Ticket to Ride', value: 5, icon: 'steam_engine' },
     ];
 
     public render() {
-        return <limel-list items={this.items} onSelect={this.onSelectAction} />;
+        return (
+            <Host>
+                <limel-list items={this.items} onSelect={this.onSelectAction} />
+                <limel-example-value
+                    label="Last action"
+                    value={this.lastEvent}
+                />
+            </Host>
+        );
     }
 
-    private onSelectAction(event: LimelListCustomEvent<ListItem>) {
-        console.log('Executing action:', event.detail);
-    }
+    private onSelectAction = (event: LimelListCustomEvent<ListItem>) => {
+        const detail = event.detail as any;
+        const valuePart =
+            detail && 'value' in detail ? `, value: ${detail.value}` : '';
+        this.lastEvent = `Executing action: ${detail?.text ?? 'unknown'}${valuePart}`;
+    };
 }

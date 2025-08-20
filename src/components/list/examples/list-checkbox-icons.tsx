@@ -3,6 +3,11 @@ import { Component, h, State } from '@stencil/core';
 
 /**
  * List with checkboxes and icons
+ *
+ * By setting `type="checkbox"`, each list item will
+ * render a checkbox next to it, indicating the user can select
+ * more than one of the items, empowering you to create
+ * UIs that clearly indicate multiple selections.
  */
 @Component({
     tag: 'limel-example-list-checkbox-icons',
@@ -72,10 +77,19 @@ export class ListCheckboxIconsExample {
     @State()
     private selectedItems: ListItem[] = [];
 
+    @State()
+    private showIcons: boolean = true;
+
+    private originalIcons: Record<string, ListItem['icon']> = {};
+
     constructor() {
         this.selectedItems = this.items.filter((item) => {
             return !!item.selected;
         });
+
+        for (const item of this.items) {
+            this.originalIcons[String(item.value)] = item.icon;
+        }
     }
 
     public render() {
@@ -86,6 +100,13 @@ export class ListCheckboxIconsExample {
                 type="checkbox"
             />,
             <limel-example-value value={this.selectedItems} />,
+            <limel-example-controls>
+                <limel-checkbox
+                    checked={this.showIcons}
+                    label="icon"
+                    onChange={this.setIcon}
+                />
+            </limel-example-controls>,
         ];
     }
 
@@ -98,5 +119,15 @@ export class ListCheckboxIconsExample {
 
             return { ...item, selected: selected };
         });
+    };
+
+    private setIcon = (event: CustomEvent<boolean>) => {
+        this.showIcons = event.detail;
+        this.items = this.items.map((item) => ({
+            ...item,
+            icon: this.showIcons
+                ? this.originalIcons[String(item.value)]
+                : undefined,
+        }));
     };
 }

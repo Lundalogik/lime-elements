@@ -3,6 +3,11 @@ import { Component, h, State } from '@stencil/core';
 
 /**
  * List with radio buttons and icons
+ *
+ * By setting `type="radio"`, each list item will
+ * render a radio button next to it, indicating the user can select
+ * only one of the items at a time, empowering you to create
+ * UIs that clearly indicate single selections.
  */
 @Component({
     tag: 'limel-example-list-radio-button-icons',
@@ -72,10 +77,19 @@ export class ListRadioButtonIconsExample {
     @State()
     private selectedItem: ListItem;
 
+    @State()
+    private showIcons: boolean = true;
+
+    private originalIcons: Record<string, ListItem['icon']> = {};
+
     constructor() {
         this.selectedItem = this.items.find((item) => {
             return !!item.selected;
         });
+
+        for (const item of this.items) {
+            this.originalIcons[String(item.value)] = item.icon;
+        }
     }
 
     public render() {
@@ -86,6 +100,13 @@ export class ListRadioButtonIconsExample {
                 type="radio"
             />,
             <limel-example-value value={this.selectedItem} />,
+            <limel-example-controls>
+                <limel-checkbox
+                    checked={this.showIcons}
+                    label="icon"
+                    onChange={this.setIcon}
+                />
+            </limel-example-controls>,
         ];
     }
 
@@ -98,5 +119,15 @@ export class ListRadioButtonIconsExample {
 
             return item;
         });
+    };
+
+    private setIcon = (event: CustomEvent<boolean>) => {
+        this.showIcons = event.detail;
+        this.items = this.items.map((item) => ({
+            ...item,
+            icon: this.showIcons
+                ? this.originalIcons[String(item.value)]
+                : undefined,
+        }));
     };
 }

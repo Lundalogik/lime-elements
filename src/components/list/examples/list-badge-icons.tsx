@@ -1,8 +1,12 @@
 import { ListItem } from '@limetech/lime-elements';
-import { Component, h } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
 
 /**
  * List with badge icons
+ * When `badgeIcons` is set to `true`, the icon's visual motif will be
+ * rendered slightly smaller, to provide more space for a colorful background.
+ * So when using a `backgroundColor` on the icon, it could be a good idea to
+ * also set the `badgeIcons` property to `true`.
  */
 @Component({
     tag: 'limel-example-list-badge-icons',
@@ -10,6 +14,9 @@ import { Component, h } from '@stencil/core';
     styleUrl: 'list-badge-icons.scss',
 })
 export class BadgeIconsListExample {
+    @State()
+    private badgeIcons = true;
+
     private items: Array<ListItem<number>> = [
         {
             text: 'King of Tokyo',
@@ -42,6 +49,7 @@ export class BadgeIconsListExample {
             icon: {
                 name: 'wheat',
                 color: 'rgb(var(--color-amber-default))',
+                backgroundColor: 'rgb(var(--color-cyan-default))',
             },
         },
         {
@@ -50,12 +58,28 @@ export class BadgeIconsListExample {
             value: 5,
             icon: {
                 name: 'steam_engine',
-                color: 'rgb(var(--color-glaucous-default))',
+                color: 'rgb(var(--color-pink-lighter))',
             },
         },
     ];
 
     public render() {
-        return <limel-list items={this.items} badgeIcons={true} />;
+        return (
+            <Host>
+                <limel-list items={this.items} badgeIcons={this.badgeIcons} />
+                <limel-example-controls>
+                    <limel-checkbox
+                        checked={this.badgeIcons}
+                        label="badgeIcons"
+                        onChange={this.setBadgeIcons}
+                    />
+                </limel-example-controls>
+            </Host>
+        );
     }
+
+    private setBadgeIcons = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.badgeIcons = event.detail;
+    };
 }
