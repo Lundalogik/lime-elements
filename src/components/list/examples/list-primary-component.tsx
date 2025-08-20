@@ -3,6 +3,21 @@ import { Component, h } from '@stencil/core';
 
 /**
  * List with a primary component
+ *
+ * List items can render a custom primary component using the
+ * `primaryComponent` prop.
+ *
+ * :::tip
+ * By default, the primary component is rendered after the icon
+ * and before the item's text.
+ *
+ * Since the list item is a flexbox, you can easily change the
+ * order of the primary component by applying a different `order`
+ * via `style`.
+ *
+ * You can set `order` either via the primary component's own styles,
+ * or via its `props`.
+ * :::
  */
 @Component({
     tag: 'limel-example-list-primary-component',
@@ -21,6 +36,10 @@ export class ListCircularProgressExample {
                     maxValue: 10,
                     suffix: '%',
                     displayPercentageColors: true,
+                    size: 'small',
+                    style: {
+                        order: 3,
+                    },
                 },
             },
         },
@@ -35,6 +54,7 @@ export class ListCircularProgressExample {
                     maxValue: 10,
                     suffix: '%',
                     displayPercentageColors: true,
+                    size: 'small',
                 },
             },
         },
@@ -49,6 +69,7 @@ export class ListCircularProgressExample {
                     maxValue: 10,
                     suffix: '%',
                     displayPercentageColors: true,
+                    size: 'small',
                 },
             },
         },
@@ -63,6 +84,7 @@ export class ListCircularProgressExample {
                     maxValue: 10,
                     suffix: '%',
                     displayPercentageColors: true,
+                    size: 'small',
                 },
             },
         },
