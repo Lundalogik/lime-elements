@@ -35,7 +35,7 @@ import { cloneDeep, debounce } from 'lodash-es';
 import { Languages } from '../../date-picker/date.types';
 import { strikethrough } from './menu/menu-schema-extender';
 import { createLinkPlugin } from './plugins/link/link-plugin';
-import { linkMarkSpec } from './plugins/link/link-mark-spec';
+import { linkMarkSpec } from './plugins/link/link-mark';
 import { createImageInserterPlugin } from './plugins/image/inserter';
 import { createImageViewPlugin } from './plugins/image/view';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';

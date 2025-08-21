@@ -162,7 +162,7 @@ export class DatePickerCalendar {
             return;
         }
 
-        if (!this.isOpen || !this.container.checkVisibility()) {
+        if (!this.isOpen || !(this.container as any).checkVisibility?.()) {
             return;
         }
 

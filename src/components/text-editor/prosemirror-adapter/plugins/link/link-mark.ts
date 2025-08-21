@@ -1,12 +1,5 @@
 import { MarkSpec, DOMOutputSpec } from 'prosemirror-model';
-
-export interface LinkMarkAttrs {
-    href: string;
-    title: string | null;
-    target: string | null;
-    rel: string | null;
-    referrerpolicy: string | null;
-}
+import { LinkMarkAttrs } from './link-mark.types';
 
 export const linkMarkSpec: MarkSpec = {
     attrs: {
