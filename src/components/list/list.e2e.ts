@@ -12,10 +12,11 @@ describe('limel-list', () => {
     });
 
     describe('without items', () => {
-        it('renders an empty listbox', () => {
+        it('renders an empty listbox', async () => {
             expect(innerList).toHaveClass('mdc-deprecated-list');
             expect(innerList).toEqualAttribute('role', 'listbox');
-            expect(innerList.children).toHaveLength(0);
+            const items = await page.findAll('limel-list>>>limel-list-item');
+            expect(items).toHaveLength(0);
         });
     });
 
@@ -26,23 +27,21 @@ describe('limel-list', () => {
             limelList.setProperty('items', items);
             await page.waitForChanges();
         });
-        it('renders the item', () => {
-            expect(innerList.children).toHaveLength(1);
-            expect(innerList.children[0]).toHaveClass(
-                'mdc-deprecated-list-item'
-            );
+        it('renders the item', async () => {
+            const itemEl = await page.find('limel-list>>>limel-list-item');
+            expect(itemEl).toHaveClass('mdc-deprecated-list-item');
         });
-        it('sets tabindex to 0', () => {
-            expect(innerList.children[0]).toEqualAttribute('tabindex', '0');
+        it('sets tabindex to 0', async () => {
+            const itemEl = await page.find('limel-list>>>limel-list-item');
+            expect(itemEl).toEqualAttribute('tabindex', '0');
         });
-        it('sets the aria-disabled to false', () => {
-            expect(innerList.children[0]).toEqualAttribute(
-                'aria-disabled',
-                'false'
-            );
+        it('sets the aria-disabled to false', async () => {
+            const itemEl = await page.find('limel-list>>>limel-list-item');
+            expect(itemEl).toEqualAttribute('aria-disabled', 'false');
         });
-        it('displays the correct text', () => {
-            expect(innerList.children[0]).toEqualText('item 1');
+        it('displays the correct text', async () => {
+            const itemEl = await page.find('limel-list>>>limel-list-item');
+            expect(itemEl).toEqualAttribute('text', 'item 1');
         });
     });
 
@@ -54,23 +53,22 @@ describe('limel-list', () => {
             await page.waitForChanges();
             await new Promise((resolve) => setTimeout(resolve, 0));
         });
-        it('renders the item', () => {
-            expect(innerList.children).toHaveLength(1);
-            expect(innerList.children[0]).toHaveClass(
-                'mdc-deprecated-list-item'
-            );
+        it('renders the item', async () => {
+            const itemsEls = await page.findAll('limel-list>>>limel-list-item');
+            expect(itemsEls).toHaveLength(1);
+            expect(itemsEls[0]).toHaveClass('mdc-deprecated-list-item');
         });
-        it('does not set tabindex', () => {
-            expect(innerList.children[0]).not.toHaveAttribute('tabindex');
+        it('does not set tabindex', async () => {
+            const itemEl = await page.find('limel-list>>>limel-list-item');
+            expect(itemEl).not.toHaveAttribute('tabindex');
         });
-        it('sets the aria-disabled to true', () => {
-            expect(innerList.children[0]).toEqualAttribute(
-                'aria-disabled',
-                'true'
-            );
+        it('sets the aria-disabled to true', async () => {
+            const itemEl = await page.find('limel-list>>>limel-list-item');
+            expect(itemEl).toEqualAttribute('aria-disabled', 'true');
         });
-        it('displays the correct text', () => {
-            expect(innerList.children[0]).toEqualText('item 1');
+        it('displays the correct text', async () => {
+            const itemEl = await page.find('limel-list>>>limel-list-item');
+            expect(itemEl).toEqualAttribute('text', 'item 1');
         });
     });
 
@@ -90,25 +88,30 @@ describe('limel-list', () => {
             limelList.setProperty('items', items);
             await page.waitForChanges();
         });
-        it('renders the items', () => {
-            expect(innerList.children).toHaveLength(5);
-        });
-        it('can render separators', () => {
-            expect(innerList.children[1]).toHaveClass(
-                'mdc-deprecated-list-divider'
+        it('renders the items', async () => {
+            const itemEls = await page.findAll('limel-list>>>limel-list-item');
+            const separatorEls = await page.findAll(
+                'limel-list>>>[role="separator"]'
             );
-            expect(innerList.children[1]).not.toHaveClass(
-                'mdc-deprecated-list-item'
-            );
-            expect(innerList.children[1]).toEqualAttribute('role', 'separator');
+            expect(itemEls).toHaveLength(4);
+            expect(separatorEls).toHaveLength(1);
         });
-        it('gives each item the correct index', () => {
-            expect(innerList.children[0]).toEqualAttribute('data-index', '0');
+        it('can render separators', async () => {
+            const separatorEl = await page.find(
+                'limel-list>>>[role="separator"]'
+            );
+            expect(separatorEl).toHaveClass('mdc-deprecated-list-divider');
+            expect(separatorEl).not.toHaveClass('mdc-deprecated-list-item');
+            expect(separatorEl).toEqualAttribute('role', 'separator');
+        });
+        it('gives each item the correct index', async () => {
+            const itemEls = await page.findAll('limel-list>>>limel-list-item');
+            expect(itemEls[0]).toEqualAttribute('data-index', '0');
             // The separator doesn't get a data-index attribute,
-            // but it *does* increment the index.
-            expect(innerList.children[2]).toEqualAttribute('data-index', '2');
-            expect(innerList.children[3]).toEqualAttribute('data-index', '3');
-            expect(innerList.children[4]).toEqualAttribute('data-index', '4');
+            // but it *does* increment the index for following items.
+            expect(itemEls[1]).toEqualAttribute('data-index', '2');
+            expect(itemEls[2]).toEqualAttribute('data-index', '3');
+            expect(itemEls[3]).toEqualAttribute('data-index', '4');
         });
     });
 
@@ -131,48 +134,33 @@ describe('limel-list', () => {
             await limelList.setProperty('items', items);
             await page.waitForChanges();
         });
-        it('renders a list with two-line items', () => {
-            expect(innerList).toHaveClass('mdc-deprecated-list--two-line');
+        it('renders items WITHOUT secondary text as single line', async () => {
+            const itemEls = await page.findAll('limel-list>>>limel-list-item');
+            expect(itemEls[0]).toEqualAttribute('text', 'item 1');
+            expect(itemEls[0]).not.toHaveAttribute('secondary-text');
         });
-        it('renders items withOUT secondary text as single line', () => {
-            expect(innerList.children[0].children).toHaveLength(1);
-            expect(innerList.children[0]).toEqualText('item 1');
+        it('renders items WITH secondary text via reflected attributes', async () => {
+            const itemEls = await page.findAll('limel-list>>>limel-list-item');
+            // itemEls[1] corresponds to original index 2 (after a separator)
+            expect(itemEls[1]).toEqualAttribute('text', 'item 3');
+            expect(itemEls[1]).toEqualAttribute('secondary-text', 'some info');
         });
-        it('renders items WITH secondary text as two lines', () => {
-            expect(innerList.children[2].children).toHaveLength(1);
-            expect(innerList.children[2].children[0]).toHaveClass(
-                'mdc-deprecated-list-item__text'
+        it('can render separators', async () => {
+            const separatorEl = await page.find(
+                'limel-list>>>[role="separator"]'
             );
-            expect(innerList.children[2].children[0].children).toHaveLength(2);
-            expect(innerList.children[2].children[0].children[0]).toEqualText(
-                'item 3'
-            );
-            expect(
-                innerList.children[2].children[0].children[0].children[0]
-            ).toHaveClass('mdc-deprecated-list-item__primary-text');
-            expect(innerList.children[2].children[0].children[1]).toEqualText(
-                'some info'
-            );
-            expect(innerList.children[2].children[0].children[1]).toHaveClass(
-                'mdc-deprecated-list-item__secondary-text'
-            );
+            expect(separatorEl).toHaveClass('mdc-deprecated-list-divider');
+            expect(separatorEl).not.toHaveClass('mdc-deprecated-list-item');
+            expect(separatorEl).toEqualAttribute('role', 'separator');
         });
-        it('can render separators', () => {
-            expect(innerList.children[1]).toHaveClass(
-                'mdc-deprecated-list-divider'
-            );
-            expect(innerList.children[1]).not.toHaveClass(
-                'mdc-deprecated-list-item'
-            );
-            expect(innerList.children[1]).toEqualAttribute('role', 'separator');
-        });
-        it('gives each item the correct index', () => {
-            expect(innerList.children[0]).toEqualAttribute('data-index', '0');
+        it('gives each item the correct index', async () => {
+            const itemEls = await page.findAll('limel-list>>>limel-list-item');
+            expect(itemEls[0]).toEqualAttribute('data-index', '0');
             // The separator doesn't get a data-index attribute,
-            // but it *does* increment the index.
-            expect(innerList.children[2]).toEqualAttribute('data-index', '2');
-            expect(innerList.children[3]).toEqualAttribute('data-index', '3');
-            expect(innerList.children[4]).toEqualAttribute('data-index', '4');
+            // but it *does* increment the index for following items.
+            expect(itemEls[1]).toEqualAttribute('data-index', '2');
+            expect(itemEls[2]).toEqualAttribute('data-index', '3');
+            expect(itemEls[3]).toEqualAttribute('data-index', '4');
         });
     });
 
@@ -195,8 +183,10 @@ describe('limel-list', () => {
                 limelList.setProperty('items', items);
                 await page.waitForChanges();
             });
-            it('is selectable', () => {
-                expect(innerList).toHaveClass('selectable');
+            it('renders selectable items with role option', async () => {
+                const itemEl = await page.find('limel-list>>>limel-list-item');
+                expect(itemEl).toEqualAttribute('type', 'option');
+                expect(itemEl).toEqualAttribute('role', 'option');
             });
             it('has the value `selectable`', async () => {
                 const propValue = await limelList.getProperty('type');
@@ -210,9 +200,9 @@ describe('limel-list', () => {
                 describe('when an item is selected', () => {
                     let item;
                     beforeEach(async () => {
-                        item = await innerList.find('li');
+                        item = await innerList.find('limel-list-item');
                         await item.click();
-                        await page.waitForTimeout(20); // Give the event a chance to bubble.
+                        await page.waitForChanges();
                     });
                     it('is emitted', () => {
                         expect(spy).toHaveReceivedEventTimes(1);
