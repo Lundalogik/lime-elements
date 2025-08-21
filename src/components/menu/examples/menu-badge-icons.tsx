@@ -14,22 +14,30 @@ export class MenuBadgeIconsExample {
             text: 'Copy',
             icon: {
                 name: 'copy',
-                color: 'rgb(var(--color-lime-light))',
+                color: 'rgb(var(--color-lime-default))',
             },
         },
         {
             text: 'Cut',
             icon: {
                 name: 'cut',
-                color: 'rgb(var(--color-red-light))',
+                color: 'rgb(var(--color-sky-default))',
             },
         },
-        { separator: true },
         {
             text: 'Paste',
             icon: {
                 name: 'paste',
-                color: 'rgb(var(--color-amber-default))',
+                color: 'rgb(var(--color-amber-dark))',
+            },
+        },
+        { separator: true },
+        {
+            text: 'Delete',
+            icon: {
+                name: 'trash',
+                color: 'rgb(var(--color-white))',
+                backgroundColor: 'rgb(var(--color-red-default))',
             },
         },
     ];
