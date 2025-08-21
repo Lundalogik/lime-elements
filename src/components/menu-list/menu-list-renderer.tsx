@@ -2,11 +2,6 @@ import { ListSeparator } from '../list/list-item.types';
 import { MenuItem } from '../menu/menu.types';
 import { h } from '@stencil/core';
 import { MenuListRendererConfig } from './menu-list-renderer-config';
-import {
-    getIconColor,
-    getIconName,
-    getIconTitle,
-} from '../icon/get-icon-props';
 import { isFunction } from 'lodash-es';
 
 export class MenuListRenderer {
@@ -17,11 +12,6 @@ export class MenuListRenderer {
 
     private config: MenuListRendererConfig;
 
-    private hasIcons: boolean;
-    private twoLines: boolean;
-    private avatarList: boolean;
-    private commandKey: boolean;
-
     private applyTabIndexToItemAtIndex: number;
 
     public render(
@@ -31,37 +21,12 @@ export class MenuListRenderer {
         items = items || [];
         this.config = { ...this.defaultConfig, ...config };
 
-        this.twoLines = items.some((item) => {
-            return 'secondaryText' in item && !!item.secondaryText;
-        });
-
-        this.commandKey = items.some((item) => {
-            return 'commandText' in item && !!item.commandText;
-        });
-
-        this.hasIcons = items.some((item) => {
-            return 'icon' in item && !!item.icon;
-        });
-
-        this.avatarList = this.config.badgeIcons && this.hasIcons;
-
         this.applyTabIndexToItemAtIndex =
             this.getIndexForWhichToApplyTabIndex(items);
 
-        const classNames = {
-            'mdc-deprecated-list': true,
-            'mdc-deprecated-list--two-line': this.twoLines,
-            selectable: true,
-            'mdc-deprecated-list--avatar-list': this.avatarList,
-            'list--compact':
-                this.twoLines &&
-                this.commandKey &&
-                ['small', 'x-small'].includes(this.config.iconSize),
-        };
-
         return (
             <ul
-                class={classNames}
+                class="mdc-deprecated-list"
                 role="menu"
                 aria-orientation="vertical"
                 style={{ '--maxLinesSecondaryText': '2' }}
@@ -123,159 +88,66 @@ export class MenuListRenderer {
     ) => {
         if ('separator' in item) {
             return (
-                <li class="mdc-deprecated-list-divider" role="separator">
+                <li
+                    class="mdc-deprecated-list-divider"
+                    role="separator"
+                    key={`sep-${index}`}
+                >
                     {this.renderTextForSeparator(item)}
                     <div class="limel-list-divider-line" />
                 </li>
             );
         }
 
-        const classNames = {
-            'mdc-deprecated-list-item': true,
-            'mdc-deprecated-list-item--disabled': item.disabled,
-            'mdc-deprecated-list-item--selected': item.selected,
-        };
-
         const attributes: { tabindex?: string } = {};
         if (index === this.applyTabIndexToItemAtIndex) {
             attributes.tabindex = '0';
         }
 
+        const hasSubMenu = this.hasSubItems(item);
+        const hasMeta =
+            hasSubMenu ||
+            item.badge !== undefined ||
+            (!!('commandText' in item) && !!item.commandText);
+
+        const primaryComponent = hasMeta
+            ? {
+                  name: 'limel-menu-item-meta',
+                  props: {
+                      commandText: (item as any).commandText,
+                      badge: (item as any).badge,
+                      showChevron: hasSubMenu,
+                  },
+              }
+            : undefined;
+
+        const key = (item as any).id ?? `item-${index}`;
+        const classNames = {
+            'mdc-deprecated-list-item': true, // required for keyboard navigation with arrow keys
+            'mdc-deprecated-list-item--disabled': !!item.disabled, // MDC’s foundation checks for the disabled class before toggling selected state
+        };
         return (
-            <li
+            <limel-list-item
+                key={key}
                 class={classNames}
-                role="menuitem"
-                aria-disabled={item.disabled ? 'true' : 'false'}
-                aria-selected={item.selected ? 'true' : 'false'}
                 data-index={index}
-                data-text={item.text}
                 {...attributes}
-            >
-                {this.renderIcon(this.config, item)}
-                {this.renderText(item)}
-                {this.renderSubMenuIcon(item)}
-                {this.renderNotification(item)}
-                {this.twoLines && this.avatarList ? this.renderDivider() : null}
-            </li>
+                type="menuitem"
+                text={item.text}
+                secondaryText={item.secondaryText}
+                icon={item.icon}
+                primaryComponent={primaryComponent as any}
+                badgeIcon={this.config.badgeIcons}
+                selected={item.selected}
+                disabled={item.disabled}
+            />
         );
-    };
-
-    /**
-     * Render the text of the list item
-     *
-     * @param item - the list item
-     * @returns the text for the list item
-     */
-    private renderText = (item: MenuItem) => {
-        if (this.isSimpleItem(item)) {
-            return (
-                <span class="mdc-deprecated-list-item__text">{item.text}</span>
-            );
-        }
-
-        return (
-            <div class="mdc-deprecated-list-item__text">
-                <div class="mdc-deprecated-list-item__primary-command-text">
-                    <div class="mdc-deprecated-list-item__primary-text">
-                        {item.text}
-                    </div>
-                    {this.renderCommandText(item)}
-                </div>
-                <div class="mdc-deprecated-list-item__secondary-text">
-                    {item.secondaryText}
-                </div>
-            </div>
-        );
-    };
-
-    private renderSubMenuIcon = (item: MenuItem) => {
-        if (!this.hasSubItems(item)) {
-            return;
-        }
-
-        return <limel-icon class="sub-menu-icon" name="-lime-caret-right" />;
     };
 
     private renderTextForSeparator = (item: ListSeparator) => {
         if ('text' in item) {
             return <h2 class="limel-list-divider-title">{item.text}</h2>;
         }
-    };
-
-    private renderCommandText = (item: MenuItem) => {
-        if (!('commandText' in item)) {
-            return;
-        }
-
-        return (
-            <div class="mdc-deprecated-list-item__command-text">
-                {item.commandText}
-            </div>
-        );
-    };
-
-    private isSimpleItem = (item: MenuItem): boolean => {
-        if ('commandText' in item) {
-            return false;
-        }
-
-        return !('secondaryText' in item);
-    };
-
-    /**
-     * Render an icon for a list item
-     *
-     * @param config - the config object, passed on from the `renderMenuItem` function
-     * @param item - the list item
-     * @returns the icon element
-     */
-    private renderIcon = (config: MenuListRendererConfig, item: MenuItem) => {
-        const style: any = {};
-        const name = getIconName(item.icon);
-        if (!name) {
-            return;
-        }
-
-        const color = getIconColor(item.icon, item.iconColor);
-        const title = getIconTitle(item.icon);
-
-        if (color) {
-            if (config.badgeIcons) {
-                style['--icon-background-color'] = color;
-            } else {
-                style.color = color;
-            }
-        }
-
-        return (
-            <limel-icon
-                badge={config.badgeIcons}
-                class="mdc-deprecated-list-item__graphic"
-                name={name}
-                style={style}
-                size={config.iconSize}
-                aria-label={title}
-                aria-hidden={title ? null : 'true'}
-            />
-        );
-    };
-
-    private renderNotification = (item: MenuItem) => {
-        if (item.badge !== undefined) {
-            return <limel-badge label={item.badge} />;
-        }
-    };
-
-    private renderDivider = () => {
-        const classes = {
-            'mdc-deprecated-list-divider': true,
-            'mdc-deprecated-list-divider--inset': true,
-        };
-        if (this.config.iconSize) {
-            classes[this.config.iconSize] = true;
-        }
-
-        return <hr class={classes} />;
     };
 
     private hasSubItems = (item: MenuItem): boolean => {

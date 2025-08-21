@@ -1,5 +1,3 @@
-@use '../../style/functions';
-
 @import '../list/list';
 
 :host(limel-menu-list) {
@@ -19,30 +17,5 @@
 }
 
 .mdc-deprecated-list {
-    margin: functions.pxToRem(4);
-    // added space to visualize keyboard-focused items
-    .mdc-deprecated-list-item[role='menuitem'] {
-        font-size: var(--limel-theme-default-small-font-size);
-
-        .mdc-deprecated-list-item__graphic {
-            margin-right: 0;
-            margin-left: -0.75rem;
-        }
-    }
-
-    hr.mdc-deprecated-list-divider {
-        &.mdc-deprecated-list-divider--inset {
-            display: none;
-        }
-    }
-}
-
-limel-badge {
-    transform: translateX(0.75rem);
-}
-
-.sub-menu-icon {
-    width: 1rem;
-    transform: translateX(0.75rem);
-    flex-shrink: 0;
+    margin: 0.25rem; // space to visualize the focus ring
 }
