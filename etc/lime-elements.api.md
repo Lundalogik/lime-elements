@@ -578,7 +578,6 @@ export namespace Components {
         "badgeIcons": boolean;
         "iconSize": IconSize;
         "items": Array<MenuItem | ListSeparator>;
-        "maxLinesSecondaryText": number;
     }
     // (undocumented)
     export interface LimelMenuSurface {
@@ -1745,7 +1744,6 @@ export namespace JSX {
         "badgeIcons"?: boolean;
         "iconSize"?: IconSize;
         "items"?: Array<MenuItem | ListSeparator>;
-        "maxLinesSecondaryText"?: number;
         "onInteract"?: (event: LimelMenuListCustomEvent<MenuItem>) => void;
         "onSelect"?: (event: LimelMenuListCustomEvent<MenuItem>) => void;
     }
