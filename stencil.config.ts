@@ -8,7 +8,11 @@ import guides from './guides';
 export const config: Config = {
     hashFileNames: false,
     namespace: 'lime-elements',
-    plugins: [sass()],
+    plugins: [
+        sass({
+            includePaths: ['node_modules'],
+        }),
+    ],
     rollupPlugins: {
         before: [nodeResolve()],
     },
@@ -50,6 +54,7 @@ export const config: Config = {
     globalStyle: 'src/global/core-styles.scss',
     testing: {
         browserArgs: ['--enable-experimental-web-platform-features'],
+        setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
         moduleNameMapper: {
             '^lodash-es$': 'lodash',
             '@rjsf/core/lib/(.*)': '@rjsf/core/dist/cjs/$1',
