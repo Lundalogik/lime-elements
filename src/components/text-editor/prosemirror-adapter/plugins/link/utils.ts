@@ -1,4 +1,4 @@
-import { LinkMarkAttrs } from './link-mark-spec';
+import { LinkMarkAttrs } from './link-mark.types';
 
 /**
  *
