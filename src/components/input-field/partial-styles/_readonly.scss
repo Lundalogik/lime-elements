@@ -1,3 +1,6 @@
+@use '../../../style/internal/z-index';
+@use '../../../style/mixins';
+
 :host([type='url']),
 :host([type='urlAsText']),
 :host([type='tel']) {

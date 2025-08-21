@@ -44,7 +44,11 @@ export const config: Config = {
             ],
         },
     ],
-    plugins: [sass()],
+    plugins: [
+        sass({
+            includePaths: ['node_modules'],
+        }),
+    ],
     rollupPlugins: {
         before: [nodeResolve()],
     },
