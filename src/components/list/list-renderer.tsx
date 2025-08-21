@@ -1,16 +1,7 @@
 import { ListItem } from './list-item.types';
 import { ListSeparator } from '../../global/shared-types/separator.types';
-import { MenuItem } from '../menu/menu.types';
 import { h } from '@stencil/core';
-import { CheckboxTemplate } from '../checkbox/checkbox.template';
 import { ListRendererConfig } from './list-renderer-config';
-import { RadioButtonTemplate } from '../radio-button-group/radio-button.template';
-import {
-    getIconColor,
-    getIconName,
-    getIconTitle,
-} from '../icon/get-icon-props';
-import { isEmpty } from 'lodash-es';
 
 export class ListRenderer {
     private defaultConfig: ListRendererConfig = {
@@ -20,11 +11,6 @@ export class ListRenderer {
 
     private config: ListRendererConfig;
 
-    private hasIcons: boolean;
-    private twoLines: boolean;
-    private avatarList: boolean;
-    private commandKey: boolean;
-
     private applyTabIndexToItemAtIndex: number;
 
     public render(
@@ -33,17 +19,6 @@ export class ListRenderer {
     ) {
         items = items || [];
         this.config = { ...this.defaultConfig, ...config };
-
-        this.twoLines = items.some((item) => {
-            return 'secondaryText' in item && !!item.secondaryText;
-        });
-
-        this.hasIcons = items.some((item) => {
-            return 'icon' in item && !!item.icon;
-        });
-
-        this.avatarList = this.config.badgeIcons && this.hasIcons;
-        const selectableListTypes = ['selectable', 'radio', 'checkbox'];
 
         let role;
         switch (this.config.type) {
@@ -63,19 +38,12 @@ export class ListRenderer {
         this.applyTabIndexToItemAtIndex =
             this.getIndexForWhichToApplyTabIndex(items);
 
-        const classNames = {
-            'mdc-deprecated-list': true,
-            'mdc-deprecated-list--two-line': this.twoLines,
-            selectable: selectableListTypes.includes(this.config.type),
-            'mdc-deprecated-list--avatar-list': this.avatarList,
-            'list--compact':
-                this.twoLines &&
-                this.commandKey &&
-                ['small', 'x-small'].includes(this.config.iconSize),
-        };
-
         return (
-            <ul class={classNames} role={role} aria-orientation="vertical">
+            <ul
+                class="mdc-deprecated-list"
+                role={role}
+                aria-orientation="vertical"
+            >
                 {items.map(this.renderListItem)}
             </ul>
         );
@@ -133,44 +101,54 @@ export class ListRenderer {
     ) => {
         if ('separator' in item) {
             return (
-                <li class="mdc-deprecated-list-divider" role="separator">
+                <li
+                    class="mdc-deprecated-list-divider"
+                    role="separator"
+                    key={`sep-${index}`}
+                >
                     {this.renderTextForSeparator(item)}
                     <div class="limel-list-divider-line" />
                 </li>
             );
         }
 
-        if (['radio', 'checkbox'].includes(this.config.type)) {
-            return this.renderVariantListItem(this.config, item, index);
-        }
-
-        const classNames = {
-            'mdc-deprecated-list-item': true,
-            'mdc-deprecated-list-item--disabled': item.disabled,
-            'mdc-deprecated-list-item--selected': item.selected,
-            'has-primary-component': this.hasPrimaryComponent(item),
-        };
-
         const attributes: { tabindex?: string } = {};
         if (index === this.applyTabIndexToItemAtIndex) {
             attributes.tabindex = '0';
         }
 
+        let itemType: 'radio' | 'checkbox' | 'option' | 'listitem';
+        if (this.config.type === 'radio' || this.config.type === 'checkbox') {
+            itemType = this.config.type;
+        } else if (this.config.type === 'selectable') {
+            itemType = 'option';
+        } else {
+            itemType = 'listitem';
+        }
+
+        const key = (item as any).id ?? `item-${index}`;
+        const classNames = {
+            'mdc-deprecated-list-item': true, // required for keyboard navigation with arrow keys
+            'mdc-deprecated-list-item--disabled': !!item.disabled, // MDC’s foundation checks for the disabled class before toggling selected state
+        };
         return (
-            <li
+            <limel-list-item
+                key={key}
                 class={classNames}
-                aria-disabled={item.disabled ? 'true' : 'false'}
-                aria-selected={item.selected ? 'true' : 'false'}
-                data-index={index}
                 {...attributes}
-            >
-                {this.renderIcon(this.config, item)}
-                {this.renderPicture(item)}
-                {this.getPrimaryComponent(item)}
-                {this.renderText(item)}
-                {this.twoLines && this.avatarList ? this.renderDivider() : null}
-                {this.renderActionMenu(item.actions)}
-            </li>
+                data-index={index}
+                type={itemType}
+                text={item.text}
+                secondaryText={item.secondaryText}
+                icon={item.icon}
+                image={item.image}
+                primaryComponent={item.primaryComponent}
+                badgeIcon={this.config.badgeIcons}
+                iconSize={this.config.iconSize}
+                selected={item.selected}
+                disabled={item.disabled}
+                actions={item.actions}
+            />
         );
     };
 
@@ -178,203 +156,5 @@ export class ListRenderer {
         if ('text' in item) {
             return <h2 class="limel-list-divider-title">{item.text}</h2>;
         }
-    };
-
-    private getPrimaryComponent(item: ListItem): Element {
-        if (!this.hasPrimaryComponent(item)) {
-            return;
-        }
-
-        const PrimaryComponent = item.primaryComponent.name;
-        const props = item.primaryComponent.props;
-
-        return <PrimaryComponent {...props} />;
-    }
-
-    private hasPrimaryComponent = (item: ListItem) => {
-        return !!item?.primaryComponent?.name;
-    };
-
-    /**
-     * Render the text of the list item
-     *
-     * @param item - the list item
-     * @returns the text for the list item
-     */
-    private renderText = (item: ListItem) => {
-        if (this.isSimpleItem(item)) {
-            return (
-                <span class="mdc-deprecated-list-item__text">{item.text}</span>
-            );
-        }
-
-        return (
-            <div class="mdc-deprecated-list-item__text">
-                <div class="mdc-deprecated-list-item__primary-command-text">
-                    <div class="mdc-deprecated-list-item__primary-text">
-                        {item.text}
-                    </div>
-                </div>
-                <div class="mdc-deprecated-list-item__secondary-text">
-                    {item.secondaryText}
-                </div>
-            </div>
-        );
-    };
-
-    private isSimpleItem = (item: ListItem): boolean => {
-        return !('secondaryText' in item);
-    };
-
-    /**
-     * Render an icon for a list item
-     *
-     * @param config - the config object, passed on from the `renderListItem` function
-     * @param item - the list item
-     * @returns the icon element
-     */
-    private renderIcon = (config: ListRendererConfig, item: ListItem) => {
-        const style: any = {};
-        const name = getIconName(item.icon);
-        if (!name) {
-            return;
-        }
-
-        const color = getIconColor(item.icon, item.iconColor);
-        const title = getIconTitle(item.icon);
-
-        if (color) {
-            if (config.badgeIcons) {
-                style['--icon-background-color'] = color;
-            } else {
-                style.color = color;
-            }
-        }
-
-        return (
-            <limel-icon
-                badge={config.badgeIcons}
-                class="mdc-deprecated-list-item__graphic"
-                name={name}
-                style={style}
-                size={config.iconSize}
-                aria-label={title}
-                aria-hidden={title ? null : 'true'}
-            />
-        );
-    };
-
-    private renderPicture(item: ListItem) {
-        const image = item.image;
-        if (isEmpty(image)) {
-            return;
-        }
-
-        return <img src={image.src} alt={image.alt} loading="lazy" />;
-    }
-
-    private renderDivider = () => {
-        const classes = {
-            'mdc-deprecated-list-divider': true,
-            'mdc-deprecated-list-divider--inset': true,
-        };
-        if (this.config.iconSize) {
-            classes[this.config.iconSize] = true;
-        }
-
-        return <hr class={classes} />;
-    };
-
-    private renderActionMenu = (actions: Array<MenuItem | ListSeparator>) => {
-        if (!actions || actions.length === 0) {
-            return;
-        }
-
-        return (
-            <limel-menu
-                class="mdc-deprecated-list-item__meta"
-                items={actions}
-                openDirection="left-start"
-            >
-                <limel-icon-button
-                    class="action-menu-trigger"
-                    slot="trigger"
-                    icon="menu_2"
-                />
-            </limel-menu>
-        );
-    };
-
-    private renderVariantListItem = (
-        config: ListRendererConfig,
-        item: ListItem,
-        index: number
-    ) => {
-        let itemTemplate;
-        if (config.type === 'radio') {
-            itemTemplate = (
-                <RadioButtonTemplate
-                    id={`c_${index}`}
-                    checked={item.selected}
-                    disabled={item.disabled}
-                />
-            );
-        } else if (config.type === 'checkbox') {
-            itemTemplate = (
-                <CheckboxTemplate
-                    id={`c_${index}`}
-                    checked={item.selected}
-                    disabled={item.disabled}
-                />
-            );
-        }
-
-        const classNames = {
-            'mdc-deprecated-list-item': true,
-            'mdc-deprecated-list-item--disabled': item.disabled,
-            'mdc-deprecated-list-item__text': !item.secondaryText,
-            'has-primary-component': this.hasPrimaryComponent(item),
-        };
-
-        const attributes: { tabindex?: string } = {};
-        if (index === this.applyTabIndexToItemAtIndex) {
-            attributes.tabindex = '0';
-        }
-
-        return (
-            <li
-                class={classNames}
-                role={config.type}
-                aria-checked={item.selected ? 'true' : 'false'}
-                aria-disabled={item.disabled ? 'true' : 'false'}
-                data-index={index}
-                {...attributes}
-            >
-                {this.renderVariantListItemContent(config, item, itemTemplate)}
-            </li>
-        );
-    };
-
-    private renderVariantListItemContent = (
-        config: ListRendererConfig,
-        item: ListItem,
-        itemTemplate: any
-    ) => {
-        if (this.hasIcons) {
-            return [
-                item.icon ? this.renderIcon(config, item) : null,
-                this.getPrimaryComponent(item),
-                this.renderText(item),
-                <div class="mdc-deprecated-list-item__meta">
-                    {itemTemplate}
-                </div>,
-            ];
-        }
-
-        return [
-            <div class="mdc-deprecated-list-item__graphic">{itemTemplate}</div>,
-            this.getPrimaryComponent(item),
-            this.renderText(item),
-        ];
     };
 }
