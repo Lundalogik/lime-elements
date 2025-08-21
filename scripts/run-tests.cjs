@@ -6,8 +6,28 @@
  */
 
 const { spawnSync } = require('node:child_process');
+const fs = require('node:fs');
+const path = require('node:path');
 
-const stencilScript = require.resolve('@stencil/core/bin/stencil');
+// Stencil v4's exports field doesn't expose bin/stencil, so require.resolve
+// can't be used directly. Use a direct path instead.
+const stencilScript = path.resolve(
+    __dirname,
+    '..',
+    'node_modules',
+    '@stencil',
+    'core',
+    'bin',
+    'stencil'
+);
+
+if (!fs.existsSync(stencilScript)) {
+    throw new Error(
+        `Stencil binary not found at ${stencilScript}. ` +
+            'Make sure @stencil/core is installed, and that the `stencil` ' +
+            'bin is located in the `node_modules/@stencil/core/bin` directory.'
+    );
+}
 
 const isCI = envIsSet('CI');
 const isDebug =

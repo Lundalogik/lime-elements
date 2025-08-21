@@ -2,27 +2,27 @@
 
 exports[`render component with one child 1`] = `
 <limel-popover-surface>
-  <mock:shadow-root>
+  <template shadowrootmode="open">
     <div class="limel-popover-surface" tabindex="0">
       <div>
         Child 1
       </div>
     </div>
-  </mock:shadow-root>
+  </template>
 </limel-popover-surface>
 `;
 
 exports[`render component with trigger element 1`] = `
 <limel-popover-surface>
-  <mock:shadow-root>
+  <template shadowrootmode="open">
     <div class="limel-popover-surface" tabindex="0"></div>
-  </mock:shadow-root>
+  </template>
 </limel-popover-surface>
 `;
 
 exports[`render component with two children 1`] = `
 <limel-popover-surface>
-  <mock:shadow-root>
+  <template shadowrootmode="open">
     <div class="limel-popover-surface" tabindex="0">
       <div>
         Child 1
@@ -31,14 +31,14 @@ exports[`render component with two children 1`] = `
         Child 2
       </div>
     </div>
-  </mock:shadow-root>
+  </template>
 </limel-popover-surface>
 `;
 
 exports[`render component without children 1`] = `
 <limel-popover-surface>
-  <mock:shadow-root>
+  <template shadowrootmode="open">
     <div class="limel-popover-surface" tabindex="0"></div>
-  </mock:shadow-root>
+  </template>
 </limel-popover-surface>
 `;
