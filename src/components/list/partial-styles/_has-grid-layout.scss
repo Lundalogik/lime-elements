@@ -1,5 +1,5 @@
 :host(.has-grid-layout) {
-    --gap: var(--list-grid-gap, 0.75rem);
+    --gap: var(--list-grid-gap, 0.5rem);
     padding: var(--gap);
 
     // Prettier's linting doesn't like the `grid-template-columns` below
@@ -14,21 +14,12 @@
             );
         max-width: var(--list-grid-max-width, 100%);
 
+        limel-list-item {
+            border-radius: $list-border-radius !important;
+        }
     }
 
     .mdc-deprecated-list-divider {
         grid-column: 1/-1; // makes the divider span through all columns
-    }
-
-    .mdc-deprecated-list-item {
-        border-radius: functions.pxToRem(4);
-        background-color: rgb(var(--contrast-100));
-    }
-
-    .mdc-deprecated-list--avatar-list {
-        limel-icon {
-            margin-right: functions.pxToRem(4);
-            margin-left: functions.pxToRem(-8);
-        }
     }
 }
