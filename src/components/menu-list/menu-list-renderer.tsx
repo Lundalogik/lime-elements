@@ -124,7 +124,7 @@ export class MenuListRenderer {
         if ('separator' in item) {
             return (
                 <li class="mdc-deprecated-list-divider" role="separator">
-                    {this.rendertext(item)}
+                    {this.renderTextForSeparator(item)}
                     <div class="limel-list-divider-line" />
                 </li>
             );
@@ -196,7 +196,7 @@ export class MenuListRenderer {
         return <limel-icon class="sub-menu-icon" name="-lime-caret-right" />;
     };
 
-    private rendertext = (item: ListSeparator) => {
+    private renderTextForSeparator = (item: ListSeparator) => {
         if ('text' in item) {
             return <h2 class="limel-list-divider-title">{item.text}</h2>;
         }
