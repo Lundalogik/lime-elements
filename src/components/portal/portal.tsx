@@ -174,7 +174,7 @@ export class Portal {
     }
 
     @Watch('visible')
-    protected onVisible() {
+    public onVisible() {
         if (!this.container && this.visible) {
             this.init();
 
