@@ -45,15 +45,6 @@ export class MenuList {
     @Prop()
     public iconSize: IconSize = 'small';
 
-    /**
-     * By default, lists will display 3 lines of text, and then truncate the rest.
-     * Consumers can increase or decrease this number by specifying
-     * `maxLinesSecondaryText`. If consumer enters zero or negative
-     * numbers we default to 1; and if they type decimals we round up.
-     */
-
-    @Prop() maxLinesSecondaryText: number = 3;
-
     @Element()
     private element: HTMLLimelMenuListElement;
 
