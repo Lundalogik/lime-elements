@@ -45,7 +45,7 @@
    *
    * SUPPORTED TOKENS: <projectFolder>, <packageName>, <unscopedPackageName>
    */
-  "mainEntryPointFilePath": "<projectFolder>/dist/types/index.d.ts",
+  "mainEntryPointFilePath": "<projectFolder>/temp/types/index.d.ts",
 
   /**
    * A list of NPM package names whose exports should be treated as part of this package.
@@ -116,7 +116,7 @@
      */
     "overrideTsconfig": {
       "extends": "./tsconfig.dist.json",
-      "include": ["dist/types/index.d.ts"]
+      "include": ["temp/types/index.d.ts"]
     }
     /**
      * This option causes the compiler to be invoked with the --skipLibCheck option. This option is not recommended
@@ -426,6 +426,10 @@
       "ae-unresolved-inheritdoc-reference": {
         "logLevel": "error",
         "addToApiReportFile": false
+      },
+      "ae-extra-release-tag": {
+        "logLevel": "warning",
+        "addToApiReportFile": true
       }
     },
 

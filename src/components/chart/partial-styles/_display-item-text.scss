@@ -1,3 +1,5 @@
+@use '../../../style/mixins';
+
 :host(limel-chart[display-item-text][type='line']),
 :host(limel-chart[display-item-text][type='area']),
 :host(limel-chart[display-item-text][type='dot']),
