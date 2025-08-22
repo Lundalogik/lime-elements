@@ -13,8 +13,9 @@ const DIST_TYPES_DIR = path.join(__dirname, '../dist/types');
 const TEMP_TYPES_DIR = path.join(__dirname, '../temp/types');
 
 /**
- *
- * @param content
+ * Converts JSDoc tags to TSDoc format for API Extractor compatibility.
+ * @param content - The file content containing JSDoc comments
+ * @returns The converted content with TSDoc-compatible tags
  */
 function convertJSDocToTSDoc(content) {
     let converted = content;
@@ -22,8 +23,9 @@ function convertJSDocToTSDoc(content) {
     // Convert @default to @defaultValue with proper backtick formatting
     // JSDoc: @default {prop: value} or @default value
     // TSDoc: @defaultValue `{prop: value}` or @defaultValue `value`
+    // Use a more efficient regex pattern to avoid backtracking issues
     converted = converted.replaceAll(
-        /(@default\s+)(.+?)(?=\n|\*\/|$)/g,
+        /(@default\s+)([^\n*]+)/g,
         (_fullMatch, _prefix, value) => {
             const trimmedValue = value.trim();
             // If the value is already wrapped in backticks, don't double-wrap
