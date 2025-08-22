@@ -1,24 +1,28 @@
 #!/usr/bin/env node
 
 /**
-* Creates a copy of dist/types with TSDoc-compatible tags for API Extractor.
-* Converts JSDoc tags to proper TSDoc syntax as per https://tsdoc.org/
-*/
+ * Creates a copy of dist/types with TSDoc-compatible tags for API Extractor.
+ * Converts JSDoc tags to proper TSDoc syntax as per https://tsdoc.org/
+ */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 const glob = require('glob');
 
 const DIST_TYPES_DIR = path.join(__dirname, '../dist/types');
 const TEMP_TYPES_DIR = path.join(__dirname, '../temp/types');
 
+/**
+ *
+ * @param content
+ */
 function convertJSDocToTSDoc(content) {
     let converted = content;
 
     // Convert @default to @defaultValue with proper backtick formatting
     // JSDoc: @default {prop: value} or @default value
     // TSDoc: @defaultValue `{prop: value}` or @defaultValue `value`
-    converted = converted.replace(
+    converted = converted.replaceAll(
         /(@default\s+)(.+?)(?=\n|\*\/|$)/g,
         (_fullMatch, _prefix, value) => {
             const trimmedValue = value.trim();
@@ -33,10 +37,7 @@ function convertJSDocToTSDoc(content) {
     // Convert @private to @internal
     // JSDoc: @private
     // TSDoc: @internal
-    converted = converted.replace(
-        /@private\b/g,
-        '@internal'
-    );
+    converted = converted.replaceAll(/@private\b/g, '@internal');
 
     // Convert @returns to @returns (TSDoc uses same tag but let's ensure consistency)
     // Both JSDoc and TSDoc use @returns, but TSDoc is more strict about format
@@ -94,13 +95,15 @@ function main() {
 
     console.log(`Copying and processing ${files.length} .d.ts files...`);
 
-    files.forEach(srcPath => {
+    for (const srcPath of files) {
         const relativePath = path.relative(DIST_TYPES_DIR, srcPath);
         const destPath = path.join(TEMP_TYPES_DIR, relativePath);
         copyAndProcessFile(srcPath, destPath);
-    });
+    }
 
-    console.log(`JSDoc to TSDoc conversion completed. Files copied to: ${path.relative(process.cwd(), TEMP_TYPES_DIR)}`);
+    console.log(
+        `JSDoc to TSDoc conversion completed. Files copied to: ${path.relative(process.cwd(), TEMP_TYPES_DIR)}`
+    );
 }
 
 if (require.main === module) {
