@@ -3,21 +3,9 @@
   "extends": ["@microsoft/api-extractor/extends/tsdoc-base.json"],
   "tagDefinitions": [
     {
-      "tagName": "@id",
-      "syntaxKind": "block"
-    },
-    {
       "tagName": "@note",
       "syntaxKind": "block",
       "allowMultiple": true
-    },
-    {
-      "tagName": "@event",
-      "syntaxKind": "block"
-    },
-    {
-      "tagName": "@emits",
-      "syntaxKind": "block"
     },
     {
       "tagName": "@exampleComponent",
@@ -37,17 +25,10 @@
       "tagName": "@sourceFile",
       "syntaxKind": "block",
       "allowMultiple": true
-    },
-    {
-      "tagName": "@default",
-      "syntaxKind": "block",
-      "allowMultiple": false
     }
   ],
   "supportForTags": {
-    "@default": true,
     "@exampleComponent": true,
-    "@note": true,
-    "@private": true
+    "@note": true
   }
 }
