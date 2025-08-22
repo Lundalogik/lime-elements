@@ -153,6 +153,7 @@ export interface ColumnSorter {
 //
 // @public (undocumented)
 export namespace Components {
+    // @internal
     export interface Limel3dHoverEffectGlow {
     }
     export interface LimelActionBar {
@@ -163,18 +164,19 @@ export namespace Components {
         "layout"?: 'fullWidth' | 'floating';
         "openDirection": OpenDirection;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelActionBarItem {
         "isVisible": boolean;
         "item": ActionBarItem | ListSeparator;
         "selected": boolean;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelActionBarOverflowMenu {
         "items": Array<MenuItem | ListSeparator>;
         "openDirection": OpenDirection;
         "overFlowIcon"?: Icon;
     }
+    // @internal
     export interface LimelAiAvatar {
         "isThinking": boolean;
         "language": Languages;
@@ -335,7 +337,7 @@ export namespace Components {
         "tooltipLabel": string;
         "value": string;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelColorPickerPalette {
         "columnCount"?: number;
         "helperText": string;
@@ -347,6 +349,7 @@ export namespace Components {
         "required": boolean;
         "value": string;
     }
+    // @internal
     export interface LimelConfig {
         "config": Config;
     }
@@ -380,7 +383,7 @@ export namespace Components {
         "expanded"?: boolean;
         "mobileBreakPoint"?: number;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelDockButton {
         "expanded"?: boolean;
         "item": DockItem;
@@ -401,12 +404,14 @@ export namespace Components {
         "required": boolean;
         "value": FileInfo;
     }
+    // @internal
     export interface LimelFileDropzone {
         "accept": string;
         "disabled": boolean;
         "helperText"?: string;
         "text": string;
     }
+    // @internal
     export interface LimelFileInput {
         "accept": string;
         "disabled": boolean;
@@ -424,6 +429,7 @@ export namespace Components {
         "officeViewer": OfficeViewer;
         "url": string;
     }
+    // @internal
     export interface LimelFlatpickrAdapter {
         "format": string;
         // (undocumented)
@@ -434,7 +440,7 @@ export namespace Components {
         "type": DateType;
         "value": Date;
     }
-    // @deprecated
+    // @internal @deprecated
     export interface LimelFlexContainer {
         "align": FlexContainerAlign;
         "direction": FlexContainerDirection;
@@ -450,7 +456,7 @@ export namespace Components {
         "transformErrors"?: (errors: FormError[]) => FormError[];
         "value": object;
     }
-    // @deprecated
+    // @internal @deprecated
     export interface LimelGrid {
     }
     export interface LimelHeader {
@@ -466,12 +472,14 @@ export namespace Components {
         "trigger": string;
         "value": string;
     }
+    // @internal
     export interface LimelHelpContent {
         // (undocumented)
         "readMoreLink"?: Link;
         // (undocumented)
         "value": string;
     }
+    // @internal
     export interface LimelHelperLine {
         "helperText"?: string;
         "helperTextId"?: string;
@@ -584,17 +592,18 @@ export namespace Components {
         "commandText"?: string;
         "showChevron": boolean;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelMenuList {
         "badgeIcons": boolean;
         "iconSize": IconSize;
         "items": Array<MenuItem | ListSeparator>;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelMenuSurface {
         "allowClicksElement": HTMLElement;
         "open": boolean;
     }
+    // @internal
     export interface LimelNotchedOutline {
         "disabled": boolean;
         "hasFloatingLabel": boolean;
@@ -631,10 +640,11 @@ export namespace Components {
         "open": boolean;
         "openDirection": OpenDirection;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelPopoverSurface {
         "contentCollection": HTMLCollection;
     }
+    // @internal
     export interface LimelPortal {
         "anchor"?: HTMLElement;
         "containerId": string;
@@ -666,20 +676,26 @@ export namespace Components {
         "flowItems": FlowItem[];
         "readonly": boolean;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelProgressFlowItem {
         "currentStep": boolean;
         "disabled": boolean;
         "item": FlowItem;
         "readonly": boolean;
     }
+    // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+    //
     // @beta
     export interface LimelProsemirrorAdapter {
         "contentType": 'markdown' | 'html';
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "customElements": CustomElementDefinition[];
         "disabled"?: boolean;
         "language": Languages;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "triggerCharacters": TriggerCharacter[];
         "ui": EditorUiType;
@@ -799,6 +815,8 @@ export namespace Components {
     export interface LimelTextEditor {
         "allowResize": boolean;
         "contentType": 'markdown' | 'html';
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "customElements": CustomElementDefinition[];
         "disabled"?: boolean;
@@ -809,11 +827,15 @@ export namespace Components {
         "placeholder"?: string;
         "readonly"?: boolean;
         "required"?: boolean;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "triggers": TriggerCharacter[];
         "ui"?: EditorUiType;
         "value": string;
     }
+    // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+    //
     // @beta
     export interface LimelTextEditorLinkMenu {
         "isOpen": boolean;
@@ -827,6 +849,7 @@ export namespace Components {
         "maxlength"?: number;
         "openDirection": OpenDirection;
     }
+    // @internal
     export interface LimelTooltipContent {
         "helperLabel"?: string;
         "label": string;
@@ -947,6 +970,8 @@ export interface EditorMetadata {
     links: EditorLink[];
 }
 
+// Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+//
 // @beta
 export type EditorTextLink = {
     text?: string;
@@ -1171,14 +1196,22 @@ export namespace _Internal {
 export namespace JSX {
     // (undocumented)
     export interface IntrinsicElements {
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-3d-hover-effect-glow"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-3d-hover-effect-glow": Limel3dHoverEffectGlow;
         // (undocumented)
         "limel-action-bar": LimelActionBar;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-action-bar-item"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-action-bar-item": LimelActionBarItem;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-action-bar-overflow-menu"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-action-bar-overflow-menu": LimelActionBarOverflowMenu;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-ai-avatar"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-ai-avatar": LimelAiAvatar;
         // (undocumented)
@@ -1213,8 +1246,12 @@ export namespace JSX {
         "limel-collapsible-section": LimelCollapsibleSection;
         // (undocumented)
         "limel-color-picker": LimelColorPicker;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-color-picker-palette"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-color-picker-palette": LimelColorPickerPalette;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-config"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-config": LimelConfig;
         // (undocumented)
@@ -1223,34 +1260,50 @@ export namespace JSX {
         "limel-dialog": LimelDialog;
         // (undocumented)
         "limel-dock": LimelDock;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-dock-button"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-dock-button": LimelDockButton;
         // (undocumented)
         "limel-dynamic-label": LimelDynamicLabel;
         // (undocumented)
         "limel-file": LimelFile;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-file-dropzone"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-file-dropzone": LimelFileDropzone;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-file-input"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-file-input": LimelFileInput;
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-file-viewer"" is marked as @public, but its signature references "JSX" which is marked as @beta
         //
         // (undocumented)
         "limel-file-viewer": LimelFileViewer;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-flatpickr-adapter"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-flatpickr-adapter": LimelFlatpickrAdapter;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-flex-container"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-flex-container": LimelFlexContainer;
         // (undocumented)
         "limel-form": LimelForm;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-grid"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-grid": LimelGrid;
         // (undocumented)
         "limel-header": LimelHeader;
         // (undocumented)
         "limel-help": LimelHelp;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-help-content"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-help-content": LimelHelpContent;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-helper-line"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-helper-line": LimelHelperLine;
         // (undocumented)
@@ -1271,20 +1324,30 @@ export namespace JSX {
         "limel-markdown": LimelMarkdown;
         // (undocumented)
         "limel-menu": LimelMenu;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-menu-list"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-menu-item-meta": LimelMenuItemMeta;
         // (undocumented)
         "limel-menu-list": LimelMenuList;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-menu-surface"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-menu-surface": LimelMenuSurface;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-notched-outline"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-notched-outline": LimelNotchedOutline;
         // (undocumented)
         "limel-picker": LimelPicker;
         // (undocumented)
         "limel-popover": LimelPopover;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-popover-surface"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-popover-surface": LimelPopoverSurface;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-portal"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-portal": LimelPortal;
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-profile-picture"" is marked as @public, but its signature references "JSX" which is marked as @beta
@@ -1293,6 +1356,8 @@ export namespace JSX {
         "limel-profile-picture": LimelProfilePicture;
         // (undocumented)
         "limel-progress-flow": LimelProgressFlow;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-progress-flow-item"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-progress-flow-item": LimelProgressFlowItem;
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-prosemirror-adapter"" is marked as @public, but its signature references "JSX" which is marked as @beta
@@ -1335,9 +1400,12 @@ export namespace JSX {
         "limel-text-editor-link-menu": LimelTextEditorLinkMenu;
         // (undocumented)
         "limel-tooltip": LimelTooltip;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-tooltip-content"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
         // (undocumented)
         "limel-tooltip-content": LimelTooltipContent;
     }
+    // @internal
     export interface Limel3dHoverEffectGlow {
     }
     export interface LimelActionBar {
@@ -1349,20 +1417,23 @@ export namespace JSX {
         "onItemSelected"?: (event: LimelActionBarCustomEvent<ActionBarItem>) => void;
         "openDirection"?: OpenDirection;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelActionBarItem {
         "isVisible"?: boolean;
         "item": ActionBarItem | ListSeparator;
+        // @public
         "onSelect"?: (event: LimelActionBarItemCustomEvent<ActionBarItem | ListSeparator>) => void;
         "selected"?: boolean;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelActionBarOverflowMenu {
         "items"?: Array<MenuItem | ListSeparator>;
+        // @public
         "onSelect"?: (event: LimelActionBarOverflowMenuCustomEvent<ActionBarItem>) => void;
         "openDirection"?: OpenDirection;
         "overFlowIcon"?: Icon;
     }
+    // @internal
     export interface LimelAiAvatar {
         "isThinking"?: boolean;
         "language"?: Languages;
@@ -1535,7 +1606,7 @@ export namespace JSX {
         "tooltipLabel"?: string;
         "value"?: string;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelColorPickerPalette {
         "columnCount"?: number;
         "helperText"?: string;
@@ -1548,6 +1619,7 @@ export namespace JSX {
         "required"?: boolean;
         "value"?: string;
     }
+    // @internal
     export interface LimelConfig {
         "config"?: Config;
     }
@@ -1588,7 +1660,7 @@ export namespace JSX {
         "onItemSelected"?: (event: LimelDockCustomEvent<DockItem>) => void;
         "onMenuOpen"?: (event: LimelDockCustomEvent<DockItem>) => void;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelDockButton {
         "expanded"?: boolean;
         "item": DockItem;
@@ -1614,6 +1686,7 @@ export namespace JSX {
         "required"?: boolean;
         "value"?: FileInfo;
     }
+    // @internal
     export interface LimelFileDropzone {
         "accept"?: string;
         "disabled"?: boolean;
@@ -1622,6 +1695,7 @@ export namespace JSX {
         "onFilesSelected"?: (event: LimelFileDropzoneCustomEvent<FileInfo[]>) => void;
         "text"?: string;
     }
+    // @internal
     export interface LimelFileInput {
         "accept"?: string;
         "disabled"?: boolean;
@@ -1641,6 +1715,7 @@ export namespace JSX {
         "onAction"?: (event: LimelFileViewerCustomEvent<ListItem>) => void;
         "url"?: string;
     }
+    // @internal
     export interface LimelFlatpickrAdapter {
         "format"?: string;
         // (undocumented)
@@ -1652,7 +1727,7 @@ export namespace JSX {
         "type"?: DateType;
         "value"?: Date;
     }
-    // @deprecated
+    // @internal @deprecated
     export interface LimelFlexContainer {
         "align"?: FlexContainerAlign;
         "direction"?: FlexContainerDirection;
@@ -1670,7 +1745,7 @@ export namespace JSX {
         "transformErrors"?: (errors: FormError[]) => FormError[];
         "value"?: object;
     }
-    // @deprecated
+    // @internal @deprecated
     export interface LimelGrid {
     }
     export interface LimelHeader {
@@ -1686,12 +1761,14 @@ export namespace JSX {
         "trigger"?: string;
         "value"?: string;
     }
+    // @internal
     export interface LimelHelpContent {
         // (undocumented)
         "readMoreLink"?: Link;
         // (undocumented)
         "value"?: string;
     }
+    // @internal
     export interface LimelHelperLine {
         "helperText"?: string;
         "helperTextId"?: string;
@@ -1810,7 +1887,7 @@ export namespace JSX {
         "commandText"?: string;
         "showChevron"?: boolean;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelMenuList {
         "badgeIcons"?: boolean;
         "iconSize"?: IconSize;
@@ -1818,12 +1895,13 @@ export namespace JSX {
         "onInteract"?: (event: LimelMenuListCustomEvent<MenuItem>) => void;
         "onSelect"?: (event: LimelMenuListCustomEvent<MenuItem>) => void;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelMenuSurface {
         "allowClicksElement"?: HTMLElement;
         "onDismiss"?: (event: LimelMenuSurfaceCustomEvent<void>) => void;
         "open"?: boolean;
     }
+    // @internal
     export interface LimelNotchedOutline {
         "disabled"?: boolean;
         "hasFloatingLabel"?: boolean;
@@ -1864,10 +1942,11 @@ export namespace JSX {
         "open"?: boolean;
         "openDirection"?: OpenDirection;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelPopoverSurface {
         "contentCollection"?: HTMLCollection;
     }
+    // @internal
     export interface LimelPortal {
         "anchor"?: HTMLElement;
         "containerId"?: string;
@@ -1902,7 +1981,7 @@ export namespace JSX {
         "onChange"?: (event: LimelProgressFlowCustomEvent<FlowItem>) => void;
         "readonly"?: boolean;
     }
-    // (undocumented)
+    // @internal (undocumented)
     export interface LimelProgressFlowItem {
         "currentStep"?: boolean;
         "disabled"?: boolean;
@@ -1910,20 +1989,32 @@ export namespace JSX {
         "onInteract"?: (event: LimelProgressFlowItemCustomEvent<void>) => void;
         "readonly"?: boolean;
     }
+    // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+    //
     // @beta
     export interface LimelProsemirrorAdapter {
         "contentType"?: 'markdown' | 'html';
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "customElements"?: CustomElementDefinition[];
         "disabled"?: boolean;
         "language"?: Languages;
         "onChange"?: (event: LimelProsemirrorAdapterCustomEvent<string>) => void;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "onImagePasted"?: (event: LimelProsemirrorAdapterCustomEvent<ImageInserter>) => void;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "onImageRemoved"?: (event: LimelProsemirrorAdapterCustomEvent<EditorImage>) => void;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "onMetadataChange"?: (event: LimelProsemirrorAdapterCustomEvent<EditorMetadata>) => void;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "triggerCharacters"?: TriggerCharacter[];
         "ui"?: EditorUiType;
@@ -2057,6 +2148,8 @@ export namespace JSX {
     export interface LimelTextEditor {
         "allowResize"?: boolean;
         "contentType"?: 'markdown' | 'html';
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "customElements"?: CustomElementDefinition[];
         "disabled"?: boolean;
@@ -2065,26 +2158,42 @@ export namespace JSX {
         "label"?: string;
         "language"?: Languages;
         "onChange"?: (event: LimelTextEditorCustomEvent<string>) => void;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "onImagePasted"?: (event: LimelTextEditorCustomEvent<ImageInserter>) => void;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha @deprecated
         "onImageRemoved"?: (event: LimelTextEditorCustomEvent<EditorImage>) => void;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "onMetadataChange"?: (event: LimelTextEditorCustomEvent<EditorMetadata>) => void;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "onTriggerChange"?: (event: LimelTextEditorCustomEvent<TriggerEventDetail>) => void;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "onTriggerStart"?: (event: LimelTextEditorCustomEvent<TriggerEventDetail>) => void;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "onTriggerStop"?: (event: LimelTextEditorCustomEvent<TriggerEventDetail>) => void;
         "placeholder"?: string;
         "readonly"?: boolean;
         "required"?: boolean;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
         // @alpha
         "triggers"?: TriggerCharacter[];
         "ui"?: EditorUiType;
         "value"?: string;
     }
+    // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+    //
     // @beta
     export interface LimelTextEditorLinkMenu {
         "isOpen"?: boolean;
@@ -2101,6 +2210,7 @@ export namespace JSX {
         "maxlength"?: number;
         "openDirection"?: OpenDirection;
     }
+    // @internal
     export interface LimelTooltipContent {
         "helperLabel"?: string;
         "label": string;
