@@ -1,0 +1,64 @@
+@use '../../../style/mixins';
+
+:host {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.25rem;
+}
+
+ul {
+    position: relative;
+    list-style: none;
+    padding: 1rem 1rem 2rem 1rem;
+    margin: 0;
+
+    background: url("data:image/svg+xml;charset=utf-8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' style='fill-rule:evenodd;'><path fill='rgba(186,186,192,0.16)' d='M0 0h4v4H0zM4 4h4v4H4z'/></svg>");
+    background-size: 0.5rem;
+
+    &.is-resizable {
+        overflow: hidden;
+        resize: horizontal;
+        max-width: calc(100% - 2rem);
+        min-width: 10rem;
+
+        &::after {
+            content: 'Resize me ⤵';
+            font-size: 0.75rem;
+            position: absolute;
+            right: 0.25rem;
+            bottom: 0.25rem;
+        }
+    }
+}
+
+limel-list-item {
+    min-height: 2.5rem;
+    @include mixins.visualize-keyboard-focus();
+
+    &:hover,
+    &:focus,
+    &:focus-within,
+    &:focus-visible,
+    &:active {
+        z-index: 1;
+        border-radius: 0.5rem;
+    }
+
+    &:first-of-type {
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+    }
+
+    &:last-of-type {
+        border-bottom-left-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+    }
+
+    &:not([disabled]):not([disabled='true']) {
+        cursor: pointer;
+    }
+
+    &[disabled]:not([disabled='false']) {
+        cursor: not-allowed;
+    }
+}

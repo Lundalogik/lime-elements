@@ -295,7 +295,7 @@ export class List {
     private triggerIconColorWarning() {
         if (this.items?.some((item) => 'iconColor' in item)) {
             console.warn(
-                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
+                "The `iconColor` prop is deprecated, has no visual effect anymore, and will soon be removed! Use the new `Icon` interface, and instead of `iconColor: 'color-name'` write `icon: { name: 'icon-name', color: 'color-name' }`."
             );
         }
     }
