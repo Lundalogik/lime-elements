@@ -132,6 +132,8 @@ export class MenuListRenderer {
                 class={classNames}
                 data-index={index}
                 {...attributes}
+                aria-haspopup={hasSubMenu ? 'menu' : undefined}
+                aria-expanded={hasSubMenu ? 'false' : undefined}
                 type="menuitem"
                 text={item.text}
                 secondaryText={item.secondaryText}
