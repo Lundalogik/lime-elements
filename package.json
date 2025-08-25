@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.8.1",
-    "@limetech/eslint-config": "^3.0.1",
+    "@limetech/eslint-config": "^4.0.0",
     "@microsoft/api-extractor": "^7.52.11",
     "@popperjs/core": "^2.11.8",
     "@rjsf/core": "^2.4.2",

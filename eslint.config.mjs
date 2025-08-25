@@ -11,6 +11,7 @@ export default defineConfig([
             '@typescript-eslint/no-unsafe-function-type': 'off',
             'jsdoc/require-returns': 'off',
             'jsdoc/require-param-description': 'off',
+            'unicorn/no-array-reverse': 'off', // Requires Typescript 5.2 or higher, and build target es2023.
         },
     },
     {
