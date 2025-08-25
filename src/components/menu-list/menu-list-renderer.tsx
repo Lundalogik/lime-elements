@@ -128,6 +128,8 @@ export class MenuListRenderer {
                 class="mdc-deprecated-list-item" // required for keyboard navigation with arrow keys
                 data-index={index}
                 {...attributes}
+                aria-haspopup={hasSubMenu ? 'menu' : undefined}
+                aria-expanded={hasSubMenu ? 'false' : undefined}
                 type="menuitem"
                 text={item.text}
                 secondaryText={item.secondaryText}
