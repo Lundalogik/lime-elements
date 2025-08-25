@@ -42,12 +42,25 @@ export class ListRenderer {
             <ul
                 class="mdc-deprecated-list"
                 role={role}
-                aria-orientation="vertical"
+                aria-orientation={this.getAriaOrientation(role)}
             >
                 {items.map(this.renderListItem)}
             </ul>
         );
     }
+
+    /**
+     * `aria-orientation` is valid for `listbox` and `radiogroup`,
+     * but not for group (used for checkboxes).
+     * @param role
+     */
+    private getAriaOrientation = (role: string) => {
+        if (role === 'listbox' || role === 'radiogroup') {
+            return 'vertical';
+        } else {
+            return null;
+        }
+    };
 
     /**
      * Determine which ListItem should have the `tab-index` attribute set,
