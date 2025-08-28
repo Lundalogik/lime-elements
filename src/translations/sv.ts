@@ -52,4 +52,8 @@ export default {
     'ai-avatar.thinking': 'tänker',
     'table.select-all': 'Markera alla rader',
     'table.select-row': 'Markera denna rad',
+    'profile-picture.remove': 'Ta bort vald bild',
+    'profile-picture.unsupported-preview.title': 'Formatet stöds inte',
+    'profile-picture.unsupported-preview.description':
+        'Vi kan inte visa den valda bilden i den här webbläsaren. Välj en annan bildfil.',
 };

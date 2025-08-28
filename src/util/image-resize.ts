@@ -248,16 +248,26 @@ function canvasToBlob(
  */
 
 async function loadSource(file: File): Promise<SourceLike> {
-    if ('createImageBitmap' in globalThis) {
+    if (typeof (globalThis as any).createImageBitmap === 'function') {
         try {
-            const opts: unknown = { imageOrientation: 'from-image' };
-            return await createImageBitmap(file, opts as any);
+            return await (globalThis as any).createImageBitmap(file, {
+                imageOrientation: 'from-image',
+            } as any);
         } catch (error) {
-            // Log for debugging, but continue with fallback
-            console.debug(
-                'createImageBitmap failed, falling back to HTMLImageElement:',
-                error
-            );
+            // Log for debugging in development, but continue with fallback
+            const isDev =
+                (globalThis as any).process?.env?.NODE_ENV !== 'production';
+
+            if (
+                isDev &&
+                typeof console !== 'undefined' &&
+                typeof console.debug === 'function'
+            ) {
+                console.debug(
+                    'createImageBitmap failed, falling back to HTMLImageElement:',
+                    error
+                );
+            }
         }
     }
 

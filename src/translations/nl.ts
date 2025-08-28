@@ -54,4 +54,9 @@ export default {
     'ai-avatar.thinking': 'aan het denken',
     'table.select-all': 'Alle rijen selecteren',
     'table.select-row': 'Deze rij selecteren',
+    'profile-picture.remove': 'Geselecteerde afbeelding verwijderen',
+    'profile-picture.unsupported-preview.title':
+        'Niet-ondersteund afbeeldingsformaat',
+    'profile-picture.unsupported-preview.description':
+        'We kunnen de geselecteerde afbeelding niet weergeven in deze browser. Selecteer een ander afbeeldingsbestand.',
 };

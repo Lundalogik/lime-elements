@@ -1,0 +1,13 @@
+@use '../../../style/mixins';
+
+div {
+    @include mixins.is-resizable($direction: horizontal, $min-width: 4rem);
+}
+
+limel-profile-picture {
+    --profile-picture-border-radius: 1rem;
+    --profile-picture-background-color: rgb(var(--color-orange-default));
+
+    aspect-ratio: 8/6;
+    width: 100%;
+}

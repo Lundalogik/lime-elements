@@ -53,4 +53,8 @@ export default {
     'ai-avatar.thinking': 'ajattelee',
     'table.select-all': 'Valitse kaikki rivit',
     'table.select-row': 'Valitse tämä rivi',
+    'profile-picture.remove': 'Poista valittu kuva',
+    'profile-picture.unsupported-preview.title': 'Tiedostomuoto ei ole tuettu',
+    'profile-picture.unsupported-preview.description':
+        'Emme voi näyttää valittua kuvaa tässä selaimessa. Valitse jokin toinen kuvatiedosto.',
 };
