@@ -1,4 +1,4 @@
-import { ListItem } from './list-item.types';
+import { ListItem } from '../list-item/list-item.types';
 import { ListSeparator } from '../../global/shared-types/separator.types';
 import { h } from '@stencil/core';
 import { ListRendererConfig } from './list-renderer-config';
