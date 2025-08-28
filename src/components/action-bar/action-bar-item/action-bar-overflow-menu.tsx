@@ -1,6 +1,6 @@
 import { Component, Prop, h, Event, EventEmitter } from '@stencil/core';
 import { ActionBarItem } from '../../action-bar/action-bar.types';
-import { ListSeparator } from '../../list/list-item.types';
+import { ListSeparator } from '../../list-item/list-item.types';
 import { MenuItem, OpenDirection } from '../../menu/menu.types';
 import { LimelMenuCustomEvent } from '../../../components';
 import { Icon } from '../../../global/shared-types/icon.types';
