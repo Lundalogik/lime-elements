@@ -1,0 +1,7 @@
+limel-profile-picture {
+    --profile-picture-border-radius: 0.5rem;
+
+    width: 10rem;
+    aspect-ratio: 4/3;
+    border: 1px solid rgb(var(--contrast-600));
+}

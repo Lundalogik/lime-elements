@@ -52,4 +52,8 @@ export default {
     'ai-avatar.thinking': 'tenker',
     'table.select-all': 'Velg alle rader',
     'table.select-row': 'Velg denne raden',
+    'profile-picture.remove': 'Fjern valgt bilde',
+    'profile-picture.unsupported-preview.title': 'Ustøttet bildeformat',
+    'profile-picture.unsupported-preview.description':
+        'Vi kan ikke vise det valgte bildet i denne nettleseren. Vennligst velg en annen bildefil.',
 };
