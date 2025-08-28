@@ -1,0 +1,2 @@
+import{r as e,h as t}from"./index-2714248e.js";const i=class{constructor(t){e(this,t);this.handleChange=e=>{this.value=e.detail;console.log("onChange",this.value)};this.value="https://avatars.githubusercontent.com/u/9919?v=4"}render(){return[t("limel-profile-picture",{label:"Change profile picture",value:this.value,onChange:this.handleChange}),t("limel-example-value",{value:this.value})]}};export{i as limel_example_profile_picture};
+//# sourceMappingURL=limel-example-profile-picture.entry.js.map
