@@ -37,7 +37,7 @@ export * from './components/input-field/input-field.types';
 export {
     ListComponent,
     ListSeparator,
-} from './components/list/list-item.types';
+} from './components/list-item/list-item.types';
 export * from './components/dynamic-label/label.types';
 export * from './components/list/list.types';
 export * from './components/menu/menu.types';

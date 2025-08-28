@@ -1,5 +1,5 @@
 import { IconSize } from '../icon/icon.types';
-import { ListSeparator } from '../list/list-item.types';
+import { ListSeparator } from '../list-item/list-item.types';
 import { MenuItem } from '../menu/menu.types';
 import { MDCMenu, MDCMenuItemEvent } from '@material/menu';
 import { MDCRipple } from '@material/ripple';

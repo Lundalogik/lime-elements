@@ -9,7 +9,7 @@ import {
     Watch,
 } from '@stencil/core';
 import { Languages } from '../date-picker/date.types';
-import { ListItem } from '../list/list-item.types';
+import { ListItem } from '../list-item/list-item.types';
 import translate from '../../global/translations';
 import { detectExtension } from './extension-mapping';
 import { Fullscreen } from './fullscreen';

@@ -19,7 +19,7 @@ import {
     TAB,
 } from '../../util/keycodes';
 import { InputType } from '../input-field/input-field.types';
-import { ListItem } from '../list/list-item.types';
+import { ListItem } from '../list-item/list-item.types';
 import { getHref, getTarget, getRel } from '../../util/link-helper';
 import { JSXBase } from '@stencil/core/internal';
 import { createRandomString } from '../../util/random-string';
