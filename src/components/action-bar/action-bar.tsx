@@ -8,7 +8,7 @@ import {
     State,
     Element,
 } from '@stencil/core';
-import { ListSeparator } from '../list/list-item.types';
+import { ListSeparator } from '../list-item/list-item.types';
 import { MenuItem, OpenDirection } from '../menu/menu.types';
 import { ActionBarItem } from './action-bar.types';
 import { Languages } from './../date-picker/date.types';

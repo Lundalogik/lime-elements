@@ -16,7 +16,7 @@ import {
 } from '../../components';
 
 import { BreadcrumbsItem } from '../breadcrumbs/breadcrumbs.types';
-import { ListSeparator } from '../list/list-item.types';
+import { ListSeparator } from '../list-item/list-item.types';
 import {
     OpenDirection,
     MenuItem,

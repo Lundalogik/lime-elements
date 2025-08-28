@@ -1,5 +1,5 @@
 import { Component, h, Host, State } from '@stencil/core';
-import { ListSeparator } from '../../../components/list/list-item.types';
+import { ListSeparator } from '../../../components/list-item/list-item.types';
 import { MenuItem } from '../../../components/menu/menu.types';
 
 @Component({

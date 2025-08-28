@@ -1,7 +1,7 @@
 import { Image } from '../../global/shared-types/image.types';
 import { Icon } from '../../global/shared-types/icon.types';
 import { MenuItem } from '../menu/menu.types';
-import { ListSeparator } from '../list/list-item.types';
+import { ListSeparator } from '../list-item/list-item.types';
 import { Color } from '../../global/shared-types/color.types';
 
 /**
