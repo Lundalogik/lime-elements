@@ -253,7 +253,8 @@ $clickable-normal-state-transitions: (
     // NOTE: you may need to specify "position: absolute" and align the position where you use this mixin
     @include is-flat-clickable(
         $background-color: rgb(var(--contrast-900)),
-        $background-color--hovered: rgb(var(--contrast-1100))
+        $color--hovered: rgb(var(--color-white)),
+        $background-color--hovered: rgb(var(--color-red-default))
     );
 
     cursor: pointer;
