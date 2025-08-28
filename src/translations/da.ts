@@ -52,4 +52,9 @@ export default {
     'ai-avatar.thinking': 'tænker',
     'table.select-all': 'Vælg alle rækker',
     'table.select-row': 'Vælg denne række',
+    'profile-picture.remove': 'Fjern valgt billede',
+    'profile-picture.unsupported-preview.title':
+        'Ikke-understøttet billedformat',
+    'profile-picture.unsupported-preview.description':
+        'Vi kan ikke vise det valgte billede i denne browser. Vælg venligst en anden billedfil.',
 };
