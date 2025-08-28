@@ -1,5 +1,5 @@
 import { ActionBarItem } from './action-bar.types';
-import { ListSeparator } from '../list/list-item.types';
+import { ListSeparator } from '../list-item/list-item.types';
 
 /**
  *

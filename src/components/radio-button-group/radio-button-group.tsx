@@ -1,5 +1,5 @@
 import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
-import { ListItem, ListSeparator } from '../list/list-item.types';
+import { ListItem, ListSeparator } from '../list-item/list-item.types';
 import { LimelListCustomEvent } from '@limetech/lime-elements';
 
 /**

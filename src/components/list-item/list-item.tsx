@@ -10,7 +10,7 @@ import {
 import { getIconName } from '../icon/get-icon-props';
 import type { IconSize } from '../icon/icon.types';
 import { createRandomString } from '../../util/random-string';
-import { ListItem } from '../list/list-item.types';
+import { ListItem } from './list-item.types';
 import { MenuItem } from '../menu/menu.types';
 import { ListSeparator } from '../../global/shared-types/separator.types';
 import { CheckboxTemplate } from '../checkbox/checkbox.template';
