@@ -52,4 +52,5 @@ export default {
     'ai-avatar.thinking': 'tänker',
     'table.select-all': 'Markera alla rader',
     'table.select-row': 'Markera denna rad',
+    'profile-picture.remove': 'Ta bort vald bild',
 };

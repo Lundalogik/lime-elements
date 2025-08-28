@@ -54,4 +54,5 @@ export default {
     'ai-avatar.thinking': 'denkt',
     'table.select-all': 'Alle Zeilen auswählen',
     'table.select-row': 'Diese Zeile auswählen',
+    'profile-picture.remove': 'Ausgewähltes Bild entfernen',
 };

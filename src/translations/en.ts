@@ -52,4 +52,5 @@ export default {
     'ai-avatar.thinking': 'thinking',
     'table.select-all': 'Select all rows',
     'table.select-row': 'Select this row',
+    'profile-picture.remove': 'Remove selected picture',
 };

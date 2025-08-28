@@ -53,4 +53,5 @@ export default {
     'ai-avatar.thinking': 'ajattelee',
     'table.select-all': 'Valitse kaikki rivit',
     'table.select-row': 'Valitse tämä rivi',
+    'profile-picture.remove': 'Poista valittu kuva',
 };
