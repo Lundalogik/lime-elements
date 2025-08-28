@@ -339,7 +339,7 @@ export class Chip implements ChipInterface {
             <button
                 class="trailing-button remove-button"
                 tabIndex={-1}
-                aria-label={this.removeChipLabel}
+                aria-label={this.removeChipLabel()}
                 aria-controls={'chip-' + this.identifier}
                 innerHTML={svgData}
                 onClick={this.handleRemoveClick}
@@ -368,7 +368,7 @@ export class Chip implements ChipInterface {
                     slot="trigger"
                     disabled={this.disabled}
                     class="trailing-button"
-                    aria-label={this.actionMenuLabel}
+                    aria-label={this.actionMenuLabel()}
                     innerHTML={svgData}
                 />
             </limel-menu>
@@ -420,11 +420,15 @@ export class Chip implements ChipInterface {
     };
 
     private removeChipLabel = (): string => {
-        return translate.get('remove', this.language) + ' ' + this.text;
+        return `${this.getTranslation('remove')} ${this.text}`;
     };
 
     private actionMenuLabel = (): string => {
-        return translate.get('file-viewer.more-actions', this.language);
+        return this.getTranslation('file-viewer.more-actions');
+    };
+
+    private getTranslation = (key: string) => {
+        return translate.get(key, this.language);
     };
 
     private renderSpinner() {
