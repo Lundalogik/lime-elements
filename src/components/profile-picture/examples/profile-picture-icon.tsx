@@ -1,5 +1,5 @@
 import { FileInfo } from '@limetech/lime-elements';
-import { Component, h, State } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
 
 /**
  * Changing the placeholder icon
@@ -20,19 +20,21 @@ export class ProfilePictureIconExample {
     public render() {
         const icon = {
             name: 'upload_to_cloud',
-            color: 'rgb(var(--color-blue-dark))',
+            color: 'rgb(var(--color-sky-dark))',
             title: 'upload icon',
         };
 
-        return [
-            <limel-profile-picture
-                label="Profile picture"
-                value={this.value}
-                onChange={this.handleChange}
-                icon={icon}
-            />,
-            <limel-example-value value={this.value} />,
-        ];
+        return (
+            <Host>
+                <limel-profile-picture
+                    label="Profile picture"
+                    value={this.value}
+                    onChange={this.handleChange}
+                    icon={icon}
+                />
+                <limel-example-value value={this.value} />
+            </Host>
+        );
     }
 
     private handleChange = (event: CustomEvent<FileInfo>) => {

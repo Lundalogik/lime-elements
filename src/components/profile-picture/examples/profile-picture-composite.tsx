@@ -26,6 +26,9 @@ export class ProfilePictureCompositeExample {
     @State()
     private invalid: boolean = false;
 
+    @State()
+    public loading = false;
+
     public render() {
         return (
             <Host>
@@ -34,6 +37,7 @@ export class ProfilePictureCompositeExample {
                     disabled={this.disabled}
                     readonly={this.readonly}
                     invalid={this.invalid}
+                    loading={this.loading}
                 />
                 <limel-example-controls>
                     <limel-checkbox
@@ -50,6 +54,11 @@ export class ProfilePictureCompositeExample {
                         checked={this.invalid}
                         label="Invalid"
                         onChange={this.setInvalid}
+                    />
+                    <limel-checkbox
+                        label="Loading"
+                        checked={this.loading}
+                        onChange={this.setLoading}
                     />
                 </limel-example-controls>
             </Host>
@@ -69,5 +78,10 @@ export class ProfilePictureCompositeExample {
     private setInvalid = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.invalid = event.detail;
+    };
+
+    private setLoading = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.loading = event.detail;
     };
 }

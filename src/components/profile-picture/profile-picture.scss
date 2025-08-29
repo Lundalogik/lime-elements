@@ -2,25 +2,32 @@
 
 /**
 * @prop --profile-picture-border-radius: Border radius of the profile picture. Defaults to `100vw` to render a circular shape.
-* @prop --profile-picture-background-color: Background color of the component; visible when it is empty, or displays a transparent png. Defaults to `rgb(var(--contrast-400))`.
 */
 
 :host {
     position: relative;
 
     display: inline-block;
-    min-width: 1rem;
-    min-height: 1rem;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
 
     border-radius: var(--profile-picture-border-radius, 100vw);
-    background-color: var(
-        --profile-picture-background-color,
-        rgb(var(--contrast-400))
-    );
+    background-color: rgb(var(--contrast-400));
 }
 
 * {
     box-sizing: border-box;
+}
+
+limel-file-dropzone,
+limel-file-input,
+button.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
 }
 
 button {
@@ -72,21 +79,28 @@ button {
 // :host(limel-profile-picture[disabled]:not([disabled='false'])) {}
 // :host(limel-profile-picture[readonly]:not([readonly='false'])) {}
 
+button.avatar,
+img,
 limel-icon {
-    padding: max(1rem, 10%);
-    color: var(--limel-theme-text-secondary-on-background-color);
+    border-radius: var(--profile-picture-border-radius, 100vw);
 }
 
-button.avatar,
-limel-icon,
-img {
-    border-radius: var(--profile-picture-border-radius, 100vw);
-
-    display: block;
-    width: 100%;
-    height: 100%;
+limel-icon {
+    width: calc(100% - 1rem);
+    min-width: 1rem;
+    max-width: 4rem;
+    color: var(--limel-theme-text-secondary-on-background-color);
+    margin: auto;
 }
 
 img {
     object-fit: var(--limel-profile-picture-object-fit);
+    width: 100%;
+    height: 100%;
+}
+
+limel-spinner {
+    position: absolute;
+    inset: 0;
+    margin: auto;
 }

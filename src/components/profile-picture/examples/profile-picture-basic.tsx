@@ -1,5 +1,5 @@
 import { FileInfo } from '@limetech/lime-elements';
-import { Component, h, State } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
 
 /**
  * Basic profile picture
@@ -22,15 +22,17 @@ export class ProfilePictureExample {
     private value?: FileInfo | string = undefined;
 
     public render() {
-        return [
-            <limel-profile-picture
-                label="Profile picture"
-                helperText="Drag & drop your file here or click to browse"
-                value={this.value}
-                onChange={this.handleChange}
-            />,
-            <limel-example-value value={this.value} />,
-        ];
+        return (
+            <Host>
+                <limel-profile-picture
+                    label="Profile picture"
+                    helperText="Drag & drop your file here or click to browse"
+                    value={this.value}
+                    onChange={this.handleChange}
+                />
+                <limel-example-value value={this.value} />
+            </Host>
+        );
     }
 
     private handleChange = (event: CustomEvent<FileInfo>) => {

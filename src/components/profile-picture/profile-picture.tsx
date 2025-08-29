@@ -21,10 +21,19 @@ import { resizeImage, ResizeOptions } from '../../util/image-resize';
  * This component displays a profile picture, while allowing the user
  * to change it via a file input or drag-and-drop.
  *
+ * It supports client-side image resizing and conversion,
+ * as well as a simple lazy-loading mechanism.
+ *
  * @exampleComponent limel-example-profile-picture-basic
  * @exampleComponent limel-example-profile-picture-icon
  * @exampleComponent limel-example-profile-picture-with-value
+ * @exampleComponent limel-example-profile-picture-loading
+ * @exampleComponent limel-example-profile-picture-image-fit
  * @exampleComponent limel-example-profile-picture-composite
+ * @exampleComponent limel-example-profile-picture-resize-contain
+ * @exampleComponent limel-example-profile-picture-resize-cover
+ * @exampleComponent limel-example-profile-picture-resize-fallback
+ * @exampleComponent limel-example-profile-picture-styling
  * @beta
  */
 @Component({
@@ -114,6 +123,14 @@ export class ProfilePicture {
     public resize?: ResizeOptions;
 
     /**
+     * Set to `true` to put the component in the `loading` state,
+     * and render an indeterminate progress indicator inside.
+     * This does _not_ disable the interactivity of the component!
+     */
+    @Prop({ reflect: true })
+    public loading? = false;
+
+    /**
      * Emitted when the picture changes (first FileInfo only).
      */
     @Event()
@@ -129,6 +146,7 @@ export class ProfilePicture {
     private objectUrl?: string;
 
     private removeButtonId = createRandomString();
+    private helperTextId = createRandomString();
 
     public disconnectedCallback() {
         this.revokeObjectUrl();
@@ -152,6 +170,9 @@ export class ProfilePicture {
         return (
             <Host class={hostClassNames}>
                 <limel-file-dropzone
+                    aria-describedby={
+                        this.helperText ? this.helperTextId : undefined
+                    }
                     disabled={this.disabled}
                     accept={this.accept}
                     onFilesSelected={this.handleNewFiles}
@@ -165,6 +186,7 @@ export class ProfilePicture {
                     </limel-file-input>
                 </limel-file-dropzone>
                 {this.renderClearButton()}
+                {this.renderSpinner()}
             </Host>
         );
     }
@@ -184,12 +206,14 @@ export class ProfilePicture {
     private renderBrowseButton() {
         return (
             <button
+                type="button"
                 class="avatar"
                 disabled={this.disabled}
-                type="button"
                 aria-label={this.label}
                 aria-required={this.required ? true : undefined}
                 aria-invalid={this.invalid ? true : undefined}
+                aria-busy={this.loading ? 'true' : 'false'}
+                aria-live="polite"
             >
                 {this.renderAvatar()}
             </button>
@@ -247,6 +271,14 @@ export class ProfilePicture {
                 elementId={this.removeButtonId}
             />,
         ];
+    }
+
+    private renderSpinner() {
+        if (!this.loading) {
+            return;
+        }
+
+        return <limel-spinner />;
     }
 
     private handleNewFiles = async (event: CustomEvent<FileInfo[]>) => {
