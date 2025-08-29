@@ -65,6 +65,8 @@ $leading-icon-space: 1.5rem;
 .mdc-text-field__input {
     .mdc-text-field:not(.mdc-text-field--disabled) & {
         color: shared_input-select-picker.$input-text-color;
+        font-size: var(--limel-theme-default-font-size) !important;
+        font-family: inherit !important;
     }
     .mdc-text-field.mdc-text-field--disabled & {
         color: shared_input-select-picker.$input-text-color-disabled;
