@@ -2524,6 +2524,22 @@ export type PickerValue = number | string | {
 export type ReplaceObjectType<T, AllowedType, ElseType> = T extends any[] ? ElseType : T extends Record<string, any> ? AllowedType : ElseType;
 
 // @public
+export type ResizeFit = 'cover' | 'contain';
+
+// @public
+export function resizeImage(file: File, options: ResizeOptions): Promise<File>;
+
+// @public
+export type ResizeOptions = {
+    width: number;
+    height: number;
+    fit?: ResizeFit;
+    type?: 'image/jpeg' | 'image/png';
+    quality?: number;
+    rename?: (originalName: string) => string;
+};
+
+// @public
 export type RowData = {
     id?: string | number;
 };
