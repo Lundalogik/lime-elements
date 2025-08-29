@@ -52,4 +52,5 @@ export default {
     'ai-avatar.thinking': 'tænker',
     'table.select-all': 'Vælg alle rækker',
     'table.select-row': 'Vælg denne række',
+    'profile-picture.remove': 'Fjern valgt billede',
 };
