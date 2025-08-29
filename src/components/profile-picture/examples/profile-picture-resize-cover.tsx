@@ -4,12 +4,15 @@ import { Component, h, Host, State } from '@stencil/core';
 /**
  * Resize on select: 400×400 JPEG using cover (center-crop)
  *
- * Typical avatar setup. Converts anything decodable to a square JPEG.
+ * A small square image (aspect ration of 1:1) is typical avatar setup.
+ * The setup showcased below converts anything decodable to a square JPEG
+ * file with a compression quality of 0.9.
  *
- * Notes
+ * :::note
  * - iOS/Safari can decode HEIC/HEIF, so selecting from iPhone Photos works.
  * - Chromium/Firefox generally cannot decode HEIC; the component will fall back
  *   to the original file if decoding fails.
+ * :::
  */
 @Component({
     tag: 'limel-example-profile-picture-resize-cover',
@@ -25,7 +28,7 @@ export class ProfilePictureResizeCoverExample {
         height: 400,
         fit: 'cover',
         type: 'image/jpeg',
-        quality: 0.85,
+        quality: 0.9, // Default is `0.85`
     };
 
     public render() {
