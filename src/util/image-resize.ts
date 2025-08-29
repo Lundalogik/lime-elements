@@ -250,7 +250,7 @@ function canvasToBlob(
  * Load the image into a decodable source (ImageBitmap preferred).
  * @param file - The input file to decode
  */
-async function loadSource(file: File): Promise<SourceLike> {
+
 async function loadSource(file: File): Promise<SourceLike> {
     if (typeof (globalThis as any).createImageBitmap === 'function') {
         try {
@@ -274,9 +274,6 @@ async function loadSource(file: File): Promise<SourceLike> {
             }
         }
     }
-
-    return await loadImageElement(file);
-}
 
     return await loadImageElement(file);
 }
