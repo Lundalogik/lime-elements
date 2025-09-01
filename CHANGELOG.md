@@ -1,3 +1,11 @@
+## [38.22.1](https://github.com/Lundalogik/lime-elements/compare/v38.22.0...v38.22.1) (2025-09-01)
+
+
+### Bug Fixes
+
+
+* **chip:** correctly display `aria-label` on internal elements ([e0eb093](https://github.com/Lundalogik/lime-elements/commit/e0eb093a6af7171b23662dc5832909f7261414e0))
+
 ## [38.22.0](https://github.com/Lundalogik/lime-elements/compare/v38.21.4...v38.22.0) (2025-08-18)
 
 
