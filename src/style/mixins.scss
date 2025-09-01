@@ -90,7 +90,8 @@ $clickable-normal-state-transitions: (
         will-change: color, background-color, box-shadow, transform;
     }
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
         transform: translate3d(0, -0.04rem, 0);
         color: $color--hovered;
         background-color: $background-color--hovered;
@@ -135,10 +136,13 @@ $clickable-normal-state-transitions: (
         will-change: color, background-color, box-shadow, transform;
     }
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
         transform: translate3d(0, 0.01rem, 0);
         color: $color--hovered;
         background-color: $background-color--hovered;
+    }
+    &:hover {
         box-shadow: var(--button-shadow-hovered);
     }
 
@@ -179,10 +183,13 @@ $clickable-normal-state-transitions: (
         will-change: color, background-color, box-shadow, transform;
     }
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
         transform: translate3d(0, 0.01rem, 0);
         color: $color--hovered;
         background-color: $background-color--hovered;
+    }
+    &:hover {
         box-shadow: var(--button-shadow-hovered);
     }
 
@@ -223,10 +230,13 @@ $clickable-normal-state-transitions: (
         will-change: color, background-color, box-shadow, transform;
     }
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
         transform: translate3d(0, -0.04rem, 0);
         color: $color--hovered;
         background-color: $background-color--hovered;
+    }
+    &:hover {
         box-shadow: var(--button-shadow-hovered);
     }
 
