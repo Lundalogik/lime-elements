@@ -90,7 +90,8 @@ $clickable-normal-state-transitions: (
         will-change: color, background-color, box-shadow, transform;
     }
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
         transform: translate3d(0, -0.04rem, 0);
         color: $color--hovered;
         background-color: $background-color--hovered;
@@ -135,10 +136,13 @@ $clickable-normal-state-transitions: (
         will-change: color, background-color, box-shadow, transform;
     }
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
         transform: translate3d(0, 0.01rem, 0);
         color: $color--hovered;
         background-color: $background-color--hovered;
+    }
+    &:hover {
         box-shadow: var(--button-shadow-hovered);
     }
 
@@ -179,10 +183,13 @@ $clickable-normal-state-transitions: (
         will-change: color, background-color, box-shadow, transform;
     }
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
         transform: translate3d(0, 0.01rem, 0);
         color: $color--hovered;
         background-color: $background-color--hovered;
+    }
+    &:hover {
         box-shadow: var(--button-shadow-hovered);
     }
 
@@ -223,10 +230,13 @@ $clickable-normal-state-transitions: (
         will-change: color, background-color, box-shadow, transform;
     }
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
         transform: translate3d(0, -0.04rem, 0);
         color: $color--hovered;
         background-color: $background-color--hovered;
+    }
+    &:hover {
         box-shadow: var(--button-shadow-hovered);
     }
 
@@ -253,7 +263,8 @@ $clickable-normal-state-transitions: (
     // NOTE: you may need to specify "position: absolute" and align the position where you use this mixin
     @include is-flat-clickable(
         $background-color: rgb(var(--contrast-900)),
-        $background-color--hovered: rgb(var(--contrast-1100))
+        $color--hovered: rgb(var(--color-white)),
+        $background-color--hovered: rgb(var(--color-red-default))
     );
 
     cursor: pointer;
