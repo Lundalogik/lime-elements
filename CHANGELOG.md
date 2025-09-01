@@ -1,3 +1,11 @@
+## [38.22.2](https://github.com/Lundalogik/lime-elements/compare/v38.22.1...v38.22.2) (2025-09-01)
+
+
+### Bug Fixes
+
+
+* **chip-set:** use default font size for input ([513077e](https://github.com/Lundalogik/lime-elements/commit/513077e4bfc08a0473f6ba20e756c4d83093a308))
+
 ## [38.22.1](https://github.com/Lundalogik/lime-elements/compare/v38.22.0...v38.22.1) (2025-09-01)
 
 
