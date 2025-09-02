@@ -254,7 +254,10 @@ export class Slider {
                 value={this.multiplyByFactor(this.value)}
                 name="volume"
                 aria-labelledby={this.labelId}
-                aria-controls={this.helperTextId}
+                aria-describedby={
+                    this.helperText ? this.helperTextId : undefined
+                }
+                aria-controls={this.helperText ? this.helperTextId : undefined}
                 {...inputProps}
             />
         );
