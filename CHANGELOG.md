@@ -1,3 +1,16 @@
+## [38.23.0](https://github.com/Lundalogik/lime-elements/compare/v38.22.2...v38.23.0) (2025-09-02)
+
+
+### Features
+
+
+* **icon-button:** enable adding `color`, `backgroundColor`, or `title` to the icon ([86ea0ab](https://github.com/Lundalogik/lime-elements/commit/86ea0abbc15731f027133fe5f64c5dca6bc8e15a))
+
+### Bug Fixes
+
+
+* **icon-button:** better visualize an icon with a background color ([e354a2b](https://github.com/Lundalogik/lime-elements/commit/e354a2b4b509e07cb28a39d338277200162d0653))
+
 ## [38.22.2](https://github.com/Lundalogik/lime-elements/compare/v38.22.1...v38.22.2) (2025-09-01)
 
 
