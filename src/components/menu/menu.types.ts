@@ -67,6 +67,11 @@ export interface MenuItem<T = any> {
     text: string;
 
     /**
+     * A value to uniquely identify each item.
+     */
+    identifier?: string;
+
+    /**
      * Additional supporting text to display in the menu item.
      */
     secondaryText?: string;
