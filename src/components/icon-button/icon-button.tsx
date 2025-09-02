@@ -4,12 +4,15 @@ import {
     removeEnterClickable,
 } from '../../util/make-enter-clickable';
 import { createRandomString } from '../../util/random-string';
+import { Icon } from '../../global/shared-types/icon.types';
+import { getIconName, getIconTitle } from '../icon/get-icon-props';
 
 /**
  * @exampleComponent limel-example-icon-button-basic
  * @exampleComponent limel-example-icon-button-disabled
  * @exampleComponent limel-example-icon-button-elevated
  * @exampleComponent limel-example-icon-button-toggle-state
+ * @exampleComponent limel-example-icon-button-icon
  * @exampleComponent limel-example-icon-button-composite
  */
 @Component({
@@ -21,8 +24,8 @@ export class IconButton {
     /**
      * The icon to display.
      */
-    @Prop({ reflect: true })
-    public icon: string;
+    @Prop()
+    public icon: string | Icon;
 
     /**
      * Set to `true` to give the button our standard "elevated" look, lifting
@@ -85,12 +88,32 @@ export class IconButton {
                     id={this.tooltipId}
                     {...buttonAttributes}
                 >
-                    <limel-icon name={this.icon} badge={true} />
+                    {this.renderIcon()}
                     {this.renderTooltip(this.tooltipId)}
                 </button>
             </Host>
         );
     }
+
+    private renderIcon() {
+        const icon = getIconName(this.icon);
+        const title = getIconTitle(this.icon);
+
+        return (
+            <limel-icon
+                name={icon}
+                aria-label={title}
+                aria-hidden={title ? null : 'true'}
+                style={{
+                    color: `${(this.icon as Icon)?.color}`,
+                    '--icon-background-color': `${
+                        (this.icon as Icon)?.backgroundColor
+                    }`,
+                }}
+            />
+        );
+    }
+
     private renderTooltip(tooltipId) {
         if (this.label) {
             return <limel-tooltip elementId={tooltipId} label={this.label} />;

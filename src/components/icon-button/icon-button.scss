@@ -1,9 +1,5 @@
 @use '../../style/mixins';
 
-/**
- * @prop --icon-background-color: Background color of the button.
- */
-
 :host([hidden]) {
     display: none;
 }
