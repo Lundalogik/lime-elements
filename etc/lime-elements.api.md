@@ -477,7 +477,7 @@ export namespace Components {
     export interface LimelIconButton {
         "disabled": boolean;
         "elevated": boolean;
-        "icon": string;
+        "icon": string | Icon;
         "label": string;
     }
     export interface LimelInfoTile {
@@ -1590,7 +1590,7 @@ export namespace JSX {
     export interface LimelIconButton {
         "disabled"?: boolean;
         "elevated"?: boolean;
-        "icon"?: string;
+        "icon"?: string | Icon;
         "label"?: string;
     }
     export interface LimelInfoTile {
