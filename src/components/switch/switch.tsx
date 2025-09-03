@@ -145,7 +145,9 @@ export class Switch {
             return [
                 <limel-dynamic-label
                     value={this.value}
-                    aria-controls={this.helperTextId}
+                    aria-controls={
+                        this.helperText ? this.helperTextId : undefined
+                    }
                     defaultLabel={{ text: this.label, icon: icon }}
                     labels={this.readonlyLabels}
                 />,
@@ -166,7 +168,7 @@ export class Switch {
                 aria-checked={this.value}
                 disabled={this.disabled}
                 onClick={this.handleClick}
-                aria-controls={this.helperTextId}
+                aria-controls={this.helperText ? this.helperTextId : undefined}
             >
                 <div class="mdc-switch__track" />
                 <div class="mdc-switch__handle-track">
