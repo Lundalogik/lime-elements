@@ -1,4 +1,4 @@
-import { ListItem } from '../../list/list-item.types';
+import { ListItem } from '../../list-item/list-item.types';
 
 export const AUTHORS: Array<ListItem<{ id: string; limetype: string }>> = [
     {

@@ -1,14 +1,13 @@
 // This is used in limel-picker only for now
 
 :host(.static-actions-list) {
-    z-index: $list-static-actions-list;
+    z-index: 1;
     background-color: var(--limel-theme-surface-background-color);
 }
 
 :host(.has-position-sticky) {
     position: sticky;
-    box-shadow: 0 0 functions.pxToRem(12) functions.pxToRem(8)
-        var(--limel-theme-surface-background-color);
+    box-shadow: 0 0 0.75rem 0.5rem var(--limel-theme-surface-background-color);
 }
 
 :host(.has-position-sticky.is-on-top) {
@@ -21,12 +20,12 @@
 
 :host(.is-on-top) {
     border-bottom: 1px solid rgb(var(--contrast-400));
-    margin-bottom: functions.pxToRem(8);
-    padding-bottom: functions.pxToRem(4);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
 }
 
 :host(.is-at-bottom) {
     border-top: 1px solid rgb(var(--contrast-400));
-    margin-top: functions.pxToRem(8);
-    padding-top: functions.pxToRem(4);
+    margin-top: 0.5rem;
+    padding-top: 0.25rem;
 }

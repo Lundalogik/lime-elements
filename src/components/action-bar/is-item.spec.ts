@@ -1,4 +1,4 @@
-import { ListSeparator } from '../list/list-item.types';
+import { ListSeparator } from '../list-item/list-item.types';
 import { ActionBarItem } from './action-bar.types';
 import { isItem } from './is-item';
 
