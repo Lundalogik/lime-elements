@@ -267,7 +267,9 @@ export class TextEditor implements FormComponent<string> {
                 <limel-markdown
                     slot="content"
                     value={this.value}
-                    aria-controls={this.helperTextId}
+                    aria-controls={
+                        this.helperText ? this.helperTextId : undefined
+                    }
                     id={this.editorId}
                 />
             );
@@ -284,7 +286,7 @@ export class TextEditor implements FormComponent<string> {
                 onMetadataChange={this.handleMetadataChange}
                 customElements={this.customElements}
                 value={this.value}
-                aria-controls={this.helperTextId}
+                aria-controls={this.helperText ? this.helperTextId : undefined}
                 id={this.editorId}
                 aria-disabled={this.disabled}
                 aria-invalid={this.invalid}
