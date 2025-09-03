@@ -54,4 +54,9 @@ export default {
     'ai-avatar.thinking': 'en réflexion',
     'table.select-all': 'Sélectionner toutes les lignes',
     'table.select-row': 'Sélectionner cette ligne',
+    'profile-picture.remove': 'Supprimer l’image sélectionnée',
+    'profile-picture.unsupported-preview.title':
+        "Format d'image non pris en charge",
+    'profile-picture.unsupported-preview.description':
+        "Nous ne pouvons pas afficher l'image sélectionnée dans ce navigateur. Veuillez sélectionner un autre fichier image.",
 };
