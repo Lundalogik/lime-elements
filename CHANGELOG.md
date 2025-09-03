@@ -1,3 +1,14 @@
+## [38.23.1](https://github.com/Lundalogik/lime-elements/compare/v38.23.0...v38.23.1) (2025-09-03)
+
+
+### Bug Fixes
+
+
+* **checkbox:** ensure `aria-controls` references an existing element ([a50ba48](https://github.com/Lundalogik/lime-elements/commit/a50ba48f748f598a1c36055eff6e6c6454546cd3))
+* **slider:** add accessible description context ([f526f12](https://github.com/Lundalogik/lime-elements/commit/f526f128aa4cb6cde28bc0cdf78b7ae6a90f0ef8))
+* **switch:** ensure `aria-controls` references an existing element ([dfff196](https://github.com/Lundalogik/lime-elements/commit/dfff196541fc4515e064de26f946fcaf1042131d))
+* **text-editor:** ensure `aria-controls` references an existing element ([229698f](https://github.com/Lundalogik/lime-elements/commit/229698f0fdee7a12cb58afa03ef365d81e3a2877))
+
 ## [38.23.0](https://github.com/Lundalogik/lime-elements/compare/v38.22.2...v38.23.0) (2025-09-02)
 
 
