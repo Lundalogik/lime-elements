@@ -451,6 +451,15 @@ $clickable-normal-state-transitions: (
     -webkit-line-clamp: $max-lines;
 }
 
+/**
+* This mixin will add a chessboard background pattern,
+* typically used to visualize transparency.
+*/
+@mixin add-chessboard-background {
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%208%208%27%20style%3D%27fill-rule%3Aevenodd%3B%27%3E%3Cpath%20fill%3D%27rgba(186%2C186%2C192%2C0.16)%27%20d%3D%27M0%200h4v4H0zM4%204h4v4H4z%27%2F%3E%3C%2Fsvg%3E');
+    background-size: 0.5rem;
+}
+
 // Hide element visually while keeping it accessible to assistive technologies
 // See: https://www.a11yproject.com/posts/2013-01-11-how-to-hide-content/
 // See: https://hugogiraudel.com/2016/10/13/css-hide-and-seek/
