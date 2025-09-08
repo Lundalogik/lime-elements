@@ -10,7 +10,7 @@ import { visit } from 'unist-util-visit';
 import { sanitizeStyle } from './sanitize-style';
 import { Node } from 'unist';
 import { Schema } from 'rehype-sanitize/lib';
-import { createLazyLoadImagesPlugin } from './image-markdown-plugin';
+import { createLazyLoadImagesPlugin } from '../../util/lazy-load-images';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 import { createLinksPlugin } from './link-markdown-plugin';
 

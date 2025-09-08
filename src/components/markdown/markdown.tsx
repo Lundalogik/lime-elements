@@ -2,7 +2,7 @@ import { Component, h, Prop, Watch } from '@stencil/core';
 import { markdownToHTML } from './markdown-parser';
 import { globalConfig } from '../../global/config';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
-import { ImageIntersectionObserver } from './image-intersection-observer';
+import { observeLazyImages } from '../../util/lazy-load-images';
 
 /**
  * The Markdown component receives markdown syntax
@@ -58,7 +58,7 @@ export class Markdown {
     @Watch('value')
     public async textChanged() {
         try {
-            this.cleanupImageIntersectionObserver();
+            this.resetObserverFlag();
 
             const html = await markdownToHTML(this.value, {
                 forceHardLineBreaks: true,
@@ -68,22 +68,20 @@ export class Markdown {
 
             this.rootElement.innerHTML = html;
 
-            this.setupImageIntersectionObserver();
+            this.applyLazyObserver();
         } catch (error) {
             console.error(error);
         }
     }
 
     private rootElement: HTMLDivElement;
-    private imageIntersectionObserver: ImageIntersectionObserver | null = null;
+    private hasAppliedObserver: boolean = false;
 
     public async componentDidLoad() {
         this.textChanged();
     }
 
-    public disconnectedCallback() {
-        this.cleanupImageIntersectionObserver();
-    }
+    public disconnectedCallback() {}
 
     public render() {
         return [
@@ -94,18 +92,15 @@ export class Markdown {
         ];
     }
 
-    private setupImageIntersectionObserver() {
-        if (this.lazyLoadImages) {
-            this.imageIntersectionObserver = new ImageIntersectionObserver(
-                this.rootElement
-            );
+    private applyLazyObserver() {
+        if (!this.lazyLoadImages || this.hasAppliedObserver) {
+            return;
         }
+        observeLazyImages(this.rootElement.shadowRoot || this.rootElement);
+        this.hasAppliedObserver = true;
     }
 
-    private cleanupImageIntersectionObserver() {
-        if (this.imageIntersectionObserver) {
-            this.imageIntersectionObserver.disconnect();
-            this.imageIntersectionObserver = null;
-        }
+    private resetObserverFlag() {
+        this.hasAppliedObserver = false;
     }
 }
