@@ -1,36 +1,18 @@
+@use '../../../style/mixins';
+
 :host {
     --example-controls-max-columns-width: 100%;
 }
 
 .avatar-container {
+    @include mixins.is-resizable(
+        $direction: horizontal,
+
+        $min-width: 3rem,
+        $height: auto,
+        $min-height: 2rem
+    );
     transition: background-color 0.3s ease;
-
-    display: block;
-    position: relative;
-    resize: horizontal;
-    overflow: auto;
-
-    box-sizing: border-box;
-
-    min-width: 3rem;
-    max-width: 100%;
-
-    min-height: 2rem;
-    height: auto;
-    max-height: 20rem;
-
-    padding: 1rem 0.25rem 3rem 0.25rem;
-    border: 0.125rem dashed rgb(var(--contrast-500));
-
-    border-radius: 0.5rem;
-
-    &:after {
-        content: 'Resize me ⤵';
-        font-size: 0.75rem;
-        position: absolute;
-        right: 0.25rem;
-        bottom: 0.25rem;
-    }
 }
 
 limel-ai-avatar {

@@ -1,18 +1,13 @@
+@use '../../../style/mixins';
+
 div {
-    resize: both;
-    overflow: auto;
-
-    box-sizing: border-box;
-    position: relative;
-
-    min-width: 8rem;
-    width: 12rem;
-    max-width: 40rem;
-
-    min-height: 8rem;
-    height: 12rem;
-    max-height: 40rem;
-
-    padding: 1rem;
-    border: 0.125rem dashed rgb(var(--contrast-500));
+    @include mixins.is-resizable(
+        $direction: both,
+        $width: 12rem,
+        $min-width: 8rem,
+        $max-width: 40rem,
+        $height: 12rem,
+        $min-height: 8rem,
+        $max-height: 40rem
+    );
 }
