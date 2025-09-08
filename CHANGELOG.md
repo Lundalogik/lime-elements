@@ -1,3 +1,11 @@
+## [38.23.3](https://github.com/Lundalogik/lime-elements/compare/v38.23.2...v38.23.3) (2025-09-08)
+
+
+### Bug Fixes
+
+
+* **card:** skip image rendering when no src provided ([03c2c11](https://github.com/Lundalogik/lime-elements/commit/03c2c11036311c591d7fa314404b57377c6b55a1))
+
 ## [38.23.2](https://github.com/Lundalogik/lime-elements/compare/v38.23.1...v38.23.2) (2025-09-08)
 
 
