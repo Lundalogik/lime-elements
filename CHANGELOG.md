@@ -1,3 +1,12 @@
+## [38.23.2](https://github.com/Lundalogik/lime-elements/compare/v38.23.1...v38.23.2) (2025-09-08)
+
+
+### Bug Fixes
+
+
+* **chip:** ensure chessboard background effect is cross-browser reliable ([f5d8d90](https://github.com/Lundalogik/lime-elements/commit/f5d8d9048c7ff0be0b4a284e35a85da24a8b7ac1))
+* **color-picker:** ensure chessboard background effect is cross-browser reliable ([c105009](https://github.com/Lundalogik/lime-elements/commit/c1050090fd8c9cf8545248b2fecec25c91ac6ed8))
+
 ## [38.23.1](https://github.com/Lundalogik/lime-elements/compare/v38.23.0...v38.23.1) (2025-09-03)
 
 
