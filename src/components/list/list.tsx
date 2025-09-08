@@ -14,6 +14,7 @@ import {
     Watch,
 } from '@stencil/core';
 import { ListRenderer } from './list-renderer';
+import { observeLazyImages } from '../../util/lazy-load-images';
 import { ListRendererConfig } from './list-renderer-config';
 
 const { ACTION_EVENT } = listStrings;
@@ -135,6 +136,11 @@ export class List {
             <Host
                 style={{
                     '--maxLinesSecondaryText': `${maxLinesSecondaryText}`,
+                }}
+                ref={(el) => {
+                    if (el) {
+                        observeLazyImages(el.shadowRoot || el);
+                    }
                 }}
             >
                 {html}
