@@ -7,6 +7,7 @@ import {
     Event,
     EventEmitter,
     Watch,
+    Host,
 } from '@stencil/core';
 import { Languages } from '../date-picker/date.types';
 import { ListItem } from '../list/list-item.types';
@@ -15,6 +16,7 @@ import { detectExtension } from './extension-mapping';
 import { Fullscreen } from './fullscreen';
 import { FileType, OfficeViewer } from './file-viewer.types';
 import { LimelMenuCustomEvent } from '../../components';
+import { observeLazyImages } from '../../util/lazy-load-images';
 
 /**
  * This is a smart component that automatically detects
@@ -169,7 +171,17 @@ export class FileViewer {
             return <limel-spinner size="x-small" limeBranded={false} />;
         }
 
-        return this.renderFileViewer();
+        return (
+            <Host
+                ref={(el: any) => {
+                    if (el) {
+                        observeLazyImages(el.shadowRoot || el);
+                    }
+                }}
+            >
+                {this.renderFileViewer()}
+            </Host>
+        );
     }
 
     @Watch('url')
@@ -211,7 +223,12 @@ export class FileViewer {
     private renderImage = () => {
         return [
             this.renderButtons(),
-            <img src={this.fileUrl} alt={this.alt} loading="lazy" />,
+            <img
+                src={this.fileUrl}
+                data-src={this.fileUrl}
+                alt={this.alt}
+                loading="lazy"
+            />,
         ];
     };
 

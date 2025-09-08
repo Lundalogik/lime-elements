@@ -14,6 +14,7 @@ import { getIconName } from '../icon/get-icon-props';
 import { ListSeparator } from '../../global/shared-types/separator.types';
 import { ActionBarItem } from '../action-bar/action-bar.types';
 import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
+import { observeLazyImages } from '../../util/lazy-load-images';
 
 /**
  * Card is a component that displays content about a single topic,
@@ -114,6 +115,12 @@ export class Card {
             <Host
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
+                ref={(el) => {
+                    // Apply lazy loading after first render
+                    if (el) {
+                        observeLazyImages(el.shadowRoot || el);
+                    }
+                }}
             >
                 <section tabindex={this.clickable ? 0 : ''}>
                     {this.renderImage()}
@@ -133,8 +140,14 @@ export class Card {
         if (!this.image?.src) {
             return;
         }
-
-        return <img src={this.image.src} alt={this.image.alt} loading="lazy" />;
+        return (
+            <img
+                src={this.image.src}
+                data-src={this.image.src}
+                alt={this.image.alt}
+                loading="lazy"
+            />
+        );
     }
 
     private renderHeader() {

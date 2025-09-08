@@ -270,7 +270,14 @@ export class ListRenderer {
             return;
         }
 
-        return <img src={image.src} alt={image.alt} loading="lazy" />;
+        return (
+            <img
+                src={image.src}
+                data-src={image.src}
+                alt={image.alt}
+                loading="lazy"
+            />
+        );
     }
 
     private renderDivider = () => {
