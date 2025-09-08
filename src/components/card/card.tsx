@@ -130,7 +130,7 @@ export class Card {
     }
 
     private renderImage() {
-        if (!this.image) {
+        if (!this.image?.src) {
             return;
         }
 
