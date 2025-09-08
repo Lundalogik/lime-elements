@@ -219,6 +219,7 @@ export namespace Components {
         "heading"?: string;
         "icon"?: string | Icon;
         "image"?: Image_2;
+        "lazyLoadImages": boolean;
         "orientation": 'landscape' | 'portrait';
         "subheading"?: string;
         "value"?: string;
@@ -479,6 +480,11 @@ export namespace Components {
         "elevated": boolean;
         "icon": string | Icon;
         "label": string;
+    }
+    export interface LimelImage {
+        "alt": string;
+        "lazyLoad": boolean;
+        "src": string;
     }
     export interface LimelInfoTile {
         "badge"?: number | string;
@@ -1161,6 +1167,8 @@ export namespace JSX {
         // (undocumented)
         "limel-icon-button": LimelIconButton;
         // (undocumented)
+        "limel-image": LimelImage;
+        // (undocumented)
         "limel-info-tile": LimelInfoTile;
         // (undocumented)
         "limel-input-field": LimelInputField;
@@ -1300,6 +1308,7 @@ export namespace JSX {
         "heading"?: string;
         "icon"?: string | Icon;
         "image"?: Image_2;
+        "lazyLoadImages"?: boolean;
         "onActionSelected"?: (event: LimelCardCustomEvent<ActionBarItem>) => void;
         "orientation"?: 'landscape' | 'portrait';
         "subheading"?: string;
@@ -1592,6 +1601,11 @@ export namespace JSX {
         "elevated"?: boolean;
         "icon"?: string | Icon;
         "label"?: string;
+    }
+    export interface LimelImage {
+        "alt"?: string;
+        "lazyLoad"?: boolean;
+        "src"?: string;
     }
     export interface LimelInfoTile {
         "badge"?: number | string;

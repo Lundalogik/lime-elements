@@ -1,0 +1,14 @@
+.spacer {
+    height: 150vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+    border: 1px dashed #ccc;
+
+    &::after {
+        content: 'Keep scrolling...';
+        color: #666;
+        font-style: italic;
+    }
+}

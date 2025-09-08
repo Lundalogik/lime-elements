@@ -10,20 +10,14 @@ import { Plugin, Transformer } from 'unified';
  */
 export function createLazyLoadImagesPlugin(lazyLoadImages = false): Plugin {
     return (): Transformer => {
-        if (!lazyLoadImages) {
-            return (tree: Node) => tree;
-        }
-
         return (tree: Node) => {
             visit(tree, 'element', (node: any) => {
                 if (node.tagName === 'img') {
-                    node.properties = node.properties || {};
-                    node.properties.loading = 'lazy';
-
-                    if (node.properties.src) {
-                        node.properties['data-src'] = node.properties.src;
-                        node.properties.src = undefined;
-                    }
+                    node.properties = {
+                        ...node.properties,
+                        'lazy-load': lazyLoadImages,
+                    };
+                    node.tagName = 'limel-image';
                 }
             });
 
