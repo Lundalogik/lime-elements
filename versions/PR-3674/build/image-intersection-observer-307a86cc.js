@@ -1,0 +1,2 @@
+class s{constructor(s){this.handleIntersection=s=>{for(const t of s){if(t.isIntersecting){const s=t.target;const o=s.dataset.src;if(o){s.setAttribute("src",o);delete s.dataset.src}this.observer.unobserve(s)}}};this.observer=new IntersectionObserver(this.handleIntersection);const t=s.shadowRoot.querySelectorAll("img");for(const s of t){this.observer.observe(s)}}disconnect(){this.observer.disconnect()}}export{s as I};
+//# sourceMappingURL=image-intersection-observer-307a86cc.js.map
