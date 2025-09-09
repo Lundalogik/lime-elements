@@ -1,7 +1,7 @@
 import { Action } from '../collapsible-section/action';
 import { ActionPosition, ActionScrollBehavior } from '../picker/actions.types';
 import { Chip } from '../chip-set/chip.types';
-import { ListItem } from '../list/list-item.types';
+import { ListItem } from '../list-item/list-item.types';
 import { Searcher } from '../picker/searcher.types';
 import {
     Component,

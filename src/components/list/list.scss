@@ -1,12 +1,6 @@
-@use '../../style/functions';
 @use '../../style/mixins';
 
-@use '@material/list';
-
-$list-border-radius: 0.375rem; // 6px
-$list--has-interactive-items--mdc-list-item--hover: 1;
-$list-static-actions-list: 1;
-$list-mdc-list-item: 0;
+$list-border-radius: 0.5rem;
 
 /**
  * @prop --icon-background-color: Color to use for icon background when `badgeIcons=true`.
@@ -29,39 +23,7 @@ $list-mdc-list-item: 0;
     display: none;
 }
 
-@include list.deprecated-core-styles;
-
-.mdc-deprecated-list,
-.mdc-deprecated-list-item__secondary-text {
-    // As long as this component is depended on MDC,
-    // we need to force it to be font-agnostic.
-    // When MDC-dependency is removed, this block can also be removed.
-    // However, on removal of MDC-dependency, we should also make sure to check
-    // other font-related styles that might be set by MDC,
-    // such as `letter-spacing` or `font-size`.
-    font-family: inherit;
-    color: var(--limel-theme-text-primary-on-background-color);
-}
-
-.mdc-deprecated-list-item__text,
-.mdc-deprecated-list-item__primary-text {
-    font-size: var(--limel-theme-default-font-size);
-}
-
-.mdc-deprecated-list-item__secondary-text {
-    opacity: 0.6;
-    font-size: var(--limel-theme-default-small-font-size); //13px
-}
-
-.mdc-deprecated-list-item--disabled {
-    .mdc-deprecated-list-item__text,
-    .mdc-deprecated-list-item__primary-text,
-    .mdc-deprecated-list-item__secondary-text {
-        color: var(--limel-theme-text-disabled-on-background-color);
-    }
-}
-
-.mdc-deprecated-list {
+ul {
     --mdc-theme-text-icon-on-background: var(
         --icon-color,
         rgb(var(--contrast-900))
@@ -70,249 +32,35 @@ $list-mdc-list-item: 0;
         --list-margin,
         0.25rem
     ); // added space to visualize keyboard-focused items
-    padding: 0;
     border-radius: $list-border-radius;
-
-    .mdc-deprecated-list-divider {
-        border-bottom-color: transparent;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        height: auto;
-        padding: 0 0.5rem;
-    }
-
-    .limel-list-divider-line {
-        background-color: rgb(var(--contrast-400));
-        height: 0.125rem;
-        border-radius: 1rem;
-        min-width: 1rem;
-        flex-grow: 1;
-    }
-
-    .limel-list-divider-title {
-        all: unset;
-        @include mixins.truncate-text;
-        color: rgb(var(--contrast-900));
-        font-size: var(--limel-theme-default-small-font-size); // 13px
-    }
-
-    .mdc-deprecated-list-item {
-        gap: 0.5rem;
-        transition: background-color 0.2s ease;
-        box-sizing: border-box;
-        z-index: $list-mdc-list-item; // in Chrome on Windows, menus flicker when they have a scroll bar and user hovers on them. We may be able to remove this in future versions of Chrome. Kia 2021-May-12
-        min-height: 2.5rem;
-
-        &:not(.mdc-deprecated-list-item--disabled) {
-            &:hover {
-                background-color: rgb(var(--contrast-300));
-                z-index: 1;
-            }
-        }
-
-        &.mdc-deprecated-list-item--disabled {
-            cursor: not-allowed;
-
-            limel-icon {
-                opacity: 0.38; // similar to `mdc-deprecated-list-item__text` when disabled
-            }
-        }
-
-        &:first-child {
-            border-top-left-radius: $list-border-radius;
-            border-top-right-radius: $list-border-radius;
-        }
-        &:last-child {
-            border-bottom-right-radius: $list-border-radius;
-            border-bottom-left-radius: $list-border-radius;
-        }
-    }
-
-    &.selectable
-        .mdc-deprecated-list-item:not(.mdc-deprecated-list-item--disabled) {
-        cursor: pointer;
-    }
-
-    .mdc-deprecated-list-item__meta {
-        // the action menu on the right side a list item
-        line-height: 100%;
-        margin-right: -0.5rem;
-        order: var(--limel-list-meta-order, 3);
-
-        &:has(.checkbox) {
-            margin-right: 0.5rem;
-        }
-    }
-
-    .mdc-deprecated-list-item__graphic {
-        margin-right: 0;
-    }
-
-    &.mdc-deprecated-list--avatar-list {
-        position: relative;
-
-        limel-icon.mdc-deprecated-list-item__graphic {
-            background-color: var(
-                --icon-background-color,
-                rgb(var(--contrast-900))
-            );
-            color: var(--icon-color, rgba(var(--color-white), 0.88));
-            margin-left: functions.pxToRem(-4);
-        }
-
-        hr.mdc-deprecated-list-divider {
-            position: absolute;
-            bottom: 0;
-
-            &.mdc-deprecated-list-divider--inset {
-                --icon-width: #{functions.pxToRem(40)};
-                --icon-right-padding: #{functions.pxToRem(12)};
-                --list-right-padding: #{functions.pxToRem(12)};
-                right: 0;
-                width: calc(
-                    100% - var(--icon-width) - var(--icon-right-padding) - var(
-                            --list-right-padding
-                        )
-                );
-
-                &.x-small {
-                    --icon-width: #{functions.pxToRem(24)};
-                }
-
-                &.small {
-                    --icon-width: #{functions.pxToRem(32)};
-                }
-
-                &.medium {
-                    --icon-width: #{functions.pxToRem(40)};
-                }
-
-                &.large {
-                    --icon-width: #{functions.pxToRem(48)};
-                }
-            }
-        }
-
-        .mdc-deprecated-list-item:last-child hr.mdc-deprecated-list-divider {
-            display: none;
-        }
-    }
-
-    &.mdc-deprecated-list--two-line {
-        .mdc-deprecated-list-item__text {
-            padding-top: functions.pxToRem(8);
-            padding-bottom: functions.pxToRem(8);
-        }
-    }
-
-    .mdc-deprecated-list-item__secondary-text,
-    .mdc-deprecated-list-item__primary-text,
-    .mdc-deprecated-list-item__command-text {
-        margin: 0;
-        &:before,
-        &:after {
-            display: none;
-        }
-    }
-
-    .mdc-deprecated-list-item__command-text {
-        color: rgb(var(--contrast-800));
-        margin-left: 0.7rem;
-    }
-
-    .mdc-deprecated-list-item__text {
-        align-self: center;
-        width: 100%;
-    }
-
-    .mdc-deprecated-list-item__primary-command-text {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: baseline;
-    }
-
-    // Tweaks to display the icon correctly in Edge
-    limel-icon.mdc-deprecated-list-item__graphic {
-        display: block;
-    }
+    padding: 0;
+    list-style: none;
 }
 
-.mdc-deprecated-list:not(.mdc-deprecated-list--avatar-list) {
-    limel-icon.mdc-deprecated-list-item__graphic {
-        // Tweaks to make icon lists align nicely with badge-icon lists.
-        &[size='x-small'] {
-            margin-right: 0;
-        }
-        &[size='small'] {
-            margin-right: 0;
-        }
-        &[size='medium'] {
-            margin-right: 0.25rem;
-        }
-        &[size='large'] {
-            margin-right: 0.5rem;
-        }
-    }
+.mdc-deprecated-list-divider {
+    border-bottom-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    height: auto;
+    padding: 0 0.5rem;
 }
 
-.mdc-deprecated-list-item.mdc-deprecated-list-item--selected {
-    &:before {
-        background-color: var(
-            --lime-primary-color,
-            var(--limel-theme-primary-color)
-        );
-        opacity: 0.15;
-    }
+.limel-list-divider-line {
+    background-color: rgb(var(--contrast-400));
+    height: 0.125rem;
+    border-radius: 1rem;
+    min-width: 1rem;
+    flex-grow: 1;
 }
 
-:not(.mdc-deprecated-list--non-interactive) {
-    > {
-        :not(.mdc-deprecated-list-item--disabled).mdc-deprecated-list-item {
-            @include mixins.visualize-keyboard-focus;
-
-            &:focus-visible {
-                border-radius: $list-border-radius;
-                z-index: $list--has-interactive-items--mdc-list-item--hover;
-            }
-        }
-    }
+.limel-list-divider-title {
+    all: unset;
+    @include mixins.truncate-text;
+    color: rgb(var(--contrast-900));
+    font-size: var(--limel-theme-default-small-font-size);
 }
-
-img {
-    flex-shrink: 0;
-    object-fit: cover;
-
-    border-radius: 50%;
-    width: 2rem;
-    height: 2rem;
-    box-shadow: 0 0 0 1px rgb(var(--contrast-800), 0.5);
-}
-
-.mdc-deprecated-list-item {
-    &:has(img) {
-        limel-icon {
-            position: absolute;
-            top: 0.125rem;
-            left: 0.125rem;
-            padding: 0.1875rem; // 3px
-            background-color: rgb(var(--contrast-200), 0.8);
-
-            &[badge] {
-                top: 0;
-                padding: 0;
-                scale: 0.6;
-            }
-        }
-    }
-}
-
-@import '../checkbox/checkbox.scss';
-
-@import '../radio-button-group/radio-button.scss';
 
 @import './partial-styles/custom-styles.scss';
-@import './partial-styles/enable-multiline-text.scss';
 @import './partial-styles/_has-grid-layout.scss';
 @import './partial-styles/_static-actions.scss';
