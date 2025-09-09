@@ -1,2 +1,0 @@
-import{r as e,h as m}from"./index-2714248e.js";const r=class{constructor(m){e(this,m)}render(){return m("limel-image",{image:{src:"https://picsum.photos/400/300",alt:"A beautiful random image from Lorem Picsum"}})}};export{r as limel_example_image};
-//# sourceMappingURL=limel-example-image.entry.js.map
