@@ -52,4 +52,8 @@ export default {
     'ai-avatar.thinking': 'thinking',
     'table.select-all': 'Select all rows',
     'table.select-row': 'Select this row',
+    'profile-picture.remove': 'Remove selected picture',
+    'profile-picture.unsupported-preview.title': 'Unsupported image format',
+    'profile-picture.unsupported-preview.description':
+        'We cannot display the selected image in this browser. Please select a different image file.',
 };

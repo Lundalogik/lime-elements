@@ -54,4 +54,9 @@ export default {
     'ai-avatar.thinking': 'denkt',
     'table.select-all': 'Alle Zeilen auswählen',
     'table.select-row': 'Diese Zeile auswählen',
+    'profile-picture.remove': 'Ausgewähltes Bild entfernen',
+    'profile-picture.unsupported-preview.title':
+        'Nicht unterstütztes Bildformat',
+    'profile-picture.unsupported-preview.description':
+        'Wir können das ausgewählte Bild in diesem Browser nicht anzeigen. Bitte wählen Sie eine andere Bilddatei.',
 };

@@ -614,6 +614,22 @@ export namespace Components {
         "position": 'fixed' | 'absolute';
         "visible": boolean;
     }
+    // @beta
+    export interface LimelProfilePicture {
+        "accept": string;
+        "disabled": boolean;
+        "helperText"?: string;
+        "icon": string | Icon;
+        "imageFit": 'cover' | 'contain';
+        "invalid": boolean;
+        "label": string;
+        "language": Languages;
+        "loading": boolean;
+        "readonly": boolean;
+        "required": boolean;
+        "resize"?: ResizeOptions;
+        "value"?: string | FileInfo;
+    }
     // (undocumented)
     export interface LimelProgressFlow {
         "disabled": boolean;
@@ -1186,6 +1202,10 @@ export namespace JSX {
         "limel-popover-surface": LimelPopoverSurface;
         // (undocumented)
         "limel-portal": LimelPortal;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-profile-picture"" is marked as @public, but its signature references "JSX" which is marked as @beta
+        //
+        // (undocumented)
+        "limel-profile-picture": LimelProfilePicture;
         // (undocumented)
         "limel-progress-flow": LimelProgressFlow;
         // (undocumented)
@@ -1740,6 +1760,24 @@ export namespace JSX {
         "position"?: 'fixed' | 'absolute';
         "visible"?: boolean;
     }
+    // @beta
+    export interface LimelProfilePicture {
+        "accept"?: string;
+        "disabled"?: boolean;
+        "helperText"?: string;
+        "icon"?: string | Icon;
+        "imageFit"?: 'cover' | 'contain';
+        "invalid"?: boolean;
+        "label"?: string;
+        "language"?: Languages;
+        "loading"?: boolean;
+        "onChange"?: (event: LimelProfilePictureCustomEvent<FileInfo | undefined>) => void;
+        "onFilesRejected"?: (event: LimelProfilePictureCustomEvent<FileInfo[]>) => void;
+        "readonly"?: boolean;
+        "required"?: boolean;
+        "resize"?: ResizeOptions;
+        "value"?: string | FileInfo;
+    }
     // (undocumented)
     export interface LimelProgressFlow {
         "disabled"?: boolean;
@@ -2279,6 +2317,16 @@ export interface LimelPopoverCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelPopoverElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelProfilePictureCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelProfilePictureCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelProfilePictureElement;
+}
+
 // Warning: (ae-missing-release-tag) "LimelProgressFlowCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -2522,6 +2570,22 @@ export type PickerValue = number | string | {
 
 // @public
 export type ReplaceObjectType<T, AllowedType, ElseType> = T extends any[] ? ElseType : T extends Record<string, any> ? AllowedType : ElseType;
+
+// @public
+export type ResizeFit = 'cover' | 'contain';
+
+// @public
+export function resizeImage(file: File, options: ResizeOptions): Promise<File>;
+
+// @public
+export type ResizeOptions = {
+    width: number;
+    height: number;
+    fit?: ResizeFit;
+    type?: 'image/jpeg' | 'image/png';
+    quality?: number;
+    rename?: (originalName: string) => string;
+};
 
 // @public
 export type RowData = {
