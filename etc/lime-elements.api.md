@@ -219,7 +219,6 @@ export namespace Components {
         "heading"?: string;
         "icon"?: string | Icon;
         "image"?: Image_2;
-        "lazyLoadImages": boolean;
         "orientation": 'landscape' | 'portrait';
         "subheading"?: string;
         "value"?: string;
@@ -1308,7 +1307,6 @@ export namespace JSX {
         "heading"?: string;
         "icon"?: string | Icon;
         "image"?: Image_2;
-        "lazyLoadImages"?: boolean;
         "onActionSelected"?: (event: LimelCardCustomEvent<ActionBarItem>) => void;
         "orientation"?: 'landscape' | 'portrait';
         "subheading"?: string;
