@@ -1,0 +1,92 @@
+import { Schema, MarkSpec, NodeSpec } from 'prosemirror-model';
+import { schema as basicSchema } from 'prosemirror-schema-basic';
+import { addListNodes } from 'prosemirror-schema-list';
+import { strikethrough } from '../prosemirror-adapter/menu/menu-schema-extender';
+
+const underline: MarkSpec = {
+    parseDOM: [
+        { tag: 'u' },
+        { style: 'text-decoration:underline' },
+        { style: 'text-decoration-line:underline' },
+    ],
+    toDOM: () => ['u', 0],
+};
+
+/**
+ * Creates a standardized ProseMirror schema for testing the text editor.
+ * This schema includes all the nodes and marks used in the actual text editor.
+ *
+ * @returns A ProseMirror Schema configured for testing
+ */
+export function createTestSchema(): Schema {
+    const schema = new Schema({
+        nodes: addListNodes(
+            basicSchema.spec.nodes,
+            'paragraph block*',
+            'block'
+        ),
+        marks: basicSchema.spec.marks.append({
+            strikethrough: strikethrough,
+            underline: underline,
+        }),
+    });
+
+    return schema;
+}
+
+/**
+ * Creates a custom ProseMirror schema with specified configurations.
+ * Allows for more flexibility in testing specific schema behaviors.
+ *
+ * @param options - Configuration options for the schema
+ *  - `addLists?`: Whether to include list nodes (default: true)
+ *  - `addStrikethrough?`: Whether to include strikethrough mark (default: true)
+ *  - `addUnderline?`: Whether to include underline mark (default: true)
+ *  - `customMarks?`: Custom marks to append to the schema
+ *  - `customNodes?`: Custom nodes to append to the schema
+ * @param options.addLists
+ * @param options.addStrikethrough
+ * @param options.addUnderline
+ * @param options.customMarks
+ * @param options.customNodes
+ * @returns A customized ProseMirror Schema
+ */
+export function createCustomTestSchema(options: {
+    addLists?: boolean;
+    addStrikethrough?: boolean;
+    addUnderline?: boolean;
+    customMarks?: Record<string, MarkSpec>;
+    customNodes?: Record<string, NodeSpec>;
+}): Schema {
+    let nodes = basicSchema.spec.nodes;
+
+    if (options.addLists !== false) {
+        nodes = addListNodes(nodes, 'paragraph block*', 'block');
+    }
+
+    let marks = basicSchema.spec.marks;
+
+    if (options.addStrikethrough !== false) {
+        marks = marks.append({
+            strikethrough: strikethrough,
+        });
+    }
+
+    if (options.addUnderline !== false) {
+        marks = marks.append({
+            underline: underline,
+        });
+    }
+
+    if (options.customMarks) {
+        marks = marks.append(options.customMarks);
+    }
+
+    if (options.customNodes) {
+        for (const [name, spec] of Object.entries(options.customNodes)) {
+            nodes = nodes.addToEnd(name, spec);
+        }
+    }
+
+    return new Schema({ nodes: nodes, marks: marks });
+}
