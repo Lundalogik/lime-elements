@@ -9,10 +9,13 @@ export const getTableEditingPlugins = (tablesEnabled: boolean): Plugin[] => {
     return [];
 };
 
-const createStyleAttribute = (cssProperty: string) => ({
+export const createStyleAttribute = (cssProperty: string) => ({
     default: null,
     getFromDOM: (dom: HTMLElement) => dom.style[cssProperty] || null,
-    setDOMAttr: (value: string, attrs: Record<string, any>) => {
+    setDOMAttr: (
+        value: string | null | undefined,
+        attrs: Record<string, any>
+    ) => {
         if (value) {
             attrs.style = (attrs.style || '') + `${cssProperty}: ${value};`;
         }
