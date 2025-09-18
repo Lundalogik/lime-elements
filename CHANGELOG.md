@@ -1,3 +1,11 @@
+## [38.23.4](https://github.com/Lundalogik/lime-elements/compare/v38.23.3...v38.23.4) (2025-09-18)
+
+
+### Bug Fixes
+
+
+* **color-variables:** define missing disabled color ([9a0827e](https://github.com/Lundalogik/lime-elements/commit/9a0827e21c73138ab929786c258e973aad7a4ae4))
+
 ## [38.23.3](https://github.com/Lundalogik/lime-elements/compare/v38.23.2...v38.23.3) (2025-09-08)
 
 
