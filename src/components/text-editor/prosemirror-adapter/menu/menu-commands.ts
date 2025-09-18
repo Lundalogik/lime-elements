@@ -1,5 +1,11 @@
 import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
-import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
+import {
+    Schema,
+    MarkType,
+    NodeType,
+    Attrs,
+    ResolvedPos,
+} from 'prosemirror-model';
 import { findWrapping, liftTarget } from 'prosemirror-transform';
 import { Command, EditorState, TextSelection } from 'prosemirror-state';
 import { EditorMenuTypes, EditorTextLink, LevelMapping } from './types';
@@ -128,7 +134,7 @@ const createToggleMarkCommand = (
 const getAttributes = (
     markName: string,
     link: EditorTextLink
-): Attrs | null => {
+): Attrs | undefined => {
     if (markName === EditorMenuTypes.Link && link.href) {
         return {
             href: link.href,
@@ -141,6 +147,19 @@ const getAttributes = (
 
 export const isExternalLink = (url: string): boolean => {
     return !url.startsWith(window.location.origin);
+};
+
+const checkForActiveWrap = (
+    $from: ResolvedPos,
+    nodeType: NodeType
+): boolean => {
+    for (let d = $from.depth; d > 0; d--) {
+        if ($from.node(d).type === nodeType) {
+            return true;
+        }
+    }
+
+    return false;
 };
 
 /**
@@ -166,7 +185,7 @@ const toggleNodeType = (
     return (state, dispatch) => {
         const { $from, $to } = state.selection;
 
-        const hasActiveWrap = $from.node($from.depth - 1).type === nodeType;
+        const hasActiveWrap = checkForActiveWrap($from, nodeType);
 
         if (
             state.selection instanceof TextSelection &&
