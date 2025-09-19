@@ -1,0 +1,32 @@
+@use '../../../style/mixins';
+
+:host {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.25rem;
+}
+
+ul {
+    position: relative;
+    list-style: none;
+    padding: 1rem 1rem 2rem 1rem;
+    margin: 0;
+
+    background: url("data:image/svg+xml;charset=utf-8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' style='fill-rule:evenodd;'><path fill='rgba(186,186,192,0.16)' d='M0 0h4v4H0zM4 4h4v4H4z'/></svg>");
+    background-size: 0.5rem;
+
+    &.is-resizable {
+        overflow: hidden;
+        resize: horizontal;
+        max-width: calc(100% - 2rem);
+        min-width: 10rem;
+
+        &::after {
+            content: 'Resize me ⤵';
+            font-size: 0.75rem;
+            position: absolute;
+            right: 0.25rem;
+            bottom: 0.25rem;
+        }
+    }
+}
