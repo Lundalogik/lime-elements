@@ -121,6 +121,7 @@
 }
 
 :host {
+    position: relative;
     display: flex;
     font-size: var(--code-editor-font-size, 0.8125rem); // 13px
     @include light-mode-styles;
@@ -131,16 +132,17 @@
         @include dark-mode-styles;
     }
 }
-
-.editor {
-    display: flex;
-    align-items: stretch;
+.editor-inline-host {
     width: 100%;
+    .editor {
+        display: flex;
+        align-items: stretch;
 
-    &.readonly {
-        .CodeMirror-focused {
-            .CodeMirror-cursors {
-                visibility: visible !important;
+        &.readonly {
+            .CodeMirror-focused {
+                .CodeMirror-cursors {
+                    visibility: visible !important;
+                }
             }
         }
     }
@@ -258,5 +260,31 @@
 
     .CodeMirror-foldgutter-folded {
         opacity: 0.7;
+    }
+}
+.code-fullscreen-button {
+    position: absolute;
+    top: 0.4rem;
+    right: 0.4rem;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+.code-fullscreen-button-focus:focus,
+.code-fullscreen-button-focus:focus-visible,
+.code-fullscreen-button-focus:active {
+    opacity: 1;
+    pointer-events: auto;
+}
+:host(:focus-within) .code-fullscreen-button-focus {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+limel-dialog {
+    --code-editor-max-height: 100%;
+    .code-fullscreen-button {
+        opacity: 1;
+        pointer-events: auto;
     }
 }

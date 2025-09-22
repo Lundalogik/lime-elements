@@ -24,6 +24,7 @@ import jslint from 'jsonlint-mod';
  * @exampleComponent limel-example-code-editor
  * @exampleComponent limel-example-code-editor-readonly-with-line-numbers
  * @exampleComponent limel-example-code-editor-fold-lint
+ * @exampleComponent limel-example-code-editor-expandable
  */
 @Component({
     tag: 'limel-code-editor',
@@ -74,11 +75,38 @@ export class CodeEditor {
     public colorScheme: ColorScheme = 'auto';
 
     /**
+     * Make the editor expandable to fullscreen dialog.
+     */
+    @Prop()
+    public expandable: boolean = false;
+
+    /**
      * Emitted when the code has changed. Will only be emitted when the code
      * area has lost focus
      */
     @Event()
     public change: EventEmitter<string>;
+
+    /**
+     * Emitted when user wants to expand the editor
+     */
+    @Event()
+    public expand: EventEmitter<void>;
+
+    @State()
+    private dialogOpen: boolean = false;
+
+    private handleClickExpand = () => {
+        if (!this.expandable) {
+            return;
+        }
+        this.expand.emit();
+        this.dialogOpen = true;
+    };
+
+    private handleCloseDialog = () => {
+        this.dialogOpen = false;
+    };
 
     @Element()
     private host: HTMLLimelCodeEditorElement;
@@ -92,6 +120,7 @@ export class CodeEditor {
 
     private editor: CodeMirror.Editor;
     private observer: ResizeObserver;
+    private cmWrapper: HTMLElement;
 
     public connectedCallback() {
         this.observer = new ResizeObserver(this.handleResize) as any;
@@ -108,18 +137,37 @@ export class CodeEditor {
         this.darkMode.removeEventListener('change', this.handleChangeDarkMode);
 
         const editorElement = this.host.shadowRoot.querySelector('.editor');
-        // eslint-disable-next-line no-unsafe-optional-chaining
         for (const child of editorElement?.childNodes) {
             child.remove();
         }
     }
 
     public componentDidRender() {
-        if (this.editor) {
+        if (!this.editor) {
+            this.editor = this.createEditor();
+            this.cmWrapper = this.editor.getWrapperElement() as HTMLElement;
+        }
+        if (!this.expandable) {
             return;
         }
-
-        this.editor = this.createEditor();
+        // Re-parent the existing CodeMirror DOM into dialog or back inline
+        if (this.dialogOpen) {
+            const dialogHost = this.host.shadowRoot.querySelector(
+                '.editor-dialog-host'
+            ) as HTMLElement;
+            if (dialogHost && this.cmWrapper?.parentElement !== dialogHost) {
+                dialogHost.append(this.cmWrapper);
+                requestAnimationFrame(() => this.editor.refresh());
+            }
+        } else {
+            const inlineHost = this.host.shadowRoot.querySelector(
+                '.editor-inline-host .editor'
+            ) as HTMLElement;
+            if (inlineHost && this.cmWrapper?.parentElement !== inlineHost) {
+                inlineHost.append(this.cmWrapper);
+                requestAnimationFrame(() => this.editor.refresh());
+            }
+        }
     }
 
     @Watch('value')
@@ -245,8 +293,40 @@ export class CodeEditor {
             'is-dark-mode': this.isDarkMode(),
             'is-light-mode': !this.isDarkMode(),
         };
-
-        return <div class={classList} />;
+        return [
+            this.expandable && !this.dialogOpen && (
+                <limel-icon-button
+                    class="code-fullscreen-button code-fullscreen-button-focus"
+                    label="Expand"
+                    icon="expand"
+                    onClick={this.handleClickExpand}
+                    elevated={true}
+                    aria-label="Expand code editor"
+                />
+            ),
+            <div class="editor-inline-host">
+                <div class={classList}></div>
+            </div>,
+            this.expandable && this.dialogOpen && (
+                <limel-dialog
+                    open
+                    fullscreen={true}
+                    onClose={this.handleCloseDialog}
+                >
+                    <limel-icon-button
+                        class="code-fullscreen-button"
+                        label="Collapse"
+                        icon="collapse"
+                        aria-label="Collapse code editor"
+                        elevated={true}
+                        onClick={this.handleCloseDialog}
+                    />
+                    <div class="editor-dialog-wrapper">
+                        <div class="editor-dialog-host"></div>
+                    </div>
+                </limel-dialog>
+            ),
+        ];
     }
 
     private forceRedraw() {
