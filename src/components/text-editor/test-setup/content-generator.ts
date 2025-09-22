@@ -120,11 +120,19 @@ export function createDocWithBulletList(
  * @param schema - Optional schema to use (defaults to test schema)
  * @returns An EditorState with a heading
  */
+const MAX_HEADING_LEVEL = 6;
+
 export function createDocWithHeading(
     text: string,
     level: number = 1,
     schema?: Schema,
 ): EditorState {
+    if (level < 1 || level > MAX_HEADING_LEVEL) {
+        throw new Error(
+            `Heading level must be between 1 and ${MAX_HEADING_LEVEL}, got ${level}`,
+        );
+    }
+
     const editorSchema = schema || createTestSchema();
 
     const textNode = editorSchema.text(text);

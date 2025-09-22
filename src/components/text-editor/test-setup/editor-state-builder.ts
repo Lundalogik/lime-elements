@@ -82,6 +82,10 @@ export function setTextSelection(
  * @param content - Content string (HTML)
  * @param schema - Schema to use for parsing
  * @returns A ProseMirror document node
+ *
+ * Security note: This helper is intended ONLY for use in writing tests and test code with trusted HTML.
+ * Do NOT use this function for parsing content in production
+ * Do NOT pass untrusted HTML here without sanitizing first.
  */
 function parseContentToDoc(content: string, schema: Schema) {
     const domNode = document.createElement('div');

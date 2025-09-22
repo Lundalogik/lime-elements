@@ -11,8 +11,8 @@ import {
 } from './event-simulator';
 
 describe('Event Simulation Utilities', () => {
-    let view: EditorView;
-    let container: HTMLElement;
+    let view: EditorView | null;
+    let container: HTMLElement | null;
     let dispatchSpy: jest.Mock;
 
     beforeEach(() => {
