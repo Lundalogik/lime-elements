@@ -142,33 +142,21 @@ const openLinkMenu = (view: EditorView, href: string, text: string) => {
     view.dom.dispatchEvent(event);
 };
 
-let lastClickTime = 0;
-const DOUBLE_CLICK_DELAY = 200;
-let clickTimeout;
-
-const processClickEvent = (view: EditorView, event: MouseEvent): boolean => {
-    const now = Date.now();
-
-    if (now - lastClickTime < DOUBLE_CLICK_DELAY) {
-        clearTimeout(clickTimeout);
-        lastClickTime = now; // Reset lastClickTime to prevent single-click action
-
+const processDoubleClickEvent = (
+    view: EditorView,
+    event: MouseEvent
+): boolean => {
+    const linkData = getLinkDataAtPosition(view, event);
+    if (!linkData) {
         return false;
     }
 
-    lastClickTime = now;
-
-    clickTimeout = setTimeout(() => {
-        const linkData = getLinkDataAtPosition(view, event);
-        if (linkData) {
-            const { href, text, from, to } = linkData;
-            const transaction = view.state.tr.setSelection(
-                TextSelection.create(view.state.doc, from, to)
-            );
-            view.dispatch(transaction);
-            openLinkMenu(view, href, text);
-        }
-    }, DOUBLE_CLICK_DELAY);
+    const { href, text, from, to } = linkData;
+    const transaction = view.state.tr.setSelection(
+        TextSelection.create(view.state.doc, from, to)
+    );
+    view.dispatch(transaction);
+    openLinkMenu(view, href, text);
 
     return true;
 };
@@ -384,12 +372,13 @@ export const createLinkPlugin = (updateLinkCallback?: UpdateLinkCallback) => {
                         return processModClickEvent(view, event);
                     }
 
+                    return true;
+                },
+                dblclick: (view, event) => {
                     if (event.button !== MouseButtons.Right) {
                         // We want to ignore right-clicks
-                        return processClickEvent(view, event);
+                        return processDoubleClickEvent(view, event);
                     }
-
-                    return true;
                 },
                 click: (_view, event) => {
                     if (!(event.target instanceof HTMLElement)) {
