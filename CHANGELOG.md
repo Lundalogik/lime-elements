@@ -1,3 +1,12 @@
+## [38.23.5](https://github.com/Lundalogik/lime-elements/compare/v38.23.4...v38.23.5) (2025-09-23)
+
+
+### Bug Fixes
+
+
+* **callout:** use default font-size ([b50e195](https://github.com/Lundalogik/lime-elements/commit/b50e195ada7ef2d8609cbed4f63c9eadb8749c93))
+* **dialog:** use default font-size ([c4bf471](https://github.com/Lundalogik/lime-elements/commit/c4bf471e4f764d6e996564eb63a0185e711861be))
+
 ## [38.23.4](https://github.com/Lundalogik/lime-elements/compare/v38.23.3...v38.23.4) (2025-09-18)
 
 
