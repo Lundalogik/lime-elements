@@ -14,6 +14,7 @@
         rgb(var(--color-contrast-100))
     );
     color: var(--callout-text-color, rgb(var(--contrast-1100)));
+    font-size: var(--limel-theme-default-font-size);
 }
 :host([type='note']) {
     --limel-callout-tint-color: var(
