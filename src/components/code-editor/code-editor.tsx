@@ -7,6 +7,7 @@ import {
     EventEmitter,
     State,
     Watch,
+    Host,
 } from '@stencil/core';
 import { ColorScheme, Language } from './code-editor.types';
 import CodeMirror from 'codemirror';
@@ -19,6 +20,8 @@ import 'codemirror/addon/lint/json-lint';
 import 'codemirror/addon/fold/foldgutter';
 import 'codemirror/addon/fold/brace-fold';
 import jslint from 'jsonlint-mod';
+import translate from '../../global/translations';
+import { Languages } from '../date-picker/date.types';
 
 /**
  * @exampleComponent limel-example-code-editor
@@ -78,7 +81,14 @@ export class CodeEditor {
      * Make the editor expandable to fullscreen dialog.
      */
     @Prop()
-    public expandable: boolean = false;
+    public expandable = true;
+
+    /**
+     * Defines the language for translations.
+     * Will translate the translatable strings on the components.
+     */
+    @Prop({ reflect: true })
+    public translationLanguage: Languages = 'en';
 
     /**
      * Emitted when the code has changed. Will only be emitted when the code
@@ -94,18 +104,18 @@ export class CodeEditor {
     public expand: EventEmitter<void>;
 
     @State()
-    private dialogOpen: boolean = false;
+    private openFullscreenMode: boolean = false;
 
-    private handleClickExpand = () => {
+    private handleExpandClick = () => {
         if (!this.expandable) {
             return;
         }
         this.expand.emit();
-        this.dialogOpen = true;
+        this.openFullscreenMode = true;
     };
 
-    private handleCloseDialog = () => {
-        this.dialogOpen = false;
+    private closeFullscreenMode = () => {
+        this.openFullscreenMode = false;
     };
 
     @Element()
@@ -151,7 +161,7 @@ export class CodeEditor {
             return;
         }
         // Re-parent the existing CodeMirror DOM into dialog or back inline
-        if (this.dialogOpen) {
+        if (this.openFullscreenMode) {
             const dialogHost = this.host.shadowRoot.querySelector(
                 '.editor-dialog-host'
             ) as HTMLElement;
@@ -293,40 +303,51 @@ export class CodeEditor {
             'is-dark-mode': this.isDarkMode(),
             'is-light-mode': !this.isDarkMode(),
         };
-        return [
-            this.expandable && !this.dialogOpen && (
-                <limel-icon-button
-                    class="code-fullscreen-button code-fullscreen-button-focus"
-                    label="Expand"
-                    icon="expand"
-                    onClick={this.handleClickExpand}
-                    elevated={true}
-                    aria-label="Expand code editor"
-                />
-            ),
-            <div class="editor-inline-host">
-                <div class={classList}></div>
-            </div>,
-            this.expandable && this.dialogOpen && (
-                <limel-dialog
-                    open
-                    fullscreen={true}
-                    onClose={this.handleCloseDialog}
-                >
+
+        const expandLabel = translate.get(
+            'file-viewer.open-in-fullscreen',
+            this.translationLanguage
+        );
+        const collapseLabel = translate.get(
+            'file-viewer.exit-fullscreen',
+            this.translationLanguage
+        );
+        return (
+            <Host>
+                {this.expandable && !this.openFullscreenMode && (
                     <limel-icon-button
-                        class="code-fullscreen-button"
-                        label="Collapse"
-                        icon="collapse"
-                        aria-label="Collapse code editor"
+                        class="code-fullscreen-button code-fullscreen-button-focus"
+                        label={expandLabel}
+                        icon="expand"
+                        onClick={this.handleExpandClick}
                         elevated={true}
-                        onClick={this.handleCloseDialog}
+                        aria-label="Expand code editor"
                     />
-                    <div class="editor-dialog-wrapper">
-                        <div class="editor-dialog-host"></div>
-                    </div>
-                </limel-dialog>
-            ),
-        ];
+                )}
+                <div class="editor-inline-host">
+                    <div class={classList}></div>
+                </div>
+                {this.expandable && this.openFullscreenMode && (
+                    <limel-dialog
+                        open
+                        fullscreen={true}
+                        onClose={this.closeFullscreenMode}
+                    >
+                        <limel-icon-button
+                            class="code-fullscreen-button"
+                            label={collapseLabel}
+                            icon="collapse"
+                            aria-label="Collapse code editor"
+                            elevated={true}
+                            onClick={this.closeFullscreenMode}
+                        />
+                        <div class="editor-dialog-wrapper">
+                            <div class="editor-dialog-host"></div>
+                        </div>
+                    </limel-dialog>
+                )}
+            </Host>
+        );
     }
 
     private forceRedraw() {
