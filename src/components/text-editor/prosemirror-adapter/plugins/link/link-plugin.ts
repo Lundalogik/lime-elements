@@ -123,7 +123,13 @@ const getLinkDataAtPosition = (view: EditorView, event: MouseEvent) => {
 };
 
 const processModClickEvent = (view: EditorView, event: MouseEvent): boolean => {
-    const { href } = getLinkDataAtPosition(view, event);
+    const linkData = getLinkDataAtPosition(view, event);
+    if (!linkData.href) {
+        return false;
+    }
+    event.preventDefault();
+
+    const { href } = linkData;
     if (href) {
         window.open(href, '_blank');
 
