@@ -131,7 +131,7 @@ const processModClickEvent = (view: EditorView, event: MouseEvent): boolean => {
 
     const { href } = linkData;
     if (href) {
-        window.open(href, '_blank');
+        window.open(href, '_blank', 'noopener,noreferrer');
 
         return true;
     }
