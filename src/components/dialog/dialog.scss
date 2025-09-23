@@ -39,6 +39,7 @@ $responsive-body-padding: 3vw; // 3% of viewport's width
     // other font-related styles that might be set by MDC,
     // such as `letter-spacing` or `font-size`.
     font-family: inherit;
+    font-size: var(--limel-theme-default-font-size);
 }
 
 .mdc-dialog {
