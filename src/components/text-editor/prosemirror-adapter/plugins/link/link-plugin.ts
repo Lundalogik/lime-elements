@@ -371,8 +371,6 @@ export const createLinkPlugin = (updateLinkCallback?: UpdateLinkCallback) => {
                     ) {
                         return processModClickEvent(view, event);
                     }
-
-                    return true;
                 },
                 dblclick: (view, event) => {
                     if (event.button !== MouseButtons.Right) {
