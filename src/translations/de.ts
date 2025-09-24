@@ -23,7 +23,7 @@ export default {
     'file.drag-and-drop-tips':
         'Ziehen Sie Ihre Datei hierher oder klicken Sie, um zu durchsuchen.',
     'file-viewer.message.unsupported-filetype':
-        'Diese Datei kann nicht angezeigt werden!',
+        'Für diesen Dateityp kann keine Vorschau angezeigt werden.',
     'file-viewer.download': 'Herunterladen',
     'file-viewer.exit-fullscreen': 'Vollbildmodus beenden',
     'file-viewer.open-in-fullscreen': 'Im Vollbildmodus öffnen',

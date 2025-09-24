@@ -22,7 +22,8 @@ export default {
     'snackbar.dismiss': 'Luk',
     'file.drag-and-drop-tips':
         'Træk & slip filen her, eller klik for at gennemse.',
-    'file-viewer.message.unsupported-filetype': 'Denne fil kan ikke vises!',
+    'file-viewer.message.unsupported-filetype':
+        'Kan ikke vise en forhåndsvisning af denne filtype.',
     'file-viewer.download': 'Hent',
     'file-viewer.exit-fullscreen': 'Afslut fuldskærm',
     'file-viewer.open-in-fullscreen': 'Åbn i fuld skærm',

@@ -22,7 +22,8 @@ export default {
     'snackbar.dismiss': 'Dismiss',
     'file.drag-and-drop-tips':
         'Drag & drop your file here, or click to browse.',
-    'file-viewer.message.unsupported-filetype': 'Cannot display this file!',
+    'file-viewer.message.unsupported-filetype':
+        'Cannot display a preview for this file type.',
     'file-viewer.download': 'Download',
     'file-viewer.exit-fullscreen': 'Exit fullscreen',
     'file-viewer.open-in-fullscreen': 'Open in fullscreen',

@@ -23,7 +23,7 @@ export default {
     'file.drag-and-drop-tips':
         'Glissez-déposez votre fichier ici, ou cliquez pour parcourir.',
     'file-viewer.message.unsupported-filetype':
-        "Impossible d'afficher ce fichier!",
+        "Impossible d'afficher un aperçu pour ce type de fichier.",
     'file-viewer.download': 'Télécharger',
     'file-viewer.exit-fullscreen': 'Quitter le mode plein écran',
     'file-viewer.open-in-fullscreen': 'Ouvrir en plein écran',

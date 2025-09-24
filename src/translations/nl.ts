@@ -23,7 +23,7 @@ export default {
     'file.drag-and-drop-tips':
         'Sleep een bestand hierheen of klik om te bladeren.',
     'file-viewer.message.unsupported-filetype':
-        'Kan dit bestand niet weergeven!',
+        'Kan geen voorbeeld weergeven voor dit bestandstype.',
     'file-viewer.download': 'Downloaden',
     'file-viewer.exit-fullscreen': 'Verlaat volledig scherm',
     'file-viewer.open-in-fullscreen': 'Open in volledig scherm',
