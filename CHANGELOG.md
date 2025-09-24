@@ -1,3 +1,12 @@
+## [38.24.0](https://github.com/Lundalogik/lime-elements/compare/v38.23.5...v38.24.0) (2025-09-24)
+
+
+### Features
+
+
+* **image-resize:** add utility to resize/convert images before upload ([e324bf5](https://github.com/Lundalogik/lime-elements/commit/e324bf5ee24b60c203d35e525bf5440e2b617506))
+* **profile-picture:** add new component ([a1d3513](https://github.com/Lundalogik/lime-elements/commit/a1d351369c5c1ac2551c125c6162e7a1813d9cc5))
+
 ## [38.23.5](https://github.com/Lundalogik/lime-elements/compare/v38.23.4...v38.23.5) (2025-09-23)
 
 
