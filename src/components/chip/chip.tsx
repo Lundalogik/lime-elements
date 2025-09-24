@@ -18,6 +18,7 @@ import {
 } from '../../util/make-enter-clickable';
 import translate from '../../global/translations';
 import { BACKSPACE, DELETE } from '../../util/keycodes';
+import { observeLazyImages } from '../../util/lazy-load-images';
 import { ChipType, Chip as OldChipInterface } from '../chip-set/chip.types';
 import { Image } from '../../global/shared-types/image.types';
 import { isEmpty } from 'lodash-es';
@@ -229,7 +230,14 @@ export class Chip implements ChipInterface {
 
     public render() {
         return (
-            <Host onClick={this.filterClickWhenDisabled}>
+            <Host
+                onClick={this.filterClickWhenDisabled}
+                ref={(el) => {
+                    if (el) {
+                        observeLazyImages(el.shadowRoot || el);
+                    }
+                }}
+            >
                 {this.link ? this.renderAsLink() : this.renderAsButton()}
             </Host>
         );
@@ -296,7 +304,12 @@ export class Chip implements ChipInterface {
 
         if (!isEmpty(this.image)) {
             return (
-                <img src={this.image.src} alt={this.image.alt} loading="lazy" />
+                <img
+                    src={this.image.src}
+                    data-src={this.image.src}
+                    alt={this.image.alt}
+                    loading="lazy"
+                />
             );
         }
 
