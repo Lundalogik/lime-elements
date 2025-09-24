@@ -204,21 +204,25 @@ export class FileViewer {
             <div class="action-menu-for-pdf-files">
                 {this.renderActionMenu()}
             </div>,
-            <iframe src={this.fileUrl} loading="lazy" />,
+            <iframe src={this.sanitizeUrl(this.fileUrl)} loading="lazy" />,
         ];
     };
 
     private renderImage = () => {
         return [
             this.renderButtons(),
-            <img src={this.fileUrl} alt={this.alt} loading="lazy" />,
+            <img
+                src={this.sanitizeUrl(this.fileUrl)}
+                alt={this.alt}
+                loading="lazy"
+            />,
         ];
     };
 
     private renderVideo = () => {
         return (
             <video controls>
-                <source src={this.fileUrl} />
+                <source src={this.sanitizeUrl(this.fileUrl)} />
             </video>
         );
     };
@@ -226,7 +230,7 @@ export class FileViewer {
     private renderAudio = () => {
         return (
             <audio controls>
-                <source src={this.fileUrl} />
+                <source src={this.sanitizeUrl(this.fileUrl)} />
             </audio>
         );
     };
@@ -236,7 +240,7 @@ export class FileViewer {
 
         return [
             this.renderButtons(),
-            <object data={this.fileUrl} type="text/plain">
+            <object data={this.sanitizeUrl(this.fileUrl)} type="text/plain">
                 {fallbackContent}
             </object>,
         ];
@@ -249,7 +253,9 @@ export class FileViewer {
             </div>,
             <iframe
                 src={
-                    this.getOfficeViewerUrl() + this.fileUrl + '&embedded=true'
+                    this.getOfficeViewerUrl() +
+                    encodeURIComponent(this.sanitizeUrl(this.fileUrl)) +
+                    '&embedded=true'
                 }
                 loading="lazy"
             />,
@@ -345,7 +351,7 @@ export class FileViewer {
                 id="tooltip-download"
                 role="button"
                 download={this.filename ?? ''}
-                href={this.fileUrl}
+                href={this.sanitizeUrl(this.fileUrl)}
                 target="_blank"
             >
                 <limel-icon name="download_2" />
@@ -368,7 +374,7 @@ export class FileViewer {
                 class="button--new-tab"
                 id="tooltip-new-tab"
                 role="button"
-                href={this.fileUrl}
+                href={this.sanitizeUrl(this.fileUrl)}
                 target="_blank"
                 rel="noopener noreferrer"
             >
@@ -435,6 +441,16 @@ export class FileViewer {
         event.stopPropagation();
         this.action.emit(event.detail);
     };
+
+    private sanitizeUrl(url: string): string {
+        try {
+            const u = new URL(url, window.location.href);
+            const allowed = ['http:', 'https:', 'blob:'];
+            return allowed.includes(u.protocol) ? u.href : '';
+        } catch {
+            return '';
+        }
+    }
 
     private getTranslation(key: string) {
         return translate.get(key, this.language);
