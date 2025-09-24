@@ -168,9 +168,10 @@ const processDoubleClickEvent = (
 };
 
 /**
- * Regular expression for matching URLs, mailto links, and phone links
+ * Regular expression for matching URLs, mailto links, phone links, and bare www-links
  */
-const URL_REGEX = /(https?:\/\/[^\s<>"']+|mailto:[^\s<>"']+|tel:[^\s<>"']+)/g;
+const URL_REGEX =
+    /(https?:\/\/[^\s<>"']+|mailto:[^\s<>"']+|tel:[^\s<>"']+|www\.[^\s<>"']+)/g;
 
 /**
  * Checks if the text contains any URLs, mailto links, or phone links
@@ -198,9 +199,23 @@ const createTextNode = (schema: Schema, content: string): Node => {
  * @param url
  */
 const createLinkNode = (schema: Schema, url: string): Node => {
-    const linkMark = schema.marks.link.create(getLinkAttributes(url, url));
+    const normalizeUrlForLinkMark = (input: string): string => {
+        let output = input.trim();
+        while (output.endsWith('\\')) {
+            output = output.slice(0, -1);
+        }
+        if (output.toLowerCase().startsWith('www.')) {
+            output = `https://${output}`;
+        }
+        return output;
+    };
 
-    return schema.text(url, [linkMark]);
+    const normalizedUrl = normalizeUrlForLinkMark(url);
+    const linkMark = schema.marks.link.create(
+        getLinkAttributes(normalizedUrl, normalizedUrl)
+    );
+
+    return schema.text(normalizedUrl, [linkMark]);
 };
 
 /**
@@ -225,6 +240,40 @@ const findLinkMatches = (
     }
 
     return matches;
+};
+
+/**
+ * Creates nodes for the pasted text while preserving soft line breaks.
+ * - Each newline becomes a `hard_break`.
+ * - Empty lines are preserved (consecutive newlines => multiple `hard_break`s).
+ * - URLs inside each line are converted to link-marked text.
+ * @param text - Raw pasted text
+ * @param schema - ProseMirror schema
+ */
+const createNodesWithLinksAndBreaks = (
+    text: string,
+    schema: Schema
+): Node[] => {
+    // Split preserves empty lines between consecutive newlines
+    const lines = text.split(/\r\n|\r|\n/);
+    const nodes: Node[] = [];
+
+    for (const [index, line] of lines.entries()) {
+        if (line.length > 0) {
+            nodes.push(...createNodesWithLinks(line, schema));
+        }
+        if (index < lines.length - 1) {
+            const hb = schema.nodes.hard_break;
+            if (hb) {
+                nodes.push(hb.create());
+            } else {
+                // Fallback: if schema lacks hard_break, defer to default paste behavior
+                // (Do NOT throw; keep behavior stable across versions)
+                console.warn('hard_break node not found in schema');
+            }
+        }
+    }
+    return nodes;
 };
 
 /**
@@ -352,11 +401,14 @@ const processPasteEvent = (
     event: ClipboardEvent
 ): boolean => {
     const text = event.clipboardData?.getData('text/plain');
+
     if (!text || !hasUrls(text)) {
         return false;
     }
 
-    const nodes = createNodesWithLinks(text, view.state.schema);
+    const nodes = createNodesWithLinksAndBreaks(text, view.state.schema);
+
+    event.preventDefault();
     pasteAsLink(view, nodes);
 
     return true;
