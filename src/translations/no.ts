@@ -23,6 +23,8 @@ export default {
         'Dra & slipp filen her, eller klikk for å bla gjennom.',
     'file-viewer.message.unsupported-filetype':
         'Kan ikke vise en forhåndsvisning av denne filtypen.',
+    'file-viewer.message.try-other-options':
+        'Last ned filen eller åpne den i en ny fane.',
     'file-viewer.download': 'Nedlasting',
     'file-viewer.exit-fullscreen': 'Gå ut av fullskjerm',
     'file-viewer.open-in-fullscreen': 'Åpne i fullskjerm',

@@ -24,6 +24,8 @@ export default {
         'Ziehen Sie Ihre Datei hierher oder klicken Sie, um zu durchsuchen.',
     'file-viewer.message.unsupported-filetype':
         'Für diesen Dateityp kann keine Vorschau angezeigt werden.',
+    'file-viewer.message.try-other-options':
+        'Laden Sie die Datei herunter oder öffnen Sie sie in einem neuen Tab.',
     'file-viewer.download': 'Herunterladen',
     'file-viewer.exit-fullscreen': 'Vollbildmodus beenden',
     'file-viewer.open-in-fullscreen': 'Im Vollbildmodus öffnen',

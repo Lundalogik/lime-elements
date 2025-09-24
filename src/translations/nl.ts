@@ -24,6 +24,8 @@ export default {
         'Sleep een bestand hierheen of klik om te bladeren.',
     'file-viewer.message.unsupported-filetype':
         'Kan geen voorbeeld weergeven voor dit bestandstype.',
+    'file-viewer.message.try-other-options':
+        'Download het bestand of open het in een nieuw tabblad.',
     'file-viewer.download': 'Downloaden',
     'file-viewer.exit-fullscreen': 'Verlaat volledig scherm',
     'file-viewer.open-in-fullscreen': 'Open in volledig scherm',
