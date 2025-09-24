@@ -3,8 +3,8 @@ import { data } from '../../table/examples/birds';
 
 /**
  * Expand Code Editor to Full View
- * Here you see a `expandable` instance of the Code Editor component.
- * The button appears on focus and opens up a fullscreen dialog with the same editor instance.
+ * The `expandable` instance is a prop that can be disabled.
+ * In default mode, the expand button appears on focus and opens up a fullscreen dialog with the same editor instance.
  * Changes will be reflected in both places.
  */
 
@@ -30,7 +30,7 @@ export class CodeEditorExpandableExample {
                 lint={true}
                 fold={true}
                 onChange={this.handleChange}
-                expandable={true}
+                expandable={false}
             />
         );
     }
