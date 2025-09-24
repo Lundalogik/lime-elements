@@ -24,6 +24,8 @@ export default {
         'Træk & slip filen her, eller klik for at gennemse.',
     'file-viewer.message.unsupported-filetype':
         'Kan ikke vise en forhåndsvisning af denne filtype.',
+    'file-viewer.message.try-other-options':
+        'Hent filen eller åbn den i en ny fane.',
     'file-viewer.download': 'Hent',
     'file-viewer.exit-fullscreen': 'Afslut fuldskærm',
     'file-viewer.open-in-fullscreen': 'Åbn i fuld skærm',

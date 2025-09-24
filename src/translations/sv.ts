@@ -24,6 +24,8 @@ export default {
         'Dra & släpp filen här eller klicka om du vill bläddra.',
     'file-viewer.message.unsupported-filetype':
         'Kan inte visa en förhandsvisning för denna filtyp.',
+    'file-viewer.message.try-other-options':
+        'Ladda ner filen eller öppna den i en ny flik.',
     'file-viewer.download': 'Ladda ner',
     'file-viewer.exit-fullscreen': 'Avsluta fullskärmsläge',
     'file-viewer.open-in-fullscreen': 'Öppna i fullskärmsläge',

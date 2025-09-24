@@ -17,14 +17,16 @@
 .no-support {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
     align-items: center;
 
     border: 1px dashed rgb(var(--contrast-600));
     border-radius: 0.5rem;
     padding: 1.25rem;
 
-    .icon--warning {
-        color: rgb(var(--color-orange-default));
+    h1,
+    p {
+        margin: 0;
     }
 }
 

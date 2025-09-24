@@ -24,6 +24,8 @@ export default {
         'Glissez-déposez votre fichier ici, ou cliquez pour parcourir.',
     'file-viewer.message.unsupported-filetype':
         "Impossible d'afficher un aperçu pour ce type de fichier.",
+    'file-viewer.message.try-other-options':
+        'Téléchargez le fichier ou ouvrez-le dans un nouvel onglet.',
     'file-viewer.download': 'Télécharger',
     'file-viewer.exit-fullscreen': 'Quitter le mode plein écran',
     'file-viewer.open-in-fullscreen': 'Ouvrir en plein écran',

@@ -232,17 +232,12 @@ export class FileViewer {
     };
 
     private renderText = () => {
+        const fallbackContent = [this.renderNoFileSupportMessage()];
+
         return [
             this.renderButtons(),
             <object data={this.fileUrl} type="text/plain">
-                {`Text content from: ${this.filename || this.url}`}
-                <a
-                    href={this.fileUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Open text file in new tab
-                </a>
+                {fallbackContent}
             </object>,
         ];
     };
@@ -284,18 +279,18 @@ export class FileViewer {
     private renderNoFileSupportMessage = () => {
         return (
             <div class="no-support" role="alert">
-                <limel-icon
-                    class="icon--warning"
-                    name="brake_warning"
-                    size="large"
-                    role="presentation"
-                />
+                <h1>⚠️</h1>
                 <p>
                     {this.getTranslation(
                         'file-viewer.message.unsupported-filetype'
                     )}
                 </p>
-                {this.renderDownloadButton()}
+                <p style={{ textAlign: 'center', margin: '0 auto' }}>
+                    {this.getTranslation(
+                        'file-viewer.message.try-other-options'
+                    )}
+                </p>
+                ,{this.renderDownloadButton()}
             </div>
         );
     };

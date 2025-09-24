@@ -24,6 +24,8 @@ export default {
         'Vedä & pudota tiedostosi tähän, tai napsauta selataksesi.',
     'file-viewer.message.unsupported-filetype':
         'Esikatselua ei voi näyttää tälle tiedostotyypille.',
+    'file-viewer.message.try-other-options':
+        'Lataa tiedosto tai avaa se uudessa välilehdessä.',
     'file-viewer.download': 'Ladata',
     'file-viewer.exit-fullscreen': 'Poistu koko näytöstä',
     'file-viewer.open-in-fullscreen': 'Avaa koko näytössä',
