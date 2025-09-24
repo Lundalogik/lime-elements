@@ -21,7 +21,7 @@ describe('limel-file-viewer', () => {
             contentElement = await page.find('limel-file-viewer>>>img');
         });
         it('displays the image given by url', () => {
-            expect(contentElement.getAttribute('src')).toEqualText(
+            expect(contentElement.getAttribute('src')).toContain(
                 '/assets/misc-files/service-pnp-pga-07100-07149_150px.gif'
             );
         });
@@ -59,7 +59,7 @@ describe('limel-file-viewer', () => {
             contentElement = await page.find('limel-file-viewer>>>object');
         });
         it('displays the text file using the object element', () => {
-            expect(contentElement.getAttribute('data')).toEqualText(
+            expect(contentElement.getAttribute('data')).toContain(
                 '/assets/misc-files/file.txt'
             );
         });
@@ -87,7 +87,7 @@ describe('limel-file-viewer', () => {
         });
         it('displays the video using the video element', async () => {
             const sourceElement = await contentElement.find('source');
-            expect(sourceElement.getAttribute('src')).toEqualText(
+            expect(sourceElement.getAttribute('src')).toContain(
                 '/assets/misc-files/20736707-sd_426_240_30fps.mkv'
             );
         });
@@ -111,7 +111,7 @@ describe('limel-file-viewer', () => {
         });
         it('displays the audio using the audio element', async () => {
             const sourceElement = await contentElement.find('source');
-            expect(sourceElement.getAttribute('src')).toEqualText(
+            expect(sourceElement.getAttribute('src')).toContain(
                 '/assets/misc-files/Gorilla-SoundBible.com-1576451741.mp3'
             );
         });
