@@ -21,7 +21,8 @@ export default {
     'chip-set.clear-all': 'Fjern alle',
     'file.drag-and-drop-tips':
         'Dra & slipp filen her, eller klikk for å bla gjennom.',
-    'file-viewer.message.unsupported-filetype': 'Kan ikke vise denne filen!',
+    'file-viewer.message.unsupported-filetype':
+        'Kan ikke vise en forhåndsvisning av denne filtypen.',
     'file-viewer.download': 'Nedlasting',
     'file-viewer.exit-fullscreen': 'Gå ut av fullskjerm',
     'file-viewer.open-in-fullscreen': 'Åpne i fullskjerm',

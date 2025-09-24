@@ -22,7 +22,8 @@ export default {
     'snackbar.dismiss': 'Stäng',
     'file.drag-and-drop-tips':
         'Dra & släpp filen här eller klicka om du vill bläddra.',
-    'file-viewer.message.unsupported-filetype': 'Kan inte visa den här filen!',
+    'file-viewer.message.unsupported-filetype':
+        'Kan inte visa en förhandsvisning för denna filtyp.',
     'file-viewer.download': 'Ladda ner',
     'file-viewer.exit-fullscreen': 'Avsluta fullskärmsläge',
     'file-viewer.open-in-fullscreen': 'Öppna i fullskärmsläge',
