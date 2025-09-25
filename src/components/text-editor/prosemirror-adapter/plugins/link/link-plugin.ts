@@ -153,6 +153,7 @@ const processDoubleClickEvent = (
     event: MouseEvent
 ): boolean => {
     const linkData = getLinkDataAtPosition(view, event);
+    // Not a link: ignore double-click event
     if (!linkData) {
         return false;
     }
@@ -201,6 +202,8 @@ const createTextNode = (schema: Schema, content: string): Node => {
 const createLinkNode = (schema: Schema, url: string): Node => {
     const normalizeUrlForLinkMark = (input: string): string => {
         let output = input.trim();
+        // Remove trailing backslashes that sometimes appear from certain copy-paste actions,
+        // to prevent malformed URLs in link marks.
         while (output.endsWith('\\')) {
             output = output.slice(0, -1);
         }
@@ -242,10 +245,6 @@ const findLinkMatches = (
     return matches;
 };
 
-/**
- * True if the string looks like HTML content.
- * @param html - Clipboard HTML
- */
 const isHtmlWithTags = (html: string): boolean => {
     // Simple, anchored check to avoid backtracking
     return /<[a-z][^>]*>/i.test(html);
@@ -302,8 +301,8 @@ const createNodesWithLinksAndBreaks = (
             if (hb) {
                 nodes.push(hb.create());
             } else {
-                // Fallback: if schema lacks hard_break, defer to default paste behavior
-                // (Do NOT throw; keep behavior stable across versions)
+                // Some schema versions may lack hard_break; in this case, avoid breaking paste functionality entirely.
+                // Instead, warn and let the default paste behavior handle it, ensuring forward/backward compatibility.
                 console.warn('hard_break node not found in schema');
             }
         }
@@ -436,6 +435,9 @@ const processPasteEvent = (
     event: ClipboardEvent
 ): boolean => {
     const html = event.clipboardData?.getData('text/html') || '';
+    // Prefer pasting from HTML when the clipboard contains <br> tags, so we can preserve
+    // soft line breaks that would be lost with plain text paste. This improves link detection
+    // in multi-line content copied from other editors or web pages.
     if (html && isHtmlWithTags(html) && /<br\s*\/?/iu.test(html)) {
         const textFromHtml = extractTextPreservingBreaks(html);
         if (!textFromHtml || !hasUrls(textFromHtml)) {
