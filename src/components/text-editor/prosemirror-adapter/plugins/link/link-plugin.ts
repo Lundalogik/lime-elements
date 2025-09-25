@@ -251,6 +251,18 @@ const isHtmlWithTags = (html: string): boolean => {
     return /<[a-z][^>]*>/i.test(html);
 };
 
+const removeNonContentElements = (container: HTMLElement) => {
+    for (const el of container.querySelectorAll('style,script,head')) {
+        el.remove();
+    }
+};
+
+const convertBrToNewlines = (container: HTMLElement) => {
+    for (const br of container.querySelectorAll('br')) {
+        br.replaceWith(document.createTextNode('\n'));
+    }
+};
+
 /**
  * Convert HTML into plain text while preserving soft line breaks (<br>) as \n
  * Strips style/script/head to avoid copying CSS into content.
@@ -259,14 +271,8 @@ const isHtmlWithTags = (html: string): boolean => {
 const extractTextPreservingBreaks = (html: string): string => {
     const parsed = new DOMParser().parseFromString(html, 'text/html');
     const container = parsed.body || document.createElement('body');
-    // Remove non-content elements that can carry CSS or scripts
-    for (const el of container.querySelectorAll('style,script,head')) {
-        el.remove();
-    }
-    // Convert <br> to literal newlines in the text flow
-    for (const br of container.querySelectorAll('br')) {
-        br.replaceWith(document.createTextNode('\n'));
-    }
+    removeNonContentElements(container);
+    convertBrToNewlines(container);
     return container.textContent || '';
 };
 
@@ -290,6 +296,7 @@ const createNodesWithLinksAndBreaks = (
         if (line.length > 0) {
             nodes.push(...createNodesWithLinks(line, schema));
         }
+        // Add a hard break after each line
         if (index < lines.length - 1) {
             const hb = schema.nodes.hard_break;
             if (hb) {
