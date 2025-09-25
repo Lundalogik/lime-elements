@@ -1,3 +1,13 @@
+## [38.24.1](https://github.com/Lundalogik/lime-elements/compare/v38.24.0...v38.24.1) (2025-09-25)
+
+
+### Bug Fixes
+
+
+* **file-viewer:** harden URL handling and prevent XSS risk ([c1013b1](https://github.com/Lundalogik/lime-elements/commit/c1013b1926f10504610dffb4923398823a399bc3))
+* **file-viewer:** improve fallback message for text files ([e304dbc](https://github.com/Lundalogik/lime-elements/commit/e304dbc495b47383fb029adec517253acc333aa8))
+* **file-viewer:** improve unsupported file type message ([f9832eb](https://github.com/Lundalogik/lime-elements/commit/f9832ebf0f4c52bf49ab378689137325d20ea0d8))
+
 ## [38.24.0](https://github.com/Lundalogik/lime-elements/compare/v38.23.5...v38.24.0) (2025-09-24)
 
 
