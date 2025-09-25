@@ -243,6 +243,34 @@ const findLinkMatches = (
 };
 
 /**
+ * True if the string looks like HTML content.
+ * @param html - Clipboard HTML
+ */
+const isHtmlWithTags = (html: string): boolean => {
+    // Simple, anchored check to avoid backtracking
+    return /<[a-z][^>]*>/i.test(html);
+};
+
+/**
+ * Convert HTML into plain text while preserving soft line breaks (<br>) as \n
+ * Strips style/script/head to avoid copying CSS into content.
+ * @param html - Clipboard HTML
+ */
+const extractTextPreservingBreaks = (html: string): string => {
+    const parsed = new DOMParser().parseFromString(html, 'text/html');
+    const container = parsed.body || document.createElement('body');
+    // Remove non-content elements that can carry CSS or scripts
+    for (const el of container.querySelectorAll('style,script,head')) {
+        el.remove();
+    }
+    // Convert <br> to literal newlines in the text flow
+    for (const br of container.querySelectorAll('br')) {
+        br.replaceWith(document.createTextNode('\n'));
+    }
+    return container.textContent || '';
+};
+
+/**
  * Creates nodes for the pasted text while preserving soft line breaks.
  * - Each newline becomes a `hard_break`.
  * - Empty lines are preserved (consecutive newlines => multiple `hard_break`s).
@@ -400,6 +428,21 @@ const processPasteEvent = (
     view: EditorView,
     event: ClipboardEvent
 ): boolean => {
+    const html = event.clipboardData?.getData('text/html') || '';
+    if (html && isHtmlWithTags(html) && /<br\s*\/?/iu.test(html)) {
+        const textFromHtml = extractTextPreservingBreaks(html);
+        if (!textFromHtml || !hasUrls(textFromHtml)) {
+            return false;
+        }
+        const nodesFromHtml = createNodesWithLinksAndBreaks(
+            textFromHtml,
+            view.state.schema
+        );
+        event.preventDefault();
+        pasteAsLink(view, nodesFromHtml);
+        return true;
+    }
+
     const text = event.clipboardData?.getData('text/plain');
 
     if (!text || !hasUrls(text)) {
