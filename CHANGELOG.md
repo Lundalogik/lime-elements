@@ -1,3 +1,11 @@
+## [38.24.2](https://github.com/Lundalogik/lime-elements/compare/v38.24.1...v38.24.2) (2025-09-26)
+
+
+### Bug Fixes
+
+
+* **file-viewer:** correct minor syntax issue ([a887c55](https://github.com/Lundalogik/lime-elements/commit/a887c55f1ace80de9542e7999553a2b6da589fa4))
+
 ## [38.24.1](https://github.com/Lundalogik/lime-elements/compare/v38.24.0...v38.24.1) (2025-09-25)
 
 
