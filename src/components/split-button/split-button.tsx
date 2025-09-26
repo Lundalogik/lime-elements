@@ -1,5 +1,5 @@
 import { Component, Event, EventEmitter, Host, h, Prop } from '@stencil/core';
-import { ListSeparator } from '../list/list-item.types';
+import { ListSeparator } from '../list-item/list-item.types';
 import { MenuItem } from '../menu/menu.types';
 
 /**

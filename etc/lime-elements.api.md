@@ -532,6 +532,21 @@ export namespace Components {
         "maxLinesSecondaryText": number;
         "type": ListType;
     }
+    export interface LimelListItem {
+        "actions"?: ListItem['actions'];
+        "badgeIcon": boolean;
+        "disabled": boolean;
+        "icon"?: string | ListItem['icon'];
+        "iconSize": IconSize;
+        "image"?: ListItem['image'];
+        "language": Languages;
+        "primaryComponent"?: ListItem['primaryComponent'];
+        "secondaryText"?: string;
+        "selected": boolean;
+        "text": string;
+        "type": 'listitem' | 'menuitem' | 'option' | 'radio' | 'checkbox';
+        "value"?: any;
+    }
     export interface LimelMarkdown {
         "lazyLoadImages": boolean;
         "value": string;
@@ -553,12 +568,16 @@ export namespace Components {
         "searcher": MenuSearcher;
         "surfaceWidth": SurfaceWidth;
     }
+    export interface LimelMenuItemMeta {
+        "badge"?: string | number;
+        "commandText"?: string;
+        "showChevron": boolean;
+    }
     // (undocumented)
     export interface LimelMenuList {
         "badgeIcons": boolean;
         "iconSize": IconSize;
         "items": Array<MenuItem | ListSeparator>;
-        "maxLinesSecondaryText": number;
     }
     // (undocumented)
     export interface LimelMenuSurface {
@@ -1185,9 +1204,13 @@ export namespace JSX {
         // (undocumented)
         "limel-list": LimelList;
         // (undocumented)
+        "limel-list-item": LimelListItem;
+        // (undocumented)
         "limel-markdown": LimelMarkdown;
         // (undocumented)
         "limel-menu": LimelMenu;
+        // (undocumented)
+        "limel-menu-item-meta": LimelMenuItemMeta;
         // (undocumented)
         "limel-menu-list": LimelMenuList;
         // (undocumented)
@@ -1670,6 +1693,25 @@ export namespace JSX {
         "onSelect"?: (event: LimelListCustomEvent<ListItem | ListItem[]>) => void;
         "type"?: ListType;
     }
+    export interface LimelListItem {
+        "actions"?: ListItem['actions'];
+        "badgeIcon"?: boolean;
+        "disabled"?: boolean;
+        "icon"?: string | ListItem['icon'];
+        "iconSize"?: IconSize;
+        "image"?: ListItem['image'];
+        "language"?: Languages;
+        "onInteract"?: (event: LimelListItemCustomEvent<{
+            selected: boolean;
+            item: ListItem;
+        }>) => void;
+        "primaryComponent"?: ListItem['primaryComponent'];
+        "secondaryText"?: string;
+        "selected"?: boolean;
+        "text"?: string;
+        "type"?: 'listitem' | 'menuitem' | 'option' | 'radio' | 'checkbox';
+        "value"?: any;
+    }
     export interface LimelMarkdown {
         "lazyLoadImages"?: boolean;
         "value"?: string;
@@ -1692,12 +1734,16 @@ export namespace JSX {
         "searcher"?: MenuSearcher;
         "surfaceWidth"?: SurfaceWidth;
     }
+    export interface LimelMenuItemMeta {
+        "badge"?: string | number;
+        "commandText"?: string;
+        "showChevron"?: boolean;
+    }
     // (undocumented)
     export interface LimelMenuList {
         "badgeIcons"?: boolean;
         "iconSize"?: IconSize;
         "items"?: Array<MenuItem | ListSeparator>;
-        "maxLinesSecondaryText"?: number;
         "onInteract"?: (event: LimelMenuListCustomEvent<MenuItem>) => void;
         "onSelect"?: (event: LimelMenuListCustomEvent<MenuItem>) => void;
     }
@@ -2265,6 +2311,16 @@ export interface LimelListCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelListElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelListItemCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelListItemCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelListItemElement;
 }
 
 // Warning: (ae-missing-release-tag) "LimelMenuCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
