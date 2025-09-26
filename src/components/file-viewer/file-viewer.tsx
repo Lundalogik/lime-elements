@@ -296,7 +296,7 @@ export class FileViewer {
                         'file-viewer.message.try-other-options'
                     )}
                 </p>
-                ,{this.renderDownloadButton()}
+                {this.renderDownloadButton()}
             </div>
         );
     };
