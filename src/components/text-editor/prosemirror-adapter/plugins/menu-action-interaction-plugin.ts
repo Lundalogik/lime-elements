@@ -61,6 +61,26 @@ export const createActionBarInteractionPlugin = (
 
                     return true;
                 },
+                saveHighlightMenu: (view, event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    const { type, color } = event.detail;
+
+                    if (type === EditorMenuTypes.Highlight) {
+                        try {
+                            const command = menuCommandFactory.getCommand(
+                                type,
+                                undefined,
+                                color
+                            );
+                            dispatchMenuCommand(command, view);
+                        } catch (error) {
+                            console.error(`Error executing command: ${error}`);
+                        }
+                    }
+
+                    return true;
+                },
             },
         },
     });

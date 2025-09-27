@@ -169,3 +169,9 @@ img.ProseMirror-separator {
 limel-portal {
     width: 25rem;
 }
+
+.lime-text-highlight {
+    padding: 0.125em 0.25em;
+    border-radius: 0.25em;
+    /* background-color will be set dynamically via style attribute */
+}
