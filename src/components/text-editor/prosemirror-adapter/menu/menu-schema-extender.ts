@@ -11,3 +11,14 @@ export const strikethrough: MarkSpec = {
         return ['s', 0];
     },
 };
+
+export const highlight: MarkSpec = {
+    parseDOM: [
+        { tag: 'mark' },
+        { tag: 'span[style*="background-color"]' },
+        { style: 'background-color' },
+    ],
+    toDOM: () => {
+        return ['mark', { class: 'lime-text-highlight' }, 0];
+    },
+};

@@ -301,6 +301,7 @@ const commandMapping: CommandMapping = {
     underline: createToggleMarkCommand,
     strikethrough: createToggleMarkCommand,
     code: createToggleMarkCommand,
+    highlight: createToggleMarkCommand,
     link: createInsertLinkCommand,
     headerlevel1: (schema) =>
         createSetNodeTypeCommand(
@@ -355,6 +356,7 @@ export class MenuCommandFactory {
             'Mod-Shift-2': this.getCommand(EditorMenuTypes.HeaderLevel2),
             'Mod-Shift-3': this.getCommand(EditorMenuTypes.HeaderLevel3),
             'Mod-Shift-X': this.getCommand(EditorMenuTypes.Strikethrough),
+            'Mod-Shift-H': this.getCommand(EditorMenuTypes.Highlight),
             'Mod-`': this.getCommand(EditorMenuTypes.Code),
             'Mod-Shift-C': this.getCommand(EditorMenuTypes.CodeBlock),
         };

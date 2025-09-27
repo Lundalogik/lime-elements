@@ -33,7 +33,7 @@ import { createRandomString } from '../../../util/random-string';
 import { isItem } from '../../action-bar/is-item';
 import { cloneDeep, debounce } from 'lodash-es';
 import { Languages } from '../../date-picker/date.types';
-import { strikethrough } from './menu/menu-schema-extender';
+import { strikethrough, highlight } from './menu/menu-schema-extender';
 import { createLinkPlugin } from './plugins/link/link-plugin';
 import { linkMarkSpec } from './plugins/link/link-mark-spec';
 import { createImageInserterPlugin } from './plugins/image/inserter';
@@ -392,6 +392,7 @@ export class ProsemirrorAdapter {
             marks: schema.spec.marks.append({
                 strikethrough: strikethrough,
                 link: linkMarkSpec,
+                highlight: highlight,
             }),
         });
     }
