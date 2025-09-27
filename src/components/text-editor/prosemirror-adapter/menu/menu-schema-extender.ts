@@ -14,21 +14,23 @@ export const strikethrough: MarkSpec = {
 
 export const highlight: MarkSpec = {
     attrs: {
-        color: { default: 'yellowgreen' },
+        color: { default: 'rgb(var(--color-yellow-light))' },
     },
     parseDOM: [
         {
             tag: 'mark',
             getAttrs: (dom) => ({
                 color:
-                    (dom as HTMLElement).style.backgroundColor || 'yellowgreen',
+                    (dom as HTMLElement).style.backgroundColor ||
+                    'rgb(var(--color-yellow-light))',
             }),
         },
         {
             tag: 'span[style*="background-color"]',
             getAttrs: (dom) => ({
                 color:
-                    (dom as HTMLElement).style.backgroundColor || 'yellowgreen',
+                    (dom as HTMLElement).style.backgroundColor ||
+                    'rgb(var(--color-yellow-light))',
             }),
         },
     ],
