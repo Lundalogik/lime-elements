@@ -53,6 +53,7 @@ export class TextEditorHighlightColorMenu {
     private colorChange: EventEmitter<string>;
 
     private colorPicker: HTMLLimelColorPickerElement;
+    private saveButton: HTMLLimelButtonElement;
 
     public connectedCallback() {
         this.setupGlobalHandlers();
