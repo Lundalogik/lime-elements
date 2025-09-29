@@ -434,25 +434,7 @@ const processPasteEvent = (
     view: EditorView,
     event: ClipboardEvent
 ): boolean => {
-    const html = event.clipboardData?.getData('text/html') || '';
-    // Prefer pasting from HTML when the clipboard contains <br> tags, so we can preserve
-    // soft line breaks that would be lost with plain text paste. This improves link detection
-    // in multi-line content copied from other editors or web pages.
-    if (html && isHtmlWithTags(html) && /<br\s*\/?/iu.test(html)) {
-        const textFromHtml = extractTextPreservingBreaks(html);
-        if (!textFromHtml || !hasUrls(textFromHtml)) {
-            return false;
-        }
-        const nodesFromHtml = createNodesWithLinksAndBreaks(
-            textFromHtml,
-            view.state.schema
-        );
-        event.preventDefault();
-        pasteAsLink(view, nodesFromHtml);
-        return true;
-    }
-
-    const text = event.clipboardData?.getData('text/plain');
+    const text = extractTextFromClipboard(event);
 
     if (!text || !hasUrls(text)) {
         return false;
@@ -464,6 +446,21 @@ const processPasteEvent = (
     pasteAsLink(view, nodes);
 
     return true;
+};
+
+const extractTextFromClipboard = (
+    event: ClipboardEvent
+): string | undefined => {
+    const html = event.clipboardData?.getData('text/html') || '';
+    const plainText = event.clipboardData?.getData('text/plain') || '';
+
+    // Prefer pasting from HTML when the clipboard contains <br> tags, so we can preserve
+    // soft line breaks that would be lost with plain text paste. This improves link detection
+    // in multi-line content copied from other editors or web pages.
+    if (html && isHtmlWithTags(html) && /<br\s*\/?/iu.test(html)) {
+        return extractTextPreservingBreaks(html);
+    }
+    return plainText;
 };
 
 export const createLinkPlugin = (updateLinkCallback?: UpdateLinkCallback) => {
