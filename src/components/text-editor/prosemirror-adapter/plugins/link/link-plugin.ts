@@ -297,17 +297,22 @@ const createNodesWithLinksAndBreaks = (
         }
         // Add a hard break after each line
         if (index < lines.length - 1) {
-            const hb = schema.nodes.hard_break;
-            if (hb) {
-                nodes.push(hb.create());
-            } else {
-                // Some schema versions may lack hard_break; in this case, avoid breaking paste functionality entirely.
-                // Instead, warn and let the default paste behavior handle it, ensuring forward/backward compatibility.
-                console.warn('hard_break node not found in schema');
+            const hardBreak = createHardBreakNode(schema);
+            if (hardBreak) {
+                nodes.push(hardBreak);
             }
         }
     }
     return nodes;
+};
+
+const createHardBreakNode = (schema: Schema): Node | undefined => {
+    const hardBreakNodeType = schema.nodes.hard_break;
+    if (!hardBreakNodeType) {
+        console.warn('hard_break node not found in schema');
+        return undefined;
+    }
+    return hardBreakNodeType.create();
 };
 
 /**
