@@ -1,3 +1,14 @@
+## [38.24.3](https://github.com/Lundalogik/lime-elements/compare/v38.24.2...v38.24.3) (2025-09-29)
+
+
+### Bug Fixes
+
+
+* **list:** improve rendering and accessibility of list items ([eb2a3a9](https://github.com/Lundalogik/lime-elements/commit/eb2a3a978e323ec5cbf324ccde70a7ca3095a8b6))
+* **list:** use correct `aria-orientation` to improve accessibility ([249a1de](https://github.com/Lundalogik/lime-elements/commit/249a1de850efc3d49a340c64a46238da42321871))
+* **menu:** improve accessibility of list items with sub menus ([49d0cbe](https://github.com/Lundalogik/lime-elements/commit/49d0cbe6907bfc6d25da5162d4ce544854208003))
+* **menu:** improve rendering and accessibility of list items ([72ee45e](https://github.com/Lundalogik/lime-elements/commit/72ee45ee3d275ec6c5c514cf6a351860361249bd))
+
 ## [38.24.2](https://github.com/Lundalogik/lime-elements/compare/v38.24.1...v38.24.2) (2025-09-26)
 
 
