@@ -324,6 +324,8 @@ export namespace Components {
     export interface LimelColorPicker {
         "helperText": string;
         "label": string;
+        "palette"?: Array<string | CustomColorSwatch>;
+        "paletteColumnCount"?: number;
         "readonly": boolean;
         "required": boolean;
         "tooltipLabel": string;
@@ -331,8 +333,10 @@ export namespace Components {
     }
     // (undocumented)
     export interface LimelColorPickerPalette {
+        "columnCount"?: number;
         "helperText": string;
         "label": string;
+        "palette"?: CustomPalette;
         "required": boolean;
         "value": string;
     }
@@ -823,6 +827,13 @@ export type Config = {
     featureSwitches?: Record<string, boolean>;
 };
 
+// @public
+export interface CustomColorSwatch {
+    disabled?: boolean;
+    name?: string;
+    value: string;
+}
+
 // @alpha
 export type CustomElement = Omit<CustomElementDefinition, 'attributes'> & {
     attributes: Record<string, any>;
@@ -835,6 +846,9 @@ export interface CustomElementDefinition {
     // (undocumented)
     tagName: string;
 }
+
+// @public
+export type CustomPalette = Array<string | CustomColorSwatch>;
 
 // @public (undocumented)
 export type DateType = 'datetime' | 'date' | 'time' | 'week' | 'month' | 'quarter' | 'year';
@@ -1460,6 +1474,8 @@ export namespace JSX {
         "helperText"?: string;
         "label"?: string;
         "onChange"?: (event: LimelColorPickerCustomEvent<string>) => void;
+        "palette"?: Array<string | CustomColorSwatch>;
+        "paletteColumnCount"?: number;
         "readonly"?: boolean;
         "required"?: boolean;
         "tooltipLabel"?: string;
@@ -1467,9 +1483,11 @@ export namespace JSX {
     }
     // (undocumented)
     export interface LimelColorPickerPalette {
+        "columnCount"?: number;
         "helperText"?: string;
         "label"?: string;
         "onChange"?: (event: LimelColorPickerPaletteCustomEvent<string>) => void;
+        "palette"?: CustomPalette;
         "required"?: boolean;
         "value"?: string;
     }

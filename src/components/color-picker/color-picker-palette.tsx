@@ -1,6 +1,7 @@
 import { Component, h, Prop, Event, EventEmitter } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
-import { brightnesses, colors, getColorName, getCssColor } from './swatches';
+import { brightnesses, colors, createSwatch, Swatch } from './swatches';
+import type { CustomPalette, CustomColorSwatch } from './color-picker.types';
 
 /**
  * @private
@@ -36,6 +37,19 @@ export class Palette implements FormComponent {
     public required: boolean;
 
     /**
+     * Defines the number of columns in the color swatch grid.
+     * If not provided, it will default to the number of colors in the palette.
+     */
+    @Prop({ reflect: true })
+    public columnCount?: number;
+
+    /**
+     * Custom color palette to use instead of Lime palette. Internal prop passed from parent.
+     */
+    @Prop()
+    public palette?: CustomPalette;
+
+    /**
      * Emits chosen value to the parent component
      */
     @Event()
@@ -45,7 +59,14 @@ export class Palette implements FormComponent {
         const background = this.value ? { '--background': this.value } : {};
 
         return [
-            <div class="color-picker-palette">{this.renderSwatches()}</div>,
+            <div
+                class="color-picker-palette"
+                style={{
+                    '--color-picker-column-count': `${this.getColumnCount()}`,
+                }}
+            >
+                {this.renderSwatches()}
+            </div>,
             <div class="chosen-color-name">
                 <limel-input-field
                     label={this.label}
@@ -60,23 +81,50 @@ export class Palette implements FormComponent {
     }
 
     private renderSwatches = () => {
-        return colors.map((color) => {
-            return brightnesses.map(this.renderSwatch(color));
-        });
+        return this.getPalette().map(this.renderSwatchButton);
     };
 
-    private renderSwatch = (color: string) => (brightness: string) => {
-        const colorName = getColorName(color, brightness);
+    private getPalette(): Swatch[] {
+        if (this.usesCustomPalette()) {
+            return (this.palette || []).map((entry) => {
+                const normalized = this.normalizeEntry(entry);
+                return {
+                    name: normalized.name || normalized.value,
+                    value: normalized.value,
+                    disabled: normalized.disabled,
+                };
+            });
+        }
+
+        // Order default swatches by brightness first, then by color.
+        // This gives a more intuitive CSS grid layout logic, and
+        // enables adding the `columnCount` prop.
+        const swatches: Swatch[] = [];
+        for (const b of brightnesses) {
+            for (const color of colors) {
+                swatches.push(createSwatch(color, b));
+            }
+        }
+        return swatches;
+    }
+
+    private renderSwatchButton = (swatch: Swatch, index: number) => {
+        const isSelected = this.value === swatch.value;
         const classList = {
             swatch: true,
-            [colorName]: true,
-            'swatch--selected': this.value === getCssColor(color, brightness),
+            'swatch--selected': isSelected,
+            'custom-swatch': this.usesCustomPalette(),
         };
 
         return (
             <button
                 class={classList}
-                onClick={this.handleClick(color, brightness)}
+                style={{ '--limel-color-picker-swatch-color': swatch.value }}
+                title={swatch.name}
+                disabled={swatch.disabled}
+                data-index={index}
+                key={index}
+                onClick={this.handleSwatchClick(swatch.value)}
             />
         );
     };
@@ -86,10 +134,36 @@ export class Palette implements FormComponent {
         this.change.emit(event.detail);
     };
 
-    private handleClick =
-        (color: string, brightness: string) => (event: MouseEvent) => {
-            const value = getCssColor(color, brightness);
-            event.stopPropagation();
-            this.change.emit(value);
-        };
+    private handleSwatchClick = (value: string) => (event: MouseEvent) => {
+        event.stopPropagation();
+        this.change.emit(value);
+    };
+
+    private normalizeEntry(
+        entry: string | CustomColorSwatch
+    ): CustomColorSwatch {
+        if (typeof entry === 'string') {
+            return { value: entry };
+        }
+        return entry;
+    }
+
+    private usesCustomPalette(): boolean {
+        return this.palette?.length > 0;
+    }
+
+    private getColumnCount(): number {
+        if (this.columnCount > 0) {
+            return this.columnCount;
+        }
+
+        // Default palette: fixed 20 columns (one per base color)
+        if (!this.usesCustomPalette()) {
+            return 20;
+        }
+
+        // Custom palette: span all provided swatches unless empty
+        const palette = this.getPalette();
+        return palette.length > 0 ? palette.length : 1;
+    }
 }

@@ -1,5 +1,6 @@
 import { Component, h, Prop, State, Event, EventEmitter } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
+import type { CustomColorSwatch } from './color-picker.types';
 
 /**
  * This component enables you to select a swatch from out color palette, simply
@@ -14,6 +15,7 @@ import { FormComponent } from '../form/form.types';
  *
  * @exampleComponent limel-example-color-picker
  * @exampleComponent limel-example-color-picker-readonly
+ * @exampleComponent limel-example-color-picker-custom-palette
  */
 @Component({
     tag: 'limel-color-picker',
@@ -56,6 +58,22 @@ export class ColorPicker implements FormComponent {
      */
     @Prop({ reflect: true })
     public readonly: boolean;
+
+    /**
+     * An array of either color value strings, or objects with a `name` and a `value`,
+     * which replaces the default palette. Any valid CSS color format is accepted as value
+     * (HEX, RGB/A, HSL, HWB, color-mix(), named colors, etc.).
+     */
+    @Prop()
+    public palette?: Array<string | CustomColorSwatch>;
+
+    /**
+     * Defines the number of columns in the color swatch grid.
+     * If not provided, it will default to the number of colors in the palette;
+     * but stops at a maximum of 25 columns.
+     */
+    @Prop({ reflect: true })
+    public paletteColumnCount?: number;
 
     /**
      * Emits chosen value to the parent component
@@ -125,6 +143,8 @@ export class ColorPicker implements FormComponent {
                     helperText={this.helperText}
                     onChange={this.handleChange}
                     required={this.required}
+                    palette={this.palette as any}
+                    columnCount={this.paletteColumnCount}
                 />
             </limel-popover>
         );
