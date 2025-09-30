@@ -3,18 +3,30 @@
  * Comments with HEX codes in front of the values are used as reference only.
  * Example of use:
  * solid: `color: rgb(var(--contrast-100))`
- * transparent: `color: rgba(var(--contrast-100), 0.5)`
+ * transparent: `color: rgb(var(--contrast-100), 0.5)`
  */
 
 :root {
-    /* Lime Technologies Brand Colors (Do not have dark/light mode variants) */
+    --limel-chip-progress-mix-blend-mode: multiply;
+
+    /* Lime Technologies Brand Colors */
+    --lime-brand-color-lime-green: 190, 224, 52; /* #BEE034 */
+    --lime-brand-color-ocean-teal: 111, 205, 182; /* #6FCDB6 */
+    --lime-brand-color-aqua: 166, 239, 255; /* #A6EFFF */
+    --lime-brand-color-bubble-gum: 255, 166, 234; /* #FFA6EA */
+    --lime-brand-color-sunny-orange: 254, 176, 0; /* #FEB000 */
+    --lime-brand-color-cool-grey: 84, 87, 98; /* #545762 */
+
+    /* Deprecated Lime Technologies Brand Colors (pre-2024 Brand Refresh).
+       They do not have dark/light mode variants.
+       Kept here for backwards compatibility only!
+    */
     --lime-brand-color-deep-red: 240, 87, 80; /* #f05750 */
-    --lime-brand-color-sellable-orange: 255, 112, 67; /* #ff7043 (FIXME: or 247-107-7; // #f76b07 ? --> can be replaced with orange-dark in light mode in this case) */
+    --lime-brand-color-sellable-orange: 255, 112, 67; /* #ff7043 */
     --lime-brand-color-orange: 255, 176, 59; /* #ffb03b */
     --lime-brand-color-yellow: 255, 207, 61; /* #ffcf3d */
-    --lime-brand-color-lime-green: 102, 187, 106; /* #66bb6a (FIXME: or 133-196-54; // #85c436 ? --> can be replaced with lime-default in light mode in this case) */
-    --lime-brand-color-flexible-turquoise: 38, 166, 154; /* #26a69a (FIXME: or 0-179-167; // #00b3a7 ? --> needs modifying the teal hues in this case) */
-    --lime-brand-color-simple-blue: 41, 182, 246; /* #29b6f6 (FIXME: or 0-183-255; // #00b7ff ? --> can be replaced with sky-light in dark mode in this case) */
+    --lime-brand-color-flexible-turquoise: 38, 166, 154; /* #26a69a */
+    --lime-brand-color-simple-blue: 41, 182, 246; /* #29b6f6 */
     --lime-brand-color-dark-blue: 87, 135, 159; /* #57879f */
     --lime-brand-color-loving-magenta: 255, 49, 149; /* #ff3195 */
     --lime-brand-color-light-grey: 173, 173, 173; /* #adadad */
@@ -155,17 +167,19 @@
     --color-gray-lighter: 245, 245, 245; /* #f5f5f5 */
     --color-gray-light: 224, 224, 224; /* #e0e0e0 */
     --color-gray-default: 158, 158, 158; /* #9e9e9e */
-    --color-gray-dark: var(--lime-brand-color-grey);
+    --color-gray-dark: 87, 87, 86; /* #575756 */
     --color-gray-darker: 33, 33, 33; /* #212121 */
 
     --color-glaucous-lighter: 208, 225, 232; /* #d0e1e8 */
     --color-glaucous-light: 135, 174, 193; /* #87aec1 */
-    --color-glaucous-default: var(--lime-brand-color-dark-blue);
+    --color-glaucous-default: 87, 135, 159; /* #57879f */
     --color-glaucous-dark: 58, 100, 119; /* #3a6477 */
     --color-glaucous-darker: 37, 71, 88; /* #254758 */
 }
 
 :root[data-theme="force-dark"] {
+    --limel-chip-progress-mix-blend-mode: screen;
+
     --contrast-100: 20, 20, 42; /* #14142a */
     --contrast-200: 25, 25, 44; /* #19192c */
     --contrast-300: 35, 35, 53; /* #232335 */
@@ -185,7 +199,7 @@
     --contrast-1700: 255, 255, 255; /* #fff */
 
     --color-red-lighter: 239, 154, 154; /* #ef9a9a */
-    --color-red-light: var(--lime-brand-color-deep-red);
+    --color-red-light: 240, 87, 80; /* #f05750 */
     --color-red-default: 229, 57, 53; /* #e53935 */
     --color-red-dark: 198, 40, 40; /* #c62828 */
     --color-red-darker: 165, 23, 23; /* #a51717 */
@@ -198,7 +212,7 @@
 
     --color-magenta-lighter: 249, 161, 204; /* #f9a1cc */
     --color-magenta-light: 249, 79, 162; /* #f94fa2 */
-    --color-magenta-default: var(--lime-brand-color-loving-magenta);
+    --color-magenta-default: 255, 49, 149; /* #ff3195 */
     --color-magenta-dark: 208, 31, 117; /* #d01f75 */
     --color-magenta-darker: 156, 22, 87; /* #9c1657 */
 
@@ -227,7 +241,7 @@
     --color-blue-darker: 10, 60, 138; /* #0a3c8a */
 
     --color-sky-lighter: 129, 212, 250; /* #81d4fa */
-    --color-sky-light: var(--lime-brand-color-simple-blue);
+    --color-sky-light: 41, 182, 246; /* #29b6f6 */
     --color-sky-default: 3, 155, 229; /* #039be5 */
     --color-sky-dark: 2, 119, 189; /* #0277bd */
     --color-sky-darker: 1, 81, 144; /* #015190 */
@@ -239,13 +253,13 @@
     --color-cyan-darker: 0, 89, 93; /* #00595d */
 
     --color-teal-lighter: 128, 203, 196; /* #80cbc4 */
-    --color-teal-light: var(--lime-brand-color-flexible-turquoise);
+    --color-teal-light: 38, 166, 154; /* #26a69a */
     --color-teal-default: 0, 137, 123; /* #00897b */
     --color-teal-dark: 0, 105, 92; /* #00695c */
     --color-teal-darker: 1, 82, 69; /* #015245 */
 
     --color-green-lighter: 165, 214, 167; /* #a5d6a7 */
-    --color-green-light: var(--lime-brand-color-lime-green);
+    --color-green-light: 102, 187, 106; /* #66bb6a */
     --color-green-default: 67, 160, 71; /* #43a047 */
     --color-green-dark: 46, 125, 50; /* #2e7d32 */
     --color-green-darker: 32, 97, 37; /* #206125 */
@@ -269,8 +283,8 @@
     --color-yellow-darker: 224, 180, 21; /* #e0b415 */
 
     --color-amber-lighter: 255, 224, 130; /* #ffe082 */
-    --color-amber-light: var(--lime-brand-color-yellow);
-    --color-amber-default: var(--lime-brand-color-orange);
+    --color-amber-light: 255, 207, 61; /* #ffcf3d */
+    --color-amber-default: 255, 176, 59; /* #ffb03b */
     --color-amber-dark: 255, 143, 0; /* #ff8f00 */
     --color-amber-darker: 222, 98, 2; /* #de6202 */
 
@@ -281,7 +295,7 @@
     --color-orange-darker: 216, 77, 1; /* #d84d01 */
 
     --color-coral-lighter: 255, 171, 145; /* #ffab91 */
-    --color-coral-light: var(--lime-brand-color-sellable-orange);
+    --color-coral-light: 255, 112, 67; /* #ff7043 */
     --color-coral-default: 244, 81, 30; /* #f4511e */
     --color-coral-dark: 216, 67, 21; /* #d84315 */
     --color-coral-darker: 181, 50, 10; /* #b5320a */
@@ -293,7 +307,7 @@
     --color-brown-darker: 51, 32, 28; /* #33201c */
 
     --color-gray-lighter: 238, 238, 238; /* #eee */
-    --color-gray-light: var(--lime-brand-color-light-grey);
+    --color-gray-light: 173, 173, 173; /* #adadad */
     --color-gray-default: 117, 117, 117; /* #757575 */
     --color-gray-dark: 66, 66, 66; /* #424242 */
     --color-gray-darker: 33, 32, 32; /* #212020 */
@@ -306,22 +320,24 @@
 
     --lime-elevated-surface-background-color: rgb(var(--contrast-200));
 
-    --button-shadow-normal: 0 0.09375rem 0.225rem 0 rgba(var(--color-black), 0.632), 0 0.01875rem 0.05625rem 0 rgba(var(--color-black), 0.608);
-    --button-shadow-hovered: 0 0.125rem 0.375rem rgba(var(--color-black), 0.55), 0 0.375rem 0.625rem rgba(var(--color-black), 0.45);
-    --button-shadow-pressed: 0 0.0625rem 0.1875rem 0 rgba(var(--color-black), 0.532), 0 0.01875rem 0.05625rem 0 rgba(var(--color-black), 0.508);
-    --button-shadow-inset: 0 0.03125rem 0.21875rem 0 rgba(var(--color-black), 0.532) inset, 0 0.01875rem 0.05625rem 0 rgba(var(--color-black), 0.508) inset, 0 0 0.25rem rgba(var(--color-white), 0.1);
-    --button-shadow-inset-pressed: 0 0.03125rem 0.34375rem 0 rgba(var(--color-black), 0.532) inset, 0 0.01875rem 0.11875rem 0 rgba(var(--color-black), 0.52) inset, 0 0 0.1875rem rgba(var(--color-white), 0.1);
-    --shadow-depth-8: 0 0.2rem 0.45rem 0 rgba(var(--color-black), 0.532), 0 0.0375rem 0.1125rem 0 rgba(var(--color-black), 0.508);
-    --shadow-depth-8-reversed: 0 -0.2rem 0.45rem 0 rgba(var(--color-black), 0.532), 0 -0.0375rem 0.1125rem 0 rgba(var(--color-black), 0.508);
-    --shadow-depth-16: 0 0.4rem 0.9rem 0 rgba(var(--color-black), 0.532), 0 0.075rem 0.225rem 0 rgba(var(--color-black), 0.508);
-    --shadow-depth-64: 0 1.6rem 3.6rem 0 rgba(var(--color-black), 0.22), 0 0.3rem 0.9rem 0 rgba(var(--color-black), 0.58);
-    --shadow-inflated-8: -0.125rem -0.125rem 0.375rem rgba(var(--color-black), 0.21), -0.25rem -0.25rem 0.625rem rgba(var(--color-white), 0.08), 0.25rem 0.25rem 0.625rem rgba(var(--color-black), 0.46), 0.0625rem 0.0625rem 0.625rem rgba(var(--color-white), 0.16), -1px -1px 0 1px rgba(var(--color-black), 0.37) inset, 0 0 1px 1px rgba(var(--color-white), 0.2) inset;
-    --shadow-inflated-16: -0.1875rem -0.1875rem 0.375rem rgba(var(--color-black), 0.21), -0.375rem -0.375rem 1rem rgba(var(--color-white), 0.1), 0.375rem 0.375rem 1rem rgba(var(--color-black), 0.46), 0.125rem 0.125rem 0.625rem rgba(var(--color-white), 0.16), -1px -1px 0 1px rgba(var(--color-black), 0.37) inset, 0 0 1px 1px rgba(var(--color-white), 0.2) inset;
-    --shadow-inflated-64: -0.1875rem -0.1875rem 0.375rem rgba(var(--color-black), 0.21), -0.625rem -0.625rem 1.875rem rgba(var(--color-white), 0.2), 0.625rem 0.625rem 2.25rem rgba(var(--color-black), 0.46), 0.125rem 0.125rem 0.625rem rgba(var(--color-white), 0.16), -1px -1px 0 1px rgba(var(--color-black), 0.37) inset, 0 0 1px 1px rgba(var(--color-white), 0.2) inset;
+    --button-shadow-normal: 0 0.09375rem 0.225rem 0 rgb(var(--color-black), 0.632), 0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.608), var(--shadow-brighten-edges-inside);
+    --button-shadow-hovered: 0 0.125rem 0.375rem rgb(var(--color-black), 0.55), 0 0.4rem 0.475rem -0.3rem rgb(var(--color-black), 0.45), var(--shadow-brighten-edges-inside);
+    --button-shadow-pressed: 0 0.0625rem 0.1875rem 0 rgb(var(--color-black), 0.532), 0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.508), var(--shadow-brighten-edges-inside);
+    --button-shadow-inset: 0 0.03125rem 0.21875rem 0 rgb(var(--color-black), 0.532) inset, 0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.508) inset, 0 0 0.25rem rgb(var(--color-white), 0.1), var(--shadow-brighten-edges-outside);
+    --button-shadow-inset-pressed: 0 0.03125rem 0.34375rem 0 rgb(var(--color-black), 0.532) inset, 0 0.01875rem 0.11875rem 0 rgb(var(--color-black), 0.52) inset, 0 -1px 0.3rem rgb(var(--color-white), 0.1), var(--shadow-brighten-edges-outside);
+    --shadow-depth-8: 0 0.2rem 0.45rem 0 rgb(var(--color-black), 0.532), 0 0.0375rem 0.1125rem 0 rgb(var(--color-black), 0.508);
+    --shadow-depth-8-reversed: 0 -0.2rem 0.45rem 0 rgb(var(--color-black), 0.532), 0 -0.0375rem 0.1125rem 0 rgb(var(--color-black), 0.508);
+    --shadow-depth-16: 0 0.4rem 0.9rem 0 rgb(var(--color-black), 0.532), 0 0.075rem 0.225rem 0 rgb(var(--color-black), 0.508);
+    --shadow-depth-64: 0 1.6rem 3.6rem 0 rgb(var(--color-black), 0.22), 0 0.3rem 0.9rem 0 rgb(var(--color-black), 0.58);
+    --shadow-inflated-8: -0.125rem -0.125rem 0.375rem rgb(var(--color-black), 0.21), -0.25rem -0.25rem 0.625rem rgb(var(--color-white), 0.08), 0.25rem 0.25rem 0.625rem rgb(var(--color-black), 0.46), 0.0625rem 0.0625rem 0.625rem rgb(var(--color-white), 0.16), -1px -1px 0 1px rgb(var(--color-black), 0.37) inset, 0 0 1px 1px rgb(var(--color-white), 0.2) inset;
+    --shadow-inflated-16: -0.1875rem -0.1875rem 0.375rem rgb(var(--color-black), 0.21), -0.375rem -0.375rem 1rem rgb(var(--color-white), 0.1), 0.375rem 0.375rem 1rem rgb(var(--color-black), 0.46), 0.125rem 0.125rem 0.625rem rgb(var(--color-white), 0.16), -1px -1px 0 1px rgb(var(--color-black), 0.37) inset, 0 0 1px 1px rgb(var(--color-white), 0.2) inset;
+    --shadow-inflated-64: -0.1875rem -0.1875rem 0.375rem rgb(var(--color-black), 0.21), -0.625rem -0.625rem 1.875rem rgb(var(--color-white), 0.2), 0.625rem 0.625rem 2.25rem rgb(var(--color-black), 0.46), 0.125rem 0.125rem 0.625rem rgb(var(--color-white), 0.16), -1px -1px 0 1px rgb(var(--color-black), 0.37) inset, 0 0 1px 1px rgb(var(--color-white), 0.2) inset;
 }
 
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="force-light"]) {
+        --limel-chip-progress-mix-blend-mode: screen;
+
         --contrast-100: 20, 20, 37; /* #141425 */
         --contrast-200: 25, 25, 44; /* #19192c */
         --contrast-300: 35, 35, 53; /* #232335 */
@@ -341,7 +357,7 @@
         --contrast-1700: 255, 255, 255; /* #fff */
 
         --color-red-lighter: 239, 154, 154; /* #ef9a9a */
-        --color-red-light: var(--lime-brand-color-deep-red);
+        --color-red-light: 240, 87, 80; /* #f05750 */
         --color-red-default: 229, 57, 53; /* #e53935 */
         --color-red-dark: 198, 40, 40; /* #c62828 */
         --color-red-darker: 165, 23, 23; /* #a51717 */
@@ -354,7 +370,7 @@
 
         --color-magenta-lighter: 249, 161, 204; /* #f9a1cc */
         --color-magenta-light: 249, 79, 162; /* #f94fa2 */
-        --color-magenta-default: var(--lime-brand-color-loving-magenta);
+        --color-magenta-default: 255, 49, 149; /* #ff3195 */
         --color-magenta-dark: 208, 31, 117; /* #d01f75 */
         --color-magenta-darker: 156, 22, 87; /* #9c1657 */
 
@@ -383,7 +399,7 @@
         --color-blue-darker: 10, 60, 138; /* #0a3c8a */
 
         --color-sky-lighter: 129, 212, 250; /* #81d4fa */
-        --color-sky-light: var(--lime-brand-color-simple-blue);
+        --color-sky-light: 41, 182, 246; /* #29b6f6 */
         --color-sky-default: 3, 155, 229; /* #039be5 */
         --color-sky-dark: 2, 119, 189; /* #0277bd */
         --color-sky-darker: 1, 81, 144; /* #015190 */
@@ -395,13 +411,13 @@
         --color-cyan-darker: 0, 89, 93; /* #00595d */
 
         --color-teal-lighter: 128, 203, 196; /* #80cbc4 */
-        --color-teal-light: var(--lime-brand-color-flexible-turquoise);
+        --color-teal-light: 38, 166, 154; /* #26a69a */
         --color-teal-default: 0, 137, 123; /* #00897b */
         --color-teal-dark: 0, 105, 92; /* #00695c */
         --color-teal-darker: 1, 82, 69; /* #015245 */
 
         --color-green-lighter: 165, 214, 167; /* #a5d6a7 */
-        --color-green-light: var(--lime-brand-color-lime-green);
+        --color-green-light: 102, 187, 106; /* #66bb6a */
         --color-green-default: 67, 160, 71; /* #43a047 */
         --color-green-dark: 46, 125, 50; /* #2e7d32 */
         --color-green-darker: 32, 97, 37; /* #206125 */
@@ -425,8 +441,8 @@
         --color-yellow-darker: 224, 180, 21; /* #e0b415 */
 
         --color-amber-lighter: 255, 224, 130; /* #ffe082 */
-        --color-amber-light: var(--lime-brand-color-yellow);
-        --color-amber-default: var(--lime-brand-color-orange);
+        --color-amber-light: 255, 207, 61; /* #ffcf3d */
+        --color-amber-default: 255, 176, 59; /* #ffb03b */
         --color-amber-dark: 255, 143, 0; /* #ff8f00 */
         --color-amber-darker: 222, 98, 2; /* #de6202 */
 
@@ -437,7 +453,7 @@
         --color-orange-darker: 216, 77, 1; /* #d84d01 */
 
         --color-coral-lighter: 255, 171, 145; /* #ffab91 */
-        --color-coral-light: var(--lime-brand-color-sellable-orange);
+        --color-coral-light: 255, 112, 67; /* #ff7043 */
         --color-coral-default: 244, 81, 30; /* #f4511e */
         --color-coral-dark: 216, 67, 21; /* #d84315 */
         --color-coral-darker: 181, 50, 10; /* #b5320a */
@@ -449,7 +465,7 @@
         --color-brown-darker: 51, 32, 28; /* #33201c */
 
         --color-gray-lighter: 238, 238, 238; /* #eee */
-        --color-gray-light: var(--lime-brand-color-light-grey);
+        --color-gray-light: 173, 173, 173; /* #adadad */
         --color-gray-default: 117, 117, 117; /* #757575 */
         --color-gray-dark: 66, 66, 66; /* #424242 */
         --color-gray-darker: 33, 32, 32; /* #212020 */
@@ -462,17 +478,17 @@
 
         --lime-elevated-surface-background-color: rgb(var(--contrast-200));
 
-        --button-shadow-normal: 0 0.09375rem 0.225rem 0 rgba(var(--color-black), 0.632), 0 0.01875rem 0.05625rem 0 rgba(var(--color-black), 0.608);
-        --button-shadow-hovered: 0 0.125rem 0.375rem rgba(var(--color-black), 0.55), 0 0.375rem 0.625rem rgba(var(--color-black), 0.45);
-        --button-shadow-pressed: 0 0.0625rem 0.1875rem 0 rgba(var(--color-black), 0.532), 0 0.01875rem 0.05625rem 0 rgba(var(--color-black), 0.508);
-        --button-shadow-inset: 0 0.03125rem 0.21875rem 0 rgba(var(--color-black), 0.532) inset, 0 0.01875rem 0.05625rem 0 rgba(var(--color-black), 0.508) inset, 0 0 0.25rem rgba(var(--color-white), 0.1);
-        --button-shadow-inset-pressed: 0 0.03125rem 0.34375rem 0 rgba(var(--color-black), 0.532) inset, 0 0.01875rem 0.11875rem 0 rgba(var(--color-black), 0.52) inset, 0 0 0.1875rem rgba(var(--color-white), 0.1);
-        --shadow-depth-8: 0 0.2rem 0.45rem 0 rgba(var(--color-black), 0.532), 0 0.0375rem 0.1125rem 0 rgba(var(--color-black), 0.508);
-        --shadow-depth-8-reversed: 0 -0.2rem 0.45rem 0 rgba(var(--color-black), 0.532), 0 -0.0375rem 0.1125rem 0 rgba(var(--color-black), 0.508);
-        --shadow-depth-16: 0 0.4rem 0.9rem 0 rgba(var(--color-black), 0.532), 0 0.075rem 0.225rem 0 rgba(var(--color-black), 0.508);
-        --shadow-depth-64: 0 1.6rem 3.6rem 0 rgba(var(--color-black), 0.22), 0 0.3rem 0.9rem 0 rgba(var(--color-black), 0.58);
-        --shadow-inflated-8: -0.125rem -0.125rem 0.375rem rgba(var(--color-black), 0.21), -0.25rem -0.25rem 0.625rem rgba(var(--color-white), 0.08), 0.25rem 0.25rem 0.625rem rgba(var(--color-black), 0.46), 0.0625rem 0.0625rem 0.625rem rgba(var(--color-white), 0.16), -1px -1px 0 1px rgba(var(--color-black), 0.37) inset, 0 0 1px 1px rgba(var(--color-white), 0.2) inset;
-        --shadow-inflated-16: -0.1875rem -0.1875rem 0.375rem rgba(var(--color-black), 0.21), -0.375rem -0.375rem 1rem rgba(var(--color-white), 0.1), 0.375rem 0.375rem 1rem rgba(var(--color-black), 0.46), 0.125rem 0.125rem 0.625rem rgba(var(--color-white), 0.16), -1px -1px 0 1px rgba(var(--color-black), 0.37) inset, 0 0 1px 1px rgba(var(--color-white), 0.2) inset;
-        --shadow-inflated-64: -0.1875rem -0.1875rem 0.375rem rgba(var(--color-black), 0.21), -0.625rem -0.625rem 1.875rem rgba(var(--color-white), 0.2), 0.625rem 0.625rem 2.25rem rgba(var(--color-black), 0.46), 0.125rem 0.125rem 0.625rem rgba(var(--color-white), 0.16), -1px -1px 0 1px rgba(var(--color-black), 0.37) inset, 0 0 1px 1px rgba(var(--color-white), 0.2) inset;
+        --button-shadow-normal: 0 0.09375rem 0.225rem 0 rgb(var(--color-black), 0.632), 0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.608), var(--shadow-brighten-edges-inside);
+        --button-shadow-hovered: 0 0.125rem 0.375rem rgb(var(--color-black), 0.55), 0 0.4rem 0.475rem -0.3rem rgb(var(--color-black), 0.45), var(--shadow-brighten-edges-inside);
+        --button-shadow-pressed: 0 0.0625rem 0.1875rem 0 rgb(var(--color-black), 0.532), 0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.508), var(--shadow-brighten-edges-inside);
+        --button-shadow-inset: 0 0.03125rem 0.21875rem 0 rgb(var(--color-black), 0.532) inset, 0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.508) inset, 0 0 0.25rem rgb(var(--color-white), 0.1), var(--shadow-brighten-edges-outside);
+        --button-shadow-inset-pressed: 0 0.03125rem 0.34375rem 0 rgb(var(--color-black), 0.532) inset, 0 0.01875rem 0.11875rem 0 rgb(var(--color-black), 0.52) inset, 0 -1px 0.3rem rgb(var(--color-white), 0.1), var(--shadow-brighten-edges-outside);
+        --shadow-depth-8: 0 0.2rem 0.45rem 0 rgb(var(--color-black), 0.532), 0 0.0375rem 0.1125rem 0 rgb(var(--color-black), 0.508);
+        --shadow-depth-8-reversed: 0 -0.2rem 0.45rem 0 rgb(var(--color-black), 0.532), 0 -0.0375rem 0.1125rem 0 rgb(var(--color-black), 0.508);
+        --shadow-depth-16: 0 0.4rem 0.9rem 0 rgb(var(--color-black), 0.532), 0 0.075rem 0.225rem 0 rgb(var(--color-black), 0.508);
+        --shadow-depth-64: 0 1.6rem 3.6rem 0 rgb(var(--color-black), 0.22), 0 0.3rem 0.9rem 0 rgb(var(--color-black), 0.58);
+        --shadow-inflated-8: -0.125rem -0.125rem 0.375rem rgb(var(--color-black), 0.21), -0.25rem -0.25rem 0.625rem rgb(var(--color-white), 0.08), 0.25rem 0.25rem 0.625rem rgb(var(--color-black), 0.46), 0.0625rem 0.0625rem 0.625rem rgb(var(--color-white), 0.16), -1px -1px 0 1px rgb(var(--color-black), 0.37) inset, 0 0 1px 1px rgb(var(--color-white), 0.2) inset;
+        --shadow-inflated-16: -0.1875rem -0.1875rem 0.375rem rgb(var(--color-black), 0.21), -0.375rem -0.375rem 1rem rgb(var(--color-white), 0.1), 0.375rem 0.375rem 1rem rgb(var(--color-black), 0.46), 0.125rem 0.125rem 0.625rem rgb(var(--color-white), 0.16), -1px -1px 0 1px rgb(var(--color-black), 0.37) inset, 0 0 1px 1px rgb(var(--color-white), 0.2) inset;
+        --shadow-inflated-64: -0.1875rem -0.1875rem 0.375rem rgb(var(--color-black), 0.21), -0.625rem -0.625rem 1.875rem rgb(var(--color-white), 0.2), 0.625rem 0.625rem 2.25rem rgb(var(--color-black), 0.46), 0.125rem 0.125rem 0.625rem rgb(var(--color-white), 0.16), -1px -1px 0 1px rgb(var(--color-black), 0.37) inset, 0 0 1px 1px rgb(var(--color-white), 0.2) inset;
     }
 }

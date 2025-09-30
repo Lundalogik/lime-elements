@@ -56,7 +56,7 @@ export class KompendiumComponent {
       h("h1", { id: this.getId() }, title),
       h("kompendium-markdown", { text: component.docs }),
       h("kompendium-taglist", { tags: tags }),
-      h(ExampleList, { examples: examples, id: this.getId('examples'), schema: schema }),
+      h(ExampleList, { examples: examples, id: this.getId('examples'), schema: schema, propsFactory: this.examplePropsFactory }),
       h(PropertyList, { props: component.props, id: this.getId('properties') }),
       h(EventList, { events: component.events, id: this.getId('events') }),
       h(MethodList, { methods: component.methods, id: this.getId('methods') }),
@@ -140,6 +140,26 @@ export class KompendiumComponent {
       "docs": {
         "tags": [],
         "text": "Matched route parameters"
+      }
+    },
+    "examplePropsFactory": {
+      "type": "unknown",
+      "mutable": false,
+      "complexType": {
+        "original": "PropsFactory",
+        "resolved": "(name: string) => Record<string, unknown>",
+        "references": {
+          "PropsFactory": {
+            "location": "import",
+            "path": "../playground/playground.types"
+          }
+        }
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": "Factory for creating props for example components"
       }
     }
   }; }

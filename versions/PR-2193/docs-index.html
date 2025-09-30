@@ -1,53 +1,379 @@
-<!DOCTYPE html>
+<!doctype html>
 <html dir="ltr" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lime Elements Documentation</title>
-    <script src="versions.js"></script>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <h1>Lime Elements Documentation</h1>
+        <!-- Primary Meta Tags -->
+        <title>
+            Lime Elements - Modern Web Component Library, built with Stencil
+        </title>
+        <meta
+            name="title"
+            content="Lime Elements - Modern Web Component Library, built with Stencil"
+        />
+        <meta
+            name="description"
+            content="Modern, accessible, and beautiful web components built with Stencil and TypeScript. Browse documentation for all versions of Lime Elements UI library."
+        />
+        <meta
+            name="keywords"
+            content="web components, stencil, lime elements, ui library, design system, typescript, accessibility"
+        />
+        <meta name="author" content="Lime Technologies" />
 
-    <p>
-        <a href="https://github.com/Lundalogik/lime-elements/blob/main/CHANGELOG.md">CHANGELOG</a>
-    </p>
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:url"
+            content="https://lundalogik.github.io/lime-elements/"
+        />
+        <meta
+            property="og:title"
+            content="Lime Elements - Modern Web Component Library, built with Stencil"
+        />
+        <meta
+            property="og:description"
+            content="Modern, accessible, and beautiful web components built with Stencil and TypeScript for exceptional user interfaces."
+        />
+        <meta
+            property="og:image"
+            content="https://raw.githubusercontent.com/Lundalogik/lime-elements/main/icon.png"
+        />
 
-    <section id="versions"></section>
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta
+            property="twitter:url"
+            content="https://lundalogik.github.io/lime-elements/"
+        />
+        <meta
+            property="twitter:title"
+            content="Lime Elements - Modern Web Component Library, built with Stencil"
+        />
+        <meta
+            property="twitter:description"
+            content="Modern, accessible, and beautiful web components built with Stencil and TypeScript for exceptional user interfaces."
+        />
+        <meta
+            property="twitter:image"
+            content="https://raw.githubusercontent.com/Lundalogik/lime-elements/main/icon.png"
+        />
 
-    <script>
-        var body = document.getElementById('versions');
-        window.versions.sort(function(a, b) {
-            a = a.split('.');
-            b = b.split('.');
-            if (a[0] !== b[0]) {
-                return +b[0] - +a[0];
-            }
-            if (a[1] !== b[1]) {
-                return +b[1] - +a[1];
-            }
-            if (a[2] !== b[2]) {
-                if (a[2].substring(0, 1) !== b[2].substring(0,1)) {
-                    return +b[2].substring(0, 1) - +a[2].substring(0, 1);
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://raw.githubusercontent.com/Lundalogik/lime-elements/main/icon.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            href="https://raw.githubusercontent.com/Lundalogik/lime-elements/main/icon.png"
+        />
+
+        <!-- Theme Color -->
+        <meta name="theme-color" content="#6FCDB6" />
+        <meta name="msapplication-TileColor" content="#6FCDB6" />
+
+        <!-- Preconnect to external domains for performance -->
+        <link rel="preconnect" href="https://raw.githubusercontent.com" />
+        <link rel="preconnect" href="https://github.com" />
+
+        <!-- Canonical URL -->
+        <link
+            rel="canonical"
+            href="https://lundalogik.github.io/lime-elements/"
+        />
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="docs-index.css" />
+
+        <!-- Scripts -->
+        <script src="versions.js" defer></script>
+    </head>
+    <body>
+        <main class="container">
+            <header class="header">
+                <h1>
+                    <img
+                        src="https://raw.githubusercontent.com/Lundalogik/lime-elements/main/icon.png"
+                        alt="Lime Elements Logo"
+                        style="width: 3.5rem; vertical-align: middle"
+                    />
+                    Lime Elements
+                </h1>
+                <p>
+                    Modern, accessible, and beautiful web components<br />Built
+                    with
+                    <a
+                        href="https://stenciljs.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >Stencil</a
+                    >
+                    • coded in
+                    <a
+                        href="https://www.typescriptlang.org/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >TypeScript</a
+                    >
+                </p>
+
+                <div class="quick-links">
+                    <a href="versions/latest/" class="quick-link"
+                        >📚 Latest Documentation</a
+                    >
+                    <a
+                        href="https://github.com/Lundalogik/lime-elements"
+                        class="quick-link"
+                        >🔗 GitHub Repository</a
+                    >
+                    <a
+                        href="https://github.com/Lundalogik/lime-elements/blob/main/CHANGELOG.md"
+                        class="quick-link"
+                        >📋 Changelog</a
+                    >
+                    <a
+                        href="https://www.npmjs.com/package/@limetech/lime-elements"
+                        class="quick-link"
+                        >📦 NPM Package</a
+                    >
+                </div>
+            </header>
+
+            <div class="versions-container">
+                <div class="versions-header">
+                    <h2>Available Versions</h2>
+                    <p>Select any version to view its specific documentation</p>
+                </div>
+
+                <div class="search-box">
+                    <div class="search-icon">🔍</div>
+                    <input
+                        aria-label="Filter versions"
+                        type="search"
+                        class="search-input"
+                        placeholder="Find versions..."
+                        id="searchInput"
+                    />
+                </div>
+
+                <div class="version-categories">
+                    <div class="category" id="latest-category">
+                        <div class="category-header">
+                            <div class="category-title">Latest Release</div>
+                            <div class="category-description">
+                                Most recent stable version
+                            </div>
+                        </div>
+                        <div class="version-grid" id="latest-versions"></div>
+                    </div>
+
+                    <div class="category" id="stable-category">
+                        <div class="category-header">
+                            <div class="category-title">Stable Releases</div>
+                            <div class="category-description">
+                                Production-ready versions
+                            </div>
+                        </div>
+                        <div class="version-grid" id="stable-versions"></div>
+                    </div>
+
+                    <div class="category" id="preview-category">
+                        <div class="category-header">
+                            <div class="category-title">
+                                Preview & Development
+                            </div>
+                            <div class="category-description">
+                                Development versions and pull request previews
+                            </div>
+                        </div>
+                        <div class="version-grid" id="preview-versions"></div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <p>
+                    Built with ❤️ by
+                    <a href="https://lime-technologies.com"
+                        >Lime Technologies</a
+                    >
+                    •
+                    <a
+                        href="https://github.com/Lundalogik/lime-elements/blob/main/CONTRIBUTING.md"
+                        >Contributing</a
+                    >
+                    •
+                    <a href="https://github.com/Lundalogik/lime-elements/issues"
+                        >Issues</a
+                    >
+                </p>
+            </footer>
+        </main>
+
+        <script>
+            // Sort versions in descending order
+            function sortVersions(a, b) {
+                const collator = new Intl.Collator('en', { numeric: true });
+
+                const partsA = a.split(/-(.*)/s);
+                const partsB = b.split(/-(.*)/s);
+
+                const mainA = partsA[0];
+                const preA = partsA[1];
+                const mainB = partsB[0];
+                const preB = partsB[1];
+
+                const mainCompare = collator.compare(mainB, mainA);
+                if (mainCompare !== 0) {
+                    return mainCompare;
                 }
-                return b[2].substring(0, 1) > a[2].substring(0, 1) ? 1 : -1;
-            }
-        });
-        createLink(`versions/latest/`, 'Latest Official Release');
-        createLink(`versions/next/`, 'Latest nightly (Used by the Lime CRM Web Client)');
-        window.versions.forEach(function(version, index) {
-            createLink(`versions/${version}/`, version);
-        });
 
-        function createLink(href, text) {
-            var link = document.createElement('a');
-            link.href = href;
-            link.appendChild(document.createTextNode(text));
-            body.appendChild(link);
-            body.appendChild(document.createElement('br'));
-        }
-    </script>
-</body>
+                if (preA === undefined && preB !== undefined) {
+                    // a is stable, b is pre-release. a > b.
+                    // For descending sort, a should come first. Return a negative value.
+                    return -1;
+                }
+
+                if (preA !== undefined && preB === undefined) {
+                    // b is stable, a is pre-release. b > a.
+                    // For descending sort, b should come first. Return a positive value.
+                    return 1;
+                }
+
+                // Both are stable or both are pre-releases.
+                // In both cases, a full string comparison with the collator works.
+                // For pre-releases like 'beta' vs 'alpha', this will sort them alphabetically.
+                // To sort 'beta' > 'alpha' we can reverse the order of comparison
+                return collator.compare(b, a);
+            }
+
+            // Categorize and display versions
+            function categorizeVersions() {
+                const latestContainer =
+                    document.getElementById('latest-versions');
+                const stableContainer =
+                    document.getElementById('stable-versions');
+                const previewContainer =
+                    document.getElementById('preview-versions');
+
+                if (!latestContainer || !stableContainer || !previewContainer) {
+                    console.error('Could not find version containers');
+                    return;
+                }
+
+                // Add latest link
+                const latestLink = createVersionLink(
+                    'versions/latest/',
+                    'Latest Release',
+                    'latest'
+                );
+                latestContainer.appendChild(latestLink);
+
+                // Categorize other versions
+                window.versions.forEach(function (version, index) {
+                    let container = stableContainer;
+                    let className = '';
+
+                    // Determine category based on version string
+                    if (
+                        version.includes('dev') ||
+                        version.includes('beta') ||
+                        version.includes('alpha') ||
+                        version.includes('rc') ||
+                        version.includes('preview') ||
+                        version.startsWith('PR-')
+                    ) {
+                        container = previewContainer;
+                        className = 'preview';
+                    } else if (index === 0 && !version.includes('-')) {
+                        // First stable version could be highlighted
+                        className = 'stable-latest';
+                    }
+
+                    const link = createVersionLink(
+                        `versions/${version}/`,
+                        version,
+                        className
+                    );
+                    container.appendChild(link);
+                });
+            }
+
+            function createVersionLink(href, text, className = '') {
+                const link = document.createElement('a');
+                link.href = href;
+                link.className = `version-link ${className}`;
+                link.textContent = text;
+                return link;
+            }
+
+            // Search functionality
+            function initializeSearch() {
+                const searchInput = document.getElementById('searchInput');
+                const allVersions = document.querySelectorAll('.version-link');
+
+                searchInput.addEventListener('input', function () {
+                    const searchTerm = this.value.toLowerCase();
+
+                    allVersions.forEach(function (versionLink) {
+                        const versionText =
+                            versionLink.textContent.toLowerCase();
+                        const isVisible = versionText.includes(searchTerm);
+
+                        versionLink.style.display = isVisible
+                            ? 'block'
+                            : 'none';
+                    });
+
+                    // Hide/show categories based on whether they have visible versions
+                    updateCategoryVisibility();
+                });
+            }
+
+            function updateCategoryVisibility() {
+                const categories = document.querySelectorAll('.category');
+
+                categories.forEach(function (category) {
+                    const visibleVersions = category.querySelectorAll(
+                        '.version-link:not([style*="display: none"])'
+                    );
+                    const hasVisibleVersions = visibleVersions.length > 0;
+
+                    category.style.display = hasVisibleVersions
+                        ? 'block'
+                        : 'none';
+                });
+            }
+
+            // Initialize everything when the page loads
+            document.addEventListener('DOMContentLoaded', function () {
+                if (window.versions && window.versions.length > 0) {
+                    window.versions.sort(sortVersions);
+                    categorizeVersions();
+                    initializeSearch();
+                } else {
+                    console.error('No versions found to display');
+                }
+            });
+
+            // Fallback if DOMContentLoaded already fired
+            if (document.readyState === 'loading') {
+                // Still loading, wait for DOMContentLoaded
+            } else {
+                // Already loaded
+                if (window.versions && window.versions.length > 0) {
+                    window.versions.sort(sortVersions);
+                    categorizeVersions();
+                    initializeSearch();
+                } else {
+                    console.error('No versions found to display');
+                }
+            }
+        </script>
+    </body>
 </html>

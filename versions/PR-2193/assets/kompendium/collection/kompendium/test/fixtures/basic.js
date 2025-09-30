@@ -6,10 +6,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 /**
  * Use this!
- *
  * @param {DecoratorConfig} _config how to use it
  * @returns {ClassDecorator} the decorator
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CustomDecorator = (_config) => {
   return () => { };
 };
@@ -33,7 +33,6 @@ export var Color;
 })(Color || (Color = {}));
 /**
  * The Zap class
- *
  * @deprecated
  */
 let Zap = class Zap {

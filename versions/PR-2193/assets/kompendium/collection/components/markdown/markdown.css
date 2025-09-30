@@ -274,14 +274,14 @@ code {
   border: 1px solid rgba(var(--kompendium-contrast-1100), 0.1);
   padding: 0.125rem 0.3125rem;
   margin: 0 0.125rem;
-  white-space: nowrap;
+  white-space: pre-wrap;
   color: rgb(var(--kompendium-contrast-1100));
 }
 
 pre > code {
   display: block;
   padding: 0.625rem 0.6375rem;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .value--false code {
@@ -331,6 +331,18 @@ dl,
 dt,
 dd {
   transition: background-color 0.3s ease 0.05s, border-color 0.3s ease 0.05s;
+}
+
+:root[data-theme=system-default] {
+  color-scheme: dark light;
+}
+
+:root[data-theme=force-light] {
+  color-scheme: light;
+}
+
+:root[data-theme=force-dark] {
+  color-scheme: dark;
 }
 
 :root {
