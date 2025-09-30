@@ -47,6 +47,53 @@ export async function markdownToHTML(
         })
         .use(() => {
             return (tree: Node) => {
+                // Transform task list items to wrap text content in paragraphs
+                visit(tree, 'element', (node: any) => {
+                    if (
+                        node.tagName === 'li' &&
+                        node.properties?.className?.includes('task-list-item')
+                    ) {
+                        const newChildren = [];
+                        let textContent = [];
+
+                        for (const child of node.children || []) {
+                            const isInput =
+                                child.type === 'element' &&
+                                child.tagName === 'input';
+                            const isTextOrInline =
+                                child.type === 'text' ||
+                                (child.type === 'element' &&
+                                    child.tagName !== 'p');
+
+                            if (isInput) {
+                                newChildren.push(child);
+                            } else if (isTextOrInline) {
+                                textContent.push(child);
+                            } else {
+                                if (textContent.length > 0) {
+                                    newChildren.push({
+                                        type: 'element',
+                                        tagName: 'p',
+                                        children: textContent,
+                                    });
+                                    textContent = [];
+                                }
+                                newChildren.push(child);
+                            }
+                        }
+
+                        if (textContent.length > 0) {
+                            newChildren.push({
+                                type: 'element',
+                                tagName: 'p',
+                                children: textContent,
+                            });
+                        }
+
+                        node.children = newChildren;
+                    }
+                });
+
                 // Run the sanitizeStyle function on all elements, to sanitize
                 // the value of the `style` attribute, if there is one.
                 visit(tree, 'element', sanitizeStyle);
@@ -99,6 +146,8 @@ function getWhiteList(allowedComponents: CustomElementDefinition[]): Schema {
         ...defaultSchema,
         tagNames: [
             ...(defaultSchema.tagNames || []),
+            'input', // Explicitly allow input elements for task list checkboxes
+            'limel-checkbox', // Allow limel-checkbox component for task lists
             ...allowedComponents.map((component) => component.tagName),
         ],
         attributes: {
@@ -108,6 +157,36 @@ function getWhiteList(allowedComponents: CustomElementDefinition[]): Schema {
                 ['className', 'MsoNormal'],
             ], // Allow the class 'MsoNormal' on <p> elements
             a: [...(defaultSchema.attributes.a ?? []), 'referrerpolicy'], // Allow referrerpolicy on <a> elements
+            // Allow task list specific classes and attributes
+            ul: [
+                ...(defaultSchema.attributes.ul ?? []),
+                ['className', 'task-list'],
+                ['className', 'contains-task-list'], // Allow remark-gfm generated class
+            ],
+            li: [
+                ...(defaultSchema.attributes.li ?? []),
+                ['className', 'task-list-item'],
+            ],
+            div: [
+                ...(defaultSchema.attributes.div ?? []),
+                ['className', 'task-list-item-content'],
+            ],
+            input: [
+                ...(defaultSchema.attributes.input ?? []),
+                'type',
+                'checked',
+                'disabled',
+            ],
+            // Allow limel-checkbox attributes
+            'limel-checkbox': [
+                'checked',
+                'disabled',
+                'readonly',
+                'invalid',
+                'required',
+                'indeterminate',
+                ['className'],
+            ],
             '*': asteriskAttributeWhitelist,
         },
     };
