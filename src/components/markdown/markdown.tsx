@@ -69,6 +69,7 @@ export class Markdown {
             this.rootElement.innerHTML = html;
 
             this.setupImageIntersectionObserver();
+            this.setupTaskListHandlers();
         } catch (error) {
             console.error(error);
         }
@@ -86,12 +87,22 @@ export class Markdown {
     }
 
     public render() {
-        return [
-            <div
-                id="markdown"
-                ref={(el) => (this.rootElement = el as HTMLDivElement)}
-            />,
-        ];
+        return <div id="markdown" ref={(el) => (this.rootElement = el)} />;
+    }
+
+    private setupTaskListHandlers() {
+        // Make task list checkboxes interactive
+        const checkboxes = this.rootElement.querySelectorAll(
+            '.task-list-item input[type="checkbox"]'
+        );
+
+        for (const checkbox of checkboxes) {
+            (checkbox as HTMLInputElement).addEventListener('change', () => {
+                // Checkbox state is already updated by the browser
+                // This is a read-only markdown display, so we don't
+                // need to sync back to the value prop
+            });
+        }
     }
 
     private setupImageIntersectionObserver() {

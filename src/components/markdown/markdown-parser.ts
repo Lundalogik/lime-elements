@@ -47,53 +47,10 @@ export async function markdownToHTML(
         })
         .use(() => {
             return (tree: Node) => {
-                // Transform task list items to wrap text content in paragraphs
-                visit(tree, 'element', (node: any) => {
-                    if (
-                        node.tagName === 'li' &&
-                        node.properties?.className?.includes('task-list-item')
-                    ) {
-                        const newChildren = [];
-                        let textContent = [];
-
-                        for (const child of node.children || []) {
-                            const isInput =
-                                child.type === 'element' &&
-                                child.tagName === 'input';
-                            const isTextOrInline =
-                                child.type === 'text' ||
-                                (child.type === 'element' &&
-                                    child.tagName !== 'p');
-
-                            if (isInput) {
-                                newChildren.push(child);
-                            } else if (isTextOrInline) {
-                                textContent.push(child);
-                            } else {
-                                if (textContent.length > 0) {
-                                    newChildren.push({
-                                        type: 'element',
-                                        tagName: 'p',
-                                        children: textContent,
-                                    });
-                                    textContent = [];
-                                }
-                                newChildren.push(child);
-                            }
-                        }
-
-                        if (textContent.length > 0) {
-                            newChildren.push({
-                                type: 'element',
-                                tagName: 'p',
-                                children: textContent,
-                            });
-                        }
-
-                        node.children = newChildren;
-                    }
-                });
-
+                // Remove the task list paragraph wrapping transformation
+                // as it causes layout issues. Task lists work better with
+                // direct text content and CSS flexbox layout.
+                
                 // Run the sanitizeStyle function on all elements, to sanitize
                 // the value of the `style` attribute, if there is one.
                 visit(tree, 'element', sanitizeStyle);
