@@ -1,6 +1,5 @@
 import { Component, h, State } from '@stencil/core';
 import { PropsFactoryFormData, schema } from './props-factory-schema';
-import { FormSchema } from '@limetech/lime-elements';
 
 /**
  * Not using `propsFactory`
