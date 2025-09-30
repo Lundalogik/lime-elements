@@ -2,7 +2,7 @@ ul {
     list-style: none;
     margin-top: 0.25rem;
     padding-left: 0;
-    
+
     li {
         position: relative;
         margin-left: 0.75rem;
@@ -55,31 +55,31 @@ ol {
             display: none; // Remove bullet points
         }
 
-        input[type="checkbox"] {
+        input[type='checkbox'] {
             margin: 0;
             margin-top: 0.125rem; // Align with first line of text
             flex-shrink: 0;
             width: 1rem;
             height: 1rem;
             cursor: pointer;
-            
+
             // Ensure checkbox is interactive
             pointer-events: auto;
-            
+
             // Style to match other form elements
             border: 1px solid rgb(var(--contrast-600));
             border-radius: 0.125rem;
             background-color: rgb(var(--contrast-100));
-            
+
             &:checked {
                 background-color: rgb(var(--color-sky-default));
                 border-color: rgb(var(--color-sky-default));
             }
-            
+
             &:hover {
                 border-color: rgb(var(--contrast-800));
             }
-            
+
             &:focus {
                 outline: 2px solid rgb(var(--color-sky-light));
                 outline-offset: 1px;

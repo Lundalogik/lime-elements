@@ -1,4 +1,7 @@
-import { LimelInputFieldCustomEvent } from '@limetech/lime-elements';
+import {
+    LimelInputFieldCustomEvent,
+    LimelMarkdownCustomEvent,
+} from '@limetech/lime-elements';
 import { Component, State, h } from '@stencil/core';
 
 /**
@@ -38,7 +41,10 @@ This is **markdown**!
                 />
                 <fieldset>
                     <legend>Rendered markdown</legend>
-                    <limel-markdown value={this.markdown} />
+                    <limel-markdown
+                        value={this.markdown}
+                        onTaskListChange={this.handleTaskListChange}
+                    />
                 </fieldset>
             </div>
         );
@@ -46,6 +52,12 @@ This is **markdown**!
 
     private handleMarkdownChange = (
         event: LimelInputFieldCustomEvent<string>
+    ) => {
+        this.markdown = event.detail;
+    };
+
+    private handleTaskListChange = (
+        event: LimelMarkdownCustomEvent<string>
     ) => {
         this.markdown = event.detail;
     };

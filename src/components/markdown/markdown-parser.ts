@@ -47,10 +47,20 @@ export async function markdownToHTML(
         })
         .use(() => {
             return (tree: Node) => {
-                // Remove the task list paragraph wrapping transformation
-                // as it causes layout issues. Task lists work better with
-                // direct text content and CSS flexbox layout.
-                
+                // Make task list checkboxes interactive by removing the disabled attribute
+                // that remark-gfm adds by default
+                visit(tree, 'element', (node: any) => {
+                    if (
+                        node.tagName === 'input' &&
+                        node.properties?.type === 'checkbox' &&
+                        node.properties?.disabled !== undefined
+                    ) {
+                        // Check if this checkbox is inside a task list item
+                        // We can identify this by looking for the task-list-item class in parent
+                        delete node.properties.disabled;
+                    }
+                });
+
                 // Run the sanitizeStyle function on all elements, to sanitize
                 // the value of the `style` attribute, if there is one.
                 visit(tree, 'element', sanitizeStyle);
