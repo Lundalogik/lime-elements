@@ -66,6 +66,13 @@ const textEditorMenuItems: Array<
         iconOnly: true,
         selected: false,
     },
+    {
+        value: EditorMenuTypes.TaskList,
+        text: 'Task list',
+        icon: 'checklist',
+        iconOnly: true,
+        selected: false,
+    },
     { separator: true },
     {
         value: EditorMenuTypes.HeaderLevel1,
@@ -129,6 +136,7 @@ export const menuTranslationIDs = {
 
     bullet_list: 'editor-menu.bulleted-list',
     ordered_list: 'editor-menu.numbered-list',
+    task_list: 'editor-menu.task-list',
     code_block: 'editor-menu.code-block',
 
     blockquote: 'editor-menu.blockquote',

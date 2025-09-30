@@ -15,6 +15,7 @@ export const EditorMenuTypes = {
     Link: 'link',
     OrderedList: 'ordered_list',
     BulletList: 'bullet_list',
+    TaskList: 'task_list',
     Strikethrough: 'strikethrough',
     Code: 'code',
     CodeBlock: 'code_block',
