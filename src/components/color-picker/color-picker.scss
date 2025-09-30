@@ -2,9 +2,8 @@
 @use '../../style/internal/shared_input-select-picker';
 @import './partial-styles/lime-admin-hack';
 
-:host {
-    position: relative;
-    --popover-surface-width: 50rem;
+:host(limel-color-picker) {
+    isolation: isolate;
 }
 
 .color-picker {
@@ -24,7 +23,6 @@
     }
 }
 
-.chosen-color-preview,
 .picker-trigger {
     box-sizing: border-box;
     position: relative;
