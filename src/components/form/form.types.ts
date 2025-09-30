@@ -245,7 +245,7 @@ export interface FormLayoutOptions<
     /**
      * The type of layout to use
      */
-    type?: T;
+    type: T;
 }
 
 /**

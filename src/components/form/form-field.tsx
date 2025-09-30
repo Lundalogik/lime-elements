@@ -1,9 +1,14 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { GridLayoutOptions, LimeSchemaOptions } from './form.types';
+import {
+    GridLayoutOptions,
+    LimeLayoutOptions,
+    LimeSchemaOptions,
+} from './form.types';
 
-type FormFieldProps = {
+type FormFieldProps = Omit<LimeSchemaOptions, 'layout'> & {
     name: string;
-} & LimeSchemaOptions;
+    layout?: Partial<LimeLayoutOptions>;
+};
 
 export const FormField: FunctionalComponent<FormFieldProps> = (
     props,
