@@ -186,10 +186,9 @@ export class Form {
                         rootValue: this.value,
                         propsFactory: this.propsFactory,
                         ui: keyBy(
-                            Array.from(
-                                this.host.querySelectorAll('[data-lime]')
-                            ).map((element: HTMLElement) =>
-                                JSON.parse(element.dataset.lime)
+                            [...this.host.querySelectorAll('[data-lime]')].map(
+                                (element: HTMLElement) =>
+                                    JSON.parse(element.dataset.lime)
                             ),
                             'name'
                         ),
