@@ -161,6 +161,7 @@ export class ColorPicker implements FormComponent {
                 role="button"
                 onClick={this.openPopover}
                 id="tooltip-button"
+                disabled={this.readonly}
             />
         );
     };
