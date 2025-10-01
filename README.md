@@ -23,7 +23,7 @@ Whether you're building from scratch or enhancing existing applications, Lime El
 
 Visit our [📚 **Documentation**](https://lundalogik.github.io/lime-elements/) for comprehensive guides and examples, or install directly from [📦 **NPM**](https://www.npmjs.com/package/@limetech/lime-elements).
 
-🆕 Get an overview over the latest changes and updates to the component library [here](https://lundalogik.github.io/lime-elements/versions/latest/#/Home/updates.md/).
+Get an overview over the 🆕 [**latest changes and updates**](https://lundalogik.github.io/lime-elements/versions/latest/#/Home/updates.md/).
 
 ### Project Status
 
@@ -47,7 +47,10 @@ Visit our [📚 **Documentation**](https://lundalogik.github.io/lime-elements/) 
 
 ```html
 <!-- Load the package -->
-<script type="module" src="https://cdn.jsdelivr.net/npm/@limetech/lime-elements@latest/dist/lime-elements/lime-elements.esm.js"></script>
+<script
+    type="module"
+    src="https://cdn.jsdelivr.net/npm/@limetech/lime-elements@latest/dist/lime-elements/lime-elements.esm.js"
+></script>
 
 <!-- Use components in your HTML -->
 <limel-input-field

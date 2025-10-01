@@ -5,7 +5,7 @@
     // Fallback: Masonry-like layout using CSS multi-columns
     display: block;
     width: 100%;
-    padding: 0.25rem 0;
+    padding: 1.5rem 0;
 
     columns: $card-width;
     gap: $thumbnails-grid-gap;
@@ -20,6 +20,7 @@
     // Progressive enhancement: CSS Grid Masonry where supported
     @supports (grid-template-rows: masonry) {
         /* reset column fallback */
+        columns: initial;
         column-width: initial;
         column-gap: initial;
 

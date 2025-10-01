@@ -1,15 +1,11 @@
 import { Component, h, Host, Prop } from '@stencil/core';
-import { Link } from '@limetech/lime-elements';
-
-/**
- * @private
- * Internal helper for the "What's New" example; NOT part of the public API.
- */
+import type { Link } from '../../global/shared-types/link.types';
+// Internal helper for the "What's New" example; NOT part of the public API.
+/** @private */
 export interface WhatsNewChip {
     text: string;
     link?: Link;
     readonly?: boolean;
-    outlined?: boolean;
 }
 
 @Component({
@@ -33,6 +29,7 @@ export class WhatsNewCard {
                 <div class="news-chip-wrapper">
                     {this.chips.map((c) => (
                         <limel-chip
+                            key={c.link?.href ?? c.text}
                             text={c.text}
                             link={c.link}
                             readonly={c.readonly}

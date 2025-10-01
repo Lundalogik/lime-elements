@@ -4,9 +4,7 @@ import {
     ListItem,
     WhatsNewChip,
     LimelRadioButtonGroupCustomEvent,
-    InfoTileProgress,
 } from '@limetech/lime-elements';
-import { chartItems } from 'src/components/chart/examples/chart-items-stack';
 /**
  * This component is only used in our documentations
  * to provide a container for settings of examples.
@@ -273,7 +271,6 @@ export class ExampleWhatsNew {
                         icon={icon}
                         readonly={true}
                     />
-                    ;
                 </limel-whats-new-card>
 
                 <limel-whats-new-card
@@ -299,7 +296,6 @@ export class ExampleWhatsNew {
                         icon={icon}
                         loading={true}
                     />
-                    ;
                 </limel-whats-new-card>
 
                 <limel-whats-new-card
@@ -331,7 +327,6 @@ export class ExampleWhatsNew {
                         />
                         <p>This element becomes the body.</p>
                     </limel-collapsible-section>
-                    ;
                 </limel-whats-new-card>
 
                 <limel-whats-new-card
@@ -358,7 +353,6 @@ export class ExampleWhatsNew {
                         subheading="World's best component library"
                         value="Enterprise class design system, written in typescript, empowering developers & designers to build _modern_ and _flexible_ web applications."
                     />
-                    ;
                 </limel-whats-new-card>
 
                 <limel-whats-new-card
@@ -378,7 +372,7 @@ export class ExampleWhatsNew {
                         ] as WhatsNewChip[]
                     }
                 >
-                    <limel-list slot="demo" items={this.listItems} />, ;
+                    <limel-list slot="demo" items={this.listItems} />
                 </limel-whats-new-card>
             </div>
         );
