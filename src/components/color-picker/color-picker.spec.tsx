@@ -26,15 +26,13 @@ test('the component renders', () => {
     expect(page.body).toEqualHtml(`
         <limel-color-picker label="Hair color">
             <mock:shadow-root>
-                    <div class="color-picker">
-                        <limel-popover opendirection="bottom-start">
-                            <button class="picker-trigger" id="tooltip-button" role="button" slot="trigger"></button>
-                            <limel-color-picker-palette label="Hair color">
-                                <mock:shadow-root></mock:shadow-root>
-                            </limel-color-picker-palette>
-                        </limel-popover>
-                        <limel-input-field class="chosen-color-input" label="Hair color"></limel-input-field>
-                    </div>
+                <limel-popover opendirection="bottom-start">
+                    <button id="tooltip-button" role="button" slot="trigger"></button>
+                    <limel-color-picker-palette label="Hair color">
+                        <mock:shadow-root></mock:shadow-root>
+                    </limel-color-picker-palette>
+                </limel-popover>
+                <limel-input-field label="Hair color"></limel-input-field>
             </mock:shadow-root>
         </limel-color-picker>`);
 });
