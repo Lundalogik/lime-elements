@@ -1,0 +1,38 @@
+.thumbnails-grid {
+    $card-width: 15rem;
+    $thumbnails-grid-gap: clamp(0.25rem, 3vmin, 1.25rem);
+
+    // Fallback: Masonry-like layout using CSS multi-columns
+    display: block;
+    width: 100%;
+    padding: 1.5rem 0;
+
+    columns: $card-width;
+    gap: $thumbnails-grid-gap;
+
+    & > limel-showcase-card {
+        break-inside: avoid;
+        margin-bottom: $thumbnails-grid-gap;
+    }
+
+    // Progressive enhancement: CSS Grid Masonry where supported
+    @supports (grid-template-rows: masonry) {
+        /* reset column fallback */
+        columns: initial;
+        column-width: initial;
+        column-gap: initial;
+
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax($card-width, 1fr));
+        grid-template-rows: masonry;
+        grid-auto-flow: dense;
+        gap: 0.5rem;
+
+        & > limel-showcase-card {
+            display: block;
+            width: auto;
+            margin: 0;
+            break-inside: auto;
+        }
+    }
+}

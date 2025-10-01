@@ -1,6 +1,6 @@
 # Labeling boolean fields
 
-Boolean fields like [Checkbox](#/components/limel-checkbox/) and [Switch](#/components/limel-switch/) are used in different contexts. For example, they could be used in
+Boolean fields like [Checkbox](#/component/limel-checkbox/) and [Switch](#/component/limel-switch/) are used in different contexts. For example, they could be used in
 
 1. _lists_ or _groups_, such as in a "Settings page",
 2. a form, such as a "Registration form" or a survey,
