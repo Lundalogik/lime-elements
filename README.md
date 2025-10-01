@@ -23,6 +23,8 @@ Whether you're building from scratch or enhancing existing applications, Lime El
 
 Visit our [📚 **Documentation**](https://lundalogik.github.io/lime-elements/) for comprehensive guides and examples, or install directly from [📦 **NPM**](https://www.npmjs.com/package/@limetech/lime-elements).
 
+🆕 Get an overview over the latest changes and updates to the component library [here](https://lundalogik.github.io/lime-elements/versions/latest/#/Home/updates.md/).
+
 ### Project Status
 
 [![Version](https://img.shields.io/npm/v/@limetech/lime-elements.svg)](https://www.npmjs.com/package/@limetech/lime-elements) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![npm downloads](https://img.shields.io/npm/dt/@limetech/lime-elements.svg)](https://www.npmjs.com/package/@limetech/lime-elements)

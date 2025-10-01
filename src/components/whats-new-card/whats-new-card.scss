@@ -1,0 +1,34 @@
+:host {
+    width: auto;
+    height: auto;
+    border-radius: 0.95rem;
+    border: 1px solid rgb(var(--contrast-500));
+    padding: 0.5rem;
+    background-color: rgb(var(--contrast-200));
+    box-shadow: var(--shadow-depth-8);
+}
+
+.news-chip-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+limel-chip {
+    --chip-readonly-border-color: rgb(var(--color-green-default));
+}
+.news-card-content {
+    padding: 1rem;
+    background-color: rgb(var(--contrast-400));
+    border-radius: 0.95rem;
+}
+h2 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--card-heading-color, rgb(var(--contrast-1100)));
+    letter-spacing: -0.03125rem; // 0.5px
+}
+p {
+    font-size: var(--limel-theme-default-font-size);
+    font-weight: 400;
+    color: var(--card-subheading-color, rgb(var(--contrast-1000)));
+}
