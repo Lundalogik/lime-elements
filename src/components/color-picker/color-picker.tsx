@@ -1,4 +1,12 @@
-import { Component, h, Prop, State, Event, EventEmitter } from '@stencil/core';
+import {
+    Component,
+    h,
+    Prop,
+    State,
+    Event,
+    EventEmitter,
+    Host,
+} from '@stencil/core';
 import { FormComponent } from '../form/form.types';
 import type { CustomColorSwatch } from './color-picker.types';
 
@@ -96,11 +104,10 @@ export class ColorPicker implements FormComponent {
     private shouldFocus = false;
 
     public render() {
-        return [
-            this.renderTooltip(),
-            <div class="color-picker">
+        return (
+            <Host>
+                {this.renderTooltip()}
                 {this.renderPickerPalette()}
-
                 <limel-input-field
                     label={this.label}
                     helperText={this.helperText}
@@ -108,10 +115,9 @@ export class ColorPicker implements FormComponent {
                     onChange={this.handleChange}
                     required={this.required}
                     readonly={this.readonly}
-                    class="chosen-color-input"
                 />
-            </div>,
-        ];
+            </Host>
+        );
     }
     private renderTooltip = () => {
         if (!this.readonly && this.tooltipLabel) {
@@ -155,7 +161,6 @@ export class ColorPicker implements FormComponent {
 
         return (
             <button
-                class="picker-trigger"
                 slot="trigger"
                 style={background}
                 role="button"

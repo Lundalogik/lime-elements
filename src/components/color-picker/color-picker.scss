@@ -3,32 +3,25 @@
 @import './partial-styles/lime-admin-hack';
 
 :host(limel-color-picker) {
-    isolation: isolate;
-}
-
-.color-picker {
     display: grid;
     gap: 0.25rem;
     grid-template-columns: auto 1fr;
 }
 
-.picker-trigger {
+button[slot='trigger'] {
     all: unset;
-    border-radius: 0.5rem;
-    @include mixins.is-elevated-clickable();
-    @include mixins.visualize-keyboard-focus();
-
-    &:after {
-        box-shadow: 0 0 0 0.25rem rgb(var(--contrast-100)) inset;
-    }
-}
-
-.picker-trigger {
     box-sizing: border-box;
     position: relative;
     isolation: isolate;
     width: shared_input-select-picker.$height-of-mdc-text-field;
     height: shared_input-select-picker.$height-of-mdc-text-field;
+
+    border-radius: 0.5rem;
+
+    &:not([disabled]):not([disabled='true']) {
+        @include mixins.is-elevated-clickable();
+        @include mixins.visualize-keyboard-focus();
+    }
 
     &:before,
     &:after {
@@ -44,29 +37,28 @@
     }
 
     &:after {
-        background: var(--background);
         z-index: 1;
+        box-shadow: 0 0 0 0.25rem rgb(var(--contrast-100)) inset;
+        background: var(--background);
     }
 }
 
-:host([readonly]) {
-    .picker-trigger {
-        &:hover,
-        &:active {
-            cursor: default;
-            box-shadow: var(--button-shadow-normal);
-            transform: none;
-        }
-    }
-}
-
-.chosen-color-input[readonly] {
-    transform: translateX(
-            calc(
-                #{shared_input-select-picker.$height-of-mdc-text-field} / 4 * -1
+:host([readonly]:not([readonly='false'])) {
+    limel-input-field {
+        transform: translateX(
+                calc(
+                    #{shared_input-select-picker.$height-of-mdc-text-field} /
+                        4 * -1
+                )
             )
-        )
-        translateY(
-            calc(#{shared_input-select-picker.$height-of-mdc-text-field} / 4)
-        );
+            translateY(
+                calc(
+                    #{shared_input-select-picker.$height-of-mdc-text-field} / 4
+                )
+            );
+    }
+
+    button[slot='trigger'] {
+        border: 1px solid rgba(var(--contrast-700), 0.65);
+    }
 }
