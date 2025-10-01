@@ -9,7 +9,7 @@ import {
     Watch,
 } from '@stencil/core';
 import { Languages } from '../date-picker/date.types';
-import { ListItem } from '../list/list-item.types';
+import { ListItem } from '../list-item/list-item.types';
 import translate from '../../global/translations';
 import { detectExtension } from './extension-mapping';
 import { Fullscreen } from './fullscreen';
@@ -204,21 +204,25 @@ export class FileViewer {
             <div class="action-menu-for-pdf-files">
                 {this.renderActionMenu()}
             </div>,
-            <iframe src={this.fileUrl} loading="lazy" />,
+            <iframe src={this.sanitizeUrl(this.fileUrl)} loading="lazy" />,
         ];
     };
 
     private renderImage = () => {
         return [
             this.renderButtons(),
-            <img src={this.fileUrl} alt={this.alt} loading="lazy" />,
+            <img
+                src={this.sanitizeUrl(this.fileUrl)}
+                alt={this.alt}
+                loading="lazy"
+            />,
         ];
     };
 
     private renderVideo = () => {
         return (
             <video controls>
-                <source src={this.fileUrl} />
+                <source src={this.sanitizeUrl(this.fileUrl)} />
             </video>
         );
     };
@@ -226,23 +230,18 @@ export class FileViewer {
     private renderAudio = () => {
         return (
             <audio controls>
-                <source src={this.fileUrl} />
+                <source src={this.sanitizeUrl(this.fileUrl)} />
             </audio>
         );
     };
 
     private renderText = () => {
+        const fallbackContent = [this.renderNoFileSupportMessage()];
+
         return [
             this.renderButtons(),
-            <object data={this.fileUrl} type="text/plain">
-                {`Text content from: ${this.filename || this.url}`}
-                <a
-                    href={this.fileUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Open text file in new tab
-                </a>
+            <object data={this.sanitizeUrl(this.fileUrl)} type="text/plain">
+                {fallbackContent}
             </object>,
         ];
     };
@@ -254,7 +253,9 @@ export class FileViewer {
             </div>,
             <iframe
                 src={
-                    this.getOfficeViewerUrl() + this.fileUrl + '&embedded=true'
+                    this.getOfficeViewerUrl() +
+                    encodeURIComponent(this.sanitizeUrl(this.fileUrl)) +
+                    '&embedded=true'
                 }
                 loading="lazy"
             />,
@@ -284,15 +285,15 @@ export class FileViewer {
     private renderNoFileSupportMessage = () => {
         return (
             <div class="no-support" role="alert">
-                <limel-icon
-                    class="icon--warning"
-                    name="brake_warning"
-                    size="large"
-                    role="presentation"
-                />
+                <h1>⚠️</h1>
                 <p>
                     {this.getTranslation(
                         'file-viewer.message.unsupported-filetype'
+                    )}
+                </p>
+                <p style={{ textAlign: 'center', margin: '0 auto' }}>
+                    {this.getTranslation(
+                        'file-viewer.message.try-other-options'
                     )}
                 </p>
                 {this.renderDownloadButton()}
@@ -350,7 +351,7 @@ export class FileViewer {
                 id="tooltip-download"
                 role="button"
                 download={this.filename ?? ''}
-                href={this.fileUrl}
+                href={this.sanitizeUrl(this.fileUrl)}
                 target="_blank"
             >
                 <limel-icon name="download_2" />
@@ -373,7 +374,7 @@ export class FileViewer {
                 class="button--new-tab"
                 id="tooltip-new-tab"
                 role="button"
-                href={this.fileUrl}
+                href={this.sanitizeUrl(this.fileUrl)}
                 target="_blank"
                 rel="noopener noreferrer"
             >
@@ -440,6 +441,16 @@ export class FileViewer {
         event.stopPropagation();
         this.action.emit(event.detail);
     };
+
+    private sanitizeUrl(url: string): string {
+        try {
+            const u = new URL(url, window.location.href);
+            const allowed = ['http:', 'https:', 'blob:'];
+            return allowed.includes(u.protocol) ? u.href : '';
+        } catch {
+            return '';
+        }
+    }
 
     private getTranslation(key: string) {
         return translate.get(key, this.language);

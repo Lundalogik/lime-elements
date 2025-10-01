@@ -1,5 +1,5 @@
 import { Color } from '../../global/shared-types/color.types';
-import { ListItem } from '../list/list-item.types';
+import { ListItem } from '../list-item/list-item.types';
 
 /**
  * A step in a progress flow.

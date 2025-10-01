@@ -1,4 +1,4 @@
-import { ListItem, ListSeparator } from '../list/list-item.types';
+import { ListItem, ListSeparator } from '../list-item/list-item.types';
 import { Option } from '../select/option.types';
 import { MDCFloatingLabel } from '@material/floating-label';
 import { MDCSelectHelperText } from '@material/select/helper-text';

@@ -21,7 +21,10 @@ export default {
     'chip-set.clear-all': 'Fjern alle',
     'file.drag-and-drop-tips':
         'Dra & slipp filen her, eller klikk for å bla gjennom.',
-    'file-viewer.message.unsupported-filetype': 'Kan ikke vise denne filen!',
+    'file-viewer.message.unsupported-filetype':
+        'Kan ikke vise en forhåndsvisning av denne filtypen.',
+    'file-viewer.message.try-other-options':
+        'Last ned filen eller åpne den i en ny fane.',
     'file-viewer.download': 'Nedlasting',
     'file-viewer.exit-fullscreen': 'Gå ut av fullskjerm',
     'file-viewer.open-in-fullscreen': 'Åpne i fullskjerm',
@@ -52,4 +55,8 @@ export default {
     'ai-avatar.thinking': 'tenker',
     'table.select-all': 'Velg alle rader',
     'table.select-row': 'Velg denne raden',
+    'profile-picture.remove': 'Fjern valgt bilde',
+    'profile-picture.unsupported-preview.title': 'Ustøttet bildeformat',
+    'profile-picture.unsupported-preview.description':
+        'Vi kan ikke vise det valgte bildet i denne nettleseren. Vennligst velg en annen bildefil.',
 };

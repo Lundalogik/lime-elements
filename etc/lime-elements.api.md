@@ -532,6 +532,21 @@ export namespace Components {
         "maxLinesSecondaryText": number;
         "type": ListType;
     }
+    export interface LimelListItem {
+        "actions"?: ListItem['actions'];
+        "badgeIcon": boolean;
+        "disabled": boolean;
+        "icon"?: string | ListItem['icon'];
+        "iconSize": IconSize;
+        "image"?: ListItem['image'];
+        "language": Languages;
+        "primaryComponent"?: ListItem['primaryComponent'];
+        "secondaryText"?: string;
+        "selected": boolean;
+        "text": string;
+        "type": 'listitem' | 'menuitem' | 'option' | 'radio' | 'checkbox';
+        "value"?: any;
+    }
     export interface LimelMarkdown {
         "lazyLoadImages": boolean;
         "value": string;
@@ -553,12 +568,16 @@ export namespace Components {
         "searcher": MenuSearcher;
         "surfaceWidth": SurfaceWidth;
     }
+    export interface LimelMenuItemMeta {
+        "badge"?: string | number;
+        "commandText"?: string;
+        "showChevron": boolean;
+    }
     // (undocumented)
     export interface LimelMenuList {
         "badgeIcons": boolean;
         "iconSize": IconSize;
         "items": Array<MenuItem | ListSeparator>;
-        "maxLinesSecondaryText": number;
     }
     // (undocumented)
     export interface LimelMenuSurface {
@@ -613,6 +632,22 @@ export namespace Components {
         "openDirection": OpenDirection;
         "position": 'fixed' | 'absolute';
         "visible": boolean;
+    }
+    // @beta
+    export interface LimelProfilePicture {
+        "accept": string;
+        "disabled": boolean;
+        "helperText"?: string;
+        "icon": string | Icon;
+        "imageFit": 'cover' | 'contain';
+        "invalid": boolean;
+        "label": string;
+        "language": Languages;
+        "loading": boolean;
+        "readonly": boolean;
+        "required": boolean;
+        "resize"?: ResizeOptions;
+        "value"?: string | FileInfo;
     }
     // (undocumented)
     export interface LimelProgressFlow {
@@ -1169,9 +1204,13 @@ export namespace JSX {
         // (undocumented)
         "limel-list": LimelList;
         // (undocumented)
+        "limel-list-item": LimelListItem;
+        // (undocumented)
         "limel-markdown": LimelMarkdown;
         // (undocumented)
         "limel-menu": LimelMenu;
+        // (undocumented)
+        "limel-menu-item-meta": LimelMenuItemMeta;
         // (undocumented)
         "limel-menu-list": LimelMenuList;
         // (undocumented)
@@ -1186,6 +1225,10 @@ export namespace JSX {
         "limel-popover-surface": LimelPopoverSurface;
         // (undocumented)
         "limel-portal": LimelPortal;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-profile-picture"" is marked as @public, but its signature references "JSX" which is marked as @beta
+        //
+        // (undocumented)
+        "limel-profile-picture": LimelProfilePicture;
         // (undocumented)
         "limel-progress-flow": LimelProgressFlow;
         // (undocumented)
@@ -1650,6 +1693,25 @@ export namespace JSX {
         "onSelect"?: (event: LimelListCustomEvent<ListItem | ListItem[]>) => void;
         "type"?: ListType;
     }
+    export interface LimelListItem {
+        "actions"?: ListItem['actions'];
+        "badgeIcon"?: boolean;
+        "disabled"?: boolean;
+        "icon"?: string | ListItem['icon'];
+        "iconSize"?: IconSize;
+        "image"?: ListItem['image'];
+        "language"?: Languages;
+        "onInteract"?: (event: LimelListItemCustomEvent<{
+            selected: boolean;
+            item: ListItem;
+        }>) => void;
+        "primaryComponent"?: ListItem['primaryComponent'];
+        "secondaryText"?: string;
+        "selected"?: boolean;
+        "text"?: string;
+        "type"?: 'listitem' | 'menuitem' | 'option' | 'radio' | 'checkbox';
+        "value"?: any;
+    }
     export interface LimelMarkdown {
         "lazyLoadImages"?: boolean;
         "value"?: string;
@@ -1672,12 +1734,16 @@ export namespace JSX {
         "searcher"?: MenuSearcher;
         "surfaceWidth"?: SurfaceWidth;
     }
+    export interface LimelMenuItemMeta {
+        "badge"?: string | number;
+        "commandText"?: string;
+        "showChevron"?: boolean;
+    }
     // (undocumented)
     export interface LimelMenuList {
         "badgeIcons"?: boolean;
         "iconSize"?: IconSize;
         "items"?: Array<MenuItem | ListSeparator>;
-        "maxLinesSecondaryText"?: number;
         "onInteract"?: (event: LimelMenuListCustomEvent<MenuItem>) => void;
         "onSelect"?: (event: LimelMenuListCustomEvent<MenuItem>) => void;
     }
@@ -1739,6 +1805,24 @@ export namespace JSX {
         "openDirection"?: OpenDirection;
         "position"?: 'fixed' | 'absolute';
         "visible"?: boolean;
+    }
+    // @beta
+    export interface LimelProfilePicture {
+        "accept"?: string;
+        "disabled"?: boolean;
+        "helperText"?: string;
+        "icon"?: string | Icon;
+        "imageFit"?: 'cover' | 'contain';
+        "invalid"?: boolean;
+        "label"?: string;
+        "language"?: Languages;
+        "loading"?: boolean;
+        "onChange"?: (event: LimelProfilePictureCustomEvent<FileInfo | undefined>) => void;
+        "onFilesRejected"?: (event: LimelProfilePictureCustomEvent<FileInfo[]>) => void;
+        "readonly"?: boolean;
+        "required"?: boolean;
+        "resize"?: ResizeOptions;
+        "value"?: string | FileInfo;
     }
     // (undocumented)
     export interface LimelProgressFlow {
@@ -2229,6 +2313,16 @@ export interface LimelListCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelListElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelListItemCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelListItemCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelListItemElement;
+}
+
 // Warning: (ae-missing-release-tag) "LimelMenuCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -2277,6 +2371,16 @@ export interface LimelPopoverCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelPopoverElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelProfilePictureCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelProfilePictureCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelProfilePictureElement;
 }
 
 // Warning: (ae-missing-release-tag) "LimelProgressFlowCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
@@ -2522,6 +2626,16 @@ export type PickerValue = number | string | {
 
 // @public
 export type ReplaceObjectType<T, AllowedType, ElseType> = T extends any[] ? ElseType : T extends Record<string, any> ? AllowedType : ElseType;
+
+// @beta
+export type ResizeOptions = {
+    width: number;
+    height: number;
+    fit?: 'cover' | 'contain';
+    type?: 'image/jpeg' | 'image/png';
+    quality?: number;
+    rename?: (originalName: string) => string;
+};
 
 // @public
 export type RowData = {

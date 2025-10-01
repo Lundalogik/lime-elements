@@ -1,3 +1,41 @@
+## [38.24.3](https://github.com/Lundalogik/lime-elements/compare/v38.24.2...v38.24.3) (2025-09-29)
+
+
+### Bug Fixes
+
+
+* **list:** improve rendering and accessibility of list items ([eb2a3a9](https://github.com/Lundalogik/lime-elements/commit/eb2a3a978e323ec5cbf324ccde70a7ca3095a8b6))
+* **list:** use correct `aria-orientation` to improve accessibility ([249a1de](https://github.com/Lundalogik/lime-elements/commit/249a1de850efc3d49a340c64a46238da42321871))
+* **menu:** improve accessibility of list items with sub menus ([49d0cbe](https://github.com/Lundalogik/lime-elements/commit/49d0cbe6907bfc6d25da5162d4ce544854208003))
+* **menu:** improve rendering and accessibility of list items ([72ee45e](https://github.com/Lundalogik/lime-elements/commit/72ee45ee3d275ec6c5c514cf6a351860361249bd))
+
+## [38.24.2](https://github.com/Lundalogik/lime-elements/compare/v38.24.1...v38.24.2) (2025-09-26)
+
+
+### Bug Fixes
+
+
+* **file-viewer:** correct minor syntax issue ([a887c55](https://github.com/Lundalogik/lime-elements/commit/a887c55f1ace80de9542e7999553a2b6da589fa4))
+
+## [38.24.1](https://github.com/Lundalogik/lime-elements/compare/v38.24.0...v38.24.1) (2025-09-25)
+
+
+### Bug Fixes
+
+
+* **file-viewer:** harden URL handling and prevent XSS risk ([c1013b1](https://github.com/Lundalogik/lime-elements/commit/c1013b1926f10504610dffb4923398823a399bc3))
+* **file-viewer:** improve fallback message for text files ([e304dbc](https://github.com/Lundalogik/lime-elements/commit/e304dbc495b47383fb029adec517253acc333aa8))
+* **file-viewer:** improve unsupported file type message ([f9832eb](https://github.com/Lundalogik/lime-elements/commit/f9832ebf0f4c52bf49ab378689137325d20ea0d8))
+
+## [38.24.0](https://github.com/Lundalogik/lime-elements/compare/v38.23.5...v38.24.0) (2025-09-24)
+
+
+### Features
+
+
+* **image-resize:** add utility to resize/convert images before upload ([e324bf5](https://github.com/Lundalogik/lime-elements/commit/e324bf5ee24b60c203d35e525bf5440e2b617506))
+* **profile-picture:** add new component ([a1d3513](https://github.com/Lundalogik/lime-elements/commit/a1d351369c5c1ac2551c125c6162e7a1813d9cc5))
+
 ## [38.23.5](https://github.com/Lundalogik/lime-elements/compare/v38.23.4...v38.23.5) (2025-09-23)
 
 

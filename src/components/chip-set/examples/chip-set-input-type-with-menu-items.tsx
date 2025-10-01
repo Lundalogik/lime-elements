@@ -5,7 +5,7 @@ import {
 } from '@limetech/lime-elements';
 import { MenuItem } from '../../menu/menu.types';
 import { Chip } from '../chip.types';
-import { ListSeparator } from '../../list/list-item.types';
+import { ListSeparator } from '../../list-item/list-item.types';
 
 const MENU_ITEMS: Array<MenuItem | ListSeparator> = [
     {
