@@ -136,7 +136,8 @@ export class Palette implements FormComponent {
 
     private handleSwatchClick = (value: string) => (event: MouseEvent) => {
         event.stopPropagation();
-        this.change.emit(value);
+        const newValue = this.value === value ? '' : value;
+        this.change.emit(newValue);
     };
 
     private normalizeEntry(
