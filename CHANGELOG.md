@@ -1,3 +1,11 @@
+## [38.24.4](https://github.com/Lundalogik/lime-elements/compare/v38.24.3...v38.24.4) (2025-10-01)
+
+
+### Bug Fixes
+
+
+* **list-item:** ensure it is possible to click icons in lists ([57b2c62](https://github.com/Lundalogik/lime-elements/commit/57b2c6200cc0258b6b090d336657b92d67dbf461))
+
 ## [38.24.3](https://github.com/Lundalogik/lime-elements/compare/v38.24.2...v38.24.3) (2025-09-29)
 
 
