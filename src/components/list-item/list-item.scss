@@ -97,12 +97,6 @@ limel-list-item[type='option'] {
 }
 
 limel-list-item {
-    .text,
-    limel-icon,
-    img {
-        pointer-events: none;
-    }
-
     .text {
         flex-grow: 1;
         min-width: 0;
