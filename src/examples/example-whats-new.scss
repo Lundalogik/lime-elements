@@ -38,3 +38,6 @@
         }
     }
 }
+.custom-border-chip {
+    --chip-readonly-border-color: rgb(var(--color-green-default));
+}

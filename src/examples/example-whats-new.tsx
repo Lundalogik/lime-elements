@@ -133,15 +133,13 @@ export class ExampleWhatsNew {
                     class="thumbnail-card-link"
                     heading="Icon Button Styling"
                     description="Using the Icon interface, you can easily customize the appearance of icons within the button, tweaking its color, backgroundColor, or adding an accessible title to it."
-                    chips={
-                        [
-                            { text: 'Icon Button', link: this.link_chip1 },
-                            {
-                                text: 'New Property',
-                                readonly: this.readonly,
-                            },
-                        ] as WhatsNewChip[]
-                    }
+                    chips={[
+                        { text: 'Icon Button', link: this.link_chip1 },
+                        {
+                            text: 'New Property',
+                            readonly: this.readonly,
+                        },
+                    ]}
                 >
                     <limel-icon-button
                         slot="demo"
@@ -156,18 +154,16 @@ export class ExampleWhatsNew {
                     class="thumbnail-card-link"
                     heading="Radio Button Group"
                     description="The Radio Button component lets users choose a single option from multiple choices, supporting icons and badge styling."
-                    chips={
-                        [
-                            {
-                                text: 'Radio Button Group',
-                                link: this.link_chip2,
-                            },
-                            {
-                                text: 'New Component',
-                                readonly: this.readonly,
-                            },
-                        ] as WhatsNewChip[]
-                    }
+                    chips={[
+                        {
+                            text: 'Radio Button Group',
+                            link: this.link_chip2,
+                        },
+                        {
+                            text: 'New Component',
+                            readonly: this.readonly,
+                        },
+                    ]}
                 >
                     <limel-radio-button-group
                         slot="demo"
@@ -182,15 +178,13 @@ export class ExampleWhatsNew {
                     class="thumbnail-card-link"
                     heading="Slider Indications"
                     description="Indicate that the current value of the slider is required or invalid."
-                    chips={
-                        [
-                            { text: 'Slider', link: this.link_chip3 },
-                            {
-                                text: 'New Property',
-                                readonly: this.readonly,
-                            },
-                        ] as WhatsNewChip[]
-                    }
+                    chips={[
+                        { text: 'Slider', link: this.link_chip3 },
+                        {
+                            text: 'New Property',
+                            readonly: this.readonly,
+                        },
+                    ]}
                 >
                     <limel-slider
                         slot="demo"
@@ -209,15 +203,13 @@ export class ExampleWhatsNew {
                     class="thumbnail-card-link"
                     heading="Chip Size"
                     description="When the size property is set to small, the chip will render with a smaller height and gap."
-                    chips={
-                        [
-                            { text: 'Chip', link: this.link_chip4 },
-                            {
-                                text: 'New Property',
-                                readonly: this.readonly,
-                            },
-                        ] as WhatsNewChip[]
-                    }
+                    chips={[
+                        { text: 'Chip', link: this.link_chip4 },
+                        {
+                            text: 'New Property',
+                            readonly: this.readonly,
+                        },
+                    ]}
                 >
                     <limel-chip slot="demo" text="Small Chip" size="small" />
                 </limel-whats-new-card>
@@ -226,18 +218,16 @@ export class ExampleWhatsNew {
                     class="thumbnail-card-link"
                     heading="Header Icon"
                     description="Icon to display in the header of the section."
-                    chips={
-                        [
-                            {
-                                text: 'Collapsible Section',
-                                link: this.link_chip5,
-                            },
-                            {
-                                text: 'New Property',
-                                readonly: this.readonly,
-                            },
-                        ] as WhatsNewChip[]
-                    }
+                    chips={[
+                        {
+                            text: 'Collapsible Section',
+                            link: this.link_chip5,
+                        },
+                        {
+                            text: 'New Property',
+                            readonly: this.readonly,
+                        },
+                    ]}
                 >
                     <limel-collapsible-section
                         slot="demo"
@@ -252,22 +242,21 @@ export class ExampleWhatsNew {
                     class="thumbnail-card-link"
                     heading="Readonly Border"
                     description="In readonly state, the border color of the chip can be customized, using --chip-readonly-border-color."
-                    chips={
-                        [
-                            {
-                                text: 'Chip',
-                                link: this.link_chip4,
-                            },
-                            {
-                                text: 'New Property',
-                                readonly: this.readonly,
-                            },
-                        ] as WhatsNewChip[]
-                    }
+                    chips={[
+                        {
+                            text: 'Chip',
+                            link: this.link_chip4,
+                        },
+                        {
+                            text: 'New Property',
+                            readonly: this.readonly,
+                        },
+                    ]}
                 >
                     <limel-chip
+                        class="custom-border-chip"
                         slot="demo"
-                        text="Delivered"
+                        text="Border Color"
                         icon={icon}
                         readonly={true}
                     />
@@ -277,18 +266,16 @@ export class ExampleWhatsNew {
                     class="thumbnail-card-link"
                     heading="Loading State"
                     description="Setting the loading to true puts the component in the loading state, and renders an indeterminate progress indicator inside the chip."
-                    chips={
-                        [
-                            {
-                                text: 'Chip',
-                                link: this.link_chip4,
-                            },
-                            {
-                                text: 'New Property',
-                                readonly: this.readonly,
-                            },
-                        ] as WhatsNewChip[]
-                    }
+                    chips={[
+                        {
+                            text: 'Chip',
+                            link: this.link_chip4,
+                        },
+                        {
+                            text: 'New Property',
+                            readonly: this.readonly,
+                        },
+                    ]}
                 >
                     <limel-chip
                         slot="demo"
@@ -302,25 +289,22 @@ export class ExampleWhatsNew {
                     class="thumbnail-card-link"
                     heading="With custom component in the header"
                     description="By using the slot=header attribute on a custom UI elements, you can place it in the header area of the collapsible section alongside the default header text and header actions. This can enable richer header content, like status indicators, badges, or icons."
-                    chips={
-                        [
-                            {
-                                text: 'Collapsible Section',
-                                link: this.link_chip5,
-                            },
-                            {
-                                text: 'New Property',
-                                readonly: this.readonly,
-                            },
-                        ] as WhatsNewChip[]
-                    }
+                    chips={[
+                        {
+                            text: 'Collapsible Section',
+                            link: this.link_chip5,
+                        },
+                        {
+                            text: 'New Property',
+                            readonly: this.readonly,
+                        },
+                    ]}
                 >
                     <limel-collapsible-section
                         slot="demo"
                         header="This section has custom content in the header"
                     >
                         <limel-circular-progress
-                            // style={style}
                             slot="header"
                             value={65}
                             size="x-small"
@@ -333,18 +317,16 @@ export class ExampleWhatsNew {
                     class="thumbnail-card-link"
                     heading="3D Tilt Effect"
                     description="Added interactive 3D tilt effect on hover"
-                    chips={
-                        [
-                            {
-                                text: 'Card',
-                                link: this.link_chip7,
-                            },
-                            {
-                                text: 'New Property',
-                                readonly: this.readonly,
-                            },
-                        ] as WhatsNewChip[]
-                    }
+                    chips={[
+                        {
+                            text: 'Card',
+                            link: this.link_chip7,
+                        },
+                        {
+                            text: 'New Property',
+                            readonly: this.readonly,
+                        },
+                    ]}
                 >
                     <limel-card
                         slot="demo"
@@ -359,18 +341,16 @@ export class ExampleWhatsNew {
                     class="thumbnail-card-link"
                     heading="List with Pictures"
                     description="Add pictures to the list items"
-                    chips={
-                        [
-                            {
-                                text: 'Card',
-                                link: this.link_chip7,
-                            },
-                            {
-                                text: 'New Property',
-                                readonly: this.readonly,
-                            },
-                        ] as WhatsNewChip[]
-                    }
+                    chips={[
+                        {
+                            text: 'Card',
+                            link: this.link_chip7,
+                        },
+                        {
+                            text: 'New Property',
+                            readonly: this.readonly,
+                        },
+                    ]}
                 >
                     <limel-list slot="demo" items={this.listItems} />
                 </limel-whats-new-card>
