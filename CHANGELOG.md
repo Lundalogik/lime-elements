@@ -1,3 +1,11 @@
+## [38.26.0](https://github.com/Lundalogik/lime-elements/compare/v38.25.0...v38.26.0) (2025-10-03)
+
+
+### Features
+
+
+* **color-picker:** add standard input field props, e.g. `disabled`, etc… ([1d397d2](https://github.com/Lundalogik/lime-elements/commit/1d397d2ad07cf2a64959f5feb625934710061b54))
+
 ## [38.25.0](https://github.com/Lundalogik/lime-elements/compare/v38.24.5...v38.25.0) (2025-10-03)
 
 
