@@ -1,0 +1,2 @@
+import{r as n,h as e}from"./index-2714248e.js";const l=`\n# Headline 1\n## Headline 2\n### Headline 3\n#### Headline 4\n##### Headline 5\n###### Headline 6\n\nAlternatively, H1 and H2 can be typed underline-ish style like this:\n\nAlternative H1\n===\n\nAlternative H2\n---\n`;const a=class{constructor(e){n(this,e)}render(){return e("limel-markdown",{value:l})}};export{a as limel_example_markdown_headings};
+//# sourceMappingURL=limel-example-markdown-headings.entry.js.map
