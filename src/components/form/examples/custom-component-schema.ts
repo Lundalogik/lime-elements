@@ -22,14 +22,6 @@ export const schema: FormSchema<CustomComponentFormData> = {
         hero: {
             type: 'integer',
             title: 'Hero',
-            lime: {
-                component: {
-                    name: 'limel-example-custom-picker',
-                    props: {
-                        helperText: 'Pick your superhero!',
-                    },
-                },
-            },
         },
     },
 };
