@@ -1,2 +1,0 @@
-import{r as e,h as r}from"./index-2714248e.js";const o="limel-chip{--chip-readonly-border-color:rgb(var(--color-green-default))}";const l=class{constructor(r){e(this,r)}render(){const e={name:"sent",color:"rgb(var(--color-green-default))"};return r("limel-chip",{text:"Delivered",icon:e,readonly:true})}};l.style=o;export{l as limel_example_chip_readonly_border};
-//# sourceMappingURL=limel-example-chip-readonly-border.entry.js.map
