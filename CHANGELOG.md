@@ -1,3 +1,17 @@
+## [38.25.0](https://github.com/Lundalogik/lime-elements/compare/v38.24.5...v38.25.0) (2025-10-03)
+
+
+### Features
+
+
+* **color-picker:** allow displaying custom palettes ([b979ac8](https://github.com/Lundalogik/lime-elements/commit/b979ac8c48c56a4396e464f700a4fe0ce368ac88))
+
+### Bug Fixes
+
+
+* **color-picker:** allow deselecting an already swatch by clicking on it ([c96057d](https://github.com/Lundalogik/lime-elements/commit/c96057dcb57e349ad72e05a8cb51323aff8ace7d))
+* **color-picker:** properly `disable` the trigger button when `readonly` ([562ed50](https://github.com/Lundalogik/lime-elements/commit/562ed5039b7e224658ec1326a5303d3ef0ffcfd8))
+
 ## [38.24.5](https://github.com/Lundalogik/lime-elements/compare/v38.24.4...v38.24.5) (2025-10-03)
 
 
