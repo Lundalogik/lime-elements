@@ -1,3 +1,11 @@
+## [38.24.5](https://github.com/Lundalogik/lime-elements/compare/v38.24.4...v38.24.5) (2025-10-03)
+
+
+### Bug Fixes
+
+
+* **radio-button-group:** use internal import path for types ([ff0df56](https://github.com/Lundalogik/lime-elements/commit/ff0df562c73687c5f82e3fd83d01c4d97a0cdeca))
+
 ## [38.24.4](https://github.com/Lundalogik/lime-elements/compare/v38.24.3...v38.24.4) (2025-10-01)
 
 
