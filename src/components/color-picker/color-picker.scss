@@ -57,7 +57,10 @@ button[slot='trigger'] {
                 )
             );
     }
+}
 
+:host([readonly]:not([readonly='false'])),
+:host([disabled]:not([disabled='false'])) {
     button[slot='trigger'] {
         border: 1px solid rgba(var(--contrast-700), 0.65);
     }

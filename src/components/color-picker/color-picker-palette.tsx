@@ -31,10 +31,24 @@ export class Palette implements FormComponent {
     public helperText: string;
 
     /**
+     * The placeholder text shown inside the input field,
+     * when the field is focused and empty.
+     */
+    @Prop({ reflect: true })
+    public placeholder: string;
+
+    /**
      * Set to `true` if a value is required
      */
     @Prop({ reflect: true })
     public required: boolean;
+
+    /**
+     * Set to `true` to indicate that the current value of the input field is
+     * invalid.
+     */
+    @Prop({ reflect: true })
+    public invalid = false;
 
     /**
      * Defines the number of columns in the color swatch grid.
@@ -74,6 +88,8 @@ export class Palette implements FormComponent {
                     value={this.value}
                     onChange={this.handleChange}
                     required={this.required}
+                    invalid={this.invalid}
+                    placeholder={this.placeholder}
                 />
                 <div class="chosen-color-preview" style={background} />
             </div>,
