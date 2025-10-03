@@ -62,10 +62,35 @@ export class ColorPicker implements FormComponent {
     public required: boolean;
 
     /**
-     * Set to `true` if a value is readonly. This makes the component un-interactive.
+     * Set to `true` to disable the field.
+     * Use `disabled` to indicate that the field can normally be interacted
+     * with, but is currently disabled. This tells the user that if certain
+     * requirements are met, the field may become enabled again.
      */
     @Prop({ reflect: true })
-    public readonly: boolean;
+    public disabled = false;
+
+    /**
+     * Set to `true` to make the field read-only.
+     * Use `readonly` when the field is only there to present the data it holds,
+     * and will not become possible for the current user to edit.
+     */
+    @Prop({ reflect: true })
+    public readonly = false;
+
+    /**
+     * Set to `true` to indicate that the current value of the input field is
+     * invalid.
+     */
+    @Prop({ reflect: true })
+    public invalid = false;
+
+    /**
+     * The placeholder text shown inside the input field,
+     * when the field is focused and empty.
+     */
+    @Prop({ reflect: true })
+    public placeholder: string;
 
     /**
      * An array of either color value strings, or objects with a `name` and a `value`,
@@ -115,6 +140,9 @@ export class ColorPicker implements FormComponent {
                     onChange={this.handleChange}
                     required={this.required}
                     readonly={this.readonly}
+                    disabled={this.disabled}
+                    invalid={this.invalid}
+                    placeholder={this.placeholder}
                 />
             </Host>
         );
@@ -147,6 +175,8 @@ export class ColorPicker implements FormComponent {
                     value={this.value}
                     label={this.label}
                     helperText={this.helperText}
+                    placeholder={this.placeholder}
+                    invalid={this.invalid}
                     onChange={this.handleChange}
                     required={this.required}
                     palette={this.palette as any}
@@ -166,7 +196,7 @@ export class ColorPicker implements FormComponent {
                 role="button"
                 onClick={this.openPopover}
                 id="tooltip-button"
-                disabled={this.readonly}
+                disabled={this.readonly || this.disabled}
             />
         );
     };

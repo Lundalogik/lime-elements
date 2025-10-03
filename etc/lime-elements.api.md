@@ -322,10 +322,13 @@ export namespace Components {
         "language": Languages;
     }
     export interface LimelColorPicker {
+        "disabled": boolean;
         "helperText": string;
+        "invalid": boolean;
         "label": string;
         "palette"?: Array<string | CustomColorSwatch>;
         "paletteColumnCount"?: number;
+        "placeholder": string;
         "readonly": boolean;
         "required": boolean;
         "tooltipLabel": string;
@@ -335,8 +338,10 @@ export namespace Components {
     export interface LimelColorPickerPalette {
         "columnCount"?: number;
         "helperText": string;
+        "invalid": boolean;
         "label": string;
         "palette"?: CustomPalette;
+        "placeholder": string;
         "required": boolean;
         "value": string;
     }
@@ -1471,11 +1476,14 @@ export namespace JSX {
         "onOpen"?: (event: LimelCollapsibleSectionCustomEvent<void>) => void;
     }
     export interface LimelColorPicker {
+        "disabled"?: boolean;
         "helperText"?: string;
+        "invalid"?: boolean;
         "label"?: string;
         "onChange"?: (event: LimelColorPickerCustomEvent<string>) => void;
         "palette"?: Array<string | CustomColorSwatch>;
         "paletteColumnCount"?: number;
+        "placeholder"?: string;
         "readonly"?: boolean;
         "required"?: boolean;
         "tooltipLabel"?: string;
@@ -1485,9 +1493,11 @@ export namespace JSX {
     export interface LimelColorPickerPalette {
         "columnCount"?: number;
         "helperText"?: string;
+        "invalid"?: boolean;
         "label"?: string;
         "onChange"?: (event: LimelColorPickerPaletteCustomEvent<string>) => void;
         "palette"?: CustomPalette;
+        "placeholder"?: string;
         "required"?: boolean;
         "value"?: string;
     }
