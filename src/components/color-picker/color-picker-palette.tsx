@@ -51,6 +51,12 @@ export class Palette implements FormComponent {
     public invalid = false;
 
     /**
+     * Set to `false` to disallow custom color values to be typed into the input field.
+     */
+    @Prop({ reflect: true })
+    public manualInput = true;
+
+    /**
      * Defines the number of columns in the color swatch grid.
      * If not provided, it will default to the number of colors in the palette.
      */
@@ -90,6 +96,7 @@ export class Palette implements FormComponent {
                     required={this.required}
                     invalid={this.invalid}
                     placeholder={this.placeholder}
+                    disabled={!this.manualInput}
                 />
                 <div class="chosen-color-preview" style={background} />
             </div>,

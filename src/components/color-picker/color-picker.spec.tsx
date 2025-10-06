@@ -24,11 +24,11 @@ test('the component renders', () => {
     palette.shadowRoot.innerHTML = '';
 
     expect(page.body).toEqualHtml(`
-        <limel-color-picker label="Hair color">
+        <limel-color-picker label="Hair color" manual-input="">
             <mock:shadow-root>
                 <limel-popover opendirection="bottom-start">
                     <button id="tooltip-button" role="button" slot="trigger"></button>
-                    <limel-color-picker-palette label="Hair color">
+                    <limel-color-picker-palette label="Hair color" manual-input="">
                         <mock:shadow-root></mock:shadow-root>
                     </limel-color-picker-palette>
                 </limel-popover>
