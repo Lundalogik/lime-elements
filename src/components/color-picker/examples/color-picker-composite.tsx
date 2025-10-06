@@ -4,10 +4,10 @@ import { Component, h, Host, State } from '@stencil/core';
  */
 
 @Component({
-    tag: 'limel-example-color-picker-readonly',
+    tag: 'limel-example-color-picker-composite',
     shadow: true,
 })
-export class ColorPickerReadonlyExample {
+export class ColorPickerCompositeExample {
     @State()
     private value = 'rgba(var(--color-red-default), 0.4)';
 
