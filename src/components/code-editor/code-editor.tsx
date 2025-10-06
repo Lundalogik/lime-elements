@@ -153,31 +153,13 @@ export class CodeEditor {
     }
 
     public componentDidRender() {
-        if (!this.editor) {
-            this.editor = this.createEditor();
-            this.cmWrapper = this.editor.getWrapperElement() as HTMLElement;
-        }
+        this.ensureEditor();
+
         if (!this.expandable) {
             return;
         }
-        // Re-parent the existing CodeMirror DOM into dialog or back inline
-        if (this.openFullscreenMode) {
-            const dialogHost = this.host.shadowRoot.querySelector(
-                '.editor-dialog-host'
-            ) as HTMLElement;
-            if (dialogHost && this.cmWrapper?.parentElement !== dialogHost) {
-                dialogHost.append(this.cmWrapper);
-                requestAnimationFrame(() => this.editor.refresh());
-            }
-        } else {
-            const inlineHost = this.host.shadowRoot.querySelector(
-                '.editor-inline-host .editor'
-            ) as HTMLElement;
-            if (inlineHost && this.cmWrapper?.parentElement !== inlineHost) {
-                inlineHost.append(this.cmWrapper);
-                requestAnimationFrame(() => this.editor.refresh());
-            }
-        }
+
+        this.reparentEditor();
     }
 
     @Watch('value')
@@ -215,6 +197,40 @@ export class CodeEditor {
 
         this.editor.refresh();
     };
+    private ensureEditor() {
+        if (this.editor) {
+            return;
+        }
+        this.editor = this.createEditor();
+        this.cmWrapper = this.editor.getWrapperElement();
+    }
+    private reparentEditor() {
+        const targetHost = this.openFullscreenMode
+            ? this.getDialogHost()
+            : this.getInlineHost();
+
+        if (!targetHost || !this.cmWrapper) {
+            return;
+        }
+
+        if (this.cmWrapper.parentElement !== targetHost) {
+            targetHost.append(this.cmWrapper);
+            this.refreshEditorAsync();
+        }
+    }
+    private getDialogHost(): HTMLElement {
+        return this.host.shadowRoot.querySelector('.editor-dialog-host');
+    }
+
+    private getInlineHost(): HTMLElement {
+        return this.host.shadowRoot.querySelector(
+            '.editor-inline-host .editor'
+        );
+    }
+
+    private refreshEditorAsync() {
+        requestAnimationFrame(() => this.editor.refresh());
+    }
 
     private createEditor() {
         const options = this.getOptions();
