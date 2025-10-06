@@ -2559,6 +2559,7 @@ export interface LimeSchemaOptions {
     disabled?: boolean;
     // (undocumented)
     help?: string | Partial<Help>;
+    hidden?: boolean;
     layout?: LimeLayoutOptions;
 }
 
