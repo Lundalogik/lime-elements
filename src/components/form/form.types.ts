@@ -209,6 +209,11 @@ export interface LimeSchemaOptions {
      */
     disabled?: boolean;
 
+    /**
+     * Hide the field from the UI while preserving its value in the form data.
+     */
+    hidden?: boolean;
+
     help?: string | Partial<Help>;
 }
 

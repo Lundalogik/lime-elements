@@ -270,6 +270,10 @@ export class SchemaField extends React.Component<FieldProps> {
     }
 
     render() {
+        if (this.props.schema.lime?.hidden) {
+            return null;
+        }
+
         if (hasCustomComponent(this.props.schema)) {
             return this.renderCustomComponent(this.props);
         }
