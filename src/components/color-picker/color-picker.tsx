@@ -21,7 +21,7 @@ import type { CustomColorSwatch } from './color-picker.types';
  * Make sure to read our [guidelines about usage of colors](/#/DesignGuidelines/color-system.md/) from our palette.
  * :::
  *
- * @exampleComponent limel-example-color-picker
+ * @exampleComponent limel-example-color-picker-basic
  * @exampleComponent limel-example-color-picker-readonly
  * @exampleComponent limel-example-color-picker-custom-palette
  * @exampleComponent limel-example-color-picker-manual-input
