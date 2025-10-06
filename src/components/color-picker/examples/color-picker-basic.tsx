@@ -1,6 +1,6 @@
 import { Component, h, State } from '@stencil/core';
 @Component({
-    tag: 'limel-example-color-picker',
+    tag: 'limel-example-color-picker-basic',
     shadow: true,
 })
 export class ColorPickerExample {
