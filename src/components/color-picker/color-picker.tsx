@@ -22,9 +22,9 @@ import type { CustomColorSwatch } from './color-picker.types';
  * :::
  *
  * @exampleComponent limel-example-color-picker-basic
- * @exampleComponent limel-example-color-picker-readonly
  * @exampleComponent limel-example-color-picker-custom-palette
  * @exampleComponent limel-example-color-picker-manual-input
+ * @exampleComponent limel-example-color-picker-composite
  */
 @Component({
     tag: 'limel-color-picker',
