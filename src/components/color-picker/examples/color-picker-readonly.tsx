@@ -24,6 +24,9 @@ export class ColorPickerReadonlyExample {
     private readonly = false;
 
     @State()
+    private manualInput = true;
+
+    @State()
     private placeholder = 'Any valid CSS color format is accepted';
 
     public render() {
@@ -37,6 +40,7 @@ export class ColorPickerReadonlyExample {
                     required={this.required}
                     disabled={this.disabled}
                     invalid={this.invalid}
+                    manualInput={this.manualInput}
                     onChange={this.onChange}
                 />
                 <limel-example-controls>
@@ -59,6 +63,11 @@ export class ColorPickerReadonlyExample {
                         checked={this.readonly}
                         label="Readonly"
                         onChange={this.setReadonly}
+                    />
+                    <limel-checkbox
+                        checked={this.manualInput}
+                        label="manualInput"
+                        onChange={this.setManualInput}
                     />
                     <limel-input-field
                         label="Placeholder"
@@ -96,6 +105,11 @@ export class ColorPickerReadonlyExample {
     private setReadonly = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.readonly = event.detail;
+    };
+
+    private setManualInput = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.manualInput = event.detail;
     };
 
     private setPlaceholder = (event: CustomEvent<string>) => {

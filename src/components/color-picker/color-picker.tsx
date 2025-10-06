@@ -24,6 +24,7 @@ import type { CustomColorSwatch } from './color-picker.types';
  * @exampleComponent limel-example-color-picker
  * @exampleComponent limel-example-color-picker-readonly
  * @exampleComponent limel-example-color-picker-custom-palette
+ * @exampleComponent limel-example-color-picker-manual-input
  */
 @Component({
     tag: 'limel-color-picker',
@@ -93,6 +94,14 @@ export class ColorPicker implements FormComponent {
     public placeholder: string;
 
     /**
+     * Set to `false` to disallow custom color values to be typed into the input field.
+     * Setting this to `false` does not completely disable the color picker.
+     * It will only allow users to pick from the provided color palette.
+     */
+    @Prop({ reflect: true })
+    public manualInput = true;
+
+    /**
      * An array of either color value strings, or objects with a `name` and a `value`,
      * which replaces the default palette. Any valid CSS color format is accepted as value
      * (HEX, RGB/A, HSL, HWB, color-mix(), named colors, etc.).
@@ -140,7 +149,7 @@ export class ColorPicker implements FormComponent {
                     onChange={this.handleChange}
                     required={this.required}
                     readonly={this.readonly}
-                    disabled={this.disabled}
+                    disabled={this.disabled || !this.manualInput}
                     invalid={this.invalid}
                     placeholder={this.placeholder}
                 />
@@ -181,6 +190,7 @@ export class ColorPicker implements FormComponent {
                     required={this.required}
                     palette={this.palette as any}
                     columnCount={this.paletteColumnCount}
+                    manualInput={this.manualInput}
                 />
             </limel-popover>
         );

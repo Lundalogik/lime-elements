@@ -326,6 +326,7 @@ export namespace Components {
         "helperText": string;
         "invalid": boolean;
         "label": string;
+        "manualInput": boolean;
         "palette"?: Array<string | CustomColorSwatch>;
         "paletteColumnCount"?: number;
         "placeholder": string;
@@ -340,6 +341,7 @@ export namespace Components {
         "helperText": string;
         "invalid": boolean;
         "label": string;
+        "manualInput": boolean;
         "palette"?: CustomPalette;
         "placeholder": string;
         "required": boolean;
@@ -1480,6 +1482,7 @@ export namespace JSX {
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
+        "manualInput"?: boolean;
         "onChange"?: (event: LimelColorPickerCustomEvent<string>) => void;
         "palette"?: Array<string | CustomColorSwatch>;
         "paletteColumnCount"?: number;
@@ -1495,6 +1498,7 @@ export namespace JSX {
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
+        "manualInput"?: boolean;
         "onChange"?: (event: LimelColorPickerPaletteCustomEvent<string>) => void;
         "palette"?: CustomPalette;
         "placeholder"?: string;
