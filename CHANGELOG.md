@@ -1,3 +1,11 @@
+## [38.27.0](https://github.com/Lundalogik/lime-elements/compare/v38.26.1...v38.27.0) (2025-10-07)
+
+
+### Features
+
+
+* **form:** add support for hiding fields via lime.hidden metadata ([f3b37a1](https://github.com/Lundalogik/lime-elements/commit/f3b37a1b1ad1b243ea8ec37f758a89ce9d753dcd))
+
 ## [38.26.1](https://github.com/Lundalogik/lime-elements/compare/v38.26.0...v38.26.1) (2025-10-07)
 
 
