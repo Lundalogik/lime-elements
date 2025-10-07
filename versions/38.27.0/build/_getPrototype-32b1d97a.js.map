@@ -1,0 +1,1 @@
+{"version":3,"names":["getPrototype","overArg","Object","getPrototypeOf"],"sources":["./node_modules/lodash-es/_getPrototype.js"],"sourcesContent":["import overArg from './_overArg.js';\n\n/** Built-in value references. */\nvar getPrototype = overArg(Object.getPrototypeOf, Object);\n\nexport default getPrototype;\n"],"mappings":"8CAGG,IAACA,EAAeC,EAAQC,OAAOC,eAAgBD,e"}
