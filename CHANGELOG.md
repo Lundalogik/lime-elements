@@ -1,3 +1,11 @@
+## [38.26.1](https://github.com/Lundalogik/lime-elements/compare/v38.26.0...v38.26.1) (2025-10-07)
+
+
+### Bug Fixes
+
+
+* **checkbox:** ensure correct rendering on iOS & macOS 26 ([0c3ef0e](https://github.com/Lundalogik/lime-elements/commit/0c3ef0eb5fd6894e01678e3d35472ea3a7bac583))
+
 ## [38.26.0](https://github.com/Lundalogik/lime-elements/compare/v38.25.0...v38.26.0) (2025-10-03)
 
 
