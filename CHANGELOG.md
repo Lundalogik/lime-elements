@@ -1,3 +1,11 @@
+## [38.28.0](https://github.com/Lundalogik/lime-elements/compare/v38.27.0...v38.28.0) (2025-10-07)
+
+
+### Features
+
+
+* **color-picker:** allow disabling manual input by users ([7604c5b](https://github.com/Lundalogik/lime-elements/commit/7604c5b621d069d3d0afff85565610b1e19f53cc))
+
 ## [38.27.0](https://github.com/Lundalogik/lime-elements/compare/v38.26.1...v38.27.0) (2025-10-07)
 
 
