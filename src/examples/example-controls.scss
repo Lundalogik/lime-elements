@@ -13,7 +13,9 @@
     align-items: center;
 
     margin: 1rem 0 0 0;
-    padding: 0.25rem 0.5rem;
-    border: rgb(var(--contrast-500)) 1px dashed;
+    padding: 0.5rem 0.75rem;
+    border: rgb(var(--contrast-700), 0.5) 1px dashed;
     border-radius: 1rem;
+
+    background-color: rgb(var(--contrast-500), 0.6);
 }
