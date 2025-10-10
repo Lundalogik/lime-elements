@@ -1,8 +1,21 @@
-@use '../style/functions';
+@use '../style/mixins.scss';
+
+:host(limel-example-value) {
+    @include mixins.font-family(monospace);
+    font-size: 0.75rem;
+
+    display: block;
+    margin: 1rem 0 0 0;
+    padding: 0.5rem 0.75rem;
+
+    border: rgb(var(--contrast-700), 0.5) 1px dashed;
+    border-radius: 1rem;
+
+    background-color: rgb(var(--contrast-500), 0.6);
+}
 
 code {
-    font-family: 'Source Code Pro', monospace;
-    font-size: functions.pxToRem(12);
+    font-size: 0.75rem;
 
     -moz-tab-size: 4;
     -o-tab-size: 4;
@@ -14,17 +27,18 @@ code {
     hyphens: none;
 
     display: inline-block;
-    border-radius: functions.pxToRem(3);
-    padding: functions.pxToRem(1) functions.pxToRem(5);
+    border-radius: 0.25rem;
+    padding: 0.125rem 0.25rem;
     color: rgb(var(--kompendium-contrast-1300));
     background-color: rgb(var(--kompendium-contrast-600));
 }
 
 pre > code {
     display: block;
-    border-radius: functions.pxToRem(8);
-    margin: functions.pxToRem(8) 0;
-    padding: functions.pxToRem(16);
+    border-radius: 0.5rem;
+
+    padding: 0.75rem;
+    margin-bottom: -0.5rem;
     overflow: auto;
     white-space: pre-wrap;
 

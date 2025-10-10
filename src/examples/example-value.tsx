@@ -31,6 +31,7 @@ import { isDate, isObject, isArray, isUndefined } from 'lodash-es';
  */
 @Component({
     tag: 'limel-example-value',
+    shadow: true,
     styleUrl: 'example-value.scss',
 })
 export class ExampleValue {
@@ -48,9 +49,9 @@ export class ExampleValue {
 
     public render() {
         return (
-            <p>
+            <div>
                 {this.label}: {this.format(this.value)}
-            </p>
+            </div>
         );
     }
 
