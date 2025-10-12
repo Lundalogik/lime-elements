@@ -173,6 +173,23 @@ npm start  # Starts local development server
 
 ---
 
+## AI-Friendly Documentation
+
+Lime Elements generates Context7-compatible markdown documentation to help AI coding assistants and LLMs better understand and use our component library. This documentation is automatically published with each release and includes:
+
+- 📄 **Component API docs** - Detailed markdown documentation for all components
+- 📚 **Design guidelines** - Best practices and usage patterns
+- 🎯 **Usage rules** - Context7 rules for proper component usage
+- 🔗 **Navigation index** - Searchable overview of all components and guides
+
+The documentation is available at:
+- **Latest version:** [lundalogik.github.io/lime-elements/versions/latest/markdown-docs/](https://lundalogik.github.io/lime-elements/versions/latest/markdown-docs/)
+- **Configuration:** [context7.json](https://github.com/Lundalogik/lime-elements/blob/main/context7.json)
+
+This makes Lime Elements easier to work with when using AI pair programming tools like GitHub Copilot, Cursor, or Claude Code.
+
+---
+
 ## 📄 License
 
 Lime Elements is open source software licensed under the [Apache 2.0 License](https://opensource.org/licenses/Apache-2.0).

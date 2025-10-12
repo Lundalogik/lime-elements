@@ -1,0 +1,29 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "Lime Elements",
+  "description": "Modern web component library for enterprise applications built with Stencil. Provides accessible, customizable UI components with comprehensive design system.",
+  "branch": "gh-pages",
+  "folders": ["versions/latest/markdown-docs"],
+  "excludeFolders": [
+    "versions/latest/build",
+    "versions/latest/assets",
+    "versions/latest/style",
+    "versions/latest/markdown-docs/**/examples"
+  ],
+  "rules": [
+    "Lime Elements components are web components built with Stencil",
+    "Use kebab-case for component tags (e.g., <limel-button>, <limel-input-field>)",
+    "All components are prefixed with 'limel-'",
+    "Install via npm: npm install @limetech/lime-elements",
+    "TypeScript is fully supported with built-in type definitions",
+    "Components use shadow DOM and work with any framework (React, Vue, Angular, vanilla JS)",
+    "CSS custom properties are used for theming and customization",
+    "Icons require setup - components accept icon names that correspond to SVG filenames",
+    "Most components emit custom events - listen with addEventListener or framework event bindings",
+    "Components inherit font styles from parent - set font-family on body or parent element",
+    "Use the --lime-primary-color CSS variable to set the accent color for your application",
+    "Import components via script tag or module bundler as needed",
+    "For dark mode support, load color-palette-extended.css from the package",
+    "All prop names use camelCase in JavaScript/TypeScript but kebab-case in HTML attributes"
+  ]
+}
