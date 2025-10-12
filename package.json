@@ -23,6 +23,7 @@
     "watch": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --watch --docs --serve\"",
     "watch:prod": "shx rm -rf www/ && cross-env-shell SASS_PATH=node_modules \"stencil build --watch\"",
     "docs:build": "cross-env-shell NODE_ENV=prod SASS_PATH=node_modules \"stencil build --docs --config stencil.config.docs.ts\"",
+    "docs:context7": "node generate-context7-docs.cjs",
     "docs:publish": "node publish-docs.cjs",
     "lint": "eslint --max-warnings=0 && prettier -c --ignore-path .gitignore **/*.scss",
     "lint:fix": "eslint --max-warnings=0 --fix && prettier --write --ignore-path .gitignore **/*.scss",
