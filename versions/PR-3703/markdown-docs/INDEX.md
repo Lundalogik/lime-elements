@@ -45,13 +45,15 @@ npm install @limetech/lime-elements
 
 ## Design Guidelines
 
-- [Action Buttons](design-guidelines/action-buttons/)
-- [Boolean](design-guidelines/boolean/)
-- [Color System](design-guidelines/color-system/)
-- [Declutter](design-guidelines/declutter/)
-- [Disabled Hidden](design-guidelines/disabled-hidden/)
-- [Shadows](design-guidelines/shadows/)
-- [Size](design-guidelines/size/)
+- [Action Buttons](design-guidelines/action-buttons/action-buttons.md)
+- [Boolean](design-guidelines/boolean/labeling-boolean-fields.md)
+- [Color System](design-guidelines/color-system/color-system.md)
+- [Declutter](design-guidelines/declutter/declutter.md)
+- [Disabled Hidden](design-guidelines/disabled-hidden/disabled-hidden.md)
+- [Disabled Vs Readonly](design-guidelines/disabled-vs-readonly/disabled-vs-readonly.md)
+- [Shadows](design-guidelines/shadows/shadows-and-depth.md)
+- [Size](design-guidelines/size/size-rhythms.md)
+- [Text Editor](design-guidelines/text-editor/editor-development.md)
 
 
 ## Guides
