@@ -190,6 +190,12 @@ function build() {
         shell.exit(1);
     }
 
+    if (shell.exec('npm run docs:context7').code !== 0) {
+        shell.echo('docs:context7 generation failed!');
+        teardown();
+        shell.exit(1);
+    }
+
     shell.exec('ls -la www');
 }
 
@@ -227,6 +233,16 @@ function copyBuildOutput() {
             .code !== 0
     ) {
         shell.echo('copying kompendium.json failed!');
+        teardown();
+        shell.exit(1);
+    }
+
+    shell.echo('Copying markdown documentation...');
+    if (
+        shell.cp('-R', 'www/markdown-docs', `docsDist/versions/${version}/`)
+            .code !== 0
+    ) {
+        shell.echo('copying markdown docs failed!');
         teardown();
         shell.exit(1);
     }
