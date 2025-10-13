@@ -20,7 +20,6 @@
         /* reset column fallback */
         columns: initial;
         column-width: initial;
-        column-gap: initial;
 
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax($card-width, 1fr));
