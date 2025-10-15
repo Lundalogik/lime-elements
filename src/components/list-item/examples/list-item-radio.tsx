@@ -1,4 +1,3 @@
-import { ListItem } from '@limetech/lime-elements';
 import { Component, h, Host, State } from '@stencil/core';
 
 const NOTIFICATION_ICON = {
@@ -15,13 +14,14 @@ const NOTIFICATION_ICON = {
  * Radio buttons allow users to select only one option from a group.
  *
  * :::important
- * - The consumer component should set `role="radiogroup"` for the `ul` or
- * the container of the `limel-list-item`s
+ * - Set `role="radiogroup"` on the container for accessibility.
+ * - Only one value is selected at a time; clicks and Enter/Space update
+ *   `selectedValue` and re-render.
  * :::
  *
  * :::note
- * The radio buttons are purely visual - the selection logic
- * is handled by the parent component through the interact events.
+ * The radio visuals are purely presentational; state comes from the parent.
+ * In production, prefer using `limel-list type="radio"` to centralize logic.
  * :::
  */
 @Component({
@@ -57,10 +57,16 @@ export class ListItemRadioExample {
     public render() {
         return (
             <Host>
-                <ul role="radiogroup" aria-label="Package size">
+                <div
+                    role="radiogroup"
+                    aria-label="Package size"
+                    onClick={this.onClick}
+                    onKeyDown={this.onKeyDown}
+                >
                     {this.items.map((item) => (
                         <limel-list-item
                             key={item.value}
+                            data-value={item.value}
                             value={item.value}
                             text={item.text}
                             secondaryText={item.secondaryText}
@@ -69,12 +75,11 @@ export class ListItemRadioExample {
                             tabindex={
                                 this.selectedValue === item.value ? 0 : -1
                             }
-                            onInteract={this.onListItemInteraction}
                             icon={this.icon}
                             badgeIcon={this.badgeIcon}
                         />
                     ))}
-                </ul>
+                </div>
                 <limel-example-value
                     label="Last interaction"
                     value={this.lastInteraction}
@@ -95,15 +100,46 @@ export class ListItemRadioExample {
         );
     }
 
-    private onListItemInteraction = (
-        event: CustomEvent<{ selected: boolean; item: ListItem }>
-    ) => {
-        const itemValue = event.detail.item.value as number;
+    private selectValue = (value: number, text: string) => {
+        this.selectedValue = value;
+        this.lastInteraction = `Selected "${text}"`;
+    };
 
-        // For radio buttons, always select the clicked item (even if it was already selected)
-        this.selectedValue = itemValue;
+    private onClick = (event: MouseEvent) => {
+        const host = (event.target as HTMLElement).closest('limel-list-item');
+        if (!host) {
+            return;
+        }
+        const value = Number((host as HTMLElement).dataset.value);
+        const text = host.getAttribute('text') || '';
+        this.selectValue(value, text);
+    };
 
-        this.lastInteraction = `Selected "${event.detail.item.text}"`;
+    private onKeyDown = (event: KeyboardEvent) => {
+        const isEnter = event.key === 'Enter';
+        const isSpace =
+            event.key === ' ' ||
+            event.key === 'Space' ||
+            event.key === 'Spacebar' ||
+            event.code === 'Space';
+        if (!isEnter && !isSpace) {
+            return;
+        }
+        if (event.repeat) {
+            return;
+        }
+        if (isSpace) {
+            event.preventDefault();
+        }
+        const focused = (event.target as HTMLElement).closest(
+            'limel-list-item'
+        );
+        if (!focused) {
+            return;
+        }
+        const value = Number((focused as HTMLElement).dataset.value);
+        const text = focused.getAttribute('text') || '';
+        this.selectValue(value, text);
     };
 
     private setBadgeIcon = (event: CustomEvent<boolean>) => {

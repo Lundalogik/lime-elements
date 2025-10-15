@@ -45,55 +45,30 @@ describe('limel-list-item', () => {
         expect(checkbox).not.toBeNull();
     });
 
-    it('emits interact on click for selectable types', async () => {
+    it('renders action menu trigger without producing interact event', async () => {
         const page = await newE2EPage({
-            html: '<limel-list-item type="option" text="Sel"></limel-list-item>',
+            html: '<limel-list-item type="option" text="Actions"></limel-list-item>',
         });
         const host = await page.find('limel-list-item');
-        const spy = await page.spyOnEvent('interact');
-        await host.click();
-        await page.waitForChanges();
-        expect(spy).toHaveReceivedEventTimes(1);
-    });
-
-    it('does not emit interact when disabled', async () => {
-        const page = await newE2EPage({
-            html: '<limel-list-item type="option" disabled text="Disabled"></limel-list-item>',
-        });
-        const host = await page.find('limel-list-item');
-        const spy = await page.spyOnEvent('interact');
-        await host.click();
-        await page.waitForChanges();
-        expect(spy).not.toHaveReceivedEvent();
-    });
-
-    it('emits interact on Enter/Space when focused (keyboard activation)', async () => {
-        const page = await newE2EPage({
-            html: '<limel-list-item type="option" tabindex="0" text="KB"></limel-list-item>',
-        });
-        const host = await page.find('limel-list-item');
-        const spy = await page.spyOnEvent('interact');
-        await host.focus();
-        await page.keyboard.press('Enter');
-        await page.waitForChanges();
-        await page.keyboard.press('Space');
-        await page.waitForChanges();
-        expect(spy).toHaveReceivedEventTimes(2);
-    });
-
-    it('does not emit interact when activating the action menu trigger', async () => {
-        const page = await newE2EPage({
-            html: `<limel-list-item type="option" text="With actions"></limel-list-item>`,
-        });
-        const host = await page.find('limel-list-item');
-        const spy = await page.spyOnEvent('interact');
         await host.setProperty('actions', [{ text: 'Action', value: 'a' }]);
         await page.waitForChanges();
         const trigger = await host.find('.action-menu-trigger');
         expect(trigger).not.toBeNull();
+        const interactSpy = await page.spyOnEvent('interact');
         await trigger.click();
         await page.waitForChanges();
-        expect(spy).not.toHaveReceivedEvent();
+        expect(interactSpy).not.toHaveReceivedEvent();
+    });
+
+    it('reflects aria-selected when type=option and selected prop changes', async () => {
+        const page = await newE2EPage({
+            html: '<limel-list-item type="option" text="SelState"></limel-list-item>',
+        });
+        const host = await page.find('limel-list-item');
+        expect(host).toEqualAttribute('aria-selected', 'false');
+        await host.setProperty('selected', true);
+        await page.waitForChanges();
+        expect(host).toEqualAttribute('aria-selected', 'true');
     });
 
     it('renders icon and image when provided (presence checks)', async () => {

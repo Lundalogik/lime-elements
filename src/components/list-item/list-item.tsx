@@ -1,12 +1,4 @@
-import {
-    Component,
-    Host,
-    Prop,
-    h,
-    Event,
-    EventEmitter,
-    Element,
-} from '@stencil/core';
+import { Component, Host, Prop, h } from '@stencil/core';
 import { getIconName } from '../icon/get-icon-props';
 import type { IconSize } from '../icon/icon.types';
 import { createRandomString } from '../../util/random-string';
@@ -144,18 +136,6 @@ export class ListItemComponent implements ListItem {
         'listitem';
 
     /**
-     * Emitted when the list item toggles selection (only for selectable types and not disabled).
-     */
-    @Event()
-    public interact: EventEmitter<{
-        selected: boolean;
-        item: ListItem;
-    }>;
-
-    @Element()
-    private host: HTMLLimelListItemElement;
-
-    /**
      * Used to describe the list item for assistive technology.
      */
     private readonly descriptionId: string;
@@ -198,8 +178,6 @@ export class ListItemComponent implements ListItem {
                     'has-primary-component': !!this.primaryComponent?.name,
                 }}
                 {...ariaProps}
-                onClick={this.onClick}
-                onKeyDown={this.onKeyDown}
             >
                 {this.renderRadioButton()}
                 {this.renderCheckbox()}
@@ -353,86 +331,6 @@ export class ListItemComponent implements ListItem {
         );
     };
 
-    private onClick = (event: MouseEvent) => {
-        if (this.disabled) {
-            // Ignore toggling, but don't block embedded controls
-            return;
-        }
-
-        const target = event.target as HTMLElement | null;
-        const cameFromActionTrigger = !!target?.closest('.action-menu-trigger');
-        const cameFromNoToggle = !!target?.closest('[data-no-toggle]');
-        const cameFromMenu = !!target?.closest('limel-menu');
-        if (cameFromActionTrigger || cameFromNoToggle || cameFromMenu) {
-            return;
-        }
-
-        if (this.isSelectableType()) {
-            this.handleInteraction();
-        }
-        // For non-selectable types (menuitem/listitem), allow native click to bubble
-    };
-
-    private onKeyDown = (event: KeyboardEvent) => {
-        if (this.disabled) {
-            return;
-        }
-
-        // Only handle keyboard when the host itself has focus.
-        // This avoids toggling when Space/Enter is pressed on inner controls
-        // like the action menu trigger or any primary component.
-        const shadowRoot = this.host.shadowRoot;
-        const activeElement = shadowRoot
-            ? (shadowRoot.activeElement as HTMLElement | null)
-            : null;
-        if (activeElement && activeElement !== this.host) {
-            return;
-        }
-
-        const isEnter = event.key === 'Enter';
-        const isSpace =
-            event.key === ' ' ||
-            event.key === 'Space' ||
-            event.key === 'Spacebar' ||
-            event.code === 'Space';
-
-        if (!isEnter && !isSpace) {
-            return;
-        }
-
-        // Avoid re-triggering while key is held down and auto-repeats
-        if (event.repeat) {
-            // Also prevent default scroll on Space when repeating
-            if (isSpace) {
-                event.preventDefault();
-            }
-            return;
-        }
-
-        // Prevent page scroll and default button behavior on Space
-        if (isSpace) {
-            event.preventDefault();
-        }
-
-        if (this.isSelectableType()) {
-            this.handleInteraction();
-            return;
-        }
-
-        // For non-selectable items, treat Enter and Space as activation (simulate click)
-        if (isEnter || isSpace) {
-            this.host.click();
-        }
-    };
-
-    private isSelectableType(): boolean {
-        return (
-            this.type === 'option' ||
-            this.type === 'radio' ||
-            this.type === 'checkbox'
-        );
-    }
-
     private getHostRole(): string {
         switch (this.type) {
             case 'option': {
@@ -452,27 +350,6 @@ export class ListItemComponent implements ListItem {
             }
         }
     }
-
-    private handleInteraction = () => {
-        const newSelected = !this.selected;
-
-        const item: ListItem = {
-            text: this.text,
-            secondaryText: this.secondaryText,
-            disabled: this.disabled,
-            icon: this.icon,
-            selected: newSelected,
-            value: this.value,
-            actions: this.actions,
-            primaryComponent: this.primaryComponent,
-            image: this.image,
-        };
-
-        this.interact.emit({
-            selected: newSelected,
-            item: item,
-        });
-    };
 
     private actionMenuLabel = (): string => {
         return translate.get('file-viewer.more-actions', this.language);
