@@ -1,3 +1,11 @@
+## [38.28.2](https://github.com/Lundalogik/lime-elements/compare/v38.28.1...v38.28.2) (2025-10-15)
+
+
+### Bug Fixes
+
+
+* **list:** prevent double `interact` event emits, when an item is clicked ([7672994](https://github.com/Lundalogik/lime-elements/commit/7672994ce1e44f6d39afea841656a0ee4c2ddd09))
+
 ## [38.28.1](https://github.com/Lundalogik/lime-elements/compare/v38.28.0...v38.28.1) (2025-10-15)
 
 
