@@ -1,3 +1,15 @@
+## [38.28.1](https://github.com/Lundalogik/lime-elements/compare/v38.28.0...v38.28.1) (2025-10-15)
+
+
+### Bug Fixes
+
+
+* **text editor:** add noopener/noreferrer for security ([7109ac8](https://github.com/Lundalogik/lime-elements/commit/7109ac86b57bb60c33c4366b489521e40292649f))
+* **text editor:** guard against potential null destructuring ([c1d4d4f](https://github.com/Lundalogik/lime-elements/commit/c1d4d4fedf5197bbfc7554c9286a138d2ed880fe))
+* **text editor:** mousedown handling should only return true once handled ([3a81f98](https://github.com/Lundalogik/lime-elements/commit/3a81f98d2af3d3f2ffba4a16aafde24183f2742d))
+* **text editor:** only open popup to edit link on double click ([d78f408](https://github.com/Lundalogik/lime-elements/commit/d78f408fab30428a84559683a3e20d6eca65668c))
+* **text editor:** preserve linebreaks when handling paste events ([80d1cde](https://github.com/Lundalogik/lime-elements/commit/80d1cde244c5586c8ae087ac65087913b0d07fdd))
+
 ## [38.28.0](https://github.com/Lundalogik/lime-elements/compare/v38.27.0...v38.28.0) (2025-10-07)
 
 
