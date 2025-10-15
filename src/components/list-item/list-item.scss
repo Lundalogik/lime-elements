@@ -1,0 +1,192 @@
+/**
+ * @prop --notification-badge-text-color: (Publicly documented in `limel-menu` too) Defines the text color of notification badges. Defaults to `--color-white`.
+ * @prop --notification-badge-background-color: (Publicly documented in `limel-menu` too) Defines the background color of notification badges. Defaults to `--color-red-default`.
+ * @prop --limel-list-item-menu-order: Defines the order of the menu, within the list item's flexbox. Defaults to `3`.
+ */
+
+@use '../../style/mixins';
+@forward '../checkbox/checkbox.scss';
+@forward '../radio-button-group/radio-button.scss';
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+limel-list-item {
+    min-height: 2.5rem;
+    @include mixins.visualize-keyboard-focus();
+
+    transition: background-color 0.6s ease;
+    position: relative;
+    isolation: isolate;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    padding: 0 1rem;
+    background-color: rgb(var(--contrast-100));
+
+    &:hover {
+        z-index: 1;
+        transition: background-color 0.2s ease;
+        border-radius: 0.5rem;
+    }
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+        z-index: 1;
+        border-radius: 0.5rem;
+    }
+
+    &:first-of-type {
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+    }
+
+    &:last-of-type {
+        border-bottom-left-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+    }
+
+    &:not([disabled]):not([disabled='true']) {
+        cursor: pointer;
+    }
+
+    &[disabled]:not([disabled='false']) {
+        cursor: not-allowed;
+    }
+}
+
+limel-list-item[disabled]:not([disabled='false']) {
+    cursor: not-allowed;
+
+    .text,
+    limel-icon,
+    img,
+    .boolean-input {
+        opacity: 0.4;
+    }
+}
+
+limel-list-item:not([disabled]):not([disabled='true']):hover,
+limel-list-item:not([disabled]):not([disabled='true']):focus-visible {
+    background-color: rgb(var(--contrast-400));
+}
+
+limel-list-item[type='option'] {
+    &:before {
+        transition: background-color 0.6s ease;
+        content: '';
+        position: absolute;
+        inset: 0;
+
+        opacity: 0.2;
+        border-radius: 0.5rem;
+    }
+
+    &[selected]:not([selected='false']) {
+        &:before {
+            transition: background-color 0.2s ease;
+            background-color: var(--limel-theme-primary-color);
+        }
+    }
+}
+
+limel-list-item {
+    .text {
+        flex-grow: 1;
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        padding: 0.5rem 0;
+
+        color: var(--limel-theme-text-primary-on-background-color);
+    }
+
+    .label {
+        @include mixins.truncate-text();
+
+        font-size: var(--limel-theme-default-font-size);
+        line-height: 1rem;
+    }
+
+    .description {
+        @include mixins.truncate-text-on-line(var(--maxLinesSecondaryText));
+        line-height: 1rem;
+        font-size: var(--limel-theme-default-small-font-size);
+        opacity: 0.6;
+    }
+
+    limel-icon {
+        color: var(--limel-theme-text-secondary-on-background-color);
+        flex-shrink: 0;
+        margin-left: -0.5rem;
+
+        &:has(+ img) {
+            margin-left: 0;
+            position: absolute;
+            top: 0.125rem;
+            left: 0.125rem;
+            padding: 0.1875rem;
+            width: 1.25rem;
+            background-color: rgb(var(--contrast-200), 0.8);
+        }
+    }
+
+    img {
+        flex-shrink: 0;
+        object-fit: cover;
+        border-radius: 50%;
+        width: 2rem;
+        height: 2rem;
+        box-shadow: 0 0 0 1px rgb(var(--contrast-800), 0.5);
+    }
+
+    limel-menu {
+        margin-right: -0.5rem;
+        // Sometimes, `primaryComponent`s in list items need to get
+        // `order: 2;` to be placed after the text. But since the default `order`
+        // of all lit item children is `0`, we need to push the menu to the far right
+        // by giving it a bigger order number. Also, by making this into a variable
+        // we can handle other edge-cases in consuming components.
+        order: var(--limel-list-item-menu-order, 3);
+    }
+}
+
+limel-list-item {
+    &[role='menuitem'] & {
+        .label {
+            font-size: var(--limel-theme-default-small-font-size);
+        }
+    }
+}
+
+// ====================
+// Checkbox and radios
+.boolean-input {
+    width: var(--limel-boolean-input-box-size);
+    margin-left: -0.25rem;
+    &.checkbox {
+        margin-right: 0.25rem;
+    }
+
+    limel-list-item:has(limel-icon) &,
+    limel-list-item:has(img) & {
+        margin-right: -0.25rem;
+        margin-left: 0;
+        order: 2;
+    }
+}
+
+.boolean-input-label {
+    @include mixins.truncate-text();
+    opacity: 0;
+    width: var(--limel-boolean-input-box-size);
+}
+// ====================

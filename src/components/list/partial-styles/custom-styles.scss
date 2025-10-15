@@ -8,7 +8,7 @@
 
 :host(.has-striped-rows),
 :host(.has-striped-rows.has-interactive-items) {
-    .mdc-deprecated-list-item {
+    limel-list-item:not([disabled]):not([disabled='true']):not(:hover) {
         &:nth-child(even) {
             background-color: var(
                 --list-background-color-of-odd-interactive-items,
@@ -25,13 +25,7 @@
 }
 
 :host(.has-interactive-items) {
-    .mdc-deprecated-list-item {
-        &:not(.mdc-deprecated-list-item--disabled) {
-            @include mixins.is-flat-clickable();
-
-            &:hover {
-                z-index: $list--has-interactive-items--mdc-list-item--hover;
-            }
-        }
+    limel-list-item:not([disabled]):not([disabled='true']) {
+        @include mixins.is-flat-clickable();
     }
 }

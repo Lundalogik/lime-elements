@@ -23,7 +23,9 @@ export default {
     'file.drag-and-drop-tips':
         'Sleep een bestand hierheen of klik om te bladeren.',
     'file-viewer.message.unsupported-filetype':
-        'Kan dit bestand niet weergeven!',
+        'Kan geen voorbeeld weergeven voor dit bestandstype.',
+    'file-viewer.message.try-other-options':
+        'Download het bestand of open het in een nieuw tabblad.',
     'file-viewer.download': 'Downloaden',
     'file-viewer.exit-fullscreen': 'Verlaat volledig scherm',
     'file-viewer.open-in-fullscreen': 'Open in volledig scherm',
@@ -54,4 +56,9 @@ export default {
     'ai-avatar.thinking': 'aan het denken',
     'table.select-all': 'Alle rijen selecteren',
     'table.select-row': 'Deze rij selecteren',
+    'profile-picture.remove': 'Geselecteerde afbeelding verwijderen',
+    'profile-picture.unsupported-preview.title':
+        'Niet-ondersteund afbeeldingsformaat',
+    'profile-picture.unsupported-preview.description':
+        'We kunnen de geselecteerde afbeelding niet weergeven in deze browser. Selecteer een ander afbeeldingsbestand.',
 };

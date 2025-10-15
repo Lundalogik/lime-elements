@@ -1,0 +1,45 @@
+/**
+ * @prop --notification-badge-text-color: (Publicly documented in `limel-menu` too) Defines the text color of notification badges. Defaults to `--color-white`.
+ * @prop --notification-badge-background-color: (Publicly documented in `limel-menu` too) Defines the background color of notification badges. Defaults to `--color-red-default`.
+ */
+@use '../../../style/mixins';
+
+:host(limel-menu-item-meta) {
+    order: 4; // Ensures that the element is positioned correctly within the menu item
+    transform: translateX(0.5rem);
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    max-width: 50%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+limel-badge {
+    --badge-background-color: var(
+        --notification-badge-background-color,
+        rgb(var(--color-red-default))
+    );
+    --badge-text-color: var(
+        --notification-badge-text-color,
+        rgb(var(--color-white))
+    );
+}
+
+.command-text {
+    @include mixins.truncate-text();
+    opacity: 0.7;
+    font-size: var(--limel-theme-default-small-font-size);
+}
+
+.chevron {
+    flex-shrink: 0;
+    border-color: transparent;
+    border-left-color: var(--limel-theme-text-secondary-on-background-color);
+    border-width: 0.25rem 0 0.25rem 0.375rem;
+    border-style: solid;
+}

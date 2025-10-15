@@ -1,5 +1,6 @@
+import { Option } from '@limetech/lime-elements';
 import { ListItem } from '@limetech/lime-elements';
-import { Component, h } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
 
 /**
  * Multi-line versus single-line layout
@@ -23,6 +24,17 @@ import { Component, h } from '@stencil/core';
     shadow: true,
 })
 export class BadgeIconsListExample {
+    @State()
+    private maxLines: Option = { text: '2', value: '2' };
+
+    private options: Option[] = [
+        { text: '1', value: '1' },
+        { text: '2', value: '2' },
+        { text: '3', value: '3' },
+        { text: '4', value: '4' },
+        { text: '5', value: '5' },
+    ];
+
     private items: Array<ListItem<number>> = [
         {
             text: 'This item only has one line of primary text, and no secondary text',
@@ -53,11 +65,31 @@ export class BadgeIconsListExample {
 
     public render() {
         return (
-            <limel-list
-                items={this.items}
-                badgeIcons={true}
-                maxLinesSecondaryText={4}
-            />
+            <Host>
+                <limel-list
+                    items={this.items}
+                    badgeIcons={true}
+                    maxLinesSecondaryText={Number(this.maxLines?.value)}
+                />
+                <limel-example-controls
+                    style={{
+                        '--example-controls-column-layout': 'auto-fit',
+                    }}
+                >
+                    <limel-select
+                        label="maxLinesSecondaryText"
+                        options={this.options}
+                        value={this.maxLines}
+                        onChange={this.handleChange}
+                    />
+                </limel-example-controls>
+            </Host>
         );
     }
+
+    private handleChange = (event) => {
+        event.stopPropagation();
+        const detail = event.detail;
+        this.maxLines = Array.isArray(detail) ? detail[0] : detail;
+    };
 }

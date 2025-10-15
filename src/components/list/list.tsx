@@ -1,5 +1,5 @@
 import { IconSize } from '../icon/icon.types';
-import { ListItem, ListSeparator } from './list-item.types';
+import { ListItem, ListSeparator } from '../list-item/list-item.types';
 import { ListType } from './list.types';
 import { MDCList, MDCListActionEvent } from '@material/list';
 import { strings as listStrings } from '@material/list/constants';
@@ -295,7 +295,7 @@ export class List {
     private triggerIconColorWarning() {
         if (this.items?.some((item) => 'iconColor' in item)) {
             console.warn(
-                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
+                "The `iconColor` prop is deprecated, has no visual effect anymore, and will soon be removed! Use the new `Icon` interface, and instead of `iconColor: 'color-name'` write `icon: { name: 'icon-name', color: 'color-name' }`."
             );
         }
     }

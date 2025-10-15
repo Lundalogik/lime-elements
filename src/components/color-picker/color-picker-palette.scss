@@ -1,68 +1,148 @@
-@use '../../design-guidelines/color-system/examples/extended-color-palette';
+@use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
-@import './color-picker';
+@import './partial-styles/lime-admin-hack';
 
-:host {
+:host(limel-color-picker-palette) {
+    --limel-color-palette-gap: 0.25rem;
+    --limel-color-palette-max-column-count: 25;
+    --limel-color-palette-min-width: 8rem;
+    box-sizing: border-box;
+
     border-radius: 0.75rem; // is like popover's default `--popover-border-radius`
-    background-color: rgb(var(--kompendium-contrast-300));
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.75rem;
+}
+
+*,
+*:before,
+:after {
+    box-sizing: border-box;
 }
 
 .color-picker-palette {
     display: grid;
-    gap: 0.25rem;
-    grid-auto-flow: column;
-    grid-template-columns: repeat(20, 1fr);
-    grid-template-rows: repeat(4, 1fr) auto;
-    margin: 1rem;
+    gap: var(--limel-color-palette-gap);
+    grid-template-columns: repeat(
+        min(
+            var(--color-picker-column-count),
+            var(--limel-color-palette-max-column-count)
+        ),
+        1fr
+    );
+    width: 100%;
+    max-width: 58rem;
+    min-width: var(--limel-color-palette-min-width);
 }
 
 .chosen-color-name {
-    box-sizing: border-box;
-    padding: 1rem;
-    display: grid;
-    grid-template-columns: 1fr auto;
+    display: flex;
     gap: 0.5rem;
 }
 
-.chosen-color-preview {
-    border: 1px solid rgba(var(--contrast-700), 0.65); // color is the same as
-    // colors in shared_input-select-picker.scss
-    border-radius: 50%;
+limel-input-field {
+    flex-grow: 1;
+    width: min-content;
 }
 
-.swatch:not(.hue) {
-    border: none;
+.chosen-color-preview {
+    flex-shrink: 0;
+    isolation: isolate;
+
+    position: relative;
+    width: shared_input-select-picker.$height-of-mdc-text-field;
+    height: shared_input-select-picker.$height-of-mdc-text-field;
+
+    border: 1px solid rgba(var(--contrast-700), 0.65);
+    border-radius: 50%;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+    }
+
+    &:before {
+        @include mixins.add-chessboard-background();
+        z-index: 0;
+    }
+
+    &:after {
+        background: var(--background);
+        z-index: 1;
+    }
+}
+
+button.swatch {
+    all: unset;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    max-width: 3rem;
+    min-width: max(
+        2rem,
+        100% /
+            min(
+                var(--color-picker-column-count),
+                var(--limel-color-palette-max-column-count)
+            ) -
+            (
+                min(
+                        var(--color-picker-column-count),
+                        var(--limel-color-palette-max-column-count)
+                    ) -
+                    1
+            ) *
+            var(--limel-color-palette-gap)
+    );
     aspect-ratio: 1;
+    border-radius: 0.1875rem;
 
     @include mixins.visualize-keyboard-focus();
 
-    // We could use the `@include mixins.is-flat-clickable();` mixin
-    // But its `background-color` arguments would interfere with the
-    // styles here. So we just copy/pasted the useful parts of the mixin here
-    transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.1s ease-out;
-
-    &:hover {
-        box-shadow: var(--button-shadow-hovered);
+    // Since the background color will be overwritten by the mixin,
+    // we need to set it explicitly here and repeated in the mixin.
+    background-color: var(--limel-color-picker-swatch-color);
+    &:not([disabled]) {
+        @include mixins.is-flat-clickable(
+            $background-color: var(--limel-color-picker-swatch-color),
+            $background-color--hovered: var(--limel-color-picker-swatch-color)
+        );
     }
-
-    &:active {
-        box-shadow: var(--button-shadow-pressed);
-
-        transform: translate3d(0, 0.08rem, 0);
-    }
-    cursor: pointer;
 
     &:focus-visible {
         box-shadow:
             var(--shadow-depth-8-focused),
-            0 0 0 0.25rem rgb(var(--contrast-100)) inset;
+            0 0 0 0.125rem rgb(var(--contrast-100)) inset;
+    }
+
+    &[disabled] {
+        cursor: not-allowed;
+        box-shadow: 0 0 0 0.125rem rgb(var(--contrast-100), 0.6) inset;
+
+        &:after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 0.125rem;
+            height: 100%;
+
+            opacity: 0.6;
+            rotate: 45deg;
+            border-radius: 1rem;
+            background-color: rgb(var(--contrast-100));
+        }
     }
 }
 
-.swatch--selected {
+button.swatch--selected {
+    box-shadow: var(--button-shadow-inset);
+
     border-radius: 50%;
 }

@@ -23,7 +23,9 @@ export default {
     'file.drag-and-drop-tips':
         'Ziehen Sie Ihre Datei hierher oder klicken Sie, um zu durchsuchen.',
     'file-viewer.message.unsupported-filetype':
-        'Diese Datei kann nicht angezeigt werden!',
+        'Für diesen Dateityp kann keine Vorschau angezeigt werden.',
+    'file-viewer.message.try-other-options':
+        'Laden Sie die Datei herunter oder öffnen Sie sie in einem neuen Tab.',
     'file-viewer.download': 'Herunterladen',
     'file-viewer.exit-fullscreen': 'Vollbildmodus beenden',
     'file-viewer.open-in-fullscreen': 'Im Vollbildmodus öffnen',
@@ -54,4 +56,9 @@ export default {
     'ai-avatar.thinking': 'denkt',
     'table.select-all': 'Alle Zeilen auswählen',
     'table.select-row': 'Diese Zeile auswählen',
+    'profile-picture.remove': 'Ausgewähltes Bild entfernen',
+    'profile-picture.unsupported-preview.title':
+        'Nicht unterstütztes Bildformat',
+    'profile-picture.unsupported-preview.description':
+        'Wir können das ausgewählte Bild in diesem Browser nicht anzeigen. Bitte wählen Sie eine andere Bilddatei.',
 };

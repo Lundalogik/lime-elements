@@ -3,7 +3,12 @@ import { Guide } from 'kompendium';
 export default [
     {
         name: 'Home',
-        children: ['src/contributing.md', 'src/events.md', 'src/theming.md'],
+        children: [
+            'src/updates.md',
+            'src/contributing.md',
+            'src/events.md',
+            'src/theming.md',
+        ],
     },
     {
         name: 'DesignGuidelines',

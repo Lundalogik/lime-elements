@@ -1,0 +1,117 @@
+@use '../../style/mixins';
+
+/**
+* @prop --profile-picture-border-radius: Border radius of the profile picture. Defaults to `100vw` to render a circular shape.
+*/
+
+:host(limel-profile-picture) {
+    position: relative;
+
+    display: inline-flex;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
+
+    border-radius: var(--profile-picture-border-radius, 100vw);
+    background-color: rgb(var(--contrast-400));
+}
+
+* {
+    box-sizing: border-box;
+}
+
+limel-file-dropzone,
+limel-file-input,
+button.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+}
+
+button {
+    all: unset;
+    display: block;
+    @include mixins.visualize-keyboard-focus();
+
+    &.avatar {
+        overflow: hidden;
+        border-radius: var(--profile-picture-border-radius, 100vw);
+
+        :host(:not([disabled]):not([disabled='true'])) & {
+            @include mixins.is-flat-clickable();
+        }
+
+        :host([invalid]:not([invalid='false'])) & {
+            box-shadow: var(--shadow-error-state);
+        }
+    }
+
+    &.remove {
+        @include mixins.clear-all-button();
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+
+        :host(:hover) &,
+        :host(:focus) &,
+        :host(:focus-visible) &,
+        :host(:focus-within) &,
+        :host(:active) & {
+            animation: show 0.4s ease-in-out forwards;
+        }
+    }
+}
+
+@keyframes show {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+button.avatar,
+img,
+limel-icon {
+    border-radius: var(--profile-picture-border-radius, 100vw);
+}
+
+limel-icon {
+    width: calc(100% - 1rem);
+    min-width: 1rem;
+    max-width: 4rem;
+    color: var(--limel-theme-text-secondary-on-background-color);
+    margin: auto;
+}
+
+img {
+    object-fit: var(--limel-profile-picture-object-fit);
+    width: 100%;
+    height: 100%;
+
+    :host(.has-image-error) & {
+        border: 1px dashed rgb(var(--contrast-600));
+        background: url("data:image/svg+xml;charset=utf-8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' style='fill-rule:evenodd;'><path fill='rgba(186,186,192,0.16)' d='M0 0h4v4H0zM4 4h4v4H4z'/></svg>");
+        background-size: 0.5rem;
+    }
+}
+
+limel-spinner {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+}
+
+limel-popover {
+    position: absolute;
+    inset: auto 0 0 auto;
+    display: block;
+    width: 2.25rem;
+    height: 2.25rem;
+}

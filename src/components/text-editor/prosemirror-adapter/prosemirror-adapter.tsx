@@ -17,7 +17,7 @@ import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
 import { keymap } from 'prosemirror-keymap';
 import { ActionBarItem } from '../../../components/action-bar/action-bar.types';
-import { ListSeparator } from '../../../components/list/list-item.types';
+import { ListSeparator } from '../../../components/list-item/list-item.types';
 import { MenuCommandFactory } from './menu/menu-commands';
 import { menuTranslationIDs, getTextEditorMenuItems } from './menu/menu-items';
 import { ContentTypeConverter } from '../utils/content-type-converter';

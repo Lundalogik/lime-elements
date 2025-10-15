@@ -22,7 +22,10 @@ export default {
     'snackbar.dismiss': 'Stäng',
     'file.drag-and-drop-tips':
         'Dra & släpp filen här eller klicka om du vill bläddra.',
-    'file-viewer.message.unsupported-filetype': 'Kan inte visa den här filen!',
+    'file-viewer.message.unsupported-filetype':
+        'Kan inte visa en förhandsvisning för denna filtyp.',
+    'file-viewer.message.try-other-options':
+        'Ladda ner filen eller öppna den i en ny flik.',
     'file-viewer.download': 'Ladda ner',
     'file-viewer.exit-fullscreen': 'Avsluta fullskärmsläge',
     'file-viewer.open-in-fullscreen': 'Öppna i fullskärmsläge',
@@ -52,4 +55,8 @@ export default {
     'ai-avatar.thinking': 'tänker',
     'table.select-all': 'Markera alla rader',
     'table.select-row': 'Markera denna rad',
+    'profile-picture.remove': 'Ta bort vald bild',
+    'profile-picture.unsupported-preview.title': 'Formatet stöds inte',
+    'profile-picture.unsupported-preview.description':
+        'Vi kan inte visa den valda bilden i den här webbläsaren. Välj en annan bildfil.',
 };

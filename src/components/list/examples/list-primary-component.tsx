@@ -18,6 +18,13 @@ import { Component, h } from '@stencil/core';
  * You can set `order` either via the primary component's own styles,
  * or via its `props`.
  * :::
+ *
+ * :::note
+ * The primary component does not become automatically disabled,
+ * once the list item is disabled. Clicks on, or interactions with the component
+ * will still be registered on disabled items.
+ * You should handle the disabled state of the components accordingly.
+ * :::
  */
 @Component({
     tag: 'limel-example-list-primary-component',

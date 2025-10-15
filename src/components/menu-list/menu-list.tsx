@@ -1,5 +1,5 @@
 import { IconSize } from '../icon/icon.types';
-import { ListSeparator } from '../list/list-item.types';
+import { ListSeparator } from '../list-item/list-item.types';
 import { MenuItem } from '../menu/menu.types';
 import { MDCMenu, MDCMenuItemEvent } from '@material/menu';
 import { MDCRipple } from '@material/ripple';
@@ -44,15 +44,6 @@ export class MenuList {
      */
     @Prop()
     public iconSize: IconSize = 'small';
-
-    /**
-     * By default, lists will display 3 lines of text, and then truncate the rest.
-     * Consumers can increase or decrease this number by specifying
-     * `maxLinesSecondaryText`. If consumer enters zero or negative
-     * numbers we default to 1; and if they type decimals we round up.
-     */
-
-    @Prop() maxLinesSecondaryText: number = 3;
 
     @Element()
     private element: HTMLLimelMenuListElement;
@@ -177,7 +168,7 @@ export class MenuList {
     private triggerIconColorWarning() {
         if (this.items?.some((item) => 'iconColor' in item)) {
             console.warn(
-                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
+                "The `iconColor` prop is deprecated, has no visual effect anymore, and will soon be removed! Use the new `Icon` interface, and instead of `iconColor: 'color-name'` write `icon: { name: 'icon-name', color: 'color-name' }`."
             );
         }
     }

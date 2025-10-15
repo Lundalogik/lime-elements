@@ -24,17 +24,15 @@ test('the component renders', () => {
     palette.shadowRoot.innerHTML = '';
 
     expect(page.body).toEqualHtml(`
-        <limel-color-picker label="Hair color">
+        <limel-color-picker label="Hair color" manual-input="">
             <mock:shadow-root>
-                    <div class="color-picker">
-                        <limel-popover opendirection="bottom-start">
-                            <button class="picker-trigger" id="tooltip-button" role="button" slot="trigger"></button>
-                            <limel-color-picker-palette label="Hair color">
-                                <mock:shadow-root></mock:shadow-root>
-                            </limel-color-picker-palette>
-                        </limel-popover>
-                        <limel-input-field class="chosen-color-input" label="Hair color"></limel-input-field>
-                    </div>
+                <limel-popover opendirection="bottom-start">
+                    <button id="tooltip-button" role="button" slot="trigger"></button>
+                    <limel-color-picker-palette label="Hair color" manual-input="">
+                        <mock:shadow-root></mock:shadow-root>
+                    </limel-color-picker-palette>
+                </limel-popover>
+                <limel-input-field label="Hair color"></limel-input-field>
             </mock:shadow-root>
         </limel-color-picker>`);
 });
@@ -43,9 +41,12 @@ test('the component renders all colors in the palette', () => {
     for (const color of colors) {
         for (const brightness of brightnesses) {
             const swatchElement = getSwatchElement(color, brightness);
-            expect(swatchElement).toEqualHtml(`
-                <button class="--color-${color}-${brightness} swatch"></button>
-            `);
+            expect(swatchElement).not.toBeNull();
+            expect(swatchElement).toHaveClass('swatch');
+            const expectedStyle = `--limel-color-picker-swatch-color: rgb(var(--color-${color}-${brightness}))`;
+            expect(swatchElement.getAttribute('style')).toContain(
+                expectedStyle
+            );
         }
     }
 });
@@ -77,6 +78,54 @@ test('swatch is set to selected when a value is set', async () => {
     expect(swatchElement).not.toHaveClass('swatch--selected');
 });
 
+describe('with a custom palette', () => {
+    let customPage: SpecPage;
+    let customHandleChange: jest.Mock;
+    const customPalette = [
+        { name: 'Primary', value: '#112233' },
+        '#abcdef',
+        { name: 'Disabled', value: 'rebeccapurple', disabled: true },
+    ];
+
+    beforeEach(async () => {
+        customHandleChange = jest.fn();
+        customPage = await newSpecPage({
+            components: [ColorPicker, Palette],
+            template: () => (
+                <limel-color-picker
+                    label="Custom"
+                    palette={customPalette}
+                    onChange={customHandleChange}
+                />
+            ),
+        });
+        await customPage.waitForChanges();
+    });
+
+    test('renders only the provided custom swatches', () => {
+        const palette = customPage.body
+            .querySelector('limel-color-picker')
+            .shadowRoot.querySelector('limel-color-picker-palette').shadowRoot;
+        const buttons = palette.querySelectorAll('button.custom-swatch');
+        expect(buttons.length).toBe(customPalette.length);
+    });
+
+    test('emits raw color value when a custom swatch is clicked', async () => {
+        const palette = customPage.body
+            .querySelector('limel-color-picker')
+            .shadowRoot.querySelector('limel-color-picker-palette').shadowRoot;
+        const secondButton = palette.querySelectorAll(
+            'button.custom-swatch'
+        )[1] as HTMLButtonElement;
+        secondButton.click();
+        await customPage.waitForChanges();
+        expect(customHandleChange).toHaveBeenCalledWith(
+            expect.objectContaining({ detail: '#abcdef' })
+        );
+    });
+});
+
+// Helpers
 function getPickerElement(): HTMLLimelColorPickerElement {
     return page.body.querySelector('limel-color-picker');
 }
@@ -87,8 +136,18 @@ function getPaletteElement(): HTMLLimelColorPickerPaletteElement {
     );
 }
 
-function getSwatchElement(color: string, brightness: string): HTMLDivElement {
-    return getPaletteElement().shadowRoot.querySelector(
-        `.--color-${color}-${brightness}`
+function getSwatchElement(
+    color: string,
+    brightness: string
+): HTMLButtonElement {
+    const expectedValue = `rgb(var(--color-${color}-${brightness}))`;
+    const buttons = [
+        ...getPaletteElement().shadowRoot.querySelectorAll('button.swatch'),
+    ] as HTMLButtonElement[];
+    return buttons.find(
+        (btn) =>
+            btn.style
+                .getPropertyValue('--limel-color-picker-swatch-color')
+                .trim() === expectedValue
     );
 }

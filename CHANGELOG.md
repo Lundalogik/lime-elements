@@ -1,3 +1,112 @@
+## [38.28.0](https://github.com/Lundalogik/lime-elements/compare/v38.27.0...v38.28.0) (2025-10-07)
+
+
+### Features
+
+
+* **color-picker:** allow disabling manual input by users ([7604c5b](https://github.com/Lundalogik/lime-elements/commit/7604c5b621d069d3d0afff85565610b1e19f53cc))
+
+## [38.27.0](https://github.com/Lundalogik/lime-elements/compare/v38.26.1...v38.27.0) (2025-10-07)
+
+
+### Features
+
+
+* **form:** add support for hiding fields via lime.hidden metadata ([f3b37a1](https://github.com/Lundalogik/lime-elements/commit/f3b37a1b1ad1b243ea8ec37f758a89ce9d753dcd))
+
+## [38.26.1](https://github.com/Lundalogik/lime-elements/compare/v38.26.0...v38.26.1) (2025-10-07)
+
+
+### Bug Fixes
+
+
+* **checkbox:** ensure correct rendering on iOS & macOS 26 ([0c3ef0e](https://github.com/Lundalogik/lime-elements/commit/0c3ef0eb5fd6894e01678e3d35472ea3a7bac583))
+
+## [38.26.0](https://github.com/Lundalogik/lime-elements/compare/v38.25.0...v38.26.0) (2025-10-03)
+
+
+### Features
+
+
+* **color-picker:** add standard input field props, e.g. `disabled`, etc… ([1d397d2](https://github.com/Lundalogik/lime-elements/commit/1d397d2ad07cf2a64959f5feb625934710061b54))
+
+## [38.25.0](https://github.com/Lundalogik/lime-elements/compare/v38.24.5...v38.25.0) (2025-10-03)
+
+
+### Features
+
+
+* **color-picker:** allow displaying custom palettes ([b979ac8](https://github.com/Lundalogik/lime-elements/commit/b979ac8c48c56a4396e464f700a4fe0ce368ac88))
+
+### Bug Fixes
+
+
+* **color-picker:** allow deselecting an already swatch by clicking on it ([c96057d](https://github.com/Lundalogik/lime-elements/commit/c96057dcb57e349ad72e05a8cb51323aff8ace7d))
+* **color-picker:** properly `disable` the trigger button when `readonly` ([562ed50](https://github.com/Lundalogik/lime-elements/commit/562ed5039b7e224658ec1326a5303d3ef0ffcfd8))
+
+## [38.24.5](https://github.com/Lundalogik/lime-elements/compare/v38.24.4...v38.24.5) (2025-10-03)
+
+
+### Bug Fixes
+
+
+* **radio-button-group:** use internal import path for types ([ff0df56](https://github.com/Lundalogik/lime-elements/commit/ff0df562c73687c5f82e3fd83d01c4d97a0cdeca))
+
+## [38.24.4](https://github.com/Lundalogik/lime-elements/compare/v38.24.3...v38.24.4) (2025-10-01)
+
+
+### Bug Fixes
+
+
+* **list-item:** ensure it is possible to click icons in lists ([57b2c62](https://github.com/Lundalogik/lime-elements/commit/57b2c6200cc0258b6b090d336657b92d67dbf461))
+
+## [38.24.3](https://github.com/Lundalogik/lime-elements/compare/v38.24.2...v38.24.3) (2025-09-29)
+
+
+### Bug Fixes
+
+
+* **list:** improve rendering and accessibility of list items ([eb2a3a9](https://github.com/Lundalogik/lime-elements/commit/eb2a3a978e323ec5cbf324ccde70a7ca3095a8b6))
+* **list:** use correct `aria-orientation` to improve accessibility ([249a1de](https://github.com/Lundalogik/lime-elements/commit/249a1de850efc3d49a340c64a46238da42321871))
+* **menu:** improve accessibility of list items with sub menus ([49d0cbe](https://github.com/Lundalogik/lime-elements/commit/49d0cbe6907bfc6d25da5162d4ce544854208003))
+* **menu:** improve rendering and accessibility of list items ([72ee45e](https://github.com/Lundalogik/lime-elements/commit/72ee45ee3d275ec6c5c514cf6a351860361249bd))
+
+## [38.24.2](https://github.com/Lundalogik/lime-elements/compare/v38.24.1...v38.24.2) (2025-09-26)
+
+
+### Bug Fixes
+
+
+* **file-viewer:** correct minor syntax issue ([a887c55](https://github.com/Lundalogik/lime-elements/commit/a887c55f1ace80de9542e7999553a2b6da589fa4))
+
+## [38.24.1](https://github.com/Lundalogik/lime-elements/compare/v38.24.0...v38.24.1) (2025-09-25)
+
+
+### Bug Fixes
+
+
+* **file-viewer:** harden URL handling and prevent XSS risk ([c1013b1](https://github.com/Lundalogik/lime-elements/commit/c1013b1926f10504610dffb4923398823a399bc3))
+* **file-viewer:** improve fallback message for text files ([e304dbc](https://github.com/Lundalogik/lime-elements/commit/e304dbc495b47383fb029adec517253acc333aa8))
+* **file-viewer:** improve unsupported file type message ([f9832eb](https://github.com/Lundalogik/lime-elements/commit/f9832ebf0f4c52bf49ab378689137325d20ea0d8))
+
+## [38.24.0](https://github.com/Lundalogik/lime-elements/compare/v38.23.5...v38.24.0) (2025-09-24)
+
+
+### Features
+
+
+* **image-resize:** add utility to resize/convert images before upload ([e324bf5](https://github.com/Lundalogik/lime-elements/commit/e324bf5ee24b60c203d35e525bf5440e2b617506))
+* **profile-picture:** add new component ([a1d3513](https://github.com/Lundalogik/lime-elements/commit/a1d351369c5c1ac2551c125c6162e7a1813d9cc5))
+
+## [38.23.5](https://github.com/Lundalogik/lime-elements/compare/v38.23.4...v38.23.5) (2025-09-23)
+
+
+### Bug Fixes
+
+
+* **callout:** use default font-size ([b50e195](https://github.com/Lundalogik/lime-elements/commit/b50e195ada7ef2d8609cbed4f63c9eadb8749c93))
+* **dialog:** use default font-size ([c4bf471](https://github.com/Lundalogik/lime-elements/commit/c4bf471e4f764d6e996564eb63a0185e711861be))
+
 ## [38.23.4](https://github.com/Lundalogik/lime-elements/compare/v38.23.3...v38.23.4) (2025-09-18)
 
 

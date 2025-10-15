@@ -22,7 +22,10 @@ export default {
     'snackbar.dismiss': 'Luk',
     'file.drag-and-drop-tips':
         'Træk & slip filen her, eller klik for at gennemse.',
-    'file-viewer.message.unsupported-filetype': 'Denne fil kan ikke vises!',
+    'file-viewer.message.unsupported-filetype':
+        'Kan ikke vise en forhåndsvisning af denne filtype.',
+    'file-viewer.message.try-other-options':
+        'Hent filen eller åbn den i en ny fane.',
     'file-viewer.download': 'Hent',
     'file-viewer.exit-fullscreen': 'Afslut fuldskærm',
     'file-viewer.open-in-fullscreen': 'Åbn i fuld skærm',
@@ -52,4 +55,9 @@ export default {
     'ai-avatar.thinking': 'tænker',
     'table.select-all': 'Vælg alle rækker',
     'table.select-row': 'Vælg denne række',
+    'profile-picture.remove': 'Fjern valgt billede',
+    'profile-picture.unsupported-preview.title':
+        'Ikke-understøttet billedformat',
+    'profile-picture.unsupported-preview.description':
+        'Vi kan ikke vise det valgte billede i denne browser. Vælg venligst en anden billedfil.',
 };

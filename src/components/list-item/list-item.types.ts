@@ -25,7 +25,7 @@ export interface ListItem<T = any> {
     disabled?: boolean;
 
     /**
-     * Name of the icon to use.
+     * Icon of the list item.
      */
     icon?: string | Icon;
 
@@ -65,7 +65,8 @@ export interface ListItem<T = any> {
     primaryComponent?: ListComponent;
 
     /**
-     * A picture to show on the list item.
+     * A picture to be displayed together with the icon
+     * or on its own, in the list item.
      */
     image?: Image;
 }

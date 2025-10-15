@@ -110,9 +110,31 @@ label.boolean-input-label {
         rgb(var(--contrast-300))
     );
 
+    /*
+     * NOTE: Original selectors using `:has()` are commented out due to Safari
+     * rendering bugs where descendant transitions (e.g. SVG stroke animations)
+     * or box/background updates sometimes fail to animate or even repaint
+     * reliably when the state change is detected only via `:has()`.
+     *
+     * Original (kept for future re-implementation, or cleanup):
+     * .boolean-input:has(input[type='checkbox']:checked) &,
+     * .boolean-input:has(input[type='radio']:checked) & {
+     *   ...
+     * }
+     *
+     * Replacement uses adjacency: the markup places the `<input>` immediately
+     * before .box, so we can select the checked state with
+     * input:checked + .box. We retain the explicit `.checked` class pathway in
+     * case some templates toggle that class manually.
+     *
+     * Using the `:has()` selector is more reliable, because it doesn't
+     * depend on the DOM structure (e.g. if the markup changes and the input is
+     * no longer adjacent to the box), but Safari support for `:has()` is still
+     * somewhat inconsistent.
+     */
     .checked &,
-    .boolean-input:has(input[type='checkbox']:checked) &,
-    .boolean-input:has(input[type='radio']:checked) & {
+    .boolean-input > input[type='checkbox']:checked + &,
+    .boolean-input > input[type='radio']:checked + & {
         background-color: var(
             --lime-primary-color,
             var(--limel-theme-primary-color)
@@ -127,12 +149,19 @@ label.boolean-input-label {
         opacity: 0.4;
     }
 
-    .boolean-input:not(.disabled):has(label.boolean-input-label:hover) & {
+    /*
+     * See previous comment about Safari rendering bugs ☝️.
+     *
+     * Original (kept for for future re-implementation, or cleanup):
+     * .boolean-input:not(.disabled):has(label.boolean-input-label:hover) & { ... }
+     * .boolean-input:not(.disabled):has(label.boolean-input-label:active) & { ... }
+     */
+    .boolean-input:not(.disabled):hover & {
         will-change: box-shadow;
         box-shadow: var(--button-shadow-hovered);
     }
 
-    .boolean-input:not(.disabled):has(label.boolean-input-label:active) & {
+    .boolean-input:not(.disabled):active & {
         will-change: box-shadow;
         box-shadow: var(--button-shadow-pressed);
     }
@@ -145,10 +174,16 @@ label.boolean-input-label {
         inset: -0.1875rem; // 3px
         border-radius: inherit;
 
-        .boolean-input:has(input[type='checkbox']:focus-visible) &,
-        .boolean-input:has(input[type='radio']:focus-visible) & {
+        /*
+         * See previous comment about Safari rendering bugs ☝️.
+         *
+         * Original (kept for for future re-implementation, or cleanup):
+         * .boolean-input:has(input[type='checkbox']:focus-visible) &,
+         * .boolean-input:has(input[type='radio']:focus-visible) & { ...}
+         */
+        .boolean-input > input[type='checkbox']:focus-visible + &,
+        .boolean-input > input[type='radio']:focus-visible + & {
             will-change: box-shadow;
-
             box-shadow: var(--shadow-depth-8-focused);
         }
     }
@@ -171,7 +206,8 @@ label.boolean-input-label {
 
         background-color: rgb(var(--color-white));
 
-        .boolean-input:not(.disabled):has(label.boolean-input-label:hover) & {
+        /* Hover fallback for pseudo-element (see explanation above). */
+        .boolean-input:not(.disabled):hover & {
             will-change: opacity, box-shadow, transform, width;
         }
     }

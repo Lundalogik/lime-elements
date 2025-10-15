@@ -79,13 +79,41 @@
         }
     }
 
-    &:not(.indeterminate):has(input[type='checkbox']:checked) {
-        svg.check-mark {
-            opacity: 1;
+    /*
+     * Safari (macOS & iOS, tested on Safari 26) & probably even earlier versions have
+     * a rendering bug where transitions on descendants whose end state is triggered
+     * ONLY via a parent selector using `:has()` may not animate. Instead, Safari
+     * sometimes jumps directly to the final state (or never paints the transition)
+     * until a subsequent layout invalidation (e.g. tab switch, resize) happens.
+     *
+     * Workaround: provide an equivalent selector that does NOT rely on `:has()`,
+     * using the adjacency between the input and the visual box. This ensures the
+     * `stroke-dashoffset` transition for the check mark runs reliably in Safari
+     * while keeping the simpler `:has()` version commented for future re-implementation
+     * or cleanup.
+     *
+     * &:not(.indeterminate):has(input[type='checkbox']:checked) {
+     *     svg.check-mark {
+     *         opacity: 1;
+     *         path {
+     *             stroke-dashoffset: 0;
+     *         }
+     *     }
+     * }
+     * Using the `:has()` selector is more reliable, because it doesn't
+     * depend on the DOM structure (e.g. if the markup changes and the input is
+     * no longer adjacent to the box), but Safari support for `:has()` is still
+     * somewhat inconsistent.
+     */
 
-            path {
-                stroke-dashoffset: 0;
-            }
+    &:not(.indeterminate)
+        > input[type='checkbox']:checked
+        + .box
+        svg.check-mark {
+        opacity: 1;
+
+        path {
+            stroke-dashoffset: 0;
         }
     }
 }

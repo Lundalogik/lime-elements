@@ -22,7 +22,7 @@ import { ChipType, Chip as OldChipInterface } from '../chip-set/chip.types';
 import { Image } from '../../global/shared-types/image.types';
 import { isEmpty } from 'lodash-es';
 
-import { ListSeparator } from '../list/list-item.types';
+import { ListSeparator } from '../list-item/list-item.types';
 import { LimelMenuCustomEvent, MenuItem } from '../../components';
 
 interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {

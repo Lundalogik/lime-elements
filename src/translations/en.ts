@@ -22,7 +22,10 @@ export default {
     'snackbar.dismiss': 'Dismiss',
     'file.drag-and-drop-tips':
         'Drag & drop your file here, or click to browse.',
-    'file-viewer.message.unsupported-filetype': 'Cannot display this file!',
+    'file-viewer.message.unsupported-filetype':
+        'Cannot display a preview for this file type.',
+    'file-viewer.message.try-other-options':
+        'Download the file or open it in a new tab.',
     'file-viewer.download': 'Download',
     'file-viewer.exit-fullscreen': 'Exit fullscreen',
     'file-viewer.open-in-fullscreen': 'Open in fullscreen',
@@ -52,4 +55,8 @@ export default {
     'ai-avatar.thinking': 'thinking',
     'table.select-all': 'Select all rows',
     'table.select-row': 'Select this row',
+    'profile-picture.remove': 'Remove selected picture',
+    'profile-picture.unsupported-preview.title': 'Unsupported image format',
+    'profile-picture.unsupported-preview.description':
+        'We cannot display the selected image in this browser. Please select a different image file.',
 };

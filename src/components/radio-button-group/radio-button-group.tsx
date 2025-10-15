@@ -1,6 +1,6 @@
 import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
-import { ListItem, ListSeparator } from '../list/list-item.types';
-import { LimelListCustomEvent } from '@limetech/lime-elements';
+import { ListItem, ListSeparator } from '../list-item/list-item.types';
+import { LimelListCustomEvent } from '../../components';
 
 /**
  * The Radio Button component provides a convenient way to create a group of radio buttons

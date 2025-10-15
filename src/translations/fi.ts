@@ -23,7 +23,9 @@ export default {
     'file.drag-and-drop-tips':
         'Vedä & pudota tiedostosi tähän, tai napsauta selataksesi.',
     'file-viewer.message.unsupported-filetype':
-        'Tätä tiedostoa ei voi näyttää!',
+        'Esikatselua ei voi näyttää tälle tiedostotyypille.',
+    'file-viewer.message.try-other-options':
+        'Lataa tiedosto tai avaa se uudessa välilehdessä.',
     'file-viewer.download': 'Ladata',
     'file-viewer.exit-fullscreen': 'Poistu koko näytöstä',
     'file-viewer.open-in-fullscreen': 'Avaa koko näytössä',
@@ -53,4 +55,8 @@ export default {
     'ai-avatar.thinking': 'ajattelee',
     'table.select-all': 'Valitse kaikki rivit',
     'table.select-row': 'Valitse tämä rivi',
+    'profile-picture.remove': 'Poista valittu kuva',
+    'profile-picture.unsupported-preview.title': 'Tiedostomuoto ei ole tuettu',
+    'profile-picture.unsupported-preview.description':
+        'Emme voi näyttää valittua kuvaa tässä selaimessa. Valitse jokin toinen kuvatiedosto.',
 };

@@ -1,4 +1,4 @@
-import { MenuItem } from '../menu.types';
+import { MenuItem } from '@limetech/lime-elements';
 
 export const CascadingMenuItems: MenuItem[] = [
     {
