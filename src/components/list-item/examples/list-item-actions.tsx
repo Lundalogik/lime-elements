@@ -1,4 +1,4 @@
-import { ListItem, MenuItem, ListSeparator } from '@limetech/lime-elements';
+import { MenuItem, ListSeparator } from '@limetech/lime-elements';
 import { Component, h, Host, State } from '@stencil/core';
 
 /**
@@ -15,7 +15,9 @@ import { Component, h, Host, State } from '@stencil/core';
  * will eventually extract `event.detail.value` to get the actual `Action`
  *
  * :::note
- * The action menu of the disabled items remains enabled!
+ * Disabled list items keep their action menu enabled so actions remain
+ * accessible (e.g., for contextual info). The example guards against
+ * toggling selection when disabled.
  * :::
  */
 @Component({
@@ -44,9 +46,10 @@ export class ListItemActionsExample {
     public render() {
         return (
             <Host>
-                <ul>
+                <ul onClick={this.onClick} onKeyDown={this.onKeyDown}>
                     <limel-list-item
                         tabIndex={0}
+                        data-value={1}
                         value={1}
                         type="option"
                         selected={this.selectedItems.has(1)}
@@ -54,11 +57,11 @@ export class ListItemActionsExample {
                         secondaryText="A fun dice game for 2-6 players"
                         icon="gorilla"
                         actions={this.actionItems}
-                        onInteract={this.onListItemInteraction}
                         disabled={this.disabled}
                     />
                     <limel-list-item
                         tabIndex={0}
+                        data-value={2}
                         value={2}
                         type="option"
                         selected={this.selectedItems.has(2)}
@@ -66,7 +69,6 @@ export class ListItemActionsExample {
                         secondaryText="Cooperative board game where players work together to save the world"
                         icon="virus"
                         actions={this.actionItems}
-                        onInteract={this.onListItemInteraction}
                         disabled={this.disabled}
                     />
                 </ul>
@@ -85,21 +87,83 @@ export class ListItemActionsExample {
         );
     }
 
-    private onListItemInteraction = (
-        event: CustomEvent<{ selected: boolean; item: ListItem }>
-    ) => {
-        const itemValue = event.detail.item.value as number;
-        const isSelected = event.detail.selected;
-
-        if (isSelected) {
-            this.selectedItems = new Set([...this.selectedItems, itemValue]);
-        } else {
+    private toggleValue = (value: number, text: string) => {
+        const selected = this.selectedItems.has(value);
+        if (selected) {
             this.selectedItems = new Set(
-                [...this.selectedItems].filter((id) => id !== itemValue)
+                [...this.selectedItems].filter((id) => id !== value)
             );
+            this.lastInteraction = `Deselected "${text}"`;
+        } else {
+            this.selectedItems = new Set([...this.selectedItems, value]);
+            this.lastInteraction = `Selected "${text}"`;
         }
+    };
 
-        this.lastInteraction = `Item "${event.detail.item.text}" interaction: selected=${isSelected}`;
+    private onClick = (event: MouseEvent) => {
+        // If the entire example is disabled, ignore item clicks
+        if (this.disabled) {
+            return;
+        }
+        const host = (event.target as HTMLElement).closest('limel-list-item');
+        if (!host) {
+            return;
+        }
+        // Skip if clicking the action menu trigger or inside the menu
+        if (
+            (event.target as HTMLElement).closest('.action-menu-trigger') ||
+            (event.target as HTMLElement).closest('limel-menu')
+        ) {
+            return;
+        }
+        // Respect per-item disabled state (attribute reflected by the component)
+        if (
+            host.hasAttribute('disabled') ||
+            host.getAttribute('aria-disabled') === 'true'
+        ) {
+            return;
+        }
+        const value = Number((host as HTMLElement).dataset.value);
+        const text = host.getAttribute('text') || '';
+        this.toggleValue(value, text);
+    };
+
+    private onKeyDown = (event: KeyboardEvent) => {
+        if (this.disabled) {
+            return;
+        }
+        const isEnter = event.key === 'Enter';
+        const isSpace =
+            event.key === ' ' ||
+            event.key === 'Space' ||
+            event.key === 'Spacebar' ||
+            event.code === 'Space';
+        if (!isEnter && !isSpace) {
+            return;
+        }
+        if (event.repeat) {
+            return;
+        }
+        if (isSpace) {
+            event.preventDefault();
+        }
+        const focused = (event.target as HTMLElement).closest(
+            'limel-list-item'
+        );
+        if (!focused) {
+            return;
+        }
+        if (
+            (event.target as HTMLElement).closest('.action-menu-trigger') ||
+            (event.target as HTMLElement).closest('limel-menu') ||
+            focused.hasAttribute('disabled') ||
+            focused.getAttribute('aria-disabled') === 'true'
+        ) {
+            return;
+        }
+        const value = Number((focused as HTMLElement).dataset.value);
+        const text = focused.getAttribute('text') || '';
+        this.toggleValue(value, text);
     };
 
     private setDisabled = (event: CustomEvent<boolean>) => {

@@ -1,4 +1,3 @@
-import { ListItem } from '@limetech/lime-elements';
 import { Component, h, Host, State } from '@stencil/core';
 
 const NOTIFICATION_ICON = {
@@ -15,13 +14,14 @@ const NOTIFICATION_ICON = {
  * Checkboxes allow users to select multiple options from a group.
  *
  * :::important
- * - The consumer component should set `role="group"` for the `ul` or
- * the container of the `limel-list-item`s
+ * - Apply `role="group"` to the container for accessibility.
+ * - Selection logic is fully managed by the parent example via click and
+ *   key delegation; each item receives `selected` based on `selectedValues`.
  * :::
  *
  * :::note
- * - The checkboxes are purely visual - the selection logic
- * is handled by the parent component through the interact events.
+ * The checkboxes are presentational only. For production usage prefer
+ * a container component (`limel-list type="checkbox"`) to centralize state.
  * :::
  */
 @Component({
@@ -73,16 +73,21 @@ export class ListItemCheckboxExample {
     public render() {
         return (
             <Host>
-                <ul role="group" aria-label="Notification preferences">
+                <ul
+                    role="group"
+                    aria-label="Notification preferences"
+                    onClick={this.onClick}
+                    onKeyDown={this.onKeyDown}
+                >
                     {this.items.map((item) => (
                         <limel-list-item
                             key={item.value}
+                            data-value={item.value}
                             value={item.value}
                             text={item.text}
                             secondaryText={item.secondaryText}
                             type="checkbox"
                             selected={this.selectedValues.has(item.value)}
-                            onInteract={this.onListItemInteraction}
                             icon={this.icon}
                             badgeIcon={this.badgeIcon}
                         />
@@ -108,22 +113,54 @@ export class ListItemCheckboxExample {
         );
     }
 
-    private onListItemInteraction = (
-        event: CustomEvent<{ selected: boolean; item: ListItem }>
-    ) => {
-        const itemValue = event.detail.item.value as number;
-        const isSelected = event.detail.selected;
-
-        // For checkboxes, toggle the selection state
-        if (isSelected) {
-            this.selectedValues = new Set([...this.selectedValues, itemValue]);
-        } else {
+    private toggleValue = (value: number, text: string) => {
+        const selected = this.selectedValues.has(value);
+        if (selected) {
             this.selectedValues = new Set(
-                [...this.selectedValues].filter((id) => id !== itemValue)
+                [...this.selectedValues].filter((id) => id !== value)
             );
+            this.lastInteraction = `Deselected "${text}"`;
+        } else {
+            this.selectedValues = new Set([...this.selectedValues, value]);
+            this.lastInteraction = `Selected "${text}"`;
         }
+    };
 
-        this.lastInteraction = `${isSelected ? 'Selected' : 'Deselected'} "${event.detail.item.text}"`;
+    private onClick = (event: MouseEvent) => {
+        const host = (event.target as HTMLElement).closest('limel-list-item');
+        if (!host) {
+            return;
+        }
+        const value = Number((host as HTMLElement).dataset.value);
+        const text = host.getAttribute('text') || '';
+        this.toggleValue(value, text);
+    };
+
+    private onKeyDown = (event: KeyboardEvent) => {
+        const isEnter = event.key === 'Enter';
+        const isSpace =
+            event.key === ' ' ||
+            event.key === 'Space' ||
+            event.key === 'Spacebar' ||
+            event.code === 'Space';
+        if (!isEnter && !isSpace) {
+            return;
+        }
+        if (event.repeat) {
+            return;
+        }
+        if (isSpace) {
+            event.preventDefault();
+        }
+        const focused = (event.target as HTMLElement).closest(
+            'limel-list-item'
+        );
+        if (!focused) {
+            return;
+        }
+        const value = Number((focused as HTMLElement).dataset.value);
+        const text = focused.getAttribute('text') || '';
+        this.toggleValue(value, text);
     };
 
     private setBadgeIcon = (event: CustomEvent<boolean>) => {

@@ -1733,10 +1733,6 @@ export namespace JSX {
         "iconSize"?: IconSize;
         "image"?: ListItem['image'];
         "language"?: Languages;
-        "onInteract"?: (event: LimelListItemCustomEvent<{
-            selected: boolean;
-            item: ListItem;
-        }>) => void;
         "primaryComponent"?: ListItem['primaryComponent'];
         "secondaryText"?: string;
         "selected"?: boolean;
@@ -2343,16 +2339,6 @@ export interface LimelListCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelListElement;
-}
-
-// Warning: (ae-missing-release-tag) "LimelListItemCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export interface LimelListItemCustomEvent<T> extends CustomEvent<T> {
-    // (undocumented)
-    detail: T;
-    // (undocumented)
-    target: HTMLLimelListItemElement;
 }
 
 // Warning: (ae-missing-release-tag) "LimelMenuCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
