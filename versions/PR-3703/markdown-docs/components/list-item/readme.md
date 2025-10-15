@@ -47,13 +47,6 @@ would be visible to MDC.
 | `value`            | `value`          | {@inheritdoc ListItem.value}                                                                                                                                                                                                                                              | `any`                                                                  | `undefined`  |
 
 
-## Events
-
-| Event      | Description                                                                                | Type                                                       |
-| ---------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------- |
-| `interact` | Emitted when the list item toggles selection (only for selectable types and not disabled). | `CustomEvent<{ selected: boolean; item: ListItem<any>; }>` |
-
-
 ## Dependencies
 
 ### Used by

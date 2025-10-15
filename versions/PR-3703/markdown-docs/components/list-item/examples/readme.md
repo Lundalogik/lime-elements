@@ -13,13 +13,14 @@ This example shows how list items can be displayed as radio buttons.
 Radio buttons allow users to select only one option from a group.
 
 :::important
-- The consumer component should set `role="radiogroup"` for the `ul` or
-the container of the `limel-list-item`s
+- Set `role="radiogroup"` on the container for accessibility.
+- Only one value is selected at a time; clicks and Enter/Space update
+  `selectedValue` and re-render.
 :::
 
 :::note
-The radio buttons are purely visual - the selection logic
-is handled by the parent component through the interact events.
+The radio visuals are purely presentational; state comes from the parent.
+In production, prefer using `limel-list type="radio"` to centralize logic.
 :::
 
 ## Dependencies
