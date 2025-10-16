@@ -329,6 +329,7 @@ const commandMapping: CommandMapping = {
         createListCommand(schema, EditorMenuTypes.OrderedList),
     bullet_list: (schema) =>
         createListCommand(schema, EditorMenuTypes.BulletList),
+    task_list: (schema) => createListCommand(schema, EditorMenuTypes.TaskList),
 };
 
 export class MenuCommandFactory {
