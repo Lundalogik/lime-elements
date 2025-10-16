@@ -21,6 +21,17 @@ on:
         required: false
         default: false
         type: boolean
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The "name" of the version to be published. IMPORTANT: This only _names_ the published docs, it does not affect what is actually published. This workflow always builds and publishes the docs for whatever is the latest in the branch on which it is run.'
+        required: true
+        type: string
+      forcePush:
+        description: 'Pass `true` if git push should use `--force`.'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
 
@@ -34,10 +45,10 @@ jobs:
     - run: git config --global user.email "93315277+lime-opensource@users.noreply.github.com"
     - run: git config --global user.name "Lime Technologies OSS"
     - name: Publish docs
-      if: inputs.buildOnly == false
+      if: github.event_name == 'workflow_dispatch' || inputs.buildOnly == false
       env:
-        DOCS_VERSION: ${{ inputs.version }}
-        FORCE_PUSH: ${{ inputs.forcePush }}
+        DOCS_VERSION: ${{ inputs.version || github.event.inputs.version }}
+        FORCE_PUSH: ${{ inputs.forcePush || github.event.inputs.forcePush || 'false' }}
         GH_TOKEN: ${{ secrets.PUBLISH_DOCS }}
       run: |
         if [ "$FORCE_PUSH" = "true" ]; then
@@ -46,11 +57,11 @@ jobs:
           npm run docs:publish -- --v="$DOCS_VERSION"
         fi
     - name: Build docs, but do not publish
-      if: inputs.buildOnly
+      if: github.event_name == 'workflow_call' && inputs.buildOnly
       run: npm run docs:build
 
   link-docs:
-    if: inputs.buildOnly == false && inputs.linkToPR == true
+    if: github.event_name == 'workflow_call' && inputs.buildOnly == false && inputs.linkToPR == true
     name: Post link to docs on PR
     needs: [publish-docs]
     runs-on: ubuntu-latest
