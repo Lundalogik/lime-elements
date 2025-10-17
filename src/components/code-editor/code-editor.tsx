@@ -7,6 +7,7 @@ import {
     EventEmitter,
     State,
     Watch,
+    Host,
 } from '@stencil/core';
 import { ColorScheme, Language } from './code-editor.types';
 import CodeMirror from 'codemirror';
@@ -19,11 +20,14 @@ import 'codemirror/addon/lint/json-lint';
 import 'codemirror/addon/fold/foldgutter';
 import 'codemirror/addon/fold/brace-fold';
 import jslint from 'jsonlint-mod';
+import translate from '../../global/translations';
+import { Languages } from '../date-picker/date.types';
 
 /**
  * @exampleComponent limel-example-code-editor
  * @exampleComponent limel-example-code-editor-readonly-with-line-numbers
  * @exampleComponent limel-example-code-editor-fold-lint
+ * @exampleComponent limel-example-code-editor-expandable
  */
 @Component({
     tag: 'limel-code-editor',
@@ -74,11 +78,45 @@ export class CodeEditor {
     public colorScheme: ColorScheme = 'auto';
 
     /**
+     * Make the editor expandable to fullscreen dialog.
+     */
+    @Prop()
+    public expandable = true;
+
+    /**
+     * Defines the language for translations.
+     * Will translate the translatable strings on the components.
+     */
+    @Prop({ reflect: true })
+    public translationLanguage: Languages = 'en';
+
+    /**
      * Emitted when the code has changed. Will only be emitted when the code
      * area has lost focus
      */
     @Event()
     public change: EventEmitter<string>;
+
+    /**
+     * Emitted when user wants to expand the editor
+     */
+    @Event()
+    public expand: EventEmitter<void>;
+
+    @State()
+    private openFullscreenMode: boolean = false;
+
+    private handleExpandClick = () => {
+        if (!this.expandable) {
+            return;
+        }
+        this.expand.emit();
+        this.openFullscreenMode = true;
+    };
+
+    private closeFullscreenMode = () => {
+        this.openFullscreenMode = false;
+    };
 
     @Element()
     private host: HTMLLimelCodeEditorElement;
@@ -92,6 +130,7 @@ export class CodeEditor {
 
     private editor: CodeMirror.Editor;
     private observer: ResizeObserver;
+    private cmWrapper: HTMLElement;
 
     public connectedCallback() {
         this.observer = new ResizeObserver(this.handleResize) as any;
@@ -108,18 +147,19 @@ export class CodeEditor {
         this.darkMode.removeEventListener('change', this.handleChangeDarkMode);
 
         const editorElement = this.host.shadowRoot.querySelector('.editor');
-        // eslint-disable-next-line no-unsafe-optional-chaining
         for (const child of editorElement?.childNodes) {
             child.remove();
         }
     }
 
     public componentDidRender() {
-        if (this.editor) {
+        this.ensureEditor();
+
+        if (!this.expandable) {
             return;
         }
 
-        this.editor = this.createEditor();
+        this.reparentEditor();
     }
 
     @Watch('value')
@@ -157,6 +197,40 @@ export class CodeEditor {
 
         this.editor.refresh();
     };
+    private ensureEditor() {
+        if (this.editor) {
+            return;
+        }
+        this.editor = this.createEditor();
+        this.cmWrapper = this.editor.getWrapperElement();
+    }
+    private reparentEditor() {
+        const targetHost = this.openFullscreenMode
+            ? this.getDialogHost()
+            : this.getInlineHost();
+
+        if (!targetHost || !this.cmWrapper) {
+            return;
+        }
+
+        if (this.cmWrapper.parentElement !== targetHost) {
+            targetHost.append(this.cmWrapper);
+            this.refreshEditorAsync();
+        }
+    }
+    private getDialogHost(): HTMLElement {
+        return this.host.shadowRoot.querySelector('.editor-dialog-host');
+    }
+
+    private getInlineHost(): HTMLElement {
+        return this.host.shadowRoot.querySelector(
+            '.editor-inline-host .editor'
+        );
+    }
+
+    private refreshEditorAsync() {
+        requestAnimationFrame(() => this.editor.refresh());
+    }
 
     private createEditor() {
         const options = this.getOptions();
@@ -246,7 +320,50 @@ export class CodeEditor {
             'is-light-mode': !this.isDarkMode(),
         };
 
-        return <div class={classList} />;
+        const expandLabel = translate.get(
+            'file-viewer.open-in-fullscreen',
+            this.translationLanguage
+        );
+        const collapseLabel = translate.get(
+            'file-viewer.exit-fullscreen',
+            this.translationLanguage
+        );
+        return (
+            <Host>
+                {this.expandable && !this.openFullscreenMode && (
+                    <limel-icon-button
+                        class="code-fullscreen-button code-fullscreen-button-focus"
+                        label={expandLabel}
+                        icon="expand"
+                        onClick={this.handleExpandClick}
+                        elevated={true}
+                        aria-label="Expand code editor"
+                    />
+                )}
+                <div class="editor-inline-host">
+                    <div class={classList}></div>
+                </div>
+                {this.expandable && this.openFullscreenMode && (
+                    <limel-dialog
+                        open
+                        fullscreen={true}
+                        onClose={this.closeFullscreenMode}
+                    >
+                        <limel-icon-button
+                            class="code-fullscreen-button"
+                            label={collapseLabel}
+                            icon="collapse"
+                            aria-label="Collapse code editor"
+                            elevated={true}
+                            onClick={this.closeFullscreenMode}
+                        />
+                        <div class="editor-dialog-wrapper">
+                            <div class="editor-dialog-host"></div>
+                        </div>
+                    </limel-dialog>
+                )}
+            </Host>
+        );
     }
 
     private forceRedraw() {
