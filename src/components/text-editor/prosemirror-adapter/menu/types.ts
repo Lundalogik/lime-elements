@@ -4,7 +4,6 @@
  * The values correspond to the types that can be used with the `prosemirror-commands` library.
  * @beta
  */
-
 export const EditorMenuTypes = {
     Bold: 'strong',
     Italic: 'em',
@@ -20,6 +19,12 @@ export const EditorMenuTypes = {
     CodeBlock: 'code_block',
 };
 
+/**
+ * The `EditorMenuType` type is used to specify the type of menu items that can be added to the editor toolbar.
+ * Each one represents a different type to be used for creating the prosemirror commands relevant to the button.
+ * The values correspond to the types that can be used with the `prosemirror-commands` library.
+ * @beta
+ */
 export type EditorMenuTypes =
     (typeof EditorMenuTypes)[keyof typeof EditorMenuTypes];
 
@@ -42,6 +47,14 @@ export const LevelMapping = {
     three: 3,
 };
 
+/**
+ * `LevelMapping` is used to map string identifiers to numerical header levels.
+ * It provides a way to represent different levels of headings in ProseMirror commands.
+ *
+ * The `Heading` identifier is not a valid level and is used to identify the node type.
+ * The numerical values are used for creating ProseMirror commands to set the level of a heading node in the editor.
+ * @beta
+ */
 export type LevelMapping = (typeof LevelMapping)[keyof typeof LevelMapping];
 
 export type ProseMirrorAdapterElementWithFocus =
@@ -70,4 +83,9 @@ export const MouseButtons = {
     Right: 2,
 };
 
+/**
+ * The `MouseButtons` type is used to represent the different mouse buttons.
+ * The values correspond to the button codes used in the `MouseEvent` interface.
+ * @beta
+ */
 export type MouseButtons = (typeof MouseButtons)[keyof typeof MouseButtons];
