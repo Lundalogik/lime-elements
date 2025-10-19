@@ -54,6 +54,6 @@ function getFeatureSwitches(storage: Storage) {
 }
 
 const config = new ConfigClass();
-export const globalConfig = (() => {
+export const globalConfig: Config = (() => {
     return config;
 })();

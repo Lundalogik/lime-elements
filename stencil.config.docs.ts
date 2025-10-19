@@ -12,7 +12,7 @@ export const config: Config = {
             type: 'docs-custom',
             strict: true,
             generator: kompendium({
-                typeRoot: './src/interface.ts',
+                typeRoot: './src/index.ts',
                 guides: guides,
             }),
         },
