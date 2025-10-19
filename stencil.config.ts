@@ -21,7 +21,14 @@ export const config: Config = {
             type: 'docs-custom',
             strict: true,
             generator: kompendium({
-                typeRoot: './src/interface.ts',
+                // Points to dist/types to leverage Stencil's auto-generated
+                // components.d.ts which includes all component prop types.
+                // NOTE: In dev mode (npm start), examples import from
+                // '@limetech/lime-elements' which creates circular imports
+                // in dist/types/components.d.ts, resulting in incomplete docs.
+                // For production docs, use `npm run docs:build` which builds
+                // dist with stencil.config.dist.ts first (excludes examples).
+                typeRoot: './dist/types/index.d.ts',
                 guides: guides,
             }),
         },
