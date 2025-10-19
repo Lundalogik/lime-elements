@@ -6,6 +6,7 @@
     "noUnusedParameters": false,
     "lib": ["dom", "es2022", "DOM.Iterable"]
   },
+  "include": ["src", "types/jsx.d.ts", "dist/types"],
   "exclude": [
     "node_modules",
     "**/test/**",
