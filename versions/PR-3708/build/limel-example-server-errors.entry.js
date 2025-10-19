@@ -1,0 +1,2 @@
+import{r as s,h as r}from"./index-2714248e.js";import{s as e}from"./list-schema-5c8b11be.js";const i=class{constructor(r){s(this,r);this.formData={villains:["Joker","Doctor Strange","Green Goblin"],squad:[{powers:["strength"],name:"Thanos"}]};this.errors={villains:{1:["This is not a valid villain!"]},squad:{0:{name:["This is not a valid hero!"]}}}}render(){return r("limel-form",{schema:e,value:this.formData,errors:this.errors})}};export{i as limel_example_server_errors};
+//# sourceMappingURL=limel-example-server-errors.entry.js.map
