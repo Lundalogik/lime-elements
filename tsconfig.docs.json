@@ -5,6 +5,7 @@
     "declarationMap": false,
     "sourceMap": false
   },
+  "include": ["src", "types/jsx.d.ts", "dist/types"],
   "exclude": [
     "node_modules",
     "**/test/**",
