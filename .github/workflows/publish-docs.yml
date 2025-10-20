@@ -21,6 +21,10 @@ on:
         required: false
         default: false
         type: boolean
+      ref:
+        description: 'Git ref (branch, tag, or SHA) to checkout. If not specified, uses the default ref for the triggering event.'
+        required: false
+        type: string
   workflow_dispatch:
     inputs:
       version:
@@ -40,6 +44,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      with:
+        ref: ${{ inputs.ref }}
     - uses: ./.github/actions/set-up-node
     - run: npm ci
     - run: git config --global user.email "93315277+lime-opensource@users.noreply.github.com"
