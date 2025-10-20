@@ -23,6 +23,7 @@ jobs:
     outputs:
       new_release_published: ${{ steps.semantic.outputs.new_release_published }}
       new_release_version: ${{ steps.semantic.outputs.new_release_version }}
+      new_release_git_tag: ${{ steps.semantic.outputs.new_release_git_tag }}
       last_release_git_tag: ${{ steps.semantic.outputs.last_release_git_tag }}
       last_release_version: ${{ steps.semantic.outputs.last_release_version }}
     steps:
@@ -65,5 +66,6 @@ jobs:
     uses: ./.github/workflows/publish-docs.yml
     with:
       version: "${{ needs.semantic-release.outputs.new_release_version }}"
+      ref: "${{ needs.semantic-release.outputs.new_release_git_tag }}"
       forcePush: true
     secrets: inherit
