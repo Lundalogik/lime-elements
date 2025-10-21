@@ -1,0 +1,49 @@
+/* Task list styles with native checkbox */
+.task-list {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.task-list-item {
+    display: flex;
+    align-items: flex-start;
+    margin: 0.25rem 0;
+    position: relative;
+    list-style: none;
+    gap: 0.5rem; // Gap between checkbox and content
+}
+
+/* Make sure no bullets appear */
+.task-list-item::before {
+    display: none !important;
+}
+
+.task-list-item::marker {
+    display: none;
+}
+
+/* Native checkbox styling */
+.task-list-item input[type='checkbox'] {
+    flex-shrink: 0;
+    margin-top: 0.125rem; // Slight offset to align with text baseline
+    cursor: pointer;
+}
+
+.task-list-item-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.task-list-item-content p {
+    margin: 0;
+}
+
+/* Completed task styling */
+.task-list-item:has(input[type='checkbox']:checked) .task-list-item-content {
+    opacity: 0.6;
+    text-decoration: line-through;
+}
+.task-list-item input[type='checkbox']:checked + .task-list-item-content p {
+    text-decoration: line-through;
+}
