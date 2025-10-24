@@ -685,6 +685,13 @@ export namespace Components {
         "ui": EditorUiType;
         "value": string;
     }
+    export interface LimelRadioButton {
+        "checked"?: boolean;
+        "disabled"?: boolean;
+        "id": string;
+        "label"?: string;
+        "onChange"?: (event: Event) => void;
+    }
     // @beta
     export interface LimelRadioButtonGroup {
         "badgeIcons": boolean;
@@ -1258,6 +1265,8 @@ export namespace JSX {
         //
         // (undocumented)
         "limel-prosemirror-adapter": LimelProsemirrorAdapter;
+        // (undocumented)
+        "limel-radio-button": LimelRadioButton;
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-radio-button-group"" is marked as @public, but its signature references "JSX" which is marked as @beta
         //
         // (undocumented)
@@ -1885,6 +1894,13 @@ export namespace JSX {
         "triggerCharacters"?: TriggerCharacter[];
         "ui"?: EditorUiType;
         "value"?: string;
+    }
+    export interface LimelRadioButton {
+        "checked"?: boolean;
+        "disabled"?: boolean;
+        "id": string;
+        "label"?: string;
+        "onChange"?: (event: Event) => void;
     }
     // @beta
     export interface LimelRadioButtonGroup {
