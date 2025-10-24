@@ -6,7 +6,6 @@ import { ListItem } from './list-item.types';
 import { MenuItem } from '../menu/menu.types';
 import { ListSeparator } from '../../global/shared-types/separator.types';
 import { CheckboxTemplate } from '../checkbox/checkbox.template';
-import { RadioButtonTemplate } from '../radio-button-group/radio-button.template';
 import translate from '../../global/translations';
 import { Languages } from '../date-picker/date.types';
 
@@ -309,7 +308,7 @@ export class ListItemComponent implements ListItem {
         }
 
         return (
-            <RadioButtonTemplate
+            <limel-radio-button
                 id={`radio_${this.labelId}`}
                 checked={this.selected}
                 disabled={this.disabled}

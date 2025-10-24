@@ -1,13 +1,13 @@
 /**
 * :::important
-* The `RadioButtonTemplate` can be imported and used in the HTML of
-* other components, to render a non-functional and decorative radio button in
+* The `limel-radio-button` component can be used inside the HTML of
+* other components to render a decorative radio button in
 * their UI. An example of this is the list component.
-* This means the content of `RadioButtonTemplate` will become a part of the
+* This means the content of `limel-radio-button` will become a part of the
 * consumer's DOM structure.
 *
-* Additionally, the consumer components' also need to import the current `.scss`
-* file into their own styles file, for the radio button to be rendered correctly!
+* Additionally, the consumer components also need to import the current `.scss`
+* file into their own styles file for the radio button to be rendered correctly!
 * This means, if the styles in this file are not "specific" enough,
 * there is a risk that the consumer component's styles are affected by
 * our styles here.
