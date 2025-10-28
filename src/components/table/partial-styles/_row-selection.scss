@@ -22,37 +22,11 @@ $checkbox-distance-to-left-edge: 0.5rem;
     border-width: 0;
     z-index: $table--limel-table--row-selector;
 
-    text-overflow: unset !important; // Otherwise a `…` will be rendered besides the checkbox, since we truncate all cells
-    padding-left: $checkbox-distance-to-left-edge !important;
-    padding-top: 0.25rem !important;
-
-    limel-checkbox {
-        margin-top: functions.pxToRem(1);
-    }
-
-    .tabulator-row-odd & {
-        background-image: linear-gradient(
-            to right,
-            rgb(var(--table-row-background-color--odd)) 70%,
-            rgb(var(--table-row-background-color--odd), 0)
-        );
-    }
-
-    .tabulator-row-even & {
-        background-image: linear-gradient(
-            to right,
-            rgb(var(--table-row-background-color--even)) 70%,
-            rgb(var(--table-row-background-color--even), 0)
-        );
-    }
-
-    .tabulator-row.active & {
-        background-image: linear-gradient(
-            to right,
-            rgb(var(--table-row-background-color--active)) 70%,
-            rgb(var(--table-row-background-color--active), 0)
-        );
-    }
+    background-image: linear-gradient(
+        to right,
+        rgb(var(--limel-table-row-background-color)) 70%,
+        rgb(var(--limel-table-row-background-color), 0)
+    );
 
     limel-checkbox {
         transition: opacity 0.2s ease;

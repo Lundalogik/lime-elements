@@ -103,22 +103,7 @@ $height-of-aggregations-row: 1.5rem;
 }
 
 .tabulator-row {
-    transition: background-color 0.2s ease;
     height: 2.25rem;
-
-    &:hover {
-        transition: background-color 0.1s ease;
-    }
-
-    &.tabulator-row-odd,
-    &.tabulator-row-odd:hover {
-        background-color: rgb(var(--table-row-background-color--odd));
-    }
-
-    &.tabulator-row-even,
-    &.tabulator-row-even:hover {
-        background-color: rgb(var(--table-row-background-color--even));
-    }
 
     .tabulator-cell {
         border-right: transparent;
