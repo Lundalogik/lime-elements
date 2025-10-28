@@ -17,9 +17,25 @@
         background-color 0.2s ease,
         box-shadow 0.2s ease,
         transform 0.1s ease-out;
+
+    background-color: rgb(var(--limel-table-row-background-color));
 }
 
 .tabulator-row:not(.tabulator-calcs) {
+    background-color: transparent;
+
+    &.tabulator-row-odd {
+        --limel-table-row-background-color: var(
+            --table-row-background-color--odd
+        );
+    }
+
+    &.tabulator-row-even {
+        --limel-table-row-background-color: var(
+            --table-row-background-color--even
+        );
+    }
+
     .tabulator-cell {
         // We don't want the cells to block
         // the hovering possibility of `interactive-feedback` div.
@@ -38,10 +54,11 @@
         }
 
         &.active {
+            --limel-table-row-background-color: var(
+                --table-row-background-color--active
+            );
+
             .interactive-feedback {
-                background-color: rgb(
-                    var(--table-row-background-color--active)
-                );
                 box-shadow: var(--button-shadow-inset-pressed);
             }
 
