@@ -33,3 +33,15 @@ hr {
 .MsoNormal {
     margin: 0;
 }
+
+:host(limel-markdown.reset-img-height) {
+    // This is not a publicly documented helper class, intended for CRM's internal use.
+    // Reset image height to auto to avoid issues with fixed heights in some markdown content
+    // e.g., content copied from MS Word or emails that are sent from a user that has
+    // added fixed heights to images that appear in the activity feed.
+    #markdown {
+        img {
+            height: auto;
+        }
+    }
+}
