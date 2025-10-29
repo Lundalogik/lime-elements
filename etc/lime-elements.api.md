@@ -788,6 +788,7 @@ export namespace Components {
         "pageSize": number;
         "selectable": boolean;
         "selection": object[];
+        "sortableColumns": boolean;
         "sorting": ColumnSorter[];
         "totalRows": number;
     }
@@ -2011,6 +2012,7 @@ export namespace JSX {
         "pageSize"?: number;
         "selectable"?: boolean;
         "selection"?: object[];
+        "sortableColumns"?: boolean;
         "sorting"?: ColumnSorter[];
         "totalRows"?: number;
     }
