@@ -22,11 +22,16 @@
     border-width: 0;
     z-index: $table--limel-table--row-selector;
 
-    background-image: linear-gradient(
-        to right,
-        rgb(var(--limel-table-row-background-color)) 70%,
-        rgb(var(--limel-table-row-background-color), 0)
-    );
+    &:before {
+        content: '';
+        inset: 0.25rem 0;
+        position: absolute;
+        background-image: linear-gradient(
+            to right,
+            rgb(var(--limel-table-row-background-color)) 70%,
+            rgb(var(--limel-table-row-background-color), 0)
+        );
+    }
 
     limel-checkbox {
         transition: opacity 0.2s ease;
