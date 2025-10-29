@@ -30,14 +30,3 @@
         flex-shrink: 0;
     }
 }
-
-#tabulator-container {
-    &:not(.has-pagination) {
-        // When there is no pagination, Tabulator still displays the pagination bar,
-        // but with only 1 page in it. This is why we hide it:
-        .tabulator-paginator {
-            visibility: hidden;
-            display: none !important;
-        }
-    }
-}
