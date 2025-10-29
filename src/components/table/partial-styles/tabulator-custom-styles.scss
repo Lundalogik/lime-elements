@@ -189,13 +189,4 @@
     .select-all {
         top: functions.pxToRem(42);
     }
-
-    #tabulator-container {
-        &:not(.has-pagination) {
-            .tabulator-paginator {
-                display: grid !important;
-                opacity: 0;
-            }
-        }
-    }
 }

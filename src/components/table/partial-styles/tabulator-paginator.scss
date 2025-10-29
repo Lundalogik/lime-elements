@@ -1,6 +1,16 @@
 @use '../../../style/mixins';
 @use '../../../style/functions';
 
+#tabulator-container {
+    &:not(.has-pagination) {
+        // When there is no pagination, Tabulator still displays the pagination bar,
+        // but with only 1 page in it. This is why we hide it:
+        .tabulator-paginator {
+            display: none !important;
+        }
+    }
+}
+
 .tabulator {
     .tabulator-footer {
         .tabulator-paginator {
