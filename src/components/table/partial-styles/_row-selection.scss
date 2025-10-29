@@ -1,19 +1,19 @@
-@use '../../../style/functions';
-
-// .has-rowselector {} // Mabe useful later
-
-$checkbox-distance-to-left-edge: 0.5rem;
-
 .select-all,
 .limel-table--row-selector {
     --limel-checkbox-min-height: 1.25rem; // as big as the box itself
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+
+    text-overflow: unset !important; // Otherwise a `…` will be rendered besides the checkbox, since we truncate all cells
+    padding: 0 !important;
 }
 
 .select-all {
     position: absolute;
     z-index: $table--limel-table--row-selector;
-    left: $checkbox-distance-to-left-edge;
-    top: functions.pxToRem(6);
+    left: 0.375rem;
+    top: 0.25rem;
 }
 
 .limel-table--row-selector {
@@ -41,7 +41,7 @@ $checkbox-distance-to-left-edge: 0.5rem;
         }
     }
 
-    // make the row selector column non-resizeable by hiding
+    // make the row selector column non-resizable by hiding
     // the resize handles between the frozen column and the
     // column next to it
     .tabulator-col-resize-handle {
