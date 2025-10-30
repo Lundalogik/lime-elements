@@ -1,3 +1,19 @@
+## [38.29.0](https://github.com/Lundalogik/lime-elements/compare/v38.28.2...v38.29.0) (2025-10-30)
+
+
+### Features
+
+
+* **table:** allow disabling column sorting through header interactions ([c7b6f32](https://github.com/Lundalogik/lime-elements/commit/c7b6f32ba164a341da759894c4ea29033d5790dd))
+
+### Bug Fixes
+
+
+* **chip:** show proper visual feedback when used as menu's trigger & menu is opened ([d8ae34d](https://github.com/Lundalogik/lime-elements/commit/d8ae34da6076c3e7e399aecc2e75bba22f636827))
+* **table:** center-align row checkboxes ([3146272](https://github.com/Lundalogik/lime-elements/commit/3146272e2b6289e57ed4eabe26a7260879809f12))
+* **table:** ensure empty paginatior is never displayed ([0cae339](https://github.com/Lundalogik/lime-elements/commit/0cae33985f3a2ef53040d0a0830246c954e28786))
+* **table:** show better gradient fade effect, below checkbox of a selected row ([5138469](https://github.com/Lundalogik/lime-elements/commit/51384691c446e712a3f13672e8b4a53c67eba743))
+
 ## [38.28.2](https://github.com/Lundalogik/lime-elements/compare/v38.28.1...v38.28.2) (2025-10-15)
 
 
