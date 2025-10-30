@@ -113,6 +113,8 @@
     }
 }
 
+@include mixins.visualize-aria-expanded('.chip');
+
 :host(limel-chip[type='filter']) {
     .chip {
         border-top-left-radius: 0.5rem;
