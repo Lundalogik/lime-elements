@@ -113,6 +113,13 @@ export class Table {
     public movableColumns: boolean;
 
     /**
+     * Set to `false` to disable column sorting through header interactions.
+     * Programmatic sorting through the `sorting` prop and `sort` event remains available.
+     */
+    @Prop()
+    public sortableColumns: boolean = true;
+
+    /**
      * Set to `true` to trigger loading animation
      */
     @Prop()
@@ -362,6 +369,16 @@ export class Table {
         this.init();
     }
 
+    @Watch('sortableColumns')
+    protected updateSortableColumns() {
+        if (!this.tabulator) {
+            return;
+        }
+
+        this.tabulator.setColumns(this.getColumnDefinitions());
+        this.shouldSort = true;
+    }
+
     @Watch('sorting')
     protected updateSorting(
         newValue: ColumnSorter[],
@@ -538,7 +555,13 @@ export class Table {
     private getColumnDefinitions(): Tabulator.ColumnDefinition[] {
         const columnDefinitions = this.columns
             .map(this.addColumnAggregator)
-            .map(this.columnFactory.create);
+            .map((column) => {
+                const definition = this.columnFactory.create(column);
+                const columnSortable = column.headerSort ?? true;
+                definition.headerSort = this.sortableColumns && columnSortable;
+
+                return definition;
+            });
 
         if (this.tableSelection) {
             return this.tableSelection.getColumnDefinitions(columnDefinitions);

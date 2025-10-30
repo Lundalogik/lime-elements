@@ -1,4 +1,4 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
 import { Column } from '@limetech/lime-elements';
 import { invoices, Invoice } from './invoices';
 
@@ -9,8 +9,13 @@ import { invoices, Invoice } from './invoices';
  * a column header. An arrow icon on the header visualizes the
  * direction of sorting, when a column is sorted.
  *
- * However, you can disable the sorting possibility in individual columns,
- * by setting the `headerSort` to `false`.
+ * To prevent sorting altogether, set the `sortableColumns` property on
+ * `limel-table` to `false`. If you only want to disable sorting for a
+ * specific column, set the column's `headerSort` property to `false`.
+ *
+ * The "Reference Person" column below has sorting disabled on the
+ * column definition, while the control lets you disable sorting for
+ * the whole table.
  *
  * @sourceFile invoices.ts
  */
@@ -24,11 +29,14 @@ export class TableExampleSortingDisabled {
     private tableData: Invoice[] = invoices;
 
     @State()
-    public columns: Column[] = [
+    private disableAllSorting: boolean = false;
+
+    @State()
+    private columns: Column[] = [
         { title: 'Invoice no.', field: 'invoiceNumber' },
         { title: 'Invoice Date', field: 'invoiceDate' },
         {
-            title: 'Reference Person',
+            title: 'Reference Person (no sorting)',
             field: 'referencePerson',
             headerSort: false,
         },
@@ -36,6 +44,28 @@ export class TableExampleSortingDisabled {
     ];
 
     render() {
-        return <limel-table data={this.tableData} columns={this.columns} />;
+        return (
+            <Host>
+                <limel-table
+                    data={this.tableData}
+                    columns={this.columns}
+                    sortableColumns={!this.disableAllSorting}
+                />
+                <limel-example-controls
+                    style={{ '--example-controls-column-layout': 'auto-fit' }}
+                >
+                    <limel-checkbox
+                        checked={this.disableAllSorting}
+                        label="Disable sorting on all columns"
+                        onChange={this.setDisableAllSorting}
+                    />
+                </limel-example-controls>
+            </Host>
+        );
     }
+
+    private setDisableAllSorting = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.disableAllSorting = event.detail;
+    };
 }
