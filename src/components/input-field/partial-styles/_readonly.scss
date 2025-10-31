@@ -39,3 +39,14 @@
         }
     }
 }
+
+:host([readonly]) {
+    .mdc-text-field__input {
+        // Override browser default styling for readonly inputs to ensure proper visibility
+        // - opacity: 1 prevents browsers from making readonly text appear faded/dimmed
+        // - -webkit-text-fill-color ensures consistent text color across WebKit browsers
+        //   (overrides browser autofill colors and disabled state styling)
+        opacity: 1;
+        -webkit-text-fill-color: shared_input-select-picker.$input-text-color;
+    }
+}
