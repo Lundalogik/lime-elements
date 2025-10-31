@@ -39,3 +39,13 @@
         }
     }
 }
+
+:host(.lime-text-field--readonly),
+:host([readonly]) {
+    .mdc-text-field--disabled .mdc-text-field__input,
+    .mdc-text-field__input[readonly] {
+        opacity: 1;
+        color: shared_input-select-picker.$input-text-color;
+        -webkit-text-fill-color: shared_input-select-picker.$input-text-color;
+    }
+}
