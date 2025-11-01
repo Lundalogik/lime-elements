@@ -3,6 +3,7 @@
 @import '../../../node_modules/codemirror/lib/codemirror.css';
 @import '../../../node_modules/codemirror/addon/lint/lint.css';
 @import '../../../node_modules/codemirror/addon/fold/foldgutter.css';
+@import '../../../node_modules/codemirror/addon/hint/show-hint.css';
 
 /**
  * @prop --code-editor-max-height: Defines how tall the code editor can get before content becomes scrollable, defaults to `10rem`.
