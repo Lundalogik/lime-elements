@@ -182,7 +182,9 @@ function build() {
         shell.exit(1);
     }
 
-    if (shell.exec('npm run docs:build').code !== 0) {
+    // Run docs build twice to ensure no type errors.
+    // (Known bug in Stencil, see https://github.com/stenciljs/core/issues/3534)
+    if (shell.exec('npm run docs:build && npm run docs:build').code !== 0) {
         shell.echo('docs:build failed!');
         teardown();
         shell.exit(1);
