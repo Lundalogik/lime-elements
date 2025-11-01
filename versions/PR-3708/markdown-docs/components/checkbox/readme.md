@@ -124,6 +124,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-switch-helper-text](../switch/examples)
  - [limel-example-switch-readonly](../switch/examples)
  - [limel-example-switch-vs-checkbox](../../design-guidelines/boolean/examples)
+ - [limel-example-table-sorting-disabled](../table/examples)
  - [limel-example-text-editor-allow-resize](../text-editor/examples)
  - [limel-example-text-editor-composite](../text-editor/examples)
  - [limel-example-text-editor-with-html](../text-editor/examples)
@@ -215,6 +216,7 @@ graph TD;
   limel-example-switch-helper-text --> limel-checkbox
   limel-example-switch-readonly --> limel-checkbox
   limel-example-switch-vs-checkbox --> limel-checkbox
+  limel-example-table-sorting-disabled --> limel-checkbox
   limel-example-text-editor-allow-resize --> limel-checkbox
   limel-example-text-editor-composite --> limel-checkbox
   limel-example-text-editor-with-html --> limel-checkbox

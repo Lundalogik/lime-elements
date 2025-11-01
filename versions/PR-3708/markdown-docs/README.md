@@ -183,7 +183,7 @@ Lime Elements generates Context7-compatible markdown documentation to help AI co
 - 🔗 **Navigation index** - Searchable overview of all components and guides
 
 The documentation is available at:
-- **Latest version:** [lundalogik.github.io/lime-elements/versions/latest/markdown-docs/](https://lundalogik.github.io/lime-elements/versions/latest/markdown-docs/)
+- **Latest version:** [lundalogik.github.io/lime-elements/versions/latest/markdown-docs/INDEX.md](https://lundalogik.github.io/lime-elements/versions/latest/markdown-docs/INDEX.md)
 - **Configuration:** [context7.json](https://github.com/Lundalogik/lime-elements/blob/main/context7.json)
 
 This makes Lime Elements easier to work with when using AI pair programming tools like GitHub Copilot, Cursor, or Claude Code.

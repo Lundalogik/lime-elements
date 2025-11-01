@@ -42,6 +42,7 @@ graph TD;
   limel-list-item --> limel-icon
   limel-list-item --> limel-menu
   limel-list-item --> limel-icon-button
+  limel-list-item --> limel-radio-button
   limel-list-item --> limel-dynamic-label
   limel-list-item --> limel-helper-line
   limel-menu --> limel-spinner

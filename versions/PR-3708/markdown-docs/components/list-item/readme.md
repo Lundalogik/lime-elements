@@ -68,6 +68,7 @@ would be visible to MDC.
 - [limel-icon](../icon)
 - [limel-menu](../menu)
 - [limel-icon-button](../icon-button)
+- [limel-radio-button](../radio-button-group)
 - [limel-dynamic-label](../dynamic-label)
 - [limel-helper-line](../helper-line)
 
@@ -77,6 +78,7 @@ graph TD;
   limel-list-item --> limel-icon
   limel-list-item --> limel-menu
   limel-list-item --> limel-icon-button
+  limel-list-item --> limel-radio-button
   limel-list-item --> limel-dynamic-label
   limel-list-item --> limel-helper-line
   limel-menu --> limel-spinner
