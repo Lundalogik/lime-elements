@@ -38,6 +38,7 @@ export default {
     'editor-menu.h3': 'Overskrifts 3',
     'editor-menu.bulleted-list': 'Punktliste',
     'editor-menu.numbered-list': 'Nummerert liste',
+    'editor-menu.task-list': 'Oppgaveliste',
     'editor-menu.blockquote': 'Blokksitat',
     'editor-menu.link': 'Legg til lenke',
     'editor-link-menu.text': 'Tekst',
