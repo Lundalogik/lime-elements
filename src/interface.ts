@@ -14,9 +14,6 @@ export * from './components/flex-container/flex-container.types';
 export * from './global/shared-types/custom-element.types';
 export {
     EventEmitter,
-    ValidationStatus,
-    FormError,
-    ValidationError,
     FormComponent,
     FormInfo,
     LimeSchemaOptions,
@@ -34,10 +31,7 @@ export * from './components/help/help.types';
 export * from './components/icon/icon.types';
 export * from './components/info-tile/info-tile.types';
 export * from './components/input-field/input-field.types';
-export {
-    ListComponent,
-    ListSeparator,
-} from './components/list-item/list-item.types';
+export { ListComponent } from './components/list-item/list-item.types';
 export * from './components/dynamic-label/label.types';
 export * from './components/list/list.types';
 export * from './components/menu/menu.types';
