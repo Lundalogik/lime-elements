@@ -34,6 +34,11 @@ export function kompendiumGenerator(
         logger = stencilConfig.logger;
         const timeSpan = logger.createTimeSpan('kompendium started');
 
+        // eslint-disable-next-line no-console
+        console.log('[KOMPENDIUM] Generator starting with config:', JSON.stringify(config, null, 2));
+        // eslint-disable-next-line no-console
+        console.log('[KOMPENDIUM] process.argv:', process.argv);
+
         const [jsonDocs, title, readme, guides, types] = await Promise.all([
             addSources(docs),
             getProjectTitle(config),
@@ -111,14 +116,28 @@ async function writeData(
     config: Partial<KompendiumConfig>,
     data: KompendiumData,
 ) {
-    let filePath = `${config.path}/kompendium.json`;
+    // eslint-disable-next-line no-console
+    console.log('[KOMPENDIUM] writeData called');
+    // eslint-disable-next-line no-console
+    console.log('[KOMPENDIUM] config.path:', config.path);
+    // eslint-disable-next-line no-console
+    console.log('[KOMPENDIUM] isProd():', isProd());
 
-    if (isProd()) {
-        filePath = `${config.publicPath}/kompendium.json`;
-    }
+    // Always write to .kompendium directory - this is the only location
+    // that won't be cleaned up by Stencil during builds
+    const filePath = `${config.path}/kompendium.json`;
+
+    // eslint-disable-next-line no-console
+    console.log('[KOMPENDIUM] Writing to filePath:', filePath);
+    // eslint-disable-next-line no-console
+    console.log('[KOMPENDIUM] Data contains', data.types?.length || 0, 'types');
 
     await writeFile(filePath, JSON.stringify(data));
 
+    // eslint-disable-next-line no-console
+    console.log('[KOMPENDIUM] Successfully wrote kompendium.json to:', filePath);
+
+    // In watch mode, create symlink to www for live development
     if (isWatcher()) {
         createSymlink(config);
     }
@@ -168,11 +187,14 @@ function isWatcher(): boolean {
 }
 
 function isProd(): boolean {
-    return !(
+    const result = !(
         process.argv.includes('--dev') ||
         process.argv.includes('test') ||
         process.argv.find((arg) => arg.includes('jest-worker'))
     );
+    // eslint-disable-next-line no-console
+    console.log('[KOMPENDIUM] isProd() =', result, 'argv:', process.argv.join(' '));
+    return result;
 }
 
 async function getTypes(
@@ -189,6 +211,9 @@ async function getTypes(
         await saveData(config, data);
         types = data;
     }
+
+    // eslint-disable-next-line no-console
+    console.log('[KOMPENDIUM] getTypes() found', types.length, 'types');
 
     return types;
 }

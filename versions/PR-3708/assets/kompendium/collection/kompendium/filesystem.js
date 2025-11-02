@@ -31,12 +31,20 @@ export function readFile(path, options = 'utf8') {
     });
 }
 export function writeFile(path, data, options = 'utf8') {
+    // eslint-disable-next-line no-console
+    console.log('[KOMPENDIUM:FS] writeFile called with path:', path);
+    // eslint-disable-next-line no-console
+    console.log('[KOMPENDIUM:FS] Data size:', data.length, 'bytes');
     return new Promise((resolve, reject) => {
         fs.writeFile(path, data, options, (error) => {
             if (error) {
+                // eslint-disable-next-line no-console
+                console.error('[KOMPENDIUM:FS] ERROR writing file to:', path, 'Error:', error);
                 reject(error);
             }
             else {
+                // eslint-disable-next-line no-console
+                console.log('[KOMPENDIUM:FS] Successfully wrote file to:', path);
                 resolve();
             }
         });
