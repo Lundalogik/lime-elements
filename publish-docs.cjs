@@ -27,9 +27,7 @@ if (argv.h !== undefined) {
 usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>]
                                 [--pruneDev] [--noSetup] [--noBuild]
                                 [--noCommit] [--noPush] [--noPruneOutdated]
-                                [--noTeardown] [--dryRun] [--noCleanOnFail]
-                                [--gitUser=<commit author name>]
-                                [--gitEmail=<commit author email>]]
+                                [--noTeardown] [--dryRun] [--noCleanOnFail]]
 
     --v             The version number for this release of the documentation.
                     Defaults to '0.0.0-dev'.
