@@ -2,7 +2,7 @@ import { defaultConfig } from "./config";
 import { addSources } from "./source";
 import lnk from "lnk";
 import { createMenu } from "./menu";
-import { exists, mkdir, readFile, writeFile, stat } from "./filesystem";
+import { copyFile, exists, mkdir, readFile, writeFile, stat, } from "./filesystem";
 import { createWatcher } from "./watch";
 import { findGuides } from "./guides";
 import { parseFile } from "./typedoc";
@@ -25,9 +25,9 @@ export function kompendiumGenerator(config) {
         logger = stencilConfig.logger;
         const timeSpan = logger.createTimeSpan('kompendium started');
         // eslint-disable-next-line no-console
-        console.log('[KOMPENDIUM] Generator starting with config:', JSON.stringify(config, null, 2));
+        console.debug('[KOMPENDIUM] Generator starting with config:', JSON.stringify(config, null, 2));
         // eslint-disable-next-line no-console
-        console.log('[KOMPENDIUM] process.argv:', process.argv);
+        console.debug('[KOMPENDIUM] process.argv:', process.argv);
         const [jsonDocs, title, readme, guides, types] = await Promise.all([
             addSources(docs),
             getProjectTitle(config),
@@ -86,22 +86,34 @@ async function getProjectTitle(config) {
 async function writeData(config, data) {
     var _a;
     // eslint-disable-next-line no-console
-    console.log('[KOMPENDIUM] writeData called');
+    console.debug('[KOMPENDIUM] writeData called');
     // eslint-disable-next-line no-console
-    console.log('[KOMPENDIUM] config.path:', config.path);
+    console.debug('[KOMPENDIUM] config.path:', config.path);
     // eslint-disable-next-line no-console
-    console.log('[KOMPENDIUM] isProd():', isProd());
-    // Always write to .kompendium directory - this is the only location
-    // that won't be cleaned up by Stencil during builds
+    console.debug('[KOMPENDIUM] config.publicPath:', config.publicPath);
+    // eslint-disable-next-line no-console
+    console.debug('[KOMPENDIUM] isProd():', isProd());
+    // Always write to the kompendium config folder (typically `.kompendium` in
+    // the root of the project) to avoid Stencil deleting the file during build.
     const filePath = `${config.path}/kompendium.json`;
     // eslint-disable-next-line no-console
-    console.log('[KOMPENDIUM] Writing to filePath:', filePath);
+    console.debug('[KOMPENDIUM] Writing to filePath:', filePath);
     // eslint-disable-next-line no-console
-    console.log('[KOMPENDIUM] Data contains', ((_a = data.types) === null || _a === void 0 ? void 0 : _a.length) || 0, 'types');
+    console.debug('[KOMPENDIUM] Data contains', ((_a = data.types) === null || _a === void 0 ? void 0 : _a.length) || 0, 'types');
     await writeFile(filePath, JSON.stringify(data));
     // eslint-disable-next-line no-console
-    console.log('[KOMPENDIUM] Successfully wrote kompendium.json to:', filePath);
-    // In watch mode, create symlink to www for live development
+    console.debug('[KOMPENDIUM] Successfully wrote kompendium.json to:', filePath);
+    if (isProd()) {
+        // In production, we used to write the kompendium.json file to the
+        // public path. We now copy the file to the public path for backwards
+        // compatibility with projects that do not have problems with Stencil
+        // deleting the file during build. For projects that do have this
+        // problem, they can always copy the file from the config folder.
+        const publicFilePath = `${config.publicPath}/kompendium.json`;
+        await copyFile(filePath, publicFilePath);
+        // eslint-disable-next-line no-console
+        console.debug('[KOMPENDIUM] Successfully copied kompendium.json to:', publicFilePath);
+    }
     if (isWatcher()) {
         createSymlink(config);
     }
@@ -144,7 +156,7 @@ function isProd() {
         process.argv.includes('test') ||
         process.argv.find((arg) => arg.includes('jest-worker')));
     // eslint-disable-next-line no-console
-    console.log('[KOMPENDIUM] isProd() =', result, 'argv:', process.argv.join(' '));
+    console.debug('[KOMPENDIUM] isProd() =', result, 'argv:', process.argv.join(' '));
     return result;
 }
 async function getTypes(config, tsconfig) {
@@ -158,7 +170,7 @@ async function getTypes(config, tsconfig) {
         types = data;
     }
     // eslint-disable-next-line no-console
-    console.log('[KOMPENDIUM] getTypes() found', types.length, 'types');
+    console.debug('[KOMPENDIUM] getTypes() found', types.length, 'types');
     return types;
 }
 async function isModified(types, cache) {

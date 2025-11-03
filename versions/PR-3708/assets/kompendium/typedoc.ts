@@ -58,7 +58,10 @@ export function parseFile(
     const project = app.convert();
     if (!project) {
         // eslint-disable-next-line no-console
-        console.error('[KOMPENDIUM:TYPEDOC] Could not convert TypeDoc project from:', filename);
+        console.error(
+            '[KOMPENDIUM:TYPEDOC] Could not convert TypeDoc project from:',
+            filename,
+        );
         // eslint-disable-next-line no-console
         console.warn('Could not find any type information');
 
@@ -66,7 +69,10 @@ export function parseFile(
     }
 
     // eslint-disable-next-line no-console
-    console.log('[KOMPENDIUM:TYPEDOC] Successfully converted project from:', filename);
+    console.debug(
+        '[KOMPENDIUM:TYPEDOC] Successfully converted project from:',
+        filename,
+    );
 
     const data: TypeDescription[] = [];
 
@@ -80,23 +86,29 @@ export function parseFile(
     const enums = project.getReflectionsByKind(ReflectionKind.Enum);
 
     // eslint-disable-next-line no-console
-    console.log('[KOMPENDIUM:TYPEDOC] Found reflections:');
+    console.debug('[KOMPENDIUM:TYPEDOC] Found reflections:');
     // eslint-disable-next-line no-console
-    console.log('[KOMPENDIUM:TYPEDOC]   interfaces:', interfaces.length);
+    console.debug('[KOMPENDIUM:TYPEDOC]   interfaces:', interfaces.length);
     // eslint-disable-next-line no-console
-    console.log('[KOMPENDIUM:TYPEDOC]   classes:', classes.length);
+    console.debug('[KOMPENDIUM:TYPEDOC]   classes:', classes.length);
     // eslint-disable-next-line no-console
-    console.log('[KOMPENDIUM:TYPEDOC]   typeAliases:', typeAliases.length);
+    console.debug('[KOMPENDIUM:TYPEDOC]   typeAliases:', typeAliases.length);
     // eslint-disable-next-line no-console
-    console.log('[KOMPENDIUM:TYPEDOC]   enums:', enums.length);
+    console.debug('[KOMPENDIUM:TYPEDOC]   enums:', enums.length);
 
-    interfaces.forEach(reflection => addInterface(reflection as DeclarationReflection, data as any));
-    classes.forEach(reflection => addClass(reflection as DeclarationReflection, data as any));
-    typeAliases.forEach(reflection => addType(reflection as DeclarationReflection, data as any));
-    enums.forEach(reflection => {
+    interfaces.forEach((reflection) =>
+        addInterface(reflection as DeclarationReflection, data as any),
+    );
+    classes.forEach((reflection) =>
+        addClass(reflection as DeclarationReflection, data as any),
+    );
+    typeAliases.forEach((reflection) =>
+        addType(reflection as DeclarationReflection, data as any),
+    );
+    enums.forEach((reflection) => {
         const members: EnumMember[] = [];
         const enumReflection = reflection as DeclarationReflection;
-        enumReflection.children?.forEach(child => {
+        enumReflection.children?.forEach((child) => {
             if (child.kind === ReflectionKind.EnumMember) {
                 addEnumMember(child as DeclarationReflection, members);
             }
@@ -112,7 +124,7 @@ export function parseFile(
     });
 
     // eslint-disable-next-line no-console
-    console.log('[KOMPENDIUM:TYPEDOC] Total types extracted:', data.length);
+    console.debug('[KOMPENDIUM:TYPEDOC] Total types extracted:', data.length);
 
     return data;
 }
