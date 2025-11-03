@@ -1,3 +1,13 @@
+## [38.29.1](https://github.com/Lundalogik/lime-elements/compare/v38.29.0...v38.29.1) (2025-11-03)
+
+
+### Bug Fixes
+
+
+* **table:** adjust the placement of the select all checkbox ([b46cc22](https://github.com/Lundalogik/lime-elements/commit/b46cc22b20361cd1c3a98fb146af54b33ad4b16c))
+* **table:** make disabled pagination buttons visually lighter ([79f8bc5](https://github.com/Lundalogik/lime-elements/commit/79f8bc5aecb888403aba9c71c4b3fdc6e89420da))
+* **table:** show single page pagination to avoid some visual bugs ([28cda51](https://github.com/Lundalogik/lime-elements/commit/28cda51d3c4b17e743722299406b922ae63c1d64))
+
 ## [38.29.0](https://github.com/Lundalogik/lime-elements/compare/v38.28.2...v38.29.0) (2025-10-30)
 
 
