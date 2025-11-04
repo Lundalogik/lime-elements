@@ -1,3 +1,11 @@
+## [38.29.3](https://github.com/Lundalogik/lime-elements/compare/v38.29.2...v38.29.3) (2025-11-04)
+
+
+### Bug Fixes
+
+
+* **table:** ensure table header content i vertically center-aligned ([2ad2dc2](https://github.com/Lundalogik/lime-elements/commit/2ad2dc2b3287bad392203bdd16f93ee632a94143))
+
 ## [38.29.2](https://github.com/Lundalogik/lime-elements/compare/v38.29.1...v38.29.2) (2025-11-04)
 
 
