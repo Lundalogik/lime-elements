@@ -81,12 +81,14 @@ $height-of-aggregations-row: 1.5rem;
             }
 
             .tabulator-col-content {
-                padding-right: $width-of-sorter-arrow;
+                padding: 0 $width-of-sorter-arrow 0 0.25rem;
             }
         }
 
         .tabulator-col-title-holder {
+            height: 1.75rem;
             display: flex;
+            align-items: center;
             gap: 0.25rem;
         }
 
