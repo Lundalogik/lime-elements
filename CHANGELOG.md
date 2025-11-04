@@ -1,3 +1,11 @@
+## [38.29.2](https://github.com/Lundalogik/lime-elements/compare/v38.29.1...v38.29.2) (2025-11-04)
+
+
+### Bug Fixes
+
+
+* **partial-styles:** make readonly state readable on mobile devices ([995a926](https://github.com/Lundalogik/lime-elements/commit/995a9267c7968ddbb9f8b86be082d47530d04c00))
+
 ## [38.29.1](https://github.com/Lundalogik/lime-elements/compare/v38.29.0...v38.29.1) (2025-11-03)
 
 
