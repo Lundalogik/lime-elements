@@ -36,6 +36,31 @@ describe('remove empty paragraphs plugin', () => {
         expect(tree.children[0]).toBe(paragraph);
     });
 
+    it('removes paragraphs containing only line breaks', () => {
+        const tree = createRoot([
+            createParagraph([createElement('br')]),
+            createParagraph([createElement('span', [createElement('br')])]),
+        ]);
+
+        runPlugin(tree, true);
+
+        expect(tree.children).toHaveLength(0);
+    });
+
+    it('removes paragraphs containing only zero-width whitespace characters', () => {
+        const zeroWidthText = '\u200B\u200C\u200D\uFEFF';
+        const tree = createRoot([
+            createParagraph([createText(zeroWidthText)]),
+            createParagraph([
+                createElement('span', [createText(zeroWidthText)]),
+            ]),
+        ]);
+
+        runPlugin(tree, true);
+
+        expect(tree.children).toHaveLength(0);
+    });
+
     it('keeps text content inside paragraphs', () => {
         const paragraph = createParagraph([
             createElement('span', [createText('Meaningful text')]),

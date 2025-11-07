@@ -1,5 +1,11 @@
 import { Component, h, Host } from '@stencil/core';
 
+const zeroWidthHexCodes = ['200B', '200C', '200D', 'FEFF'];
+const zeroWidthSequence = zeroWidthHexCodes
+    .map((hexCode) => String.fromCodePoint(Number.parseInt(hexCode, 16)))
+    .join('');
+const zeroWidthCharacter = zeroWidthSequence.charAt(0);
+
 const markdownWithEmptyParagraphs = `
 <p>In some use cases, empty paragraphs may be desired to keep certain spacing
 in the content, while in other cases they may be unwanted and just add
@@ -17,6 +23,8 @@ by pressing the <kbd>Enter</kbd> key multiple times, while typing an email.</p>
 <p><span style="font-size:10.5pt; color:#333333">&nbsp;</span></p>
 <p><span></span></p>
 <p> </p>
+<p>${zeroWidthSequence}</p>
+<p><span>${zeroWidthCharacter}</span></p>
 <p>Rendering all the empty paragraphs that you see in this example would just add lots
 of vertical scrolling to large content.</p>
 `;

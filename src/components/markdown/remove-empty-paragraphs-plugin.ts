@@ -16,6 +16,7 @@ export const createRemoveEmptyParagraphsPlugin = (enabled = false): Plugin => {
 };
 
 const NBSP_REGEX = /\u00A0/g;
+const ZERO_WIDTH_HEX_CODES = ['200B', '200C', '200D', 'FEFF'];
 const MEANINGFUL_VOID_ELEMENTS = new Set([
     'audio',
     'canvas',
@@ -29,6 +30,17 @@ const MEANINGFUL_VOID_ELEMENTS = new Set([
 ]);
 
 const TREAT_AS_EMPTY_ELEMENTS = new Set(['br']);
+
+const stripZeroWidthCharacters = (text: string): string => {
+    let cleaned = text;
+
+    for (const hexCode of ZERO_WIDTH_HEX_CODES) {
+        const character = String.fromCodePoint(Number.parseInt(hexCode, 16));
+        cleaned = cleaned.split(character).join('');
+    }
+
+    return cleaned;
+};
 
 const pruneEmptyParagraphs = (node: any, parent: any) => {
     if (!node || typeof node !== 'object') {
@@ -115,5 +127,9 @@ const isWhitespace = (value: string): boolean => {
         return true;
     }
 
-    return value.replaceAll(NBSP_REGEX, ' ').trim() === '';
+    const normalized = stripZeroWidthCharacters(
+        value.replaceAll(NBSP_REGEX, ' ')
+    );
+
+    return normalized.trim() === '';
 };
