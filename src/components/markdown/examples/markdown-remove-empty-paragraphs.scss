@@ -1,0 +1,10 @@
+:host(limel-example-markdown-remove-empty-paragraphs) {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+}
+
+limel-markdown {
+    display: block;
+    padding: 0.5rem 1rem;
+}
