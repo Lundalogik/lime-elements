@@ -3,6 +3,7 @@ import {
     Event,
     EventEmitter,
     h,
+    Host,
     Prop,
     State,
     Watch,
@@ -143,22 +144,28 @@ export class Chart {
             return <limel-spinner limeBranded={false} />;
         }
 
-        return [
-            <table
-                aria-busy={this.loading ? 'true' : 'false'}
-                aria-live="polite"
-                style={{
-                    '--limel-chart-number-of-items':
-                        this.items.length.toString(),
-                }}
+        return (
+            <Host
+            // class={{
+            //     'has-orientation-portrait': this.orientation === 'portrait',
+            // }}
             >
-                {this.renderCaption()}
-                {this.renderTableHeader()}
-                {this.renderAxises()}
-                <tbody class="chart">{this.renderItems()}</tbody>
-            </table>,
-            this.renderLegend(this.items),
-        ];
+                <table
+                    aria-busy={this.loading ? 'true' : 'false'}
+                    aria-live="polite"
+                    style={{
+                        '--limel-chart-number-of-items':
+                            this.items.length.toString(),
+                    }}
+                >
+                    {this.renderCaption()}
+                    {this.renderTableHeader()}
+                    {this.renderAxises()}
+                    <tbody class="chart">{this.renderItems()}</tbody>
+                </table>
+                {this.renderLegend(this.items)}
+            </Host>
+        );
     }
 
     private renderCaption() {
@@ -261,7 +268,16 @@ export class Chart {
         // Only render legend if at least one item has a color
         const hasColoredItems = items.some((item) => item.color);
 
-        if (!hasColoredItems) {
+        // Check if all colors are the same (no need for legend if they are)
+        const allColorsSame =
+            items.length > 1 &&
+            items.every((item) => item.color === items[0].color);
+
+        if (
+            !hasColoredItems ||
+            this.orientation === 'portrait' ||
+            allColorsSame
+        ) {
             return;
         }
 

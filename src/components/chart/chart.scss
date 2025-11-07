@@ -124,6 +124,32 @@ limel-spinner {
 
         @include mixins.fade-out-overflowed-content-on-edges(horizontally);
     }
+
+    //     // Change to column layout when chart has portrait orientation
+    //     :host(.has-orientation-portrait) & {
+    //         flex-direction: column;
+    //         overflow-x: visible;
+    //         overflow-y: auto;
+    //         height: 100%;
+    //         max-height: 200px; // Limit height for vertical scrolling
+
+    //         // Remove horizontal fade and add vertical fade
+    //         -webkit-mask-image: none;
+    //         mask-image: none;
+    //         padding-left: 0;
+    //         padding-right: 0;
+
+    //         @include mixins.fade-out-overflowed-content-on-edges(vertically);
+    //     }
+    // }
+
+    // // Change to row layout when chart has portrait orientation
+    // :host(.has-orientation-portrait) & {
+    //     flex-direction: row;
+    //     max-width: 100%;
+    //     max-height: 250px; // Limit height in portrait mode
+    //     align-self: stretch; // Take full width in portrait
+    // }
 }
 
 .legend-item {
