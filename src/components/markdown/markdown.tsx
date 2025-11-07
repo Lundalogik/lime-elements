@@ -52,7 +52,7 @@ export class Markdown {
     /**
      * Enable lazy loading for images
      */
-    @Prop()
+    @Prop({ reflect: true })
     public lazyLoadImages = false;
 
     @Watch('value')
