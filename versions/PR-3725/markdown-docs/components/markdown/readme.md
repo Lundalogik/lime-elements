@@ -12,11 +12,12 @@ and renders it as HTML.
 
 ## Properties
 
-| Property         | Attribute          | Description                                                                                                                                                                                   | Type                        | Default                          |
-| ---------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- | -------------------------------- |
-| `lazyLoadImages` | `lazy-load-images` | Enable lazy loading for images                                                                                                                                                                | `boolean`                   | `false`                          |
-| `value`          | `value`            | The input text. Treated as GitHub Flavored Markdown, with the addition that any included HTML will be parsed and rendered as HTML, rather than as text.                                       | `string`                    | `''`                             |
-| `whitelist`      | --                 | Whitelisted html elements.  Any custom element added here will not be sanitized and thus rendered. Can also be set via `limel-config`. Setting this property will override the global config. | `CustomElementDefinition[]` | `globalConfig.markdownWhitelist` |
+| Property                | Attribute                 | Description                                                                                                                                                                                                       | Type                        | Default                          |
+| ----------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- | -------------------------------- |
+| `lazyLoadImages`        | `lazy-load-images`        | Enable lazy loading for images                                                                                                                                                                                    | `boolean`                   | `false`                          |
+| `removeEmptyParagraphs` | `remove-empty-paragraphs` | Set to `false` to preserve empty paragraphs before rendering. Empty paragraphs are paragraphs that do not contain any meaningful content (text, images, etc.), or only contain whitespace (`<br />` or `&nbsp;`). | `boolean`                   | `true`                           |
+| `value`                 | `value`                   | The input text. Treated as GitHub Flavored Markdown, with the addition that any included HTML will be parsed and rendered as HTML, rather than as text.                                                           | `string`                    | `''`                             |
+| `whitelist`             | --                        | Whitelisted html elements.  Any custom element added here will not be sanitized and thus rendered. Can also be set via `limel-config`. Setting this property will override the global config.                     | `CustomElementDefinition[]` | `globalConfig.markdownWhitelist` |
 
 
 ## Dependencies
@@ -38,6 +39,7 @@ and renders it as HTML.
  - [limel-example-markdown-keys](examples)
  - [limel-example-markdown-links](examples)
  - [limel-example-markdown-lists](examples)
+ - [limel-example-markdown-remove-empty-paragraphs](examples)
  - [limel-example-markdown-tables](examples)
  - [limel-example-popover-trigger-interaction](../popover/examples)
  - [limel-help-content](../help)
@@ -62,6 +64,7 @@ graph TD;
   limel-example-markdown-keys --> limel-markdown
   limel-example-markdown-links --> limel-markdown
   limel-example-markdown-lists --> limel-markdown
+  limel-example-markdown-remove-empty-paragraphs --> limel-markdown
   limel-example-markdown-tables --> limel-markdown
   limel-example-popover-trigger-interaction --> limel-markdown
   limel-help-content --> limel-markdown
