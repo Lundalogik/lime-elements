@@ -20,8 +20,9 @@ import { ImageIntersectionObserver } from './image-intersection-observer';
  * @exampleComponent limel-example-markdown-keys
  * @exampleComponent limel-example-markdown-blockquotes
  * @exampleComponent limel-example-markdown-horizontal-rule
- * @exampleComponent limel-example-markdown-composite
  * @exampleComponent limel-example-markdown-custom-component
+ * @exampleComponent limel-example-markdown-remove-empty-paragraphs
+ * @exampleComponent limel-example-markdown-composite
  */
 @Component({
     tag: 'limel-markdown',
@@ -55,6 +56,15 @@ export class Markdown {
     @Prop({ reflect: true })
     public lazyLoadImages = false;
 
+    /**
+     * Set to `false` to preserve empty paragraphs before rendering.
+     * Empty paragraphs are paragraphs that do not contain
+     * any meaningful content (text, images, etc.), or only contain
+     * whitespace (`<br />` or `&nbsp;`).
+     */
+    @Prop({ reflect: true })
+    public removeEmptyParagraphs = true;
+
     @Watch('value')
     public async textChanged() {
         try {
@@ -64,6 +74,7 @@ export class Markdown {
                 forceHardLineBreaks: true,
                 whitelist: this.whitelist ?? [],
                 lazyLoadImages: this.lazyLoadImages,
+                removeEmptyParagraphs: this.removeEmptyParagraphs,
             });
 
             this.rootElement.innerHTML = html;
@@ -72,6 +83,11 @@ export class Markdown {
         } catch (error) {
             console.error(error);
         }
+    }
+
+    @Watch('removeEmptyParagraphs')
+    public handleRemoveEmptyParagraphsChange() {
+        return this.textChanged();
     }
 
     private rootElement: HTMLDivElement;
