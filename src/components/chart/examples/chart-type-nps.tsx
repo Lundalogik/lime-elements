@@ -48,7 +48,7 @@ import { chartItems } from './chart-items-nps';
 export class ChartTypeNpsExample {
     public render() {
         return (
-            <Host class="large">
+            <Host class="large" style={{ flexDirection: 'row' }}>
                 <h4>
                     Our Net Promoter Score Development During the Past 5
                     Quarters
