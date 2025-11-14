@@ -3,6 +3,18 @@ import { Column } from '@limetech/lime-elements';
 import { Person, persons } from './persons';
 
 /**
+ * Basic example
+ *
+ * :::note
+ * Each object is recommended to expose a stable `id` (string or number).
+ * The table relies on that identifier to update rows in place so that
+ * scroll position, focus, and selections remain intact across renders.
+ *
+ * Rows without an `id` are treated as new data on every update.
+ * Therefore if the user clicks on a row at the bottom of the table,
+ * it will be treated as new data and will force a full redraw,
+ * resulting in the table to scroll to the top again.
+ * :::
  *
  * @sourceFile persons.ts
  */
