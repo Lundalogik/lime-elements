@@ -51,7 +51,8 @@ const FIRST_PAGE = 1;
 })
 export class Table {
     /**
-     * Data to be displayed in the table
+     * Data to be displayed in the table. Provide a stable `id` on each row to keep
+     * scroll position, focus, and selections intact across updates.
      */
     @Prop()
     public data: object[] = [];
