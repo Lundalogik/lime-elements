@@ -84,9 +84,13 @@ export function parseFile(
     // For files with re-exports (like dist/types/index.d.ts that re-exports from
     // ./components and ./interface), nested types won't be visited.
     // Use getReflectionsByKind() to get ALL types regardless of module nesting.
-    const allInterfaces = project.getReflectionsByKind(ReflectionKind.Interface);
+    const allInterfaces = project.getReflectionsByKind(
+        ReflectionKind.Interface,
+    );
     const allClasses = project.getReflectionsByKind(ReflectionKind.Class);
-    const allTypeAliases = project.getReflectionsByKind(ReflectionKind.TypeAlias);
+    const allTypeAliases = project.getReflectionsByKind(
+        ReflectionKind.TypeAlias,
+    );
     const allEnums = project.getReflectionsByKind(ReflectionKind.Enum);
 
     // eslint-disable-next-line no-console
@@ -101,10 +105,18 @@ export function parseFile(
     console.debug('[KOMPENDIUM:TYPEDOC]   enums:', allEnums.length);
 
     // Filter out types from node_modules, examples, tests, and private/internal types
-    const interfaces = allInterfaces.filter((r) => shouldIncludeType(r as DeclarationReflection));
-    const classes = allClasses.filter((r) => shouldIncludeType(r as DeclarationReflection));
-    const typeAliases = allTypeAliases.filter((r) => shouldIncludeType(r as DeclarationReflection));
-    const enums = allEnums.filter((r) => shouldIncludeType(r as DeclarationReflection));
+    const interfaces = allInterfaces.filter((r) =>
+        shouldIncludeType(r as DeclarationReflection),
+    );
+    const classes = allClasses.filter((r) =>
+        shouldIncludeType(r as DeclarationReflection),
+    );
+    const typeAliases = allTypeAliases.filter((r) =>
+        shouldIncludeType(r as DeclarationReflection),
+    );
+    const enums = allEnums.filter((r) =>
+        shouldIncludeType(r as DeclarationReflection),
+    );
 
     // eslint-disable-next-line no-console
     console.debug('[KOMPENDIUM:TYPEDOC] Reflections after filtering:');
@@ -159,9 +171,9 @@ export function parseFile(
  * - examples directories
  * - test files (.test., .spec., /test/, /tests/)
  * - Types marked with @private or @internal tags
- *
- * @param reflection - The TypeDoc reflection to check
- * @returns true if the type should be documented, false otherwise
+ * - Stencil auto-generated types (components.d.ts, Components namespace, CustomEvent wrappers)
+ * @param {DeclarationReflection} reflection - The TypeDoc reflection to check
+ * @returns {boolean} true if the type should be documented, false otherwise
  */
 function shouldIncludeType(reflection: DeclarationReflection): boolean {
     // Check if type has sources
@@ -174,37 +186,45 @@ function shouldIncludeType(reflection: DeclarationReflection): boolean {
     for (const source of reflection.sources) {
         const sourcePath = source.fullFileName || source.fileName || '';
 
-        // Exclude types from node_modules
-        if (sourcePath.includes('node_modules/')) {
-            // eslint-disable-next-line no-console
-            console.debug(
-                `[KOMPENDIUM:TYPEDOC] Excluding ${reflection.name}: from node_modules (${sourcePath})`,
-            );
+        if (shouldExcludeSource(sourcePath, reflection.name)) {
             return false;
         }
+    }
 
-        // Exclude types from examples directories
-        if (sourcePath.includes('/examples/') || sourcePath.includes('/example/')) {
-            // eslint-disable-next-line no-console
-            console.debug(
-                `[KOMPENDIUM:TYPEDOC] Excluding ${reflection.name}: from examples (${sourcePath})`,
-            );
-            return false;
-        }
+    // LAYER 2: Exclude CustomEvent wrapper types
+    // These are generic wrappers around CustomEvent<T> that don't add useful documentation
+    if (reflection.name.endsWith('CustomEvent')) {
+        // eslint-disable-next-line no-console
+        console.debug(
+            `[KOMPENDIUM:TYPEDOC] Excluding ${reflection.name}: CustomEvent wrapper type`,
+        );
 
-        // Exclude types from test files
-        if (
-            sourcePath.includes('/test/') ||
-            sourcePath.includes('/tests/') ||
-            sourcePath.includes('.test.') ||
-            sourcePath.includes('.spec.')
-        ) {
-            // eslint-disable-next-line no-console
-            console.debug(
-                `[KOMPENDIUM:TYPEDOC] Excluding ${reflection.name}: from tests (${sourcePath})`,
-            );
-            return false;
-        }
+        return false;
+    }
+
+    // LAYER 2: Exclude HTML element interface types
+    // These are DOM element interfaces (HTMLLimelButtonElement, etc.) already in Components
+    if (
+        reflection.name.startsWith('HTML') &&
+        reflection.name.endsWith('Element')
+    ) {
+        // eslint-disable-next-line no-console
+        console.debug(
+            `[KOMPENDIUM:TYPEDOC] Excluding ${reflection.name}: HTML element interface`,
+        );
+
+        return false;
+    }
+
+    // LAYER 3: Exclude types in Stencil's Components namespace
+    // Belt-and-suspenders: catches any component interfaces that leaked through Layer 1
+    if (isInComponentsNamespace(reflection)) {
+        // eslint-disable-next-line no-console
+        console.debug(
+            `[KOMPENDIUM:TYPEDOC] Excluding ${reflection.name}: in Components namespace`,
+        );
+
+        return false;
     }
 
     // Check for @private or @internal tags
@@ -217,12 +237,95 @@ function shouldIncludeType(reflection: DeclarationReflection): boolean {
             console.debug(
                 `[KOMPENDIUM:TYPEDOC] Excluding ${reflection.name}: marked as @private or @internal`,
             );
+
             return false;
         }
     }
 
     // Include this type
     return true;
+}
+
+/**
+ * Checks if a source path should be excluded from documentation.
+ * @param {string} sourcePath - The file path to check
+ * @param {string} typeName - The name of the type (for debug logging)
+ * @returns {boolean} true if the source should be excluded, false otherwise
+ */
+function shouldExcludeSource(sourcePath: string, typeName: string): boolean {
+    // Exclude types from node_modules
+    if (sourcePath.includes('node_modules/')) {
+        // eslint-disable-next-line no-console
+        console.debug(
+            `[KOMPENDIUM:TYPEDOC] Excluding ${typeName}: from node_modules (${sourcePath})`,
+        );
+
+        return true;
+    }
+
+    // Exclude types from examples directories
+    if (sourcePath.includes('/examples/') || sourcePath.includes('/example/')) {
+        // eslint-disable-next-line no-console
+        console.debug(
+            `[KOMPENDIUM:TYPEDOC] Excluding ${typeName}: from examples (${sourcePath})`,
+        );
+
+        return true;
+    }
+
+    // Exclude types from test files
+    if (
+        sourcePath.includes('/test/') ||
+        sourcePath.includes('/tests/') ||
+        sourcePath.includes('.test.') ||
+        sourcePath.includes('.spec.')
+    ) {
+        // eslint-disable-next-line no-console
+        console.debug(
+            `[KOMPENDIUM:TYPEDOC] Excluding ${typeName}: from tests (${sourcePath})`,
+        );
+
+        return true;
+    }
+
+    // LAYER 1: Exclude types from Stencil's auto-generated components.d.ts
+    // This file contains component prop interfaces and HTML element types that are
+    // already documented in the Components section
+    if (sourcePath.endsWith('components.d.ts')) {
+        // eslint-disable-next-line no-console
+        console.debug(
+            `[KOMPENDIUM:TYPEDOC] Excluding ${typeName}: from components.d.ts (Stencil auto-generated)`,
+        );
+
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * Checks if a TypeDoc reflection is defined within Stencil's Components namespace.
+ *
+ * Stencil generates a Components namespace in components.d.ts containing interfaces
+ * for component props. These types are already documented in the Components section
+ * and should not be duplicated in the Types section.
+ * @param {DeclarationReflection} reflection - The TypeDoc reflection to check
+ * @returns {boolean} true if the reflection is in a Components namespace, false otherwise
+ */
+function isInComponentsNamespace(reflection: DeclarationReflection): boolean {
+    let current: Reflection | undefined = reflection.parent;
+    while (current) {
+        if (
+            current.kind === ReflectionKind.Namespace &&
+            current.name === 'Components'
+        ) {
+            return true;
+        }
+
+        current = current.parent;
+    }
+
+    return false;
 }
 
 const fns = {
