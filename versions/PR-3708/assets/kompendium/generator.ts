@@ -41,13 +41,11 @@ export function kompendiumGenerator(
         logger = stencilConfig.logger;
         const timeSpan = logger.createTimeSpan('kompendium started');
 
-        // eslint-disable-next-line no-console
-        console.debug(
+        logger.debug(
             '[KOMPENDIUM] Generator starting with config:',
             JSON.stringify(config, null, 2),
         );
-        // eslint-disable-next-line no-console
-        console.debug('[KOMPENDIUM] process.argv:', process.argv);
+        logger.debug('[KOMPENDIUM] process.argv:', process.argv);
 
         const [jsonDocs, title, readme, guides, types] = await Promise.all([
             addSources(docs),
@@ -126,23 +124,17 @@ async function writeData(
     config: Partial<KompendiumConfig>,
     data: KompendiumData,
 ) {
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM] writeData called');
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM] config.path:', config.path);
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM] config.publicPath:', config.publicPath);
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM] isProd():', isProd());
+    logger.debug('[KOMPENDIUM] writeData called');
+    logger.debug('[KOMPENDIUM] config.path:', config.path);
+    logger.debug('[KOMPENDIUM] config.publicPath:', config.publicPath);
+    logger.debug('[KOMPENDIUM] isProd():', isProd());
 
     // Always write to the kompendium config folder (typically `.kompendium` in
     // the root of the project) to avoid Stencil deleting the file during build.
     const filePath = `${config.path}/kompendium.json`;
 
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM] Writing to filePath:', filePath);
-    // eslint-disable-next-line no-console
-    console.debug(
+    logger.debug('[KOMPENDIUM] Writing to filePath:', filePath);
+    logger.debug(
         '[KOMPENDIUM] Data contains',
         data.types?.length || 0,
         'types',
@@ -150,8 +142,7 @@ async function writeData(
 
     await writeFile(filePath, JSON.stringify(data));
 
-    // eslint-disable-next-line no-console
-    console.debug(
+    logger.debug(
         '[KOMPENDIUM] Successfully wrote kompendium.json to:',
         filePath,
     );
@@ -165,8 +156,7 @@ async function writeData(
         const publicFilePath = `${config.publicPath}/kompendium.json`;
         await copyFile(filePath, publicFilePath);
 
-        // eslint-disable-next-line no-console
-        console.debug(
+        logger.debug(
             '[KOMPENDIUM] Successfully copied kompendium.json to:',
             publicFilePath,
         );
@@ -227,7 +217,7 @@ function isProd(): boolean {
         process.argv.find((arg) => arg.includes('jest-worker'))
     );
     // eslint-disable-next-line no-console
-    console.debug(
+    logger.debug(
         '[KOMPENDIUM] isProd() =',
         result,
         'argv:',
@@ -253,7 +243,7 @@ async function getTypes(
     }
 
     // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM] getTypes() found', types.length, 'types');
+    logger.debug('[KOMPENDIUM] getTypes() found', types.length, 'types');
 
     return types;
 }

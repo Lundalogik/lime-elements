@@ -33,7 +33,7 @@ export class Proplist {
                     "references": {
                         "ProplistItem": {
                             "location": "local",
-                            "path": "/Users/adrian.schmidt/src/kompendium/src/components/proplist/proplist.tsx",
+                            "path": "/Users/adrian.schmidt/src/kompendium/upgrade-stencil/src/components/proplist/proplist.tsx",
                             "id": "src/components/proplist/proplist.tsx::ProplistItem"
                         }
                     }

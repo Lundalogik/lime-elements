@@ -24,10 +24,8 @@ export function kompendiumGenerator(config) {
     return async (docs, stencilConfig) => {
         logger = stencilConfig.logger;
         const timeSpan = logger.createTimeSpan('kompendium started');
-        // eslint-disable-next-line no-console
-        console.debug('[KOMPENDIUM] Generator starting with config:', JSON.stringify(config, null, 2));
-        // eslint-disable-next-line no-console
-        console.debug('[KOMPENDIUM] process.argv:', process.argv);
+        logger.debug('[KOMPENDIUM] Generator starting with config:', JSON.stringify(config, null, 2));
+        logger.debug('[KOMPENDIUM] process.argv:', process.argv);
         const [jsonDocs, title, readme, guides, types] = await Promise.all([
             addSources(docs),
             getProjectTitle(config),
@@ -85,24 +83,17 @@ async function getProjectTitle(config) {
 }
 async function writeData(config, data) {
     var _a;
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM] writeData called');
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM] config.path:', config.path);
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM] config.publicPath:', config.publicPath);
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM] isProd():', isProd());
+    logger.debug('[KOMPENDIUM] writeData called');
+    logger.debug('[KOMPENDIUM] config.path:', config.path);
+    logger.debug('[KOMPENDIUM] config.publicPath:', config.publicPath);
+    logger.debug('[KOMPENDIUM] isProd():', isProd());
     // Always write to the kompendium config folder (typically `.kompendium` in
     // the root of the project) to avoid Stencil deleting the file during build.
     const filePath = `${config.path}/kompendium.json`;
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM] Writing to filePath:', filePath);
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM] Data contains', ((_a = data.types) === null || _a === void 0 ? void 0 : _a.length) || 0, 'types');
+    logger.debug('[KOMPENDIUM] Writing to filePath:', filePath);
+    logger.debug('[KOMPENDIUM] Data contains', ((_a = data.types) === null || _a === void 0 ? void 0 : _a.length) || 0, 'types');
     await writeFile(filePath, JSON.stringify(data));
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM] Successfully wrote kompendium.json to:', filePath);
+    logger.debug('[KOMPENDIUM] Successfully wrote kompendium.json to:', filePath);
     if (isProd()) {
         // In production, we used to write the kompendium.json file to the
         // public path. We now copy the file to the public path for backwards
@@ -111,8 +102,7 @@ async function writeData(config, data) {
         // problem, they can always copy the file from the config folder.
         const publicFilePath = `${config.publicPath}/kompendium.json`;
         await copyFile(filePath, publicFilePath);
-        // eslint-disable-next-line no-console
-        console.debug('[KOMPENDIUM] Successfully copied kompendium.json to:', publicFilePath);
+        logger.debug('[KOMPENDIUM] Successfully copied kompendium.json to:', publicFilePath);
     }
     if (isWatcher()) {
         createSymlink(config);
@@ -156,7 +146,7 @@ function isProd() {
         process.argv.includes('test') ||
         process.argv.find((arg) => arg.includes('jest-worker')));
     // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM] isProd() =', result, 'argv:', process.argv.join(' '));
+    logger.debug('[KOMPENDIUM] isProd() =', result, 'argv:', process.argv.join(' '));
     return result;
 }
 async function getTypes(config, tsconfig) {
@@ -170,7 +160,7 @@ async function getTypes(config, tsconfig) {
         types = data;
     }
     // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM] getTypes() found', types.length, 'types');
+    logger.debug('[KOMPENDIUM] getTypes() found', types.length, 'types');
     return types;
 }
 async function isModified(types, cache) {

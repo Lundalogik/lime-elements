@@ -21,38 +21,15 @@ export function mkdir(path: string, options: any = {}): Promise<string> {
 }
 
 export function copyFile(src: string, dest: string): Promise<void> {
-    /* eslint-disable no-console */
-    console.debug(
-        '[KOMPENDIUM:FS] copyFile called with src:',
-        src,
-        'and dest:',
-        dest,
-    );
-
     return new Promise((resolve, reject) => {
         fs.copyFile(src, dest, (error) => {
             if (error) {
-                console.error(
-                    '[KOMPENDIUM:FS] ERROR copying file from:',
-                    src,
-                    'to:',
-                    dest,
-                    'Error:',
-                    error,
-                );
                 reject(error);
             } else {
-                console.debug(
-                    '[KOMPENDIUM:FS] Successfully copied file from:',
-                    src,
-                    'to:',
-                    dest,
-                );
                 resolve();
             }
         });
     });
-    /* eslint-enable no-console */
 }
 
 export function readFile(path: string, options: any = 'utf8'): Promise<string> {
@@ -72,30 +49,15 @@ export function writeFile(
     data: string,
     options: any = 'utf8',
 ): Promise<void> {
-    /* eslint-disable no-console */
-    console.debug('[KOMPENDIUM:FS] writeFile called with path:', path);
-    console.debug('[KOMPENDIUM:FS] Data size:', data.length, 'bytes');
-
     return new Promise((resolve, reject) => {
         fs.writeFile(path, data, options, (error) => {
             if (error) {
-                console.error(
-                    '[KOMPENDIUM:FS] ERROR writing file to:',
-                    path,
-                    'Error:',
-                    error,
-                );
                 reject(error);
             } else {
-                console.debug(
-                    '[KOMPENDIUM:FS] Successfully wrote file to:',
-                    path,
-                );
                 resolve();
             }
         });
     });
-    /* eslint-enable no-console */
 }
 
 export function stat(path: string): Promise<fs.Stats> {

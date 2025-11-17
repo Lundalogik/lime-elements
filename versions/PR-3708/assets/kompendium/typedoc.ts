@@ -37,9 +37,13 @@ export function parseFile(
     // TypeDoc 0.23 still uses the synchronous API with new Application()
     const app = new Application();
 
+    // Use current working directory as TypeDoc's base path for clean relative paths
+    const projectRoot = process.cwd();
+
     const options: Partial<TypeDocOptions> = {
         entryPoints: [filename],
         skipErrorChecking: true,
+        basePath: projectRoot,
     };
 
     if (tsconfig) {
@@ -80,13 +84,30 @@ export function parseFile(
     // For files with re-exports (like dist/types/index.d.ts that re-exports from
     // ./components and ./interface), nested types won't be visited.
     // Use getReflectionsByKind() to get ALL types regardless of module nesting.
-    const interfaces = project.getReflectionsByKind(ReflectionKind.Interface);
-    const classes = project.getReflectionsByKind(ReflectionKind.Class);
-    const typeAliases = project.getReflectionsByKind(ReflectionKind.TypeAlias);
-    const enums = project.getReflectionsByKind(ReflectionKind.Enum);
+    const allInterfaces = project.getReflectionsByKind(ReflectionKind.Interface);
+    const allClasses = project.getReflectionsByKind(ReflectionKind.Class);
+    const allTypeAliases = project.getReflectionsByKind(ReflectionKind.TypeAlias);
+    const allEnums = project.getReflectionsByKind(ReflectionKind.Enum);
 
     // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM:TYPEDOC] Found reflections:');
+    console.debug('[KOMPENDIUM:TYPEDOC] Found reflections (before filtering):');
+    // eslint-disable-next-line no-console
+    console.debug('[KOMPENDIUM:TYPEDOC]   interfaces:', allInterfaces.length);
+    // eslint-disable-next-line no-console
+    console.debug('[KOMPENDIUM:TYPEDOC]   classes:', allClasses.length);
+    // eslint-disable-next-line no-console
+    console.debug('[KOMPENDIUM:TYPEDOC]   typeAliases:', allTypeAliases.length);
+    // eslint-disable-next-line no-console
+    console.debug('[KOMPENDIUM:TYPEDOC]   enums:', allEnums.length);
+
+    // Filter out types from node_modules, examples, tests, and private/internal types
+    const interfaces = allInterfaces.filter((r) => shouldIncludeType(r as DeclarationReflection));
+    const classes = allClasses.filter((r) => shouldIncludeType(r as DeclarationReflection));
+    const typeAliases = allTypeAliases.filter((r) => shouldIncludeType(r as DeclarationReflection));
+    const enums = allEnums.filter((r) => shouldIncludeType(r as DeclarationReflection));
+
+    // eslint-disable-next-line no-console
+    console.debug('[KOMPENDIUM:TYPEDOC] Reflections after filtering:');
     // eslint-disable-next-line no-console
     console.debug('[KOMPENDIUM:TYPEDOC]   interfaces:', interfaces.length);
     // eslint-disable-next-line no-console
@@ -127,6 +148,81 @@ export function parseFile(
     console.debug('[KOMPENDIUM:TYPEDOC] Total types extracted:', data.length);
 
     return data;
+}
+
+/**
+ * Determines if a type should be included in the documentation based on its source location
+ * and documentation tags.
+ *
+ * Excludes types from:
+ * - node_modules (third-party dependencies)
+ * - examples directories
+ * - test files (.test., .spec., /test/, /tests/)
+ * - Types marked with @private or @internal tags
+ *
+ * @param reflection - The TypeDoc reflection to check
+ * @returns true if the type should be documented, false otherwise
+ */
+function shouldIncludeType(reflection: DeclarationReflection): boolean {
+    // Check if type has sources
+    if (!reflection.sources || reflection.sources.length === 0) {
+        // No source information - include by default
+        return true;
+    }
+
+    // Check all source locations
+    for (const source of reflection.sources) {
+        const sourcePath = source.fullFileName || source.fileName || '';
+
+        // Exclude types from node_modules
+        if (sourcePath.includes('node_modules/')) {
+            // eslint-disable-next-line no-console
+            console.debug(
+                `[KOMPENDIUM:TYPEDOC] Excluding ${reflection.name}: from node_modules (${sourcePath})`,
+            );
+            return false;
+        }
+
+        // Exclude types from examples directories
+        if (sourcePath.includes('/examples/') || sourcePath.includes('/example/')) {
+            // eslint-disable-next-line no-console
+            console.debug(
+                `[KOMPENDIUM:TYPEDOC] Excluding ${reflection.name}: from examples (${sourcePath})`,
+            );
+            return false;
+        }
+
+        // Exclude types from test files
+        if (
+            sourcePath.includes('/test/') ||
+            sourcePath.includes('/tests/') ||
+            sourcePath.includes('.test.') ||
+            sourcePath.includes('.spec.')
+        ) {
+            // eslint-disable-next-line no-console
+            console.debug(
+                `[KOMPENDIUM:TYPEDOC] Excluding ${reflection.name}: from tests (${sourcePath})`,
+            );
+            return false;
+        }
+    }
+
+    // Check for @private or @internal tags
+    if (reflection.comment?.blockTags) {
+        const hasPrivateTag = reflection.comment.blockTags.some(
+            (tag: any) => tag.tag === '@private' || tag.tag === '@internal',
+        );
+        if (hasPrivateTag) {
+            // eslint-disable-next-line no-console
+            console.debug(
+                `[KOMPENDIUM:TYPEDOC] Excluding ${reflection.name}: marked as @private or @internal`,
+            );
+            return false;
+        }
+    }
+
+    // Include this type
+    return true;
 }
 
 const fns = {
@@ -590,37 +686,6 @@ function getTypeParams(reflection: DeclarationReflection) {
 
 function getSources(reflection: DeclarationReflection) {
     // TypeDoc 0.23+ has both fileName (short) and fullFileName (full path)
-    // Convert to relative path from project root
-    return (
-        reflection.sources?.map((source) => {
-            const fullPath = source.fullFileName || source.fileName;
-
-            // WORKAROUND: TypeDoc 0.23 sometimes includes duplicate path prefixes
-            // in fullFileName, e.g., "src/kompendium/src/kompendium/file.ts"
-            // This appears to happen when TypeDoc resolves paths through symlinks
-            // or when the project structure has nested TypeScript configs.
-            //
-            // The regex matches paths starting with 'src/kompendium/' and optionally
-            // captures a duplicate 'src/kompendium/' prefix that we then remove.
-            //
-            // Examples:
-            //   "src/kompendium/src/kompendium/file.ts" → "src/kompendium/file.ts"
-            //   "src/kompendium/file.ts" → "src/kompendium/file.ts" (unchanged)
-            //
-            // FRAGILE: Hard-codes project structure assumptions. If the project
-            // is renamed or restructured, this regex will need updating.
-            const match = fullPath.match(
-                /src\/kompendium\/(?:src\/kompendium\/)?.+$/,
-            );
-            if (match) {
-                // Remove duplicate prefix if present
-                return match[0].replace(
-                    /^src\/kompendium\/src\/kompendium\//,
-                    'src/kompendium/',
-                );
-            }
-
-            return source.fileName;
-        }) || []
-    );
+    // With basePath set correctly, fileName is relative to project root
+    return reflection.sources?.map((source) => source.fileName) || [];
 }
