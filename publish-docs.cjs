@@ -228,9 +228,13 @@ function copyBuildOutput() {
         shell.exit(1);
     }
 
+    // Copy kompendium.json from .kompendium directory (stable location)
     if (
-        shell.cp('-R', 'www/kompendium.json', `docsDist/versions/${version}`)
-            .code !== 0
+        shell.cp(
+            '-R',
+            '.kompendium/kompendium.json',
+            `docsDist/versions/${version}`
+        ).code !== 0
     ) {
         shell.echo('copying kompendium.json failed!');
         teardown();
