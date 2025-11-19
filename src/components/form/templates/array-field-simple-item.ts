@@ -4,29 +4,25 @@ import { ArrayFieldItem } from './types';
 interface SimpleItemProps {
     item: ArrayFieldItem;
     index: number;
+    allowItemRemoval: boolean;
+    allowItemReorder: boolean;
 }
 
 const LIMEL_ICON_BUTTON = 'limel-icon-button';
 
-export class SimpleItemTemplate extends React.Component {
+export class SimpleItemTemplate extends React.Component<SimpleItemProps> {
     constructor(public props: SimpleItemProps) {
         super(props);
     }
 
-    private removeButton: HTMLLimelButtonElement;
-    private moveUpButton: HTMLLimelButtonElement;
-    private moveDownButton: HTMLLimelButtonElement;
-
-    public componentDidMount() {
-        this.removeButton.addEventListener('click', this.handleRemove);
-        this.moveUpButton.addEventListener('click', this.handleMoveUp);
-        this.moveDownButton.addEventListener('click', this.handleMoveDown);
-    }
+    private removeButton?: HTMLLimelButtonElement;
+    private moveUpButton?: HTMLLimelButtonElement;
+    private moveDownButton?: HTMLLimelButtonElement;
 
     public componentWillUnmount() {
-        this.removeButton.removeEventListener('click', this.handleRemove);
-        this.moveUpButton.removeEventListener('click', this.handleMoveUp);
-        this.moveDownButton.removeEventListener('click', this.handleMoveDown);
+        this.setRemoveButton(undefined);
+        this.setMoveUpButton(undefined);
+        this.setMoveDownButton(undefined);
     }
 
     public render() {
@@ -38,9 +34,9 @@ export class SimpleItemTemplate extends React.Component {
                 className: 'limel-form-array-item--simple',
             },
             this.props.item.children,
-            this.renderRemoveButton(item),
-            this.renderMoveUpButton(item),
-            this.renderMoveDownButton(item)
+            this.props.allowItemRemoval ? this.renderRemoveButton(item) : null,
+            this.props.allowItemReorder ? this.renderMoveUpButton(item) : null,
+            this.props.allowItemReorder ? this.renderMoveDownButton(item) : null
         );
     }
 
@@ -48,9 +44,7 @@ export class SimpleItemTemplate extends React.Component {
         const props: any = {
             icon: 'trash',
             disabled: !item.hasRemove,
-            ref: (button: HTMLLimelButtonElement) => {
-                this.removeButton = button;
-            },
+            ref: this.setRemoveButton,
         };
 
         return React.createElement(LIMEL_ICON_BUTTON, props);
@@ -60,9 +54,7 @@ export class SimpleItemTemplate extends React.Component {
         const props: any = {
             icon: 'up_arrow',
             disabled: !item.hasMoveUp,
-            ref: (button: HTMLLimelButtonElement) => {
-                this.moveUpButton = button;
-            },
+            ref: this.setMoveUpButton,
         };
 
         return React.createElement(LIMEL_ICON_BUTTON, props);
@@ -72,9 +64,7 @@ export class SimpleItemTemplate extends React.Component {
         const props: any = {
             icon: 'down_arrow',
             disabled: !item.hasMoveDown,
-            ref: (button: HTMLLimelButtonElement) => {
-                this.moveDownButton = button;
-            },
+            ref: this.setMoveDownButton,
         };
 
         return React.createElement(LIMEL_ICON_BUTTON, props);
@@ -93,5 +83,44 @@ export class SimpleItemTemplate extends React.Component {
     private handleMoveDown = (event: PointerEvent): void => {
         const { item, index } = this.props;
         item.onReorderClick(index, index + 1)(event);
+    };
+
+    private setRemoveButton = (button?: HTMLLimelButtonElement | null) => {
+        if (this.removeButton) {
+            this.removeButton.removeEventListener('click', this.handleRemove);
+        }
+
+        this.removeButton = button || undefined;
+
+        if (this.removeButton) {
+            this.removeButton.addEventListener('click', this.handleRemove);
+        }
+    };
+
+    private setMoveUpButton = (button?: HTMLLimelButtonElement | null) => {
+        if (this.moveUpButton) {
+            this.moveUpButton.removeEventListener('click', this.handleMoveUp);
+        }
+
+        this.moveUpButton = button || undefined;
+
+        if (this.moveUpButton) {
+            this.moveUpButton.addEventListener('click', this.handleMoveUp);
+        }
+    };
+
+    private setMoveDownButton = (button?: HTMLLimelButtonElement | null) => {
+        if (this.moveDownButton) {
+            this.moveDownButton.removeEventListener(
+                'click',
+                this.handleMoveDown
+            );
+        }
+
+        this.moveDownButton = button || undefined;
+
+        if (this.moveDownButton) {
+            this.moveDownButton.addEventListener('click', this.handleMoveDown);
+        }
     };
 }

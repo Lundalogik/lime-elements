@@ -215,6 +215,16 @@ export interface LimeSchemaOptions {
     hidden?: boolean;
 
     help?: string | Partial<Help>;
+
+    /**
+     * Controls whether items in an array can be reordered by the end user.
+     */
+    allowItemReorder?: boolean;
+
+    /**
+     * Controls whether items in an array can be removed by the end user.
+     */
+    allowItemRemoval?: boolean;
 }
 
 /**
