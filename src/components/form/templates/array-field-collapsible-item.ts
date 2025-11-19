@@ -30,9 +30,19 @@ interface CollapsibleItemProps {
      * Schema for the entire form
      */
     formSchema: JSONSchema7;
+
+    /**
+     * Control whether items can be removed.
+     */
+    allowItemRemoval: boolean;
+
+    /**
+     * Control whether items can be reordered.
+     */
+    allowItemReorder: boolean;
 }
 
-export class CollapsibleItemTemplate extends React.Component {
+export class CollapsibleItemTemplate extends React.Component<CollapsibleItemProps> {
     state = {
         isOpen: false,
     };
@@ -89,27 +99,34 @@ export class CollapsibleItemTemplate extends React.Component {
     }
 
     private setActions(element: HTMLLimelCollapsibleSectionElement) {
-        const { item, index } = this.props;
-        const actions: Array<Action & Runnable> = [
-            {
-                id: 'down',
-                icon: 'down_arrow',
-                disabled: !item.hasMoveDown,
-                run: item.onReorderClick(index, index + 1),
-            },
-            {
-                id: 'up',
-                icon: 'up_arrow',
-                disabled: !item.hasMoveUp,
-                run: item.onReorderClick(index, index - 1),
-            },
-            {
+        const { item, index, allowItemRemoval, allowItemReorder } = this.props;
+        const actions: Array<Action & Runnable> = [];
+
+        if (allowItemReorder) {
+            actions.push(
+                {
+                    id: 'down',
+                    icon: 'down_arrow',
+                    disabled: !item.hasMoveDown,
+                    run: item.onReorderClick(index, index + 1),
+                },
+                {
+                    id: 'up',
+                    icon: 'up_arrow',
+                    disabled: !item.hasMoveUp,
+                    run: item.onReorderClick(index, index - 1),
+                }
+            );
+        }
+
+        if (allowItemRemoval) {
+            actions.push({
                 id: 'remove',
                 icon: 'trash',
                 disabled: !item.hasRemove,
                 run: item.onDropIndexClick(index),
-            },
-        ];
+            });
+        }
 
         element.actions = actions;
     }

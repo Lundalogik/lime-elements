@@ -2561,6 +2561,8 @@ export interface LimelTextEditorLinkMenuCustomEvent<T> extends CustomEvent<T> {
 
 // @public
 export interface LimeSchemaOptions {
+    allowItemRemoval?: boolean;
+    allowItemReorder?: boolean;
     collapsed?: boolean;
     collapsible?: boolean;
     component?: FormComponentOptions;
