@@ -34,9 +34,11 @@ export class SimpleItemTemplate extends React.Component<SimpleItemProps> {
                 className: 'limel-form-array-item--simple',
             },
             this.props.item.children,
-            this.props.allowItemRemoval ? this.renderRemoveButton(item) : null,
+            this.props.allowItemReorder
+                ? this.renderMoveDownButton(item)
+                : null,
             this.props.allowItemReorder ? this.renderMoveUpButton(item) : null,
-            this.props.allowItemReorder ? this.renderMoveDownButton(item) : null
+            this.props.allowItemRemoval ? this.renderRemoveButton(item) : null
         );
     }
 
