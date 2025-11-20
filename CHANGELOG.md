@@ -1,3 +1,11 @@
+## [38.29.4](https://github.com/Lundalogik/lime-elements/compare/v38.29.3...v38.29.4) (2025-11-20)
+
+
+### Bug Fixes
+
+
+* **table:** prevent scrolling to top after selecting a row at the bottom ([1b4ddc3](https://github.com/Lundalogik/lime-elements/commit/1b4ddc3d9e7ef5de7ab6cea332875640bef580a2))
+
 ## [38.29.3](https://github.com/Lundalogik/lime-elements/compare/v38.29.2...v38.29.3) (2025-11-04)
 
 
