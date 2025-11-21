@@ -40,6 +40,7 @@
  - [limel-example-dynamic-form](examples)
  - [limel-example-file-composite](../file/examples)
  - [limel-example-form](examples)
+ - [limel-example-form-array-item-controls](examples)
  - [limel-example-form-layout](examples)
  - [limel-example-form-row-layout](examples)
  - [limel-example-form-span-fields](examples)
@@ -68,6 +69,7 @@ graph TD;
   limel-example-dynamic-form --> limel-form
   limel-example-file-composite --> limel-form
   limel-example-form --> limel-form
+  limel-example-form-array-item-controls --> limel-form
   limel-example-form-layout --> limel-form
   limel-example-form-row-layout --> limel-form
   limel-example-form-span-fields --> limel-form

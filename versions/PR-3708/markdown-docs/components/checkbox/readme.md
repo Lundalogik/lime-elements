@@ -84,6 +84,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-file-dropzone](../file-dropzone/examples)
  - [limel-example-file-input](../file-input/examples)
  - [limel-example-file-input-type-filtering](../file-input/examples)
+ - [limel-example-form-array-item-controls](../form/examples)
  - [limel-example-helper-line-animation](../helper-line/examples)
  - [limel-example-info-tile-loading](../info-tile/examples)
  - [limel-example-input-field-autocomplete](../input-field/examples)
@@ -176,6 +177,7 @@ graph TD;
   limel-example-file-dropzone --> limel-checkbox
   limel-example-file-input --> limel-checkbox
   limel-example-file-input-type-filtering --> limel-checkbox
+  limel-example-form-array-item-controls --> limel-checkbox
   limel-example-helper-line-animation --> limel-checkbox
   limel-example-info-tile-loading --> limel-checkbox
   limel-example-input-field-autocomplete --> limel-checkbox

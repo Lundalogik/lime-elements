@@ -51,15 +51,15 @@ export declare enum Color {
  */
 export declare class Zap implements Foo {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     foo: string;
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     bar?: boolean;
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     baz: (args: string) => number;
 }

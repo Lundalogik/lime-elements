@@ -175,11 +175,8 @@ function shouldExcludeSource(sourcePath, typeName) {
         console.debug(`[KOMPENDIUM:TYPEDOC] Excluding ${typeName}: from examples (${sourcePath})`);
         return true;
     }
-    // Exclude types from test files
-    if (sourcePath.includes('/test/') ||
-        sourcePath.includes('/tests/') ||
-        sourcePath.includes('.test.') ||
-        sourcePath.includes('.spec.')) {
+    // Exclude types from test files (but not fixture files used by tests)
+    if (sourcePath.includes('.test.') || sourcePath.includes('.spec.')) {
         // eslint-disable-next-line no-console
         console.debug(`[KOMPENDIUM:TYPEDOC] Excluding ${typeName}: from tests (${sourcePath})`);
         return true;
