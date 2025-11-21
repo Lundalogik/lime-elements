@@ -1,3 +1,16 @@
+## [38.30.0](https://github.com/Lundalogik/lime-elements/compare/v38.29.4...v38.30.0) (2025-11-21)
+
+
+### Features
+
+
+* **form:** allow end users to remove or reorder array items ([19545c8](https://github.com/Lundalogik/lime-elements/commit/19545c8bbaf41f496d72f59f7cafff82c5d47831))
+
+### Bug Fixes
+
+
+* **form:** sync reorder & delete button order for simple and collapsible array items ([5f8781e](https://github.com/Lundalogik/lime-elements/commit/5f8781ebcc9027d751f2cc1aff4fd09cacecb259))
+
 ## [38.29.4](https://github.com/Lundalogik/lime-elements/compare/v38.29.3...v38.29.4) (2025-11-20)
 
 
