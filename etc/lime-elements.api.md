@@ -560,6 +560,7 @@ export namespace Components {
     }
     export interface LimelMarkdown {
         "lazyLoadImages": boolean;
+        "removeEmptyParagraphs": boolean;
         "value": string;
         // @alpha
         "whitelist"?: CustomElementDefinition[];
@@ -1752,6 +1753,7 @@ export namespace JSX {
     }
     export interface LimelMarkdown {
         "lazyLoadImages"?: boolean;
+        "removeEmptyParagraphs"?: boolean;
         "value"?: string;
         // @alpha
         "whitelist"?: CustomElementDefinition[];
