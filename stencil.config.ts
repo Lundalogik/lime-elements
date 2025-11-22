@@ -21,6 +21,8 @@ export const config: Config = {
             type: 'docs-custom',
             strict: true,
             generator: kompendium({
+                // The production docs build uses the dist/types/index.d.ts file, but here we use
+                // the src/interface.ts file, to avoid circular imports caused by the example files.
                 typeRoot: './src/interface.ts',
                 guides: guides,
             }),

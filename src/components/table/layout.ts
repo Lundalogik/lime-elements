@@ -18,7 +18,7 @@ export type Layout =
  * @returns the Tabulator layout
  * @internal
  */
-export function mapLayout(layout: Layout) {
+export function _mapLayout(layout: Layout) {
     const layouts = {
         stretchLastColumn: 'fitDataStretch',
         stretchColumns: 'fitColumns',
