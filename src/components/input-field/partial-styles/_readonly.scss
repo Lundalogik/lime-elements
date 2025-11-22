@@ -1,5 +1,6 @@
 @use '../../../style/internal/z-index';
 @use '../../../style/mixins';
+@use '../../../style/internal/shared_input-select-picker';
 
 :host([type='url']),
 :host([type='urlAsText']),
