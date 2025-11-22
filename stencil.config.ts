@@ -8,7 +8,11 @@ import guides from './guides';
 export const config: Config = {
     hashFileNames: false,
     namespace: 'lime-elements',
-    plugins: [sass()],
+    plugins: [
+        sass({
+            includePaths: ['node_modules'],
+        }),
+    ],
     rollupPlugins: {
         before: [nodeResolve()],
     },
@@ -21,6 +25,8 @@ export const config: Config = {
             type: 'docs-custom',
             strict: true,
             generator: kompendium({
+                // The production docs build uses the dist/types/index.d.ts file, but here we use
+                // the src/interface.ts file, to avoid circular imports caused by the example files.
                 typeRoot: './src/interface.ts',
                 guides: guides,
             }),
@@ -50,6 +56,7 @@ export const config: Config = {
     globalStyle: 'src/global/core-styles.scss',
     testing: {
         browserArgs: ['--enable-experimental-web-platform-features'],
+        setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
         moduleNameMapper: {
             '^lodash-es$': 'lodash',
             '@rjsf/core/lib/(.*)': '@rjsf/core/dist/cjs/$1',
