@@ -1,0 +1,2 @@
+import{r as e,h as t}from"./index-BWUkXc2p.js";const r=class{constructor(t){e(this,t);this.items=[{text:"Home",link:{href:"../../../..",title:"Start"}},{text:"Products",link:{href:"../../../",title:"See all of our products"}},{text:"Phones",link:{href:"../../"}},{text:"Accessories",link:{href:"../"}},{text:"Earphones"}]}render(){return t("limel-breadcrumbs",{key:"ce99ce6391ef39c341ad38e31ccb481639f51777",items:this.items})}};export{r as limel_example_breadcrumbs_links};
+//# sourceMappingURL=limel-example-breadcrumbs-links.entry.js.map

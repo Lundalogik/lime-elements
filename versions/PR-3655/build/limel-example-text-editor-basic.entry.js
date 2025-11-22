@@ -1,0 +1,2 @@
+import{r as e,h as a}from"./index-BWUkXc2p.js";const t=class{constructor(a){e(this,a);this.handleChange=e=>{this.value=e.detail}}render(){return[a("limel-text-editor",{key:"dc36683a0c007e672606178b51e33ecb0a1afbcb",value:this.value,onChange:this.handleChange}),a("limel-example-value",{key:"cb9a832af6e79a49ace668bd1cd06d390ed63a28",value:this.value})]}};export{t as limel_example_text_editor_basic};
+//# sourceMappingURL=limel-example-text-editor-basic.entry.js.map

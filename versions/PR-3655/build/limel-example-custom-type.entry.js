@@ -1,0 +1,2 @@
+import{r as c,h as e}from"./index-BWUkXc2p.js";const s="limel-callout[type=success]{--callout-color:rgb(var(--color-green-default));--callout-text-color:rgb(var(--color-green-dark))}";const l=class{constructor(e){c(this,e)}render(){return[e("limel-callout",{key:"7ff5c969d46af28d02477ae45c79f7dace819cb3",icon:"checked",heading:"Success",type:"success"},"This is a custom type that we call success")]}};l.style=s;export{l as limel_example_custom_type};
+//# sourceMappingURL=limel-example-custom-type.entry.js.map

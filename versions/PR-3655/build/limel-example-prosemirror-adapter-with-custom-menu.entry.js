@@ -1,0 +1,2 @@
+import{r as e,h as r}from"./index-BWUkXc2p.js";const s=class{constructor(r){e(this,r);this.text="";this.handleChange=e=>{e.stopPropagation();this.text=e.detail}}render(){return[r("limel-prosemirror-adapter",{key:"7b3584d71b3c80497e9ba603922d656d5ab6690d",onChange:this.handleChange}),r("limel-example-value",{key:"218096681c4ce35fdf01a2135eb887f97312f900",value:this.text})]}};export{s as limel_example_prosemirror_adapter_with_custom_menu};
+//# sourceMappingURL=limel-example-prosemirror-adapter-with-custom-menu.entry.js.map

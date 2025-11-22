@@ -1,0 +1,2 @@
+import{r as e,h as r}from"./index-BWUkXc2p.js";const c="limel-chip{--chip-readonly-border-color:rgb(var(--color-green-default))}";const o=class{constructor(r){e(this,r)}render(){const e={name:"sent",color:"rgb(var(--color-green-default))"};return r("limel-chip",{key:"279f68c1a66c05302635a0bcc940ac0f1b2c713b",text:"Delivered",icon:e,readonly:true})}};o.style=c;export{o as limel_example_chip_readonly_border};
+//# sourceMappingURL=limel-example-chip-readonly-border.entry.js.map

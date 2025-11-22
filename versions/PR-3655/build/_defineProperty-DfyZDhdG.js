@@ -1,0 +1,2 @@
+import{g as r}from"./_getNative-DgsbF66y.js";var t=function(){try{var t=r(Object,"defineProperty");t({},"",{});return t}catch(r){}}();export{t as d};
+//# sourceMappingURL=_defineProperty-DfyZDhdG.js.map

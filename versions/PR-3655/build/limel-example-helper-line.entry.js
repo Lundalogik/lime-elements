@@ -1,0 +1,2 @@
+import{r as e,h as t}from"./index-BWUkXc2p.js";const r=class{constructor(t){e(this,t)}render(){return t("limel-helper-line",{key:"5d9a2f56c9b2a2c7dde9845dde2fb8533603f6fc",helperText:"Do not forget to forget things!",length:10,maxLength:20,helperTextId:"tf-helper-text"})}};export{r as limel_example_helper_line};
+//# sourceMappingURL=limel-example-helper-line.entry.js.map

@@ -1,0 +1,2 @@
+import{r as e,h as o}from"./index-BWUkXc2p.js";const r=class{constructor(o){e(this,o);this.onChange=e=>{this.value=e.detail}}render(){return o("limel-color-picker",{key:"810dc47f1935aa878645fcba2b1a417ca3f6f5fd",value:this.value,tooltipLabel:"Click to pick a color",helperText:"You can also type a color name or value to preview it here",label:"Chosen color",onChange:this.onChange})}};export{r as limel_example_color_picker_basic};
+//# sourceMappingURL=limel-example-color-picker-basic.entry.js.map

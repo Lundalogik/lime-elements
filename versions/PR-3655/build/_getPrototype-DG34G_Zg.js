@@ -1,0 +1,2 @@
+import{o as t}from"./_getTag-DV6QHP2A.js";var a=t(Object.getPrototypeOf,Object);export{a as g};
+//# sourceMappingURL=_getPrototype-DG34G_Zg.js.map

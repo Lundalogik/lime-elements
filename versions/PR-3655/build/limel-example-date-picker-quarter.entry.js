@@ -1,0 +1,2 @@
+import{r as e,h as a}from"./index-BWUkXc2p.js";const t=class{constructor(a){e(this,a);this.value=new Date;this.handleChange=e=>{this.value=e.detail}}render(){return a("p",{key:"44c1bbdfbf43cbb996dd450de1f5cfd8250d915c"},a("limel-date-picker",{key:"2018821e734682524ef85d75537cf31be50feace",type:"quarter",label:"quarter",value:this.value,onChange:this.handleChange}),a("limel-example-value",{key:"06f86b0f782b4510a23ddaa1406cc5d0b74401f0",value:this.value}))}};export{t as limel_example_date_picker_quarter};
+//# sourceMappingURL=limel-example-date-picker-quarter.entry.js.map

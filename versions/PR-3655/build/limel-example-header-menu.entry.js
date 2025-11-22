@@ -1,0 +1,2 @@
+import{r as e,h as s}from"./index-BWUkXc2p.js";const t=":host{line-height:0}";const i=class{constructor(s){e(this,s);this.menuOpen=true}render(){return s("limel-menu",{key:"2b228c67f284b088fc330079a590722ef9381d05",items:this.items,open:this.menuOpen},s("limel-icon",{key:"2f0378ebed2edc29fc10478809dc3d9bf6c97adc",slot:"trigger",name:this.icon,size:"x-small"}))}};i.style=t;export{i as limel_example_header_menu};
+//# sourceMappingURL=limel-example-header-menu.entry.js.map

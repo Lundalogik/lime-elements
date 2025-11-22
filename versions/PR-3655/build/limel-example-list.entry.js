@@ -1,0 +1,2 @@
+import{r as e,h as t}from"./index-BWUkXc2p.js";const a=class{constructor(t){e(this,t);this.items=[{text:"King of Tokyo",value:1},{text:"Smash Up!",value:2},{text:"Pandemic",value:3},{text:"Catan",value:4},{text:"Ticket to Ride",value:5}]}render(){return t("limel-list",{key:"5243a400624f701beccb2bb88f4e46dd084df98f",items:this.items})}};export{a as limel_example_list};
+//# sourceMappingURL=limel-example-list.entry.js.map

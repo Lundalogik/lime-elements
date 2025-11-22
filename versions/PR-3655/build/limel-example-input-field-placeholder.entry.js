@@ -1,0 +1,2 @@
+import{r as e,h as r}from"./index-BWUkXc2p.js";const t=class{constructor(r){e(this,r);this.handleChange=e=>{this.value=e.detail}}render(){return r("limel-input-field",{key:"5c9ccee452c0aac30dc9cdbb5478415938addb74",label:"Your personal identity number",placeholder:"example: 19990101-1234",helperText:"Use correct format (12 digits, and a dash after your birth date)",value:this.value,onChange:this.handleChange})}};export{t as limel_example_input_field_placeholder};
+//# sourceMappingURL=limel-example-input-field-placeholder.entry.js.map

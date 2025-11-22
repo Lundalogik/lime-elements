@@ -1,0 +1,2 @@
+import{S as r}from"./_baseGetTag-Cd9mW1Ny.js";import{i as n}from"./isArray-B8VKuhvH.js";import{i}from"./isSymbol-LuPI8hcz.js";function t(r,n){var i=-1,t=r==null?0:r.length,e=Array(t);while(++i<t){e[i]=n(r[i],i,r)}return e}var e=r?r.prototype:undefined,u=e?e.toString:undefined;function a(r){if(typeof r=="string"){return r}if(n(r)){return t(r,a)+""}if(i(r)){return u?u.call(r):""}var e=r+"";return e=="0"&&1/r==-Infinity?"-0":e}function f(r){return r==null?"":a(r)}export{t as a,f as t};
+//# sourceMappingURL=toString-B5gdhIt-.js.map

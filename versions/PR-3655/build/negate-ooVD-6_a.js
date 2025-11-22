@@ -1,0 +1,2 @@
+var t="Expected a function";function r(r){if(typeof r!="function"){throw new TypeError(t)}return function(){var t=arguments;switch(t.length){case 0:return!r.call(this);case 1:return!r.call(this,t[0]);case 2:return!r.call(this,t[0],t[1]);case 3:return!r.call(this,t[0],t[1],t[2])}return!r.apply(this,t)}}export{r as n};
+//# sourceMappingURL=negate-ooVD-6_a.js.map

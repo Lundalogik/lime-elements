@@ -1,0 +1,2 @@
+import{i as r,a as t,b as a,g as i,c as e,d as s}from"./_getTag-DV6QHP2A.js";import{i as f}from"./isArray-B8VKuhvH.js";import{i as o}from"./isArrayLike-DUr_u5zM.js";var n="[object Map]",u="[object Set]";var p=Object.prototype;var c=p.hasOwnProperty;function j(p){if(p==null){return true}if(o(p)&&(f(p)||typeof p=="string"||typeof p.splice=="function"||r(p)||t(p)||a(p))){return!p.length}var j=i(p);if(j==n||j==u){return!p.size}if(e(p)){return!s(p).length}for(var m in p){if(c.call(p,m)){return false}}return true}export{j as i};
+//# sourceMappingURL=isEmpty-BDOyLafm.js.map

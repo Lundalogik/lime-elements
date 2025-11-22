@@ -1,0 +1,2 @@
+import{i as n}from"./isFunction-C8a2KtkQ.js";var r=9007199254740991;function t(n){return typeof n=="number"&&n>-1&&n%1==0&&n<=r}function i(r){return r!=null&&t(r.length)&&!n(r)}export{t as a,i};
+//# sourceMappingURL=isArrayLike-DUr_u5zM.js.map

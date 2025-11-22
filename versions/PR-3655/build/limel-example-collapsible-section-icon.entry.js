@@ -1,0 +1,2 @@
+import{r as e,h as c}from"./index-BWUkXc2p.js";const o=class{constructor(c){e(this,c)}render(){const e={name:"ok",title:"Checkmark icon",color:"rgb(var(--color-green-default))"};return c("limel-collapsible-section",{key:"4eaf00d8b5becdca635ed43b94fe4726e2a12b9f",header:"Header",icon:e},c("p",{key:"01fe523023429cecf45a71d1d4632227b992bcaa"},"Body"))}};export{o as limel_example_collapsible_section_icon};
+//# sourceMappingURL=limel-example-collapsible-section-icon.entry.js.map

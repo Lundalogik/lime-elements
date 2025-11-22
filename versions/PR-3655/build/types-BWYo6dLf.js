@@ -1,0 +1,2 @@
+const e={Bold:"strong",Italic:"em",Blockquote:"blockquote",HeaderLevel1:"headerlevel1",HeaderLevel2:"headerlevel2",HeaderLevel3:"headerlevel3",Link:"link",OrderedList:"ordered_list",BulletList:"bullet_list",Strikethrough:"strikethrough",Code:"code",CodeBlock:"code_block"};const t=Object.values(e);const l={Heading:"heading",one:1,two:2,three:3};const o={Left:0,Middle:1,Right:2};export{e as E,l as L,o as M,t as e};
+//# sourceMappingURL=types-BWYo6dLf.js.map

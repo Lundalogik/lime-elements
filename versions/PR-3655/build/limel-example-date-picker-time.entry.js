@@ -1,0 +1,2 @@
+import{r as e,h as a}from"./index-BWUkXc2p.js";const t=class{constructor(a){e(this,a);this.value=new Date;this.handleChange=e=>{this.value=e.detail}}render(){return a("p",{key:"daa3dcffe7254fa5dfaaa52b0911a8c0b5cd46fe"},a("limel-date-picker",{key:"25d6408b016b12e24b7a216ace13afa9fa7174c7",type:"time",label:"time",value:this.value,onChange:this.handleChange}),a("limel-example-value",{key:"916ea07fcda049516f794e451c4035e08f464000",value:this.value}))}};export{t as limel_example_date_picker_time};
+//# sourceMappingURL=limel-example-date-picker-time.entry.js.map

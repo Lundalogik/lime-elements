@@ -1,0 +1,2 @@
+const s="Tab";const a="Enter";const o="Escape";const c="Space";const t="Backspace";const n="Delete";const r="ArrowUp";const e="ArrowDown";const p="ArrowLeft";const w="ArrowRight";export{r as A,t as B,n as D,a as E,c as S,s as T,o as a,e as b,p as c,w as d};
+//# sourceMappingURL=keycodes-DnYyy-Oi.js.map

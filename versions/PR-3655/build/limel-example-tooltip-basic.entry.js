@@ -1,0 +1,2 @@
+import{r as e,h as l}from"./index-BWUkXc2p.js";const a=class{constructor(l){e(this,l)}render(){return[l("limel-button",{key:"a0358196a5d20110eb6fd35f0a8936a2f80e5119",icon:"search",id:"tooltip-example"}),l("limel-tooltip",{key:"3671fc781a42924dac7eb94dbd5fa9c454e0debb",label:"Search",helperLabel:"alt + F",elementId:"tooltip-example"})]}};export{a as limel_example_tooltip_basic};
+//# sourceMappingURL=limel-example-tooltip-basic.entry.js.map

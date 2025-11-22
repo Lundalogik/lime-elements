@@ -1,0 +1,2 @@
+import{r as e,h as i}from"./index-BWUkXc2p.js";const t="limel-shortcut{width:20%}";const a=class{constructor(i){e(this,i)}render(){const e={href:"https://www.wikipedia.org/",title:"Open Wikipedia in a new tab.",target:"_blank"};return i("limel-shortcut",{key:"1bd223e1aa45440f607cbf2cbead1e79808c3cc7",icon:"wikipedia",label:"Wikipedia",link:e})}};a.style=t;export{a as limel_example_shortcut};
+//# sourceMappingURL=limel-example-shortcut.entry.js.map

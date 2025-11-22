@@ -1,0 +1,2 @@
+import{b as a}from"./_baseAssignValue-C5z9R1QQ.js";import{e}from"./eq-CZ30nDJE.js";var r=Object.prototype;var s=r.hasOwnProperty;function i(r,i,n){var o=r[i];if(!(s.call(r,i)&&e(o,n))||n===undefined&&!(i in r)){a(r,i,n)}}export{i as a};
+//# sourceMappingURL=_assignValue-CdVvTsme.js.map

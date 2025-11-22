@@ -1,0 +1,2 @@
+import{r as i,h as e}from"./index-BWUkXc2p.js";const t=class{constructor(e){i(this,e);this.handleChange=i=>{this.value=i.detail};this.onAction=()=>{console.log(`Sending email to ${this.value}`)}}render(){return e("limel-input-field",{key:"f4cdd8dd1ff6595a41428e671bfc8a4468b5b422",label:"Email address",type:"email",value:this.value,trailingIcon:"filled_message",onChange:this.handleChange,onAction:this.onAction})}};export{t as limel_example_input_field_icon_trailing};
+//# sourceMappingURL=limel-example-input-field-icon-trailing.entry.js.map

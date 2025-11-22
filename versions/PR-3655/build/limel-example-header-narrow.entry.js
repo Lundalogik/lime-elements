@@ -1,0 +1,2 @@
+import{r as e,h as r}from"./index-BWUkXc2p.js";const a=":host(limel-example-header-narrow){--header-top-right-left-border-radius:0}";const o=class{constructor(r){e(this,r)}render(){return r("limel-header",{key:"240727d4cf4e4e1eae2c145ca90f8f036dfd2d4a",class:"is-narrow",icon:{name:"ok",color:"rgb(var(--color-blue-default))"},heading:"This is a narrow header"})}};o.style=a;export{o as limel_example_header_narrow};
+//# sourceMappingURL=limel-example-header-narrow.entry.js.map
