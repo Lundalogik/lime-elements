@@ -2850,13 +2850,6 @@ export type TextEditorNode = {
     children?: Array<TextEditorNode | string>;
 };
 
-// Warning: (ae-missing-release-tag) "TextEditorPlugin" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public
-export type TextEditorPlugin = {
-    node: CustomElementDefinition[];
-};
-
 // @alpha
 export type Trigger = {
     character: TriggerCharacter;
@@ -2883,10 +2876,6 @@ export interface ValidationStatus {
     errors?: FormError[];
     valid: boolean;
 }
-
-// Warnings were encountered during analysis:
-//
-// dist/types/components/text-editor/types.d.ts:7:3 - (ae-incompatible-release-tags) The symbol "node" is marked as @public, but its signature references "CustomElementDefinition" which is marked as @alpha
 
 // (No @packageDocumentation comment for this package)
 
