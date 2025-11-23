@@ -4,18 +4,18 @@
 
 ## Properties
 
-| Property        | Attribute        | Description                                                                                                                                                                                                                                                                                                   | Type                                                                                                                                                                 | Default        |
-| --------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `items`         | `items`          | List of the items that should be rendered in the overflow menu.                                                                                                                                                                                                                                               | `(ListSeparator \| MenuItem<any>)[]`                                                                                                                                 | `undefined`    |
-| `openDirection` | `open-direction` | Defines the location that the content of the overflow menu appears, in relation to its trigger. It defaults to `bottom-end`, since in normal scenarios (for example when the action bar is not floating at the bottom of the screen) this menu is the right-most item in the user interface of the component. | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom-end'` |
-| `overFlowIcon`  | `over-flow-icon` | Icon to display in the overflow menu trigger. If not provided, the number of items in the overflow menu will be displayed.                                                                                                                                                                                    | `Icon`                                                                                                                                                               | `undefined`    |
+| Property            | Attribute    | Description                                                              | Type                                                                         | Default     |
+| ------------------- | ------------ | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------- | ----------- |
+| `isVisible`         | `is-visible` | When the item is displayed in the available width, this will be `false`. | `boolean`                                                                    | `true`      |
+| `item` _(required)_ | `item`       | Item that is placed in the action bar.                                   | `ActionBarItemOnlyIcon<any> \| ActionBarItemWithLabel<any> \| ListSeparator` | `undefined` |
+| `selected`          | `selected`   | When the item is selected, this will be `true`.                          | `boolean`                                                                    | `false`     |
 
 
 ## Events
 
-| Event    | Description                                                          | Type                                                                     |
-| -------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| `select` | Fired when an item in the action bar overflow menu has been clicked. | `CustomEvent<ActionBarItemOnlyIcon<any> \| ActionBarItemWithLabel<any>>` |
+| Event    | Description                                    | Type                                                                                      |
+| -------- | ---------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `select` | Fired when a action bar item has been clicked. | `CustomEvent<ActionBarItemOnlyIcon<any> \| ActionBarItemWithLabel<any> \| ListSeparator>` |
 
 
 ## Dependencies
@@ -27,32 +27,17 @@
 ### Depends on
 
 - [limel-icon](../../icon)
-- [limel-menu](../../menu)
+- [limel-tooltip](../../tooltip)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-action-bar-overflow-menu --> limel-icon
-  limel-action-bar-overflow-menu --> limel-menu
-  limel-menu --> limel-spinner
-  limel-menu --> limel-breadcrumbs
-  limel-menu --> limel-input-field
-  limel-menu --> limel-menu-list
-  limel-menu --> limel-badge
-  limel-menu --> limel-portal
-  limel-menu --> limel-menu-surface
-  limel-breadcrumbs --> limel-icon
-  limel-breadcrumbs --> limel-tooltip
+  limel-action-bar-item --> limel-icon
+  limel-action-bar-item --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
-  limel-input-field --> limel-helper-line
-  limel-input-field --> limel-icon
-  limel-input-field --> limel-portal
-  limel-input-field --> limel-menu-surface
-  limel-input-field --> limel-list
-  limel-input-field --> limel-notched-outline
-  limel-action-bar --> limel-action-bar-overflow-menu
-  style limel-action-bar-overflow-menu fill:#f9f,stroke:#333,stroke-width:4px
+  limel-action-bar --> limel-action-bar-item
+  style limel-action-bar-item fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

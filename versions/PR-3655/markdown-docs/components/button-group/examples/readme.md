@@ -4,14 +4,20 @@
 
 ## Overview
 
-Mixed text and icon within the same group
+Icon only
 
-Generally, you should avoid mixing text and images in button group. Although
-individual buttons can contain text or images, mixing the two in a single
-group can lead to an inconsistent and confusing interface.
+If you pick well descriptive icons, this layout will usually suffice. When
+you specify an `icon`, it will automatically be shown instead of the `title`.
+:::important
+Adding titles for buttons is compulsory. The reason is that when
+only icons are shown, titles will appear as `aria-label` for screen readers,
+as well as `title` attribute when users hover and hold their cursors on the
+buttons.
+:::
+This makes it easier for them to know what the button actually does
+or what the icon tries to indicate.
 
-However, in some case your design may benefit from having only one button in
-a different format.
+So, make sure to label your icons properly and descriptively.
 
 ## Dependencies
 
@@ -24,9 +30,9 @@ a different format.
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-button-group-mix --> limel-button-group
-  limel-example-button-group-mix --> limel-example-controls
-  limel-example-button-group-mix --> limel-checkbox
+  limel-example-button-group-icons --> limel-button-group
+  limel-example-button-group-icons --> limel-example-controls
+  limel-example-button-group-icons --> limel-checkbox
   limel-button-group --> limel-icon
   limel-button-group --> limel-tooltip
   limel-button-group --> limel-badge
@@ -35,7 +41,7 @@ graph TD;
   limel-checkbox --> limel-dynamic-label
   limel-checkbox --> limel-helper-line
   limel-dynamic-label --> limel-icon
-  style limel-example-button-group-mix fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-button-group-icons fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
