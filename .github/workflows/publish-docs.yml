@@ -67,7 +67,7 @@ jobs:
       run: npm run docs:build
 
   link-docs:
-    if: github.event_name == 'workflow_call' && inputs.buildOnly == false && inputs.linkToPR == true
+    if: inputs.buildOnly == false && inputs.linkToPR == true
     name: Post link to docs on PR
     needs: [publish-docs]
     runs-on: ubuntu-latest
