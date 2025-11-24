@@ -1,7 +1,13 @@
 /**
  * @public
  */
-export type Language = 'javascript' | 'jinja2' | 'json' | 'typescript';
+export type Language =
+    | 'css'
+    | 'html'
+    | 'javascript'
+    | 'jinja2'
+    | 'json'
+    | 'typescript';
 
 /**
  * @public
