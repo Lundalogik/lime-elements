@@ -2088,7 +2088,7 @@ export interface Label<T = LabelValue> {
 export type LabelValue = string | number | boolean | null | undefined;
 
 // @public (undocumented)
-export type Language = 'javascript' | 'jinja2' | 'json' | 'typescript';
+export type Language = 'css' | 'html' | 'javascript' | 'jinja2' | 'json' | 'typescript';
 
 // @public (undocumented)
 export type Languages = 'da' | 'de' | 'en' | 'fi' | 'fr' | 'nb' | 'no' | 'nl' | 'sv';

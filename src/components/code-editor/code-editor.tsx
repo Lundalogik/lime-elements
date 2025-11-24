@@ -10,14 +10,18 @@ import {
 } from '@stencil/core';
 import { ColorScheme, Language } from './code-editor.types';
 import CodeMirror from 'codemirror';
+import 'codemirror/mode/css/css';
+import 'codemirror/mode/htmlmixed/htmlmixed';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/jinja2/jinja2';
 import 'codemirror/addon/selection/active-line';
 import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/edit/matchtags';
 import 'codemirror/addon/lint/lint';
 import 'codemirror/addon/lint/json-lint';
 import 'codemirror/addon/fold/foldgutter';
 import 'codemirror/addon/fold/brace-fold';
+import 'codemirror/addon/fold/xml-fold';
 import jslint from 'jsonlint-mod';
 
 /**
@@ -208,6 +212,8 @@ export class CodeEditor {
                 name: 'application/typescript',
                 typescript: true,
             };
+        } else if (this.language === 'html') {
+            mode = 'htmlmixed';
         }
 
         if (this.fold) {
@@ -224,6 +230,7 @@ export class CodeEditor {
             lineNumbers: this.lineNumbers,
             styleActiveLine: true,
             matchBrackets: true,
+            matchTags: { bothTags: true },
             lint: this.lint,
             foldGutter: this.fold,
             gutters: gutters,
