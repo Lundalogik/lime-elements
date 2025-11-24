@@ -1,0 +1,2 @@
+import{r,h as e}from"./index-2714248e.js";const o=":host(limel-example-controls){display:flex;flex-wrap:wrap;gap:0.25rem 1.5rem;align-items:center;margin:1rem 0 0 0;padding:0.5rem 0.75rem;border:rgb(var(--contrast-700), 0.5) 1px dashed;border-radius:1rem;background-color:rgb(var(--contrast-500), 0.6)}";const a=class{constructor(e){r(this,e)}render(){return e("slot",null)}};a.style=o;export{a as limel_example_controls};
+//# sourceMappingURL=limel-example-controls.entry.js.map
