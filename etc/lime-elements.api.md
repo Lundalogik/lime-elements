@@ -309,6 +309,7 @@ export namespace Components {
         "fold": boolean;
         "language": Language;
         "lineNumbers": boolean;
+        "lineWrapping": boolean;
         "lint": boolean;
         "readonly": boolean;
         "value": string;
@@ -1471,6 +1472,7 @@ export namespace JSX {
         "fold"?: boolean;
         "language"?: Language;
         "lineNumbers"?: boolean;
+        "lineWrapping"?: boolean;
         "lint"?: boolean;
         "onChange"?: (event: LimelCodeEditorCustomEvent<string>) => void;
         "readonly"?: boolean;
