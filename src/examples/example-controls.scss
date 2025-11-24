@@ -4,12 +4,10 @@
  */
 
 :host(limel-example-controls) {
-    display: grid;
-    grid-template-columns: repeat(
-        var(--example-controls-column-layout, auto-fill),
-        minmax(var(--example-controls-max-columns-width, 6rem), 1fr)
-    );
-    gap: 0.25rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 0.25rem 1.5rem;
     align-items: center;
 
     margin: 1rem 0 0 0;
