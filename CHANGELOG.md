@@ -1,3 +1,12 @@
+## [38.30.1](https://github.com/Lundalogik/lime-elements/compare/v38.30.0...v38.30.1) (2025-11-24)
+
+
+### Bug Fixes
+
+
+* **form:** ensure nested heading level 6 gets its styles ([a42732e](https://github.com/Lundalogik/lime-elements/commit/a42732eebb97ea07ef4151997b303d2a5fb1a0ec))
+* **form:** improve headings styles ([eeb1d04](https://github.com/Lundalogik/lime-elements/commit/eeb1d04c54a197b00be14b218cf885f4428a475a))
+
 ## [38.30.0](https://github.com/Lundalogik/lime-elements/compare/v38.29.4...v38.30.0) (2025-11-21)
 
 
