@@ -162,6 +162,30 @@ limel-code-editor {
 
 .mdc-typography--headline1 {
     position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+    word-break: break-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    text-wrap: balance;
+
+    font-size: var(--limel-form-h1-font-size);
+    line-height: calc(var(--limel-form-h1-font-size) * 1.42857);
+    letter-spacing: -0.01rem;
+    font-weight: 500;
+}
+
+.mdc-typography--body1 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: var(--limel-theme-default-font-size);
+}
+
+p + limel-collapsible-section,
+p + .limel-form-array-item--simple,
+h1 + limel-collapsible-section,
+h1 + .limel-form-array-item--simple {
+    margin-top: 1rem;
 }
 
 .form-group {
@@ -175,35 +199,18 @@ limel-code-editor {
 
     .mdc-typography--headline1,
     .mdc-typography--body1 {
-        color: rgb(var(--contrast-1100));
+        color: rgb(var(--contrast-1400), 0.8);
     }
 
     .mdc-typography--headline1 {
-        font-size: 2rem;
-        line-height: 2.25rem;
-        letter-spacing: -0.01rem;
-        font-weight: 400;
-        margin-top: 1.5rem;
-        margin-bottom: 0.25rem;
-    }
-
-    .mdc-typography--body1 {
-        margin-top: 0;
-        margin-bottom: 0.5rem;
-        font-size: var(--limel-theme-default-font-size);
+        --limel-form-h1-font-size: 1.476rem;
+        font-weight: 800;
     }
 
     .form-group {
-        .mdc-typography--headline1,
-        .mdc-typography--body1 {
-            color: rgb(var(--contrast-1200));
-        }
-
         .mdc-typography--headline1 {
-            font-size: 1.625rem;
-            line-height: 1.25rem;
-            font-weight: 300;
-            margin-top: 1rem;
+            --limel-form-h1-font-size: 1.383rem;
+            font-weight: 700;
 
             &:before {
                 content: '';
@@ -227,15 +234,9 @@ limel-code-editor {
         }
 
         .form-group {
-            .mdc-typography--headline1,
-            .mdc-typography--body1 {
-                color: rgb(var(--contrast-1300));
-            }
-
             .mdc-typography--headline1 {
-                font-size: 1.375rem;
-                line-height: 1.5rem;
-                margin-top: 0.5rem;
+                --limel-form-h1-font-size: 1.296rem;
+                font-weight: 600;
 
                 &:before {
                     display: none;
@@ -243,15 +244,8 @@ limel-code-editor {
             }
 
             .form-group {
-                .mdc-typography--headline1,
-                .mdc-typography--body1 {
-                    color: rgb(var(--contrast-1400));
-                }
-
                 .mdc-typography--headline1 {
-                    font-size: 1.25rem;
-                    line-height: 1.25rem;
-                    margin-top: 1rem;
+                    --limel-form-h1-font-size: 1.215rem;
 
                     &:before {
                         display: none;
@@ -259,15 +253,8 @@ limel-code-editor {
                 }
             }
             .form-group {
-                .mdc-typography--headline1,
-                .mdc-typography--body1 {
-                    color: rgb(var(--contrast-1400));
-                }
-
                 .mdc-typography--headline1 {
-                    font-size: 1.25rem;
-                    line-height: 1.25rem;
-                    margin-top: 0.25rem;
+                    --limel-form-h1-font-size: 1.138rem;
 
                     &:before {
                         display: none;
@@ -275,15 +262,8 @@ limel-code-editor {
                 }
 
                 .form-group {
-                    .mdc-typography--headline1,
-                    .mdc-typography--body1 {
-                        color: rgb(var(--contrast-1400));
-                    }
-
                     .mdc-typography--headline1 {
-                        font-size: 1rem;
-                        line-height: 1rem;
-                        margin-top: 0.25rem;
+                        --limel-form-h1-font-size: 1.067rem;
 
                         &:before {
                             display: none;
