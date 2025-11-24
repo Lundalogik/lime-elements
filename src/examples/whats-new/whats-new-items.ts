@@ -26,6 +26,24 @@ export type ShowcaseItem = {
 
 export const whatsNewItems: ShowcaseItem[] = [
     {
+        componentName: 'Form',
+        heading: 'Remove and reorder',
+        description:
+            'By default, users are allowed to manipulate the array of items in by reordering them, or removing them. However, using allowItemReorder and allowItemRemoval props, you can control whether these actions are allowed.',
+        releaseDate: '2025-11-21',
+        version: '38.30.0',
+        demoTag: 'limel-example-form-array-item-controls',
+    },
+    {
+        componentName: 'Table',
+        heading: 'Disable column sorting',
+        description:
+            'To prevent sorting altogether, set the sortableColumns property on limel-table to false. If you only want to disable sorting for a specific column, set the columns headerSort property to false.',
+        releaseDate: '2025-10-30',
+        version: '38.29.0',
+        demoTag: 'limel-example-table-sorting-disabled',
+    },
+    {
         componentName: 'Color Picker',
         heading: 'Disable manual input',
         description:
