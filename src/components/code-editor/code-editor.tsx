@@ -27,7 +27,7 @@ import jslint from 'jsonlint-mod';
 /**
  * @exampleComponent limel-example-code-editor
  * @exampleComponent limel-example-code-editor-readonly-with-line-numbers
- * @exampleComponent limel-example-code-editor-fold-lint
+ * @exampleComponent limel-example-code-editor-fold-lint-wrap
  */
 @Component({
     tag: 'limel-code-editor',
@@ -58,6 +58,12 @@ export class CodeEditor {
      */
     @Prop()
     public lineNumbers: boolean = false;
+
+    /**
+     * Wraps long lines instead of showing horizontal scrollbar
+     */
+    @Prop()
+    public lineWrapping: boolean = false;
 
     /**
      * Allows the user to fold code
@@ -228,6 +234,7 @@ export class CodeEditor {
             tabSize: TAB_SIZE,
             indentUnit: TAB_SIZE,
             lineNumbers: this.lineNumbers,
+            lineWrapping: this.lineWrapping,
             styleActiveLine: true,
             matchBrackets: true,
             matchTags: { bothTags: true },
