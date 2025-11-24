@@ -251,22 +251,22 @@ h1 + .limel-form-array-item--simple {
                         display: none;
                     }
                 }
-            }
-            .form-group {
-                h1 {
-                    --limel-form-h1-font-size: 1.138rem;
-
-                    &:before {
-                        display: none;
-                    }
-                }
-
                 .form-group {
                     h1 {
-                        --limel-form-h1-font-size: 1.067rem;
+                        --limel-form-h1-font-size: 1.138rem;
 
                         &:before {
                             display: none;
+                        }
+                    }
+
+                    .form-group {
+                        h1 {
+                            --limel-form-h1-font-size: 1.067rem;
+
+                            &:before {
+                                display: none;
+                            }
                         }
                     }
                 }
