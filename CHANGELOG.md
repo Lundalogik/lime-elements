@@ -1,3 +1,12 @@
+## [38.31.0](https://github.com/Lundalogik/lime-elements/compare/v38.30.1...v38.31.0) (2025-11-25)
+
+
+### Features
+
+
+* **code-editor:** add HTML and CSS syntax highlighting support ([8f08fa1](https://github.com/Lundalogik/lime-elements/commit/8f08fa1da3d4b44c83da3c6a09cedc1043fa660b))
+* **code-editor:** add support for line wrapping when passing prop ([00c02dc](https://github.com/Lundalogik/lime-elements/commit/00c02dc2785f34a9ce6b1e106410851714090872))
+
 ## [38.30.1](https://github.com/Lundalogik/lime-elements/compare/v38.30.0...v38.30.1) (2025-11-24)
 
 
