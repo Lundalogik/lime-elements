@@ -1,0 +1,2 @@
+import{r as e,h as t}from"./index-2714248e.js";import{d as r}from"./birds-a0b078f9.js";const i=":host{--code-editor-max-height:20rem}";const o=class{constructor(t){e(this,t);this.handleChange=e=>{this.json=e.detail};this.json=JSON.stringify(r,null,"    ")}render(){return t("limel-code-editor",{value:this.json,language:"json",lineNumbers:true,lint:true,fold:true,lineWrapping:true,onChange:this.handleChange})}};o.style=i;export{o as limel_example_code_editor_fold_lint_wrap};
+//# sourceMappingURL=limel-example-code-editor-fold-lint-wrap.entry.js.map

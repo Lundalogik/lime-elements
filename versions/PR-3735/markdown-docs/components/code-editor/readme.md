@@ -31,7 +31,7 @@
 ### Used by
 
  - [limel-example-code-editor](examples)
- - [limel-example-code-editor-fold-lint](examples)
+ - [limel-example-code-editor-fold-lint-wrap](examples)
  - [limel-example-code-editor-readonly-with-line-numbers](examples)
  - [limel-example-dynamic-form](../form/examples)
 
@@ -39,7 +39,7 @@
 ```mermaid
 graph TD;
   limel-example-code-editor --> limel-code-editor
-  limel-example-code-editor-fold-lint --> limel-code-editor
+  limel-example-code-editor-fold-lint-wrap --> limel-code-editor
   limel-example-code-editor-readonly-with-line-numbers --> limel-code-editor
   limel-example-dynamic-form --> limel-code-editor
   style limel-code-editor fill:#f9f,stroke:#333,stroke-width:4px
