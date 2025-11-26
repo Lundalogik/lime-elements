@@ -29,6 +29,7 @@ optionally with a number or a text label.
  - [limel-example-badge-number](examples)
  - [limel-example-badge-string](examples)
  - [limel-info-tile](../info-tile)
+ - [limel-legend](../chart)
  - [limel-menu](../menu)
  - [limel-menu-item-meta](../list-item/menu-item-meta)
  - [limel-shortcut](../shortcut)
@@ -46,6 +47,7 @@ graph TD;
   limel-example-badge-number --> limel-badge
   limel-example-badge-string --> limel-badge
   limel-info-tile --> limel-badge
+  limel-legend --> limel-badge
   limel-menu --> limel-badge
   limel-menu-item-meta --> limel-badge
   limel-shortcut --> limel-badge

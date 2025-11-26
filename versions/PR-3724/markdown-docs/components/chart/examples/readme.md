@@ -41,7 +41,9 @@ graph TD;
   limel-example-chart-type-ring --> limel-input-field
   limel-chart --> limel-spinner
   limel-chart --> limel-badge
+  limel-chart --> limel-legend
   limel-chart --> limel-tooltip
+  limel-legend --> limel-badge
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-input-field --> limel-helper-line
