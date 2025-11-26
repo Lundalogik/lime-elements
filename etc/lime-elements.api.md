@@ -387,6 +387,11 @@ export namespace Components {
         "item": DockItem;
         "useMobileLayout"?: boolean;
     }
+    export interface LimelDragHandle {
+        "dragDirection": 'vertical' | 'horizontal';
+        "language": Languages;
+        "tooltipOpenDirection": OpenDirection;
+    }
     export interface LimelDynamicLabel {
         "defaultLabel": Omit<Label, 'value'>;
         "labels": Label[];
@@ -1194,6 +1199,8 @@ export namespace JSX {
         // (undocumented)
         "limel-dock-button": LimelDockButton;
         // (undocumented)
+        "limel-drag-handle": LimelDragHandle;
+        // (undocumented)
         "limel-dynamic-label": LimelDynamicLabel;
         // (undocumented)
         "limel-file": LimelFile;
@@ -1565,6 +1572,11 @@ export namespace JSX {
         "onItemSelected"?: (event: LimelDockButtonCustomEvent<DockItem>) => void;
         "onMenuOpen"?: (event: LimelDockButtonCustomEvent<DockItem>) => void;
         "useMobileLayout"?: boolean;
+    }
+    export interface LimelDragHandle {
+        "dragDirection"?: 'vertical' | 'horizontal';
+        "language"?: Languages;
+        "tooltipOpenDirection"?: OpenDirection;
     }
     export interface LimelDynamicLabel {
         "defaultLabel"?: Omit<Label, 'value'>;

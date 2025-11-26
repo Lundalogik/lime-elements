@@ -18,6 +18,8 @@ export default {
     'date-picker.month.heading': 'Månad',
     'date-picker.quarter.heading': 'Kvartal',
     'date-picker.year.heading': 'År',
+    'drag-handle.drag-handle': 'Draghandtag',
+    'drag-handle.drag-to-reorder': 'Dra för att ändra ordning',
     'chip-set.clear-all': 'Rensa alla',
     'snackbar.dismiss': 'Stäng',
     'file.drag-and-drop-tips':

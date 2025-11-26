@@ -18,6 +18,8 @@ export default {
     'date-picker.month.heading': 'Monat',
     'date-picker.quarter.heading': 'Quartal',
     'date-picker.year.heading': 'Jahr',
+    'drag-handle.drag-handle': 'Ziehgriff',
+    'drag-handle.drag-to-reorder': 'Zum Neuordnen ziehen',
     'chip-set.clear-all': 'Alles löschen',
     'snackbar.dismiss': 'Schließen',
     'file.drag-and-drop-tips':
