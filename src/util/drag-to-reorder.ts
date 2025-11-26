@@ -46,6 +46,8 @@ export interface DragToReorderOptions {
     dropElevationClass?: string;
     /** Duration in milliseconds before removing the drop elevation class (defaults to 1000ms). */
     dropElevationDuration?: number;
+    /** Axis used to calculate the new drop position. Defaults to `vertical`. */
+    orientation?: 'vertical' | 'horizontal';
     getItemId?: (item: HTMLElement) => string | undefined;
     onStart?: (detail: DragToReorderStartDetail) => void;
     onPreview: (detail: DragToReorderPreviewDetail) => void;
@@ -69,6 +71,8 @@ const DEFAULT_DRAGGING_CLASS = 'is-being-dragged';
 const DEFAULT_CONTAINER_CLASS = 'has-an-item-which-is-being-dragged';
 const DEFAULT_DROP_ELEVATION_CLASS = 'is-elevated';
 const DEFAULT_DROP_ELEVATION_DURATION = 1000;
+const DEFAULT_ORIENTATION: Required<DragToReorderOptions>['orientation'] =
+    'vertical';
 
 /**
  * Drag to reorder utility
@@ -85,9 +89,9 @@ const DEFAULT_DROP_ELEVATION_DURATION = 1000;
  *   drag handles within them. This allows consumers to define complex item structures
  *   with specific drag handles (e.g. an icon button) without requiring extra markup
  *   or event listeners.
- * - It assumes items are stacked vertically. The drop target is derived from the
- *   pointer's Y position relative to each element's midpoint, so horizontal
- *   arrangements are not currently supported.
+ * - By default items are treated as a vertical list (drop target is derived from
+ *   the pointer's Y position). Set `orientation: 'horizontal'` to track X
+ *   positions instead when working with horizontally arranged items.
  * - A CSS class (defaults to `is-being-dragged`) is applied to the active item. Consumers
  *   should style this class inside their component Shadow DOM (e.g. add elevation) to
  *   communicate movement. The container simultaneously receives `has-an-item-which-is-being-dragged`
@@ -148,6 +152,7 @@ export function dragToReorder(
         options.dropElevationClass || DEFAULT_DROP_ELEVATION_CLASS;
     const dropElevationDuration =
         options.dropElevationDuration ?? DEFAULT_DROP_ELEVATION_DURATION;
+    const orientation = options.orientation ?? DEFAULT_ORIENTATION;
     const getItemId =
         options.getItemId ||
         ((item: HTMLElement) => item.dataset.reorderId || undefined);
@@ -251,14 +256,18 @@ export function dragToReorder(
             return;
         }
 
-        const pointerY = event.clientY;
+        const pointerPosition =
+            orientation === 'vertical' ? event.clientY : event.clientX;
         let targetIndex = items.length - 1;
 
         let index = 0;
         for (const element of items) {
             const rect = element.getBoundingClientRect();
-            const threshold = rect.top + rect.height / 2;
-            if (pointerY < threshold) {
+            const threshold =
+                orientation === 'vertical'
+                    ? rect.top + rect.height / 2
+                    : rect.left + rect.width / 2;
+            if (pointerPosition < threshold) {
                 targetIndex = index;
                 break;
             }

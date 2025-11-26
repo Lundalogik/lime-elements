@@ -609,6 +609,54 @@ $clickable-normal-state-transitions: (
 }
 
 /**
+ * Drag to reorder mixins
+ */
+@mixin is-draggable-item(
+    $is-elevated-z-index: 1,
+    $border-radius-while-being-dragged: 0.5rem,
+    $transform-scale-while-being-dragged: 1.02
+) {
+    transition:
+        opacity 0.2s ease,
+        transform 0.4s ease,
+        box-shadow 0.4s ease,
+        border-radius 0.2s ease,
+        background-color 0.2s ease;
+
+    &:has(limel-drag-handle:hover),
+    &:has(limel-drag-handle:focus-within),
+    &.is-elevated,
+    &.is-being-dragged {
+        will-change: transform, box-shadow, border-radius, background-color;
+    }
+
+    &.is-elevated {
+        // This class is applied by `drag-to-reorder.ts` to draggable items
+        // and removed 1 second after the item is dropped.
+        // Keeping the z-index high for a while allows the `box-shadow` to
+        // gracefully fade out.
+        z-index: $is-elevated-z-index;
+    }
+
+    &.is-being-dragged,
+    &:has(limel-drag-handle:focus-within) {
+        transition:
+            opacity 0.2s ease,
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            border-radius 0.2s ease,
+            background-color 0.2s ease;
+
+        border-radius: $border-radius-while-being-dragged;
+        transform: scale($transform-scale-while-being-dragged);
+        background-color: rgb(var(--contrast-100));
+        box-shadow:
+            var(--shadow-depth-64),
+            0 0.65rem 0.75rem -0.425rem rgb(var(--color-black), 0.3);
+    }
+}
+
+/**
  * The breakpoints below are used to create responsive designs
  * in Lime's products. Therefore, they are here to get distributed
  * to all components in other private repos, which rely on this `mixins`
