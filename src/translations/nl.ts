@@ -18,6 +18,8 @@ export default {
     'date-picker.month.heading': 'Maand',
     'date-picker.quarter.heading': 'Kwartaal',
     'date-picker.year.heading': 'Jaar',
+    'drag-handle.drag-handle': 'Sleepgreep',
+    'drag-handle.drag-to-reorder': 'Slepen om opnieuw te ordenen',
     'chip-set.clear-all': 'Alles wissen',
     'snackbar.dismiss': 'Sluiten',
     'file.drag-and-drop-tips':
