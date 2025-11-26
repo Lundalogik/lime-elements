@@ -609,6 +609,59 @@ $clickable-normal-state-transitions: (
 }
 
 /**
+ * Drag to reorder mixins
+ */
+@mixin is-draggable-item(
+    $border-radius-while-being-dragged: 0.5rem,
+    $transform-scale-while-being-dragged: 1.01
+) {
+    // Note: Since SortableJS add `transitions`s in real-time as styles,
+    // we cannot define `transition` properties here,
+
+    &:has(limel-drag-handle:hover),
+    &:has(limel-drag-handle:focus-within),
+    &.is-elevated,
+    &.sortable-chosen // this class is added by SortableJS, when item is being dragged
+    {
+        will-change: transform, box-shadow, border-radius, background-color;
+    }
+
+    &.sortable-ghost {
+        border-radius: $border-radius-while-being-dragged;
+        box-shadow:
+            var(--shadow-depth-64),
+            0 0.65rem 0.75rem -0.425rem rgb(var(--color-black), 0.3);
+    }
+
+    &.sortable-chosen {
+        border-radius: $border-radius-while-being-dragged;
+        background-color: var(--lime-elevated-surface-background-color);
+    }
+
+    &.is-elevated[draggable='false'] {
+        // Components must add this `is-elevated` class on their own,
+        // the moment the item is dropped and keep it around briefly
+        // so visual transitions (box-shadow, etc.) can fade
+        // out without being clipped by neighboring content.
+        animation: sit-here 0.8s forwards;
+    }
+
+    @keyframes sit-here {
+        0% {
+            border-radius: $border-radius-while-being-dragged;
+            background-color: var(--lime-elevated-surface-background-color);
+            box-shadow:
+                var(--shadow-depth-64),
+                0 0.65rem 0.75rem -0.425rem rgb(var(--color-black), 0.3);
+        }
+
+        100% {
+            box-shadow: none;
+        }
+    }
+}
+
+/**
  * The breakpoints below are used to create responsive designs
  * in Lime's products. Therefore, they are here to get distributed
  * to all components in other private repos, which rely on this `mixins`
