@@ -282,54 +282,28 @@ export class Chart {
         }
 
         return (
-            <div class="legend">
-                <div class="legend-content">
-                    {items.map((item) => {
-                        const isHidden = this.hiddenItems.has(item.text);
-                        return (
-                            <div
-                                class={{
-                                    'legend-item': true,
-                                    'legend-item--hidden': isHidden,
-                                }}
-                                key={item.text}
-                                onClick={() => this.handleLegendClick(item)}
-                            >
-                                <limel-badge
-                                    style={{
-                                        '--badge-background-color': item.color,
-                                        cursor: 'pointer',
-                                        opacity: isHidden ? '0.6' : '1',
-                                    }}
-                                />
-                                <span
-                                    style={{ opacity: isHidden ? '0.6' : '1' }}
-                                >
-                                    {this.getItemText(item)}
-                                </span>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
+            <limel-legend
+                items={items}
+                hiddenItems={this.hiddenItems}
+                getItemText={this.getItemText}
+                onLegendClick={(event: CustomEvent<ChartItem>) =>
+                    this.handleLegendClick(event.detail)
+                }
+            />
         );
     }
 
-    private handleLegendClick = (item: ChartItem) => {
+    private handleLegendClick(item: ChartItem) {
         const updatedHiddenItems = new Set(this.hiddenItems);
-
         if (updatedHiddenItems.has(item.text)) {
             updatedHiddenItems.delete(item.text);
         } else {
             updatedHiddenItems.add(item.text);
         }
-
         this.hiddenItems = updatedHiddenItems;
-
-        // Force recalculation of range when visibility changes
         this.range = null;
         this.recalculateRangeData();
-    };
+    }
 
     private getItemStyle(
         item: ChartItem,
