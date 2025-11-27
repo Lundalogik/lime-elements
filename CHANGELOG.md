@@ -1,3 +1,11 @@
+## [38.31.1](https://github.com/Lundalogik/lime-elements/compare/v38.31.0...v38.31.1) (2025-11-27)
+
+
+### Bug Fixes
+
+
+* **collapsible-section:** prevent nested sections to remain open after collapsing ([7e8b4cb](https://github.com/Lundalogik/lime-elements/commit/7e8b4cb75e6522c8b57d25bf615105e818363b21))
+
 ## [38.31.0](https://github.com/Lundalogik/lime-elements/compare/v38.30.1...v38.31.0) (2025-11-25)
 
 
