@@ -151,29 +151,35 @@ limel-icon {
 // This animates height of the body,
 // from `0` to `auto`
 .body {
+    // All below vars are for internal use only!
+    --limel-cs-opacity-transition-speed: 0.1s;
+    --limel-cs-opacity-transition-delay: 0s;
+    --limel-cs-grid-template-rows-transition-speed: 0.3s;
     transition: grid-template-rows
-        var(--limel-cs-grid-template-rows-transition-speed, 0.3s)
+        var(--limel-cs-grid-template-rows-transition-speed)
         cubic-bezier(1, 0.09, 0, 0.89);
     display: grid;
-    grid-template-rows: var(--limel-cs-grid-template-rows, 0fr);
+    grid-template-rows: 0fr;
 
     slot {
-        transition: opacity var(--limel-cs-opacity-transition-speed, 0.1s) ease
-            var(--limel-cs-opacity-transition-delay, 0s);
+        transition: opacity var(--limel-cs-opacity-transition-speed) ease
+            var(--limel-cs-opacity-transition-delay);
         display: block;
         overflow: hidden;
         opacity: 0;
     }
 }
 
-:host(limel-collapsible-section[is-open]) {
-    --limel-cs-opacity-transition-speed: 0.4s;
-    --limel-cs-opacity-transition-delay: 0.3s;
-    --limel-cs-grid-template-rows-transition-speed: 0.46s;
-    --limel-cs-grid-template-rows: 1fr;
+section.open {
+    .body {
+        --limel-cs-opacity-transition-speed: 0.4s;
+        --limel-cs-opacity-transition-delay: 0.3s;
+        --limel-cs-grid-template-rows-transition-speed: 0.46s;
+        grid-template-rows: 1fr;
 
-    slot {
-        opacity: 1;
+        slot {
+            opacity: 1;
+        }
     }
 }
 
