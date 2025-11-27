@@ -8,6 +8,9 @@
 ## Overview
 
 Horizontal drag handle
+This example shows how to use the drag handle component
+along with the drag-to-reorder utility function,
+in a horizontal drag-and-drop setup.
 
 ## Dependencies
 
