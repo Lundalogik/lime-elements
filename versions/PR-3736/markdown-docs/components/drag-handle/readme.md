@@ -39,6 +39,7 @@ design conventions.
 ### Used by
 
  - [limel-example-drag-handle-basic](examples)
+ - [limel-example-drag-handle-horizontal](examples)
 
 ### Depends on
 
@@ -51,6 +52,7 @@ graph TD;
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-example-drag-handle-basic --> limel-drag-handle
+  limel-example-drag-handle-horizontal --> limel-drag-handle
   style limel-drag-handle fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

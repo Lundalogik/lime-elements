@@ -1,4 +1,4 @@
-# limel-example-drag-handle-basic
+# limel-example-drag-handle-horizontal
 
 
 
@@ -7,24 +7,51 @@
 
 ## Overview
 
-Basic example
-The component is designed to be working both by mouse, pointer devices, and touch.
-However, to ensure accessibility, it also provides keyboard support.
+Horizontal drag handle
 
 ## Dependencies
 
 ### Depends on
 
+- [limel-card](../../card)
 - [limel-drag-handle](..)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-drag-handle-basic --> limel-drag-handle
-  limel-drag-handle --> limel-tooltip
+  limel-example-drag-handle-horizontal --> limel-card
+  limel-example-drag-handle-horizontal --> limel-drag-handle
+  limel-card --> limel-3d-hover-effect-glow
+  limel-card --> limel-icon
+  limel-card --> limel-markdown
+  limel-card --> limel-action-bar
+  limel-action-bar --> limel-action-bar-item
+  limel-action-bar --> limel-action-bar-overflow-menu
+  limel-action-bar --> limel-icon
+  limel-action-bar --> limel-tooltip
+  limel-action-bar-item --> limel-icon
+  limel-action-bar-item --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
-  style limel-example-drag-handle-basic fill:#f9f,stroke:#333,stroke-width:4px
+  limel-action-bar-overflow-menu --> limel-icon
+  limel-action-bar-overflow-menu --> limel-menu
+  limel-menu --> limel-spinner
+  limel-menu --> limel-breadcrumbs
+  limel-menu --> limel-input-field
+  limel-menu --> limel-menu-list
+  limel-menu --> limel-badge
+  limel-menu --> limel-portal
+  limel-menu --> limel-menu-surface
+  limel-breadcrumbs --> limel-icon
+  limel-breadcrumbs --> limel-tooltip
+  limel-input-field --> limel-helper-line
+  limel-input-field --> limel-icon
+  limel-input-field --> limel-portal
+  limel-input-field --> limel-menu-surface
+  limel-input-field --> limel-list
+  limel-input-field --> limel-notched-outline
+  limel-drag-handle --> limel-tooltip
+  style limel-example-drag-handle-horizontal fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

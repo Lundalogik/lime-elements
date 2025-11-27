@@ -43,6 +43,7 @@ as an image or an icon, a body of text, or optional actions.
  - [limel-example-card-orientation](examples)
  - [limel-example-card-slot](examples)
  - [limel-example-card-styling](examples)
+ - [limel-example-drag-handle-horizontal](../drag-handle/examples)
  - [limel-example-popover-styling](../popover/examples)
 
 ### Depends on
@@ -91,6 +92,7 @@ graph TD;
   limel-example-card-orientation --> limel-card
   limel-example-card-slot --> limel-card
   limel-example-card-styling --> limel-card
+  limel-example-drag-handle-horizontal --> limel-card
   limel-example-popover-styling --> limel-card
   style limel-card fill:#f9f,stroke:#333,stroke-width:4px
 ```
