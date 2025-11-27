@@ -23,6 +23,7 @@ import { OpenDirection } from '../menu/menu.types';
  * :::
  *
  * @exampleComponent limel-example-drag-handle-basic
+ * @exampleComponent limel-example-drag-handle-horizontal
  *
  * @private
  */
