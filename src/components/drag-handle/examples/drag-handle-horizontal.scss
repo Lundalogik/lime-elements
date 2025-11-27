@@ -1,0 +1,30 @@
+@use '../../../style/mixins.scss';
+
+:host {
+    display: block;
+}
+
+div {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+
+    &.has-an-item-which-is-being-dragged {
+        limel-card {
+            &:not(.is-being-dragged) {
+                opacity: 0.5;
+            }
+        }
+    }
+}
+
+limel-drag-handle {
+    margin-left: auto;
+}
+
+limel-card {
+    @include mixins.is-draggable-item(
+        $border-radius-while-being-dragged: 0.95rem
+    );
+}
