@@ -152,16 +152,26 @@ limel-icon {
 // from `0` to `auto`
 .body {
     transition: grid-template-rows
-        var(--limel-cs-grid-template-rows-transition-speed, 0.3s)
+        var(--limel-cs-grid-template-rows-transition-speed)
         cubic-bezier(1, 0.09, 0, 0.89);
     display: grid;
-    grid-template-rows: var(--limel-cs-grid-template-rows, 0fr);
+    grid-template-rows: var(--limel-cs-grid-template-rows);
 
     slot {
-        transition: opacity var(--limel-cs-opacity-transition-speed, 0.1s) ease
-            var(--limel-cs-opacity-transition-delay, 0s);
+        transition: opacity var(--limel-cs-opacity-transition-speed) ease
+            var(--limel-cs-opacity-transition-delay);
         display: block;
         overflow: hidden;
+    }
+}
+
+:host(limel-collapsible-section:not([is-open])) {
+    --limel-cs-opacity-transition-speed: 0.1s;
+    --limel-cs-opacity-transition-delay: 0s;
+    --limel-cs-grid-template-rows-transition-speed: 0.3s;
+    --limel-cs-grid-template-rows: 0fr;
+
+    slot {
         opacity: 0;
     }
 }
