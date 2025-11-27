@@ -59,6 +59,13 @@ table {
     }
 }
 
+.column-title {
+    @include mixins.truncate-text;
+    position: absolute;
+    top: -1.5rem;
+    max-width: 100%;
+}
+
 *,
 *:before,
 *:after {

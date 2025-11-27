@@ -16,6 +16,7 @@ const DEFAULT_INCREMENT_SIZE = 10;
  * @exampleComponent limel-example-chart-orientation
  * @exampleComponent limel-example-chart-max-value
  * @exampleComponent limel-example-chart-type-bar
+ * @exampleComponent limel-example-chart-column-titles
  * @exampleComponent limel-example-chart-type-dot
  * @exampleComponent limel-example-chart-type-area
  * @exampleComponent limel-example-chart-type-line
@@ -110,6 +111,13 @@ export class Chart {
      */
     @Prop({ reflect: true })
     public loading: boolean = false;
+
+    /**
+     * When set to `true`, displays column titles for bar charts.
+     * By default, column titles are not rendered.
+     */
+    @Prop({ reflect: true })
+    public showColumnTitles: boolean = false;
 
     private range: {
         minValue: number;
@@ -237,7 +245,7 @@ export class Chart {
                 >
                     <th>{this.getItemText(item)}</th>
                     <td>{this.getFormattedValue(item)}</td>
-                    {this.renderTooltip(item, itemId, size)}
+                    {this.renderItemLabel(item, itemId, size)}
                 </tr>
             );
         });
@@ -322,7 +330,7 @@ export class Chart {
         return item.text;
     }
 
-    private renderTooltip(item: ChartItem, itemId: string, size: number) {
+    private renderItemLabel(item: ChartItem, itemId: string, size: number) {
         const text = this.getItemText(item);
         const PERCENT_DECIMAL = 2;
         const formattedValue = this.getFormattedValue(item);
@@ -337,7 +345,7 @@ export class Chart {
             tooltipProps.label = `${text} (${size.toFixed(PERCENT_DECIMAL)}%)`;
         }
 
-        return (
+        const tooltip = (
             <limel-tooltip
                 {...tooltipProps}
                 openDirection={
@@ -345,6 +353,16 @@ export class Chart {
                 }
             />
         );
+
+        if (
+            this.showColumnTitles &&
+            this.orientation === 'landscape' &&
+            this.type === 'bar'
+        ) {
+            return [<div class="column-title">{text}</div>, tooltip];
+        }
+
+        return tooltip;
     }
 
     private calculateRange() {
