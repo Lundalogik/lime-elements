@@ -1,0 +1,72 @@
+@use '../../style/mixins';
+
+limel-drag-handle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button.limel-drag-handle {
+    all: unset;
+    @include mixins.visualize-keyboard-focus();
+    @include mixins.is-flat-clickable(
+        $color--hovered: var(--mdc-theme-primary),
+        $background-color--hovered: transparent
+    );
+
+    touch-action: none;
+    cursor: grab;
+
+    &:active {
+        cursor: grabbing;
+    }
+
+    &:active,
+    &:hover {
+        box-shadow: none !important; // override is-flat-clickable styles
+    }
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 0.4rem; // like `limel-button`
+
+    padding: 0.5rem;
+    max-height: 2.25rem;
+    max-width: 2.25rem;
+
+    color: rgb(var(--contrast-900));
+
+    .drag-icon {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0.2rem;
+
+        limel-drag-handle[drag-direction='horizontal'] & {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        div {
+            transition:
+                transform 0.2s ease,
+                background-color 0.2s ease;
+            height: 0.125rem;
+            width: 0.125rem;
+            border-radius: 1rem;
+            background-color: currentColor;
+            transform: scale(1);
+        }
+    }
+}
+
+.is-being-dragged button.limel-drag-handle,
+button.limel-drag-handle:active,
+button.limel-drag-handle:focus,
+button.limel-drag-handle:hover,
+button.limel-drag-handle:focus-visible {
+    .drag-icon div {
+        background-color: var(--mdc-theme-primary);
+        transform: scale(1.5);
+    }
+}

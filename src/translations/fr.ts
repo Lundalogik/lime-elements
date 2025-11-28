@@ -18,6 +18,8 @@ export default {
     'date-picker.month.heading': 'Mois',
     'date-picker.quarter.heading': 'Trimestre',
     'date-picker.year.heading': 'Année',
+    'drag-handle.drag-handle': 'Poignée de déplacement',
+    'drag-handle.drag-to-reorder': 'Glissez pour réorganiser',
     'chip-set.clear-all': 'Tout effacer',
     'snackbar.dismiss': 'Fermer',
     'file.drag-and-drop-tips':
