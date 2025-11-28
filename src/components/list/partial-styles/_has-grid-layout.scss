@@ -1,3 +1,5 @@
+@use '../../../style/functions';
+
 :host(.has-grid-layout) {
     --gap: var(--list-grid-gap, 0.5rem);
     padding: var(--gap);

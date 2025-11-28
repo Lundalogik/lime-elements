@@ -182,7 +182,16 @@ function build() {
         shell.exit(1);
     }
 
-    if (shell.exec('npm run docs:build').code !== 0) {
+    // Run production build first to create dist/types/index.d.ts
+    if (shell.exec('npm run build').code !== 0) {
+        shell.echo('build failed!');
+        teardown();
+        shell.exit(1);
+    }
+
+    // Run docs build twice to ensure no type errors.
+    // (Known bug in Stencil, see https://github.com/stenciljs/core/issues/3534)
+    if (shell.exec('npm run docs:build && npm run docs:build').code !== 0) {
         shell.echo('docs:build failed!');
         teardown();
         shell.exit(1);
@@ -226,9 +235,13 @@ function copyBuildOutput() {
         shell.exit(1);
     }
 
+    // Copy kompendium.json from .kompendium directory (stable location)
     if (
-        shell.cp('-R', 'www/kompendium.json', `docsDist/versions/${version}`)
-            .code !== 0
+        shell.cp(
+            '-R',
+            '.kompendium/kompendium.json',
+            `docsDist/versions/${version}`
+        ).code !== 0
     ) {
         shell.echo('copying kompendium.json failed!');
         teardown();
