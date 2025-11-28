@@ -25,6 +25,7 @@ each data point, in comparison to others.
 | `orientation`          | `orientation`            | Defines whether the chart is intended to be displayed wide or tall. Does not have any effect on chart types which generate circular forms.                                                                    | `"landscape" \| "portrait"`                                                                     | `'landscape'`   |
 | `showColumnTitles`     | `show-column-titles`     | When set to `true`, displays column titles for bar charts. By default, column titles are not rendered.                                                                                                        | `boolean`                                                                                       | `false`         |
 | `type`                 | `type`                   | Defines how items are visualized in the chart.                                                                                                                                                                | `"area" \| "bar" \| "dot" \| "doughnut" \| "line" \| "nps" \| "pie" \| "ring" \| "stacked-bar"` | `'stacked-bar'` |
+| `xAxisLabel`           | `x-axis-label`           | Label for the horizontal axis (X-axis).                                                                                                                                                                       | `string`                                                                                        | `undefined`     |
 
 
 ## Events
