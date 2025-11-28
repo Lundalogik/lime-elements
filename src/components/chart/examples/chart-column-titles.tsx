@@ -30,6 +30,7 @@ export class ChartColumnTitlesExample {
                     items={chartItems}
                     orientation="landscape"
                     showColumnTitles={this.showColumnTitles}
+                    xAxisLabel="Months"
                     maxValue={100}
                 />
                 <limel-example-controls>

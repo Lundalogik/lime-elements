@@ -119,6 +119,12 @@ export class Chart {
     @Prop({ reflect: true })
     public showColumnTitles: boolean = false;
 
+    /**
+     * Label for the horizontal axis (X-axis).
+     */
+    @Prop({ reflect: true })
+    public xAxisLabel?: string;
+
     private range: {
         minValue: number;
         maxValue: number;
@@ -140,7 +146,7 @@ export class Chart {
             return <limel-spinner limeBranded={false} />;
         }
 
-        return (
+        return [
             <table
                 aria-busy={this.loading ? 'true' : 'false'}
                 aria-live="polite"
@@ -153,8 +159,17 @@ export class Chart {
                 {this.renderTableHeader()}
                 {this.renderAxises()}
                 <tbody class="chart">{this.renderItems()}</tbody>
-            </table>
-        );
+            </table>,
+            this.renderXAxisLabel(),
+        ];
+    }
+
+    private renderXAxisLabel() {
+        if (!this.xAxisLabel) {
+            return;
+        }
+
+        return <div>{this.xAxisLabel}</div>;
     }
 
     private renderCaption() {
