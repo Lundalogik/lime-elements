@@ -1,5 +1,5 @@
 import { h } from "@stencil/core";
-import { getHashPath } from "./router-utils";
+import { getHashPath } from "./route-matching";
 /**
  * Custom route switch component for Kompendium
  * Manages navigation state and passes current path to child routes
@@ -30,7 +30,7 @@ export class KompendiumRouteSwitch {
         // Simply render child routes
         // The @State currentPath will trigger re-render when hash changes
         // Each route component will re-render and check if it matches
-        return h("slot", { key: 'd77031183781edcfd2f4dae9604156a052bbe7f0' });
+        return h("slot", { key: 'ae22e3681abcaa480b5d58dc87e903583c2f7b36' });
     }
     static get is() { return "kompendium-route-switch"; }
     static get properties() {

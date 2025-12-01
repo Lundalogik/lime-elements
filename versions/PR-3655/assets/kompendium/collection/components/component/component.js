@@ -41,7 +41,7 @@ export class KompendiumComponent {
     render() {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
-        return (h("article", { key: 'f510c752eaa4f511f9067bb457195cab303f4874', class: "component" }, h("section", { key: '2b044b4fcff3b5a1d2e83e4c9d3d538ccbd134f8', class: "docs" }, this.renderDocs(tag, component))));
+        return (h("article", { key: '25c0da9ed6bd380bab2c45dd05ad451f829c2067', class: "component" }, h("section", { key: '029617283bc0aaf08ae97e0efe8ce8c09037fe6a', class: "docs" }, this.renderDocs(tag, component))));
     }
     renderDocs(tag, component) {
         let title = tag.split('-').slice(1).join(' ');
@@ -142,8 +142,8 @@ export class KompendiumComponent {
                     "references": {
                         "MatchResults": {
                             "location": "import",
-                            "path": "../router/router-utils",
-                            "id": "src/components/router/router-utils.ts::MatchResults"
+                            "path": "../router/route-matching",
+                            "id": "src/components/router/route-matching.ts::MatchResults"
                         }
                     }
                 },

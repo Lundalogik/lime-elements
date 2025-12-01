@@ -54,9 +54,9 @@ export class App {
         if (!this.data) {
             return (h("div", { class: "loading-screen" }, h("div", { class: "loading-screen-icon" }), h("div", { class: "loading-screen-text" }, "Loading...")));
         }
-        return (h("div", { class: "kompendium-body" }, h("kompendium-navigation", { menu: this.data.menu, header: this.data.title, logo: this.data.logo, index: this.index }), h("main", { role: "main" }, h("kompendium-router", { historyType: "hash" }, h("kompendium-route-switch", { scrollTopOffset: 0 }, h("kompendium-route", { url: "/", component: "kompendium-markdown", componentProps: {
+        return (h("div", { class: "kompendium-body" }, h("kompendium-navigation", { menu: this.data.menu, header: this.data.title, logo: this.data.logo, index: this.index }), h("main", { role: "main" }, h("kompendium-router", null, h("kompendium-route-switch", { scrollTopOffset: 0 }, h("kompendium-route", { url: "/", component: "kompendium-markdown", componentProps: {
                 text: this.data.readme,
-            }, exact: true }), h("kompendium-route", { url: "/component/:name/:section?", component: "kompendium-component", componentProps: {
+            } }), h("kompendium-route", { url: "/component/:name/:section?", component: "kompendium-component", componentProps: {
                 docs: this.data.docs,
                 schemas: this.data.schemas,
                 examplePropsFactory: this.examplePropsFactory,

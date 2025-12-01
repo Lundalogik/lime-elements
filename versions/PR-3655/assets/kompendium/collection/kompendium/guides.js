@@ -1,5 +1,5 @@
 import { basename, dirname, resolve } from "path";
-import { readFile } from "./filesystem";
+import { readFile } from "fs/promises";
 export async function findGuides(config) {
     const nodes = config.guides.map(createMenuNode('/')).flat();
     const promises = nodes.map(createGuide);
@@ -16,7 +16,7 @@ export const createMenuNode = (path) => (guide) => {
     };
 };
 export const createGuide = async ({ menupath: path, filepath, }) => {
-    const content = await readFile(filepath);
+    const content = await readFile(filepath, 'utf8');
     return {
         dirPath: dirname(filepath),
         fileName: basename(filepath),

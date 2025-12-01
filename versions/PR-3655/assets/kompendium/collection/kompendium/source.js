@@ -1,4 +1,4 @@
-import { readFile } from "./filesystem";
+import { readFile } from "fs/promises";
 import { extname, join } from "path";
 export async function addSources(docs) {
     var _a;
@@ -16,7 +16,7 @@ export async function addComponentSources(component) {
     };
 }
 export async function getSources(component) {
-    const source = await readFile(component.filePath);
+    const source = await readFile(component.filePath, 'utf8');
     const styleNames = getStyleFiles(source);
     const styles = await Promise.all(styleNames.map(getStyle(component.dirPath)));
     const links = await getLinkedSourceFiles(component);
@@ -46,7 +46,7 @@ export function getStyleFiles(source) {
     return result;
 }
 const getStyle = (path) => async (name) => {
-    const source = await readFile([path, name].join('/'));
+    const source = await readFile([path, name].join('/'), 'utf8');
     return {
         filename: name,
         type: 'scss',
@@ -67,7 +67,7 @@ async function getLinkedSourceFiles(component) {
 const getLink = (component) => async (tag) => {
     let source;
     try {
-        source = await readFile(join(component.dirPath, tag.text));
+        source = await readFile(join(component.dirPath, tag.text), 'utf8');
     }
     catch (_a) {
         source = `File ${tag.text} not found`;

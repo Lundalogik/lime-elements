@@ -29,13 +29,9 @@ export function parseFile(filename, tsconfig) {
     const project = app.convert();
     if (!project) {
         // eslint-disable-next-line no-console
-        console.error('[KOMPENDIUM:TYPEDOC] Could not convert TypeDoc project from:', filename);
-        // eslint-disable-next-line no-console
         console.warn('Could not find any type information');
         return [];
     }
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM:TYPEDOC] Successfully converted project from:', filename);
     const data = [];
     // TypeDoc 0.23.28 traverse() only visits top-level exports from entry points.
     // For files with re-exports (like dist/types/index.d.ts that re-exports from
@@ -45,31 +41,11 @@ export function parseFile(filename, tsconfig) {
     const allClasses = project.getReflectionsByKind(ReflectionKind.Class);
     const allTypeAliases = project.getReflectionsByKind(ReflectionKind.TypeAlias);
     const allEnums = project.getReflectionsByKind(ReflectionKind.Enum);
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM:TYPEDOC] Found reflections (before filtering):');
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM:TYPEDOC]   interfaces:', allInterfaces.length);
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM:TYPEDOC]   classes:', allClasses.length);
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM:TYPEDOC]   typeAliases:', allTypeAliases.length);
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM:TYPEDOC]   enums:', allEnums.length);
     // Filter out types from node_modules, examples, tests, and private/internal types
     const interfaces = allInterfaces.filter((r) => shouldIncludeType(r));
     const classes = allClasses.filter((r) => shouldIncludeType(r));
     const typeAliases = allTypeAliases.filter((r) => shouldIncludeType(r));
     const enums = allEnums.filter((r) => shouldIncludeType(r));
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM:TYPEDOC] Reflections after filtering:');
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM:TYPEDOC]   interfaces:', interfaces.length);
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM:TYPEDOC]   classes:', classes.length);
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM:TYPEDOC]   typeAliases:', typeAliases.length);
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM:TYPEDOC]   enums:', enums.length);
     interfaces.forEach((reflection) => addInterface(reflection, data));
     classes.forEach((reflection) => addClass(reflection, data));
     typeAliases.forEach((reflection) => addType(reflection, data));
@@ -91,8 +67,6 @@ export function parseFile(filename, tsconfig) {
             sources: getSources(enumReflection),
         });
     });
-    // eslint-disable-next-line no-console
-    console.debug('[KOMPENDIUM:TYPEDOC] Total types extracted:', data.length);
     return data;
 }
 /**
@@ -118,38 +92,30 @@ function shouldIncludeType(reflection) {
     // Check all source locations
     for (const source of reflection.sources) {
         const sourcePath = source.fullFileName || source.fileName || '';
-        if (shouldExcludeSource(sourcePath, reflection.name)) {
+        if (shouldExcludeSource(sourcePath)) {
             return false;
         }
     }
     // LAYER 2: Exclude CustomEvent wrapper types
     // These are generic wrappers around CustomEvent<T> that don't add useful documentation
     if (reflection.name.endsWith('CustomEvent')) {
-        // eslint-disable-next-line no-console
-        console.debug(`[KOMPENDIUM:TYPEDOC] Excluding ${reflection.name}: CustomEvent wrapper type`);
         return false;
     }
     // LAYER 2: Exclude HTML element interface types
     // These are DOM element interfaces (HTMLLimelButtonElement, etc.) already in Components
     if (reflection.name.startsWith('HTML') &&
         reflection.name.endsWith('Element')) {
-        // eslint-disable-next-line no-console
-        console.debug(`[KOMPENDIUM:TYPEDOC] Excluding ${reflection.name}: HTML element interface`);
         return false;
     }
     // LAYER 3: Exclude types in Stencil's Components namespace
     // Belt-and-suspenders: catches any component interfaces that leaked through Layer 1
     if (isInComponentsNamespace(reflection)) {
-        // eslint-disable-next-line no-console
-        console.debug(`[KOMPENDIUM:TYPEDOC] Excluding ${reflection.name}: in Components namespace`);
         return false;
     }
     // Check for @private or @internal tags
     if ((_a = reflection.comment) === null || _a === void 0 ? void 0 : _a.blockTags) {
         const hasPrivateTag = reflection.comment.blockTags.some((tag) => tag.tag === '@private' || tag.tag === '@internal');
         if (hasPrivateTag) {
-            // eslint-disable-next-line no-console
-            console.debug(`[KOMPENDIUM:TYPEDOC] Excluding ${reflection.name}: marked as @private or @internal`);
             return false;
         }
     }
@@ -159,37 +125,29 @@ function shouldIncludeType(reflection) {
 /**
  * Checks if a source path should be excluded from documentation.
  * @param {string} sourcePath - The file path to check
- * @param {string} typeName - The name of the type (for debug logging)
  * @returns {boolean} true if the source should be excluded, false otherwise
  */
-function shouldExcludeSource(sourcePath, typeName) {
+function shouldExcludeSource(sourcePath) {
+    // Normalize path separators for cross-platform compatibility
+    const normalizedPath = sourcePath.replace(/\\/g, '/');
     // Exclude types from node_modules
-    if (sourcePath.includes('node_modules/')) {
-        // eslint-disable-next-line no-console
-        console.debug(`[KOMPENDIUM:TYPEDOC] Excluding ${typeName}: from node_modules (${sourcePath})`);
+    if (normalizedPath.includes('node_modules/')) {
         return true;
     }
     // Exclude types from examples directories
-    if (sourcePath.includes('/examples/') || sourcePath.includes('/example/')) {
-        // eslint-disable-next-line no-console
-        console.debug(`[KOMPENDIUM:TYPEDOC] Excluding ${typeName}: from examples (${sourcePath})`);
+    if (normalizedPath.includes('/examples/') ||
+        normalizedPath.includes('/example/')) {
         return true;
     }
     // Exclude types from test files (but not fixture files used by tests)
-    if (sourcePath.includes('.test.') || sourcePath.includes('.spec.')) {
-        // eslint-disable-next-line no-console
-        console.debug(`[KOMPENDIUM:TYPEDOC] Excluding ${typeName}: from tests (${sourcePath})`);
+    if (normalizedPath.includes('.test.') ||
+        normalizedPath.includes('.spec.')) {
         return true;
     }
     // LAYER 1: Exclude types from Stencil's auto-generated components.d.ts
     // This file contains component prop interfaces and HTML element types that are
     // already documented in the Components section
-    if (sourcePath.endsWith('components.d.ts')) {
-        // eslint-disable-next-line no-console
-        console.debug(`[KOMPENDIUM:TYPEDOC] Excluding ${typeName}: from components.d.ts (Stencil auto-generated)`);
-        return true;
-    }
-    return false;
+    return normalizedPath.endsWith('components.d.ts');
 }
 /**
  * Checks if a TypeDoc reflection is defined within Stencil's Components namespace.

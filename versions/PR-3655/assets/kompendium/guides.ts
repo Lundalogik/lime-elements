@@ -1,5 +1,5 @@
 import { basename, dirname, resolve } from 'path';
-import { readFile } from './filesystem';
+import { readFile } from 'fs/promises';
 import { KompendiumGuide, KompendiumConfig, Guide } from '../types';
 
 export async function findGuides(
@@ -35,7 +35,7 @@ export const createGuide = async ({
     menupath: path,
     filepath,
 }: MenuNode): Promise<KompendiumGuide> => {
-    const content = await readFile(filepath);
+    const content = await readFile(filepath, 'utf8');
 
     return {
         dirPath: dirname(filepath),

@@ -1,5 +1,5 @@
 import { JsonDocs } from '../../stencil-public-runtime';
-import { MatchResults } from '../router/router-utils';
+import { MatchResults } from '../router/route-matching';
 import { PropsFactory } from '../playground/playground.types';
 export declare class KompendiumDebug {
     /**

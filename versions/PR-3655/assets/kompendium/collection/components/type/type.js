@@ -72,8 +72,8 @@ export class Type {
                     "references": {
                         "MatchResults": {
                             "location": "import",
-                            "path": "../router/router-utils",
-                            "id": "src/components/router/router-utils.ts::MatchResults"
+                            "path": "../router/route-matching",
+                            "id": "src/components/router/route-matching.ts::MatchResults"
                         }
                     }
                 },

@@ -1,6 +1,6 @@
 'use strict';
 
-var index = require('./index-Chwu_rcF.js');
+var index = require('./index-CI2W1cDY.js');
 
 const code = `
 import foo from 'foo';

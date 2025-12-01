@@ -4,36 +4,9 @@ import { h } from "@stencil/core";
  * Manages routing state using hash-based navigation
  */
 export class KompendiumRouter {
-    constructor() {
-        this.historyType = 'hash';
-    }
     render() {
-        return h("slot", { key: '75207145a746fe01f142a501c51f1621db349486' });
+        return h("slot", { key: '2f8881264e1bca61ab2db8f1bd6595333aa986ee' });
     }
     static get is() { return "kompendium-router"; }
-    static get properties() {
-        return {
-            "historyType": {
-                "type": "string",
-                "mutable": false,
-                "complexType": {
-                    "original": "'hash' | 'browser'",
-                    "resolved": "\"browser\" | \"hash\"",
-                    "references": {}
-                },
-                "required": false,
-                "optional": false,
-                "docs": {
-                    "tags": [],
-                    "text": ""
-                },
-                "getter": false,
-                "setter": false,
-                "reflect": false,
-                "attribute": "history-type",
-                "defaultValue": "'hash'"
-            }
-        };
-    }
 }
 //# sourceMappingURL=kompendium-router.js.map

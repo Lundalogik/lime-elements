@@ -1,5 +1,5 @@
 import { TypeDescription } from '../../types';
-import { MatchResults } from '../router/router-utils';
+import { MatchResults } from '../router/route-matching';
 export declare class Type {
     /**
      */
