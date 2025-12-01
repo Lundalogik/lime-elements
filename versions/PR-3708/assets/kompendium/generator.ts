@@ -3,14 +3,8 @@ import { defaultConfig } from './config';
 import { addSources } from './source';
 import lnk from 'lnk';
 import { createMenu } from './menu';
-import {
-    copyFile,
-    exists,
-    mkdir,
-    readFile,
-    writeFile,
-    stat,
-} from './filesystem';
+import { copyFile, mkdir, readFile, stat, writeFile } from 'fs/promises';
+import { exists } from './filesystem';
 import { createWatcher } from './watch';
 import { findGuides } from './guides';
 import { KompendiumConfig, KompendiumData, TypeDescription } from '../types';
@@ -40,12 +34,6 @@ export function kompendiumGenerator(
     return async (docs: JsonDocs, stencilConfig: Config) => {
         logger = stencilConfig.logger;
         const timeSpan = logger.createTimeSpan('kompendium started');
-
-        logger.debug(
-            '[KOMPENDIUM] Generator starting with config:',
-            JSON.stringify(config, null, 2),
-        );
-        logger.debug('[KOMPENDIUM] process.argv:', process.argv);
 
         const [jsonDocs, title, readme, guides, types] = await Promise.all([
             addSources(docs),
@@ -111,7 +99,7 @@ async function getProjectTitle(
         return config.title;
     }
 
-    const json = await readFile('./package.json');
+    const json = await readFile('./package.json', 'utf8');
     const data = JSON.parse(json);
 
     return data.name
@@ -124,28 +112,11 @@ async function writeData(
     config: Partial<KompendiumConfig>,
     data: KompendiumData,
 ) {
-    logger.debug('[KOMPENDIUM] writeData called');
-    logger.debug('[KOMPENDIUM] config.path:', config.path);
-    logger.debug('[KOMPENDIUM] config.publicPath:', config.publicPath);
-    logger.debug('[KOMPENDIUM] isProd():', isProd());
-
     // Always write to the kompendium config folder (typically `.kompendium` in
     // the root of the project) to avoid Stencil deleting the file during build.
     const filePath = `${config.path}/kompendium.json`;
 
-    logger.debug('[KOMPENDIUM] Writing to filePath:', filePath);
-    logger.debug(
-        '[KOMPENDIUM] Data contains',
-        data.types?.length || 0,
-        'types',
-    );
-
-    await writeFile(filePath, JSON.stringify(data));
-
-    logger.debug(
-        '[KOMPENDIUM] Successfully wrote kompendium.json to:',
-        filePath,
-    );
+    await writeFile(filePath, JSON.stringify(data), 'utf8');
 
     if (isProd()) {
         // In production, we used to write the kompendium.json file to the
@@ -154,12 +125,11 @@ async function writeData(
         // deleting the file during build. For projects that do have this
         // problem, they can always copy the file from the config folder.
         const publicFilePath = `${config.publicPath}/kompendium.json`;
-        await copyFile(filePath, publicFilePath);
+        if (!(await exists(config.publicPath))) {
+            await mkdir(config.publicPath, { recursive: true });
+        }
 
-        logger.debug(
-            '[KOMPENDIUM] Successfully copied kompendium.json to:',
-            publicFilePath,
-        );
+        await copyFile(filePath, publicFilePath);
     }
 
     if (isWatcher()) {
@@ -192,7 +162,7 @@ async function getReadme(): Promise<string> {
             continue;
         }
 
-        data = await readFile(file);
+        data = await readFile(file, 'utf8');
     }
 
     if (!data) {
@@ -211,20 +181,11 @@ function isWatcher(): boolean {
 }
 
 function isProd(): boolean {
-    const result = !(
+    return !(
         process.argv.includes('--dev') ||
         process.argv.includes('test') ||
         process.argv.find((arg) => arg.includes('jest-worker'))
     );
-    // eslint-disable-next-line no-console
-    logger.debug(
-        '[KOMPENDIUM] isProd() =',
-        result,
-        'argv:',
-        process.argv.join(' '),
-    );
-
-    return result;
 }
 
 async function getTypes(
@@ -241,9 +202,6 @@ async function getTypes(
         await saveData(config, data);
         types = data;
     }
-
-    // eslint-disable-next-line no-console
-    logger.debug('[KOMPENDIUM] getTypes() found', types.length, 'types');
 
     return types;
 }
@@ -304,7 +262,7 @@ async function saveData(
 
 async function readCache(config: Partial<KompendiumConfig>) {
     try {
-        const data = await readFile(`${config.path}/cache.json`);
+        const data = await readFile(`${config.path}/cache.json`, 'utf8');
 
         return JSON.parse(data);
     } catch {
@@ -313,12 +271,12 @@ async function readCache(config: Partial<KompendiumConfig>) {
 }
 
 async function writeCache(config: Partial<KompendiumConfig>, data: any) {
-    await writeFile(`${config.path}/cache.json`, JSON.stringify(data));
+    await writeFile(`${config.path}/cache.json`, JSON.stringify(data), 'utf8');
 }
 
 async function readTypes(config: Partial<KompendiumConfig>) {
     try {
-        const data = await readFile(`${config.path}/types.json`);
+        const data = await readFile(`${config.path}/types.json`, 'utf8');
 
         return JSON.parse(data);
     } catch {
@@ -327,5 +285,5 @@ async function readTypes(config: Partial<KompendiumConfig>) {
 }
 
 async function writeTypes(config: Partial<KompendiumConfig>, data: any) {
-    await writeFile(`${config.path}/types.json`, JSON.stringify(data));
+    await writeFile(`${config.path}/types.json`, JSON.stringify(data), 'utf8');
 }

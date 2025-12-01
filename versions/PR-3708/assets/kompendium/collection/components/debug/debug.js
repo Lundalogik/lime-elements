@@ -10,7 +10,7 @@ export class KompendiumDebug {
     render() {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
-        return (h("article", { key: 'b676d1eb960cfd8dfc193199fcdca96283eb6f89', class: "component" }, h("section", { key: 'fc6d38340d0384e5b4129333f7703d2f0cd2542b', class: "docs debug" }, this.renderComponent(component))));
+        return (h("article", { key: '29c045c23cd107d1d0006467db9abad681bb7e2e', class: "component" }, h("section", { key: 'ae3e9fe451f3663a720d2113d140f1efb42a5da8', class: "docs debug" }, this.renderComponent(component))));
     }
     renderComponent(component) {
         const ExampleComponent = component.tag;
@@ -85,8 +85,8 @@ export class KompendiumDebug {
                     "references": {
                         "MatchResults": {
                             "location": "import",
-                            "path": "../router/router-utils",
-                            "id": "src/components/router/router-utils.ts::MatchResults"
+                            "path": "../router/route-matching",
+                            "id": "src/components/router/route-matching.ts::MatchResults"
                         }
                     }
                 },

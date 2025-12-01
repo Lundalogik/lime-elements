@@ -1,6 +1,6 @@
 'use strict';
 
-var index = require('./index-Chwu_rcF.js');
+var index = require('./index-CI2W1cDY.js');
 var markdownTypes = require('./markdown-types-B884tLd-.js');
 var types = require('./types-SjA7Kcy_.js');
 var _commonjsHelpers = require('./_commonjsHelpers-B83fTs8d.js');
@@ -1830,9 +1830,9 @@ const App = class {
         if (!this.data) {
             return (index.h("div", { class: "loading-screen" }, index.h("div", { class: "loading-screen-icon" }), index.h("div", { class: "loading-screen-text" }, "Loading...")));
         }
-        return (index.h("div", { class: "kompendium-body" }, index.h("kompendium-navigation", { menu: this.data.menu, header: this.data.title, logo: this.data.logo, index: this.index }), index.h("main", { role: "main" }, index.h("kompendium-router", { historyType: "hash" }, index.h("kompendium-route-switch", { scrollTopOffset: 0 }, index.h("kompendium-route", { url: "/", component: "kompendium-markdown", componentProps: {
+        return (index.h("div", { class: "kompendium-body" }, index.h("kompendium-navigation", { menu: this.data.menu, header: this.data.title, logo: this.data.logo, index: this.index }), index.h("main", { role: "main" }, index.h("kompendium-router", null, index.h("kompendium-route-switch", { scrollTopOffset: 0 }, index.h("kompendium-route", { url: "/", component: "kompendium-markdown", componentProps: {
                 text: this.data.readme,
-            }, exact: true }), index.h("kompendium-route", { url: "/component/:name/:section?", component: "kompendium-component", componentProps: {
+            } }), index.h("kompendium-route", { url: "/component/:name/:section?", component: "kompendium-component", componentProps: {
                 docs: this.data.docs,
                 schemas: this.data.schemas,
                 examplePropsFactory: this.examplePropsFactory,
@@ -2007,6 +2007,10 @@ const Navigation = class {
 Navigation.style = navigationCss;
 
 /**
+ * Cache for parsed route patterns to avoid redundant regex compilation
+ */
+const routeCache = new Map();
+/**
  * Parse route URL pattern into regex and parameter names
  * @param {string} pattern - Route pattern with optional parameters (e.g., "/component/:name")
  * @returns {{regex: RegExp, params: string[]}} Regex and parameter names
@@ -2041,7 +2045,13 @@ function matchRoute(path, pattern) {
     if (!pattern) {
         return { params: {} };
     }
-    const { regex, params } = parseRoute(pattern);
+    // Check cache first, or parse and cache if not found
+    let parsed = routeCache.get(pattern);
+    if (!parsed) {
+        parsed = parseRoute(pattern);
+        routeCache.set(pattern, parsed);
+    }
+    const { regex, params } = parsed;
     const match = path.match(regex);
     if (!match) {
         return null;
@@ -2061,18 +2071,69 @@ function getHashPath() {
 }
 
 /**
- * Type guard to check if an element is a route element with expected properties
+ * Type guard to check if an element is a route element
  * @param {Element} element - The element to check
- * @returns {boolean} True if the element is a kompendium-route with a url property
+ * @returns {boolean} True if the element is a kompendium-route
  */
 function isRouteElement(element) {
-    return (element.tagName.toLowerCase() === 'kompendium-route' && 'url' in element);
+    return element.tagName.toLowerCase() === 'kompendium-route';
 }
+/**
+ * Check if any previous sibling route matches the current path
+ * Used by route-switch to implement first-match-wins behavior
+ * @param {HTMLElement} currentElement - The current route element
+ * @param {string} currentPath - The current path to match
+ * @returns {boolean} True if a previous sibling route matches
+ */
+function hasPreviousMatchingSibling(currentElement, currentPath) {
+    const parent = currentElement.parentElement;
+    if ((parent === null || parent === void 0 ? void 0 : parent.tagName.toLowerCase()) !== 'kompendium-route-switch') {
+        return false;
+    }
+    const siblings = Array.from(parent.children);
+    const myIndex = siblings.indexOf(currentElement);
+    // Check all previous siblings
+    for (let i = 0; i < myIndex; i++) {
+        const sibling = siblings[i];
+        // Use type guard to ensure element has expected route properties
+        if (!isRouteElement(sibling)) {
+            continue;
+        }
+        // Access sibling's URL property with type safety
+        const siblingUrl = sibling.url;
+        // Check if sibling matches current path
+        let siblingMatch;
+        if (siblingUrl) {
+            siblingMatch = matchRoute(currentPath, siblingUrl);
+        }
+        else {
+            siblingMatch = { params: {} }; // Routes without URL are catch-all
+        }
+        if (siblingMatch) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Generate a stable key from route parameters for component recreation
+ * Keys are deterministic - same params always produce same key
+ * Used to force Stencil component recreation when route params change
+ * @param {Record<string, string>} params - Route parameters
+ * @returns {string} A stable, deterministic key
+ */
+function generateComponentKey(params) {
+    return Object.keys(params)
+        .sort()
+        .map((k) => `${k}=${params[k]}`)
+        .join('&');
+}
+
 const KompendiumRoute = class {
     constructor(hostRef) {
         index.registerInstance(this, hostRef);
         this.currentPath = '/';
-        this.exact = false;
         this.handleHashChange = this.handleHashChange.bind(this);
     }
     connectedCallback() {
@@ -2086,16 +2147,14 @@ const KompendiumRoute = class {
         this.currentPath = getHashPath();
     }
     render() {
-        // Use current path from state (updated by hashchange listener)
-        const currentPath = this.currentPath;
         // Check if a previous sibling route matches (first-match wins)
-        if (this.hasPreviousMatchingSibling(currentPath)) {
+        if (hasPreviousMatchingSibling(this.el, this.currentPath)) {
             return null;
         }
         // Check if this route matches
         let match;
         if (this.url) {
-            match = matchRoute(currentPath, this.url);
+            match = matchRoute(this.currentPath, this.url);
         }
         else {
             match = { params: {} }; // Catch-all route
@@ -2114,44 +2173,10 @@ const KompendiumRoute = class {
             };
             // Create element dynamically using h() with string tag name
             // Use match params as key to force recreation when params change
-            // Sort param keys for deterministic key generation
-            const key = Object.keys(match.params)
-                .sort()
-                .map((k) => `${k}=${match.params[k]}`)
-                .join('&');
+            const key = generateComponentKey(match.params);
             return index.h(this.component, { key: key, ...props });
         }
         return index.h("slot", null);
-    }
-    hasPreviousMatchingSibling(currentPath) {
-        const parent = this.el.parentElement;
-        if ((parent === null || parent === void 0 ? void 0 : parent.tagName.toLowerCase()) !== 'kompendium-route-switch') {
-            return false;
-        }
-        const siblings = Array.from(parent.children);
-        const myIndex = siblings.indexOf(this.el);
-        // Check all previous siblings
-        for (let i = 0; i < myIndex; i++) {
-            const sibling = siblings[i];
-            // Use type guard to ensure element has expected route properties
-            if (!isRouteElement(sibling)) {
-                continue;
-            }
-            // Access sibling's URL property with type safety
-            const siblingUrl = sibling.url;
-            // Check if sibling matches current path
-            let siblingMatch;
-            if (siblingUrl) {
-                siblingMatch = matchRoute(currentPath, siblingUrl);
-            }
-            else {
-                siblingMatch = { params: {} }; // Routes without URL are catch-all
-            }
-            if (siblingMatch) {
-                return true;
-            }
-        }
-        return false;
     }
     get el() { return index.getElement(this); }
 };
@@ -2183,17 +2208,16 @@ const KompendiumRouteSwitch = class {
         // Simply render child routes
         // The @State currentPath will trigger re-render when hash changes
         // Each route component will re-render and check if it matches
-        return index.h("slot", { key: 'd77031183781edcfd2f4dae9604156a052bbe7f0' });
+        return index.h("slot", { key: 'ae22e3681abcaa480b5d58dc87e903583c2f7b36' });
     }
 };
 
 const KompendiumRouter = class {
     constructor(hostRef) {
         index.registerInstance(this, hostRef);
-        this.historyType = 'hash';
     }
     render() {
-        return index.h("slot", { key: '75207145a746fe01f142a501c51f1621db349486' });
+        return index.h("slot", { key: '2f8881264e1bca61ab2db8f1bd6595333aa986ee' });
     }
 };
 

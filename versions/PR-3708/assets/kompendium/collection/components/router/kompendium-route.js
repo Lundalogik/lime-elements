@@ -1,13 +1,7 @@
 import { h } from "@stencil/core";
-import { getHashPath, matchRoute } from "./router-utils";
-/**
- * Type guard to check if an element is a route element with expected properties
- * @param {Element} element - The element to check
- * @returns {boolean} True if the element is a kompendium-route with a url property
- */
-function isRouteElement(element) {
-    return (element.tagName.toLowerCase() === 'kompendium-route' && 'url' in element);
-}
+import { getHashPath, matchRoute } from "./route-matching";
+import { hasPreviousMatchingSibling } from "./route-switch-logic";
+import { generateComponentKey } from "./component-key";
 /**
  * Custom route component for Kompendium
  * Renders a component when the route matches
@@ -15,7 +9,6 @@ function isRouteElement(element) {
 export class KompendiumRoute {
     constructor() {
         this.currentPath = '/';
-        this.exact = false;
         this.handleHashChange = this.handleHashChange.bind(this);
     }
     connectedCallback() {
@@ -29,16 +22,14 @@ export class KompendiumRoute {
         this.currentPath = getHashPath();
     }
     render() {
-        // Use current path from state (updated by hashchange listener)
-        const currentPath = this.currentPath;
         // Check if a previous sibling route matches (first-match wins)
-        if (this.hasPreviousMatchingSibling(currentPath)) {
+        if (hasPreviousMatchingSibling(this.el, this.currentPath)) {
             return null;
         }
         // Check if this route matches
         let match;
         if (this.url) {
-            match = matchRoute(currentPath, this.url);
+            match = matchRoute(this.currentPath, this.url);
         }
         else {
             match = { params: {} }; // Catch-all route
@@ -57,44 +48,10 @@ export class KompendiumRoute {
             };
             // Create element dynamically using h() with string tag name
             // Use match params as key to force recreation when params change
-            // Sort param keys for deterministic key generation
-            const key = Object.keys(match.params)
-                .sort()
-                .map((k) => `${k}=${match.params[k]}`)
-                .join('&');
+            const key = generateComponentKey(match.params);
             return h(this.component, { key: key, ...props });
         }
         return h("slot", null);
-    }
-    hasPreviousMatchingSibling(currentPath) {
-        const parent = this.el.parentElement;
-        if ((parent === null || parent === void 0 ? void 0 : parent.tagName.toLowerCase()) !== 'kompendium-route-switch') {
-            return false;
-        }
-        const siblings = Array.from(parent.children);
-        const myIndex = siblings.indexOf(this.el);
-        // Check all previous siblings
-        for (let i = 0; i < myIndex; i++) {
-            const sibling = siblings[i];
-            // Use type guard to ensure element has expected route properties
-            if (!isRouteElement(sibling)) {
-                continue;
-            }
-            // Access sibling's URL property with type safety
-            const siblingUrl = sibling.url;
-            // Check if sibling matches current path
-            let siblingMatch;
-            if (siblingUrl) {
-                siblingMatch = matchRoute(currentPath, siblingUrl);
-            }
-            else {
-                siblingMatch = { params: {} }; // Routes without URL are catch-all
-            }
-            if (siblingMatch) {
-                return true;
-            }
-        }
-        return false;
     }
     static get is() { return "kompendium-route"; }
     static get properties() {
@@ -159,26 +116,6 @@ export class KompendiumRoute {
                 "getter": false,
                 "setter": false
             },
-            "exact": {
-                "type": "boolean",
-                "mutable": false,
-                "complexType": {
-                    "original": "boolean",
-                    "resolved": "boolean",
-                    "references": {}
-                },
-                "required": false,
-                "optional": true,
-                "docs": {
-                    "tags": [],
-                    "text": ""
-                },
-                "getter": false,
-                "setter": false,
-                "reflect": false,
-                "attribute": "exact",
-                "defaultValue": "false"
-            },
             "routeRender": {
                 "type": "unknown",
                 "mutable": false,
@@ -188,8 +125,8 @@ export class KompendiumRoute {
                     "references": {
                         "MatchResults": {
                             "location": "import",
-                            "path": "./router-utils",
-                            "id": "src/components/router/router-utils.ts::MatchResults"
+                            "path": "./route-matching",
+                            "id": "src/components/router/route-matching.ts::MatchResults"
                         }
                     }
                 },

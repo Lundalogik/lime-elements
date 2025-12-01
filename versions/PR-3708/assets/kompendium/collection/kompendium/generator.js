@@ -2,7 +2,8 @@ import { defaultConfig } from "./config";
 import { addSources } from "./source";
 import lnk from "lnk";
 import { createMenu } from "./menu";
-import { copyFile, exists, mkdir, readFile, writeFile, stat, } from "./filesystem";
+import { copyFile, mkdir, readFile, stat, writeFile } from "fs/promises";
+import { exists } from "./filesystem";
 import { createWatcher } from "./watch";
 import { findGuides } from "./guides";
 import { parseFile } from "./typedoc";
@@ -24,8 +25,6 @@ export function kompendiumGenerator(config) {
     return async (docs, stencilConfig) => {
         logger = stencilConfig.logger;
         const timeSpan = logger.createTimeSpan('kompendium started');
-        logger.debug('[KOMPENDIUM] Generator starting with config:', JSON.stringify(config, null, 2));
-        logger.debug('[KOMPENDIUM] process.argv:', process.argv);
         const [jsonDocs, title, readme, guides, types] = await Promise.all([
             addSources(docs),
             getProjectTitle(config),
@@ -74,7 +73,7 @@ async function getProjectTitle(config) {
     if (config.title) {
         return config.title;
     }
-    const json = await readFile('./package.json');
+    const json = await readFile('./package.json', 'utf8');
     const data = JSON.parse(json);
     return data.name
         .replace(/^@[^/]+?\//, '')
@@ -82,18 +81,10 @@ async function getProjectTitle(config) {
         .join(' ');
 }
 async function writeData(config, data) {
-    var _a;
-    logger.debug('[KOMPENDIUM] writeData called');
-    logger.debug('[KOMPENDIUM] config.path:', config.path);
-    logger.debug('[KOMPENDIUM] config.publicPath:', config.publicPath);
-    logger.debug('[KOMPENDIUM] isProd():', isProd());
     // Always write to the kompendium config folder (typically `.kompendium` in
     // the root of the project) to avoid Stencil deleting the file during build.
     const filePath = `${config.path}/kompendium.json`;
-    logger.debug('[KOMPENDIUM] Writing to filePath:', filePath);
-    logger.debug('[KOMPENDIUM] Data contains', ((_a = data.types) === null || _a === void 0 ? void 0 : _a.length) || 0, 'types');
-    await writeFile(filePath, JSON.stringify(data));
-    logger.debug('[KOMPENDIUM] Successfully wrote kompendium.json to:', filePath);
+    await writeFile(filePath, JSON.stringify(data), 'utf8');
     if (isProd()) {
         // In production, we used to write the kompendium.json file to the
         // public path. We now copy the file to the public path for backwards
@@ -101,8 +92,10 @@ async function writeData(config, data) {
         // deleting the file during build. For projects that do have this
         // problem, they can always copy the file from the config folder.
         const publicFilePath = `${config.publicPath}/kompendium.json`;
+        if (!(await exists(config.publicPath))) {
+            await mkdir(config.publicPath, { recursive: true });
+        }
         await copyFile(filePath, publicFilePath);
-        logger.debug('[KOMPENDIUM] Successfully copied kompendium.json to:', publicFilePath);
     }
     if (isWatcher()) {
         createSymlink(config);
@@ -128,7 +121,7 @@ async function getReadme() {
         if (!(await exists(file))) {
             continue;
         }
-        data = await readFile(file);
+        data = await readFile(file, 'utf8');
     }
     if (!data) {
         logger.warn('README did not exist');
@@ -142,12 +135,9 @@ function isWatcher() {
     return !!process.argv.includes('--watch');
 }
 function isProd() {
-    const result = !(process.argv.includes('--dev') ||
+    return !(process.argv.includes('--dev') ||
         process.argv.includes('test') ||
         process.argv.find((arg) => arg.includes('jest-worker')));
-    // eslint-disable-next-line no-console
-    logger.debug('[KOMPENDIUM] isProd() =', result, 'argv:', process.argv.join(' '));
-    return result;
 }
 async function getTypes(config, tsconfig) {
     logger.debug('Getting type information...');
@@ -159,8 +149,6 @@ async function getTypes(config, tsconfig) {
         await saveData(config, data);
         types = data;
     }
-    // eslint-disable-next-line no-console
-    logger.debug('[KOMPENDIUM] getTypes() found', types.length, 'types');
     return types;
 }
 async function isModified(types, cache) {
@@ -199,7 +187,7 @@ async function saveData(config, types) {
 }
 async function readCache(config) {
     try {
-        const data = await readFile(`${config.path}/cache.json`);
+        const data = await readFile(`${config.path}/cache.json`, 'utf8');
         return JSON.parse(data);
     }
     catch (_a) {
@@ -207,11 +195,11 @@ async function readCache(config) {
     }
 }
 async function writeCache(config, data) {
-    await writeFile(`${config.path}/cache.json`, JSON.stringify(data));
+    await writeFile(`${config.path}/cache.json`, JSON.stringify(data), 'utf8');
 }
 async function readTypes(config) {
     try {
-        const data = await readFile(`${config.path}/types.json`);
+        const data = await readFile(`${config.path}/types.json`, 'utf8');
         return JSON.parse(data);
     }
     catch (_a) {
@@ -219,6 +207,6 @@ async function readTypes(config) {
     }
 }
 async function writeTypes(config, data) {
-    await writeFile(`${config.path}/types.json`, JSON.stringify(data));
+    await writeFile(`${config.path}/types.json`, JSON.stringify(data), 'utf8');
 }
 //# sourceMappingURL=generator.js.map

@@ -261,12 +261,12 @@ kbd[data-theme=force-dark] {
 pre,
 code {
   font-family: var(--kompendium-font-code);
-  border-radius: 0.25rem;
-  font-size: 0.6875rem;
+  border-radius: pxToRem(4);
+  font-size: pxToRem(11);
 }
 pre a,
 code a {
-  font-size: 0.6875rem;
+  font-size: pxToRem(11);
 }
 
 code {
@@ -302,29 +302,29 @@ dl {
   grid-template-rows: 1fr;
   margin-bottom: 2rem;
   border: 1px solid rgb(var(--kompendium-contrast-500));
-  border-radius: 0.375rem;
+  border-radius: pxToRem(6);
   background-color: rgb(var(--kompendium-contrast-300));
 }
 dl dt,
 dl dd {
-  padding: 0.375rem 0.5rem;
-  font-size: 0.875rem;
+  padding: pxToRem(6) pxToRem(8);
+  font-size: pxToRem(14);
 }
 dl dt:nth-of-type(even),
 dl dd:nth-of-type(even) {
   background-color: rgb(var(--kompendium-contrast-400));
 }
 dl dt:first-child {
-  border-top-left-radius: 0.375rem;
+  border-top-left-radius: pxToRem(6);
 }
 dl dt:last-child {
-  border-bottom-left-radius: 0.375rem;
+  border-bottom-left-radius: pxToRem(6);
 }
 dl dd:first-child {
-  border-top-right-radius: 0.375rem;
+  border-top-right-radius: pxToRem(6);
 }
 dl dd:last-child {
-  border-bottom-right-radius: 0.375rem;
+  border-bottom-right-radius: pxToRem(6);
 }
 
 dl,
@@ -580,8 +580,8 @@ dd {
   --border-radius-of-admonition-icon: 0.5rem;
   border-radius: var(--border-radius-of-admonition-icon);
   background-color: rgb(var(--kompendium-contrast-400));
-  margin: 0.75rem 0 1rem 0;
-  padding: 0.5rem 0.5rem 0.75rem 0.5rem;
+  margin: pxToRem(12) 0 pxToRem(16) 0;
+  padding: pxToRem(8) pxToRem(8) pxToRem(12) pxToRem(8);
   position: relative;
 }
 .admonition:before {
@@ -624,13 +624,13 @@ dd {
 }
 
 .admonition-heading {
-  margin-bottom: 0.375rem;
+  margin-bottom: pxToRem(6);
 }
 .admonition-heading h5 {
   color: rgb(var(--kompendium-contrast-1100));
   margin: 0;
-  font-size: 0.9375rem;
-  padding: 0.125rem 0 0 var(--size-of-admonition-icon);
+  font-size: pxToRem(15);
+  padding: pxToRem(2) 0 0 var(--size-of-admonition-icon);
 }
 .admonition-heading h5::first-letter {
   text-transform: capitalize;

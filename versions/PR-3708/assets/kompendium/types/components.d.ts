@@ -7,12 +7,12 @@
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
 import { PropsFactory } from "./components/playground/playground.types";
 import { JsonDocs, JsonDocsComponent, JsonDocsTag } from "./stencil-public-runtime";
-import { MatchResults } from "./components/router/router-utils";
+import { MatchResults } from "./components/router/route-matching";
 import { KompendiumData, MenuItem, TypeDescription } from "./types";
 import { ProplistItem } from "./components/proplist/proplist";
 export { PropsFactory } from "./components/playground/playground.types";
 export { JsonDocs, JsonDocsComponent, JsonDocsTag } from "./stencil-public-runtime";
-export { MatchResults } from "./components/router/router-utils";
+export { MatchResults } from "./components/router/route-matching";
 export { KompendiumData, MenuItem, TypeDescription } from "./types";
 export { ProplistItem } from "./components/proplist/proplist";
 export namespace Components {
@@ -150,10 +150,6 @@ export namespace Components {
     interface KompendiumRoute {
         "component"?: string;
         "componentProps"?: Record<string, any>;
-        /**
-          * @default false
-         */
-        "exact"?: boolean;
         "routeRender"?: (props: { match: MatchResults }) => any;
         "url"?: string;
     }
@@ -172,10 +168,6 @@ export namespace Components {
      * Manages routing state using hash-based navigation
      */
     interface KompendiumRouter {
-        /**
-          * @default 'hash'
-         */
-        "historyType": 'hash' | 'browser';
     }
     interface KompendiumSearch {
         /**
@@ -502,10 +494,6 @@ declare namespace LocalJSX {
     interface KompendiumRoute {
         "component"?: string;
         "componentProps"?: Record<string, any>;
-        /**
-          * @default false
-         */
-        "exact"?: boolean;
         "routeRender"?: (props: { match: MatchResults }) => any;
         "url"?: string;
     }
@@ -524,10 +512,6 @@ declare namespace LocalJSX {
      * Manages routing state using hash-based navigation
      */
     interface KompendiumRouter {
-        /**
-          * @default 'hash'
-         */
-        "historyType"?: 'hash' | 'browser';
     }
     interface KompendiumSearch {
         /**

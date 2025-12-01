@@ -1,4 +1,4 @@
-import { MatchResults } from './router-utils';
+import { MatchResults } from './route-matching';
 /**
  * Custom route component for Kompendium
  * Renders a component when the route matches
@@ -9,7 +9,6 @@ export declare class KompendiumRoute {
     url?: string;
     component?: string;
     componentProps?: Record<string, any>;
-    exact?: boolean;
     routeRender?: (props: {
         match: MatchResults;
     }) => any;
@@ -18,5 +17,4 @@ export declare class KompendiumRoute {
     disconnectedCallback(): void;
     private handleHashChange;
     render(): any;
-    private hasPreviousMatchingSibling;
 }
