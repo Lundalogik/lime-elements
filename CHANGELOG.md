@@ -1,3 +1,11 @@
+## [38.31.2](https://github.com/Lundalogik/lime-elements/compare/v38.31.1...v38.31.2) (2025-12-01)
+
+
+### Bug Fixes
+
+
+* **form:** implement drag and drop for reordering items ([32affed](https://github.com/Lundalogik/lime-elements/commit/32affed3ff82d34fc54b0f376e9283847d7cd1b8))
+
 ## [38.31.1](https://github.com/Lundalogik/lime-elements/compare/v38.31.0...v38.31.1) (2025-11-27)
 
 
