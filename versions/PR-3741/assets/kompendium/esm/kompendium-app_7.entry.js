@@ -1840,9 +1840,9 @@ const App = class {
     if (!this.data) {
       return (h("div", { class: "loading-screen" }, h("div", { class: "loading-screen-icon" }), h("div", { class: "loading-screen-text" }, "Loading...")));
     }
-    return (h("div", { class: "kompendium-body" }, h("kompendium-navigation", { menu: this.data.menu, header: this.data.title, logo: this.data.logo, index: this.index }), h("main", { role: "main" }, h("kompendium-router", { historyType: "hash" }, h("kompendium-route-switch", { scrollTopOffset: 0 }, h("kompendium-route", { url: "/", component: "kompendium-markdown", componentProps: {
+    return (h("div", { class: "kompendium-body" }, h("kompendium-navigation", { menu: this.data.menu, header: this.data.title, logo: this.data.logo, index: this.index }), h("main", { role: "main" }, h("kompendium-router", null, h("kompendium-route-switch", { scrollTopOffset: 0 }, h("kompendium-route", { url: "/", component: "kompendium-markdown", componentProps: {
         text: this.data.readme,
-      }, exact: true }), h("kompendium-route", { url: "/component/:name/:section?", component: "kompendium-component", componentProps: {
+      } }), h("kompendium-route", { url: "/component/:name/:section?", component: "kompendium-component", componentProps: {
         docs: this.data.docs,
         schemas: this.data.schemas,
         examplePropsFactory: this.examplePropsFactory,
@@ -2017,6 +2017,10 @@ const Navigation = class {
 Navigation.style = navigationCss;
 
 /**
+ * Cache for parsed route patterns to avoid redundant regex compilation
+ */
+const routeCache = new Map();
+/**
  * Parse route URL pattern into regex and parameter names
  * @param {string} pattern - Route pattern with optional parameters (e.g., "/component/:name")
  * @returns {{regex: RegExp, params: string[]}} Regex and parameter names
@@ -2051,7 +2055,13 @@ function matchRoute(path, pattern) {
   if (!pattern) {
     return { params: {} };
   }
-  const { regex, params } = parseRoute(pattern);
+  // Check cache first, or parse and cache if not found
+  let parsed = routeCache.get(pattern);
+  if (!parsed) {
+    parsed = parseRoute(pattern);
+    routeCache.set(pattern, parsed);
+  }
+  const { regex, params } = parsed;
   const match = path.match(regex);
   if (!match) {
     return null;
@@ -2134,7 +2144,6 @@ const KompendiumRoute = class {
   constructor(hostRef) {
     registerInstance(this, hostRef);
     this.currentPath = '/';
-    this.exact = false;
     this.handleHashChange = this.handleHashChange.bind(this);
   }
   connectedCallback() {
@@ -2148,16 +2157,14 @@ const KompendiumRoute = class {
     this.currentPath = getHashPath();
   }
   render() {
-    // Use current path from state (updated by hashchange listener)
-    const currentPath = this.currentPath;
     // Check if a previous sibling route matches (first-match wins)
-    if (hasPreviousMatchingSibling(this.el, currentPath)) {
+    if (hasPreviousMatchingSibling(this.el, this.currentPath)) {
       return null;
     }
     // Check if this route matches
     let match;
     if (this.url) {
-      match = matchRoute(currentPath, this.url);
+      match = matchRoute(this.currentPath, this.url);
     }
     else {
       match = { params: {} }; // Catch-all route
@@ -2215,7 +2222,6 @@ const KompendiumRouteSwitch = class {
 const KompendiumRouter = class {
   constructor(hostRef) {
     registerInstance(this, hostRef);
-    this.historyType = 'hash';
   }
   render() {
     return h("slot", null);

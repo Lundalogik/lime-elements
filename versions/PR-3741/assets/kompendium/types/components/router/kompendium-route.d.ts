@@ -9,7 +9,6 @@ export declare class KompendiumRoute {
   url?: string;
   component?: string;
   componentProps?: Record<string, any>;
-  exact?: boolean;
   routeRender?: (props: {
     match: MatchResults;
   }) => any;

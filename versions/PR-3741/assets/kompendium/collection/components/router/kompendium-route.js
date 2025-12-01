@@ -9,7 +9,6 @@ import { generateComponentKey } from './component-key';
 export class KompendiumRoute {
   constructor() {
     this.currentPath = '/';
-    this.exact = false;
     this.handleHashChange = this.handleHashChange.bind(this);
   }
   connectedCallback() {
@@ -23,16 +22,14 @@ export class KompendiumRoute {
     this.currentPath = getHashPath();
   }
   render() {
-    // Use current path from state (updated by hashchange listener)
-    const currentPath = this.currentPath;
     // Check if a previous sibling route matches (first-match wins)
-    if (hasPreviousMatchingSibling(this.el, currentPath)) {
+    if (hasPreviousMatchingSibling(this.el, this.currentPath)) {
       return null;
     }
     // Check if this route matches
     let match;
     if (this.url) {
-      match = matchRoute(currentPath, this.url);
+      match = matchRoute(this.currentPath, this.url);
     }
     else {
       match = { params: {} }; // Catch-all route
@@ -107,24 +104,6 @@ export class KompendiumRoute {
         "tags": [],
         "text": ""
       }
-    },
-    "exact": {
-      "type": "boolean",
-      "mutable": false,
-      "complexType": {
-        "original": "boolean",
-        "resolved": "boolean",
-        "references": {}
-      },
-      "required": false,
-      "optional": true,
-      "docs": {
-        "tags": [],
-        "text": ""
-      },
-      "attribute": "exact",
-      "reflect": false,
-      "defaultValue": "false"
     },
     "routeRender": {
       "type": "unknown",

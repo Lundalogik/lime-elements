@@ -1,4 +1,8 @@
 /**
+ * Cache for parsed route patterns to avoid redundant regex compilation
+ */
+const routeCache = new Map();
+/**
  * Parse route URL pattern into regex and parameter names
  * @param {string} pattern - Route pattern with optional parameters (e.g., "/component/:name")
  * @returns {{regex: RegExp, params: string[]}} Regex and parameter names
@@ -33,7 +37,13 @@ export function matchRoute(path, pattern) {
   if (!pattern) {
     return { params: {} };
   }
-  const { regex, params } = parseRoute(pattern);
+  // Check cache first, or parse and cache if not found
+  let parsed = routeCache.get(pattern);
+  if (!parsed) {
+    parsed = parseRoute(pattern);
+    routeCache.set(pattern, parsed);
+  }
+  const { regex, params } = parsed;
   const match = path.match(regex);
   if (!match) {
     return null;

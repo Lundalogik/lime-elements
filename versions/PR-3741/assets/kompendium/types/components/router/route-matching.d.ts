@@ -5,15 +5,6 @@ export interface MatchResults {
   params: Record<string, string>;
 }
 /**
- * Route configuration
- */
-export interface RouteConfig {
-  url?: string;
-  component?: string;
-  componentProps?: Record<string, any>;
-  exact?: boolean;
-}
-/**
  * Parse route URL pattern into regex and parameter names
  * @param {string} pattern - Route pattern with optional parameters (e.g., "/component/:name")
  * @returns {{regex: RegExp, params: string[]}} Regex and parameter names

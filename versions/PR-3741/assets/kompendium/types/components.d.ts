@@ -121,7 +121,6 @@ export namespace Components {
     interface KompendiumRoute {
         "component"?: string;
         "componentProps"?: Record<string, any>;
-        "exact"?: boolean;
         "routeRender"?: (props: { match: MatchResults }) => any;
         "url"?: string;
     }
@@ -129,7 +128,6 @@ export namespace Components {
         "scrollTopOffset"?: number;
     }
     interface KompendiumRouter {
-        "historyType": 'hash' | 'browser';
     }
     interface KompendiumSearch {
         /**
@@ -396,7 +394,6 @@ declare namespace LocalJSX {
     interface KompendiumRoute {
         "component"?: string;
         "componentProps"?: Record<string, any>;
-        "exact"?: boolean;
         "routeRender"?: (props: { match: MatchResults }) => any;
         "url"?: string;
     }
@@ -404,7 +401,6 @@ declare namespace LocalJSX {
         "scrollTopOffset"?: number;
     }
     interface KompendiumRouter {
-        "historyType"?: 'hash' | 'browser';
     }
     interface KompendiumSearch {
         /**
