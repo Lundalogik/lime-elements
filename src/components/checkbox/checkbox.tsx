@@ -31,7 +31,7 @@ import { Label } from '../dynamic-label/label.types';
  * :::important
  * Checkboxes are sometimes used interchangeably with switches in user interfaces.
  * But there is an important difference between the two! Please read our guidelines about
- * [Switch vs. Checkbox](/#/DesignGuidelines/switch-vs-checkbox.md/).
+ * [Switch vs. Checkbox](#/DesignGuidelines/switch-vs-checkbox.md/).
  *
  * @exampleComponent limel-example-checkbox
  * @exampleComponent limel-example-checkbox-helper-text
