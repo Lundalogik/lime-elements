@@ -11,8 +11,8 @@ import { Component, h, State } from '@stencil/core';
  * :::important
  * Before reading the documentations below, make sure to read
  * 1. our guides about the difference between
- * [Disabled vs. Readonly](/#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
- * 2. our guidelines about [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/).
+ * [Disabled vs. Readonly](#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
+ * 2. our guidelines about [Labeling boolean fields](#/DesignGuidelines/labeling-boolean-fields.md/).
  * :::
  *
  * Using the `readonlyLabels` optional prop, you can override the `label` and
