@@ -12,7 +12,7 @@ export const config: Config = {
             type: 'docs-custom',
             strict: true,
             generator: kompendium({
-                typeRoot: './src/interface.ts',
+                typeRoot: './src/index.ts',
                 guides: guides,
             }),
         },
@@ -34,7 +34,11 @@ export const config: Config = {
             ],
         },
     ],
-    plugins: [sass()],
+    plugins: [
+        sass({
+            includePaths: ['node_modules'],
+        }),
+    ],
     rollupPlugins: {
         before: [nodeResolve()],
     },
