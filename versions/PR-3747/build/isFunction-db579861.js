@@ -1,0 +1,2 @@
+import{b as t}from"./_baseGetTag-49d0259e.js";import{i as o}from"./isObject-7039fcda.js";var e="[object AsyncFunction]",r="[object Function]",n="[object GeneratorFunction]",c="[object Proxy]";function a(a){if(!o(a)){return false}var i=t(a);return i==r||i==n||i==e||i==c}export{a as i};
+//# sourceMappingURL=isFunction-db579861.js.map
