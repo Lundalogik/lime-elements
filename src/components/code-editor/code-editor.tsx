@@ -182,9 +182,7 @@ export class CodeEditor {
         // the space count
         editor.setOption('extraKeys', {
             Tab: (codeMirror) => {
-                const spaces = [codeMirror.getOption('indentUnit') + 1].join(
-                    ' '
-                );
+                const spaces = ' '.repeat(codeMirror.getOption('indentUnit'));
                 codeMirror.replaceSelection(spaces);
             },
         });
