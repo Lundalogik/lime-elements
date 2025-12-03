@@ -44,6 +44,13 @@ import { CustomElementDefinition } from '../../../global/shared-types/custom-ele
 import { createNodeSpec } from '../utils/plugin-factory';
 import { createTriggerPlugin } from './plugins/trigger/factory';
 import {
+    taskListNodeSpec,
+    taskListItemNodeSpec,
+} from './plugins/task-list/task-list-schema';
+import { createTaskListPlugin } from './plugins/task-list/task-list-plugin';
+import { createTaskListItemNodeView } from './plugins/task-list/task-list-node-view';
+import { createListIndentationPlugin } from './plugins/list-indentation-plugin';
+import {
     TriggerCharacter,
     ImageInserter,
     EditorImage,
@@ -359,6 +366,9 @@ export class ProsemirrorAdapter {
             {
                 state: this.createEditorState(initialDoc),
                 dispatchTransaction: this.handleTransaction,
+                nodeViews: {
+                    task_list_item: createTaskListItemNodeView,
+                },
             }
         );
 
@@ -380,6 +390,12 @@ export class ProsemirrorAdapter {
             nodes = nodes.append({ [nodeName]: newNodeSpec });
         }
         nodes = addListNodes(nodes, 'paragraph block*', 'block');
+
+        // Add task list nodes
+        nodes = nodes.append({
+            task_list: taskListNodeSpec,
+            task_list_item: taskListItemNodeSpec,
+        });
 
         if (this.contentType === 'html') {
             nodes = nodes.append(getTableNodes());
@@ -416,6 +432,8 @@ export class ProsemirrorAdapter {
         return EditorState.create({
             doc: initialDoc,
             plugins: [
+                createTaskListPlugin(this.schema), // Move task list plugin FIRST
+                createListIndentationPlugin(this.schema), // Add list indentation plugin
                 ...exampleSetup({ schema: this.schema, menuBar: false }),
                 keymap(this.menuCommandFactory.buildKeymap()),
                 createTriggerPlugin(
