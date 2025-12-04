@@ -1,3 +1,11 @@
+## [38.33.0](https://github.com/Lundalogik/lime-elements/compare/v38.32.0...v38.33.0) (2025-12-04)
+
+
+### Features
+
+
+* **form:** add `help` to sections ([747f906](https://github.com/Lundalogik/lime-elements/commit/747f906fa81470430543cae2cb3c6da431142eb1))
+
 ## [38.32.0](https://github.com/Lundalogik/lime-elements/compare/v38.31.2...v38.32.0) (2025-12-04)
 
 
