@@ -27,7 +27,7 @@ export const schema: FormSchema<NestedFormData> = {
         address: {
             type: 'object',
             title: 'Location',
-            description: 'Please enter your location',
+            description: 'Please enter your **current** location',
             properties: {
                 city: {
                     type: 'string',
