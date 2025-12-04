@@ -49,11 +49,10 @@ export class Row extends React.Component<RowProps> {
 
     private renderDescription() {
         if (this.schema?.description) {
-            return React.createElement(
-                'p',
-                { className: 'description' },
-                this.schema.description
-            );
+            return React.createElement('limel-markdown', {
+                class: 'description',
+                value: this.schema.description,
+            });
         }
     }
 
