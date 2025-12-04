@@ -1,3 +1,11 @@
+## [38.32.0](https://github.com/Lundalogik/lime-elements/compare/v38.31.2...v38.32.0) (2025-12-04)
+
+
+### Features
+
+
+* **form:** enable adding rich text as `description` ([0e4f89f](https://github.com/Lundalogik/lime-elements/commit/0e4f89f2e3971f84e7182f03bfa7f1582de94929))
+
 ## [38.31.2](https://github.com/Lundalogik/lime-elements/compare/v38.31.1...v38.31.2) (2025-12-01)
 
 
