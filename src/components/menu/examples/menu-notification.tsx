@@ -28,7 +28,7 @@ import { Component, h } from '@stencil/core';
  *
  * By default, the badge is red and its text is white.
  * This is to attract users' attention. However, this is possible to override using
- * [provided style variables](/#/component/limel-menu/styles/).
+ * [provided style variables](#/component/limel-menu/styles/).
  *
  * :::warning
  * - Do not negatively exploit this possibility and spam users' attention.

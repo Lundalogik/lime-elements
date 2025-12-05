@@ -1,3 +1,27 @@
+## [38.33.0](https://github.com/Lundalogik/lime-elements/compare/v38.32.0...v38.33.0) (2025-12-04)
+
+
+### Features
+
+
+* **form:** add `help` to sections ([747f906](https://github.com/Lundalogik/lime-elements/commit/747f906fa81470430543cae2cb3c6da431142eb1))
+
+## [38.32.0](https://github.com/Lundalogik/lime-elements/compare/v38.31.2...v38.32.0) (2025-12-04)
+
+
+### Features
+
+
+* **form:** enable adding rich text as `description` ([0e4f89f](https://github.com/Lundalogik/lime-elements/commit/0e4f89f2e3971f84e7182f03bfa7f1582de94929))
+
+## [38.31.2](https://github.com/Lundalogik/lime-elements/compare/v38.31.1...v38.31.2) (2025-12-01)
+
+
+### Bug Fixes
+
+
+* **form:** implement drag and drop for reordering items ([32affed](https://github.com/Lundalogik/lime-elements/commit/32affed3ff82d34fc54b0f376e9283847d7cd1b8))
+
 ## [38.31.1](https://github.com/Lundalogik/lime-elements/compare/v38.31.0...v38.31.1) (2025-11-27)
 
 

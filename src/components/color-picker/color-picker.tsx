@@ -18,7 +18,7 @@ import type { CustomColorSwatch } from './color-picker.types';
  * The color picker can also show you a preview of any valid color name or color value.
  *
  * :::note
- * Make sure to read our [guidelines about usage of colors](/#/DesignGuidelines/color-system.md/) from our palette.
+ * Make sure to read our [guidelines about usage of colors](#/DesignGuidelines/color-system.md/) from our palette.
  * :::
  *
  * @exampleComponent limel-example-color-picker-basic

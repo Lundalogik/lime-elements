@@ -1,3 +1,4 @@
+@use '../../style/mixins.scss';
 @use '../../style/internal/shared_input-select-picker';
 
 /**
@@ -9,6 +10,12 @@
  * @prop --form-background-color-of-odd-rows:Background of odd rows in the form, when layout type is `row`. Defaults to `--contrast-200`.
  */
 
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
 .form-group {
     min-width: 0;
 }
@@ -16,19 +23,48 @@
 .limel-form-array-item--simple {
     display: flex;
     align-items: center;
-    padding-bottom: var(--form-row-gap, 1rem);
+    padding: 0.25rem;
 
-    *:first-child {
-        flex-grow: 1;
+    > *:first-child {
+        // this is the input element, which is followed
+        // by the drag handle and the delete controls
+        flex: 1;
+        min-width: 0;
     }
 }
 
-limel-code-editor {
-    margin-bottom: 0.75rem;
+.array-items {
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--form-row-gap, 0.5rem);
+    margin-top: 1rem;
+
+    &.has-an-item-which-is-being-dragged {
+        limel-collapsible-section {
+            // This ensures that all collapsible sections which are open will
+            // temporarily collapse, while they are being dragged around.
+            // This makes it way easier for the end user to see where they are dropping
+            // the item; since sections can be really tall and hard to reorder
+            // by drag and drop.
+            --limel-cs-grid-template-rows: 0fr;
+            --limel-cs-opacity-transition-speed: 0.2s;
+            --limel-cs-grid-template-rows-transition-speed: 0.2s;
+            --limel-cs-open-header-bottom-border-radius: 0.75rem;
+        }
+    }
 }
 
-.limel-form-array-item--object {
-    margin-bottom: 0.25rem;
+.array-item {
+    @include mixins.is-draggable-item();
+}
+
+limel-drag-handle {
+    order: 10; // ensure drag handle is always last, specifically in the collapsible section
+}
+
+limel-collapsible-section.is-being-dragged {
+    border-radius: 0.75rem !important;
 }
 
 .limel-form-layout--default {
@@ -175,17 +211,9 @@ h1 {
     font-weight: 500;
 }
 
-p {
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-    font-size: var(--limel-theme-default-font-size);
-}
-
-p + limel-collapsible-section,
-p + .limel-form-array-item--simple,
-h1 + limel-collapsible-section,
-h1 + .limel-form-array-item--simple {
-    margin-top: 1rem;
+limel-markdown {
+    display: block;
+    margin-bottom: 0.5rem;
 }
 
 .form-group {
@@ -197,8 +225,7 @@ h1 + .limel-form-array-item--simple {
         left: calc(var(--form-column-gap, 1rem) * -0.5);
     }
 
-    h1,
-    p {
+    h1 {
         color: rgb(var(--contrast-1400), 0.8);
     }
 

@@ -38,11 +38,11 @@ const DEFAULT_MAX_LENGTH = 50;
  * Use them only when they add significant value.
  * - A good tip is concise, helpful, and informative.
  * Don't explain the obvious or simply repeat what is already on the screen.
- * When used correctly, supplemental info of a tooltip helps to [declutter the UI](/#/DesignGuidelines/decluttering.md/).
+ * When used correctly, supplemental info of a tooltip helps to [declutter the UI](#/DesignGuidelines/decluttering.md/).
  * - If the tip is essential to the primary tasks that the user is performing,
  * such as warnings or important notes, include the information directly in the
  * interface instead.
- * - When a component offers a helper text (e.g. [Input field](/#/component/limel-input-field/)),
+ * - When a component offers a helper text (e.g. [Input field](#/component/limel-input-field/)),
  * use that, not a tooltip.
  * - Make sure to use the tooltip on an element that users naturally and
  * effortlessly recognize can be hovered.
