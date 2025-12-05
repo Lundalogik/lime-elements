@@ -1,3 +1,11 @@
+## [38.33.1](https://github.com/Lundalogik/lime-elements/compare/v38.33.0...v38.33.1) (2025-12-05)
+
+
+### Bug Fixes
+
+
+* **code-editor:** correctly render tab ([d0b4153](https://github.com/Lundalogik/lime-elements/commit/d0b415319fafead9d07ea61467a42175c31a7895))
+
 ## [38.33.0](https://github.com/Lundalogik/lime-elements/compare/v38.32.0...v38.33.0) (2025-12-04)
 
 
