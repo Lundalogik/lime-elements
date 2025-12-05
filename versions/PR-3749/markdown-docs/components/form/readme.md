@@ -55,9 +55,14 @@
  - [limel-example-text-editor-as-form-component](../text-editor/examples)
  - [limel-example-tooltip-composite](../tooltip/examples)
 
+### Depends on
+
+- [limel-markdown](../markdown)
+
 ### Graph
 ```mermaid
 graph TD;
+  limel-form --> limel-markdown
   limel-example-button-composite --> limel-form
   limel-example-button-group-composite --> limel-form
   limel-example-callout-composite --> limel-form
