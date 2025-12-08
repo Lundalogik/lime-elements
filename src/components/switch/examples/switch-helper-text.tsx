@@ -39,23 +39,23 @@ export class SwitchExampleHelperText {
                 helperText={'Siri helps you get things done, just by asking.'}
             />,
             <limel-example-controls>
-                <limel-checkbox
-                    checked={this.disabled}
+                <limel-switch
+                    value={this.disabled}
                     label="Disabled"
                     onChange={this.setDisabled}
                 />
-                <limel-checkbox
-                    checked={this.readonly}
+                <limel-switch
+                    value={this.readonly}
                     label="Readonly"
                     onChange={this.setReadonly}
                 />
-                <limel-checkbox
-                    checked={this.invalid}
+                <limel-switch
+                    value={this.invalid}
                     label="Invalid"
                     onChange={this.setInvalid}
                 />
-                <limel-checkbox
-                    checked={this.value}
+                <limel-switch
+                    value={this.value}
                     label="Selected"
                     onChange={this.setChecked}
                 />
