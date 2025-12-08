@@ -83,13 +83,13 @@ export class PictureListExample {
                 class={this.hasStripedRows ? 'has-striped-rows' : ''}
             />,
             <limel-example-controls>
-                <limel-checkbox
-                    checked={this.badgeIcons}
+                <limel-switch
+                    value={this.badgeIcons}
                     label="badge icons"
                     onChange={this.setBadgeIcons}
                 />
-                <limel-checkbox
-                    checked={this.hasStripedRows}
+                <limel-switch
+                    value={this.hasStripedRows}
                     label="striped rows"
                     onChange={this.setHasStripedRows}
                 />

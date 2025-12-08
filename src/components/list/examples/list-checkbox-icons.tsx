@@ -101,8 +101,8 @@ export class ListCheckboxIconsExample {
             />,
             <limel-example-value value={this.selectedItems} />,
             <limel-example-controls>
-                <limel-checkbox
-                    checked={this.showIcons}
+                <limel-switch
+                    value={this.showIcons}
                     label="icon"
                     onChange={this.setIcon}
                 />
