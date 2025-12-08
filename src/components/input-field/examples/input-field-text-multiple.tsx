@@ -34,10 +34,10 @@ export class InputFieldTextExample {
                         onChange={this.secondOnChange}
                     />
                 </section>
-                <limel-checkbox
+                <limel-switch
                     label="Then click this to add distance between fields"
                     onChange={this.toggleMode}
-                    checked={this.addDistance}
+                    value={this.addDistance}
                 />
             </div>
         );
