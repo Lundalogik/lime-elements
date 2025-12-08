@@ -59,25 +59,25 @@ export class ChipLoadingExample {
                 aria-live="polite"
             />,
             <limel-example-controls>
-                <limel-checkbox
-                    label="Loading"
-                    checked={this.loading}
-                    onChange={this.setLoading}
-                />
-                <limel-checkbox
-                    checked={this.disabled}
+                <limel-switch
                     label="Disabled"
                     onChange={this.setDisabled}
+                    value={this.disabled}
                 />
-                <limel-checkbox
-                    checked={this.readonly}
+                <limel-switch
                     label="Readonly"
                     onChange={this.setReadonly}
+                    value={this.readonly}
                 />
-                <limel-checkbox
-                    checked={this.invalid}
+                <limel-switch
                     label="Invalid"
                     onChange={this.setInvalid}
+                    value={this.invalid}
+                />
+                <limel-switch
+                    label="Loading"
+                    onChange={this.setLoading}
+                    value={this.loading}
                 />
             </limel-example-controls>,
         ];
