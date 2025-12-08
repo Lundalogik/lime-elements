@@ -88,40 +88,40 @@ export class ChipSetInputExample {
                     type="number"
                     onChange={this.setMaxItems}
                 />
-                <limel-checkbox
+                <limel-switch
                     label="Empty input on blur"
                     onChange={this.setEmptyInputOnBlur}
-                    checked={this.emptyInputOnBlur}
+                    value={this.emptyInputOnBlur}
                 />
-                <limel-checkbox
+                <limel-switch
                     label="Disabled"
                     onChange={this.setDisabled}
-                    checked={this.disabled}
+                    value={this.disabled}
                 />
-                <limel-checkbox
+                <limel-switch
                     label="Readonly"
                     onChange={this.setReadonly}
-                    checked={this.readonly}
+                    value={this.readonly}
                 />
-                <limel-checkbox
+                <limel-switch
                     label="Required"
                     onChange={this.setRequired}
-                    checked={this.required}
+                    value={this.required}
                 />
-                <limel-checkbox
+                <limel-switch
                     label="Invalid"
                     onChange={this.setInvalid}
-                    checked={this.invalid}
+                    value={this.invalid}
                 />
-                <limel-checkbox
+                <limel-switch
                     label={'Leading icon'}
                     onChange={this.setLeadingIcon}
-                    checked={this.hasLeadingIcon}
+                    value={this.hasLeadingIcon}
                 />
-                <limel-checkbox
+                <limel-switch
                     label="Use delimiters"
                     onChange={this.useDelimiters}
-                    checked={this.delimiter !== null}
+                    value={this.delimiter !== null}
                 />
             </limel-example-controls>,
             <limel-example-value value={this.value} />,
