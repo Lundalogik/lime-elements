@@ -26,8 +26,8 @@ export class TextEditorWithMarkdownExample {
                 contentType="markdown"
             />,
             <limel-example-controls>
-                <limel-checkbox
-                    checked={this.readonly}
+                <limel-switch
+                    value={this.readonly}
                     label="Readonly"
                     onChange={this.setReadonly}
                 />

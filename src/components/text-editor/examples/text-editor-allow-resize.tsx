@@ -46,8 +46,8 @@ export class TextEditorAllowResizeExample {
                 allowResize={this.allowResize}
             />,
             <limel-example-controls>
-                <limel-checkbox
-                    checked={this.allowResize}
+                <limel-switch
+                    value={this.allowResize}
                     label="Allow resize"
                     onChange={this.setAllowResize}
                 />
