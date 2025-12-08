@@ -1,5 +1,4 @@
-import { FormSchema } from '@limetech/lime-elements';
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
 
 /**
  * Composite
@@ -11,35 +10,29 @@ import { Component, h, Prop, State } from '@stencil/core';
     shadow: true,
 })
 export class ButtonCompositeExample {
-    @Prop()
-    public schema: FormSchema;
-
     @State()
     private props = {
-        label: 'My button',
         primary: true,
         outlined: false,
-        icon: 'dog',
         disabled: false,
         loading: false,
     };
 
-    private eventPrinter: HTMLLimelExampleEventPrinterElement;
+    @State()
+    private formValue: any = {
+        label: 'My button',
+        icon: 'dog',
+    };
 
-    public componentWillLoad() {
-        this.schema = {
-            ...this.schema,
-            lime: {
-                layout: {
-                    type: 'grid',
-                },
-            },
-        };
-    }
+    private eventPrinter: HTMLLimelExampleEventPrinterElement;
 
     public render() {
         return [
-            <limel-button {...this.props} onClick={this.handleEvent} />,
+            <limel-button
+                {...this.formValue}
+                {...this.props}
+                onClick={this.handleEvent}
+            />,
             this.renderForm(),
             <limel-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}
@@ -56,16 +49,79 @@ export class ButtonCompositeExample {
             <limel-example-controls
                 style={{ '--example-controls-column-layout': 'auto-fit' }}
             >
-                <limel-form
-                    schema={this.schema}
-                    value={this.props}
-                    onChange={this.handleChange}
+                <limel-input-field
+                    label="Label"
+                    value={this.formValue.label}
+                    onChange={(event: CustomEvent<string>) => {
+                        this.formValue = {
+                            ...this.formValue,
+                            label: event.detail,
+                        };
+                    }}
+                />
+                <limel-input-field
+                    label="Icon"
+                    value={this.formValue.icon}
+                    onChange={(event: CustomEvent<string>) => {
+                        this.formValue = {
+                            ...this.formValue,
+                            icon: event.detail,
+                        };
+                    }}
+                />
+                <limel-switch
+                    label="Primary"
+                    value={this.props.primary}
+                    onChange={this.setPrimary}
+                />
+                <limel-switch
+                    label="Disabled"
+                    value={this.props.disabled}
+                    onChange={this.setDisabled}
+                />
+                <limel-switch
+                    label="Loading"
+                    value={this.props.loading}
+                    onChange={this.setLoading}
+                />
+                <limel-switch
+                    label="Outlined"
+                    value={this.props.outlined}
+                    onChange={this.setOutlined}
                 />
             </limel-example-controls>
         );
     }
 
-    private handleChange = (event: CustomEvent) => {
-        this.props = event.detail;
+    private setDisabled = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.props = {
+            ...this.props,
+            disabled: event.detail,
+        };
+    };
+
+    private setPrimary = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.props = {
+            ...this.props,
+            primary: event.detail,
+        };
+    };
+
+    private setOutlined = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.props = {
+            ...this.props,
+            outlined: event.detail,
+        };
+    };
+
+    private setLoading = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.props = {
+            ...this.props,
+            loading: event.detail,
+        };
     };
 }
