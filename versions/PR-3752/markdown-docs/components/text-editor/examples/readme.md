@@ -21,7 +21,7 @@ Tables will only appear as expected in text-editor fields that are in `HTML` mod
 
 - [limel-text-editor](..)
 - [limel-example-controls](../../../examples)
-- [limel-checkbox](../../checkbox)
+- [limel-switch](../../switch)
 - [limel-example-value](../../../examples)
 
 ### Graph
@@ -29,7 +29,7 @@ Tables will only appear as expected in text-editor fields that are in `HTML` mod
 graph TD;
   limel-example-text-editor-with-tables --> limel-text-editor
   limel-example-text-editor-with-tables --> limel-example-controls
-  limel-example-text-editor-with-tables --> limel-checkbox
+  limel-example-text-editor-with-tables --> limel-switch
   limel-example-text-editor-with-tables --> limel-example-value
   limel-text-editor --> limel-helper-line
   limel-text-editor --> limel-notched-outline
@@ -67,8 +67,8 @@ graph TD;
   limel-text-editor-link-menu --> limel-button
   limel-button --> limel-icon
   limel-button --> limel-spinner
-  limel-checkbox --> limel-dynamic-label
-  limel-checkbox --> limel-helper-line
+  limel-switch --> limel-helper-line
+  limel-switch --> limel-dynamic-label
   limel-dynamic-label --> limel-icon
   style limel-example-text-editor-with-tables fill:#f9f,stroke:#333,stroke-width:4px
 ```
