@@ -63,23 +63,23 @@ export class SwitchReadonlyExample {
                 invalid={this.invalid}
             />,
             <limel-example-controls>
-                <limel-checkbox
-                    checked={this.readonly}
+                <limel-switch
+                    value={this.readonly}
                     label="Readonly"
                     onChange={this.setReadonly}
                 />
-                <limel-checkbox
-                    checked={this.disabled}
+                <limel-switch
+                    value={this.disabled}
                     label="Disabled"
                     onChange={this.setDisabled}
                 />
-                <limel-checkbox
-                    checked={this.invalid}
+                <limel-switch
+                    value={this.invalid}
                     label="Invalid"
                     onChange={this.setInvalid}
                 />
-                <limel-checkbox
-                    checked={this.value}
+                <limel-switch
+                    value={this.value}
                     label="Selected"
                     onChange={this.setSelected}
                 />
