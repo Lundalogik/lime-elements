@@ -62,18 +62,18 @@ export class SelectMultipleExample {
                 multiple={true}
             />,
             <limel-example-controls>
-                <limel-checkbox
-                    checked={this.disabled}
+                <limel-switch
+                    value={this.disabled}
                     label="Disabled"
                     onChange={this.setDisabled}
                 />
-                <limel-checkbox
-                    checked={this.readonly}
+                <limel-switch
+                    value={this.readonly}
                     label="Readonly"
                     onChange={this.setReadonly}
                 />
-                <limel-checkbox
-                    checked={this.required}
+                <limel-switch
+                    value={this.required}
                     label="Required"
                     onChange={this.setRequired}
                 />
