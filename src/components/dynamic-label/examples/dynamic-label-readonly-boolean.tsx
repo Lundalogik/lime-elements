@@ -136,8 +136,8 @@ export class DynamicLabelExample {
             />,
             <limel-switch value={this.value} readonly={true} label="Switch" />,
             <limel-example-controls>
-                <limel-checkbox
-                    checked={this.value}
+                <limel-switch
+                    value={this.value}
                     label="Value"
                     onChange={this.setChecked}
                 />
