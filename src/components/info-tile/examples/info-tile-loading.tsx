@@ -44,9 +44,9 @@ export class InfoTileLoadingExample {
                 loading={this.loading}
             />,
             <limel-example-controls>
-                <limel-checkbox
+                <limel-switch
                     label="Loading"
-                    checked={this.loading}
+                    value={this.loading}
                     onChange={this.setLoading}
                 />
             </limel-example-controls>,
