@@ -52,6 +52,12 @@
                     1%
             );
         }
+
+        &:last-of-type {
+            &:before {
+                display: none;
+            }
+        }
     }
 }
 
