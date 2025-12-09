@@ -14,7 +14,7 @@
     // So instead, I've copy/pasted the useful parts of the mixin here
     transition:
         color var(--limel-clickable-transition-speed, 0.4s) ease,
-        background-color var(--limel-clickable-transition-speed, 0.4s) ease,
+        // background-color var(--limel-clickable-transition-speed, 0.4s) ease,
         box-shadow var(--limel-clickable-transform-speed, 0.4s) ease,
         transform var(--limel-clickable-transform-speed, 0.4s)
             var(--limel-clickable-transform-timing-function, ease);
@@ -66,18 +66,11 @@
 
     &.tabulator-selectable {
         &:hover {
+            background-color: var(--table-row-background-color--hover);
             z-index: $table--has-interactive-rows--selectable-row--hover;
         }
 
         &.active {
-            --limel-table-row-background-color: var(
-                --table-row-background-color--active
-            );
-
-            .interactive-feedback {
-                box-shadow: var(--button-shadow-inset-pressed);
-            }
-
             &:before {
                 $width-of-selected-row-indicator: 0.2rem;
                 content: '';
@@ -111,6 +104,22 @@
                     transform: translate3d(0, 0.05rem, 0);
                 }
             }
+
+            &.active {
+                --limel-table-row-background-color: var(
+                    --table-row-background-color--active
+                );
+                .interactive-feedback {
+                    opacity: 0.2;
+                    background-color: var(--table-row-background-color--active);
+                    box-shadow: var(--button-shadow-inset-pressed);
+
+                    &:hover {
+                        opacity: 0.3;
+                    }
+                }
+            }
+
             &:not(.active) {
                 .interactive-feedback {
                     &:hover {
