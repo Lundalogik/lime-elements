@@ -155,6 +155,7 @@ slot[name='primary'] {
 .label {
     z-index: 1;
     color: var(--info-tile-text-color, rgb(var(--contrast-1100)));
+    opacity: 0.8;
 
     line-height: 1.2;
     font-size: clamp(
