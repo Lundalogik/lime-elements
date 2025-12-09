@@ -13,12 +13,28 @@
     // even and odd row colors and background color very complicated.
     // So instead, I've copy/pasted the useful parts of the mixin here
     transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+        color var(--limel-clickable-transition-speed, 0.4s) ease,
+        background-color var(--limel-clickable-transition-speed, 0.4s) ease,
+        box-shadow var(--limel-clickable-transform-speed, 0.4s) ease,
+        transform var(--limel-clickable-transform-speed, 0.4s)
+            var(--limel-clickable-transform-timing-function, ease);
 
     background-color: rgb(var(--limel-table-row-background-color));
+
+    .tabulator-row:active & {
+        --limel-clickable-transform-timing-function: cubic-bezier(
+            0.83,
+            -0.15,
+            0.49,
+            1.16
+        );
+    }
+
+    .tabulator-row:hover &,
+    .tabulator-row:active & {
+        --limel-clickable-transition-speed: 0.2s;
+        --limel-clickable-transform-speed: 0.16s;
+    }
 }
 
 .tabulator-row:not(.tabulator-calcs) {
@@ -92,7 +108,7 @@
                 .interactive-feedback {
                     box-shadow: var(--button-shadow-pressed);
 
-                    transform: translate3d(0, 0.08rem, 0);
+                    transform: translate3d(0, 0.05rem, 0);
                 }
             }
             &:not(.active) {
