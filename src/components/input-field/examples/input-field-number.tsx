@@ -1,4 +1,4 @@
-import { Component, h, State, Watch } from '@stencil/core';
+import { Component, h, Host, State, Watch } from '@stencil/core';
 
 /**
  * Input Field of Type Number
@@ -27,42 +27,44 @@ export class InputFieldNumberExample {
     private value = '';
 
     public render() {
-        return [
-            <limel-input-field
-                label="Number Field Label"
-                value={this.value}
-                type="number"
-                formatNumber={this.formatNumber}
-                disabled={this.disabled}
-                readonly={this.readonly}
-                invalid={this.invalid}
-                required={this.required}
-                onChange={this.handleChange}
-            />,
-            <limel-example-controls>
-                <limel-switch
-                    value={this.formatNumber}
-                    label="Format value"
-                    onChange={this.setFormatNumber}
+        return (
+            <Host>
+                <limel-input-field
+                    label="Number Field Label"
+                    value={this.value}
+                    type="number"
+                    formatNumber={this.formatNumber}
+                    disabled={this.disabled}
+                    readonly={this.readonly}
+                    invalid={this.invalid}
+                    required={this.required}
+                    onChange={this.handleChange}
                 />
-                <limel-switch
-                    value={this.disabled}
-                    label="Disabled"
-                    onChange={this.setDisabled}
-                />
-                <limel-switch
-                    value={this.readonly}
-                    label="Readonly"
-                    onChange={this.setReadonly}
-                />
-                <limel-switch
-                    value={this.required}
-                    label="Required"
-                    onChange={this.setRequired}
-                />
-            </limel-example-controls>,
-            <limel-example-value value={this.value} />,
-        ];
+                <limel-example-controls>
+                    <limel-switch
+                        value={this.formatNumber}
+                        label="Format value"
+                        onChange={this.setFormatNumber}
+                    />
+                    <limel-switch
+                        value={this.disabled}
+                        label="Disabled"
+                        onChange={this.setDisabled}
+                    />
+                    <limel-switch
+                        value={this.readonly}
+                        label="Readonly"
+                        onChange={this.setReadonly}
+                    />
+                    <limel-switch
+                        value={this.required}
+                        label="Required"
+                        onChange={this.setRequired}
+                    />
+                </limel-example-controls>
+                <limel-example-value value={this.value} />
+            </Host>
+        );
     }
 
     @Watch('required')

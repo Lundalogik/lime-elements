@@ -1,5 +1,5 @@
 import { LimelListCustomEvent, ListItem } from '@limetech/lime-elements';
-import { Component, h, State } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
 
 /**
  * List with checkboxes and icons
@@ -93,21 +93,23 @@ export class ListCheckboxIconsExample {
     }
 
     public render() {
-        return [
-            <limel-list
-                onChange={this.handleChange}
-                items={this.items}
-                type="checkbox"
-            />,
-            <limel-example-value value={this.selectedItems} />,
-            <limel-example-controls>
-                <limel-switch
-                    value={this.showIcons}
-                    label="icon"
-                    onChange={this.setIcon}
+        return (
+            <Host>
+                <limel-list
+                    onChange={this.handleChange}
+                    items={this.items}
+                    type="checkbox"
                 />
-            </limel-example-controls>,
-        ];
+                <limel-example-value value={this.selectedItems} />
+                <limel-example-controls>
+                    <limel-switch
+                        value={this.showIcons}
+                        label="icon"
+                        onChange={this.setIcon}
+                    />
+                </limel-example-controls>
+            </Host>
+        );
     }
 
     private handleChange = (event: LimelListCustomEvent<ListItem[]>) => {

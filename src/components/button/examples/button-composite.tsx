@@ -93,7 +93,7 @@ export class ButtonCompositeExample {
         );
     }
 
-    private setDisabled = (event: CustomEvent<boolean>) => {
+    private readonly setDisabled = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.props = {
             ...this.props,
@@ -101,7 +101,7 @@ export class ButtonCompositeExample {
         };
     };
 
-    private setPrimary = (event: CustomEvent<boolean>) => {
+    private readonly setPrimary = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.props = {
             ...this.props,
@@ -109,7 +109,7 @@ export class ButtonCompositeExample {
         };
     };
 
-    private setOutlined = (event: CustomEvent<boolean>) => {
+    private readonly setOutlined = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.props = {
             ...this.props,
@@ -117,7 +117,7 @@ export class ButtonCompositeExample {
         };
     };
 
-    private setLoading = (event: CustomEvent<boolean>) => {
+    private readonly setLoading = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.props = {
             ...this.props,
