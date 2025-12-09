@@ -1,3 +1,12 @@
+## [38.33.2](https://github.com/Lundalogik/lime-elements/compare/v38.33.1...v38.33.2) (2025-12-09)
+
+
+### Bug Fixes
+
+
+* **info-tile:** improve ux when size is extra small ([09d9510](https://github.com/Lundalogik/lime-elements/commit/09d9510aefd2c9d454560e304dd77417b3cd1b4a))
+* **info-tile:** increase readability ([438d98c](https://github.com/Lundalogik/lime-elements/commit/438d98c496c913731463b0670394de7dc9bf97ec))
+
 ## [38.33.1](https://github.com/Lundalogik/lime-elements/compare/v38.33.0...v38.33.1) (2025-12-05)
 
 
