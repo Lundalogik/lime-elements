@@ -22,21 +22,21 @@ a different format.
 
 - [limel-button-group](..)
 - [limel-example-controls](../../../examples)
-- [limel-checkbox](../../checkbox)
+- [limel-switch](../../switch)
 
 ### Graph
 ```mermaid
 graph TD;
   limel-example-button-group-mix --> limel-button-group
   limel-example-button-group-mix --> limel-example-controls
-  limel-example-button-group-mix --> limel-checkbox
+  limel-example-button-group-mix --> limel-switch
   limel-button-group --> limel-icon
   limel-button-group --> limel-tooltip
   limel-button-group --> limel-badge
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
-  limel-checkbox --> limel-dynamic-label
-  limel-checkbox --> limel-helper-line
+  limel-switch --> limel-helper-line
+  limel-switch --> limel-dynamic-label
   limel-dynamic-label --> limel-icon
   style limel-example-button-group-mix fill:#f9f,stroke:#333,stroke-width:4px
 ```

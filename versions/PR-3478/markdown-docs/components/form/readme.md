@@ -29,7 +29,6 @@
 
 ### Used by
 
- - [limel-example-button-composite](../button/examples)
  - [limel-example-button-group-composite](../button-group/examples)
  - [limel-example-callout-composite](../callout/examples)
  - [limel-example-chip-set-composite](../chip-set/examples)
@@ -63,7 +62,6 @@
 ```mermaid
 graph TD;
   limel-form --> limel-markdown
-  limel-example-button-composite --> limel-form
   limel-example-button-group-composite --> limel-form
   limel-example-callout-composite --> limel-form
   limel-example-chip-set-composite --> limel-form
