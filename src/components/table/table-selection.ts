@@ -181,7 +181,7 @@ export class TableSelection {
         }
     };
 
-    private getActiveRows: () => TabulatorRowComponent[] = () => {
+    private readonly getActiveRows: () => TabulatorRowComponent[] = () => {
         const table = this.getTable();
         if (!table) {
             return [];
