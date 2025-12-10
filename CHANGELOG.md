@@ -1,3 +1,11 @@
+## [38.33.3](https://github.com/Lundalogik/lime-elements/compare/v38.33.2...v38.33.3) (2025-12-10)
+
+
+### Bug Fixes
+
+
+* **chart:** ensure last item in `line` & `area` chart is not perceived as `0` ([b659983](https://github.com/Lundalogik/lime-elements/commit/b6599835b62cd842d8ea2f7b1e37d3fce5efca9d))
+
 ## [38.33.2](https://github.com/Lundalogik/lime-elements/compare/v38.33.1...v38.33.2) (2025-12-09)
 
 
