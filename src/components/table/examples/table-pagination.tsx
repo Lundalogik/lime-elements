@@ -34,12 +34,12 @@ export class TablePaginationExample {
     @State()
     private paginationLocation: 'top' | 'bottom' = 'bottom';
 
-    private paginationLocationOptions: Option[] = [
+    private readonly paginationLocationOptions: Option[] = [
         { text: 'Top', value: 'top' },
         { text: 'Bottom', value: 'bottom' },
     ];
 
-    private pageSize = 5;
+    private readonly pageSize = 5;
 
     render() {
         return (
@@ -62,13 +62,13 @@ export class TablePaginationExample {
         );
     }
 
-    private getSelectedPaginationLocation = (): Option => {
+    private readonly getSelectedPaginationLocation = (): Option => {
         return this.paginationLocationOptions.find(
             (option) => option.value === this.paginationLocation
         );
     };
 
-    private handlePaginationLocationChange = (
+    private readonly handlePaginationLocationChange = (
         event: LimelSelectCustomEvent<Option>
     ) => {
         this.paginationLocation = event.detail.value as 'top' | 'bottom';
