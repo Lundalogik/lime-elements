@@ -293,7 +293,7 @@ export class Menu {
         return breadCrumbItems.reverse();
     }
 
-    private renderLoader = () => {
+    private readonly renderLoader = () => {
         if (!this.loadingSubItems && !this.loading) {
             return;
         }
@@ -315,7 +315,7 @@ export class Menu {
         );
     };
 
-    private renderBreadcrumb = () => {
+    private readonly renderBreadcrumb = () => {
         const breadcrumbsItems = this.getBreadcrumbsItems();
         if (breadcrumbsItems.length === 0) {
             return;
@@ -351,7 +351,7 @@ export class Menu {
         this.handleSelect(event.detail.menuItem);
     };
 
-    private renderSearchField = () => {
+    private readonly renderSearchField = () => {
         if (!this.searcher) {
             return;
         }
@@ -373,7 +373,7 @@ export class Menu {
         );
     };
 
-    private renderEmptyMessage = () => {
+    private readonly renderEmptyMessage = () => {
         if (
             this.loading ||
             this.loadingSubItems ||
@@ -396,7 +396,7 @@ export class Menu {
         );
     };
 
-    private renderMenuList = () => {
+    private readonly renderMenuList = () => {
         let items = this.visibleItems;
 
         if (this.loadingSubItems || this.loading) {
@@ -421,7 +421,7 @@ export class Menu {
         );
     };
 
-    private handleTextInput = async (
+    private readonly handleTextInput = async (
         event: LimelInputFieldCustomEvent<string>
     ) => {
         event.stopPropagation();
@@ -450,7 +450,7 @@ export class Menu {
     // Key handler for the input search field
     // Will change focus to breadcrumbs (if present) or the first/last item
     // in the dropdown list to enable selection with the keyboard
-    private handleInputKeyDown = (event: KeyboardEvent) => {
+    private readonly handleInputKeyDown = (event: KeyboardEvent) => {
         const isForwardTab =
             event.key === TAB &&
             !event.altKey &&
@@ -528,7 +528,7 @@ export class Menu {
     // Key handler for the menu list (bubble phase)
     // Will change focus to the search field if using shift+tab
     // And can go forward/back with right/left arrow keys
-    private handleMenuKeyDown = (event: KeyboardEvent) => {
+    private readonly handleMenuKeyDown = (event: KeyboardEvent) => {
         const isBackwardTab =
             event.key === TAB &&
             !event.altKey &&
@@ -566,7 +566,7 @@ export class Menu {
     // Key handler for breadcrumbs
     // Up arrow: focus search input
     // Down arrow: focus first list item
-    private handleBreadcrumbsKeyDown = (event: KeyboardEvent) => {
+    private readonly handleBreadcrumbsKeyDown = (event: KeyboardEvent) => {
         const isUp = event.key === ARROW_UP;
         const isDown = event.key === ARROW_DOWN;
 
@@ -588,7 +588,7 @@ export class Menu {
         }
     };
 
-    private clearSearch = () => {
+    private readonly clearSearch = () => {
         this.searchValue = '';
         this.searchResults = null;
         this.loadingSubItems = false;
@@ -619,11 +619,11 @@ export class Menu {
         return (item ?? this.visibleItems[0]) as MenuItem;
     };
 
-    private goForward = (currentItem: MenuItem) => {
+    private readonly goForward = (currentItem: MenuItem) => {
         this.handleSelect(currentItem, false);
     };
 
-    private goBack = () => {
+    private readonly goBack = () => {
         if (!this.currentSubMenu) {
             // Already in the root of the menu
             return;
@@ -645,7 +645,7 @@ export class Menu {
         this.handleSelect(parent);
     };
 
-    private setTriggerAttributes = (element: HTMLElement) => {
+    private readonly setTriggerAttributes = (element: HTMLElement) => {
         const attributes = {
             'aria-haspopup': true,
             'aria-expanded': this.open,
@@ -663,13 +663,13 @@ export class Menu {
         }
     };
 
-    private onClose = () => {
+    private readonly onClose = () => {
         this.cancel.emit();
         this.open = false;
         this.currentSubMenu = null;
     };
 
-    private onTriggerClick = (event: MouseEvent) => {
+    private readonly onTriggerClick = (event: MouseEvent) => {
         event.stopPropagation();
         if (this.disabled) {
             return;
@@ -678,7 +678,7 @@ export class Menu {
         this.open = !this.open;
     };
 
-    private handleSelect = async (
+    private readonly handleSelect = async (
         menuItem: MenuItem,
         selectOnEmptyChildren: boolean = true
     ) => {
@@ -728,7 +728,7 @@ export class Menu {
         this.setFocus();
     };
 
-    private onSelect = (event: CustomEvent<MenuItem>) => {
+    private readonly onSelect = (event: CustomEvent<MenuItem>) => {
         event.stopPropagation();
         this.handleSelect(event.detail);
     };
@@ -752,7 +752,7 @@ export class Menu {
         return zipObject(propertyNames, values) as Record<PropName, string>;
     }
 
-    private setListElement = (element: HTMLLimelMenuListElement) => {
+    private readonly setListElement = (element: HTMLLimelMenuListElement) => {
         if (this.list) {
             this.list.removeEventListener(
                 'keydown',
@@ -772,7 +772,7 @@ export class Menu {
         }
     };
 
-    private setFocus = () => {
+    private readonly setFocus = () => {
         setTimeout(() => {
             if (this.searchInput && this.searcher) {
                 const observer = new IntersectionObserver(() => {
@@ -794,7 +794,9 @@ export class Menu {
         }, 0);
     };
 
-    private setSearchElement = (element: HTMLLimelInputFieldElement) => {
+    private readonly setSearchElement = (
+        element: HTMLLimelInputFieldElement
+    ) => {
         this.searchInput = element;
     };
 
@@ -902,16 +904,16 @@ export class Menu {
         return !('separator' in item);
     }
 
-    private renderNotificationBadge = () => {
+    private readonly renderNotificationBadge = () => {
         if (this.items.some(this.hasNotificationBadge)) {
             return <limel-badge />;
         }
     };
 
-    private hasNotificationBadge = (item: MenuItem | ListSeparator) =>
+    private readonly hasNotificationBadge = (item: MenuItem | ListSeparator) =>
         this.isMenuItem(item) && item.badge !== undefined;
 
-    private setTriggerRef = (elm?: HTMLSlotElement) => {
+    private readonly setTriggerRef = (elm?: HTMLSlotElement) => {
         this.triggerElement = elm;
     };
 
