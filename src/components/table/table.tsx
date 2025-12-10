@@ -796,7 +796,7 @@ export class Table {
         this.activate.emit(this.activeRow);
     }
 
-    private getActiveRows: () => TabulatorRowComponent[] = () => {
+    private readonly getActiveRows: () => TabulatorRowComponent[] = () => {
         if (!this.tabulator) {
             return [];
         }
@@ -872,7 +872,7 @@ export class Table {
         return columns.some((column) => has(column, 'aggregator'));
     }
 
-    private getColumnOptions = (): TabulatorOptionsColumns => {
+    private readonly getColumnOptions = (): TabulatorOptionsColumns => {
         if (!this.movableColumns) {
             return {};
         }
@@ -882,7 +882,10 @@ export class Table {
         };
     };
 
-    private handleMoveColumn = (_, components: TabulatorColumnComponent[]) => {
+    private readonly handleMoveColumn = (
+        _,
+        components: TabulatorColumnComponent[]
+    ) => {
         if (!this.movableColumns) {
             return;
         }
@@ -891,7 +894,9 @@ export class Table {
         this.changeColumns.emit(columns);
     };
 
-    private findColumn = (component: TabulatorColumnComponent): Column => {
+    private readonly findColumn = (
+        component: TabulatorColumnComponent
+    ): Column => {
         return this.columns.find((column) => {
             return (
                 column.field === component.getField() &&
