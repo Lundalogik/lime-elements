@@ -368,6 +368,12 @@ export class ProsemirrorAdapter {
         if (this.value) {
             this.updateView(this.value);
         }
+
+        // Initialize lastEmittedValue to prevent false change events
+        this.lastEmittedValue = this.contentConverter.serialize(
+            this.view,
+            this.schema
+        );
     }
 
     private initializeSchema() {
@@ -588,6 +594,7 @@ export class ProsemirrorAdapter {
                     const { doc, tr } = this.view.state;
                     const resolvedPos = doc.resolve(this.lastClickedPos);
                     const selection = Selection.near(resolvedPos);
+                    tr.setMeta('pointer', true);
                     this.view.dispatch(tr.setSelection(selection));
                 }
             }, 0);
