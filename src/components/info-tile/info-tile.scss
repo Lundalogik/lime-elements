@@ -108,6 +108,7 @@ a {
     aspect-ratio: 1/1;
 
     color: var(--info-tile-icon-color, rgb(var(--contrast-1000)));
+    opacity: 0.9;
 
     border-radius: 0;
     height: clamp(
