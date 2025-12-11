@@ -167,6 +167,8 @@ slot[name='primary'] {
     @supports not (container-type: size) {
         font-size: var(--limel-theme-default-font-size);
     }
+
+    @include mixins.truncate-text-on-line(2);
 }
 
 limel-badge {
@@ -298,10 +300,6 @@ $l: 62.5rem; //1000px
         --suffix-prefix-min-size: 0.6rem;
         --suffix-prefix-preferred-size: 6cqw;
         --suffix-prefix-max-size: 0.875rem;
-    }
-
-    .label {
-        @include mixins.truncate-text-on-line(2);
     }
 }
 
