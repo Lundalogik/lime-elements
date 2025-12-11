@@ -1,3 +1,12 @@
+## [38.33.6](https://github.com/Lundalogik/lime-elements/compare/v38.33.5...v38.33.6) (2025-12-11)
+
+
+### Bug Fixes
+
+
+* **tab-bar:** allow consumers to override tab's badge background color ([01c8747](https://github.com/Lundalogik/lime-elements/commit/01c8747522d9c323b92db0c254f0e5b38d54a328))
+* **tab-bar:** better icon color in dark mode ([728138f](https://github.com/Lundalogik/lime-elements/commit/728138fdb68d1b8d584ebe9e0f651157cf498675))
+
 ## [38.33.5](https://github.com/Lundalogik/lime-elements/compare/v38.33.4...v38.33.5) (2025-12-11)
 
 
