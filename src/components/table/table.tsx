@@ -238,6 +238,8 @@ export class Table {
     private columnFactory: ColumnDefinitionFactory;
     private firstRequest: boolean;
     private initialized = false;
+    private destroyed = false;
+    private resizeObserver: ResizeObserver;
     private currentSorting: ColumnSorter[];
     private tableSelection: TableSelection;
     private shouldSort = false;
@@ -265,10 +267,24 @@ export class Table {
     }
 
     public componentDidLoad() {
+        this.destroyed = false;
         this.init();
     }
 
     public disconnectedCallback() {
+        this.destroyed = true;
+        this.initialized = false;
+
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+            this.resizeObserver = null;
+        }
+
+        if (this.tabulator) {
+            this.tabulator.destroy();
+            this.tabulator = null;
+        }
+
         this.pool.clear();
     }
 
@@ -514,15 +530,19 @@ export class Table {
             return;
         }
 
-        const observer = new ResizeObserver(() => {
+        this.resizeObserver = new ResizeObserver(() => {
             requestAnimationFrame(() => {
+                if (this.destroyed) {
+                    return;
+                }
+
                 this.tabulator = this.createTabulator(table);
                 this.setSelection();
-                observer.unobserve(table);
-                observer.disconnect();
+                this.resizeObserver?.unobserve(table);
+                this.resizeObserver?.disconnect();
             });
         });
-        observer.observe(table);
+        this.resizeObserver.observe(table);
     }
 
     private createTabulator(table: HTMLElement): Tabulator {
@@ -533,10 +553,14 @@ export class Table {
         tabulator.on('columnMoved', this.handleMoveColumn);
         tabulator.on('renderComplete', this.handleRenderComplete);
         tabulator.on('tableBuilt', () => {
+            if (this.destroyed) {
+                tabulator.destroy();
+
+                return;
+            }
+
             this.initialized = true;
-            if (this.isRemoteMode()) {
-                this.tabulator.setData('https://localhost');
-            } else {
+            if (!this.isRemoteMode()) {
                 this.updateData(this.data, []);
             }
         });
@@ -684,11 +708,19 @@ export class Table {
      *
      */
     private handleAjaxRequesting() {
+        if (this.destroyed) {
+            return false;
+        }
+
         const abortRequest = this.firstRequest && !!this.data?.length;
         this.firstRequest = false;
 
         if (abortRequest) {
             setTimeout(() => {
+                if (this.destroyed || !this.tabulator) {
+                    return;
+                }
+
                 this.updateMaxPage();
                 this.tabulator.replaceData(this.data);
             });
@@ -713,6 +745,10 @@ export class Table {
     }
 
     private requestData(_, __, params: any): Promise<object> {
+        if (this.destroyed) {
+            return Promise.reject();
+        }
+
         const sorters = params.sorters;
         const currentPage = params.page;
 
