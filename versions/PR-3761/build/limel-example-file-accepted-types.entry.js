@@ -1,0 +1,2 @@
+import{r as e,h as i}from"./index-2714248e.js";const t=class{constructor(i){e(this,i);this.handleChange=e=>{this.value=e.detail;console.log("onChange",this.value)};this.value={filename:"picture.jpg",id:123};this.required=false}render(){return[i("limel-file",{label:"Attach only images (png, jpeg)",onChange:this.handleChange,required:this.required,value:this.value,accept:"image/jpeg,image/png"})]}};export{t as limel_example_file_accepted_types};
+//# sourceMappingURL=limel-example-file-accepted-types.entry.js.map
