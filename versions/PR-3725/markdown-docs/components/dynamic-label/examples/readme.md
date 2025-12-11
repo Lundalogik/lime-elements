@@ -28,7 +28,7 @@ to clarify further if needed.
 This example shows how to setup the `limel-dynamic-label` component to
 create a more descriptive and dynamic labels for boolean fields.
 But please make sure to read our guidelines about
-[Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/)
+[Labeling boolean fields](#/DesignGuidelines/labeling-boolean-fields.md/)
 to understand the importance of this, and get help in choosing the right labels
 for boolean fields.
 :::
