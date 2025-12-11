@@ -1,3 +1,11 @@
+## [38.33.5](https://github.com/Lundalogik/lime-elements/compare/v38.33.4...v38.33.5) (2025-12-11)
+
+
+### Bug Fixes
+
+
+* **info-tile:** adjust value font size for xs size ([deee7fa](https://github.com/Lundalogik/lime-elements/commit/deee7fa1bee2aa527156a84578f8593420b615d2))
+
 ## [38.33.4](https://github.com/Lundalogik/lime-elements/compare/v38.33.3...v38.33.4) (2025-12-11)
 
 
