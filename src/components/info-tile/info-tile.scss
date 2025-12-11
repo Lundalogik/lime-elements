@@ -266,7 +266,7 @@ $l: 62.5rem; //1000px
     }
 
     .icon {
-        opacity: 0.5;
+        opacity: 0.7;
         top: 0.125rem;
         right: 0.125rem;
         padding: 0.125rem;
@@ -276,6 +276,14 @@ $l: 62.5rem; //1000px
 
     .value-group {
         gap: 0.125rem;
+    }
+
+    .value-and-suffix,
+    .label {
+        text-shadow:
+            0 0 1rem var(--info-tile-background-color, rgb(var(--contrast-100))),
+            0 0 0.5rem
+                var(--info-tile-background-color, rgb(var(--contrast-100)));
     }
 
     .value {
