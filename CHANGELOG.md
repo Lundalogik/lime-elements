@@ -1,3 +1,13 @@
+## [38.33.4](https://github.com/Lundalogik/lime-elements/compare/v38.33.3...v38.33.4) (2025-12-11)
+
+
+### Bug Fixes
+
+
+* **info-tile:** improve icon visualisation when size is extra small ([d9bb3ee](https://github.com/Lundalogik/lime-elements/commit/d9bb3ee92c19418af2d4ab1f03b82790924e2056))
+* **info-tile:** softer icon visualisation ([0cfc8f8](https://github.com/Lundalogik/lime-elements/commit/0cfc8f878b7906244a8135b5fed405b9ba67d34d))
+* **info-tile:** truncate text in 2nd line, for all sizes ([9f6b310](https://github.com/Lundalogik/lime-elements/commit/9f6b3109e5406d36faf96907582037eaf3b2c50a))
+
 ## [38.33.3](https://github.com/Lundalogik/lime-elements/compare/v38.33.2...v38.33.3) (2025-12-10)
 
 
