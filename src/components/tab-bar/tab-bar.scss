@@ -73,8 +73,6 @@ $tab-separator-background-color: rgb(var(--contrast-600));
     height: 2.5rem;
 
     &:not(.mdc-tab--active) {
-        --badge-background-color: rgb(var(--contrast-600));
-
         &:after {
             content: '';
             display: block;
@@ -105,6 +103,7 @@ $tab-separator-background-color: rgb(var(--contrast-600));
 
     limel-badge {
         margin-right: -0.25rem;
+        box-shadow: 0 0 0 1px rgb(var(--contrast-600));
     }
 }
 
