@@ -289,17 +289,11 @@ $l: 62.5rem; //1000px
                 var(--info-tile-background-color, rgb(var(--contrast-100)));
     }
 
-    .value {
-        --value-min-size: 0.7rem;
-        --value-preferred-size: 12cqw;
-        --value-max-size: 1rem;
-    }
-
     .prefix,
     .suffix {
-        --suffix-prefix-min-size: 0.6rem;
+        --suffix-prefix-min-size: 0.625rem;
         --suffix-prefix-preferred-size: 6cqw;
-        --suffix-prefix-max-size: 0.875rem;
+        --suffix-prefix-max-size: 0.75rem;
     }
 }
 
