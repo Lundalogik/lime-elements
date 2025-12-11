@@ -1,0 +1,2 @@
+import{r as e,h as t}from"./index-2714248e.js";const r=class{constructor(t){e(this,t);this.items=[{text:"root"},{text:"src"},{text:"components"},{text:"my-component"}]}render(){return t("limel-breadcrumbs",{items:this.items,divider:"/"})}};export{r as limel_example_breadcrumbs_divider};
+//# sourceMappingURL=limel-example-breadcrumbs-divider.entry.js.map
