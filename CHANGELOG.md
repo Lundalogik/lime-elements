@@ -1,3 +1,11 @@
+## [38.33.7](https://github.com/Lundalogik/lime-elements/compare/v38.33.6...v38.33.7) (2025-12-12)
+
+
+### Bug Fixes
+
+
+* **menu:** improve keyboard navigation ([eecb117](https://github.com/Lundalogik/lime-elements/commit/eecb11780af9be340b365f1b2f62f77b3133a57b))
+
 ## [38.33.6](https://github.com/Lundalogik/lime-elements/compare/v38.33.5...v38.33.6) (2025-12-11)
 
 
