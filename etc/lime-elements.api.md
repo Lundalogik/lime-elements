@@ -792,6 +792,7 @@ export namespace Components {
         "movableColumns": boolean;
         "page": number;
         "pageSize": number;
+        "paginationLocation": 'top' | 'bottom';
         "selectable": boolean;
         "selection": object[];
         "sortableColumns": boolean;
@@ -2024,6 +2025,7 @@ export namespace JSX {
         "onSort"?: (event: LimelTableCustomEvent<ColumnSorter[]>) => void;
         "page"?: number;
         "pageSize"?: number;
+        "paginationLocation"?: 'top' | 'bottom';
         "selectable"?: boolean;
         "selection"?: object[];
         "sortableColumns"?: boolean;
