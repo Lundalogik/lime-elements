@@ -1,3 +1,11 @@
+## [38.33.8](https://github.com/Lundalogik/lime-elements/compare/v38.33.7...v38.33.8) (2025-12-15)
+
+
+### Bug Fixes
+
+
+* **text-editor:** prevent false change events from causing form to be dirty ([ea53c59](https://github.com/Lundalogik/lime-elements/commit/ea53c5903027e2fec9ea7412e49d5eaf139690a8))
+
 ## [38.33.7](https://github.com/Lundalogik/lime-elements/compare/v38.33.6...v38.33.7) (2025-12-12)
 
 
