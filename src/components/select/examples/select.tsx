@@ -1,5 +1,5 @@
 import { Option } from '@limetech/lime-elements';
-import { Component, h, State } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
 
 @Component({
     shadow: true,
@@ -28,42 +28,44 @@ export class SelectExample {
     ];
 
     public render() {
-        return [
-            <limel-select
-                label="Favorite hero"
-                helperText="May the force be with him or her"
-                value={this.value}
-                options={this.options}
-                disabled={this.disabled}
-                readonly={this.readonly}
-                required={this.required}
-                invalid={this.invalid}
-                onChange={this.changeHandler}
-            />,
-            <limel-example-controls>
-                <limel-checkbox
-                    checked={this.disabled}
-                    label="Disabled"
-                    onChange={this.setDisabled}
+        return (
+            <Host>
+                <limel-select
+                    label="Favorite hero"
+                    helperText="May the force be with him or her"
+                    value={this.value}
+                    options={this.options}
+                    disabled={this.disabled}
+                    readonly={this.readonly}
+                    required={this.required}
+                    invalid={this.invalid}
+                    onChange={this.changeHandler}
                 />
-                <limel-checkbox
-                    checked={this.readonly}
-                    label="Readonly"
-                    onChange={this.setReadonly}
-                />
-                <limel-checkbox
-                    checked={this.required}
-                    label="Required"
-                    onChange={this.setRequired}
-                />
-                <limel-checkbox
-                    checked={this.invalid}
-                    label="Invalid"
-                    onChange={this.setInvalid}
-                />
-            </limel-example-controls>,
-            <limel-example-value value={this.value} />,
-        ];
+                <limel-example-controls>
+                    <limel-switch
+                        value={this.disabled}
+                        label="Disabled"
+                        onChange={this.setDisabled}
+                    />
+                    <limel-switch
+                        value={this.readonly}
+                        label="Readonly"
+                        onChange={this.setReadonly}
+                    />
+                    <limel-switch
+                        value={this.required}
+                        label="Required"
+                        onChange={this.setRequired}
+                    />
+                    <limel-switch
+                        value={this.invalid}
+                        label="Invalid"
+                        onChange={this.setInvalid}
+                    />
+                </limel-example-controls>
+                <limel-example-value value={this.value} />
+            </Host>
+        );
     }
 
     private changeHandler = (event) => {

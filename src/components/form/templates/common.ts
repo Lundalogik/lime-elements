@@ -29,11 +29,9 @@ export function renderDescription(description: string) {
         return;
     }
 
-    return React.createElement(
-        'p',
-        { className: 'mdc-typography mdc-typography--body1' },
-        description
-    );
+    return React.createElement('limel-markdown', {
+        value: description,
+    });
 }
 
 /**

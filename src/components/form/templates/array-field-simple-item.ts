@@ -4,77 +4,59 @@ import { ArrayFieldItem } from './types';
 interface SimpleItemProps {
     item: ArrayFieldItem;
     index: number;
+    allowItemRemoval: boolean;
+    allowItemReorder: boolean;
+    dataIndex: number;
 }
 
 const LIMEL_ICON_BUTTON = 'limel-icon-button';
 
-export class SimpleItemTemplate extends React.Component {
+export class SimpleItemTemplate extends React.Component<SimpleItemProps> {
     constructor(public props: SimpleItemProps) {
         super(props);
     }
 
-    private removeButton: HTMLLimelButtonElement;
-    private moveUpButton: HTMLLimelButtonElement;
-    private moveDownButton: HTMLLimelButtonElement;
-
-    public componentDidMount() {
-        this.removeButton.addEventListener('click', this.handleRemove);
-        this.moveUpButton.addEventListener('click', this.handleMoveUp);
-        this.moveDownButton.addEventListener('click', this.handleMoveDown);
-    }
+    private removeButton?: HTMLLimelIconButtonElement;
 
     public componentWillUnmount() {
-        this.removeButton.removeEventListener('click', this.handleRemove);
-        this.moveUpButton.removeEventListener('click', this.handleMoveUp);
-        this.moveDownButton.removeEventListener('click', this.handleMoveDown);
+        this.setRemoveButton(undefined);
     }
 
     public render() {
-        const { item } = this.props;
+        const { item, allowItemReorder } = this.props;
 
         return React.createElement(
             'div',
             {
-                className: 'limel-form-array-item--simple',
+                className: 'array-item limel-form-array-item--simple',
+                'data-reorder-id': String(this.props.dataIndex),
+                'data-reorderable': allowItemReorder ? 'true' : 'false',
             },
             this.props.item.children,
             this.renderRemoveButton(item),
-            this.renderMoveUpButton(item),
-            this.renderMoveDownButton(item)
+            this.renderDragHandle()
         );
     }
 
+    private renderDragHandle() {
+        if (!this.props.allowItemReorder) {
+            return;
+        }
+
+        return React.createElement('limel-drag-handle', {
+            class: 'drag-handle',
+        });
+    }
+
     private renderRemoveButton(item: ArrayFieldItem) {
+        if (!this.props.allowItemRemoval) {
+            return;
+        }
+
         const props: any = {
             icon: 'trash',
             disabled: !item.hasRemove,
-            ref: (button: HTMLLimelButtonElement) => {
-                this.removeButton = button;
-            },
-        };
-
-        return React.createElement(LIMEL_ICON_BUTTON, props);
-    }
-
-    private renderMoveUpButton(item: ArrayFieldItem) {
-        const props: any = {
-            icon: 'up_arrow',
-            disabled: !item.hasMoveUp,
-            ref: (button: HTMLLimelButtonElement) => {
-                this.moveUpButton = button;
-            },
-        };
-
-        return React.createElement(LIMEL_ICON_BUTTON, props);
-    }
-
-    private renderMoveDownButton(item: ArrayFieldItem) {
-        const props: any = {
-            icon: 'down_arrow',
-            disabled: !item.hasMoveDown,
-            ref: (button: HTMLLimelButtonElement) => {
-                this.moveDownButton = button;
-            },
+            ref: this.setRemoveButton,
         };
 
         return React.createElement(LIMEL_ICON_BUTTON, props);
@@ -85,13 +67,17 @@ export class SimpleItemTemplate extends React.Component {
         item.onDropIndexClick(index)(event);
     };
 
-    private handleMoveUp = (event: PointerEvent): void => {
-        const { item, index } = this.props;
-        item.onReorderClick(index, index - 1)(event);
-    };
+    private readonly setRemoveButton = (
+        button?: HTMLLimelIconButtonElement | null
+    ) => {
+        if (this.removeButton) {
+            this.removeButton.removeEventListener('click', this.handleRemove);
+        }
 
-    private handleMoveDown = (event: PointerEvent): void => {
-        const { item, index } = this.props;
-        item.onReorderClick(index, index + 1)(event);
+        this.removeButton = button || undefined;
+
+        if (this.removeButton) {
+            this.removeButton.addEventListener('click', this.handleRemove);
+        }
     };
 }

@@ -33,13 +33,13 @@ export class SliderBasicExample {
                 onChange={this.handleChange}
             />,
             <limel-example-controls>
-                <limel-checkbox
-                    checked={this.disabled}
+                <limel-switch
+                    value={this.disabled}
                     label="Disabled"
                     onChange={this.setDisabled}
                 />
-                <limel-checkbox
-                    checked={this.readonly}
+                <limel-switch
+                    value={this.readonly}
                     label="Readonly"
                     onChange={this.setReadonly}
                 />

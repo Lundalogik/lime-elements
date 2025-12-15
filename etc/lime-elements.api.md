@@ -309,6 +309,7 @@ export namespace Components {
         "fold": boolean;
         "language": Language;
         "lineNumbers": boolean;
+        "lineWrapping": boolean;
         "lint": boolean;
         "readonly": boolean;
         "value": string;
@@ -385,6 +386,11 @@ export namespace Components {
         "expanded"?: boolean;
         "item": DockItem;
         "useMobileLayout"?: boolean;
+    }
+    export interface LimelDragHandle {
+        "dragDirection": 'vertical' | 'horizontal';
+        "language": Languages;
+        "tooltipOpenDirection": OpenDirection;
     }
     export interface LimelDynamicLabel {
         "defaultLabel": Omit<Label, 'value'>;
@@ -1193,6 +1199,8 @@ export namespace JSX {
         // (undocumented)
         "limel-dock-button": LimelDockButton;
         // (undocumented)
+        "limel-drag-handle": LimelDragHandle;
+        // (undocumented)
         "limel-dynamic-label": LimelDynamicLabel;
         // (undocumented)
         "limel-file": LimelFile;
@@ -1471,6 +1479,7 @@ export namespace JSX {
         "fold"?: boolean;
         "language"?: Language;
         "lineNumbers"?: boolean;
+        "lineWrapping"?: boolean;
         "lint"?: boolean;
         "onChange"?: (event: LimelCodeEditorCustomEvent<string>) => void;
         "readonly"?: boolean;
@@ -1563,6 +1572,11 @@ export namespace JSX {
         "onItemSelected"?: (event: LimelDockButtonCustomEvent<DockItem>) => void;
         "onMenuOpen"?: (event: LimelDockButtonCustomEvent<DockItem>) => void;
         "useMobileLayout"?: boolean;
+    }
+    export interface LimelDragHandle {
+        "dragDirection"?: 'vertical' | 'horizontal';
+        "language"?: Languages;
+        "tooltipOpenDirection"?: OpenDirection;
     }
     export interface LimelDynamicLabel {
         "defaultLabel"?: Omit<Label, 'value'>;
@@ -2088,7 +2102,7 @@ export interface Label<T = LabelValue> {
 export type LabelValue = string | number | boolean | null | undefined;
 
 // @public (undocumented)
-export type Language = 'javascript' | 'jinja2' | 'json' | 'typescript';
+export type Language = 'css' | 'html' | 'javascript' | 'jinja2' | 'json' | 'typescript';
 
 // @public (undocumented)
 export type Languages = 'da' | 'de' | 'en' | 'fi' | 'fr' | 'nb' | 'no' | 'nl' | 'sv';
@@ -2561,6 +2575,8 @@ export interface LimelTextEditorLinkMenuCustomEvent<T> extends CustomEvent<T> {
 
 // @public
 export interface LimeSchemaOptions {
+    allowItemRemoval?: boolean;
+    allowItemReorder?: boolean;
     collapsed?: boolean;
     collapsible?: boolean;
     component?: FormComponentOptions;

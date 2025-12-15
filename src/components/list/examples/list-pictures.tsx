@@ -1,5 +1,5 @@
 import { ListItem } from '@limetech/lime-elements';
-import { Component, h, State } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
 
 /**
  * List with Pictures and Icons
@@ -75,26 +75,28 @@ export class PictureListExample {
     private hasStripedRows: boolean = true;
 
     public render() {
-        return [
-            <limel-list
-                items={this.items}
-                type="selectable"
-                badgeIcons={this.badgeIcons}
-                class={this.hasStripedRows ? 'has-striped-rows' : ''}
-            />,
-            <limel-example-controls>
-                <limel-checkbox
-                    checked={this.badgeIcons}
-                    label="badge icons"
-                    onChange={this.setBadgeIcons}
+        return (
+            <Host>
+                <limel-list
+                    items={this.items}
+                    type="selectable"
+                    badgeIcons={this.badgeIcons}
+                    class={this.hasStripedRows ? 'has-striped-rows' : ''}
                 />
-                <limel-checkbox
-                    checked={this.hasStripedRows}
-                    label="striped rows"
-                    onChange={this.setHasStripedRows}
-                />
-            </limel-example-controls>,
-        ];
+                <limel-example-controls>
+                    <limel-switch
+                        value={this.badgeIcons}
+                        label="badge icons"
+                        onChange={this.setBadgeIcons}
+                    />
+                    <limel-switch
+                        value={this.hasStripedRows}
+                        label="striped rows"
+                        onChange={this.setHasStripedRows}
+                    />
+                </limel-example-controls>
+            </Host>
+        );
     }
 
     private setBadgeIcons = (event: CustomEvent<boolean>) => {

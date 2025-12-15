@@ -73,8 +73,6 @@ $tab-separator-background-color: rgb(var(--contrast-600));
     height: 2.5rem;
 
     &:not(.mdc-tab--active) {
-        --badge-background-color: rgb(var(--contrast-600));
-
         &:after {
             content: '';
             display: block;
@@ -97,11 +95,15 @@ $tab-separator-background-color: rgb(var(--contrast-600));
     }
 
     .mdc-tab__icon {
+        color: rgb(
+            var(--contrast-800)
+        ); // inactive tab's icon color, unless defined by tab item itself
         margin-left: -0.25rem;
     }
 
     limel-badge {
         margin-right: -0.25rem;
+        box-shadow: 0 0 0 1px rgb(var(--contrast-600));
     }
 }
 
@@ -137,6 +139,12 @@ $tab-separator-background-color: rgb(var(--contrast-600));
             background-color: transparent;
             transition: background-color 1s ease;
         }
+    }
+
+    .mdc-tab__icon {
+        color: var(
+            --mdc-theme-primary
+        ); // active tab's icon color, unless defined by tab item itself
     }
 }
 

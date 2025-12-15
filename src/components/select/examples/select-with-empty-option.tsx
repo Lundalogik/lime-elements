@@ -97,8 +97,8 @@ export class SelectWithEmptyOptionExample {
                 <limel-example-value value={this.value2} />
 
                 <limel-example-controls>
-                    <limel-checkbox
-                        checked={this.required}
+                    <limel-switch
+                        value={this.required}
                         label="Required"
                         onChange={this.setRequired}
                     />

@@ -195,6 +195,7 @@ export class Menu {
     private list: HTMLLimelMenuListElement;
     private searchInput: HTMLLimelInputFieldElement;
     private portalId: string;
+    private breadcrumbs: HTMLLimelBreadcrumbsElement;
     private triggerElement: HTMLSlotElement;
     private selectedMenuItem?: MenuItem;
 
@@ -292,7 +293,7 @@ export class Menu {
         return breadCrumbItems.reverse();
     }
 
-    private renderLoader = () => {
+    private readonly renderLoader = () => {
         if (!this.loadingSubItems && !this.loading) {
             return;
         }
@@ -314,7 +315,7 @@ export class Menu {
         );
     };
 
-    private renderBreadcrumb = () => {
+    private readonly renderBreadcrumb = () => {
         const breadcrumbsItems = this.getBreadcrumbsItems();
         if (breadcrumbsItems.length === 0) {
             return;
@@ -322,11 +323,13 @@ export class Menu {
 
         return (
             <limel-breadcrumbs
+                ref={this.setBreadcrumbsElement}
                 style={{
                     'border-bottom': 'solid 1px rgb(var(--contrast-500))',
                     'flex-shrink': '0',
                 }}
                 onSelect={this.handleBreadcrumbsSelect}
+                onKeyDown={this.handleBreadcrumbsKeyDown}
                 items={breadcrumbsItems}
             />
         );
@@ -348,7 +351,7 @@ export class Menu {
         this.handleSelect(event.detail.menuItem);
     };
 
-    private renderSearchField = () => {
+    private readonly renderSearchField = () => {
         if (!this.searcher) {
             return;
         }
@@ -370,7 +373,7 @@ export class Menu {
         );
     };
 
-    private renderEmptyMessage = () => {
+    private readonly renderEmptyMessage = () => {
         if (
             this.loading ||
             this.loadingSubItems ||
@@ -393,7 +396,7 @@ export class Menu {
         );
     };
 
-    private renderMenuList = () => {
+    private readonly renderMenuList = () => {
         let items = this.visibleItems;
 
         if (this.loadingSubItems || this.loading) {
@@ -418,7 +421,7 @@ export class Menu {
         );
     };
 
-    private handleTextInput = async (
+    private readonly handleTextInput = async (
         event: LimelInputFieldCustomEvent<string>
     ) => {
         event.stopPropagation();
@@ -445,9 +448,9 @@ export class Menu {
     };
 
     // Key handler for the input search field
-    // Will change focus to the first/last item in the dropdown
-    // list to enable selection with the keyboard
-    private handleInputKeyDown = (event: KeyboardEvent) => {
+    // Will change focus to breadcrumbs (if present) or the first/last item
+    // in the dropdown list to enable selection with the keyboard
+    private readonly handleInputKeyDown = (event: KeyboardEvent) => {
         const isForwardTab =
             event.key === TAB &&
             !event.altKey &&
@@ -460,38 +463,72 @@ export class Menu {
             return;
         }
 
-        if (!this.list) {
-            return;
-        }
-
         event.stopPropagation();
         event.preventDefault();
 
         if (isForwardTab || isDown) {
-            const listItems =
-                this.list.shadowRoot.querySelectorAll<HTMLElement>(
-                    '.mdc-deprecated-list-item'
-                );
-            const listElement = listItems[0];
-            listElement?.focus();
+            if (this.focusBreadcrumbs()) {
+                return;
+            }
+
+            this.focusFirstListItem();
 
             return;
         }
 
         if (isUp) {
-            const listItems =
-                this.list.shadowRoot.querySelectorAll<HTMLElement>(
-                    '.mdc-deprecated-list-item'
-                );
-            const listElement = [...listItems].at(-1);
-            listElement?.focus();
+            // Focus the last list item (wrapping behavior)
+            this.focusLastListItem();
         }
     };
 
-    // Key handler for the menu list
+    // Key handler for the menu list (capture phase)
+    // Handles Up arrow on first item and Down arrow on last item
+    // Must run in capture phase to intercept before MDC Menu wraps focus
+    // Only intercepts when there's a search input or breadcrumbs to navigate to
+    private readonly handleListKeyDownCapture = (event: KeyboardEvent) => {
+        const isUp = event.key === ARROW_UP;
+        const isDown = event.key === ARROW_DOWN;
+
+        if (!isUp && !isDown) {
+            return;
+        }
+
+        // Up on first item: go to breadcrumbs or search input (if they exist)
+        if (isUp && this.isFirstListItemFocused()) {
+            // Try to focus breadcrumbs first
+            if (this.focusBreadcrumbs()) {
+                event.stopPropagation();
+                event.preventDefault();
+
+                return;
+            }
+
+            // Then try search input
+            if (this.searchInput) {
+                event.stopPropagation();
+                event.preventDefault();
+                this.searchInput.focus();
+            }
+
+            // If neither exists, let MDC Menu handle wrap-around
+            return;
+        }
+
+        // Down on last item: go to search input (if it exists)
+        if (isDown && this.isLastListItemFocused() && this.searchInput) {
+            event.stopPropagation();
+            event.preventDefault();
+            this.searchInput.focus();
+        }
+
+        // If no search input, let MDC Menu handle wrap-around
+    };
+
+    // Key handler for the menu list (bubble phase)
     // Will change focus to the search field if using shift+tab
-    // And can go forward/back with righ/left arrow keys
-    private handleMenuKeyDown = (event: KeyboardEvent) => {
+    // And can go forward/back with right/left arrow keys
+    private readonly handleMenuKeyDown = (event: KeyboardEvent) => {
         const isBackwardTab =
             event.key === TAB &&
             !event.altKey &&
@@ -499,7 +536,6 @@ export class Menu {
             event.shiftKey;
 
         const isLeft = event.key === ARROW_LEFT;
-
         const isRight = event.key === ARROW_RIGHT;
 
         if (!isBackwardTab && !isLeft && !isRight) {
@@ -510,7 +546,11 @@ export class Menu {
             event.stopPropagation();
             event.preventDefault();
             this.searchInput?.focus();
-        } else if (!this.gridLayout) {
+
+            return;
+        }
+
+        if (!this.gridLayout && (isLeft || isRight)) {
             const currentItem = this.getCurrentItem();
 
             event.stopPropagation();
@@ -523,27 +563,67 @@ export class Menu {
         }
     };
 
-    private clearSearch = () => {
+    // Key handler for breadcrumbs
+    // Up arrow: focus search input
+    // Down arrow: focus first list item
+    private readonly handleBreadcrumbsKeyDown = (event: KeyboardEvent) => {
+        const isUp = event.key === ARROW_UP;
+        const isDown = event.key === ARROW_DOWN;
+
+        if (!isUp && !isDown) {
+            return;
+        }
+
+        event.stopPropagation();
+        event.preventDefault();
+
+        if (isUp) {
+            this.searchInput?.focus();
+
+            return;
+        }
+
+        if (isDown) {
+            this.focusFirstListItem();
+        }
+    };
+
+    private readonly clearSearch = () => {
         this.searchValue = '';
         this.searchResults = null;
         this.loadingSubItems = false;
     };
 
-    private getCurrentItem = (): MenuItem => {
-        const activeItem = this.list?.shadowRoot?.querySelector(
-            '[role="menuitem"][tabindex="0"]'
-        );
-        const attrIndex = activeItem?.attributes?.getNamedItem('data-index');
-        const dataIndex = Number.parseInt(attrIndex?.value || '0', 10);
+    private readonly getCurrentItem = (): MenuItem => {
+        let menuElement =
+            (this.list?.shadowRoot?.activeElement as HTMLElement | null) ??
+            null;
 
-        return this.visibleItems[dataIndex] as MenuItem;
+        if (menuElement && menuElement.getAttribute('role') !== 'menuitem') {
+            menuElement = menuElement.closest<HTMLElement>('[role="menuitem"]');
+        }
+
+        if (!menuElement) {
+            menuElement = this.list?.shadowRoot?.querySelector<HTMLElement>(
+                '[role="menuitem"][tabindex="0"]'
+            );
+        }
+
+        const dataIndex = Number.parseInt(
+            menuElement?.dataset.index ?? '0',
+            10
+        );
+
+        const item = this.visibleItems[dataIndex];
+
+        return (item ?? this.visibleItems[0]) as MenuItem;
     };
 
-    private goForward = (currentItem: MenuItem) => {
+    private readonly goForward = (currentItem: MenuItem) => {
         this.handleSelect(currentItem, false);
     };
 
-    private goBack = () => {
+    private readonly goBack = () => {
         if (!this.currentSubMenu) {
             // Already in the root of the menu
             return;
@@ -565,7 +645,7 @@ export class Menu {
         this.handleSelect(parent);
     };
 
-    private setTriggerAttributes = (element: HTMLElement) => {
+    private readonly setTriggerAttributes = (element: HTMLElement) => {
         const attributes = {
             'aria-haspopup': true,
             'aria-expanded': this.open,
@@ -583,13 +663,13 @@ export class Menu {
         }
     };
 
-    private onClose = () => {
+    private readonly onClose = () => {
         this.cancel.emit();
         this.open = false;
         this.currentSubMenu = null;
     };
 
-    private onTriggerClick = (event: MouseEvent) => {
+    private readonly onTriggerClick = (event: MouseEvent) => {
         event.stopPropagation();
         if (this.disabled) {
             return;
@@ -598,7 +678,7 @@ export class Menu {
         this.open = !this.open;
     };
 
-    private handleSelect = async (
+    private readonly handleSelect = async (
         menuItem: MenuItem,
         selectOnEmptyChildren: boolean = true
     ) => {
@@ -648,7 +728,7 @@ export class Menu {
         this.setFocus();
     };
 
-    private onSelect = (event: CustomEvent<MenuItem>) => {
+    private readonly onSelect = (event: CustomEvent<MenuItem>) => {
         event.stopPropagation();
         this.handleSelect(event.detail);
     };
@@ -672,11 +752,27 @@ export class Menu {
         return zipObject(propertyNames, values) as Record<PropName, string>;
     }
 
-    private setListElement = (element: HTMLLimelMenuListElement) => {
+    private readonly setListElement = (element: HTMLLimelMenuListElement) => {
+        if (this.list) {
+            this.list.removeEventListener(
+                'keydown',
+                this.handleListKeyDownCapture,
+                true
+            );
+        }
+
         this.list = element;
+
+        if (this.list) {
+            this.list.addEventListener(
+                'keydown',
+                this.handleListKeyDownCapture,
+                true
+            );
+        }
     };
 
-    private setFocus = () => {
+    private readonly setFocus = () => {
         setTimeout(() => {
             if (this.searchInput && this.searcher) {
                 const observer = new IntersectionObserver(() => {
@@ -698,11 +794,94 @@ export class Menu {
         }, 0);
     };
 
-    private setSearchElement = (element: HTMLLimelInputFieldElement) => {
+    private readonly setSearchElement = (
+        element: HTMLLimelInputFieldElement
+    ) => {
         this.searchInput = element;
     };
 
-    private focusMenuItem = () => {
+    private readonly setBreadcrumbsElement = (
+        element: HTMLLimelBreadcrumbsElement
+    ) => {
+        this.breadcrumbs = element;
+    };
+
+    /**
+     * Focuses the first focusable element inside breadcrumbs.
+     * Returns true if breadcrumbs exist and were focused,
+     * false otherwise.
+     */
+    private readonly focusBreadcrumbs = (): boolean => {
+        if (!this.breadcrumbs) {
+            return false;
+        }
+
+        const focusableElement =
+            this.breadcrumbs.shadowRoot?.querySelector<HTMLElement>(
+                'button, a'
+            );
+        if (focusableElement) {
+            focusableElement.focus();
+
+            return true;
+        }
+
+        return false;
+    };
+
+    private readonly focusFirstListItem = () => {
+        const listItems = this.getListItems();
+        const firstItem = listItems?.[0];
+        firstItem?.focus();
+    };
+
+    private readonly focusLastListItem = () => {
+        const listItems = this.getListItems();
+        const lastItem = listItems?.at(-1);
+        lastItem?.focus();
+    };
+
+    private readonly isFirstListItemFocused = (): boolean => {
+        const listItems = this.getListItems();
+        if (!listItems) {
+            return false;
+        }
+
+        const firstItem = listItems[0];
+        const activeElement = this.list.shadowRoot?.activeElement;
+
+        return firstItem === activeElement;
+    };
+
+    private readonly isLastListItemFocused = (): boolean => {
+        const listItems = this.getListItems();
+        if (!listItems) {
+            return false;
+        }
+
+        const lastItem = listItems.at(-1);
+        const activeElement = this.list.shadowRoot?.activeElement;
+
+        return lastItem === activeElement;
+    };
+
+    private readonly getListItems = (): HTMLElement[] | null => {
+        if (!this.list) {
+            return null;
+        }
+
+        const items = this.list.shadowRoot?.querySelectorAll<HTMLElement>(
+            '.mdc-deprecated-list-item'
+        );
+
+        if (!items?.length) {
+            return null;
+        }
+
+        return [...items];
+    };
+
+    private readonly focusMenuItem = () => {
         if (!this.list) {
             return;
         }
@@ -725,16 +904,16 @@ export class Menu {
         return !('separator' in item);
     }
 
-    private renderNotificationBadge = () => {
+    private readonly renderNotificationBadge = () => {
         if (this.items.some(this.hasNotificationBadge)) {
             return <limel-badge />;
         }
     };
 
-    private hasNotificationBadge = (item: MenuItem | ListSeparator) =>
+    private readonly hasNotificationBadge = (item: MenuItem | ListSeparator) =>
         this.isMenuItem(item) && item.badge !== undefined;
 
-    private setTriggerRef = (elm?: HTMLSlotElement) => {
+    private readonly setTriggerRef = (elm?: HTMLSlotElement) => {
         this.triggerElement = elm;
     };
 

@@ -3,12 +3,14 @@ import {
     FormLayoutType,
     LimeLayoutOptions,
     FormLayoutOptions,
+    FormSchema,
 } from '../form.types';
 import { renderDescription, renderTitle } from './common';
 import { GridLayout } from './grid-layout';
 import { RowLayout } from './row-layout';
 import { LimeObjectFieldTemplateProps, ObjectFieldProperty } from './types';
 import { JSONSchema7 } from 'json-schema';
+import { getHelpComponent } from '../help';
 
 export const ObjectFieldTemplate = (props: LimeObjectFieldTemplateProps) => {
     const id = props.idSchema.$id;
@@ -27,14 +29,31 @@ function renderFieldWithTitle(props: LimeObjectFieldTemplateProps) {
     return React.createElement(
         React.Fragment,
         {},
-        renderTitle(props.title),
+        renderSectionHeader(props),
         renderDescription(props.description),
         renderProperties(props.properties, props.schema)
     );
 }
 
+function renderSectionHeader(props: LimeObjectFieldTemplateProps) {
+    const help = getHelpComponent(props.schema as FormSchema);
+    if (!help) {
+        return renderTitle(props.title);
+    }
+
+    return React.createElement(
+        React.Fragment,
+        {},
+        renderTitle(props.title),
+        help
+    );
+}
+
 function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
     const defaultOpen = !isCollapsed(props.schema);
+    const helpElement = getHelpComponent(props.schema as FormSchema, {
+        slot: 'header',
+    });
 
     return React.createElement(
         'limel-collapsible-section',
@@ -46,6 +65,7 @@ function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
             ),
             'is-open': defaultOpen,
         },
+        helpElement,
         renderDescription(props.description),
         renderProperties(props.properties, props.schema)
     );

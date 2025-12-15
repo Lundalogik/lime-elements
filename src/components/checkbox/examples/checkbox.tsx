@@ -40,35 +40,36 @@ export class CheckboxExample {
                 readonly={this.readonly}
             />,
             <limel-example-controls>
-                <limel-checkbox
-                    checked={this.disabled}
+                <limel-switch
                     label="Disabled"
                     onChange={this.setDisabled}
+                    value={this.disabled}
                 />
-                <limel-checkbox
-                    checked={this.required}
-                    label="Required"
-                    onChange={this.setRequired}
+                <limel-switch
+                    value={this.indeterminate}
+                    label="Indeterminate"
+                    onChange={this.setIndeterminate}
                 />
-                <limel-checkbox
-                    checked={this.invalid}
-                    label="Invalid"
-                    onChange={this.setInvalid}
-                />
-                <limel-checkbox
-                    checked={this.value}
+
+                <limel-switch
                     label="Checked"
                     onChange={this.setChecked}
+                    value={this.value}
                 />
-                <limel-checkbox
-                    checked={this.readonly}
+                <limel-switch
+                    label="Required"
+                    onChange={this.setRequired}
+                    value={this.required}
+                />
+                <limel-switch
+                    value={this.readonly}
                     label="Readonly"
                     onChange={this.setReadonly}
                 />
-                <limel-checkbox
-                    checked={this.indeterminate}
-                    label="Indeterminate"
-                    onChange={this.setIndeterminate}
+                <limel-switch
+                    label="Invalid"
+                    onChange={this.setInvalid}
+                    value={this.invalid}
                 />
             </limel-example-controls>,
             <limel-example-value label="Checked" value={this.value} />,

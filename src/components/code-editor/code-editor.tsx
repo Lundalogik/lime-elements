@@ -10,20 +10,24 @@ import {
 } from '@stencil/core';
 import { ColorScheme, Language } from './code-editor.types';
 import CodeMirror from 'codemirror';
+import 'codemirror/mode/css/css';
+import 'codemirror/mode/htmlmixed/htmlmixed';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/jinja2/jinja2';
 import 'codemirror/addon/selection/active-line';
 import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/edit/matchtags';
 import 'codemirror/addon/lint/lint';
 import 'codemirror/addon/lint/json-lint';
 import 'codemirror/addon/fold/foldgutter';
 import 'codemirror/addon/fold/brace-fold';
+import 'codemirror/addon/fold/xml-fold';
 import jslint from 'jsonlint-mod';
 
 /**
  * @exampleComponent limel-example-code-editor
  * @exampleComponent limel-example-code-editor-readonly-with-line-numbers
- * @exampleComponent limel-example-code-editor-fold-lint
+ * @exampleComponent limel-example-code-editor-fold-lint-wrap
  */
 @Component({
     tag: 'limel-code-editor',
@@ -54,6 +58,12 @@ export class CodeEditor {
      */
     @Prop()
     public lineNumbers: boolean = false;
+
+    /**
+     * Wraps long lines instead of showing horizontal scrollbar
+     */
+    @Prop()
+    public lineWrapping: boolean = false;
 
     /**
      * Allows the user to fold code
@@ -172,9 +182,7 @@ export class CodeEditor {
         // the space count
         editor.setOption('extraKeys', {
             Tab: (codeMirror) => {
-                const spaces = [codeMirror.getOption('indentUnit') + 1].join(
-                    ' '
-                );
+                const spaces = ' '.repeat(codeMirror.getOption('indentUnit'));
                 codeMirror.replaceSelection(spaces);
             },
         });
@@ -208,6 +216,8 @@ export class CodeEditor {
                 name: 'application/typescript',
                 typescript: true,
             };
+        } else if (this.language === 'html') {
+            mode = 'htmlmixed';
         }
 
         if (this.fold) {
@@ -222,8 +232,10 @@ export class CodeEditor {
             tabSize: TAB_SIZE,
             indentUnit: TAB_SIZE,
             lineNumbers: this.lineNumbers,
+            lineWrapping: this.lineWrapping,
             styleActiveLine: true,
             matchBrackets: true,
+            matchTags: { bothTags: true },
             lint: this.lint,
             foldGutter: this.fold,
             gutters: gutters,

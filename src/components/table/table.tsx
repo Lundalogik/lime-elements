@@ -51,7 +51,8 @@ const FIRST_PAGE = 1;
 })
 export class Table {
     /**
-     * Data to be displayed in the table
+     * Data to be displayed in the table. Provide a stable `id` on each row to keep
+     * scroll position, focus, and selections intact across updates.
      */
     @Prop()
     public data: object[] = [];
@@ -282,7 +283,10 @@ export class Table {
 
     @Watch('data')
     protected updateData(newData: RowData[] = [], oldData: RowData[] = []) {
-        const shouldReplace = this.shouldReplaceData(newData, oldData);
+        const newIds = this.getRowIds(newData);
+        const oldIds = this.getRowIds(oldData);
+        const shouldReplace = this.shouldReplaceData(newIds, oldIds);
+        const hasRowUpdates = !areRowsEqual(newData, oldData);
 
         setTimeout(() => {
             if (!this.tabulator) {
@@ -292,6 +296,13 @@ export class Table {
             if (shouldReplace) {
                 this.pool.releaseAll();
                 this.tabulator.replaceData(newData);
+                this.setSelection();
+
+                return;
+            }
+
+            if (hasRowUpdates) {
+                this.tabulator.updateData(newData);
                 this.setSelection();
 
                 return;
@@ -393,19 +404,18 @@ export class Table {
         this.tabulator.setSort(newSorting);
     }
 
-    private shouldReplaceData(newData: RowData[], oldData: RowData[]) {
-        const newIds = newData.map((item) => item.id ?? item) as Array<
-            string | number
-        >;
-        const oldIds = oldData.map((item) => item.id ?? item) as Array<
-            string | number
-        >;
-
+    private shouldReplaceData(
+        newIds: Array<string | number>,
+        oldIds: Array<string | number>
+    ) {
         return (
             !this.areEqualIds(newIds, oldIds) ||
-            !this.isSameOrder(newIds, oldIds) ||
-            !areRowsEqual(newData, oldData)
+            !this.isSameOrder(newIds, oldIds)
         );
+    }
+
+    private getRowIds(data: RowData[]): Array<string | number> {
+        return data.map((item) => item.id ?? item) as Array<string | number>;
     }
 
     private areEqualIds(

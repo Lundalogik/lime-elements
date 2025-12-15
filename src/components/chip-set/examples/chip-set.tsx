@@ -1,4 +1,4 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
 
 /**
  * Basic example with no `type` set
@@ -19,34 +19,36 @@ export class ChipSetExample {
     private disabled: boolean = false;
 
     public render() {
-        return [
-            <limel-chip-set
-                label="Tags"
-                disabled={this.disabled}
-                onInteract={this.handleInteraction}
-                value={[
-                    {
-                        id: 1,
-                        text: 'Fruit',
-                    },
-                    {
-                        id: 2,
-                        text: 'Green',
-                    },
-                    {
-                        id: 3,
-                        text: 'Sour',
-                    },
-                ]}
-            />,
-            <limel-example-controls>
-                <limel-checkbox
-                    label="Disabled"
-                    onChange={this.toggleEnabled}
-                    checked={this.disabled}
+        return (
+            <Host>
+                <limel-chip-set
+                    label="Tags"
+                    disabled={this.disabled}
+                    onInteract={this.handleInteraction}
+                    value={[
+                        {
+                            id: 1,
+                            text: 'Fruit',
+                        },
+                        {
+                            id: 2,
+                            text: 'Green',
+                        },
+                        {
+                            id: 3,
+                            text: 'Sour',
+                        },
+                    ]}
                 />
-            </limel-example-controls>,
-        ];
+                <limel-example-controls>
+                    <limel-switch
+                        label="Disabled"
+                        onChange={this.toggleEnabled}
+                        value={this.disabled}
+                    />
+                </limel-example-controls>
+            </Host>
+        );
     }
 
     private handleInteraction = (event) => {

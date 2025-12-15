@@ -50,7 +50,9 @@
             rgb(var(--contrast-100))
         );
         border-radius: var(--border-radius-of-header)
-            var(--border-radius-of-header) 0 0;
+            var(--border-radius-of-header)
+            var(--limel-cs-open-header-bottom-border-radius, 0)
+            var(--limel-cs-open-header-bottom-border-radius, 0);
         &:hover,
         &:focus-visible {
             background-color: var(
@@ -149,35 +151,39 @@ limel-icon {
 // This animates height of the body,
 // from `0` to `auto`
 .body {
-    // All below vars are for internal use only!
-    --limel-cs-opacity-transition-speed: 0.1s;
-    --limel-cs-opacity-transition-delay: 0s;
-    --limel-cs-grid-template-rows-transition-speed: 0.3s;
     transition: grid-template-rows
         var(--limel-cs-grid-template-rows-transition-speed)
         cubic-bezier(1, 0.09, 0, 0.89);
     display: grid;
-    grid-template-rows: 0fr;
+    grid-template-rows: var(--limel-cs-grid-template-rows);
 
     slot {
         transition: opacity var(--limel-cs-opacity-transition-speed) ease
             var(--limel-cs-opacity-transition-delay);
         display: block;
         overflow: hidden;
+    }
+}
+
+:host(limel-collapsible-section:not([is-open])) {
+    --limel-cs-opacity-transition-speed: 0.1s;
+    --limel-cs-opacity-transition-delay: 0s;
+    --limel-cs-grid-template-rows-transition-speed: 0.3s;
+    --limel-cs-grid-template-rows: 0fr;
+
+    slot {
         opacity: 0;
     }
 }
 
-section.open {
-    .body {
-        --limel-cs-opacity-transition-speed: 0.4s;
-        --limel-cs-opacity-transition-delay: 0.3s;
-        --limel-cs-grid-template-rows-transition-speed: 0.46s;
-        grid-template-rows: 1fr;
+:host(limel-collapsible-section[is-open]) {
+    --limel-cs-opacity-transition-speed: 0.4s;
+    --limel-cs-opacity-transition-delay: 0.3s;
+    --limel-cs-grid-template-rows-transition-speed: 0.46s;
+    --limel-cs-grid-template-rows: 1fr;
 
-        slot {
-            opacity: 1;
-        }
+    slot {
+        opacity: 1;
     }
 }
 

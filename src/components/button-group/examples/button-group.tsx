@@ -40,10 +40,10 @@ export class ButtonGroupExample {
                 value={this.buttons}
             />,
             <limel-example-controls>
-                <limel-checkbox
+                <limel-switch
                     label="Disabled"
                     onChange={this.toggleEnabled}
-                    checked={this.disabled}
+                    value={this.disabled}
                 />
             </limel-example-controls>,
         ];

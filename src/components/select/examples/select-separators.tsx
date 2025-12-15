@@ -8,7 +8,7 @@ import { Component, h, State } from '@stencil/core';
  * by providing valuable visual cues that aid users in perceiving
  * and navigating through lists. Read more about advantages of using
  * separators in the
- * [List component's documentations](/#/component/limel-list/).
+ * [List component's documentations](#/component/limel-list/).
  */
 @Component({
     shadow: true,

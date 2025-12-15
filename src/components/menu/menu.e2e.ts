@@ -138,3 +138,192 @@ describe('limel-menu', () => {
         });
     });
 });
+
+describe('limel-menu keyboard navigation', () => {
+    describe('with nested items (sub-menus)', () => {
+        let page: E2EPage;
+        let limelMenu: HTMLLimelMenuElement & E2EElement;
+
+        beforeEach(async () => {
+            page = await newE2EPage({
+                html: `
+                    <limel-menu>
+                        <button slot="trigger">Open Menu</button>
+                    </limel-menu>
+                `,
+            });
+            limelMenu = (await page.find('limel-menu')) as any;
+            const items = [
+                {
+                    text: 'Parent Item',
+                    items: [{ text: 'Child Item 1' }, { text: 'Child Item 2' }],
+                },
+                { text: 'Another Item' },
+            ];
+            await limelMenu.setProperty('items', items);
+            await page.waitForChanges();
+        });
+
+        it('right arrow on item with sub-menu emits navigateMenu', async () => {
+            // Click the trigger button to open the menu (this sets up proper focus)
+            const trigger = await page.find('button');
+            await trigger.click();
+            await page.waitForChanges();
+            await page.waitForTimeout(300);
+
+            const navigateMenuSpy = await page.spyOnEvent('navigateMenu');
+
+            // Press right arrow to navigate into sub-menu (first item is focused by default)
+            await page.keyboard.press('ArrowRight');
+            await page.waitForChanges();
+            await page.waitForTimeout(100);
+
+            expect(navigateMenuSpy).toHaveReceivedEvent();
+        });
+
+        it('left arrow in sub-menu goes back to parent', async () => {
+            // Click to open the menu
+            const trigger = await page.find('button');
+            await trigger.click();
+            await page.waitForChanges();
+            await page.waitForTimeout(300);
+
+            // Enter sub-menu with ArrowRight
+            await page.keyboard.press('ArrowRight');
+            await page.waitForChanges();
+            await page.waitForTimeout(200);
+
+            // Verify we're in sub-menu
+            let currentSubMenu = await limelMenu.getProperty('currentSubMenu');
+            expect(currentSubMenu).not.toBeNull();
+
+            // Press left to go back
+            await page.keyboard.press('ArrowLeft');
+            await page.waitForChanges();
+            await page.waitForTimeout(100);
+
+            // Verify we're back at root
+            currentSubMenu = await limelMenu.getProperty('currentSubMenu');
+            expect(currentSubMenu).toBeNull();
+        });
+
+        it('breadcrumbs visible when in sub-menu', async () => {
+            // Click to open the menu
+            const trigger = await page.find('button');
+            await trigger.click();
+            await page.waitForChanges();
+            await page.waitForTimeout(300);
+
+            // Navigate into sub-menu
+            await page.keyboard.press('ArrowRight');
+            await page.waitForChanges();
+            await page.waitForTimeout(300);
+
+            // Verify we're actually in the sub-menu
+            const currentSubMenu =
+                await limelMenu.getProperty('currentSubMenu');
+            expect(currentSubMenu).not.toBeNull();
+
+            // Breadcrumbs are rendered in a portal (outside the menu's shadow DOM)
+            // so we need to look for them in the document
+            const breadcrumbsExists = await page.evaluate(() => {
+                // First try looking in the portal container
+                const portalContainer = document.querySelector(
+                    '.limel-portal--container'
+                );
+                if (
+                    portalContainer?.querySelector(
+                        'limel-breadcrumbs, [class*="breadcrumb"]'
+                    )
+                ) {
+                    return true;
+                }
+
+                // Check inside limel-menu-surface
+                const menuSurface =
+                    document.querySelector('limel-menu-surface');
+                if (menuSurface) {
+                    const breadcrumbs =
+                        menuSurface.querySelector('limel-breadcrumbs');
+                    if (breadcrumbs) {
+                        return true;
+                    }
+                }
+
+                // Also check if breadcrumbs exist anywhere in the document
+                return document.querySelector('limel-breadcrumbs') !== null;
+            });
+            expect(breadcrumbsExists).toBe(true);
+        });
+    });
+
+    describe('without searcher (no input field)', () => {
+        let page: E2EPage;
+        let limelMenu: HTMLLimelMenuElement & E2EElement;
+
+        beforeEach(async () => {
+            page = await newE2EPage({
+                html: `
+                    <limel-menu>
+                        <button slot="trigger">Open Menu</button>
+                    </limel-menu>
+                `,
+            });
+            limelMenu = (await page.find('limel-menu')) as any;
+            const items = [
+                { text: 'Item 1' },
+                { text: 'Item 2' },
+                { text: 'Item 3' },
+            ];
+            await limelMenu.setProperty('items', items);
+            await page.waitForChanges();
+        });
+
+        it('no input field when no searcher is set', async () => {
+            const trigger = await page.find('button');
+            await trigger.click();
+            await page.waitForChanges();
+            await page.waitForTimeout(200);
+
+            const inputExists = await page.evaluate(() => {
+                const menu = document.querySelector('limel-menu');
+                const inputField =
+                    menu?.shadowRoot?.querySelector('limel-input-field');
+
+                return inputField !== null;
+            });
+            expect(inputExists).toBe(false);
+        });
+
+        it('focus wraps within list items when no input field', async () => {
+            const trigger = await page.find('button');
+            await trigger.click();
+            await page.waitForChanges();
+            await page.waitForTimeout(200);
+
+            // Navigate down from first item (Item 1 -> Item 2 -> Item 3)
+            await page.keyboard.press('ArrowDown');
+            await page.keyboard.press('ArrowDown');
+            await page.waitForChanges();
+            await page.waitForTimeout(50);
+
+            // Press down once more - should wrap to first item (Item 3 -> Item 1)
+            await page.keyboard.press('ArrowDown');
+            await page.waitForChanges();
+            await page.waitForTimeout(50);
+
+            const firstItemFocused = await page.evaluate(() => {
+                const menu = document.querySelector('limel-menu');
+                const menuList =
+                    menu?.shadowRoot?.querySelector('limel-menu-list');
+                const listItems = menuList?.shadowRoot?.querySelectorAll(
+                    '.mdc-deprecated-list-item'
+                );
+                const firstItem = listItems?.[0];
+
+                return firstItem === menuList?.shadowRoot?.activeElement;
+            });
+            expect(firstItemFocused).toBe(true);
+        });
+    });
+});

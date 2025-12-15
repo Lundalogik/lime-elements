@@ -11,8 +11,8 @@ import { Component, h, State } from '@stencil/core';
  * :::important
  * Before reading the documentations below, make sure to read
  * 1. our guides about the difference between
- * [Disabled vs. Readonly](/#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
- * 2. our guidelines about [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/).
+ * [Disabled vs. Readonly](#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
+ * 2. our guidelines about [Labeling boolean fields](#/DesignGuidelines/labeling-boolean-fields.md/).
  * :::
  *
  * Using the `readonlyLabels` optional prop, you can override the `label` and
@@ -67,30 +67,30 @@ export class CheckboxReadonlyExample {
                 readonly={this.readonly}
             />,
             <limel-example-controls>
-                <limel-checkbox
-                    checked={this.readonly}
-                    label="Readonly"
-                    onChange={this.setReadonly}
-                />
-                <limel-checkbox
-                    checked={this.disabled}
+                <limel-switch
                     label="Disabled"
                     onChange={this.setDisabled}
+                    value={this.disabled}
                 />
-                <limel-checkbox
-                    checked={this.invalid}
+                <limel-switch
+                    label="Readonly"
+                    onChange={this.setReadonly}
+                    value={this.readonly}
+                />
+                <limel-switch
                     label="Invalid"
                     onChange={this.setInvalid}
+                    value={this.invalid}
                 />
-                <limel-checkbox
-                    checked={this.value}
+                <limel-switch
                     label="Checked"
                     onChange={this.setChecked}
+                    value={this.value}
                 />
-                <limel-checkbox
-                    checked={this.required}
+                <limel-switch
                     label="Required"
                     onChange={this.setRequired}
+                    value={this.required}
                 />
             </limel-example-controls>,
             <limel-example-value label="Checked" value={this.value} />,

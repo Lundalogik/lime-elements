@@ -35,9 +35,9 @@ const hideAnimationDuration = 300;
  * :::note
  * If the information you want to display has a higher importance or priority,
  * and you need to make sure that the user takes an action to dismiss it,
- * consider using the [Banner](/#/component/limel-banner/) component instead.
+ * consider using the [Banner](#/component/limel-banner/) component instead.
  * For more complex interactions and for delivering more detailed information,
- * [Dialog](/#/component/limel-dialog/) is a better choice.
+ * [Dialog](#/component/limel-dialog/) is a better choice.
  * :::
  *
  * @exampleComponent limel-example-snackbar

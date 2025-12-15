@@ -52,10 +52,10 @@ export class ChipSetFilterBadgeExample {
                 value={this.chips}
             />,
             <limel-example-controls>
-                <limel-checkbox
+                <limel-switch
                     label="Disabled"
                     onChange={this.setDisabled}
-                    checked={this.disabled}
+                    value={this.disabled}
                 />
             </limel-example-controls>,
         ];

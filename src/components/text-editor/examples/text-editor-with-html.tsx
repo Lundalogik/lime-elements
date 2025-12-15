@@ -25,8 +25,8 @@ export class TextEditorWithHtmlExample {
                 contentType="html"
             />,
             <limel-example-controls>
-                <limel-checkbox
-                    checked={this.readonly}
+                <limel-switch
+                    value={this.readonly}
                     label="Readonly"
                     onChange={this.setReadonly}
                 />

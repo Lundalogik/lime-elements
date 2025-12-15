@@ -68,8 +68,8 @@ export class BadgeIconsListExample {
             <Host>
                 <limel-list items={this.items} badgeIcons={this.badgeIcons} />
                 <limel-example-controls>
-                    <limel-checkbox
-                        checked={this.badgeIcons}
+                    <limel-switch
+                        value={this.badgeIcons}
                         label="badgeIcons"
                         onChange={this.setBadgeIcons}
                     />

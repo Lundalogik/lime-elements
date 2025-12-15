@@ -38,25 +38,25 @@ export class ChipButtonExample {
                 invalid={this.invalid}
             />,
             <limel-example-controls>
-                <limel-checkbox
-                    checked={this.disabled}
+                <limel-switch
                     label="Disabled"
                     onChange={this.setDisabled}
+                    value={this.disabled}
                 />
-                <limel-checkbox
-                    checked={this.readonly}
+                <limel-switch
                     label="Readonly"
                     onChange={this.setReadonly}
+                    value={this.readonly}
                 />
-                <limel-checkbox
-                    checked={this.selected}
-                    label="Selected"
-                    onChange={this.setSelected}
-                />
-                <limel-checkbox
-                    checked={this.invalid}
+                <limel-switch
                     label="Invalid"
                     onChange={this.setInvalid}
+                    value={this.invalid}
+                />
+                <limel-switch
+                    label="Invalid"
+                    onChange={this.setSelected}
+                    value={this.selected}
                 />
             </limel-example-controls>,
         ];

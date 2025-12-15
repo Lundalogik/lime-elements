@@ -1,3 +1,134 @@
+## [38.33.7](https://github.com/Lundalogik/lime-elements/compare/v38.33.6...v38.33.7) (2025-12-12)
+
+
+### Bug Fixes
+
+
+* **menu:** improve keyboard navigation ([eecb117](https://github.com/Lundalogik/lime-elements/commit/eecb11780af9be340b365f1b2f62f77b3133a57b))
+
+## [38.33.6](https://github.com/Lundalogik/lime-elements/compare/v38.33.5...v38.33.6) (2025-12-11)
+
+
+### Bug Fixes
+
+
+* **tab-bar:** allow consumers to override tab's badge background color ([01c8747](https://github.com/Lundalogik/lime-elements/commit/01c8747522d9c323b92db0c254f0e5b38d54a328))
+* **tab-bar:** better icon color in dark mode ([728138f](https://github.com/Lundalogik/lime-elements/commit/728138fdb68d1b8d584ebe9e0f651157cf498675))
+
+## [38.33.5](https://github.com/Lundalogik/lime-elements/compare/v38.33.4...v38.33.5) (2025-12-11)
+
+
+### Bug Fixes
+
+
+* **info-tile:** adjust value font size for xs size ([deee7fa](https://github.com/Lundalogik/lime-elements/commit/deee7fa1bee2aa527156a84578f8593420b615d2))
+
+## [38.33.4](https://github.com/Lundalogik/lime-elements/compare/v38.33.3...v38.33.4) (2025-12-11)
+
+
+### Bug Fixes
+
+
+* **info-tile:** improve icon visualisation when size is extra small ([d9bb3ee](https://github.com/Lundalogik/lime-elements/commit/d9bb3ee92c19418af2d4ab1f03b82790924e2056))
+* **info-tile:** softer icon visualisation ([0cfc8f8](https://github.com/Lundalogik/lime-elements/commit/0cfc8f878b7906244a8135b5fed405b9ba67d34d))
+* **info-tile:** truncate text in 2nd line, for all sizes ([9f6b310](https://github.com/Lundalogik/lime-elements/commit/9f6b3109e5406d36faf96907582037eaf3b2c50a))
+
+## [38.33.3](https://github.com/Lundalogik/lime-elements/compare/v38.33.2...v38.33.3) (2025-12-10)
+
+
+### Bug Fixes
+
+
+* **chart:** ensure last item in `line` & `area` chart is not perceived as `0` ([b659983](https://github.com/Lundalogik/lime-elements/commit/b6599835b62cd842d8ea2f7b1e37d3fce5efca9d))
+
+## [38.33.2](https://github.com/Lundalogik/lime-elements/compare/v38.33.1...v38.33.2) (2025-12-09)
+
+
+### Bug Fixes
+
+
+* **info-tile:** improve ux when size is extra small ([09d9510](https://github.com/Lundalogik/lime-elements/commit/09d9510aefd2c9d454560e304dd77417b3cd1b4a))
+* **info-tile:** increase readability ([438d98c](https://github.com/Lundalogik/lime-elements/commit/438d98c496c913731463b0670394de7dc9bf97ec))
+
+## [38.33.1](https://github.com/Lundalogik/lime-elements/compare/v38.33.0...v38.33.1) (2025-12-05)
+
+
+### Bug Fixes
+
+
+* **code-editor:** correctly render tab ([d0b4153](https://github.com/Lundalogik/lime-elements/commit/d0b415319fafead9d07ea61467a42175c31a7895))
+
+## [38.33.0](https://github.com/Lundalogik/lime-elements/compare/v38.32.0...v38.33.0) (2025-12-04)
+
+
+### Features
+
+
+* **form:** add `help` to sections ([747f906](https://github.com/Lundalogik/lime-elements/commit/747f906fa81470430543cae2cb3c6da431142eb1))
+
+## [38.32.0](https://github.com/Lundalogik/lime-elements/compare/v38.31.2...v38.32.0) (2025-12-04)
+
+
+### Features
+
+
+* **form:** enable adding rich text as `description` ([0e4f89f](https://github.com/Lundalogik/lime-elements/commit/0e4f89f2e3971f84e7182f03bfa7f1582de94929))
+
+## [38.31.2](https://github.com/Lundalogik/lime-elements/compare/v38.31.1...v38.31.2) (2025-12-01)
+
+
+### Bug Fixes
+
+
+* **form:** implement drag and drop for reordering items ([32affed](https://github.com/Lundalogik/lime-elements/commit/32affed3ff82d34fc54b0f376e9283847d7cd1b8))
+
+## [38.31.1](https://github.com/Lundalogik/lime-elements/compare/v38.31.0...v38.31.1) (2025-11-27)
+
+
+### Bug Fixes
+
+
+* **collapsible-section:** prevent nested sections to remain open after collapsing ([7e8b4cb](https://github.com/Lundalogik/lime-elements/commit/7e8b4cb75e6522c8b57d25bf615105e818363b21))
+
+## [38.31.0](https://github.com/Lundalogik/lime-elements/compare/v38.30.1...v38.31.0) (2025-11-25)
+
+
+### Features
+
+
+* **code-editor:** add HTML and CSS syntax highlighting support ([8f08fa1](https://github.com/Lundalogik/lime-elements/commit/8f08fa1da3d4b44c83da3c6a09cedc1043fa660b))
+* **code-editor:** add support for line wrapping when passing prop ([00c02dc](https://github.com/Lundalogik/lime-elements/commit/00c02dc2785f34a9ce6b1e106410851714090872))
+
+## [38.30.1](https://github.com/Lundalogik/lime-elements/compare/v38.30.0...v38.30.1) (2025-11-24)
+
+
+### Bug Fixes
+
+
+* **form:** ensure nested heading level 6 gets its styles ([a42732e](https://github.com/Lundalogik/lime-elements/commit/a42732eebb97ea07ef4151997b303d2a5fb1a0ec))
+* **form:** improve headings styles ([eeb1d04](https://github.com/Lundalogik/lime-elements/commit/eeb1d04c54a197b00be14b218cf885f4428a475a))
+
+## [38.30.0](https://github.com/Lundalogik/lime-elements/compare/v38.29.4...v38.30.0) (2025-11-21)
+
+
+### Features
+
+
+* **form:** allow end users to remove or reorder array items ([19545c8](https://github.com/Lundalogik/lime-elements/commit/19545c8bbaf41f496d72f59f7cafff82c5d47831))
+
+### Bug Fixes
+
+
+* **form:** sync reorder & delete button order for simple and collapsible array items ([5f8781e](https://github.com/Lundalogik/lime-elements/commit/5f8781ebcc9027d751f2cc1aff4fd09cacecb259))
+
+## [38.29.4](https://github.com/Lundalogik/lime-elements/compare/v38.29.3...v38.29.4) (2025-11-20)
+
+
+### Bug Fixes
+
+
+* **table:** prevent scrolling to top after selecting a row at the bottom ([1b4ddc3](https://github.com/Lundalogik/lime-elements/commit/1b4ddc3d9e7ef5de7ab6cea332875640bef580a2))
+
 ## [38.29.3](https://github.com/Lundalogik/lime-elements/compare/v38.29.2...v38.29.3) (2025-11-04)
 
 

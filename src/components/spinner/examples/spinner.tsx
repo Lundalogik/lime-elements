@@ -22,8 +22,8 @@ export class SpinnerExample {
             <limel-example-controls
                 style={{ '--example-controls-column-layout': 'auto-fit' }}
             >
-                <limel-checkbox
-                    checked={this.limeBranded}
+                <limel-switch
+                    value={this.limeBranded}
                     label="Lime branded"
                     onChange={this.renderBranded}
                 />

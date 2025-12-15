@@ -4,6 +4,7 @@ import { data, Bird } from './birds';
 import { capitalize } from 'lodash-es';
 
 const NETWORK_DELAY = 500;
+type BirdRow = Bird & { id: string };
 
 /**
  * Remote sorting and pagination
@@ -19,9 +20,9 @@ export class TableExampleRemote {
     private columns: Array<Column<Bird>> = [];
 
     @State()
-    private currentData: object[] = [];
+    private currentData: BirdRow[] = [];
 
-    private allData: object[] = data;
+    private allData: Bird[] = data;
 
     private pageSize = 10;
 
@@ -106,7 +107,15 @@ export class TableExampleRemote {
         setTimeout(() => {
             const start = (this.currentPage - 1) * this.pageSize;
             const end = start + this.pageSize;
-            this.currentData = this.allData.slice(start, end);
+
+            this.currentData = this.allData
+                .slice(start, end)
+                .map((item, index) => ({
+                    ...item,
+                    // Provide a stable id to keep scroll position and selection
+                    // intact while the remote dataset refreshes.
+                    id: `${item.binominalName}-${start + index}`,
+                }));
         }, NETWORK_DELAY);
     }
 

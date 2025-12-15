@@ -9,7 +9,7 @@ import { Component, h, State } from '@stencil/core';
  * button remains visible while the loading animation is ongoing. When the
  * animation is done and the checkmark has been shown, the button will hide.
  *
- * Read more in the [Design Guidelines](#/DesignGuidelines/decluttering.md/)
+ * Read more in the [Design Guidelines](#/DesignGuidelines/declutter.md/)
  */
 @Component({
     tag: 'limel-example-button-reduce-presence',

@@ -8,6 +8,11 @@ export interface HelpFormData {
         email?: string;
         source?: Source;
     };
+    additionalInfo?: {
+        phone?: string;
+        jobTitle?: string;
+        teamSize?: number;
+    };
 }
 
 export const schema: FormSchema<HelpFormData> = {
@@ -16,6 +21,11 @@ export const schema: FormSchema<HelpFormData> = {
         address: {
             type: 'object',
             title: 'Book a demo',
+            lime: {
+                help: {
+                    value: 'Fill in your details below and we will get back to you within **24 hours**.',
+                },
+            },
             properties: {
                 name: {
                     type: 'string',
@@ -89,6 +99,46 @@ export const schema: FormSchema<HelpFormData> = {
                             value: '**Why do we need this information?** <br> This enables us to improve our marketing efforts and get a better understanding of how people perceive us as a brand.',
                         },
                     },
+                },
+            },
+        },
+        additionalInfo: {
+            type: 'object',
+            title: 'Additional Information',
+            description:
+                'Optional details that help us _tailor_ our demo to your needs',
+            properties: {
+                phone: {
+                    type: 'string',
+                    title: 'Phone Number',
+                    description: 'Your direct phone number',
+                    lime: {
+                        help: {
+                            value: 'We may call you to confirm the demo appointment.',
+                        },
+                    },
+                },
+                jobTitle: {
+                    type: 'string',
+                    title: 'Job Title',
+                    description: 'Your current role or position',
+                },
+                teamSize: {
+                    type: 'integer',
+                    title: 'Team Size',
+                    description: 'How many people are in your team?',
+                    lime: {
+                        help: {
+                            value: 'This helps us understand the scale of your organization and recommend the right plan.',
+                        },
+                    },
+                },
+            },
+            lime: {
+                collapsible: true,
+                collapsed: false,
+                help: {
+                    value: 'These optional fields allow us to **personalize** your demo experience.',
                 },
             },
         },

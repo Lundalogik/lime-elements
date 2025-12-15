@@ -40,8 +40,8 @@ export class DynamicLabelExample {
                 ]}
             />,
             <limel-example-controls>
-                <limel-checkbox
-                    checked={this.value}
+                <limel-switch
+                    value={this.value}
                     label="Value"
                     onChange={this.setChecked}
                 />
