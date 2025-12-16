@@ -122,6 +122,8 @@
 
 :host {
     display: flex;
+    flex-direction: column;
+    width: 100%;
     font-size: var(--code-editor-font-size, 0.8125rem); // 13px
     @include light-mode-styles;
 }
@@ -136,6 +138,7 @@
     display: flex;
     align-items: stretch;
     width: 100%;
+    min-height: 2.5rem; // Like `limel-input-field`
 
     &.readonly {
         .CodeMirror-focused {
@@ -192,6 +195,10 @@
                 border-color: rgba(var(--code-editor-neutral-text-color), 0.5);
                 border-width: 0.125rem;
             }
+        }
+
+        &-lines {
+            padding: 0.25rem 0;
         }
 
         &-line {
@@ -260,3 +267,9 @@
         opacity: 0.7;
     }
 }
+
+limel-notched-outline {
+    flex-grow: 1;
+}
+
+@include mixins.hide-helper-line-when-not-needed(limel-code-editor);
