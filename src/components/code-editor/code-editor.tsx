@@ -48,7 +48,9 @@ export class CodeEditor {
     public language: Language;
 
     /**
-     * Disables editing of the editor content
+     * Set to `true` to make the editor read-only.
+     * Use `readonly` when the editor is only there to present the data it holds,
+     * and will not become possible for the current user to edit.
      */
     @Prop()
     public readonly: boolean = false;
