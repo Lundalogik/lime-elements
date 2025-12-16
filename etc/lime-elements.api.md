@@ -306,6 +306,7 @@ export namespace Components {
     // (undocumented)
     export interface LimelCodeEditor {
         "colorScheme": ColorScheme;
+        "disabled": boolean;
         "fold": boolean;
         "language": Language;
         "lineNumbers": boolean;
@@ -1476,6 +1477,7 @@ export namespace JSX {
     // (undocumented)
     export interface LimelCodeEditor {
         "colorScheme"?: ColorScheme;
+        "disabled"?: boolean;
         "fold"?: boolean;
         "language"?: Language;
         "lineNumbers"?: boolean;
