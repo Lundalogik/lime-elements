@@ -1,3 +1,12 @@
+## [38.34.0](https://github.com/Lundalogik/lime-elements/compare/v38.33.8...v38.34.0) (2025-12-16)
+
+
+### Features
+
+
+* **code-editor:** add `disabled` prop ([dece15d](https://github.com/Lundalogik/lime-elements/commit/dece15d02f29ee87d03246de73576f0f2ba83d47))
+* **code-editor:** add standard input props ([355a124](https://github.com/Lundalogik/lime-elements/commit/355a12444799e0659706579e60531e131ecc74d6))
+
 ## [38.33.8](https://github.com/Lundalogik/lime-elements/compare/v38.33.7...v38.33.8) (2025-12-15)
 
 
