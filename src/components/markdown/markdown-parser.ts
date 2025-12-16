@@ -13,6 +13,7 @@ import { Schema } from 'rehype-sanitize/lib';
 import { createLazyLoadImagesPlugin } from './image-markdown-plugin';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 import { createLinksPlugin } from './link-markdown-plugin';
+import { createRemoveEmptyParagraphsPlugin } from './remove-empty-paragraphs-plugin';
 
 /**
  * Takes a string as input and returns a new string
@@ -52,6 +53,7 @@ export async function markdownToHTML(
                 visit(tree, 'element', sanitizeStyle);
             };
         })
+        .use(createRemoveEmptyParagraphsPlugin(options?.removeEmptyParagraphs))
         .use(createLazyLoadImagesPlugin(options?.lazyLoadImages))
         .use(rehypeStringify)
         .process(text);
@@ -129,4 +131,5 @@ export interface MarkdownToHTMLOptions {
     forceHardLineBreaks?: boolean;
     whitelist?: CustomElementDefinition[];
     lazyLoadImages?: boolean;
+    removeEmptyParagraphs?: boolean;
 }
