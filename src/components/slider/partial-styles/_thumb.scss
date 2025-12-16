@@ -1,3 +1,5 @@
+@use '../../../style/functions';
+
 .mdc-slider__thumb-knob {
     .mdc-slider:not(.mdc-slider--disabled) & {
         &:before,
