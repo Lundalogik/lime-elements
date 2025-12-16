@@ -56,6 +56,15 @@ export class CodeEditor {
     public readonly = false;
 
     /**
+     * Set to `true` to disable the editor.
+     * Use `disabled` to indicate that the editor can normally be interacted
+     * with, but is currently disabled. This tells the user that if certain
+     * requirements are met, the editor may become enabled again.
+     */
+    @Prop({ reflect: true })
+    public disabled = false;
+
+    /**
      * Displays line numbers in the editor
      */
     @Prop({ reflect: true })
@@ -150,6 +159,18 @@ export class CodeEditor {
         this.editor.getDoc().setValue(newValue || '');
     }
 
+    @Watch('disabled')
+    protected watchDisabled() {
+        this.updateEditorReadOnlyState();
+        this.updateInputFieldAccessibilityAttributes();
+    }
+
+    @Watch('readonly')
+    protected watchReadonly() {
+        this.updateEditorReadOnlyState();
+        this.updateInputFieldAccessibilityAttributes();
+    }
+
     private handleChangeDarkMode = () => {
         if (this.colorScheme !== 'auto') {
             return;
@@ -230,7 +251,7 @@ export class CodeEditor {
             mode: mode,
             value: this.value || '',
             theme: theme,
-            readOnly: this.readonly,
+            readOnly: this.getReadOnlyOption(),
             tabSize: TAB_SIZE,
             indentUnit: TAB_SIZE,
             lineNumbers: this.lineNumbers,
@@ -255,7 +276,8 @@ export class CodeEditor {
     public render() {
         const classList = {
             editor: true,
-            readonly: this.readonly,
+            readonly: this.readonly || this.disabled,
+            disabled: this.disabled,
             'is-dark-mode': this.isDarkMode(),
             'is-light-mode': !this.isDarkMode(),
         };
@@ -270,5 +292,44 @@ export class CodeEditor {
 
     private get darkMode(): MediaQueryList {
         return matchMedia('(prefers-color-scheme: dark)');
+    }
+
+    private updateEditorReadOnlyState() {
+        if (!this.editor) {
+            return;
+        }
+
+        this.editor.setOption('readOnly', this.getReadOnlyOption());
+    }
+
+    private getReadOnlyOption(): boolean | 'nocursor' {
+        if (this.disabled) {
+            return 'nocursor';
+        }
+
+        return this.readonly;
+    }
+
+    private updateInputFieldAccessibilityAttributes() {
+        if (!this.editor) {
+            return;
+        }
+
+        const inputField = this.editor.getInputField();
+        if (!inputField) {
+            return;
+        }
+
+        if (this.disabled) {
+            inputField.setAttribute('aria-disabled', 'true');
+        } else {
+            inputField.removeAttribute('aria-disabled');
+        }
+
+        if (this.readonly || this.disabled) {
+            inputField.setAttribute('aria-readonly', 'true');
+        } else {
+            inputField.removeAttribute('aria-readonly');
+        }
     }
 }
