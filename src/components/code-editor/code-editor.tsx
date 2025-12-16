@@ -7,7 +7,9 @@ import {
     EventEmitter,
     State,
     Watch,
+    Host,
 } from '@stencil/core';
+import { createRandomString } from '../../util/random-string';
 import { ColorScheme, Language } from './code-editor.types';
 import CodeMirror from 'codemirror';
 import 'codemirror/mode/css/css';
@@ -28,6 +30,7 @@ import jslint from 'jsonlint-mod';
  * @exampleComponent limel-example-code-editor
  * @exampleComponent limel-example-code-editor-readonly-with-line-numbers
  * @exampleComponent limel-example-code-editor-fold-lint-wrap
+ * @exampleComponent limel-example-code-editor-composite
  */
 @Component({
     tag: 'limel-code-editor',
@@ -63,6 +66,31 @@ export class CodeEditor {
      */
     @Prop({ reflect: true })
     public disabled = false;
+
+    /**
+     * Set to `true` to indicate that the current value of the input editor is
+     * invalid.
+     */
+    @Prop({ reflect: true })
+    public invalid = false;
+
+    /**
+     * Set to `true` to indicate that the field is required.
+     */
+    @Prop({ reflect: true })
+    public required = false;
+
+    /**
+     * The input label.
+     */
+    @Prop({ reflect: true })
+    public label?: string;
+
+    /**
+     * Optional helper text to display below the input field when it has focus
+     */
+    @Prop({ reflect: true })
+    public helperText?: string;
 
     /**
      * Displays line numbers in the editor
@@ -113,6 +141,13 @@ export class CodeEditor {
 
     private editor: CodeMirror.Editor;
     private observer: ResizeObserver;
+    private labelId: string;
+    private helperTextId: string;
+
+    public constructor() {
+        this.labelId = createRandomString();
+        this.helperTextId = createRandomString();
+    }
 
     public connectedCallback() {
         this.observer = new ResizeObserver(this.handleResize) as any;
@@ -141,6 +176,7 @@ export class CodeEditor {
         }
 
         this.editor = this.createEditor();
+        this.updateInputFieldAccessibilityAttributes();
     }
 
     @Watch('value')
@@ -168,6 +204,21 @@ export class CodeEditor {
     @Watch('readonly')
     protected watchReadonly() {
         this.updateEditorReadOnlyState();
+        this.updateInputFieldAccessibilityAttributes();
+    }
+
+    @Watch('invalid')
+    protected watchInvalid() {
+        this.updateInputFieldAccessibilityAttributes();
+    }
+
+    @Watch('required')
+    protected watchRequired() {
+        this.updateInputFieldAccessibilityAttributes();
+    }
+
+    @Watch('helperText')
+    protected watchHelperText() {
         this.updateInputFieldAccessibilityAttributes();
     }
 
@@ -282,8 +333,38 @@ export class CodeEditor {
             'is-light-mode': !this.isDarkMode(),
         };
 
-        return <div class={classList} />;
+        return (
+            <Host>
+                <limel-notched-outline
+                    labelId={this.labelId}
+                    label={this.label}
+                    required={this.required}
+                    invalid={this.invalid}
+                    disabled={this.disabled}
+                    readonly={this.readonly}
+                    hasValue={!!this.value}
+                    hasFloatingLabel={true}
+                >
+                    <div slot="content" class={classList} />
+                </limel-notched-outline>
+                {this.renderHelperLine()}
+            </Host>
+        );
     }
+
+    private renderHelperLine = () => {
+        if (!this.helperText) {
+            return;
+        }
+
+        return (
+            <limel-helper-line
+                helperText={this.helperText}
+                helperTextId={this.helperTextId}
+                invalid={this.invalid}
+            />
+        );
+    };
 
     private forceRedraw() {
         // eslint-disable-next-line sonarjs/pseudo-random
@@ -318,6 +399,28 @@ export class CodeEditor {
         const inputField = this.editor.getInputField();
         if (!inputField) {
             return;
+        }
+
+        inputField.id = this.labelId;
+
+        if (this.helperText) {
+            inputField.setAttribute('aria-describedby', this.helperTextId);
+            inputField.setAttribute('aria-controls', this.helperTextId);
+        } else {
+            inputField.removeAttribute('aria-describedby');
+            inputField.removeAttribute('aria-controls');
+        }
+
+        if (this.required) {
+            inputField.setAttribute('aria-required', 'true');
+        } else {
+            inputField.removeAttribute('aria-required');
+        }
+
+        if (this.invalid) {
+            inputField.setAttribute('aria-invalid', 'true');
+        } else {
+            inputField.removeAttribute('aria-invalid');
         }
 
         if (this.disabled) {

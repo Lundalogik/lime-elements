@@ -308,11 +308,15 @@ export namespace Components {
         "colorScheme": ColorScheme;
         "disabled": boolean;
         "fold": boolean;
+        "helperText"?: string;
+        "invalid": boolean;
+        "label"?: string;
         "language": Language;
         "lineNumbers": boolean;
         "lineWrapping": boolean;
         "lint": boolean;
         "readonly": boolean;
+        "required": boolean;
         "value": string;
     }
     export interface LimelCollapsibleSection {
@@ -1479,12 +1483,16 @@ export namespace JSX {
         "colorScheme"?: ColorScheme;
         "disabled"?: boolean;
         "fold"?: boolean;
+        "helperText"?: string;
+        "invalid"?: boolean;
+        "label"?: string;
         "language"?: Language;
         "lineNumbers"?: boolean;
         "lineWrapping"?: boolean;
         "lint"?: boolean;
         "onChange"?: (event: LimelCodeEditorCustomEvent<string>) => void;
         "readonly"?: boolean;
+        "required"?: boolean;
         "value"?: string;
     }
     export interface LimelCollapsibleSection {
