@@ -52,37 +52,37 @@ export class CodeEditor {
      * Use `readonly` when the editor is only there to present the data it holds,
      * and will not become possible for the current user to edit.
      */
-    @Prop()
-    public readonly: boolean = false;
+    @Prop({ reflect: true })
+    public readonly = false;
 
     /**
      * Displays line numbers in the editor
      */
-    @Prop()
-    public lineNumbers: boolean = false;
+    @Prop({ reflect: true })
+    public lineNumbers = false;
 
     /**
      * Wraps long lines instead of showing horizontal scrollbar
      */
-    @Prop()
-    public lineWrapping: boolean = false;
+    @Prop({ reflect: true })
+    public lineWrapping = false;
 
     /**
      * Allows the user to fold code
      */
-    @Prop()
-    public fold: boolean = false;
+    @Prop({ reflect: true })
+    public fold = false;
 
     /**
      * Enables linting of JSON content
      */
-    @Prop()
-    public lint: boolean = false;
+    @Prop({ reflect: true })
+    public lint = false;
 
     /**
      * Select color scheme for the editor
      */
-    @Prop()
+    @Prop({ reflect: true })
     public colorScheme: ColorScheme = 'auto';
 
     /**
