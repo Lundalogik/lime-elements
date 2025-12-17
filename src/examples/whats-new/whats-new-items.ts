@@ -26,6 +26,15 @@ export type ShowcaseItem = {
 
 export const whatsNewItems: ShowcaseItem[] = [
     {
+        componentName: 'Code Editor',
+        heading: 'Standard Input Props',
+        description:
+            'With standard input field properties like `disabled`, `readonly`, and `required`, and with labels and helper text, the component now fits seamlessly into forms and interactive UIs.',
+        releaseDate: '2025-12-16',
+        version: '38.34.0',
+        demoTag: 'limel-example-code-editor-composite',
+    },
+    {
         componentName: 'Form',
         heading: 'Remove and reorder',
         description:
