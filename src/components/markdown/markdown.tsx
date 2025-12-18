@@ -1,4 +1,4 @@
-import { Component, h, Prop, Watch } from '@stencil/core';
+import { Component, h, Prop, Watch, Event, EventEmitter } from '@stencil/core';
 import { markdownToHTML } from './markdown-parser';
 import { globalConfig } from '../../global/config';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
@@ -55,6 +55,13 @@ export class Markdown {
     @Prop()
     public lazyLoadImages = false;
 
+    /**
+     * Emitted when a task list checkbox is clicked.
+     * The event detail contains the updated markdown text.
+     */
+    @Event()
+    public taskListChange: EventEmitter<string>;
+
     @Watch('value')
     public async textChanged() {
         try {
@@ -69,6 +76,7 @@ export class Markdown {
             this.rootElement.innerHTML = html;
 
             this.setupImageIntersectionObserver();
+            this.setupTaskListHandlers();
         } catch (error) {
             console.error(error);
         }
@@ -86,12 +94,52 @@ export class Markdown {
     }
 
     public render() {
-        return [
-            <div
-                id="markdown"
-                ref={(el) => (this.rootElement = el as HTMLDivElement)}
-            />,
-        ];
+        return <div id="markdown" ref={(el) => (this.rootElement = el)} />;
+    }
+
+    private setupTaskListHandlers() {
+        // Make task list checkboxes interactive and sync back to markdown
+        const checkboxes = this.rootElement.querySelectorAll(
+            '.task-list-item input[type="checkbox"]'
+        );
+
+        // Parse the current markdown to find task list items
+        const lines = this.value.split('\n');
+        let taskListIndex = 0;
+
+        for (const checkbox of checkboxes) {
+            const inputElement = checkbox as HTMLInputElement;
+            const currentTaskIndex = taskListIndex++;
+
+            inputElement.addEventListener('change', () => {
+                // Find the corresponding line in the markdown
+                let taskCounter = 0;
+
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i];
+                    // Match both checked and unchecked task list items
+                    // Using a more specific regex to avoid backtracking issues
+                    const taskListRegex = /^(\s*)- \[([x ])\] (.+)$/;
+                    const taskListMatch = taskListRegex.exec(line);
+
+                    if (taskListMatch) {
+                        if (taskCounter === currentTaskIndex) {
+                            // Update this line
+                            const indent = taskListMatch[1];
+                            const newState = inputElement.checked ? 'x' : ' ';
+                            const text = taskListMatch[3];
+                            lines[i] = `${indent}- [${newState}] ${text}`;
+
+                            // Emit the updated markdown
+                            const updatedMarkdown = lines.join('\n');
+                            this.taskListChange.emit(updatedMarkdown);
+                            break;
+                        }
+                        taskCounter++;
+                    }
+                }
+            });
+        }
     }
 
     private setupImageIntersectionObserver() {

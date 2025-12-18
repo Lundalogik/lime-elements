@@ -1,8 +1,12 @@
 ul {
     list-style: none;
+    margin-top: 0.25rem;
+    padding-left: 0;
+
     li {
         position: relative;
         margin-left: 0.75rem;
+        margin-bottom: 0.25rem;
 
         &:before {
             content: '';
@@ -17,6 +21,15 @@ ul {
             background-color: rgb(var(--contrast-700));
             display: block;
         }
+
+        // Task list items should not have bullet points
+        &.task-list-item {
+            margin-left: 0;
+
+            &:before {
+                display: none;
+            }
+        }
     }
 }
 
@@ -25,9 +38,76 @@ ol {
     padding-left: 1rem;
 }
 
-ul {
-    margin-top: 0.25rem;
+// Task list specific styles
+.task-list,
+.contains-task-list {
+    list-style: none;
     padding-left: 0;
+
+    .task-list-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin-bottom: 0.25rem;
+        margin-left: 0;
+
+        &:before {
+            display: none; // Remove bullet points
+        }
+
+        input[type='checkbox'] {
+            margin: 0;
+            margin-top: 0.125rem; // Align with first line of text
+            flex-shrink: 0;
+            width: 1rem;
+            height: 1rem;
+            cursor: pointer;
+
+            // Ensure checkbox is interactive
+            pointer-events: auto;
+
+            // Style to match other form elements
+            border: 1px solid rgb(var(--contrast-600));
+            border-radius: 0.125rem;
+            background-color: rgb(var(--contrast-100));
+
+            &:checked {
+                background-color: rgb(var(--color-sky-default));
+                border-color: rgb(var(--color-sky-default));
+            }
+
+            &:hover {
+                border-color: rgb(var(--contrast-800));
+            }
+
+            &:focus {
+                outline: 2px solid rgb(var(--color-sky-light));
+                outline-offset: 1px;
+            }
+        }
+
+        // Handle both paragraph-wrapped and direct text content
+        p {
+            margin: 0;
+            flex: 1;
+            line-height: 1.5;
+        }
+
+        // Direct text content (when not wrapped in paragraphs)
+        > * {
+            &:not(input):not(ul):not(ol) {
+                flex: 1;
+                line-height: 1.5;
+            }
+        }
+
+        // Nested task lists
+        .task-list,
+        .contains-task-list {
+            margin-top: 0.25rem;
+            margin-left: 1.5rem;
+        }
+    }
 }
 
 ul ul,
