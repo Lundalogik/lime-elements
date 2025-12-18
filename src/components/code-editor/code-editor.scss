@@ -121,6 +121,7 @@
 }
 
 :host {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -270,6 +271,12 @@
 
 limel-notched-outline {
     flex-grow: 1;
+}
+limel-icon-button {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    z-index: 1;
 }
 
 @include mixins.hide-helper-line-when-not-needed(limel-code-editor);

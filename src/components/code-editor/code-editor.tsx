@@ -25,6 +25,8 @@ import 'codemirror/addon/fold/foldgutter';
 import 'codemirror/addon/fold/brace-fold';
 import 'codemirror/addon/fold/xml-fold';
 import jslint from 'jsonlint-mod';
+import translate from '../../global/translations';
+import { Languages } from '../date-picker/date.types';
 
 /**
  * @exampleComponent limel-example-code-editor
@@ -123,6 +125,13 @@ export class CodeEditor {
     public colorScheme: ColorScheme = 'auto';
 
     /**
+     * Defines the language for translations.
+     * Will translate the translatable strings on the components.
+     */
+    @Prop({ reflect: true })
+    public translationLanguage: Languages = 'en';
+
+    /**
      * Emitted when the code has changed. Will only be emitted when the code
      * area has lost focus
      */
@@ -138,6 +147,11 @@ export class CodeEditor {
      */
     @State()
     protected random: number;
+
+    @State()
+    private isOpen: boolean = false;
+    @State()
+    private isErrorOpen: boolean = false;
 
     private editor: CodeMirror.Editor;
     private observer: ResizeObserver;
@@ -333,8 +347,36 @@ export class CodeEditor {
             'is-light-mode': !this.isDarkMode(),
         };
 
+        const copyLabel = translate.get(
+            'code-editor.copy',
+            this.translationLanguage
+        );
+        const hasContent = !!(
+            (this.editor && this.editor.getValue && this.editor.getValue()) ||
+            this.value
+        );
+
+        const copiedLabel = translate.get(
+            'code-editor.copied',
+            this.translationLanguage
+        );
+        const copyFailedLabel = translate.get(
+            'code-editor.copy-failed',
+            this.translationLanguage
+        );
+
         return (
             <Host>
+                {hasContent && (
+                    <limel-icon-button
+                        label={copyLabel}
+                        icon="copy"
+                        onClick={this.copyCodeToClipboard}
+                        elevated={true}
+                        aria-label={copyLabel}
+                    />
+                )}
+
                 <limel-notched-outline
                     labelId={this.labelId}
                     label={this.label}
@@ -348,6 +390,18 @@ export class CodeEditor {
                     <div slot="content" class={classList} />
                 </limel-notched-outline>
                 {this.renderHelperLine()}
+
+                <limel-snackbar
+                    open={this.isOpen}
+                    message={copiedLabel}
+                    onHide={this.handleHideSnackbar}
+                />
+
+                <limel-snackbar
+                    open={this.isErrorOpen}
+                    message={copyFailedLabel}
+                    onHide={this.handleHideErrorSnackbar}
+                />
             </Host>
         );
     }
@@ -370,6 +424,27 @@ export class CodeEditor {
         // eslint-disable-next-line sonarjs/pseudo-random
         this.random = Math.random();
     }
+
+    private copyCodeToClipboard = async () => {
+        // Prefer the live editor content; fall back to the prop value
+        const text = this.editor?.getValue() ?? this.value ?? '';
+        try {
+            await navigator.clipboard.writeText(text);
+            this.isOpen = true;
+        } catch (error) {
+            // Show error feedback to the user and log for debugging purposes
+            this.isErrorOpen = true;
+            console.error(error);
+        }
+    };
+
+    private handleHideSnackbar = () => {
+        this.isOpen = false;
+    };
+
+    private handleHideErrorSnackbar = () => {
+        this.isErrorOpen = false;
+    };
 
     private get darkMode(): MediaQueryList {
         return matchMedia('(prefers-color-scheme: dark)');
