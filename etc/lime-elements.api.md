@@ -927,6 +927,31 @@ export interface EditorLink {
     text: string;
 }
 
+// @beta
+export const EditorMenuTypes: {
+    Bold: string;
+    Italic: string;
+    Blockquote: string;
+    HeaderLevel1: string;
+    HeaderLevel2: string;
+    HeaderLevel3: string;
+    Link: string;
+    OrderedList: string;
+    BulletList: string;
+    Strikethrough: string;
+    Code: string;
+    CodeBlock: string;
+};
+
+// @beta
+export type EditorMenuTypes = (typeof EditorMenuTypes)[keyof typeof EditorMenuTypes];
+
+// Warning: (ae-incompatible-release-tags) The symbol "editorMenuTypesArray" is marked as @public, but its signature references "EditorMenuTypes" which is marked as @beta
+// Warning: (ae-missing-release-tag) "editorMenuTypesArray" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export const editorMenuTypesArray: EditorMenuTypes[];
+
 // @alpha
 export interface EditorMetadata {
     images: EditorImage[];
@@ -967,6 +992,9 @@ export interface FileInfo {
     menuItems?: Array<MenuItem | ListSeparator>;
     size?: number;
 }
+
+// @public (undocumented)
+export type FileType = 'pdf' | 'image' | 'video' | 'audio' | 'text' | 'office' | 'unknown';
 
 // @public (undocumented)
 export type FlexContainerAlign = 'start' | 'end' | 'center' | 'stretch';
@@ -1064,6 +1092,11 @@ export type FormSchemaArrayItem<T> = T extends any[] ? FormSchema<T[Extract<keyo
 export type FormSubKeySchema<TObj> = Partial<{
     [Key in Extract<keyof TObj, any>]: FormSchema<TObj[Key]>;
 }>;
+
+// Warning: (ae-missing-release-tag) "globalConfig" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export const globalConfig: Config;
 
 // @public
 export interface GridLayoutOptions extends FormLayoutOptions<FormLayoutType | `${FormLayoutType}`> {
@@ -2120,6 +2153,17 @@ export type Languages = 'da' | 'de' | 'en' | 'fi' | 'fr' | 'nb' | 'no' | 'nl' | 
 // @public
 export type Layout = 'default' | 'stretchLastColumn' | 'stretchColumns' | 'lowDensity';
 
+// @beta
+export const LevelMapping: {
+    Heading: string;
+    one: number;
+    two: number;
+    three: number;
+};
+
+// @beta
+export type LevelMapping = (typeof LevelMapping)[keyof typeof LevelMapping];
+
 // Warning: (ae-missing-release-tag) "LimelActionBarCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -2638,6 +2682,9 @@ export { ListSeparator as ListSeparator1 }
 // @public
 export type ListType = 'selectable' | 'radio' | 'checkbox';
 
+// @internal
+export function _mapLayout(layout: Layout): any;
+
 // @public
 interface MenuItem<T = any> {
     badge?: number | string;
@@ -2663,6 +2710,16 @@ export type MenuLoader = (item: MenuItem) => Promise<Array<MenuItem | ListSepara
 // @public
 export type MenuSearcher = (query: string) => Promise<Array<MenuItem | ListSeparator>>;
 
+// @beta
+export const MouseButtons: {
+    Left: number;
+    Middle: number;
+    Right: number;
+};
+
+// @beta
+export type MouseButtons = (typeof MouseButtons)[keyof typeof MouseButtons];
+
 // @public (undocumented)
 export type OfficeViewer = 'microsoft-office' | 'google-drive';
 
@@ -2687,8 +2744,18 @@ export type PickerValue = number | string | {
     [key: string]: any;
 };
 
+// Warning: (ae-missing-release-tag) "ProseMirrorAdapterElementWithFocus" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type ProseMirrorAdapterElementWithFocus = HTMLLimelProsemirrorAdapterElement & {
+    setFocus: () => void;
+};
+
 // @public
 export type ReplaceObjectType<T, AllowedType, ElseType> = T extends any[] ? ElseType : T extends Record<string, any> ? AllowedType : ElseType;
+
+// @beta
+export function resizeImage(file: File, options: ResizeOptions): Promise<File>;
 
 // @beta
 export type ResizeOptions = {
@@ -2773,6 +2840,13 @@ export type TextEditorNode = {
     children?: Array<TextEditorNode | string>;
 };
 
+// Warning: (ae-missing-release-tag) "TextEditorPlugin" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public
+export type TextEditorPlugin = {
+    node: CustomElementDefinition[];
+};
+
 // @alpha
 export type Trigger = {
     character: TriggerCharacter;
@@ -2799,6 +2873,10 @@ export interface ValidationStatus {
     errors?: FormError[];
     valid: boolean;
 }
+
+// Warnings were encountered during analysis:
+//
+// dist/types/components/text-editor/types.d.ts:7:3 - (ae-incompatible-release-tags) The symbol "node" is marked as @public, but its signature references "CustomElementDefinition" which is marked as @alpha
 
 // (No @packageDocumentation comment for this package)
 
