@@ -319,6 +319,7 @@ export namespace Components {
         "lint": boolean;
         "readonly": boolean;
         "required": boolean;
+        "translationLanguage": Languages;
         "value": string;
     }
     export interface LimelCollapsibleSection {
@@ -1497,6 +1498,7 @@ export namespace JSX {
         "onChange"?: (event: LimelCodeEditorCustomEvent<string>) => void;
         "readonly"?: boolean;
         "required"?: boolean;
+        "translationLanguage"?: Languages;
         "value"?: string;
     }
     export interface LimelCollapsibleSection {

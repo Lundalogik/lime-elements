@@ -25,6 +25,10 @@ import 'codemirror/addon/fold/foldgutter';
 import 'codemirror/addon/fold/brace-fold';
 import 'codemirror/addon/fold/xml-fold';
 import jslint from 'jsonlint-mod';
+import translate from '../../global/translations';
+import { Languages } from '../date-picker/date.types';
+
+type CopyState = 'idle' | 'success' | 'failed';
 
 /**
  * @exampleComponent limel-example-code-editor
@@ -123,6 +127,13 @@ export class CodeEditor {
     public colorScheme: ColorScheme = 'auto';
 
     /**
+     * Defines the language for translations.
+     * Will translate the translatable strings on the components.
+     */
+    @Prop({ reflect: true })
+    public translationLanguage: Languages = 'en';
+
+    /**
      * Emitted when the code has changed. Will only be emitted when the code
      * area has lost focus
      */
@@ -138,6 +149,9 @@ export class CodeEditor {
      */
     @State()
     protected random: number;
+
+    @State()
+    private wasCopied: CopyState = 'idle';
 
     private editor: CodeMirror.Editor;
     private observer: ResizeObserver;
@@ -335,6 +349,7 @@ export class CodeEditor {
 
         return (
             <Host>
+                {this.renderCopyButton()}
                 <limel-notched-outline
                     labelId={this.labelId}
                     label={this.label}
@@ -369,6 +384,74 @@ export class CodeEditor {
     private forceRedraw() {
         // eslint-disable-next-line sonarjs/pseudo-random
         this.random = Math.random();
+    }
+
+    private renderCopyButton() {
+        const hasContent = !!(this.editor?.getValue() || this.value);
+
+        if (!hasContent || this.disabled) {
+            return;
+        }
+
+        return (
+            <button
+                class="copy-button"
+                onClick={this.copyCode}
+                type="button"
+                aria-live="polite"
+                aria-atomic="true"
+                aria-label={this.getButtonAriaLabel()}
+            >
+                {this.getButtonText()}
+            </button>
+        );
+    }
+
+    private copyCode = async () => {
+        // Prefer the live editor content; fall back to the prop value
+        const text = this.editor?.getValue() ?? this.value ?? '';
+        try {
+            await navigator.clipboard.writeText(text);
+            this.wasCopied = 'success';
+            setTimeout(() => {
+                this.wasCopied = 'idle';
+            }, 2000);
+        } catch (error) {
+            console.error('Failed to copy to clipboard:', error);
+            this.wasCopied = 'failed';
+        }
+    };
+
+    private getButtonText() {
+        if (this.wasCopied === 'success') {
+            return translate.get(
+                'code-editor.copied',
+                this.translationLanguage
+            );
+        }
+        if (this.wasCopied === 'failed') {
+            return translate.get(
+                'code-editor.copy-failed',
+                this.translationLanguage
+            );
+        }
+        return translate.get('code-editor.copy', this.translationLanguage);
+    }
+
+    private getButtonAriaLabel() {
+        const label =
+            this.label ||
+            translate.get('code-editor', this.translationLanguage);
+
+        const translationKeys = {
+            success: 'code-editor.copied-aria-label',
+            failed: 'code-editor.copy-failed-aria-label',
+            idle: 'code-editor.copy-aria-label',
+        };
+
+        const key = translationKeys[this.wasCopied];
+
+        return translate.get(key, this.translationLanguage, { label });
     }
 
     private get darkMode(): MediaQueryList {
