@@ -63,13 +63,12 @@ export class CodeEditorCompositeExample {
                         onChange={this.setInvalid}
                     />
                 </limel-example-controls>
-                ,
+
                 <limel-example-value value={this.value} />
             </Host>
         );
     }
 
-    @Watch('required')
     @Watch('value')
     protected checkValidity() {
         this.invalid = this.required && !this.value;
