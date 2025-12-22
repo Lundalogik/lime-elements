@@ -74,6 +74,7 @@ or navigating to a page with more information about the item in the shopping lis
 ### Used by
 
  - [limel-chip-set](../chip-set)
+ - [limel-code-editor](../code-editor)
  - [limel-example-chip-aria-role](examples)
  - [limel-example-chip-badge](examples)
  - [limel-example-chip-button](examples)
@@ -127,6 +128,7 @@ graph TD;
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
   limel-chip-set --> limel-chip
+  limel-code-editor --> limel-chip
   limel-example-chip-aria-role --> limel-chip
   limel-example-chip-badge --> limel-chip
   limel-example-chip-button --> limel-chip

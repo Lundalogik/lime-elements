@@ -66,7 +66,6 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [limel-code-editor](../code-editor)
  - [limel-example-snackbar](examples)
  - [limel-example-snackbar-dismissible](examples)
  - [limel-example-snackbar-persistent](examples)
@@ -90,7 +89,6 @@ graph TD;
   limel-icon-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
-  limel-code-editor --> limel-snackbar
   limel-example-snackbar --> limel-snackbar
   limel-example-snackbar-dismissible --> limel-snackbar
   limel-example-snackbar-persistent --> limel-snackbar

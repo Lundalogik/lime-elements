@@ -24,17 +24,29 @@ respect the operating system's settings for preferred appearance (dark or light)
 graph TD;
   limel-example-code-editor-readonly-with-line-numbers --> limel-code-editor
   limel-code-editor --> limel-helper-line
-  limel-code-editor --> limel-icon-button
+  limel-code-editor --> limel-chip
   limel-code-editor --> limel-notched-outline
-  limel-code-editor --> limel-snackbar
-  limel-icon-button --> limel-icon
-  limel-icon-button --> limel-tooltip
+  limel-chip --> limel-icon
+  limel-chip --> limel-badge
+  limel-chip --> limel-menu
+  limel-chip --> limel-linear-progress
+  limel-menu --> limel-spinner
+  limel-menu --> limel-breadcrumbs
+  limel-menu --> limel-input-field
+  limel-menu --> limel-menu-list
+  limel-menu --> limel-badge
+  limel-menu --> limel-portal
+  limel-menu --> limel-menu-surface
+  limel-breadcrumbs --> limel-icon
+  limel-breadcrumbs --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
-  limel-snackbar --> limel-button
-  limel-snackbar --> limel-icon-button
-  limel-button --> limel-icon
-  limel-button --> limel-spinner
+  limel-input-field --> limel-helper-line
+  limel-input-field --> limel-icon
+  limel-input-field --> limel-portal
+  limel-input-field --> limel-menu-surface
+  limel-input-field --> limel-list
+  limel-input-field --> limel-notched-outline
   style limel-example-code-editor-readonly-with-line-numbers fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

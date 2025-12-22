@@ -19,7 +19,6 @@
 
 ### Used by
 
- - [limel-code-editor](../code-editor)
  - [limel-collapsible-section](../collapsible-section)
  - [limel-example-dialog-heading-actions](../dialog/examples)
  - [limel-example-header-colors](../header/examples)
@@ -48,7 +47,6 @@ graph TD;
   limel-icon-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
-  limel-code-editor --> limel-icon-button
   limel-collapsible-section --> limel-icon-button
   limel-example-dialog-heading-actions --> limel-icon-button
   limel-example-header-colors --> limel-icon-button
