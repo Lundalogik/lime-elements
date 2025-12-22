@@ -139,7 +139,7 @@
     display: flex;
     align-items: stretch;
     width: 100%;
-    min-height: 2.5rem; // Like `limel-input-field`
+    min-height: 2.5rem; // Like `limel-input-field`]
 
     &.readonly {
         .CodeMirror-focused {
@@ -272,7 +272,7 @@
 limel-notched-outline {
     flex-grow: 1;
 }
-limel-icon-button {
+limel-chip {
     position: absolute;
     top: 0.25rem;
     right: 0.25rem;

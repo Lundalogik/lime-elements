@@ -149,9 +149,7 @@ export class CodeEditor {
     protected random: number;
 
     @State()
-    private isOpen: boolean = false;
-    @State()
-    private isErrorOpen: boolean = false;
+    private wasCopied: string = '';
 
     private editor: CodeMirror.Editor;
     private observer: ResizeObserver;
@@ -347,32 +345,24 @@ export class CodeEditor {
             'is-light-mode': !this.isDarkMode(),
         };
 
-        const copyLabel = translate.get(
-            'code-editor.copy',
-            this.translationLanguage
-        );
         const hasContent = !!(
             (this.editor && this.editor.getValue && this.editor.getValue()) ||
             this.value
         );
 
-        const copiedLabel = translate.get(
-            'code-editor.copied',
-            this.translationLanguage
-        );
-        const copyFailedLabel = translate.get(
-            'code-editor.copy-failed',
+        const copyLabel = translate.get(
+            'code-editor.copy',
             this.translationLanguage
         );
 
         return (
             <Host>
                 {hasContent && (
-                    <limel-icon-button
-                        label={copyLabel}
-                        icon="copy"
-                        onClick={this.copyCodeToClipboard}
-                        elevated={true}
+                    <limel-chip
+                        text={this.getChipText()}
+                        icon={this.getChipIcon()}
+                        size="small"
+                        onClick={this.copyCode}
                         aria-label={copyLabel}
                     />
                 )}
@@ -390,18 +380,6 @@ export class CodeEditor {
                     <div slot="content" class={classList} />
                 </limel-notched-outline>
                 {this.renderHelperLine()}
-
-                <limel-snackbar
-                    open={this.isOpen}
-                    message={copiedLabel}
-                    onHide={this.handleHideSnackbar}
-                />
-
-                <limel-snackbar
-                    open={this.isErrorOpen}
-                    message={copyFailedLabel}
-                    onHide={this.handleHideErrorSnackbar}
-                />
             </Host>
         );
     }
@@ -425,26 +403,46 @@ export class CodeEditor {
         this.random = Math.random();
     }
 
-    private copyCodeToClipboard = async () => {
+    private copyCode = async () => {
         // Prefer the live editor content; fall back to the prop value
         const text = this.editor?.getValue() ?? this.value ?? '';
         try {
             await navigator.clipboard.writeText(text);
-            this.isOpen = true;
+            this.wasCopied = 'success';
+            setTimeout(() => {
+                this.wasCopied = '';
+            }, 2000);
         } catch (error) {
-            // Show error feedback to the user and log for debugging purposes
-            this.isErrorOpen = true;
             console.error(error);
+            this.wasCopied = 'failed';
         }
     };
 
-    private handleHideSnackbar = () => {
-        this.isOpen = false;
-    };
+    private getChipText() {
+        if (this.wasCopied === 'success') {
+            return translate.get(
+                'code-editor.copied',
+                this.translationLanguage
+            );
+        }
+        if (this.wasCopied === 'failed') {
+            return translate.get(
+                'code-editor.copy-failed',
+                this.translationLanguage
+            );
+        }
+        return translate.get('code-editor.copy', this.translationLanguage);
+    }
 
-    private handleHideErrorSnackbar = () => {
-        this.isErrorOpen = false;
-    };
+    private getChipIcon() {
+        if (this.wasCopied === 'success') {
+            return 'checkmark';
+        }
+        if (this.wasCopied === 'failed') {
+            return 'multiply';
+        }
+        return 'copy';
+    }
 
     private get darkMode(): MediaQueryList {
         return matchMedia('(prefers-color-scheme: dark)');
