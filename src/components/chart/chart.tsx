@@ -1,4 +1,13 @@
-import { Component, Event, EventEmitter, h, Prop, Watch } from '@stencil/core';
+import {
+    Component,
+    Event,
+    EventEmitter,
+    h,
+    Host,
+    Prop,
+    State,
+    Watch,
+} from '@stencil/core';
 import { Languages } from '../date-picker/date.types';
 import translate from '../../global/translations';
 import { createRandomString } from '../../util/random-string';
@@ -117,6 +126,9 @@ export class Chart {
         totalRange: number;
     };
 
+    @State()
+    private hiddenItems: Set<string> = new Set();
+
     /**
      * Fired when a chart item with `clickable` set to `true` is clicked
      */
@@ -133,19 +145,26 @@ export class Chart {
         }
 
         return (
-            <table
-                aria-busy={this.loading ? 'true' : 'false'}
-                aria-live="polite"
-                style={{
-                    '--limel-chart-number-of-items':
-                        this.items.length.toString(),
-                }}
+            <Host
+            // class={{
+            //     'has-orientation-portrait': this.orientation === 'portrait',
+            // }}
             >
-                {this.renderCaption()}
-                {this.renderTableHeader()}
-                {this.renderAxises()}
-                <tbody class="chart">{this.renderItems()}</tbody>
-            </table>
+                <table
+                    aria-busy={this.loading ? 'true' : 'false'}
+                    aria-live="polite"
+                    style={{
+                        '--limel-chart-number-of-items':
+                            this.items.length.toString(),
+                    }}
+                >
+                    {this.renderCaption()}
+                    {this.renderTableHeader()}
+                    {this.renderAxises()}
+                    <tbody class="chart">{this.renderItems()}</tbody>
+                </table>
+                {this.renderLegend(this.items)}
+            </Host>
         );
     }
 
@@ -212,35 +231,78 @@ export class Chart {
 
         let cumulativeOffset = 0;
 
-        return this.items.map((item, index) => {
-            const itemId = createRandomString();
-            const sizeAndOffset = this.calculateSizeAndOffset(item);
-            const size = sizeAndOffset.size;
-            let offset = sizeAndOffset.offset;
+        return this.items
+            .filter((item) => !this.hiddenItems.has(item.text))
+            .map((item, index) => {
+                const itemId = createRandomString();
+                const sizeAndOffset = this.calculateSizeAndOffset(item);
+                const size = sizeAndOffset.size;
+                let offset = sizeAndOffset.offset;
 
-            if (this.type === 'pie' || this.type === 'doughnut') {
-                offset = cumulativeOffset;
-                cumulativeOffset += size;
-            }
+                if (this.type === 'pie' || this.type === 'doughnut') {
+                    offset = cumulativeOffset;
+                    cumulativeOffset += size;
+                }
 
-            return (
-                <tr
-                    style={this.getItemStyle(item, index, size, offset)}
-                    class={this.getItemClass(item)}
-                    key={itemId}
-                    id={itemId}
-                    data-index={index}
-                    tabIndex={0}
-                    role={item.clickable ? 'button' : null}
-                    onClick={this.handleClick}
-                    onKeyDown={this.handleKeyDown}
-                >
-                    <th>{this.getItemText(item)}</th>
-                    <td>{this.getFormattedValue(item)}</td>
-                    {this.renderTooltip(item, itemId, size)}
-                </tr>
-            );
-        });
+                return (
+                    <tr
+                        style={this.getItemStyle(item, index, size, offset)}
+                        class={this.getItemClass(item)}
+                        key={itemId}
+                        id={itemId}
+                        data-index={index}
+                        tabIndex={0}
+                        role={item.clickable ? 'button' : null}
+                        onClick={this.handleClick}
+                        onKeyDown={this.handleKeyDown}
+                    >
+                        <th>{this.getItemText(item)}</th>
+                        <td>{this.getFormattedValue(item)}</td>
+                        {this.renderTooltip(item, itemId, size)}
+                    </tr>
+                );
+            });
+    }
+
+    private renderLegend(items: ChartItem[]) {
+        // Only render legend if at least one item has a color
+        const hasColoredItems = items.some((item) => item.color);
+
+        // Check if all colors are the same (no need for legend if they are)
+        const allColorsSame =
+            items.length > 1 &&
+            items.every((item) => item.color === items[0].color);
+
+        if (
+            !hasColoredItems ||
+            this.orientation === 'portrait' ||
+            allColorsSame
+        ) {
+            return;
+        }
+
+        return (
+            <limel-legend
+                items={items}
+                hiddenItems={this.hiddenItems}
+                getItemText={this.getItemText}
+                onLegendClick={(event: CustomEvent<ChartItem>) =>
+                    this.handleLegendClick(event.detail)
+                }
+            />
+        );
+    }
+
+    private handleLegendClick(item: ChartItem) {
+        const updatedHiddenItems = new Set(this.hiddenItems);
+        if (updatedHiddenItems.has(item.text)) {
+            updatedHiddenItems.delete(item.text);
+        } else {
+            updatedHiddenItems.add(item.text);
+        }
+        this.hiddenItems = updatedHiddenItems;
+        this.range = null;
+        this.recalculateRangeData();
     }
 
     private getItemStyle(
@@ -352,9 +414,21 @@ export class Chart {
             return this.range;
         }
 
-        const minRange = Math.min(0, ...this.items.map(this.getMinimumValue));
-        const maxRange = Math.max(...this.items.map(this.getMaximumValue));
-        const totalSum = this.items.reduce(
+        // Use only visible items for range calculation
+        const visibleItems = this.items.filter(
+            (item) => !this.hiddenItems.has(item.text)
+        );
+        const itemsForCalculation =
+            visibleItems.length > 0 ? visibleItems : this.items;
+
+        const minRange = Math.min(
+            0,
+            ...itemsForCalculation.map(this.getMinimumValue)
+        );
+        const maxRange = Math.max(
+            ...itemsForCalculation.map(this.getMaximumValue)
+        );
+        const totalSum = itemsForCalculation.reduce(
             (sum, item) => sum + this.getMaximumValue(item),
             0
         );
@@ -368,7 +442,8 @@ export class Chart {
         }
 
         if (!this.axisIncrement) {
-            this.axisIncrement = this.calculateAxisIncrement(this.items);
+            this.axisIncrement =
+                this.calculateAxisIncrement(itemsForCalculation);
         }
 
         const visualMaxValue =
