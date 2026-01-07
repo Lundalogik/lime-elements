@@ -245,7 +245,7 @@ export class Chart {
                     onClick={this.handleClick}
                     onKeyDown={this.handleKeyDown}
                 >
-                    <th>{this.getItemText(item)}</th>
+                    <td>{this.getItemText(item)}</td>
                     <td>{this.getFormattedValue(item)}</td>
                     {this.renderTooltip(item, itemId, size)}
                 </tr>
