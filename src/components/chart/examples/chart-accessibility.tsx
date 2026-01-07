@@ -14,10 +14,12 @@ import { chartItems } from './chart-items-multi-axis-negative-start-values';
  * users as well, for instance, as a heading.
  * - `accessibleItemsLabel`: Will be used as a `th` for the first column of the table,
  * describing what all items in this column have in common. In this example,
- * all items are cities.
+ * all items are cities. When not provided, it will default to the translation
+ * for "items" in the current language.
  * - `accessibleValuesLabel`: Will be used as a `th` for the second column of the table,
  * describing what all values in this column have in common. In this example,
- * all values are temperatures.
+ * all values are temperatures. When not provided, it will default to the translation
+ * for "value" in the current language.
  *
  * Note that these props won't be visually rendered for sighted users, but
  * they will be presented to assistive technologies, such as screen readers

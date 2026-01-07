@@ -4,6 +4,7 @@ export default {
     cancel: 'Annullér',
     loading: 'Indlæser…',
     value: 'Værdi',
+    items: 'Elementer',
     'action-bar.collapse': 'Skjul',
     'action-bar.expand': 'Vis',
     'action-bar.actions': 'Handlinger',

@@ -4,6 +4,7 @@ export default {
     cancel: 'Avbryt',
     loading: 'Laddar…',
     value: 'Värde',
+    items: 'Objekt',
     'action-bar.collapse': 'Dölj',
     'action-bar.expand': 'Visa',
     'action-bar.actions': 'Åtgärder',

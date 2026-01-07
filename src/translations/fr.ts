@@ -4,6 +4,7 @@ export default {
     cancel: 'Annuler',
     loading: 'Chargement…',
     value: 'Valeur',
+    items: 'Éléments',
     'action-bar.collapse': 'Réduire',
     'action-bar.expand': 'Développer',
     'action-bar.actions': 'Actions',
