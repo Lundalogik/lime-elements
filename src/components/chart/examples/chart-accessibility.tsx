@@ -15,6 +15,9 @@ import { chartItems } from './chart-items-multi-axis-negative-start-values';
  * - `accessibleItemsLabel`: Will be used as a `th` for the first column of the table,
  * describing what all items in this column have in common. In this example,
  * all items are cities.
+ * - `accessibleValuesLabel`: Will be used as a `th` for the second column of the table,
+ * describing what all values in this column have in common. In this example,
+ * all values are temperatures.
  *
  * Note that these props won't be visually rendered for sighted users, but
  * they will be presented to assistive technologies, such as screen readers
@@ -61,6 +64,7 @@ export class ChartAccessibilityExample {
                     items={chartItems}
                     orientation="landscape"
                     accessibleLabel={`${heading} - ${subHeading}`}
+                    accessibleValuesLabel="Temperature in Celsius"
                     accessibleItemsLabel="City"
                     loading={this.loading}
                 />
