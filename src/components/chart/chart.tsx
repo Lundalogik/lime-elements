@@ -63,6 +63,13 @@ export class Chart {
     public accessibleItemsLabel?: string;
 
     /**
+     * Helps users of assistive technologies to understand
+     * what the values in the chart represent.
+     */
+    @Prop({ reflect: true })
+    public accessibleValuesLabel?: string;
+
+    /**
      * List of items in the chart,
      * each representing a data point.
      */
@@ -162,7 +169,10 @@ export class Chart {
             <thead>
                 <tr>
                     <th scope="col">{this.accessibleItemsLabel}</th>
-                    <th scope="col">{translate.get('value', this.language)}</th>
+                    <th scope="col">
+                        {this.accessibleValuesLabel ??
+                            translate.get('value', this.language)}
+                    </th>
                 </tr>
             </thead>
         );

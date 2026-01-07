@@ -227,6 +227,7 @@ export namespace Components {
     export interface LimelChart {
         "accessibleItemsLabel"?: string;
         "accessibleLabel"?: string;
+        "accessibleValuesLabel"?: string;
         "axisIncrement"?: number;
         "items": ChartItem[];
         "language": Languages;
@@ -1396,6 +1397,7 @@ export namespace JSX {
     export interface LimelChart {
         "accessibleItemsLabel"?: string;
         "accessibleLabel"?: string;
+        "accessibleValuesLabel"?: string;
         "axisIncrement"?: number;
         "items": ChartItem[];
         "language"?: Languages;
