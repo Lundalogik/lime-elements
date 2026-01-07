@@ -49,3 +49,72 @@
         height: inherit;
     }
 }
+
+// Axis labels
+$padding-bottom-portrait: 2rem;
+$padding-left-portrait: 1.25rem;
+
+$padding-bottom-landscape: 1.25rem;
+$padding-left-landscape: 3rem;
+
+:host(limel-chart[display-axis-labels][orientation='portrait']) {
+    --limel-chart-padding: 0.5rem 0.5rem #{$padding-bottom-portrait}
+        #{$padding-left-portrait};
+}
+
+:host(limel-chart[display-axis-labels][orientation='landscape']) {
+    --limel-chart-padding: 0.5rem 0.5rem #{$padding-bottom-landscape}
+        #{$padding-left-landscape};
+}
+
+:host(limel-chart[display-axis-labels][type='line']),
+:host(limel-chart[display-axis-labels][type='dot']),
+:host(limel-chart[display-axis-labels][type='area']),
+:host(limel-chart[display-axis-labels][type='bar']) {
+    table {
+        thead,
+        th {
+            all: unset;
+        }
+
+        th {
+            position: absolute;
+            font-size: var(--limel-theme-default-small-font-size);
+            max-width: 100%;
+            max-height: 100%;
+            @include mixins.truncate-text;
+        }
+    }
+}
+
+:host(limel-chart[display-axis-labels][orientation='portrait']) {
+    table {
+        thead {
+            th:first-of-type {
+                left: -$padding-left-portrait;
+                writing-mode: sideways-lr;
+            }
+            th:last-of-type {
+                bottom: -$padding-bottom-portrait;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    }
+}
+
+:host(limel-chart[display-axis-labels][orientation='landscape']) {
+    table {
+        thead {
+            th:first-of-type {
+                bottom: -$padding-bottom-landscape;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            th:last-of-type {
+                left: -$padding-left-landscape;
+                writing-mode: sideways-lr;
+            }
+        }
+    }
+}

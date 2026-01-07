@@ -30,6 +30,7 @@ const DEFAULT_INCREMENT_SIZE = 10;
  * @exampleComponent limel-example-chart-axis-increment
  * @exampleComponent limel-example-chart-clickable-items
  * @exampleComponent limel-example-chart-accessibility
+ * @exampleComponent limel-example-chart-axis-labels
  * @exampleComponent limel-example-chart-styling
  * @exampleComponent limel-example-chart-creative-styling
  * @beta
@@ -70,6 +71,14 @@ export class Chart {
      */
     @Prop({ reflect: true })
     public accessibleValuesLabel?: string;
+
+    /**
+     * When set to true, renders visible labels for X and Y axes.
+     * Only affects chart types with X and Y axes, such as area, bar, and line charts.
+     */
+
+    @Prop({ reflect: true })
+    public displayAxisLabels = false;
 
     /**
      * List of items in the chart,
