@@ -45,36 +45,13 @@
 ### Depends on
 
 - [limel-helper-line](../helper-line)
-- [limel-chip](../chip)
 - [limel-notched-outline](../notched-outline)
 
 ### Graph
 ```mermaid
 graph TD;
   limel-code-editor --> limel-helper-line
-  limel-code-editor --> limel-chip
   limel-code-editor --> limel-notched-outline
-  limel-chip --> limel-icon
-  limel-chip --> limel-badge
-  limel-chip --> limel-menu
-  limel-chip --> limel-linear-progress
-  limel-menu --> limel-spinner
-  limel-menu --> limel-breadcrumbs
-  limel-menu --> limel-input-field
-  limel-menu --> limel-menu-list
-  limel-menu --> limel-badge
-  limel-menu --> limel-portal
-  limel-menu --> limel-menu-surface
-  limel-breadcrumbs --> limel-icon
-  limel-breadcrumbs --> limel-tooltip
-  limel-tooltip --> limel-portal
-  limel-tooltip --> limel-tooltip-content
-  limel-input-field --> limel-helper-line
-  limel-input-field --> limel-icon
-  limel-input-field --> limel-portal
-  limel-input-field --> limel-menu-surface
-  limel-input-field --> limel-list
-  limel-input-field --> limel-notched-outline
   limel-example-code-editor --> limel-code-editor
   limel-example-code-editor-composite --> limel-code-editor
   limel-example-code-editor-fold-lint-wrap --> limel-code-editor
