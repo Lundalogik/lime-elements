@@ -229,6 +229,7 @@ export namespace Components {
         "accessibleLabel"?: string;
         "accessibleValuesLabel"?: string;
         "axisIncrement"?: number;
+        "displayAxisLabels": boolean;
         "items": ChartItem[];
         "language": Languages;
         "loading": boolean;
@@ -1399,6 +1400,7 @@ export namespace JSX {
         "accessibleLabel"?: string;
         "accessibleValuesLabel"?: string;
         "axisIncrement"?: number;
+        "displayAxisLabels"?: boolean;
         "items": ChartItem[];
         "language"?: Languages;
         "loading"?: boolean;
