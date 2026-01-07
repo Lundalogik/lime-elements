@@ -1,3 +1,18 @@
+## [38.35.0](https://github.com/Lundalogik/lime-elements/compare/v38.34.0...v38.35.0) (2026-01-07)
+
+
+### Features
+
+
+* **chart:** add `accessibleValuesLabel` as a prop ([cba0365](https://github.com/Lundalogik/lime-elements/commit/cba0365672cf58651bcf4083d33659c001289368))
+* **chart:** add displayAxisLabels ([8bda6ee](https://github.com/Lundalogik/lime-elements/commit/8bda6eef05dd1e597f0de0cdd931acbb48abc857))
+
+### Bug Fixes
+
+
+* **chart:** add fallback for `accessibleItemsLabel` ([78316eb](https://github.com/Lundalogik/lime-elements/commit/78316eb8fc01bdf8b1011d01cd87988addfd64b2))
+* **chart:** correct data cell syntax ([9060312](https://github.com/Lundalogik/lime-elements/commit/906031243d542fd45666aa5e6110e136bbd29c6e))
+
 ## [38.34.0](https://github.com/Lundalogik/lime-elements/compare/v38.33.8...v38.34.0) (2025-12-16)
 
 
