@@ -4,6 +4,7 @@ export default {
     cancel: 'Annuleren',
     loading: 'Laden…',
     value: 'Waarde',
+    items: 'items',
     'action-bar.collapse': 'Inklappen',
     'action-bar.expand': 'Uitklappen',
     'action-bar.actions': 'Acties',

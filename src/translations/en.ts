@@ -4,6 +4,7 @@ export default {
     cancel: 'Cancel',
     loading: 'Loading…',
     value: 'Value',
+    items: 'Items',
     'action-bar.collapse': 'Collapse',
     'action-bar.expand': 'Expand',
     'action-bar.actions': 'Actions',

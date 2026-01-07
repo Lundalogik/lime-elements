@@ -4,6 +4,7 @@ export default {
     cancel: 'Peruuta',
     loading: 'Ladataan…',
     value: 'Arvo',
+    items: 'Kohteet',
     'action-bar.collapse': 'Pienennä',
     'action-bar.expand': 'Laajenna',
     'action-bar.actions': 'Toiminnot',
