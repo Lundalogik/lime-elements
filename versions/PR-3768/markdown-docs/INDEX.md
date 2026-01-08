@@ -1,6 +1,6 @@
 # Lime Elements Documentation
 
-**Version 38.35.0**
+**Version 38.35.1**
 
 A comprehensive design system and component library built with Stencil.
 
