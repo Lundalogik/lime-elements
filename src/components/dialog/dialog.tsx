@@ -230,7 +230,7 @@ export class Dialog {
     private isBadgeHeading(
         heading: string | DialogHeading
     ): heading is DialogHeading {
-        return typeof heading === 'object' && !!heading.title && !!heading.icon;
+        return typeof heading === 'object' && !!heading.title;
     }
 
     private renderHeading() {

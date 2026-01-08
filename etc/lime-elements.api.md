@@ -884,7 +884,7 @@ export type DateType = 'datetime' | 'date' | 'time' | 'week' | 'month' | 'quarte
 // @public (undocumented)
 export interface DialogHeading {
     // (undocumented)
-    icon: string | Icon;
+    icon?: string | Icon;
     // (undocumented)
     subtitle?: string;
     // (undocumented)

@@ -7,7 +7,7 @@ export interface DialogHeading {
     title: string;
     subtitle?: string;
     supportingText?: string;
-    icon: string | Icon;
+    icon?: string | Icon;
 }
 
 /**
