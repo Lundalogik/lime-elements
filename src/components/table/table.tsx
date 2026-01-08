@@ -20,7 +20,7 @@ import { ColumnDefinitionFactory, createColumnSorter } from './columns';
 import { isEqual, has } from 'lodash-es';
 import { ElementPool } from './element-pool';
 import { TableSelection } from './table-selection';
-import { mapLayout, Layout } from './layout';
+import { _mapLayout, Layout } from './layout';
 import { areRowsEqual } from './utils';
 import { Languages } from '../date-picker/date.types';
 import translate from '../../global/translations';
@@ -530,7 +530,7 @@ export class Table {
 
         return {
             data: this.data,
-            layout: mapLayout(this.layout),
+            layout: _mapLayout(this.layout),
             columns: this.getColumnDefinitions(),
             dataSorting: this.handleDataSorting,
             pageLoaded: this.handlePageLoaded,
