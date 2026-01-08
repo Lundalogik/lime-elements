@@ -227,14 +227,14 @@ export class Dialog {
         this.closing.emit();
     }
 
-    private isBadgeHeading(
+    private isDialogHeadingObject(
         heading: string | DialogHeading
     ): heading is DialogHeading {
         return typeof heading === 'object' && !!heading.title;
     }
 
     private renderHeading() {
-        if (this.isBadgeHeading(this.heading)) {
+        if (this.isDialogHeadingObject(this.heading)) {
             const { title, subtitle, supportingText, icon } = this.heading;
 
             return (
