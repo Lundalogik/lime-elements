@@ -1,3 +1,12 @@
+## [38.35.1](https://github.com/Lundalogik/lime-elements/compare/v38.35.0...v38.35.1) (2026-01-08)
+
+
+### Bug Fixes
+
+
+* **dialog:** allow using the action slot in the header regardless of type ([c3468fc](https://github.com/Lundalogik/lime-elements/commit/c3468fc3dadd344489bef4580e930999fe132523))
+* **dialog:** make `icon` as an optional type ([1882f90](https://github.com/Lundalogik/lime-elements/commit/1882f908f374d5e1972e6aa293d717d60d7b2a47))
+
 ## [38.35.0](https://github.com/Lundalogik/lime-elements/compare/v38.34.0...v38.35.0) (2026-01-07)
 
 
