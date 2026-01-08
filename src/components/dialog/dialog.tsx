@@ -248,7 +248,11 @@ export class Dialog {
                 </limel-header>
             );
         } else if (typeof this.heading === 'string') {
-            return <limel-header heading={this.heading}></limel-header>;
+            return (
+                <limel-header heading={this.heading}>
+                    <slot name="header-actions" slot="actions" />
+                </limel-header>
+            );
         }
 
         return null;
