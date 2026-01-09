@@ -1,3 +1,11 @@
+## [38.36.0](https://github.com/Lundalogik/lime-elements/compare/v38.35.1...v38.36.0) (2026-01-09)
+
+
+### Features
+
+
+* **code-editor:** implement copy button for editor content ([5086e9b](https://github.com/Lundalogik/lime-elements/commit/5086e9bdeef47601a1040739ad183614ec98ca2d))
+
 ## [38.35.1](https://github.com/Lundalogik/lime-elements/compare/v38.35.0...v38.35.1) (2026-01-08)
 
 
