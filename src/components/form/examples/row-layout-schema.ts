@@ -35,9 +35,6 @@ export const schema: FormSchema<RowLayoutFormData> = {
                         help: {
                             value: 'This will affect both the language of the user interface of our app, and also the language of the emails we send you.',
                         },
-                        layout: {
-                            icon: 'globe',
-                        },
                     },
                     oneOf: [
                         {
@@ -106,12 +103,6 @@ export const schema: FormSchema<RowLayoutFormData> = {
                                 target: '_blank',
                                 text: 'Our Terms & Privacy Policies',
                             },
-                        },
-                        component: {
-                            name: 'limel-switch',
-                        },
-                        layout: {
-                            icon: 'filled_message',
                         },
                     },
                 },
