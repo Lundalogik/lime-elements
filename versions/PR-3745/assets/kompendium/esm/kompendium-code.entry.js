@@ -1,4 +1,4 @@
-import { r as registerInstance, h, a as getElement } from './index-DOaZxWLP.js';
+import { r as registerInstance, h, a as getElement } from './index-DjHw2iz6.js';
 import { c as commonjsGlobal, g as getDefaultExportFromCjs } from './_commonjsHelpers-E-ZsRS8r.js';
 
 var prism = {exports: {}};

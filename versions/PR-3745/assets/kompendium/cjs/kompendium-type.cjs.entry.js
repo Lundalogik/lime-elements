@@ -1,7 +1,7 @@
 'use strict';
 
-var index = require('./index-Chwu_rcF.js');
-var methods = require('./methods-BS4bTYIW.js');
+var index = require('./index-Ku28b8UE.js');
+var methods = require('./methods-COberPWQ.js');
 
 function Interface({ type, }) {
     return [

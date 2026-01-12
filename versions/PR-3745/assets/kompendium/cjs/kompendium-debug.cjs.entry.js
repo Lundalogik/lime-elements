@@ -1,6 +1,6 @@
 'use strict';
 
-var index = require('./index-Chwu_rcF.js');
+var index = require('./index-Ku28b8UE.js');
 
 const KompendiumDebug = class {
     constructor(hostRef) {

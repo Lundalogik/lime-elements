@@ -7,12 +7,12 @@
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
 import { PropsFactory } from "./components/playground/playground.types";
 import { JsonDocs, JsonDocsComponent, JsonDocsTag } from "./stencil-public-runtime";
-import { MatchResults } from "./components/router/route-matching";
+import { MatchResults } from "@limetech/stencil-router";
 import { KompendiumData, MenuItem, TypeDescription } from "./types";
 import { ProplistItem } from "./components/proplist/proplist";
 export { PropsFactory } from "./components/playground/playground.types";
 export { JsonDocs, JsonDocsComponent, JsonDocsTag } from "./stencil-public-runtime";
-export { MatchResults } from "./components/router/route-matching";
+export { MatchResults } from "@limetech/stencil-router";
 export { KompendiumData, MenuItem, TypeDescription } from "./types";
 export { ProplistItem } from "./components/proplist/proplist";
 export namespace Components {
@@ -143,32 +143,6 @@ export namespace Components {
          */
         "items": ProplistItem[];
     }
-    /**
-     * Custom route component for Kompendium
-     * Renders a component when the route matches
-     */
-    interface KompendiumRoute {
-        "component"?: string;
-        "componentProps"?: Record<string, any>;
-        "routeRender"?: (props: { match: MatchResults }) => any;
-        "url"?: string;
-    }
-    /**
-     * Custom route switch component for Kompendium
-     * Manages navigation state and passes current path to child routes
-     */
-    interface KompendiumRouteSwitch {
-        /**
-          * @default 0
-         */
-        "scrollTopOffset"?: number;
-    }
-    /**
-     * Custom router component for Kompendium
-     * Manages routing state using hash-based navigation
-     */
-    interface KompendiumRouter {
-    }
     interface KompendiumSearch {
         /**
           * Index containing searchable documents
@@ -287,36 +261,6 @@ declare global {
         prototype: HTMLKompendiumProplistElement;
         new (): HTMLKompendiumProplistElement;
     };
-    /**
-     * Custom route component for Kompendium
-     * Renders a component when the route matches
-     */
-    interface HTMLKompendiumRouteElement extends Components.KompendiumRoute, HTMLStencilElement {
-    }
-    var HTMLKompendiumRouteElement: {
-        prototype: HTMLKompendiumRouteElement;
-        new (): HTMLKompendiumRouteElement;
-    };
-    /**
-     * Custom route switch component for Kompendium
-     * Manages navigation state and passes current path to child routes
-     */
-    interface HTMLKompendiumRouteSwitchElement extends Components.KompendiumRouteSwitch, HTMLStencilElement {
-    }
-    var HTMLKompendiumRouteSwitchElement: {
-        prototype: HTMLKompendiumRouteSwitchElement;
-        new (): HTMLKompendiumRouteSwitchElement;
-    };
-    /**
-     * Custom router component for Kompendium
-     * Manages routing state using hash-based navigation
-     */
-    interface HTMLKompendiumRouterElement extends Components.KompendiumRouter, HTMLStencilElement {
-    }
-    var HTMLKompendiumRouterElement: {
-        prototype: HTMLKompendiumRouterElement;
-        new (): HTMLKompendiumRouterElement;
-    };
     interface HTMLKompendiumSearchElement extends Components.KompendiumSearch, HTMLStencilElement {
     }
     var HTMLKompendiumSearchElement: {
@@ -351,9 +295,6 @@ declare global {
         "kompendium-navigation": HTMLKompendiumNavigationElement;
         "kompendium-playground": HTMLKompendiumPlaygroundElement;
         "kompendium-proplist": HTMLKompendiumProplistElement;
-        "kompendium-route": HTMLKompendiumRouteElement;
-        "kompendium-route-switch": HTMLKompendiumRouteSwitchElement;
-        "kompendium-router": HTMLKompendiumRouterElement;
         "kompendium-search": HTMLKompendiumSearchElement;
         "kompendium-taglist": HTMLKompendiumTaglistElement;
         "kompendium-type": HTMLKompendiumTypeElement;
@@ -487,32 +428,6 @@ declare namespace LocalJSX {
          */
         "items"?: ProplistItem[];
     }
-    /**
-     * Custom route component for Kompendium
-     * Renders a component when the route matches
-     */
-    interface KompendiumRoute {
-        "component"?: string;
-        "componentProps"?: Record<string, any>;
-        "routeRender"?: (props: { match: MatchResults }) => any;
-        "url"?: string;
-    }
-    /**
-     * Custom route switch component for Kompendium
-     * Manages navigation state and passes current path to child routes
-     */
-    interface KompendiumRouteSwitch {
-        /**
-          * @default 0
-         */
-        "scrollTopOffset"?: number;
-    }
-    /**
-     * Custom router component for Kompendium
-     * Manages routing state using hash-based navigation
-     */
-    interface KompendiumRouter {
-    }
     interface KompendiumSearch {
         /**
           * Index containing searchable documents
@@ -553,9 +468,6 @@ declare namespace LocalJSX {
         "kompendium-navigation": KompendiumNavigation;
         "kompendium-playground": KompendiumPlayground;
         "kompendium-proplist": KompendiumProplist;
-        "kompendium-route": KompendiumRoute;
-        "kompendium-route-switch": KompendiumRouteSwitch;
-        "kompendium-router": KompendiumRouter;
         "kompendium-search": KompendiumSearch;
         "kompendium-taglist": KompendiumTaglist;
         "kompendium-type": KompendiumType;
@@ -594,21 +506,6 @@ declare module "@stencil/core" {
             "kompendium-navigation": LocalJSX.KompendiumNavigation & JSXBase.HTMLAttributes<HTMLKompendiumNavigationElement>;
             "kompendium-playground": LocalJSX.KompendiumPlayground & JSXBase.HTMLAttributes<HTMLKompendiumPlaygroundElement>;
             "kompendium-proplist": LocalJSX.KompendiumProplist & JSXBase.HTMLAttributes<HTMLKompendiumProplistElement>;
-            /**
-             * Custom route component for Kompendium
-             * Renders a component when the route matches
-             */
-            "kompendium-route": LocalJSX.KompendiumRoute & JSXBase.HTMLAttributes<HTMLKompendiumRouteElement>;
-            /**
-             * Custom route switch component for Kompendium
-             * Manages navigation state and passes current path to child routes
-             */
-            "kompendium-route-switch": LocalJSX.KompendiumRouteSwitch & JSXBase.HTMLAttributes<HTMLKompendiumRouteSwitchElement>;
-            /**
-             * Custom router component for Kompendium
-             * Manages routing state using hash-based navigation
-             */
-            "kompendium-router": LocalJSX.KompendiumRouter & JSXBase.HTMLAttributes<HTMLKompendiumRouterElement>;
             "kompendium-search": LocalJSX.KompendiumSearch & JSXBase.HTMLAttributes<HTMLKompendiumSearchElement>;
             /**
              * asd

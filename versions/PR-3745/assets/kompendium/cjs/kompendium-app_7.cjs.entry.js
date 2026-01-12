@@ -1,6 +1,6 @@
 'use strict';
 
-var index = require('./index-Chwu_rcF.js');
+var index = require('./index-Ku28b8UE.js');
 var markdownTypes = require('./markdown-types-B884tLd-.js');
 var types = require('./types-SjA7Kcy_.js');
 var _commonjsHelpers = require('./_commonjsHelpers-B83fTs8d.js');
@@ -1830,19 +1830,19 @@ const App = class {
         if (!this.data) {
             return (index.h("div", { class: "loading-screen" }, index.h("div", { class: "loading-screen-icon" }), index.h("div", { class: "loading-screen-text" }, "Loading...")));
         }
-        return (index.h("div", { class: "kompendium-body" }, index.h("kompendium-navigation", { menu: this.data.menu, header: this.data.title, logo: this.data.logo, index: this.index }), index.h("main", { role: "main" }, index.h("kompendium-router", null, index.h("kompendium-route-switch", { scrollTopOffset: 0 }, index.h("kompendium-route", { url: "/", component: "kompendium-markdown", componentProps: {
+        return (index.h("div", { class: "kompendium-body" }, index.h("kompendium-navigation", { menu: this.data.menu, header: this.data.title, logo: this.data.logo, index: this.index }), index.h("main", { role: "main" }, index.h("stencil-router", null, index.h("stencil-route-switch", { scrollTopOffset: 0 }, index.h("stencil-route", { url: "/", component: "kompendium-markdown", componentProps: {
                 text: this.data.readme,
-            } }), index.h("kompendium-route", { url: "/component/:name/:section?", component: "kompendium-component", componentProps: {
+            } }), index.h("stencil-route", { url: "/component/:name/:section?", component: "kompendium-component", componentProps: {
                 docs: this.data.docs,
                 schemas: this.data.schemas,
                 examplePropsFactory: this.examplePropsFactory,
-            } }), index.h("kompendium-route", { url: "/type/:name", component: "kompendium-type", componentProps: {
+            } }), index.h("stencil-route", { url: "/type/:name", component: "kompendium-type", componentProps: {
                 types: this.data.types,
-            } }), index.h("kompendium-route", { url: "/debug/:name", component: "kompendium-debug", componentProps: {
+            } }), index.h("stencil-route", { url: "/debug/:name", component: "kompendium-debug", componentProps: {
                 docs: this.data.docs,
                 schemas: this.data.schemas,
                 examplePropsFactory: this.examplePropsFactory,
-            } }), index.h("kompendium-route", { component: "kompendium-guide", componentProps: {
+            } }), index.h("stencil-route", { component: "kompendium-guide", componentProps: {
                 data: this.data,
             } }))))));
     }
@@ -2005,221 +2005,6 @@ const Navigation = class {
     }
 };
 Navigation.style = navigationCss;
-
-/**
- * Cache for parsed route patterns to avoid redundant regex compilation
- */
-const routeCache = new Map();
-/**
- * Parse route URL pattern into regex and parameter names
- * @param {string} pattern - Route pattern with optional parameters (e.g., "/component/:name")
- * @returns {{regex: RegExp, params: string[]}} Regex and parameter names
- */
-function parseRoute(pattern) {
-    const params = [];
-    // First, collect all parameters in order they appear
-    // Match both required (:param) and optional (:param?) parameters
-    const paramMatches = pattern.match(/:(\w+)\??/g) || [];
-    paramMatches.forEach((match) => {
-        const paramName = match.replace(/^:|[?]/g, '');
-        params.push(paramName);
-    });
-    // Then build the regex pattern
-    // Process optional params with their slashes first (before escaping slashes)
-    // This makes both the slash AND the parameter value optional
-    const regexPattern = pattern
-        .replace(/\/:(\w+)\?/g, '___OPTIONAL_PARAM_$1___') // Mark optional params with slash
-        .replace(/\//g, '\\/') // Escape remaining slashes
-        .replace(/___OPTIONAL_PARAM_(\w+)___/g, '(?:\\/([^/]*))?') // Optional slash + param
-        .replace(/:(\w+)/g, '([^/]+)'); // Required param
-    const regex = new RegExp(`^${regexPattern}\\/?$`);
-    return { regex: regex, params: params };
-}
-/**
- * Match a path against a route pattern
- * @param {string} path - Current path to match
- * @param {string} pattern - Route pattern to match against
- * @returns {MatchResults | null} Match results with parameters or null if no match
- */
-function matchRoute(path, pattern) {
-    if (!pattern) {
-        return { params: {} };
-    }
-    // Check cache first, or parse and cache if not found
-    let parsed = routeCache.get(pattern);
-    if (!parsed) {
-        parsed = parseRoute(pattern);
-        routeCache.set(pattern, parsed);
-    }
-    const { regex, params } = parsed;
-    const match = path.match(regex);
-    if (!match) {
-        return null;
-    }
-    const matchParams = {};
-    params.forEach((param, index) => {
-        matchParams[param] = match[index + 1] || '';
-    });
-    return { params: matchParams };
-}
-/**
- * Get current hash path
- * @returns {string} Current hash path from URL
- */
-function getHashPath() {
-    return location.hash.substring(1) || '/';
-}
-
-/**
- * Type guard to check if an element is a route element
- * @param {Element} element - The element to check
- * @returns {boolean} True if the element is a kompendium-route
- */
-function isRouteElement(element) {
-    return element.tagName.toLowerCase() === 'kompendium-route';
-}
-/**
- * Check if any previous sibling route matches the current path
- * Used by route-switch to implement first-match-wins behavior
- * @param {HTMLElement} currentElement - The current route element
- * @param {string} currentPath - The current path to match
- * @returns {boolean} True if a previous sibling route matches
- */
-function hasPreviousMatchingSibling(currentElement, currentPath) {
-    const parent = currentElement.parentElement;
-    if ((parent === null || parent === void 0 ? void 0 : parent.tagName.toLowerCase()) !== 'kompendium-route-switch') {
-        return false;
-    }
-    const siblings = Array.from(parent.children);
-    const myIndex = siblings.indexOf(currentElement);
-    // Check all previous siblings
-    for (let i = 0; i < myIndex; i++) {
-        const sibling = siblings[i];
-        // Use type guard to ensure element has expected route properties
-        if (!isRouteElement(sibling)) {
-            continue;
-        }
-        // Access sibling's URL property with type safety
-        const siblingUrl = sibling.url;
-        // Check if sibling matches current path
-        let siblingMatch;
-        if (siblingUrl) {
-            siblingMatch = matchRoute(currentPath, siblingUrl);
-        }
-        else {
-            siblingMatch = { params: {} }; // Routes without URL are catch-all
-        }
-        if (siblingMatch) {
-            return true;
-        }
-    }
-    return false;
-}
-
-/**
- * Generate a stable key from route parameters for component recreation
- * Keys are deterministic - same params always produce same key
- * Used to force Stencil component recreation when route params change
- * @param {Record<string, string>} params - Route parameters
- * @returns {string} A stable, deterministic key
- */
-function generateComponentKey(params) {
-    return Object.keys(params)
-        .sort()
-        .map((k) => `${k}=${params[k]}`)
-        .join('&');
-}
-
-const KompendiumRoute = class {
-    constructor(hostRef) {
-        index.registerInstance(this, hostRef);
-        this.currentPath = '/';
-        this.handleHashChange = this.handleHashChange.bind(this);
-    }
-    connectedCallback() {
-        window.addEventListener('hashchange', this.handleHashChange);
-        this.handleHashChange();
-    }
-    disconnectedCallback() {
-        window.removeEventListener('hashchange', this.handleHashChange);
-    }
-    handleHashChange() {
-        this.currentPath = getHashPath();
-    }
-    render() {
-        // Check if a previous sibling route matches (first-match wins)
-        if (hasPreviousMatchingSibling(this.el, this.currentPath)) {
-            return null;
-        }
-        // Check if this route matches
-        let match;
-        if (this.url) {
-            match = matchRoute(this.currentPath, this.url);
-        }
-        else {
-            match = { params: {} }; // Catch-all route
-        }
-        if (!match) {
-            return null;
-        }
-        // Render the matched route
-        if (this.routeRender) {
-            return this.routeRender({ match: match });
-        }
-        if (this.component) {
-            const props = {
-                ...this.componentProps,
-                match: match,
-            };
-            // Create element dynamically using h() with string tag name
-            // Use match params as key to force recreation when params change
-            const key = generateComponentKey(match.params);
-            return index.h(this.component, { key: key, ...props });
-        }
-        return index.h("slot", null);
-    }
-    get el() { return index.getElement(this); }
-};
-
-const KompendiumRouteSwitch = class {
-    constructor(hostRef) {
-        index.registerInstance(this, hostRef);
-        this.scrollTopOffset = 0;
-        this.currentPath = '/';
-        this.handleHashChange = this.handleHashChange.bind(this);
-    }
-    connectedCallback() {
-        window.addEventListener('hashchange', this.handleHashChange);
-        this.handleHashChange();
-    }
-    disconnectedCallback() {
-        window.removeEventListener('hashchange', this.handleHashChange);
-    }
-    handleHashChange() {
-        const newPath = getHashPath();
-        if (newPath !== this.currentPath) {
-            this.currentPath = newPath;
-            if (this.scrollTopOffset !== undefined) {
-                window.scrollTo(0, this.scrollTopOffset);
-            }
-        }
-    }
-    render() {
-        // Simply render child routes
-        // The @State currentPath will trigger re-render when hash changes
-        // Each route component will re-render and check if it matches
-        return index.h("slot", { key: 'ae22e3681abcaa480b5d58dc87e903583c2f7b36' });
-    }
-};
-
-const KompendiumRouter = class {
-    constructor(hostRef) {
-        index.registerInstance(this, hostRef);
-    }
-    render() {
-        return index.h("slot", { key: '2f8881264e1bca61ab2db8f1bd6595333aa986ee' });
-    }
-};
 
 /**
  * Checks if `value` is the
@@ -2902,7 +2687,7 @@ const Search = class {
             result: true,
             'has-results': this.documents.length > 0,
         };
-        return (index.h("div", { key: '5eb34d2af4f51f2197798e451b6ff1ebf822d2b6', class: "search-box" }, index.h("input", { key: 'bd36deacf316f86b53683e79df566bb2afcc51ba', type: "search", autoFocus: true, placeholder: "Search", onInput: this.handleChangeInput }), index.h("ul", { key: '0f8ae8d76a7a99e596d4bf695b177c74ec7331bf', class: classList }, this.documents.map(this.renderDocument))));
+        return (index.h("div", { key: '8085f45b0d1f5e7b50d20de0df3aa95068598fa2', class: "search-box" }, index.h("input", { key: 'cc001b093b727306c6ea4e8ac078a4f408a0a6c9', type: "search", autoFocus: true, placeholder: "Search", onInput: this.handleChangeInput }), index.h("ul", { key: '7b293d633cd2493c85db58d84f8308e98061ab42', class: classList }, this.documents.map(this.renderDocument))));
     }
     search(query) {
         const index = this.index;
@@ -2913,11 +2698,227 @@ const Search = class {
 };
 Search.style = searchCss;
 
+/**
+ * Cache for parsed route patterns to avoid redundant regex compilation
+ */
+const routeCache = new Map();
+/**
+ * Parse route URL pattern into regex and parameter names
+ * @param {string} pattern - Route pattern with optional parameters (e.g., "/component/:name")
+ * @returns {{regex: RegExp, params: string[]}} Regex and parameter names
+ */
+function parseRoute(pattern) {
+    const params = [];
+    // First, collect all parameters in order they appear
+    // Match both required (:param) and optional (:param?) parameters
+    const paramMatches = pattern.match(/:(\w+)\??/g) || [];
+    paramMatches.forEach((match) => {
+        const paramName = match.replace(/^:|[?]/g, '');
+        params.push(paramName);
+    });
+    // Then build the regex pattern
+    // Process optional params with their slashes first (before escaping slashes)
+    // This makes both the slash AND the parameter value optional
+    const regexPattern = pattern
+        .replace(/\/:(\w+)\?/g, '___OPTIONAL_PARAM_$1___') // Mark optional params with slash
+        .replace(/\//g, '\\/') // Escape remaining slashes
+        .replace(/___OPTIONAL_PARAM_(\w+)___/g, '(?:\\/([^/]*))?') // Optional slash + param
+        .replace(/:(\w+)/g, '([^/]+)'); // Required param
+    const regex = new RegExp(`^${regexPattern}\\/?$`);
+    return { regex: regex, params: params };
+}
+/**
+ * Match a path against a route pattern
+ * @param {string} path - Current path to match
+ * @param {string} pattern - Route pattern to match against
+ * @returns {MatchResults | null} Match results with parameters or null if no match
+ */
+function matchRoute(path, pattern) {
+    if (!pattern) {
+        return { params: {} };
+    }
+    // Check cache first, or parse and cache if not found
+    let parsed = routeCache.get(pattern);
+    if (!parsed) {
+        parsed = parseRoute(pattern);
+        routeCache.set(pattern, parsed);
+    }
+    const { regex, params } = parsed;
+    const match = path.match(regex);
+    if (!match) {
+        return null;
+    }
+    const matchParams = {};
+    params.forEach((param, index) => {
+        matchParams[param] = match[index + 1] || '';
+    });
+    return { params: matchParams };
+}
+/**
+ * Get current hash path
+ * @returns {string} Current hash path from URL
+ */
+function getHashPath() {
+    return location.hash.substring(1) || '/';
+}
+
+/**
+ * Type guard to check if an element is a route element
+ * @param {Element} element - The element to check
+ * @returns {boolean} True if the element is a stencil-route
+ */
+function isRouteElement(element) {
+    return element.tagName.toLowerCase() === 'stencil-route';
+}
+/**
+ * Check if any previous sibling route matches the current path
+ * Used by route-switch to implement first-match-wins behavior
+ * @param {HTMLElement} currentElement - The current route element
+ * @param {string} currentPath - The current path to match
+ * @returns {boolean} True if a previous sibling route matches
+ */
+function hasPreviousMatchingSibling(currentElement, currentPath) {
+    const parent = currentElement.parentElement;
+    if ((parent === null || parent === void 0 ? void 0 : parent.tagName.toLowerCase()) !== 'stencil-route-switch') {
+        return false;
+    }
+    const siblings = Array.from(parent.children);
+    const myIndex = siblings.indexOf(currentElement);
+    // Check all previous siblings
+    for (let i = 0; i < myIndex; i++) {
+        const sibling = siblings[i];
+        // Use type guard to ensure element has expected route properties
+        if (!isRouteElement(sibling)) {
+            continue;
+        }
+        // Access sibling's URL property with type safety
+        const siblingUrl = sibling.url;
+        // Check if sibling matches current path
+        let siblingMatch;
+        if (siblingUrl) {
+            siblingMatch = matchRoute(currentPath, siblingUrl);
+        }
+        else {
+            siblingMatch = { params: {} }; // Routes without URL are catch-all
+        }
+        if (siblingMatch) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Generate a stable key from route parameters for component recreation
+ * Keys are deterministic - same params always produce same key
+ * Used to force Stencil component recreation when route params change
+ * @param {Record<string, string>} params - Route parameters
+ * @returns {string} A stable, deterministic key
+ */
+function generateComponentKey(params) {
+    return Object.keys(params)
+        .sort()
+        .map((k) => `${k}=${params[k]}`)
+        .join('&');
+}
+
+const StencilRoute = class {
+    constructor(hostRef) {
+        index.registerInstance(this, hostRef);
+        this.currentPath = '/';
+        this.handleHashChange = this.handleHashChange.bind(this);
+    }
+    connectedCallback() {
+        window.addEventListener('hashchange', this.handleHashChange);
+        this.handleHashChange();
+    }
+    disconnectedCallback() {
+        window.removeEventListener('hashchange', this.handleHashChange);
+    }
+    handleHashChange() {
+        this.currentPath = getHashPath();
+    }
+    render() {
+        // Element should always be available in render, but guard defensively
+        if (!this.el) {
+            return null;
+        }
+        // Check if a previous sibling route matches (first-match wins)
+        if (hasPreviousMatchingSibling(this.el, this.currentPath)) {
+            return null;
+        }
+        // Check if this route matches
+        let match;
+        if (this.url) {
+            match = matchRoute(this.currentPath, this.url);
+        }
+        else {
+            match = { params: {} }; // Catch-all route
+        }
+        if (!match) {
+            return null;
+        }
+        // Render the matched route
+        if (this.routeRender) {
+            return this.routeRender({ match: match });
+        }
+        if (this.component) {
+            const props = Object.assign(Object.assign({}, this.componentProps), { match: match });
+            // Create element dynamically using h() with string tag name
+            // Use match params as key to force recreation when params change
+            const key = generateComponentKey(match.params);
+            return index.h(this.component, Object.assign({ key: key }, props));
+        }
+        return index.h("slot", null);
+    }
+    get el() { return index.getElement(this); }
+};
+
+const StencilRouteSwitch = class {
+    constructor(hostRef) {
+        index.registerInstance(this, hostRef);
+        this.scrollTopOffset = 0;
+        this.currentPath = '/';
+        this.handleHashChange = this.handleHashChange.bind(this);
+    }
+    connectedCallback() {
+        window.addEventListener('hashchange', this.handleHashChange);
+        this.handleHashChange();
+    }
+    disconnectedCallback() {
+        window.removeEventListener('hashchange', this.handleHashChange);
+    }
+    handleHashChange() {
+        const newPath = getHashPath();
+        if (newPath !== this.currentPath) {
+            this.currentPath = newPath;
+            if (this.scrollTopOffset !== undefined) {
+                window.scrollTo(0, this.scrollTopOffset);
+            }
+        }
+    }
+    render() {
+        // Simply render child routes
+        // The @State currentPath will trigger re-render when hash changes
+        // Each route component will re-render and check if it matches
+        return index.h("slot", { key: '140c65d5b8e395cebfe132763f26a304d217863e' });
+    }
+};
+
+const StencilRouter = class {
+    constructor(hostRef) {
+        index.registerInstance(this, hostRef);
+    }
+    render() {
+        return index.h("slot", { key: '6e145f4a847376de82972e4b1420d28cb86f4f8c' });
+    }
+};
+
 exports.kompendium_app = App;
 exports.kompendium_darkmode_switch = DarkmodeSwitch;
 exports.kompendium_navigation = Navigation;
-exports.kompendium_route = KompendiumRoute;
-exports.kompendium_route_switch = KompendiumRouteSwitch;
-exports.kompendium_router = KompendiumRouter;
 exports.kompendium_search = Search;
-//# sourceMappingURL=kompendium-app.kompendium-darkmode-switch.kompendium-navigation.kompendium-route.kompendium-route-switch.kompendium-router.kompendium-search.entry.cjs.js.map
+exports.stencil_route = StencilRoute;
+exports.stencil_route_switch = StencilRouteSwitch;
+exports.stencil_router = StencilRouter;
+//# sourceMappingURL=kompendium-app.kompendium-darkmode-switch.kompendium-navigation.kompendium-search.stencil-route.stencil-route-switch.stencil-router.entry.cjs.js.map

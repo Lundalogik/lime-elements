@@ -85,8 +85,8 @@ export class KompendiumDebug {
                     "references": {
                         "MatchResults": {
                             "location": "import",
-                            "path": "../router/route-matching",
-                            "id": "src/components/router/route-matching.ts::MatchResults"
+                            "path": "@limetech/stencil-router",
+                            "id": "node_modules::MatchResults"
                         }
                     }
                 },

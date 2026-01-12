@@ -1,5 +1,5 @@
-import { h, r as registerInstance } from './index-DOaZxWLP.js';
-import { P as PropertyList, M as MethodList } from './methods-ZEkC4wqn.js';
+import { h, r as registerInstance } from './index-DjHw2iz6.js';
+import { P as PropertyList, M as MethodList } from './methods-qn9zMWeW.js';
 
 function Interface({ type, }) {
     return [

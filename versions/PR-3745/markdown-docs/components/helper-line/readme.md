@@ -34,6 +34,7 @@ more easily without having to send the styles to the portal.
 
  - [limel-checkbox](../checkbox)
  - [limel-chip-set](../chip-set)
+ - [limel-code-editor](../code-editor)
  - [limel-example-helper-line](examples)
  - [limel-example-helper-line-animation](examples)
  - [limel-example-helper-line-character-counter](examples)
@@ -53,6 +54,7 @@ more easily without having to send the styles to the portal.
 graph TD;
   limel-checkbox --> limel-helper-line
   limel-chip-set --> limel-helper-line
+  limel-code-editor --> limel-helper-line
   limel-example-helper-line --> limel-helper-line
   limel-example-helper-line-animation --> limel-helper-line
   limel-example-helper-line-character-counter --> limel-helper-line

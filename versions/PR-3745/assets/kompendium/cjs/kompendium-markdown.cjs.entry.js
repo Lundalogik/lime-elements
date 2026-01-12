@@ -1,6 +1,6 @@
 'use strict';
 
-var index = require('./index-Chwu_rcF.js');
+var index = require('./index-Ku28b8UE.js');
 var _commonjsHelpers = require('./_commonjsHelpers-B83fTs8d.js');
 var markdownTypes = require('./markdown-types-B884tLd-.js');
 

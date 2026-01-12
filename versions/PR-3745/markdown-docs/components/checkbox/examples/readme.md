@@ -18,8 +18,8 @@ confusion and negatively affecting the end-users' experience.
 :::important
 Before reading the documentations below, make sure to read
 1. our guides about the difference between
-[Disabled vs. Readonly](/#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
-2. our guidelines about [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/).
+[Disabled vs. Readonly](#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
+2. our guidelines about [Labeling boolean fields](#/DesignGuidelines/labeling-boolean-fields.md/).
 :::
 
 Using the `readonlyLabels` optional prop, you can override the `label` and
@@ -32,6 +32,7 @@ override the default icons and their colors.
 
 - [limel-checkbox](..)
 - [limel-example-controls](../../../examples)
+- [limel-switch](../../switch)
 - [limel-example-value](../../../examples)
 
 ### Graph
@@ -39,10 +40,13 @@ override the default icons and their colors.
 graph TD;
   limel-example-checkbox-readonly --> limel-checkbox
   limel-example-checkbox-readonly --> limel-example-controls
+  limel-example-checkbox-readonly --> limel-switch
   limel-example-checkbox-readonly --> limel-example-value
   limel-checkbox --> limel-dynamic-label
   limel-checkbox --> limel-helper-line
   limel-dynamic-label --> limel-icon
+  limel-switch --> limel-helper-line
+  limel-switch --> limel-dynamic-label
   style limel-example-checkbox-readonly fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

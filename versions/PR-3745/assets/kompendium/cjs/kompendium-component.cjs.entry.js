@@ -1,7 +1,7 @@
 'use strict';
 
-var index = require('./index-Chwu_rcF.js');
-var methods = require('./methods-BS4bTYIW.js');
+var index = require('./index-Ku28b8UE.js');
+var methods = require('./methods-COberPWQ.js');
 var _commonjsHelpers = require('./_commonjsHelpers-B83fTs8d.js');
 
 function EventList({ events, id, }) {
