@@ -48,8 +48,8 @@ button {
     }
 
     &:not(:disabled) {
-        @include mixins.visualize-keyboard-focus;
         @include mixins.is-elevated-clickable();
+        @include mixins.visualize-keyboard-focus;
     }
 
     :host(limel-button[primary]) & {
