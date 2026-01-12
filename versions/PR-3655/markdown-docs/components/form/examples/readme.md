@@ -16,6 +16,7 @@ Form with server validation
 ```mermaid
 graph TD;
   limel-example-server-errors --> limel-form
+  limel-form --> limel-markdown
   style limel-example-server-errors fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -29,6 +29,7 @@
 ### Used by
 
  - [limel-example-chart-axis-increment](../chart/examples)
+ - [limel-example-chart-axis-labels](../chart/examples)
  - [limel-example-chart-multi-axis](../chart/examples)
  - [limel-example-chart-multi-axis-area-with-negative-start-values](../chart/examples)
  - [limel-example-chart-multi-axis-with-negative-start-values](../chart/examples)
@@ -81,6 +82,7 @@ graph TD;
   limel-select --> limel-menu-surface
   limel-select --> limel-list
   limel-example-chart-axis-increment --> limel-select
+  limel-example-chart-axis-labels --> limel-select
   limel-example-chart-multi-axis --> limel-select
   limel-example-chart-multi-axis-area-with-negative-start-values --> limel-select
   limel-example-chart-multi-axis-with-negative-start-values --> limel-select

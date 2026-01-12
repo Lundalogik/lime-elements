@@ -1,6 +1,6 @@
 'use strict';
 
-var index = require('./index-CI2W1cDY.js');
+var index = require('./index-DYiJ6dQL.js');
 var _commonjsHelpers = require('./_commonjsHelpers-B83fTs8d.js');
 
 var prism = {exports: {}};

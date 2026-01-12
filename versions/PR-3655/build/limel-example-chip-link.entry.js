@@ -1,2 +1,2 @@
-import{r as t,h as e}from"./index-BWUkXc2p.js";const i=class{constructor(e){t(this,e);this.link={href:"https://github.com",title:"Open Github",target:"_blank"}}render(){return e("limel-chip",{key:"2dd00cd28055848c537a9d5561e9c9790e394824",text:"Github",icon:"github_copyrighted",link:this.link})}};export{i as limel_example_chip_link};
+import{r as t,h as e}from"./index-BWUkXc2p.js";const i=class{constructor(e){t(this,e);this.link={href:"https://github.com",title:"Open Github",target:"_blank"}}render(){return e("limel-chip",{key:"97c9c5de8ebe5cb8302341883a01115260ab359f",text:"Github",icon:"github_copyrighted",link:this.link})}};export{i as limel_example_chip_link};
 //# sourceMappingURL=limel-example-chip-link.entry.js.map

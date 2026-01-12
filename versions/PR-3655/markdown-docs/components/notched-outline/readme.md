@@ -37,6 +37,7 @@ would be correctly associated with the input element's `id`, in the consumer com
 ### Used by
 
  - [limel-chip-set](../chip-set)
+ - [limel-code-editor](../code-editor)
  - [limel-example-notched-outline-basic](examples)
  - [limel-input-field](../input-field)
  - [limel-select](../select)
@@ -47,6 +48,7 @@ would be correctly associated with the input element's `id`, in the consumer com
 ```mermaid
 graph TD;
   limel-chip-set --> limel-notched-outline
+  limel-code-editor --> limel-notched-outline
   limel-example-notched-outline-basic --> limel-notched-outline
   limel-input-field --> limel-notched-outline
   limel-select --> limel-notched-outline

@@ -37,6 +37,7 @@ and renders it as HTML.
  - [limel-example-markdown-lists](examples)
  - [limel-example-markdown-tables](examples)
  - [limel-example-popover-trigger-interaction](../popover/examples)
+ - [limel-form](../form)
  - [limel-help-content](../help)
  - [limel-showcase-card](../../examples/whats-new)
  - [limel-text-editor](../text-editor)
@@ -61,6 +62,7 @@ graph TD;
   limel-example-markdown-lists --> limel-markdown
   limel-example-markdown-tables --> limel-markdown
   limel-example-popover-trigger-interaction --> limel-markdown
+  limel-form --> limel-markdown
   limel-help-content --> limel-markdown
   limel-showcase-card --> limel-markdown
   limel-text-editor --> limel-markdown

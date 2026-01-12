@@ -1,2 +1,2 @@
-import{r as e,h as r}from"./index-BWUkXc2p.js";const s=class{constructor(r){e(this,r)}render(){return r("limel-linear-progress",{key:"7e0f7b587aa091ecb4ef7786016fe4beaf077cc7",value:.87,accessibleLabel:"Percentage of today's progress"})}};export{s as limel_example_linear_progress_accessible_label};
+import{r as e,h as r}from"./index-BWUkXc2p.js";const s=class{constructor(r){e(this,r)}render(){return r("limel-linear-progress",{key:"6c4615ba848cde05c69779867913e4feff56104c",value:.87,accessibleLabel:"Percentage of today's progress"})}};export{s as limel_example_linear_progress_accessible_label};
 //# sourceMappingURL=limel-example-linear-progress-accessible-label.entry.js.map

@@ -18,7 +18,7 @@ The color spectrum is not modifiable, and looks like red → orange → yellow
 
 - [limel-slider](..)
 - [limel-example-controls](../../../examples)
-- [limel-checkbox](../../checkbox)
+- [limel-switch](../../switch)
 - [limel-example-value](../../../examples)
 
 ### Graph
@@ -26,12 +26,12 @@ The color spectrum is not modifiable, and looks like red → orange → yellow
 graph TD;
   limel-example-slider-multiplier-percentage-colors --> limel-slider
   limel-example-slider-multiplier-percentage-colors --> limel-example-controls
-  limel-example-slider-multiplier-percentage-colors --> limel-checkbox
+  limel-example-slider-multiplier-percentage-colors --> limel-switch
   limel-example-slider-multiplier-percentage-colors --> limel-example-value
   limel-slider --> limel-helper-line
   limel-slider --> limel-notched-outline
-  limel-checkbox --> limel-dynamic-label
-  limel-checkbox --> limel-helper-line
+  limel-switch --> limel-helper-line
+  limel-switch --> limel-dynamic-label
   limel-dynamic-label --> limel-icon
   style limel-example-slider-multiplier-percentage-colors fill:#f9f,stroke:#333,stroke-width:4px
 ```

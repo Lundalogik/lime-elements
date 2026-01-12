@@ -20,6 +20,8 @@ respect the operating system's settings for preferred appearance (dark or light)
 ```mermaid
 graph TD;
   limel-example-code-editor-readonly-with-line-numbers --> limel-code-editor
+  limel-code-editor --> limel-helper-line
+  limel-code-editor --> limel-notched-outline
   style limel-example-code-editor-readonly-with-line-numbers fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

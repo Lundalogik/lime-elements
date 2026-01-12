@@ -1,2 +1,2 @@
-import{r as e,h as r}from"./index-BWUkXc2p.js";const i=class{constructor(r){e(this,r)}render(){return r("limel-help",{key:"e75f9a484ba5f574f84f44b60528ff284742d053",openDirection:"right",value:"This popover is opened on the right side of the trigger."})}};export{i as limel_example_open_direction};
+import{r as e,h as r}from"./index-BWUkXc2p.js";const i=class{constructor(r){e(this,r)}render(){return r("limel-help",{key:"a924e53576062541524d12b866aec92826052ac7",openDirection:"right",value:"This popover is opened on the right side of the trigger."})}};export{i as limel_example_open_direction};
 //# sourceMappingURL=limel-example-open-direction.entry.js.map

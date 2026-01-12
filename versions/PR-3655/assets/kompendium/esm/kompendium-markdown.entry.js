@@ -1,4 +1,4 @@
-import { r as registerInstance, h, a as getElement } from './index-Bju2AYoK.js';
+import { r as registerInstance, h, a as getElement } from './index-9UrzenzW.js';
 import { a as getAugmentedNamespace, g as getDefaultExportFromCjs } from './_commonjsHelpers-E-ZsRS8r.js';
 import { g as getTypes } from './markdown-types-Ajsawr_9.js';
 

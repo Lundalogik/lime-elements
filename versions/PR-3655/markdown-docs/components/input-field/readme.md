@@ -46,6 +46,7 @@
  - [limel-color-picker](../color-picker)
  - [limel-color-picker-palette](../color-picker)
  - [limel-date-picker](../date-picker)
+ - [limel-example-button-composite](../button/examples)
  - [limel-example-chart-axis-increment](../chart/examples)
  - [limel-example-chart-type-area](../chart/examples)
  - [limel-example-chart-type-bar](../chart/examples)
@@ -107,6 +108,7 @@ graph TD;
   limel-color-picker --> limel-input-field
   limel-color-picker-palette --> limel-input-field
   limel-date-picker --> limel-input-field
+  limel-example-button-composite --> limel-input-field
   limel-example-chart-axis-increment --> limel-input-field
   limel-example-chart-type-area --> limel-input-field
   limel-example-chart-type-bar --> limel-input-field

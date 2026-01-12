@@ -1,2 +1,2 @@
-import{r as t,h as e}from"./index-BWUkXc2p.js";import{c as r}from"./chart-items-stack-BdUh9la4.js";const a=class{constructor(e){t(this,e)}render(){return e("limel-chart",{key:"f554f6b10b3f542f00dad076745a6ecc6ace623e",style:{width:"0.5rem",height:"15rem"},items:r,orientation:"portrait"})}};export{a as limel_example_chart_orientation};
+import{r as t,h as r}from"./index-BWUkXc2p.js";import{c as e}from"./chart-items-stack-BdUh9la4.js";const i=class{constructor(r){t(this,r)}render(){return r("limel-chart",{key:"ff864dbb2252d807d0ce53ad59537f873c912065",style:{width:"0.5rem",height:"15rem"},items:e,orientation:"portrait"})}};export{i as limel_example_chart_orientation};
 //# sourceMappingURL=limel-example-chart-orientation.entry.js.map
