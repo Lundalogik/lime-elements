@@ -1,3 +1,11 @@
+## [38.36.1](https://github.com/Lundalogik/lime-elements/compare/v38.36.0...v38.36.1) (2026-01-12)
+
+
+### Bug Fixes
+
+
+* **button:** display our visual outline when button is focused using keyboard ([d47a3d9](https://github.com/Lundalogik/lime-elements/commit/d47a3d9ee29ef54414ab12ec95e18f67013e599f))
+
 ## [38.36.0](https://github.com/Lundalogik/lime-elements/compare/v38.35.1...v38.36.0) (2026-01-09)
 
 
