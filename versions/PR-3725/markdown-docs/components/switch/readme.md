@@ -48,6 +48,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-button-group](../button-group/examples)
  - [limel-example-button-group-icons](../button-group/examples)
  - [limel-example-button-group-mix](../button-group/examples)
+ - [limel-example-chart-axis-labels](../chart/examples)
  - [limel-example-checkbox](../checkbox/examples)
  - [limel-example-checkbox-readonly](../checkbox/examples)
  - [limel-example-chip-button](../chip/examples)
@@ -57,6 +58,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-chip-set-filter](../chip-set/examples)
  - [limel-example-chip-set-filter-badge](../chip-set/examples)
  - [limel-example-chip-set-input](../chip-set/examples)
+ - [limel-example-code-editor-composite](../code-editor/examples)
  - [limel-example-dialog-nested-close-events](../dialog/examples)
  - [limel-example-dynamic-label](../dynamic-label/examples)
  - [limel-example-dynamic-label-readonly-boolean](../dynamic-label/examples)
@@ -116,6 +118,7 @@ graph TD;
   limel-example-button-group --> limel-switch
   limel-example-button-group-icons --> limel-switch
   limel-example-button-group-mix --> limel-switch
+  limel-example-chart-axis-labels --> limel-switch
   limel-example-checkbox --> limel-switch
   limel-example-checkbox-readonly --> limel-switch
   limel-example-chip-button --> limel-switch
@@ -125,6 +128,7 @@ graph TD;
   limel-example-chip-set-filter --> limel-switch
   limel-example-chip-set-filter-badge --> limel-switch
   limel-example-chip-set-input --> limel-switch
+  limel-example-code-editor-composite --> limel-switch
   limel-example-dialog-nested-close-events --> limel-switch
   limel-example-dynamic-label --> limel-switch
   limel-example-dynamic-label-readonly-boolean --> limel-switch
