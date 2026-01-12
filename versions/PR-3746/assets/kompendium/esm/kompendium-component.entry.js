@@ -1,5 +1,5 @@
-import { h, r as registerInstance, a as getElement } from './index-Bju2AYoK.js';
-import { P as PropertyList, M as MethodList } from './methods-D2t6uCLK.js';
+import { h, r as registerInstance, a as getElement } from './index-9UrzenzW.js';
+import { P as PropertyList, M as MethodList } from './methods-BAjd6f7g.js';
 import { g as getDefaultExportFromCjs } from './_commonjsHelpers-E-ZsRS8r.js';
 
 function EventList({ events, id, }) {

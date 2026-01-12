@@ -24,7 +24,7 @@ export class Search {
             result: true,
             'has-results': this.documents.length > 0,
         };
-        return (h("div", { key: '5eb34d2af4f51f2197798e451b6ff1ebf822d2b6', class: "search-box" }, h("input", { key: 'bd36deacf316f86b53683e79df566bb2afcc51ba', type: "search", autoFocus: true, placeholder: "Search", onInput: this.handleChangeInput }), h("ul", { key: '0f8ae8d76a7a99e596d4bf695b177c74ec7331bf', class: classList }, this.documents.map(this.renderDocument))));
+        return (h("div", { key: '8085f45b0d1f5e7b50d20de0df3aa95068598fa2', class: "search-box" }, h("input", { key: 'cc001b093b727306c6ea4e8ac078a4f408a0a6c9', type: "search", autoFocus: true, placeholder: "Search", onInput: this.handleChangeInput }), h("ul", { key: '7b293d633cd2493c85db58d84f8308e98061ab42', class: classList }, this.documents.map(this.renderDocument))));
     }
     search(query) {
         const index = this.index;
