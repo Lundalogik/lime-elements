@@ -1,6 +1,6 @@
 'use strict';
 
-var index = require('./index-CI2W1cDY.js');
+var index = require('./index-DYiJ6dQL.js');
 
 const markdownExample = `
 ## Headings

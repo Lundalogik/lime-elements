@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './index-Bju2AYoK.js';
+import { r as registerInstance, h } from './index-9UrzenzW.js';
 
 const Guide = class {
     constructor(hostRef) {

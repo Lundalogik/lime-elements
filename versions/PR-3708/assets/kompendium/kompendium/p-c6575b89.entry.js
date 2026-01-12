@@ -1,2 +1,0 @@
-import{r as o,h as e}from"./p-Bju2AYoK.js";const n=`\nimport foo from 'foo';\n\nfoo();\n`;const r=class{constructor(e){o(this,e)}render(){return e("kompendium-code",{key:"39753fdbf54b9d27625ac4e5058ec7a016d38b37",language:"ts"},n)}};export{r as kompendium_example_code};
-//# sourceMappingURL=p-c6575b89.entry.js.map

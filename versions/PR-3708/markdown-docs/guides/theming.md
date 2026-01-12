@@ -24,7 +24,7 @@ font-weight: 400;
 color: rgb(var(--contrast-1500));
 ```
 
-💡 About the `color` specified above, read more on [our color system](/#/DesignGuidelines/color-system.md/).
+💡 About the `color` specified above, read more on [our color system](#/DesignGuidelines/color-system.md/).
 
 Or if you want to customize the font-family and related styles to suit your project's needs, you might prefer a different typeface like below:
 

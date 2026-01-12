@@ -15,7 +15,7 @@ Input Field of Type Textarea
 
 - [limel-input-field](..)
 - [limel-example-controls](../../../examples)
-- [limel-checkbox](../../checkbox)
+- [limel-switch](../../switch)
 - [limel-example-value](../../../examples)
 
 ### Graph
@@ -23,7 +23,7 @@ Input Field of Type Textarea
 graph TD;
   limel-example-input-field-textarea --> limel-input-field
   limel-example-input-field-textarea --> limel-example-controls
-  limel-example-input-field-textarea --> limel-checkbox
+  limel-example-input-field-textarea --> limel-switch
   limel-example-input-field-textarea --> limel-example-value
   limel-input-field --> limel-helper-line
   limel-input-field --> limel-icon
@@ -31,8 +31,8 @@ graph TD;
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
-  limel-checkbox --> limel-dynamic-label
-  limel-checkbox --> limel-helper-line
+  limel-switch --> limel-helper-line
+  limel-switch --> limel-dynamic-label
   limel-dynamic-label --> limel-icon
   style limel-example-input-field-textarea fill:#f9f,stroke:#333,stroke-width:4px
 ```
