@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
 import { PropsFactory } from "./components/playground/playground.types";
 import { JsonDocs, JsonDocsComponent, JsonDocsTag } from "./stencil-public-runtime";
-import { MatchResults } from "./components/router/route-matching";
+import { MatchResults } from "@limetech/stencil-router";
 import { KompendiumData, MenuItem, TypeDescription } from "./types";
 import { ProplistItem } from "./components/proplist/proplist";
 export namespace Components {
@@ -118,17 +118,6 @@ export namespace Components {
          */
         "items": ProplistItem[];
     }
-    interface KompendiumRoute {
-        "component"?: string;
-        "componentProps"?: Record<string, any>;
-        "routeRender"?: (props: { match: MatchResults }) => any;
-        "url"?: string;
-    }
-    interface KompendiumRouteSwitch {
-        "scrollTopOffset"?: number;
-    }
-    interface KompendiumRouter {
-    }
     interface KompendiumSearch {
         /**
           * Index containing searchable documents
@@ -226,24 +215,6 @@ declare global {
         prototype: HTMLKompendiumProplistElement;
         new (): HTMLKompendiumProplistElement;
     };
-    interface HTMLKompendiumRouteElement extends Components.KompendiumRoute, HTMLStencilElement {
-    }
-    var HTMLKompendiumRouteElement: {
-        prototype: HTMLKompendiumRouteElement;
-        new (): HTMLKompendiumRouteElement;
-    };
-    interface HTMLKompendiumRouteSwitchElement extends Components.KompendiumRouteSwitch, HTMLStencilElement {
-    }
-    var HTMLKompendiumRouteSwitchElement: {
-        prototype: HTMLKompendiumRouteSwitchElement;
-        new (): HTMLKompendiumRouteSwitchElement;
-    };
-    interface HTMLKompendiumRouterElement extends Components.KompendiumRouter, HTMLStencilElement {
-    }
-    var HTMLKompendiumRouterElement: {
-        prototype: HTMLKompendiumRouterElement;
-        new (): HTMLKompendiumRouterElement;
-    };
     interface HTMLKompendiumSearchElement extends Components.KompendiumSearch, HTMLStencilElement {
     }
     var HTMLKompendiumSearchElement: {
@@ -275,9 +246,6 @@ declare global {
         "kompendium-navigation": HTMLKompendiumNavigationElement;
         "kompendium-playground": HTMLKompendiumPlaygroundElement;
         "kompendium-proplist": HTMLKompendiumProplistElement;
-        "kompendium-route": HTMLKompendiumRouteElement;
-        "kompendium-route-switch": HTMLKompendiumRouteSwitchElement;
-        "kompendium-router": HTMLKompendiumRouterElement;
         "kompendium-search": HTMLKompendiumSearchElement;
         "kompendium-taglist": HTMLKompendiumTaglistElement;
         "kompendium-type": HTMLKompendiumTypeElement;
@@ -391,17 +359,6 @@ declare namespace LocalJSX {
          */
         "items"?: ProplistItem[];
     }
-    interface KompendiumRoute {
-        "component"?: string;
-        "componentProps"?: Record<string, any>;
-        "routeRender"?: (props: { match: MatchResults }) => any;
-        "url"?: string;
-    }
-    interface KompendiumRouteSwitch {
-        "scrollTopOffset"?: number;
-    }
-    interface KompendiumRouter {
-    }
     interface KompendiumSearch {
         /**
           * Index containing searchable documents
@@ -438,9 +395,6 @@ declare namespace LocalJSX {
         "kompendium-navigation": KompendiumNavigation;
         "kompendium-playground": KompendiumPlayground;
         "kompendium-proplist": KompendiumProplist;
-        "kompendium-route": KompendiumRoute;
-        "kompendium-route-switch": KompendiumRouteSwitch;
-        "kompendium-router": KompendiumRouter;
         "kompendium-search": KompendiumSearch;
         "kompendium-taglist": KompendiumTaglist;
         "kompendium-type": KompendiumType;
@@ -462,9 +416,6 @@ declare module "@stencil/core" {
             "kompendium-navigation": LocalJSX.KompendiumNavigation & JSXBase.HTMLAttributes<HTMLKompendiumNavigationElement>;
             "kompendium-playground": LocalJSX.KompendiumPlayground & JSXBase.HTMLAttributes<HTMLKompendiumPlaygroundElement>;
             "kompendium-proplist": LocalJSX.KompendiumProplist & JSXBase.HTMLAttributes<HTMLKompendiumProplistElement>;
-            "kompendium-route": LocalJSX.KompendiumRoute & JSXBase.HTMLAttributes<HTMLKompendiumRouteElement>;
-            "kompendium-route-switch": LocalJSX.KompendiumRouteSwitch & JSXBase.HTMLAttributes<HTMLKompendiumRouteSwitchElement>;
-            "kompendium-router": LocalJSX.KompendiumRouter & JSXBase.HTMLAttributes<HTMLKompendiumRouterElement>;
             "kompendium-search": LocalJSX.KompendiumSearch & JSXBase.HTMLAttributes<HTMLKompendiumSearchElement>;
             "kompendium-taglist": LocalJSX.KompendiumTaglist & JSXBase.HTMLAttributes<HTMLKompendiumTaglistElement>;
             "kompendium-type": LocalJSX.KompendiumType & JSXBase.HTMLAttributes<HTMLKompendiumTypeElement>;

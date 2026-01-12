@@ -59,25 +59,25 @@ export class App {
     return (h("div", { class: "kompendium-body" },
       h("kompendium-navigation", { menu: this.data.menu, header: this.data.title, logo: this.data.logo, index: this.index }),
       h("main", { role: "main" },
-        h("kompendium-router", null,
-          h("kompendium-route-switch", { scrollTopOffset: 0 },
-            h("kompendium-route", { url: "/", component: "kompendium-markdown", componentProps: {
+        h("stencil-router", null,
+          h("stencil-route-switch", { scrollTopOffset: 0 },
+            h("stencil-route", { url: "/", component: "kompendium-markdown", componentProps: {
                 text: this.data.readme,
               } }),
-            h("kompendium-route", { url: "/component/:name/:section?", component: "kompendium-component", componentProps: {
+            h("stencil-route", { url: "/component/:name/:section?", component: "kompendium-component", componentProps: {
                 docs: this.data.docs,
                 schemas: this.data.schemas,
                 examplePropsFactory: this.examplePropsFactory,
               } }),
-            h("kompendium-route", { url: "/type/:name", component: "kompendium-type", componentProps: {
+            h("stencil-route", { url: "/type/:name", component: "kompendium-type", componentProps: {
                 types: this.data.types,
               } }),
-            h("kompendium-route", { url: "/debug/:name", component: "kompendium-debug", componentProps: {
+            h("stencil-route", { url: "/debug/:name", component: "kompendium-debug", componentProps: {
                 docs: this.data.docs,
                 schemas: this.data.schemas,
                 examplePropsFactory: this.examplePropsFactory,
               } }),
-            h("kompendium-route", { component: "kompendium-guide", componentProps: {
+            h("stencil-route", { component: "kompendium-guide", componentProps: {
                 data: this.data,
               } }))))));
   }

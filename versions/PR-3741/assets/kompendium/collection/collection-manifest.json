@@ -12,9 +12,6 @@
     "./components/markdown/examples/markdown.js",
     "./components/navigation/navigation.js",
     "./components/playground/playground.js",
-    "./components/router/kompendium-route-switch.js",
-    "./components/router/kompendium-route.js",
-    "./components/router/kompendium-router.js",
     "./components/search/search.js",
     "./components/taglist/taglist.js",
     "./components/type/type.js"
@@ -24,6 +21,15 @@
     "version": "2.6.0",
     "typescriptVersion": "4.2.3"
   },
-  "collections": [],
+  "collections": [
+    {
+      "name": "@limetech/stencil-router",
+      "tags": [
+        "stencil-route",
+        "stencil-route-switch",
+        "stencil-router"
+      ]
+    }
+  ],
   "bundles": []
 }

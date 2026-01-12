@@ -1,5 +1,5 @@
 import { JsonDocs } from '../../stencil-public-runtime';
-import { MatchResults } from '../router/route-matching';
+import { MatchResults } from '@limetech/stencil-router';
 import { PropsFactory } from '../playground/playground.types';
 export declare class KompendiumDebug {
   /**

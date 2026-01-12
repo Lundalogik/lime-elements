@@ -77,7 +77,7 @@ export class KompendiumDebug {
         "references": {
           "MatchResults": {
             "location": "import",
-            "path": "../router/route-matching"
+            "path": "@limetech/stencil-router"
           }
         }
       },

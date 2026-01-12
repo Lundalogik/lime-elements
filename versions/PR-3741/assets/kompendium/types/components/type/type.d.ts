@@ -1,5 +1,5 @@
 import { TypeDescription } from '../../types';
-import { MatchResults } from '../router/route-matching';
+import { MatchResults } from '@limetech/stencil-router';
 export declare class Type {
   /**
    */
