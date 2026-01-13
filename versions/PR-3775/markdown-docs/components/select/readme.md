@@ -45,6 +45,7 @@
  - [limel-example-dialog-heading](../dialog/examples)
  - [limel-example-file-viewer-office](../file-viewer/examples)
  - [limel-example-header-slot-actions](../header/examples)
+ - [limel-example-input-field-number](../input-field/examples)
  - [limel-example-linear-progress-color](../linear-progress/examples)
  - [limel-example-list-badge-icons-with-multiple-lines](../list/examples)
  - [limel-example-list-item-icon-size](../list-item/examples)
@@ -98,6 +99,7 @@ graph TD;
   limel-example-dialog-heading --> limel-select
   limel-example-file-viewer-office --> limel-select
   limel-example-header-slot-actions --> limel-select
+  limel-example-input-field-number --> limel-select
   limel-example-linear-progress-color --> limel-select
   limel-example-list-badge-icons-with-multiple-lines --> limel-select
   limel-example-list-item-icon-size --> limel-select
