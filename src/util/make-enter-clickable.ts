@@ -1,5 +1,3 @@
-import { forceUpdate } from '@stencil/core';
-
 const eventHandlers: WeakMap<HTMLElement, EnterClickable> = new WeakMap();
 
 class EnterClickable {
@@ -11,10 +9,6 @@ class EnterClickable {
     private handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === 'Enter' && !this.isActive && !event.repeat) {
             this.isActive = true;
-
-            if (this.element?.shadowRoot) {
-                forceUpdate(this.element);
-            }
         }
     };
 
@@ -22,10 +16,6 @@ class EnterClickable {
         if (event.key === 'Enter' && this.isActive) {
             this.isActive = false;
             this.hasJustReleasedEnter = true;
-
-            if (this.element?.shadowRoot) {
-                forceUpdate(this.element);
-            }
         }
     };
 
