@@ -88,8 +88,11 @@ export function makeEnterClickable(element: HTMLElement) {
 }
 
 /**
+ * Removes the keyboard-enter click override behavior from an element.
+ * Call this during teardown (e.g. `disconnectedCallback`) to avoid leaking
+ * event listeners.
  *
- * @param element
+ * @param element - The clickable element
  */
 export function removeEnterClickable(element: HTMLElement) {
     const enterClickable: EnterClickable = eventHandlers.get(element);
