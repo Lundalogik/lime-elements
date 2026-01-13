@@ -29,6 +29,11 @@ class EnterClickable {
         }
     };
 
+    private handleBlur = () => {
+        this.isActive = false;
+        this.hasJustReleasedEnter = true;
+    };
+
     private handleClick = (event: MouseEvent) => {
         if (!this.isActive) {
             return;
@@ -46,12 +51,14 @@ class EnterClickable {
     private callbacks: CallBacks = {
         keydownHandler: this.handleKeyDown.bind(this),
         keyupHandler: this.handleKeyUp.bind(this),
+        blurHandler: this.handleBlur.bind(this),
         clickHandler: this.handleClick.bind(this),
     };
 
     public enable() {
         this.element.addEventListener('keydown', this.callbacks.keydownHandler);
         this.element.addEventListener('keyup', this.callbacks.keyupHandler);
+        this.element.addEventListener('blur', this.callbacks.blurHandler);
         this.element.addEventListener(
             'click',
             this.callbacks.clickHandler,
@@ -65,6 +72,7 @@ class EnterClickable {
             this.callbacks.keydownHandler
         );
         this.element.removeEventListener('keyup', this.callbacks.keyupHandler);
+        this.element.removeEventListener('blur', this.callbacks.blurHandler);
         this.element.removeEventListener(
             'click',
             this.callbacks.clickHandler,
@@ -105,5 +113,6 @@ export function removeEnterClickable(element: HTMLElement) {
 interface CallBacks {
     keydownHandler: (arg: KeyboardEvent) => void;
     keyupHandler: (arg: KeyboardEvent) => void;
+    blurHandler: () => void;
     clickHandler: (arg: MouseEvent) => void;
 }
