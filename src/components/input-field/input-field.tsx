@@ -171,7 +171,10 @@ export class InputField {
     public formatNumber = true;
 
     /**
-     * Incremental values that are valid if the field type is `number`.
+     * Defines which numeric values are valid and the increment/decrement interval.
+     * For example, `step={0.1}` allows decimals and steps by 0.1.
+     * Set to `'any'` to allow any numeric value.
+     * Only applies when `type` is `number`.
      */
     @Prop({ reflect: true })
     public step: number | 'any' = 'any';
