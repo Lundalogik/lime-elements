@@ -9,7 +9,7 @@ class EnterClickable {
     constructor(private element: HTMLElement) {}
 
     private handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === 'Enter' && !this.isActive) {
+        if (event.key === 'Enter' && !this.isActive && !event.repeat) {
             this.isActive = true;
 
             if (this.element?.shadowRoot) {
