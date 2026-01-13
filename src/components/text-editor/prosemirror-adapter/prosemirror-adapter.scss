@@ -9,6 +9,7 @@
 @forward '../../markdown/partial-styles/kbd';
 @forward '../../markdown/partial-styles/img';
 @forward 'plugins/image/view.scss';
+@forward 'plugins/task-list/task-list.scss';
 
 :host(limel-prosemirror-adapter) {
     display: flex;

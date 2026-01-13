@@ -50,6 +50,7 @@ export default {
     'editor-menu.h3': 'Rubrik 3',
     'editor-menu.bulleted-list': 'Punktlista',
     'editor-menu.numbered-list': 'Numrerad lista',
+    'editor-menu.task-list': 'Uppgiftslista',
     'editor-menu.blockquote': 'Blockcitat',
     'editor-menu.link': 'Lägg till länk',
     'editor-link-menu.text': 'Text',

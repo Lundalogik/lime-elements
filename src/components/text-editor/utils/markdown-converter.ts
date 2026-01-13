@@ -51,6 +51,19 @@ const buildMarkdownSerializer = (
         ...defaultMarkdownSerializer.nodes,
         ...getImageNodeMarkdownSerializer(language),
         ...customNodes,
+        // Task list serialization
+        task_list: (state: MarkdownSerializerState, node: ProseMirrorNode) => {
+            state.renderList(node, '', () => '');
+        },
+        task_list_item: (
+            state: MarkdownSerializerState,
+            node: ProseMirrorNode
+        ) => {
+            const checked = node.attrs.checked;
+            const checkbox = checked ? '[x]' : '[ ]';
+            state.write(`- ${checkbox} `);
+            state.renderContent(node);
+        },
     };
 
     const marks = {
@@ -78,7 +91,9 @@ export class MarkdownConverter implements ContentTypeConverter {
         this.customNodes = plugins;
     }
     public parseAsHTML = (text: string): Promise<string> => {
-        return markdownToHTML(text, { whitelist: this.customNodes });
+        return markdownToHTML(text, {
+            whitelist: this.customNodes,
+        });
     };
 
     public serialize = (view: EditorView): string => {

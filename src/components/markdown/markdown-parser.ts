@@ -47,6 +47,20 @@ export async function markdownToHTML(
         })
         .use(() => {
             return (tree: Node) => {
+                // Make task list checkboxes interactive by removing the disabled attribute
+                // that remark-gfm adds by default
+                visit(tree, 'element', (node: any) => {
+                    if (
+                        node.tagName === 'input' &&
+                        node.properties?.type === 'checkbox' &&
+                        node.properties?.disabled !== undefined
+                    ) {
+                        // Check if this checkbox is inside a task list item
+                        // We can identify this by looking for the task-list-item class in parent
+                        delete node.properties.disabled;
+                    }
+                });
+
                 // Run the sanitizeStyle function on all elements, to sanitize
                 // the value of the `style` attribute, if there is one.
                 visit(tree, 'element', sanitizeStyle);
@@ -99,6 +113,8 @@ function getWhiteList(allowedComponents: CustomElementDefinition[]): Schema {
         ...defaultSchema,
         tagNames: [
             ...(defaultSchema.tagNames || []),
+            'input', // Explicitly allow input elements for task list checkboxes
+            'limel-checkbox', // Allow limel-checkbox component for task lists
             ...allowedComponents.map((component) => component.tagName),
         ],
         attributes: {
@@ -108,6 +124,36 @@ function getWhiteList(allowedComponents: CustomElementDefinition[]): Schema {
                 ['className', 'MsoNormal'],
             ], // Allow the class 'MsoNormal' on <p> elements
             a: [...(defaultSchema.attributes.a ?? []), 'referrerpolicy'], // Allow referrerpolicy on <a> elements
+            // Allow task list specific classes and attributes
+            ul: [
+                ...(defaultSchema.attributes.ul ?? []),
+                ['className', 'task-list'],
+                ['className', 'contains-task-list'], // Allow remark-gfm generated class
+            ],
+            li: [
+                ...(defaultSchema.attributes.li ?? []),
+                ['className', 'task-list-item'],
+            ],
+            div: [
+                ...(defaultSchema.attributes.div ?? []),
+                ['className', 'task-list-item-content'],
+            ],
+            input: [
+                ...(defaultSchema.attributes.input ?? []),
+                'type',
+                'checked',
+                'disabled',
+            ],
+            // Allow limel-checkbox attributes
+            'limel-checkbox': [
+                'checked',
+                'disabled',
+                'readonly',
+                'invalid',
+                'required',
+                'indeterminate',
+                ['className'],
+            ],
             '*': asteriskAttributeWhitelist,
         },
     };

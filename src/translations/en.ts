@@ -49,6 +49,7 @@ export default {
     'editor-menu.h3': 'Heading 3',
     'editor-menu.bulleted-list': 'Bulleted list',
     'editor-menu.numbered-list': 'Numbered list',
+    'editor-menu.task-list': 'Task list',
     'editor-menu.blockquote': 'Blockquote',
     'editor-menu.link': 'Link',
     'editor-link-menu.text': 'Text',
