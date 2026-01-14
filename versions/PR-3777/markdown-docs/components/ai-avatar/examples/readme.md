@@ -7,9 +7,12 @@
 
 ## Overview
 
-White Background
+Light Background
 
-When the AI avatar is placed on a white or light background,
+The avatar renders decently on darker colors, since its visual details use a 
+`mix-blend-mode` to blend in with the background, and still have some 
+visible contrast.
+However, when the AI avatar is placed on a white or light background,
 the default blend modes (`plus-lighter` and `screen`) can make
 the avatar nearly invisible.
 
