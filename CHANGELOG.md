@@ -1,3 +1,11 @@
+## [38.37.0](https://github.com/Lundalogik/lime-elements/compare/v38.36.1...v38.37.0) (2026-01-14)
+
+
+### Features
+
+
+* **markdown:** add `removeEmptyParagraphs` prop ([df886e9](https://github.com/Lundalogik/lime-elements/commit/df886e9792f3f1f32c84e46073d25510ce9f9622))
+
 ## [38.36.1](https://github.com/Lundalogik/lime-elements/compare/v38.36.0...v38.36.1) (2026-01-12)
 
 
