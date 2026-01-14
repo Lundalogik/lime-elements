@@ -1,5 +1,7 @@
 /**
 * @prop --ai-avatar-animation-play-state: Set it to `running` to start the animation.
+* @prop --ai-avatar-core-blend-mode: Controls the blend mode for the core and orbitals. Defaults to `plus-lighter`.
+* @prop --ai-avatar-rings-blend-mode: Controls the blend mode for the SVG circles. Defaults to `screen`.
 */
 :host(limel-ai-avatar) {
     display: flex;
@@ -48,11 +50,11 @@
         var(--ai-avatar-animation-play-state, paused);
 
     background-color: rgb(var(--color-glaucous-darker), 0.6);
-    mix-blend-mode: plus-lighter;
+    mix-blend-mode: var(--ai-avatar-core-blend-mode, plus-lighter);
 }
 
 .orbitals {
-    mix-blend-mode: plus-lighter;
+    mix-blend-mode: var(--ai-avatar-core-blend-mode, plus-lighter);
     width: clamp(0.375rem, 20%, 3.5rem);
 
     animation: rotate 5s linear infinite
@@ -124,7 +126,7 @@
 svg {
     position: absolute;
     margin: auto;
-    mix-blend-mode: screen;
+    mix-blend-mode: var(--ai-avatar-rings-blend-mode, screen);
 
     animation-iteration-count: infinite;
     animation-play-state: var(--ai-avatar-animation-play-state, paused);
