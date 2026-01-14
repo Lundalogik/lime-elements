@@ -1,0 +1,44 @@
+# limel-example-ai-avatar-white-background
+
+
+
+<!-- Auto Generated Below -->
+
+
+## Overview
+
+White Background
+
+When the AI avatar is placed on a white or light background,
+the default blend modes (`plus-lighter` and `screen`) can make
+the avatar nearly invisible.
+
+This example demonstrates how to override the blend modes using
+custom CSS properties to ensure proper visibility:
+
+- `--ai-avatar-blend-mode: normal`
+- `--ai-avatar-svg-blend-mode: normal`
+
+## Dependencies
+
+### Depends on
+
+- [limel-ai-avatar](..)
+- [limel-example-controls](../../../examples)
+- [limel-checkbox](../../checkbox)
+
+### Graph
+```mermaid
+graph TD;
+  limel-example-ai-avatar-white-background --> limel-ai-avatar
+  limel-example-ai-avatar-white-background --> limel-example-controls
+  limel-example-ai-avatar-white-background --> limel-checkbox
+  limel-checkbox --> limel-dynamic-label
+  limel-checkbox --> limel-helper-line
+  limel-dynamic-label --> limel-icon
+  style limel-example-ai-avatar-white-background fill:#f9f,stroke:#333,stroke-width:4px
+```
+
+----------------------------------------------
+
+*Built with [StencilJS](https://stenciljs.com/)*
