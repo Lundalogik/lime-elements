@@ -72,8 +72,21 @@ class EnterClickable {
 }
 
 /**
- * Overrides the default browser behavior for clickable elements
- * When focused and pressing down enter, avoids calling onClick repeatedly
+ * Overrides the default browser behavior for clickable elements.
+ * When focused and pressing down Enter, avoids calling onClick repeatedly.
+ *
+ * **Accessibility Context:**
+ * Per WCAG 2.1 guidelines, keyboard users must be able to activate buttons and
+ * clickable elements using both Enter and Space keys. Browsers natively support
+ * both keys on button elements, allowing keyboard-only users full access to
+ * interactive controls.
+ *
+ * **Why only Enter, not Space?**
+ * - Enter key: Fires click events repeatedly while held down (browser bug/quirk)
+ * - Space key: Fires click only once on keyup (correct behavior)
+ *
+ * This utility only fixes the problematic Enter key behavior. Space key
+ * works correctly by default and doesn't need intervention.
  *
  * @param element - The clickable element
  */
