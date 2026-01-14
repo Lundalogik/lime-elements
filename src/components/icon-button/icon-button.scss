@@ -32,7 +32,10 @@ button {
 
 :host([elevated]) {
     button {
-        box-shadow: var(--button-shadow-normal);
+        &:not(:hover):not(:active):not(:disabled):not(:focus-visible) {
+            box-shadow: var(--button-shadow-normal);
+        }
+
         &:disabled {
             box-shadow: var(--button-shadow-normal);
         }
