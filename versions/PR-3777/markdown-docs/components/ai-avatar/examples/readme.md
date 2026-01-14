@@ -9,8 +9,8 @@
 
 Light Background
 
-The avatar renders decently on darker colors, since its visual details use a 
-`mix-blend-mode` to blend in with the background, and still have some 
+The avatar renders decently on darker colors, since its visual details use a
+`mix-blend-mode` to blend in with the background, and still have some
 visible contrast.
 However, when the AI avatar is placed on a white or light background,
 the default blend modes (`plus-lighter` and `screen`) can make
@@ -19,8 +19,8 @@ the avatar nearly invisible.
 This example demonstrates how to override the blend modes using
 custom CSS properties to ensure proper visibility:
 
-- `--ai-avatar-blend-mode: normal`
-- `--ai-avatar-svg-blend-mode: normal`
+- `--ai-avatar-core-blend-mode: normal`
+- `--ai-avatar-rings-blend-mode: normal`
 
 ## Dependencies
 
