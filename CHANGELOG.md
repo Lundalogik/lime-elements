@@ -1,3 +1,17 @@
+## [38.38.0](https://github.com/Lundalogik/lime-elements/compare/v38.37.1...v38.38.0) (2026-01-15)
+
+
+### Features
+
+
+* **table:** add a prop to easily control the pagination's location ([48ded02](https://github.com/Lundalogik/lime-elements/commit/48ded022bac429a2833bdf50aad00a7da3b66d80))
+
+### Bug Fixes
+
+
+* **table:** make sure entire the active row gets accented color ([9be2afb](https://github.com/Lundalogik/lime-elements/commit/9be2afbc408c2001b850a081e2f92a55c31c3443))
+* **table:** sync interactive styles with other clickable elements ([d74bf1a](https://github.com/Lundalogik/lime-elements/commit/d74bf1abbe96ee4418ef5cdb4f36c311e320dda8))
+
 ## [38.37.1](https://github.com/Lundalogik/lime-elements/compare/v38.37.0...v38.37.1) (2026-01-15)
 
 
