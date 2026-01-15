@@ -1,3 +1,17 @@
+## [38.37.1](https://github.com/Lundalogik/lime-elements/compare/v38.37.0...v38.37.1) (2026-01-15)
+
+
+### Bug Fixes
+
+
+* **icon-button:** ensure `elevated` mode visualizes the keyboard focus ([94d2d3c](https://github.com/Lundalogik/lime-elements/commit/94d2d3c544d14be61edf760334bfe0eed42f3b05))
+* **menu:** ensure combination of click and keyboard interactions work ([657c81c](https://github.com/Lundalogik/lime-elements/commit/657c81c35793246b842cf70892b78ed8d345e26c))
+
+### Performance Improvements
+
+
+* **make-enter-clickable:** perf: remove unnecessary `forceUpdate` calls ([0432983](https://github.com/Lundalogik/lime-elements/commit/04329832b23dc585907076d262582ff6d12cf700))
+
 ## [38.37.0](https://github.com/Lundalogik/lime-elements/compare/v38.36.1...v38.37.0) (2026-01-14)
 
 
