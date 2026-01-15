@@ -32,6 +32,7 @@
 ### Used by
 
  - [limel-example-chart-axis-increment](../chart/examples)
+ - [limel-example-chart-axis-labels](../chart/examples)
  - [limel-example-chart-multi-axis](../chart/examples)
  - [limel-example-chart-multi-axis-area-with-negative-start-values](../chart/examples)
  - [limel-example-chart-multi-axis-with-negative-start-values](../chart/examples)
@@ -44,6 +45,7 @@
  - [limel-example-dialog-heading](../dialog/examples)
  - [limel-example-file-viewer-office](../file-viewer/examples)
  - [limel-example-header-slot-actions](../header/examples)
+ - [limel-example-input-field-number](../input-field/examples)
  - [limel-example-linear-progress-color](../linear-progress/examples)
  - [limel-example-list-badge-icons-with-multiple-lines](../list/examples)
  - [limel-example-list-item-icon-size](../list-item/examples)
@@ -85,6 +87,7 @@ graph TD;
   limel-select --> limel-menu-surface
   limel-select --> limel-list
   limel-example-chart-axis-increment --> limel-select
+  limel-example-chart-axis-labels --> limel-select
   limel-example-chart-multi-axis --> limel-select
   limel-example-chart-multi-axis-area-with-negative-start-values --> limel-select
   limel-example-chart-multi-axis-with-negative-start-values --> limel-select
@@ -97,6 +100,7 @@ graph TD;
   limel-example-dialog-heading --> limel-select
   limel-example-file-viewer-office --> limel-select
   limel-example-header-slot-actions --> limel-select
+  limel-example-input-field-number --> limel-select
   limel-example-linear-progress-color --> limel-select
   limel-example-list-badge-icons-with-multiple-lines --> limel-select
   limel-example-list-item-icon-size --> limel-select
