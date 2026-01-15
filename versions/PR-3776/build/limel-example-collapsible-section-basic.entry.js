@@ -1,2 +1,0 @@
-import{r as e,h as l}from"./index-0c4503aa.js";const s=class{constructor(l){e(this,l)}render(){return l("limel-collapsible-section",{header:"Header"},l("p",null,"Body"))}};export{s as limel_example_collapsible_section_basic};
-//# sourceMappingURL=limel-example-collapsible-section-basic.entry.js.map

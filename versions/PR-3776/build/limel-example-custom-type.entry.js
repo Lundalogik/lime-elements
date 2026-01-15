@@ -1,2 +1,0 @@
-import{r as c,h as e}from"./index-0c4503aa.js";const s="limel-callout[type=success]{--callout-color:rgb(var(--color-green-default));--callout-text-color:rgb(var(--color-green-dark))}";const l=class{constructor(e){c(this,e)}render(){return[e("limel-callout",{icon:"checked",heading:"Success",type:"success"},"This is a custom type that we call success")]}};l.style=s;export{l as limel_example_custom_type};
-//# sourceMappingURL=limel-example-custom-type.entry.js.map
