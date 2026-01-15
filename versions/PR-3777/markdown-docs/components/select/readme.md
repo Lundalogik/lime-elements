@@ -64,6 +64,7 @@
  - [limel-example-select-with-icons](examples)
  - [limel-example-select-with-secondary-text](examples)
  - [limel-example-select-with-separators](examples)
+ - [limel-example-table-pagination](../table/examples)
  - [limel-example-text-editor-composite](../text-editor/examples)
  - [limel-example-text-editor-ui](../text-editor/examples)
 
@@ -118,6 +119,7 @@ graph TD;
   limel-example-select-with-icons --> limel-select
   limel-example-select-with-secondary-text --> limel-select
   limel-example-select-with-separators --> limel-select
+  limel-example-table-pagination --> limel-select
   limel-example-text-editor-composite --> limel-select
   limel-example-text-editor-ui --> limel-select
   style limel-select fill:#f9f,stroke:#333,stroke-width:4px
