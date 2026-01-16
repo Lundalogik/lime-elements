@@ -1,5 +1,5 @@
 import { Color } from '../../global/shared-types/color.types';
-import { Icon } from '../../global/shared-types/icon.types';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 /**
  * Describes an option for limel-select.
  * @public
@@ -37,7 +37,7 @@ export interface Option<T extends string = string> {
     /**
      * Displays an icon beside the name of the option.
      */
-    icon?: string | Icon;
+    icon?: IconName | Icon;
 
     /**
      * Adds a color to the icon.

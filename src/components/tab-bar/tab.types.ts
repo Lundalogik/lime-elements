@@ -1,5 +1,5 @@
 import { Color } from '../../global/shared-types/color.types';
-import { Icon } from '../../global/shared-types/icon.types';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 
 /**
  * Tab interface.
@@ -19,7 +19,7 @@ export interface Tab {
     /**
      * Name of the icon to use.
      */
-    icon?: string | Icon;
+    icon?: IconName | Icon;
 
     /**
      * True if the tab should be selected.
