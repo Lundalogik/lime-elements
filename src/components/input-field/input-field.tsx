@@ -27,6 +27,7 @@ import { JSXBase } from '@stencil/core/internal';
 import { createRandomString } from '../../util/random-string';
 import { LimelListCustomEvent } from '../../components';
 import { globalConfig } from '../../global/config';
+import { IconName } from '../../global/shared-types/icon.types';
 
 interface LinkProperties {
     href: string;
@@ -134,13 +135,13 @@ export class InputField {
      * Trailing icon to show to the far right in the field.
      */
     @Prop({ reflect: true })
-    public trailingIcon: string;
+    public trailingIcon: IconName;
 
     /**
      * Leading icon to show to the far left in the field.
      */
     @Prop({ reflect: true })
-    public leadingIcon: string;
+    public leadingIcon: IconName;
 
     /**
      * Regular expression that the current value of the input field must match.
