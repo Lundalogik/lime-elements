@@ -8,6 +8,7 @@ on:
       - dev
       - alpha
       - beta
+  pull_request:
   # workflow_dispatch makes it possible to trigger the run manually
   workflow_dispatch:
 
@@ -44,6 +45,8 @@ jobs:
           @semantic-release/exec@6.0.3
           @semantic-release/git@10.0.1
           conventional-changelog-conventionalcommits@5.0.0
+        dry_run: ${{ github.event_name == 'pull_request' }} # Dry run a release on pull requests
+        ci: ${{ github.event_name == 'pull_request' }} # This permits the dry run despite it being run from a branch that is not configured as a release branch
       env:
         GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE }}
         GH_USERNAME: lime-opensource
