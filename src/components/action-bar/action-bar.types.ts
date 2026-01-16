@@ -1,4 +1,4 @@
-import { Icon } from '../../global/shared-types/icon.types';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 import { MenuItem } from '../menu/menu.types';
 
 /**
@@ -16,7 +16,7 @@ export type ActionBarItem<T = any> =
  */
 export interface ActionBarItemOnlyIcon<T> extends MenuItem<T> {
     iconOnly: true;
-    icon: string | Icon;
+    icon: IconName | Icon;
 }
 
 /**
