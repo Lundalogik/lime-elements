@@ -1,3 +1,5 @@
+import { IconName } from '../../global/shared-types/icon.types';
+
 /**
  * @public
  */
@@ -15,7 +17,7 @@ export interface DockItem {
     /**
      * Name of the icon to use.
      */
-    icon: string;
+    icon: IconName;
 
     /**
      * Additional helper text for the dock item.

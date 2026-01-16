@@ -1,5 +1,5 @@
 import { Image } from '../../global/shared-types/image.types';
-import { Icon } from '../../global/shared-types/icon.types';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 import { MenuItem } from '../menu/menu.types';
 import { ListSeparator } from '../list-item/list-item.types';
 import { Color } from '../../global/shared-types/color.types';
@@ -21,7 +21,7 @@ export interface Chip<T = any> {
     /**
      * Name of the icon to use. Not valid for `filter`.
      */
-    icon?: string | Icon;
+    icon?: IconName | Icon;
 
     /**
      * A picture to be displayed instead of the icon on the chip.

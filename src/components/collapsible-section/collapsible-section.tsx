@@ -13,7 +13,7 @@ import {
     removeEnterClickable,
 } from '../../util/make-enter-clickable';
 import { createRandomString } from '../../util/random-string';
-import { Icon } from '../../global/shared-types/icon.types';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 import {
     getIconColor,
     getIconName,
@@ -65,7 +65,7 @@ export class CollapsibleSection {
      * Icon to display in the header of the section
      */
     @Prop()
-    public icon?: string | Icon;
+    public icon?: IconName | Icon;
 
     /**
      * `true` if the section is invalid, `false` if valid.
