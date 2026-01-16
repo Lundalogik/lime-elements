@@ -116,9 +116,6 @@
     "url": "https://github.com/Lundalogik/lime-elements/issues"
   },
   "homepage": "https://github.com/Lundalogik/lime-elements#readme",
-  "engines": {
-    "node": ">=22"
-  },
   "packageManager": "npm@>=10.9",
   "dependencies": {
     "sortablejs": "^1.15.6"
