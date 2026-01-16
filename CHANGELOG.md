@@ -1,3 +1,10 @@
+## [38.38.1](https://github.com/Lundalogik/lime-elements/compare/v38.38.0...v38.38.1) (2026-01-16)
+
+### Bug Fixes
+
+
+* **package.json:** remove unnecessary `engines.node: >=22` restriction ([143f4e9](https://github.com/Lundalogik/lime-elements/commit/143f4e9e6526b16d6fae2e2b181412ced969d701))
+
 ## [38.38.0](https://github.com/Lundalogik/lime-elements/compare/v38.37.1...v38.38.0) (2026-01-15)
 
 
