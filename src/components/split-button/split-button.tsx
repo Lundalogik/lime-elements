@@ -1,6 +1,7 @@
 import { Component, Event, EventEmitter, Host, h, Prop } from '@stencil/core';
 import { ListSeparator } from '../list-item/list-item.types';
 import { MenuItem } from '../menu/menu.types';
+import { IconName } from '../../global/shared-types/icon.types';
 
 /**
  * A split button is a button with two components:
@@ -41,7 +42,7 @@ export class SplitButton {
      * Set icon for the button
      */
     @Prop({ reflect: true })
-    public icon: string;
+    public icon: IconName;
 
     /**
      * Set to `true` to disable the button.

@@ -10,7 +10,7 @@ import {
 } from '@stencil/core';
 import { FileInfo } from '../../global/shared-types/file.types';
 import { isTypeAccepted } from '../../util/files';
-import { Icon } from '../../global/shared-types/icon.types';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 import { getIconName } from '../icon/get-icon-props';
 import translate from '../../global/translations';
 import { Languages } from '../date-picker/date.types';
@@ -60,7 +60,7 @@ export class ProfilePicture {
      * Placeholder icon of the component, displayed when no image is present.
      */
     @Prop()
-    public icon: string | Icon = 'user';
+    public icon: IconName | Icon = 'user';
 
     /**
      * Helper text shown as a tooltip on hover or focus.

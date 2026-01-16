@@ -3,7 +3,7 @@ import {
     makeEnterClickable,
     removeEnterClickable,
 } from '../../util/make-enter-clickable';
-import { Icon } from '../../global/shared-types/icon.types';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 import { getIconName, getIconTitle } from '../icon/get-icon-props';
 
 /**
@@ -47,7 +47,7 @@ export class Button {
      * Set icon for the button
      */
     @Prop({ reflect: true })
-    public icon: string | Icon;
+    public icon: IconName | Icon;
 
     /**
      * Set to `true` to disable the button.
