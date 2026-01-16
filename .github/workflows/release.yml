@@ -52,7 +52,6 @@ jobs:
         GH_USERNAME: lime-opensource
         GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        CI: true
     - name: Configure AWS and Upload to S3
       if: steps.semantic.outputs.new_release_published == 'true'
       uses: ./.github/actions/upload-frontend-build-output-to-s3
