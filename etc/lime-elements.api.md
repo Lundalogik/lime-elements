@@ -24,7 +24,7 @@ export type ActionBarItem<T = any> = ActionBarItemOnlyIcon<T> | ActionBarItemWit
 // @public
 export interface ActionBarItemOnlyIcon<T> extends MenuItem<T> {
     // (undocumented)
-    icon: string | Icon;
+    icon: IconName | Icon;
     // (undocumented)
     iconOnly: true;
 }
@@ -185,7 +185,7 @@ export namespace Components {
     // (undocumented)
     export interface LimelBanner {
         "close": () => Promise<void>;
-        "icon": string;
+        "icon": IconName;
         "message": string;
         "open": () => Promise<void>;
     }
@@ -196,7 +196,7 @@ export namespace Components {
     // (undocumented)
     export interface LimelButton {
         "disabled": boolean;
-        "icon": string | Icon;
+        "icon": IconName | Icon;
         "label": string;
         "loading": boolean;
         "loadingFailed": boolean;
@@ -288,7 +288,7 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "language": Languages;
-        "leadingIcon": string;
+        "leadingIcon": IconName;
         "maxItems": number;
         "readonly": boolean;
         "required": boolean;
@@ -502,7 +502,7 @@ export namespace Components {
     export interface LimelIconButton {
         "disabled": boolean;
         "elevated": boolean;
-        "icon": string | Icon;
+        "icon": IconName | Icon;
         "label": string;
     }
     export interface LimelInfoTile {
@@ -525,7 +525,7 @@ export namespace Components {
         "helperText": string;
         "invalid": boolean;
         "label": string;
-        "leadingIcon": string;
+        "leadingIcon": IconName;
         "locale": string;
         "max": number;
         "maxlength": number;
@@ -539,7 +539,7 @@ export namespace Components {
         "showLink": boolean;
         "step": number | 'any';
         "suffix": string;
-        "trailingIcon": string;
+        "trailingIcon": IconName;
         "type": InputType;
         "value": string;
     }
@@ -634,7 +634,7 @@ export namespace Components {
         "helperText": string;
         "invalid": boolean;
         "label": string;
-        "leadingIcon": string;
+        "leadingIcon": IconName;
         "multiple": boolean;
         "readonly": boolean;
         "required": boolean;
@@ -664,7 +664,7 @@ export namespace Components {
         "accept": string;
         "disabled": boolean;
         "helperText"?: string;
-        "icon": string | Icon;
+        "icon": IconName | Icon;
         "imageFit": 'cover' | 'contain';
         "invalid": boolean;
         "label": string;
@@ -730,7 +730,7 @@ export namespace Components {
     export interface LimelShortcut {
         "badge"?: number | string;
         "disabled"?: boolean;
-        "icon": string;
+        "icon": IconName;
         "label"?: string;
         "link"?: Link;
     }
@@ -768,7 +768,7 @@ export namespace Components {
     }
     export interface LimelSplitButton {
         "disabled": boolean;
-        "icon": string;
+        "icon": IconName;
         "items": Array<MenuItem | ListSeparator>;
         "label": string;
         "loading": boolean;
@@ -901,7 +901,7 @@ export interface DockItem {
     badge?: number | string;
     dockMenu?: DockMenu;
     helperLabel?: string;
-    icon: string;
+    icon: IconName;
     id: string;
     label: string;
     selected?: boolean;
@@ -1090,8 +1090,15 @@ export interface Help {
 export interface Icon {
     backgroundColor?: Color;
     color?: Color;
-    name: string;
+    name: IconName;
     title?: string;
+}
+
+// @public
+export type IconName = keyof IconNameRegistry extends never ? string : keyof IconNameRegistry | (string & {});
+
+// @public
+export interface IconNameRegistry {
 }
 
 // @public (undocumented)
@@ -1357,7 +1364,7 @@ export namespace JSX {
     }
     // (undocumented)
     export interface LimelBanner {
-        "icon"?: string;
+        "icon"?: IconName;
         "message"?: string;
     }
     export interface LimelBreadcrumbs {
@@ -1368,7 +1375,7 @@ export namespace JSX {
     // (undocumented)
     export interface LimelButton {
         "disabled"?: boolean;
-        "icon"?: string | Icon;
+        "icon"?: IconName | Icon;
         "label"?: string;
         "loading"?: boolean;
         "loadingFailed"?: boolean;
@@ -1464,7 +1471,7 @@ export namespace JSX {
         "invalid"?: boolean;
         "label"?: string;
         "language"?: Languages;
-        "leadingIcon"?: string;
+        "leadingIcon"?: IconName;
         "maxItems"?: number;
         "onChange"?: (event: LimelChipSetCustomEvent<Chip | Chip[]>) => void;
         "onInput"?: (event: LimelChipSetCustomEvent<string>) => void;
@@ -1707,7 +1714,7 @@ export namespace JSX {
     export interface LimelIconButton {
         "disabled"?: boolean;
         "elevated"?: boolean;
-        "icon"?: string | Icon;
+        "icon"?: IconName | Icon;
         "label"?: string;
     }
     export interface LimelInfoTile {
@@ -1730,7 +1737,7 @@ export namespace JSX {
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
-        "leadingIcon"?: string;
+        "leadingIcon"?: IconName;
         "locale"?: string;
         "max"?: number;
         "maxlength"?: number;
@@ -1746,7 +1753,7 @@ export namespace JSX {
         "showLink"?: boolean;
         "step"?: number | 'any';
         "suffix"?: string;
-        "trailingIcon"?: string;
+        "trailingIcon"?: IconName;
         "type"?: InputType;
         "value"?: string;
     }
@@ -1848,7 +1855,7 @@ export namespace JSX {
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
-        "leadingIcon"?: string;
+        "leadingIcon"?: IconName;
         "multiple"?: boolean;
         "onAction"?: (event: LimelPickerCustomEvent<Action>) => void;
         "onChange"?: (event: LimelPickerCustomEvent<ListItem<PickerValue> | Array<ListItem<PickerValue>>>) => void;
@@ -1882,7 +1889,7 @@ export namespace JSX {
         "accept"?: string;
         "disabled"?: boolean;
         "helperText"?: string;
-        "icon"?: string | Icon;
+        "icon"?: IconName | Icon;
         "imageFit"?: 'cover' | 'contain';
         "invalid"?: boolean;
         "label"?: string;
@@ -1961,7 +1968,7 @@ export namespace JSX {
     export interface LimelShortcut {
         "badge"?: number | string;
         "disabled"?: boolean;
-        "icon"?: string;
+        "icon"?: IconName;
         "label"?: string;
         "link"?: Link;
     }
@@ -2000,7 +2007,7 @@ export namespace JSX {
     }
     export interface LimelSplitButton {
         "disabled"?: boolean;
-        "icon"?: string;
+        "icon"?: IconName;
         "items"?: Array<MenuItem | ListSeparator>;
         "label"?: string;
         "loading"?: boolean;
