@@ -38,12 +38,12 @@ jobs:
       uses: cycjimmy/semantic-release-action@b12c8f6015dc215fe37bc154d4ad456dd3833c90 # v6.0.0
       id: semantic # Need an `id` for output variables
       with:
-        semantic_version: 19.0.5
+        semantic_version: 25.0.2
         extra_plugins: |
-          @semantic-release/changelog@6.0.2
-          @semantic-release/exec@6.0.3
+          @semantic-release/changelog@6.0.3
+          @semantic-release/exec@7.1.0
           @semantic-release/git@10.0.1
-          conventional-changelog-conventionalcommits@5.0.0
+          conventional-changelog-conventionalcommits@9.1.0
       env:
         GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE }}
         GH_USERNAME: lime-opensource
