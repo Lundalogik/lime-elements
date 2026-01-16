@@ -46,7 +46,7 @@ jobs:
           @semantic-release/git@10.0.1
           conventional-changelog-conventionalcommits@5.0.0
         dry_run: ${{ github.event_name == 'pull_request' }} # Dry run a release on pull requests
-        ci: ${{ github.event_name == 'pull_request' }} # This permits the dry run despite it being run from a branch that is not configured as a release branch
+        ci: ${{ github.event_name != 'pull_request' }} # This permits the dry run despite it being run from a branch that is not configured as a release branch
       env:
         GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE }}
         GH_USERNAME: lime-opensource
