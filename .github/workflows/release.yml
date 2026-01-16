@@ -11,7 +11,8 @@ on:
   # workflow_dispatch makes it possible to trigger the run manually
   workflow_dispatch:
 
-# Required to get access token for GitHub OIDC to AWS
+# `contents: read` and `id-token: write` are required for GitHub OIDC to AWS
+# `id-token: write` is also required for OIDC to publish release on npm
 permissions:
   contents: read
   id-token: write
