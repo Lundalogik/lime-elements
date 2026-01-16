@@ -1,4 +1,4 @@
-# limel-example-ai-avatar-colors
+# limel-example-ai-avatar-white-background
 
 
 
@@ -7,8 +7,21 @@
 
 ## Overview
 
-With background colors
-To render better, the AI avatar needs to be placed on a colored background.
+Light Background
+
+The avatar renders decently on darker colors, since its visual details use a
+`mix-blend-mode` to blend in both with the background and with each other,
+yet render some visible contrast.
+
+However, when the AI avatar is placed on a white or light background,
+the default blend modes (`plus-lighter` and `screen`) can make
+the avatar nearly invisible.
+
+This example demonstrates how to override the blend modes using
+custom CSS properties to ensure proper visibility:
+
+- `--ai-avatar-core-blend-mode: hard-light`
+- `--ai-avatar-rings-blend-mode: darken`
 
 ## Dependencies
 
@@ -17,26 +30,17 @@ To render better, the AI avatar needs to be placed on a colored background.
 - [limel-ai-avatar](..)
 - [limel-example-controls](../../../examples)
 - [limel-checkbox](../../checkbox)
-- [limel-color-picker-palette](../../color-picker)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-ai-avatar-colors --> limel-ai-avatar
-  limel-example-ai-avatar-colors --> limel-example-controls
-  limel-example-ai-avatar-colors --> limel-checkbox
-  limel-example-ai-avatar-colors --> limel-color-picker-palette
+  limel-example-ai-avatar-white-background --> limel-ai-avatar
+  limel-example-ai-avatar-white-background --> limel-example-controls
+  limel-example-ai-avatar-white-background --> limel-checkbox
   limel-checkbox --> limel-dynamic-label
   limel-checkbox --> limel-helper-line
   limel-dynamic-label --> limel-icon
-  limel-color-picker-palette --> limel-input-field
-  limel-input-field --> limel-helper-line
-  limel-input-field --> limel-icon
-  limel-input-field --> limel-portal
-  limel-input-field --> limel-menu-surface
-  limel-input-field --> limel-list
-  limel-input-field --> limel-notched-outline
-  style limel-example-ai-avatar-colors fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-ai-avatar-white-background fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

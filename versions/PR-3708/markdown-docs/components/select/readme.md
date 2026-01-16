@@ -45,6 +45,7 @@
  - [limel-example-dialog-heading](../dialog/examples)
  - [limel-example-file-viewer-office](../file-viewer/examples)
  - [limel-example-header-slot-actions](../header/examples)
+ - [limel-example-input-field-number](../input-field/examples)
  - [limel-example-linear-progress-color](../linear-progress/examples)
  - [limel-example-list-badge-icons-with-multiple-lines](../list/examples)
  - [limel-example-list-item-icon-size](../list-item/examples)
@@ -63,6 +64,7 @@
  - [limel-example-select-with-icons](examples)
  - [limel-example-select-with-secondary-text](examples)
  - [limel-example-select-with-separators](examples)
+ - [limel-example-table-pagination](../table/examples)
  - [limel-example-text-editor-composite](../text-editor/examples)
  - [limel-example-text-editor-ui](../text-editor/examples)
 
@@ -98,6 +100,7 @@ graph TD;
   limel-example-dialog-heading --> limel-select
   limel-example-file-viewer-office --> limel-select
   limel-example-header-slot-actions --> limel-select
+  limel-example-input-field-number --> limel-select
   limel-example-linear-progress-color --> limel-select
   limel-example-list-badge-icons-with-multiple-lines --> limel-select
   limel-example-list-item-icon-size --> limel-select
@@ -116,6 +119,7 @@ graph TD;
   limel-example-select-with-icons --> limel-select
   limel-example-select-with-secondary-text --> limel-select
   limel-example-select-with-separators --> limel-select
+  limel-example-table-pagination --> limel-select
   limel-example-text-editor-composite --> limel-select
   limel-example-text-editor-ui --> limel-select
   style limel-select fill:#f9f,stroke:#333,stroke-width:4px

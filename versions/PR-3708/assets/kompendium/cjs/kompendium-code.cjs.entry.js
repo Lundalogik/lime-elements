@@ -2548,7 +2548,7 @@ const Code = class {
     render() {
         const classList = {};
         classList[`language-${this.language}`] = true;
-        return (index.h("div", { key: '89f5f19a3a41bbdfa8d0393675ee7ddeaec2ba5d', class: "root" }, index.h("slot", { key: 'b8c56c9edb8c519497c95d9ef66705c174e4b64f' }), index.h("pre", { key: '77a867e7b4c1d0d70cd94695d884b52302d2fc90', class: classList }, index.h("code", { key: 'fa4947b12a7b1ead2c7e1dc5b9eae9ee21b2e37d' }, this.code))));
+        return (index.h("div", { key: '95723df383f836be24b3190b74dc5ee555da29d7', class: "root" }, index.h("slot", { key: '5fd9fc3b9d1499fd4f81d2ffda23e42318e33e66' }), index.h("pre", { key: 'a5e18f68729a29bc9b1d154e2d15b9a14ed4c7ef', class: classList }, index.h("code", { key: 'bc2cb099497051902f8a616e7a5a70330c5c9579' }, this.code))));
     }
     findCode() {
         const slot = this.host.shadowRoot.querySelector('slot');

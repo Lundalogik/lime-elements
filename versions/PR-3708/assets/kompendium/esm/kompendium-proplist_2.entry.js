@@ -7,7 +7,7 @@ const Proplist = class {
         registerInstance(this, hostRef);
     }
     render() {
-        return h("dl", { key: 'cfbb5f0d2740828fc9880f336468b47562e73b3a' }, this.items.map(this.renderProperty));
+        return h("dl", { key: 'e0d431f2ef5b105af7436d0a9b46a3ad2886a96b' }, this.items.map(this.renderProperty));
     }
     renderProperty(property) {
         const { key, value } = property;

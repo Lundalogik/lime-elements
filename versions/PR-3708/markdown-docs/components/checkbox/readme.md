@@ -56,6 +56,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-action-bar-icon-title](../action-bar/examples)
  - [limel-example-ai-avatar-basic](../ai-avatar/examples)
  - [limel-example-ai-avatar-colors](../ai-avatar/examples)
+ - [limel-example-ai-avatar-white-background](../ai-avatar/examples)
  - [limel-example-audition-form](../../design-guidelines/boolean/examples)
  - [limel-example-audition-form-readonly](../../design-guidelines/boolean/examples)
  - [limel-example-boolean-checkboxes](../../design-guidelines/boolean/examples)
@@ -106,6 +107,7 @@ graph TD;
   limel-example-action-bar-icon-title --> limel-checkbox
   limel-example-ai-avatar-basic --> limel-checkbox
   limel-example-ai-avatar-colors --> limel-checkbox
+  limel-example-ai-avatar-white-background --> limel-checkbox
   limel-example-audition-form --> limel-checkbox
   limel-example-audition-form-readonly --> limel-checkbox
   limel-example-boolean-checkboxes --> limel-checkbox

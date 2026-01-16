@@ -211,53 +211,66 @@ async function isModified(types: any[], cache: Record<string, number>) {
         return true;
     }
 
-    let filenames = types.map((t) => t.sources).flat();
-    filenames = [...new Set(filenames)];
+    const filenames = getUniqueSourceFilenames(types);
+    const stats = await Promise.all(filenames.map(tryStatFile));
 
-    // Handle stat errors gracefully - if a file can't be stat'd, assume it's modified
-    const stats = await Promise.all(
-        filenames.map((filename) => stat(filename).catch(() => null)),
+    return stats.some((fileStat, index) =>
+        hasFileChangedSinceCached(filenames[index], fileStat, cache),
     );
+}
 
-    return stats.some((data, index) => {
-        const filename = filenames[index];
+function getUniqueSourceFilenames(types: any[]): string[] {
+    const filenames = types.map((t) => t.sources).flat();
 
-        // If stat failed, consider the file modified
-        if (!data) {
-            logger.debug(`${filename} cannot be accessed, marking as modified`);
+    return [...new Set(filenames)];
+}
 
-            return true;
-        }
+function tryStatFile(filename: string) {
+    return stat(filename).catch(() => null);
+}
 
-        const result = cache[filename] !== data.mtimeMs;
+function hasFileChangedSinceCached(
+    filename: string,
+    fileStat: Awaited<ReturnType<typeof stat>> | null,
+    cache: Record<string, number>,
+): boolean {
+    if (!fileStat) {
+        logger.debug(`${filename} cannot be accessed, marking as modified`);
 
-        logger.debug(`${filename} was ${result ? '' : 'not'} modified!`);
+        return true;
+    }
 
-        return result;
-    });
+    const result = cache[filename] !== fileStat.mtimeMs;
+
+    logger.debug(`${filename} was ${result ? '' : 'not'} modified!`);
+
+    return result;
 }
 
 async function saveData(
     config: Partial<KompendiumConfig>,
     types: TypeDescription[],
 ) {
-    let filenames = types.map((t) => t.sources).flat();
-    filenames = [...new Set(filenames)];
+    const filenames = getUniqueSourceFilenames(types);
+    const stats = await Promise.all(filenames.map(tryStatFile));
+    const cache = buildCacheFromFileStats(filenames, stats);
 
-    // Handle stat errors gracefully - skip files that can't be accessed
-    const stats = await Promise.all(
-        filenames.map((filename) => stat(filename).catch(() => null)),
-    );
+    await Promise.all([writeCache(config, cache), writeTypes(config, types)]);
+}
 
-    const cache = {};
-    stats.forEach((data, index) => {
-        if (data) {
-            const filename = filenames[index];
-            cache[filename] = data.mtimeMs;
+function buildCacheFromFileStats(
+    filenames: string[],
+    stats: Array<Awaited<ReturnType<typeof stat>> | null>,
+): Record<string, number> {
+    const cache: Record<string, number> = {};
+
+    stats.forEach((fileStat, index) => {
+        if (fileStat) {
+            cache[filenames[index]] = fileStat.mtimeMs;
         }
     });
 
-    await Promise.all([writeCache(config, cache), writeTypes(config, types)]);
+    return cache;
 }
 
 async function readCache(config: Partial<KompendiumConfig>) {

@@ -1,13 +1,12 @@
 import { Application, ReflectionKind, TypeDocReader, TSConfigReader, } from "typedoc";
 import { existsSync, readFileSync } from "fs";
-import * as ts from "typescript";
+import ts from "typescript";
 export function parseFile(filename, tsconfig) {
     if (!existsSync(filename)) {
         // eslint-disable-next-line no-console
         console.warn('typeRoot file does not exist', filename);
         return [];
     }
-    // TypeDoc 0.23 still uses the synchronous API with new Application()
     const app = new Application();
     // Use current working directory as TypeDoc's base path for clean relative paths
     const projectRoot = process.cwd();
@@ -20,7 +19,6 @@ export function parseFile(filename, tsconfig) {
         options.tsconfig = tsconfig;
     }
     if (filename.endsWith('.d.ts')) {
-        // TypeDoc 0.23+ handles .d.ts files automatically
         options.exclude = ['**/+(*test*|node_modules)/**'];
     }
     app.options.addReader(new TypeDocReader());
@@ -33,15 +31,10 @@ export function parseFile(filename, tsconfig) {
         return [];
     }
     const data = [];
-    // TypeDoc 0.23.28 traverse() only visits top-level exports from entry points.
-    // For files with re-exports (like dist/types/index.d.ts that re-exports from
-    // ./components and ./interface), nested types won't be visited.
-    // Use getReflectionsByKind() to get ALL types regardless of module nesting.
     const allInterfaces = project.getReflectionsByKind(ReflectionKind.Interface);
     const allClasses = project.getReflectionsByKind(ReflectionKind.Class);
     const allTypeAliases = project.getReflectionsByKind(ReflectionKind.TypeAlias);
     const allEnums = project.getReflectionsByKind(ReflectionKind.Enum);
-    // Filter out types from node_modules, examples, tests, and private/internal types
     const interfaces = allInterfaces.filter((r) => shouldIncludeType(r));
     const classes = allClasses.filter((r) => shouldIncludeType(r));
     const typeAliases = allTypeAliases.filter((r) => shouldIncludeType(r));
@@ -84,35 +77,36 @@ export function parseFile(filename, tsconfig) {
  */
 function shouldIncludeType(reflection) {
     var _a;
-    // Check if type has sources
     if (!reflection.sources || reflection.sources.length === 0) {
         // No source information - include by default
         return true;
     }
-    // Check all source locations
     for (const source of reflection.sources) {
         const sourcePath = source.fullFileName || source.fileName || '';
         if (shouldExcludeSource(sourcePath)) {
             return false;
         }
     }
-    // LAYER 2: Exclude CustomEvent wrapper types
-    // These are generic wrappers around CustomEvent<T> that don't add useful documentation
+    // Exclude CustomEvent wrapper types
+    // These are generic wrappers around CustomEvent<T> that don't add useful
+    // documentation
     if (reflection.name.endsWith('CustomEvent')) {
         return false;
     }
-    // LAYER 2: Exclude HTML element interface types
-    // These are DOM element interfaces (HTMLLimelButtonElement, etc.) already in Components
+    // Exclude HTML element interface types
+    // These are DOM element interfaces (HTMLLimelButtonElement, etc.) already
+    // documented in the Components section
     if (reflection.name.startsWith('HTML') &&
         reflection.name.endsWith('Element')) {
         return false;
     }
-    // LAYER 3: Exclude types in Stencil's Components namespace
-    // Belt-and-suspenders: catches any component interfaces that leaked through Layer 1
+    // Exclude types in Stencil's Components namespace
+    // Belt-and-suspenders: catches any component interfaces that were not
+    // excluded based on source location
     if (isInComponentsNamespace(reflection)) {
         return false;
     }
-    // Check for @private or @internal tags
+    // Don't include anything marked @private or @internal
     if ((_a = reflection.comment) === null || _a === void 0 ? void 0 : _a.blockTags) {
         const hasPrivateTag = reflection.comment.blockTags.some((tag) => tag.tag === '@private' || tag.tag === '@internal');
         if (hasPrivateTag) {
@@ -128,25 +122,20 @@ function shouldIncludeType(reflection) {
  * @returns {boolean} true if the source should be excluded, false otherwise
  */
 function shouldExcludeSource(sourcePath) {
-    // Normalize path separators for cross-platform compatibility
-    const normalizedPath = sourcePath.replace(/\\/g, '/');
-    // Exclude types from node_modules
+    const normalizedPath = sourcePath.replaceAll('\\', '/');
     if (normalizedPath.includes('node_modules/')) {
         return true;
     }
-    // Exclude types from examples directories
     if (normalizedPath.includes('/examples/') ||
         normalizedPath.includes('/example/')) {
         return true;
     }
-    // Exclude types from test files (but not fixture files used by tests)
     if (normalizedPath.includes('.test.') ||
         normalizedPath.includes('.spec.')) {
         return true;
     }
-    // LAYER 1: Exclude types from Stencil's auto-generated components.d.ts
-    // This file contains component prop interfaces and HTML element types that are
-    // already documented in the Components section
+    // This file contains component prop interfaces and HTML element types that
+    // are already documented in the Components section
     return normalizedPath.endsWith('components.d.ts');
 }
 /**
@@ -186,7 +175,6 @@ const traverseCallback = (data) => (reflection) => {
     }
 };
 function addInterface(reflection, data) {
-    // TypeDoc 0.23+ handles exports differently, removed isExported check
     var _a, _b;
     data.push({
         type: 'interface',
@@ -200,11 +188,8 @@ function addInterface(reflection, data) {
     });
 }
 function addClass(reflection, data) {
-    // TypeDoc 0.23+ handles exports differently, removed isExported check
     var _a, _b;
-    // Get decorators from AST if available, otherwise return empty array
     const decorators = getDecorators(reflection);
-    // Get implemented interfaces for @inheritDoc resolution
     const implementedInterfaces = getImplementedInterfaces(reflection);
     data.push({
         type: 'class',
@@ -219,7 +204,6 @@ function addClass(reflection, data) {
     });
 }
 function addType(reflection, data) {
-    // TypeDoc 0.23+ handles exports differently, removed isExported check
     data.push({
         type: 'alias',
         name: reflection.name,
@@ -230,7 +214,6 @@ function addType(reflection, data) {
     });
 }
 function addEnum(reflection, data) {
-    // TypeDoc 0.23+ handles exports differently, removed isExported check
     const members = [];
     reflection.traverse(traverseCallback(members));
     data.push({
@@ -243,10 +226,7 @@ function addEnum(reflection, data) {
     });
 }
 function addEnumMember(reflection, data) {
-    // TypeDoc 0.23+ stores enum values in type.value instead of defaultValue
     let value;
-    // TypeDoc 0.23 types don't include 'type' and 'value' properties on reflection types
-    // These properties exist at runtime for literal types but aren't in TypeScript definitions
     if (reflection.type && reflection.type.type === 'literal') {
         const literalValue = reflection.type.value;
         if (typeof literalValue === 'string') {
@@ -271,20 +251,17 @@ function getDocs(reflection) {
     if (!reflection.comment) {
         return '';
     }
-    // TypeDoc 0.23+ uses summary instead of shortText/text
     const text = ((_a = reflection.comment.summary) === null || _a === void 0 ? void 0 : _a.map((part) => part.text).join('').trim()) || '';
     // Normalize multiple newlines to single newlines
-    return text.replace(/\n\n+/g, '\n');
+    return text.replaceAll(/\n\n+/g, '\n');
 }
 function getDocsTags(reflection) {
     var _a, _b;
-    // TypeDoc 0.23+ uses blockTags instead of tags
     return ((_b = (_a = reflection.comment) === null || _a === void 0 ? void 0 : _a.blockTags) === null || _b === void 0 ? void 0 : _b.map(getTag)) || [];
 }
 function getTag(tag) {
     var _a;
-    // TypeDoc 0.23+ uses tag and content instead of tagName and text
-    // tag already has @ prefix in TypeDoc 0.23, so remove it
+    // tag already has @ prefix, so remove it
     const tagName = tag.tag.replace(/^@+/, '');
     return {
         name: tagName,
@@ -293,27 +270,19 @@ function getTag(tag) {
 }
 function isProperty(reflection) {
     var _a;
-    // TypeDoc 0.23+ uses ReflectionType with signatures for functions
     if (reflection.kind !== ReflectionKind.Property) {
         return false;
     }
-    // TypeDoc types don't expose 'type' and 'declaration' properties on reflection.type
-    // These exist at runtime but require type assertion to access
     const type = reflection.type;
-    return !(type &&
-        type.type === 'reflection' &&
-        ((_a = type.declaration) === null || _a === void 0 ? void 0 : _a.signatures));
+    return !((type === null || type === void 0 ? void 0 : type.type) === 'reflection' && ((_a = type.declaration) === null || _a === void 0 ? void 0 : _a.signatures));
 }
 function isMethod(reflection) {
     var _a;
-    // TypeDoc 0.23+ uses ReflectionType with signatures for functions
     if (reflection.kind !== ReflectionKind.Property) {
         return false;
     }
-    // TypeDoc types don't expose 'type' and 'declaration' properties on reflection.type
-    // These exist at runtime but require type assertion to access
     const type = reflection.type;
-    return type && type.type === 'reflection' && ((_a = type.declaration) === null || _a === void 0 ? void 0 : _a.signatures);
+    return (type === null || type === void 0 ? void 0 : type.type) === 'reflection' && ((_a = type.declaration) === null || _a === void 0 ? void 0 : _a.signatures);
 }
 function getProperty(reflection) {
     return {
@@ -327,8 +296,6 @@ function getProperty(reflection) {
 }
 function getMethod(reflection) {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
-    // TypeDoc 0.23+ stores method signatures in type.declaration.signatures
-    // TypeDoc types don't expose declaration property, but it exists at runtime
     const type = reflection.type;
     const signature = (_b = (_a = type === null || type === void 0 ? void 0 : type.declaration) === null || _a === void 0 ? void 0 : _a.signatures) === null || _b === void 0 ? void 0 : _b[0];
     if (!signature) {
@@ -340,11 +307,9 @@ function getMethod(reflection) {
             returns: { type: 'void', docs: '' },
         };
     }
-    // Get docs from signature, not from the property
     let docs = ((_d = (_c = signature.comment) === null || _c === void 0 ? void 0 : _c.summary) === null || _d === void 0 ? void 0 : _d.map((part) => part.text).join('').trim()) || '';
     // Normalize multiple newlines to single newlines
-    docs = docs.replace(/\n\n+/g, '\n');
-    // Get parameters
+    docs = docs.replaceAll(/\n\n+/g, '\n');
     const parameters = ((_e = signature.parameters) === null || _e === void 0 ? void 0 : _e.map((param) => {
         var _a, _b, _c, _d;
         return ({
@@ -355,14 +320,12 @@ function getMethod(reflection) {
             optional: ((_d = param.flags) === null || _d === void 0 ? void 0 : _d.isOptional) || false,
         });
     })) || [];
-    // Get return type
     const returnsTag = (_g = (_f = signature.comment) === null || _f === void 0 ? void 0 : _f.blockTags) === null || _g === void 0 ? void 0 : _g.find((tag) => tag.tag === '@returns');
     const returnsText = ((_h = returnsTag === null || returnsTag === void 0 ? void 0 : returnsTag.content) === null || _h === void 0 ? void 0 : _h.map((part) => part.text).join('').trim()) || '';
     const returns = {
         type: ((_j = signature.type) === null || _j === void 0 ? void 0 : _j.toString()) || 'void',
         docs: returnsText,
     };
-    // Get other tags (excluding @param and @returns)
     const docsTags = ((_l = (_k = signature.comment) === null || _k === void 0 ? void 0 : _k.blockTags) === null || _l === void 0 ? void 0 : _l.filter((tag) => tag.tag !== '@param' && tag.tag !== '@returns').map(getTag)) || [];
     return {
         name: reflection.name,
@@ -374,8 +337,6 @@ function getMethod(reflection) {
 }
 function getImplementedInterfaces(reflection) {
     const interfaces = [];
-    // Check if class implements any interfaces
-    // implementedTypes exists on DeclarationReflection at runtime but not in type definitions
     const implemented = reflection.implementedTypes;
     if (implemented) {
         implemented.forEach((type) => {
@@ -389,7 +350,6 @@ function getImplementedInterfaces(reflection) {
 function getPropertyWithInheritDoc(reflection, interfaces) {
     var _a, _b, _c;
     const prop = getProperty(reflection);
-    // Check for @inheritDoc tag in blockTags
     const hasInheritDoc = (_b = (_a = reflection.comment) === null || _a === void 0 ? void 0 : _a.blockTags) === null || _b === void 0 ? void 0 : _b.some((tag) => tag.tag.toLowerCase() === '@inheritdoc');
     if (hasInheritDoc && interfaces.length > 0) {
         // Try to find the property in implemented interfaces
@@ -408,13 +368,10 @@ function getPropertyWithInheritDoc(reflection, interfaces) {
 }
 function getMethodWithInheritDoc(reflection, interfaces) {
     var _a, _b, _c, _d, _e;
-    // Check for @inheritDoc in the method signature blockTags
-    // TypeDoc types don't expose declaration property, but it exists at runtime
     const type = reflection.type;
     const signature = (_b = (_a = type === null || type === void 0 ? void 0 : type.declaration) === null || _a === void 0 ? void 0 : _a.signatures) === null || _b === void 0 ? void 0 : _b[0];
     const hasInheritDoc = (_d = (_c = signature === null || signature === void 0 ? void 0 : signature.comment) === null || _c === void 0 ? void 0 : _c.blockTags) === null || _d === void 0 ? void 0 : _d.some((tag) => tag.tag.toLowerCase() === '@inheritdoc');
     if (hasInheritDoc && interfaces.length > 0) {
-        // Try to find the method in implemented interfaces and return its parsed version
         for (const iface of interfaces) {
             const interfaceMethod = (_e = iface.children) === null || _e === void 0 ? void 0 : _e.find((child) => child.name === reflection.name);
             if (interfaceMethod) {
@@ -422,7 +379,6 @@ function getMethodWithInheritDoc(reflection, interfaces) {
             }
         }
     }
-    // If no inheritDoc or interface not found, return the method as-is
     return getMethod(reflection);
 }
 /**
@@ -462,8 +418,6 @@ function getMethodWithInheritDoc(reflection, interfaces) {
  * ```
  */
 function getDecorators(reflection) {
-    // TypeDoc 0.23+ removed the decorators property
-    // We need to parse decorators from the TypeScript AST
     if (!reflection.sources || reflection.sources.length === 0) {
         return [];
     }
@@ -479,8 +433,6 @@ function getDecorators(reflection) {
             var _a;
             if (ts.isClassDeclaration(node) &&
                 ((_a = node.name) === null || _a === void 0 ? void 0 : _a.getText()) === reflection.name) {
-                // TypeScript 4.x decorators property exists at runtime but varies across TS versions
-                // Using 'as any' because decorator API changed between TS 4.x and 5.x
                 const nodeDecorators = node.decorators;
                 if (nodeDecorators) {
                     decorators = nodeDecorators.map((decorator) => {
@@ -521,8 +473,6 @@ function getTypeParams(reflection) {
 }
 function getSources(reflection) {
     var _a;
-    // TypeDoc 0.23+ has both fileName (short) and fullFileName (full path)
-    // With basePath set correctly, fileName is relative to project root
     return ((_a = reflection.sources) === null || _a === void 0 ? void 0 : _a.map((source) => source.fileName)) || [];
 }
 //# sourceMappingURL=typedoc.js.map
