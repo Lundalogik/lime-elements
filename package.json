@@ -28,7 +28,7 @@
     "lint": "eslint --max-warnings=0 && prettier -c --ignore-path .gitignore **/*.scss",
     "lint:fix": "eslint --max-warnings=0 --fix && prettier --write --ignore-path .gitignore **/*.scss",
     "start": "npm run watch",
-    "test": "cross-env-shell SASS_PATH=node_modules \"stencil test --spec --e2e\"",
+    "test": "node scripts/run-tests.cjs",
     "test:watch": "cross-env-shell SASS_PATH=node_modules \"stencil test --spec --e2e --watch\"",
     "test:e2e": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e\"",
     "test:e2e:watch": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e --watch\"",
