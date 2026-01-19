@@ -1,0 +1,2 @@
+import{r as s,h as r}from"./index-0c4503aa.js";const e=`\nEmphasis, aka italics, with *asterisks* or _underscores_.\n\nStrong emphasis, aka bold, with **asterisks** or __underscores__.\n\nCombined emphasis with **asterisks and _underscores_**.\n\nStrikethrough uses two tildes. ~~Scratch this.~~\n`;const a=class{constructor(r){s(this,r)}render(){return r("limel-markdown",{value:e})}};export{a as limel_example_markdown_emphasis};
+//# sourceMappingURL=limel-example-markdown-emphasis.entry.js.map
