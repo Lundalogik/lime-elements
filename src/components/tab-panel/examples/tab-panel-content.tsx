@@ -7,7 +7,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { Tab, TabPanelComponent } from '@limetech/lime-elements';
+import { Icon, Tab, TabPanelComponent } from '@limetech/lime-elements';
 
 const LOAD_TIME = 1000;
 
@@ -40,8 +40,9 @@ export class TabPanelContentExample implements TabPanelComponent {
             return <limel-spinner />;
         }
 
+        const icon = this.getIcon();
         const style = {
-            backgroundColor: this.tab.icon.color,
+            backgroundColor: icon?.color,
             color: 'white',
         };
 
@@ -51,7 +52,7 @@ export class TabPanelContentExample implements TabPanelComponent {
                     <limel-icon
                         badge={true}
                         size="large"
-                        name={this.tab.icon.name}
+                        name={icon?.name}
                         style={style}
                     />
                     <p>
@@ -94,4 +95,21 @@ export class TabPanelContentExample implements TabPanelComponent {
             badge: this.votes,
         });
     };
+
+    private getIcon(): Icon | undefined {
+        const icon = this.tab?.icon;
+        if (!icon) {
+            return undefined;
+        }
+
+        if (typeof icon === 'string') {
+            return { name: icon };
+        }
+
+        if (typeof icon === 'object') {
+            return icon;
+        }
+
+        return undefined;
+    }
 }
