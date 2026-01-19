@@ -24,6 +24,7 @@ export {
     ValidationError,
     FormComponent,
     FormInfo,
+    FormSchema,
     LimeSchemaOptions,
     LimeLayoutOptions,
     FormComponentOptions,
@@ -39,7 +40,10 @@ export * from './components/help/help.types';
 export * from './components/icon/icon.types';
 export * from './components/info-tile/info-tile.types';
 export * from './components/input-field/input-field.types';
-export { ListComponent } from './components/list-item/list-item.types';
+export {
+    ListComponent,
+    ListItem,
+} from './components/list-item/list-item.types';
 export * from './components/dynamic-label/label.types';
 export * from './components/list/list.types';
 export * from './components/menu/menu.types';
@@ -49,6 +53,7 @@ export * from './components/picker/value.types';
 export * from './components/progress-flow/progress-flow.types';
 export * from './components/select/option.types';
 export * from './components/spinner/spinner.types';
+export * from './components/tab-bar/tab.types';
 export * from './components/tab-panel/tab-panel.types';
 export * from './components/table/table.types';
 export * from './components/table/layout';
