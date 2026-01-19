@@ -1,8 +1,19 @@
-declare type CustomMethodDecorator<T> = (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => TypedPropertyDescriptor<T> | void;
+type CustomMethodDecorator<T> = (target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => TypedPropertyDescriptor<T> | void;
+type UnionToIntersection<U> = (U extends any ? (x: U) => void : never) extends (x: infer I) => void ? I : never;
 export interface ComponentDecorator {
     (opts?: ComponentOptions): ClassDecorator;
 }
 export interface ComponentOptions {
+    /**
+     * When set to `true` this component will be form-associated. See
+     * https://stenciljs.com/docs/next/form-associated documentation on how to
+     * build form-associated Stencil components that integrate into forms like
+     * native browser elements such as `<input>` and `<textarea>`.
+     *
+     * The {@link AttachInternals} decorator allows for access to the
+     * `ElementInternals` object to modify the associated form.
+     */
+    formAssociated?: boolean;
     /**
      * Tag name of the web component. Ideally, the tag name must be globally unique,
      * so it's recommended to choose an unique prefix for all your components within the same collection.
@@ -62,7 +73,7 @@ export interface PropOptions {
     /**
      * The name of the associated DOM attribute.
      * Stencil uses different heuristics to determine the default name of the attribute,
-     * but using this property, you can override the default behaviour.
+     * but using this property, you can override the default behavior.
      */
     attribute?: string | null;
     /**
@@ -107,6 +118,9 @@ export interface EventOptions {
      */
     composed?: boolean;
 }
+export interface AttachInternalsDecorator {
+    (): PropertyDecorator;
+}
 export interface ListenDecorator {
     (eventName: string, opts?: ListenOptions): CustomMethodDecorator<any>;
 }
@@ -128,17 +142,23 @@ export interface ListenOptions {
      * By default, Stencil uses several heuristics to determine if
      * it must attach a `passive` event listener or not.
      *
-     * Using the `passive` option can be used to change the default behaviour.
+     * Using the `passive` option can be used to change the default behavior.
      * Please see https://developers.google.com/web/updates/2016/06/passive-event-listeners for further information.
      */
     passive?: boolean;
 }
-export declare type ListenTargetOptions = 'body' | 'document' | 'window';
+export type ListenTargetOptions = 'body' | 'document' | 'window';
 export interface StateDecorator {
     (): PropertyDecorator;
 }
 export interface WatchDecorator {
-    (propName: string): CustomMethodDecorator<any>;
+    (propName: any): CustomMethodDecorator<(newValue?: any, oldValue?: any, propName?: any, ...args: any[]) => any | void>;
+}
+export interface PropSerializeDecorator {
+    (propName: any): CustomMethodDecorator<(newValue?: any, propName?: string, ...args: any[]) => string | null>;
+}
+export interface AttrDeserializeDecorator {
+    (propName: any): CustomMethodDecorator<(newValue?: any, propName?: string, ...args: any[]) => any>;
 }
 export interface UserBuildConditionals {
     isDev: boolean;
@@ -175,6 +195,12 @@ export declare const Element: ElementDecorator;
  * https://stenciljs.com/docs/events
  */
 export declare const Event: EventDecorator;
+/**
+ * If the `formAssociated` option is set in options passed to the
+ * `@Component()` decorator then this decorator may be used to get access to the
+ * `ElementInternals` instance associated with the component.
+ */
+export declare const AttachInternals: AttachInternalsDecorator;
 /**
  * The `Listen()` decorator is for listening DOM events, including the ones
  * dispatched from `@Events()`.
@@ -214,14 +240,24 @@ export declare const State: StateDecorator;
  * https://stenciljs.com/docs/reactive-data#watch-decorator
  */
 export declare const Watch: WatchDecorator;
-export declare type ResolutionHandler = (elm: HTMLElement) => string | undefined | null;
-export declare type ErrorHandler = (err: any, element?: HTMLElement) => void;
+/**
+ * Decorator to serialize a property to an attribute string.
+ */
+export declare const PropSerialize: PropSerializeDecorator;
+/**
+ * Decorator to deserialize an attribute string to a property.
+ */
+export declare const AttrDeserialize: AttrDeserializeDecorator;
+export type ResolutionHandler = (elm: HTMLElement) => string | undefined | null;
+export type ErrorHandler = (err: any, element?: HTMLElement) => void;
 /**
  * `setMode()` is used for libraries which provide multiple "modes" for styles.
  */
 export declare const setMode: (handler: ResolutionHandler) => void;
 /**
- * getMode
+ * `getMode()` is used for libraries which provide multiple "modes" for styles.
+ * @param ref a reference to the node to get styles for
+ * @returns the current mode or undefined, if not found
  */
 export declare function getMode<T = string | undefined>(ref: any): T;
 export declare function setPlatformHelpers(helpers: {
@@ -234,8 +270,30 @@ export declare function setPlatformHelpers(helpers: {
 /**
  * Get the base path to where the assets can be found. Use `setAssetPath(path)`
  * if the path needs to be customized.
+ * @param path the path to use in calculating the asset path. this value will be
+ * used in conjunction with the base asset path
+ * @returns the base path
  */
 export declare function getAssetPath(path: string): string;
+/**
+ * Method to render a virtual DOM tree to a container element.
+ *
+ * @example
+ * ```tsx
+ * import { render } from '@stencil/core';
+ *
+ * const vnode = (
+ *   <div>
+ *     <h1>Hello, world!</h1>
+ *   </div>
+ * );
+ * render(vnode, document.body);
+ * ```
+ *
+ * @param vnode - The virtual DOM tree to render
+ * @param container - The container element to render the virtual DOM tree to
+ */
+export declare function render(vnode: VNode, container: Element): void;
 /**
  * Used to manually set the base path where assets can be found. For lazy-loaded
  * builds the asset path is automatically set and assets copied to the correct
@@ -246,22 +304,38 @@ export declare function getAssetPath(path: string): string;
  * `setAssetPath(document.currentScript.src)`, or using a bundler's replace plugin to
  * dynamically set the path at build time, such as `setAssetPath(process.env.ASSET_PATH)`.
  * But do note that this configuration depends on how your script is bundled, or lack of
- * bunding, and where your assets can be loaded from. Additionally custom bundling
+ * bundling, and where your assets can be loaded from. Additionally custom bundling
  * will have to ensure the static assets are copied to its build directory.
+ * @param path the asset path to set
+ * @returns the set path
  */
 export declare function setAssetPath(path: string): string;
 /**
- * getElement
+ * Used to specify a nonce value that corresponds with an application's
+ * [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
+ * When set, the nonce will be added to all dynamically created script and style tags at runtime.
+ * Alternatively, the nonce value can be set on a `meta` tag in the DOM head
+ * (<meta name="csp-nonce" content="{ nonce value here }" />) and will result in the same behavior.
+ * @param nonce The value to be used for the nonce attribute.
+ */
+export declare function setNonce(nonce: string): void;
+/**
+ * Retrieve a Stencil element for a given reference
+ * @param ref the ref to get the Stencil element for
+ * @returns a reference to the element
  */
 export declare function getElement(ref: any): HTMLStencilElement;
 /**
  * Schedules a new render of the given instance or element even if no state changed.
  *
- * Notice `forceUpdate()` is not syncronous and might perform the DOM render in the next frame.
+ * Notice `forceUpdate()` is not synchronous and might perform the DOM render in the next frame.
+ *
+ * @param ref the node/element to force the re-render of
  */
 export declare function forceUpdate(ref: any): void;
 /**
  * getRenderingRef
+ * @returns the rendering ref
  */
 export declare function getRenderingRef(): any;
 export interface HTMLStencilElement extends HTMLElement {
@@ -272,6 +346,8 @@ export interface HTMLStencilElement extends HTMLElement {
  * in the best moment to perform DOM mutation without causing layout thrashing.
  *
  * For further information: https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing
+ *
+ * @param task the DOM-write to schedule
  */
 export declare function writeTask(task: RafCallback): void;
 /**
@@ -279,6 +355,8 @@ export declare function writeTask(task: RafCallback): void;
  * in the best moment to perform DOM reads without causing layout thrashing.
  *
  * For further information: https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing
+ *
+ * @param task the DOM-read to schedule
  */
 export declare function readTask(task: RafCallback): void;
 /**
@@ -286,6 +364,28 @@ export declare function readTask(task: RafCallback): void;
  * Unhandled exception raised while rendering, during event handling, or lifecycles will trigger the custom event handler.
  */
 export declare const setErrorHandler: (handler: ErrorHandler) => void;
+export type MixinFactory = <TBase extends new (...args: any[]) => any>(base: TBase) => abstract new (...args: ConstructorParameters<TBase>) => any;
+/**
+ * Compose multiple mixin classes into a single constructor.
+ * The resulting class has the combined instance types of all mixed-in classes.
+ *
+ * Example:
+ * ```
+ * import { Mixin, MixinFactory } from '@stencil/core';
+ *
+ * const AWrap: MixinFactory = (Base) => {class A extends Base { propA = A }; return A;}
+ * const BWrap: MixinFactory = (Base) => {class B extends Base { propB = B }; return B;}
+ * const CWrap: MixinFactory = (Base) => {class C extends Base { propC = C }; return C;}
+ *
+ * class X extends Mixin(AWrap, BWrap, CWrap) {
+ *   render() { return <div>{this.propA} {this.propB} {this.propC}</div>; }
+ * }
+ * ```
+ *
+ * @param mixinFactories mixin factory functions that return a class which extends from the provided class.
+ * @returns a class that that is composed from extending each of the provided classes in the order they were provided.
+ */
+export declare function Mixin<TMixins extends readonly MixinFactory[]>(...mixinFactories: TMixins): abstract new (...args: any[]) => UnionToIntersection<InstanceType<ReturnType<TMixins[number]>>>;
 /**
  * This file gets copied to all distributions of stencil component collections.
  * - no imports
@@ -407,7 +507,7 @@ export interface QueueApi {
 /**
  * Host
  */
-interface HostAttributes {
+export interface HostAttributes {
     class?: string | {
         [className: string]: boolean;
     };
@@ -417,13 +517,57 @@ interface HostAttributes {
     ref?: (el: HTMLElement | null) => void;
     [prop: string]: any;
 }
+/**
+ * Utilities for working with functional Stencil components. An object
+ * conforming to this interface is passed by the Stencil runtime as the third
+ * argument to a functional component, allowing component authors to work with
+ * features like children.
+ *
+ * The children of a functional component will be passed as the second
+ * argument, so a functional component which uses these utils to transform its
+ * children might look like the following:
+ *
+ * ```ts
+ * export const AddClass: FunctionalComponent = (_, children, utils) => (
+ *  utils.map(children, child => ({
+ *    ...child,
+ *    vattrs: {
+ *      ...child.vattrs,
+ *      class: `${child.vattrs.class} add-class`
+ *    }
+ *  }))
+ * );
+ * ```
+ *
+ * For more see the Stencil documentation, here:
+ * https://stenciljs.com/docs/functional-components
+ */
 export interface FunctionalUtilities {
+    /**
+     * Utility for reading the children of a functional component at runtime.
+     * Since the Stencil runtime uses a different interface for children it is
+     * not recommended to read the children directly, and is preferable to use
+     * this utility to, for instance, perform a side effect for each child.
+     */
     forEach: (children: VNode[], cb: (vnode: ChildNode, index: number, array: ChildNode[]) => void) => void;
+    /**
+     * Utility for transforming the children of a functional component. Given an
+     * array of children and a callback this will return a list of the results of
+     * passing each child to the supplied callback.
+     */
     map: (children: VNode[], cb: (vnode: ChildNode, index: number, array: ChildNode[]) => ChildNode) => VNode[];
 }
 export interface FunctionalComponent<T = {}> {
     (props: T, children: VNode[], utils: FunctionalUtilities): VNode | VNode[];
 }
+/**
+ * A Child VDOM node
+ *
+ * This has most of the same properties as {@link VNode} but friendlier names
+ * (i.e. `vtag` instead of `$tag$`, `vchildren` instead of `$children$`) in
+ * order to provide a friendlier public interface for users of the
+ * {@link FunctionalUtilities}).
+ */
 export interface ChildNode {
     vtag?: string | number | Function;
     vkey?: string | number;
@@ -470,6 +614,9 @@ export declare function h(sel: any, children: Array<VNode | undefined | null>): 
 export declare function h(sel: any, data: VNodeData | null, text: string): VNode;
 export declare function h(sel: any, data: VNodeData | null, children: Array<VNode | undefined | null>): VNode;
 export declare function h(sel: any, data: VNodeData | null, children: VNode): VNode;
+/**
+ * A virtual DOM node
+ */
 export interface VNode {
     $flags$: number;
     $tag$: string | number | Function;
@@ -666,7 +813,7 @@ export declare namespace JSXBase {
         use: JSXBase.SVGAttributes;
         view: JSXBase.SVGAttributes;
     }
-    interface SlotAttributes {
+    interface SlotAttributes extends JSXAttributes {
         name?: string;
         slot?: string;
         onSlotchange?: (event: Event) => void;
@@ -677,8 +824,10 @@ export declare namespace JSXBase {
         hrefLang?: string;
         hreflang?: string;
         media?: string;
+        ping?: string;
         rel?: string;
         target?: string;
+        referrerPolicy?: ReferrerPolicy;
     }
     interface AudioHTMLAttributes<T> extends MediaHTMLAttributes<T> {
     }
@@ -702,7 +851,6 @@ export declare namespace JSXBase {
         cite?: string;
     }
     interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {
-        autoFocus?: boolean;
         disabled?: boolean;
         form?: string;
         formAction?: string;
@@ -718,6 +866,9 @@ export declare namespace JSXBase {
         name?: string;
         type?: string;
         value?: string | string[] | number;
+        popoverTargetAction?: string;
+        popoverTargetElement?: Element | null;
+        popoverTarget?: string;
     }
     interface CanvasHTMLAttributes<T> extends HTMLAttributes<T> {
         height?: number | string;
@@ -731,7 +882,8 @@ export declare namespace JSXBase {
     }
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean;
-        onToggle?: (event: Event) => void;
+        name?: string;
+        onToggle?: (event: ToggleEvent) => void;
     }
     interface DelHTMLAttributes<T> extends HTMLAttributes<T> {
         cite?: string;
@@ -739,6 +891,7 @@ export declare namespace JSXBase {
         datetime?: string;
     }
     interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
+        onCancel?: (event: Event) => void;
         onClose?: (event: Event) => void;
         open?: boolean;
         returnValue?: string;
@@ -798,6 +951,8 @@ export declare namespace JSXBase {
     }
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string;
+        crossOrigin?: string;
+        crossorigin?: string;
         decoding?: 'async' | 'auto' | 'sync';
         importance?: 'low' | 'auto' | 'high';
         height?: number | string;
@@ -819,12 +974,10 @@ export declare namespace JSXBase {
         accept?: string;
         allowdirs?: boolean;
         alt?: string;
-        autoCapitalize?: any;
-        autocapitalize?: any;
+        autoCapitalize?: string;
+        autocapitalize?: string;
         autoComplete?: string;
         autocomplete?: string;
-        autoFocus?: boolean;
-        autofocus?: boolean | string;
         capture?: string;
         checked?: boolean;
         crossOrigin?: string;
@@ -856,6 +1009,8 @@ export declare namespace JSXBase {
         minlength?: number | string;
         multiple?: boolean;
         name?: string;
+        onSelect?: (event: Event) => void;
+        onselect?: (event: Event) => void;
         pattern?: string;
         placeholder?: string;
         readOnly?: boolean;
@@ -874,10 +1029,11 @@ export declare namespace JSXBase {
         webkitdirectory?: boolean;
         webkitEntries?: any;
         width?: number | string;
+        popoverTargetAction?: string;
+        popoverTargetElement?: Element | null;
+        popoverTarget?: string;
     }
     interface KeygenHTMLAttributes<T> extends HTMLAttributes<T> {
-        autoFocus?: boolean;
-        autofocus?: boolean | string;
         challenge?: string;
         disabled?: boolean;
         form?: string;
@@ -890,7 +1046,6 @@ export declare namespace JSXBase {
     interface LabelHTMLAttributes<T> extends HTMLAttributes<T> {
         form?: string;
         htmlFor?: string;
-        htmlfor?: string;
     }
     interface LiHTMLAttributes<T> extends HTMLAttributes<T> {
         value?: string | string[] | number;
@@ -917,6 +1072,8 @@ export declare namespace JSXBase {
         autoPlay?: boolean;
         autoplay?: boolean | string;
         controls?: boolean;
+        controlslist?: 'nodownload' | 'nofullscreen' | 'noremoteplayback';
+        controlsList?: 'nodownload' | 'nofullscreen' | 'noremoteplayback';
         crossOrigin?: string;
         crossorigin?: string;
         loop?: boolean;
@@ -1001,7 +1158,6 @@ export declare namespace JSXBase {
     interface OutputHTMLAttributes<T> extends HTMLAttributes<T> {
         form?: string;
         htmlFor?: string;
-        htmlfor?: string;
         name?: string;
     }
     interface ParamHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -1026,7 +1182,6 @@ export declare namespace JSXBase {
         type?: string;
     }
     interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
-        autoFocus?: boolean;
         disabled?: boolean;
         form?: string;
         multiple?: boolean;
@@ -1037,11 +1192,13 @@ export declare namespace JSXBase {
         autocomplete?: string;
     }
     interface SourceHTMLAttributes<T> extends HTMLAttributes<T> {
+        height?: number;
         media?: string;
         sizes?: string;
         src?: string;
         srcSet?: string;
         type?: string;
+        width?: number;
     }
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
         media?: string;
@@ -1057,8 +1214,8 @@ export declare namespace JSXBase {
         summary?: string;
     }
     interface TextareaHTMLAttributes<T> extends HTMLAttributes<T> {
-        autoFocus?: boolean;
-        autofocus?: boolean | string;
+        autoComplete?: string;
+        autocomplete?: string;
         cols?: number;
         disabled?: boolean;
         form?: string;
@@ -1067,6 +1224,8 @@ export declare namespace JSXBase {
         minLength?: number;
         minlength?: number | string;
         name?: string;
+        onSelect?: (event: Event) => void;
+        onselect?: (event: Event) => void;
         placeholder?: string;
         readOnly?: boolean;
         readonly?: boolean | string;
@@ -1109,6 +1268,8 @@ export declare namespace JSXBase {
     interface HTMLAttributes<T = HTMLElement> extends DOMAttributes<T> {
         innerHTML?: string;
         accessKey?: string;
+        autoFocus?: boolean;
+        autofocus?: boolean | string;
         class?: string | {
             [className: string]: boolean;
         };
@@ -1120,6 +1281,7 @@ export declare namespace JSXBase {
         draggable?: boolean;
         hidden?: boolean;
         id?: string;
+        inert?: boolean;
         lang?: string;
         spellcheck?: 'true' | 'false' | any;
         style?: {
@@ -1128,6 +1290,7 @@ export declare namespace JSXBase {
         tabIndex?: number;
         tabindex?: number | string;
         title?: string;
+        popover?: string | null;
         inputMode?: string;
         inputmode?: string;
         enterKeyHint?: string;
@@ -1144,8 +1307,8 @@ export declare namespace JSXBase {
         resource?: string;
         typeof?: string;
         vocab?: string;
-        autoCapitalize?: any;
-        autocapitalize?: any;
+        autoCapitalize?: string;
+        autocapitalize?: string;
         autoCorrect?: string;
         autocorrect?: string;
         autoSave?: string;
@@ -1166,87 +1329,87 @@ export declare namespace JSXBase {
         unselectable?: boolean;
     }
     interface SVGAttributes<T = SVGElement> extends DOMAttributes<T> {
-        'class'?: string | {
+        class?: string | {
             [className: string]: boolean;
         };
-        'color'?: string;
-        'height'?: number | string;
-        'id'?: string;
-        'lang'?: string;
-        'max'?: number | string;
-        'media'?: string;
-        'method'?: string;
-        'min'?: number | string;
-        'name'?: string;
-        'style'?: {
+        color?: string;
+        height?: number | string;
+        id?: string;
+        lang?: string;
+        max?: number | string;
+        media?: string;
+        method?: string;
+        min?: number | string;
+        name?: string;
+        style?: {
             [key: string]: string | undefined;
         };
-        'target'?: string;
-        'type'?: string;
-        'width'?: number | string;
-        'role'?: string;
-        'tabindex'?: number;
+        target?: string;
+        type?: string;
+        width?: number | string;
+        role?: string;
+        tabindex?: number;
         'accent-height'?: number | string;
-        'accumulate'?: 'none' | 'sum';
-        'additive'?: 'replace' | 'sum';
+        accumulate?: 'none' | 'sum';
+        additive?: 'replace' | 'sum';
         'alignment-baseline'?: 'auto' | 'baseline' | 'before-edge' | 'text-before-edge' | 'middle' | 'central' | 'after-edge' | 'text-after-edge' | 'ideographic' | 'alphabetic' | 'hanging' | 'mathematical' | 'inherit';
-        'allowReorder'?: 'no' | 'yes';
-        'alphabetic'?: number | string;
-        'amplitude'?: number | string;
+        allowReorder?: 'no' | 'yes';
+        alphabetic?: number | string;
+        amplitude?: number | string;
         'arabic-form'?: 'initial' | 'medial' | 'terminal' | 'isolated';
-        'ascent'?: number | string;
-        'attributeName'?: string;
-        'attributeType'?: string;
-        'autoReverse'?: number | string;
-        'azimuth'?: number | string;
-        'baseFrequency'?: number | string;
+        ascent?: number | string;
+        attributeName?: string;
+        attributeType?: string;
+        autoReverse?: number | string;
+        azimuth?: number | string;
+        baseFrequency?: number | string;
         'baseline-shift'?: number | string;
-        'baseProfile'?: number | string;
-        'bbox'?: number | string;
-        'begin'?: number | string;
-        'bias'?: number | string;
-        'by'?: number | string;
-        'calcMode'?: number | string;
+        baseProfile?: number | string;
+        bbox?: number | string;
+        begin?: number | string;
+        bias?: number | string;
+        by?: number | string;
+        calcMode?: number | string;
         'cap-height'?: number | string;
-        'clip'?: number | string;
+        clip?: number | string;
         'clip-path'?: string;
-        'clipPathUnits'?: number | string;
+        clipPathUnits?: number | string;
         'clip-rule'?: number | string;
         'color-interpolation'?: number | string;
-        'color-interpolation-filters'?: 'auto' | 's-rGB' | 'linear-rGB' | 'inherit';
+        'color-interpolation-filters'?: 'auto' | 'sRGB' | 'linearRGB';
         'color-profile'?: number | string;
         'color-rendering'?: number | string;
-        'contentScriptType'?: number | string;
-        'contentStyleType'?: number | string;
-        'cursor'?: number | string;
-        'cx'?: number | string;
-        'cy'?: number | string;
-        'd'?: string;
-        'decelerate'?: number | string;
-        'descent'?: number | string;
-        'diffuseConstant'?: number | string;
-        'direction'?: number | string;
-        'display'?: number | string;
-        'divisor'?: number | string;
+        contentScriptType?: number | string;
+        contentStyleType?: number | string;
+        cursor?: number | string;
+        cx?: number | string;
+        cy?: number | string;
+        d?: string;
+        decelerate?: number | string;
+        descent?: number | string;
+        diffuseConstant?: number | string;
+        direction?: number | string;
+        display?: number | string;
+        divisor?: number | string;
         'dominant-baseline'?: number | string;
-        'dur'?: number | string;
-        'dx'?: number | string;
-        'dy'?: number | string;
+        dur?: number | string;
+        dx?: number | string;
+        dy?: number | string;
         'edge-mode'?: number | string;
-        'elevation'?: number | string;
+        elevation?: number | string;
         'enable-background'?: number | string;
-        'end'?: number | string;
-        'exponent'?: number | string;
-        'externalResourcesRequired'?: number | string;
-        'fill'?: string;
+        end?: number | string;
+        exponent?: number | string;
+        externalResourcesRequired?: number | string;
+        fill?: string;
         'fill-opacity'?: number | string;
         'fill-rule'?: 'nonzero' | 'evenodd' | 'inherit';
-        'filter'?: string;
-        'filterRes'?: number | string;
-        'filterUnits'?: number | string;
+        filter?: string;
+        filterRes?: number | string;
+        filterUnits?: number | string;
         'flood-color'?: number | string;
         'flood-opacity'?: number | string;
-        'focusable'?: number | string;
+        focusable?: number | string;
         'font-family'?: string;
         'font-size'?: number | string;
         'font-size-adjust'?: number | string;
@@ -1254,113 +1417,113 @@ export declare namespace JSXBase {
         'font-style'?: number | string;
         'font-variant'?: number | string;
         'font-weight'?: number | string;
-        'format'?: number | string;
-        'from'?: number | string;
-        'fx'?: number | string;
-        'fy'?: number | string;
-        'g1'?: number | string;
-        'g2'?: number | string;
+        format?: number | string;
+        from?: number | string;
+        fx?: number | string;
+        fy?: number | string;
+        g1?: number | string;
+        g2?: number | string;
         'glyph-name'?: number | string;
         'glyph-orientation-horizontal'?: number | string;
         'glyph-orientation-vertical'?: number | string;
-        'glyphRef'?: number | string;
-        'gradientTransform'?: string;
-        'gradientUnits'?: string;
-        'hanging'?: number | string;
+        glyphRef?: number | string;
+        gradientTransform?: string;
+        gradientUnits?: string;
+        hanging?: number | string;
         'horiz-adv-x'?: number | string;
         'horiz-origin-x'?: number | string;
-        'href'?: string;
-        'ideographic'?: number | string;
+        href?: string;
+        ideographic?: number | string;
         'image-rendering'?: number | string;
-        'in2'?: number | string;
-        'in'?: string;
-        'intercept'?: number | string;
-        'k1'?: number | string;
-        'k2'?: number | string;
-        'k3'?: number | string;
-        'k4'?: number | string;
-        'k'?: number | string;
-        'kernelMatrix'?: number | string;
-        'kernelUnitLength'?: number | string;
-        'kerning'?: number | string;
-        'keyPoints'?: number | string;
-        'keySplines'?: number | string;
-        'keyTimes'?: number | string;
-        'lengthAdjust'?: number | string;
+        in2?: number | string;
+        in?: string;
+        intercept?: number | string;
+        k1?: number | string;
+        k2?: number | string;
+        k3?: number | string;
+        k4?: number | string;
+        k?: number | string;
+        kernelMatrix?: number | string;
+        kernelUnitLength?: number | string;
+        kerning?: number | string;
+        keyPoints?: number | string;
+        keySplines?: number | string;
+        keyTimes?: number | string;
+        lengthAdjust?: number | string;
         'letter-spacing'?: number | string;
         'lighting-color'?: number | string;
-        'limitingConeAngle'?: number | string;
-        'local'?: number | string;
+        limitingConeAngle?: number | string;
+        local?: number | string;
         'marker-end'?: string;
-        'markerHeight'?: number | string;
+        markerHeight?: number | string;
         'marker-mid'?: string;
         'marker-start'?: string;
-        'markerUnits'?: number | string;
-        'markerWidth'?: number | string;
-        'mask'?: string;
-        'maskContentUnits'?: number | string;
-        'maskUnits'?: number | string;
-        'mathematical'?: number | string;
-        'mode'?: number | string;
-        'numOctaves'?: number | string;
-        'offset'?: number | string;
-        'opacity'?: number | string;
-        'operator'?: number | string;
-        'order'?: number | string;
-        'orient'?: number | string;
-        'orientation'?: number | string;
-        'origin'?: number | string;
-        'overflow'?: number | string;
+        markerUnits?: number | string;
+        markerWidth?: number | string;
+        mask?: string;
+        maskContentUnits?: number | string;
+        maskUnits?: number | string;
+        mathematical?: number | string;
+        mode?: number | string;
+        numOctaves?: number | string;
+        offset?: number | string;
+        opacity?: number | string;
+        operator?: number | string;
+        order?: number | string;
+        orient?: number | string;
+        orientation?: number | string;
+        origin?: number | string;
+        overflow?: number | string;
         'overline-position'?: number | string;
         'overline-thickness'?: number | string;
         'paint-order'?: number | string;
-        'panose1'?: number | string;
-        'pathLength'?: number | string;
-        'patternContentUnits'?: string;
-        'patternTransform'?: number | string;
-        'patternUnits'?: string;
+        panose1?: number | string;
+        pathLength?: number | string;
+        patternContentUnits?: string;
+        patternTransform?: number | string;
+        patternUnits?: string;
         'pointer-events'?: number | string;
-        'points'?: string;
-        'pointsAtX'?: number | string;
-        'pointsAtY'?: number | string;
-        'pointsAtZ'?: number | string;
-        'preserveAlpha'?: number | string;
-        'preserveAspectRatio'?: string;
-        'primitiveUnits'?: number | string;
-        'r'?: number | string;
-        'radius'?: number | string;
-        'refX'?: number | string;
-        'refY'?: number | string;
+        points?: string;
+        pointsAtX?: number | string;
+        pointsAtY?: number | string;
+        pointsAtZ?: number | string;
+        preserveAlpha?: number | string;
+        preserveAspectRatio?: string;
+        primitiveUnits?: number | string;
+        r?: number | string;
+        radius?: number | string;
+        refX?: number | string;
+        refY?: number | string;
         'rendering-intent'?: number | string;
-        'repeatCount'?: number | string;
-        'repeatDur'?: number | string;
-        'requiredextensions'?: number | string;
-        'requiredFeatures'?: number | string;
-        'restart'?: number | string;
-        'result'?: string;
-        'rotate'?: number | string;
-        'rx'?: number | string;
-        'ry'?: number | string;
-        'scale'?: number | string;
-        'seed'?: number | string;
+        repeatCount?: number | string;
+        repeatDur?: number | string;
+        requiredextensions?: number | string;
+        requiredFeatures?: number | string;
+        restart?: number | string;
+        result?: string;
+        rotate?: number | string;
+        rx?: number | string;
+        ry?: number | string;
+        scale?: number | string;
+        seed?: number | string;
         'shape-rendering'?: number | string;
-        'slope'?: number | string;
-        'spacing'?: number | string;
-        'specularConstant'?: number | string;
-        'specularExponent'?: number | string;
-        'speed'?: number | string;
-        'spreadMethod'?: string;
-        'startOffset'?: number | string;
-        'stdDeviation'?: number | string;
-        'stemh'?: number | string;
-        'stemv'?: number | string;
-        'stitchTiles'?: number | string;
+        slope?: number | string;
+        spacing?: number | string;
+        specularConstant?: number | string;
+        specularExponent?: number | string;
+        speed?: number | string;
+        spreadMethod?: string;
+        startOffset?: number | string;
+        stdDeviation?: number | string;
+        stemh?: number | string;
+        stemv?: number | string;
+        stitchTiles?: number | string;
         'stop-color'?: string;
         'stop-opacity'?: number | string;
         'strikethrough-position'?: number | string;
         'strikethrough-thickness'?: number | string;
-        'string'?: number | string;
-        'stroke'?: string;
+        string?: number | string;
+        stroke?: string;
         'stroke-dasharray'?: string | number;
         'stroke-dashoffset'?: string | number;
         'stroke-linecap'?: 'butt' | 'round' | 'square' | 'inherit';
@@ -1368,67 +1531,72 @@ export declare namespace JSXBase {
         'stroke-miterlimit'?: string;
         'stroke-opacity'?: number | string;
         'stroke-width'?: number | string;
-        'surfaceScale'?: number | string;
-        'systemLanguage'?: number | string;
-        'tableValues'?: number | string;
-        'targetX'?: number | string;
-        'targetY'?: number | string;
+        surfaceScale?: number | string;
+        systemLanguage?: number | string;
+        tableValues?: number | string;
+        targetX?: number | string;
+        targetY?: number | string;
         'text-anchor'?: string;
         'text-decoration'?: number | string;
-        'textLength'?: number | string;
+        textLength?: number | string;
         'text-rendering'?: number | string;
-        'to'?: number | string;
-        'transform'?: string;
-        'u1'?: number | string;
-        'u2'?: number | string;
+        to?: number | string;
+        transform?: string;
+        u1?: number | string;
+        u2?: number | string;
         'underline-position'?: number | string;
         'underline-thickness'?: number | string;
-        'unicode'?: number | string;
+        unicode?: number | string;
         'unicode-bidi'?: number | string;
         'unicode-range'?: number | string;
         'units-per-em'?: number | string;
         'v-alphabetic'?: number | string;
-        'values'?: string;
+        values?: string;
         'vector-effect'?: number | string;
-        'version'?: string;
+        version?: string;
         'vert-adv-y'?: number | string;
         'vert-origin-x'?: number | string;
         'vert-origin-y'?: number | string;
         'v-hanging'?: number | string;
         'v-ideographic'?: number | string;
-        'viewBox'?: string;
-        'viewTarget'?: number | string;
-        'visibility'?: number | string;
+        viewBox?: string;
+        viewTarget?: number | string;
+        visibility?: number | string;
         'v-mathematical'?: number | string;
-        'widths'?: number | string;
+        widths?: number | string;
         'word-spacing'?: number | string;
         'writing-mode'?: number | string;
-        'x1'?: number | string;
-        'x2'?: number | string;
-        'x'?: number | string;
+        x1?: number | string;
+        x2?: number | string;
+        x?: number | string;
         'x-channel-selector'?: string;
         'x-height'?: number | string;
-        'xlinkActuate'?: string;
-        'xlinkArcrole'?: string;
-        'xlinkHref'?: string;
-        'xlinkRole'?: string;
-        'xlinkShow'?: string;
-        'xlinkTitle'?: string;
-        'xlinkType'?: string;
-        'xmlBase'?: string;
-        'xmlLang'?: string;
-        'xmlns'?: string;
-        'xmlSpace'?: string;
-        'y1'?: number | string;
-        'y2'?: number | string;
-        'y'?: number | string;
-        'yChannelSelector'?: string;
-        'z'?: number | string;
-        'zoomAndPan'?: string;
+        xlinkActuate?: string;
+        xlinkArcrole?: string;
+        xlinkHref?: string;
+        xlinkRole?: string;
+        xlinkShow?: string;
+        xlinkTitle?: string;
+        xlinkType?: string;
+        xmlBase?: string;
+        xmlLang?: string;
+        xmlns?: string;
+        xmlSpace?: string;
+        y1?: number | string;
+        y2?: number | string;
+        y?: number | string;
+        yChannelSelector?: string;
+        z?: number | string;
+        zoomAndPan?: string;
     }
-    interface DOMAttributes<T = Element> {
-        key?: string | number;
-        ref?: (elm?: T) => void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ToggleEvent) */
+    interface ToggleEvent extends Event {
+        /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ToggleEvent/newState) */
+        readonly newState: string;
+        /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ToggleEvent/oldState) */
+        readonly oldState: string;
+    }
+    interface DOMAttributes<T> extends JSXAttributes<T> {
         slot?: string;
         part?: string;
         exportparts?: string;
@@ -1438,12 +1606,16 @@ export declare namespace JSXBase {
         onCutCapture?: (event: ClipboardEvent) => void;
         onPaste?: (event: ClipboardEvent) => void;
         onPasteCapture?: (event: ClipboardEvent) => void;
-        onCompositionEnd?: (event: CompositionEvent) => void;
-        onCompositionEndCapture?: (event: CompositionEvent) => void;
-        onCompositionStart?: (event: CompositionEvent) => void;
-        onCompositionStartCapture?: (event: CompositionEvent) => void;
-        onCompositionUpdate?: (event: CompositionEvent) => void;
-        onCompositionUpdateCapture?: (event: CompositionEvent) => void;
+        onCompositionend?: (event: CompositionEvent) => void;
+        onCompositionendCapture?: (event: CompositionEvent) => void;
+        onCompositionstart?: (event: CompositionEvent) => void;
+        onCompositionstartCapture?: (event: CompositionEvent) => void;
+        onCompositionupdate?: (event: CompositionEvent) => void;
+        onCompositionupdateCapture?: (event: CompositionEvent) => void;
+        onBeforeToggle?: (event: ToggleEvent) => void;
+        onBeforeToggleCapture?: (event: ToggleEvent) => void;
+        onToggle?: (event: ToggleEvent) => void;
+        onToggleCapture?: (event: ToggleEvent) => void;
         onFocus?: (event: FocusEvent) => void;
         onFocusCapture?: (event: FocusEvent) => void;
         onFocusin?: (event: FocusEvent) => void;
@@ -1454,8 +1626,8 @@ export declare namespace JSXBase {
         onBlurCapture?: (event: FocusEvent) => void;
         onChange?: (event: Event) => void;
         onChangeCapture?: (event: Event) => void;
-        onInput?: (event: Event) => void;
-        onInputCapture?: (event: Event) => void;
+        onInput?: (event: InputEvent) => void;
+        onInputCapture?: (event: InputEvent) => void;
         onReset?: (event: Event) => void;
         onResetCapture?: (event: Event) => void;
         onSubmit?: (event: Event) => void;
@@ -1473,7 +1645,7 @@ export declare namespace JSXBase {
         onKeyUp?: (event: KeyboardEvent) => void;
         onKeyUpCapture?: (event: KeyboardEvent) => void;
         onAuxClick?: (event: MouseEvent) => void;
-        onClick?: (event: MouseEvent) => void;
+        onClick?: (event: PointerEvent) => void;
         onClickCapture?: (event: MouseEvent) => void;
         onContextMenu?: (event: MouseEvent) => void;
         onContextMenuCapture?: (event: MouseEvent) => void;
@@ -1545,9 +1717,21 @@ export declare namespace JSXBase {
         onAnimationEndCapture?: (event: AnimationEvent) => void;
         onAnimationIteration?: (event: AnimationEvent) => void;
         onAnimationIterationCapture?: (event: AnimationEvent) => void;
+        onTransitionCancel?: (event: TransitionEvent) => void;
+        onTransitionCancelCapture?: (event: TransitionEvent) => void;
         onTransitionEnd?: (event: TransitionEvent) => void;
         onTransitionEndCapture?: (event: TransitionEvent) => void;
+        onTransitionRun?: (event: TransitionEvent) => void;
+        onTransitionRunCapture?: (event: TransitionEvent) => void;
+        onTransitionStart?: (event: TransitionEvent) => void;
+        onTransitionStartCapture?: (event: TransitionEvent) => void;
+        [key: `aria-${string}`]: string | boolean | undefined;
+        [key: `aria${string}`]: string | boolean | undefined;
     }
+}
+export interface JSXAttributes<T = Element> {
+    key?: string | number;
+    ref?: (elm?: T) => void;
 }
 export interface CustomElementsDefineOptions {
     exclude?: string[];

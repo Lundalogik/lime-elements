@@ -258,10 +258,6 @@ kbd[data-theme=force-dark] {
   border-color: rgba(var(--kompendium-contrast-500), 0.8);
 }
 
-:root {
-  --width-nav-panel: 16rem;
-}
-
 kompendium-playground {
   width: 100%;
 }

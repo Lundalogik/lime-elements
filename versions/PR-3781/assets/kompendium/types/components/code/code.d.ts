@@ -9,18 +9,18 @@ import 'prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.js';
  * @exampleComponent kompendium-example-code
  */
 export declare class Code {
-  /**
-   * The language of the code
-   */
-  language: string;
-  /**
-   * Source code
-   */
-  code: string;
-  private host;
-  componentDidLoad(): void;
-  componentWillRender(): void;
-  componentDidRender(): void;
-  render(): HTMLElement;
-  private findCode;
+    /**
+     * The language of the code
+     */
+    language: string;
+    /**
+     * Source code
+     */
+    code: string;
+    private host;
+    componentDidLoad(): void;
+    componentWillRender(): void;
+    componentDidRender(): void;
+    render(): HTMLElement;
+    private findCode;
 }

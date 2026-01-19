@@ -1,8 +1,6 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', { value: true });
-
-const index = require('./index-4264cbf1.js');
+var index = require('./index-DYiJ6dQL.js');
 
 const markdownExample = `
 ## Headings
@@ -155,12 +153,13 @@ Just for your information…
 `;
 
 const MarkdownExample = class {
-  constructor(hostRef) {
-    index.registerInstance(this, hostRef);
-  }
-  render() {
-    return index.h("kompendium-markdown", { text: markdownExample });
-  }
+    constructor(hostRef) {
+        index.registerInstance(this, hostRef);
+    }
+    render() {
+        return index.h("kompendium-markdown", { key: '6db38675f45e524403707a714226b9f794ea1285', text: markdownExample });
+    }
 };
 
 exports.kompendium_example_markdown = MarkdownExample;
+//# sourceMappingURL=kompendium-example-markdown.entry.cjs.js.map

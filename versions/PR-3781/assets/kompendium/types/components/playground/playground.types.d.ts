@@ -1,1 +1,1 @@
-export declare type PropsFactory = (name: string) => Record<string, unknown>;
+export type PropsFactory = (name: string) => Record<string, unknown>;

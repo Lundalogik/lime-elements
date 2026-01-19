@@ -3,5 +3,5 @@
  * @sourceFile markdown-example.ts
  */
 export declare class MarkdownExample {
-  render(): HTMLElement;
+    render(): HTMLElement;
 }

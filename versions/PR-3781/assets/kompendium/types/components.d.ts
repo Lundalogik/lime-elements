@@ -7,9 +7,14 @@
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
 import { PropsFactory } from "./components/playground/playground.types";
 import { JsonDocs, JsonDocsComponent, JsonDocsTag } from "./stencil-public-runtime";
-import { MatchResults } from "@stencil/router";
+import { MatchResults } from "@limetech/stencil-router";
 import { KompendiumData, MenuItem, TypeDescription } from "./types";
 import { ProplistItem } from "./components/proplist/proplist";
+export { PropsFactory } from "./components/playground/playground.types";
+export { JsonDocs, JsonDocsComponent, JsonDocsTag } from "./stencil-public-runtime";
+export { MatchResults } from "@limetech/stencil-router";
+export { KompendiumData, MenuItem, TypeDescription } from "./types";
+export { ProplistItem } from "./components/proplist/proplist";
 export namespace Components {
     interface KompendiumApp {
         /**
@@ -18,9 +23,13 @@ export namespace Components {
         "examplePropsFactory"?: PropsFactory;
         /**
           * Path to `kompendium.json`
+          * @default '/kompendium.json'
          */
         "path": string;
     }
+    /**
+     * @exampleComponent kompendium-example-code
+     */
     interface KompendiumCode {
         /**
           * The language of the code
@@ -45,6 +54,9 @@ export namespace Components {
          */
         "schemas": Array<Record<string, any>>;
     }
+    /**
+     * @private 
+     */
     interface KompendiumDarkmodeSwitch {
     }
     interface KompendiumDebug {
@@ -55,6 +67,7 @@ export namespace Components {
         /**
           * Factory for creating props for example components
           * @returns props
+          * @default () => ({})
          */
         "examplePropsFactory"?: PropsFactory;
         /**
@@ -68,17 +81,28 @@ export namespace Components {
     }
     interface KompendiumExampleCode {
     }
+    /**
+     * This is a simple example of how the `kompendium-markdown` component is used
+     * @sourceFile markdown-example.ts
+     */
     interface KompendiumExampleMarkdown {
     }
     interface KompendiumGuide {
         "data": KompendiumData;
     }
+    /**
+     * This component renders markdown
+     * @exampleComponent kompendium-example-markdown
+     */
     interface KompendiumMarkdown {
         /**
           * The text to render
          */
         "text": string;
     }
+    /**
+     * @private 
+     */
     interface KompendiumNavigation {
         /**
           * Title to display at the top of the navigation
@@ -105,6 +129,7 @@ export namespace Components {
         /**
           * Factory for creating props for example components
           * @returns props
+          * @default () => ({})
          */
         "propsFactory"?: PropsFactory;
         /**
@@ -124,9 +149,13 @@ export namespace Components {
          */
         "index": any;
     }
+    /**
+     * asd
+     */
     interface KompendiumTaglist {
         /**
           * Set to `true` if the list should be rendered in compact mode
+          * @default false
          */
         "compact": boolean;
         /**
@@ -149,6 +178,9 @@ declare global {
         prototype: HTMLKompendiumAppElement;
         new (): HTMLKompendiumAppElement;
     };
+    /**
+     * @exampleComponent kompendium-example-code
+     */
     interface HTMLKompendiumCodeElement extends Components.KompendiumCode, HTMLStencilElement {
     }
     var HTMLKompendiumCodeElement: {
@@ -161,6 +193,9 @@ declare global {
         prototype: HTMLKompendiumComponentElement;
         new (): HTMLKompendiumComponentElement;
     };
+    /**
+     * @private 
+     */
     interface HTMLKompendiumDarkmodeSwitchElement extends Components.KompendiumDarkmodeSwitch, HTMLStencilElement {
     }
     var HTMLKompendiumDarkmodeSwitchElement: {
@@ -179,6 +214,10 @@ declare global {
         prototype: HTMLKompendiumExampleCodeElement;
         new (): HTMLKompendiumExampleCodeElement;
     };
+    /**
+     * This is a simple example of how the `kompendium-markdown` component is used
+     * @sourceFile markdown-example.ts
+     */
     interface HTMLKompendiumExampleMarkdownElement extends Components.KompendiumExampleMarkdown, HTMLStencilElement {
     }
     var HTMLKompendiumExampleMarkdownElement: {
@@ -191,12 +230,19 @@ declare global {
         prototype: HTMLKompendiumGuideElement;
         new (): HTMLKompendiumGuideElement;
     };
+    /**
+     * This component renders markdown
+     * @exampleComponent kompendium-example-markdown
+     */
     interface HTMLKompendiumMarkdownElement extends Components.KompendiumMarkdown, HTMLStencilElement {
     }
     var HTMLKompendiumMarkdownElement: {
         prototype: HTMLKompendiumMarkdownElement;
         new (): HTMLKompendiumMarkdownElement;
     };
+    /**
+     * @private 
+     */
     interface HTMLKompendiumNavigationElement extends Components.KompendiumNavigation, HTMLStencilElement {
     }
     var HTMLKompendiumNavigationElement: {
@@ -221,6 +267,9 @@ declare global {
         prototype: HTMLKompendiumSearchElement;
         new (): HTMLKompendiumSearchElement;
     };
+    /**
+     * asd
+     */
     interface HTMLKompendiumTaglistElement extends Components.KompendiumTaglist, HTMLStencilElement {
     }
     var HTMLKompendiumTaglistElement: {
@@ -259,9 +308,13 @@ declare namespace LocalJSX {
         "examplePropsFactory"?: PropsFactory;
         /**
           * Path to `kompendium.json`
+          * @default '/kompendium.json'
          */
         "path"?: string;
     }
+    /**
+     * @exampleComponent kompendium-example-code
+     */
     interface KompendiumCode {
         /**
           * The language of the code
@@ -286,6 +339,9 @@ declare namespace LocalJSX {
          */
         "schemas"?: Array<Record<string, any>>;
     }
+    /**
+     * @private 
+     */
     interface KompendiumDarkmodeSwitch {
     }
     interface KompendiumDebug {
@@ -296,6 +352,7 @@ declare namespace LocalJSX {
         /**
           * Factory for creating props for example components
           * @returns props
+          * @default () => ({})
          */
         "examplePropsFactory"?: PropsFactory;
         /**
@@ -309,17 +366,28 @@ declare namespace LocalJSX {
     }
     interface KompendiumExampleCode {
     }
+    /**
+     * This is a simple example of how the `kompendium-markdown` component is used
+     * @sourceFile markdown-example.ts
+     */
     interface KompendiumExampleMarkdown {
     }
     interface KompendiumGuide {
         "data"?: KompendiumData;
     }
+    /**
+     * This component renders markdown
+     * @exampleComponent kompendium-example-markdown
+     */
     interface KompendiumMarkdown {
         /**
           * The text to render
          */
         "text"?: string;
     }
+    /**
+     * @private 
+     */
     interface KompendiumNavigation {
         /**
           * Title to display at the top of the navigation
@@ -346,6 +414,7 @@ declare namespace LocalJSX {
         /**
           * Factory for creating props for example components
           * @returns props
+          * @default () => ({})
          */
         "propsFactory"?: PropsFactory;
         /**
@@ -365,9 +434,13 @@ declare namespace LocalJSX {
          */
         "index"?: any;
     }
+    /**
+     * asd
+     */
     interface KompendiumTaglist {
         /**
           * Set to `true` if the list should be rendered in compact mode
+          * @default false
          */
         "compact"?: boolean;
         /**
@@ -405,18 +478,38 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "kompendium-app": LocalJSX.KompendiumApp & JSXBase.HTMLAttributes<HTMLKompendiumAppElement>;
+            /**
+             * @exampleComponent kompendium-example-code
+             */
             "kompendium-code": LocalJSX.KompendiumCode & JSXBase.HTMLAttributes<HTMLKompendiumCodeElement>;
             "kompendium-component": LocalJSX.KompendiumComponent & JSXBase.HTMLAttributes<HTMLKompendiumComponentElement>;
+            /**
+             * @private 
+             */
             "kompendium-darkmode-switch": LocalJSX.KompendiumDarkmodeSwitch & JSXBase.HTMLAttributes<HTMLKompendiumDarkmodeSwitchElement>;
             "kompendium-debug": LocalJSX.KompendiumDebug & JSXBase.HTMLAttributes<HTMLKompendiumDebugElement>;
             "kompendium-example-code": LocalJSX.KompendiumExampleCode & JSXBase.HTMLAttributes<HTMLKompendiumExampleCodeElement>;
+            /**
+             * This is a simple example of how the `kompendium-markdown` component is used
+             * @sourceFile markdown-example.ts
+             */
             "kompendium-example-markdown": LocalJSX.KompendiumExampleMarkdown & JSXBase.HTMLAttributes<HTMLKompendiumExampleMarkdownElement>;
             "kompendium-guide": LocalJSX.KompendiumGuide & JSXBase.HTMLAttributes<HTMLKompendiumGuideElement>;
+            /**
+             * This component renders markdown
+             * @exampleComponent kompendium-example-markdown
+             */
             "kompendium-markdown": LocalJSX.KompendiumMarkdown & JSXBase.HTMLAttributes<HTMLKompendiumMarkdownElement>;
+            /**
+             * @private 
+             */
             "kompendium-navigation": LocalJSX.KompendiumNavigation & JSXBase.HTMLAttributes<HTMLKompendiumNavigationElement>;
             "kompendium-playground": LocalJSX.KompendiumPlayground & JSXBase.HTMLAttributes<HTMLKompendiumPlaygroundElement>;
             "kompendium-proplist": LocalJSX.KompendiumProplist & JSXBase.HTMLAttributes<HTMLKompendiumProplistElement>;
             "kompendium-search": LocalJSX.KompendiumSearch & JSXBase.HTMLAttributes<HTMLKompendiumSearchElement>;
+            /**
+             * asd
+             */
             "kompendium-taglist": LocalJSX.KompendiumTaglist & JSXBase.HTMLAttributes<HTMLKompendiumTaglistElement>;
             "kompendium-type": LocalJSX.KompendiumType & JSXBase.HTMLAttributes<HTMLKompendiumTypeElement>;
         }

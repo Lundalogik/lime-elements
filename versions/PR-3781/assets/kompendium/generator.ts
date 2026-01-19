@@ -3,7 +3,8 @@ import { defaultConfig } from './config';
 import { addSources } from './source';
 import lnk from 'lnk';
 import { createMenu } from './menu';
-import { exists, mkdir, readFile, writeFile, stat } from './filesystem';
+import { copyFile, mkdir, readFile, stat, writeFile } from 'fs/promises';
+import { exists } from './filesystem';
 import { createWatcher } from './watch';
 import { findGuides } from './guides';
 import { KompendiumConfig, KompendiumData, TypeDescription } from '../types';
@@ -39,7 +40,7 @@ export function kompendiumGenerator(
             getProjectTitle(config),
             getReadme(),
             findGuides(config),
-            getTypes(config),
+            getTypes(config, stencilConfig.tsconfig),
         ]);
 
         const data: KompendiumData = {
@@ -98,7 +99,7 @@ async function getProjectTitle(
         return config.title;
     }
 
-    const json = await readFile('./package.json');
+    const json = await readFile('./package.json', 'utf8');
     const data = JSON.parse(json);
 
     return data.name
@@ -111,13 +112,25 @@ async function writeData(
     config: Partial<KompendiumConfig>,
     data: KompendiumData,
 ) {
-    let filePath = `${config.path}/kompendium.json`;
+    // Always write to the kompendium config folder (typically `.kompendium` in
+    // the root of the project) to avoid Stencil deleting the file during build.
+    const filePath = `${config.path}/kompendium.json`;
+
+    await writeFile(filePath, JSON.stringify(data), 'utf8');
 
     if (isProd()) {
-        filePath = `${config.publicPath}/kompendium.json`;
-    }
+        // In production, we used to write the kompendium.json file to the
+        // public path. We now copy the file to the public path for backwards
+        // compatibility with projects that do not have problems with Stencil
+        // deleting the file during build. For projects that do have this
+        // problem, they can always copy the file from the config folder.
+        const publicFilePath = `${config.publicPath}/kompendium.json`;
+        if (!(await exists(config.publicPath))) {
+            await mkdir(config.publicPath, { recursive: true });
+        }
 
-    await writeFile(filePath, JSON.stringify(data));
+        await copyFile(filePath, publicFilePath);
+    }
 
     if (isWatcher()) {
         createSymlink(config);
@@ -149,7 +162,7 @@ async function getReadme(): Promise<string> {
             continue;
         }
 
-        data = await readFile(file);
+        data = await readFile(file, 'utf8');
     }
 
     if (!data) {
@@ -177,6 +190,7 @@ function isProd(): boolean {
 
 async function getTypes(
     config: Partial<KompendiumConfig>,
+    tsconfig?: string,
 ): Promise<TypeDescription[]> {
     logger.debug('Getting type information...');
     let types = await readTypes(config);
@@ -184,7 +198,7 @@ async function getTypes(
 
     if (types.length === 0 || (await isModified(types, cache))) {
         logger.debug('Parsing types...');
-        const data = parseFile(config.typeRoot);
+        const data = parseFile(config.typeRoot, tsconfig);
         await saveData(config, data);
         types = data;
     }
@@ -197,42 +211,71 @@ async function isModified(types: any[], cache: Record<string, number>) {
         return true;
     }
 
-    let filenames = types.map((t) => t.sources).flat();
-    filenames = [...new Set(filenames)];
+    const filenames = getUniqueSourceFilenames(types);
+    const stats = await Promise.all(filenames.map(tryStatFile));
 
-    const stats = await Promise.all(filenames.map(stat));
+    return stats.some((fileStat, index) =>
+        hasFileChangedSinceCached(filenames[index], fileStat, cache),
+    );
+}
 
-    return stats.some((data, index) => {
-        const filename = filenames[index];
-        const result = cache[filename] !== data.mtimeMs;
+function getUniqueSourceFilenames(types: any[]): string[] {
+    const filenames = types.map((t) => t.sources).flat();
 
-        logger.debug(`${filename} was ${result ? '' : 'not'} modified!`);
+    return [...new Set(filenames)];
+}
 
-        return result;
-    });
+function tryStatFile(filename: string) {
+    return stat(filename).catch(() => null);
+}
+
+function hasFileChangedSinceCached(
+    filename: string,
+    fileStat: Awaited<ReturnType<typeof stat>> | null,
+    cache: Record<string, number>,
+): boolean {
+    if (!fileStat) {
+        logger.debug(`${filename} cannot be accessed, marking as modified`);
+
+        return true;
+    }
+
+    const result = cache[filename] !== fileStat.mtimeMs;
+
+    logger.debug(`${filename} was ${result ? '' : 'not'} modified!`);
+
+    return result;
 }
 
 async function saveData(
     config: Partial<KompendiumConfig>,
     types: TypeDescription[],
 ) {
-    let filenames = types.map((t) => t.sources).flat();
-    filenames = [...new Set(filenames)];
-
-    const stats = await Promise.all(filenames.map(stat));
-
-    const cache = {};
-    stats.forEach((data, index) => {
-        const filename = filenames[index];
-        cache[filename] = data.mtimeMs;
-    });
+    const filenames = getUniqueSourceFilenames(types);
+    const stats = await Promise.all(filenames.map(tryStatFile));
+    const cache = buildCacheFromFileStats(filenames, stats);
 
     await Promise.all([writeCache(config, cache), writeTypes(config, types)]);
 }
 
+function buildCacheFromFileStats(
+    filenames: string[],
+    stats: Array<Awaited<ReturnType<typeof stat>> | null>,
+): Record<string, number> {
+    const cache: Record<string, number> = {};
+
+    stats.forEach((fileStat, index) => {
+        if (fileStat) {
+            cache[filenames[index]] = fileStat.mtimeMs;
+        }
+    });
+
+    return cache;
+}
+
 async function readCache(config: Partial<KompendiumConfig>) {
     try {
-        const data = await readFile(`${config.path}/cache.json`);
+        const data = await readFile(`${config.path}/cache.json`, 'utf8');
 
         return JSON.parse(data);
     } catch {
@@ -241,12 +284,12 @@ async function readCache(config: Partial<KompendiumConfig>) {
 }
 
 async function writeCache(config: Partial<KompendiumConfig>, data: any) {
-    await writeFile(`${config.path}/cache.json`, JSON.stringify(data));
+    await writeFile(`${config.path}/cache.json`, JSON.stringify(data), 'utf8');
 }
 
 async function readTypes(config: Partial<KompendiumConfig>) {
     try {
-        const data = await readFile(`${config.path}/types.json`);
+        const data = await readFile(`${config.path}/types.json`, 'utf8');
 
         return JSON.parse(data);
     } catch {
@@ -255,5 +298,5 @@ async function readTypes(config: Partial<KompendiumConfig>) {
 }
 
 async function writeTypes(config: Partial<KompendiumConfig>, data: any) {
-    await writeFile(`${config.path}/types.json`, JSON.stringify(data));
+    await writeFile(`${config.path}/types.json`, JSON.stringify(data), 'utf8');
 }

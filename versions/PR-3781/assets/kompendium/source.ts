@@ -3,7 +3,7 @@ import {
     JsonDocsComponent,
     JsonDocsTag,
 } from '@stencil/core/internal';
-import { readFile } from './filesystem';
+import { readFile } from 'fs/promises';
 import { extname, join } from 'path';
 
 export interface JsonDocsSource {
@@ -37,7 +37,7 @@ export async function addComponentSources(
 export async function getSources(
     component: JsonDocsComponent,
 ): Promise<JsonDocsSource[]> {
-    const source = await readFile(component.filePath);
+    const source = await readFile(component.filePath, 'utf8');
     const styleNames = getStyleFiles(source);
     const styles = await Promise.all(
         styleNames.map(getStyle(component.dirPath)),
@@ -78,7 +78,7 @@ export function getStyleFiles(source: string): string[] {
 const getStyle =
     (path: string) =>
     async (name: string): Promise<JsonDocsSource> => {
-        const source = await readFile([path, name].join('/'));
+        const source = await readFile([path, name].join('/'), 'utf8');
 
         return {
             filename: name,
@@ -116,7 +116,7 @@ const getLink =
     async (tag: JsonDocsTag): Promise<JsonDocsSource> => {
         let source: string;
         try {
-            source = await readFile(join(component.dirPath, tag.text));
+            source = await readFile(join(component.dirPath, tag.text), 'utf8');
         } catch {
             source = `File ${tag.text} not found`;
         }

@@ -1,2 +1,2 @@
 import { TypeDescription } from '../types';
-export declare function parseFile(filename: string): TypeDescription[];
+export declare function parseFile(filename: string, tsconfig?: string): TypeDescription[];

@@ -106,9 +106,17 @@ header a {
 }
 .nav-panel .panel-list {
   overflow-y: auto;
+  list-style: none;
 }
 .nav-panel .panel-list:not(.chapters) {
   padding: 0 0.75rem 2rem 0.75rem;
+}
+.nav-panel .panel-list li {
+  margin-left: 0;
+}
+.nav-panel .panel-list li::before {
+  content: none;
+  display: none;
 }
 .nav-panel.display-nav-panel {
   z-index: 100;
@@ -169,6 +177,7 @@ header a {
 }
 .powered-by p {
   padding-left: 1.75rem;
+  font-size: 0.75rem;
   background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 148 80" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2"><path fill="none" d="M-.003 0h148v80h-148z"/><path d="M148.008 20c0-11.038-8.96-20-19.999-20H19.977c-11.038 0-20 8.962-20 20v40c0 11.038 8.962 20 20 20H128.01c11.038 0 20-8.962 20-20V20z" fill="rgb(36,71,88)"/><path d="M26.564 43.651v14.604H19.26V43.65h7.304zm0-7.302H19.26V21.745h7.304V36.35z" fill="rgb(255,160,0)"/><path d="M106.82 58.254v-7.303h7.304V43.65h7.304v-7.301h-7.304v-7.303h-7.304v-7.302h7.304v7.302h7.304v7.303h7.293v7.301h-7.293v7.302h-7.304v7.303h-7.304zm-43.812 0v-7.303h7.304V43.65h7.304v-7.301h7.303v-7.303h7.293v-7.302h7.304v7.302h-7.304v7.303H84.92v7.301h-7.303v7.302h-7.304v7.303h-7.304zm-14.597 0v-7.303h-7.304V43.65h-7.304v-7.301h7.304v-7.303h7.304v-7.302h7.293v7.302H48.41v7.303h-7.304v7.301h7.304v7.302h7.293v7.303H48.41z" fill="rgb(0,200,82)"/></svg>');
   background-position: left center;
   background-repeat: no-repeat;
@@ -178,6 +187,7 @@ header a {
   transition: color 0.2s ease;
   color: rgb(var(--kompendium-color-blue-default));
   text-decoration: none;
+  font-size: 0.75rem;
 }
 .powered-by a:hover {
   color: rgb(var(--kompendium-color-blue-light));
@@ -186,21 +196,6 @@ header a {
 .nav-panel__responsive-menu {
   transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out;
   box-shadow: var(--kompendium-button-shadow-normal);
-  transition: all 0.2s ease;
-  display: none;
-  cursor: pointer;
-  position: absolute;
-  top: 0.75rem;
-  right: calc((var(--size-show-nav-panel-button) * -1) - 1rem);
-  width: var(--size-show-nav-panel-button);
-  height: var(--size-show-nav-panel-button);
-  margin: 0.25rem;
-  border-radius: 50%;
-  text-align: center;
-  font-weight: bold;
-  background-color: rgba(var(--kompendium-contrast-200), 0.7);
-  backdrop-filter: blur(0.25rem);
-  color: rgb(var(--kompendium-contrast-900));
 }
 .nav-panel__responsive-menu:hover {
   box-shadow: var(--kompendium-button-shadow-hovered);
@@ -215,6 +210,23 @@ header a {
 .nav-panel__responsive-menu:focus-visible {
   outline: none;
   box-shadow: var(--kompendium-shadow-depth-8-focused);
+}
+.nav-panel__responsive-menu {
+  transition: all 0.2s ease;
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  top: 0.75rem;
+  right: calc(var(--size-show-nav-panel-button) * -1 - 1rem);
+  width: var(--size-show-nav-panel-button);
+  height: var(--size-show-nav-panel-button);
+  margin: 0.25rem;
+  border-radius: 50%;
+  text-align: center;
+  font-weight: bold;
+  background-color: rgba(var(--kompendium-contrast-200), 0.7);
+  backdrop-filter: blur(0.25rem);
+  color: rgb(var(--kompendium-contrast-900));
 }
 .nav-panel__responsive-menu span {
   transition: background-color 0.2s ease, transform 0.2s ease 0.3s, opacity 0.15s ease 0.3s;
@@ -246,7 +258,6 @@ header a {
   .nav-panel-scrim.display-nav-panel {
     display: block;
   }
-
   .nav-panel {
     transform: translate3d(calc(var(--width-nav-panel) * -1), 0, 0);
   }
@@ -255,7 +266,7 @@ header a {
     box-shadow: 0 0.09375rem 0.225rem 0 rgba(0, 0, 0, 0.232), 0 0.01875rem 0.05625rem 0 rgba(0, 0, 0, 0.208);
   }
   .nav-panel.display-nav-panel .nav-panel__responsive-menu {
-    right: calc( (var(--size-show-nav-panel-button) * -1) - 0.3125rem );
+    right: calc(var(--size-show-nav-panel-button) * -1 - 0.3125rem);
     border-radius: 0 0.5rem 0.5rem 0;
   }
   .nav-panel.display-nav-panel .nav-panel__responsive-menu span:nth-child(1), .nav-panel.display-nav-panel .nav-panel__responsive-menu span:nth-child(4) {
@@ -268,7 +279,6 @@ header a {
   .nav-panel.display-nav-panel .nav-panel__responsive-menu span:nth-child(3) {
     transform: rotate(-45deg);
   }
-
   .nav-panel__responsive-menu {
     display: block;
   }

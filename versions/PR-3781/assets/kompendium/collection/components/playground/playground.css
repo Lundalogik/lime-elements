@@ -17,6 +17,14 @@
   padding: 0.1875rem 1rem 0 1rem;
   overflow-y: auto;
 }
+.tab-bar .tab span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  width: 100%;
+  padding: 0.125rem 0;
+}
 .tab-bar .tab {
   transition: background-color 0.2s ease;
   cursor: pointer;
@@ -30,14 +38,6 @@
   border-radius: 0.5rem 0.5rem 0 0;
   margin: 0 0.125rem;
   min-width: 3.75rem;
-}
-.tab-bar .tab span {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  display: inline-block;
-  width: 100%;
-  padding: 0.125rem 0;
 }
 .tab-bar .tab:before, .tab-bar .tab:after {
   transition: background-color 0.2s ease;
@@ -135,7 +135,7 @@ section.example .code {
 
 @media (max-width: 1000px) {
   section.example .result,
-section.example .code {
+  section.example .code {
     width: 100%;
     padding-right: 0;
     margin-bottom: 5rem;
@@ -167,14 +167,6 @@ section.example .code {
 }
 .debug a.debug-link {
   transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out, opacity 0.2s ease;
-  width: 1.75rem;
-  height: 1.75rem;
-  font-size: 0;
-  margin: -3.25rem -1rem 0 0;
-  border-radius: 50%;
-  color: rgb(var(--kompendium-contrast-1200));
-  opacity: 0.6;
 }
 .debug a.debug-link:hover {
   box-shadow: var(--kompendium-button-shadow-hovered);
@@ -189,6 +181,16 @@ section.example .code {
 .debug a.debug-link:focus-visible {
   outline: none;
   box-shadow: var(--kompendium-shadow-depth-8-focused);
+}
+.debug a.debug-link {
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out, opacity 0.2s ease;
+  width: 1.75rem;
+  height: 1.75rem;
+  font-size: 0;
+  margin: -3.25rem -1rem 0 0;
+  border-radius: 50%;
+  color: rgb(var(--kompendium-contrast-1200));
+  opacity: 0.6;
 }
 .debug a.debug-link:hover {
   opacity: 1;

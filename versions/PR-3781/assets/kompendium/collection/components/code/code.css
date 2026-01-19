@@ -92,11 +92,6 @@ div.code-toolbar > .toolbar .toolbar-item button {
   cursor: pointer;
   transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out;
   box-shadow: var(--kompendium-button-shadow-normal);
-  background-color: rgb(var(--kompendium-contrast-100));
-  color: rgb(var(--kompendium-contrast-1100));
-  padding: 0.125rem 0.5rem;
-  border-radius: 0.375rem;
-  font-size: 0.75rem;
 }
 div.code-toolbar > .toolbar .toolbar-item button:hover {
   box-shadow: var(--kompendium-button-shadow-hovered);
@@ -111,6 +106,13 @@ div.code-toolbar > .toolbar .toolbar-item button:focus {
 div.code-toolbar > .toolbar .toolbar-item button:focus-visible {
   outline: none;
   box-shadow: var(--kompendium-shadow-depth-8-focused);
+}
+div.code-toolbar > .toolbar .toolbar-item button {
+  background-color: rgb(var(--kompendium-contrast-100));
+  color: rgb(var(--kompendium-contrast-1100));
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
 }
 
 /* PrismJS 1.19.0

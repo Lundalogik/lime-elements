@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './index-3601b4dc.js';
+import { r as registerInstance, h } from './index-9UrzenzW.js';
 
 const markdownExample = `
 ## Headings
@@ -151,12 +151,13 @@ Just for your information…
 `;
 
 const MarkdownExample = class {
-  constructor(hostRef) {
-    registerInstance(this, hostRef);
-  }
-  render() {
-    return h("kompendium-markdown", { text: markdownExample });
-  }
+    constructor(hostRef) {
+        registerInstance(this, hostRef);
+    }
+    render() {
+        return h("kompendium-markdown", { key: '6db38675f45e524403707a714226b9f794ea1285', text: markdownExample });
+    }
 };
 
 export { MarkdownExample as kompendium_example_markdown };
+//# sourceMappingURL=kompendium-example-markdown.entry.js.map

@@ -172,7 +172,11 @@ function createTypeMenu(types: TypeDescription[]): MenuItem {
     return {
         path: '/type/',
         title: 'Types',
-        children: types.map(getTypeMenu),
+        // Sort types alphabetically by name
+        children: types
+            .slice()
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map(getTypeMenu),
     };
 }
 

@@ -15,7 +15,6 @@
   justify-content: center;
   padding: 0.125rem 0.25rem 0.125rem 0.25rem;
   border-radius: 0.25rem;
-  color: rgb(var(--kompendium-contrast-1100));
 }
 .tag-list:before, .tag-list:after {
   content: "";
@@ -31,6 +30,9 @@
 .tag-list:after {
   background-color: currentColor;
   opacity: 0.04;
+}
+.tag-list {
+  color: rgb(var(--kompendium-contrast-1100));
 }
 
 .tag--private {

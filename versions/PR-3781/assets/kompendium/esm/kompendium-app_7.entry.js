@@ -1,9 +1,7 @@
-import { r as registerInstance, h, g as getElement, a as getContext } from './index-3601b4dc.js';
-import { s as setTypes } from './markdown-types-d1662a6a.js';
-import { T as THEME_EVENT_NAME } from './types-1752e047.js';
-import { c as commonjsGlobal } from './_commonjsHelpers-73699516.js';
-import { m as matchPath, a as matchesAreEqual, s as storageAvailable, b as supportsHistory, c as supportsPopStateOnHashChange, d as stripTrailingSlash, e as addLeadingSlash, f as createLocation, g as createKey$1, h as hasBasename, i as stripBasename, j as createPath, k as getConfirmation, l as isExtraneousPopstateEvent, n as supportsGoWithoutReloadUsingHash, o as stripLeadingSlash, p as locationsAreEqual } from './dom-utils-96bcc231.js';
-import { A as ActiveRouter } from './active-router-ec25355b.js';
+import { r as registerInstance, h, a as getElement } from './index-9UrzenzW.js';
+import { s as setTypes } from './markdown-types-Ajsawr_9.js';
+import { T as THEME_EVENT_NAME } from './types-BIPLEi1G.js';
+import { c as commonjsGlobal, g as getDefaultExportFromCjs } from './_commonjsHelpers-E-ZsRS8r.js';
 
 /**
  * Fuse.js v6.4.6 - Lightweight fuzzy-search (http://fusejs.io)
@@ -19,16 +17,13 @@ function isArray(value) {
     ? getTag(value) === '[object Array]'
     : Array.isArray(value)
 }
-
-// Adapted from: https://github.com/lodash/lodash/blob/master/.internal/baseToString.js
-const INFINITY = 1 / 0;
 function baseToString(value) {
   // Exit early for strings to avoid a performance hit in some environments.
   if (typeof value == 'string') {
     return value
   }
   let result = value + '';
-  return result == '0' && 1 / value == -INFINITY ? '-0' : result
+  return result == '0' && 1 / value == -Infinity ? '-0' : result
 }
 
 function toString(value) {
@@ -48,17 +43,17 @@ function isBoolean(value) {
   return (
     value === true ||
     value === false ||
-    (isObjectLike$1(value) && getTag(value) == '[object Boolean]')
+    (isObjectLike(value) && getTag(value) == '[object Boolean]')
   )
 }
 
-function isObject$1(value) {
+function isObject(value) {
   return typeof value === 'object'
 }
 
 // Checks if `value` is object-like.
-function isObjectLike$1(value) {
-  return isObject$1(value) && value !== null
+function isObjectLike(value) {
+  return isObject(value) && value !== null
 }
 
 function isDefined(value) {
@@ -78,8 +73,6 @@ function getTag(value) {
       : '[object Null]'
     : Object.prototype.toString.call(value)
 }
-
-const EXTENDED_SEARCH_UNAVAILABLE = 'Extended search is not available';
 
 const INCORRECT_INDEX_TYPE = "Incorrect 'index' type";
 
@@ -859,15 +852,15 @@ class BaseMatch {
     this.pattern = pattern;
   }
   static isMultiMatch(pattern) {
-    return getMatch$1(pattern, this.multiRegex)
+    return getMatch(pattern, this.multiRegex)
   }
   static isSingleMatch(pattern) {
-    return getMatch$1(pattern, this.singleRegex)
+    return getMatch(pattern, this.singleRegex)
   }
   search(/*text*/) {}
 }
 
-function getMatch$1(pattern, exp) {
+function getMatch(pattern, exp) {
   const matches = pattern.match(exp);
   return matches ? matches[1] : null
 }
@@ -1342,7 +1335,7 @@ const isExpression = (query) =>
 const isPath = (query) => !!query[KeyType.PATH];
 
 const isLeaf = (query) =>
-  !isArray(query) && isObject$1(query) && !isExpression(query);
+  !isArray(query) && isObject(query) && !isExpression(query);
 
 const convertToExplicit = (query) => ({
   [LogicalOperator.AND]: Object.keys(query).map((key) => ({
@@ -1499,13 +1492,6 @@ function format(
 class Fuse {
   constructor(docs, options = {}, index) {
     this.options = { ...Config, ...options };
-
-    if (
-      this.options.useExtendedSearch &&
-      !true
-    ) {
-      throw new Error(EXTENDED_SEARCH_UNAVAILABLE)
-    }
 
     this._keyStore = new KeyStore(this.options.keys);
 
@@ -1789,82 +1775,82 @@ Fuse.config = Config;
 const appCss = "*,*::before,*::after{box-sizing:border-box}ul[class],ol[class]{padding:0}body,h1,h2,h3,h4,p,ul[class],ol[class],li,figure,figcaption,blockquote,dl,dd{margin:0}ul[class],ol[class]{list-style:none}a:not([class]){text-decoration-skip-ink:auto}img{max-width:100%}input,button,textarea,select{font:inherit}@media (prefers-reduced-motion: reduce){*{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}}:root{--width-nav-panel:16rem}@keyframes spin{to{transform:rotate(360deg)}}.loading-screen{display:flex;flex-direction:row;align-items:center;justify-content:center;position:absolute;top:0;right:0;bottom:0;left:0}.loading-screen-icon{animation:spin 0.35s linear infinite;border-radius:50%;border-style:solid;border-width:0.125rem;border-color:rgb(var(--kompendium-color-blue-default));border-top-color:transparent;display:inline-block;height:1.25rem;width:1.25rem}.loading-screen-text{padding-left:0.75rem;color:rgb(var(--kompendium-contrast-1100))}:host{display:block;margin:0;padding:0}main{padding:1.25rem 2rem;margin-left:var(--width-nav-panel)}main kompendium-guide{display:block;width:100%;max-width:60rem}@media (max-width: 1000px){main{padding-top:2.625rem;margin-left:0}}";
 
 const App = class {
-  constructor(hostRef) {
-    registerInstance(this, hostRef);
-    /**
-     * Path to `kompendium.json`
-     */
-    this.path = '/kompendium.json';
-    this.onMessage = this.onMessage.bind(this);
-  }
-  componentWillLoad() {
-    this.createWebSocket();
-    this.fetchData();
-  }
-  watchData() {
-    const options = {
-      includeScore: true,
-      includeMatches: true,
-      ignoreLocation: true,
-      threshold: 0.4,
-    };
-    const index = Fuse.parseIndex(this.data.index.data);
-    this.index = new Fuse(this.data.index.documents, options, index);
-  }
-  createWebSocket() {
-    if (this.socket) {
-      return;
+    constructor(hostRef) {
+        registerInstance(this, hostRef);
+        /**
+         * Path to `kompendium.json`
+         */
+        this.path = '/kompendium.json';
+        this.onMessage = this.onMessage.bind(this);
     }
-    const url = getSocketUrl(location);
-    this.socket = new WebSocket(url);
-    this.socket.addEventListener('message', this.onMessage);
-  }
-  onMessage(event) {
-    var _a;
-    try {
-      const data = JSON.parse(event.data);
-      if (((_a = data.buildLog) === null || _a === void 0 ? void 0 : _a.progress) === 1) {
+    componentWillLoad() {
+        this.createWebSocket();
         this.fetchData();
-      }
     }
-    catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
+    watchData() {
+        const options = {
+            includeScore: true,
+            includeMatches: true,
+            ignoreLocation: true,
+            threshold: 0.4,
+        };
+        const index = Fuse.parseIndex(this.data.index.data);
+        this.index = new Fuse(this.data.index.documents, options, index);
     }
-  }
-  async fetchData() {
-    const data = await fetch(this.path);
-    this.data = await data.json();
-    const typeNames = this.data.types.map((type) => type.name);
-    setTypes(typeNames);
-  }
-  render() {
-    if (!this.data) {
-      return (h("div", { class: "loading-screen" }, h("div", { class: "loading-screen-icon" }), h("div", { class: "loading-screen-text" }, "Loading...")));
+    createWebSocket() {
+        if (this.socket) {
+            return;
+        }
+        const url = getSocketUrl(location);
+        this.socket = new WebSocket(url);
+        this.socket.addEventListener('message', this.onMessage);
     }
-    return (h("div", { class: "kompendium-body" }, h("kompendium-navigation", { menu: this.data.menu, header: this.data.title, logo: this.data.logo, index: this.index }), h("main", { role: "main" }, h("stencil-router", { historyType: "hash" }, h("stencil-route-switch", { scrollTopOffset: 0 }, h("stencil-route", { url: "/", component: "kompendium-markdown", componentProps: {
-        text: this.data.readme,
-      }, exact: true }), h("stencil-route", { url: "/component/:name/:section?", component: "kompendium-component", componentProps: {
-        docs: this.data.docs,
-        schemas: this.data.schemas,
-        examplePropsFactory: this.examplePropsFactory,
-      } }), h("stencil-route", { url: "/type/:name", component: "kompendium-type", componentProps: {
-        types: this.data.types,
-      } }), h("stencil-route", { url: "/debug/:name", component: "kompendium-debug", componentProps: {
-        docs: this.data.docs,
-        schemas: this.data.schemas,
-        examplePropsFactory: this.examplePropsFactory,
-      } }), h("stencil-route", { component: "kompendium-guide", componentProps: {
-        data: this.data,
-      } }))))));
-  }
-  static get watchers() { return {
-    "data": ["watchData"]
-  }; }
+    onMessage(event) {
+        var _a;
+        try {
+            const data = JSON.parse(event.data);
+            if (((_a = data.buildLog) === null || _a === void 0 ? void 0 : _a.progress) === 1) {
+                this.fetchData();
+            }
+        }
+        catch (e) {
+            // eslint-disable-next-line no-console
+            console.error(e);
+        }
+    }
+    async fetchData() {
+        const data = await fetch(this.path);
+        this.data = await data.json();
+        const typeNames = this.data.types.map((type) => type.name);
+        setTypes(typeNames);
+    }
+    render() {
+        if (!this.data) {
+            return (h("div", { class: "loading-screen" }, h("div", { class: "loading-screen-icon" }), h("div", { class: "loading-screen-text" }, "Loading...")));
+        }
+        return (h("div", { class: "kompendium-body" }, h("kompendium-navigation", { menu: this.data.menu, header: this.data.title, logo: this.data.logo, index: this.index }), h("main", { role: "main" }, h("stencil-router", null, h("stencil-route-switch", { scrollTopOffset: 0 }, h("stencil-route", { url: "/", component: "kompendium-markdown", componentProps: {
+                text: this.data.readme,
+            } }), h("stencil-route", { url: "/component/:name/:section?", component: "kompendium-component", componentProps: {
+                docs: this.data.docs,
+                schemas: this.data.schemas,
+                examplePropsFactory: this.examplePropsFactory,
+            } }), h("stencil-route", { url: "/type/:name", component: "kompendium-type", componentProps: {
+                types: this.data.types,
+            } }), h("stencil-route", { url: "/debug/:name", component: "kompendium-debug", componentProps: {
+                docs: this.data.docs,
+                schemas: this.data.schemas,
+                examplePropsFactory: this.examplePropsFactory,
+            } }), h("stencil-route", { component: "kompendium-guide", componentProps: {
+                data: this.data,
+            } }))))));
+    }
+    static get watchers() { return {
+        "data": ["watchData"]
+    }; }
 };
 function getSocketUrl(location) {
-  const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-  return `${protocol}//${location.hostname}:${location.port}/`;
+    const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+    return `${protocol}//${location.hostname}:${location.port}/`;
 }
 App.style = appCss;
 
@@ -1877,144 +1863,144 @@ const CHECKBOX_LIGHT = false;
 const CHECKBOX_DARK = true;
 const LOCALSTORAGE_KEY = 'kompendium-theme';
 const DarkmodeSwitch = class {
-  constructor(hostRef) {
-    registerInstance(this, hostRef);
-    this.theme = 'system-default';
-    this.getSelectRef = (element) => {
-      this.checkbox = element;
-    };
-    this.handleSystemThemeChange = (e) => {
-      this.systemSettingIsDark = !!e.matches;
-      if (this.theme === DEFAULT) {
-        this.checkbox.checked = !this.checkbox.checked;
-      }
-    };
-    this.handleThemeChange = () => {
-      const checkboxValue = !!this.checkbox.checked;
-      let newTheme = DEFAULT;
-      if (this.systemSettingIsDark) {
-        if (checkboxValue === CHECKBOX_LIGHT) {
-          newTheme = LIGHT;
-        }
-      }
-      else {
-        if (checkboxValue === CHECKBOX_DARK) {
-          newTheme = DARK;
-        }
-      }
-      this.setTheme(newTheme);
-      document.dispatchEvent(new CustomEvent(THEME_EVENT_NAME, { detail: newTheme }));
-    };
-    this.setTheme = (value) => {
-      this.theme = value;
-      document.querySelector('html').dataset.theme = value;
-      localStorage.setItem(LOCALSTORAGE_KEY, value);
-    };
-    const colorSchemeMediaQueryFallback = {
-      addEventListener: () => { },
-      matches: false,
-    };
-    this.colorSchemeMediaQuery =
-      (window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: dark)')) ||
-        colorSchemeMediaQueryFallback;
-  }
-  connectedCallback() {
-    this.colorSchemeMediaQuery.addEventListener('change', this.handleSystemThemeChange);
-  }
-  disconnectedCallback() {
-    this.colorSchemeMediaQuery.removeEventListener('change', this.handleSystemThemeChange);
-  }
-  componentWillLoad() {
-    this.systemSettingIsDark = this.colorSchemeMediaQuery.matches;
-    this.setTheme((localStorage.getItem(LOCALSTORAGE_KEY) || DEFAULT));
-  }
-  render() {
-    const props = {
-      checked: this.theme === DARK ||
-        (this.theme === DEFAULT && this.systemSettingIsDark),
-    };
-    return (h("div", { class: "mode-toggle" }, h("input", Object.assign({ type: "checkbox", onChange: this.handleThemeChange, ref: this.getSelectRef }, props)), h("div", { class: "mode-visualization" }, h("div", { class: "circle" }), h("div", { class: "ray one" }), h("div", { class: "ray two" }), h("div", { class: "ray three" }), h("div", { class: "ray four" }))));
-  }
+    constructor(hostRef) {
+        registerInstance(this, hostRef);
+        this.theme = 'system-default';
+        this.getSelectRef = (element) => {
+            this.checkbox = element;
+        };
+        this.handleSystemThemeChange = (e) => {
+            this.systemSettingIsDark = !!e.matches;
+            if (this.theme === DEFAULT) {
+                this.checkbox.checked = !this.checkbox.checked;
+            }
+        };
+        this.handleThemeChange = () => {
+            const checkboxValue = !!this.checkbox.checked;
+            let newTheme = DEFAULT;
+            if (this.systemSettingIsDark) {
+                if (checkboxValue === CHECKBOX_LIGHT) {
+                    newTheme = LIGHT;
+                }
+            }
+            else {
+                if (checkboxValue === CHECKBOX_DARK) {
+                    newTheme = DARK;
+                }
+            }
+            this.setTheme(newTheme);
+            document.dispatchEvent(new CustomEvent(THEME_EVENT_NAME, { detail: newTheme }));
+        };
+        this.setTheme = (value) => {
+            this.theme = value;
+            document.querySelector('html').dataset.theme = value;
+            localStorage.setItem(LOCALSTORAGE_KEY, value);
+        };
+        const colorSchemeMediaQueryFallback = {
+            addEventListener: () => { },
+            matches: false,
+        };
+        this.colorSchemeMediaQuery =
+            (window.matchMedia &&
+                window.matchMedia('(prefers-color-scheme: dark)')) ||
+                colorSchemeMediaQueryFallback;
+    }
+    connectedCallback() {
+        this.colorSchemeMediaQuery.addEventListener('change', this.handleSystemThemeChange);
+    }
+    disconnectedCallback() {
+        this.colorSchemeMediaQuery.removeEventListener('change', this.handleSystemThemeChange);
+    }
+    componentWillLoad() {
+        this.systemSettingIsDark = this.colorSchemeMediaQuery.matches;
+        this.setTheme((localStorage.getItem(LOCALSTORAGE_KEY) || DEFAULT));
+    }
+    render() {
+        const props = {
+            checked: this.theme === DARK ||
+                (this.theme === DEFAULT && this.systemSettingIsDark),
+        };
+        return (h("div", { key: '72bb10f37127840f1e310943a35a6f653bd3859d', class: "mode-toggle" }, h("input", { key: '5869df8eadeb50a5e6c7fe41e0ec6f7dfe8be233', type: "checkbox", onChange: this.handleThemeChange, ref: this.getSelectRef, ...props }), h("div", { key: '4ca3d61f92b73c9239820eadf411fbb9f4eaab7f', class: "mode-visualization" }, h("div", { key: 'e4d99bd1a90298a2a6c634cd2d3cb859c3bbd1bc', class: "circle" }), h("div", { key: '4a7e9b0d7d5bfc4c85db8cd50e6200899d81a6fb', class: "ray one" }), h("div", { key: 'c489f612cabd963e3ebae26996dd7a71f242e0de', class: "ray two" }), h("div", { key: '83288239cf2c67c0ad314728c6c65ffee67f9c1e', class: "ray three" }), h("div", { key: '013b3c4c16e8f49d396a7a3e903108304ad17dfe', class: "ray four" }))));
+    }
 };
 DarkmodeSwitch.style = darkmodeSwitchCss;
 
-const navigationCss = "*,*::before,*::after{box-sizing:border-box}ul[class],ol[class]{padding:0}body,h1,h2,h3,h4,p,ul[class],ol[class],li,figure,figcaption,blockquote,dl,dd{margin:0}ul[class],ol[class]{list-style:none}a:not([class]){text-decoration-skip-ink:auto}img{max-width:100%}input,button,textarea,select{font:inherit}@media (prefers-reduced-motion: reduce){*{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}}:root{--width-nav-panel:16rem}:host{display:block;font-family:var(--kompendium-font-primary);--size-show-nav-panel-button:2.25rem}header a{text-decoration:none;color:unset}.nav-panel-scrim{display:none;z-index:99;position:fixed;top:0;right:0;bottom:0;left:0}.nav-panel{transition:transform 0.44s cubic-bezier(1, 0.12, 0.2, 0.88), background-color 0.3s ease;width:var(--width-nav-panel);height:100vh;position:fixed;background-color:rgb(var(--kompendium-contrast-400));display:flex;flex-direction:column}.nav-panel .panel-header{transition:border 0.3s ease;flex-direction:row;padding:1rem;border-bottom:1px solid rgb(var(--kompendium-contrast-600));margin-bottom:0.5rem}.nav-panel .panel-list{overflow-y:auto}.nav-panel .panel-list:not(.chapters){padding:0 0.75rem 2rem 0.75rem}.nav-panel.display-nav-panel{z-index:100}.branding-and-mode{display:flex;align-items:center;margin-bottom:0.75rem}.branding-and-mode h1{all:unset;font-size:1rem;font-weight:normal;color:rgb(var(--kompendium-contrast-900));flex-grow:1;line-height:1}.branding-and-mode a{border-radius:0.125rem}.branding-and-mode a:focus{outline:none}.branding-and-mode a:focus-visible{outline:none;box-shadow:var(--kompendium-shadow-depth-8-focused)}.branding-and-mode kompendium-darkmode-switch{position:relative;flex-shrink:0;margin-left:0.75rem;padding-left:0.5rem}.branding-and-mode kompendium-darkmode-switch:before{transition:background-color 0.3s ease;content:\"\";position:absolute;background-color:rgb(var(--kompendium-contrast-600));border-radius:0.5rem;height:1.25rem;width:0.125rem;left:0.0625rem;top:0;bottom:0;margin:auto}.powered-by{position:absolute;bottom:0;left:0;font-size:0.75rem;padding:0.5rem 0.75rem;background-color:rgba(var(--kompendium-contrast-100), 0.4);backdrop-filter:blur(0.25rem);width:100%}.powered-by p{padding-left:1.75rem;background-image:url('data:image/svg+xml;utf8,<svg viewBox=\"0 0 148 80\" xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" stroke-linejoin=\"round\" stroke-miterlimit=\"2\"><path fill=\"none\" d=\"M-.003 0h148v80h-148z\"/><path d=\"M148.008 20c0-11.038-8.96-20-19.999-20H19.977c-11.038 0-20 8.962-20 20v40c0 11.038 8.962 20 20 20H128.01c11.038 0 20-8.962 20-20V20z\" fill=\"rgb(36,71,88)\"/><path d=\"M26.564 43.651v14.604H19.26V43.65h7.304zm0-7.302H19.26V21.745h7.304V36.35z\" fill=\"rgb(255,160,0)\"/><path d=\"M106.82 58.254v-7.303h7.304V43.65h7.304v-7.301h-7.304v-7.303h-7.304v-7.302h7.304v7.302h7.304v7.303h7.293v7.301h-7.293v7.302h-7.304v7.303h-7.304zm-43.812 0v-7.303h7.304V43.65h7.304v-7.301h7.303v-7.303h7.293v-7.302h7.304v7.302h-7.304v7.303H84.92v7.301h-7.303v7.302h-7.304v7.303h-7.304zm-14.597 0v-7.303h-7.304V43.65h-7.304v-7.301h7.304v-7.303h7.304v-7.302h7.293v7.302H48.41v7.303h-7.304v7.301h7.304v7.302h7.293v7.303H48.41z\" fill=\"rgb(0,200,82)\"/></svg>');background-position:left center;background-repeat:no-repeat;background-size:1.5rem}.powered-by a{transition:color 0.2s ease;color:rgb(var(--kompendium-color-blue-default));text-decoration:none}.powered-by a:hover{color:rgb(var(--kompendium-color-blue-light))}.nav-panel__responsive-menu{transition:background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out;box-shadow:var(--kompendium-button-shadow-normal);transition:all 0.2s ease;display:none;cursor:pointer;position:absolute;top:0.75rem;right:calc((var(--size-show-nav-panel-button) * -1) - 1rem);width:var(--size-show-nav-panel-button);height:var(--size-show-nav-panel-button);margin:0.25rem;border-radius:50%;text-align:center;font-weight:bold;background-color:rgba(var(--kompendium-contrast-200), 0.7);backdrop-filter:blur(0.25rem);color:rgb(var(--kompendium-contrast-900))}.nav-panel__responsive-menu:hover{box-shadow:var(--kompendium-button-shadow-hovered)}.nav-panel__responsive-menu:active{box-shadow:var(--kompendium-button-shadow-pressed);transform:translate3d(0, 0.08rem, 0)}.nav-panel__responsive-menu:focus{outline:none}.nav-panel__responsive-menu:focus-visible{outline:none;box-shadow:var(--kompendium-shadow-depth-8-focused)}.nav-panel__responsive-menu span{transition:background-color 0.2s ease, transform 0.2s ease 0.3s, opacity 0.15s ease 0.3s;display:block;position:absolute;left:0;right:0;margin:auto;height:0.125rem;width:1rem;border-radius:0.25rem;background-color:rgb(var(--kompendium-contrast-900))}.nav-panel__responsive-menu span:nth-child(1){top:0.75rem}.nav-panel__responsive-menu span:nth-child(2),.nav-panel__responsive-menu span:nth-child(3){top:0;bottom:0}.nav-panel__responsive-menu span:nth-child(4){bottom:0.75rem}.nav-panel__responsive-menu:hover span{background-color:rgb(var(--kompendium-contrast-1200))}@media (max-width: 1000px){.nav-panel-scrim.display-nav-panel{display:block}.nav-panel{transform:translate3d(calc(var(--width-nav-panel) * -1), 0, 0)}.nav-panel.display-nav-panel{transform:translate3d(0, 0, 0);box-shadow:0 0.09375rem 0.225rem 0 rgba(0, 0, 0, 0.232), 0 0.01875rem 0.05625rem 0 rgba(0, 0, 0, 0.208)}.nav-panel.display-nav-panel .nav-panel__responsive-menu{right:calc( (var(--size-show-nav-panel-button) * -1) - 0.3125rem );border-radius:0 0.5rem 0.5rem 0}.nav-panel.display-nav-panel .nav-panel__responsive-menu span:nth-child(1),.nav-panel.display-nav-panel .nav-panel__responsive-menu span:nth-child(4){transform:scaleX(0);opacity:0}.nav-panel.display-nav-panel .nav-panel__responsive-menu span:nth-child(2){transform:rotate(45deg)}.nav-panel.display-nav-panel .nav-panel__responsive-menu span:nth-child(3){transform:rotate(-45deg)}.nav-panel__responsive-menu{display:block}}.panel-item{transition:opacity 0.2s ease;width:100%;border-radius:0.375rem}.panel-item.active{background-color:rgb(var(--kompendium-contrast-100), 0.5)}.panel-link{display:grid;grid-auto-flow:column;grid-template-columns:1fr 1.75rem;line-height:1.75rem;color:rgb(var(--kompendium-contrast-900));text-decoration:none;border-radius:0.375rem}.panel-link:hover,.panel-link.active{color:rgb(var(--kompendium-color-blue-default))}.panel-link.active svg{transform:scale(0.64) rotate(-90deg)}.panel-link:focus{outline:none}.panel-link:focus-visible{outline:none;box-shadow:var(--kompendium-shadow-depth-8-focused)}.panel-link svg{visibility:hidden;transition:transform 0.2s ease;transform:scale(0.64) rotate(90deg);height:2rem}.panel-link.has-children svg{visibility:visible}.link-text{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:100%;padding-left:0.5rem}.chapters{height:0}.chapters>.panel-item{padding:0 0.5rem}.chapters:not(.active){visibility:hidden}.chapters.active{transition:height 0.2s ease;height:100%}.chapters.active .panel-item{opacity:1;transition-delay:0.2s}.chapters.active .panel-item:nth-child(1){transition-delay:0s}.chapters.active .panel-item:nth-child(2){transition-delay:0.04s}.chapters.active .panel-item:nth-child(3){transition-delay:0.06s}.chapters.active .panel-item:nth-child(4){transition-delay:0.08s}.chapters.active .panel-item:nth-child(5){transition-delay:0.1s}.chapters.active .panel-item:nth-child(6){transition-delay:0.12s}.chapters.active .panel-item:nth-child(7){transition-delay:0.14s}.chapters.active .panel-item:nth-child(8){transition-delay:0.15s}.chapters.active .panel-item:nth-child(9){transition-delay:0.16s}.chapters.active .panel-item:nth-child(10){transition-delay:0.17s}.chapters.active .panel-item:nth-child(11){transition-delay:0.18s}.chapters.active .panel-item:nth-child(12){transition-delay:0.19s}.chapters.active .panel-item:last-child{margin-bottom:0.5rem}.chapters .panel-link.has-children svg{visibility:hidden}.chapters .panel-item{opacity:0}.chapters .panel-item .chapters{font-size:0.8125rem;padding-left:0.5rem}.chapters .panel-item .chapters:first-child{margin-top:0.25rem}";
+const navigationCss = "*,*::before,*::after{box-sizing:border-box}ul[class],ol[class]{padding:0}body,h1,h2,h3,h4,p,ul[class],ol[class],li,figure,figcaption,blockquote,dl,dd{margin:0}ul[class],ol[class]{list-style:none}a:not([class]){text-decoration-skip-ink:auto}img{max-width:100%}input,button,textarea,select{font:inherit}@media (prefers-reduced-motion: reduce){*{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}}:root{--width-nav-panel:16rem}:host{display:block;font-family:var(--kompendium-font-primary);--size-show-nav-panel-button:2.25rem}header a{text-decoration:none;color:unset}.nav-panel-scrim{display:none;z-index:99;position:fixed;top:0;right:0;bottom:0;left:0}.nav-panel{transition:transform 0.44s cubic-bezier(1, 0.12, 0.2, 0.88), background-color 0.3s ease;width:var(--width-nav-panel);height:100vh;position:fixed;background-color:rgb(var(--kompendium-contrast-400));display:flex;flex-direction:column}.nav-panel .panel-header{transition:border 0.3s ease;flex-direction:row;padding:1rem;border-bottom:1px solid rgb(var(--kompendium-contrast-600));margin-bottom:0.5rem}.nav-panel .panel-list{overflow-y:auto;list-style:none}.nav-panel .panel-list:not(.chapters){padding:0 0.75rem 2rem 0.75rem}.nav-panel .panel-list li{margin-left:0}.nav-panel .panel-list li::before{content:none;display:none}.nav-panel.display-nav-panel{z-index:100}.branding-and-mode{display:flex;align-items:center;margin-bottom:0.75rem}.branding-and-mode h1{all:unset;font-size:1rem;font-weight:normal;color:rgb(var(--kompendium-contrast-900));flex-grow:1;line-height:1}.branding-and-mode a{border-radius:0.125rem}.branding-and-mode a:focus{outline:none}.branding-and-mode a:focus-visible{outline:none;box-shadow:var(--kompendium-shadow-depth-8-focused)}.branding-and-mode kompendium-darkmode-switch{position:relative;flex-shrink:0;margin-left:0.75rem;padding-left:0.5rem}.branding-and-mode kompendium-darkmode-switch:before{transition:background-color 0.3s ease;content:\"\";position:absolute;background-color:rgb(var(--kompendium-contrast-600));border-radius:0.5rem;height:1.25rem;width:0.125rem;left:0.0625rem;top:0;bottom:0;margin:auto}.powered-by{position:absolute;bottom:0;left:0;font-size:0.75rem;padding:0.5rem 0.75rem;background-color:rgba(var(--kompendium-contrast-100), 0.4);backdrop-filter:blur(0.25rem);width:100%}.powered-by p{padding-left:1.75rem;font-size:0.75rem;background-image:url('data:image/svg+xml;utf8,<svg viewBox=\"0 0 148 80\" xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" stroke-linejoin=\"round\" stroke-miterlimit=\"2\"><path fill=\"none\" d=\"M-.003 0h148v80h-148z\"/><path d=\"M148.008 20c0-11.038-8.96-20-19.999-20H19.977c-11.038 0-20 8.962-20 20v40c0 11.038 8.962 20 20 20H128.01c11.038 0 20-8.962 20-20V20z\" fill=\"rgb(36,71,88)\"/><path d=\"M26.564 43.651v14.604H19.26V43.65h7.304zm0-7.302H19.26V21.745h7.304V36.35z\" fill=\"rgb(255,160,0)\"/><path d=\"M106.82 58.254v-7.303h7.304V43.65h7.304v-7.301h-7.304v-7.303h-7.304v-7.302h7.304v7.302h7.304v7.303h7.293v7.301h-7.293v7.302h-7.304v7.303h-7.304zm-43.812 0v-7.303h7.304V43.65h7.304v-7.301h7.303v-7.303h7.293v-7.302h7.304v7.302h-7.304v7.303H84.92v7.301h-7.303v7.302h-7.304v7.303h-7.304zm-14.597 0v-7.303h-7.304V43.65h-7.304v-7.301h7.304v-7.303h7.304v-7.302h7.293v7.302H48.41v7.303h-7.304v7.301h7.304v7.302h7.293v7.303H48.41z\" fill=\"rgb(0,200,82)\"/></svg>');background-position:left center;background-repeat:no-repeat;background-size:1.5rem}.powered-by a{transition:color 0.2s ease;color:rgb(var(--kompendium-color-blue-default));text-decoration:none;font-size:0.75rem}.powered-by a:hover{color:rgb(var(--kompendium-color-blue-light))}.nav-panel__responsive-menu{transition:background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out;box-shadow:var(--kompendium-button-shadow-normal)}.nav-panel__responsive-menu:hover{box-shadow:var(--kompendium-button-shadow-hovered)}.nav-panel__responsive-menu:active{box-shadow:var(--kompendium-button-shadow-pressed);transform:translate3d(0, 0.08rem, 0)}.nav-panel__responsive-menu:focus{outline:none}.nav-panel__responsive-menu:focus-visible{outline:none;box-shadow:var(--kompendium-shadow-depth-8-focused)}.nav-panel__responsive-menu{transition:all 0.2s ease;display:none;cursor:pointer;position:absolute;top:0.75rem;right:calc(var(--size-show-nav-panel-button) * -1 - 1rem);width:var(--size-show-nav-panel-button);height:var(--size-show-nav-panel-button);margin:0.25rem;border-radius:50%;text-align:center;font-weight:bold;background-color:rgba(var(--kompendium-contrast-200), 0.7);backdrop-filter:blur(0.25rem);color:rgb(var(--kompendium-contrast-900))}.nav-panel__responsive-menu span{transition:background-color 0.2s ease, transform 0.2s ease 0.3s, opacity 0.15s ease 0.3s;display:block;position:absolute;left:0;right:0;margin:auto;height:0.125rem;width:1rem;border-radius:0.25rem;background-color:rgb(var(--kompendium-contrast-900))}.nav-panel__responsive-menu span:nth-child(1){top:0.75rem}.nav-panel__responsive-menu span:nth-child(2),.nav-panel__responsive-menu span:nth-child(3){top:0;bottom:0}.nav-panel__responsive-menu span:nth-child(4){bottom:0.75rem}.nav-panel__responsive-menu:hover span{background-color:rgb(var(--kompendium-contrast-1200))}@media (max-width: 1000px){.nav-panel-scrim.display-nav-panel{display:block}.nav-panel{transform:translate3d(calc(var(--width-nav-panel) * -1), 0, 0)}.nav-panel.display-nav-panel{transform:translate3d(0, 0, 0);box-shadow:0 0.09375rem 0.225rem 0 rgba(0, 0, 0, 0.232), 0 0.01875rem 0.05625rem 0 rgba(0, 0, 0, 0.208)}.nav-panel.display-nav-panel .nav-panel__responsive-menu{right:calc(var(--size-show-nav-panel-button) * -1 - 0.3125rem);border-radius:0 0.5rem 0.5rem 0}.nav-panel.display-nav-panel .nav-panel__responsive-menu span:nth-child(1),.nav-panel.display-nav-panel .nav-panel__responsive-menu span:nth-child(4){transform:scaleX(0);opacity:0}.nav-panel.display-nav-panel .nav-panel__responsive-menu span:nth-child(2){transform:rotate(45deg)}.nav-panel.display-nav-panel .nav-panel__responsive-menu span:nth-child(3){transform:rotate(-45deg)}.nav-panel__responsive-menu{display:block}}.panel-item{transition:opacity 0.2s ease;width:100%;border-radius:0.375rem}.panel-item.active{background-color:rgb(var(--kompendium-contrast-100), 0.5)}.panel-link{display:grid;grid-auto-flow:column;grid-template-columns:1fr 1.75rem;line-height:1.75rem;color:rgb(var(--kompendium-contrast-900));text-decoration:none;border-radius:0.375rem}.panel-link:hover,.panel-link.active{color:rgb(var(--kompendium-color-blue-default))}.panel-link.active svg{transform:scale(0.64) rotate(-90deg)}.panel-link:focus{outline:none}.panel-link:focus-visible{outline:none;box-shadow:var(--kompendium-shadow-depth-8-focused)}.panel-link svg{visibility:hidden;transition:transform 0.2s ease;transform:scale(0.64) rotate(90deg);height:2rem}.panel-link.has-children svg{visibility:visible}.link-text{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:100%;padding-left:0.5rem}.chapters{height:0}.chapters>.panel-item{padding:0 0.5rem}.chapters:not(.active){visibility:hidden}.chapters.active{transition:height 0.2s ease;height:100%}.chapters.active .panel-item{opacity:1;transition-delay:0.2s}.chapters.active .panel-item:nth-child(1){transition-delay:0s}.chapters.active .panel-item:nth-child(2){transition-delay:0.04s}.chapters.active .panel-item:nth-child(3){transition-delay:0.06s}.chapters.active .panel-item:nth-child(4){transition-delay:0.08s}.chapters.active .panel-item:nth-child(5){transition-delay:0.1s}.chapters.active .panel-item:nth-child(6){transition-delay:0.12s}.chapters.active .panel-item:nth-child(7){transition-delay:0.14s}.chapters.active .panel-item:nth-child(8){transition-delay:0.15s}.chapters.active .panel-item:nth-child(9){transition-delay:0.16s}.chapters.active .panel-item:nth-child(10){transition-delay:0.17s}.chapters.active .panel-item:nth-child(11){transition-delay:0.18s}.chapters.active .panel-item:nth-child(12){transition-delay:0.19s}.chapters.active .panel-item:last-child{margin-bottom:0.5rem}.chapters .panel-link.has-children svg{visibility:hidden}.chapters .panel-item{opacity:0}.chapters .panel-item .chapters{font-size:0.8125rem;padding-left:0.5rem}.chapters .panel-item .chapters:first-child{margin-top:0.25rem}";
 
 const Navigation = class {
-  constructor(hostRef) {
-    registerInstance(this, hostRef);
-    this.route = '';
-    this.displayNavPanel = false;
-    this.toggleMenu = () => {
-      this.displayNavPanel = !this.displayNavPanel;
-    };
-    this.stopPropagationOfNavClick = (event) => {
-      event.stopPropagation();
-    };
-    this.setRoute = this.setRoute.bind(this);
-    this.renderMenuItem = this.renderMenuItem.bind(this);
-  }
-  connectedCallback() {
-    window.addEventListener('hashchange', this.setRoute);
-    this.setRoute();
-  }
-  disconnectedCallback() {
-    window.removeEventListener('hashchange', this.setRoute);
-  }
-  setRoute() {
-    this.route = location.hash.substr(1);
-  }
-  render() {
-    return [
-      h("div", { class: {
-          'nav-panel-scrim': true,
-          'display-nav-panel': this.displayNavPanel,
-        }, onClick: this.toggleMenu }),
-      h("nav", { class: {
-          'nav-panel': true,
-          'display-nav-panel': this.displayNavPanel,
-        }, onClick: this.stopPropagationOfNavClick }, h("a", { class: "nav-panel__responsive-menu", onClick: this.toggleMenu }, h("span", null), h("span", null), h("span", null), h("span", null)), h("header", { class: "panel-header" }, h("div", { class: "branding-and-mode" }, h("h1", null, this.renderHeader()), h("kompendium-darkmode-switch", null)), h("kompendium-search", { index: this.index })), this.renderChapters(this.menu)),
-    ];
-  }
-  renderHeader() {
-    let content = this.header;
-    if (this.logo) {
-      content = h("img", { alt: this.header, src: this.logo });
+    constructor(hostRef) {
+        registerInstance(this, hostRef);
+        this.route = '';
+        this.displayNavPanel = false;
+        this.toggleMenu = () => {
+            this.displayNavPanel = !this.displayNavPanel;
+        };
+        this.stopPropagationOfNavClick = (event) => {
+            event.stopPropagation();
+        };
+        this.setRoute = this.setRoute.bind(this);
+        this.renderMenuItem = this.renderMenuItem.bind(this);
     }
-    return h("a", { href: "#" }, content);
-  }
-  renderChapters(menu) {
-    if (!menu || !menu.length) {
-      return;
+    connectedCallback() {
+        window.addEventListener('hashchange', this.setRoute);
+        this.setRoute();
     }
-    return (h("ul", { class: "panel-list" }, menu.map(this.renderMenuItem), h("div", { class: "powered-by" }, h("p", null, "Powered by\u00A0", h("a", { href: "https://github.com/jgroth/kompendium" }, "Kompendium")))));
-  }
-  renderMenuItem(item) {
-    const itemClassList = {
-      active: this.isRouteActive(item.path),
-      'panel-item': true,
-    };
-    const chapterClassList = {
-      active: this.isRouteActive(item.path),
-      chapters: true,
-      'panel-list': true,
-    };
-    const chapters = item.children || [];
-    const anchorClassList = {
-      'panel-link': true,
-      active: this.isRouteActive(item.path),
-      'has-children': !!chapters.length,
-    };
-    const anchorAdditionalProps = {};
-    if (!chapters.length) {
-      anchorAdditionalProps.onClick = this.toggleMenu;
+    disconnectedCallback() {
+        window.removeEventListener('hashchange', this.setRoute);
     }
-    return (h("li", { class: itemClassList }, h("a", Object.assign({ class: anchorClassList, href: '#' + item.path }, anchorAdditionalProps), h("span", { class: "link-text" }, item.title), h("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", width: "24", height: "24" }, h("path", { fill: "none", d: "M0 0h24v24H0z" }), h("path", { id: "arrow", d: "M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z", fill: "currentColor" }))), h("ul", { class: chapterClassList }, chapters.map(this.renderMenuItem))));
-  }
-  isRouteActive(route) {
-    return this.route.startsWith(route);
-  }
+    setRoute() {
+        this.route = location.hash.substr(1);
+    }
+    render() {
+        return [
+            h("div", { key: '0abf57dba46d2c55f777e6b0a62756f1531b716a', class: {
+                    'nav-panel-scrim': true,
+                    'display-nav-panel': this.displayNavPanel,
+                }, onClick: this.toggleMenu }),
+            h("nav", { key: '47f1e62abae92f0ee5a90a980f79b5cec0508364', class: {
+                    'nav-panel': true,
+                    'display-nav-panel': this.displayNavPanel,
+                }, onClick: this.stopPropagationOfNavClick }, h("a", { key: '25fd2d738007fc596447cf4ac0a2bbbcf92df332', class: "nav-panel__responsive-menu", onClick: this.toggleMenu }, h("span", { key: '2b4056f7793e879a86bd0ed40ce45366d891cf5a' }), h("span", { key: 'c2174de261be61fa807e8b6dadcf6b7119bbec30' }), h("span", { key: 'd755597e3c961b057f7ed4cb042aa45c8ca336c1' }), h("span", { key: 'a3442946e847e5b870afc0dcce8baf47cc4fb03a' })), h("header", { key: '46a15de390a19d9cb9b0bd8973e82b4c33bb6d62', class: "panel-header" }, h("div", { key: '3c280f8409cef9848c3e58c6ac907a4e6ae53a8e', class: "branding-and-mode" }, h("h1", { key: 'c38675cafe5bdf1a119a3e06cdca78f5d5ad5b25' }, this.renderHeader()), h("kompendium-darkmode-switch", { key: 'ec6564ee68633fffabc3deecf34a09d431d7634a' })), h("kompendium-search", { key: '8aa459ff257cc6a1adb726ca4b6b4cdf397ccb57', index: this.index })), this.renderChapters(this.menu)),
+        ];
+    }
+    renderHeader() {
+        let content = this.header;
+        if (this.logo) {
+            content = h("img", { alt: this.header, src: this.logo });
+        }
+        return h("a", { href: "#" }, content);
+    }
+    renderChapters(menu) {
+        if (!menu || !menu.length) {
+            return;
+        }
+        return (h("ul", { class: "panel-list" }, menu.map(this.renderMenuItem), h("div", { class: "powered-by" }, h("p", null, "Powered by\u00A0", h("a", { href: "https://github.com/jgroth/kompendium" }, "Kompendium")))));
+    }
+    renderMenuItem(item) {
+        const itemClassList = {
+            active: this.isRouteActive(item.path),
+            'panel-item': true,
+        };
+        const chapterClassList = {
+            active: this.isRouteActive(item.path),
+            chapters: true,
+            'panel-list': true,
+        };
+        const chapters = item.children || [];
+        const anchorClassList = {
+            'panel-link': true,
+            active: this.isRouteActive(item.path),
+            'has-children': !!chapters.length,
+        };
+        const anchorAdditionalProps = {};
+        if (!chapters.length) {
+            anchorAdditionalProps.onClick = this.toggleMenu;
+        }
+        return (h("li", { class: itemClassList }, h("a", { class: anchorClassList, href: '#' + item.path, ...anchorAdditionalProps }, h("span", { class: "link-text" }, item.title), h("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", width: "24", height: "24" }, h("path", { fill: "none", d: "M0 0h24v24H0z" }), h("path", { id: "arrow", d: "M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z", fill: "currentColor" }))), h("ul", { class: chapterClassList }, chapters.map(this.renderMenuItem))));
+    }
+    isRouteActive(route) {
+        return this.route.startsWith(route);
+    }
 };
 Navigation.style = navigationCss;
 
@@ -2043,183 +2029,281 @@ Navigation.style = navigationCss;
  * _.isObject(null);
  * // => false
  */
-function isObject(value) {
-  var type = typeof value;
-  return value != null && (type == 'object' || type == 'function');
-}
 
-var isObject_1 = isObject;
+var isObject_1;
+var hasRequiredIsObject;
+
+function requireIsObject () {
+	if (hasRequiredIsObject) return isObject_1;
+	hasRequiredIsObject = 1;
+	function isObject(value) {
+	  var type = typeof value;
+	  return value != null && (type == 'object' || type == 'function');
+	}
+
+	isObject_1 = isObject;
+	return isObject_1;
+}
 
 /** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
 
-var _freeGlobal = freeGlobal;
+var _freeGlobal;
+var hasRequired_freeGlobal;
 
-/** Detect free variable `self`. */
-var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+function require_freeGlobal () {
+	if (hasRequired_freeGlobal) return _freeGlobal;
+	hasRequired_freeGlobal = 1;
+	var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
 
-/** Used as a reference to the global object. */
-var root = _freeGlobal || freeSelf || Function('return this')();
+	_freeGlobal = freeGlobal;
+	return _freeGlobal;
+}
 
-var _root = root;
+var _root;
+var hasRequired_root;
 
-/**
- * Gets the timestamp of the number of milliseconds that have elapsed since
- * the Unix epoch (1 January 1970 00:00:00 UTC).
- *
- * @static
- * @memberOf _
- * @since 2.4.0
- * @category Date
- * @returns {number} Returns the timestamp.
- * @example
- *
- * _.defer(function(stamp) {
- *   console.log(_.now() - stamp);
- * }, _.now());
- * // => Logs the number of milliseconds it took for the deferred invocation.
- */
-var now = function() {
-  return _root.Date.now();
-};
+function require_root () {
+	if (hasRequired_root) return _root;
+	hasRequired_root = 1;
+	var freeGlobal = require_freeGlobal();
 
-var now_1 = now;
+	/** Detect free variable `self`. */
+	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+	/** Used as a reference to the global object. */
+	var root = freeGlobal || freeSelf || Function('return this')();
+
+	_root = root;
+	return _root;
+}
+
+var now_1;
+var hasRequiredNow;
+
+function requireNow () {
+	if (hasRequiredNow) return now_1;
+	hasRequiredNow = 1;
+	var root = require_root();
+
+	/**
+	 * Gets the timestamp of the number of milliseconds that have elapsed since
+	 * the Unix epoch (1 January 1970 00:00:00 UTC).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 2.4.0
+	 * @category Date
+	 * @returns {number} Returns the timestamp.
+	 * @example
+	 *
+	 * _.defer(function(stamp) {
+	 *   console.log(_.now() - stamp);
+	 * }, _.now());
+	 * // => Logs the number of milliseconds it took for the deferred invocation.
+	 */
+	var now = function() {
+	  return root.Date.now();
+	};
+
+	now_1 = now;
+	return now_1;
+}
 
 /** Used to match a single whitespace character. */
-var reWhitespace = /\s/;
 
-/**
- * Used by `_.trim` and `_.trimEnd` to get the index of the last non-whitespace
- * character of `string`.
- *
- * @private
- * @param {string} string The string to inspect.
- * @returns {number} Returns the index of the last non-whitespace character.
- */
-function trimmedEndIndex(string) {
-  var index = string.length;
+var _trimmedEndIndex;
+var hasRequired_trimmedEndIndex;
 
-  while (index-- && reWhitespace.test(string.charAt(index))) {}
-  return index;
+function require_trimmedEndIndex () {
+	if (hasRequired_trimmedEndIndex) return _trimmedEndIndex;
+	hasRequired_trimmedEndIndex = 1;
+	var reWhitespace = /\s/;
+
+	/**
+	 * Used by `_.trim` and `_.trimEnd` to get the index of the last non-whitespace
+	 * character of `string`.
+	 *
+	 * @private
+	 * @param {string} string The string to inspect.
+	 * @returns {number} Returns the index of the last non-whitespace character.
+	 */
+	function trimmedEndIndex(string) {
+	  var index = string.length;
+
+	  while (index-- && reWhitespace.test(string.charAt(index))) {}
+	  return index;
+	}
+
+	_trimmedEndIndex = trimmedEndIndex;
+	return _trimmedEndIndex;
 }
 
-var _trimmedEndIndex = trimmedEndIndex;
+var _baseTrim;
+var hasRequired_baseTrim;
 
-/** Used to match leading whitespace. */
-var reTrimStart = /^\s+/;
+function require_baseTrim () {
+	if (hasRequired_baseTrim) return _baseTrim;
+	hasRequired_baseTrim = 1;
+	var trimmedEndIndex = require_trimmedEndIndex();
 
-/**
- * The base implementation of `_.trim`.
- *
- * @private
- * @param {string} string The string to trim.
- * @returns {string} Returns the trimmed string.
- */
-function baseTrim(string) {
-  return string
-    ? string.slice(0, _trimmedEndIndex(string) + 1).replace(reTrimStart, '')
-    : string;
+	/** Used to match leading whitespace. */
+	var reTrimStart = /^\s+/;
+
+	/**
+	 * The base implementation of `_.trim`.
+	 *
+	 * @private
+	 * @param {string} string The string to trim.
+	 * @returns {string} Returns the trimmed string.
+	 */
+	function baseTrim(string) {
+	  return string
+	    ? string.slice(0, trimmedEndIndex(string) + 1).replace(reTrimStart, '')
+	    : string;
+	}
+
+	_baseTrim = baseTrim;
+	return _baseTrim;
 }
 
-var _baseTrim = baseTrim;
+var _Symbol;
+var hasRequired_Symbol;
 
-/** Built-in value references. */
-var Symbol = _root.Symbol;
+function require_Symbol () {
+	if (hasRequired_Symbol) return _Symbol;
+	hasRequired_Symbol = 1;
+	var root = require_root();
 
-var _Symbol = Symbol;
+	/** Built-in value references. */
+	var Symbol = root.Symbol;
+
+	_Symbol = Symbol;
+	return _Symbol;
+}
+
+var _getRawTag;
+var hasRequired_getRawTag;
+
+function require_getRawTag () {
+	if (hasRequired_getRawTag) return _getRawTag;
+	hasRequired_getRawTag = 1;
+	var Symbol = require_Symbol();
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var nativeObjectToString = objectProto.toString;
+
+	/** Built-in value references. */
+	var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+	/**
+	 * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the raw `toStringTag`.
+	 */
+	function getRawTag(value) {
+	  var isOwn = hasOwnProperty.call(value, symToStringTag),
+	      tag = value[symToStringTag];
+
+	  try {
+	    value[symToStringTag] = undefined;
+	    var unmasked = true;
+	  } catch (e) {}
+
+	  var result = nativeObjectToString.call(value);
+	  if (unmasked) {
+	    if (isOwn) {
+	      value[symToStringTag] = tag;
+	    } else {
+	      delete value[symToStringTag];
+	    }
+	  }
+	  return result;
+	}
+
+	_getRawTag = getRawTag;
+	return _getRawTag;
+}
 
 /** Used for built-in method references. */
-var objectProto$1 = Object.prototype;
 
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto$1.hasOwnProperty;
+var _objectToString;
+var hasRequired_objectToString;
 
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-var nativeObjectToString$1 = objectProto$1.toString;
+function require_objectToString () {
+	if (hasRequired_objectToString) return _objectToString;
+	hasRequired_objectToString = 1;
+	var objectProto = Object.prototype;
 
-/** Built-in value references. */
-var symToStringTag$1 = _Symbol ? _Symbol.toStringTag : undefined;
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var nativeObjectToString = objectProto.toString;
 
-/**
- * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the raw `toStringTag`.
- */
-function getRawTag(value) {
-  var isOwn = hasOwnProperty.call(value, symToStringTag$1),
-      tag = value[symToStringTag$1];
+	/**
+	 * Converts `value` to a string using `Object.prototype.toString`.
+	 *
+	 * @private
+	 * @param {*} value The value to convert.
+	 * @returns {string} Returns the converted string.
+	 */
+	function objectToString(value) {
+	  return nativeObjectToString.call(value);
+	}
 
-  try {
-    value[symToStringTag$1] = undefined;
-    var unmasked = true;
-  } catch (e) {}
-
-  var result = nativeObjectToString$1.call(value);
-  if (unmasked) {
-    if (isOwn) {
-      value[symToStringTag$1] = tag;
-    } else {
-      delete value[symToStringTag$1];
-    }
-  }
-  return result;
+	_objectToString = objectToString;
+	return _objectToString;
 }
 
-var _getRawTag = getRawTag;
+var _baseGetTag;
+var hasRequired_baseGetTag;
 
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
+function require_baseGetTag () {
+	if (hasRequired_baseGetTag) return _baseGetTag;
+	hasRequired_baseGetTag = 1;
+	var Symbol = require_Symbol(),
+	    getRawTag = require_getRawTag(),
+	    objectToString = require_objectToString();
 
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-var nativeObjectToString = objectProto.toString;
+	/** `Object#toString` result references. */
+	var nullTag = '[object Null]',
+	    undefinedTag = '[object Undefined]';
 
-/**
- * Converts `value` to a string using `Object.prototype.toString`.
- *
- * @private
- * @param {*} value The value to convert.
- * @returns {string} Returns the converted string.
- */
-function objectToString(value) {
-  return nativeObjectToString.call(value);
+	/** Built-in value references. */
+	var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+	/**
+	 * The base implementation of `getTag` without fallbacks for buggy environments.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the `toStringTag`.
+	 */
+	function baseGetTag(value) {
+	  if (value == null) {
+	    return value === undefined ? undefinedTag : nullTag;
+	  }
+	  return (symToStringTag && symToStringTag in Object(value))
+	    ? getRawTag(value)
+	    : objectToString(value);
+	}
+
+	_baseGetTag = baseGetTag;
+	return _baseGetTag;
 }
-
-var _objectToString = objectToString;
-
-/** `Object#toString` result references. */
-var nullTag = '[object Null]',
-    undefinedTag = '[object Undefined]';
-
-/** Built-in value references. */
-var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
-
-/**
- * The base implementation of `getTag` without fallbacks for buggy environments.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
- */
-function baseGetTag(value) {
-  if (value == null) {
-    return value === undefined ? undefinedTag : nullTag;
-  }
-  return (symToStringTag && symToStringTag in Object(value))
-    ? _getRawTag(value)
-    : _objectToString(value);
-}
-
-var _baseGetTag = baseGetTag;
 
 /**
  * Checks if `value` is object-like. A value is object-like if it's not `null`
@@ -2245,1135 +2329,588 @@ var _baseGetTag = baseGetTag;
  * _.isObjectLike(null);
  * // => false
  */
-function isObjectLike(value) {
-  return value != null && typeof value == 'object';
+
+var isObjectLike_1;
+var hasRequiredIsObjectLike;
+
+function requireIsObjectLike () {
+	if (hasRequiredIsObjectLike) return isObjectLike_1;
+	hasRequiredIsObjectLike = 1;
+	function isObjectLike(value) {
+	  return value != null && typeof value == 'object';
+	}
+
+	isObjectLike_1 = isObjectLike;
+	return isObjectLike_1;
 }
 
-var isObjectLike_1 = isObjectLike;
+var isSymbol_1;
+var hasRequiredIsSymbol;
 
-/** `Object#toString` result references. */
-var symbolTag = '[object Symbol]';
+function requireIsSymbol () {
+	if (hasRequiredIsSymbol) return isSymbol_1;
+	hasRequiredIsSymbol = 1;
+	var baseGetTag = require_baseGetTag(),
+	    isObjectLike = requireIsObjectLike();
 
-/**
- * Checks if `value` is classified as a `Symbol` primitive or object.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
- * @example
- *
- * _.isSymbol(Symbol.iterator);
- * // => true
- *
- * _.isSymbol('abc');
- * // => false
- */
-function isSymbol(value) {
-  return typeof value == 'symbol' ||
-    (isObjectLike_1(value) && _baseGetTag(value) == symbolTag);
+	/** `Object#toString` result references. */
+	var symbolTag = '[object Symbol]';
+
+	/**
+	 * Checks if `value` is classified as a `Symbol` primitive or object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+	 * @example
+	 *
+	 * _.isSymbol(Symbol.iterator);
+	 * // => true
+	 *
+	 * _.isSymbol('abc');
+	 * // => false
+	 */
+	function isSymbol(value) {
+	  return typeof value == 'symbol' ||
+	    (isObjectLike(value) && baseGetTag(value) == symbolTag);
+	}
+
+	isSymbol_1 = isSymbol;
+	return isSymbol_1;
 }
 
-var isSymbol_1 = isSymbol;
+var toNumber_1;
+var hasRequiredToNumber;
 
-/** Used as references for various `Number` constants. */
-var NAN = 0 / 0;
+function requireToNumber () {
+	if (hasRequiredToNumber) return toNumber_1;
+	hasRequiredToNumber = 1;
+	var baseTrim = require_baseTrim(),
+	    isObject = requireIsObject(),
+	    isSymbol = requireIsSymbol();
 
-/** Used to detect bad signed hexadecimal string values. */
-var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+	/** Used as references for various `Number` constants. */
+	var NAN = 0 / 0;
 
-/** Used to detect binary string values. */
-var reIsBinary = /^0b[01]+$/i;
+	/** Used to detect bad signed hexadecimal string values. */
+	var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
 
-/** Used to detect octal string values. */
-var reIsOctal = /^0o[0-7]+$/i;
+	/** Used to detect binary string values. */
+	var reIsBinary = /^0b[01]+$/i;
 
-/** Built-in method references without a dependency on `root`. */
-var freeParseInt = parseInt;
+	/** Used to detect octal string values. */
+	var reIsOctal = /^0o[0-7]+$/i;
 
-/**
- * Converts `value` to a number.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to process.
- * @returns {number} Returns the number.
- * @example
- *
- * _.toNumber(3.2);
- * // => 3.2
- *
- * _.toNumber(Number.MIN_VALUE);
- * // => 5e-324
- *
- * _.toNumber(Infinity);
- * // => Infinity
- *
- * _.toNumber('3.2');
- * // => 3.2
- */
-function toNumber(value) {
-  if (typeof value == 'number') {
-    return value;
-  }
-  if (isSymbol_1(value)) {
-    return NAN;
-  }
-  if (isObject_1(value)) {
-    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
-    value = isObject_1(other) ? (other + '') : other;
-  }
-  if (typeof value != 'string') {
-    return value === 0 ? value : +value;
-  }
-  value = _baseTrim(value);
-  var isBinary = reIsBinary.test(value);
-  return (isBinary || reIsOctal.test(value))
-    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
-    : (reIsBadHex.test(value) ? NAN : +value);
+	/** Built-in method references without a dependency on `root`. */
+	var freeParseInt = parseInt;
+
+	/**
+	 * Converts `value` to a number.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to process.
+	 * @returns {number} Returns the number.
+	 * @example
+	 *
+	 * _.toNumber(3.2);
+	 * // => 3.2
+	 *
+	 * _.toNumber(Number.MIN_VALUE);
+	 * // => 5e-324
+	 *
+	 * _.toNumber(Infinity);
+	 * // => Infinity
+	 *
+	 * _.toNumber('3.2');
+	 * // => 3.2
+	 */
+	function toNumber(value) {
+	  if (typeof value == 'number') {
+	    return value;
+	  }
+	  if (isSymbol(value)) {
+	    return NAN;
+	  }
+	  if (isObject(value)) {
+	    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+	    value = isObject(other) ? (other + '') : other;
+	  }
+	  if (typeof value != 'string') {
+	    return value === 0 ? value : +value;
+	  }
+	  value = baseTrim(value);
+	  var isBinary = reIsBinary.test(value);
+	  return (isBinary || reIsOctal.test(value))
+	    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
+	    : (reIsBadHex.test(value) ? NAN : +value);
+	}
+
+	toNumber_1 = toNumber;
+	return toNumber_1;
 }
 
-var toNumber_1 = toNumber;
+var debounce_1;
+var hasRequiredDebounce;
 
-/** Error message constants. */
-var FUNC_ERROR_TEXT = 'Expected a function';
+function requireDebounce () {
+	if (hasRequiredDebounce) return debounce_1;
+	hasRequiredDebounce = 1;
+	var isObject = requireIsObject(),
+	    now = requireNow(),
+	    toNumber = requireToNumber();
 
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeMax = Math.max,
-    nativeMin = Math.min;
+	/** Error message constants. */
+	var FUNC_ERROR_TEXT = 'Expected a function';
 
-/**
- * Creates a debounced function that delays invoking `func` until after `wait`
- * milliseconds have elapsed since the last time the debounced function was
- * invoked. The debounced function comes with a `cancel` method to cancel
- * delayed `func` invocations and a `flush` method to immediately invoke them.
- * Provide `options` to indicate whether `func` should be invoked on the
- * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
- * with the last arguments provided to the debounced function. Subsequent
- * calls to the debounced function return the result of the last `func`
- * invocation.
- *
- * **Note:** If `leading` and `trailing` options are `true`, `func` is
- * invoked on the trailing edge of the timeout only if the debounced function
- * is invoked more than once during the `wait` timeout.
- *
- * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
- * until to the next tick, similar to `setTimeout` with a timeout of `0`.
- *
- * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
- * for details over the differences between `_.debounce` and `_.throttle`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Function
- * @param {Function} func The function to debounce.
- * @param {number} [wait=0] The number of milliseconds to delay.
- * @param {Object} [options={}] The options object.
- * @param {boolean} [options.leading=false]
- *  Specify invoking on the leading edge of the timeout.
- * @param {number} [options.maxWait]
- *  The maximum time `func` is allowed to be delayed before it's invoked.
- * @param {boolean} [options.trailing=true]
- *  Specify invoking on the trailing edge of the timeout.
- * @returns {Function} Returns the new debounced function.
- * @example
- *
- * // Avoid costly calculations while the window size is in flux.
- * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
- *
- * // Invoke `sendMail` when clicked, debouncing subsequent calls.
- * jQuery(element).on('click', _.debounce(sendMail, 300, {
- *   'leading': true,
- *   'trailing': false
- * }));
- *
- * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
- * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
- * var source = new EventSource('/stream');
- * jQuery(source).on('message', debounced);
- *
- * // Cancel the trailing debounced invocation.
- * jQuery(window).on('popstate', debounced.cancel);
- */
-function debounce(func, wait, options) {
-  var lastArgs,
-      lastThis,
-      maxWait,
-      result,
-      timerId,
-      lastCallTime,
-      lastInvokeTime = 0,
-      leading = false,
-      maxing = false,
-      trailing = true;
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeMax = Math.max,
+	    nativeMin = Math.min;
 
-  if (typeof func != 'function') {
-    throw new TypeError(FUNC_ERROR_TEXT);
-  }
-  wait = toNumber_1(wait) || 0;
-  if (isObject_1(options)) {
-    leading = !!options.leading;
-    maxing = 'maxWait' in options;
-    maxWait = maxing ? nativeMax(toNumber_1(options.maxWait) || 0, wait) : maxWait;
-    trailing = 'trailing' in options ? !!options.trailing : trailing;
-  }
+	/**
+	 * Creates a debounced function that delays invoking `func` until after `wait`
+	 * milliseconds have elapsed since the last time the debounced function was
+	 * invoked. The debounced function comes with a `cancel` method to cancel
+	 * delayed `func` invocations and a `flush` method to immediately invoke them.
+	 * Provide `options` to indicate whether `func` should be invoked on the
+	 * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
+	 * with the last arguments provided to the debounced function. Subsequent
+	 * calls to the debounced function return the result of the last `func`
+	 * invocation.
+	 *
+	 * **Note:** If `leading` and `trailing` options are `true`, `func` is
+	 * invoked on the trailing edge of the timeout only if the debounced function
+	 * is invoked more than once during the `wait` timeout.
+	 *
+	 * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+	 * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+	 *
+	 * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+	 * for details over the differences between `_.debounce` and `_.throttle`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Function
+	 * @param {Function} func The function to debounce.
+	 * @param {number} [wait=0] The number of milliseconds to delay.
+	 * @param {Object} [options={}] The options object.
+	 * @param {boolean} [options.leading=false]
+	 *  Specify invoking on the leading edge of the timeout.
+	 * @param {number} [options.maxWait]
+	 *  The maximum time `func` is allowed to be delayed before it's invoked.
+	 * @param {boolean} [options.trailing=true]
+	 *  Specify invoking on the trailing edge of the timeout.
+	 * @returns {Function} Returns the new debounced function.
+	 * @example
+	 *
+	 * // Avoid costly calculations while the window size is in flux.
+	 * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+	 *
+	 * // Invoke `sendMail` when clicked, debouncing subsequent calls.
+	 * jQuery(element).on('click', _.debounce(sendMail, 300, {
+	 *   'leading': true,
+	 *   'trailing': false
+	 * }));
+	 *
+	 * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
+	 * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
+	 * var source = new EventSource('/stream');
+	 * jQuery(source).on('message', debounced);
+	 *
+	 * // Cancel the trailing debounced invocation.
+	 * jQuery(window).on('popstate', debounced.cancel);
+	 */
+	function debounce(func, wait, options) {
+	  var lastArgs,
+	      lastThis,
+	      maxWait,
+	      result,
+	      timerId,
+	      lastCallTime,
+	      lastInvokeTime = 0,
+	      leading = false,
+	      maxing = false,
+	      trailing = true;
 
-  function invokeFunc(time) {
-    var args = lastArgs,
-        thisArg = lastThis;
+	  if (typeof func != 'function') {
+	    throw new TypeError(FUNC_ERROR_TEXT);
+	  }
+	  wait = toNumber(wait) || 0;
+	  if (isObject(options)) {
+	    leading = !!options.leading;
+	    maxing = 'maxWait' in options;
+	    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
+	    trailing = 'trailing' in options ? !!options.trailing : trailing;
+	  }
 
-    lastArgs = lastThis = undefined;
-    lastInvokeTime = time;
-    result = func.apply(thisArg, args);
-    return result;
-  }
+	  function invokeFunc(time) {
+	    var args = lastArgs,
+	        thisArg = lastThis;
 
-  function leadingEdge(time) {
-    // Reset any `maxWait` timer.
-    lastInvokeTime = time;
-    // Start the timer for the trailing edge.
-    timerId = setTimeout(timerExpired, wait);
-    // Invoke the leading edge.
-    return leading ? invokeFunc(time) : result;
-  }
+	    lastArgs = lastThis = undefined;
+	    lastInvokeTime = time;
+	    result = func.apply(thisArg, args);
+	    return result;
+	  }
 
-  function remainingWait(time) {
-    var timeSinceLastCall = time - lastCallTime,
-        timeSinceLastInvoke = time - lastInvokeTime,
-        timeWaiting = wait - timeSinceLastCall;
+	  function leadingEdge(time) {
+	    // Reset any `maxWait` timer.
+	    lastInvokeTime = time;
+	    // Start the timer for the trailing edge.
+	    timerId = setTimeout(timerExpired, wait);
+	    // Invoke the leading edge.
+	    return leading ? invokeFunc(time) : result;
+	  }
 
-    return maxing
-      ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke)
-      : timeWaiting;
-  }
+	  function remainingWait(time) {
+	    var timeSinceLastCall = time - lastCallTime,
+	        timeSinceLastInvoke = time - lastInvokeTime,
+	        timeWaiting = wait - timeSinceLastCall;
 
-  function shouldInvoke(time) {
-    var timeSinceLastCall = time - lastCallTime,
-        timeSinceLastInvoke = time - lastInvokeTime;
+	    return maxing
+	      ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke)
+	      : timeWaiting;
+	  }
 
-    // Either this is the first call, activity has stopped and we're at the
-    // trailing edge, the system time has gone backwards and we're treating
-    // it as the trailing edge, or we've hit the `maxWait` limit.
-    return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
-      (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
-  }
+	  function shouldInvoke(time) {
+	    var timeSinceLastCall = time - lastCallTime,
+	        timeSinceLastInvoke = time - lastInvokeTime;
 
-  function timerExpired() {
-    var time = now_1();
-    if (shouldInvoke(time)) {
-      return trailingEdge(time);
-    }
-    // Restart the timer.
-    timerId = setTimeout(timerExpired, remainingWait(time));
-  }
+	    // Either this is the first call, activity has stopped and we're at the
+	    // trailing edge, the system time has gone backwards and we're treating
+	    // it as the trailing edge, or we've hit the `maxWait` limit.
+	    return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
+	      (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
+	  }
 
-  function trailingEdge(time) {
-    timerId = undefined;
+	  function timerExpired() {
+	    var time = now();
+	    if (shouldInvoke(time)) {
+	      return trailingEdge(time);
+	    }
+	    // Restart the timer.
+	    timerId = setTimeout(timerExpired, remainingWait(time));
+	  }
 
-    // Only invoke if we have `lastArgs` which means `func` has been
-    // debounced at least once.
-    if (trailing && lastArgs) {
-      return invokeFunc(time);
-    }
-    lastArgs = lastThis = undefined;
-    return result;
-  }
+	  function trailingEdge(time) {
+	    timerId = undefined;
 
-  function cancel() {
-    if (timerId !== undefined) {
-      clearTimeout(timerId);
-    }
-    lastInvokeTime = 0;
-    lastArgs = lastCallTime = lastThis = timerId = undefined;
-  }
+	    // Only invoke if we have `lastArgs` which means `func` has been
+	    // debounced at least once.
+	    if (trailing && lastArgs) {
+	      return invokeFunc(time);
+	    }
+	    lastArgs = lastThis = undefined;
+	    return result;
+	  }
 
-  function flush() {
-    return timerId === undefined ? result : trailingEdge(now_1());
-  }
+	  function cancel() {
+	    if (timerId !== undefined) {
+	      clearTimeout(timerId);
+	    }
+	    lastInvokeTime = 0;
+	    lastArgs = lastCallTime = lastThis = timerId = undefined;
+	  }
 
-  function debounced() {
-    var time = now_1(),
-        isInvoking = shouldInvoke(time);
+	  function flush() {
+	    return timerId === undefined ? result : trailingEdge(now());
+	  }
 
-    lastArgs = arguments;
-    lastThis = this;
-    lastCallTime = time;
+	  function debounced() {
+	    var time = now(),
+	        isInvoking = shouldInvoke(time);
 
-    if (isInvoking) {
-      if (timerId === undefined) {
-        return leadingEdge(lastCallTime);
-      }
-      if (maxing) {
-        // Handle invocations in a tight loop.
-        clearTimeout(timerId);
-        timerId = setTimeout(timerExpired, wait);
-        return invokeFunc(lastCallTime);
-      }
-    }
-    if (timerId === undefined) {
-      timerId = setTimeout(timerExpired, wait);
-    }
-    return result;
-  }
-  debounced.cancel = cancel;
-  debounced.flush = flush;
-  return debounced;
+	    lastArgs = arguments;
+	    lastThis = this;
+	    lastCallTime = time;
+
+	    if (isInvoking) {
+	      if (timerId === undefined) {
+	        return leadingEdge(lastCallTime);
+	      }
+	      if (maxing) {
+	        // Handle invocations in a tight loop.
+	        clearTimeout(timerId);
+	        timerId = setTimeout(timerExpired, wait);
+	        return invokeFunc(lastCallTime);
+	      }
+	    }
+	    if (timerId === undefined) {
+	      timerId = setTimeout(timerExpired, wait);
+	    }
+	    return result;
+	  }
+	  debounced.cancel = cancel;
+	  debounced.flush = flush;
+	  return debounced;
+	}
+
+	debounce_1 = debounce;
+	return debounce_1;
 }
 
-var debounce_1 = debounce;
+var debounceExports = requireDebounce();
+var debounce = /*@__PURE__*/getDefaultExportFromCjs(debounceExports);
 
-const searchCss = "*,*::before,*::after{box-sizing:border-box}ul[class],ol[class]{padding:0}body,h1,h2,h3,h4,p,ul[class],ol[class],li,figure,figcaption,blockquote,dl,dd{margin:0}ul[class],ol[class]{list-style:none}a:not([class]){text-decoration-skip-ink:auto}img{max-width:100%}input,button,textarea,select{font:inherit}@media (prefers-reduced-motion: reduce){*{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}}:host{display:block}:host(:focus) .result.has-results,:host(:focus-within) .result.has-results{display:block}@keyframes display-search-results{0%{opacity:0;transform:translate3d(0, -1.25rem, -1rem) rotateX(10deg)}50%{opacity:1}100%{transform:translate3d(0, 0, 0) rotateX(0)}}.search-box{z-index:1;display:flex;flex-direction:column;position:relative;perspective:60rem}.search-box .result.has-results{animation:display-search-results 0.28s ease-out forwards;position:absolute;background:rgb(var(--kompendium-contrast-200));padding:0.5rem;margin-top:2rem;width:100%;border-radius:5px;box-shadow:var(--kompendium-shadow-depth-16);display:none;max-height:calc(100vh - 6rem);overflow-y:auto}.search-box .result.has-results li a{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;transition:background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out;display:block;width:100%;padding:0.5rem 0.75rem;border-radius:0.25rem}.search-box .result.has-results li a:hover{box-shadow:var(--kompendium-button-shadow-hovered)}.search-box .result.has-results li a:active{box-shadow:var(--kompendium-button-shadow-pressed);transform:translate3d(0, 0.08rem, 0)}.search-box .result.has-results li a:focus{outline:none}.search-box .result.has-results li a:focus-visible{outline:none;box-shadow:var(--kompendium-shadow-depth-8-focused)}.search-box .result.has-results li:hover a{background:rgb(var(--kompendium-contrast-100))}input{transition:background-color 0.2s ease;border:0;border-radius:0.25rem;padding:0 0.25rem 0 2.25rem;color:rgb(var(--kompendium-contrast-1200));height:2rem;line-height:2rem;-webkit-appearance:textfield;background-color:rgb(var(--kompendium-contrast-300));background-image:url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"1.5\" clip-rule=\"evenodd\" viewBox=\"0 0 400 400\"><defs/><path fill=\"none\" d=\"M0 0h400v400H0z\"/><path d=\"M275.621 258.31l-16.962 16.979 50.965 50.964.008.009c4.637 4.637 12.268 4.637 16.905 0l.032-.033c4.687-4.687 4.642-12.33.025-16.946l-50.964-50.965-.009-.008z\" fill=\"rgb(48,48,66)\"/><circle cx=\"200\" cy=\"200\" r=\"99.5\" fill=\"rgb(33,150,243)\" fill-opacity=\".3\" stroke=\"rgb(48,48,66)\" stroke-width=\"13.27\" transform=\"translate(19.096 19.096) scale(.90452)\"/><ellipse cx=\"163.443\" cy=\"186.777\" rx=\"32.324\" ry=\"22.133\" fill=\"rgb(255,255,255)\" fill-opacity=\".3\" transform=\"rotate(-45 128.405 173.5)\"/></svg>');background-repeat:no-repeat;background-position:left center}input::placeholder{color:rgb(var(--kompendium-contrast-800))}input:active,input:focus,input:hover{background-color:rgb(var(--kompendium-contrast-200))}input:focus{outline:none}input::-webkit-search-cancel-button{-webkit-appearance:none;transition:background-color 0.2s ease;height:1.25rem;width:1.25rem;border-radius:50%;cursor:pointer;background-color:rgb(var(--kompendium-contrast-800));background-repeat:no-repeat;background-position:center;background-size:0.75rem;background-image:url(\"data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs/><path fill='rgb(255,255,255)' d='M7.219 5.781L5.78 7.22 14.563 16 5.78 24.781 7.22 26.22 16 17.437l8.781 8.782 1.438-1.438L17.437 16l8.782-8.781L24.78 5.78 16 14.563z'/></svg>\")}input::-webkit-search-cancel-button:hover{background-color:rgb(var(--kompendium-contrast-1000))}a{text-decoration:none;color:unset}a:hover,a.active{color:rgb(var(--kompendium-color-blue-default))}";
+const searchCss = "*,*::before,*::after{box-sizing:border-box}ul[class],ol[class]{padding:0}body,h1,h2,h3,h4,p,ul[class],ol[class],li,figure,figcaption,blockquote,dl,dd{margin:0}ul[class],ol[class]{list-style:none}a:not([class]){text-decoration-skip-ink:auto}img{max-width:100%}input,button,textarea,select{font:inherit}@media (prefers-reduced-motion: reduce){*{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}}:host{display:block}:host(:focus) .result.has-results,:host(:focus-within) .result.has-results{display:block}@keyframes display-search-results{0%{opacity:0;transform:translate3d(0, -1.25rem, -1rem) rotateX(10deg)}50%{opacity:1}100%{transform:translate3d(0, 0, 0) rotateX(0)}}.search-box{z-index:1;display:flex;flex-direction:column;position:relative;perspective:60rem}.search-box .result.has-results{animation:display-search-results 0.28s ease-out forwards;position:absolute;background:rgb(var(--kompendium-contrast-200));padding:0.5rem;margin-top:2rem;width:100%;border-radius:5px;box-shadow:var(--kompendium-shadow-depth-16);display:none;max-height:calc(100vh - 6rem);overflow-y:auto}.search-box .result.has-results li a{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;transition:background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out}.search-box .result.has-results li a:hover{box-shadow:var(--kompendium-button-shadow-hovered)}.search-box .result.has-results li a:active{box-shadow:var(--kompendium-button-shadow-pressed);transform:translate3d(0, 0.08rem, 0)}.search-box .result.has-results li a:focus{outline:none}.search-box .result.has-results li a:focus-visible{outline:none;box-shadow:var(--kompendium-shadow-depth-8-focused)}.search-box .result.has-results li a{display:block;width:100%;padding:0.5rem 0.75rem;border-radius:0.25rem}.search-box .result.has-results li:hover a{background:rgb(var(--kompendium-contrast-100))}input{transition:background-color 0.2s ease;border:0;border-radius:0.25rem;padding:0 0.25rem 0 2.25rem;color:rgb(var(--kompendium-contrast-1200));height:2rem;line-height:2rem;-webkit-appearance:textfield;background-color:rgb(var(--kompendium-contrast-300));background-image:url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"1.5\" clip-rule=\"evenodd\" viewBox=\"0 0 400 400\"><defs/><path fill=\"none\" d=\"M0 0h400v400H0z\"/><path d=\"M275.621 258.31l-16.962 16.979 50.965 50.964.008.009c4.637 4.637 12.268 4.637 16.905 0l.032-.033c4.687-4.687 4.642-12.33.025-16.946l-50.964-50.965-.009-.008z\" fill=\"rgb(48,48,66)\"/><circle cx=\"200\" cy=\"200\" r=\"99.5\" fill=\"rgb(33,150,243)\" fill-opacity=\".3\" stroke=\"rgb(48,48,66)\" stroke-width=\"13.27\" transform=\"translate(19.096 19.096) scale(.90452)\"/><ellipse cx=\"163.443\" cy=\"186.777\" rx=\"32.324\" ry=\"22.133\" fill=\"rgb(255,255,255)\" fill-opacity=\".3\" transform=\"rotate(-45 128.405 173.5)\"/></svg>');background-repeat:no-repeat;background-position:left center}input::placeholder{color:rgb(var(--kompendium-contrast-800))}input:active,input:focus,input:hover{background-color:rgb(var(--kompendium-contrast-200))}input:focus{outline:none}input::-webkit-search-cancel-button{-webkit-appearance:none;transition:background-color 0.2s ease;height:1.25rem;width:1.25rem;border-radius:50%;cursor:pointer;background-color:rgb(var(--kompendium-contrast-800));background-repeat:no-repeat;background-position:center;background-size:0.75rem;background-image:url(\"data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs/><path fill='rgb(255,255,255)' d='M7.219 5.781L5.78 7.22 14.563 16 5.78 24.781 7.22 26.22 16 17.437l8.781 8.782 1.438-1.438L17.437 16l8.782-8.781L24.78 5.78 16 14.563z'/></svg>\")}input::-webkit-search-cancel-button:hover{background-color:rgb(var(--kompendium-contrast-1000))}a{text-decoration:none;color:unset}a:hover,a.active{color:rgb(var(--kompendium-color-blue-default))}";
 
 const Search = class {
-  constructor(hostRef) {
-    registerInstance(this, hostRef);
-    this.documents = [];
-    this.renderDocument = (document) => {
-      return (h("li", null, h("a", { href: '#' + document.path, onClick: this.handleLinkClick }, h("span", { class: "link-text" }, document.title))));
-    };
-    this.handleChangeInput = (event) => {
-      const query = event.target.value;
-      this.search(query);
-    };
-    this.handleLinkClick = () => {
-      var _a;
-      (_a = this.host.shadowRoot.activeElement) === null || _a === void 0 ? void 0 : _a.blur();
-    };
-    this.search = debounce_1(this.search, 300);
-  }
-  componentDidLoad() {
-    this.host.shadowRoot.querySelector('input').focus();
-  }
-  render() {
-    const classList = {
-      result: true,
-      'has-results': this.documents.length > 0,
-    };
-    return (h("div", { class: "search-box" }, h("input", { type: "search", autoFocus: true, placeholder: "Search", onInput: this.handleChangeInput }), h("ul", { class: classList }, this.documents.map(this.renderDocument))));
-  }
-  search(query) {
-    const index = this.index;
-    const result = index.search(query);
-    this.documents = result.map((doc) => doc.item).slice(0, 10);
-  }
-  get host() { return getElement(this); }
+    constructor(hostRef) {
+        registerInstance(this, hostRef);
+        this.documents = [];
+        this.renderDocument = (document) => {
+            return (h("li", null, h("a", { href: '#' + document.path, onClick: this.handleLinkClick }, h("span", { class: "link-text" }, document.title))));
+        };
+        this.handleChangeInput = (event) => {
+            const query = event.target.value;
+            this.search(query);
+        };
+        this.handleLinkClick = () => {
+            var _a;
+            (_a = this.host.shadowRoot.activeElement) === null || _a === void 0 ? void 0 : _a.blur();
+        };
+        this.search = debounce(this.search, 300);
+    }
+    componentDidLoad() {
+        this.host.shadowRoot.querySelector('input').focus();
+    }
+    render() {
+        const classList = {
+            result: true,
+            'has-results': this.documents.length > 0,
+        };
+        return (h("div", { key: '8085f45b0d1f5e7b50d20de0df3aa95068598fa2', class: "search-box" }, h("input", { key: 'cc001b093b727306c6ea4e8ac078a4f408a0a6c9', type: "search", autoFocus: true, placeholder: "Search", onInput: this.handleChangeInput }), h("ul", { key: '7b293d633cd2493c85db58d84f8308e98061ab42', class: classList }, this.documents.map(this.renderDocument))));
+    }
+    search(query) {
+        const index = this.index;
+        const result = index.search(query);
+        this.documents = result.map((doc) => doc.item).slice(0, 10);
+    }
+    get host() { return getElement(this); }
 };
 Search.style = searchCss;
 
-const routeCss = "stencil-route.inactive{display:none}";
-
-const Route = class {
-  constructor(hostRef) {
-    registerInstance(this, hostRef);
-    this.group = null;
-    this.match = null;
-    this.componentProps = {};
-    this.exact = false;
-    this.scrollOnNextRender = false;
-    this.previousMatch = null;
-  }
-  // Identify if the current route is a match.
-  computeMatch(newLocation) {
-    const isGrouped = this.group != null || (this.el.parentElement != null && this.el.parentElement.tagName.toLowerCase() === 'stencil-route-switch');
-    if (!newLocation || isGrouped) {
-      return;
-    }
-    this.previousMatch = this.match;
-    return this.match = matchPath(newLocation.pathname, {
-      path: this.url,
-      exact: this.exact,
-      strict: true
-    });
-  }
-  async loadCompleted() {
-    let routeViewOptions = {};
-    if (this.history && this.history.location.hash) {
-      routeViewOptions = {
-        scrollToId: this.history.location.hash.substr(1)
-      };
-    }
-    else if (this.scrollTopOffset) {
-      routeViewOptions = {
-        scrollTopOffset: this.scrollTopOffset
-      };
-    }
-    // After all children have completed then tell switch
-    // the provided callback will get executed after this route is in view
-    if (typeof this.componentUpdated === 'function') {
-      this.componentUpdated(routeViewOptions);
-      // If this is an independent route and it matches then routes have updated.
-      // If the only change to location is a hash change then do not scroll.
-    }
-    else if (this.match && !matchesAreEqual(this.match, this.previousMatch) && this.routeViewsUpdated) {
-      this.routeViewsUpdated(routeViewOptions);
-    }
-  }
-  async componentDidUpdate() {
-    await this.loadCompleted();
-  }
-  async componentDidLoad() {
-    await this.loadCompleted();
-  }
-  render() {
-    // If there is no activeRouter then do not render
-    // Check if this route is in the matching URL (for example, a parent route)
-    if (!this.match || !this.history) {
-      return null;
-    }
-    // component props defined in route
-    // the history api
-    // current match data including params
-    const childProps = Object.assign({}, this.componentProps, { history: this.history, match: this.match });
-    // If there is a routerRender defined then use
-    // that and pass the component and component props with it.
-    if (this.routeRender) {
-      return this.routeRender(Object.assign({}, childProps, { component: this.component }));
-    }
-    if (this.component) {
-      const ChildComponent = this.component;
-      return (h(ChildComponent, Object.assign({}, childProps)));
-    }
-  }
-  get el() { return getElement(this); }
-  static get watchers() { return {
-    "location": ["computeMatch"]
-  }; }
-};
-ActiveRouter.injectProps(Route, [
-  'location',
-  'history',
-  'historyType',
-  'routeViewsUpdated'
-]);
-Route.style = routeCss;
-
-const getUniqueId = () => {
-  return ((Math.random() * 10e16).toString().match(/.{4}/g) || []).join('-');
-};
-const getMatch = (pathname, url, exact) => {
-  return matchPath(pathname, {
-    path: url,
-    exact: exact,
-    strict: true
-  });
-};
-const isHTMLStencilRouteElement = (elm) => {
-  return elm.tagName === 'STENCIL-ROUTE';
-};
-const RouteSwitch = class {
-  constructor(hostRef) {
-    registerInstance(this, hostRef);
-    this.group = getUniqueId();
-    this.subscribers = [];
-    this.queue = getContext(this, "queue");
-  }
-  componentWillLoad() {
-    if (this.location != null) {
-      this.regenerateSubscribers(this.location);
-    }
-  }
-  async regenerateSubscribers(newLocation) {
-    if (newLocation == null) {
-      return;
-    }
-    let newActiveIndex = -1;
-    this.subscribers = Array.prototype.slice.call(this.el.children)
-      .filter(isHTMLStencilRouteElement)
-      .map((childElement, index) => {
-      const match = getMatch(newLocation.pathname, childElement.url, childElement.exact);
-      if (match && newActiveIndex === -1) {
-        newActiveIndex = index;
-      }
-      return {
-        el: childElement,
-        match: match
-      };
-    });
-    if (newActiveIndex === -1) {
-      return;
-    }
-    // Check if this actually changes which child is active
-    // then just pass the new match down if the active route isn't changing.
-    if (this.activeIndex === newActiveIndex) {
-      this.subscribers[newActiveIndex].el.match = this.subscribers[newActiveIndex].match;
-      return;
-    }
-    this.activeIndex = newActiveIndex;
-    // Set all props on the new active route then wait until it says that it
-    // is completed
-    const activeChild = this.subscribers[this.activeIndex];
-    if (this.scrollTopOffset) {
-      activeChild.el.scrollTopOffset = this.scrollTopOffset;
-    }
-    activeChild.el.group = this.group;
-    activeChild.el.match = activeChild.match;
-    activeChild.el.componentUpdated = (routeViewUpdatedOptions) => {
-      // After the new active route has completed then update visibility of routes
-      this.queue.write(() => {
-        this.subscribers.forEach((child, index) => {
-          child.el.componentUpdated = undefined;
-          if (index === this.activeIndex) {
-            return child.el.style.display = '';
-          }
-          if (this.scrollTopOffset) {
-            child.el.scrollTopOffset = this.scrollTopOffset;
-          }
-          child.el.group = this.group;
-          child.el.match = null;
-          child.el.style.display = 'none';
-        });
-      });
-      if (this.routeViewsUpdated) {
-        this.routeViewsUpdated(Object.assign({ scrollTopOffset: this.scrollTopOffset }, routeViewUpdatedOptions));
-      }
-    };
-  }
-  render() {
-    return (h("slot", null));
-  }
-  get el() { return getElement(this); }
-  static get watchers() { return {
-    "location": ["regenerateSubscribers"]
-  }; }
-};
-ActiveRouter.injectProps(RouteSwitch, [
-  'location',
-  'routeViewsUpdated'
-]);
-
-const warning = (value, ...args) => {
-    if (!value) {
-        console.warn(...args);
-    }
-};
-
-// Adapted from the https://github.com/ReactTraining/history and converted to TypeScript
-const createTransitionManager = () => {
-    let prompt;
-    let listeners = [];
-    const setPrompt = (nextPrompt) => {
-        warning(prompt == null, 'A history supports only one prompt at a time');
-        prompt = nextPrompt;
-        return () => {
-            if (prompt === nextPrompt) {
-                prompt = null;
-            }
-        };
-    };
-    const confirmTransitionTo = (location, action, getUserConfirmation, callback) => {
-        // TODO: If another transition starts while we're still confirming
-        // the previous one, we may end up in a weird state. Figure out the
-        // best way to handle this.
-        if (prompt != null) {
-            const result = typeof prompt === 'function' ? prompt(location, action) : prompt;
-            if (typeof result === 'string') {
-                if (typeof getUserConfirmation === 'function') {
-                    getUserConfirmation(result, callback);
-                }
-                else {
-                    warning(false, 'A history needs a getUserConfirmation function in order to use a prompt message');
-                    callback(true);
-                }
-            }
-            else {
-                // Return false from a transition hook to cancel the transition.
-                callback(result !== false);
-            }
-        }
-        else {
-            callback(true);
-        }
-    };
-    const appendListener = (fn) => {
-        let isActive = true;
-        const listener = (...args) => {
-            if (isActive) {
-                fn(...args);
-            }
-        };
-        listeners.push(listener);
-        return () => {
-            isActive = false;
-            listeners = listeners.filter(item => item !== listener);
-        };
-    };
-    const notifyListeners = (...args) => {
-        listeners.forEach(listener => listener(...args));
-    };
-    return {
-        setPrompt,
-        confirmTransitionTo,
-        appendListener,
-        notifyListeners
-    };
-};
-
-const createScrollHistory = (win, applicationScrollKey = 'scrollPositions') => {
-    let scrollPositions = new Map();
-    const set = (key, value) => {
-        scrollPositions.set(key, value);
-        if (storageAvailable(win, 'sessionStorage')) {
-            const arrayData = [];
-            scrollPositions.forEach((value, key) => {
-                arrayData.push([key, value]);
-            });
-            win.sessionStorage.setItem('scrollPositions', JSON.stringify(arrayData));
-        }
-    };
-    const get = (key) => {
-        return scrollPositions.get(key);
-    };
-    const has = (key) => {
-        return scrollPositions.has(key);
-    };
-    const capture = (key) => {
-        set(key, [win.scrollX, win.scrollY]);
-    };
-    if (storageAvailable(win, 'sessionStorage')) {
-        const scrollData = win.sessionStorage.getItem(applicationScrollKey);
-        scrollPositions = scrollData ?
-            new Map(JSON.parse(scrollData)) :
-            scrollPositions;
-    }
-    if ('scrollRestoration' in win.history) {
-        history.scrollRestoration = 'manual';
-    }
-    return {
-        set,
-        get,
-        has,
-        capture
-    };
-};
-
-// Adapted from the https://github.com/ReactTraining/history and converted to TypeScript
-const PopStateEvent = 'popstate';
-const HashChangeEvent$1 = 'hashchange';
 /**
- * Creates a history object that uses the HTML5 history API including
- * pushState, replaceState, and the popstate event.
+ * Cache for parsed route patterns to avoid redundant regex compilation
  */
-const createBrowserHistory = (win, props = {}) => {
-    let forceNextPop = false;
-    const globalHistory = win.history;
-    const globalLocation = win.location;
-    const globalNavigator = win.navigator;
-    const canUseHistory = supportsHistory(win);
-    const needsHashChangeListener = !supportsPopStateOnHashChange(globalNavigator);
-    const scrollHistory = createScrollHistory(win);
-    const forceRefresh = (props.forceRefresh != null) ? props.forceRefresh : false;
-    const getUserConfirmation = (props.getUserConfirmation != null) ? props.getUserConfirmation : getConfirmation;
-    const keyLength = (props.keyLength != null) ? props.keyLength : 6;
-    const basename = props.basename ? stripTrailingSlash(addLeadingSlash(props.basename)) : '';
-    const getHistoryState = () => {
-        try {
-            return win.history.state || {};
-        }
-        catch (e) {
-            // IE 11 sometimes throws when accessing window.history.state
-            // See https://github.com/ReactTraining/history/pull/289
-            return {};
-        }
-    };
-    const getDOMLocation = (historyState) => {
-        historyState = historyState || {};
-        const { key, state } = historyState;
-        const { pathname, search, hash } = globalLocation;
-        let path = pathname + search + hash;
-        warning((!basename || hasBasename(path, basename)), 'You are attempting to use a basename on a page whose URL path does not begin ' +
-            'with the basename. Expected path "' + path + '" to begin with "' + basename + '".');
-        if (basename) {
-            path = stripBasename(path, basename);
-        }
-        return createLocation(path, state, key || createKey$1(keyLength));
-    };
-    const transitionManager = createTransitionManager();
-    const setState = (nextState) => {
-        // Capture location for the view before changing history.
-        scrollHistory.capture(history.location.key);
-        Object.assign(history, nextState);
-        // Set scroll position based on its previous storage value
-        history.location.scrollPosition = scrollHistory.get(history.location.key);
-        history.length = globalHistory.length;
-        transitionManager.notifyListeners(history.location, history.action);
-    };
-    const handlePopState = (event) => {
-        // Ignore extraneous popstate events in WebKit.
-        if (!isExtraneousPopstateEvent(globalNavigator, event)) {
-            handlePop(getDOMLocation(event.state));
-        }
-    };
-    const handleHashChange = () => {
-        handlePop(getDOMLocation(getHistoryState()));
-    };
-    const handlePop = (location) => {
-        if (forceNextPop) {
-            forceNextPop = false;
-            setState();
-        }
-        else {
-            const action = 'POP';
-            transitionManager.confirmTransitionTo(location, action, getUserConfirmation, (ok) => {
-                if (ok) {
-                    setState({ action, location });
-                }
-                else {
-                    revertPop(location);
-                }
-            });
-        }
-    };
-    const revertPop = (fromLocation) => {
-        const toLocation = history.location;
-        // TODO: We could probably make this more reliable by
-        // keeping a list of keys we've seen in sessionStorage.
-        // Instead, we just default to 0 for keys we don't know.
-        let toIndex = allKeys.indexOf(toLocation.key);
-        let fromIndex = allKeys.indexOf(fromLocation.key);
-        if (toIndex === -1) {
-            toIndex = 0;
-        }
-        if (fromIndex === -1) {
-            fromIndex = 0;
-        }
-        const delta = toIndex - fromIndex;
-        if (delta) {
-            forceNextPop = true;
-            go(delta);
-        }
-    };
-    const initialLocation = getDOMLocation(getHistoryState());
-    let allKeys = [initialLocation.key];
-    let listenerCount = 0;
-    let isBlocked = false;
-    // Public interface
-    const createHref = (location) => {
-        return basename + createPath(location);
-    };
-    const push = (path, state) => {
-        warning(!(typeof path === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to push when the 1st ' +
-            'argument is a location-like object that already has state; it is ignored');
-        const action = 'PUSH';
-        const location = createLocation(path, state, createKey$1(keyLength), history.location);
-        transitionManager.confirmTransitionTo(location, action, getUserConfirmation, (ok) => {
-            if (!ok) {
-                return;
-            }
-            const href = createHref(location);
-            const { key, state } = location;
-            if (canUseHistory) {
-                globalHistory.pushState({ key, state }, '', href);
-                if (forceRefresh) {
-                    globalLocation.href = href;
-                }
-                else {
-                    const prevIndex = allKeys.indexOf(history.location.key);
-                    const nextKeys = allKeys.slice(0, prevIndex === -1 ? 0 : prevIndex + 1);
-                    nextKeys.push(location.key);
-                    allKeys = nextKeys;
-                    setState({ action, location });
-                }
-            }
-            else {
-                warning(state === undefined, 'Browser history cannot push state in browsers that do not support HTML5 history');
-                globalLocation.href = href;
-            }
-        });
-    };
-    const replace = (path, state) => {
-        warning(!(typeof path === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to replace when the 1st ' +
-            'argument is a location-like object that already has state; it is ignored');
-        const action = 'REPLACE';
-        const location = createLocation(path, state, createKey$1(keyLength), history.location);
-        transitionManager.confirmTransitionTo(location, action, getUserConfirmation, (ok) => {
-            if (!ok) {
-                return;
-            }
-            const href = createHref(location);
-            const { key, state } = location;
-            if (canUseHistory) {
-                globalHistory.replaceState({ key, state }, '', href);
-                if (forceRefresh) {
-                    globalLocation.replace(href);
-                }
-                else {
-                    const prevIndex = allKeys.indexOf(history.location.key);
-                    if (prevIndex !== -1) {
-                        allKeys[prevIndex] = location.key;
-                    }
-                    setState({ action, location });
-                }
-            }
-            else {
-                warning(state === undefined, 'Browser history cannot replace state in browsers that do not support HTML5 history');
-                globalLocation.replace(href);
-            }
-        });
-    };
-    const go = (n) => {
-        globalHistory.go(n);
-    };
-    const goBack = () => go(-1);
-    const goForward = () => go(1);
-    const checkDOMListeners = (delta) => {
-        listenerCount += delta;
-        if (listenerCount === 1) {
-            win.addEventListener(PopStateEvent, handlePopState);
-            if (needsHashChangeListener) {
-                win.addEventListener(HashChangeEvent$1, handleHashChange);
-            }
-        }
-        else if (listenerCount === 0) {
-            win.removeEventListener(PopStateEvent, handlePopState);
-            if (needsHashChangeListener) {
-                win.removeEventListener(HashChangeEvent$1, handleHashChange);
-            }
-        }
-    };
-    const block = (prompt = '') => {
-        const unblock = transitionManager.setPrompt(prompt);
-        if (!isBlocked) {
-            checkDOMListeners(1);
-            isBlocked = true;
-        }
-        return () => {
-            if (isBlocked) {
-                isBlocked = false;
-                checkDOMListeners(-1);
-            }
-            return unblock();
-        };
-    };
-    const listen = (listener) => {
-        const unlisten = transitionManager.appendListener(listener);
-        checkDOMListeners(1);
-        return () => {
-            checkDOMListeners(-1);
-            unlisten();
-        };
-    };
-    const history = {
-        length: globalHistory.length,
-        action: 'POP',
-        location: initialLocation,
-        createHref,
-        push,
-        replace,
-        go,
-        goBack,
-        goForward,
-        block,
-        listen,
-        win: win
-    };
-    return history;
-};
-
-// Adapted from the https://github.com/ReactTraining/history and converted to TypeScript
-const HashChangeEvent = 'hashchange';
-const HashPathCoders = {
-    hashbang: {
-        encodePath: (path) => path.charAt(0) === '!' ? path : '!/' + stripLeadingSlash(path),
-        decodePath: (path) => path.charAt(0) === '!' ? path.substr(1) : path
-    },
-    noslash: {
-        encodePath: stripLeadingSlash,
-        decodePath: addLeadingSlash
-    },
-    slash: {
-        encodePath: addLeadingSlash,
-        decodePath: addLeadingSlash
-    }
-};
-const createHashHistory = (win, props = {}) => {
-    let forceNextPop = false;
-    let ignorePath = null;
-    let listenerCount = 0;
-    let isBlocked = false;
-    const globalLocation = win.location;
-    const globalHistory = win.history;
-    const canGoWithoutReload = supportsGoWithoutReloadUsingHash(win.navigator);
-    const keyLength = (props.keyLength != null) ? props.keyLength : 6;
-    const { getUserConfirmation = getConfirmation, hashType = 'slash' } = props;
-    const basename = props.basename ? stripTrailingSlash(addLeadingSlash(props.basename)) : '';
-    const { encodePath, decodePath } = HashPathCoders[hashType];
-    const getHashPath = () => {
-        // We can't use window.location.hash here because it's not
-        // consistent across browsers - Firefox will pre-decode it!
-        const href = globalLocation.href;
-        const hashIndex = href.indexOf('#');
-        return hashIndex === -1 ? '' : href.substring(hashIndex + 1);
-    };
-    const pushHashPath = (path) => (globalLocation.hash = path);
-    const replaceHashPath = (path) => {
-        const hashIndex = globalLocation.href.indexOf('#');
-        globalLocation.replace(globalLocation.href.slice(0, hashIndex >= 0 ? hashIndex : 0) + '#' + path);
-    };
-    const getDOMLocation = () => {
-        let path = decodePath(getHashPath());
-        warning((!basename || hasBasename(path, basename)), 'You are attempting to use a basename on a page whose URL path does not begin ' +
-            'with the basename. Expected path "' + path + '" to begin with "' + basename + '".');
-        if (basename) {
-            path = stripBasename(path, basename);
-        }
-        return createLocation(path, undefined, createKey$1(keyLength));
-    };
-    const transitionManager = createTransitionManager();
-    const setState = (nextState) => {
-        Object.assign(history, nextState);
-        history.length = globalHistory.length;
-        transitionManager.notifyListeners(history.location, history.action);
-    };
-    const handleHashChange = () => {
-        const path = getHashPath();
-        const encodedPath = encodePath(path);
-        if (path !== encodedPath) {
-            // Ensure we always have a properly-encoded hash.
-            replaceHashPath(encodedPath);
-        }
-        else {
-            const location = getDOMLocation();
-            const prevLocation = history.location;
-            if (!forceNextPop && locationsAreEqual(prevLocation, location)) {
-                return; // A hashchange doesn't always == location change.
-            }
-            if (ignorePath === createPath(location)) {
-                return; // Ignore this change; we already setState in push/replace.
-            }
-            ignorePath = null;
-            handlePop(location);
-        }
-    };
-    const handlePop = (location) => {
-        if (forceNextPop) {
-            forceNextPop = false;
-            setState();
-        }
-        else {
-            const action = 'POP';
-            transitionManager.confirmTransitionTo(location, action, getUserConfirmation, (ok) => {
-                if (ok) {
-                    setState({ action, location });
-                }
-                else {
-                    revertPop(location);
-                }
-            });
-        }
-    };
-    const revertPop = (fromLocation) => {
-        const toLocation = history.location;
-        // TODO: We could probably make this more reliable by
-        // keeping a list of paths we've seen in sessionStorage.
-        // Instead, we just default to 0 for paths we don't know.
-        let toIndex = allPaths.lastIndexOf(createPath(toLocation));
-        let fromIndex = allPaths.lastIndexOf(createPath(fromLocation));
-        if (toIndex === -1) {
-            toIndex = 0;
-        }
-        if (fromIndex === -1) {
-            fromIndex = 0;
-        }
-        const delta = toIndex - fromIndex;
-        if (delta) {
-            forceNextPop = true;
-            go(delta);
-        }
-    };
-    // Ensure the hash is encoded properly before doing anything else.
-    const path = getHashPath();
-    const encodedPath = encodePath(path);
-    if (path !== encodedPath) {
-        replaceHashPath(encodedPath);
-    }
-    const initialLocation = getDOMLocation();
-    let allPaths = [createPath(initialLocation)];
-    // Public interface
-    const createHref = (location) => ('#' + encodePath(basename + createPath(location)));
-    const push = (path, state) => {
-        warning(state === undefined, 'Hash history cannot push state; it is ignored');
-        const action = 'PUSH';
-        const location = createLocation(path, undefined, createKey$1(keyLength), history.location);
-        transitionManager.confirmTransitionTo(location, action, getUserConfirmation, (ok) => {
-            if (!ok) {
-                return;
-            }
-            const path = createPath(location);
-            const encodedPath = encodePath(basename + path);
-            const hashChanged = getHashPath() !== encodedPath;
-            if (hashChanged) {
-                // We cannot tell if a hashchange was caused by a PUSH, so we'd
-                // rather setState here and ignore the hashchange. The caveat here
-                // is that other hash histories in the page will consider it a POP.
-                ignorePath = path;
-                pushHashPath(encodedPath);
-                const prevIndex = allPaths.lastIndexOf(createPath(history.location));
-                const nextPaths = allPaths.slice(0, prevIndex === -1 ? 0 : prevIndex + 1);
-                nextPaths.push(path);
-                allPaths = nextPaths;
-                setState({ action, location });
-            }
-            else {
-                warning(false, 'Hash history cannot PUSH the same path; a new entry will not be added to the history stack');
-                setState();
-            }
-        });
-    };
-    const replace = (path, state) => {
-        warning(state === undefined, 'Hash history cannot replace state; it is ignored');
-        const action = 'REPLACE';
-        const location = createLocation(path, undefined, createKey$1(keyLength), history.location);
-        transitionManager.confirmTransitionTo(location, action, getUserConfirmation, (ok) => {
-            if (!ok) {
-                return;
-            }
-            const path = createPath(location);
-            const encodedPath = encodePath(basename + path);
-            const hashChanged = getHashPath() !== encodedPath;
-            if (hashChanged) {
-                // We cannot tell if a hashchange was caused by a REPLACE, so we'd
-                // rather setState here and ignore the hashchange. The caveat here
-                // is that other hash histories in the page will consider it a POP.
-                ignorePath = path;
-                replaceHashPath(encodedPath);
-            }
-            const prevIndex = allPaths.indexOf(createPath(history.location));
-            if (prevIndex !== -1) {
-                allPaths[prevIndex] = path;
-            }
-            setState({ action, location });
-        });
-    };
-    const go = (n) => {
-        warning(canGoWithoutReload, 'Hash history go(n) causes a full page reload in this browser');
-        globalHistory.go(n);
-    };
-    const goBack = () => go(-1);
-    const goForward = () => go(1);
-    const checkDOMListeners = (win, delta) => {
-        listenerCount += delta;
-        if (listenerCount === 1) {
-            win.addEventListener(HashChangeEvent, handleHashChange);
-        }
-        else if (listenerCount === 0) {
-            win.removeEventListener(HashChangeEvent, handleHashChange);
-        }
-    };
-    const block = (prompt = '') => {
-        const unblock = transitionManager.setPrompt(prompt);
-        if (!isBlocked) {
-            checkDOMListeners(win, 1);
-            isBlocked = true;
-        }
-        return () => {
-            if (isBlocked) {
-                isBlocked = false;
-                checkDOMListeners(win, -1);
-            }
-            return unblock();
-        };
-    };
-    const listen = (listener) => {
-        const unlisten = transitionManager.appendListener(listener);
-        checkDOMListeners(win, 1);
-        return () => {
-            checkDOMListeners(win, -1);
-            unlisten();
-        };
-    };
-    const history = {
-        length: globalHistory.length,
-        action: 'POP',
-        location: initialLocation,
-        createHref,
-        push,
-        replace,
-        go,
-        goBack,
-        goForward,
-        block,
-        listen,
-        win: win
-    };
-    return history;
-};
-
-const getLocation = (location, root) => {
-  // Remove the root URL if found at beginning of string
-  const pathname = location.pathname.indexOf(root) == 0 ?
-    '/' + location.pathname.slice(root.length) :
-    location.pathname;
-  return Object.assign({}, location, { pathname });
-};
-const HISTORIES = {
-  'browser': createBrowserHistory,
-  'hash': createHashHistory
-};
-const Router = class {
-  constructor(hostRef) {
-    registerInstance(this, hostRef);
-    this.root = '/';
-    this.historyType = 'browser';
-    // A suffix to append to the page title whenever
-    // it's updated through RouteTitle
-    this.titleSuffix = '';
-    this.routeViewsUpdated = (options = {}) => {
-      if (this.history && options.scrollToId && this.historyType === 'browser') {
-        const elm = this.history.win.document.getElementById(options.scrollToId);
-        if (elm) {
-          return elm.scrollIntoView();
-        }
-      }
-      this.scrollTo(options.scrollTopOffset || this.scrollTopOffset);
-    };
-    this.isServer = getContext(this, "isServer");
-    this.queue = getContext(this, "queue");
-  }
-  componentWillLoad() {
-    this.history = HISTORIES[this.historyType](this.el.ownerDocument.defaultView);
-    this.history.listen((location) => {
-      location = getLocation(location, this.root);
-      this.location = location;
+const routeCache = new Map();
+/**
+ * Parse route URL pattern into regex and parameter names
+ * @param {string} pattern - Route pattern with optional parameters (e.g., "/component/:name")
+ * @returns {{regex: RegExp, params: string[]}} Regex and parameter names
+ */
+function parseRoute(pattern) {
+    const params = [];
+    // First, collect all parameters in order they appear
+    // Match both required (:param) and optional (:param?) parameters
+    const paramMatches = pattern.match(/:(\w+)\??/g) || [];
+    paramMatches.forEach((match) => {
+        const paramName = match.replace(/^:|[?]/g, '');
+        params.push(paramName);
     });
-    this.location = getLocation(this.history.location, this.root);
-  }
-  scrollTo(scrollToLocation) {
-    const history = this.history;
-    if (scrollToLocation == null || this.isServer || !history) {
-      return;
+    // Then build the regex pattern
+    // Process optional params with their slashes first (before escaping slashes)
+    // This makes both the slash AND the parameter value optional
+    const regexPattern = pattern
+        .replace(/\/:(\w+)\?/g, '___OPTIONAL_PARAM_$1___') // Mark optional params with slash
+        .replace(/\//g, '\\/') // Escape remaining slashes
+        .replace(/___OPTIONAL_PARAM_(\w+)___/g, '(?:\\/([^/]*))?') // Optional slash + param
+        .replace(/:(\w+)/g, '([^/]+)'); // Required param
+    const regex = new RegExp(`^${regexPattern}\\/?$`);
+    return { regex: regex, params: params };
+}
+/**
+ * Match a path against a route pattern
+ * @param {string} path - Current path to match
+ * @param {string} pattern - Route pattern to match against
+ * @returns {MatchResults | null} Match results with parameters or null if no match
+ */
+function matchRoute(path, pattern) {
+    if (!pattern) {
+        return { params: {} };
     }
-    if (history.action === 'POP' && Array.isArray(history.location.scrollPosition)) {
-      return this.queue.write(() => {
-        if (history && history.location && Array.isArray(history.location.scrollPosition)) {
-          history.win.scrollTo(history.location.scrollPosition[0], history.location.scrollPosition[1]);
-        }
-      });
+    // Check cache first, or parse and cache if not found
+    let parsed = routeCache.get(pattern);
+    if (!parsed) {
+        parsed = parseRoute(pattern);
+        routeCache.set(pattern, parsed);
     }
-    // okay, the frame has passed. Go ahead and render now
-    return this.queue.write(() => {
-      history.win.scrollTo(0, scrollToLocation);
+    const { regex, params } = parsed;
+    const match = path.match(regex);
+    if (!match) {
+        return null;
+    }
+    const matchParams = {};
+    params.forEach((param, index) => {
+        matchParams[param] = match[index + 1] || '';
     });
-  }
-  render() {
-    if (!this.location || !this.history) {
-      return;
+    return { params: matchParams };
+}
+/**
+ * Get current hash path
+ * @returns {string} Current hash path from URL
+ */
+function getHashPath() {
+    return location.hash.substring(1) || '/';
+}
+
+/**
+ * Type guard to check if an element is a route element
+ * @param {Element} element - The element to check
+ * @returns {boolean} True if the element is a stencil-route
+ */
+function isRouteElement(element) {
+    return element.tagName.toLowerCase() === 'stencil-route';
+}
+/**
+ * Check if any previous sibling route matches the current path
+ * Used by route-switch to implement first-match-wins behavior
+ * @param {HTMLElement} currentElement - The current route element
+ * @param {string} currentPath - The current path to match
+ * @returns {boolean} True if a previous sibling route matches
+ */
+function hasPreviousMatchingSibling(currentElement, currentPath) {
+    const parent = currentElement.parentElement;
+    if ((parent === null || parent === void 0 ? void 0 : parent.tagName.toLowerCase()) !== 'stencil-route-switch') {
+        return false;
     }
-    const state = {
-      historyType: this.historyType,
-      location: this.location,
-      titleSuffix: this.titleSuffix,
-      root: this.root,
-      history: this.history,
-      routeViewsUpdated: this.routeViewsUpdated
-    };
-    return (h(ActiveRouter.Provider, { state: state }, h("slot", null)));
-  }
-  get el() { return getElement(this); }
+    const siblings = Array.from(parent.children);
+    const myIndex = siblings.indexOf(currentElement);
+    // Check all previous siblings
+    for (let i = 0; i < myIndex; i++) {
+        const sibling = siblings[i];
+        // Use type guard to ensure element has expected route properties
+        if (!isRouteElement(sibling)) {
+            continue;
+        }
+        // Access sibling's URL property with type safety
+        const siblingUrl = sibling.url;
+        // Check if sibling matches current path
+        let siblingMatch;
+        if (siblingUrl) {
+            siblingMatch = matchRoute(currentPath, siblingUrl);
+        }
+        else {
+            siblingMatch = { params: {} }; // Routes without URL are catch-all
+        }
+        if (siblingMatch) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Generate a stable key from route parameters for component recreation
+ * Keys are deterministic - same params always produce same key
+ * Used to force Stencil component recreation when route params change
+ * @param {Record<string, string>} params - Route parameters
+ * @returns {string} A stable, deterministic key
+ */
+function generateComponentKey(params) {
+    return Object.keys(params)
+        .sort()
+        .map((k) => `${k}=${params[k]}`)
+        .join('&');
+}
+
+const StencilRoute = class {
+    constructor(hostRef) {
+        registerInstance(this, hostRef);
+        this.currentPath = '/';
+        this.handleHashChange = this.handleHashChange.bind(this);
+    }
+    connectedCallback() {
+        window.addEventListener('hashchange', this.handleHashChange);
+        this.handleHashChange();
+    }
+    disconnectedCallback() {
+        window.removeEventListener('hashchange', this.handleHashChange);
+    }
+    handleHashChange() {
+        this.currentPath = getHashPath();
+    }
+    render() {
+        // Element should always be available in render, but guard defensively
+        if (!this.el) {
+            return null;
+        }
+        // Check if a previous sibling route matches (first-match wins)
+        if (hasPreviousMatchingSibling(this.el, this.currentPath)) {
+            return null;
+        }
+        // Check if this route matches
+        let match;
+        if (this.url) {
+            match = matchRoute(this.currentPath, this.url);
+        }
+        else {
+            match = { params: {} }; // Catch-all route
+        }
+        if (!match) {
+            return null;
+        }
+        // Render the matched route
+        if (this.routeRender) {
+            return this.routeRender({ match: match });
+        }
+        if (this.component) {
+            const props = Object.assign(Object.assign({}, this.componentProps), { match: match });
+            // Create element dynamically using h() with string tag name
+            // Use match params as key to force recreation when params change
+            const key = generateComponentKey(match.params);
+            return h(this.component, Object.assign({ key: key }, props));
+        }
+        return h("slot", null);
+    }
+    get el() { return getElement(this); }
 };
 
-export { App as kompendium_app, DarkmodeSwitch as kompendium_darkmode_switch, Navigation as kompendium_navigation, Search as kompendium_search, Route as stencil_route, RouteSwitch as stencil_route_switch, Router as stencil_router };
+const StencilRouteSwitch = class {
+    constructor(hostRef) {
+        registerInstance(this, hostRef);
+        this.scrollTopOffset = 0;
+        this.currentPath = '/';
+        this.handleHashChange = this.handleHashChange.bind(this);
+    }
+    connectedCallback() {
+        window.addEventListener('hashchange', this.handleHashChange);
+        this.handleHashChange();
+    }
+    disconnectedCallback() {
+        window.removeEventListener('hashchange', this.handleHashChange);
+    }
+    handleHashChange() {
+        const newPath = getHashPath();
+        if (newPath !== this.currentPath) {
+            this.currentPath = newPath;
+            if (this.scrollTopOffset !== undefined) {
+                window.scrollTo(0, this.scrollTopOffset);
+            }
+        }
+    }
+    render() {
+        // Simply render child routes
+        // The @State currentPath will trigger re-render when hash changes
+        // Each route component will re-render and check if it matches
+        return h("slot", { key: '140c65d5b8e395cebfe132763f26a304d217863e' });
+    }
+};
+
+const StencilRouter = class {
+    constructor(hostRef) {
+        registerInstance(this, hostRef);
+    }
+    render() {
+        return h("slot", { key: '6e145f4a847376de82972e4b1420d28cb86f4f8c' });
+    }
+};
+
+export { App as kompendium_app, DarkmodeSwitch as kompendium_darkmode_switch, Navigation as kompendium_navigation, Search as kompendium_search, StencilRoute as stencil_route, StencilRouteSwitch as stencil_route_switch, StencilRouter as stencil_router };
+//# sourceMappingURL=kompendium-app.kompendium-darkmode-switch.kompendium-navigation.kompendium-search.stencil-route.stencil-route-switch.stencil-router.entry.js.map

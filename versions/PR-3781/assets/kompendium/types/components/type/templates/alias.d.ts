@@ -1,4 +1,4 @@
 import { AliasDescription } from '../../../types';
 export declare function Alias({ type }: {
-  type: AliasDescription;
+    type: AliasDescription;
 }): HTMLElement[];

@@ -1,3 +1,4 @@
 export * from './components';
-import '@stencil/router';
+import "@limetech/stencil-router";
 export * from './types';
+//# sourceMappingURL=index.js.map

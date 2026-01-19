@@ -508,23 +508,15 @@ dd {
 }
 
 :root {
-  --kompendium-color-code-pink: 216, 27, 96;
-  /* #d81b60 */
-  --kompendium-color-code-magenta: 156, 22, 87;
-  /* #9c1657 */
-  --kompendium-color-code-blue: 33, 150, 243;
-  /* #2196f3 */
-  --kompendium-color-code-orange: 245, 124, 0;
-  /* #f57c00 */
-  --kompendium-color-code-yellow: 255, 87, 34;
-  /* #ff5722 */
-  --kompendium-color-code-purple: 149, 117, 205;
-  /* #9575cd */
+  --kompendium-color-code-pink: 216, 27, 96; /* #d81b60 */
+  --kompendium-color-code-magenta: 156, 22, 87; /* #9c1657 */
+  --kompendium-color-code-blue: 33, 150, 243; /* #2196f3 */
+  --kompendium-color-code-orange: 245, 124, 0; /* #f57c00 */
+  --kompendium-color-code-yellow: 255, 87, 34; /* #ff5722 */
+  --kompendium-color-code-purple: 149, 117, 205; /* #9575cd */
   --kompendium-color-code-green-light: 53, 196, 84;
-  --kompendium-color-code-green-dark: 85, 139, 47;
-  /* #558b2f */
-  --kompendium-color-code-turquoise: 0, 151, 167;
-  /* #0097a7 */
+  --kompendium-color-code-green-dark: 85, 139, 47; /* #558b2f */
+  --kompendium-color-code-turquoise: 0, 151, 167; /* #0097a7 */
   --kompendium-color-code-gray-lighter: 71, 71, 86;
   --kompendium-color-code-gray-light: var(--kompendium-contrast-1100);
   --kompendium-color-code-gray-dark: var(--kompendium-contrast-1200);

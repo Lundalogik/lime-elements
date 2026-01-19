@@ -109,10 +109,6 @@ select {
   white-space: nowrap;
   text-overflow: ellipsis;
   transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out;
-  display: block;
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.25rem;
 }
 .search-box .result.has-results li a:hover {
   box-shadow: var(--kompendium-button-shadow-hovered);
@@ -127,6 +123,12 @@ select {
 .search-box .result.has-results li a:focus-visible {
   outline: none;
   box-shadow: var(--kompendium-shadow-depth-8-focused);
+}
+.search-box .result.has-results li a {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
 }
 .search-box .result.has-results li:hover a {
   background: rgb(var(--kompendium-contrast-100));

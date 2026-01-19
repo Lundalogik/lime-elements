@@ -147,3 +147,4 @@ Just for your information…
 :::
 
 `;
+//# sourceMappingURL=markdown-example.js.map
