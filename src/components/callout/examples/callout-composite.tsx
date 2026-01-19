@@ -30,12 +30,12 @@ export class CalloutCompositeExample {
         const properties = {
             ...this.schema.properties,
             content: {
-                type: 'string',
+                type: 'string' as const,
                 title: 'Content',
                 lime: {
                     layout: {
                         rowSpan: 2,
-                        colSpan: 'all',
+                        colSpan: 'all' as const,
                     },
                     component: {
                         props: {
@@ -45,11 +45,11 @@ export class CalloutCompositeExample {
                 },
             },
             style: {
-                type: 'object',
+                type: 'object' as const,
                 title: 'Styles',
                 properties: {
                     '--callout-color': {
-                        type: 'string',
+                        type: 'string' as const,
                         title: 'Callout Color',
                         description: '--callout-color',
                         lime: {
@@ -59,7 +59,7 @@ export class CalloutCompositeExample {
                         },
                     },
                     '--callout-text-color': {
-                        type: 'string',
+                        type: 'string' as const,
                         title: 'Text Color',
                         description: '--callout-text-color',
                         lime: {
@@ -69,7 +69,7 @@ export class CalloutCompositeExample {
                         },
                     },
                     '--callout-background-color': {
-                        type: 'string',
+                        type: 'string' as const,
                         title: 'Background Color',
                         description: '--callout-background-color',
                         lime: {
@@ -87,7 +87,7 @@ export class CalloutCompositeExample {
             properties: properties,
             lime: {
                 layout: {
-                    type: 'grid',
+                    type: 'grid' as const,
                 },
             },
         };

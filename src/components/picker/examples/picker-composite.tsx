@@ -1,5 +1,10 @@
 import { Component, h, Host, Prop, State } from '@stencil/core';
-import { FormSchema, ListItem } from '@limetech/lime-elements';
+import {
+    FormSchema,
+    LimelPickerCustomEvent,
+    ListItem,
+    PickerValue,
+} from '@limetech/lime-elements';
 
 /**
  * Composite
@@ -59,7 +64,7 @@ export class PickerCompositeExample {
             ...this.schema,
             lime: {
                 layout: {
-                    type: 'grid',
+                    type: 'grid' as const,
                 },
             },
         };
@@ -89,8 +94,8 @@ export class PickerCompositeExample {
     }
 
     private handleChange = (
-        event: CustomEvent<
-            ListItem<number | string> | Array<ListItem<number | string>>
+        event: LimelPickerCustomEvent<
+            ListItem<PickerValue> | Array<ListItem<PickerValue>>
         >
     ) => {
         this.props = {
