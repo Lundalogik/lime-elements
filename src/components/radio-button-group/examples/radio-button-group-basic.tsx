@@ -15,13 +15,15 @@ import { Component, h, State } from '@stencil/core';
 @Component({ tag: 'limel-example-radio-button-group-basic', shadow: true })
 export class RadioButtonBasicExample {
     @State()
-    private selectedItem: ListItem<string>;
+    private selectedItem: ListItem<string | number>;
 
     @State()
     private disabled = false;
 
     public componentWillLoad() {
-        this.selectedItem = this.items.find((item) => item.selected);
+        this.selectedItem = this.items.find(
+            (item): item is ListItem => 'selected' in item && item.selected
+        );
     }
 
     private items: Array<ListItem | ListSeparator> = [
