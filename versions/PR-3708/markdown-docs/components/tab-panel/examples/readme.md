@@ -9,7 +9,7 @@
 
 | Property | Attribute | Description                            | Type  | Default     |
 | -------- | --------- | -------------------------------------- | ----- | ----------- |
-| `tab`    | `tab`     | The tab that this component belongs to | `Tab` | `undefined` |
+| `tab`    | --        | The tab that this component belongs to | `Tab` | `undefined` |
 
 
 ## Events
