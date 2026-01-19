@@ -1,2 +1,1 @@
-import{r as e,h as t}from"./index-BWUkXc2p.js";const r=class{constructor(t){e(this,t);this.items=[{text:"root"},{text:"src"},{text:"components"},{text:"my-component"}]}render(){return t("limel-breadcrumbs",{key:"cd39edc2f7e636a79d808e221c0683a10680faf4",items:this.items,divider:"/"})}};export{r as limel_example_breadcrumbs_divider};
-//# sourceMappingURL=limel-example-breadcrumbs-divider.entry.js.map
+import{r as e,h as t}from"./index-BudcI_o9.js";const r=class{constructor(t){e(this,t),this.items=[{text:"root"},{text:"src"},{text:"components"},{text:"my-component"}]}render(){return t("limel-breadcrumbs",{key:"d92a6071e96feb369c4a9a6e582f8ee0ef783642",items:this.items,divider:"/"})}};export{r as limel_example_breadcrumbs_divider}

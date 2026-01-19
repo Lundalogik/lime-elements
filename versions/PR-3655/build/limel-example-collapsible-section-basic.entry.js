@@ -1,2 +1,1 @@
-import{r as e,h as c}from"./index-BWUkXc2p.js";const s=class{constructor(c){e(this,c)}render(){return c("limel-collapsible-section",{key:"3426b126d05a7d726f5926176a1c2216d68b5cb0",header:"Header"},c("p",{key:"1e241b04b1d3a5c814e86cfd171380f903f0cf99"},"Body"))}};export{s as limel_example_collapsible_section_basic};
-//# sourceMappingURL=limel-example-collapsible-section-basic.entry.js.map
+import{r as e,h as c}from"./index-BudcI_o9.js";const a=class{constructor(c){e(this,c)}render(){return c("limel-collapsible-section",{key:"20540bf6b1dd722ccae95dd9ae0a8a1ecdb6f4e0",header:"Header"},c("p",{key:"169f13a41c71260e9be6fd932277e09b8c352590"},"Body"))}};export{a as limel_example_collapsible_section_basic}

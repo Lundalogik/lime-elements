@@ -4,11 +4,11 @@
 
 ## Properties
 
-| Property    | Attribute    | Description                                                                                                                                                                                                                                                           | Type         | Default |
-| ----------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------- |
-| `disabled`  | `disabled`   | Set to `true` to disable the progress flow. Use `disabled` to indicate that the component can normally be interacted with, but is currently disabled. This tells the user that if certain requirements are met, the field may become enabled again.                   | `boolean`    | `false` |
-| `flowItems` | `flow-items` | What flow items to render                                                                                                                                                                                                                                             | `FlowItem[]` | `[]`    |
-| `readonly`  | `readonly`   | Disables the progress flow when `true`. This does not visualize the component that much differently. But since the component does not provide any feedback that users can interact with the component, it makes it perfect for illustrative and informative porpuses. | `boolean`    | `false` |
+| Property    | Attribute  | Description                                                                                                                                                                                                                                                           | Type         | Default |
+| ----------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------- |
+| `disabled`  | `disabled` | Set to `true` to disable the progress flow. Use `disabled` to indicate that the component can normally be interacted with, but is currently disabled. This tells the user that if certain requirements are met, the field may become enabled again.                   | `boolean`    | `false` |
+| `flowItems` | --         | What flow items to render                                                                                                                                                                                                                                             | `FlowItem[]` | `[]`    |
+| `readonly`  | `readonly` | Disables the progress flow when `true`. This does not visualize the component that much differently. But since the component does not provide any feedback that users can interact with the component, it makes it perfect for illustrative and informative porpuses. | `boolean`    | `false` |
 
 
 ## Events

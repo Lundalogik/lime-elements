@@ -4,10 +4,10 @@
 
 ## Properties
 
-| Property             | Attribute              | Description                                                                  | Type          | Default     |
-| -------------------- | ---------------------- | ---------------------------------------------------------------------------- | ------------- | ----------- |
-| `allowClicksElement` | `allow-clicks-element` | Clicks in this element should not be prevented when the menu surface is open | `HTMLElement` | `undefined` |
-| `open`               | `open`                 | True if the menu surface is open, false otherwise                            | `boolean`     | `false`     |
+| Property             | Attribute | Description                                                                  | Type          | Default     |
+| -------------------- | --------- | ---------------------------------------------------------------------------- | ------------- | ----------- |
+| `allowClicksElement` | --        | Clicks in this element should not be prevented when the menu surface is open | `HTMLElement` | `undefined` |
+| `open`               | `open`    | True if the menu surface is open, false otherwise                            | `boolean`     | `false`     |
 
 
 ## Events

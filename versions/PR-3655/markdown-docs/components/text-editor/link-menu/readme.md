@@ -13,7 +13,7 @@ It allows the user to input the text and url for the link.
 | ---------- | ---------- | -------------------------------------- | ---------------------------------------------------------------------- | ----------- |
 | `isOpen`   | `is-open`  | Open state of the link-menu dialog     | `boolean`                                                              | `false`     |
 | `language` | `language` | Defines the language for translations. | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`      |
-| `link`     | `link`     | The link                               | `{ text?: string; href: string; }`                                     | `undefined` |
+| `link`     | --         | The link                               | `{ text?: string; href: string; }`                                     | `undefined` |
 
 
 ## Events

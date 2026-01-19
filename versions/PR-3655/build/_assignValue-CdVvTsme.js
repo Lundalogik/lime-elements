@@ -1,2 +1,1 @@
-import{b as a}from"./_baseAssignValue-C5z9R1QQ.js";import{e}from"./eq-CZ30nDJE.js";var r=Object.prototype;var s=r.hasOwnProperty;function i(r,i,n){var o=r[i];if(!(s.call(r,i)&&e(o,n))||n===undefined&&!(i in r)){a(r,i,n)}}export{i as a};
-//# sourceMappingURL=_assignValue-CdVvTsme.js.map
+import{b as a}from"./_baseAssignValue-C5z9R1QQ.js";import{e as s}from"./eq-CZ30nDJE.js";var o=Object.prototype.hasOwnProperty;function r(r,e,i){var n=r[e];o.call(r,e)&&s(n,i)&&(void 0!==i||e in r)||a(r,e,i)}export{r as a}

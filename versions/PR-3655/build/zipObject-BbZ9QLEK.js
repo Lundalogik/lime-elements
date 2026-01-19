@@ -1,2 +1,1 @@
-import{a as n}from"./_assignValue-CdVvTsme.js";function r(n,r,e){var a=-1,i=n.length,s=r.length,t={};while(++a<i){var u=a<s?r[a]:undefined;e(t,n[a],u)}return t}function e(e,a){return r(e||[],a||[],n)}export{e as z};
-//# sourceMappingURL=zipObject-BbZ9QLEK.js.map
+import{a as r}from"./_assignValue-CdVvTsme.js";function n(n,o){return function(r,n,o){for(var a=-1,s=r.length,t=n.length,e={};++a<s;)o(e,r[a],a<t?n[a]:void 0);return e}(n||[],o||[],r)}export{n as z}

@@ -155,35 +155,40 @@ async function isModified(types, cache) {
     if (Object.keys(cache).length === 0) {
         return true;
     }
-    let filenames = types.map((t) => t.sources).flat();
-    filenames = [...new Set(filenames)];
-    // Handle stat errors gracefully - if a file can't be stat'd, assume it's modified
-    const stats = await Promise.all(filenames.map((filename) => stat(filename).catch(() => null)));
-    return stats.some((data, index) => {
-        const filename = filenames[index];
-        // If stat failed, consider the file modified
-        if (!data) {
-            logger.debug(`${filename} cannot be accessed, marking as modified`);
-            return true;
-        }
-        const result = cache[filename] !== data.mtimeMs;
-        logger.debug(`${filename} was ${result ? '' : 'not'} modified!`);
-        return result;
-    });
+    const filenames = getUniqueSourceFilenames(types);
+    const stats = await Promise.all(filenames.map(tryStatFile));
+    return stats.some((fileStat, index) => hasFileChangedSinceCached(filenames[index], fileStat, cache));
+}
+function getUniqueSourceFilenames(types) {
+    const filenames = types.map((t) => t.sources).flat();
+    return [...new Set(filenames)];
+}
+function tryStatFile(filename) {
+    return stat(filename).catch(() => null);
+}
+function hasFileChangedSinceCached(filename, fileStat, cache) {
+    if (!fileStat) {
+        logger.debug(`${filename} cannot be accessed, marking as modified`);
+        return true;
+    }
+    const result = cache[filename] !== fileStat.mtimeMs;
+    logger.debug(`${filename} was ${result ? '' : 'not'} modified!`);
+    return result;
 }
 async function saveData(config, types) {
-    let filenames = types.map((t) => t.sources).flat();
-    filenames = [...new Set(filenames)];
-    // Handle stat errors gracefully - skip files that can't be accessed
-    const stats = await Promise.all(filenames.map((filename) => stat(filename).catch(() => null)));
+    const filenames = getUniqueSourceFilenames(types);
+    const stats = await Promise.all(filenames.map(tryStatFile));
+    const cache = buildCacheFromFileStats(filenames, stats);
+    await Promise.all([writeCache(config, cache), writeTypes(config, types)]);
+}
+function buildCacheFromFileStats(filenames, stats) {
     const cache = {};
-    stats.forEach((data, index) => {
-        if (data) {
-            const filename = filenames[index];
-            cache[filename] = data.mtimeMs;
+    stats.forEach((fileStat, index) => {
+        if (fileStat) {
+            cache[filenames[index]] = fileStat.mtimeMs;
         }
     });
-    await Promise.all([writeCache(config, cache), writeTypes(config, types)]);
+    return cache;
 }
 async function readCache(config) {
     try {

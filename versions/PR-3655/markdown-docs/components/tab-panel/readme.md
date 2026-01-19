@@ -22,7 +22,7 @@ inside the actual tab, e.g. to change the icon, color or badge.
 
 | Property | Attribute | Description                      | Type    | Default |
 | -------- | --------- | -------------------------------- | ------- | ------- |
-| `tabs`   | `tabs`    | The tabs to display in the panel | `Tab[]` | `[]`    |
+| `tabs`   | --        | The tabs to display in the panel | `Tab[]` | `[]`    |
 
 
 ## Events

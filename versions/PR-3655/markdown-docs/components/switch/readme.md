@@ -19,15 +19,15 @@ But there is an important difference between the two! Please read our guidelines
 
 ## Properties
 
-| Property         | Attribute         | Description                                                                                                                                                                                  | Type               | Default     |
-| ---------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ----------- |
-| `disabled`       | `disabled`        | Disables the switch when `true`, and visually shows that the switch is editable but disabled. This tells the users that if certain requirements are met, the switch may become interactable. | `boolean`          | `false`     |
-| `helperText`     | `helper-text`     | Optional helper text to display below the switch                                                                                                                                             | `string`           | `undefined` |
-| `invalid`        | `invalid`         | Set to `true` to indicate that the current value is invalid.                                                                                                                                 | `boolean`          | `undefined` |
-| `label`          | `label`           | Label to display next to the switch                                                                                                                                                          | `string`           | `undefined` |
-| `readonly`       | `readonly`        | Disables the switch when `true`. This visualizes the switch slightly differently. But shows no visual sign indicating that the switch is disabled or can ever become interactable.           | `boolean`          | `false`     |
-| `readonlyLabels` | `readonly-labels` | The labels to use to clarify what kind of data is being visualized, when the component is `readonly`.                                                                                        | `Label<boolean>[]` | `[]`        |
-| `value`          | `value`           | The value of the switch                                                                                                                                                                      | `boolean`          | `false`     |
+| Property         | Attribute     | Description                                                                                                                                                                                  | Type               | Default     |
+| ---------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ----------- |
+| `disabled`       | `disabled`    | Disables the switch when `true`, and visually shows that the switch is editable but disabled. This tells the users that if certain requirements are met, the switch may become interactable. | `boolean`          | `false`     |
+| `helperText`     | `helper-text` | Optional helper text to display below the switch                                                                                                                                             | `string`           | `undefined` |
+| `invalid`        | `invalid`     | Set to `true` to indicate that the current value is invalid.                                                                                                                                 | `boolean`          | `undefined` |
+| `label`          | `label`       | Label to display next to the switch                                                                                                                                                          | `string`           | `undefined` |
+| `readonly`       | `readonly`    | Disables the switch when `true`. This visualizes the switch slightly differently. But shows no visual sign indicating that the switch is disabled or can ever become interactable.           | `boolean`          | `false`     |
+| `readonlyLabels` | --            | The labels to use to clarify what kind of data is being visualized, when the component is `readonly`.                                                                                        | `Label<boolean>[]` | `[]`        |
+| `value`          | `value`       | The value of the switch                                                                                                                                                                      | `boolean`          | `false`     |
 
 
 ## Events

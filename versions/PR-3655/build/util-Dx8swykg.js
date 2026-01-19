@@ -20,5 +20,4 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var n={animation:{prefixed:"-webkit-animation",standard:"animation"},transform:{prefixed:"-webkit-transform",standard:"transform"},transition:{prefixed:"-webkit-transition",standard:"transition"}};function r(n){return Boolean(n.document)&&typeof n.document.createElement==="function"}function t(t,i){if(r(t)&&i in n){var a=t.document.createElement("div");var o=n[i],e=o.standard,f=o.prefixed;var d=e in a.style;return d?e:f}return i}export{t as g};
-//# sourceMappingURL=util-Dx8swykg.js.map
+var n={animation:{prefixed:"-webkit-animation",standard:"animation"},transform:{prefixed:"-webkit-transform",standard:"transform"},transition:{prefixed:"-webkit-transition",standard:"transition"}};function t(t,i){if(function(n){return Boolean(n.document)&&"function"==typeof n.document.createElement}(t)&&i in n){var r=t.document.createElement("div"),a=n[i],o=a.standard;return o in r.style?o:a.prefixed}return i}export{t as g}

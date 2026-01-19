@@ -20,7 +20,7 @@ Then you _might_ need to use this component.
 
 | Property | Attribute | Description                             | Type                                                                                                                                       | Default     |
 | -------- | --------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| `config` | `config`  | Global configuration for Lime Elements. | `{ iconPath?: string; defaultLocale?: string; markdownWhitelist?: CustomElementDefinition[]; featureSwitches?: Record<string, boolean>; }` | `undefined` |
+| `config` | --        | Global configuration for Lime Elements. | `{ iconPath?: string; defaultLocale?: string; markdownWhitelist?: CustomElementDefinition[]; featureSwitches?: Record<string, boolean>; }` | `undefined` |
 
 
 ----------------------------------------------

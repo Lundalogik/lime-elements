@@ -1,2 +1,1 @@
-var r=9007199254740991;var n=/^(?:0|[1-9]\d*)$/;function a(a,e){var o=typeof a;e=e==null?r:e;return!!e&&(o=="number"||o!="symbol"&&n.test(a))&&(a>-1&&a%1==0&&a<e)}export{a as i};
-//# sourceMappingURL=_isIndex-B--C3qwe.js.map
+var r=/^(?:0|[1-9]\d*)$/;function n(n,e){var o=typeof n;return!!(e=null==e?9007199254740991:e)&&("number"==o||"symbol"!=o&&r.test(n))&&n>-1&&n%1==0&&n<e}export{n as i}

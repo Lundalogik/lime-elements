@@ -27,7 +27,7 @@ Breadcrumbs are often placed horizontally before the main content of the current
 | Property  | Attribute | Description                                                                                | Type                | Default     |
 | --------- | --------- | ------------------------------------------------------------------------------------------ | ------------------- | ----------- |
 | `divider` | `divider` | The visual divider that separates items. It must be a single character such as `-` or `,`. | `string`            | `'›'`       |
-| `items`   | `items`   | List of items in the breadcrumbs, each representing a step or a page.                      | `BreadcrumbsItem[]` | `undefined` |
+| `items`   | --        | List of items in the breadcrumbs, each representing a step or a page.                      | `BreadcrumbsItem[]` | `undefined` |
 
 
 ## Events

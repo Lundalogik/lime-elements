@@ -11,7 +11,7 @@
 | `invalid`     | `invalid`      | Set to `true` to indicate that the current value of the input field is invalid.                                                  | `boolean`                         | `false`     |
 | `label`       | `label`        | Label of the input field                                                                                                         | `string`                          | `undefined` |
 | `manualInput` | `manual-input` | Set to `false` to disallow custom color values to be typed into the input field.                                                 | `boolean`                         | `true`      |
-| `palette`     | `palette`      | Custom color palette to use instead of Lime palette. Internal prop passed from parent.                                           | `(string \| CustomColorSwatch)[]` | `undefined` |
+| `palette`     | --             | Custom color palette to use instead of Lime palette. Internal prop passed from parent.                                           | `(string \| CustomColorSwatch)[]` | `undefined` |
 | `placeholder` | `placeholder`  | The placeholder text shown inside the input field, when the field is focused and empty.                                          | `string`                          | `undefined` |
 | `required`    | `required`     | Set to `true` if a value is required                                                                                             | `boolean`                         | `undefined` |
 | `value`       | `value`        | Color value that is manually typed by the user                                                                                   | `string`                          | `undefined` |

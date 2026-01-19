@@ -18,11 +18,11 @@ confusion and negatively affecting the end-users' experience.
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                                                                                             | Type                                        | Default     |
-| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ----------- |
-| `defaultLabel` | `default-label` | The label to display when no matching value is found in the `labels` array. This is a fallback label that ensures there's always a label displayed for the component.                   | `{ text?: string; icon?: string \| Icon; }` | `{}`        |
-| `labels`       | `labels`        | A list of available labels. Each label has a corresponding value that will be matched with the current `value` of the component to determine what label to display.                     | `Label<LabelValue>[]`                       | `[]`        |
-| `value`        | `value`         | The current value of the component which is used to match with the given `labels` to determine what label to display.  If not matching label is found, the `defaultLabel` is displayed. | `boolean \| number \| string`               | `undefined` |
+| Property       | Attribute | Description                                                                                                                                                                             | Type                           | Default     |
+| -------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ----------- |
+| `defaultLabel` | --        | The label to display when no matching value is found in the `labels` array. This is a fallback label that ensures there's always a label displayed for the component.                   | `"value" \| Label<LabelValue>` | `{}`        |
+| `labels`       | --        | A list of available labels. Each label has a corresponding value that will be matched with the current `value` of the component to determine what label to display.                     | `Label<LabelValue>[]`          | `[]`        |
+| `value`        | `value`   | The current value of the component which is used to match with the given `labels` to determine what label to display.  If not matching label is found, the `defaultLabel` is displayed. | `boolean \| number \| string`  | `undefined` |
 
 
 ## Dependencies

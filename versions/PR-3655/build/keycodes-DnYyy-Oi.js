@@ -1,2 +1,1 @@
-const s="Tab";const a="Enter";const o="Escape";const c="Space";const t="Backspace";const n="Delete";const r="ArrowUp";const e="ArrowDown";const p="ArrowLeft";const w="ArrowRight";export{r as A,t as B,n as D,a as E,c as S,s as T,o as a,e as b,p as c,w as d};
-//# sourceMappingURL=keycodes-DnYyy-Oi.js.map
+const a="Tab",s="Enter",r="Escape",e="Space",o="Backspace",c="Delete",t="ArrowUp",p="ArrowDown",w="ArrowLeft",A="ArrowRight";export{t as A,o as B,c as D,s as E,e as S,a as T,r as a,p as b,w as c,A as d}

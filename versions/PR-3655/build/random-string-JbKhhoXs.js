@@ -1,2 +1,1 @@
-const t=()=>{var t;if(!("crypto"in window)||typeof((t=window.crypto)===null||t===void 0?void 0:t.randomUUID)!=="function"){return n()}return"a_"+crypto.randomUUID()};function n(){const t=36;const n=2;const o=97;const r=26;return String.fromCharCode(o+Math.floor(Math.random()*r))+Math.random().toString(t).slice(Math.max(0,n))+Math.random().toString(t).slice(Math.max(0,n))}export{t as c};
-//# sourceMappingURL=random-string-JbKhhoXs.js.map
+const t=()=>{var t;return"crypto"in window&&"function"==typeof(null===(t=window.crypto)||void 0===t?void 0:t.randomUUID)?"a_"+crypto.randomUUID():String.fromCharCode(97+Math.floor(26*Math.random()))+Math.random().toString(36).slice(Math.max(0,2))+Math.random().toString(36).slice(Math.max(0,2))};export{t as c}

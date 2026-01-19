@@ -8,7 +8,7 @@
 | ------------ | ------------- | ----------------------------------------------------------------------- | --------------------------------------------- | ----------- |
 | `badgeIcons` | `badge-icons` | Set to `true` if the list should display larger icons with a background | `boolean`                                     | `undefined` |
 | `iconSize`   | `icon-size`   | Size of the icons in the list                                           | `"large" \| "medium" \| "small" \| "x-small"` | `'small'`   |
-| `items`      | `items`       | List of items to display                                                | `(ListSeparator \| MenuItem<any>)[]`          | `undefined` |
+| `items`      | --            | List of items to display                                                | `(ListSeparator \| MenuItem<any>)[]`          | `undefined` |
 
 
 ## Events

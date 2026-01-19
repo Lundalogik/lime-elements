@@ -12,10 +12,10 @@ child component.
 
 ## Properties
 
-| Property       | Attribute        | Description | Type     | Default     |
-| -------------- | ---------------- | ----------- | -------- | ----------- |
-| `readMoreLink` | `read-more-link` |             | `Link`   | `undefined` |
-| `value`        | `value`          |             | `string` | `undefined` |
+| Property       | Attribute | Description | Type     | Default     |
+| -------------- | --------- | ----------- | -------- | ----------- |
+| `readMoreLink` | --        |             | `Link`   | `undefined` |
+| `value`        | `value`   |             | `string` | `undefined` |
 
 
 ## Dependencies

@@ -22,12 +22,12 @@ from Lime Web Components to open dialogs in Lime CRM.
 
 ## Properties
 
-| Property         | Attribute         | Description                                      | Type                      | Default                                                      |
-| ---------------- | ----------------- | ------------------------------------------------ | ------------------------- | ------------------------------------------------------------ |
-| `closingActions` | `closing-actions` | Defines which action triggers a close-event.     | `ClosingActions`          | `{         escapeKey: true,         scrimClick: true,     }` |
-| `fullscreen`     | `fullscreen`      | Set to `true` to make the dialog "fullscreen".   | `boolean`                 | `false`                                                      |
-| `heading`        | `heading`         | The heading for the dialog, if any.              | `DialogHeading \| string` | `undefined`                                                  |
-| `open`           | `open`            | `true` if the dialog is open, `false` otherwise. | `boolean`                 | `false`                                                      |
+| Property         | Attribute    | Description                                      | Type                      | Default                                                      |
+| ---------------- | ------------ | ------------------------------------------------ | ------------------------- | ------------------------------------------------------------ |
+| `closingActions` | --           | Defines which action triggers a close-event.     | `ClosingActions`          | `{         escapeKey: true,         scrimClick: true,     }` |
+| `fullscreen`     | `fullscreen` | Set to `true` to make the dialog "fullscreen".   | `boolean`                 | `false`                                                      |
+| `heading`        | `heading`    | The heading for the dialog, if any.              | `DialogHeading \| string` | `undefined`                                                  |
+| `open`           | `open`       | `true` if the dialog is open, `false` otherwise. | `boolean`                 | `false`                                                      |
 
 
 ## Events

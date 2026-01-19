@@ -8,7 +8,7 @@
 | ------------- | -------------- | ---------------------------------------- | ---------- | ------- |
 | `currentStep` | `current-step` | True for current step                    | `boolean`  | `false` |
 | `disabled`    | `disabled`     | True if the flow item should be disabled | `boolean`  | `false` |
-| `item`        | `item`         | The flow item that should be rendered    | `FlowItem` | `null`  |
+| `item`        | --             | The flow item that should be rendered    | `FlowItem` | `null`  |
 | `readonly`    | `readonly`     | True if the flow item should be readonly | `boolean`  | `false` |
 
 

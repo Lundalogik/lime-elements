@@ -11,10 +11,10 @@
 | `invalid`    | `invalid`     | Set to `true` to indicate that the current value of the select is invalid.                                                                                                                                           | `boolean`                             | `undefined` |
 | `label`      | `label`       | Text to display next to the select.                                                                                                                                                                                  | `string`                              | `undefined` |
 | `multiple`   | `multiple`    | Set to `true` to allow multiple values to be selected.                                                                                                                                                               | `boolean`                             | `false`     |
-| `options`    | `options`     | List of options.                                                                                                                                                                                                     | `(ListSeparator \| Option<string>)[]` | `[]`        |
+| `options`    | --            | List of options.                                                                                                                                                                                                     | `(ListSeparator \| Option<string>)[]` | `[]`        |
 | `readonly`   | `readonly`    | Set to `true` to make the field read-only. This visualizes the component slightly differently. But shows no visual sign indicating that the component is disabled or can ever become interactable.                   | `boolean`                             | `false`     |
 | `required`   | `required`    | True if the control requires a value.                                                                                                                                                                                | `boolean`                             | `false`     |
-| `value`      | `value`       | Currently selected value or values. If `multiple` is `true`, this must be an array. Otherwise it must be a single value.                                                                                             | `Option<string> \| Option<string>[]`  | `undefined` |
+| `value`      | --            | Currently selected value or values. If `multiple` is `true`, this must be an array. Otherwise it must be a single value.                                                                                             | `Option<string> \| Option<string>[]`  | `undefined` |
 
 
 ## Events
@@ -42,6 +42,7 @@
  - [limel-example-dialog-heading](../dialog/examples)
  - [limel-example-file-viewer-office](../file-viewer/examples)
  - [limel-example-header-slot-actions](../header/examples)
+ - [limel-example-input-field-number](../input-field/examples)
  - [limel-example-linear-progress-color](../linear-progress/examples)
  - [limel-example-list-badge-icons-with-multiple-lines](../list/examples)
  - [limel-example-list-item-icon-size](../list-item/examples)
@@ -60,6 +61,7 @@
  - [limel-example-select-with-icons](examples)
  - [limel-example-select-with-secondary-text](examples)
  - [limel-example-select-with-separators](examples)
+ - [limel-example-table-pagination](../table/examples)
  - [limel-example-text-editor-composite](../text-editor/examples)
  - [limel-example-text-editor-ui](../text-editor/examples)
 
@@ -95,6 +97,7 @@ graph TD;
   limel-example-dialog-heading --> limel-select
   limel-example-file-viewer-office --> limel-select
   limel-example-header-slot-actions --> limel-select
+  limel-example-input-field-number --> limel-select
   limel-example-linear-progress-color --> limel-select
   limel-example-list-badge-icons-with-multiple-lines --> limel-select
   limel-example-list-item-icon-size --> limel-select
@@ -113,6 +116,7 @@ graph TD;
   limel-example-select-with-icons --> limel-select
   limel-example-select-with-secondary-text --> limel-select
   limel-example-select-with-separators --> limel-select
+  limel-example-table-pagination --> limel-select
   limel-example-text-editor-composite --> limel-select
   limel-example-text-editor-ui --> limel-select
   style limel-select fill:#f9f,stroke:#333,stroke-width:4px

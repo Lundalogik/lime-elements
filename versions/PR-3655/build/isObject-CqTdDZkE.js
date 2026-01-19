@@ -1,2 +1,1 @@
-function n(n){var t=typeof n;return n!=null&&(t=="object"||t=="function")}export{n as i};
-//# sourceMappingURL=isObject-CqTdDZkE.js.map
+function n(n){var t=typeof n;return null!=n&&("object"==t||"function"==t)}export{n as i}

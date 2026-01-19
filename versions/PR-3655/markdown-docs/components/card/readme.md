@@ -12,11 +12,11 @@ as an image or an icon, a body of text, or optional actions.
 
 | Property      | Attribute     | Description                                                                                                     | Type                                 | Default      |
 | ------------- | ------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ------------ |
-| `actions`     | `actions`     | Actions to display in the card, to provide the user with options to interact with the content.                  | `(ListSeparator \| ActionBarItem)[]` | `[]`         |
+| `actions`     | --            | Actions to display in the card, to provide the user with options to interact with the content.                  | `(ListSeparator \| ActionBarItem)[]` | `[]`         |
 | `clickable`   | `clickable`   | When true, improve the accessibility of the component and hints the user that the card can be interacted width. | `boolean`                            | `false`      |
 | `heading`     | `heading`     | Heading of the card, to provide a short title about the context.                                                | `string`                             | `undefined`  |
 | `icon`        | `icon`        | An icon, to display along with the heading and subheading.                                                      | `Icon \| string`                     | `undefined`  |
-| `image`       | `image`       | A hero image to display in the card, to enrich the content with visual information.                             | `Image`                              | `undefined`  |
+| `image`       | --            | A hero image to display in the card, to enrich the content with visual information.                             | `Image`                              | `undefined`  |
 | `orientation` | `orientation` | The orientation of the card, specially useful when the card has an image.                                       | `"landscape" \| "portrait"`          | `'portrait'` |
 | `subheading`  | `subheading`  | Subheading of the card to provide a short description of the context.                                           | `string`                             | `undefined`  |
 | `value`       | `value`       | The content of the card. Supports markdown, to provide a rich text experience.                                  | `string`                             | `undefined`  |

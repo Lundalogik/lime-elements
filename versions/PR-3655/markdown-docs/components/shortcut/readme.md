@@ -20,7 +20,7 @@ for the `link` property
 | `disabled` | `disabled` | Set to `true` if shortcut is disabled.                             | `boolean`          | `false`     |
 | `icon`     | `icon`     | Name of icon for the shortcut.                                     | `string`           | `undefined` |
 | `label`    | `label`    | The text to show below the shortcut. Long label will be truncated. | `string`           | `null`      |
-| `link`     | `link`     | If supplied, the shortcut will be a clickable link.                | `Link`             | `undefined` |
+| `link`     | --         | If supplied, the shortcut will be a clickable link.                | `Link`             | `undefined` |
 
 
 ## Dependencies

@@ -7,7 +7,7 @@
 | Property            | Attribute           | Description                                                                                             | Type       | Default     |
 | ------------------- | ------------------- | ------------------------------------------------------------------------------------------------------- | ---------- | ----------- |
 | `expanded`          | `expanded`          | When the dock is expanded or collapsed, dock items show labels and tooltips as suitable for the layout. | `boolean`  | `false`     |
-| `item` _(required)_ | `item`              | Item that is placed in the dock.                                                                        | `DockItem` | `undefined` |
+| `item` _(required)_ | --                  | Item that is placed in the dock.                                                                        | `DockItem` | `undefined` |
 | `useMobileLayout`   | `use-mobile-layout` | When dock is using mobile layout, dock items show labels and tooltips as suitable for the layout.       | `boolean`  | `false`     |
 
 

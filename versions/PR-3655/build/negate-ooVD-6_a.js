@@ -1,2 +1,1 @@
-var t="Expected a function";function r(r){if(typeof r!="function"){throw new TypeError(t)}return function(){var t=arguments;switch(t.length){case 0:return!r.call(this);case 1:return!r.call(this,t[0]);case 2:return!r.call(this,t[0],t[1]);case 3:return!r.call(this,t[0],t[1],t[2])}return!r.apply(this,t)}}export{r as n};
-//# sourceMappingURL=negate-ooVD-6_a.js.map
+function t(t){if("function"!=typeof t)throw new TypeError("Expected a function");return function(){var r=arguments;switch(r.length){case 0:return!t.call(this);case 1:return!t.call(this,r[0]);case 2:return!t.call(this,r[0],r[1]);case 3:return!t.call(this,r[0],r[1],r[2])}return!t.apply(this,r)}}export{t as n}

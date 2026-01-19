@@ -43,7 +43,7 @@ and similar phrases...
 | `language` | `language` | Defines the localisation for translations.                                                                                  | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`      |
 | `readonly` | `readonly` | Set to `true` to disable adding and removing files, but allow interaction with any already existing file.                   | `boolean`                                                              | `false`     |
 | `required` | `required` | Set to `true` to indicate that the field is required.                                                                       | `boolean`                                                              | `false`     |
-| `value`    | `value`    | The selected file.                                                                                                          | `FileInfo`                                                             | `undefined` |
+| `value`    | --         | The selected file.                                                                                                          | `FileInfo`                                                             | `undefined` |
 
 
 ## Events

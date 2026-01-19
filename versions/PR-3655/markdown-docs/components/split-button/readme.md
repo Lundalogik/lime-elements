@@ -22,7 +22,7 @@ The button should only be used for performing commands!
 | --------------- | ---------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------ | ----------- |
 | `disabled`      | `disabled`       | Set to `true` to disable the button.                                                                      | `boolean`                            | `false`     |
 | `icon`          | `icon`           | Set icon for the button                                                                                   | `string`                             | `undefined` |
-| `items`         | `items`          | A list of items and separators to show in the menu.                                                       | `(ListSeparator \| MenuItem<any>)[]` | `[]`        |
+| `items`         | --               | A list of items and separators to show in the menu.                                                       | `(ListSeparator \| MenuItem<any>)[]` | `[]`        |
 | `label`         | `label`          | The text to show on the default action part of the button.                                                | `string`                             | `undefined` |
 | `loading`       | `loading`        | Set to `true` to put the button in the `loading` state. This also disables the button.                    | `boolean`                            | `false`     |
 | `loadingFailed` | `loading-failed` | Set to `true` to indicate failure instead of success when the button is no longer in the `loading` state. | `boolean`                            | `false`     |

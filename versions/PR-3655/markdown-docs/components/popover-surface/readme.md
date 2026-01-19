@@ -4,9 +4,9 @@
 
 ## Properties
 
-| Property            | Attribute            | Description       | Type             | Default     |
-| ------------------- | -------------------- | ----------------- | ---------------- | ----------- |
-| `contentCollection` | `content-collection` | Content to render | `HTMLCollection` | `undefined` |
+| Property            | Attribute | Description       | Type             | Default     |
+| ------------------- | --------- | ----------------- | ---------------- | ----------- |
+| `contentCollection` | --        | Content to render | `HTMLCollection` | `undefined` |
 
 
 ## Slots

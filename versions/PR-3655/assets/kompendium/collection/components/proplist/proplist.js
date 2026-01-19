@@ -1,7 +1,7 @@
 import { h } from "@stencil/core";
 export class Proplist {
     render() {
-        return h("dl", { key: 'cfbb5f0d2740828fc9880f336468b47562e73b3a' }, this.items.map(this.renderProperty));
+        return h("dl", { key: 'e0d431f2ef5b105af7436d0a9b46a3ad2886a96b' }, this.items.map(this.renderProperty));
     }
     renderProperty(property) {
         const { key, value } = property;
@@ -33,7 +33,7 @@ export class Proplist {
                     "references": {
                         "ProplistItem": {
                             "location": "local",
-                            "path": "/Users/adrian.schmidt/src/kompendium/src/components/proplist/proplist.tsx",
+                            "path": "/home/runner/work/kompendium/kompendium/src/components/proplist/proplist.tsx",
                             "id": "src/components/proplist/proplist.tsx::ProplistItem"
                         }
                     }

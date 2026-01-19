@@ -38,7 +38,7 @@ inherits its width from its content.
 | Property   | Attribute  | Description                                 | Type       | Default |
 | ---------- | ---------- | ------------------------------------------- | ---------- | ------- |
 | `disabled` | `disabled` | True if the button-group should be disabled | `boolean`  | `false` |
-| `value`    | `value`    | List of buttons for the group               | `Button[]` | `[]`    |
+| `value`    | --         | List of buttons for the group               | `Button[]` | `[]`    |
 
 
 ## Events

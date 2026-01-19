@@ -23,7 +23,7 @@ A tab will never be removed or get disabled, even if there is no content under i
 
 | Property | Attribute | Description             | Type    | Default |
 | -------- | --------- | ----------------------- | ------- | ------- |
-| `tabs`   | `tabs`    | List of tabs to display | `Tab[]` | `[]`    |
+| `tabs`   | --        | List of tabs to display | `Tab[]` | `[]`    |
 
 
 ## Events

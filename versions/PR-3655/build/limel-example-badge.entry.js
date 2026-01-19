@@ -1,2 +1,1 @@
-import{r as e,h as r}from"./index-BWUkXc2p.js";const a=":host(limel-example-badge){--badge-background-color:rgb(var(--color-red-default))}";const c=class{constructor(r){e(this,r)}render(){return r("limel-badge",{key:"3e1790e316b080a887c1cc26dc6f1a324cb987b4"})}};c.style=a;export{c as limel_example_badge};
-//# sourceMappingURL=limel-example-badge.entry.js.map
+import{r as e,h as r}from"./index-BudcI_o9.js";const a=class{constructor(r){e(this,r)}render(){return r("limel-badge",{key:"1096e5723516ee3d664c98260edbf9d596ca2354"})}};a.style=":host(limel-example-badge){--badge-background-color:rgb(var(--color-red-default))}";export{a as limel_example_badge}

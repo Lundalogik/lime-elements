@@ -1,2 +1,1 @@
-import{d as e}from"./_defineProperty-DfyZDhdG.js";function r(r,t,o){if(t=="__proto__"&&e){e(r,t,{configurable:true,enumerable:true,value:o,writable:true})}else{r[t]=o}}export{r as b};
-//# sourceMappingURL=_baseAssignValue-C5z9R1QQ.js.map
+import{d as e}from"./_defineProperty-DfyZDhdG.js";function r(r,o,a){"__proto__"==o&&e?e(r,o,{configurable:!0,enumerable:!0,value:a,writable:!0}):r[o]=a}export{r as b}

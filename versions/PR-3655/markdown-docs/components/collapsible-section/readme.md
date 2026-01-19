@@ -16,7 +16,7 @@ Using this component can help to:
 
 | Property   | Attribute  | Description                                                                                                                      | Type                                                                   | Default     |
 | ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------- |
-| `actions`  | `actions`  | Actions to place to the far right inside the header                                                                              | `Action[]`                                                             | `undefined` |
+| `actions`  | --         | Actions to place to the far right inside the header                                                                              | `Action[]`                                                             | `undefined` |
 | `header`   | `header`   | Text to display in the header of the section                                                                                     | `string`                                                               | `undefined` |
 | `icon`     | `icon`     | Icon to display in the header of the section                                                                                     | `Icon \| string`                                                       | `undefined` |
 | `invalid`  | `invalid`  | `true` if the section is invalid, `false` if valid. This can be used to indicate that the content inside the section is invalid. | `boolean`                                                              | `false`     |

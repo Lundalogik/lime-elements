@@ -1,2 +1,1 @@
-import{r as e,h as a}from"./index-BWUkXc2p.js";const r=class{constructor(a){e(this,a)}render(){return a("limel-header",{key:"d1d5fdfe9f4006039ea8bd4a0b40e81dc040feaf",icon:"brake_warning",heading:"Useful information",subheading:"Note",supportingText:"Data couldn't be loaded!"})}};export{r as limel_example_header};
-//# sourceMappingURL=limel-example-header.entry.js.map
+import{r as e,h as r}from"./index-BudcI_o9.js";const a=class{constructor(r){e(this,r)}render(){return r("limel-header",{key:"e255456e62c1801bb60e302f4f1d76c045ca8601",icon:"brake_warning",heading:"Useful information",subheading:"Note",supportingText:"Data couldn't be loaded!"})}};export{a as limel_example_header}

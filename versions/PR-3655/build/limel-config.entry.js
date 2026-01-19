@@ -1,2 +1,1 @@
-import{r as t}from"./index-BWUkXc2p.js";import{g as o}from"./config-Dnt5w_Bp.js";const s=class{constructor(o){t(this,o)}componentDidLoad(){this.setGlobalConfig()}componentDidUpdate(){this.setGlobalConfig()}setGlobalConfig(){if(!this.config){return}for(const t of Object.keys(this.config)){o[t]=this.config[t]}}render(){return null}};export{s as limel_config};
-//# sourceMappingURL=limel-config.entry.js.map
+import{r as o}from"./index-BudcI_o9.js";import{g as t}from"./config-Dnt5w_Bp.js";const s=class{constructor(t){o(this,t)}componentDidLoad(){this.setGlobalConfig()}componentDidUpdate(){this.setGlobalConfig()}setGlobalConfig(){if(this.config)for(const o of Object.keys(this.config))t[o]=this.config[o]}render(){return null}};export{s as limel_config}

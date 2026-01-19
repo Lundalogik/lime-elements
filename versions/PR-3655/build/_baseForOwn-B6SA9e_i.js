@@ -1,2 +1,1 @@
-import{k as r}from"./_Uint8Array-Bknd-n0y.js";function n(r){return function(r,n,t){var a=-1,e=Object(r),i=t(r),f=i.length;while(f--){var o=i[++a];if(n(e[o],o,e)===false){break}}return r}}var t=n();function a(n,a){return n&&t(n,a,r)}export{a as b};
-//# sourceMappingURL=_baseForOwn-B6SA9e_i.js.map
+import{k as r}from"./_Uint8Array-Bknd-n0y.js";function n(n,t){return n&&function(r,n,t){for(var a=-1,o=Object(r),e=t(r),f=e.length;f--;){var i=e[++a];if(!1===n(o[i],i,o))break}return r}(n,t,r)}export{n as b}

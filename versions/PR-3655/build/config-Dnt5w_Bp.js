@@ -1,2 +1,1 @@
-class t{constructor(){this.iconPath="";this.defaultLocale=navigator.language;this.featureSwitches=o(localStorage)}}function o(t){const o={};for(let n=0;n<t.length;n++){const s=t.key(n);const c=t.getItem(s);if(!["true","false"].includes(c)){continue}o[s]=c==="true"}return o}const n=new t;const s=(()=>n)();export{s as g};
-//# sourceMappingURL=config-Dnt5w_Bp.js.map
+const t=new class{constructor(){this.iconPath="",this.defaultLocale=navigator.language,this.featureSwitches=function(t){const o={};for(let s=0;s<t.length;s++){const r=t.key(s),n=t.getItem(r);["true","false"].includes(n)&&(o[r]="true"===n)}return o}(localStorage)}};export{t as g}

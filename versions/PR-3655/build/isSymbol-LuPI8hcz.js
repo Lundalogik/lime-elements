@@ -1,2 +1,1 @@
-import{b as o}from"./_baseGetTag-Cd9mW1Ny.js";import{i as t}from"./isObjectLike-oiMYqRQ0.js";var e="[object Symbol]";function i(i){return typeof i=="symbol"||t(i)&&o(i)==e}export{i};
-//# sourceMappingURL=isSymbol-LuPI8hcz.js.map
+import{b as o}from"./_baseGetTag-Cd9mW1Ny.js";import{i as t}from"./isObjectLike-oiMYqRQ0.js";function e(e){return"symbol"==typeof e||t(e)&&"[object Symbol]"==o(e)}export{e as i}
