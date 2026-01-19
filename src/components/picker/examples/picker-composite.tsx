@@ -1,4 +1,4 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Host, Prop, State } from '@stencil/core';
 import { FormSchema, ListItem } from '@limetech/lime-elements';
 
 /**
@@ -72,18 +72,20 @@ export class PickerCompositeExample {
     }
 
     public render() {
-        return [
-            <limel-picker
-                {...this.props}
-                allItems={this.availableItems}
-                onChange={this.handleChange}
-                onInteract={this.handleEvent}
-            />,
-            this.renderForm(),
-            <limel-example-event-printer
-                ref={(el) => (this.eventPrinter = el)}
-            />,
-        ];
+        return (
+            <Host>
+                <limel-picker
+                    {...this.props}
+                    allItems={this.availableItems}
+                    onChange={this.handleChange}
+                    onInteract={this.handleEvent}
+                />
+                {this.renderForm()}
+                <limel-example-event-printer
+                    ref={(el) => (this.eventPrinter = el)}
+                />
+            </Host>
+        );
     }
 
     private handleChange = (
