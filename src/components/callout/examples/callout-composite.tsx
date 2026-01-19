@@ -1,5 +1,5 @@
 import { FormSchema } from '@limetech/lime-elements';
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Host, Prop, State } from '@stencil/core';
 
 /**
  * Composite
@@ -99,12 +99,14 @@ export class CalloutCompositeExample {
             this.props?.type ?? ''
         );
 
-        return [
-            <limel-callout {...this.props}>
-                <div innerHTML={content} />
-            </limel-callout>,
-            this.renderForm(),
-        ];
+        return (
+            <Host>
+                <limel-callout {...this.props}>
+                    <div innerHTML={content} />
+                </limel-callout>
+                {this.renderForm()}
+            </Host>
+        );
     }
 
     private renderForm() {
