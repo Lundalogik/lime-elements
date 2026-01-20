@@ -1,3 +1,6 @@
+@use '../../../style/mixins';
+@use '../../../style/functions';
+
 .expand-shrink {
     all: unset;
     box-sizing: border-box;
