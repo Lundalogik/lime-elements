@@ -49,10 +49,21 @@ export const config: Config = {
     tsconfig: './tsconfig.dev.json',
     globalStyle: 'src/global/core-styles.scss',
     testing: {
-        browserArgs: ['--enable-experimental-web-platform-features'],
+        browserArgs: [
+            '--enable-experimental-web-platform-features',
+            // Disable GPU in CI to work around Stencil v4 e2e test parallelization issues
+            // See: https://github.com/stenciljs/core/issues/6157
+            ...(envIsSet('CI') ? ['--disable-gpu'] : []),
+        ],
         moduleNameMapper: {
             '^lodash-es$': 'lodash',
             '@rjsf/core/lib/(.*)': '@rjsf/core/dist/cjs/$1',
         },
     },
 };
+
+function envIsSet(name: string): boolean {
+    const value = process.env[name];
+
+    return !!value && value !== '0' && value.toLowerCase() !== 'false';
+}
