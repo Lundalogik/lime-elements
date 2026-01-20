@@ -6,8 +6,17 @@
  */
 
 const { spawnSync } = require('node:child_process');
+const path = require('node:path');
 
-const stencilScript = require.resolve('@stencil/core/bin/stencil');
+const stencilScript = path.resolve(
+    __dirname,
+    '..',
+    'node_modules',
+    '@stencil',
+    'core',
+    'bin',
+    'stencil'
+);
 
 const isCI = envIsSet('CI');
 const isDebug =

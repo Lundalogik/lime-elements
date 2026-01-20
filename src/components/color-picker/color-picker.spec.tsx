@@ -29,7 +29,7 @@ test('the component renders', () => {
                 <limel-popover opendirection="bottom-start">
                     <button id="tooltip-button" role="button" slot="trigger"></button>
                     <limel-color-picker-palette label="Hair color" manual-input="">
-                        <mock:shadow-root></mock:shadow-root>
+                        <mock:shadow-root shadowrootdelegatesfocus=""></mock:shadow-root>
                     </limel-color-picker-palette>
                 </limel-popover>
                 <limel-input-field label="Hair color"></limel-input-field>

@@ -80,7 +80,7 @@ export class DockButton {
     }
 
     @Watch('isOpen')
-    protected openWatcher() {
+    public openWatcher() {
         if (!this.isOpen) {
             return;
         }

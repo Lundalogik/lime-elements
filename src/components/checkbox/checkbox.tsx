@@ -117,7 +117,7 @@ export class Checkbox {
     private helperTextId: string = createRandomString();
 
     @Watch('checked')
-    protected handleCheckedChange(newValue: boolean) {
+    public handleCheckedChange(newValue: boolean) {
         const input = this.getCheckboxElement();
         if (!input) {
             return;
@@ -127,7 +127,7 @@ export class Checkbox {
     }
 
     @Watch('indeterminate')
-    protected handleIndeterminateChange(newValue: boolean) {
+    public handleIndeterminateChange(newValue: boolean) {
         const input = this.getCheckboxElement();
         if (!input) {
             return;
@@ -138,7 +138,7 @@ export class Checkbox {
     }
 
     @Watch('readonly')
-    protected handleReadonlyChange() {
+    public handleReadonlyChange() {
         this.destroyMDCInstances();
         this.shouldReinitialize = true;
     }
