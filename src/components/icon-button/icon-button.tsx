@@ -4,7 +4,7 @@ import {
     removeEnterClickable,
 } from '../../util/make-enter-clickable';
 import { createRandomString } from '../../util/random-string';
-import { Icon } from '../../global/shared-types/icon.types';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 import { getIconName, getIconTitle } from '../icon/get-icon-props';
 
 /**
@@ -25,7 +25,7 @@ export class IconButton {
      * The icon to display.
      */
     @Prop()
-    public icon: string | Icon;
+    public icon: IconName | Icon;
 
     /**
      * Set to `true` to give the button our standard "elevated" look, lifting

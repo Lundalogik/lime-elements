@@ -18,6 +18,7 @@ import { getHref, getTarget } from '../../util/link-helper';
 import { isEqual } from 'lodash-es';
 import { LimelChipCustomEvent } from '../../components';
 import { createRandomString } from '../../util/random-string';
+import { IconName } from '../../global/shared-types/icon.types';
 
 const INPUT_FIELD_TABINDEX = 1;
 
@@ -170,7 +171,7 @@ export class ChipSet {
      * Leading icon to show to the far left in the text field
      */
     @Prop({ reflect: true })
-    public leadingIcon: string = null;
+    public leadingIcon: IconName = null;
 
     /**
      * For chip-set of type `input`. Sets delimiters between chips.
