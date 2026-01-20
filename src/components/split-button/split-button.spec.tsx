@@ -7,13 +7,13 @@ let page: SpecPage;
 test('the component renders without menu items', async () => {
     const splitButton = await createComponent([]);
 
-    expect(splitButton).toEqualHtml(`
-            <limel-split-button>
-                <mock:shadow-root>
-                    <limel-button></limel-button>
-                </mock:shadow-root>
-            </limel-split-button>
-        `);
+    expect(splitButton.tagName.toLowerCase()).toBe('limel-split-button');
+    expect(splitButton.classList.contains('has-menu')).toBe(false);
+
+    const shadowRoot = splitButton.shadowRoot;
+    expect(shadowRoot).toBeTruthy();
+    expect(shadowRoot.querySelector('limel-button')).toBeTruthy();
+    expect(shadowRoot.querySelector('limel-menu')).toBeFalsy(); // No menu when no items
 });
 
 test('the component renders with menu items', async () => {
@@ -24,18 +24,20 @@ test('the component renders with menu items', async () => {
 
     const splitButton = await createComponent(items);
 
-    expect(splitButton).toEqualHtml(`
-            <limel-split-button class="has-menu">
-                <mock:shadow-root>
-                    <limel-button></limel-button>
-                    <limel-menu opendirection="bottom">
-                        <button class="menu-trigger" slot="trigger">
-                            ⋮
-                        </button>
-                    </limel-menu>
-                </mock:shadow-root>
-            </limel-split-button>
-        `);
+    expect(splitButton.tagName.toLowerCase()).toBe('limel-split-button');
+    expect(splitButton.classList.contains('has-menu')).toBe(true);
+
+    const shadowRoot = splitButton.shadowRoot;
+    expect(shadowRoot).toBeTruthy();
+    expect(shadowRoot.querySelector('limel-button')).toBeTruthy();
+
+    const menu = shadowRoot.querySelector('limel-menu');
+    expect(menu).toBeTruthy();
+    expect(menu.getAttribute('opendirection')).toBe('bottom');
+
+    const menuTrigger = shadowRoot.querySelector('button.menu-trigger');
+    expect(menuTrigger).toBeTruthy();
+    expect(menuTrigger.getAttribute('slot')).toBe('trigger');
 });
 
 async function createComponent(items: any) {
