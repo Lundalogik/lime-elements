@@ -1,0 +1,2 @@
+import{r as e,h as s}from"./index-0c4503aa.js";import{s as a}from"./list-schema-5c8b11be.js";const i=class{constructor(s){e(this,s);this.handleFormChange=e=>{this.formData=e.detail};this.formData={villains:["Joker","Thanos","Green Goblin"],squad:[{powers:["flight"],name:"Doctor Strange"}]}}render(){return[s("limel-form",{onChange:this.handleFormChange,value:this.formData,schema:a}),s("limel-example-value",{value:this.formData})]}};export{i as limel_example_list_form};
+//# sourceMappingURL=limel-example-list-form.entry.js.map
