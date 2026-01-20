@@ -397,7 +397,12 @@ export class ArrayFieldTemplate extends React.Component<
             return [];
         }
 
-        const items = [...this.container.querySelectorAll('.array-item')];
+        // Only read the order of the direct children of this array field.
+        // Nested array fields may render `.array-item` elements inside items,
+        // and those must not affect the parent order.
+        const items = [...this.container.children].filter((element) => {
+            return Boolean(element?.classList?.contains?.('array-item'));
+        }) as HTMLElement[];
 
         const order: number[] = [];
 
@@ -411,16 +416,12 @@ export class ArrayFieldTemplate extends React.Component<
         return order;
     }
 
-    private getReorderId(element: Element | null): number | undefined {
+    private getReorderId(element: HTMLElement | null): number | undefined {
         if (!element) {
             return undefined;
         }
 
-        if (!(element instanceof HTMLElement)) {
-            return undefined;
-        }
-
-        const value = element.dataset.reorderId;
+        const value = element?.dataset?.reorderId;
         if (value === undefined) {
             return undefined;
         }
