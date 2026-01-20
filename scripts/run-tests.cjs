@@ -9,12 +9,20 @@ const { spawnSync } = require('node:child_process');
 
 const stencilScript = require.resolve('@stencil/core/bin/stencil');
 
+const isCI = envIsSet('CI');
 const isDebug =
     envIsSet('ACTIONS_STEP_DEBUG') ||
     envIsSet('RUNNER_DEBUG') ||
     envIsSet('DEBUG');
 
 const args = ['test', '--spec', '--e2e'];
+
+// Reduce parallelism in CI to work around Stencil v4 e2e test issues
+// See: https://github.com/stenciljs/core/issues/6157
+if (isCI) {
+    args.push('--max-workers=2');
+    console.log('CI detected, reducing parallelism with --max-workers=2');
+}
 
 // Add verbose flag if debug mode is enabled
 if (isDebug) {
