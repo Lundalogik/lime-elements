@@ -22,6 +22,7 @@ including multiple recipients.
 ```mermaid
 graph TD;
   limel-example-email-viewer-plain-text --> limel-email-viewer
+  limel-email-viewer --> limel-badge
   style limel-example-email-viewer-plain-text fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

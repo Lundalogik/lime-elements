@@ -53,10 +53,12 @@ graph TD;
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
+  limel-file-viewer --> limel-email-viewer
   limel-file-viewer --> limel-icon
   limel-file-viewer --> limel-tooltip
   limel-file-viewer --> limel-menu
   limel-file-viewer --> limel-spinner
+  limel-email-viewer --> limel-badge
   style limel-example-file-viewer-with-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

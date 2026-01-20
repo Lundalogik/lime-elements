@@ -55,6 +55,7 @@ functionalities.
 
  - [limel-example-file-viewer-basic](examples)
  - [limel-example-file-viewer-custom-actions](examples)
+ - [limel-example-file-viewer-eml](examples)
  - [limel-example-file-viewer-filename](examples)
  - [limel-example-file-viewer-inbuilt-actions](examples)
  - [limel-example-file-viewer-office](examples)
@@ -62,6 +63,7 @@ functionalities.
 
 ### Depends on
 
+- [limel-email-viewer](../email-viewer)
 - [limel-icon](../icon)
 - [limel-tooltip](../tooltip)
 - [limel-menu](../menu)
@@ -70,10 +72,12 @@ functionalities.
 ### Graph
 ```mermaid
 graph TD;
+  limel-file-viewer --> limel-email-viewer
   limel-file-viewer --> limel-icon
   limel-file-viewer --> limel-tooltip
   limel-file-viewer --> limel-menu
   limel-file-viewer --> limel-spinner
+  limel-email-viewer --> limel-badge
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-menu --> limel-spinner
@@ -93,6 +97,7 @@ graph TD;
   limel-input-field --> limel-notched-outline
   limel-example-file-viewer-basic --> limel-file-viewer
   limel-example-file-viewer-custom-actions --> limel-file-viewer
+  limel-example-file-viewer-eml --> limel-file-viewer
   limel-example-file-viewer-filename --> limel-file-viewer
   limel-example-file-viewer-inbuilt-actions --> limel-file-viewer
   limel-example-file-viewer-office --> limel-file-viewer
