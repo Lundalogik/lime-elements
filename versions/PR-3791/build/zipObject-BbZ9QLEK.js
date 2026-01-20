@@ -1,0 +1,1 @@
+import{a as r}from"./_assignValue-CdVvTsme.js";function n(n,o){return function(r,n,o){for(var a=-1,s=r.length,t=n.length,e={};++a<s;)o(e,r[a],a<t?n[a]:void 0);return e}(n||[],o||[],r)}export{n as z}
