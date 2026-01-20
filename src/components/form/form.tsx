@@ -170,6 +170,7 @@ export class Form {
             React.createElement(
                 JSONSchemaForm,
                 {
+                    noValidate: true,
                     schema: this.modifiedSchema,
                     formData: this.value,
                     onChange: this.handleChange,
@@ -240,6 +241,7 @@ export class Form {
             unknownFormats: 'ignore',
             allErrors: true,
             multipleOfPrecision: 2,
+            extendRefs: true,
         }).addFormat('integer', isInteger);
         this.validator = validator.compile(this.schema);
     }
