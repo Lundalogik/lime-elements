@@ -675,6 +675,7 @@ export class Menu {
         this.cancel.emit();
         this.open = false;
         this.currentSubMenu = null;
+        setTimeout(this.focusTrigger, 0);
     };
 
     private readonly onTriggerClick = (event: MouseEvent) => {

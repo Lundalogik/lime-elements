@@ -180,6 +180,70 @@ describe('limel-menu focus restoration', () => {
         );
         expect(activeSlot).toBe('trigger');
     });
+
+    it('restores focus to a native trigger after Escape', async () => {
+        const page = await newE2EPage({
+            html: `
+                <limel-menu>
+                    <button slot="trigger">My Label</button>
+                </limel-menu>
+            `,
+        });
+
+        const limelMenu = (await page.find('limel-menu')) as any;
+        const items: Array<MenuItem | ListSeparator> = [{ text: 'Item 1' }];
+        limelMenu.setProperty('items', items);
+        await page.waitForChanges();
+
+        const trigger = await page.find('button[slot="trigger"]');
+        await trigger.click();
+        await page.waitForChanges();
+        await page.waitForTimeout(50);
+
+        await page.keyboard.press('Escape');
+        await page.waitForChanges();
+        await page.waitForTimeout(1);
+
+        const isOpen = await limelMenu.getProperty('open');
+        expect(isOpen).toBeFalsy();
+
+        const activeSlot = await page.evaluate(() =>
+            (document.activeElement as HTMLElement | null)?.getAttribute('slot')
+        );
+        expect(activeSlot).toBe('trigger');
+    });
+
+    it('restores focus to a limel-button trigger after Escape key is pressed', async () => {
+        const page = await newE2EPage({
+            html: `
+                <limel-menu>
+                    <limel-button slot="trigger" label="My Label"></limel-button>
+                </limel-menu>
+            `,
+        });
+
+        const limelMenu = (await page.find('limel-menu')) as any;
+        const items: Array<MenuItem | ListSeparator> = [{ text: 'Item 1' }];
+        limelMenu.setProperty('items', items);
+        await page.waitForChanges();
+
+        const trigger = await page.find('limel-button[slot="trigger"]');
+        await trigger.click();
+        await page.waitForChanges();
+        await page.waitForTimeout(50);
+
+        await page.keyboard.press('Escape');
+        await page.waitForChanges();
+        await page.waitForTimeout(1);
+
+        const isOpen = await limelMenu.getProperty('open');
+        expect(isOpen).toBeFalsy();
+
+        const activeSlot = await page.evaluate(() =>
+            (document.activeElement as HTMLElement | null)?.getAttribute('slot')
+        );
+        expect(activeSlot).toBe('trigger');
+    });
 });
 
 describe('limel-menu keyboard navigation', () => {
