@@ -100,7 +100,7 @@ export class CollapsibleItemTemplate extends React.Component<CollapsibleItemProp
                     this.section = section;
                 },
                 'is-open': this.state.isOpen,
-                'data-reorder-id': `col-${String(this.props.index)}`,
+                'data-reorder-id': String(this.props.index),
                 'data-reorderable': this.props.allowItemReorder
                     ? 'true'
                     : 'false',

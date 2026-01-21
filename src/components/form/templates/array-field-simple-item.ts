@@ -29,7 +29,7 @@ export class SimpleItemTemplate extends React.Component<SimpleItemProps> {
             'div',
             {
                 className: 'array-item limel-form-array-item--simple',
-                'data-reorder-id': `sim-${String(this.props.dataIndex)}`,
+                'data-reorder-id': String(this.props.dataIndex),
                 'data-reorderable': allowItemReorder ? 'true' : 'false',
             },
             this.props.item.children,
