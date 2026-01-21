@@ -115,7 +115,9 @@ describe('limel-menu', () => {
         let spy;
         beforeEach(async () => {
             spy = await page.spyOnEvent('select');
-            limelMenu.setProperty('open', true);
+
+            const trigger = await page.find('button[slot="trigger"]');
+            await trigger.click();
             await page.waitForChanges();
         });
         describe('when selected', () => {
@@ -135,7 +137,48 @@ describe('limel-menu', () => {
                 const isOpen = await limelMenu.getProperty('open');
                 expect(isOpen).toBeFalsy();
             });
+
+            it('restores focus to the trigger', async () => {
+                await page.waitForTimeout(1);
+                const activeSlot = await page.evaluate(() =>
+                    (
+                        document.activeElement as HTMLElement | null
+                    )?.getAttribute('slot')
+                );
+                expect(activeSlot).toBe('trigger');
+            });
         });
+    });
+});
+
+describe('limel-menu focus restoration', () => {
+    it('restores focus to a limel-button trigger after selection', async () => {
+        const page = await newE2EPage({
+            html: `
+                <limel-menu>
+                    <limel-button slot="trigger" label="My Label"></limel-button>
+                </limel-menu>
+            `,
+        });
+
+        const limelMenu = (await page.find('limel-menu')) as any;
+        const items: Array<MenuItem | ListSeparator> = [{ text: 'Item 1' }];
+        limelMenu.setProperty('items', items);
+        await page.waitForChanges();
+
+        const trigger = await page.find('limel-button[slot="trigger"]');
+        await trigger.click();
+        await page.waitForChanges();
+
+        const list = await page.find('limel-menu-list');
+        await list.click();
+        await page.waitForChanges();
+        await page.waitForTimeout(1);
+
+        const activeSlot = await page.evaluate(() =>
+            (document.activeElement as HTMLElement | null)?.getAttribute('slot')
+        );
+        expect(activeSlot).toBe('trigger');
     });
 });
 
