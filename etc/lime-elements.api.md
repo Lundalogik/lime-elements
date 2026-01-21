@@ -592,6 +592,7 @@ export namespace Components {
         "openDirection": OpenDirection;
         "rootItem": BreadcrumbsItem;
         "searcher": MenuSearcher;
+        "searchPlaceholder"?: string;
         "surfaceWidth": SurfaceWidth;
     }
     export interface LimelMenuItemMeta {
@@ -1836,6 +1837,7 @@ export namespace JSX {
         "openDirection"?: OpenDirection;
         "rootItem"?: BreadcrumbsItem;
         "searcher"?: MenuSearcher;
+        "searchPlaceholder"?: string;
         "surfaceWidth"?: SurfaceWidth;
     }
     export interface LimelMenuItemMeta {
