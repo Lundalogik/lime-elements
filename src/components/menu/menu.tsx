@@ -169,6 +169,12 @@ export class Menu {
     public searcher: MenuSearcher;
 
     /**
+     * Placeholder text for the search input field.
+     */
+    @Prop()
+    public searchPlaceholder?: string;
+
+    /**
      * Message to display when search returns 0 results.
      */
     @Prop()
@@ -360,6 +366,7 @@ export class Menu {
             <limel-input-field
                 tabindex="0"
                 ref={this.setSearchElement}
+                placeholder={this.searchPlaceholder}
                 type="search"
                 leadingIcon="search"
                 style={{
