@@ -1,3 +1,10 @@
+## [38.39.1](https://github.com/Lundalogik/lime-elements/compare/v38.39.0...v38.39.1) (2026-01-22)
+
+### Bug Fixes
+
+
+* **form:** prevent duplication of sections after drag to reorder ([c1cf6f7](https://github.com/Lundalogik/lime-elements/commit/c1cf6f74d9253f14fa5a31ff2bc24852a9b935f4))
+
 ## [38.39.0](https://github.com/Lundalogik/lime-elements/compare/v38.38.1...v38.39.0) (2026-01-22)
 
 ### Features
