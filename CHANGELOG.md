@@ -1,3 +1,10 @@
+## [38.39.0](https://github.com/Lundalogik/lime-elements/compare/v38.38.1...v38.39.0) (2026-01-22)
+
+### Features
+
+
+* **menu:** add `searchPlaceholder` prop ([a61dd4e](https://github.com/Lundalogik/lime-elements/commit/a61dd4e768a313f9d3d6a97e11e3353d826de6c8))
+
 ## [38.38.1](https://github.com/Lundalogik/lime-elements/compare/v38.38.0...v38.38.1) (2026-01-16)
 
 ### Bug Fixes
