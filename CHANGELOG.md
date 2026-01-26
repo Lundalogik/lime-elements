@@ -1,3 +1,12 @@
+## [38.39.2](https://github.com/Lundalogik/lime-elements/compare/v38.39.1...v38.39.2) (2026-01-26)
+
+### Bug Fixes
+
+
+* **menu:** restore focus to the trigger, when the menu closes due to a dismiss ([b003658](https://github.com/Lundalogik/lime-elements/commit/b00365842a92f345424bb0bd752b777c31bccb93))
+* **menu:** restore focus to the trigger, when the menu closes due to a selection ([ac9fa77](https://github.com/Lundalogik/lime-elements/commit/ac9fa77e9caef2614577327a6a550c9c4baf7e20))
+* **popover:** restore focus to the trigger, when the menu closes ([a840b53](https://github.com/Lundalogik/lime-elements/commit/a840b536bdfdab1ecc9d1b284af451c83018de2a))
+
 ## [38.39.1](https://github.com/Lundalogik/lime-elements/compare/v38.39.0...v38.39.1) (2026-01-22)
 
 ### Bug Fixes
