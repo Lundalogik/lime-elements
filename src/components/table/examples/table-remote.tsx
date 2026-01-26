@@ -22,6 +22,9 @@ export class TableExampleRemote {
     @State()
     private currentData: BirdRow[] = [];
 
+    @State()
+    private loading = false;
+
     private allData: Bird[] = data;
 
     private pageSize = 10;
@@ -54,11 +57,14 @@ export class TableExampleRemote {
 
     private handleLoad = (event: CustomEvent<TableParams>) => {
         console.log('Loading new data', event.detail);
-        const sorter = event.detail.sorters[0];
+        const sorter = event.detail.sorters?.[0];
 
         this.currentPage = event.detail.page;
-        if (sorter) {
+        if (sorter?.column) {
             this.allData = [...data].sort(this.compareBy(sorter));
+        } else {
+            // When sorting is cleared, reset to the original order
+            this.allData = [...data];
         }
 
         this.loadData();
@@ -104,18 +110,19 @@ export class TableExampleRemote {
      * Simulate some network delay, like loading data from a server
      */
     private loadData() {
+        this.loading = true;
         setTimeout(() => {
             const start = (this.currentPage - 1) * this.pageSize;
             const end = start + this.pageSize;
 
-            this.currentData = this.allData
-                .slice(start, end)
-                .map((item, index) => ({
-                    ...item,
-                    // Provide a stable id to keep scroll position and selection
-                    // intact while the remote dataset refreshes.
-                    id: `${item.binominalName}-${start + index}`,
-                }));
+            this.currentData = this.allData.slice(start, end).map((item) => ({
+                ...item,
+                // Provide a stable id to keep scroll position and selection
+                // intact while the remote dataset refreshes.
+                id: item.binominalName,
+            }));
+
+            this.loading = false;
         }, NETWORK_DELAY);
     }
 
@@ -123,6 +130,7 @@ export class TableExampleRemote {
         return (
             <limel-table
                 mode="remote"
+                loading={this.loading}
                 data={this.currentData}
                 columns={this.columns}
                 pageSize={this.pageSize}
