@@ -748,11 +748,26 @@ export class Table {
     }
 
     private handleDataSorting(sorters: TabulatorSorterFromTable[]): void {
+        const columnSorters = sorters.map(createColumnSorter(this.columns));
+
         if (this.isRemoteMode()) {
+            const tabulatorPage = this.tabulator?.getPage?.();
+            const currentPage =
+                typeof tabulatorPage === 'number' ? tabulatorPage : this.page;
+            const load = {
+                page: currentPage ?? FIRST_PAGE,
+                sorters: columnSorters,
+            };
+
+            if (!isEqual(this.currentLoad, load)) {
+                this.currentSorting = columnSorters;
+                this.currentLoad = load;
+                this.load.emit(load);
+            }
+
             return;
         }
 
-        const columnSorters = sorters.map(createColumnSorter(this.columns));
         if (columnSorters.length === 0) {
             return;
         }
@@ -771,7 +786,7 @@ export class Table {
     private handleRenderComplete(): void {
         if (this.tabulator && this.shouldSort) {
             this.shouldSort = false;
-            this.tabulator.setSort(this.getColumnSorter(this.sorting));
+            this.tabulator.setSort(this.getInitialSorting());
         }
     }
 
