@@ -78,6 +78,12 @@ graph TD;
   limel-file-viewer --> limel-menu
   limel-file-viewer --> limel-spinner
   limel-email-viewer --> limel-badge
+  limel-email-viewer --> limel-collapsible-section
+  limel-email-viewer --> limel-markdown
+  limel-collapsible-section --> limel-icon
+  limel-collapsible-section --> limel-icon-button
+  limel-icon-button --> limel-icon
+  limel-icon-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-menu --> limel-spinner

@@ -48,6 +48,7 @@ Using this component can help to:
 
 ### Used by
 
+ - [limel-email-viewer](../email-viewer)
  - [limel-example-collapsible-section-actions](examples)
  - [limel-example-collapsible-section-basic](examples)
  - [limel-example-collapsible-section-css-props](examples)
@@ -73,6 +74,7 @@ graph TD;
   limel-icon-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-email-viewer --> limel-collapsible-section
   limel-example-collapsible-section-actions --> limel-collapsible-section
   limel-example-collapsible-section-basic --> limel-collapsible-section
   limel-example-collapsible-section-css-props --> limel-collapsible-section
