@@ -319,6 +319,7 @@ export namespace Components {
         "lint": boolean;
         "readonly": boolean;
         "required": boolean;
+        "showCopyButton": boolean;
         "translationLanguage": Languages;
         "value": string;
     }
@@ -1534,6 +1535,7 @@ export namespace JSX {
         "onChange"?: (event: LimelCodeEditorCustomEvent<string>) => void;
         "readonly"?: boolean;
         "required"?: boolean;
+        "showCopyButton"?: boolean;
         "translationLanguage"?: Languages;
         "value"?: string;
     }
