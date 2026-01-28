@@ -1,0 +1,2 @@
+import{r as t,h as e}from"./index-0c4503aa.js";const l=class{constructor(e){t(this,e)}render(){return e("limel-button",{label:"Click me!",onClick:this.onClick})}onClick(){console.log("Button clicked.")}};export{l as limel_example_button_basic};
+//# sourceMappingURL=limel-example-button-basic.entry.js.map
