@@ -1,3 +1,14 @@
+## [38.41.0](https://github.com/Lundalogik/lime-elements/compare/v38.40.0...v38.41.0) (2026-01-28)
+
+### Features
+
+
+* **picker, chip-set:** enable focus delegation for programmatic focus ([a4f24d9](https://github.com/Lundalogik/lime-elements/commit/a4f24d965c26fba8f90ef8aa115b911850d60747))
+### Bug Fixes
+
+
+* **chip-set:** use correct `tabindex` ([37fd213](https://github.com/Lundalogik/lime-elements/commit/37fd2131a64d7e2b7ab435c687c060547d79f3c4))
+
 ## [38.40.0](https://github.com/Lundalogik/lime-elements/compare/v38.39.3...v38.40.0) (2026-01-28)
 
 ### Features
