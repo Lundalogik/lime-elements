@@ -1,0 +1,2 @@
+import{r as l,h as t}from"./index-0c4503aa.js";const i=class{constructor(t){l(this,t);this.openDialog=()=>{this.isOpen=true};this.closeDialog=()=>{this.isOpen=false};this.isOpen=false}render(){return[t("limel-button",{primary:true,label:"Open",onClick:this.openDialog}),t("limel-dialog",{open:this.isOpen,onClose:this.closeDialog},t("p",null,"This is a simple alert-dialog."),t("limel-button",{label:"Ok",onClick:this.closeDialog,slot:"button"}))]}};export{i as limel_example_dialog};
+//# sourceMappingURL=limel-example-dialog.entry.js.map
