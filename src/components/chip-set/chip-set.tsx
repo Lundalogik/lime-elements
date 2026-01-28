@@ -66,7 +66,7 @@ const INPUT_FIELD_TABINDEX = 1;
  */
 @Component({
     tag: 'limel-chip-set',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'chip-set.scss',
 })
 export class ChipSet {
