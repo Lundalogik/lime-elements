@@ -1,3 +1,10 @@
+## [38.40.0](https://github.com/Lundalogik/lime-elements/compare/v38.39.3...v38.40.0) (2026-01-28)
+
+### Features
+
+
+* **input-field:** enable focus delegation for programmatic focus ([9b708c4](https://github.com/Lundalogik/lime-elements/commit/9b708c47eb4c8dba006b562de7509b0ecf7f326c))
+
 ## [38.39.3](https://github.com/Lundalogik/lime-elements/compare/v38.39.2...v38.39.3) (2026-01-28)
 
 ### Bug Fixes
