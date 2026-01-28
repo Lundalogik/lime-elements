@@ -19,8 +19,6 @@ import { isEqual } from 'lodash-es';
 import { LimelChipCustomEvent } from '../../components';
 import { createRandomString } from '../../util/random-string';
 
-const INPUT_FIELD_TABINDEX = 1;
-
 /**
  * :::note
  * **Regarding `click` and `interact` events:**
@@ -426,7 +424,7 @@ export class ChipSet {
         return [
             this.value.map(this.renderInputChip),
             <input
-                tabIndex={INPUT_FIELD_TABINDEX}
+                tabIndex={this.disabled || this.readonly ? -1 : 0}
                 type={this.inputType}
                 id={this.labelId}
                 disabled={this.readonly || this.disabled}
