@@ -42,7 +42,7 @@ const DEFAULT_SEARCHER_MAX_RESULTS = 20;
  */
 @Component({
     tag: 'limel-picker',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'picker.scss',
 })
 export class Picker {
@@ -239,10 +239,25 @@ export class Picker {
 
     public componentDidLoad() {
         this.chipSet = this.host.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
+        this.updateTabIndex();
     }
 
     public disconnectedCallback() {
         this.debouncedSearch.cancel();
+    }
+
+    @Watch('disabled')
+    protected onDisabledChange() {
+        this.updateTabIndex();
+    }
+
+    private updateTabIndex() {
+        if (this.disabled || this.readonly) {
+            this.host.setAttribute('tabindex', '-1');
+            return;
+        }
+
+        this.host.setAttribute('tabindex', '0');
     }
 
     public async componentWillUpdate() {
