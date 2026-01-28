@@ -1,0 +1,2 @@
+import{r as e,h as t}from"./index-0c4503aa.js";const i=class{constructor(t){e(this,t);this.handleChange=e=>{this.value=e.detail};this.value=undefined}render(){return t("limel-input-field",{label:"Personal identity number (YYYYMMDD-XXXX)",value:this.value,pattern:"[0-9]{8}-[0-9]{4}",onChange:this.handleChange})}};export{i as limel_example_input_field_pattern};
+//# sourceMappingURL=limel-example-input-field-pattern.entry.js.map
