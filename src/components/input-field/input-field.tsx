@@ -55,7 +55,7 @@ const RESIZE_HANDLER_DEBOUNCE_TIMEOUT = 100;
  */
 @Component({
     tag: 'limel-input-field',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'input-field.scss',
 })
 export class InputField {
