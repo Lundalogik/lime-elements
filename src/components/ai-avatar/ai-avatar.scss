@@ -2,7 +2,12 @@
 * @prop --ai-avatar-animation-play-state: Set it to `running` to start the animation.
 * @prop --ai-avatar-core-blend-mode: Controls the blend mode for the core and orbitals. Defaults to `plus-lighter`.
 * @prop --ai-avatar-rings-blend-mode: Controls the blend mode for the SVG circles. Defaults to `screen`.
+* @prop --ai-avatar-color-one: Controls the color of the first ring. Defaults to `var(--color-red-default)`.
+* @prop --ai-avatar-color-two: Controls the color of the second ring. Defaults to `var(--color-green-default)`.
+* @prop --ai-avatar-color-three: Controls the color of the third ring. Defaults to `var(--color-blue-default)`.
+* @prop --ai-avatar-color-four: Controls the color of the fourth ring. Defaults to `var(--color-orange-default)`.
 */
+
 :host(limel-ai-avatar) {
     display: flex;
     justify-content: center;
@@ -134,28 +139,28 @@ svg {
 
 .red {
     rotate: 20deg;
-    color: rgb(var(--color-red-default));
+    color: var(--ai-avatar-color-one, rgb(var(--color-red-default)));
     animation-name: rotate, scale-circle-one;
     animation-duration: 5s;
 }
 
 .green {
     rotate: 36deg;
-    color: rgb(var(--color-green-default));
+    color: var(--ai-avatar-color-two, rgb(var(--color-green-default)));
     animation-name: rotate, scale-circle-two;
     animation-duration: 5.5s;
 }
 
 .blue {
     rotate: 100deg;
-    color: rgb(var(--color-blue-default));
+    color: var(--ai-avatar-color-three, rgb(var(--color-blue-default)));
     animation-name: rotate, scale-circle-three;
     animation-duration: 4.5s;
 }
 
 .orange {
     rotate: 165deg;
-    color: rgb(var(--color-orange-default));
+    color: var(--ai-avatar-color-four, rgb(var(--color-orange-default)));
     animation-name: rotate, scale-circle-four;
     animation-duration: 6.5s;
 }
