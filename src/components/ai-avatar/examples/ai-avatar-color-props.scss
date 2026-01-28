@@ -1,0 +1,8 @@
+@forward './ai-avatar-basic.scss';
+
+limel-ai-avatar {
+    --ai-avatar-color-one: rgb(255, 105, 180); // hot pink
+    --ai-avatar-color-two: rgb(75, 0, 130); // indigo
+    --ai-avatar-color-three: rgb(0, 255, 255); // cyan
+    --ai-avatar-color-four: rgb(255, 140, 0); // dark orange
+}

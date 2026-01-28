@@ -17,6 +17,7 @@ import translate from './../../global/translations';
  * @exampleComponent limel-example-ai-avatar-basic
  * @exampleComponent limel-example-ai-avatar-colors
  * @exampleComponent limel-example-ai-avatar-white-background
+ * @exampleComponent limel-example-ai-avatar-color-props
  */
 @Component({
     tag: 'limel-ai-avatar',
