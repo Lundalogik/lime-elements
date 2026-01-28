@@ -1,3 +1,11 @@
+## [38.39.3](https://github.com/Lundalogik/lime-elements/compare/v38.39.2...v38.39.3) (2026-01-28)
+
+### Bug Fixes
+
+
+* **table:** fix remote sorting in table ([d9efe87](https://github.com/Lundalogik/lime-elements/commit/d9efe87427f7af2b17b0387e6b012e8f7230a1de))
+* **table:** use loading state in sort example ([a8b495e](https://github.com/Lundalogik/lime-elements/commit/a8b495e2c12057e13ab2df95036a5454c1563b8a))
+
 ## [38.39.2](https://github.com/Lundalogik/lime-elements/compare/v38.39.1...v38.39.2) (2026-01-26)
 
 ### Bug Fixes
