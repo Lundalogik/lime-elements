@@ -118,6 +118,7 @@
   "homepage": "https://github.com/Lundalogik/lime-elements#readme",
   "packageManager": "npm@>=10.9",
   "dependencies": {
+    "postal-mime": "^2.7.3",
     "sortablejs": "^1.15.6"
   }
 }
