@@ -1,3 +1,10 @@
+## [38.42.0](https://github.com/Lundalogik/lime-elements/compare/v38.41.0...v38.42.0) (2026-01-28)
+
+### Features
+
+
+* **code-editor:** make rendering the copy button a property ([2a735e4](https://github.com/Lundalogik/lime-elements/commit/2a735e49f50b6a0d8a4de0b02a4eee1142b26094))
+
 ## [38.41.0](https://github.com/Lundalogik/lime-elements/compare/v38.40.0...v38.41.0) (2026-01-28)
 
 ### Features
