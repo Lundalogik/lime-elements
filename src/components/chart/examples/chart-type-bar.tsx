@@ -50,6 +50,7 @@ export class ChartTypeBarExample {
                     items={chartItems}
                     orientation={this.orientation}
                     maxValue={this.maxValue}
+                    showColumnTitles={true}
                 />
                 <limel-example-controls>
                     <limel-select
