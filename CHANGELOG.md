@@ -1,3 +1,10 @@
+## [38.43.0](https://github.com/Lundalogik/lime-elements/compare/v38.42.0...v38.43.0) (2026-01-29)
+
+### Features
+
+
+* **chart:** add props for displaying item `text` & `value` ([502ff5a](https://github.com/Lundalogik/lime-elements/commit/502ff5afc8ae9f755e6df7b0270f1fcd1d6caaae))
+
 ## [38.42.0](https://github.com/Lundalogik/lime-elements/compare/v38.41.0...v38.42.0) (2026-01-28)
 
 ### Features
