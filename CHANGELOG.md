@@ -1,3 +1,10 @@
+## [38.44.0](https://github.com/Lundalogik/lime-elements/compare/v38.43.0...v38.44.0) (2026-01-31)
+
+### Features
+
+
+* **slider:** add `displaysPercentageColors` prop ([d288063](https://github.com/Lundalogik/lime-elements/commit/d2880634afe9c3de6b42cda361d20707713bc209)), closes [#3694](https://github.com/Lundalogik/lime-elements/issues/3694)
+
 ## [38.43.0](https://github.com/Lundalogik/lime-elements/compare/v38.42.0...v38.43.0) (2026-01-29)
 
 ### Features
