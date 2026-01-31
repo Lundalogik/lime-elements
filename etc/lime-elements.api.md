@@ -741,6 +741,7 @@ export namespace Components {
     // (undocumented)
     export interface LimelSlider {
         "disabled": boolean;
+        "displaysPercentageColors": boolean;
         "factor": number;
         "helperText": string;
         "invalid": boolean;
@@ -2009,6 +2010,7 @@ export namespace JSX {
     // (undocumented)
     export interface LimelSlider {
         "disabled"?: boolean;
+        "displaysPercentageColors"?: boolean;
         "factor"?: number;
         "helperText"?: string;
         "invalid"?: boolean;
