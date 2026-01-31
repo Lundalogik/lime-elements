@@ -2,7 +2,7 @@ import { Component, h, State } from '@stencil/core';
 
 /**
  * With percentage colors
- * You can add the `displays-percentage-colors` class to your slider component
+ * Set the `displaysPercentageColors` prop to `true` on your slider component
  * and it will automatically visualize current percentage colors in real-time.
  *
  * The colors change with intervals of 10 as users drags the slider pin.
@@ -30,7 +30,7 @@ export class SliderMultiplierPercentageColorsExample {
     public render() {
         return [
             <limel-slider
-                class="displays-percentage-colors"
+                displaysPercentageColors={true}
                 label="Slider with percentage colors"
                 unit=" %"
                 value={this.value}
