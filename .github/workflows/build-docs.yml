@@ -62,12 +62,12 @@ jobs:
           npm run docs:publish -- --v="$DOCS_VERSION"
         fi
     - name: Build docs for artifact
-      if: github.event_name == 'workflow_call' && inputs.buildOnly
+      if: inputs.buildOnly
       env:
         DOCS_VERSION: ${{ inputs.version }}
       run: npm run docs:publish -- --v="$DOCS_VERSION" --artifactMode
     - name: Write metadata
-      if: github.event_name == 'workflow_call' && inputs.buildOnly
+      if: inputs.buildOnly
       run: |
         if [ -z "${{ inputs.prNumber }}" ]; then
           echo "prNumber input is required when buildOnly=true" >&2
@@ -76,7 +76,7 @@ jobs:
         echo "${{ inputs.version }}" > pr-metadata.txt
         echo "${{ inputs.prNumber }}" >> pr-metadata.txt
     - name: Upload docs artifact
-      if: github.event_name == 'workflow_call' && inputs.buildOnly
+      if: inputs.buildOnly
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
       with:
         name: pr-docs
@@ -87,7 +87,7 @@ jobs:
           docs-index.css
         retention-days: 1
     - name: Upload metadata artifact
-      if: github.event_name == 'workflow_call' && inputs.buildOnly
+      if: inputs.buildOnly
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
       with:
         name: pr-docs-metadata
