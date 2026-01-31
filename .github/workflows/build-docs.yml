@@ -16,13 +16,12 @@ on:
         required: false
         default: false
         type: boolean
-      linkToPR:
-        description: 'Pass `true` if these docs are for a pull request. A link to the docs will be posted in a comment on the PR.'
-        required: false
-        default: false
-        type: boolean
       ref:
         description: 'Git ref (branch, tag, or SHA) to checkout. If not specified, uses the default ref for the triggering event.'
+        required: false
+        type: string
+      prNumber:
+        description: 'PR number for metadata (required when buildOnly is true).'
         required: false
         type: string
   workflow_dispatch:
@@ -39,8 +38,8 @@ on:
 
 jobs:
 
-  publish-docs:
-    name: Publish Docs
+  build-docs:
+    name: Build Docs
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -62,23 +61,35 @@ jobs:
         else
           npm run docs:publish -- --v="$DOCS_VERSION"
         fi
-    - name: Build docs, but do not publish
+    - name: Build docs for artifact
       if: github.event_name == 'workflow_call' && inputs.buildOnly
-      run: npm run docs:build
-
-  link-docs:
-    if: inputs.buildOnly == false && inputs.linkToPR == true
-    name: Post link to docs on PR
-    needs: [publish-docs]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-    steps:
-    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-    - uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+      env:
+        DOCS_VERSION: ${{ inputs.version }}
+      run: npm run docs:publish -- --v="$DOCS_VERSION" --artifactMode
+    - name: Write metadata
+      if: github.event_name == 'workflow_call' && inputs.buildOnly
+      run: |
+        if [ -z "${{ inputs.prNumber }}" ]; then
+          echo "prNumber input is required when buildOnly=true" >&2
+          exit 1
+        fi
+        echo "${{ inputs.version }}" > pr-metadata.txt
+        echo "${{ inputs.prNumber }}" >> pr-metadata.txt
+    - name: Upload docs artifact
+      if: github.event_name == 'workflow_call' && inputs.buildOnly
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
       with:
-        script: |
-          const script = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/pr-comment.js`);
-          await script({github, context});
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        name: pr-docs
+        path: |
+          www/
+          .kompendium/kompendium.json
+          docs-index.html
+          docs-index.css
+        retention-days: 1
+    - name: Upload metadata artifact
+      if: github.event_name == 'workflow_call' && inputs.buildOnly
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      with:
+        name: pr-docs-metadata
+        path: pr-metadata.txt
+        retention-days: 1

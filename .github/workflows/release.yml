@@ -62,8 +62,7 @@ jobs:
     if: needs.semantic-release.outputs.new_release_published == 'true'
     permissions:
       contents: read
-      pull-requests: write
-    uses: ./.github/workflows/publish-docs.yml
+    uses: ./.github/workflows/build-docs.yml
     with:
       version: "${{ needs.semantic-release.outputs.new_release_version }}"
       ref: "${{ needs.semantic-release.outputs.new_release_git_tag }}"
