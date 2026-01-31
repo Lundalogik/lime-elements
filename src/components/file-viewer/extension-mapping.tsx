@@ -37,6 +37,7 @@ export function detectExtension(fileName, url): any {
         json: 'text',
         html: 'text',
         xml: 'text',
+        eml: 'email',
         // Word
         doc: 'office',
         docx: 'office',

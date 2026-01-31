@@ -42,7 +42,22 @@ export default {
     'file-viewer.open-in-fullscreen': 'Öppna i fullskärmsläge',
     'file-viewer.open-in-new-tab': 'Öppna i ny flik',
     'file-viewer.more-actions': 'Mer…',
+    'file-viewer.email.subject': 'Ämne',
+    'file-viewer.email.from': 'Från',
+    'file-viewer.email.to': 'Till',
+    'file-viewer.email.cc': 'Kopia',
+    'file-viewer.email.date': 'Datum',
+    'file-viewer.email.attachments': 'Bilagor',
+    'file-viewer.email.attachment.unnamed': 'Namnlös bilaga',
     'editor-menu.bold': 'Fet',
+    'file-viewer.email.remote-images.warning':
+        'Bilder laddas inte för att skydda din integritet.',
+    'file-viewer.email.remote-images.warning.description': `Många e-postmeddelanden innehåller bilder som finns på externa servrar.
+När bilder laddas hämtar din enhet dem från avsändarens server.
+Det kan avslöja för avsändaren att du öppnade meddelandet, när du öppnade det och metadata som din IP-adress samt information om enhet/webbläsare.
+
+Du kan fortsätta blockera bilder (e-posten kan se ofullständig ut) eller ladda dem om du litar på avsändaren.`,
+    'file-viewer.email.remote-images.load': 'Ladda bilder',
     'editor-menu.italic': 'Kursiv',
     'editor-menu.strikethrough': 'Genomstruken',
     'editor-menu.h1': 'Rubrik 1',

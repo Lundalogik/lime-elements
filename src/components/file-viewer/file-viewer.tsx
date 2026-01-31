@@ -15,6 +15,8 @@ import { detectExtension } from './extension-mapping';
 import { Fullscreen } from './fullscreen';
 import { FileType, OfficeViewer } from './file-viewer.types';
 import { LimelMenuCustomEvent } from '../../components';
+import { Email } from '../../util/email';
+import { loadEmail } from './email-loader';
 
 /**
  * This is a smart component that automatically detects
@@ -39,6 +41,7 @@ import { LimelMenuCustomEvent } from '../../components';
  *
  * @exampleComponent limel-example-file-viewer-basic
  * @exampleComponent limel-example-file-viewer-office
+ * @exampleComponent limel-example-file-viewer-eml
  * @exampleComponent limel-example-file-viewer-filename
  * @exampleComponent limel-example-file-viewer-inbuilt-actions
  * @exampleComponent limel-example-file-viewer-custom-actions
@@ -142,6 +145,9 @@ export class FileViewer {
     @State()
     private fileType: FileType;
 
+    private createdObjectUrls: string[] = [];
+    private email?: Email;
+
     /**
      * True while the file is being loaded.
      */
@@ -153,6 +159,10 @@ export class FileViewer {
 
     constructor() {
         this.fullscreen = new Fullscreen(this.HostElement);
+    }
+
+    public disconnectedCallback() {
+        this.revokeCreatedObjectUrls();
     }
 
     public async componentWillLoad() {
@@ -190,6 +200,7 @@ export class FileViewer {
             video: this.renderVideo,
             audio: this.renderAudio,
             text: this.renderText,
+            email: this.renderEmail,
             office: this.renderOffice,
         };
         const fileViewerFunction =
@@ -243,6 +254,26 @@ export class FileViewer {
             <object data={this.sanitizeUrl(this.fileUrl)} type="text/plain">
                 {fallbackContent}
             </object>,
+        ];
+    };
+
+    private renderEmail = () => {
+        return [
+            this.renderButtons(),
+            <limel-email-viewer
+                subject={this.email?.subject}
+                from={this.email?.from}
+                to={this.email?.to}
+                cc={this.email?.cc}
+                date={this.email?.date}
+                bodyHtml={this.email?.bodyHtml}
+                bodyText={this.email?.bodyText}
+                attachments={this.email?.attachments}
+                fallbackUrl={this.sanitizeUrl(this.fileUrl)}
+                language={this.language}
+            >
+                <div slot="fallback">{this.renderNoFileSupportMessage()}</div>
+            </limel-email-viewer>,
         ];
     };
 
@@ -418,17 +449,42 @@ export class FileViewer {
     };
 
     private createURL = async (fileType: string) => {
-        if (['pdf'].includes(fileType)) {
-            const response = await fetch(this.url);
-            const blob = await response.blob();
+        this.revokeCreatedObjectUrls();
 
-            this.fileUrl = URL.createObjectURL(blob);
-        } else {
-            this.fileUrl = this.url;
+        try {
+            if (fileType === 'pdf') {
+                const response = await fetch(this.url);
+                const blob = await response.blob();
+
+                this.fileUrl = URL.createObjectURL(blob);
+                this.createdObjectUrls.push(this.fileUrl);
+            } else if (fileType === 'email') {
+                try {
+                    this.email = await loadEmail(this.url);
+                    this.fileUrl = this.url;
+                } catch {
+                    this.email = undefined;
+                    this.fileUrl = '';
+                }
+            } else {
+                this.fileUrl = this.url;
+            }
+        } finally {
+            this.loading = false;
+        }
+    };
+
+    private revokeCreatedObjectUrls() {
+        for (const url of this.createdObjectUrls) {
+            try {
+                URL.revokeObjectURL(url);
+            } catch {
+                // ignore
+            }
         }
 
-        this.loading = false;
-    };
+        this.createdObjectUrls = [];
+    }
 
     private handleToggleFullscreen = () => {
         if (this.fullscreen.isSupported()) {
