@@ -23,6 +23,7 @@ import {
 import { getIconFillColor, getIconName } from '../icon/get-icon-props';
 import { PickerValue } from './value.types';
 import { DebouncedFunc, debounce } from 'lodash-es';
+import { IconName } from '../../global/shared-types/icon.types';
 
 const SEARCH_DEBOUNCE = 300;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
@@ -81,7 +82,7 @@ export class Picker {
      * Leading icon to show to the far left in the text field
      */
     @Prop()
-    public leadingIcon: string;
+    public leadingIcon: IconName;
 
     /**
      * A message to display when the search returned an empty result
