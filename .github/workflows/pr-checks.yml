@@ -74,10 +74,9 @@ jobs:
     with:
       version: "PR-${{ github.event.pull_request.number }}"
       linkToPR: true
-      # Only publish docs if the PR comes from a repo owned by Lime.
-      # Also, skip publishing if the PR was created by Dependabot,
+      # Skip publishing if the PR was created by Dependabot,
       # or if this is a merge queue run.
-      buildOnly: ${{ github.event.pull_request.head.repo.owner.login != 'Lundalogik' || github.actor == 'dependabot[bot]' || github.event_name == 'merge_group' }}
+      buildOnly: ${{ github.actor == 'dependabot[bot]' || github.event_name == 'merge_group' }}
     secrets: inherit
 
   automerge:
