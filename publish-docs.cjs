@@ -494,7 +494,7 @@ function pruneOldPatchVersions() {
         remove(item);
 
         if (runCommit) {
-            commit(`chore(docs): remove ${argv.remove}`);
+            commit(`chore(docs): remove old patch version ${item}`);
         }
     }
 }
