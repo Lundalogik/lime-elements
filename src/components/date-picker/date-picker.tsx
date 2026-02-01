@@ -40,6 +40,7 @@ const nativeFormatForType = {
 /**
  * @exampleComponent limel-example-date-picker-datetime
  * @exampleComponent limel-example-date-picker-date
+ * @exampleComponent limel-example-date-picker-required
  * @exampleComponent limel-example-date-picker-time
  * @exampleComponent limel-example-date-picker-week
  * @exampleComponent limel-example-date-picker-month
@@ -153,6 +154,9 @@ export class DatePicker {
     @State()
     private showPortal = false;
 
+    @State()
+    private hasInteracted = false;
+
     private useNative: boolean;
     private nativeType: InputType;
     private nativeFormat: string;
@@ -171,6 +175,8 @@ export class DatePicker {
         this.hideCalendar = this.hideCalendar.bind(this);
         this.onInputClick = this.onInputClick.bind(this);
         this.nativeChangeHandler = this.nativeChangeHandler.bind(this);
+        this.handleNativeBlur = this.handleNativeBlur.bind(this);
+        this.handleCalendarBlur = this.handleCalendarBlur.bind(this);
         this.preventBlurFromCalendarContainer =
             this.preventBlurFromCalendarContainer.bind(this);
     }
@@ -201,18 +207,20 @@ export class DatePicker {
         const helperText =
             this.disabled || this.readonly ? undefined : this.helperText;
 
+        const isInvalid = this.isFieldInvalid();
         if (this.useNative) {
             return (
                 <limel-input-field
                     disabled={this.disabled}
                     readonly={this.readonly}
-                    invalid={this.invalid}
+                    invalid={isInvalid}
                     label={this.label}
                     helperText={helperText}
                     required={this.required}
                     value={this.formatValue(this.value)}
                     type={this.nativeType}
                     onChange={this.nativeChangeHandler}
+                    onBlur={this.handleNativeBlur}
                 />
             );
         }
@@ -227,14 +235,14 @@ export class DatePicker {
             <limel-input-field
                 disabled={this.disabled}
                 readonly={this.readonly}
-                invalid={this.invalid}
+                invalid={isInvalid}
                 label={this.label}
                 placeholder={this.placeholder}
                 helperText={helperText}
                 required={this.required}
                 value={this.value ? formatter(this.value) : ''}
                 onFocus={this.showCalendar}
-                onBlur={this.hideCalendar}
+                onBlur={this.handleCalendarBlur}
                 onClick={this.onInputClick}
                 onChange={this.handleInputElementChange}
                 ref={(el) => (this.textField = el)}
@@ -274,11 +282,23 @@ export class DatePicker {
 
     private nativeChangeHandler(event: CustomEvent<string>) {
         event.stopPropagation();
+        this.hasInteracted = true;
         const date = this.dateFormatter.parseDate(
             event.detail,
             this.internalFormat
         );
         this.change.emit(date);
+    }
+
+    private handleNativeBlur() {
+        this.hasInteracted = true;
+    }
+
+    private handleCalendarBlur() {
+        // Set hasInteracted here for user-driven blurs. hideCalendar() is kept
+        // pure UI so disconnectedCallback can call it without marking interaction.
+        this.hasInteracted = true;
+        this.hideCalendar();
     }
 
     private showCalendar(event) {
@@ -319,6 +339,10 @@ export class DatePicker {
     }
 
     private hideCalendar() {
+        if (!this.showPortal) {
+            return;
+        }
+
         setTimeout(() => {
             this.showPortal = false;
         });
@@ -341,7 +365,7 @@ export class DatePicker {
             this.textField.shadowRoot.querySelector('.mdc-text-field')
         );
         mdcTextField.getDefaultFoundation().deactivateFocus();
-        mdcTextField.valid = !this.invalid;
+        mdcTextField.valid = !this.isFieldInvalid();
     }
 
     private documentClickListener = (event: MouseEvent) => {
@@ -351,6 +375,7 @@ export class DatePicker {
 
         const element = document.querySelector(`#${this.portalId}`);
         if (!element.contains(event.target as Node)) {
+            this.hasInteracted = true;
             this.hideCalendar();
         }
     };
@@ -358,6 +383,7 @@ export class DatePicker {
     private handleCalendarChange(event) {
         const date = event.detail;
         event.stopPropagation();
+        this.hasInteracted = true;
         if (this.pickerIsAutoClosing()) {
             this.hideCalendar();
         }
@@ -394,9 +420,24 @@ export class DatePicker {
     }
 
     private clearValue() {
+        this.hasInteracted = true;
         this.change.emit(null);
     }
 
     private formatValue = (value: Date): string =>
         this.dateFormatter.formatDate(value, this.internalFormat);
+
+    private isFieldInvalid(): boolean {
+        if (this.disabled) {
+            return false;
+        }
+
+        if (this.readonly) {
+            return false;
+        }
+
+        return (
+            this.invalid || (this.hasInteracted && this.required && !this.value)
+        );
+    }
 }
