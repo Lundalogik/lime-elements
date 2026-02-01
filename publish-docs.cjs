@@ -152,11 +152,13 @@ function cloneDocsRepo() {
         shell.exit(1);
     }
 
-    if (
-        shell.exec(
-            'git clone --single-branch --branch gh-pages https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git docsDist'
-        ).code !== 0
-    ) {
+    // Silence output to avoid exposing GH_TOKEN in logs
+    const cloneResult = shell.exec(
+        'git clone --single-branch --branch gh-pages https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git docsDist',
+        { silent: true }
+    );
+
+    if (cloneResult.code !== 0) {
         shell.echo('git clone failed!');
         teardown();
         shell.exit(1);
