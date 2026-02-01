@@ -1,3 +1,10 @@
+## [38.44.1](https://github.com/Lundalogik/lime-elements/compare/v38.44.0...v38.44.1) (2026-02-01)
+
+### Bug Fixes
+
+
+* **style:** percent-encode SVG data URIs for cross-browser reliability ([5b16567](https://github.com/Lundalogik/lime-elements/commit/5b165675d3a8c86b6f3429751b1d933944047ab1)), closes [#3672](https://github.com/Lundalogik/lime-elements/issues/3672)
+
 ## [38.44.0](https://github.com/Lundalogik/lime-elements/compare/v38.43.0...v38.44.0) (2026-01-31)
 
 ### Features
