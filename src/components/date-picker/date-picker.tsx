@@ -40,6 +40,7 @@ const nativeFormatForType = {
 /**
  * @exampleComponent limel-example-date-picker-datetime
  * @exampleComponent limel-example-date-picker-date
+ * @exampleComponent limel-example-date-picker-required
  * @exampleComponent limel-example-date-picker-time
  * @exampleComponent limel-example-date-picker-week
  * @exampleComponent limel-example-date-picker-month
@@ -153,6 +154,9 @@ export class DatePicker {
     @State()
     private showPortal = false;
 
+    @State()
+    private hasInteracted = false;
+
     private useNative: boolean;
     private nativeType: InputType;
     private nativeFormat: string;
@@ -201,12 +205,13 @@ export class DatePicker {
         const helperText =
             this.disabled || this.readonly ? undefined : this.helperText;
 
+        const isInvalid = this.isFieldInvalid();
         if (this.useNative) {
             return (
                 <limel-input-field
                     disabled={this.disabled}
                     readonly={this.readonly}
-                    invalid={this.invalid}
+                    invalid={isInvalid}
                     label={this.label}
                     helperText={helperText}
                     required={this.required}
@@ -227,7 +232,7 @@ export class DatePicker {
             <limel-input-field
                 disabled={this.disabled}
                 readonly={this.readonly}
-                invalid={this.invalid}
+                invalid={isInvalid}
                 label={this.label}
                 placeholder={this.placeholder}
                 helperText={helperText}
@@ -319,6 +324,7 @@ export class DatePicker {
     }
 
     private hideCalendar() {
+        this.hasInteracted = true;
         setTimeout(() => {
             this.showPortal = false;
         });
@@ -340,7 +346,7 @@ export class DatePicker {
             this.textField.shadowRoot.querySelector('.mdc-text-field')
         );
         mdcTextField.getDefaultFoundation().deactivateFocus();
-        mdcTextField.valid = !this.invalid;
+        mdcTextField.valid = !this.isFieldInvalid();
     }
 
     private documentClickListener = (event: MouseEvent) => {
@@ -398,4 +404,13 @@ export class DatePicker {
 
     private formatValue = (value: Date): string =>
         this.dateFormatter.formatDate(value, this.internalFormat);
+
+    private isFieldInvalid(): boolean {
+        if (this.readonly) {
+            return false;
+        }
+
+        return this.invalid || 
+            (this.hasInteracted && this.required && !this.value);
+    }
 }
