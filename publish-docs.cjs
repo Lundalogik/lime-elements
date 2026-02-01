@@ -591,6 +591,6 @@ function teardown(finished) {
     if (finished || cleanOnFail) {
         shell.exec('git checkout src/index.html stencil.config.docs.ts');
         shell.echo('Removing docs repo clone in docsDist.');
-        shell.exec('rm -rf docsDist');
+        shell.rm('-rf', 'docsDist');
     }
 }
