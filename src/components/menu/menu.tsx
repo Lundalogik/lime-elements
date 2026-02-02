@@ -34,6 +34,11 @@ import {
     TAB,
 } from '../../util/keycodes';
 import { focusTriggerElement } from '../../util/focus-trigger-element';
+import {
+    hotkeyFromKeyboardEvent,
+    normalizeHotkeyString,
+    tokenizeHotkeyString,
+} from '../../util/hotkeys';
 
 interface MenuCrumbItem extends BreadcrumbsItem {
     menuItem?: MenuItem;
@@ -57,13 +62,14 @@ const DEFAULT_ROOT_BREADCRUMBS_ITEM: BreadcrumbsItem = {
  * @exampleComponent limel-example-menu-icons
  * @exampleComponent limel-example-menu-badge-icons
  * @exampleComponent limel-example-menu-grid
- * @exampleComponent limel-example-menu-hotkeys
  * @exampleComponent limel-example-menu-secondary-text
  * @exampleComponent limel-example-menu-notification
  * @exampleComponent limel-example-menu-sub-menus
  * @exampleComponent limel-example-menu-sub-menu-lazy-loading
  * @exampleComponent limel-example-menu-sub-menu-lazy-loading-infinite
  * @exampleComponent limel-example-menu-searchable
+ * @exampleComponent limel-example-menu-hotkeys
+ * @exampleComponent limel-example-menu-searchable-hotkeys
  * @exampleComponent limel-example-menu-composite
  */
 @Component({
@@ -207,6 +213,9 @@ export class Menu {
     private triggerElement: HTMLSlotElement;
     private selectedMenuItem?: MenuItem;
     private shouldRestoreFocusOnClose = false;
+    private readonly normalizedHotkeyCache = new Map<string, string | null>();
+    private cachedSubMenuSource: MenuItem | null = null;
+    private cachedSubMenuItems: Array<MenuItem | ListSeparator> | null = null;
 
     constructor() {
         this.portalId = createRandomString();
@@ -267,7 +276,26 @@ export class Menu {
     @Watch('items')
     protected itemsWatcher() {
         this.clearSearch();
+        this.normalizedHotkeyCache.clear();
         this.setFocus();
+    }
+
+    public connectedCallback() {
+        if (this.open) {
+            document.addEventListener(
+                'keydown',
+                this.handleDocumentKeyDown,
+                true
+            );
+        }
+    }
+
+    public disconnectedCallback() {
+        document.removeEventListener(
+            'keydown',
+            this.handleDocumentKeyDown,
+            true
+        );
     }
 
     @Watch('open')
@@ -276,18 +304,149 @@ export class Menu {
         if (opened) {
             document.addEventListener(
                 'keydown',
-                this.handleEscapeCapture,
+                this.handleDocumentKeyDown,
                 true
             );
             this.setFocus();
         } else {
             document.removeEventListener(
                 'keydown',
-                this.handleEscapeCapture,
+                this.handleDocumentKeyDown,
                 true
             );
             this.clearSearch();
         }
+    }
+
+    private readonly handleDocumentKeyDown = (event: KeyboardEvent) => {
+        if (event.key === ESCAPE && this.open) {
+            this.shouldRestoreFocusOnClose = true;
+        }
+
+        if (!this.open || event.defaultPrevented || event.repeat) {
+            return;
+        }
+
+        if (this.isFromTextInput(event) && !this.hasModifier(event)) {
+            return;
+        }
+
+        const pressedHotkey = hotkeyFromKeyboardEvent(event);
+        if (!pressedHotkey) {
+            return;
+        }
+
+        if (this.isReservedMenuHotkey(pressedHotkey)) {
+            return;
+        }
+
+        const matchedItem = this.findMenuItemByHotkey(pressedHotkey);
+        if (!matchedItem) {
+            return;
+        }
+
+        event.stopPropagation();
+        event.preventDefault();
+        this.handleSelect(matchedItem);
+    };
+
+    private isFromTextInput(event: KeyboardEvent): boolean {
+        const path =
+            typeof event.composedPath === 'function'
+                ? event.composedPath()
+                : [];
+
+        for (const node of path) {
+            if (!(node instanceof HTMLElement)) {
+                continue;
+            }
+
+            if (node.isContentEditable) {
+                return true;
+            }
+
+            const tagName = node.tagName;
+            if (
+                tagName === 'INPUT' ||
+                tagName === 'TEXTAREA' ||
+                tagName === 'SELECT'
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // Only Ctrl and Meta count as "real" modifiers for the text-input bypass.
+    // Alt/Option is intentionally excluded because it is used for typing
+    // special characters on international keyboards and macOS (e.g. Option+e
+    // for é, AltGr+e for € on Windows). This means alt-only hotkeys like
+    // "alt+x" will NOT fire while a text input (e.g. the search field) is
+    // focused — only Ctrl/Meta combos will. AltGraph is also explicitly
+    // rejected because Windows synthesizes ctrlKey=true for AltGr keypresses.
+    private hasModifier(event: KeyboardEvent): boolean {
+        if (event.getModifierState?.('AltGraph')) {
+            return false;
+        }
+
+        return event.ctrlKey || event.metaKey;
+    }
+
+    private isReservedMenuHotkey(hotkey: string): boolean {
+        const tokens = tokenizeHotkeyString(hotkey);
+        const key = tokens.at(-1);
+        if (!key) {
+            return false;
+        }
+
+        const hasModifiers = tokens.length > 1;
+        if (hasModifiers) {
+            return false;
+        }
+
+        return (
+            key === 'arrowup' ||
+            key === 'arrowdown' ||
+            key === 'arrowleft' ||
+            key === 'arrowright' ||
+            key === 'tab' ||
+            key === 'enter' ||
+            key === 'space' ||
+            key === 'escape'
+        );
+    }
+
+    private findMenuItemByHotkey(pressedHotkey: string): MenuItem | null {
+        for (const item of this.visibleItems) {
+            if (!this.isMenuItem(item) || item.disabled) {
+                continue;
+            }
+
+            const rawHotkey = item.hotkey;
+            if (!rawHotkey) {
+                continue;
+            }
+
+            const normalized = this.getNormalizedHotkey(rawHotkey);
+            if (normalized && normalized === pressedHotkey) {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    private getNormalizedHotkey(raw: string): string | null {
+        const cacheKey = raw.trim();
+        if (this.normalizedHotkeyCache.has(cacheKey)) {
+            return this.normalizedHotkeyCache.get(cacheKey) ?? null;
+        }
+
+        const normalized = normalizeHotkeyString(cacheKey);
+        this.normalizedHotkeyCache.set(cacheKey, normalized);
+
+        return normalized;
     }
 
     private getBreadcrumbsItems() {
@@ -471,6 +630,10 @@ export class Menu {
     // Will change focus to breadcrumbs (if present) or the first/last item
     // in the dropdown list to enable selection with the keyboard
     private readonly handleInputKeyDown = (event: KeyboardEvent) => {
+        if (event.defaultPrevented) {
+            return;
+        }
+
         const isForwardTab =
             event.key === TAB &&
             !event.altKey &&
@@ -680,12 +843,6 @@ export class Menu {
             } else {
                 element.removeAttribute(key);
             }
-        }
-    };
-
-    private readonly handleEscapeCapture = (event: KeyboardEvent) => {
-        if (event.key === ESCAPE && this.open) {
-            this.shouldRestoreFocusOnClose = true;
         }
     };
 
@@ -993,10 +1150,17 @@ export class Menu {
         if (Array.isArray(this.searchResults) && this.searchValue) {
             return this.searchResults;
         } else if (Array.isArray(this.currentSubMenu?.items)) {
-            return this.currentSubMenu.items.map((item) => ({
-                ...item,
-                parentItem: this.currentSubMenu,
-            }));
+            if (this.cachedSubMenuSource !== this.currentSubMenu) {
+                this.cachedSubMenuSource = this.currentSubMenu;
+                this.cachedSubMenuItems = this.currentSubMenu.items.map(
+                    (item) => ({
+                        ...item,
+                        parentItem: this.currentSubMenu,
+                    })
+                );
+            }
+
+            return this.cachedSubMenuItems;
         }
 
         return this.items;

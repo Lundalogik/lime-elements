@@ -1,4 +1,5 @@
 import { Component, Host, Prop, h } from '@stencil/core';
+import { normalizeHotkeyString } from '../../../util/hotkeys';
 
 /**
  * Meta content for menu list items
@@ -19,8 +20,20 @@ export class MenuItemMeta {
     /**
      * Use to display optional keyboard shortcut or command hint, e.g. `⌘ + K`
      */
-    @Prop()
+    @Prop({ reflect: true })
     public commandText?: string;
+
+    /**
+     * Hotkey to display. When provided, `commandText` is ignored.
+     */
+    @Prop({ reflect: true })
+    public hotkey?: string;
+
+    /**
+     * Will be set to `true` when the menu item is disabled.
+     */
+    @Prop({ reflect: true })
+    public disabled = false;
 
     /**
      * Optional badge value
@@ -45,6 +58,13 @@ export class MenuItemMeta {
     }
 
     private renderCommandText() {
+        if (this.hotkey) {
+            const hotkey = normalizeHotkeyString(this.hotkey);
+            if (hotkey) {
+                return <limel-hotkey value={hotkey} disabled={this.disabled} />;
+            }
+        }
+
         if (!this.commandText) {
             return;
         }
