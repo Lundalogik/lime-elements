@@ -33,6 +33,12 @@ import {
     TAB,
 } from '../../util/keycodes';
 import { focusTriggerElement } from '../../util/focus-trigger-element';
+import {
+    hotkeyFromKeyboardEvent,
+    normalizeHotkeyString,
+    tokenizeHotkeyString,
+} from '../../util/hotkeys';
+import { LimelHotkeyTriggerDetail } from '../hotkey/hotkey.types';
 
 interface MenuCrumbItem extends BreadcrumbsItem {
     menuItem?: MenuItem;
@@ -56,13 +62,14 @@ const DEFAULT_ROOT_BREADCRUMBS_ITEM: BreadcrumbsItem = {
  * @exampleComponent limel-example-menu-icons
  * @exampleComponent limel-example-menu-badge-icons
  * @exampleComponent limel-example-menu-grid
- * @exampleComponent limel-example-menu-hotkeys
  * @exampleComponent limel-example-menu-secondary-text
  * @exampleComponent limel-example-menu-notification
  * @exampleComponent limel-example-menu-sub-menus
  * @exampleComponent limel-example-menu-sub-menu-lazy-loading
  * @exampleComponent limel-example-menu-sub-menu-lazy-loading-infinite
  * @exampleComponent limel-example-menu-searchable
+ * @exampleComponent limel-example-menu-searchable-hotkeys
+ * @exampleComponent limel-example-menu-hotkeys
  * @exampleComponent limel-example-menu-composite
  */
 @Component({
@@ -204,7 +211,9 @@ export class Menu {
     private portalId: string;
     private breadcrumbs: HTMLLimelBreadcrumbsElement;
     private triggerElement: HTMLSlotElement;
+    private surface: HTMLLimelMenuSurfaceElement;
     private selectedMenuItem?: MenuItem;
+    private normalizedHotkeyCache = new Map<string, string | null>();
 
     constructor() {
         this.portalId = createRandomString();
@@ -239,6 +248,7 @@ export class Menu {
                     containerStyle={{ 'z-index': dropdownZIndex }}
                 >
                     <limel-menu-surface
+                        ref={this.setSurfaceElement}
                         open={this.open}
                         onDismiss={this.onClose}
                         style={{
@@ -265,6 +275,7 @@ export class Menu {
     @Watch('items')
     protected itemsWatcher() {
         this.clearSearch();
+        this.normalizedHotkeyCache.clear();
         this.setFocus();
     }
 
@@ -276,6 +287,111 @@ export class Menu {
         } else {
             this.clearSearch();
         }
+    }
+
+    private readonly setSurfaceElement = (
+        element: HTMLLimelMenuSurfaceElement
+    ) => {
+        if (this.surface) {
+            this.surface.removeEventListener(
+                'hotkeyTrigger',
+                this.handleHotkeyTrigger,
+                false
+            );
+        }
+
+        this.surface = element;
+
+        if (this.surface) {
+            this.surface.addEventListener(
+                'hotkeyTrigger',
+                this.handleHotkeyTrigger,
+                false
+            );
+        }
+    };
+
+    private readonly handleHotkeyTrigger = (
+        event: CustomEvent<LimelHotkeyTriggerDetail>
+    ) => {
+        if (!this.open) {
+            return;
+        }
+
+        const pressedHotkey = event.detail?.hotkey;
+        if (!pressedHotkey) {
+            return;
+        }
+
+        if (this.isReservedMenuHotkey(pressedHotkey)) {
+            return;
+        }
+
+        const matchedItem = this.findMenuItemByHotkey(pressedHotkey);
+        if (!matchedItem) {
+            return;
+        }
+
+        event.stopPropagation();
+        event.detail.keyboardEvent.stopPropagation();
+        event.detail.keyboardEvent.preventDefault();
+        this.handleSelect(matchedItem);
+    };
+
+    private isReservedMenuHotkey(hotkey: string): boolean {
+        const tokens = tokenizeHotkeyString(hotkey);
+        const key = tokens.at(-1);
+        if (!key) {
+            return false;
+        }
+
+        const hasModifiers = tokens.length > 1;
+        if (hasModifiers) {
+            return false;
+        }
+
+        return (
+            key === 'arrowup' ||
+            key === 'arrowdown' ||
+            key === 'arrowleft' ||
+            key === 'arrowright' ||
+            key === 'tab' ||
+            key === 'enter' ||
+            key === 'space' ||
+            key === 'escape'
+        );
+    }
+
+    private findMenuItemByHotkey(pressedHotkey: string): MenuItem | null {
+        for (const item of this.visibleItems) {
+            if (!this.isMenuItem(item) || item.disabled) {
+                continue;
+            }
+
+            const rawHotkey = item.hotkey;
+            if (!rawHotkey) {
+                continue;
+            }
+
+            const normalized = this.getNormalizedHotkey(rawHotkey);
+            if (normalized && normalized === pressedHotkey) {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    private getNormalizedHotkey(raw: string): string | null {
+        const cacheKey = raw.trim();
+        if (this.normalizedHotkeyCache.has(cacheKey)) {
+            return this.normalizedHotkeyCache.get(cacheKey) ?? null;
+        }
+
+        const normalized = normalizeHotkeyString(cacheKey);
+        this.normalizedHotkeyCache.set(cacheKey, normalized);
+
+        return normalized;
     }
 
     private getBreadcrumbsItems() {
@@ -459,6 +575,21 @@ export class Menu {
     // Will change focus to breadcrumbs (if present) or the first/last item
     // in the dropdown list to enable selection with the keyboard
     private readonly handleInputKeyDown = (event: KeyboardEvent) => {
+        const hasModifier = event.ctrlKey || event.metaKey || event.altKey;
+        if (hasModifier) {
+            const pressedHotkey = hotkeyFromKeyboardEvent(event);
+            if (pressedHotkey && !this.isReservedMenuHotkey(pressedHotkey)) {
+                const matchedItem = this.findMenuItemByHotkey(pressedHotkey);
+                if (matchedItem) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    this.handleSelect(matchedItem);
+
+                    return;
+                }
+            }
+        }
+
         const isForwardTab =
             event.key === TAB &&
             !event.altKey &&
