@@ -1,6 +1,7 @@
 import {
     Component,
     h,
+    Host,
     Prop,
     State,
     Element,
@@ -231,40 +232,42 @@ export class DatePicker {
 
         const formatter = this.formatter || this.formatValue;
 
-        return [
-            <limel-input-field
-                disabled={this.disabled}
-                readonly={this.readonly}
-                invalid={isInvalid}
-                label={this.label}
-                placeholder={this.placeholder}
-                helperText={helperText}
-                required={this.required}
-                value={this.value ? formatter(this.value) : ''}
-                onFocus={this.showCalendar}
-                onBlur={this.handleCalendarBlur}
-                onClick={this.onInputClick}
-                onChange={this.handleInputElementChange}
-                ref={(el) => (this.textField = el)}
-                {...inputProps}
-            />,
-            <limel-portal
-                containerId={this.portalId}
-                visible={this.showPortal}
-                containerStyle={{ 'z-index': dropdownZIndex }}
-            >
-                <limel-flatpickr-adapter
-                    format={this.internalFormat}
-                    language={this.language}
-                    type={this.type}
-                    value={this.value}
-                    ref={(el) => (this.datePickerCalendar = el)}
-                    isOpen={this.showPortal}
-                    formatter={formatter}
-                    onChange={this.handleCalendarChange}
+        return (
+            <Host>
+                <limel-input-field
+                    disabled={this.disabled}
+                    readonly={this.readonly}
+                    invalid={isInvalid}
+                    label={this.label}
+                    placeholder={this.placeholder}
+                    helperText={helperText}
+                    required={this.required}
+                    value={this.value ? formatter(this.value) : ''}
+                    onFocus={this.showCalendar}
+                    onBlur={this.handleCalendarBlur}
+                    onClick={this.onInputClick}
+                    onChange={this.handleInputElementChange}
+                    ref={(el) => (this.textField = el)}
+                    {...inputProps}
                 />
-            </limel-portal>,
-        ];
+                <limel-portal
+                    containerId={this.portalId}
+                    visible={this.showPortal}
+                    containerStyle={{ 'z-index': dropdownZIndex }}
+                >
+                    <limel-flatpickr-adapter
+                        format={this.internalFormat}
+                        language={this.language}
+                        type={this.type}
+                        value={this.value}
+                        ref={(el) => (this.datePickerCalendar = el)}
+                        isOpen={this.showPortal}
+                        formatter={formatter}
+                        onChange={this.handleCalendarChange}
+                    />
+                </limel-portal>
+            </Host>
+        );
     }
 
     private updateInternalFormatAndType() {
