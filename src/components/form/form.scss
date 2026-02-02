@@ -303,3 +303,14 @@ limel-markdown {
 }
 
 @import './row/row.scss';
+
+limel-collapsible-section {
+    transition: transform 0.3s ease-in-out;
+
+    &.move-up-transition {
+        transform: translateY(-100%);
+    }
+    &.move-down-transition {
+        transform: translateY(100%);
+    }
+}
