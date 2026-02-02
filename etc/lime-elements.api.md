@@ -2772,6 +2772,9 @@ export type ProseMirrorAdapterElementWithFocus = HTMLLimelProsemirrorAdapterElem
 };
 
 // @public
+export const redrawComponents: () => void;
+
+// @public
 export type ReplaceObjectType<T, AllowedType, ElseType> = T extends any[] ? ElseType : T extends Record<string, any> ? AllowedType : ElseType;
 
 // @beta

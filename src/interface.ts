@@ -65,3 +65,4 @@ export * from './components/text-editor/text-editor.types';
 export * from './components/text-editor/types';
 export * from './components/text-editor/prosemirror-adapter/menu/types';
 export * from './util/image-resize';
+export { redrawComponents } from './util/dispatch-resize-event';
