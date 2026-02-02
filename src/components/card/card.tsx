@@ -6,6 +6,7 @@ import {
     EventEmitter,
     Element,
     Host,
+    State,
 } from '@stencil/core';
 import { Image } from '../../global/shared-types/image.types';
 import { Icon } from '../../global/shared-types/icon.types';
@@ -27,6 +28,7 @@ import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
  * @exampleComponent limel-example-card-orientation
  * @exampleComponent limel-example-card-slot
  * @exampleComponent limel-example-card-styling
+ * @exampleComponent limel-example-card-scrollable-shadow
  */
 @Component({
     tag: 'limel-card',
@@ -95,11 +97,20 @@ export class Card {
     @Event()
     public actionSelected: EventEmitter<ActionBarItem>;
 
+    @State()
+    private canScrollUp: boolean = false;
+
+    @State()
+    private canScrollDown: boolean = false;
+
+    private markdownElement?: HTMLElement;
+
     @Element()
     private host: HTMLElement;
 
     private handleMouseEnter: () => void;
     private handleMouseLeave: () => void;
+    private markdownResizeObserver?: ResizeObserver;
 
     public componentWillLoad() {
         const { handleMouseEnter, handleMouseLeave } = getMouseEventHandlers(
@@ -108,6 +119,75 @@ export class Card {
         this.handleMouseEnter = handleMouseEnter;
         this.handleMouseLeave = handleMouseLeave;
     }
+
+    public disconnectedCallback() {
+        this.markdownResizeObserver?.disconnect();
+        this.markdownElement?.removeEventListener(
+            'scroll',
+            this.checkIfScrollable
+        );
+    }
+
+    public componentDidLoad() {
+        this.setMarkdownElement(this.markdownElement);
+    }
+    private setMarkdownElement = (element?: HTMLElement) => {
+        if (element === this.markdownElement) {
+            return;
+        }
+
+        if (this.markdownElement) {
+            this.markdownResizeObserver?.disconnect();
+            this.markdownElement.removeEventListener(
+                'scroll',
+                this.checkIfScrollable
+            );
+        }
+
+        this.markdownElement = element;
+
+        if (!this.markdownElement) {
+            return;
+        }
+
+        this.markdownResizeObserver = new ResizeObserver(
+            this.checkIfScrollable
+        );
+        this.markdownResizeObserver.observe(this.markdownElement);
+        this.markdownElement.addEventListener(
+            'scroll',
+            this.checkIfScrollable,
+            { passive: true }
+        );
+        this.checkIfScrollable();
+    };
+
+    private checkIfScrollable = () => {
+        if (!this.markdownElement) {
+            return;
+        }
+
+        const scrollHeight = this.markdownElement.scrollHeight;
+        const clientHeight = this.markdownElement.clientHeight;
+        const scrollTop = this.markdownElement.scrollTop;
+
+        const isScrollable = scrollHeight > clientHeight;
+
+        // Use a 2px tolerance to handle sub-pixel rounding issues
+        const isScrolledToBottom = scrollTop + clientHeight >= scrollHeight - 2;
+        const shouldShowBottomShadow = isScrollable && !isScrolledToBottom;
+
+        const isScrolledToTop = scrollTop <= 1;
+        const shouldShowTopShadow = isScrollable && !isScrolledToTop;
+
+        if (this.canScrollDown !== shouldShowBottomShadow) {
+            this.canScrollDown = shouldShowBottomShadow;
+        }
+
+        if (this.canScrollUp !== shouldShowTopShadow) {
+            this.canScrollUp = shouldShowTopShadow;
+        }
+    };
 
     public render() {
         return (
@@ -198,7 +278,21 @@ export class Card {
             return;
         }
 
-        return <limel-markdown value={this.value} />;
+        return (
+            <div
+                class={{
+                    'markdown-wrapper': true,
+                    'can-scroll-up': this.canScrollUp,
+                    'can-scroll-down': this.canScrollDown,
+                }}
+            >
+                <limel-markdown
+                    class="body-text"
+                    ref={this.setMarkdownElement}
+                    value={this.value}
+                />
+            </div>
+        );
     }
 
     private handleActionSelect = (
