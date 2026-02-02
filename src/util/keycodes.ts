@@ -1,3 +1,5 @@
+// Single-key constants for simple event.key comparisons.
+// For multi-key hotkey combination handling, see `hotkeys.ts`.
 export const TAB = 'Tab';
 export const ENTER = 'Enter';
 export const ESCAPE = 'Escape';
