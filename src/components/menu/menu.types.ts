@@ -62,6 +62,21 @@ export interface MenuItem<T = any> {
     commandText?: string;
 
     /**
+     * Hotkey(s) that can be used to select this item while the menu is open.
+     * This is for actual keyboard interaction. `commandText` is purely visual.
+     *
+     * Note: In a menu, some keys are reserved for built-in navigation and
+     * activation (e.g. `enter`, `escape`, `space`, `tab`, and arrow keys).
+     * These will be ignored as hotkeys, unless combined with other modifiers.
+     *
+     * Examples:
+     * - `"alt+c"`
+     * - `"ctrl+shift+p"`
+     * - `"cmd+k"` (alias for `meta+k`)
+     */
+    hotkey?: string;
+
+    /**
      * Text to display in the menu item.
      */
     text: string;
