@@ -46,9 +46,7 @@ export class ButtonCompositeExample {
 
     private renderForm() {
         return (
-            <limel-example-controls
-                style={{ '--example-controls-column-layout': 'auto-fit' }}
-            >
+            <limel-example-controls>
                 <limel-input-field
                     label="Label"
                     value={this.formValue.label}

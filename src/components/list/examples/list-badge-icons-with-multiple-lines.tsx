@@ -71,11 +71,7 @@ export class BadgeIconsListExample {
                     badgeIcons={true}
                     maxLinesSecondaryText={Number(this.maxLines?.value)}
                 />
-                <limel-example-controls
-                    style={{
-                        '--example-controls-column-layout': 'auto-fit',
-                    }}
-                >
+                <limel-example-controls>
                     <limel-select
                         label="maxLinesSecondaryText"
                         options={this.options}

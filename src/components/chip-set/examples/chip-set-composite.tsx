@@ -64,9 +64,7 @@ export class ChipSetCompositeExample {
 
     private renderForm() {
         return (
-            <limel-example-controls
-                style={{ '--example-controls-column-layout': 'auto-fit' }}
-            >
+            <limel-example-controls>
                 <limel-form
                     schema={this.schema}
                     value={this.props}

@@ -1,9 +1,5 @@
 @use '../../../style/mixins';
 
-:host {
-    --example-controls-max-columns-width: 100%;
-}
-
 .avatar-container {
     @include mixins.is-resizable(
         $direction: horizontal,
