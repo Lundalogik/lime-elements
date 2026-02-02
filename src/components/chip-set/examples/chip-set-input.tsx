@@ -79,9 +79,7 @@ export class ChipSetInputExample {
                 emptyInputOnBlur={this.emptyInputOnBlur}
                 delimiter={this.delimiter}
             />,
-            <limel-example-controls
-                style={{ '--example-controls-max-columns-width': '9rem' }}
-            >
+            <limel-example-controls>
                 <limel-input-field
                     label="Max items"
                     value={this.maxItems.toString()}

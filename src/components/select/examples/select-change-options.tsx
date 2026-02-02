@@ -80,9 +80,7 @@ export class SelectExample {
                     onChange={this.handleChange}
                     key={this.key}
                 />
-                <limel-example-controls
-                    style={{ '--example-controls-max-columns-width': '9rem' }}
-                >
+                <limel-example-controls>
                     <limel-select
                         label="Select Options Group"
                         options={this.optionGroupSelectOptions}

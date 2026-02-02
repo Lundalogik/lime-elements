@@ -75,9 +75,7 @@ export class TableExampleSelectableRows {
                 movableColumns={true}
                 class="has-interactive-rows"
             />,
-            <limel-example-controls
-                style={{ '--example-controls-max-columns-width': '10rem' }}
-            >
+            <limel-example-controls>
                 <limel-button label="Select all" onClick={this.selectAll} />
                 <limel-button
                     label="Clear selection"
