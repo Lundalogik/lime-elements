@@ -414,7 +414,8 @@ export class DatePicker {
             return false;
         }
 
-        return this.invalid || 
-            (this.hasInteracted && this.required && !this.value);
+        return (
+            this.invalid || (this.hasInteracted && this.required && !this.value)
+        );
     }
 }
