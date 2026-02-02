@@ -643,6 +643,8 @@ export namespace Components {
     export interface LimelMenuItemMeta {
         "badge"?: string | number;
         "commandText"?: string;
+        "disabled": boolean;
+        "hotkey"?: string;
         "showChevron": boolean;
     }
     // @internal (undocumented)
@@ -2850,6 +2852,8 @@ export namespace JSX {
     export interface LimelMenuItemMeta {
         "badge"?: string | number;
         "commandText"?: string;
+        "disabled"?: boolean;
+        "hotkey"?: string;
         "showChevron"?: boolean;
     }
 
@@ -2859,6 +2863,10 @@ export namespace JSX {
         "badge": string;
         // (undocumented)
         "commandText": string;
+        // (undocumented)
+        "disabled": boolean;
+        // (undocumented)
+        "hotkey": string;
         // (undocumented)
         "showChevron": boolean;
     }
@@ -4176,6 +4184,7 @@ interface MenuItem<T = any> {
     badge?: number | string;
     commandText?: string;
     disabled?: boolean;
+    hotkey?: string;
     icon?: string | Icon;
     // @deprecated
     iconColor?: Color;

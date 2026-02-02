@@ -33,6 +33,11 @@ import {
     TAB,
 } from '../../util/keycodes';
 import { focusTriggerElement } from '../../util/focus-trigger-element';
+import {
+    hotkeyFromKeyboardEvent,
+    normalizeHotkeyString,
+    tokenizeHotkeyString,
+} from '../../util/hotkeys';
 
 interface MenuCrumbItem extends BreadcrumbsItem {
     menuItem?: MenuItem;
@@ -56,13 +61,14 @@ const DEFAULT_ROOT_BREADCRUMBS_ITEM: BreadcrumbsItem = {
  * @exampleComponent limel-example-menu-icons
  * @exampleComponent limel-example-menu-badge-icons
  * @exampleComponent limel-example-menu-grid
- * @exampleComponent limel-example-menu-hotkeys
  * @exampleComponent limel-example-menu-secondary-text
  * @exampleComponent limel-example-menu-notification
  * @exampleComponent limel-example-menu-sub-menus
  * @exampleComponent limel-example-menu-sub-menu-lazy-loading
  * @exampleComponent limel-example-menu-sub-menu-lazy-loading-infinite
  * @exampleComponent limel-example-menu-searchable
+ * @exampleComponent limel-example-menu-hotkeys
+ * @exampleComponent limel-example-menu-searchable-hotkeys
  * @exampleComponent limel-example-menu-composite
  */
 @Component({
@@ -205,6 +211,7 @@ export class Menu {
     private breadcrumbs: HTMLLimelBreadcrumbsElement;
     private triggerElement: HTMLSlotElement;
     private selectedMenuItem?: MenuItem;
+    private readonly normalizedHotkeyCache = new Map<string, string | null>();
 
     constructor() {
         this.portalId = createRandomString();
@@ -265,17 +272,164 @@ export class Menu {
     @Watch('items')
     protected itemsWatcher() {
         this.clearSearch();
+        this.normalizedHotkeyCache.clear();
         this.setFocus();
+    }
+
+    public connectedCallback() {
+        if (this.open) {
+            document.addEventListener(
+                'keydown',
+                this.handleDocumentKeyDown,
+                true
+            );
+        }
+    }
+
+    public disconnectedCallback() {
+        document.removeEventListener(
+            'keydown',
+            this.handleDocumentKeyDown,
+            true
+        );
     }
 
     @Watch('open')
     protected openWatcher(newValue: boolean) {
         const opened = newValue;
         if (opened) {
+            document.addEventListener(
+                'keydown',
+                this.handleDocumentKeyDown,
+                true
+            );
             this.setFocus();
         } else {
+            document.removeEventListener(
+                'keydown',
+                this.handleDocumentKeyDown,
+                true
+            );
             this.clearSearch();
         }
+    }
+
+    private readonly handleDocumentKeyDown = (event: KeyboardEvent) => {
+        if (!this.open || event.defaultPrevented || event.repeat) {
+            return;
+        }
+
+        if (this.isFromTextInput(event) && !this.hasModifier(event)) {
+            return;
+        }
+
+        const pressedHotkey = hotkeyFromKeyboardEvent(event);
+        if (!pressedHotkey) {
+            return;
+        }
+
+        if (this.isReservedMenuHotkey(pressedHotkey)) {
+            return;
+        }
+
+        const matchedItem = this.findMenuItemByHotkey(pressedHotkey);
+        if (!matchedItem) {
+            return;
+        }
+
+        event.stopPropagation();
+        event.preventDefault();
+        this.handleSelect(matchedItem);
+    };
+
+    private isFromTextInput(event: KeyboardEvent): boolean {
+        const path =
+            typeof event.composedPath === 'function'
+                ? event.composedPath()
+                : [];
+
+        for (const node of path) {
+            if (!('tagName' in (node as any))) {
+                continue;
+            }
+
+            const element = node as HTMLElement;
+
+            if (element.isContentEditable) {
+                return true;
+            }
+
+            const tagName = element.tagName;
+            if (
+                tagName === 'INPUT' ||
+                tagName === 'TEXTAREA' ||
+                tagName === 'SELECT'
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private hasModifier(event: KeyboardEvent): boolean {
+        return event.ctrlKey || event.metaKey || event.altKey;
+    }
+
+    private isReservedMenuHotkey(hotkey: string): boolean {
+        const tokens = tokenizeHotkeyString(hotkey);
+        const key = tokens.at(-1);
+        if (!key) {
+            return false;
+        }
+
+        const hasModifiers = tokens.length > 1;
+        if (hasModifiers) {
+            return false;
+        }
+
+        return (
+            key === 'arrowup' ||
+            key === 'arrowdown' ||
+            key === 'arrowleft' ||
+            key === 'arrowright' ||
+            key === 'tab' ||
+            key === 'enter' ||
+            key === 'space' ||
+            key === 'escape'
+        );
+    }
+
+    private findMenuItemByHotkey(pressedHotkey: string): MenuItem | null {
+        for (const item of this.visibleItems) {
+            if (!this.isMenuItem(item) || item.disabled) {
+                continue;
+            }
+
+            const rawHotkey = item.hotkey;
+            if (!rawHotkey) {
+                continue;
+            }
+
+            const normalized = this.getNormalizedHotkey(rawHotkey);
+            if (normalized && normalized === pressedHotkey) {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    private getNormalizedHotkey(raw: string): string | null {
+        const cacheKey = raw.trim();
+        if (this.normalizedHotkeyCache.has(cacheKey)) {
+            return this.normalizedHotkeyCache.get(cacheKey) ?? null;
+        }
+
+        const normalized = normalizeHotkeyString(cacheKey);
+        this.normalizedHotkeyCache.set(cacheKey, normalized);
+
+        return normalized;
     }
 
     private getBreadcrumbsItems() {
@@ -459,6 +613,10 @@ export class Menu {
     // Will change focus to breadcrumbs (if present) or the first/last item
     // in the dropdown list to enable selection with the keyboard
     private readonly handleInputKeyDown = (event: KeyboardEvent) => {
+        if (event.defaultPrevented) {
+            return;
+        }
+
         const isForwardTab =
             event.key === TAB &&
             !event.altKey &&
