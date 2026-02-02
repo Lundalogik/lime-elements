@@ -73,6 +73,189 @@ const waitForMenuOpenState = async (
     throw new Error(`Timed out waiting for menu open=${String(open)}`);
 };
 
+const waitForMenuSurfaceOpenState = async (
+    page: E2EPage,
+    open: boolean,
+    timeout = 1000
+) => {
+    const anyPage = page as any;
+    if (typeof anyPage.waitForFunction === 'function') {
+        await anyPage.waitForFunction(
+            (isOpen: boolean) => {
+                const surface = document.querySelector(
+                    'limel-menu-surface'
+                ) as any;
+                if (!surface) {
+                    return !isOpen;
+                }
+
+                const mdcSurface =
+                    surface.shadowRoot?.querySelector('.mdc-menu-surface');
+                const hasOpenClass = Boolean(
+                    mdcSurface?.classList?.contains('mdc-menu-surface--open')
+                );
+
+                if (surface.open !== isOpen || hasOpenClass !== isOpen) {
+                    return false;
+                }
+
+                if (!isOpen) {
+                    return true;
+                }
+
+                if (!mdcSurface) {
+                    return false;
+                }
+
+                const style = getComputedStyle(mdcSurface);
+                return (
+                    style.display !== 'none' && style.visibility !== 'hidden'
+                );
+            },
+            { timeout },
+            open
+        );
+
+        return;
+    }
+
+    const start = Date.now();
+    while (Date.now() - start < timeout) {
+        const isReady = await page.evaluate((isOpen: boolean) => {
+            const surface = document.querySelector('limel-menu-surface') as any;
+            if (!surface) {
+                return !isOpen;
+            }
+
+            const mdcSurface =
+                surface.shadowRoot?.querySelector('.mdc-menu-surface');
+            const hasOpenClass = Boolean(
+                mdcSurface?.classList?.contains('mdc-menu-surface--open')
+            );
+            if (surface.open !== isOpen || hasOpenClass !== isOpen) {
+                return false;
+            }
+
+            if (!isOpen) {
+                return true;
+            }
+
+            if (!mdcSurface) {
+                return false;
+            }
+
+            const style = getComputedStyle(mdcSurface);
+            return style.display !== 'none' && style.visibility !== 'hidden';
+        }, open);
+
+        if (isReady) {
+            return;
+        }
+
+        await page.waitForTimeout(0);
+    }
+
+    throw new Error(`Timed out waiting for menu surface open=${String(open)}`);
+};
+
+const waitForTriggerAriaExpanded = async (
+    page: E2EPage,
+    selector: string,
+    expanded: boolean,
+    timeout = 1000
+) => {
+    const expectedValue = expanded ? 'true' : 'false';
+    const anyPage = page as any;
+    if (typeof anyPage.waitForFunction === 'function') {
+        await anyPage.waitForFunction(
+            (sel: string, expected: string) => {
+                const el = document.querySelector(sel);
+                return el?.getAttribute('aria-expanded') === expected;
+            },
+            { timeout },
+            selector,
+            expectedValue
+        );
+
+        return;
+    }
+
+    const start = Date.now();
+    while (Date.now() - start < timeout) {
+        const current = await page.evaluate(
+            (sel: string) =>
+                document.querySelector(sel)?.getAttribute('aria-expanded') ??
+                null,
+            selector
+        );
+        if (current === expectedValue) {
+            return;
+        }
+
+        await page.waitForTimeout(0);
+    }
+
+    throw new Error(
+        `Timed out waiting for aria-expanded='${expectedValue}' on ${selector}`
+    );
+};
+
+const waitForFocusedMenuItemIndex = async (
+    page: E2EPage,
+    expectedIndex: number,
+    timeout = 1000
+) => {
+    const anyPage = page as any;
+
+    const findFocusedIndex = function () {
+        const surface = document.querySelector('limel-menu-surface') as any;
+        const menu = document.querySelector('limel-menu') as any;
+        const menuList =
+            surface?.querySelector('limel-menu-list') ??
+            menu?.shadowRoot?.querySelector('limel-menu-list');
+        const root = menuList?.shadowRoot;
+        const active = root?.activeElement as Element | null;
+        const items = root
+            ? [...root.querySelectorAll('.mdc-deprecated-list-item')]
+            : [];
+
+        if (!active || items.length === 0) {
+            return -1;
+        }
+
+        for (const [i, item] of items.entries()) {
+            if (item === active || item.contains(active)) {
+                return i;
+            }
+        }
+
+        return -1;
+    };
+
+    if (typeof anyPage.waitForFunction === 'function') {
+        await anyPage.waitForFunction(
+            `(${findFocusedIndex.toString()})() === ${expectedIndex}`,
+            { timeout }
+        );
+
+        return;
+    }
+
+    const start = Date.now();
+    while (Date.now() - start < timeout) {
+        const index = await page.evaluate(findFocusedIndex);
+        if (index === expectedIndex) {
+            return;
+        }
+
+        await page.waitForTimeout(0);
+    }
+
+    throw new Error(
+        `Timed out waiting for focused menu item index=${expectedIndex}`
+    );
+};
+
 describe('limel-menu', () => {
     let page: E2EPage;
     let limelMenu: HTMLLimelMenuElement & E2EElement;
@@ -219,6 +402,114 @@ describe('limel-menu', () => {
                 );
                 expect(activeSlot).toBe('trigger');
             });
+        });
+    });
+
+    describe('hotkeys', () => {
+        it('selects the matching item while the menu is open', async () => {
+            const spy = await page.spyOnEvent('select');
+
+            items = [
+                { text: 'Copy', hotkey: 'alt+c' },
+                { text: 'Cut', hotkey: 'alt+x' },
+            ];
+            limelMenu.setProperty('items', items);
+            await page.waitForChanges();
+
+            const trigger = await page.find('button[slot="trigger"]');
+            await trigger.click();
+            await page.waitForChanges();
+
+            await waitForMenuOpenState(page, true);
+            await waitForTriggerAriaExpanded(
+                page,
+                'button[slot="trigger"]',
+                true
+            );
+            await waitForMenuSurfaceOpenState(page, true);
+
+            await page.evaluate(() => {
+                const surface = document.querySelector('limel-menu-surface');
+                if (!surface) {
+                    throw new Error('Could not find limel-menu-surface');
+                }
+
+                surface.dispatchEvent(
+                    new KeyboardEvent('keydown', {
+                        key: 'c',
+                        code: 'KeyC',
+                        altKey: true,
+                        bubbles: true,
+                        composed: true,
+                    })
+                );
+            });
+            await page.waitForChanges();
+
+            expect(spy).toHaveReceivedEventTimes(1);
+            expect(spy).toHaveReceivedEventDetail(items[0]);
+
+            const isOpen = await limelMenu.getProperty('open');
+            expect(isOpen).toBeFalsy();
+        });
+
+        it('does not allow reserved keys (Enter) to be used as item hotkeys', async () => {
+            const spy = await page.spyOnEvent('select');
+
+            items = [
+                { text: 'First' },
+                { text: 'Second (should not steal Enter)', hotkey: 'enter' },
+            ];
+            limelMenu.setProperty('items', items);
+            await page.waitForChanges();
+
+            const trigger = await page.find('button[slot="trigger"]');
+            await trigger.click();
+            await page.waitForChanges();
+
+            await waitForMenuOpenState(page, true);
+            await waitForTriggerAriaExpanded(
+                page,
+                'button[slot="trigger"]',
+                true
+            );
+            await waitForFocusedMenuItemIndex(page, 0);
+
+            // First item is focused by default; Enter should activate the focused item.
+            await page.keyboard.press('Enter');
+            await page.waitForChanges();
+
+            expect(spy).toHaveReceivedEventTimes(1);
+            expect(spy.events[0].detail.text).toBe('First');
+        });
+
+        it('does not trigger hotkey selection for reserved arrow keys', async () => {
+            const spy = await page.spyOnEvent('select');
+
+            items = [
+                { text: 'Down (reserved)', hotkey: 'arrowdown' },
+                { text: 'Another item' },
+            ];
+            limelMenu.setProperty('items', items);
+            await page.waitForChanges();
+
+            const trigger = await page.find('button[slot="trigger"]');
+            await trigger.click();
+            await page.waitForChanges();
+
+            await waitForMenuOpenState(page, true);
+            await waitForTriggerAriaExpanded(
+                page,
+                'button[slot="trigger"]',
+                true
+            );
+            await waitForFocusedMenuItemIndex(page, 0);
+
+            await page.keyboard.press('ArrowDown');
+            await page.waitForChanges();
+            await waitForFocusedMenuItemIndex(page, 1);
+
+            expect(spy).not.toHaveReceivedEvent();
         });
     });
 });
