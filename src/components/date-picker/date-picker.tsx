@@ -279,6 +279,7 @@ export class DatePicker {
 
     private nativeChangeHandler(event: CustomEvent<string>) {
         event.stopPropagation();
+        this.hasInteracted = true;
         const date = this.dateFormatter.parseDate(
             event.detail,
             this.internalFormat
