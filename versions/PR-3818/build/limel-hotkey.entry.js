@@ -1,0 +1,2 @@
+import{r as s,h as t,H as r}from"./index-0c4503aa.js";const e="";const n=class{constructor(t){s(this,t);this.value=undefined}render(){return t(r,null,this.value)}};n.style=e;export{n as limel_hotkey};
+//# sourceMappingURL=limel-hotkey.entry.js.map

@@ -1,0 +1,2 @@
+import{r as e,h as l,H as t}from"./index-0c4503aa.js";const o="";const a=class{constructor(l){e(this,l)}render(){return l(t,null,l("limel-hotkey",{value:"ctrl+s"}),l("limel-hotkey",{value:"cmd+s"}),l("limel-hotkey",{value:"option+enter"}),l("limel-hotkey",{value:"option+enter"}),l("limel-hotkey",{value:"cmd+s"}),l("limel-hotkey",{value:"cmd++"}))}};a.style=o;export{a as limel_example_hotkey_basic};
+//# sourceMappingURL=limel-example-hotkey-basic.entry.js.map
