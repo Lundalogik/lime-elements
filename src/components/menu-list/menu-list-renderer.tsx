@@ -108,14 +108,17 @@ export class MenuListRenderer {
         const hasMeta =
             hasSubMenu ||
             item.badge !== undefined ||
-            (!!('commandText' in item) && !!item.commandText);
+            !!item.hotkey ||
+            !!item.commandText;
 
         const primaryComponent = hasMeta
             ? {
                   name: 'limel-menu-item-meta',
                   props: {
-                      commandText: (item as any).commandText,
-                      badge: (item as any).badge,
+                      commandText: item.commandText,
+                      hotkey: item.hotkey,
+                      disabled: !!item.disabled,
+                      badge: item.badge,
                       showChevron: hasSubMenu,
                   },
               }
