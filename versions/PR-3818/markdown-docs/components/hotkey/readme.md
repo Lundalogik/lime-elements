@@ -20,9 +20,9 @@ so that the parent component can react to it.
 
 ## Events
 
-| Event           | Description                                  | Type                                              |
-| --------------- | -------------------------------------------- | ------------------------------------------------- |
-| `hotkeyTrigger` | Emits when the configured hotkey is pressed. | `CustomEvent<{ hotkey: string; value: string; }>` |
+| Event           | Description                                  | Type                                                                            |
+| --------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
+| `hotkeyTrigger` | Emits when the configured hotkey is pressed. | `CustomEvent<{ hotkey: string; value: string; keyboardEvent: KeyboardEvent; }>` |
 
 
 ## Dependencies
