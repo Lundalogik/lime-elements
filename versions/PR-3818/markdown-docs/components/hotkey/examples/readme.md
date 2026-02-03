@@ -10,7 +10,13 @@
 Basic example
 
 The value is passed as a string, indicating which hotkey to listen for.
-The component will emit an event when the hotkey is pressed.
+
+The component will automatically detect the operating system, and
+render the hotkey accordingly, using standard glyphs to save space.
+
+For example, the "meta" key will be rendered as <kbd>⌘</kbd> on macOS,
+and as <kbd>Ctrl</kbd> on Windows. Or the "alt" key will be rendered
+as <kbd>⌥</kbd> on macOS, and as <kbd>Alt</kbd> on Windows.
 
 ## Dependencies
 
