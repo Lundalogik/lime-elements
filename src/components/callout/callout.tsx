@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, Host } from '@stencil/core';
 import { CalloutType } from '../callout/callout.types';
 import { Languages } from '../date-picker/date.types';
 import { getHeading, getIcon } from './callout.helpers';
@@ -66,16 +66,18 @@ export class Callout {
     public language: Languages = 'en';
 
     public render() {
-        return [
-            <div class="side" role="presentation">
-                <limel-icon name={getIcon(this.icon, this.type)} />
-            </div>,
-            <div class="main">
-                <h1 class="heading">
-                    {getHeading(this.heading, this.type, this.language)}
-                </h1>
-                <slot />
-            </div>,
-        ];
+        return (
+            <Host>
+                <div class="side" role="presentation">
+                    <limel-icon name={getIcon(this.icon, this.type)} />
+                </div>
+                <div class="main">
+                    <h1 class="heading">
+                        {getHeading(this.heading, this.type, this.language)}
+                    </h1>
+                    <slot />
+                </div>
+            </Host>
+        );
     }
 }

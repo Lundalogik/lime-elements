@@ -11,6 +11,7 @@ import {
     Prop,
     State,
     Watch,
+    Host,
 } from '@stencil/core';
 import { handleKeyboardEvent } from './chip-set-input-helpers';
 import translate from '../../global/translations';
@@ -361,24 +362,30 @@ export class ChipSet {
 
         const value = this.getValue();
 
-        return [
-            <limel-notched-outline
-                labelId={this.labelId}
-                label={this.label}
-                required={this.required}
-                invalid={this.invalid || this.isInvalid()}
-                disabled={this.disabled}
-                readonly={this.readonly}
-                hasValue={!!this.value?.length}
-                hasLeadingIcon={!!this.leadingIcon}
-                hasFloatingLabel={this.floatLabelAbove()}
-            >
-                <div slot="content" {...this.getContentProps()} class={classes}>
-                    {this.renderContent(value)}
-                </div>
-            </limel-notched-outline>,
-            this.renderHelperLine(),
-        ];
+        return (
+            <Host>
+                <limel-notched-outline
+                    labelId={this.labelId}
+                    label={this.label}
+                    required={this.required}
+                    invalid={this.invalid || this.isInvalid()}
+                    disabled={this.disabled}
+                    readonly={this.readonly}
+                    hasValue={!!this.value?.length}
+                    hasLeadingIcon={!!this.leadingIcon}
+                    hasFloatingLabel={this.floatLabelAbove()}
+                >
+                    <div
+                        slot="content"
+                        {...this.getContentProps()}
+                        class={classes}
+                    >
+                        {this.renderContent(value)}
+                    </div>
+                </limel-notched-outline>
+                {this.renderHelperLine()}
+            </Host>
+        );
     }
 
     private getContentProps() {

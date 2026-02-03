@@ -1,7 +1,7 @@
 import translate from '../../global/translations';
 import { Chip } from '../chip-set/chip.types';
 import { Languages } from '../date-picker/date.types';
-import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
 import {
     getFileBackgroundColor,
     getFileColor,
@@ -120,16 +120,18 @@ export class File {
     private interact: EventEmitter<number | string>;
 
     public render() {
-        return [
-            <limel-file-dropzone
-                disabled={this.disabled || this.readonly || !!this.value}
-                accept={this.accept}
-                onFilesSelected={this.handleNewFiles}
-            >
-                {this.renderChipset()}
-            </limel-file-dropzone>,
-            this.renderDragAndDropTip(),
-        ];
+        return (
+            <Host>
+                <limel-file-dropzone
+                    disabled={this.disabled || this.readonly || !!this.value}
+                    accept={this.accept}
+                    onFilesSelected={this.handleNewFiles}
+                >
+                    {this.renderChipset()}
+                </limel-file-dropzone>
+                {this.renderDragAndDropTip()}
+            </Host>
+        );
     }
 
     private renderDragAndDropTip() {

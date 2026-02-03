@@ -1,4 +1,4 @@
-import { Component, h, Prop, Watch } from '@stencil/core';
+import { Component, h, Prop, Watch, Host } from '@stencil/core';
 import { markdownToHTML } from './markdown-parser';
 import { globalConfig } from '../../global/config';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
@@ -102,12 +102,14 @@ export class Markdown {
     }
 
     public render() {
-        return [
-            <div
-                id="markdown"
-                ref={(el) => (this.rootElement = el as HTMLDivElement)}
-            />,
-        ];
+        return (
+            <Host>
+                <div
+                    id="markdown"
+                    ref={(el) => (this.rootElement = el as HTMLDivElement)}
+                />
+            </Host>
+        );
     }
 
     private setupImageIntersectionObserver() {
