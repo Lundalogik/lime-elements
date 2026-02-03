@@ -1,3 +1,10 @@
+## [38.45.0](https://github.com/Lundalogik/lime-elements/compare/v38.44.1...v38.45.0) (2026-02-03)
+
+### Features
+
+
+* **util:** export redrawComponents utility for re-initializing hidden components ([ff88f44](https://github.com/Lundalogik/lime-elements/commit/ff88f4488c3b65387ed44c48ad71089a3b64e006)), closes [#623](https://github.com/Lundalogik/lime-elements/issues/623)
+
 ## [38.44.1](https://github.com/Lundalogik/lime-elements/compare/v38.44.0...v38.44.1) (2026-02-01)
 
 ### Bug Fixes
