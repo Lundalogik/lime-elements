@@ -194,9 +194,12 @@ export class DatePicker {
             onAction: this.clearValue,
         };
 
-        if (this.value && !this.readonly) {
+        if (this.value && !this.readonly && !this.disabled) {
             inputProps.trailingIcon = 'clear_symbol';
         }
+
+        const helperText =
+            this.disabled || this.readonly ? undefined : this.helperText;
 
         if (this.useNative) {
             return (
@@ -205,7 +208,7 @@ export class DatePicker {
                     readonly={this.readonly}
                     invalid={this.invalid}
                     label={this.label}
-                    helperText={this.helperText}
+                    helperText={helperText}
                     required={this.required}
                     value={this.formatValue(this.value)}
                     type={this.nativeType}
@@ -227,7 +230,7 @@ export class DatePicker {
                 invalid={this.invalid}
                 label={this.label}
                 placeholder={this.placeholder}
-                helperText={this.helperText}
+                helperText={helperText}
                 required={this.required}
                 value={this.value ? formatter(this.value) : ''}
                 onFocus={this.showCalendar}
@@ -279,6 +282,11 @@ export class DatePicker {
     }
 
     private showCalendar(event) {
+        if (this.disabled || this.readonly) {
+            event.stopPropagation();
+
+            return;
+        }
         this.showPortal = true;
         const inputElement = this.textField.shadowRoot.querySelector('input');
         setTimeout(() => {
@@ -369,6 +377,10 @@ export class DatePicker {
     }
 
     private handleInputElementChange(event) {
+        if (this.disabled || this.readonly) {
+            event.stopPropagation();
+            return;
+        }
         if (event.detail === '') {
             this.clearValue();
         }
