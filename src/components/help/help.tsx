@@ -1,4 +1,4 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Prop, State, Host } from '@stencil/core';
 import { OpenDirection } from '../menu/menu.types';
 import { Help } from '../help/help.types';
 import { Link } from '../../global/shared-types/link.types';
@@ -58,27 +58,29 @@ export class HelpComponent implements Help {
     private isOpen = false;
 
     public render() {
-        return [
-            <limel-popover
-                open={this.isOpen}
-                onClose={this.onPopoverClose}
-                openDirection={this.openDirection}
-            >
-                <button
-                    slot="trigger"
-                    onClick={this.openPopover}
-                    class={{
-                        'is-open': this.isOpen,
-                    }}
+        return (
+            <Host>
+                <limel-popover
+                    open={this.isOpen}
+                    onClose={this.onPopoverClose}
+                    openDirection={this.openDirection}
                 >
-                    {this.trigger}
-                </button>
-                <limel-help-content
-                    value={this.value}
-                    readMoreLink={this.readMoreLink}
-                />
-            </limel-popover>,
-        ];
+                    <button
+                        slot="trigger"
+                        onClick={this.openPopover}
+                        class={{
+                            'is-open': this.isOpen,
+                        }}
+                    >
+                        {this.trigger}
+                    </button>
+                    <limel-help-content
+                        value={this.value}
+                        readMoreLink={this.readMoreLink}
+                    />
+                </limel-popover>
+            </Host>
+        );
     }
 
     private openPopover = (event: MouseEvent) => {

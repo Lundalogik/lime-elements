@@ -1,5 +1,5 @@
 import { SpinnerSize } from './spinner.types';
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, h, Host } from '@stencil/core';
 
 /**
  * @exampleComponent limel-example-spinner
@@ -25,11 +25,13 @@ export class Spinner {
     public limeBranded: boolean = false;
 
     public render() {
-        return [
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                {this.renderSpinner()}
-            </svg>,
-        ];
+        return (
+            <Host>
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    {this.renderSpinner()}
+                </svg>
+            </Host>
+        );
     }
 
     private renderSpinner() {

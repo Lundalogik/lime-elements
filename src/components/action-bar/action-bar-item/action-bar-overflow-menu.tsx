@@ -1,4 +1,4 @@
-import { Component, Prop, h, Event, EventEmitter } from '@stencil/core';
+import { Component, Prop, h, Event, EventEmitter, Host } from '@stencil/core';
 import { ActionBarItem } from '../../action-bar/action-bar.types';
 import { ListSeparator } from '../../list-item/list-item.types';
 import { MenuItem, OpenDirection } from '../../menu/menu.types';
@@ -44,17 +44,19 @@ export class ActionBarOverflowMenu {
     public select: EventEmitter<ActionBarItem>;
 
     public render() {
-        return [
-            <limel-menu
-                openDirection={this.openDirection}
-                items={this.items}
-                onSelect={this.handleSelect}
-            >
-                <button slot="trigger">
-                    {this.getOverflowTriggerContent()}
-                </button>
-            </limel-menu>,
-        ];
+        return (
+            <Host>
+                <limel-menu
+                    openDirection={this.openDirection}
+                    items={this.items}
+                    onSelect={this.handleSelect}
+                >
+                    <button slot="trigger">
+                        {this.getOverflowTriggerContent()}
+                    </button>
+                </limel-menu>
+            </Host>
+        );
     }
 
     private getOverflowTriggerContent = () => {

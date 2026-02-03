@@ -8,6 +8,7 @@ import {
     Prop,
     State,
     Watch,
+    Host,
 } from '@stencil/core';
 import { debounce } from 'lodash-es';
 import {
@@ -324,30 +325,32 @@ export class InputField {
             properties['aria-controls'] = ariaControls;
         }
 
-        return [
-            <limel-notched-outline
-                labelId={this.labelId}
-                label={this.label}
-                required={this.required}
-                invalid={this.invalid || this.isInvalid()}
-                disabled={this.disabled}
-                readonly={this.readonly}
-                hasValue={!!this.value}
-                hasLeadingIcon={!!this.leadingIcon}
-            >
-                <label slot="content" class={this.getContainerClassList()}>
-                    {this.renderLeadingIcon()}
-                    {this.renderPrefix()}
-                    {this.renderFormattedNumber()}
-                    {this.renderInput(properties)}
-                    {this.renderSuffix()}
-                    {this.renderTextarea(properties)}
-                    {this.renderTrailingLinkOrButton()}
-                </label>
-            </limel-notched-outline>,
-            this.renderHelperLine(),
-            this.renderAutocompleteList(),
-        ];
+        return (
+            <Host>
+                <limel-notched-outline
+                    labelId={this.labelId}
+                    label={this.label}
+                    required={this.required}
+                    invalid={this.invalid || this.isInvalid()}
+                    disabled={this.disabled}
+                    readonly={this.readonly}
+                    hasValue={!!this.value}
+                    hasLeadingIcon={!!this.leadingIcon}
+                >
+                    <label slot="content" class={this.getContainerClassList()}>
+                        {this.renderLeadingIcon()}
+                        {this.renderPrefix()}
+                        {this.renderFormattedNumber()}
+                        {this.renderInput(properties)}
+                        {this.renderSuffix()}
+                        {this.renderTextarea(properties)}
+                        {this.renderTrailingLinkOrButton()}
+                    </label>
+                </limel-notched-outline>
+                {this.renderHelperLine()}
+                {this.renderAutocompleteList()}
+            </Host>
+        );
     }
 
     @Watch('value')

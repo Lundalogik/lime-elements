@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, h, Host } from '@stencil/core';
 import { Link } from '../../global/shared-types/link.types';
 
 /**
@@ -23,10 +23,12 @@ export class HelpContent {
     public readMoreLink?: Link;
 
     public render() {
-        return [
-            <limel-markdown value={this.value} />,
-            this.renderReadMoreLink(),
-        ];
+        return (
+            <Host>
+                <limel-markdown value={this.value} />
+                {this.renderReadMoreLink()}
+            </Host>
+        );
     }
 
     private renderReadMoreLink = () => {
