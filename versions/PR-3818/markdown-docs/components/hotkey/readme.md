@@ -30,11 +30,13 @@ so that the parent component can react to it.
 ### Used by
 
  - [limel-example-hotkey-basic](examples)
+ - [limel-menu-item-meta](../list-item/menu-item-meta)
 
 ### Graph
 ```mermaid
 graph TD;
   limel-example-hotkey-basic --> limel-hotkey
+  limel-menu-item-meta --> limel-hotkey
   style limel-hotkey fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
