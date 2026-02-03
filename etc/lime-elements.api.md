@@ -496,6 +496,10 @@ export namespace Components {
         "length"?: number;
         "maxLength"?: number;
     }
+    export interface LimelHotkey {
+        "disabled": boolean;
+        "value": string;
+    }
     export interface LimelIcon {
         "badge": boolean;
         "name": string;
@@ -1277,6 +1281,8 @@ export namespace JSX {
         // (undocumented)
         "limel-helper-line": LimelHelperLine;
         // (undocumented)
+        "limel-hotkey": LimelHotkey;
+        // (undocumented)
         "limel-icon": LimelIcon;
         // (undocumented)
         "limel-icon-button": LimelIconButton;
@@ -1738,6 +1744,11 @@ export namespace JSX {
         "invalid"?: boolean;
         "length"?: number;
         "maxLength"?: number;
+    }
+    export interface LimelHotkey {
+        "disabled"?: boolean;
+        "onHotkeyTrigger"?: (event: LimelHotkeyCustomEvent<LimelHotkeyTriggerDetail>) => void;
+        "value"?: string;
     }
     export interface LimelIcon {
         "badge"?: boolean;
@@ -2426,6 +2437,25 @@ export interface LimelFormCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
     target: HTMLLimelFormElement;
 }
+
+// Warning: (ae-missing-release-tag) "LimelHotkeyCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelHotkeyCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelHotkeyElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelHotkeyTriggerDetail" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type LimelHotkeyTriggerDetail = {
+    hotkey: string;
+    value: string;
+    keyboardEvent: KeyboardEvent;
+};
 
 // Warning: (ae-missing-release-tag) "LimelInputFieldCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
