@@ -1,2 +1,2 @@
-import{r as e,h as a}from"./index-0c4503aa.js";const r=class{constructor(a){e(this,a)}render(){return a("limel-header",{icon:"brake_warning",heading:"Useful information",subheading:"Note",supportingText:"Data couldn't be loaded!"})}};export{r as limel_example_header};
+import{r as e,h as r}from"./index-3de2295c.js";const a=class{constructor(r){e(this,r)}render(){return r("limel-header",{icon:"brake_warning",heading:"Useful information",subheading:"Note",supportingText:"Data couldn't be loaded!"})}};export{a as limel_example_header};
 //# sourceMappingURL=limel-example-header.entry.js.map

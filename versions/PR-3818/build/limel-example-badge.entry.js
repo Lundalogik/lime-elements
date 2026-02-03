@@ -1,2 +1,2 @@
-import{r as e,h as r}from"./index-0c4503aa.js";const a=":host(limel-example-badge){--badge-background-color:rgb(var(--color-red-default))}";const l=class{constructor(r){e(this,r)}render(){return r("limel-badge",null)}};l.style=a;export{l as limel_example_badge};
+import{r as e,h as r}from"./index-3de2295c.js";const l=":host(limel-example-badge){--badge-background-color:rgb(var(--color-red-default))}";const o=class{constructor(r){e(this,r)}render(){return r("limel-badge",null)}};o.style=l;export{o as limel_example_badge};
 //# sourceMappingURL=limel-example-badge.entry.js.map
