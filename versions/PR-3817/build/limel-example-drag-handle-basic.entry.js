@@ -1,2 +1,0 @@
-import{r as a,h as e,H as r}from"./index-0c4503aa.js";const l=":host(limel-example-drag-handle-basic){display:flex;gap:1rem;align-items:center;justify-content:space-around}";const i=class{constructor(e){a(this,e)}render(){return e(r,null,e("limel-drag-handle",{dragDirection:"vertical"}),e("limel-drag-handle",{dragDirection:"horizontal"}))}};i.style=l;export{i as limel_example_drag_handle_basic};
-//# sourceMappingURL=limel-example-drag-handle-basic.entry.js.map
