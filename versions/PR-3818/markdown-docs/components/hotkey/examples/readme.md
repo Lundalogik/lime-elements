@@ -18,6 +18,17 @@ For example, the "meta" key will be rendered as <kbd>⌘</kbd> on macOS,
 and as <kbd>Ctrl</kbd> on Windows. Or the "alt" key will be rendered
 as <kbd>⌥</kbd> on macOS, and as <kbd>Alt</kbd> on Windows.
 
+:::note
+Consumers are encouraged to use `meta` when they want a cross-platform
+"primary modifier". Even though `meta` is technically the <kbd>⊞ Win</kbd>
+on Windows keyboards, here for simplicity, and based on a standard convention
+for web apps it will be considered as <kbd>⌘</kbd> (Command key) on macOS,
+and <kbd>Ctrl</kbd> on Windows/Linux.
+
+- `ctrl` means “Control specifically” on all platforms.
+- `cmd` or `command` are  is just an alias for `meta`.
+:::
+
 ## Dependencies
 
 ### Depends on
