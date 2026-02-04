@@ -1,2 +1,0 @@
-const e=()=>{if(typeof window==="undefined"){return}const e=new UIEvent("resize",{view:window,detail:0});window.dispatchEvent(e)};const n=()=>{e()};export{e as d,n as r};
-//# sourceMappingURL=dispatch-resize-event-abb5edbb.js.map
