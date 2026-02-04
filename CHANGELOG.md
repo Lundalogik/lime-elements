@@ -1,3 +1,10 @@
+## [38.46.0](https://github.com/Lundalogik/lime-elements/compare/v38.45.0...v38.46.0) (2026-02-04)
+
+### Features
+
+
+* **card:** handle shadow effect for long item content ([853af9f](https://github.com/Lundalogik/lime-elements/commit/853af9f29f88bed601f70ae59e15c7791dd8d968))
+
 ## [38.45.0](https://github.com/Lundalogik/lime-elements/compare/v38.44.1...v38.45.0) (2026-02-03)
 
 ### Features
