@@ -26,7 +26,7 @@ for web apps it will be considered as <kbd>⌘</kbd> (Command key) on macOS,
 and <kbd>Ctrl</kbd> on Windows/Linux.
 
 - `ctrl` means “Control specifically” on all platforms.
-- `cmd` or `command` are  is just an alias for `meta`.
+- `cmd` or `command` are just aliases for `meta`.
 :::
 
 ## Dependencies
