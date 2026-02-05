@@ -1,4 +1,4 @@
-# limel-example-hotkey-basic
+# limel-example-hotkey-duplicates
 
 
 
@@ -7,32 +7,26 @@
 
 ## Overview
 
-Basic example
+Duplicate hotkeys
 
-The value is passed as a string, indicating which hotkey to listen for.
+If multiple enabled `<limel-hotkey>` instances are configured with the same
+hotkey (after normalization), only the first handler will run for each
+keypress. This prevents multiple actions from being triggered by a single
+keyboard event.
 
-The component will automatically detect the operating system, and
-render the hotkey accordingly, using standard glyphs to save space.
-
-For example, the "meta" key will be rendered as <kbd>⌘</kbd> on macOS,
-and as <kbd>⊞ Win</kbd> on Windows/Linux. Or the "alt" key will be rendered
-as <kbd>⌥</kbd> on macOS, and as <kbd>Alt</kbd> on Windows.
+When a duplicate is detected at runtime, the first handler will log a
+`console.warn` (once per keypress) to help you spot and fix the conflict.
 
 :::note
-`meta` always means the actual Meta key.
-
-This component will render `meta` using platform conventions:
-- macOS/iOS/iPadOS: <kbd>⌘</kbd>
-- Windows/Linux: <kbd>⊞ Win</kbd>
-
-If you want a hotkey that differs between operating systems (for example
-⌘+C on macOS and Ctrl+C on Windows/Linux), detect the OS in your application
-and pass the appropriate hotkey string.
-
-- `ctrl` means “Control specifically” on all platforms.
-- `cmd` or `command` always render as <kbd>⌘</kbd> (even on Windows/Linux),
-and are normalized as aliases for `meta` when matching.
+Disabled instances are not counted and never emit events.
 :::
+
+- Press `2`.
+- Only one `hotkeyTrigger` will fire (the first handler wins).
+- A `console.warn` is logged to help you find the duplicate.
+
+This behavior is intentional: triggering multiple actions from a single
+keypress is usually surprising and can be unsafe.
 
 ## Dependencies
 
@@ -44,9 +38,9 @@ and are normalized as aliases for `meta` when matching.
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-hotkey-basic --> limel-hotkey
-  limel-example-hotkey-basic --> limel-example-value
-  style limel-example-hotkey-basic fill:#f9f,stroke:#333,stroke-width:4px
+  limel-example-hotkey-duplicates --> limel-hotkey
+  limel-example-hotkey-duplicates --> limel-example-value
+  style limel-example-hotkey-duplicates fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
