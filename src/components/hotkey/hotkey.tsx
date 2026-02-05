@@ -5,6 +5,7 @@ import {
     Host,
     Listen,
     Prop,
+    Watch,
     h,
 } from '@stencil/core';
 import {
@@ -23,6 +24,7 @@ import { LimelHotkeyTriggerDetail } from './hotkey.types';
  *
  * @exampleComponent limel-example-hotkey-basic
  * @exampleComponent limel-example-hotkey-disabled
+ * @exampleComponent limel-example-hotkey-duplicates
  * @private
  */
 @Component({
@@ -50,6 +52,29 @@ export class Hotkey {
     public hotkeyTrigger: EventEmitter<LimelHotkeyTriggerDetail>;
 
     private static readonly handledFlag = '__limelHotkeyHandled';
+    private static readonly duplicateWarnedFlag =
+        '__limelHotkeyDuplicateWarned';
+    private static readonly instancesByHotkey = new Map<string, Set<Hotkey>>();
+
+    private registeredNormalizedHotkey: string | null = null;
+
+    public connectedCallback() {
+        this.updateRegistry();
+    }
+
+    public disconnectedCallback() {
+        this.unregister();
+    }
+
+    @Watch('value')
+    protected valueWatcher() {
+        this.updateRegistry();
+    }
+
+    @Watch('disabled')
+    protected disabledWatcher() {
+        this.updateRegistry();
+    }
 
     public render() {
         const isApple = isAppleDevice();
@@ -179,11 +204,74 @@ export class Hotkey {
             return;
         }
 
+        this.warnIfDuplicateHotkey(expected, event);
+
         (event as any)[Hotkey.handledFlag] = true;
         this.hotkeyTrigger.emit({
             hotkey: expected,
             value: this.value,
             keyboardEvent: event,
         });
+    }
+
+    private warnIfDuplicateHotkey(expected: string, event: KeyboardEvent) {
+        if ((event as any)[Hotkey.duplicateWarnedFlag]) {
+            return;
+        }
+
+        const instances = Hotkey.instancesByHotkey.get(expected);
+        const count = instances?.size ?? 0;
+        if (count <= 1) {
+            return;
+        }
+
+        (event as any)[Hotkey.duplicateWarnedFlag] = true;
+
+        console.warn(
+            `[limel-hotkey] Duplicate hotkey detected: "${expected}" is configured ` +
+                `${count} times among enabled <limel-hotkey> instances. ` +
+                `Only the first handler will run for each keypress.`
+        );
+    }
+
+    private updateRegistry() {
+        const next =
+            !this.disabled && this.value
+                ? normalizeHotkeyString(this.value)
+                : null;
+
+        if (next === this.registeredNormalizedHotkey) {
+            return;
+        }
+
+        this.unregister();
+
+        if (!next) {
+            return;
+        }
+
+        let set = Hotkey.instancesByHotkey.get(next);
+        if (!set) {
+            set = new Set();
+            Hotkey.instancesByHotkey.set(next, set);
+        }
+
+        set.add(this);
+        this.registeredNormalizedHotkey = next;
+    }
+
+    private unregister() {
+        const key = this.registeredNormalizedHotkey;
+        if (!key) {
+            return;
+        }
+
+        const set = Hotkey.instancesByHotkey.get(key);
+        set?.delete(this);
+        if (set && set.size === 0) {
+            Hotkey.instancesByHotkey.delete(key);
+        }
+
+        this.registeredNormalizedHotkey = null;
     }
 }
