@@ -20,6 +20,7 @@ features of menu list items.
 | ------------- | -------------- | ----------------------------------------------------------------------- | ------------------ | ----------- |
 | `badge`       | `badge`        | Optional badge value                                                    | `number \| string` | `undefined` |
 | `commandText` | `command-text` | Use to display optional keyboard shortcut or command hint, e.g. `⌘ + K` | `string`           | `undefined` |
+| `disabled`    | `disabled`     | Will be set to `true` when the menu item is disabled.                   | `boolean`          | `false`     |
 | `hotkey`      | `hotkey`       | Hotkey to display. When provided, `commandText` is ignored.             | `string`           | `undefined` |
 | `showChevron` | `show-chevron` | Shows a submenu chevron to indicate nested items                        | `boolean`          | `false`     |
 

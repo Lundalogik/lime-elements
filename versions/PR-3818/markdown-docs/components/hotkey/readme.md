@@ -13,9 +13,10 @@ so that the parent component can react to it.
 
 ## Properties
 
-| Property | Attribute | Description | Type     | Default     |
-| -------- | --------- | ----------- | -------- | ----------- |
-| `value`  | `value`   | The hotkey  | `string` | `undefined` |
+| Property   | Attribute  | Description                                                           | Type      | Default     |
+| ---------- | ---------- | --------------------------------------------------------------------- | --------- | ----------- |
+| `disabled` | `disabled` | When disabled, the hotkey is still rendered but will not emit events. | `boolean` | `false`     |
+| `value`    | `value`    | The hotkey                                                            | `string`  | `undefined` |
 
 
 ## Events
