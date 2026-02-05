@@ -1,3 +1,10 @@
+## [38.46.1](https://github.com/Lundalogik/lime-elements/compare/v38.46.0...v38.46.1) (2026-02-05)
+
+### Bug Fixes
+
+
+* **example-controls:** switch from grid to flexbox layout ([cfde4d8](https://github.com/Lundalogik/lime-elements/commit/cfde4d8d3c7aa598b2a7fea858ffe3f2509f7574)), closes [#3743](https://github.com/Lundalogik/lime-elements/issues/3743)
+
 ## [38.46.0](https://github.com/Lundalogik/lime-elements/compare/v38.45.0...v38.46.0) (2026-02-04)
 
 ### Features
