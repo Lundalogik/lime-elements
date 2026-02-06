@@ -17,7 +17,7 @@ export class ObjectField extends React.Component<FieldProps, any> {
             {},
             renderTitle(this.props.schema.title),
             renderDescription(this.props.schema.description),
-            React.createElement(CodeEditor, this.props as any)
+            React.createElement(CodeEditor, this.props)
         );
     }
 }
