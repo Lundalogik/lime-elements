@@ -525,6 +525,9 @@ export namespace Components {
         "completions": string[];
         "disabled": boolean;
         "formatNumber": boolean;
+        "getSelectionDirection": () => Promise<'forward' | 'backward' | 'none' | null>;
+        "getSelectionEnd": () => Promise<number | null>;
+        "getSelectionStart": () => Promise<number | null>;
         "helperText": string;
         "invalid": boolean;
         "label": string;
