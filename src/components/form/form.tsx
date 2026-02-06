@@ -46,6 +46,7 @@ import { mapValues } from 'lodash-es';
  * @exampleComponent limel-example-form-with-help
  * @exampleComponent limel-example-form-row-layout
  * @exampleComponent limel-example-builtin-field-types-form
+ * @exampleComponent limel-example-code-editor-form
  */
 @Component({
     tag: 'limel-form',
