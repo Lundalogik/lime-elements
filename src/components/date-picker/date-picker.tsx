@@ -176,6 +176,7 @@ export class DatePicker {
         this.hideCalendar = this.hideCalendar.bind(this);
         this.onInputClick = this.onInputClick.bind(this);
         this.nativeChangeHandler = this.nativeChangeHandler.bind(this);
+        this.handleNativeBlur = this.handleNativeBlur.bind(this);
         this.preventBlurFromCalendarContainer =
             this.preventBlurFromCalendarContainer.bind(this);
     }
@@ -219,6 +220,7 @@ export class DatePicker {
                     value={this.formatValue(this.value)}
                     type={this.nativeType}
                     onChange={this.nativeChangeHandler}
+                    onBlur={this.handleNativeBlur}
                 />
             );
         }
@@ -288,6 +290,10 @@ export class DatePicker {
             this.internalFormat
         );
         this.change.emit(date);
+    }
+
+    private handleNativeBlur() {
+        this.hasInteracted = true;
     }
 
     private showCalendar(event) {
