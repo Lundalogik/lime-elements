@@ -39,7 +39,10 @@ function findFirstError(schema: ErrorSchema): string | undefined {
 }
 
 export class CodeEditor extends React.Component {
-    public state: { validationError: string } = { validationError: '' };
+    public state: { validationError: string; modified: boolean } = {
+        validationError: '',
+        modified: false,
+    };
 
     constructor(public props: FieldProps) {
         super(props);
@@ -56,15 +59,16 @@ export class CodeEditor extends React.Component {
             // N/A
         }
 
-        const { validationError } = this.state;
+        const { validationError, modified } = this.state;
         const { errorSchema } = props;
         const hasSchemaErrors = !isEmpty(errorSchema);
-        const isInvalid = validationError.length > 0 || hasSchemaErrors;
+        const isInvalid =
+            validationError.length > 0 || (hasSchemaErrors && modified);
 
         let helperText: string | undefined;
         if (validationError) {
             helperText = validationError;
-        } else if (hasSchemaErrors) {
+        } else if (hasSchemaErrors && modified) {
             helperText = findFirstError(errorSchema);
         }
 
@@ -110,12 +114,12 @@ export class CodeEditor extends React.Component {
                 error instanceof SyntaxError
                     ? `Invalid JSON: ${error.message}`
                     : 'Should be a valid JSON document';
-            this.setState({ validationError });
+            this.setState({ validationError, modified: true });
 
             return;
         }
 
-        this.setState({ validationError: '' });
         props.onChange(value);
+        this.setState({ validationError: '', modified: true });
     }
 }
