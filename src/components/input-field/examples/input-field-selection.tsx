@@ -13,6 +13,15 @@ import { Component, h, Host, State } from '@stencil/core';
  * These methods allow you to interact with the input field's text selection
  * without needing to access the shadow DOM. A common use case is inserting text
  * at the cursor position or replacing the selected text.
+ *
+ * :::note
+ * The selection methods are async, so there's a small delay before the values
+ * are returned. In most browsers, selection state is preserved even when the
+ * input loses focus. However, some mobile browsers or older engines may reset
+ * `selectionStart`/`selectionEnd` on blur. If you're building for such environments,
+ * consider capturing the selection synchronously via native DOM APIs before any
+ * action that might cause blur.
+ * :::
  */
 @Component({
     tag: 'limel-example-input-field-selection',
