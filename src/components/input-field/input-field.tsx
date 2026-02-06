@@ -297,32 +297,50 @@ export class InputField {
 
     /**
      * Returns the start position of the current text selection.
-     * Returns `null` if the input element is not available.
+     * Returns `null` if the input element is not available or if
+     * the input type does not support selection (e.g., `number`).
      */
     @Method()
     public async getSelectionStart(): Promise<number | null> {
-        return this.inputElement?.selectionStart ?? null;
+        try {
+            return this.inputElement?.selectionStart ?? null;
+        } catch {
+            // Some input types (e.g., number) throw InvalidStateError
+            return null;
+        }
     }
 
     /**
      * Returns the end position of the current text selection.
-     * Returns `null` if the input element is not available.
+     * Returns `null` if the input element is not available or if
+     * the input type does not support selection (e.g., `number`).
      */
     @Method()
     public async getSelectionEnd(): Promise<number | null> {
-        return this.inputElement?.selectionEnd ?? null;
+        try {
+            return this.inputElement?.selectionEnd ?? null;
+        } catch {
+            // Some input types (e.g., number) throw InvalidStateError
+            return null;
+        }
     }
 
     /**
      * Returns the direction of the current text selection.
      * Can be `'forward'`, `'backward'`, or `'none'`.
-     * Returns `null` if the input element is not available.
+     * Returns `null` if the input element is not available or if
+     * the input type does not support selection (e.g., `number`).
      */
     @Method()
     public async getSelectionDirection(): Promise<
         'forward' | 'backward' | 'none' | null
     > {
-        return this.inputElement?.selectionDirection ?? null;
+        try {
+            return this.inputElement?.selectionDirection ?? null;
+        } catch {
+            // Some input types (e.g., number) throw InvalidStateError
+            return null;
+        }
     }
 
     public render() {
