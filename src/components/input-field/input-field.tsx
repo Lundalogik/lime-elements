@@ -5,6 +5,7 @@ import {
     Event,
     EventEmitter,
     h,
+    Method,
     Prop,
     State,
     Watch,
@@ -295,27 +296,32 @@ export class InputField {
     }
 
     /**
-     * The start position of the current text selection.
+     * Returns the start position of the current text selection.
      * Returns `null` if the input element is not available.
      */
-    public get selectionStart(): number | null {
+    @Method()
+    public async getSelectionStart(): Promise<number | null> {
         return this.inputElement?.selectionStart ?? null;
     }
 
     /**
-     * The end position of the current text selection.
+     * Returns the end position of the current text selection.
      * Returns `null` if the input element is not available.
      */
-    public get selectionEnd(): number | null {
+    @Method()
+    public async getSelectionEnd(): Promise<number | null> {
         return this.inputElement?.selectionEnd ?? null;
     }
 
     /**
-     * The direction of the current text selection.
+     * Returns the direction of the current text selection.
      * Can be `'forward'`, `'backward'`, or `'none'`.
      * Returns `null` if the input element is not available.
      */
-    public get selectionDirection(): 'forward' | 'backward' | 'none' | null {
+    @Method()
+    public async getSelectionDirection(): Promise<
+        'forward' | 'backward' | 'none' | null
+    > {
         return this.inputElement?.selectionDirection ?? null;
     }
 
