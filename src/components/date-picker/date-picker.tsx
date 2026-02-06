@@ -416,6 +416,10 @@ export class DatePicker {
         this.dateFormatter.formatDate(value, this.internalFormat);
 
     private isFieldInvalid(): boolean {
+        if (this.disabled) {
+            return false;
+        }
+
         if (this.readonly) {
             return false;
         }
