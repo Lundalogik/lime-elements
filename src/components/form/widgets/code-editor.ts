@@ -102,17 +102,20 @@ export class CodeEditor extends React.Component {
             return;
         }
 
+        let value;
         try {
-            const value = JSON.parse(event.nativeEvent.detail);
-
-            props.onChange(value);
-            this.setState({ validationError: '' });
+            value = JSON.parse(event.nativeEvent.detail);
         } catch (error) {
             const validationError =
                 error instanceof SyntaxError
                     ? `Invalid JSON: ${error.message}`
                     : 'Should be a valid JSON document';
             this.setState({ validationError });
+
+            return;
         }
+
+        this.setState({ validationError: '' });
+        props.onChange(value);
     }
 }
