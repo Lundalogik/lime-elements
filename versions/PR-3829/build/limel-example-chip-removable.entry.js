@@ -1,0 +1,2 @@
+import{r as e,h as l}from"./index-0c4503aa.js";const t=class{constructor(l){e(this,l);this.handleRemove=()=>{this.removeButtonClicked=true};this.removeButtonClicked=false}render(){return[l("limel-chip",{text:"My filter",badge:123,removable:true,onRemove:this.handleRemove}),l("limel-example-value",{label:"Remove",value:this.removeButtonClicked})]}};export{t as limel_example_chip_removable};
+//# sourceMappingURL=limel-example-chip-removable.entry.js.map
