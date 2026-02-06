@@ -1,8 +1,11 @@
 import React from 'react';
 import { FieldProps } from '@rjsf/core';
+import { isEmpty } from 'lodash-es';
 
 export class CodeEditor extends React.Component {
-    constructor(public props: FieldProps & { onValidate: Function }) {
+    public state: { validationError: string } = { validationError: '' };
+
+    constructor(public props: FieldProps) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -17,6 +20,18 @@ export class CodeEditor extends React.Component {
             // N/A
         }
 
+        const { validationError } = this.state;
+        const { errorSchema } = props;
+        const hasSchemaErrors = !isEmpty(errorSchema);
+        const isInvalid = validationError.length > 0 || hasSchemaErrors;
+
+        let helperText: string | undefined;
+        if (validationError) {
+            helperText = validationError;
+        } else if (hasSchemaErrors && '__errors' in errorSchema) {
+            helperText = errorSchema.__errors[0];
+        }
+
         return React.createElement('limel-code-editor', {
             value: value,
             language: 'json',
@@ -24,7 +39,18 @@ export class CodeEditor extends React.Component {
             fold: true,
             lint: true,
             onChange: this.handleChange,
+            invalid: isInvalid,
+            helperText: helperText,
         });
+    }
+
+    public componentDidUpdate(prevProps: FieldProps) {
+        if (
+            prevProps.formData !== this.props.formData &&
+            this.state.validationError
+        ) {
+            this.setState({ validationError: '' });
+        }
     }
 
     private handleChange(
@@ -44,9 +70,13 @@ export class CodeEditor extends React.Component {
             const value = JSON.parse(event.nativeEvent.detail);
 
             props.onChange(value);
-            props.onValidate();
-        } catch {
-            props.onValidate('Should be a valid JSON document');
+            this.setState({ validationError: '' });
+        } catch (error) {
+            const validationError =
+                error instanceof SyntaxError
+                    ? `Invalid JSON: ${error.message}`
+                    : 'Should be a valid JSON document';
+            this.setState({ validationError });
         }
     }
 }
