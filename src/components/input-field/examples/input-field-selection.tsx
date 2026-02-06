@@ -60,10 +60,14 @@ export class InputFieldSelectionExample {
             return;
         }
 
-        const start =
-            (await this.inputField.getSelectionStart()) ?? this.value.length;
-        const end =
-            (await this.inputField.getSelectionEnd()) ?? this.value.length;
+        // Capture both selection values together to minimize race conditions
+        const [selectionStart, selectionEnd] = await Promise.all([
+            this.inputField.getSelectionStart(),
+            this.inputField.getSelectionEnd(),
+        ]);
+
+        const start = selectionStart ?? this.value.length;
+        const end = selectionEnd ?? this.value.length;
         const textToInsert = '[INSERTED]';
 
         // Insert text at cursor position or replace selected text
