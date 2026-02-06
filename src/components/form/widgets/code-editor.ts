@@ -1,6 +1,42 @@
 import React from 'react';
-import { FieldProps } from '@rjsf/core';
+import { FieldProps, ErrorSchema } from '@rjsf/core';
 import { isEmpty } from 'lodash-es';
+
+/**
+ * Recursively finds the first error message in a potentially nested errorSchema.
+ * Checks for __errors at the current level, then recurses into nested objects.
+ *
+ * @param schema - The error schema to search for errors
+ * @returns The first error message found, or undefined if no errors
+ */
+function findFirstError(schema: ErrorSchema): string | undefined {
+    if (!schema || typeof schema !== 'object') {
+        return undefined;
+    }
+
+    if ('__errors' in schema && Array.isArray(schema.__errors)) {
+        const errors = schema.__errors as string[];
+        if (errors.length > 0) {
+            return errors[0];
+        }
+    }
+
+    for (const key of Object.keys(schema)) {
+        if (key === '__errors') {
+            continue;
+        }
+
+        const nested = schema[key];
+        if (nested && typeof nested === 'object') {
+            const found = findFirstError(nested as ErrorSchema);
+            if (found) {
+                return found;
+            }
+        }
+    }
+
+    return undefined;
+}
 
 export class CodeEditor extends React.Component {
     public state: { validationError: string } = { validationError: '' };
@@ -28,8 +64,8 @@ export class CodeEditor extends React.Component {
         let helperText: string | undefined;
         if (validationError) {
             helperText = validationError;
-        } else if (hasSchemaErrors && '__errors' in errorSchema) {
-            helperText = errorSchema.__errors[0];
+        } else if (hasSchemaErrors) {
+            helperText = findFirstError(errorSchema);
         }
 
         return React.createElement('limel-code-editor', {
