@@ -1,0 +1,78 @@
+import { Component, h, State } from '@stencil/core';
+
+/**
+ * Accessing text selection properties
+ *
+ * The `limel-input-field` component exposes three read-only properties that
+ * provide access to the current text selection:
+ *
+ * - `selectionStart`: The start position of the current text selection
+ * - `selectionEnd`: The end position of the current text selection
+ * - `selectionDirection`: The direction of the selection (`'forward'`, `'backward'`, or `'none'`)
+ *
+ * These properties allow you to interact with the input field's text selection
+ * without needing to access the shadow DOM. A common use case is inserting text
+ * at the cursor position or replacing the selected text.
+ */
+@Component({
+    tag: 'limel-example-input-field-selection',
+    shadow: true,
+})
+export class InputFieldSelectionExample {
+    @State()
+    private value =
+        'Select some text or place the cursor, then click the button to insert text!';
+
+    private inputField: HTMLLimelInputFieldElement;
+
+    public render() {
+        return [
+            <limel-input-field
+                label="Text field"
+                value={this.value}
+                onChange={this.handleChange}
+                ref={this.getInputFieldRef}
+                tabindex="0"
+                style={{ 'margin-bottom': '1rem' }}
+            />,
+            <limel-button
+                onClick={this.insertTextAtCursor}
+                label="Insert '[INSERTED]' at cursor"
+            />,
+        ];
+    }
+
+    private getInputFieldRef = (input: HTMLLimelInputFieldElement) => {
+        this.inputField = input;
+
+        return input;
+    };
+
+    private handleChange = (event: CustomEvent<string>) => {
+        this.value = event.detail;
+    };
+
+    private insertTextAtCursor = (event: MouseEvent) => {
+        event.stopPropagation();
+        event.preventDefault();
+
+        if (!this.inputField) {
+            return;
+        }
+
+        const start = this.inputField.selectionStart ?? this.value.length;
+        const end = this.inputField.selectionEnd ?? this.value.length;
+        const textToInsert = '[INSERTED]';
+
+        // Insert text at cursor position or replace selected text
+        const newValue =
+            this.value.slice(0, start) + textToInsert + this.value.slice(end);
+
+        this.value = newValue;
+
+        // Set focus back to the input field after insertion
+        requestAnimationFrame(() => {
+            this.inputField.focus();
+        });
+    };
+}

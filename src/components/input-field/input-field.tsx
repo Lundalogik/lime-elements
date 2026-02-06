@@ -53,6 +53,7 @@ const RESIZE_HANDLER_DEBOUNCE_TIMEOUT = 100;
  * @exampleComponent limel-example-input-field-search
  * @exampleComponent limel-example-input-field-pattern
  * @exampleComponent limel-example-input-field-focus
+ * @exampleComponent limel-example-input-field-selection
  */
 @Component({
     tag: 'limel-input-field',
@@ -291,6 +292,31 @@ export class InputField {
         }
 
         this.mdcTextField.disabled = this.disabled || this.readonly;
+    }
+
+    /**
+     * The start position of the current text selection.
+     * Returns `null` if the input element is not available.
+     */
+    public get selectionStart(): number | null {
+        return this.inputElement?.selectionStart ?? null;
+    }
+
+    /**
+     * The end position of the current text selection.
+     * Returns `null` if the input element is not available.
+     */
+    public get selectionEnd(): number | null {
+        return this.inputElement?.selectionEnd ?? null;
+    }
+
+    /**
+     * The direction of the current text selection.
+     * Can be `'forward'`, `'backward'`, or `'none'`.
+     * Returns `null` if the input element is not available.
+     */
+    public get selectionDirection(): 'forward' | 'backward' | 'none' | null {
+        return this.inputElement?.selectionDirection ?? null;
     }
 
     public render() {
