@@ -42,7 +42,6 @@ export class InputFieldSelectionExample {
                     value={this.value}
                     onChange={this.handleChange}
                     ref={this.getInputFieldRef}
-                    tabindex="0"
                     style={{ 'margin-bottom': '1rem' }}
                 />
                 <limel-button
