@@ -41,6 +41,7 @@ as an image or an icon, a body of text, or optional actions.
  - [limel-example-card-clickable](examples)
  - [limel-example-card-image](examples)
  - [limel-example-card-orientation](examples)
+ - [limel-example-card-scrollable-shadow](examples)
  - [limel-example-card-slot](examples)
  - [limel-example-card-styling](examples)
  - [limel-example-drag-handle-horizontal](../drag-handle/examples)
@@ -90,6 +91,7 @@ graph TD;
   limel-example-card-clickable --> limel-card
   limel-example-card-image --> limel-card
   limel-example-card-orientation --> limel-card
+  limel-example-card-scrollable-shadow --> limel-card
   limel-example-card-slot --> limel-card
   limel-example-card-styling --> limel-card
   limel-example-drag-handle-horizontal --> limel-card
