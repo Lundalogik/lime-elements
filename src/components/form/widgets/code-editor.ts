@@ -1,5 +1,6 @@
 import React from 'react';
-import { FieldProps, ErrorSchema } from '@rjsf/core';
+import { FieldProps } from '@rjsf/core';
+import type { ErrorSchema } from '@rjsf/utils';
 import { isEmpty } from 'lodash-es';
 
 /**
