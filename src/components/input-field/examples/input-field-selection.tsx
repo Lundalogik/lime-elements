@@ -62,7 +62,6 @@ export class InputFieldSelectionExample {
 
     private insertTextAtCursor = async (event: MouseEvent) => {
         event.stopPropagation();
-        event.preventDefault();
 
         if (!this.inputField) {
             return;
