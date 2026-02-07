@@ -62,13 +62,15 @@ export class CodeEditor extends React.Component {
         const { validationError, modified } = this.state;
         const { errorSchema } = props;
         const hasSchemaErrors = !isEmpty(errorSchema);
+        const showSchemaErrors =
+            modified || !!props.formData || !props.required;
         const isInvalid =
-            validationError.length > 0 || (hasSchemaErrors && modified);
+            validationError.length > 0 || (hasSchemaErrors && showSchemaErrors);
 
         let helperText: string | undefined;
         if (validationError) {
             helperText = validationError;
-        } else if (hasSchemaErrors && modified) {
+        } else if (hasSchemaErrors && showSchemaErrors) {
             helperText = findFirstError(errorSchema);
         }
 
