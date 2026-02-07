@@ -67,7 +67,7 @@ export class InputFieldSelectionExample {
             return;
         }
 
-        // Capture both selection values together to minimize race conditions
+        // Read both selection values together
         const [selectionStart, selectionEnd] = await Promise.all([
             this.inputField.getSelectionStart(),
             this.inputField.getSelectionEnd(),
