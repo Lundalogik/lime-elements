@@ -1,3 +1,10 @@
+## [38.46.3](https://github.com/Lundalogik/lime-elements/compare/v38.46.2...v38.46.3) (2026-02-07)
+
+### Bug Fixes
+
+
+* **date-picker:** prevent value changes when disabled or readonly ([e4d2e41](https://github.com/Lundalogik/lime-elements/commit/e4d2e4184cdef5e747f391bd5ba6a8225109eee6)), closes [#3815](https://github.com/Lundalogik/lime-elements/issues/3815)
+
 ## [38.46.2](https://github.com/Lundalogik/lime-elements/compare/v38.46.1...v38.46.2) (2026-02-07)
 
 ### Bug Fixes
