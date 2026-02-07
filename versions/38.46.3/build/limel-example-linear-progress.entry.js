@@ -1,0 +1,2 @@
+import{r as e,h as s}from"./index-0c4503aa.js";const i=100;const l=class{constructor(s){e(this,s);this.handleChange=e=>{this.value=+e.detail/i};this.value=.7}render(){return[s("limel-input-field",{label:"Value",type:"number",min:0,max:100,suffix:"%",value:(this.value*i).toFixed(0),onChange:this.handleChange}),s("p",null,s("limel-linear-progress",{value:this.value}))]}};export{l as limel_example_linear_progress};
+//# sourceMappingURL=limel-example-linear-progress.entry.js.map
