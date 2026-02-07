@@ -1,3 +1,10 @@
+## [38.46.2](https://github.com/Lundalogik/lime-elements/compare/v38.46.1...v38.46.2) (2026-02-07)
+
+### Bug Fixes
+
+
+* **select:** use requestAnimationFrame for menu focus timing ([adacbdc](https://github.com/Lundalogik/lime-elements/commit/adacbdc9ba15ab46b6537e3d8d5b1f39d480124c)), closes [#3830](https://github.com/Lundalogik/lime-elements/issues/3830)
+
 ## [38.46.1](https://github.com/Lundalogik/lime-elements/compare/v38.46.0...v38.46.1) (2026-02-05)
 
 ### Bug Fixes
