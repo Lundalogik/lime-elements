@@ -416,6 +416,7 @@ export class DatePicker {
     }
 
     private clearValue() {
+        this.hasInteracted = true;
         this.change.emit(null);
     }
 
