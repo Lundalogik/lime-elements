@@ -1,8 +1,51 @@
 import React from 'react';
 import { FieldProps } from '@rjsf/core';
+import type { ErrorSchema } from '@rjsf/utils';
+import { isEmpty } from 'lodash-es';
+
+/**
+ * Recursively finds the first error message in a potentially nested errorSchema.
+ * Checks for __errors at the current level, then recurses into nested objects.
+ *
+ * @param schema - The error schema to search for errors
+ * @returns The first error message found, or undefined if no errors
+ */
+function findFirstError(schema: ErrorSchema): string | undefined {
+    if (!schema || typeof schema !== 'object') {
+        return undefined;
+    }
+
+    if ('__errors' in schema && Array.isArray(schema.__errors)) {
+        const errors = schema.__errors as string[];
+        if (errors.length > 0) {
+            return errors[0];
+        }
+    }
+
+    for (const key of Object.keys(schema)) {
+        if (key === '__errors') {
+            continue;
+        }
+
+        const nested = schema[key];
+        if (nested && typeof nested === 'object') {
+            const found = findFirstError(nested as ErrorSchema);
+            if (found) {
+                return found;
+            }
+        }
+    }
+
+    return undefined;
+}
 
 export class CodeEditor extends React.Component {
-    constructor(public props: FieldProps & { onValidate: Function }) {
+    public state: { validationError: string; modified: boolean } = {
+        validationError: '',
+        modified: false,
+    };
+
+    constructor(public props: FieldProps) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -17,6 +60,21 @@ export class CodeEditor extends React.Component {
             // N/A
         }
 
+        const { validationError, modified } = this.state;
+        const { errorSchema } = props;
+        const hasSchemaErrors = !isEmpty(errorSchema);
+        const showSchemaErrors =
+            modified || !!props.formData || !props.required;
+        const isInvalid =
+            validationError.length > 0 || (hasSchemaErrors && showSchemaErrors);
+
+        let helperText: string | undefined;
+        if (validationError) {
+            helperText = validationError;
+        } else if (hasSchemaErrors && showSchemaErrors) {
+            helperText = findFirstError(errorSchema);
+        }
+
         return React.createElement('limel-code-editor', {
             value: value,
             language: 'json',
@@ -24,7 +82,18 @@ export class CodeEditor extends React.Component {
             fold: true,
             lint: true,
             onChange: this.handleChange,
+            invalid: isInvalid,
+            helperText: helperText,
         });
+    }
+
+    public componentDidUpdate(prevProps: FieldProps) {
+        if (
+            prevProps.formData !== this.props.formData &&
+            this.state.validationError
+        ) {
+            this.setState({ validationError: '' });
+        }
     }
 
     private handleChange(
@@ -40,13 +109,20 @@ export class CodeEditor extends React.Component {
             return;
         }
 
+        let value;
         try {
-            const value = JSON.parse(event.nativeEvent.detail);
+            value = JSON.parse(event.nativeEvent.detail);
+        } catch (error) {
+            const validationError =
+                error instanceof SyntaxError
+                    ? `Invalid JSON: ${error.message}`
+                    : 'Should be a valid JSON document';
+            this.setState({ validationError, modified: true });
 
-            props.onChange(value);
-            props.onValidate();
-        } catch {
-            props.onValidate('Should be a valid JSON document');
+            return;
         }
+
+        props.onChange(value);
+        this.setState({ validationError: '', modified: true });
     }
 }
