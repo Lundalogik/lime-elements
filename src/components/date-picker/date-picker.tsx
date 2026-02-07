@@ -340,13 +340,18 @@ export class DatePicker {
     }
 
     private hideCalendar() {
+        if (!this.showPortal) {
+            return;
+        }
+
         setTimeout(() => {
             this.showPortal = false;
         });
         document.removeEventListener('mousedown', this.documentClickListener);
         document.removeEventListener(
             'blur',
-            this.preventBlurFromCalendarContainer
+            this.preventBlurFromCalendarContainer,
+            { capture: true }
         );
 
         if (!this.pickerIsAutoClosing()) {
