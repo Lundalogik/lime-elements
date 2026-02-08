@@ -45,6 +45,7 @@ The component automatically formats different value types:
 ### Used by
 
  - [limel-example-breadcrumbs-buttons](../components/breadcrumbs/examples)
+ - [limel-example-builtin-field-types-form](../components/form/examples)
  - [limel-example-chart-clickable-items](../components/chart/examples)
  - [limel-example-checkbox](../components/checkbox/examples)
  - [limel-example-checkbox-readonly](../components/checkbox/examples)
@@ -165,6 +166,7 @@ The component automatically formats different value types:
 ```mermaid
 graph TD;
   limel-example-breadcrumbs-buttons --> limel-example-value
+  limel-example-builtin-field-types-form --> limel-example-value
   limel-example-chart-clickable-items --> limel-example-value
   limel-example-checkbox --> limel-example-value
   limel-example-checkbox-readonly --> limel-example-value
