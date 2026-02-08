@@ -1,3 +1,10 @@
+## [38.47.1](https://github.com/Lundalogik/lime-elements/compare/v38.47.0...v38.47.1) (2026-02-08)
+
+### Bug Fixes
+
+
+* **date-picker:** add capture option to removeEventListener ([b56fb3c](https://github.com/Lundalogik/lime-elements/commit/b56fb3c6946861b6e402efc4f5e82c115920f17f)), closes [Lundalogik/lime-elements#3833](https://github.com/Lundalogik/lime-elements/issues/3833)
+
 ## [38.47.0](https://github.com/Lundalogik/lime-elements/compare/v38.46.3...v38.47.0) (2026-02-08)
 
 ### Features
