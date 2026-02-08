@@ -25,6 +25,8 @@
   ],
   "supportForTags": {
     "@exampleComponent": true,
-    "@note": true
+    "@note": true,
+    "@slot": true,
+    "@sourceFile": true
   }
 }
