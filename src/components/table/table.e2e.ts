@@ -150,6 +150,18 @@ describe('limel-table', () => {
                 columns: columns,
                 selection: [{ id: 1 }],
             });
+
+            // Wait for row checkboxes to render
+            await page.waitForFunction(() => {
+                const container =
+                    document.querySelector('limel-table')?.shadowRoot;
+                const checkboxes = container?.querySelectorAll(
+                    '.tabulator-table > .tabulator-row > .tabulator-cell > limel-checkbox',
+                );
+
+                return checkboxes && checkboxes.length >= 2;
+            });
+
             const rowSelectors = await tableContainer.findAll(
                 '.tabulator-table > .tabulator-row > .tabulator-cell > limel-checkbox'
             );
