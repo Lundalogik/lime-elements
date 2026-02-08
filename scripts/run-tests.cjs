@@ -1,0 +1,52 @@
+#!/usr/bin/env node
+/**
+ * Test runner wrapper that adds --verbose flag when debug logging is enabled.
+ * Debug logging is enabled when ACTIONS_STEP_DEBUG, RUNNER_DEBUG, or DEBUG
+ * env vars are truthy.
+ */
+
+const { spawnSync } = require('node:child_process');
+
+const stencilScript = require.resolve('@stencil/core/bin/stencil');
+
+const isDebug =
+    envIsSet('ACTIONS_STEP_DEBUG') ||
+    envIsSet('RUNNER_DEBUG') ||
+    envIsSet('DEBUG');
+
+const args = ['test', '--spec', '--e2e'];
+
+// Add verbose flag if debug mode is enabled
+if (isDebug) {
+    args.push('--verbose');
+    console.log('Debug mode enabled, running tests with --verbose flag');
+}
+
+// Add any additional arguments passed to this script
+args.push(...process.argv.slice(2));
+
+console.log(`Running: stencil ${args.join(' ')}`);
+
+const result = spawnSync(process.execPath, [stencilScript, ...args], {
+    stdio: 'inherit',
+    env: {
+        ...process.env,
+        SASS_PATH: 'node_modules',
+    },
+});
+
+if (typeof result.status === 'number') {
+    process.exit(result.status);
+} else if (result.signal) {
+    // Re-emit the signal that terminated the child process
+    process.kill(process.pid, result.signal);
+} else {
+    // Unknown failure
+    process.exit(1);
+}
+
+function envIsSet(name) {
+    const value = process.env[name];
+
+    return value && value !== '0' && value.toLowerCase() !== 'false';
+}
