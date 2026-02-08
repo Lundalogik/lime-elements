@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, Host } from '@stencil/core';
 import { Icon } from '../../global/shared-types/icon.types';
 import { getIconName } from '../icon/get-icon-props';
 
@@ -92,23 +92,25 @@ export class Header {
     public subheadingDivider?: string = '·';
 
     public render() {
-        return [
-            <div class="information">
-                {this.renderIcon()}
-                <div class="headings">
-                    <h1 class="heading" title={this.heading}>
-                        {this.heading}
-                    </h1>
-                    <h2 class="subheading" title={this.subheading}>
-                        {this.subheading}
-                        {this.renderSupportingText()}
-                    </h2>
+        return (
+            <Host>
+                <div class="information">
+                    {this.renderIcon()}
+                    <div class="headings">
+                        <h1 class="heading" title={this.heading}>
+                            {this.heading}
+                        </h1>
+                        <h2 class="subheading" title={this.subheading}>
+                            {this.subheading}
+                            {this.renderSupportingText()}
+                        </h2>
+                    </div>
                 </div>
-            </div>,
-            <slot name="actions">
-                <slot />
-            </slot>,
-        ];
+                <slot name="actions">
+                    <slot />
+                </slot>
+            </Host>
+        );
     }
 
     private renderIcon() {

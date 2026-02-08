@@ -12,6 +12,7 @@ import { zipObject } from 'lodash-es';
 import { portalContains } from '../portal/contains';
 import { ESCAPE } from '../../util/keycodes';
 import { OpenDirection } from '../menu/menu.types';
+import { focusTriggerElement } from '../../util/focus-trigger-element';
 
 /**
  * A popover is an impermanent layer that is displayed on top of other content
@@ -86,6 +87,8 @@ export class Popover {
     private host: HTMLLimelPopoverElement;
 
     private portalId: string;
+    private triggerSlot: HTMLSlotElement;
+    private shouldRestoreFocusOnClose = false;
 
     constructor() {
         this.portalId = createRandomString();
@@ -95,6 +98,11 @@ export class Popover {
     @Watch('open')
     protected watchOpen() {
         this.setupGlobalHandlers();
+
+        if (!this.open && this.shouldRestoreFocusOnClose) {
+            this.shouldRestoreFocusOnClose = false;
+            setTimeout(this.focusTrigger, 0);
+        }
     }
 
     public componentWillLoad() {
@@ -102,9 +110,12 @@ export class Popover {
     }
 
     public componentDidRender() {
-        const slotElement = this.host.shadowRoot.querySelector('slot');
+        if (!this.triggerSlot) {
+            return;
+        }
+
         // eslint-disable-next-line unicorn/no-array-for-each
-        slotElement.assignedElements().forEach(this.setTriggerAttributes);
+        this.triggerSlot.assignedElements().forEach(this.setTriggerAttributes);
     }
 
     private setupGlobalHandlers() {
@@ -127,7 +138,7 @@ export class Popover {
 
         return (
             <div class="trigger-anchor">
-                <slot name="trigger" />
+                <slot name="trigger" ref={this.setTriggerRef} />
                 <limel-portal
                     visible={this.open}
                     containerId={this.portalId}
@@ -149,7 +160,7 @@ export class Popover {
         if (this.open && !clickedInside) {
             event.stopPropagation();
             event.preventDefault();
-            this.close.emit();
+            this.requestCloseAndRestoreFocus();
         }
     }
 
@@ -175,7 +186,24 @@ export class Popover {
 
         event.stopPropagation();
         event.preventDefault();
+        this.requestCloseAndRestoreFocus();
+    };
+
+    private readonly requestCloseAndRestoreFocus = () => {
+        this.shouldRestoreFocusOnClose = true;
         this.close.emit();
+    };
+
+    private readonly setTriggerRef = (elm?: HTMLSlotElement) => {
+        this.triggerSlot = elm;
+    };
+
+    private readonly focusTrigger = () => {
+        const trigger = this.triggerSlot?.assignedElements()?.[0] as
+            | HTMLElement
+            | undefined;
+
+        focusTriggerElement(trigger);
     };
 
     private setTriggerAttributes = (element: HTMLElement) => {

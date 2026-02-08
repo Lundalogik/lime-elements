@@ -3,13 +3,23 @@ import { LimelSelectCustomEvent, Option } from '@limetech/lime-elements';
 import { chartItems } from './chart-items-with-negative-values';
 
 /**
- * Displaying axis labels
+ * Displaying labels
  *
  * The `displayAxisLabels` prop controls the visibility of axis labels
  * for chart types that have X and Y axes (area, bar, line, and dot charts).
  * When set to `true`, the accessible labels `accessibleValuesLabel` and
  * `accessibleItemsLabel` (or their default translated fallbacks) are displayed to help
  * users understand the scale and values of the data.
+ *
+ * The `displayItemText` and `displayItemValue` props control the visibility of
+ * item texts and values respectively for chart types that have X and Y axes
+ * (area, bar, line, and dot charts).
+ * When set to `true`, the texts and values of all chart items are constantly visible.
+ *
+ * :::note
+ * If `formattedValue` is provided for an item, it is the one that will be displayed
+ * when `displayItemValue` is set to `true`.
+ * :::
  *
  * @sourceFile chart-items-with-negative-values.ts
  */
@@ -21,6 +31,12 @@ import { chartItems } from './chart-items-with-negative-values';
 export class ChartAxisLabelsExample {
     @State()
     private displayAxisLabels = true;
+
+    @State()
+    private displayItemText = false;
+
+    @State()
+    private displayItemValue = false;
 
     @State()
     private chartType: 'bar' | 'area' | 'line' | 'dot' = 'bar';
@@ -47,6 +63,8 @@ export class ChartAxisLabelsExample {
                     type={this.chartType}
                     items={chartItems}
                     displayAxisLabels={this.displayAxisLabels}
+                    displayItemText={this.displayItemText}
+                    displayItemValue={this.displayItemValue}
                     accessibleValuesLabel="Temperature in Celsius"
                     accessibleItemsLabel="City"
                     orientation={this.orientation}
@@ -68,6 +86,16 @@ export class ChartAxisLabelsExample {
                         label="displayAxisLabels"
                         value={this.displayAxisLabels}
                         onChange={this.handleDisplayAxisLabelsChange}
+                    />
+                    <limel-switch
+                        label="displayItemText"
+                        value={this.displayItemText}
+                        onChange={this.handleDisplayItemTextChange}
+                    />
+                    <limel-switch
+                        label="displayItemValue"
+                        value={this.displayItemValue}
+                        onChange={this.handleDisplayItemValueChange}
                     />
                 </limel-example-controls>
             </Host>
@@ -100,5 +128,13 @@ export class ChartAxisLabelsExample {
 
     private handleDisplayAxisLabelsChange = (event: CustomEvent<boolean>) => {
         this.displayAxisLabels = event.detail;
+    };
+
+    private handleDisplayItemTextChange = (event: CustomEvent<boolean>) => {
+        this.displayItemText = event.detail;
+    };
+
+    private handleDisplayItemValueChange = (event: CustomEvent<boolean>) => {
+        this.displayItemValue = event.detail;
     };
 }

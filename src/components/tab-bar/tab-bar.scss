@@ -122,8 +122,8 @@ $tab-separator-background-color: rgb(var(--contrast-600));
         bottom: 0;
         background-color: var(--limel-active-tab-background-color);
 
-        -webkit-mask-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 50 50'><defs/><path d='M0 0c0 27.594 22.406 50 50 50H0V0z'/></svg>"); //For chrome and Safari the browser prefix is needed. (last checked Apr 2020)
-        mask-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 50 50'><defs/><path d='M0 0c0 27.594 22.406 50 50 50H0V0z'/></svg>");
+        -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20fill-rule='evenodd'%20stroke-linejoin='round'%20stroke-miterlimit='2'%20clip-rule='evenodd'%20viewBox='0%200%2050%2050'%3E%3Cdefs/%3E%3Cpath%20d='M0%200c0%2027.594%2022.406%2050%2050%2050H0V0z'/%3E%3C/svg%3E"); //For chrome and Safari the browser prefix is needed. (last checked Apr 2020)
+        mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20fill-rule='evenodd'%20stroke-linejoin='round'%20stroke-miterlimit='2'%20clip-rule='evenodd'%20viewBox='0%200%2050%2050'%3E%3Cdefs/%3E%3Cpath%20d='M0%200c0%2027.594%2022.406%2050%2050%2050H0V0z'/%3E%3C/svg%3E");
     }
 
     &:before {

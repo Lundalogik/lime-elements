@@ -106,9 +106,7 @@ export class PickerStaticActionsExample {
                 actionScrollBehavior={this.actionScrollBehavior?.value}
                 actionPosition={this.actionPosition?.value}
             />,
-            <limel-example-controls
-                style={{ '--example-controls-max-columns-width': '10rem' }}
-            >
+            <limel-example-controls>
                 <limel-select
                     class="is-narrow"
                     label="Action Scroll Behavior"

@@ -225,7 +225,7 @@ export class Select {
             return;
         }
 
-        setTimeout(() => {
+        requestAnimationFrame(() => {
             const list: HTMLElement = document.querySelector(
                 `#${this.portalId} limel-menu-surface limel-list`
             );

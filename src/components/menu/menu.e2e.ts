@@ -1,6 +1,78 @@
 import { MenuItem, ListSeparator } from '@limetech/lime-elements';
 import { newE2EPage, E2EPage, E2EElement } from '@stencil/core/testing';
 
+const waitForActiveElementSlot = async (
+    page: E2EPage,
+    expectedSlot: string,
+    timeout = 1000
+) => {
+    const anyPage = page as any;
+    if (typeof anyPage.waitForFunction === 'function') {
+        await anyPage.waitForFunction(
+            (slot: string) =>
+                (document.activeElement as HTMLElement | null)?.getAttribute(
+                    'slot'
+                ) === slot,
+            { timeout },
+            expectedSlot
+        );
+
+        return;
+    }
+
+    const start = Date.now();
+    while (Date.now() - start < timeout) {
+        const slot = await page.evaluate(() =>
+            (document.activeElement as HTMLElement | null)?.getAttribute('slot')
+        );
+        if (slot === expectedSlot) {
+            return;
+        }
+
+        await page.waitForTimeout(0);
+    }
+
+    throw new Error(
+        `Timed out waiting for activeElement slot '${expectedSlot}'`
+    );
+};
+
+const waitForMenuOpenState = async (
+    page: E2EPage,
+    open: boolean,
+    timeout = 1000
+) => {
+    const anyPage = page as any;
+    if (typeof anyPage.waitForFunction === 'function') {
+        await anyPage.waitForFunction(
+            (isOpen: boolean) => {
+                const menu = document.querySelector('limel-menu');
+                return menu?.hasAttribute('open') === isOpen;
+            },
+            { timeout },
+            open
+        );
+
+        return;
+    }
+
+    const start = Date.now();
+    while (Date.now() - start < timeout) {
+        const isOpen = await page.evaluate(
+            () =>
+                document.querySelector('limel-menu')?.hasAttribute('open') ??
+                false
+        );
+        if (isOpen === open) {
+            return;
+        }
+
+        await page.waitForTimeout(0);
+    }
+
+    throw new Error(`Timed out waiting for menu open=${String(open)}`);
+};
+
 describe('limel-menu', () => {
     let page: E2EPage;
     let limelMenu: HTMLLimelMenuElement & E2EElement;
@@ -115,7 +187,9 @@ describe('limel-menu', () => {
         let spy;
         beforeEach(async () => {
             spy = await page.spyOnEvent('select');
-            limelMenu.setProperty('open', true);
+
+            const trigger = await page.find('button[slot="trigger"]');
+            await trigger.click();
             await page.waitForChanges();
         });
         describe('when selected', () => {
@@ -135,7 +209,119 @@ describe('limel-menu', () => {
                 const isOpen = await limelMenu.getProperty('open');
                 expect(isOpen).toBeFalsy();
             });
+
+            it('restores focus to the trigger', async () => {
+                await waitForActiveElementSlot(page, 'trigger');
+                const activeSlot = await page.evaluate(() =>
+                    (
+                        document.activeElement as HTMLElement | null
+                    )?.getAttribute('slot')
+                );
+                expect(activeSlot).toBe('trigger');
+            });
         });
+    });
+});
+
+describe('limel-menu focus restoration', () => {
+    it('restores focus to a limel-button trigger after selection', async () => {
+        const page = await newE2EPage({
+            html: `
+                <limel-menu>
+                    <limel-button slot="trigger" label="My Label"></limel-button>
+                </limel-menu>
+            `,
+        });
+
+        const limelMenu = (await page.find('limel-menu')) as any;
+        const items: Array<MenuItem | ListSeparator> = [{ text: 'Item 1' }];
+        limelMenu.setProperty('items', items);
+        await page.waitForChanges();
+
+        const trigger = await page.find('limel-button[slot="trigger"]');
+        await trigger.click();
+        await page.waitForChanges();
+
+        const list = await page.find('limel-menu-list');
+        await list.click();
+        await page.waitForChanges();
+
+        await waitForActiveElementSlot(page, 'trigger');
+
+        const activeSlot = await page.evaluate(() =>
+            (document.activeElement as HTMLElement | null)?.getAttribute('slot')
+        );
+        expect(activeSlot).toBe('trigger');
+    });
+
+    it('restores focus to a native trigger after Escape', async () => {
+        const page = await newE2EPage({
+            html: `
+                <limel-menu>
+                    <button slot="trigger">My Label</button>
+                </limel-menu>
+            `,
+        });
+
+        const limelMenu = (await page.find('limel-menu')) as any;
+        const items: Array<MenuItem | ListSeparator> = [{ text: 'Item 1' }];
+        limelMenu.setProperty('items', items);
+        await page.waitForChanges();
+
+        const trigger = await page.find('button[slot="trigger"]');
+        await trigger.click();
+        await page.waitForChanges();
+
+        await waitForMenuOpenState(page, true);
+
+        await page.keyboard.press('Escape');
+        await page.waitForChanges();
+
+        await waitForMenuOpenState(page, false);
+        await waitForActiveElementSlot(page, 'trigger');
+
+        const isOpen = await limelMenu.getProperty('open');
+        expect(isOpen).toBeFalsy();
+
+        const activeSlot = await page.evaluate(() =>
+            (document.activeElement as HTMLElement | null)?.getAttribute('slot')
+        );
+        expect(activeSlot).toBe('trigger');
+    });
+
+    it('restores focus to a limel-button trigger after Escape key is pressed', async () => {
+        const page = await newE2EPage({
+            html: `
+                <limel-menu>
+                    <limel-button slot="trigger" label="My Label"></limel-button>
+                </limel-menu>
+            `,
+        });
+
+        const limelMenu = (await page.find('limel-menu')) as any;
+        const items: Array<MenuItem | ListSeparator> = [{ text: 'Item 1' }];
+        limelMenu.setProperty('items', items);
+        await page.waitForChanges();
+
+        const trigger = await page.find('limel-button[slot="trigger"]');
+        await trigger.click();
+        await page.waitForChanges();
+
+        await waitForMenuOpenState(page, true);
+
+        await page.keyboard.press('Escape');
+        await page.waitForChanges();
+
+        await waitForMenuOpenState(page, false);
+        await waitForActiveElementSlot(page, 'trigger');
+
+        const isOpen = await limelMenu.getProperty('open');
+        expect(isOpen).toBeFalsy();
+
+        const activeSlot = await page.evaluate(() =>
+            (document.activeElement as HTMLElement | null)?.getAttribute('slot')
+        );
+        expect(activeSlot).toBe('trigger');
     });
 });
 

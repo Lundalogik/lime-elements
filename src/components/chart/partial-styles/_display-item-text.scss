@@ -1,0 +1,195 @@
+:host(limel-chart[display-item-text][type='line']),
+:host(limel-chart[display-item-text][type='area']),
+:host(limel-chart[display-item-text][type='dot']),
+:host(limel-chart[display-item-text][type='bar']) {
+    td.text {
+        all: unset;
+        @include mixins.truncate-text;
+
+        position: absolute;
+        font-size: 0.75rem;
+        max-width: max(5rem, 100%);
+
+        mix-blend-mode: difference;
+    }
+}
+
+:host(limel-chart[display-item-value][type='line']),
+:host(limel-chart[display-item-value][type='area']),
+:host(limel-chart[display-item-value][type='dot']),
+:host(limel-chart[display-item-value][type='bar']) {
+    td.value {
+        all: unset;
+        @include mixins.truncate-text;
+
+        position: absolute;
+        font-size: 0.75rem;
+        max-width: max(5rem, 100%);
+
+        border-radius: 9rem;
+        padding: 0 0.25rem;
+        background-color: rgb(var(--contrast-100), 0.7);
+        box-shadow: var(--shadow-brighten-edges-outside);
+    }
+
+    .item.has-value-zero {
+        td.value {
+            opacity: 0;
+        }
+    }
+}
+
+:host(limel-chart[display-item-text][orientation='landscape']),
+:host(limel-chart[display-item-value][orientation='landscape']) {
+    .item.has-negative-value-only {
+        td.text,
+        td.value {
+            transform: rotateX(180deg);
+        }
+    }
+
+    .item.has-value-zero {
+        td.text {
+            transform: translateY(-50%);
+        }
+    }
+}
+
+:host(limel-chart[display-item-text][orientation='portrait']),
+:host(limel-chart[display-item-value][orientation='portrait']) {
+    .item.has-negative-value-only {
+        td.text,
+        td.value {
+            transform: rotateY(180deg);
+        }
+    }
+}
+
+// Bar charts
+
+:host(limel-chart[display-item-text][orientation='landscape'][type='bar']),
+:host(limel-chart[display-item-value][orientation='landscape'][type='bar']) {
+    td.value {
+        top: 0;
+
+        transform: translateY(-50%);
+    }
+    .item.has-negative-value-only {
+        td.value {
+            transform: rotateX(180deg) translateY(50%);
+        }
+    }
+}
+
+:host(limel-chart[display-item-text][orientation='portrait'][type='bar']),
+:host(limel-chart[display-item-value][orientation='portrait'][type='bar']) {
+    td.value {
+        right: 0;
+        transform: translateX(50%);
+    }
+    .item.has-negative-value-only {
+        td.value {
+            transform: rotateY(180deg) translateX(-50%);
+        }
+    }
+
+    .item.has-value-zero {
+        td.text {
+            transform: translateX(50%);
+        }
+    }
+}
+
+// Dot charts
+:host(limel-chart[display-item-text][orientation='landscape'][type='dot']),
+:host(limel-chart[display-item-value][orientation='landscape'][type='dot']) {
+    td.value {
+        top: 1rem;
+    }
+    td.text {
+        top: 0;
+    }
+    .item.has-negative-value-only {
+        td.value {
+            transform: rotateX(180deg);
+        }
+    }
+    .item.has-value-zero {
+        td.text {
+            transform: translateY(-100%);
+        }
+    }
+}
+
+:host(limel-chart[display-item-text][orientation='portrait'][type='dot']),
+:host(limel-chart[display-item-value][orientation='portrait'][type='dot']) {
+    td.value {
+        right: -0.25rem;
+        transform: translateX(100%);
+    }
+    td.text {
+        right: 0.5rem;
+    }
+
+    .item.has-negative-value-only {
+        td.value {
+            transform: rotateY(180deg) translateX(-100%);
+        }
+    }
+}
+
+// Area & Line charts
+:host(limel-chart[display-item-text][orientation='landscape'][type='line']),
+:host(limel-chart[display-item-value][orientation='landscape'][type='line']),
+:host(limel-chart[display-item-text][orientation='landscape'][type='area']),
+:host(limel-chart[display-item-value][orientation='landscape'][type='area']) {
+    td.text,
+    td.value {
+        left: 0.5rem;
+        bottom: calc(
+            (var(--limel-chart-item-size) + var(--limel-chart-item-offset)) * 1%
+        );
+    }
+    td.text {
+        transform: translateY(150%);
+    }
+    td.value {
+        transform: translateY(50%);
+    }
+
+    .item.has-negative-value-only {
+        td.text {
+            transform: translateY(50%);
+        }
+        td.value {
+            transform: translateY(150%);
+        }
+    }
+}
+
+:host(limel-chart[display-item-text][orientation='portrait'][type='line']),
+:host(limel-chart[display-item-value][orientation='portrait'][type='line']),
+:host(limel-chart[display-item-text][orientation='portrait'][type='area']),
+:host(limel-chart[display-item-value][orientation='portrait'][type='area']) {
+    td.text,
+    td.value {
+        left: calc(
+            (var(--limel-chart-item-size) + var(--limel-chart-item-offset)) * 1%
+        );
+    }
+    td.text {
+        transform: translateX(-100%);
+    }
+    td.value {
+        transform: translateX(0);
+    }
+
+    .item.has-negative-value-only {
+        td.text {
+            transform: translateX(0);
+        }
+        td.value {
+            transform: translateX(-100%);
+        }
+    }
+}

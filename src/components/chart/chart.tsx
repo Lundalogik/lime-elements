@@ -81,6 +81,24 @@ export class Chart {
     public displayAxisLabels = false;
 
     /**
+     * Makes the `text` of chart items constantly visible,
+     * By default, item texts are displayed in a tooltip,
+     * when the item is hovered or focused.
+     * Only affects chart types with X and Y axes, such as area, bar, and line charts.
+     */
+    @Prop({ reflect: true })
+    public displayItemText = false;
+
+    /**
+     * Makes the `value` (or `formattedValue`) of chart items constantly visible,
+     * By default, item values are displayed in a tooltip,
+     * when the item is hovered or focused.
+     * Only affects chart types with X and Y axes, such as area, bar, and line charts.
+     */
+    @Prop({ reflect: true })
+    public displayItemValue = false;
+
+    /**
      * List of items in the chart,
      * each representing a data point.
      */
@@ -259,8 +277,8 @@ export class Chart {
                     onClick={this.handleClick}
                     onKeyDown={this.handleKeyDown}
                 >
-                    <td>{this.getItemText(item)}</td>
-                    <td>{this.getFormattedValue(item)}</td>
+                    <td class="text">{this.getItemText(item)}</td>
+                    <td class="value">{this.getFormattedValue(item)}</td>
                     {this.renderTooltip(item, itemId, size)}
                 </tr>
             );
@@ -300,6 +318,7 @@ export class Chart {
             'has-start-value': Array.isArray(item.value),
             'has-negative-value-only':
                 this.getMaximumValue(item) < 0 && !this.isRangeItem(item),
+            'has-value-zero': this.getMaximumValue(item) === 0,
         };
     }
 

@@ -19,9 +19,7 @@ export class SpinnerExample {
     public render() {
         return [
             <limel-spinner size="medium" limeBranded={this.limeBranded} />,
-            <limel-example-controls
-                style={{ '--example-controls-column-layout': 'auto-fit' }}
-            >
+            <limel-example-controls>
                 <limel-switch
                     value={this.limeBranded}
                     label="Lime branded"

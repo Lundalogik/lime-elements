@@ -34,6 +34,7 @@ type CopyState = 'idle' | 'success' | 'failed';
  * @exampleComponent limel-example-code-editor
  * @exampleComponent limel-example-code-editor-readonly-with-line-numbers
  * @exampleComponent limel-example-code-editor-fold-lint-wrap
+ * @exampleComponent limel-example-code-editor-copy
  * @exampleComponent limel-example-code-editor-composite
  */
 @Component({
@@ -132,6 +133,12 @@ export class CodeEditor {
      */
     @Prop({ reflect: true })
     public translationLanguage: Languages = 'en';
+
+    /**
+     * Set to false to hide the copy button
+     */
+    @Prop({ reflect: true })
+    public showCopyButton = true;
 
     /**
      * Emitted when the code has changed. Will only be emitted when the code
@@ -389,7 +396,7 @@ export class CodeEditor {
     private renderCopyButton() {
         const hasContent = !!(this.editor?.getValue() || this.value);
 
-        if (!hasContent || this.disabled) {
+        if (!hasContent || this.disabled || !this.showCopyButton) {
             return;
         }
 

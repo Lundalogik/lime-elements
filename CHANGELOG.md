@@ -1,3 +1,129 @@
+## [38.47.1](https://github.com/Lundalogik/lime-elements/compare/v38.47.0...v38.47.1) (2026-02-08)
+
+### Bug Fixes
+
+
+* **date-picker:** add capture option to removeEventListener ([b56fb3c](https://github.com/Lundalogik/lime-elements/commit/b56fb3c6946861b6e402efc4f5e82c115920f17f)), closes [Lundalogik/lime-elements#3833](https://github.com/Lundalogik/lime-elements/issues/3833)
+
+## [38.47.0](https://github.com/Lundalogik/lime-elements/compare/v38.46.3...v38.47.0) (2026-02-08)
+
+### Features
+
+
+* **input-field:** expose selection properties ([100258f](https://github.com/Lundalogik/lime-elements/commit/100258f3b21c0d01a913e6da718e219ed7ed1cf0)), closes [#1314](https://github.com/Lundalogik/lime-elements/issues/1314)
+
+## [38.46.3](https://github.com/Lundalogik/lime-elements/compare/v38.46.2...v38.46.3) (2026-02-07)
+
+### Bug Fixes
+
+
+* **date-picker:** prevent value changes when disabled or readonly ([e4d2e41](https://github.com/Lundalogik/lime-elements/commit/e4d2e4184cdef5e747f391bd5ba6a8225109eee6)), closes [#3815](https://github.com/Lundalogik/lime-elements/issues/3815)
+
+## [38.46.2](https://github.com/Lundalogik/lime-elements/compare/v38.46.1...v38.46.2) (2026-02-07)
+
+### Bug Fixes
+
+
+* **select:** use requestAnimationFrame for menu focus timing ([adacbdc](https://github.com/Lundalogik/lime-elements/commit/adacbdc9ba15ab46b6537e3d8d5b1f39d480124c)), closes [#3830](https://github.com/Lundalogik/lime-elements/issues/3830)
+
+## [38.46.1](https://github.com/Lundalogik/lime-elements/compare/v38.46.0...v38.46.1) (2026-02-05)
+
+### Bug Fixes
+
+
+* **example-controls:** switch from grid to flexbox layout ([cfde4d8](https://github.com/Lundalogik/lime-elements/commit/cfde4d8d3c7aa598b2a7fea858ffe3f2509f7574)), closes [#3743](https://github.com/Lundalogik/lime-elements/issues/3743)
+
+## [38.46.0](https://github.com/Lundalogik/lime-elements/compare/v38.45.0...v38.46.0) (2026-02-04)
+
+### Features
+
+
+* **card:** handle shadow effect for long item content ([853af9f](https://github.com/Lundalogik/lime-elements/commit/853af9f29f88bed601f70ae59e15c7791dd8d968))
+
+## [38.45.0](https://github.com/Lundalogik/lime-elements/compare/v38.44.1...v38.45.0) (2026-02-03)
+
+### Features
+
+
+* **util:** export redrawComponents utility for re-initializing hidden components ([ff88f44](https://github.com/Lundalogik/lime-elements/commit/ff88f4488c3b65387ed44c48ad71089a3b64e006)), closes [#623](https://github.com/Lundalogik/lime-elements/issues/623)
+
+## [38.44.1](https://github.com/Lundalogik/lime-elements/compare/v38.44.0...v38.44.1) (2026-02-01)
+
+### Bug Fixes
+
+
+* **style:** percent-encode SVG data URIs for cross-browser reliability ([5b16567](https://github.com/Lundalogik/lime-elements/commit/5b165675d3a8c86b6f3429751b1d933944047ab1)), closes [#3672](https://github.com/Lundalogik/lime-elements/issues/3672)
+
+## [38.44.0](https://github.com/Lundalogik/lime-elements/compare/v38.43.0...v38.44.0) (2026-01-31)
+
+### Features
+
+
+* **slider:** add `displaysPercentageColors` prop ([d288063](https://github.com/Lundalogik/lime-elements/commit/d2880634afe9c3de6b42cda361d20707713bc209)), closes [#3694](https://github.com/Lundalogik/lime-elements/issues/3694)
+
+## [38.43.0](https://github.com/Lundalogik/lime-elements/compare/v38.42.0...v38.43.0) (2026-01-29)
+
+### Features
+
+
+* **chart:** add props for displaying item `text` & `value` ([502ff5a](https://github.com/Lundalogik/lime-elements/commit/502ff5afc8ae9f755e6df7b0270f1fcd1d6caaae))
+
+## [38.42.0](https://github.com/Lundalogik/lime-elements/compare/v38.41.0...v38.42.0) (2026-01-28)
+
+### Features
+
+
+* **code-editor:** make rendering the copy button a property ([2a735e4](https://github.com/Lundalogik/lime-elements/commit/2a735e49f50b6a0d8a4de0b02a4eee1142b26094))
+
+## [38.41.0](https://github.com/Lundalogik/lime-elements/compare/v38.40.0...v38.41.0) (2026-01-28)
+
+### Features
+
+
+* **picker, chip-set:** enable focus delegation for programmatic focus ([a4f24d9](https://github.com/Lundalogik/lime-elements/commit/a4f24d965c26fba8f90ef8aa115b911850d60747))
+### Bug Fixes
+
+
+* **chip-set:** use correct `tabindex` ([37fd213](https://github.com/Lundalogik/lime-elements/commit/37fd2131a64d7e2b7ab435c687c060547d79f3c4))
+
+## [38.40.0](https://github.com/Lundalogik/lime-elements/compare/v38.39.3...v38.40.0) (2026-01-28)
+
+### Features
+
+
+* **input-field:** enable focus delegation for programmatic focus ([9b708c4](https://github.com/Lundalogik/lime-elements/commit/9b708c47eb4c8dba006b562de7509b0ecf7f326c))
+
+## [38.39.3](https://github.com/Lundalogik/lime-elements/compare/v38.39.2...v38.39.3) (2026-01-28)
+
+### Bug Fixes
+
+
+* **table:** fix remote sorting in table ([d9efe87](https://github.com/Lundalogik/lime-elements/commit/d9efe87427f7af2b17b0387e6b012e8f7230a1de))
+* **table:** use loading state in sort example ([a8b495e](https://github.com/Lundalogik/lime-elements/commit/a8b495e2c12057e13ab2df95036a5454c1563b8a))
+
+## [38.39.2](https://github.com/Lundalogik/lime-elements/compare/v38.39.1...v38.39.2) (2026-01-26)
+
+### Bug Fixes
+
+
+* **menu:** restore focus to the trigger, when the menu closes due to a dismiss ([b003658](https://github.com/Lundalogik/lime-elements/commit/b00365842a92f345424bb0bd752b777c31bccb93))
+* **menu:** restore focus to the trigger, when the menu closes due to a selection ([ac9fa77](https://github.com/Lundalogik/lime-elements/commit/ac9fa77e9caef2614577327a6a550c9c4baf7e20))
+* **popover:** restore focus to the trigger, when the menu closes ([a840b53](https://github.com/Lundalogik/lime-elements/commit/a840b536bdfdab1ecc9d1b284af451c83018de2a))
+
+## [38.39.1](https://github.com/Lundalogik/lime-elements/compare/v38.39.0...v38.39.1) (2026-01-22)
+
+### Bug Fixes
+
+
+* **form:** prevent duplication of sections after drag to reorder ([c1cf6f7](https://github.com/Lundalogik/lime-elements/commit/c1cf6f74d9253f14fa5a31ff2bc24852a9b935f4))
+
+## [38.39.0](https://github.com/Lundalogik/lime-elements/compare/v38.38.1...v38.39.0) (2026-01-22)
+
+### Features
+
+
+* **menu:** add `searchPlaceholder` prop ([a61dd4e](https://github.com/Lundalogik/lime-elements/commit/a61dd4e768a313f9d3d6a97e11e3353d826de6c8))
+
 ## [38.38.1](https://github.com/Lundalogik/lime-elements/compare/v38.38.0...v38.38.1) (2026-01-16)
 
 ### Bug Fixes

@@ -209,4 +209,80 @@ describe('limel-table', () => {
             expect(firstRowContent).toEqual(['Jane']);
         });
     });
+
+    describe('remote sorting', () => {
+        const setup = async () => {
+            const columns = [
+                { field: 'colA', title: 'A' },
+                { field: 'colB', title: 'B' },
+            ];
+            const data = [
+                { id: 1, colA: 1, colB: 'ascending' },
+                { id: 2, colA: 2, colB: 'descending' },
+            ];
+            await render({ mode: 'remote', data, columns });
+        };
+        it('emits load with sorters when clicking a column header', async () => {
+            await setup();
+
+            const loadSpy = await table.spyOnEvent('load');
+
+            const headers = await tableContainer.findAll(
+                '[role="columnheader"]'
+            );
+            const [headerA] = headers;
+
+            headerA.click();
+            await page.waitForChanges();
+
+            const eventsWithSorters = loadSpy.events.filter(
+                (event) => event.detail?.sorters?.length
+            );
+            expect(eventsWithSorters.length).toBeGreaterThanOrEqual(1);
+
+            const lastSortEvent = eventsWithSorters.at(-1);
+            expect(lastSortEvent.detail.page).toEqual(1);
+            expect(lastSortEvent.detail.sorters.length).toEqual(1);
+            expect(lastSortEvent.detail.sorters[0].column.field).toEqual(
+                'colA'
+            );
+            expect(['ASC', 'DESC']).toContain(
+                lastSortEvent.detail.sorters[0].direction
+            );
+        });
+
+        it('toggles reverse sort direction on second click', async () => {
+            await setup();
+
+            const loadSpy = await table.spyOnEvent('load');
+
+            const headers = await tableContainer.findAll(
+                '[role="columnheader"]'
+            );
+            const [headerA] = headers;
+
+            headerA.click();
+            await page.waitForChanges();
+            headerA.click();
+            await page.waitForChanges();
+
+            const eventsWithSorters = loadSpy.events.filter(
+                (event) => event.detail?.sorters?.length
+            );
+            expect(eventsWithSorters.length).toBeGreaterThanOrEqual(2);
+
+            const firstSortEvent = eventsWithSorters.at(-2);
+            const secondSortEvent = eventsWithSorters.at(-1);
+
+            expect(firstSortEvent.detail.sorters[0].column.field).toEqual(
+                'colA'
+            );
+            expect(secondSortEvent.detail.sorters[0].column.field).toEqual(
+                'colA'
+            );
+            expect(firstSortEvent.detail.sorters[0].direction).not.toEqual(
+                secondSortEvent.detail.sorters[0].direction
+            );
+        });
+    });
 });

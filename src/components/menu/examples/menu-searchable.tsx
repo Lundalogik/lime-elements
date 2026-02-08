@@ -63,6 +63,7 @@ export class MenuSubItemsExample {
             <limel-menu
                 items={this.items}
                 searcher={this.handleSearch}
+                searchPlaceholder="Find…"
                 onSelect={this.handleSelect}
                 emptyResultMessage="No items found"
             >

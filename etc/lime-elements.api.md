@@ -230,6 +230,8 @@ export namespace Components {
         "accessibleValuesLabel"?: string;
         "axisIncrement"?: number;
         "displayAxisLabels": boolean;
+        "displayItemText": boolean;
+        "displayItemValue": boolean;
         "items": ChartItem[];
         "language": Languages;
         "loading": boolean;
@@ -319,6 +321,7 @@ export namespace Components {
         "lint": boolean;
         "readonly": boolean;
         "required": boolean;
+        "showCopyButton": boolean;
         "translationLanguage": Languages;
         "value": string;
     }
@@ -522,6 +525,9 @@ export namespace Components {
         "completions": string[];
         "disabled": boolean;
         "formatNumber": boolean;
+        "getSelectionDirection": () => Promise<'forward' | 'backward' | 'none' | null>;
+        "getSelectionEnd": () => Promise<number | null>;
+        "getSelectionStart": () => Promise<number | null>;
         "helperText": string;
         "invalid": boolean;
         "label": string;
@@ -592,6 +598,7 @@ export namespace Components {
         "openDirection": OpenDirection;
         "rootItem": BreadcrumbsItem;
         "searcher": MenuSearcher;
+        "searchPlaceholder"?: string;
         "surfaceWidth": SurfaceWidth;
     }
     export interface LimelMenuItemMeta {
@@ -737,6 +744,7 @@ export namespace Components {
     // (undocumented)
     export interface LimelSlider {
         "disabled": boolean;
+        "displaysPercentageColors": boolean;
         "factor": number;
         "helperText": string;
         "invalid": boolean;
@@ -1437,6 +1445,8 @@ export namespace JSX {
         "accessibleValuesLabel"?: string;
         "axisIncrement"?: number;
         "displayAxisLabels"?: boolean;
+        "displayItemText"?: boolean;
+        "displayItemValue"?: boolean;
         "items": ChartItem[];
         "language"?: Languages;
         "loading"?: boolean;
@@ -1533,6 +1543,7 @@ export namespace JSX {
         "onChange"?: (event: LimelCodeEditorCustomEvent<string>) => void;
         "readonly"?: boolean;
         "required"?: boolean;
+        "showCopyButton"?: boolean;
         "translationLanguage"?: Languages;
         "value"?: string;
     }
@@ -1836,6 +1847,7 @@ export namespace JSX {
         "openDirection"?: OpenDirection;
         "rootItem"?: BreadcrumbsItem;
         "searcher"?: MenuSearcher;
+        "searchPlaceholder"?: string;
         "surfaceWidth"?: SurfaceWidth;
     }
     export interface LimelMenuItemMeta {
@@ -2001,6 +2013,7 @@ export namespace JSX {
     // (undocumented)
     export interface LimelSlider {
         "disabled"?: boolean;
+        "displaysPercentageColors"?: boolean;
         "factor"?: number;
         "helperText"?: string;
         "invalid"?: boolean;
@@ -2760,6 +2773,9 @@ export type PickerValue = number | string | {
 export type ProseMirrorAdapterElementWithFocus = HTMLLimelProsemirrorAdapterElement & {
     setFocus: () => void;
 };
+
+// @public
+export const redrawComponents: () => void;
 
 // @public
 export type ReplaceObjectType<T, AllowedType, ElseType> = T extends any[] ? ElseType : T extends Record<string, any> ? AllowedType : ElseType;

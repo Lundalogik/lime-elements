@@ -80,6 +80,14 @@ export class Slider {
     public invalid = false;
 
     /**
+     * Set to `true` to display percentage-based colors on the slider.
+     * The colors change in intervals of 10% as the value changes,
+     * creating a color spectrum from red (low) → orange → yellow → green → teal (high).
+     */
+    @Prop({ reflect: true })
+    public displaysPercentageColors = false;
+
+    /**
      * Unit to display next to the value
      */
     @Prop({ reflect: true })
@@ -401,6 +409,7 @@ export class Slider {
     private getContainerClassList = () => {
         return {
             [this.percentageClass]: true,
+            'displays-percentage-colors': this.displaysPercentageColors,
             disabled: this.disabled || this.readonly,
             readonly: this.readonly,
         };

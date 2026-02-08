@@ -1,0 +1,89 @@
+name: Publish PR Docs
+
+on:
+  workflow_run:
+    workflows: ["Pull Request Checks"]
+    types: [completed]
+
+jobs:
+  publish:
+    name: Publish PR Docs
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: write
+    if: github.event.workflow_run.event == 'pull_request'
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+    - name: Download docs artifact
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+      with:
+        name: pr-docs
+        path: artifact-docs
+        run-id: ${{ github.event.workflow_run.id }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+      continue-on-error: true
+      id: download
+
+    - name: Download metadata
+      if: steps.download.outcome == 'success'
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+      with:
+        name: pr-docs-metadata
+        run-id: ${{ github.event.workflow_run.id }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Get metadata
+      if: steps.download.outcome == 'success'
+      id: metadata
+      run: |
+        echo "version=$(sed -n '1p' pr-metadata.txt)" >> $GITHUB_OUTPUT
+        echo "pr_number=$(sed -n '2p' pr-metadata.txt)" >> $GITHUB_OUTPUT
+
+    - uses: ./.github/actions/set-up-node
+      if: steps.download.outcome == 'success'
+
+    - run: npm ci
+      if: steps.download.outcome == 'success'
+
+    - name: Configure git
+      if: steps.download.outcome == 'success'
+      run: |
+        git config --global user.email "93315277+lime-opensource@users.noreply.github.com"
+        git config --global user.name "Lime Technologies OSS"
+
+    - name: Publish docs from artifact
+      if: steps.download.outcome == 'success'
+      env:
+        DOCS_VERSION: ${{ steps.metadata.outputs.version }}
+        GH_TOKEN: ${{ secrets.PUBLISH_DOCS }}
+      run: npm run docs:publish -- --v="$DOCS_VERSION" --fromArtifact=artifact-docs
+
+    - name: Post PR comment
+      if: steps.download.outcome == 'success'
+      uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+      env:
+        PR_NUMBER: ${{ steps.metadata.outputs.pr_number }}
+      with:
+        script: |
+          const prNumber = parseInt(process.env.PR_NUMBER, 10);
+          if (!prNumber) return;
+
+          const message = `Documentation has been published to https://lundalogik.github.io/lime-elements/versions/PR-${prNumber}/`;
+
+          const {data: comments} = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: prNumber,
+          });
+
+          if (comments.some(c => c.body === message)) return;
+
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: prNumber,
+            body: message
+          });

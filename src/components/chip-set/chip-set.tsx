@@ -11,6 +11,7 @@ import {
     Prop,
     State,
     Watch,
+    Host,
 } from '@stencil/core';
 import { handleKeyboardEvent } from './chip-set-input-helpers';
 import translate from '../../global/translations';
@@ -18,8 +19,6 @@ import { getHref, getTarget } from '../../util/link-helper';
 import { isEqual } from 'lodash-es';
 import { LimelChipCustomEvent } from '../../components';
 import { createRandomString } from '../../util/random-string';
-
-const INPUT_FIELD_TABINDEX = 1;
 
 /**
  * :::note
@@ -66,7 +65,7 @@ const INPUT_FIELD_TABINDEX = 1;
  */
 @Component({
     tag: 'limel-chip-set',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'chip-set.scss',
 })
 export class ChipSet {
@@ -363,24 +362,30 @@ export class ChipSet {
 
         const value = this.getValue();
 
-        return [
-            <limel-notched-outline
-                labelId={this.labelId}
-                label={this.label}
-                required={this.required}
-                invalid={this.invalid || this.isInvalid()}
-                disabled={this.disabled}
-                readonly={this.readonly}
-                hasValue={!!this.value?.length}
-                hasLeadingIcon={!!this.leadingIcon}
-                hasFloatingLabel={this.floatLabelAbove()}
-            >
-                <div slot="content" {...this.getContentProps()} class={classes}>
-                    {this.renderContent(value)}
-                </div>
-            </limel-notched-outline>,
-            this.renderHelperLine(),
-        ];
+        return (
+            <Host>
+                <limel-notched-outline
+                    labelId={this.labelId}
+                    label={this.label}
+                    required={this.required}
+                    invalid={this.invalid || this.isInvalid()}
+                    disabled={this.disabled}
+                    readonly={this.readonly}
+                    hasValue={!!this.value?.length}
+                    hasLeadingIcon={!!this.leadingIcon}
+                    hasFloatingLabel={this.floatLabelAbove()}
+                >
+                    <div
+                        slot="content"
+                        {...this.getContentProps()}
+                        class={classes}
+                    >
+                        {this.renderContent(value)}
+                    </div>
+                </limel-notched-outline>
+                {this.renderHelperLine()}
+            </Host>
+        );
     }
 
     private getContentProps() {
@@ -426,7 +431,7 @@ export class ChipSet {
         return [
             this.value.map(this.renderInputChip),
             <input
-                tabIndex={INPUT_FIELD_TABINDEX}
+                tabIndex={this.disabled || this.readonly ? -1 : 0}
                 type={this.inputType}
                 id={this.labelId}
                 disabled={this.readonly || this.disabled}

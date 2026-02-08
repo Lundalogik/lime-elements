@@ -32,6 +32,7 @@ import {
     ARROW_UP,
     TAB,
 } from '../../util/keycodes';
+import { focusTriggerElement } from '../../util/focus-trigger-element';
 
 interface MenuCrumbItem extends BreadcrumbsItem {
     menuItem?: MenuItem;
@@ -167,6 +168,12 @@ export class Menu {
      */
     @Prop()
     public searcher: MenuSearcher;
+
+    /**
+     * Placeholder text for the search input field.
+     */
+    @Prop()
+    public searchPlaceholder?: string;
 
     /**
      * Message to display when search returns 0 results.
@@ -360,6 +367,7 @@ export class Menu {
             <limel-input-field
                 tabindex="0"
                 ref={this.setSearchElement}
+                placeholder={this.searchPlaceholder}
                 type="search"
                 leadingIcon="search"
                 style={{
@@ -667,6 +675,7 @@ export class Menu {
         this.cancel.emit();
         this.open = false;
         this.currentSubMenu = null;
+        setTimeout(this.focusTrigger, 0);
     };
 
     private readonly onTriggerClick = (event: MouseEvent) => {
@@ -725,7 +734,7 @@ export class Menu {
         this.select.emit(menuItem);
         this.open = false;
         this.currentSubMenu = null;
-        this.setFocus();
+        setTimeout(this.focusTrigger, 0);
     };
 
     private readonly onSelect = (event: CustomEvent<MenuItem>) => {
@@ -774,6 +783,10 @@ export class Menu {
 
     private readonly setFocus = () => {
         setTimeout(() => {
+            if (!this.open) {
+                return;
+            }
+
             if (this.searchInput && this.searcher) {
                 const observer = new IntersectionObserver(() => {
                     observer.unobserve(this.searchInput);
@@ -792,6 +805,14 @@ export class Menu {
                 observer.observe(this.list);
             }
         }, 0);
+    };
+
+    private readonly focusTrigger = () => {
+        const trigger = this.triggerElement?.assignedElements()?.[0] as
+            | HTMLElement
+            | undefined;
+
+        focusTriggerElement(trigger);
     };
 
     private readonly setSearchElement = (

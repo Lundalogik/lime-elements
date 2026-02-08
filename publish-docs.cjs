@@ -8,6 +8,8 @@ const version = argv.v || '0.0.0-dev';
 
 const pruneDev = argv.pruneDev !== undefined;
 const removeSpecific = !!argv.remove;
+const artifactMode = !!argv.artifactMode;
+const fromArtifact = argv.fromArtifact;
 
 const runSetup = argv.noSetup === undefined;
 const runBuild = argv.noBuild === undefined;
@@ -27,7 +29,8 @@ if (argv.h !== undefined) {
 usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>]
                                 [--pruneDev] [--noSetup] [--noBuild]
                                 [--noCommit] [--noPush] [--noPruneOutdated]
-                                [--noTeardown] [--dryRun] [--noCleanOnFail]]
+                                [--noTeardown] [--dryRun] [--noCleanOnFail]
+                                [--artifactMode] [--fromArtifact=<path>]]
 
     --v             The version number for this release of the documentation.
                     Defaults to '0.0.0-dev'.
@@ -48,7 +51,40 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>]
     --noTeardown    Run no cleanup at end of script. Implies --noCleanOnFail.
     --noCleanOnFail Do not run cleanup if script fails. Unless --noTeardown
                     is set, cleanup will still be run if script is successful.
+    --artifactMode  Build docs for artifact upload without git operations.
+                    Outputs to www/ directory. Used by fork PR workflows.
+    --fromArtifact  Publish docs from a pre-built artifact at the given path.
+                    Skips the build step and publishes directly from the artifact.
     `);
+} else if (artifactMode) {
+    // Build docs for artifact upload, no git operations
+    build();
+    if (runTeardown) {
+        teardown(true);
+    }
+} else if (fromArtifact) {
+    // Publish from a pre-built artifact
+    if (runSetup) {
+        cloneDocsRepo();
+    }
+
+    if (runSetup) {
+        pullAndRebase();
+    }
+
+    copyFromArtifact(fromArtifact);
+
+    if (runCommit) {
+        commit();
+    }
+
+    if (runPush) {
+        push();
+    }
+
+    if (runTeardown) {
+        teardown(true);
+    }
 } else if (removeSpecific || pruneDev) {
     let commitMessage;
     if (runSetup) {
@@ -116,11 +152,13 @@ function cloneDocsRepo() {
         shell.exit(1);
     }
 
-    if (
-        shell.exec(
-            'git clone --single-branch --branch gh-pages https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git docsDist'
-        ).code !== 0
-    ) {
+    // Silence output to avoid exposing GH_TOKEN in logs
+    const cloneResult = shell.exec(
+        'git clone --single-branch --branch gh-pages https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git docsDist',
+        { silent: true }
+    );
+
+    if (cloneResult.code !== 0) {
         shell.echo('git clone failed!');
         teardown();
         shell.exit(1);
@@ -197,6 +235,106 @@ function build() {
     }
 
     shell.exec('ls -la www');
+}
+
+function copyFromArtifact(artifactPath) {
+    // Create `versions` folder if it doesn't already exist.
+    try {
+        shell.mkdir('docsDist/versions');
+    } catch {
+        // If mkdir failed, it's almost certainly because the dir already exists.
+        // Just ignore the error.
+    }
+
+    shell.cd('docsDist/versions');
+
+    shell.echo('Removing old version folder if it already exists.');
+    shell.rm('-rf', version);
+
+    shell.cd('../..');
+
+    // The artifact contains: www/lime-elements/versions/{version}/, .kompendium/kompendium.json,
+    // docs-index.html, docs-index.css
+    const artifactVersionPath = `${artifactPath}/www${BASE_URL}versions/${version}`;
+
+    shell.echo(
+        `Copying docs from artifact ${artifactVersionPath} into docsDist/versions/`
+    );
+    if (shell.cp('-R', artifactVersionPath, 'docsDist/versions/').code !== 0) {
+        shell.echo('copying artifact failed!');
+        teardown();
+        shell.exit(1);
+    }
+
+    // Copy kompendium.json from artifact's .kompendium directory if it exists
+    const artifactKompendiumPath = `${artifactPath}/.kompendium/kompendium.json`;
+    const kompendiumDest = `docsDist/versions/${version}`;
+    if (
+        fs.existsSync(artifactKompendiumPath) &&
+        shell.cp('-R', artifactKompendiumPath, kompendiumDest).code !== 0
+    ) {
+        shell.echo('copying kompendium.json from artifact failed!');
+        teardown();
+        shell.exit(1);
+    }
+
+    // Copy markdown-docs from artifact if it exists
+    const artifactMarkdownPath = `${artifactPath}/www/markdown-docs`;
+    if (fs.existsSync(artifactMarkdownPath)) {
+        shell.echo('Copying markdown documentation from artifact...');
+        if (
+            shell.cp(
+                '-R',
+                artifactMarkdownPath,
+                `docsDist/versions/${version}/`
+            ).code !== 0
+        ) {
+            shell.echo('copying markdown docs from artifact failed!');
+            teardown();
+            shell.exit(1);
+        }
+    }
+
+    // Copy docs-index.html and docs-index.css from artifact to the version folder
+    shell.echo(
+        `Copying docs-index.html and docs-index.css to 'docsDist/versions/${version}/'`
+    );
+    if (
+        shell.cp(
+            `${artifactPath}/docs-index.html`,
+            `docsDist/versions/${version}/`
+        ).code !== 0 ||
+        shell.cp(
+            `${artifactPath}/docs-index.css`,
+            `docsDist/versions/${version}/`
+        ).code !== 0
+    ) {
+        shell.echo(
+            '[WARNING] Copying docs-index.html or docs-index.css failed. Not critical, continuing.'
+        );
+    }
+
+    updateVersionList();
+
+    shell.echo(
+        'Copying docs-index.html and docs-index.css from `latest` version'
+    );
+    if (
+        shell.cp(
+            '-f',
+            'docsDist/versions/latest/docs-index.html',
+            'docsDist/index.html'
+        ).code !== 0 ||
+        shell.cp(
+            '-f',
+            'docsDist/versions/latest/docs-index.css',
+            'docsDist/docs-index.css'
+        ).code !== 0
+    ) {
+        shell.echo(
+            '[WARNING] Copying docs-index.html or docs-index.css from `latest` failed. Not critical, continuing.'
+        );
+    }
 }
 
 function copyBuildOutput() {
@@ -358,7 +496,7 @@ function pruneOldPatchVersions() {
         remove(item);
 
         if (runCommit) {
-            commit(`chore(docs): remove ${argv.remove}`);
+            commit(`chore(docs): remove old patch version ${item}`);
         }
     }
 }
@@ -453,6 +591,6 @@ function teardown(finished) {
     if (finished || cleanOnFail) {
         shell.exec('git checkout src/index.html stencil.config.docs.ts');
         shell.echo('Removing docs repo clone in docsDist.');
-        shell.exec('rm -rf docsDist');
+        shell.rm('-rf', 'docsDist');
     }
 }

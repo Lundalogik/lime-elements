@@ -277,7 +277,7 @@ $clickable-normal-state-transitions: (
         repeat: no-repeat;
         position: center;
         size: 0.75rem;
-        image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs/><path fill='rgb(255,255,255)' d='M7.219 5.781L5.78 7.22 14.563 16 5.78 24.781 7.22 26.22 16 17.437l8.781 8.782 1.438-1.438L17.437 16l8.782-8.781L24.78 5.78 16 14.563z'/></svg>");
+        image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cdefs/%3E%3Cpath%20fill='rgb(255,255,255)'%20d='M7.219%205.781L5.78%207.22%2014.563%2016%205.78%2024.781%207.22%2026.22%2016%2017.437l8.781%208.782%201.438-1.438L17.437%2016l8.782-8.781L24.78%205.78%2016%2014.563z'/%3E%3C/svg%3E");
     }
 }
 
@@ -456,7 +456,7 @@ $clickable-normal-state-transitions: (
 * typically used to visualize transparency.
 */
 @mixin add-chessboard-background {
-    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%208%208%27%20style%3D%27fill-rule%3Aevenodd%3B%27%3E%3Cpath%20fill%3D%27rgba(186%2C186%2C192%2C0.16)%27%20d%3D%27M0%200h4v4H0zM4%204h4v4H4z%27%2F%3E%3C%2Fsvg%3E');
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%208%208'%20style='fill-rule:evenodd;'%3E%3Cpath%20fill='rgba(186,186,192,0.16)'%20d='M0%200h4v4H0zM4%204h4v4H4z'/%3E%3C/svg%3E");
     background-size: 0.5rem;
 }
 

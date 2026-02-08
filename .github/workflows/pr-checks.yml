@@ -11,7 +11,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
     - uses: ./.github/actions/set-up-node
     - run: npm ci
     - run: npm run lint
@@ -20,7 +20,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
     - uses: ./.github/actions/set-up-node
     - run: npm ci
     - name: Ensure installed React and React-DOM versions match
@@ -41,7 +41,7 @@ jobs:
     name: Test
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
     - uses: ./.github/actions/set-up-node
     - run: npm ci
     - run: npm test --if-present
@@ -50,7 +50,7 @@ jobs:
     name: Commitlint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
       - uses: wagoid/commitlint-github-action@b948419dd99f3fd78a6548d48f94e3df7f6bf3ed # v6.2.1
         if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
@@ -67,17 +67,15 @@ jobs:
 
   docs:
     name: Docs
+    if: github.event_name != 'merge_group'
     permissions:
       contents: read
-      pull-requests: write
-    uses: ./.github/workflows/publish-docs.yml
+    uses: ./.github/workflows/build-docs.yml
     with:
       version: "PR-${{ github.event.pull_request.number }}"
-      linkToPR: true
-      # Only publish docs if the PR comes from a repo owned by Lime.
-      # Also, skip publishing if the PR was created by Dependabot,
-      # or if this is a merge queue run.
-      buildOnly: ${{ github.event.pull_request.head.repo.owner.login != 'Lundalogik' || github.actor == 'dependabot[bot]' || github.event_name == 'merge_group' }}
+      prNumber: "${{ github.event.pull_request.number }}"
+      # Always build only - publishing is handled by publish-pr-docs workflow
+      buildOnly: true
     secrets: inherit
 
   automerge:
