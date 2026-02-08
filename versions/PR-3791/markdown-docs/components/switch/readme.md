@@ -56,6 +56,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-chip-set-filter-badge](../chip-set/examples)
  - [limel-example-chip-set-input](../chip-set/examples)
  - [limel-example-code-editor-composite](../code-editor/examples)
+ - [limel-example-code-editor-copy](../code-editor/examples)
  - [limel-example-dialog-nested-close-events](../dialog/examples)
  - [limel-example-dynamic-label](../dynamic-label/examples)
  - [limel-example-dynamic-label-readonly-boolean](../dynamic-label/examples)
@@ -126,6 +127,7 @@ graph TD;
   limel-example-chip-set-filter-badge --> limel-switch
   limel-example-chip-set-input --> limel-switch
   limel-example-code-editor-composite --> limel-switch
+  limel-example-code-editor-copy --> limel-switch
   limel-example-dialog-nested-close-events --> limel-switch
   limel-example-dynamic-label --> limel-switch
   limel-example-dynamic-label-readonly-boolean --> limel-switch
