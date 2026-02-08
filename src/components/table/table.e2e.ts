@@ -156,7 +156,7 @@ describe('limel-table', () => {
                 const container =
                     document.querySelector('limel-table')?.shadowRoot;
                 const checkboxes = container?.querySelectorAll(
-                    '.tabulator-table > .tabulator-row > .tabulator-cell > limel-checkbox',
+                    '.tabulator-table > .tabulator-row > .tabulator-cell > limel-checkbox'
                 );
 
                 return checkboxes && checkboxes.length >= 2;
