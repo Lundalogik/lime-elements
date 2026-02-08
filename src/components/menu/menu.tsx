@@ -33,6 +33,7 @@ import {
     TAB,
 } from '../../util/keycodes';
 import { focusTriggerElement } from '../../util/focus-trigger-element';
+import { normalizeHotkeyString } from '../../util/hotkeys';
 
 interface MenuCrumbItem extends BreadcrumbsItem {
     menuItem?: MenuItem;
@@ -56,13 +57,13 @@ const DEFAULT_ROOT_BREADCRUMBS_ITEM: BreadcrumbsItem = {
  * @exampleComponent limel-example-menu-icons
  * @exampleComponent limel-example-menu-badge-icons
  * @exampleComponent limel-example-menu-grid
- * @exampleComponent limel-example-menu-hotkeys
  * @exampleComponent limel-example-menu-secondary-text
  * @exampleComponent limel-example-menu-notification
  * @exampleComponent limel-example-menu-sub-menus
  * @exampleComponent limel-example-menu-sub-menu-lazy-loading
  * @exampleComponent limel-example-menu-sub-menu-lazy-loading-infinite
  * @exampleComponent limel-example-menu-searchable
+ * @exampleComponent limel-example-menu-hotkeys
  * @exampleComponent limel-example-menu-composite
  */
 @Component({
@@ -204,7 +205,9 @@ export class Menu {
     private portalId: string;
     private breadcrumbs: HTMLLimelBreadcrumbsElement;
     private triggerElement: HTMLSlotElement;
+    private surface: HTMLLimelMenuSurfaceElement;
     private selectedMenuItem?: MenuItem;
+    private normalizedHotkeyCache = new Map<string, string | null>();
 
     constructor() {
         this.portalId = createRandomString();
@@ -239,6 +242,7 @@ export class Menu {
                     containerStyle={{ 'z-index': dropdownZIndex }}
                 >
                     <limel-menu-surface
+                        ref={this.setSurfaceElement}
                         open={this.open}
                         onDismiss={this.onClose}
                         style={{
@@ -265,6 +269,7 @@ export class Menu {
     @Watch('items')
     protected itemsWatcher() {
         this.clearSearch();
+        this.normalizedHotkeyCache.clear();
         this.setFocus();
     }
 
@@ -276,6 +281,119 @@ export class Menu {
         } else {
             this.clearSearch();
         }
+    }
+
+    private readonly setSurfaceElement = (
+        element: HTMLLimelMenuSurfaceElement
+    ) => {
+        if (this.surface) {
+            this.surface.removeEventListener(
+                'hotkeyTrigger',
+                this.handleHotkeyTrigger,
+                false
+            );
+        }
+
+        this.surface = element;
+
+        if (this.surface) {
+            this.surface.addEventListener(
+                'hotkeyTrigger',
+                this.handleHotkeyTrigger,
+                false
+            );
+        }
+    };
+
+    private readonly handleHotkeyTrigger = (
+        event: CustomEvent<{
+            hotkey: string;
+            value: string;
+            keyboardEvent: KeyboardEvent;
+        }>
+    ) => {
+        if (!this.open) {
+            return;
+        }
+
+        const pressedHotkey = event.detail?.hotkey;
+        if (!pressedHotkey) {
+            return;
+        }
+
+        if (this.isReservedMenuHotkey(pressedHotkey)) {
+            return;
+        }
+
+        const matchedItem = this.findMenuItemByHotkey(pressedHotkey);
+        if (!matchedItem) {
+            return;
+        }
+
+        event.stopPropagation();
+        event.preventDefault();
+        event.detail.keyboardEvent.stopPropagation();
+        event.detail.keyboardEvent.preventDefault();
+        this.handleSelect(matchedItem);
+    };
+
+    private isReservedMenuHotkey(hotkey: string): boolean {
+        const parts = hotkey.split('+').filter(Boolean);
+        const key = parts.at(-1);
+        if (!key) {
+            return false;
+        }
+
+        if (
+            key === 'arrowup' ||
+            key === 'arrowdown' ||
+            key === 'arrowleft' ||
+            key === 'arrowright'
+        ) {
+            return true;
+        }
+
+        if (key === 'tab') {
+            return true;
+        }
+
+        const hasModifiers = parts.length > 1;
+        return (
+            !hasModifiers &&
+            (key === 'enter' || key === 'space' || key === 'escape')
+        );
+    }
+
+    private findMenuItemByHotkey(pressedHotkey: string): MenuItem | null {
+        for (const item of this.visibleItems) {
+            if (!this.isMenuItem(item) || item.disabled) {
+                continue;
+            }
+
+            const rawHotkey = item.hotkey;
+            if (!rawHotkey) {
+                continue;
+            }
+
+            const normalized = this.getNormalizedHotkey(rawHotkey);
+            if (normalized && normalized === pressedHotkey) {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    private getNormalizedHotkey(raw: string): string | null {
+        const cacheKey = raw.trim();
+        if (this.normalizedHotkeyCache.has(cacheKey)) {
+            return this.normalizedHotkeyCache.get(cacheKey) ?? null;
+        }
+
+        const normalized = normalizeHotkeyString(cacheKey);
+        this.normalizedHotkeyCache.set(cacheKey, normalized);
+
+        return normalized;
     }
 
     private getBreadcrumbsItems() {
