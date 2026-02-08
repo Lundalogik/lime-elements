@@ -325,7 +325,8 @@ export class DatePicker {
         document.removeEventListener('mousedown', this.documentClickListener);
         document.removeEventListener(
             'blur',
-            this.preventBlurFromCalendarContainer
+            this.preventBlurFromCalendarContainer,
+            { capture: true }
         );
 
         if (!this.pickerIsAutoClosing()) {
