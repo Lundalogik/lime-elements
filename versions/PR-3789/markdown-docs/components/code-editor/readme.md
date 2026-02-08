@@ -21,6 +21,7 @@
 | `lint`                | `lint`                 | Enables linting of JSON content                                                                                                                                                                                                            | `boolean`                                                               | `false`     |
 | `readonly`            | `readonly`             | Set to `true` to make the editor read-only. Use `readonly` when the editor is only there to present the data it holds, and will not become possible for the current user to edit.                                                          | `boolean`                                                               | `false`     |
 | `required`            | `required`             | Set to `true` to indicate that the field is required.                                                                                                                                                                                      | `boolean`                                                               | `false`     |
+| `showCopyButton`      | `show-copy-button`     | Set to false to hide the copy button                                                                                                                                                                                                       | `boolean`                                                               | `true`      |
 | `translationLanguage` | `translation-language` | Defines the language for translations. Will translate the translatable strings on the components.                                                                                                                                          | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"`  | `'en'`      |
 | `value`               | `value`                | The code to be rendered                                                                                                                                                                                                                    | `string`                                                                | `''`        |
 
@@ -38,6 +39,7 @@
 
  - [limel-example-code-editor](examples)
  - [limel-example-code-editor-composite](examples)
+ - [limel-example-code-editor-copy](examples)
  - [limel-example-code-editor-fold-lint-wrap](examples)
  - [limel-example-code-editor-readonly-with-line-numbers](examples)
  - [limel-example-dynamic-form](../form/examples)
@@ -54,6 +56,7 @@ graph TD;
   limel-code-editor --> limel-notched-outline
   limel-example-code-editor --> limel-code-editor
   limel-example-code-editor-composite --> limel-code-editor
+  limel-example-code-editor-copy --> limel-code-editor
   limel-example-code-editor-fold-lint-wrap --> limel-code-editor
   limel-example-code-editor-readonly-with-line-numbers --> limel-code-editor
   limel-example-dynamic-form --> limel-code-editor

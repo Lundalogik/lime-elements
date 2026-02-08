@@ -42,6 +42,46 @@
 | `change` | Emitted when the input value is changed.                                             | `CustomEvent<string>` |
 
 
+## Methods
+
+### `getSelectionDirection() => Promise<'forward' | 'backward' | 'none' | null>`
+
+Returns the direction of the current text selection.
+Can be `'forward'`, `'backward'`, or `'none'`.
+Returns `null` if the input element is not available or if
+the input type does not support selection (e.g., `number`).
+
+#### Returns
+
+Type: `Promise<"none" | "forward" | "backward">`
+
+
+
+### `getSelectionEnd() => Promise<number | null>`
+
+Returns the end position of the current text selection.
+Returns `null` if the input element is not available or if
+the input type does not support selection (e.g., `number`).
+
+#### Returns
+
+Type: `Promise<number>`
+
+
+
+### `getSelectionStart() => Promise<number | null>`
+
+Returns the start position of the current text selection.
+Returns `null` if the input element is not available or if
+the input type does not support selection (e.g., `number`).
+
+#### Returns
+
+Type: `Promise<number>`
+
+
+
+
 ## Dependencies
 
 ### Used by
@@ -78,6 +118,7 @@
  - [limel-example-input-field-placeholder](examples)
  - [limel-example-input-field-prefix](examples)
  - [limel-example-input-field-search](examples)
+ - [limel-example-input-field-selection](examples)
  - [limel-example-input-field-showlink](examples)
  - [limel-example-input-field-suffix](examples)
  - [limel-example-input-field-text](examples)
@@ -140,6 +181,7 @@ graph TD;
   limel-example-input-field-placeholder --> limel-input-field
   limel-example-input-field-prefix --> limel-input-field
   limel-example-input-field-search --> limel-input-field
+  limel-example-input-field-selection --> limel-input-field
   limel-example-input-field-showlink --> limel-input-field
   limel-example-input-field-suffix --> limel-input-field
   limel-example-input-field-text --> limel-input-field
