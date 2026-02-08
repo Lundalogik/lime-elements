@@ -44,6 +44,17 @@ describe('limel-table', () => {
         return cells.map((c) => c.textContent);
     }
 
+    async function waitForRowCheckboxes() {
+        await page.waitForFunction(() => {
+            const container = document.querySelector('limel-table')?.shadowRoot;
+            const checkboxes = container?.querySelectorAll(
+                '.tabulator-table > .tabulator-row > .tabulator-cell > limel-checkbox'
+            );
+
+            return checkboxes && checkboxes.length >= 2;
+        });
+    }
+
     describe('column headers', () => {
         let columns;
         beforeEach(() => {
@@ -108,6 +119,9 @@ describe('limel-table', () => {
                 selectable: true,
                 columns: columns,
             });
+
+            await waitForRowCheckboxes();
+
             const headers = await tableContainer.findAll(
                 '[role="columnheader"]'
             );
@@ -129,6 +143,9 @@ describe('limel-table', () => {
                 selectable: true,
                 columns: columns,
             });
+
+            await waitForRowCheckboxes();
+
             const selectAllCheckbox = await tableContainer.find(
                 '.select-all limel-checkbox'
             );
@@ -150,6 +167,9 @@ describe('limel-table', () => {
                 columns: columns,
                 selection: [{ id: 1 }],
             });
+
+            await waitForRowCheckboxes();
+
             const rowSelectors = await tableContainer.findAll(
                 '.tabulator-table > .tabulator-row > .tabulator-cell > limel-checkbox'
             );
