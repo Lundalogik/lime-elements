@@ -1,3 +1,10 @@
+## [38.47.0](https://github.com/Lundalogik/lime-elements/compare/v38.46.3...v38.47.0) (2026-02-08)
+
+### Features
+
+
+* **input-field:** expose selection properties ([100258f](https://github.com/Lundalogik/lime-elements/commit/100258f3b21c0d01a913e6da718e219ed7ed1cf0)), closes [#1314](https://github.com/Lundalogik/lime-elements/issues/1314)
+
 ## [38.46.3](https://github.com/Lundalogik/lime-elements/compare/v38.46.2...v38.46.3) (2026-02-07)
 
 ### Bug Fixes
