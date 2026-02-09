@@ -1,3 +1,10 @@
+## [38.47.2](https://github.com/Lundalogik/lime-elements/compare/v38.47.1...v38.47.2) (2026-02-09)
+
+### Bug Fixes
+
+
+* **help:** prevent accidental form submission when clicking help button ([1e11ff5](https://github.com/Lundalogik/lime-elements/commit/1e11ff552eb0730dfe85ba088720fbc29e598ec7)), closes [#3826](https://github.com/Lundalogik/lime-elements/issues/3826)
+
 ## [38.47.1](https://github.com/Lundalogik/lime-elements/compare/v38.47.0...v38.47.1) (2026-02-08)
 
 ### Bug Fixes
