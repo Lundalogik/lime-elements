@@ -51,7 +51,7 @@ export class ActionBarOverflowMenu {
                     items={this.items}
                     onSelect={this.handleSelect}
                 >
-                    <button slot="trigger">
+                    <button type="button" slot="trigger">
                         {this.getOverflowTriggerContent()}
                     </button>
                 </limel-menu>
