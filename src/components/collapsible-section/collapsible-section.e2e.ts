@@ -99,6 +99,8 @@ describe('limel-collapsible-section', () => {
                     expect(
                         await limelCollapsible.getProperty('isOpen')
                     ).toEqual(false);
+                    // Wait for closing animation to complete
+                    await new Promise((resolve) => setTimeout(resolve, 300));
                     const slot = await collapsibleBody.find('slot');
                     expect(await slot.isVisible()).toBeFalsy();
                 });
@@ -178,6 +180,8 @@ describe('limel-collapsible-section', () => {
                     expect(
                         await limelCollapsible.getProperty('isOpen')
                     ).toEqual(false);
+                    // Wait for closing animation to complete
+                    await new Promise((resolve) => setTimeout(resolve, 300));
                     const slot = await collapsibleBody.find('slot');
                     expect(await slot.isVisible()).toBeFalsy();
                 });
@@ -268,6 +272,8 @@ describe('limel-collapsible-section', () => {
                     expect(
                         await limelCollapsible.getProperty('isOpen')
                     ).toEqual(false);
+                    // Wait for closing animation to complete
+                    await new Promise((resolve) => setTimeout(resolve, 300));
                     const slot = await collapsibleBody.find('slot');
                     expect(await slot.isVisible()).toBeFalsy();
                 });
