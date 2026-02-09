@@ -1,3 +1,10 @@
+## [38.47.3](https://github.com/Lundalogik/lime-elements/compare/v38.47.2...v38.47.3) (2026-02-09)
+
+### Bug Fixes
+
+
+* **action-bar:** prevent accidental form submission from overflow menu trigger ([bc8ad62](https://github.com/Lundalogik/lime-elements/commit/bc8ad62b7eb0f4686dbd6ddbec30419e62248756)), closes [#3827](https://github.com/Lundalogik/lime-elements/issues/3827)
+
 ## [38.47.2](https://github.com/Lundalogik/lime-elements/compare/v38.47.1...v38.47.2) (2026-02-09)
 
 ### Bug Fixes
