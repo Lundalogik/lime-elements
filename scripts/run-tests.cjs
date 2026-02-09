@@ -9,41 +9,24 @@ const { spawnSync } = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
 
-/**
- * Finds the package root by walking up from a file path until a package.json
- * with the expected name is found. This bypasses Node's exports restrictions
- * and handles packages with nested package.json files (like @stencil/core).
- * @param fromFile - The file path to start searching from
- * @param expectedName - The expected package name to match
- * @returns The path to the package root directory
- */
-function findPackageRoot(fromFile, expectedName) {
-    let dir = path.dirname(fromFile);
-    while (true) {
-        const pkgPath = path.join(dir, 'package.json');
-        if (fs.existsSync(pkgPath)) {
-            const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-            if (pkg.name === expectedName) {
-                return dir;
-            }
-        }
-        const parent = path.dirname(dir);
-        if (parent === dir) {
-            throw new Error(`Package root not found for ${expectedName}`);
-        }
-        dir = parent;
-    }
-}
-
 // Stencil v4's exports field doesn't expose bin/stencil, so require.resolve
-// can't be used directly. Instead, resolve the package entry (which is allowed),
-// walk up to find the package root, and read the bin field from package.json.
-const stencilEntry = require.resolve('@stencil/core');
-const stencilRoot = findPackageRoot(stencilEntry, '@stencil/core');
-const stencilPkg = JSON.parse(
-    fs.readFileSync(path.join(stencilRoot, 'package.json'), 'utf8')
+// can't be used directly. Use a direct path instead.
+const stencilScript = path.resolve(
+    __dirname,
+    '..',
+    'node_modules',
+    '@stencil',
+    'core',
+    'bin',
+    'stencil'
 );
-const stencilScript = path.resolve(stencilRoot, stencilPkg.bin.stencil);
+
+if (!fs.existsSync(stencilScript)) {
+    throw new Error(
+        `Stencil binary not found at ${stencilScript}. ` +
+            'Make sure @stencil/core is installed.'
+    );
+}
 
 const isCI = envIsSet('CI');
 const isDebug =
