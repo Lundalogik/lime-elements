@@ -12,16 +12,12 @@ on:
         default: false
         type: boolean
       buildOnly:
-        description: 'Pass `true` to only build the docs, but not publish them. (Used by PR checks for dependabot and external contributors.)'
+        description: 'Pass `true` to only build the docs, but not publish them. (Used by PR checks where publishing is handled by the publish-pr-docs workflow.)'
         required: false
         default: false
         type: boolean
       ref:
         description: 'Git ref (branch, tag, or SHA) to checkout. If not specified, uses the default ref for the triggering event.'
-        required: false
-        type: string
-      prNumber:
-        description: 'PR number for metadata (required when buildOnly is true).'
         required: false
         type: string
   workflow_dispatch:
@@ -66,15 +62,6 @@ jobs:
       env:
         DOCS_VERSION: ${{ inputs.version }}
       run: npm run docs:publish -- --v="$DOCS_VERSION" --artifactMode
-    - name: Write metadata
-      if: inputs.buildOnly
-      run: |
-        if [ -z "${{ inputs.prNumber }}" ]; then
-          echo "prNumber input is required when buildOnly=true" >&2
-          exit 1
-        fi
-        echo "${{ inputs.version }}" > pr-metadata.txt
-        echo "${{ inputs.prNumber }}" >> pr-metadata.txt
     - name: Upload docs artifact
       if: inputs.buildOnly
       uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
@@ -85,11 +72,4 @@ jobs:
           .kompendium/kompendium.json
           docs-index.html
           docs-index.css
-        retention-days: 1
-    - name: Upload metadata artifact
-      if: inputs.buildOnly
-      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
-      with:
-        name: pr-docs-metadata
-        path: pr-metadata.txt
         retention-days: 1

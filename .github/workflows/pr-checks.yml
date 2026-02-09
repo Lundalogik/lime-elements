@@ -73,8 +73,7 @@ jobs:
     uses: ./.github/workflows/build-docs.yml
     with:
       version: "PR-${{ github.event.pull_request.number }}"
-      prNumber: "${{ github.event.pull_request.number }}"
-      # Always build only - publishing is handled by publish-pr-docs workflow
+      # Build only - publishing is handled by publish-pr-docs workflow
       buildOnly: true
     secrets: inherit
 
