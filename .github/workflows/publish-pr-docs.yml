@@ -27,42 +27,52 @@ jobs:
       continue-on-error: true
       id: download
 
-    - name: Download metadata
-      if: steps.download.outcome == 'success'
-      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
-      with:
-        name: pr-docs-metadata
-        run-id: ${{ github.event.workflow_run.id }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Get metadata
+    - name: Get PR metadata from API
       if: steps.download.outcome == 'success'
       id: metadata
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        REPO: ${{ github.repository }}
       run: |
-        echo "version=$(sed -n '1p' pr-metadata.txt)" >> $GITHUB_OUTPUT
-        echo "pr_number=$(sed -n '2p' pr-metadata.txt)" >> $GITHUB_OUTPUT
+        # Get PR info using the commit SHA from the workflow run.
+        # This is more secure than reading from an artifact because:
+        # - The commit SHA comes from GitHub's event system, not fork-controlled code
+        # - The API returns PRs that actually contain that commit
+        # - Cannot be manipulated by malicious fork code
+        PR_DATA=$(gh api "/repos/${REPO}/commits/${HEAD_SHA}/pulls" --jq '.[0]')
+
+        if [ -z "$PR_DATA" ] || [ "$PR_DATA" = "null" ]; then
+          echo "No PR found for commit ${HEAD_SHA}"
+          exit 1
+        fi
+
+        PR_NUMBER=$(echo "$PR_DATA" | jq -r '.number')
+        echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+        echo "version=PR-$PR_NUMBER" >> $GITHUB_OUTPUT
 
     - uses: ./.github/actions/set-up-node
-      if: steps.download.outcome == 'success'
+      if: steps.download.outcome == 'success' && steps.metadata.outcome == 'success'
 
     - run: npm ci
-      if: steps.download.outcome == 'success'
+      if: steps.download.outcome == 'success' && steps.metadata.outcome == 'success'
 
     - name: Configure git
-      if: steps.download.outcome == 'success'
+      if: steps.download.outcome == 'success' && steps.metadata.outcome == 'success'
       run: |
         git config --global user.email "93315277+lime-opensource@users.noreply.github.com"
         git config --global user.name "Lime Technologies OSS"
 
     - name: Publish docs from artifact
-      if: steps.download.outcome == 'success'
+      if: steps.download.outcome == 'success' && steps.metadata.outcome == 'success'
+      id: publish
       env:
         DOCS_VERSION: ${{ steps.metadata.outputs.version }}
         GH_TOKEN: ${{ secrets.PUBLISH_DOCS }}
       run: npm run docs:publish -- --v="$DOCS_VERSION" --fromArtifact=artifact-docs
 
     - name: Post PR comment
-      if: steps.download.outcome == 'success'
+      if: steps.download.outcome == 'success' && steps.metadata.outcome == 'success' && steps.publish.outcome == 'success'
       uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
       env:
         PR_NUMBER: ${{ steps.metadata.outputs.pr_number }}
