@@ -37159,13 +37159,23 @@ const Markdown = class {
             return;
         }
         const anchorId = anchorMatch[1];
-        const element = this.host.shadowRoot.getElementById(anchorId);
+        // Wait for next frame to ensure DOM is ready, then scroll
+        requestAnimationFrame(() => {
+            this.scrollToElement(anchorId, 'smooth');
+            // Retry after a delay to handle layout shifts from async content
+            // (images, lazy-loaded components, etc.). Use 'auto' to avoid
+            // visible re-scrolling if position changed.
+            setTimeout(() => this.scrollToElement(anchorId, 'auto'), 500);
+        });
+    }
+    scrollToElement(id, behavior) {
+        const element = this.host.shadowRoot.getElementById(id);
         if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
+            element.scrollIntoView({ behavior });
         }
     }
     render() {
-        return h("div", { key: '3a1186cd333610cbcb2d8e43cb4016e14c12cdac', id: "root" });
+        return h("div", { key: '4fb946cc506ddcee204c7c84c6f6536815bf8b25', id: "root" });
     }
     get host() { return getElement(this); }
 };

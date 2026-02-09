@@ -16,5 +16,6 @@ export declare class Markdown {
     private handleHashChange;
     private renderMarkdown;
     private scrollToAnchor;
+    private scrollToElement;
     render(): HTMLElement;
 }
