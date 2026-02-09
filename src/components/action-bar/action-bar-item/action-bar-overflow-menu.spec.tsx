@@ -41,7 +41,7 @@ describe('action-bar-overflow-menu', () => {
         expect(page.root).toEqualHtml(`
             <limel-action-bar-overflow-menu open-direction="bottom-end">
                 <limel-menu opendirection="bottom-end">
-                    <button slot="trigger">
+                    <button slot="trigger" type="button">
                         +4
                     </button>
                 </limel-menu>
