@@ -6,17 +6,38 @@
  */
 
 const { spawnSync } = require('node:child_process');
+const fs = require('node:fs');
 const path = require('node:path');
 
-const stencilScript = path.resolve(
-    __dirname,
-    '..',
-    'node_modules',
-    '@stencil',
-    'core',
-    'bin',
-    'stencil'
+/**
+ * Finds the package root by walking up from a file path until package.json is found.
+ * This bypasses Node's exports restrictions which block direct subpath resolution.
+ * @param fromFile - The file path to start searching from
+ * @returns The path to the package root directory
+ */
+function findPackageRoot(fromFile) {
+    let dir = path.dirname(fromFile);
+    while (true) {
+        if (fs.existsSync(path.join(dir, 'package.json'))) {
+            return dir;
+        }
+        const parent = path.dirname(dir);
+        if (parent === dir) {
+            throw new Error('Package root not found');
+        }
+        dir = parent;
+    }
+}
+
+// Stencil v4's exports field doesn't expose bin/stencil, so require.resolve
+// can't be used directly. Instead, resolve the package entry (which is allowed),
+// walk up to find the package root, and read the bin field from package.json.
+const stencilEntry = require.resolve('@stencil/core');
+const stencilRoot = findPackageRoot(stencilEntry);
+const stencilPkg = JSON.parse(
+    fs.readFileSync(path.join(stencilRoot, 'package.json'), 'utf8')
 );
+const stencilScript = path.resolve(stencilRoot, stencilPkg.bin.stencil);
 
 const isCI = envIsSet('CI');
 const isDebug =
