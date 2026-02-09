@@ -25,7 +25,7 @@ function convertJSDocToTSDoc(content) {
     // TSDoc: @defaultValue `{prop: value}` or @defaultValue `value`
     // Match the rest of the line (excluding trailing whitespace)
     converted = converted.replaceAll(
-        /(@default\s+)([^\n]+)/g,
+        /(@default\b\s+)([^\n]+)/g,
         (_fullMatch, _prefix, value) => {
             const trimmedValue = value.trim();
             // If the value is already wrapped in backticks, don't double-wrap
