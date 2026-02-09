@@ -1,3 +1,10 @@
+## [38.47.4](https://github.com/Lundalogik/lime-elements/compare/v38.47.3...v38.47.4) (2026-02-09)
+
+### Bug Fixes
+
+
+* **button-group:** prevent text selection on double-click ([6802181](https://github.com/Lundalogik/lime-elements/commit/6802181f31b29103dc424ee9f4f4d9d9576c6df6)), closes [#3738](https://github.com/Lundalogik/lime-elements/issues/3738)
+
 ## [38.47.3](https://github.com/Lundalogik/lime-elements/compare/v38.47.2...v38.47.3) (2026-02-09)
 
 ### Bug Fixes
