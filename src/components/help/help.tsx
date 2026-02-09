@@ -67,6 +67,7 @@ export class HelpComponent implements Help {
                 >
                     <button
                         slot="trigger"
+                        type="button"
                         onClick={this.openPopover}
                         class={{
                             'is-open': this.isOpen,
