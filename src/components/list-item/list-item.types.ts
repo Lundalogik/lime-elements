@@ -20,6 +20,27 @@ export interface ListItem<T = any> {
     secondaryText?: string;
 
     /**
+     * Alternative text for assistive technologies (e.g. screen readers).
+     *
+     * When provided, this text will be announced by screen readers instead
+     * of the visible `text` and `secondaryText`. The visual appearance
+     * remains unchanged.
+     *
+     * Use this when the visible text is too brief or relies on visual
+     * context (like icons) that isn't accessible to screen reader users.
+     *
+     * @example
+     * ```tsx
+     * {
+     *     text: 'Person',
+     *     icon: 'add',
+     *     assistiveText: 'Create a new person'
+     * }
+     * ```
+     */
+    assistiveText?: string;
+
+    /**
      * True if the list item should be disabled.
      */
     disabled?: boolean;

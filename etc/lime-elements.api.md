@@ -575,6 +575,7 @@ export namespace Components {
     // @internal
     export interface LimelListItem {
         "actions"?: ListItem['actions'];
+        "assistiveText"?: string;
         "badgeIcon": boolean;
         "disabled": boolean;
         "icon"?: string | ListItem['icon'];
@@ -1904,6 +1905,7 @@ export namespace JSX {
     // @internal
     export interface LimelListItem {
         "actions"?: ListItem['actions'];
+        "assistiveText"?: string;
         "badgeIcon"?: boolean;
         "disabled"?: boolean;
         "icon"?: string | ListItem['icon'];
@@ -2808,6 +2810,7 @@ export interface ListComponent {
 // @public
 export interface ListItem<T = any> {
     actions?: Array<MenuItem | ListSeparator>;
+    assistiveText?: string;
     disabled?: boolean;
     icon?: string | Icon;
     // @deprecated
@@ -2836,6 +2839,7 @@ export function _mapLayout(layout: Layout): any;
 
 // @public
 interface MenuItem<T = any> {
+    assistiveText?: string;
     badge?: number | string;
     commandText?: string;
     disabled?: boolean;

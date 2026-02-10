@@ -41,6 +41,7 @@ import { Languages } from '../date-picker/date.types';
  * @exampleComponent limel-example-list-item-actions
  * @exampleComponent limel-example-list-item-primary-component
  * @exampleComponent limel-example-list-item-command-text
+ * @exampleComponent limel-example-list-item-assistive-text
  * @private
  */
 @Component({
@@ -73,6 +74,12 @@ export class ListItemComponent implements ListItem {
      */
     @Prop({ reflect: true })
     public secondaryText?: string;
+
+    /**
+     * {@inheritdoc ListItem.assistiveText}
+     */
+    @Prop()
+    public assistiveText?: string;
 
     /**
      * {@inheritdoc ListItem.disabled}
@@ -144,20 +151,33 @@ export class ListItemComponent implements ListItem {
      */
     private readonly labelId: string;
 
+    /**
+     * Used for the assistive text element.
+     */
+    private readonly assistiveTextId: string;
+
     // Memoized reference for the action items to avoid unnecessary updates
     private memoizedActions?: Array<MenuItem | ListSeparator>;
 
     constructor() {
         this.labelId = createRandomString();
         this.descriptionId = createRandomString();
+        this.assistiveTextId = createRandomString();
     }
 
     public render() {
+        // Treat whitespace-only assistiveText as empty to prevent
+        // hiding visible text from screen readers with no alternative
+        const hasAssistiveText = !!this.assistiveText?.trim();
+
         const ariaProps: any = {
-            'aria-labelledby': this.labelId,
-            'aria-describedby': this.secondaryText
-                ? this.descriptionId
-                : undefined,
+            'aria-labelledby': hasAssistiveText
+                ? this.assistiveTextId
+                : this.labelId,
+            'aria-describedby':
+                this.secondaryText && !hasAssistiveText
+                    ? this.descriptionId
+                    : undefined,
             'aria-disabled': this.disabled ? 'true' : 'false',
         };
 
@@ -178,12 +198,16 @@ export class ListItemComponent implements ListItem {
                 }}
                 {...ariaProps}
             >
+                {this.renderAssistiveText(hasAssistiveText)}
                 {this.renderRadioButton()}
                 {this.renderCheckbox()}
                 {this.renderIcon()}
                 {this.renderImage()}
                 {this.renderPrimaryComponent()}
-                <div class="text">
+                <div
+                    class="text"
+                    aria-hidden={hasAssistiveText ? 'true' : undefined}
+                >
                     {this.renderLabel()}
                     {this.renderDescription()}
                 </div>
@@ -191,6 +215,18 @@ export class ListItemComponent implements ListItem {
             </Host>
         );
     }
+
+    private renderAssistiveText = (hasAssistiveText: boolean) => {
+        if (!hasAssistiveText) {
+            return;
+        }
+
+        return (
+            <span class="visually-hidden" id={this.assistiveTextId}>
+                {this.assistiveText.trim()}
+            </span>
+        );
+    };
 
     private renderLabel = () => {
         return (
