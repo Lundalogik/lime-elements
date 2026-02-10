@@ -43,7 +43,7 @@ describe('limel-snackbar', () => {
                 <limel-snackbar message="This is a message"></limel-snackbar>
             `);
             snackbar = await page.find('limel-snackbar');
-            snackbar.setProperty('timeout', 4000);
+            snackbar.setProperty('timeout', 500);
             spy = await snackbar.spyOnEvent('hide');
             snackbar.setProperty('open', true);
             await page.waitForChanges();
