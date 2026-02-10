@@ -268,6 +268,7 @@ describe('limel-chip-set', () => {
                     'limel-chip-set >>> input'
                 );
                 await input.focus();
+                await page.waitForChanges();
                 await input.type('Banana');
                 await page.waitForChanges();
             });
