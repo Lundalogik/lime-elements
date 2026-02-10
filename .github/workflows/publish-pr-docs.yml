@@ -43,14 +43,24 @@ jobs:
         PR_DATA=$(gh api "/repos/${REPO}/commits/${HEAD_SHA}/pulls" --jq '.[0]')
 
         if [ -z "$PR_DATA" ] || [ "$PR_DATA" = "null" ]; then
-          echo "No PR found for commit ${HEAD_SHA}"
-          exit 1
+          echo "No PR found for commit ${HEAD_SHA}. The PR may have been merged already, or the API has not yet indexed this commit."
+          echo "skip=true" >> $GITHUB_OUTPUT
+          exit 0
         fi
 
         # Skip non-fork PRs — they're published directly by the build-docs workflow.
         IS_FORK=$(echo "$PR_DATA" | jq -r '.head.repo.fork // false')
         if [ "$IS_FORK" != "true" ]; then
           echo "This is a same-repo PR. Docs were already published by the build-docs workflow."
+          echo "skip=true" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+
+        PR_STATE=$(echo "$PR_DATA" | jq -r '.state')
+        PR_MERGED=$(echo "$PR_DATA" | jq -r '.merged_at')
+
+        if [ "$PR_STATE" = "closed" ] && [ "$PR_MERGED" != "null" ]; then
+          echo "PR has already been merged. Skipping docs publishing for this PR."
           echo "skip=true" >> $GITHUB_OUTPUT
           exit 0
         fi
