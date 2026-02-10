@@ -70,11 +70,14 @@ jobs:
     if: github.event_name != 'merge_group'
     permissions:
       contents: read
+      pull-requests: write
     uses: ./.github/workflows/build-docs.yml
     with:
       version: "PR-${{ github.event.pull_request.number }}"
-      # Build only - publishing is handled by publish-pr-docs workflow
-      buildOnly: true
+      prNumber: ${{ github.event.pull_request.number }}
+      # For same-repo PRs, publish directly. For fork PRs, build only (publishing handled by publish-pr-docs workflow).
+      # For Dependabot PRs, build only (no need to publish docs for dependency updates).
+      buildOnly: ${{ github.event.pull_request.head.repo.fork || github.actor == 'dependabot[bot]' }}
     secrets: inherit
 
   automerge:
