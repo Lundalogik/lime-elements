@@ -13,7 +13,12 @@ jobs:
       actions: read
       contents: read
       pull-requests: write
-    if: github.event.workflow_run.event == 'pull_request'
+    # Only run for fork PRs — same-repo PRs publish directly in build-docs.
+    # Also skip if the upstream workflow failed — there's no artifact to publish.
+    if: >-
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.head_repository.fork == true &&
+      github.event.workflow_run.conclusion == 'success'
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -33,34 +38,28 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        HEAD_REPO_OWNER: ${{ github.event.workflow_run.head_repository.owner.login }}
+        HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
         REPO: ${{ github.repository }}
       run: |
-        # Get PR info using the commit SHA from the workflow run.
-        # This is more secure than reading from an artifact because:
-        # - The commit SHA comes from GitHub's event system, not fork-controlled code
-        # - The API returns PRs that actually contain that commit
-        # - Cannot be manipulated by malicious fork code
-        PR_DATA=$(gh api "/repos/${REPO}/commits/${HEAD_SHA}/pulls" --jq '.[0]')
+        # Get PR info from the head branch of the workflow run.
+        # This is more secure than passing the data from the PR via an artifact,
+        # because head_repository and head_branch come from GitHub's event
+        # system, not fork-controlled code.
+        PR_DATA=$(gh api "/repos/${REPO}/pulls" -X GET -f state=open -f "head=${HEAD_REPO_OWNER}:${HEAD_BRANCH}" --jq '.[0]')
 
         if [ -z "$PR_DATA" ] || [ "$PR_DATA" = "null" ]; then
-          echo "No PR found for commit ${HEAD_SHA}. The API has probably not yet indexed this commit."
-          echo "skip=true" >> $GITHUB_OUTPUT
-          exit 1 # Fail the job to make it more visible that the PR docs are not published, and easier to find which workflow run to re-run.
-        fi
-
-        # Skip non-fork PRs — they're published directly by the build-docs workflow.
-        IS_FORK=$(echo "$PR_DATA" | jq -r '.head.repo.fork // false')
-        if [ "$IS_FORK" != "true" ]; then
-          echo "This is a same-repo PR. Docs were already published by the build-docs workflow."
+          echo "No open PR found for ${HEAD_REPO_OWNER}:${HEAD_BRANCH}."
+          echo "The PR may have been closed or merged."
           echo "skip=true" >> $GITHUB_OUTPUT
           exit 0
         fi
 
-        PR_STATE=$(echo "$PR_DATA" | jq -r '.state')
-        PR_MERGED=$(echo "$PR_DATA" | jq -r '.merged_at')
-
-        if [ "$PR_STATE" = "closed" ] && [ "$PR_MERGED" != "null" ]; then
-          echo "PR has already been merged. Skipping docs publishing for this PR."
+        # Verify the commit SHA matches (extra security check)
+        PR_HEAD_SHA=$(echo "$PR_DATA" | jq -r '.head.sha')
+        if [ "$PR_HEAD_SHA" != "$HEAD_SHA" ]; then
+          echo "PR head SHA ($PR_HEAD_SHA) doesn't match workflow run SHA ($HEAD_SHA)."
+          echo "The PR may have been updated. Skipping to avoid publishing stale docs."
           echo "skip=true" >> $GITHUB_OUTPUT
           exit 0
         fi
