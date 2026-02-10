@@ -96,6 +96,10 @@ limel-list-item[type='option'] {
 }
 
 limel-list-item {
+    .visually-hidden {
+        @include mixins.visually-hidden;
+    }
+
     .text {
         flex-grow: 1;
         min-width: 0;
