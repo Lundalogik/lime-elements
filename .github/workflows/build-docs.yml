@@ -16,6 +16,10 @@ on:
         required: false
         default: false
         type: boolean
+      prNumber:
+        description: 'PR number to post a comment on after publishing. Only used when buildOnly is false.'
+        required: false
+        type: number
       ref:
         description: 'Git ref (branch, tag, or SHA) to checkout. If not specified, uses the default ref for the triggering event.'
         required: false
@@ -73,3 +77,11 @@ jobs:
           docs-index.html
           docs-index.css
         retention-days: 1
+
+    - name: Post PR comment
+      if: inputs.prNumber && inputs.buildOnly == false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        PR_NUMBER: ${{ inputs.prNumber }}
+      run: node .github/scripts/post-pr-docs-comment.js
