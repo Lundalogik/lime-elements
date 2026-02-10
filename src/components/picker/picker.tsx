@@ -547,7 +547,33 @@ export class Picker {
             return;
         }
 
+        // Don't clear if a chip's menu is open - focus moved to the menu's portal
+        if (this.hasOpenChipMenu()) {
+            return;
+        }
+
         this.clearInputField();
+    }
+
+    private hasOpenChipMenu(): boolean {
+        if (!this.chipSet) {
+            return false;
+        }
+
+        // Query for any open menus inside the chips
+        const chips = this.chipSet.shadowRoot?.querySelectorAll('limel-chip');
+        if (!chips) {
+            return false;
+        }
+
+        for (const chip of chips) {
+            const menu = chip.shadowRoot?.querySelector('limel-menu[open]');
+            if (menu) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
