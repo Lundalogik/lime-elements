@@ -567,8 +567,13 @@ export class Picker {
         }
 
         for (const chip of chips) {
-            const menu = chip.shadowRoot?.querySelector('limel-menu[open]');
-            if (menu) {
+            // Check the `open` property directly rather than using an attribute
+            // selector, because Stencil batches attribute reflection and
+            // the [open] attribute may not be on the DOM yet
+            const menu = chip.shadowRoot?.querySelector(
+                'limel-menu'
+            ) as HTMLLimelMenuElement;
+            if (menu?.open) {
                 return true;
             }
         }
