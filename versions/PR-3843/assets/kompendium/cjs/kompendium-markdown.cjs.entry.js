@@ -3,6 +3,7 @@
 var index = require('./index-DYiJ6dQL.js');
 var _commonjsHelpers = require('./_commonjsHelpers-B83fTs8d.js');
 var markdownTypes = require('./markdown-types-B884tLd-.js');
+var anchorScroll = require('./anchor-scroll-BuIqvpAx.js');
 
 var bail_1;
 var hasRequiredBail;
@@ -37139,7 +37140,7 @@ const Markdown = class {
         this.renderMarkdown();
     }
     handleHashChange() {
-        this.scrollToAnchor();
+        anchorScroll.scrollToAnchor(this.host.shadowRoot);
     }
     async renderMarkdown() {
         const types = markdownTypes.getTypes();
@@ -37147,37 +37148,10 @@ const Markdown = class {
         this.host.shadowRoot.querySelector('#root').innerHTML =
             file === null || file === void 0 ? void 0 : file.toString();
         // After content renders, scroll to anchor if present in URL
-        this.scrollToAnchor();
-    }
-    scrollToAnchor() {
-        const hash = window.location.hash;
-        if (!hash) {
-            return;
-        }
-        // Extract anchor ID from hash (remove leading #)
-        // Handle both simple anchors (#section) and route-based anchors (#/guide/page#section)
-        const anchorMatch = hash.match(/#([^#]+)$/);
-        if (!anchorMatch) {
-            return;
-        }
-        const anchorId = anchorMatch[1];
-        // Wait for next frame to ensure DOM is ready, then scroll
-        requestAnimationFrame(() => {
-            this.scrollToElement(anchorId, 'smooth');
-            // Retry after a delay to handle layout shifts from async content
-            // (images, lazy-loaded components, etc.). Use 'auto' to avoid
-            // visible re-scrolling if position changed.
-            setTimeout(() => this.scrollToElement(anchorId, 'auto'), 500);
-        });
-    }
-    scrollToElement(id, behavior) {
-        const element = this.host.shadowRoot.getElementById(id);
-        if (element) {
-            element.scrollIntoView({ behavior });
-        }
+        anchorScroll.scrollToAnchor(this.host.shadowRoot);
     }
     render() {
-        return index.h("div", { key: '4fb946cc506ddcee204c7c84c6f6536815bf8b25', id: "root" });
+        return index.h("div", { key: '03130f8b44ce47f211641bbed852459660804523', id: "root" });
     }
     get host() { return index.getElement(this); }
 };

@@ -1,6 +1,7 @@
 import { h } from "@stencil/core";
 import { markdownToHtml } from "../../kompendium/markdown";
 import { getTypes } from "./markdown-types";
+import { scrollToAnchor } from "../anchor-scroll";
 /**
  * This component renders markdown
  * @exampleComponent kompendium-example-markdown
@@ -22,7 +23,7 @@ export class Markdown {
         this.renderMarkdown();
     }
     handleHashChange() {
-        this.scrollToAnchor();
+        scrollToAnchor(this.host.shadowRoot);
     }
     async renderMarkdown() {
         const types = getTypes();
@@ -30,37 +31,10 @@ export class Markdown {
         this.host.shadowRoot.querySelector('#root').innerHTML =
             file === null || file === void 0 ? void 0 : file.toString();
         // After content renders, scroll to anchor if present in URL
-        this.scrollToAnchor();
-    }
-    scrollToAnchor() {
-        const hash = window.location.hash;
-        if (!hash) {
-            return;
-        }
-        // Extract anchor ID from hash (remove leading #)
-        // Handle both simple anchors (#section) and route-based anchors (#/guide/page#section)
-        const anchorMatch = hash.match(/#([^#]+)$/);
-        if (!anchorMatch) {
-            return;
-        }
-        const anchorId = anchorMatch[1];
-        // Wait for next frame to ensure DOM is ready, then scroll
-        requestAnimationFrame(() => {
-            this.scrollToElement(anchorId, 'smooth');
-            // Retry after a delay to handle layout shifts from async content
-            // (images, lazy-loaded components, etc.). Use 'auto' to avoid
-            // visible re-scrolling if position changed.
-            setTimeout(() => this.scrollToElement(anchorId, 'auto'), 500);
-        });
-    }
-    scrollToElement(id, behavior) {
-        const element = this.host.shadowRoot.getElementById(id);
-        if (element) {
-            element.scrollIntoView({ behavior });
-        }
+        scrollToAnchor(this.host.shadowRoot);
     }
     render() {
-        return h("div", { key: '4fb946cc506ddcee204c7c84c6f6536815bf8b25', id: "root" });
+        return h("div", { key: '03130f8b44ce47f211641bbed852459660804523', id: "root" });
     }
     static get is() { return "kompendium-markdown"; }
     static get encapsulation() { return "shadow"; }

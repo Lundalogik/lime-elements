@@ -15,7 +15,5 @@ export declare class Markdown {
     protected componentDidUpdate(): void;
     private handleHashChange;
     private renderMarkdown;
-    private scrollToAnchor;
-    private scrollToElement;
     render(): HTMLElement;
 }

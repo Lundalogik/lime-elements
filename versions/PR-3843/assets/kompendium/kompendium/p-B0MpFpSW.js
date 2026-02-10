@@ -1,0 +1,2 @@
+function n(){return window.location.hash.substring(1)}function t(){const n=window.location.hash;if(!n){return null}const t=n.match(/#([^#]+)$/);return t?t[1]:null}function o(n,o="auto"){const i=t();if(!i){return}requestAnimationFrame((()=>{u(n,i,o)}))}function u(n,t,o="auto"){const u=n.getElementById(t);if(u){u.scrollIntoView({behavior:o})}}export{o as a,n as g,u as s};
+//# sourceMappingURL=p-B0MpFpSW.js.map

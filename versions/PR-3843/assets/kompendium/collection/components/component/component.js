@@ -6,6 +6,7 @@ import { SlotList } from "./templates/slots";
 import { StyleList } from "./templates/style";
 import { ExampleList } from "./templates/examples";
 import negate from "lodash/negate";
+import { getRoute, scrollToElement } from "../anchor-scroll";
 export class KompendiumComponent {
     constructor() {
         this.scrollToOnNextUpdate = null;
@@ -18,30 +19,21 @@ export class KompendiumComponent {
         window.removeEventListener('hashchange', this.handleRouteChange);
     }
     componentDidLoad() {
-        const route = this.getRoute();
-        this.scrollToElement(route);
+        scrollToElement(this.host.shadowRoot, getRoute());
     }
     componentDidUpdate() {
         if (this.scrollToOnNextUpdate) {
-            this.scrollToElement(this.scrollToOnNextUpdate);
+            scrollToElement(this.host.shadowRoot, this.scrollToOnNextUpdate);
             this.scrollToOnNextUpdate = null;
         }
     }
     handleRouteChange() {
-        const route = this.getRoute();
-        this.scrollToOnNextUpdate = route;
-    }
-    scrollToElement(id) {
-        const element = this.host.shadowRoot.getElementById(id);
-        if (!element) {
-            return;
-        }
-        element.scrollIntoView();
+        this.scrollToOnNextUpdate = getRoute();
     }
     render() {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
-        return (h("article", { key: '25c0da9ed6bd380bab2c45dd05ad451f829c2067', class: "component" }, h("section", { key: '029617283bc0aaf08ae97e0efe8ce8c09037fe6a', class: "docs" }, this.renderDocs(tag, component))));
+        return (h("article", { key: '10059f087a7e230b1f6990c5f0c55626456fd8cf', class: "component" }, h("section", { key: '32ebc8bee4a689efa1e63224c6af10594bbe4ef8', class: "docs" }, this.renderDocs(tag, component))));
     }
     renderDocs(tag, component) {
         let title = tag.split('-').slice(1).join(' ');
@@ -64,11 +56,8 @@ export class KompendiumComponent {
         ];
     }
     getId(name) {
-        const route = this.getRoute().split('/').slice(0, 3).join('/');
+        const route = getRoute().split('/').slice(0, 3).join('/');
         return [route, name].filter((item) => !!item).join('/') + '/';
-    }
-    getRoute() {
-        return location.hash.substr(1);
     }
     static get is() { return "kompendium-component"; }
     static get encapsulation() { return "shadow"; }

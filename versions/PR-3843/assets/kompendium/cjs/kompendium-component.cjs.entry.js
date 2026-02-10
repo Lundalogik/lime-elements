@@ -3,6 +3,7 @@
 var index = require('./index-DYiJ6dQL.js');
 var methods = require('./methods-DoA78dOH.js');
 var _commonjsHelpers = require('./_commonjsHelpers-B83fTs8d.js');
+var anchorScroll = require('./anchor-scroll-BuIqvpAx.js');
 
 function EventList({ events, id, }) {
     if (!events.length) {
@@ -142,30 +143,21 @@ const KompendiumComponent = class {
         window.removeEventListener('hashchange', this.handleRouteChange);
     }
     componentDidLoad() {
-        const route = this.getRoute();
-        this.scrollToElement(route);
+        anchorScroll.scrollToElement(this.host.shadowRoot, anchorScroll.getRoute());
     }
     componentDidUpdate() {
         if (this.scrollToOnNextUpdate) {
-            this.scrollToElement(this.scrollToOnNextUpdate);
+            anchorScroll.scrollToElement(this.host.shadowRoot, this.scrollToOnNextUpdate);
             this.scrollToOnNextUpdate = null;
         }
     }
     handleRouteChange() {
-        const route = this.getRoute();
-        this.scrollToOnNextUpdate = route;
-    }
-    scrollToElement(id) {
-        const element = this.host.shadowRoot.getElementById(id);
-        if (!element) {
-            return;
-        }
-        element.scrollIntoView();
+        this.scrollToOnNextUpdate = anchorScroll.getRoute();
     }
     render() {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
-        return (index.h("article", { key: '25c0da9ed6bd380bab2c45dd05ad451f829c2067', class: "component" }, index.h("section", { key: '029617283bc0aaf08ae97e0efe8ce8c09037fe6a', class: "docs" }, this.renderDocs(tag, component))));
+        return (index.h("article", { key: '10059f087a7e230b1f6990c5f0c55626456fd8cf', class: "component" }, index.h("section", { key: '32ebc8bee4a689efa1e63224c6af10594bbe4ef8', class: "docs" }, this.renderDocs(tag, component))));
     }
     renderDocs(tag, component) {
         let title = tag.split('-').slice(1).join(' ');
@@ -188,11 +180,8 @@ const KompendiumComponent = class {
         ];
     }
     getId(name) {
-        const route = this.getRoute().split('/').slice(0, 3).join('/');
+        const route = anchorScroll.getRoute().split('/').slice(0, 3).join('/');
         return [route, name].filter((item) => !!item).join('/') + '/';
-    }
-    getRoute() {
-        return location.hash.substr(1);
     }
     get host() { return index.getElement(this); }
 };
