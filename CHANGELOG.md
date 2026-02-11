@@ -1,3 +1,10 @@
+## [38.48.0](https://github.com/Lundalogik/lime-elements/compare/v38.47.4...v38.48.0) (2026-02-11)
+
+### Features
+
+
+* **list-item:** add assistiveText for screen reader descriptions ([938e876](https://github.com/Lundalogik/lime-elements/commit/938e876b116e7e7366e862bf0483ddc62321158a)), closes [#1716](https://github.com/Lundalogik/lime-elements/issues/1716)
+
 ## [38.47.4](https://github.com/Lundalogik/lime-elements/compare/v38.47.3...v38.47.4) (2026-02-09)
 
 ### Bug Fixes
