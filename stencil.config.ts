@@ -64,6 +64,39 @@ export const config: Config = {
             '^lodash-es$': 'lodash',
             '@rjsf/core/lib/(.*)': '@rjsf/core/dist/cjs/$1',
         },
+        // Include .js in transform to handle ESM packages
+        transform: {
+            '^.+\\.(ts|tsx|jsx|js|mjs|css)$':
+                '<rootDir>/node_modules/@stencil/core/testing/jest-preprocessor.js',
+        },
+        // Transform ESM-only packages from the unified/remark/rehype ecosystem
+        transformIgnorePatterns: [
+            '/node_modules/(?!(' +
+                'unified|bail|devlop|is-plain-obj|trough|vfile.*|' +
+                'remark-.*|' +
+                'rehype-.*|' +
+                'mdast-util-.*|' +
+                'hast-util-.*|hastscript|' +
+                'unist-util-.*|' +
+                'micromark.*|' +
+                'decode-named-character-reference|' +
+                'character-entities.*|' +
+                'html-void-elements|' +
+                'zwitch|' +
+                'property-information|' +
+                'space-separated-tokens|' +
+                'comma-separated-tokens|' +
+                'stringify-entities|' +
+                'ccount|' +
+                'escape-string-regexp|' +
+                'markdown-table|' +
+                'trim-lines|' +
+                'longest-streak|' +
+                'web-namespaces|' +
+                'parse5|' +
+                'entities' +
+                ')/)',
+        ],
     },
 };
 
