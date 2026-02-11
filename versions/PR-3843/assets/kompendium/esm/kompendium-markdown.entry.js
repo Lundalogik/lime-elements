@@ -1,7 +1,7 @@
 import { r as registerInstance, h, a as getElement } from './index-9UrzenzW.js';
 import { a as getAugmentedNamespace, g as getDefaultExportFromCjs } from './_commonjsHelpers-E-ZsRS8r.js';
 import { g as getTypes } from './markdown-types-Ajsawr_9.js';
-import { a as scrollToAnchor } from './anchor-scroll-B0MpFpSW.js';
+import { a as scrollToAnchor } from './anchor-scroll-BAGXN2n6.js';
 
 var bail_1;
 var hasRequiredBail;
@@ -10568,6 +10568,22 @@ function requireLoader () {
 	  );
 	}
 
+	// set a property of a literal object, while protecting against prototype pollution,
+	// see https://github.com/nodeca/js-yaml/issues/164 for more details
+	function setProperty(object, key, value) {
+	  // used for this specific key only because Object.defineProperty is slow
+	  if (key === '__proto__') {
+	    Object.defineProperty(object, key, {
+	      configurable: true,
+	      enumerable: true,
+	      writable: true,
+	      value: value
+	    });
+	  } else {
+	    object[key] = value;
+	  }
+	}
+
 	var simpleEscapeCheck = new Array(256); // integer, for fast access
 	var simpleEscapeMap = new Array(256);
 	for (var i = 0; i < 256; i++) {
@@ -10725,7 +10741,7 @@ function requireLoader () {
 	    key = sourceKeys[index];
 
 	    if (!_hasOwnProperty.call(destination, key)) {
-	      destination[key] = source[key];
+	      setProperty(destination, key, source[key]);
 	      overridableKeys[key] = true;
 	    }
 	  }
@@ -10781,7 +10797,7 @@ function requireLoader () {
 	      state.position = startPos || state.position;
 	      throwError(state, 'duplicated mapping key');
 	    }
-	    _result[keyNode] = valueNode;
+	    setProperty(_result, keyNode, valueNode);
 	    delete overridableKeys[keyNode];
 	  }
 
@@ -11719,7 +11735,7 @@ function requireLoader () {
 
 	  alias = state.input.slice(_position, state.position);
 
-	  if (!state.anchorMap.hasOwnProperty(alias)) {
+	  if (!_hasOwnProperty.call(state.anchorMap, alias)) {
 	    throwError(state, 'unidentified alias "' + alias + '"');
 	  }
 
@@ -37123,6 +37139,7 @@ const markdownCss = "*,*::before,*::after{box-sizing:border-box}ul[class],ol[cla
 const Markdown = class {
     constructor(hostRef) {
         registerInstance(this, hostRef);
+        this.renderSeq = 0;
         this.handleHashChange = this.handleHashChange.bind(this);
     }
     connectedCallback() {
@@ -37141,15 +37158,21 @@ const Markdown = class {
         scrollToAnchor(this.host.shadowRoot);
     }
     async renderMarkdown() {
+        const renderSeq = ++this.renderSeq;
+        const currentText = this.text;
         const types = getTypes();
-        const file = await markdownToHtml(this.text, types);
+        const file = await markdownToHtml(currentText, types);
+        // Abort if a newer render has started or text has changed
+        if (renderSeq !== this.renderSeq || currentText !== this.text) {
+            return;
+        }
         this.host.shadowRoot.querySelector('#root').innerHTML =
             file === null || file === void 0 ? void 0 : file.toString();
         // After content renders, scroll to anchor if present in URL
         scrollToAnchor(this.host.shadowRoot);
     }
     render() {
-        return h("div", { key: '03130f8b44ce47f211641bbed852459660804523', id: "root" });
+        return h("div", { key: 'a234f58eaafe3daab181a26ec522739b62109f1a', id: "root" });
     }
     get host() { return getElement(this); }
 };

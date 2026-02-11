@@ -8,6 +8,7 @@ import { scrollToAnchor } from "../anchor-scroll";
  */
 export class Markdown {
     constructor() {
+        this.renderSeq = 0;
         this.handleHashChange = this.handleHashChange.bind(this);
     }
     connectedCallback() {
@@ -26,15 +27,21 @@ export class Markdown {
         scrollToAnchor(this.host.shadowRoot);
     }
     async renderMarkdown() {
+        const renderSeq = ++this.renderSeq;
+        const currentText = this.text;
         const types = getTypes();
-        const file = await markdownToHtml(this.text, types);
+        const file = await markdownToHtml(currentText, types);
+        // Abort if a newer render has started or text has changed
+        if (renderSeq !== this.renderSeq || currentText !== this.text) {
+            return;
+        }
         this.host.shadowRoot.querySelector('#root').innerHTML =
             file === null || file === void 0 ? void 0 : file.toString();
         // After content renders, scroll to anchor if present in URL
         scrollToAnchor(this.host.shadowRoot);
     }
     render() {
-        return h("div", { key: '03130f8b44ce47f211641bbed852459660804523', id: "root" });
+        return h("div", { key: 'a234f58eaafe3daab181a26ec522739b62109f1a', id: "root" });
     }
     static get is() { return "kompendium-markdown"; }
     static get encapsulation() { return "shadow"; }

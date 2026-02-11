@@ -3,6 +3,7 @@
  * @exampleComponent kompendium-example-markdown
  */
 export declare class Markdown {
+    private renderSeq;
     /**
      * The text to render
      */
