@@ -1,6 +1,6 @@
 import { ListItem, ListSeparator } from '../list-item/list-item.types';
 import { Option } from '../select/option.types';
-import { FunctionalComponent, h } from '@stencil/core';
+import { FunctionalComponent, h, VNode } from '@stencil/core';
 import { isMultiple } from '../../util/multiple';
 import { getIconColor, getIconName } from '../icon/get-icon-props';
 interface SelectTemplateProps {
@@ -335,22 +335,62 @@ function getMenuOptionFilter(selectIsRequired: boolean) {
     };
 }
 
-function getSelectedText(value: Option | Option[]): string {
+function getSelectedText(value: Option | Option[]): string | VNode[] {
     const isEmptyValue = !value || (isMultiple(value) && value.length === 0);
     if (isEmptyValue) {
         return '';
     }
 
     if (isMultiple(value)) {
-        return value.map((option) => option.text).join(', ');
+        return value.map((option, index) => (
+            <span
+                class="limel-select__selected-option-item-wrapper"
+                key={option.value}
+            >
+                {renderOptionWithIcon(option)}
+                {index < value.length - 1 && ', '}
+            </span>
+        ));
     }
 
     return value.text;
 }
 
-function getSelectedIcon(value: any) {
+function renderOptionWithIcon(option: Option) {
+    const name = getIconName(option.icon);
+    if (!name) {
+        return option.text;
+    }
+
+    const color = getIconColor(option.icon, option.iconColor);
+    const style: any = {};
+    if (color) {
+        style.color = color;
+    }
+
+    return (
+        <span class="limel-select__selected-option-item">
+            <limel-icon
+                class="limel-select__selected-option__icon limel-select__selected-option__icon--inline"
+                name={name}
+                size="small"
+                style={style}
+            />
+            <span class="limel-select__selected-option-item__text">
+                {option.text}
+            </span>
+        </span>
+    );
+}
+
+function getSelectedIcon(value: Option | Option[]) {
+    // For multiple selections, icons are rendered inline with text
+    if (isMultiple(value)) {
+        return;
+    }
+
     if (!value?.icon) {
-        return '';
+        return;
     }
 
     const name = getIconName(value.icon);

@@ -59,6 +59,24 @@ limel-notched-outline:not([invalid]:not([invalid='false'])) {
     margin-right: functions.pxToRem(8);
     margin-left: functions.pxToRem(-8);
     flex-shrink: 0;
+
+    &--inline {
+        margin-left: 0;
+        margin-right: functions.pxToRem(4);
+    }
+}
+
+.limel-select__selected-option-item-wrapper {
+    display: inline;
+}
+
+.limel-select__selected-option-item {
+    display: inline-flex;
+    align-items: center;
+}
+
+.limel-select__selected-option-item__text {
+    vertical-align: middle;
 }
 
 .limel-select__selected-option__text {
