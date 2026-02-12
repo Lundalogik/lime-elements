@@ -1,4 +1,3 @@
-import { Option } from '@limetech/lime-elements';
 import { newE2EPage } from '@stencil/core/testing';
 
 describe('limel-select (native)', () => {
@@ -143,77 +142,10 @@ describe('limel-select (native)', () => {
         });
     });
 
-    describe('when multiple is set', () => {
-        let limelSelect;
-        let innerSelect;
-        const options: Option[] = [
-            {
-                text: 'Apple',
-                value: 'apple',
-            },
-            {
-                text: 'Lime',
-                value: 'lime',
-            },
-            {
-                text: 'Banana',
-                value: 'banana',
-            },
-        ];
-
-        beforeEach(async () => {
-            page = await createPage(`
-                <limel-select data-native multiple label="Favourite Fruit"></limel-select>
-            `);
-            limelSelect = await page.find('limel-select');
-            innerSelect = await page.find('limel-select>>>select');
-
-            await limelSelect.setProperty('options', options);
-            await page.waitForChanges();
-        });
-
-        describe('when selecting a value', () => {
-            let spy;
-
-            beforeEach(async () => {
-                spy = await page.spyOnEvent('change');
-                const appleOption = await innerSelect.find(
-                    'option[value="apple"]'
-                );
-                await appleOption.click();
-            });
-
-            it('emits change event', () => {
-                expect(spy).toHaveReceivedEvent();
-            });
-
-            it('passes the selected option as the event details', () => {
-                expect(spy).toHaveReceivedEventDetail([options[0]]);
-            });
-
-            describe('when selecting another value', () => {
-                beforeEach(async () => {
-                    spy = await page.spyOnEvent('change');
-                    const appleOption = await innerSelect.find(
-                        'option[value="lime"]'
-                    );
-                    await page.keyboard.down('Shift');
-                    await appleOption.click();
-                });
-
-                it('emits one change event', () => {
-                    expect(spy).toHaveReceivedEventTimes(1);
-                });
-
-                it('passes the selected option as the event details', () => {
-                    expect(spy).toHaveReceivedEventDetail([
-                        options[0],
-                        options[1],
-                    ]);
-                });
-            });
-        });
-    });
+    // Note: Multi-select tests are in the (menu) section below because
+    // multi-select always uses the custom dropdown, even on mobile devices.
+    // This is intentional: native <select multiple> on mobile browsers
+    // doesn't show a picker UI and has poor UX.
 });
 
 describe('limel-select (menu)', () => {
@@ -345,6 +277,11 @@ describe('limel-select (menu)', () => {
             });
         });
     });
+
+    // Note: Multi-select is not tested here because it always uses the custom
+    // MenuDropdown, even with data-native set. This is intentional: native
+    // <select multiple> on mobile browsers doesn't show a picker UI and has
+    // poor UX, so we always use our custom dropdown for multi-select.
 });
 
 async function createPage(content) {
