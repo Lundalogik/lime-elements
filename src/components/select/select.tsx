@@ -300,7 +300,12 @@ export class Select {
     }
 
     private emitFirstChangeEvent() {
-        return !this.hasChanged && this.isMobileDevice && !this.value;
+        return (
+            !this.hasChanged &&
+            this.isMobileDevice &&
+            !this.multiple &&
+            !this.value
+        );
     }
 
     private closeMenu() {
