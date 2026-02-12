@@ -203,7 +203,7 @@ export class Select {
                 open={this.openMenu}
                 close={this.closeMenu}
                 checkValid={this.checkValid}
-                native={this.isMobileDevice}
+                native={this.isMobileDevice && !this.multiple}
                 dropdownZIndex={dropdownZIndex}
             />
         );
