@@ -208,7 +208,7 @@ export class Select {
                 open={this.openMenu}
                 close={this.closeMenu}
                 checkValid={this.checkValid}
-                native={this.isMobileDevice}
+                native={this.isMobileDevice && !this.multiple}
                 dropdownZIndex={dropdownZIndex}
                 anchor={this.getAnchorElement()}
             />
@@ -370,7 +370,12 @@ export class Select {
     }
 
     private emitFirstChangeEvent() {
-        return !this.hasChanged && this.isMobileDevice && !this.value;
+        return (
+            !this.hasChanged &&
+            this.isMobileDevice &&
+            !this.multiple &&
+            !this.value
+        );
     }
 
     private closeMenu() {
