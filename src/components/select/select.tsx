@@ -340,12 +340,8 @@ export class Select {
                 );
             });
 
-        if (this.multiple) {
-            this.change.emit(options);
-
-            return;
-        }
-
+        // Note: this.multiple is always false here because multi-select uses
+        // the custom dropdown, so native <select> never renders for it.
         this.change.emit(options[0]);
         this.menuOpen = false;
     }

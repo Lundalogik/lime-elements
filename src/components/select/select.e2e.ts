@@ -142,10 +142,10 @@ describe('limel-select (native)', () => {
         });
     });
 
-    // Note: Multi-select tests are in the (menu) section below because
-    // multi-select always uses the custom dropdown, even on mobile devices.
-    // This is intentional: native <select multiple> on mobile browsers
-    // doesn't show a picker UI and has poor UX.
+    // Note: Multi-select is not tested here because it always uses the custom
+    // MenuDropdown, even on mobile devices. Native <select multiple> on mobile
+    // browsers doesn't show a picker UI and has poor UX, so we always use
+    // our custom dropdown for multi-select.
 });
 
 describe('limel-select (menu)', () => {
