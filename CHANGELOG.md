@@ -1,3 +1,10 @@
+## [38.49.0](https://github.com/Lundalogik/lime-elements/compare/v38.48.0...v38.49.0) (2026-02-12)
+
+### Features
+
+
+* **select:** show icons for selected values in multi-select ([bfb9439](https://github.com/Lundalogik/lime-elements/commit/bfb9439c502eb35690daa10af29a74ab8d790d1b)), closes [Lundalogik/lime-elements#2016](https://github.com/Lundalogik/lime-elements/issues/2016)
+
 ## [38.48.0](https://github.com/Lundalogik/lime-elements/compare/v38.47.4...v38.48.0) (2026-02-11)
 
 ### Features
