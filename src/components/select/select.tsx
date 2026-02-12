@@ -222,7 +222,7 @@ export class Select {
     }
 
     private setMenuFocus() {
-        if (this.isMobileDevice) {
+        if (this.isMobileDevice && !this.multiple) {
             return;
         }
 
