@@ -146,6 +146,7 @@ export class Select {
     public componentDidLoad() {
         this.initialize();
         triggerIconColorWarning(this.getOptionsExcludingSeparators());
+        this.updatePortalAnchor();
     }
 
     private initialize() {
@@ -205,6 +206,7 @@ export class Select {
                 checkValid={this.checkValid}
                 native={this.isMobileDevice}
                 dropdownZIndex={dropdownZIndex}
+                anchor={this.getAnchorElement()}
             />
         );
     }
@@ -244,6 +246,25 @@ export class Select {
             '.limel-select-trigger'
         );
         trigger.focus();
+    }
+
+    // During the first render(), the shadow DOM isn't populated yet, so
+    // querySelector('.limel-select-trigger') returns null and we fall back
+    // to this.host. componentDidLoad() calls updatePortalAnchor() to
+    // imperatively refresh the anchor once the shadow DOM is available.
+    private getAnchorElement(): HTMLElement {
+        return (
+            this.host.shadowRoot.querySelector<HTMLElement>(
+                '.limel-select-trigger'
+            ) ?? this.host
+        );
+    }
+
+    private updatePortalAnchor() {
+        const portal = this.host.shadowRoot.querySelector('limel-portal');
+        if (portal) {
+            portal.anchor = this.getAnchorElement();
+        }
     }
 
     private handleMenuChange(

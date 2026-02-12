@@ -26,6 +26,8 @@ interface SelectTemplateProps {
     checkValid: boolean;
 
     dropdownZIndex: string;
+
+    anchor?: HTMLElement;
 }
 
 export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
@@ -195,6 +197,7 @@ const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
             visible={props.isOpen}
             inheritParentWidth={true}
             containerStyle={{ 'z-index': props.dropdownZIndex }}
+            anchor={props.anchor}
         >
             <limel-menu-surface
                 open={props.isOpen}
