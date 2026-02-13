@@ -5,6 +5,7 @@ import parseFrontmatter from "remark-parse-yaml";
 import admonitions from "remark-admonitions";
 import remark2rehype from "remark-rehype";
 import raw from "rehype-raw";
+import slug from "rehype-slug";
 import html from "rehype-stringify";
 import { saveFrontmatter } from "./markdown-frontmatter";
 import { kompendiumCode } from "./markdown-code";
@@ -19,6 +20,7 @@ export async function markdownToHtml(text, types = []) {
             .use(admonitions, { icons: 'none' })
             .use(remark2rehype, { allowDangerousHtml: true })
             .use(raw)
+            .use(slug)
             .use(typeLinks, { types: types })
             .use(kompendiumCode)
             .use(html)

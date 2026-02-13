@@ -433,7 +433,10 @@ function getDecorators(reflection) {
             var _a;
             if (ts.isClassDeclaration(node) &&
                 ((_a = node.name) === null || _a === void 0 ? void 0 : _a.getText()) === reflection.name) {
-                const nodeDecorators = node.decorators;
+                let nodeDecorators;
+                if (ts.canHaveDecorators(node)) {
+                    nodeDecorators = ts.getDecorators(node);
+                }
                 if (nodeDecorators) {
                     decorators = nodeDecorators.map((decorator) => {
                         const expression = decorator.expression;

@@ -611,7 +611,11 @@ function getDecorators(
                 ts.isClassDeclaration(node) &&
                 node.name?.getText() === reflection.name
             ) {
-                const nodeDecorators = (node as any).decorators;
+                let nodeDecorators;
+                if (ts.canHaveDecorators(node)) {
+                    nodeDecorators = ts.getDecorators(node);
+                }
+
                 if (nodeDecorators) {
                     decorators = nodeDecorators.map((decorator: any) => {
                         const expression = decorator.expression;

@@ -56,6 +56,7 @@
  - [limel-example-select-change-options](examples)
  - [limel-example-select-dialog](examples)
  - [limel-example-select-multiple](examples)
+ - [limel-example-select-multiple-icons](examples)
  - [limel-example-select-preselected](examples)
  - [limel-example-select-with-empty-option](examples)
  - [limel-example-select-with-icons](examples)
@@ -111,6 +112,7 @@ graph TD;
   limel-example-select-change-options --> limel-select
   limel-example-select-dialog --> limel-select
   limel-example-select-multiple --> limel-select
+  limel-example-select-multiple-icons --> limel-select
   limel-example-select-preselected --> limel-select
   limel-example-select-with-empty-option --> limel-select
   limel-example-select-with-icons --> limel-select
