@@ -1,3 +1,10 @@
+## [38.49.1](https://github.com/Lundalogik/lime-elements/compare/v38.49.0...v38.49.1) (2026-02-13)
+
+### Bug Fixes
+
+
+* **select:** use notched outline as portal anchor for positioning ([17f39b5](https://github.com/Lundalogik/lime-elements/commit/17f39b5c583d161b45448c7fec5574b5f0b2a33a)), closes [#3858](https://github.com/Lundalogik/lime-elements/issues/3858)
+
 ## [38.49.0](https://github.com/Lundalogik/lime-elements/compare/v38.48.0...v38.49.0) (2026-02-12)
 
 ### Features
