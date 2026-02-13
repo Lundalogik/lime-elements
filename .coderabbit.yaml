@@ -243,7 +243,7 @@ reviews:
       level: default
     # Fast formatter, linter, and analyzer for web projects.
     biome:
-      enabled: true
+      enabled: false
     # Dockerfile linter.
     hadolint:
       enabled: false
@@ -280,7 +280,7 @@ reviews:
     # Terraform linter for finding potential errors and enforcing best
     # practices.
     tflint:
-      enabled: true
+      enabled: false
     # Kotlin static code analyzer.
     detekt:
       enabled: false
@@ -292,7 +292,7 @@ reviews:
       enabled: false
     # Fortran linter for code quality and style issues.
     fortitudeLint:
-      enabled: true
+      enabled: false
     # Ruby static code analyzer and formatter.
     rubocop:
       enabled: false
@@ -304,13 +304,13 @@ reviews:
       enabled: false
     # GitHub Actions workflow file linter.
     actionlint:
-      enabled: false
+      enabled: true
     # Multi-language static code analyzer (Java, Apex, and more).
     pmd:
       enabled: false
     # Static analysis for C and C++ code.
     clang:
-      enabled: true
+      enabled: false
     # Static code analysis tool for C and C++.
     cppcheck:
       enabled: false
@@ -333,7 +333,7 @@ reviews:
       enabled: false
     # Security scanner for misconfigurations and secrets in IaC files.
     trivy:
-      enabled: true
+      enabled: false
     # Linter for maintaining Prisma schema consistency.
     prismaLint:
       enabled: false
@@ -342,7 +342,7 @@ reviews:
       enabled: false
     # JavaScript and TypeScript linter written in Rust.
     oxc:
-      enabled: true
+      enabled: false
     # Shopify theme linter enforcing Liquid best practices.
     shopifyThemeCheck:
       enabled: false
@@ -366,13 +366,13 @@ reviews:
       enabled: false
     # Vulnerability package scanning.
     osvScanner:
-      enabled: true
+      enabled: false
     # Linter for Windows batch files.
     blinter:
-      enabled: true
+      enabled: false
     # Static code checker for PowerShell scripts and modules.
     psscriptanalyzer:
-      enabled: true
+      enabled: false
   # Pre-merge checks that must pass before merging.
   # Mode can be 'off', 'warning', or 'error' (requires resolution before
   # merging).
