@@ -174,7 +174,7 @@ reviews:
 
     # Pause automatic reviews after this many reviewed commits since the last
     # pause. Set to 0 to disable.
-    auto_pause_after_reviewed_commits: 5
+    auto_pause_after_reviewed_commits: 0
 
     # Ignore reviewing if the title of the pull request contains any of these
     # keywords (case-insensitive).
