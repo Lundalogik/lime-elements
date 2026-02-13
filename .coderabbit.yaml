@@ -121,6 +121,8 @@ reviews:
   # ones (starting with '!') when cloning the repository.
   path_filters: ['!etc/lime-elements.api.md']
 
+  # Path-specific review instructions using glob patterns to give targeted
+  # guidance for matching files.
   path_instructions:
     - path: '**/*.tsx'
       instructions: >
@@ -194,6 +196,8 @@ reviews:
     # Skip reviews for PRs authored by these usernames (exact match).
     ignore_usernames: []
 
+  # Configure finishing touches like docstring and unit test generation
+  # for PRs.
   finishing_touches:
     docstrings:
       # Allow CodeRabbit to generate docstrings for PRs.
@@ -204,114 +208,160 @@ reviews:
       enabled: true
 
   tools:
+    # Code structural search and linting using abstract syntax tree patterns.
     ast-grep:
       rule_dirs: []
       util_dirs: []
+      # Use the ast-grep essentials rule package.
       essential_rules: true
       packages: []
+    # Static analysis tool for finding bugs in shell scripts.
     shellcheck:
       enabled: false
+    # Python linter and code formatter.
     ruff:
       enabled: false
+    # Static analysis tool enforcing standards and consistency in Markdown.
     markdownlint:
       enabled: true
+    # Integrates GitHub Checks into the review workflow.
     github-checks:
       enabled: true
+      # Time in milliseconds to wait for all GitHub Checks to conclude.
       timeout_ms: 90000
+    # Grammar, style, and spell checker supporting 30+ languages.
     languagetool:
       enabled: true
       enabled_rules: []
       disabled_rules: []
       enabled_categories: []
       disabled_categories: []
+      # Only enable rules and categories specified by enabled_rules or
+      # enabled_categories.
       enabled_only: false
+      # Set to 'picky' to activate additional rules for formal text.
       level: default
+    # Fast formatter, linter, and analyzer for web projects.
     biome:
       enabled: true
+    # Dockerfile linter.
     hadolint:
       enabled: false
+    # Swift code linter.
     swiftlint:
       enabled: false
+    # PHP static analysis tool.
     phpstan:
       enabled: false
+      # Rule level to run (0-9 or 'max'). Ignored if the config file already
+      # specifies a level.
       level: default
+    # PHP mess detector for identifying potential code problems.
     phpmd:
       enabled: false
+    # PHP linter and coding standard checker.
     phpcs:
       enabled: false
+    # Go linters aggregator and runner.
     golangci-lint:
       enabled: false
+    # YAML file linter.
     yamllint:
       enabled: true
+    # Secret scanner for detecting hardcoded secrets in code.
     gitleaks:
       enabled: true
     # Secret scanner with verification capabilities.
     trufflehog:
       enabled: true
+    # Static analysis for infrastructure-as-code security and compliance.
     checkov:
       enabled: false
     # Terraform linter for finding potential errors and enforcing best
     # practices.
     tflint:
       enabled: true
+    # Kotlin static code analyzer.
     detekt:
       enabled: false
+    # Static code analysis tool for JavaScript and TypeScript.
     eslint:
       enabled: false
+    # Python linter wrapping PyFlakes, pycodestyle, and McCabe.
     flake8:
       enabled: false
     # Fortran linter for code quality and style issues.
     fortitudeLint:
       enabled: true
+    # Ruby static code analyzer and formatter.
     rubocop:
       enabled: false
+    # Protobuf file linter.
     buf:
       enabled: false
+    # Linter and language server for Rego (Open Policy Agent).
     regal:
       enabled: false
+    # GitHub Actions workflow file linter.
     actionlint:
       enabled: false
+    # Multi-language static code analyzer (Java, Apex, and more).
     pmd:
       enabled: false
     # Static analysis for C and C++ code.
     clang:
       enabled: true
+    # Static code analysis tool for C and C++.
     cppcheck:
       enabled: false
     # High-performance static code analysis engine, compatible with Semgrep
     # configurations.
     opengrep:
       enabled: true
+    # Static analysis for finding security vulnerabilities and code quality
+    # issues.
     semgrep:
       enabled: true
+    # CircleCI configuration file validator.
     circleci:
       enabled: false
+    # Rust linter for catching common mistakes and improving code.
     clippy:
       enabled: false
+    # Dialect-flexible and configurable SQL linter.
     sqlfluff:
       enabled: false
     # Security scanner for misconfigurations and secrets in IaC files.
     trivy:
       enabled: true
+    # Linter for maintaining Prisma schema consistency.
     prismaLint:
       enabled: false
+    # Python static code analysis tool.
     pylint:
       enabled: false
+    # JavaScript and TypeScript linter written in Rust.
     oxc:
       enabled: true
+    # Shopify theme linter enforcing Liquid best practices.
     shopifyThemeCheck:
       enabled: false
+    # Lua code linter and static analyzer.
     luacheck:
       enabled: false
+    # Ruby on Rails security vulnerability scanner.
     brakeman:
       enabled: false
+    # Linter for .env files.
     dotenvLint:
       enabled: false
+    # Static code analysis tool for HTML.
     htmlhint:
       enabled: true
     # Linter for stylesheets (CSS, SCSS, Sass, Less, etc.).
     stylelint:
       enabled: true
+    # Makefile linter.
     checkmake:
       enabled: false
     # Vulnerability package scanning.
