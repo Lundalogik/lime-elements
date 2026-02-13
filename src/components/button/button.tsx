@@ -149,7 +149,7 @@ export class Button {
         ];
     }
 
-    private renderIcon(icon?: string | Icon) {
+    private renderIcon(icon?: IconName | Icon) {
         const iconName = getIconName(icon);
         if (!iconName) {
             return;
