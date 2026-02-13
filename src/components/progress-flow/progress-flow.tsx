@@ -17,6 +17,7 @@ import { getIconColor } from '../icon/get-icon-props';
  * @exampleComponent limel-example-progress-flow-colors-css
  * @exampleComponent limel-example-progress-flow-off-progress-steps
  * @exampleComponent limel-example-progress-flow-narrow
+ * @exampleComponent limel-example-progress-flow-alternative-ui
  */
 @Component({
     tag: 'limel-progress-flow',

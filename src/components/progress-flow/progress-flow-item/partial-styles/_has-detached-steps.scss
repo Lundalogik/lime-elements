@@ -1,0 +1,159 @@
+:host(.has-detached-steps) {
+    --selected-indicator-right: 0.5rem;
+    --step-height: 1.75rem;
+    padding-top: var(--step-height);
+
+    .flow-item {
+        align-items: center;
+        --step-background: var(
+            --progress-flow-step-background-color,
+            rgb(var(--contrast-400))
+        );
+
+        &:not(.selected) {
+            .step:not(.disabled) {
+                &:before {
+                    box-shadow: var(--button-shadow-normal);
+                }
+
+                &:hover {
+                    box-shadow: none;
+
+                    &:before {
+                        box-shadow: var(--button-shadow-hovered);
+                    }
+                }
+
+                &:active {
+                    &:before {
+                        box-shadow: var(--button-shadow-pressed);
+                    }
+                }
+            }
+        }
+    }
+
+    .step {
+        border-radius: var(--step-height);
+        background-color: transparent;
+        padding: 0 !important;
+
+        &:before {
+            //  circle
+            transition: box-shadow 0.2s ease, background-color 0.2s ease;
+            content: '';
+            width: var(--step-height);
+            height: var(--step-height);
+            border-radius: var(--step-height);
+
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        }
+
+        &:after {
+            // lock icon
+            right: 0;
+            left: 0;
+            bottom: 0;
+            top: 0;
+            margin: auto;
+        }
+    }
+
+    .divider {
+        width: 100%;
+        left: 0;
+        overflow: unset;
+        transform: unset;
+
+        &:after {
+            border: none;
+            height: 0.25rem;
+            border-radius: 0;
+            transform: translateX(calc(50% + (var(--step-height) / 5)));
+        }
+    }
+    .off-progress-item {
+        .icon {
+            margin-left: auto;
+        }
+    }
+
+    .icon {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    .text,
+    .secondary-text {
+        padding: 0 0.25rem;
+    }
+    .text {
+        transform: translateY(calc(-100% - #{functions.pxToRem(12)}));
+        font-size: functions.pxToRem(13);
+    }
+
+    .secondary-text {
+        padding-left: 0;
+        opacity: 0.6;
+    }
+
+    //  colors
+    .flow-item {
+        .icon {
+            --icon-background-color: var(--step-background);
+        }
+        .step {
+            &:before {
+                background-color: var(--step-background);
+            }
+        }
+
+        &.selected {
+            .icon {
+                --icon-background-color: var(--step-background--selected);
+            }
+
+            .step {
+                color: var(--step-text);
+
+                .divider:after {
+                    background-image: linear-gradient(
+                        to right,
+                        var(--step-background--selected),
+                        var(--step-background)
+                    );
+                }
+
+                &:after {
+                    // selected indicator
+                    border-color: var(--step-background--selected);
+                }
+
+                &:before {
+                    background-color: var(--step-background--selected);
+                }
+            }
+        }
+
+        &.passed {
+            .icon {
+                --icon-background-color: var(--step-background--passed);
+            }
+
+            .step {
+                color: var(--step-text);
+
+                &:before {
+                    background-color: var(--step-background--passed);
+                }
+            }
+        }
+    }
+}
