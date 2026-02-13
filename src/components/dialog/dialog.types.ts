@@ -1,4 +1,4 @@
-import { Icon } from '../../global/shared-types/icon.types';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 
 /**
  * @public
@@ -7,7 +7,7 @@ export interface DialogHeading {
     title: string;
     subtitle?: string;
     supportingText?: string;
-    icon?: string | Icon;
+    icon?: IconName | Icon;
 }
 
 /**

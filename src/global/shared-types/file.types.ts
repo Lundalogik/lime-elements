@@ -1,5 +1,5 @@
 import { MenuItem } from '../../components';
-import { Icon } from '../../global/shared-types/icon.types';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 import { Color } from './color.types';
 import { ListSeparator } from './separator.types';
 
@@ -45,7 +45,7 @@ export interface FileInfo {
     /**
      * Name of the icon to use.
      */
-    icon?: string | Icon;
+    icon?: IconName | Icon;
 
     /**
      * Icon color. Overrides `--icon-color`.
