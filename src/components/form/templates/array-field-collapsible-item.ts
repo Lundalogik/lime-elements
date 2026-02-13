@@ -128,7 +128,53 @@ export class CollapsibleItemTemplate extends React.Component<CollapsibleItemProp
 
     private handleAction(event: CustomEvent<Action & Runnable>) {
         event.stopPropagation();
-        event.detail.run(event);
+
+        const moveTransitionSpeed = 300; // This must be kept the same as the transition speed in the CSS
+        const up = 'move-up-transition';
+        const down = 'move-down-transition';
+        // Access the DOM element
+        const section: HTMLLimelCollapsibleSectionElement = this.refs.section;
+
+        // Determine whether it's a move up or move down action
+        const isMoveUp = event.detail.id === 'up';
+
+        // Get the previous and next collapsible sections
+        const previousSection =
+            section.previousElementSibling as HTMLLimelCollapsibleSectionElement;
+        const nextSection =
+            section.nextElementSibling as HTMLLimelCollapsibleSectionElement;
+
+        // Add the appropriate class to the current section
+        if (isMoveUp) {
+            section.classList.add(up);
+        } else {
+            section.classList.add(down);
+        }
+
+        // Add the opposite class to the adjacent sections
+        if (previousSection && isMoveUp) {
+            previousSection.classList.add(down);
+        }
+
+        if (nextSection && !isMoveUp) {
+            nextSection.classList.add(up);
+        }
+
+        // Remove the classes after a short delay to trigger the transition
+        setTimeout(() => {
+            section.classList.remove(up, down);
+
+            if (previousSection) {
+                previousSection.classList.remove(down);
+            }
+
+            if (nextSection) {
+                nextSection.classList.remove('move-up-transition');
+            }
+
+            // Perform the action
+            event.detail.run(event);
+        }, moveTransitionSpeed); // Adjust the delay to match your transition duration
     }
 
     private handleOpen = () => {
