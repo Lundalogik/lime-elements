@@ -13,6 +13,10 @@ early_access: true
 # Enable free tier features for users not on a paid plan.
 enable_free_tier: true
 
+# Use parent settings for any values not defined here. Inheritance only
+# propagates upward if enabled at each level.
+inheritance: false
+
 reviews:
   # Set the profile for reviews. Assertive profile yields more feedback,
   # that may be considered nitpicky.
@@ -23,6 +27,11 @@ reviews:
 
   # Generate a high level summary of the changes in the PR description.
   high_level_summary: true
+
+  # Customize the content and format of the high level summary.
+  # Use 'high_level_summary_in_walkthrough' to place the summary in the
+  # walkthrough instead of the description.
+  high_level_summary_instructions: ''
 
   # Placeholder in the PR description that gets replaced with the high level
   # summary.
@@ -42,6 +51,10 @@ reviews:
   # certain cases.
   review_status: true
 
+  # Post review details (ignored files, extra context used, suppressed
+  # comments, etc.).
+  review_details: false
+
   # Set the commit status to 'pending' when the review is in progress and
   #  'success' when it is complete.
   commit_status: true
@@ -59,6 +72,9 @@ reviews:
   # Generate sequence diagrams in the walkthrough.
   sequence_diagrams: true
 
+  # Include an estimated code review effort in the walkthrough.
+  estimate_code_review_effort: true
+
   # Generate an assessment of how well the changes address the linked
   # issues in the walkthrough.
   assess_linked_issues: true
@@ -72,6 +88,13 @@ reviews:
   # Suggest labels based on the changes in the pull request in the walkthrough.
   suggested_labels: true
 
+  # Provide guidelines for suggesting labels for the PR.
+  # When specific labels or instructions are provided, only those labels are
+  # considered, though previous examples are still used to inform
+  # the suggestions. If no such labels are provided, suggestions are based
+  # solely on previous PRs.
+  labeling_instructions: []
+
   # Automatically apply the suggested labels to the PR.
   auto_apply_labels: false
 
@@ -82,15 +105,15 @@ reviews:
   # Automatically assign suggested reviewers to the pull request
   auto_assign_reviewers: false
 
+  # Post a fortune message while the review is running.
+  in_progress_fortune: true
+
   # Generate a poem in the walkthrough comment.
   poem: false
 
-  # Provide guidelines for suggesting labels for the PR.
-  # When specific labels or instructions are provided, only those labels are
-  # considered, though previous examples are still used to inform
-  # the suggestions. If no such labels are provided, suggestions are based
-  # solely on previous PRs.
-  labeling_instructions: []
+  # Include the 'Prompt for AI Agents' section in inline review comments to
+  # provide codegen instructions for AI agents.
+  enable_prompt_for_ai_agents: true
 
   # Specify file patterns to include or exclude in a review using glob
   # patterns (e.g., !dist/**, src/**). These patterns also apply to
@@ -142,8 +165,16 @@ reviews:
     # Automatic code review
     enabled: true
 
+    # Keyword in the PR description that triggers a review when automatic
+    # reviews are disabled.
+    description_keyword: ''
+
     # Automatic incremental code review on each push
     auto_incremental_review: true
+
+    # Pause automatic reviews after this many reviewed commits since the last
+    # pause. Set to 0 to disable.
+    auto_pause_after_reviewed_commits: 5
 
     # Ignore reviewing if the title of the pull request contains any of these
     # keywords (case-insensitive).
@@ -159,6 +190,9 @@ reviews:
     # Base branches (other than the default branch) to review.
     # Accepts regex patterns.
     base_branches: []
+
+    # Skip reviews for PRs authored by these usernames (exact match).
+    ignore_usernames: []
 
   finishing_touches:
     docstrings:
@@ -211,14 +245,24 @@ reviews:
       enabled: true
     gitleaks:
       enabled: true
+    # Secret scanner with verification capabilities.
+    trufflehog:
+      enabled: true
     checkov:
       enabled: false
+    # Terraform linter for finding potential errors and enforcing best
+    # practices.
+    tflint:
+      enabled: true
     detekt:
       enabled: false
     eslint:
       enabled: false
     flake8:
       enabled: false
+    # Fortran linter for code quality and style issues.
+    fortitudeLint:
+      enabled: true
     rubocop:
       enabled: false
     buf:
@@ -229,8 +273,15 @@ reviews:
       enabled: false
     pmd:
       enabled: false
+    # Static analysis for C and C++ code.
+    clang:
+      enabled: true
     cppcheck:
       enabled: false
+    # High-performance static code analysis engine, compatible with Semgrep
+    # configurations.
+    opengrep:
+      enabled: true
     semgrep:
       enabled: true
     circleci:
@@ -239,6 +290,9 @@ reviews:
       enabled: false
     sqlfluff:
       enabled: false
+    # Security scanner for misconfigurations and secrets in IaC files.
+    trivy:
+      enabled: true
     prismaLint:
       enabled: false
     pylint:
@@ -255,11 +309,43 @@ reviews:
       enabled: false
     htmlhint:
       enabled: true
+    # Linter for stylesheets (CSS, SCSS, Sass, Less, etc.).
+    stylelint:
+      enabled: true
     checkmake:
       enabled: false
-  pre_merge_checks: {}
+    # Vulnerability package scanning.
+    osvScanner:
+      enabled: true
+    # Linter for Windows batch files.
+    blinter:
+      enabled: true
+    # Static code checker for PowerShell scripts and modules.
+    psscriptanalyzer:
+      enabled: true
+  # Pre-merge checks that must pass before merging.
+  # Mode can be 'off', 'warning', or 'error' (requires resolution before
+  # merging).
+  pre_merge_checks:
+    docstrings:
+      mode: warning
+      # Minimum docstring coverage (%) required to pass.
+      threshold: 80
+    title:
+      mode: warning
+      # Describe title requirements.
+      requirements: ''
+    description:
+      mode: warning
+    issue_assessment:
+      mode: warning
+    # Define up to 5 custom checks that must pass before merging.
+    custom_checks: []
 
 chat:
+  # Generate art in chat responses (ASCII or emoji).
+  art: true
+
   # Enable the bot to reply automatically without requiring the user to tag it.
   auto_reply: false
   integrations:
@@ -342,6 +428,14 @@ knowledge_base:
     # organization's pull requests for private repositories.
     scope: auto
 
+  mcp:
+    # Use MCP servers as a knowledge source. 'auto' disables the integration
+    # for public repositories.
+    usage: auto
+
+    # Specify MCP server labels to disable (case-insensitive).
+    disabled_servers: []
+
 code_generation:
   docstrings:
     # Natural language in which you want CodeRabbit to generate docstrings.
@@ -355,3 +449,28 @@ code_generation:
     # Provide additional guidelines for unit test generation
     # based on file paths.
     path_instructions: []
+
+issue_enrichment:
+  auto_enrich:
+    # Analyze and enrich issues with additional context (related code, potential
+    # solutions, complexity assessment).
+    enabled: false
+
+  planning:
+    # Generate an implementation plan for issues (early preview).
+    enabled: true
+
+    auto_planning:
+      # Trigger issue planning based on labels.
+      enabled: true
+
+      # Labels that control issue planning. Labels starting with '!' are
+      # negative matches.
+      labels: []
+
+  labeling:
+    # Define issue labels to suggest and when to suggest them.
+    labeling_instructions: []
+
+    # Automatically apply suggested labels to the issue.
+    auto_apply_labels: false
