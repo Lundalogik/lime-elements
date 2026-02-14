@@ -282,7 +282,7 @@ export class Select {
             list?.shadowRoot?.querySelector('[tabindex]');
 
         if (firstItem) {
-            firstItem.focus();
+            firstItem.focus({ preventScroll: true });
         }
     }
 
