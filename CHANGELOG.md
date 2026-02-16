@@ -1,3 +1,10 @@
+## [38.49.2](https://github.com/Lundalogik/lime-elements/compare/v38.49.1...v38.49.2) (2026-02-16)
+
+### Bug Fixes
+
+
+* **select:** improve layout of multiple selected options with icon ([fd43608](https://github.com/Lundalogik/lime-elements/commit/fd436082208419e0974e19d0021263d028fe1353))
+
 ## [38.49.1](https://github.com/Lundalogik/lime-elements/compare/v38.49.0...v38.49.1) (2026-02-13)
 
 ### Bug Fixes
