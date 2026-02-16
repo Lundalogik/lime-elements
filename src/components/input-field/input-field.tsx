@@ -758,7 +758,7 @@ export class InputField {
         return props;
     };
 
-    private renderLinkIcon = (linkProps: LinkProperties, icon: string) => {
+    private renderLinkIcon = (linkProps: LinkProperties, icon: IconName) => {
         // If the trailing icon uses the class `mdc-text-field__icon--trailing`,
         // MDC attaches a click handler to it, which apparently runs
         // `preventDefault()` on the event. For links, we don't want that,
@@ -776,7 +776,7 @@ export class InputField {
         );
     };
 
-    private renderTrailingIcon = (icon: string) => {
+    private renderTrailingIcon = (icon: IconName) => {
         if (this.isInvalid()) {
             return (
                 <i
