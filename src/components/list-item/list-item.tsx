@@ -252,12 +252,10 @@ export class ListItemComponent implements ListItem {
 
         let iconColor: string | undefined;
         let iconBackgroundColor: string | undefined;
-        let title: string | undefined;
 
         if (typeof this.icon === 'object') {
             iconColor = this.icon.color;
             iconBackgroundColor = this.icon.backgroundColor;
-            title = this.icon.title;
         }
 
         const iconProps = {
