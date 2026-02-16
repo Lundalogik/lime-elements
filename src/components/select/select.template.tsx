@@ -346,10 +346,7 @@ function getSelectedText(value: Option | Option[]): string | VNode[] {
 
     if (isMultiple(value)) {
         return value.map((option, index) => (
-            <span
-                class="limel-select__selected-option-item-wrapper"
-                key={option.value}
-            >
+            <span class="multiple-selected-options" key={option.value}>
                 {renderOptionWithIcon(option)}
                 {index < value.length - 1 && ', '}
             </span>
@@ -371,19 +368,15 @@ function renderOptionWithIcon(option: Option) {
         style.color = color;
     }
 
-    return (
-        <span class="limel-select__selected-option-item">
-            <limel-icon
-                class="limel-select__selected-option__icon limel-select__selected-option__icon--inline"
-                name={name}
-                size="small"
-                style={style}
-            />
-            <span class="limel-select__selected-option-item__text">
-                {option.text}
-            </span>
-        </span>
-    );
+    return [
+        <limel-icon
+            class="limel-select__selected-option__icon"
+            name={name}
+            size="small"
+            style={style}
+        />,
+        option.text,
+    ];
 }
 
 function getSelectedIcon(value: Option | Option[]) {
