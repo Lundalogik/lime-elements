@@ -193,3 +193,9 @@ limel-radio-button {
     }
 }
 // ====================
+
+limel-list-item {
+    .visually-hidden {
+        @include mixins.visually-hidden;
+    }
+}
