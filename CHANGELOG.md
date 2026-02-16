@@ -1,3 +1,17 @@
+## [39.0.0](https://github.com/Lundalogik/lime-elements/compare/v38.49.2...v39.0.0) (2026-02-16)
+
+### ⚠ BREAKING CHANGES
+
+* The property `assistiveText` has been removed from `limel-list-item`.
+The property was very recently added, and presumably not yet used
+by any consumer, which is why the property was removed without first
+being marked as deprecated.
+
+### Reverts
+
+
+* Revert "feat(list-item): add assistiveText for screen reader descriptions" ([2c6be26](https://github.com/Lundalogik/lime-elements/commit/2c6be2680cf316bb8268dbd81a17cb26161e27b6))
+
 ## [38.49.2](https://github.com/Lundalogik/lime-elements/compare/v38.49.1...v38.49.2) (2026-02-16)
 
 ### Bug Fixes
