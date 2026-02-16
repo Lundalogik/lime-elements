@@ -235,6 +235,8 @@ export class Select {
         this.cancelPendingFocus();
 
         this.focusTimeoutId = setTimeout(() => {
+            this.focusTimeoutId = undefined;
+
             if (!this.menuOpen) {
                 return;
             }
@@ -254,6 +256,7 @@ export class Select {
                 }
 
                 this.focusObserver.disconnect();
+                this.focusObserver = undefined;
 
                 if (!this.menuOpen) {
                     return;
