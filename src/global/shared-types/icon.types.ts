@@ -18,6 +18,7 @@ import { Color } from './color.types';
  *
  * @public
  */
+// biome-ignore lint/suspicious/noEmptyInterface: Intentionally empty for module augmentation
 export interface IconNameRegistry {}
 
 /**
