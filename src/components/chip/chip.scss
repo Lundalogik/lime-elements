@@ -13,6 +13,7 @@
     display: inline-flex;
     align-items: center;
     min-width: 0;
+    max-width: min(var(--chip-max-width, 100%), 25rem);
 }
 
 :host(limel-chip[size='small']) {
@@ -34,7 +35,7 @@
     justify-content: center;
     gap: 0.25rem;
 
-    max-width: min(var(--chip-max-width, 100%), 25rem);
+    max-width: 100%;
     height: var(--limel-chip-height);
 
     border-radius: var(--limel-chip-height);
