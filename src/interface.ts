@@ -11,6 +11,7 @@ export * from './components/date-picker/date.types';
 export * from './components/dialog/dialog.types';
 export * from './components/dock/dock.types';
 export * from './components/color-picker/color-picker.types';
+export * from './components/email-viewer/email-viewer.types';
 export * from './components/file-viewer/file-viewer.types';
 export * from './global/shared-types/file.types';
 export * from './components/flex-container/flex-container.types';
