@@ -21,13 +21,6 @@ If `bodyHtml` is provided, it will be rendered using `innerHTML`.
 | `language`          | `language`            | Defines the localization for translations.                                                                                                                                                                                                             | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`      |
 
 
-## Events
-
-| Event                     | Description                                                | Type                   |
-| ------------------------- | ---------------------------------------------------------- | ---------------------- |
-| `allowRemoteImagesChange` | Emitted when the user requests remote images to be loaded. | `CustomEvent<boolean>` |
-
-
 ## Shadow Parts
 
 | Part              | Description |
