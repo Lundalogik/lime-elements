@@ -41,6 +41,21 @@ export default {
     'file-viewer.open-in-fullscreen': 'Åpne i fullskjerm',
     'file-viewer.open-in-new-tab': 'Åpne i en ny fane',
     'file-viewer.more-actions': 'Mer…',
+    'file-viewer.email.subject': 'Emne',
+    'file-viewer.email.from': 'Fra',
+    'file-viewer.email.to': 'Til',
+    'file-viewer.email.cc': 'Kopi',
+    'file-viewer.email.date': 'Dato',
+    'file-viewer.email.attachments': 'Vedlegg',
+    'file-viewer.email.attachment.unnamed': 'Vedlegg uten navn',
+    'file-viewer.email.remote-images.warning':
+        'Bilder lastes ikke inn for å beskytte personvernet ditt.',
+    'file-viewer.email.remote-images.warning.description': `Mange e-poster inneholder bilder som ligger på eksterne servere.
+Når bilder lastes inn, henter enheten din dem fra avsenderens server.
+Dette kan avsløre for avsenderen at du åpnet meldingen, når du åpnet den, og metadata som IP-adressen din og informasjon om enhet/nettleser.
+
+Du kan fortsette å blokkere bilder (e-posten kan se ufullstendig ut), eller laste dem inn hvis du stoler på avsenderen.`,
+    'file-viewer.email.remote-images.load': 'Last inn bilder',
     'editor-menu.bold': 'Fet',
     'editor-menu.italic': 'Kursiv',
     'editor-menu.strikethrough': 'Gjennomstreking',
