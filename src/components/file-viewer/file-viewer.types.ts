@@ -7,6 +7,7 @@ export type FileType =
     | 'video'
     | 'audio'
     | 'text'
+    | 'email'
     | 'office'
     | 'unknown';
 

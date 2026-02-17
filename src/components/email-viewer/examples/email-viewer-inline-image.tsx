@@ -1,5 +1,5 @@
 import { Component, h } from '@stencil/core';
-import { Email } from '../email-viewer.types';
+import { Email } from '@limetech/lime-elements';
 
 /**
  * Email with inline image
