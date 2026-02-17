@@ -15,6 +15,8 @@ import { detectExtension } from './extension-mapping';
 import { Fullscreen } from './fullscreen';
 import { FileType, OfficeViewer } from './file-viewer.types';
 import { LimelMenuCustomEvent } from '../../components';
+import { Email } from '../email-viewer/email-viewer.types';
+import { loadEmail } from '../email-viewer/email-loader';
 
 /**
  * This is a smart component that automatically detects
@@ -39,6 +41,7 @@ import { LimelMenuCustomEvent } from '../../components';
  *
  * @exampleComponent limel-example-file-viewer-basic
  * @exampleComponent limel-example-file-viewer-office
+ * @exampleComponent limel-example-file-viewer-eml
  * @exampleComponent limel-example-file-viewer-filename
  * @exampleComponent limel-example-file-viewer-inbuilt-actions
  * @exampleComponent limel-example-file-viewer-custom-actions
@@ -141,7 +144,6 @@ export class FileViewer {
 
     @State()
     private fileType: FileType;
-
     /**
      * True while the file is being loaded.
      */
@@ -151,8 +153,17 @@ export class FileViewer {
     @State()
     private fileUrl: string = '';
 
+    @State()
+    private email?: Email;
+
+    private pdfBlobUrl?: string;
+
     constructor() {
         this.fullscreen = new Fullscreen(this.HostElement);
+    }
+
+    public disconnectedCallback() {
+        this.revokePdfBlobUrl();
     }
 
     public async componentWillLoad() {
@@ -190,6 +201,7 @@ export class FileViewer {
             video: this.renderVideo,
             audio: this.renderAudio,
             text: this.renderText,
+            email: this.renderEmail,
             office: this.renderOffice,
         };
         const fileViewerFunction =
@@ -243,6 +255,19 @@ export class FileViewer {
             <object data={this.sanitizeUrl(this.fileUrl)} type="text/plain">
                 {fallbackContent}
             </object>,
+        ];
+    };
+
+    private renderEmail = () => {
+        return [
+            this.renderButtons(),
+            <limel-email-viewer
+                email={this.email}
+                fallbackUrl={this.sanitizeUrl(this.fileUrl)}
+                language={this.language}
+            >
+                <div slot="fallback">{this.renderNoFileSupportMessage()}</div>
+            </limel-email-viewer>,
         ];
     };
 
@@ -418,17 +443,48 @@ export class FileViewer {
     };
 
     private createURL = async (fileType: string) => {
-        if (['pdf'].includes(fileType)) {
-            const response = await fetch(this.url);
-            const blob = await response.blob();
+        const loaders: Record<string, () => Promise<void>> = {
+            pdf: this.loadPdf,
+            email: this.loadEmail,
+        };
+        const loader = loaders[fileType] || this.loadDefault;
 
-            this.fileUrl = URL.createObjectURL(blob);
-        } else {
-            this.fileUrl = this.url;
+        try {
+            await loader();
+        } finally {
+            this.loading = false;
         }
-
-        this.loading = false;
     };
+
+    private loadPdf = async () => {
+        this.revokePdfBlobUrl();
+        const response = await fetch(this.url);
+        const blob = await response.blob();
+
+        this.fileUrl = URL.createObjectURL(blob);
+        this.pdfBlobUrl = this.fileUrl;
+    };
+
+    private loadEmail = async () => {
+        try {
+            this.email = await loadEmail(this.url);
+            this.fileUrl = this.url;
+        } catch {
+            this.email = undefined;
+            this.fileUrl = '';
+        }
+    };
+
+    private loadDefault = async () => {
+        this.fileUrl = this.url;
+    };
+
+    private revokePdfBlobUrl() {
+        if (this.pdfBlobUrl) {
+            URL.revokeObjectURL(this.pdfBlobUrl);
+            this.pdfBlobUrl = undefined;
+        }
+    }
 
     private handleToggleFullscreen = () => {
         if (this.fullscreen.isSupported()) {
@@ -443,6 +499,10 @@ export class FileViewer {
     };
 
     private sanitizeUrl(url: string): string {
+        if (!url?.trim()) {
+            return '';
+        }
+
         try {
             const u = new URL(url, window.location.href);
             const allowed = ['http:', 'https:', 'blob:'];
