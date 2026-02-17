@@ -412,6 +412,13 @@ export namespace Components {
         "labels": Label[];
         "value": LabelValue;
     }
+    // @internal
+    export interface LimelEmailViewer {
+        "allowRemoteImages"?: boolean;
+        "email"?: Email;
+        "fallbackUrl"?: string;
+        "language": Languages;
+    }
     export interface LimelFile {
         "accept": string;
         "disabled": boolean;
@@ -1009,6 +1016,28 @@ export type EditorTextLink = {
 // @beta (undocumented)
 export type EditorUiType = 'standard' | 'minimal' | 'no-toolbar';
 
+// @alpha
+export interface Email {
+    attachments?: EmailAttachment[];
+    bodyHtml?: string;
+    bodyText?: string;
+    cc?: string;
+    date?: string;
+    from?: string;
+    subject?: string;
+    to?: string;
+}
+
+// @alpha
+export interface EmailAttachment {
+    filename?: string;
+    mimeType?: string;
+    size?: number;
+}
+
+// @alpha
+export type EmailHeaderType = 'subject' | 'from' | 'to' | 'cc' | 'date';
+
 // Warning: (ae-missing-release-tag) "EventEmitter" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -1036,7 +1065,7 @@ export interface FileInfo {
 }
 
 // @public (undocumented)
-export type FileType = 'pdf' | 'image' | 'video' | 'audio' | 'text' | 'office' | 'unknown';
+export type FileType = 'pdf' | 'image' | 'video' | 'audio' | 'text' | 'email' | 'office' | 'unknown';
 
 // @public (undocumented)
 export type FlexContainerAlign = 'start' | 'end' | 'center' | 'stretch';
@@ -1298,6 +1327,10 @@ export namespace JSX {
         "limel-drag-handle": LimelDragHandle;
         // (undocumented)
         "limel-dynamic-label": LimelDynamicLabel;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-email-viewer"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
+        // (undocumented)
+        "limel-email-viewer": LimelEmailViewer;
         // (undocumented)
         "limel-file": LimelFile;
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-file-dropzone"" is marked as @public, but its signature references "JSX" which is marked as @internal
@@ -1729,6 +1762,13 @@ export namespace JSX {
         "defaultLabel"?: Omit<Label, 'value'>;
         "labels"?: Label[];
         "value"?: LabelValue;
+    }
+    // @internal
+    export interface LimelEmailViewer {
+        "allowRemoteImages"?: boolean;
+        "email"?: Email;
+        "fallbackUrl"?: string;
+        "language"?: Languages;
     }
     export interface LimelFile {
         "accept"?: string;
@@ -2494,6 +2534,16 @@ export interface LimelDockCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelDockElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelEmailViewerCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelEmailViewerCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelEmailViewerElement;
 }
 
 // Warning: (ae-missing-release-tag) "LimelFileCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
