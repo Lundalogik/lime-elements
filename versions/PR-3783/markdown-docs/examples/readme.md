@@ -1,6 +1,3 @@
-# limel-example-value
-
-
 
 <!-- Auto Generated Below -->
 
@@ -45,6 +42,7 @@ The component automatically formats different value types:
 ### Used by
 
  - [limel-example-breadcrumbs-buttons](../components/breadcrumbs/examples)
+ - [limel-example-builtin-field-types-form](../components/form/examples)
  - [limel-example-chart-clickable-items](../components/chart/examples)
  - [limel-example-checkbox](../components/checkbox/examples)
  - [limel-example-checkbox-readonly](../components/checkbox/examples)
@@ -131,6 +129,7 @@ The component automatically formats different value types:
  - [limel-example-select-change-options](../components/select/examples)
  - [limel-example-select-dialog](../components/select/examples)
  - [limel-example-select-multiple](../components/select/examples)
+ - [limel-example-select-multiple-icons](../components/select/examples)
  - [limel-example-select-preselected](../components/select/examples)
  - [limel-example-select-with-empty-option](../components/select/examples)
  - [limel-example-select-with-icons](../components/select/examples)
@@ -165,6 +164,7 @@ The component automatically formats different value types:
 ```mermaid
 graph TD;
   limel-example-breadcrumbs-buttons --> limel-example-value
+  limel-example-builtin-field-types-form --> limel-example-value
   limel-example-chart-clickable-items --> limel-example-value
   limel-example-checkbox --> limel-example-value
   limel-example-checkbox-readonly --> limel-example-value
@@ -251,6 +251,7 @@ graph TD;
   limel-example-select-change-options --> limel-example-value
   limel-example-select-dialog --> limel-example-value
   limel-example-select-multiple --> limel-example-value
+  limel-example-select-multiple-icons --> limel-example-value
   limel-example-select-preselected --> limel-example-value
   limel-example-select-with-empty-option --> limel-example-value
   limel-example-select-with-icons --> limel-example-value

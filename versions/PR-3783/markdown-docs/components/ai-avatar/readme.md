@@ -1,6 +1,3 @@
-# limel-ai-avatar
-
-
 
 <!-- Auto Generated Below -->
 
@@ -30,6 +27,7 @@ of the component across all our apps.
 ### Used by
 
  - [limel-example-ai-avatar-basic](examples)
+ - [limel-example-ai-avatar-color-props](examples)
  - [limel-example-ai-avatar-colors](examples)
  - [limel-example-ai-avatar-white-background](examples)
 
@@ -37,6 +35,7 @@ of the component across all our apps.
 ```mermaid
 graph TD;
   limel-example-ai-avatar-basic --> limel-ai-avatar
+  limel-example-ai-avatar-color-props --> limel-ai-avatar
   limel-example-ai-avatar-colors --> limel-ai-avatar
   limel-example-ai-avatar-white-background --> limel-ai-avatar
   style limel-ai-avatar fill:#f9f,stroke:#333,stroke-width:4px

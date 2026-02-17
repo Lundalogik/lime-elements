@@ -1,2 +1,1 @@
-import{r as e,h as t}from"./index-0c4503aa.js";const r=class{constructor(t){e(this,t)}render(){return t("limel-helper-line",{helperText:"Do not forget to forget things!",length:10,maxLength:20,helperTextId:"tf-helper-text"})}};export{r as limel_example_helper_line};
-//# sourceMappingURL=limel-example-helper-line.entry.js.map
+import{r as e,h as t}from"./index-BudcI_o9.js";const r=class{constructor(t){e(this,t)}render(){return t("limel-helper-line",{key:"f619a497f80a52865f427950063c66e8b67e82c9",helperText:"Do not forget to forget things!",length:10,maxLength:20,helperTextId:"tf-helper-text"})}};export{r as limel_example_helper_line}

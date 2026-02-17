@@ -1,2 +1,1 @@
-import{r as e,h as r}from"./index-0c4503aa.js";const a=class{constructor(r){e(this,r)}render(){return r("limel-file-viewer",{url:"https://unsplash.it/1280/720/?random",alt:"Some random picture form Unsplash",filename:"random-image.jpg"})}};export{a as limel_example_file_viewer_filename};
-//# sourceMappingURL=limel-example-file-viewer-filename.entry.js.map
+import{r as e,h as r}from"./index-BudcI_o9.js";const a=class{constructor(r){e(this,r)}render(){return r("limel-file-viewer",{key:"7488c9ec9f6cd0194ec3e81400844b0a3f7eb11d",url:"https://unsplash.it/1280/720/?random",alt:"Some random picture form Unsplash",filename:"random-image.jpg"})}};export{a as limel_example_file_viewer_filename}

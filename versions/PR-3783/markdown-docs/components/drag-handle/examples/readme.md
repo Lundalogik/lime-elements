@@ -1,6 +1,3 @@
-# limel-example-drag-handle-horizontal
-
-
 
 <!-- Auto Generated Below -->
 

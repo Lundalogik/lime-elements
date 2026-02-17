@@ -1,6 +1,3 @@
-# limel-example-tab-panel-content
-
-
 
 <!-- Auto Generated Below -->
 

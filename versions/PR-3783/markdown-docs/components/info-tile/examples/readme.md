@@ -1,6 +1,3 @@
-# limel-example-info-tile-styling
-
-
 
 <!-- Auto Generated Below -->
 

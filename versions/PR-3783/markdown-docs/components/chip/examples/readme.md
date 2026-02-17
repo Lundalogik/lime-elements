@@ -1,6 +1,3 @@
-# limel-example-chip-size
-
-
 
 <!-- Auto Generated Below -->
 

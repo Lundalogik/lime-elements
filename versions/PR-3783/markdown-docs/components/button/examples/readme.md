@@ -1,6 +1,3 @@
-# limel-example-button-reduce-presence
-
-
 
 <!-- Auto Generated Below -->
 

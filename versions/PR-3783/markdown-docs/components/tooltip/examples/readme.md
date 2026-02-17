@@ -1,6 +1,3 @@
-# limel-example-tooltip-max-character
-
-
 
 <!-- Auto Generated Below -->
 

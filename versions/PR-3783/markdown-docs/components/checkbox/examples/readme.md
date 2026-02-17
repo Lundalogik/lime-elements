@@ -1,6 +1,3 @@
-# limel-example-checkbox-readonly
-
-
 
 <!-- Auto Generated Below -->
 

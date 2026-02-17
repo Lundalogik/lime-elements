@@ -1,2 +1,1 @@
-import{r as i,h as t}from"./index-0c4503aa.js";const e="limel-shortcut{width:20%}";const r=class{constructor(t){i(this,t)}render(){const i={href:"https://www.wikipedia.org/",title:"Open Wikipedia in a new tab.",target:"_blank"};return t("limel-shortcut",{icon:"wikipedia",label:"Wikipedia",link:i})}};r.style=e;export{r as limel_example_shortcut};
-//# sourceMappingURL=limel-example-shortcut.entry.js.map
+import{r as i,h as e}from"./index-BudcI_o9.js";const t=class{constructor(e){i(this,e)}render(){return e("limel-shortcut",{key:"7958c305f824e21a06dfd6769fbd3d0cd90b2a98",icon:"wikipedia",label:"Wikipedia",link:{href:"https://www.wikipedia.org/",title:"Open Wikipedia in a new tab.",target:"_blank"}})}};t.style="limel-shortcut{width:20%}";export{t as limel_example_shortcut}

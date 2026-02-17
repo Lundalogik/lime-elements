@@ -1,6 +1,3 @@
-# limel-example-popover-trigger-interaction
-
-
 
 <!-- Auto Generated Below -->
 

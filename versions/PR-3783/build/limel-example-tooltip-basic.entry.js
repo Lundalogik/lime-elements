@@ -1,2 +1,1 @@
-import{r as e,h as l}from"./index-0c4503aa.js";const t=class{constructor(l){e(this,l)}render(){return[l("limel-button",{icon:"search",id:"tooltip-example"}),l("limel-tooltip",{label:"Search",helperLabel:"alt + F",elementId:"tooltip-example"})]}};export{t as limel_example_tooltip_basic};
-//# sourceMappingURL=limel-example-tooltip-basic.entry.js.map
+import{r as e,h as l}from"./index-BudcI_o9.js";const t=class{constructor(l){e(this,l)}render(){return[l("limel-button",{key:"2f3ea88c945eace880471afff3b256f06135d08b",icon:"search",id:"tooltip-example"}),l("limel-tooltip",{key:"a3a848f36667dd9b291b583ece20b69ce619f7dd",label:"Search",helperLabel:"alt + F",elementId:"tooltip-example"})]}};export{t as limel_example_tooltip_basic}

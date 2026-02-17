@@ -1,6 +1,3 @@
-# limel-example-helper-line-long-text-no-counter
-
-
 
 <!-- Auto Generated Below -->
 

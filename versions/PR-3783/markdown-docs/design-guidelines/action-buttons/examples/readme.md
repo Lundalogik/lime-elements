@@ -1,6 +1,3 @@
-# limel-example-action-buttons-third-alternative
-
-
 
 <!-- Auto Generated Below -->
 

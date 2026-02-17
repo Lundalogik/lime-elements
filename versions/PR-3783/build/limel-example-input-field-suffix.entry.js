@@ -1,2 +1,1 @@
-import{r as i,h as t}from"./index-0c4503aa.js";const e=class{constructor(t){i(this,t);this.handleChange=i=>{this.value=i.detail};this.value="50"}render(){return t("limel-input-field",{label:"Quantity",suffix:"pcs",value:this.value,type:"number",onChange:this.handleChange})}};export{e as limel_example_input_field_suffix};
-//# sourceMappingURL=limel-example-input-field-suffix.entry.js.map
+import{r as e,h as i}from"./index-BudcI_o9.js";const t=class{constructor(i){e(this,i),this.value="50",this.handleChange=e=>{this.value=e.detail}}render(){return i("limel-input-field",{key:"1973fbbfd419657c985ed647cae1369cb3af8cf7",label:"Quantity",suffix:"pcs",value:this.value,type:"number",onChange:this.handleChange})}};export{t as limel_example_input_field_suffix}

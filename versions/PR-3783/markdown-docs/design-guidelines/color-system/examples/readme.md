@@ -1,6 +1,3 @@
-# limel-example-ui-color-palette
-
-
 
 <!-- Auto Generated Below -->
 

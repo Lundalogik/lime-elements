@@ -1,18 +1,17 @@
-# limel-example-badge-string
-
-
 
 <!-- Auto Generated Below -->
 
 
 ## Overview
 
-String badges
+Number badges
 
-String labels get truncated if their visual length is longer than
-six characters placed side by side (six `0`s to be exact).
+Numeric labels larger than 999 will get both rounded and abbreviated.
+For example, if the label is `1090` the badge will display `1.1K`.
+Abbreviation units used are `k` (Kilo) that stands for Thousands,
+`M` for Millions, `B` for Billions, and `T` for Trillions.
 
-When users hover the truncated badge, the complete
+When users hover the abbreviated badge, the complete
 `label` will be displayed in a tooltip.
 
 ## Dependencies
@@ -24,8 +23,8 @@ When users hover the truncated badge, the complete
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-badge-string --> limel-badge
-  style limel-example-badge-string fill:#f9f,stroke:#333,stroke-width:4px
+  limel-example-badge-number --> limel-badge
+  style limel-example-badge-number fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

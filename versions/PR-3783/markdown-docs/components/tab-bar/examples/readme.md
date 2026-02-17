@@ -1,6 +1,3 @@
-# limel-example-tab-bar-with-equal-tab-width
-
-
 
 <!-- Auto Generated Below -->
 

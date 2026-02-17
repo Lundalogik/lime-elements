@@ -1,6 +1,3 @@
-# limel-example-table-sorting-disabled
-
-
 
 <!-- Auto Generated Below -->
 

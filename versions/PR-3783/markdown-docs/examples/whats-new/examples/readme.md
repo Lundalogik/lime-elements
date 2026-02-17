@@ -1,6 +1,3 @@
-# limel-whats-new-example-slider
-
-
 
 <!-- Auto Generated Below -->
 

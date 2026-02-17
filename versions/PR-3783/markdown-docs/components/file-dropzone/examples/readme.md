@@ -1,6 +1,3 @@
-# limel-example-file-dropzone-type-filtering
-
-
 
 <!-- Auto Generated Below -->
 

@@ -1,6 +1,3 @@
-# limel-example-shortcut-with-click-handler
-
-
 
 <!-- Auto Generated Below -->
 

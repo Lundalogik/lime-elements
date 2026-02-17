@@ -1,2 +1,1 @@
-import{r as n,h as r}from"./index-0c4503aa.js";const e=`\nThree or more of…\n\n---\n\nHyphens,\n\n***\n\nAsterisks,\n\n___\n\nOr Underscores\n`;const o=class{constructor(r){n(this,r)}render(){return r("limel-markdown",{value:e})}};export{o as limel_example_markdown_horizontal_rule};
-//# sourceMappingURL=limel-example-markdown-horizontal-rule.entry.js.map
+import{r as n,h as r}from"./index-BudcI_o9.js";const e=class{constructor(r){n(this,r)}render(){return r("limel-markdown",{key:"cdd846dc027af150b8e2c45d2435c00dd5547ac7",value:"\nThree or more of…\n\n---\n\nHyphens,\n\n***\n\nAsterisks,\n\n___\n\nOr Underscores\n"})}};export{e as limel_example_markdown_horizontal_rule}

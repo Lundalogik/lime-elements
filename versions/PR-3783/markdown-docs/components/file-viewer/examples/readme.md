@@ -1,6 +1,3 @@
-# limel-example-file-viewer-with-picker
-
-
 
 <!-- Auto Generated Below -->
 

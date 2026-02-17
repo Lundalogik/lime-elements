@@ -1,6 +1,3 @@
-# limel-collapsible-section
-
-
 
 <!-- Auto Generated Below -->
 
