@@ -41,6 +41,21 @@ export default {
     'file-viewer.open-in-fullscreen': 'Open in volledig scherm',
     'file-viewer.open-in-new-tab': 'Openen op een nieuw tabblad',
     'file-viewer.more-actions': 'Meer…',
+    'file-viewer.email.subject': 'Onderwerp',
+    'file-viewer.email.from': 'Van',
+    'file-viewer.email.to': 'Aan',
+    'file-viewer.email.cc': 'Cc',
+    'file-viewer.email.date': 'Datum',
+    'file-viewer.email.attachments': 'Bijlagen',
+    'file-viewer.email.attachment.unnamed': 'Bijlage zonder naam',
+    'file-viewer.email.remote-images.warning':
+        'Afbeeldingen worden niet geladen om je privacy te beschermen.',
+    'file-viewer.email.remote-images.warning.description': `Veel e-mails bevatten afbeeldingen die op externe servers worden gehost.
+Wanneer afbeeldingen worden geladen, vraagt je apparaat ze op bij de server van de afzender.
+Dit kan aan de afzender onthullen dat je het bericht hebt geopend, wanneer je het hebt geopend, en metadata zoals je IP-adres en informatie over apparaat/browser.
+
+Je kunt afbeeldingen geblokkeerd houden (de e-mail kan er onvolledig uitzien) of ze laden als je de afzender vertrouwt.`,
+    'file-viewer.email.remote-images.load': 'Afbeeldingen laden',
     'editor-menu.bold': 'Vet',
     'editor-menu.italic': 'Cursief',
     'editor-menu.strikethrough': 'Doorhalen',

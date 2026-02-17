@@ -42,6 +42,21 @@ export default {
     'file-viewer.open-in-fullscreen': 'Ouvrir en plein écran',
     'file-viewer.open-in-new-tab': 'Ouvrir dans un nouvel onglet',
     'file-viewer.more-actions': 'Plus…',
+    'file-viewer.email.subject': 'Objet',
+    'file-viewer.email.from': 'De',
+    'file-viewer.email.to': 'À',
+    'file-viewer.email.cc': 'Cc',
+    'file-viewer.email.date': 'Date',
+    'file-viewer.email.attachments': 'Pièces jointes',
+    'file-viewer.email.attachment.unnamed': 'Pièce jointe sans nom',
+    'file-viewer.email.remote-images.warning':
+        'Les images ne sont pas chargées afin de protéger votre vie privée.',
+    'file-viewer.email.remote-images.warning.description': `De nombreux e-mails contiennent des images hébergées sur des serveurs externes.
+Lorsque les images sont chargées, votre appareil les demande au serveur de l’expéditeur.
+Cela peut révéler à l’expéditeur que vous avez ouvert le message, quand vous l’avez ouvert, ainsi que des métadonnées telles que votre adresse IP et des informations sur votre appareil/navigateur.
+
+Vous pouvez laisser les images bloquées (l’e-mail peut sembler incomplet) ou les charger si vous faites confiance à l’expéditeur.`,
+    'file-viewer.email.remote-images.load': 'Charger les images',
     'editor-menu.bold': 'Gras',
     'editor-menu.italic': 'Italique',
     'editor-menu.strikethrough': 'Barré',
