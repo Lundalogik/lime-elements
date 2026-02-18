@@ -1,3 +1,11 @@
+## [39.0.1](https://github.com/Lundalogik/lime-elements/compare/v39.0.0...v39.0.1) (2026-02-18)
+
+### Bug Fixes
+
+
+* **chip-set:** allow a single chip to fill in the entire width of chip-set's input ([0f20b5c](https://github.com/Lundalogik/lime-elements/commit/0f20b5cbf1bfd196a1d4629b5b362a2f2659fb19))
+* **chip-set:** prevent dead space between a long chip, followed by a short chip ([7d1574a](https://github.com/Lundalogik/lime-elements/commit/7d1574a502fea7325b3156ccb54f4630e88e3a44))
+
 ## [39.0.0](https://github.com/Lundalogik/lime-elements/compare/v38.49.2...v39.0.0) (2026-02-16)
 
 ### ⚠ BREAKING CHANGES
