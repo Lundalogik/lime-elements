@@ -31,15 +31,18 @@
     --limel-boolean-input-box-border-radius: var(
         --limel-boolean-input-box-size
     );
+    .box {
+        &:after {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+    }
 }
 
-.box {
-    &:after {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-
-        .boolean-input:has(input[type='radio']:checked) & {
+.boolean-input:has(input[type='radio']:checked) {
+    .box {
+        &:after {
             opacity: 1;
             transform: scale(0.6);
             box-shadow: var(--shadow-depth-8);
