@@ -1,1 +1,0 @@
-import{r as e,h as r}from"./index-xvTBZcD2.js";const a=class{constructor(r){e(this,r)}render(){return r("limel-header",{key:"3e103577b7f435650c0cf7cbf051e61d27418dfc",icon:"brake_warning",heading:"Useful information",subheading:"Note",supportingText:"Data couldn't be loaded!"})}};export{a as limel_example_header}
