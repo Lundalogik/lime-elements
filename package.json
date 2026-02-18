@@ -44,7 +44,7 @@
     "@popperjs/core": "^2.11.8",
     "@rjsf/core": "^2.4.2",
     "@rollup/plugin-node-resolve": "^13.3.0",
-    "@stencil/core": "^4.43.0",
+    "@stencil/core": "4.43.0",
     "@stencil/sass": "^3.2.2",
     "@types/codemirror": "^5.60.2",
     "@types/html-escaper": "^3.0.4",
