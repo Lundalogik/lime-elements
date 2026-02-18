@@ -360,7 +360,7 @@ reviews:
       enabled: true
     # Linter for stylesheets (CSS, SCSS, Sass, Less, etc.).
     stylelint:
-      enabled: true
+      enabled: false
     # Makefile linter.
     checkmake:
       enabled: false
