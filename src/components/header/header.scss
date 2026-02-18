@@ -1,5 +1,5 @@
-@use '../../style/mixins.scss';
-@use '../../style/functions.scss';
+@use '../../style/mixins';
+@use '../../style/functions';
 
 /**
  * @prop --header-background-color: Background color of header, defaults to `--contrast-300`.

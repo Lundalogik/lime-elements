@@ -1,4 +1,4 @@
-@use '../../style/mixins.scss';
+@use '../../style/mixins';
 @use '../../style/internal/shared_input-select-picker';
 /**
  * @prop --limel-notched-outline-z-index: Defines the `z-index` of the outlines & the label, since they are absolutely positioned. Useful if there are other elements with z-indexes in the consumer.

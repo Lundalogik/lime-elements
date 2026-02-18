@@ -1,5 +1,5 @@
-@use '../../../style/mixins.scss';
-@use '../../../style/functions.scss';
+@use '../../../style/mixins';
+@use '../../../style/functions';
 
 code {
     @include mixins.font-family(monospace);

@@ -1,5 +1,5 @@
 @use '../../style/internal/shared_input-select-picker';
-@use '../../style/mixins.scss';
+@use '../../style/mixins';
 
 /**
  * @prop --text-editor-max-height: the tallest height the text editor can become when auto-resizing itself. Defaults to `calc(100vh - (env(safe-area-inset-top) + env(safe-area-inset-bottom)) - 4rem)`.
