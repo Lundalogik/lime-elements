@@ -1,9 +1,9 @@
+@forward './partial-styles/ui-controls';
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
 
-$size-of-buttons: 2rem;
-
 :host {
+    --limel-file-viewer-size-of-buttons: 2rem;
     isolation: isolate;
     position: relative;
     box-sizing: border-box;
@@ -61,7 +61,7 @@ object[type='application/pdf'] {
 
 object[type='text/plain'] {
     border-radius: 0.25rem;
-    padding-right: $size-of-buttons;
+    padding-right: var(--limel-file-viewer-size-of-buttons);
 
     overflow-y: auto;
 }
@@ -86,5 +86,3 @@ object[type='text/plain'] {
     // So you have to repeat it sadly.
     @include plain-text-in-fullscreen;
 }
-
-@import './partial-styles/ui-controls.scss';

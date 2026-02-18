@@ -1,21 +1,19 @@
+@forward './partial-styles/tab-bar-scroller';
 @use '@material/tab-bar/mdc-tab-bar';
 @use '@material/tab-scroller/mdc-tab-scroller';
 @use '@material/tab-indicator/mdc-tab-indicator';
 @use '@material/tab/mdc-tab';
 
-$tab-background-color: var(--contrast-300);
-$tab-border-radius: 0.625rem;
-$tab-active-outer-edge-curve-size: 0.75rem;
-$tab-separator-width: 0.125rem;
-$tab-separator-background-color: rgb(var(--contrast-600));
-
-@import './partial-styles/tab-bar-scroller.scss';
-
 :host(limel-tab-bar) {
+    --limel-tab-background-color: var(--contrast-300);
+    --limel-tab-border-radius: 0.625rem;
     --limel-active-tab-background-color: var(
         --tab-panel-background-color,
         rgb(var(--contrast-100))
     );
+    --limel-tab-active-outer-edge-curve-size: 0.75rem;
+    --limel-tab-separator-width: 0.125rem;
+    --limel-tab-separator-background-color: rgb(var(--contrast-600));
     isolation: isolate;
     display: block;
     position: relative;
@@ -49,7 +47,7 @@ $tab-separator-background-color: rgb(var(--contrast-600));
 
 .mdc-tab__ripple {
     box-sizing: border-box;
-    border-radius: $tab-border-radius;
+    border-radius: var(--limel-tab-border-radius);
     border: {
         style: solid;
         color: transparent;
@@ -76,15 +74,15 @@ $tab-separator-background-color: rgb(var(--contrast-600));
         &:after {
             content: '';
             display: block;
-            background-color: $tab-separator-background-color;
-            width: $tab-separator-width;
+            background-color: var(--limel-tab-separator-background-color);
+            width: var(--limel-tab-separator-width);
             height: 1rem;
             margin: auto;
             position: absolute;
             top: 0;
             bottom: 0;
             border-radius: 1rem;
-            right: -$tab-separator-width;
+            right: -var(--limel-tab-separator-width);
         }
 
         &:last-of-type {
@@ -108,7 +106,8 @@ $tab-separator-background-color: rgb(var(--contrast-600));
 }
 
 .mdc-tab--active {
-    border-radius: $tab-border-radius $tab-border-radius 0 0;
+    border-radius: var(--limel-tab-border-radius) var(--limel-tab-border-radius)
+        0 0;
     background-color: var(--limel-active-tab-background-color);
     z-index: 2;
 
@@ -116,8 +115,8 @@ $tab-separator-background-color: rgb(var(--contrast-600));
     &:after {
         content: '';
         display: block;
-        width: $tab-active-outer-edge-curve-size;
-        height: $tab-active-outer-edge-curve-size;
+        width: var(--limel-tab-active-outer-edge-curve-size);
+        height: var(--limel-tab-active-outer-edge-curve-size);
         position: absolute;
         bottom: 0;
         background-color: var(--limel-active-tab-background-color);
@@ -127,11 +126,11 @@ $tab-separator-background-color: rgb(var(--contrast-600));
     }
 
     &:before {
-        left: -$tab-active-outer-edge-curve-size;
+        left: -var(--limel-tab-active-outer-edge-curve-size);
         transform: rotateY(180deg);
     }
     &:after {
-        right: -$tab-active-outer-edge-curve-size;
+        right: -var(--limel-tab-active-outer-edge-curve-size);
     }
 
     .mdc-ripple-upgraded--background-focused {

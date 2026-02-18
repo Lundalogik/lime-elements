@@ -7,7 +7,7 @@
     .lock-icon {
         pointer-events: none;
         box-sizing: border-box;
-        z-index: $limel-progress-flow-step-content;
+        z-index: var(--limel-progress-flow-step-content);
     }
 
     &::before {

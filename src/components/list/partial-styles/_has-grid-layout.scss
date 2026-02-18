@@ -17,7 +17,7 @@
         max-width: var(--list-grid-max-width, 100%);
 
         limel-list-item {
-            border-radius: $list-border-radius !important;
+            border-radius: var(--limel-list-border-radius) !important;
         }
     }
 

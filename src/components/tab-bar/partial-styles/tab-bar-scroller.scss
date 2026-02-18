@@ -24,9 +24,9 @@ $space-around-buttons: 0.25rem;
         left: 0;
         background: linear-gradient(
             270deg,
-            rgba($tab-background-color, 0) 0%,
-            rgba($tab-background-color, 0.8) 40%,
-            rgba($tab-background-color, 0.8) 100%
+            rgba(var(--limel-tab-background-color), 0) 0%,
+            rgba(var(--limel-tab-background-color), 0.8) 40%,
+            rgba(var(--limel-tab-background-color), 0.8) 100%
         );
     }
 
@@ -35,9 +35,9 @@ $space-around-buttons: 0.25rem;
         right: 0;
         background: linear-gradient(
             90deg,
-            rgba($tab-background-color, 0) 0%,
-            rgba($tab-background-color, 0.8) 40%,
-            rgba($tab-background-color, 0.8) 100%
+            rgba(var(--limel-tab-background-color), 0) 0%,
+            rgba(var(--limel-tab-background-color), 0.8) 40%,
+            rgba(var(--limel-tab-background-color), 0.8) 100%
         );
     }
 }
@@ -106,7 +106,7 @@ $space-around-buttons: 0.25rem;
 }
 
 .mdc-tab-scroller__scroll-content {
-    padding: 0.25rem $tab-active-outer-edge-curve-size 0
-        $tab-active-outer-edge-curve-size;
-    background-color: rgb($tab-background-color);
+    padding: 0.25rem var(--limel-tab-active-outer-edge-curve-size) 0
+        var(--limel-tab-active-outer-edge-curve-size);
+    background-color: rgb(var(--limel-tab-background-color));
 }

@@ -1,3 +1,5 @@
+@forward './partial-styles/loading';
+@forward './partial-styles/progress';
 @use '../../style/mixins';
 
 /**
@@ -231,6 +233,3 @@ limel-menu {
         }
     }
 }
-
-@import './partial-styles/_loading.scss';
-@import './partial-styles/_progress.scss';

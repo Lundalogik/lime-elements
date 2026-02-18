@@ -1,8 +1,9 @@
+@forward './partial-styles/trailing-icon';
+@forward './partial-styles/readonly';
 @use '../../style/internal/z-index';
 @use '../../style/functions';
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
-
 @use '@material/textfield';
 @use '@material/textfield/icon';
 @use '@material/list';
@@ -190,9 +191,6 @@ input.mdc-text-field__input {
     }
 }
 
-@import './partial-styles/trailing-icon.scss';
-@import './partial-styles/readonly';
-
 // To make the input field render smaller than the default MDC UI
 .mdc-text-field {
     &.mdc-text-field--outlined {
@@ -212,4 +210,8 @@ input.mdc-text-field__input {
     .mdc-floating-label {
         left: 1.5rem;
     }
+}
+
+a.lime-trailing-icon-for-link {
+    @extend .mdc-text-field__icon--trailing;
 }

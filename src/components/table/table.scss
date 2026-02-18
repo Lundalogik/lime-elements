@@ -1,18 +1,26 @@
 @use '../../style/mixins';
 @use '../../style/functions';
-@import '../../../node_modules/tabulator-tables/src/scss/tabulator.scss';
+@forward '../../../node_modules/tabulator-tables/src/scss/tabulator';
+@forward './partial-styles/table-main-layout';
+@forward './partial-styles/tabulator-arrow';
+@forward './partial-styles/tabulator-paginator';
+@forward './partial-styles/tabulator-loader';
+@forward './partial-styles/tabulator-custom-styles';
+@forward './partial-styles/header-component';
+@forward './partial-styles/movable-columns';
+@forward './partial-styles/tabulator-footer';
+@forward './partial-styles/row-selection';
 
 /*
 * @prop --table-max-column-width: defines a maximum width for columns using standard size units, to prevent the table from growing too wide. Set to `auto` if you do not need this limitation. Defaults to `40rem`.
 */
 
-$width-of-sorter-arrow: 0.5rem;
-$cell-padding: 0.5rem;
-$table--has-interactive-rows--selectable-row--hover: 2;
-$table--limel-table--row-selector: 1;
-$height-of-aggregations-row: 1.5rem;
-
 :host(limel-table) {
+    --limel-table-interactive-selectable-row-z-index-hover: 2;
+    --limel-table-sorter-arrow-width: 0.5rem;
+    --limel-table-table-cell-padding: 0.5rem;
+    --limel-table-row-selector-z-index: 1;
+    --limel-table-height-of-aggregations-row: 1.5rem;
     isolation: isolate;
     display: block;
     --table-header-background-color: var(--contrast-500);
@@ -35,8 +43,6 @@ $height-of-aggregations-row: 1.5rem;
     --table-text-color: var(--limel-theme-text-primary-on-background-color);
     --limel-chip-size: 1.25rem;
 }
-
-@import './partial-styles/_table-main-layout';
 
 #tabulator-container {
     position: relative;
@@ -81,7 +87,7 @@ $height-of-aggregations-row: 1.5rem;
             }
 
             .tabulator-col-content {
-                padding: 0 $width-of-sorter-arrow 0 0.25rem;
+                padding: 0 var(--limel-table-sorter-arrow-width) 0 0.25rem;
             }
         }
 
@@ -109,8 +115,11 @@ $height-of-aggregations-row: 1.5rem;
 
     .tabulator-cell {
         border-right: transparent;
-        padding: $cell-padding;
-        padding-left: $cell-padding + $width-of-sorter-arrow;
+        padding: var(--limel-table-table-cell-padding);
+        padding-left: calc(
+            var(--limel-table-table-cell-padding) +
+                var(--limel-table-sorter-arrow-width)
+        );
 
         height: inherit;
 
@@ -158,12 +167,3 @@ $height-of-aggregations-row: 1.5rem;
 limel-chip {
     transform: translateY(-0.15rem);
 }
-
-@import './partial-styles/tabulator-arrow';
-@import './partial-styles/tabulator-paginator';
-@import './partial-styles/tabulator-loader';
-@import './partial-styles/tabulator-custom-styles';
-@import './partial-styles/header-component';
-@import './partial-styles/movable-columns';
-@import './partial-styles/_tabulator-footer';
-@import './partial-styles/_row-selection';

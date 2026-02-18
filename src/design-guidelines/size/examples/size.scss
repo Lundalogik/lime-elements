@@ -1,3 +1,4 @@
+@forward './partial-styles/visualize-sizes';
 @use '../../../style/functions';
 
 :host {
@@ -44,6 +45,3 @@
 .label {
     color: rgb(var(--contrast-1200));
 }
-
-// Below visualizes the sizes only, you can ignore it
-@import './partial-styles/visualize-sizes';

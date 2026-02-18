@@ -1,4 +1,5 @@
 // These are exported for external use.
+@forward '../components/portal/partial-styles/portal-container';
 
 @use '../style/_theme-color-variables';
 @use '../style/colors.scss';
@@ -42,5 +43,3 @@
 // @include mixins.in(dark-mode) {
 //     --lime-elevated-surface-background-color: rgb(var(--contrast-200));
 // }
-
-@import '../components/portal/partial-styles/portal-container.scss';

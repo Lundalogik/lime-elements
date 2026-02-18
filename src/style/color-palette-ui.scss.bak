@@ -1,4 +1,4 @@
-@import './mixins';
+@forward './mixins';
 
 // To be able to use colors with alpha, they are written in RGB.
 // Comments with HEX codes in front of the values are used as reference only.

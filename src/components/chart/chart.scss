@@ -1,6 +1,14 @@
+@forward './partial-styles/layout-for-charts-with-x-y-axises';
+@forward './partial-styles/display-item-text';
+@forward './partial-styles/layout-for-charts-with-circular-shape';
+@forward './partial-styles/bar-gantt-dot';
+@forward './partial-styles/area_line';
+@forward './partial-styles/pie-doughnut';
+@forward './partial-styles/ring';
+@forward './partial-styles/stacked-bar';
+@forward './partial-styles/nps';
+@forward './partial-styles/axises';
 @use '../../style/mixins';
-$min-item-size: 0.5rem;
-$default-item-color: var(--chart-item-color, rgb(var(--contrast-1100), 0.8));
 
 /**
 * @prop --chart-background-color: Defines the background color of the chart. Defaults to `transparent` for _most_ chart types.
@@ -11,6 +19,12 @@ $default-item-color: var(--chart-item-color, rgb(var(--contrast-1100), 0.8));
 */
 
 :host(limel-chart) {
+    --limel-chart-min-item-size: 0.5rem;
+    --limel-chart-default-item-color: var(
+        --chart-item-color,
+        rgb(var(--contrast-1100), 0.8)
+    );
+
     --chart-axis-line-color: var(
         --limel-chart-axis-line-color,
         rgb(var(--contrast-900))
@@ -103,32 +117,3 @@ table {
 limel-spinner {
     margin: auto;
 }
-
-@mixin line(
-    $direction: vertical,
-    $color: rgb(var(--contrast-800), 0.4),
-    $position: center
-) {
-    @if $direction == vertical {
-        background: linear-gradient(to bottom, $color 0%, $color 100%)
-            $position/1px
-            100%
-            no-repeat;
-    } @else if $direction == horizontal {
-        background: linear-gradient(to right, $color 0%, $color 100%)
-            $position/100%
-            1px
-            no-repeat;
-    }
-}
-
-@import './partial-styles/_layout-for-charts-with-x-y-axises';
-@import './partial-styles/_display-item-text';
-@import './partial-styles/_layout-for-charts-with-circular-shape';
-@import './partial-styles/_bar-gantt-dot';
-@import './partial-styles/_area_line';
-@import './partial-styles/_pie-doughnut';
-@import './partial-styles/_ring';
-@import './partial-styles/_stacked-bar';
-@import './partial-styles/_nps';
-@import './partial-styles/_axises';

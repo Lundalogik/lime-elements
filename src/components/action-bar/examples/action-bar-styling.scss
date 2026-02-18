@@ -1,4 +1,4 @@
-@import './application';
+@forward './application';
 
 .application {
     background-color: rgb(var(--contrast-800));

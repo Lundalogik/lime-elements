@@ -1,4 +1,4 @@
-@use '../../../style/functions';
+@use '../../../style/mixins';
 
 :host([type='url']),
 :host([type='urlAsText']) {
@@ -8,7 +8,7 @@
                 color: rgb(var(--color-blue-default));
             }
             &:hover {
-                background-color: rgb(var(--color-blue-default));
+                background-color: rgb(var(--color-blue-default)) !important;
 
                 limel-icon {
                     color: rgb(var(--color-white));
@@ -25,7 +25,7 @@
                 color: rgb(var(--color-green-default));
             }
             &:hover {
-                background-color: rgb(var(--color-green-default));
+                background-color: rgb(var(--color-green-default)) !important;
 
                 limel-icon {
                     color: rgb(var(--color-white));
@@ -45,6 +45,37 @@
     }
 }
 
-a.lime-trailing-icon-for-link {
-    @extend .mdc-text-field__icon--trailing;
+:host([type='url']),
+:host([type='urlAsText']),
+:host([type='tel']) {
+    .mdc-text-field {
+        &.lime-text-field--readonly {
+            &:hover {
+                .lime-looks-like-input-value,
+                .mdc-text-field__input {
+                    color: rgb(var(--color-white));
+                }
+                .mdc-text-field__input {
+                    z-index: 1;
+                }
+            }
+        }
+    }
+}
+
+:host([type='url']),
+:host([type='email']),
+:host([type='urlAsText']),
+:host([type='tel']) {
+    .mdc-text-field {
+        &.lime-text-field--readonly {
+            .mdc-text-field__input {
+                @include mixins.truncate-text();
+                width: calc(100% - 2.75rem);
+            }
+            a.lime-trailing-icon-for-link {
+                width: 100% !important;
+            }
+        }
+    }
 }

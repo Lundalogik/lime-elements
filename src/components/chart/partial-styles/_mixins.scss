@@ -1,0 +1,19 @@
+@mixin line(
+    $direction: vertical,
+    $color: rgb(var(--contrast-800), 0.4),
+    $position: center
+) {
+    @if $direction == vertical {
+        background: linear-gradient(to bottom, $color 0%, $color 100%)
+            #{$position}/
+            1px
+            100%
+            no-repeat;
+    } @else if $direction == horizontal {
+        background: linear-gradient(to right, $color 0%, $color 100%)
+            #{$position}/
+            100%
+            1px
+            no-repeat;
+    }
+}
