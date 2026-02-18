@@ -6,8 +6,8 @@ describe('portalContains', () => {
 
     beforeEach(async () => {
         class TestComponent extends HTMLElement {
-            constructor() {
-                super();
+            constructor(...args: any[]) {
+                super(...args);
                 this.attachShadow({ mode: 'open' });
             }
         }
