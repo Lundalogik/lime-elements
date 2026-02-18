@@ -1,3 +1,10 @@
+## [39.0.2](https://github.com/Lundalogik/lime-elements/compare/v39.0.1...v39.0.2) (2026-02-18)
+
+### Bug Fixes
+
+
+* **radio-button-group:** improve UI ([4fce7d6](https://github.com/Lundalogik/lime-elements/commit/4fce7d60a2827ec27d300ee59b5c03fa6736aa27))
+
 ## [39.0.1](https://github.com/Lundalogik/lime-elements/compare/v39.0.0...v39.0.1) (2026-02-18)
 
 ### Bug Fixes
