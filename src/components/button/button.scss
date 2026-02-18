@@ -1,3 +1,4 @@
+@forward './partial-styles/has-reduced-presence';
 @use '../../style/functions';
 @use '../../style/mixins';
 
@@ -169,5 +170,3 @@ svg {
         transform: translate3d(#{functions.pxToRem(3)}, 0, 0);
     }
 }
-
-@import './partial-styles/_has-reduced-presence';

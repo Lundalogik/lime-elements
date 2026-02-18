@@ -1,3 +1,4 @@
+@forward './partial-styles/shrink-expand-button';
 @use '../../style/mixins';
 @use '../../style/functions';
 
@@ -99,5 +100,3 @@ limel-dock-button {
         --limel-custom-home-icon: var(--crm-custom-home-icon);
     }
 }
-
-@import './partial-styles/shrink-expand-button';

@@ -2,7 +2,7 @@
 @use '../../../style/mixins';
 
 @use '@material/theme/mdc-theme';
-@import '_flatpickr.scss';
+@forward 'flatpickr';
 
 /**
  * @prop --today-label: Tooltip label for "today".

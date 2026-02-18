@@ -8,7 +8,7 @@
 @forward '../../markdown/partial-styles/tables';
 @forward '../../markdown/partial-styles/kbd';
 @forward '../../markdown/partial-styles/img';
-@forward 'plugins/image/view.scss';
+@forward 'plugins/image/view';
 
 :host(limel-prosemirror-adapter) {
     display: flex;

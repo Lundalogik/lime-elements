@@ -1,7 +1,10 @@
+@forward './partial-styles/percentage-color';
+@forward './partial-styles/readonly';
+@forward './partial-styles/thumb';
+@forward './partial-styles/helper-text';
 @use '../../style/internal/z-index';
 @use '../../style/functions';
 @use '../../style/internal/shared_input-select-picker';
-
 @use '@material/slider/styles';
 
 :host(limel-slider) {
@@ -116,8 +119,3 @@ div[slot='content'] {
         right: functions.pxToRem(-12);
     }
 }
-
-@import './partial-styles/percentage-color';
-@import './partial-styles/_readonly';
-@import './partial-styles/_thumb';
-@import './partial-styles/_helper-text';

@@ -1,4 +1,5 @@
 @use '../../style/mixins.scss';
+@forward './row/row';
 @use '../../style/internal/shared_input-select-picker';
 
 /**
@@ -301,5 +302,3 @@ limel-markdown {
         }
     }
 }
-
-@import './row/row.scss';

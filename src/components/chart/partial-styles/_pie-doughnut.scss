@@ -3,7 +3,7 @@
     .item {
         background: conic-gradient(
             transparent 0 calc(var(--limel-chart-item-offset) * 1%),
-            var(--limel-chart-item-color, $default-item-color)
+            var(--limel-chart-item-color, var(--limel-chart-default-item-color))
                 calc(var(--limel-chart-item-offset) * 1%)
                 calc(
                     var(--limel-chart-item-offset) * 1% +

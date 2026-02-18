@@ -1,6 +1,6 @@
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
-@import './partial-styles/lime-admin-hack';
+@forward './partial-styles/lime-admin-hack';
 
 :host(limel-color-picker-palette) {
     --limel-color-palette-gap: 0.25rem;

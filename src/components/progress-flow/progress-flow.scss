@@ -12,6 +12,8 @@
 */
 
 :host {
+    --limel-progress-flow-step-content: 2;
+    --limel-progress-flow-divider: 1;
     --step-height: 2rem;
     --selected-indicator-right: -0.5rem;
     --max-text-width: 10rem;

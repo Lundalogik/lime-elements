@@ -11,7 +11,7 @@
 
 .select-all {
     position: absolute;
-    z-index: $table--limel-table--row-selector;
+    z-index: var(--limel-table-row-selector-z-index);
     left: 0.375rem;
     top: 0.1875rem;
 }
@@ -20,7 +20,7 @@
     position: sticky !important; // otherwise will be overwritten from `.tabulator-row .tabulator-cell`
     left: 0;
     border-width: 0;
-    z-index: $table--limel-table--row-selector;
+    z-index: var(--limel-table-row-selector-z-index);
 
     &:before {
         content: '';

@@ -1,7 +1,8 @@
+@forward './partial-styles/readonly';
+@forward './partial-styles/helper-text';
 @use '../../style/functions';
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
-
 @use '@material/select/styles';
 
 // Note! The `--dropdown-z-index` property is used from `select.tsx`.
@@ -183,6 +184,3 @@ select.limel-select__native-control {
     opacity: 0;
     border: 0;
 }
-
-@import './partial-styles/_readonly';
-@import './partial-styles/_helper-text';

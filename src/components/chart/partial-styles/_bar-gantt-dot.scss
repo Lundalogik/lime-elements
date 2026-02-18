@@ -1,3 +1,5 @@
+@use './_mixins.scss' as chart-mixins;
+
 :host(limel-chart[type='bar']),
 :host(limel-chart[type='dot']) {
     .chart {
@@ -15,7 +17,10 @@
 
 :host(limel-chart[type='bar']) {
     .item {
-        background: var(--limel-chart-item-color, $default-item-color);
+        background: var(
+            --limel-chart-item-color,
+            var(--limel-chart-default-item-color)
+        );
     }
 }
 
@@ -27,14 +32,14 @@
             position: absolute;
             margin: auto;
 
-            width: $min-item-size;
-            height: $min-item-size;
+            width: var(--limel-chart-min-item-size);
+            height: var(--limel-chart-min-item-size);
             border-radius: 50%;
         }
         &::after {
             background-color: var(
                 --limel-chart-item-color,
-                $default-item-color
+                var(--limel-chart-default-item-color)
             );
         }
 
@@ -42,7 +47,7 @@
             &:before {
                 background-color: var(
                     --limel-chart-item-color,
-                    $default-item-color
+                    var(--limel-chart-default-item-color)
                 );
             }
         }
@@ -69,7 +74,7 @@
         &.has-start-value,
         &:hover,
         &:focus-visible {
-            @include line(vertical);
+            @include chart-mixins.line(vertical);
         }
 
         &:before {
@@ -103,7 +108,7 @@
         &.has-start-value,
         &:hover,
         &:focus-visible {
-            @include line(horizontal);
+            @include chart-mixins.line(horizontal);
         }
 
         &:before {

@@ -19,7 +19,7 @@
             margin-bottom: 0;
 
             .tabulator-row {
-                height: $height-of-aggregations-row;
+                height: var(--limel-table-height-of-aggregations-row);
                 background: transparent !important;
             }
 
@@ -28,7 +28,9 @@
             }
 
             .tabulator-cell {
-                height: $height-of-aggregations-row !important;
+                height: var(
+                    --limel-table-height-of-aggregations-row
+                ) !important;
                 padding-top: 0.25rem;
                 padding-bottom: 0;
             }

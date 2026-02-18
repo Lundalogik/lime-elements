@@ -1,36 +1,13 @@
-@use '../../../style/internal/z-index';
-@use '../../../style/mixins';
 @use '../../../style/internal/shared_input-select-picker';
 
-:host([type='url']),
-:host([type='urlAsText']),
-:host([type='tel']) {
-    .mdc-text-field {
-        &.lime-text-field--readonly {
-            &:hover {
-                .lime-looks-like-input-value,
-                .mdc-text-field__input {
-                    color: rgb(var(--color-white));
-                }
-                .mdc-text-field__input {
-                    z-index: z-index.$input-field--mdc-text-field__input--readonly;
-                }
-            }
-        }
-    }
-}
-
-:host([type='url']),
-:host([type='email']),
-:host([type='urlAsText']),
-:host([type='tel']) {
-    .mdc-text-field {
-        &.lime-text-field--readonly {
-            .mdc-text-field__input {
-                @include mixins.truncate-text();
-                width: calc(100% - 2.75rem);
-            }
-        }
+:host([readonly]) {
+    .mdc-text-field__input {
+        // Override browser default styling for readonly inputs to ensure proper visibility
+        // - opacity: 1 prevents browsers from making readonly text appear faded/dimmed
+        // - -webkit-text-fill-color ensures consistent text color across WebKit browsers
+        //   (overrides browser autofill colors and disabled state styling)
+        opacity: 1;
+        -webkit-text-fill-color: shared_input-select-picker.$input-text-color;
     }
 }
 
@@ -41,16 +18,5 @@
                 pointer-events: all; //allows resize
             }
         }
-    }
-}
-
-:host([readonly]) {
-    .mdc-text-field__input {
-        // Override browser default styling for readonly inputs to ensure proper visibility
-        // - opacity: 1 prevents browsers from making readonly text appear faded/dimmed
-        // - -webkit-text-fill-color ensures consistent text color across WebKit browsers
-        //   (overrides browser autofill colors and disabled state styling)
-        opacity: 1;
-        -webkit-text-fill-color: shared_input-select-picker.$input-text-color;
     }
 }

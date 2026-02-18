@@ -40,7 +40,8 @@
 
     .item {
         background: conic-gradient(
-            var(--limel-chart-item-color, $default-item-color) 0
+            var(--limel-chart-item-color, var(--limel-chart-default-item-color))
+                0
                 calc(
                     var(--limel-chart-item-offset) * 1% +
                         var(--limel-chart-item-size) * 1%

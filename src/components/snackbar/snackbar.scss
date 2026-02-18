@@ -1,3 +1,5 @@
+@forward '../portal/partial-styles/portal-container';
+
 * {
     box-sizing: border-box;
 }
@@ -129,5 +131,3 @@ aside {
         opacity: 0.7;
     }
 }
-
-@import '../portal/partial-styles/portal-container.scss';

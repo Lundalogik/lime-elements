@@ -14,7 +14,10 @@
     .item {
         display: flex;
         border-radius: var(--chart-item-border-radius, 0);
-        background: var(--limel-chart-item-color, $default-item-color);
+        background: var(
+            --limel-chart-item-color,
+            var(--limel-chart-default-item-color)
+        );
 
         &:last-of-type:not(:focus-visible) {
             box-shadow: none !important;

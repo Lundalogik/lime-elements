@@ -1,3 +1,5 @@
+@use './_mixins.scss' as chart-mixins;
+
 :host(limel-chart[type='nps']) {
     --limel-chart-nps-gauge-angel: 220deg;
     $detractors: rgb(var(--color-coral-default)) 0deg
@@ -85,7 +87,7 @@
 
         &:hover,
         &:focus-visible {
-            @include line(vertical);
+            @include chart-mixins.line(vertical);
         }
 
         &:before,
@@ -97,7 +99,10 @@
             transform: translateY(-60%);
             width: 0.4rem;
             border-radius: 1rem;
-            border-color: var(--limel-chart-item-color, $default-item-color);
+            border-color: var(
+                --limel-chart-item-color,
+                var(--limel-chart-default-item-color)
+            );
             border-style: solid;
             border-bottom-width: 1.75rem;
             border-right-color: transparent;
@@ -108,7 +113,7 @@
             border-radius: 50%;
             background-color: var(
                 --limel-chart-item-color,
-                $default-item-color
+                var(--limel-chart-default-item-color)
             );
             aspect-ratio: 1;
             height: clamp(0.75rem, 10%, 1.25rem);

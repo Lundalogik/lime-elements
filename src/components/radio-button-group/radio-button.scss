@@ -25,7 +25,7 @@
 
 @use '../../style/mixins';
 
-@forward '../../style/internal/boolean-input.scss';
+@forward '../../style/internal/boolean-input';
 
 .radio-button {
     --limel-boolean-input-box-border-radius: var(

@@ -29,7 +29,7 @@
     }
 
     .item {
-        min-width: $min-item-size;
+        min-width: var(--limel-chart-min-item-size);
         width: inherit;
     }
 }
@@ -47,7 +47,7 @@
     }
 
     .item {
-        min-height: $min-item-size;
+        min-height: var(--limel-chart-min-item-size);
         height: inherit;
     }
 }

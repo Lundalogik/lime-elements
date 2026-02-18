@@ -1,3 +1,5 @@
+@use './_mixins.scss' as chart-mixins;
+
 :host(limel-chart[type='area']),
 :host(limel-chart[type='line']) {
     .item {
@@ -6,8 +8,8 @@
         &:after {
             // the dot
             margin: auto;
-            width: $min-item-size;
-            height: $min-item-size;
+            width: var(--limel-chart-min-item-size);
+            height: var(--limel-chart-min-item-size);
             border-radius: 50%;
             border: 1px solid rgb(var(--contrast-100));
         }
@@ -24,7 +26,10 @@
                 opacity 0.4s ease;
             content: '';
             position: absolute;
-            background: var(--limel-chart-item-color, $default-item-color);
+            background: var(
+                --limel-chart-item-color,
+                var(--limel-chart-default-item-color)
+            );
         }
 
         &:hover,
@@ -155,7 +160,7 @@
 
     .item {
         &:hover {
-            @include line(vertical, $position: left);
+            @include chart-mixins.line(vertical, $position: left);
         }
 
         &:before {
@@ -176,7 +181,7 @@
 
     .item {
         &:hover {
-            @include line(horizontal, $position: top);
+            @include chart-mixins.line(horizontal, $position: top);
         }
 
         &:before {

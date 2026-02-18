@@ -1,7 +1,8 @@
+@forward './partial-styles/readonly';
+@forward './partial-styles/helper-text';
 @use '../../style/functions';
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
-
 @use '@material/textfield';
 @use '@material/textfield/icon';
 
@@ -176,6 +177,3 @@ limel-chip {
         box-shadow: var(--shadow-depth-8-error);
     }
 }
-
-@import './partial-styles/_readonly';
-@import './partial-styles/_helper-text';

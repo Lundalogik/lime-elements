@@ -29,7 +29,7 @@
 * @prop --checkbox-unchecked-border-color: Affects the border color of the default state of the checkbox (when it is not checked). Defaults to `--contrast-900`.
 */
 
-@forward '../../style/internal/boolean-input.scss';
+@forward '../../style/internal/boolean-input';
 
 :host(limel-checkbox) {
     min-height: var(--limel-checkbox-min-height, 2.5rem); // prevents flickering

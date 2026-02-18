@@ -1,6 +1,6 @@
+@forward './partial-styles/helper-text';
 @use '../../style/functions';
 @use '../../style/internal/shared_input-select-picker';
-
 @use '@material/switch/styles';
 
 $scale-factor: 0.8;
@@ -119,5 +119,3 @@ label {
         transform: scale($scale-factor);
     }
 }
-
-@import './partial-styles/_helper-text.scss';

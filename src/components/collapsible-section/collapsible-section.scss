@@ -1,3 +1,4 @@
+@forward './partial-styles/expand-icon';
 @use '../../style/mixins';
 @use '../../style/internal/shared_input-select-picker';
 
@@ -200,5 +201,3 @@ header:has(.open-close-toggle:focus-visible) {
 }
 
 // End: animating height
-
-@import './partial-styles/expand-icon.scss';
