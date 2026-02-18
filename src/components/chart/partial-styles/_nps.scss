@@ -1,4 +1,4 @@
-@use './_mixins.scss' as chart-mixins;
+@use './mixins' as chart-mixins;
 
 :host(limel-chart[type='nps']) {
     --limel-chart-nps-gauge-angel: 220deg;

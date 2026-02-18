@@ -1,10 +1,10 @@
 // These are exported for external use.
 @forward '../components/portal/partial-styles/portal-container';
 
-@use '../style/_theme-color-variables';
-@use '../style/colors.scss';
-@use '../style/shadows.scss';
-@use '../style/internal/codemirror-tooltip.scss';
+@use '../style/theme-color-variables';
+@use '../style/colors';
+@use '../style/shadows';
+@use '../style/internal/codemirror-tooltip';
 @use '../style/mixins';
 
 :root {
