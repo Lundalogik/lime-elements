@@ -1,8 +1,8 @@
-jest.mock('./send-trigger-event', () => ({
-    sendTriggerEvent: jest.fn(),
+vi.mock('./send-trigger-event', () => ({
+    sendTriggerEvent: vi.fn(),
 }));
 
-import { TriggerCharacter } from '@limetech/lime-elements';
+import { TriggerCharacter } from '../../../../../text-editor/text-editor.types';
 import { sendTriggerEvent } from './send-trigger-event';
 import { getTextInputHandler } from './text-input-handler';
 
@@ -14,26 +14,26 @@ describe('getTextInputHandler', () => {
     const validTriggerCharacters: TriggerCharacter[] = ['@', '!'];
 
     beforeEach(() => {
+        vi.clearAllMocks();
         mockEditorView = {
             state: {
                 doc: {
-                    textBetween: jest.fn(),
+                    textBetween: vi.fn(),
                 },
             },
             dom: {
-                dispatchEvent: jest.fn(),
+                dispatchEvent: vi.fn(),
             },
         };
 
         activeTrigger = null;
-        const onTriggerStart = jest.fn((trigger) => (activeTrigger = trigger));
+        const onTriggerStart = vi.fn((trigger) => (activeTrigger = trigger));
         contentConverter = {}; // Mock content converter
         textInputHandler = getTextInputHandler(
             contentConverter,
             validTriggerCharacters,
             onTriggerStart
         );
-        jest.clearAllMocks();
     });
 
     describe('trigger insertion with no text selection', () => {

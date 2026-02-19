@@ -1,8 +1,8 @@
-jest.mock('./detect-trigger-removal', () => ({
-    detectTriggerRemoval: jest.fn(),
+vi.mock('./detect-trigger-removal', () => ({
+    detectTriggerRemoval: vi.fn(),
 }));
-jest.mock('./monitor-triggered-text', () => ({
-    monitorTriggeredText: jest.fn(),
+vi.mock('./monitor-triggered-text', () => ({
+    monitorTriggeredText: vi.fn(),
 }));
 import { detectTriggerRemoval } from './detect-trigger-removal';
 import { monitorTriggeredText } from './monitor-triggered-text';
@@ -11,8 +11,8 @@ import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 describe('getAppendTransactionHandler', () => {
-    let getActiveTrigger: jest.Mock;
-    let resetActiveTrigger: jest.Mock;
+    let getActiveTrigger: Mock<any>;
+    let resetActiveTrigger: Mock<any>;
     let mockView: any;
     let contentConverter: any;
     let oldState: EditorState;
@@ -20,24 +20,21 @@ describe('getAppendTransactionHandler', () => {
     let getCurrentView: () => EditorView | null;
 
     beforeEach(() => {
-        getActiveTrigger = jest.fn();
-        resetActiveTrigger = jest.fn();
-        mockView = { dom: { dispatchEvent: jest.fn() } };
-        getCurrentView = jest.fn(() => mockView);
+        getActiveTrigger = vi.fn();
+        resetActiveTrigger = vi.fn();
+        mockView = { dom: { dispatchEvent: vi.fn() } };
+        getCurrentView = vi.fn(() => mockView);
         contentConverter = {};
         oldState = {
             doc: {},
             selection: { from: 0 },
         } as unknown as EditorState;
         newState = {
-            doc: { textBetween: jest.fn() },
+            doc: { textBetween: vi.fn() },
             selection: { from: 5 },
         } as unknown as EditorState;
 
-        jest.clearAllMocks();
-
-        (detectTriggerRemoval as jest.Mock).mockClear();
-        (monitorTriggeredText as jest.Mock).mockClear();
+        vi.resetAllMocks();
     });
 
     it('calls getActiveTrigger', () => {
@@ -70,7 +67,7 @@ describe('getAppendTransactionHandler', () => {
 
     it('emits triggerStop if the trigger is removed', () => {
         getActiveTrigger.mockReturnValue({ character: '@', position: 5 });
-        (detectTriggerRemoval as jest.Mock).mockReturnValue(true); // Ensure it returns true
+        vi.mocked(detectTriggerRemoval).mockReturnValue(true); // Ensure it returns true
 
         const handler = getAppendTransactionHandler(
             getCurrentView,
@@ -98,8 +95,8 @@ describe('getAppendTransactionHandler', () => {
 
     it('emits triggerChange with no text changes', () => {
         getActiveTrigger.mockReturnValue({ character: '@', position: 5 });
-        (detectTriggerRemoval as jest.Mock).mockReturnValue(false);
-        (monitorTriggeredText as jest.Mock).mockReturnValue('abc'); // Simulate no change in value
+        vi.mocked(detectTriggerRemoval).mockReturnValue(false);
+        vi.mocked(monitorTriggeredText).mockReturnValue('abc'); // Simulate no change in value
 
         const handler = getAppendTransactionHandler(
             getCurrentView,
@@ -122,8 +119,8 @@ describe('getAppendTransactionHandler', () => {
 
     it('emits triggerChange when text after the trigger changes', () => {
         getActiveTrigger.mockReturnValue({ character: '@', position: 5 });
-        (detectTriggerRemoval as jest.Mock).mockReturnValue(false);
-        (monitorTriggeredText as jest.Mock).mockReturnValue('abcd'); // Simulate a change in value
+        vi.mocked(detectTriggerRemoval).mockReturnValue(false);
+        vi.mocked(monitorTriggeredText).mockReturnValue('abcd'); // Simulate a change in value
 
         const handler = getAppendTransactionHandler(
             getCurrentView,
@@ -146,8 +143,8 @@ describe('getAppendTransactionHandler', () => {
 
     it('handles integration with monitorTriggeredText correctly', () => {
         getActiveTrigger.mockReturnValue({ character: '@', position: 5 });
-        (detectTriggerRemoval as jest.Mock).mockReturnValue(false);
-        (monitorTriggeredText as jest.Mock).mockImplementation(
+        vi.mocked(detectTriggerRemoval).mockReturnValue(false);
+        vi.mocked(monitorTriggeredText).mockImplementation(
             (doc, activeTrigger, cursorPosition) => {
                 expect(doc).toEqual(newState.doc);
                 expect(activeTrigger).toEqual({ character: '@', position: 5 });

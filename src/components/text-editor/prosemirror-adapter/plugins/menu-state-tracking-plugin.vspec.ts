@@ -16,22 +16,22 @@ const mockMenuTypes: EditorMenuTypes[] = [
 
 describe('menu-state-tracking-plugin', () => {
     let menuCommandFactory: MenuCommandFactory;
-    let updateCallback: jest.Mock;
+    let updateCallback: Mock<any>;
     let view: Partial<EditorView>;
     let state: Partial<EditorState>;
-    let dispatch: jest.Mock;
+    let dispatch: Mock<any>;
 
     beforeEach(() => {
         menuCommandFactory = {
-            getCommand: jest.fn(),
+            getCommand: vi.fn(),
         } as any;
 
-        updateCallback = jest.fn();
-        dispatch = jest.fn();
+        updateCallback = vi.fn();
+        dispatch = vi.fn();
 
         state = {
             tr: {
-                setMeta: jest.fn().mockReturnThis(),
+                setMeta: vi.fn().mockReturnThis(),
             } as any,
         };
 
@@ -45,22 +45,20 @@ describe('menu-state-tracking-plugin', () => {
         it('should return active and allowed states for menu items', () => {
             const mockCommands = {
                 bold: {
-                    active: jest.fn().mockReturnValue(true),
-                    allowed: jest.fn().mockReturnValue(true),
+                    active: vi.fn().mockReturnValue(true),
+                    allowed: vi.fn().mockReturnValue(true),
                 },
                 italic: {
-                    active: jest.fn().mockReturnValue(false),
-                    allowed: jest.fn().mockReturnValue(true),
+                    active: vi.fn().mockReturnValue(false),
+                    allowed: vi.fn().mockReturnValue(true),
                 },
                 link: {
-                    active: jest.fn().mockReturnValue(false),
-                    allowed: jest.fn().mockReturnValue(false),
+                    active: vi.fn().mockReturnValue(false),
+                    allowed: vi.fn().mockReturnValue(false),
                 },
             };
 
-            menuCommandFactory.getCommand = jest.fn(
-                (type) => mockCommands[type]
-            );
+            menuCommandFactory.getCommand = vi.fn((type) => mockCommands[type]);
 
             const result = getMenuItemStates(
                 mockMenuTypes,
@@ -89,17 +87,17 @@ describe('menu-state-tracking-plugin', () => {
         it('should handle missing active or allowed methods', () => {
             const commands = {
                 bold: {
-                    active: jest.fn().mockReturnValue(true),
+                    active: vi.fn().mockReturnValue(true),
                     // No allowed method
                 },
                 italic: {
                     // No active method
-                    allowed: jest.fn().mockReturnValue(true),
+                    allowed: vi.fn().mockReturnValue(true),
                 },
                 link: {},
             };
 
-            menuCommandFactory.getCommand = jest.fn((type) => commands[type]);
+            menuCommandFactory.getCommand = vi.fn((type) => commands[type]);
 
             const result = getMenuItemStates(
                 mockMenuTypes,
@@ -131,7 +129,7 @@ describe('menu-state-tracking-plugin', () => {
             );
 
             expect(plugin).toBeInstanceOf(Plugin);
-            expect(plugin.key).toBe('actionBarPlugin$');
+            expect((plugin as any).key).toBe('actionBarPlugin$');
         });
 
         it('should update plugin state when meta is set', () => {
@@ -142,13 +140,13 @@ describe('menu-state-tracking-plugin', () => {
             );
 
             const mockTransaction = {
-                getMeta: jest.fn().mockReturnValue({
+                getMeta: vi.fn().mockReturnValue({
                     active: { bold: true },
                     allowed: { bold: true },
                 }),
             } as unknown as Transaction;
 
-            const newState = plugin.spec.state.apply(mockTransaction, {
+            const newState = (plugin.spec.state as any).apply(mockTransaction, {
                 active: {},
                 allowed: {},
             });
@@ -167,7 +165,7 @@ describe('menu-state-tracking-plugin', () => {
             );
 
             const mockTransaction = {
-                getMeta: jest.fn().mockReturnValue(null),
+                getMeta: vi.fn().mockReturnValue(null),
             } as unknown as Transaction;
 
             const oldState = {
