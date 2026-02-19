@@ -9,7 +9,7 @@ export default defineVitestConfig({
                 test: {
                     name: 'spec',
                     globals: true,
-                    include: ['src/**/*.vspec.{ts,tsx}'],
+                    include: ['src/**/*.spec.{ts,tsx}'],
                     environment: 'stencil',
                     setupFiles: ['./vitest-setup.ts'],
                 },
@@ -18,7 +18,7 @@ export default defineVitestConfig({
                 test: {
                     name: 'e2e',
                     globals: true,
-                    include: ['src/**/*.ve2e.{ts,tsx}'],
+                    include: ['src/**/*.e2e.{ts,tsx}'],
                     setupFiles: ['./vitest-setup-browser.ts'],
                     browser: {
                         enabled: true,

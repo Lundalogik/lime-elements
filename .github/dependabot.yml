@@ -28,10 +28,6 @@ updates:
       - dependency-name: "material-components-web"
         update-types: ["version-update:semver-major"]
       - dependency-name: "@stencil/core"
-      - dependency-name: "jest"
-      - dependency-name: "jest-cli"
-      - dependency-name: "@types/jest"
-      - dependency-name: "puppeteer"
       - dependency-name: "typescript"
         update-types: ["version-update:semver-major"]
       - dependency-name: "replace-in-file"

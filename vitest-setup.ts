@@ -71,7 +71,11 @@ if (!global.IntersectionObserver) {
 // Mock fetch for icon/asset requests (mock-doc has no real network)
 const EMPTY_SVG =
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"></svg>';
-const originalFetch = globalThis.fetch;
+const originalFetch =
+    globalThis.fetch ??
+    ((() => {
+        throw new TypeError('fetch is not available in this environment');
+    }) as typeof fetch);
 globalThis.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = typeof input === 'string' ? input : input.toString();
     if (url.endsWith('.svg') || url.startsWith('assets/')) {
