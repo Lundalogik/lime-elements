@@ -459,6 +459,13 @@ export class FileViewer {
     private loadPdf = async () => {
         this.revokePdfBlobUrl();
         const response = await fetch(this.url);
+
+        if (!response.ok) {
+            throw new Error(
+                `Failed to load PDF (${response.status} ${response.statusText})`
+            );
+        }
+
         const blob = await response.blob();
 
         this.fileUrl = URL.createObjectURL(blob);
