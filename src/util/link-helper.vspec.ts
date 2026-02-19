@@ -7,7 +7,7 @@ describe('limeLinkHelper', () => {
         element = {
             checkValidity: () => isValid,
         };
-        jest.spyOn(document, 'createElement').mockReturnValueOnce(element);
+        vi.spyOn(document, 'createElement').mockReturnValueOnce(element);
     });
     describe('when input is a relative link', () => {
         it('is NOT prepended with http:// for links starting with one "/"', () => {

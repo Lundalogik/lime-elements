@@ -5,8 +5,9 @@ describe('createFileInfo', () => {
         // Mock Crypto
         if (global.crypto === undefined) {
             (global.crypto as Partial<Crypto>) = {
-                randomUUID: jest.fn(
-                    () => '12345678-1234-1234-1234-123456789abc'
+                randomUUID: vi.fn(
+                    () =>
+                        '12345678-1234-1234-1234-123456789abc' as `${string}-${string}-${string}-${string}-${string}`
                 ),
             };
         }
