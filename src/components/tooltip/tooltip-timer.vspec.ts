@@ -1,15 +1,19 @@
 import { TooltipTimer } from './tooltip-timer'; // Adjust the import path as necessary
 
 describe('TooltipTimer', () => {
-    jest.useFakeTimers();
-    let showCallback: jest.Mock;
-    let hideCallback: jest.Mock;
+    let showCallback: Mock<any>;
+    let hideCallback: Mock<any>;
     const delayForShowing = 500; // Use the same default or test different values
 
     beforeEach(() => {
+        vi.useFakeTimers();
         // Initialize mock callback functions
-        showCallback = jest.fn();
-        hideCallback = jest.fn();
+        showCallback = vi.fn();
+        hideCallback = vi.fn();
+    });
+
+    afterEach(() => {
+        vi.useRealTimers();
     });
 
     it('calls the showCallback after the specified delay', () => {
@@ -22,7 +26,7 @@ describe('TooltipTimer', () => {
         tooltipTimer.showAfterDelay();
         expect(showCallback).not.toHaveBeenCalled(); // Verify the callback has not been called immediately
 
-        jest.advanceTimersByTime(delayForShowing + 1);
+        vi.advanceTimersByTime(delayForShowing + 1);
         expect(showCallback).toHaveBeenCalled(); // Verify the callback is called after the delay
     });
 
@@ -34,10 +38,10 @@ describe('TooltipTimer', () => {
         );
 
         tooltipTimer.showAfterDelay();
-        jest.advanceTimersByTime(delayForShowing / 2); // Advance half the time
+        vi.advanceTimersByTime(delayForShowing / 2); // Advance half the time
         tooltipTimer.hide(); // Hide before the delay passes
 
-        jest.advanceTimersByTime(delayForShowing);
+        vi.advanceTimersByTime(delayForShowing);
         expect(showCallback).not.toHaveBeenCalled(); // The show callback should not be called
     });
 
@@ -60,14 +64,14 @@ describe('TooltipTimer', () => {
         );
 
         tooltipTimer.showAfterDelay();
-        jest.advanceTimersByTime(delayForShowing + 1);
+        vi.advanceTimersByTime(delayForShowing + 1);
         expect(showCallback).toHaveBeenCalled(); // Verify showCallback is called after the delay
 
         tooltipTimer.hide();
         expect(hideCallback).toHaveBeenCalled(); // Verify hideCallback is called immediately
 
         tooltipTimer.showAfterDelay();
-        jest.advanceTimersByTime(delayForShowing + 1);
+        vi.advanceTimersByTime(delayForShowing + 1);
         expect(showCallback).toHaveBeenCalledTimes(2); // Verify showCallback is called again after the delay
     });
 
@@ -82,15 +86,15 @@ describe('TooltipTimer', () => {
             );
 
             tooltipTimer.showAfterDelay();
-            jest.advanceTimersByTime(delayForShowing / 2); // Advance half the time
+            vi.advanceTimersByTime(delayForShowing / 2); // Advance half the time
             tooltipTimer.showAfterDelay(); // Show again before the delay passes
         });
         it('calls the showCallback only once after the delay', () => {
-            jest.advanceTimersByTime(delayForShowing + 1);
+            vi.advanceTimersByTime(delayForShowing + 1);
             expect(showCallback).toHaveBeenCalledTimes(1); // Verify showCallback is called only once
         });
         it('calls the showCallback when the delay has elapsed since the first call (it does not start the delay over)', () => {
-            jest.advanceTimersByTime(delayForShowing / 2 + 1); // Advance the rest of the time
+            vi.advanceTimersByTime(delayForShowing / 2 + 1); // Advance the rest of the time
             expect(showCallback).toHaveBeenCalledTimes(1);
         });
 
@@ -100,7 +104,7 @@ describe('TooltipTimer', () => {
             });
 
             it('does not call the showCallback after the delay', () => {
-                jest.advanceTimersByTime(delayForShowing + 1);
+                vi.advanceTimersByTime(delayForShowing + 1);
                 expect(showCallback).not.toHaveBeenCalled(); // The show callback should not be called
             });
         });
