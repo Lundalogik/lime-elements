@@ -30,7 +30,6 @@ would be visible to MDC.
 | Property           | Attribute        | Description                                                                                                                                                                                                                                                               | Type                                                                   | Default      |
 | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------ |
 | `actions`          | --               | {@inheritdoc ListItem.selected}                                                                                                                                                                                                                                           | `(ListSeparator \| MenuItem<any>)[]`                                   | `undefined`  |
-| `assistiveText`    | `assistive-text` | {@inheritdoc ListItem.assistiveText}                                                                                                                                                                                                                                      | `string`                                                               | `undefined`  |
 | `badgeIcon`        | `badge-icon`     | Set to `true` if the list should display larger icons with a background                                                                                                                                                                                                   | `boolean`                                                              | `false`      |
 | `disabled`         | `disabled`       | {@inheritdoc ListItem.disabled}                                                                                                                                                                                                                                           | `boolean`                                                              | `false`      |
 | `icon`             | `icon`           | {@inheritdoc ListItem.icon}                                                                                                                                                                                                                                               | `Icon \| string`                                                       | `undefined`  |
@@ -50,7 +49,6 @@ would be visible to MDC.
 ### Used by
 
  - [limel-example-list-item-actions](examples)
- - [limel-example-list-item-assistive-text](examples)
  - [limel-example-list-item-basic](examples)
  - [limel-example-list-item-checkbox](examples)
  - [limel-example-list-item-command-text](examples)
@@ -101,7 +99,6 @@ graph TD;
   limel-icon-button --> limel-tooltip
   limel-dynamic-label --> limel-icon
   limel-example-list-item-actions --> limel-list-item
-  limel-example-list-item-assistive-text --> limel-list-item
   limel-example-list-item-basic --> limel-list-item
   limel-example-list-item-checkbox --> limel-list-item
   limel-example-list-item-command-text --> limel-list-item
