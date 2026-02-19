@@ -282,10 +282,10 @@ function createHostComponent(
     ]
 ) {
     return {
-        emitInteraction: jest.fn(),
+        emitInteraction: vi.fn(),
         handleKeyDown: handleKeyboardEvent,
         inputChipIndexSelected: null,
-        removeChip: jest.fn(),
+        removeChip: vi.fn(),
         textValue: '',
         value: value,
     };
