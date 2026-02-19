@@ -8,7 +8,7 @@ function createTemplate() {
         formContext: { schema: {} },
         title: 'Test',
         canAdd: false,
-        onAddClick: jest.fn(),
+        onAddClick: vi.fn(),
         disabled: false,
         readonly: false,
     } as any);
