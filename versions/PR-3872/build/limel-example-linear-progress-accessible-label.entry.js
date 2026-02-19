@@ -1,1 +1,0 @@
-import{r as e,h as r}from"./index-DpmUT2Gr.js";const a=class{constructor(r){e(this,r)}render(){return r("limel-linear-progress",{key:"f741a5ca8359a1106dd3ca160ad0e62e0cfd8a52",value:.87,accessibleLabel:"Percentage of today's progress"})}};export{a as limel_example_linear_progress_accessible_label}
