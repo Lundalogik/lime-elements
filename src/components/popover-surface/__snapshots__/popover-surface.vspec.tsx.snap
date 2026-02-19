@@ -1,28 +1,28 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`render component with one child 1`] = `
-<limel-popover-surface>
-  <template shadowrootmode="open">
+<limel-popover-surface class="hydrated">
+  <mock:shadow-root>
     <div class="limel-popover-surface" tabindex="0">
       <div>
         Child 1
       </div>
     </div>
-  </template>
+  </mock:shadow-root>
 </limel-popover-surface>
 `;
 
 exports[`render component with trigger element 1`] = `
-<limel-popover-surface>
-  <template shadowrootmode="open">
+<limel-popover-surface class="hydrated">
+  <mock:shadow-root>
     <div class="limel-popover-surface" tabindex="0"></div>
-  </template>
+  </mock:shadow-root>
 </limel-popover-surface>
 `;
 
 exports[`render component with two children 1`] = `
-<limel-popover-surface>
-  <template shadowrootmode="open">
+<limel-popover-surface class="hydrated">
+  <mock:shadow-root>
     <div class="limel-popover-surface" tabindex="0">
       <div>
         Child 1
@@ -31,14 +31,14 @@ exports[`render component with two children 1`] = `
         Child 2
       </div>
     </div>
-  </template>
+  </mock:shadow-root>
 </limel-popover-surface>
 `;
 
 exports[`render component without children 1`] = `
-<limel-popover-surface>
-  <template shadowrootmode="open">
+<limel-popover-surface class="hydrated">
+  <mock:shadow-root>
     <div class="limel-popover-surface" tabindex="0"></div>
-  </template>
+  </mock:shadow-root>
 </limel-popover-surface>
 `;

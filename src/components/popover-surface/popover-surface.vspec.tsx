@@ -1,22 +1,20 @@
-import { newSpecPage, SpecPage } from '@stencil/core/testing';
-import { h } from '@stencil/core';
-import { PopoverSurface } from './popover-surface';
+import { render, h } from '@stencil/vitest';
 
-let page: SpecPage;
+afterEach(() => {
+    document.body.innerHTML = '';
+});
 
 test('render component without children', async () => {
-    await createComponent([]);
-
-    expect(page.root).toMatchSnapshot();
+    const { root } = await createComponent([]);
+    expect(root).toMatchSnapshot();
 });
 
 test('render component with one child', async () => {
     const child1 = document.createElement('div');
     child1.textContent = 'Child 1';
 
-    await createComponent([child1]);
-
-    expect(page.root).toMatchSnapshot();
+    const { root } = await createComponent([child1]);
+    expect(root).toMatchSnapshot();
 });
 
 test('render component with two children', async () => {
@@ -25,9 +23,8 @@ test('render component with two children', async () => {
     child1.textContent = 'Child 1';
     child2.textContent = 'Child 2';
 
-    await createComponent([child1, child2]);
-
-    expect(page.root).toMatchSnapshot();
+    const { root } = await createComponent([child1, child2]);
+    expect(root).toMatchSnapshot();
 });
 
 test('render component with trigger element', async () => {
@@ -35,24 +32,24 @@ test('render component with trigger element', async () => {
     child1.textContent = 'Child 1';
     child1.slot = 'trigger';
 
-    await createComponent([child1]);
-
-    expect(page.root).toMatchSnapshot();
+    const { root } = await createComponent([child1]);
+    expect(root).toMatchSnapshot();
 });
 
-async function createComponent(children: HTMLElement[]): Promise<void> {
+async function createComponent(children: HTMLElement[]) {
     const aside = document.createElement('aside');
     document.body.append(aside);
     for (const child of children) {
         aside.append(child);
     }
 
-    page = await newSpecPage({
-        components: [PopoverSurface],
-        template: () => (
-            <limel-popover-surface contentCollection={aside.children} />
-        ),
-    });
+    const result = await render(
+        <limel-popover-surface
+            contentCollection={aside.children}
+        ></limel-popover-surface>
+    );
+    await result.waitForChanges();
+    aside.remove();
 
-    await page.waitForChanges();
+    return result;
 }
