@@ -57,7 +57,7 @@ describe('createCustomComponent', () => {
             expect(component).toHaveProperty('field', 'foo');
             expect(component).toHaveProperty('limetype', 'bar');
             expect(component).toHaveProperty('value', 'FOO');
-            expect(component).toHaveProperty('data', {
+            expect((component as any).data).toEqual({
                 foo: 'Foo',
                 bar: false,
             });
@@ -223,7 +223,7 @@ describe('createCustomComponent', () => {
             };
 
             // Mock console.warn to avoid the warning message in the test output
-            const consoleWarnSpy = jest
+            const consoleWarnSpy = vi
                 .spyOn(console, 'warn')
                 .mockImplementation(() => {});
 
@@ -233,7 +233,7 @@ describe('createCustomComponent', () => {
             // Fail if there are unexpected warnings
             expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
 
-            jest.restoreAllMocks();
+            vi.restoreAllMocks();
         });
 
         it('uses the default formatter if the custom component misses a name prop', () => {

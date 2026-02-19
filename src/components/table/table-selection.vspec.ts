@@ -19,14 +19,14 @@ describe('table selection', () => {
     }
 
     beforeEach(() => {
-        emitSelect = jest.fn();
+        emitSelect = vi.fn();
         table = {
             getRow: function (this: Tabulator, id: string | number) {
                 return this.getRows().find((row) => row.getData().id === id);
             },
             element: {
                 classList: {
-                    toggle: jest.fn(),
+                    toggle: vi.fn(),
                 },
             },
         };
@@ -34,7 +34,7 @@ describe('table selection', () => {
             () => table,
             new ElementPool(document),
             { emit: emitSelect },
-            jest.fn((key: string) => key)
+            vi.fn((key: string) => key)
         );
     });
 
