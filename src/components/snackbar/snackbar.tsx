@@ -225,9 +225,10 @@ export class Snackbar {
                 }}
                 id={this.snackbarId}
                 role={this.setAriaRoles()}
+                aria-atomic={this.open ? 'true' : undefined}
                 aria-relevant={this.open ? 'additions' : undefined}
             >
-                <div class="surface" aria-atomic="false">
+                <div class="surface">
                     <div class="label">{this.message}</div>
                     {this.renderActions(this.actionText)}
                     {this.renderDismissButton(this.dismissible)}
@@ -257,11 +258,7 @@ export class Snackbar {
             return;
         }
 
-        return (
-            <div class="actions" aria-atomic="true">
-                {this.renderActionButton(actionText)}
-            </div>
-        );
+        return <div class="actions">{this.renderActionButton(actionText)}</div>;
     }
 
     private renderActionButton(actionText: string) {
