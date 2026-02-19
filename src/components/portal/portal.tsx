@@ -257,6 +257,10 @@ export class Portal {
         this.styleContainer();
 
         setTimeout(() => {
+            if (!this.container) {
+                return;
+            }
+
             this.container.classList.remove(IS_HIDING_CLASS);
             if (!this.visible) {
                 this.container.classList.remove(IS_VISIBLE_CLASS);
