@@ -126,6 +126,10 @@ export class ColorPicker implements FormComponent {
     @State()
     private isOpen = false;
 
+    public disconnectedCallback() {
+        this.isOpen = false;
+    }
+
     public componentDidRender() {
         if (this.shouldFocus && this.isOpen) {
             this.shouldFocus = false;
