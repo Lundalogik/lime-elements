@@ -1,5 +1,47 @@
 import { markdownToHTML, sanitizeHTML } from './markdown-parser';
 
+/**
+ * Normalize HTML for comparison: collapse whitespace between tags,
+ * sort attributes alphabetically, and normalize void elements.
+ * This avoids mock-doc serialization quirks while still catching
+ * any structural or visible difference in the output.
+ * @param html
+ */
+function normalizeHtml(html: string): string {
+    return (
+        html
+            // Collapse whitespace between and adjacent to tags
+            .replaceAll(/>\s+/g, '>')
+            // eslint-disable-next-line sonarjs/slow-regex -- test-only helper, inputs are small
+            .replaceAll(/\s+</g, '<')
+            // Collapse remaining whitespace runs in text nodes
+            .replaceAll(/\s+/g, ' ')
+            // Sort attributes alphabetically within each tag
+            .replaceAll(/<([\w-]+)(\s[^>]*)?>/g, (_match, tag1, attrs) => {
+                const tag = tag1;
+
+                if (!attrs || !attrs.trim()) {
+                    return `<${tag}>`;
+                }
+
+                const attrList: string[] = [];
+                // eslint-disable-next-line sonarjs/slow-regex -- test-only helper, inputs are small
+                const attrRegex = /\s+([\w-]+)(?:="([^"]*)")?/g;
+                let m;
+                while ((m = attrRegex.exec(attrs)) !== null) {
+                    attrList.push(
+                        m[2] === undefined ? m[1] : `${m[1]}="${m[2]}"`
+                    );
+                }
+
+                attrList.sort();
+
+                return `<${tag} ${attrList.join(' ')}>`;
+            })
+            .trim()
+    );
+}
+
 describe('markdownToHTML', () => {
     describe('basic markdown', () => {
         it('should convert simple markdown to HTML', async () => {
@@ -23,7 +65,8 @@ describe('markdownToHTML', () => {
             const result = await markdownToHTML(
                 '[Example](https://example.com)'
             );
-            expect(result).toEqualHtml(`
+            expect(normalizeHtml(result)).toBe(
+                normalizeHtml(`
                 <p>
                     <a href="https://example.com"
                        target="_blank"
@@ -32,7 +75,8 @@ describe('markdownToHTML', () => {
                         Example
                     </a>
                 </p>
-            `);
+            `)
+            );
         });
     });
 
@@ -225,7 +269,8 @@ describe('markdownToHTML', () => {
             const result = await markdownToHTML(
                 '- [ ] Unchecked\n- [x] Checked'
             );
-            expect(result).toEqualHtml(`
+            expect(normalizeHtml(result)).toBe(
+                normalizeHtml(`
                 <ul class="contains-task-list">
                     <li class="task-list-item">
                         <input type="checkbox" disabled> Unchecked
@@ -234,14 +279,16 @@ describe('markdownToHTML', () => {
                         <input type="checkbox" checked disabled> Checked
                     </li>
                 </ul>
-            `);
+            `)
+            );
         });
 
         it('should render autolinks', async () => {
             const result = await markdownToHTML(
                 'Visit https://example.com for more'
             );
-            expect(result).toEqualHtml(`
+            expect(normalizeHtml(result)).toBe(
+                normalizeHtml(`
                 <p>
                     Visit
                     <a href="https://example.com"
@@ -252,7 +299,8 @@ describe('markdownToHTML', () => {
                     </a>
                     for more
                 </p>
-            `);
+            `)
+            );
         });
     });
 

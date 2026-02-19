@@ -94,10 +94,10 @@ describe('sanitizeStyleValue', () => {
     describe('with invalid CSS', () => {
         beforeEach(() => {
             // Suppress console.error output
-            jest.spyOn(console, 'error').mockImplementation(() => {});
+            vi.spyOn(console, 'error').mockImplementation(() => {});
         });
         afterEach(() => {
-            jest.restoreAllMocks();
+            vi.restoreAllMocks();
         });
         it('returns an empty string for invalid CSS syntax', () => {
             const style = 'color blue'; // Missing colon
