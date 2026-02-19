@@ -34,7 +34,8 @@
     "test:e2e:watch": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e --watch\"",
     "test:spec": "stencil test --spec",
     "test:spec:watch": "stencil test --spec --watch",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "test:vitest": "stencil-test"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.8.1",
@@ -45,6 +46,7 @@
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@stencil/core": "^4.36.3",
     "@stencil/sass": "^3.2.2",
+    "@stencil/vitest": "^1.1.21",
     "@types/codemirror": "^5.60.2",
     "@types/html-escaper": "^3.0.4",
     "@types/jest": "^29.5.14",
@@ -52,6 +54,7 @@
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@types/tabulator-tables": "^6.2.4",
+    "@vitest/browser-playwright": "^4.0.18",
     "codemirror": "^5.65.9",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.13",

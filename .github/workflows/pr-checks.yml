@@ -45,6 +45,19 @@ jobs:
     - uses: ./.github/actions/set-up-node
     - run: npm ci
     - run: npm test --if-present
+    - name: Cache Playwright browsers
+      id: playwright-cache
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ hashFiles('package-lock.json') }}
+    - name: Install Playwright browsers
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
+      run: npx playwright install chromium --with-deps
+    - name: Run Vitest spec tests
+      run: npx stencil-test --project spec
+    - name: Run Vitest e2e tests
+      run: npx stencil-test --project e2e
 
   commitlint:
     name: Commitlint
