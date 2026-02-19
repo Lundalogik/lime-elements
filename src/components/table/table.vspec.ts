@@ -1,4 +1,23 @@
-import { Table } from './table';
+// Mock Stencil decorators so we can import the raw component class
+vi.mock('@stencil/core', () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const noop = () => (_target: any, _key?: string) => {};
+
+    return {
+        Component: noop,
+        Element: noop,
+        Event: noop,
+        Listen: noop,
+        Method: noop,
+        Prop: noop,
+        State: noop,
+        Watch: noop,
+        h: () => null,
+    };
+});
+
+// Import after mock is set up
+const { Table } = await import('./table');
 
 describe('limel-table data updates', () => {
     let component: Table;
@@ -6,26 +25,26 @@ describe('limel-table data updates', () => {
     beforeEach(() => {
         component = new Table();
         (component as any).tabulator = {
-            replaceData: jest.fn(),
-            updateData: jest.fn(),
-            updateOrAddData: jest.fn(),
+            replaceData: vi.fn(),
+            updateData: vi.fn(),
+            updateOrAddData: vi.fn(),
         };
-        (component as any).setSelection = jest.fn();
+        (component as any).setSelection = vi.fn();
         (component as any).initialized = true;
     });
 
     afterEach(() => {
-        jest.useRealTimers();
+        vi.useRealTimers();
     });
 
     it('updates rows without replacing data when row content changes', () => {
-        jest.useFakeTimers();
+        vi.useFakeTimers();
 
         const oldData = [{ id: 1, name: 'John' }];
         const newData = [{ id: 1, name: 'Jane' }];
 
         (component as any).updateData(newData, oldData);
-        jest.runAllTimers();
+        vi.runAllTimers();
 
         const tabulator = (component as any).tabulator;
         expect(tabulator.replaceData).not.toHaveBeenCalled();
@@ -34,13 +53,13 @@ describe('limel-table data updates', () => {
     });
 
     it('replaces data when the dataset changes', () => {
-        jest.useFakeTimers();
+        vi.useFakeTimers();
 
         const oldData = [{ id: 1, name: 'John' }];
         const newData = [{ id: 2, name: 'Jane' }];
 
         (component as any).updateData(newData, oldData);
-        jest.runAllTimers();
+        vi.runAllTimers();
 
         const tabulator = (component as any).tabulator;
         expect(tabulator.replaceData).toHaveBeenCalledWith(newData);
@@ -48,13 +67,13 @@ describe('limel-table data updates', () => {
     });
 
     it('replaces data when rows are missing ids', () => {
-        jest.useFakeTimers();
+        vi.useFakeTimers();
 
         const oldData = [{ name: 'John' }];
         const newData = [{ name: 'Jane' }];
 
         (component as any).updateData(newData, oldData);
-        jest.runAllTimers();
+        vi.runAllTimers();
 
         const tabulator = (component as any).tabulator;
         expect(tabulator.replaceData).toHaveBeenCalledWith(newData);
@@ -63,7 +82,7 @@ describe('limel-table data updates', () => {
     });
 
     it('replaces data when row order changes', () => {
-        jest.useFakeTimers();
+        vi.useFakeTimers();
 
         const oldData = [
             { id: 1, name: 'John' },
@@ -75,7 +94,7 @@ describe('limel-table data updates', () => {
         ];
 
         (component as any).updateData(newData, oldData);
-        jest.runAllTimers();
+        vi.runAllTimers();
 
         const tabulator = (component as any).tabulator;
         expect(tabulator.replaceData).toHaveBeenCalledWith(newData);
@@ -84,12 +103,12 @@ describe('limel-table data updates', () => {
     });
 
     it('uses updateOrAddData when data is identical', () => {
-        jest.useFakeTimers();
+        vi.useFakeTimers();
 
         const data = [{ id: 1, name: 'John' }];
 
         (component as any).updateData(data, data);
-        jest.runAllTimers();
+        vi.runAllTimers();
 
         const tabulator = (component as any).tabulator;
         expect(tabulator.replaceData).not.toHaveBeenCalled();
