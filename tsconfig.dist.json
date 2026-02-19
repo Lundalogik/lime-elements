@@ -7,8 +7,6 @@
     "**/dev-assets/**",
     "**/*.spec.*",
     "**/*.e2e.*",
-    "**/*.vspec.*",
-    "**/*.ve2e.*",
     "**/*.test-wrapper.*"
   ]
 }
