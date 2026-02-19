@@ -1,25 +1,25 @@
 import { EditorView } from 'prosemirror-view';
 import { Trigger } from '../../../../../text-editor/text-editor.types';
 import { ContentTypeConverter } from '../../../../../text-editor/utils/content-type-converter';
-jest.mock('./send-trigger-event', () => ({
-    sendTriggerEvent: jest.fn(),
+vi.mock('./send-trigger-event', () => ({
+    sendTriggerEvent: vi.fn(),
 }));
 import { sendTriggerEvent } from './send-trigger-event';
 import { monitorTriggeredText } from './monitor-triggered-text';
 
 describe('monitorTriggeredText', () => {
     beforeEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     it('excludes the trigger character in the extracted text', () => {
-        const doc = { textBetween: jest.fn().mockReturnValue('A') }; // Simulate the text "A" after the trigger
+        const doc = { textBetween: vi.fn().mockReturnValue('A') }; // Simulate the text "A" after the trigger
         const activeTrigger: Trigger = { character: '@', position: 1 }; // Trigger character at position 1
         const contentTypeConverter = {
             mock: 'contentTypeConverter',
         } as unknown as ContentTypeConverter;
         const view = {
-            dom: { dispatchEvent: jest.fn() },
+            dom: { dispatchEvent: vi.fn() },
         } as unknown as EditorView;
 
         const result = monitorTriggeredText(
@@ -43,13 +43,13 @@ describe('monitorTriggeredText', () => {
     });
 
     it('handles no text after the trigger character', () => {
-        const doc = { textBetween: jest.fn().mockReturnValue('') }; // No text after trigger
+        const doc = { textBetween: vi.fn().mockReturnValue('') }; // No text after trigger
         const activeTrigger: Trigger = { character: '@', position: 1 }; // Trigger character at position 1
         const contentTypeConverter = {
             mock: 'contentTypeConverter',
         } as unknown as ContentTypeConverter;
         const view = {
-            dom: { dispatchEvent: jest.fn() },
+            dom: { dispatchEvent: vi.fn() },
         } as unknown as EditorView;
 
         const result = monitorTriggeredText(
@@ -72,13 +72,13 @@ describe('monitorTriggeredText', () => {
     });
 
     it('handles multiple characters after the trigger character', () => {
-        const doc = { textBetween: jest.fn().mockReturnValue('Some Text') };
+        const doc = { textBetween: vi.fn().mockReturnValue('Some Text') };
         const activeTrigger: Trigger = { character: '@', position: 1 };
         const contentTypeConverter = {
             mock: 'contentTypeConverter',
         } as unknown as ContentTypeConverter;
         const view = {
-            dom: { dispatchEvent: jest.fn() },
+            dom: { dispatchEvent: vi.fn() },
         } as unknown as EditorView;
 
         const result = monitorTriggeredText(
@@ -101,13 +101,13 @@ describe('monitorTriggeredText', () => {
     });
 
     it('extracts whitespace correctly when typing after a trigger', () => {
-        const doc = { textBetween: jest.fn().mockReturnValue(' ') }; // Text after trigger
+        const doc = { textBetween: vi.fn().mockReturnValue(' ') }; // Text after trigger
         const activeTrigger: Trigger = { character: '@', position: 1 };
         const contentTypeConverter = {
             mock: 'contentTypeConverter',
         } as unknown as ContentTypeConverter;
         const view = {
-            dom: { dispatchEvent: jest.fn() },
+            dom: { dispatchEvent: vi.fn() },
         } as unknown as EditorView;
 
         const result = monitorTriggeredText(
@@ -130,7 +130,7 @@ describe('monitorTriggeredText', () => {
     });
 
     it('handles a full sequence of typing a valid trigger and matching text', () => {
-        const mockDoc = { textBetween: jest.fn() };
+        const mockDoc = { textBetween: vi.fn() };
         mockDoc.textBetween
             .mockReturnValueOnce('w') // After typing 'w'
             .mockReturnValueOnce('wo') // After typing 'o'
@@ -141,7 +141,7 @@ describe('monitorTriggeredText', () => {
             mock: 'contentTypeConverter',
         } as unknown as ContentTypeConverter;
         const view = {
-            dom: { dispatchEvent: jest.fn() },
+            dom: { dispatchEvent: vi.fn() },
         } as unknown as EditorView;
 
         // Simulate typing

@@ -1,5 +1,5 @@
-jest.mock('./send-trigger-event', () => ({
-    sendTriggerEvent: jest.fn(),
+vi.mock('./send-trigger-event', () => ({
+    sendTriggerEvent: vi.fn(),
 }));
 import { sendTriggerEvent } from './send-trigger-event';
 import { detectTriggerRemoval } from './detect-trigger-removal';
@@ -8,15 +8,15 @@ import { ReplaceStep } from 'prosemirror-transform';
 describe('detectTriggerRemoval', () => {
     let mockView: any;
     let contentConverter: any;
-    let resetActiveTrigger: jest.Mock;
+    let resetActiveTrigger: Mock<any>;
 
     beforeEach(() => {
+        vi.clearAllMocks();
         mockView = {
-            dom: { dispatchEvent: jest.fn() },
+            dom: { dispatchEvent: vi.fn() },
         };
         contentConverter = {};
-        resetActiveTrigger = jest.fn();
-        jest.clearAllMocks();
+        resetActiveTrigger = vi.fn();
     });
 
     it('calls resetActiveTrigger and emits triggerStop when the trigger character is removed', () => {
@@ -24,7 +24,7 @@ describe('detectTriggerRemoval', () => {
             steps: [
                 new ReplaceStep(5, 6, {
                     content: {
-                        textBetween: jest.fn().mockReturnValue(''), // Simulate removal
+                        textBetween: vi.fn().mockReturnValue(''), // Simulate removal
                         size: 0,
                     },
                 } as any),
@@ -55,7 +55,7 @@ describe('detectTriggerRemoval', () => {
             steps: [
                 new ReplaceStep(5, 6, {
                     content: {
-                        textBetween: jest.fn().mockReturnValue('@'), // Trigger still present
+                        textBetween: vi.fn().mockReturnValue('@'), // Trigger still present
                         size: 1,
                     },
                 } as any),
@@ -80,7 +80,7 @@ describe('detectTriggerRemoval', () => {
             steps: [
                 new ReplaceStep(5, 6, {
                     content: {
-                        textBetween: jest.fn().mockReturnValue(''),
+                        textBetween: vi.fn().mockReturnValue(''),
                         size: 0,
                     },
                 } as any),
@@ -105,7 +105,7 @@ describe('detectTriggerRemoval', () => {
             steps: [
                 new ReplaceStep(5, 6, {
                     content: {
-                        textBetween: jest.fn().mockReturnValue(''),
+                        textBetween: vi.fn().mockReturnValue(''),
                         size: 0,
                     },
                 } as any),
@@ -150,7 +150,7 @@ describe('detectTriggerRemoval', () => {
             steps: [
                 new ReplaceStep(5, 6, {
                     content: {
-                        textBetween: jest.fn().mockReturnValue(''),
+                        textBetween: vi.fn().mockReturnValue(''),
                         size: 0,
                     },
                 } as any),

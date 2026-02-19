@@ -3,15 +3,15 @@ import { createHtmlInserter } from './create-html-inserter';
 
 describe('createHtmlInserter', () => {
     let mockContentConverter: any;
-    let mockDispatchTransaction: jest.Mock;
+    let mockDispatchTransaction: Mock<any>;
     let schema: Schema;
 
     beforeEach(() => {
         mockContentConverter = {
-            parseAsHTML: jest.fn((input) => Promise.resolve(`<p>${input}</p>`)),
+            parseAsHTML: vi.fn((input) => Promise.resolve(`<p>${input}</p>`)),
         };
 
-        mockDispatchTransaction = jest.fn();
+        mockDispatchTransaction = vi.fn();
 
         schema = new Schema({
             nodes: {
