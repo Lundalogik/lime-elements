@@ -1,3 +1,10 @@
+## [39.1.1](https://github.com/Lundalogik/lime-elements/compare/v39.1.0...v39.1.1) (2026-02-20)
+
+### Bug Fixes
+
+
+* **snackbar:** fix incorrect aria-atomic placement for screen readers ([e8a5204](https://github.com/Lundalogik/lime-elements/commit/e8a520449fe925be9e8e5a1616680aa80538916f)), closes [Lundalogik/lime-elements#2014](https://github.com/Lundalogik/lime-elements/issues/2014)
+
 ## [39.1.0](https://github.com/Lundalogik/lime-elements/compare/v39.0.4...v39.1.0) (2026-02-20)
 
 ### Features
