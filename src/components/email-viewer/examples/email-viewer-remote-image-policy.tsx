@@ -40,7 +40,7 @@ export class EmailViewerRemoteImagePolicyExample {
             subject: 'Remote image policy demo',
             from: 'Jane Doe <jane.doe@example.com>',
             to: 'Marketing <marketing@example.com>, Web <web@example.com>',
-            date: 'Mon, 20 Jan 2026 10:03:21 +0100',
+            date: 'Tue, 20 Jan 2026 10:03:21 +0100',
             bodyHtml: bodyHtml,
         };
 
