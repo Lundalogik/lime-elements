@@ -174,10 +174,6 @@ export class Hotkey {
 
     @Listen('keydown', { target: 'document', capture: true })
     public handleKeyDown(event: KeyboardEvent) {
-        if (this.disabled) {
-            return;
-        }
-
         if (event.defaultPrevented || event.repeat) {
             return;
         }
@@ -186,16 +182,12 @@ export class Hotkey {
             return;
         }
 
-        if (!this.value) {
+        const expected = this.registeredNormalizedHotkey;
+        if (!expected) {
             return;
         }
 
         if (isKeyboardEventFromTextInput(event)) {
-            return;
-        }
-
-        const expected = normalizeHotkeyString(this.value);
-        if (!expected) {
             return;
         }
 
