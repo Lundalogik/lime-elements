@@ -1,3 +1,10 @@
+## [39.0.4](https://github.com/Lundalogik/lime-elements/compare/v39.0.3...v39.0.4) (2026-02-20)
+
+### Bug Fixes
+
+
+* **collapsible-section:** prevent icon from shrinking when header text is long ([af146d6](https://github.com/Lundalogik/lime-elements/commit/af146d6c72674ac1c12ed0decbb79bfde5fe57f8)), closes [Lundalogik/lime-elements#3880](https://github.com/Lundalogik/lime-elements/issues/3880)
+
 ## [39.0.3](https://github.com/Lundalogik/lime-elements/compare/v39.0.2...v39.0.3) (2026-02-20)
 
 ### Bug Fixes
