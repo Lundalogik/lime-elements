@@ -1,3 +1,10 @@
+## [39.1.3](https://github.com/Lundalogik/lime-elements/compare/v39.1.2...v39.1.3) (2026-02-20)
+
+### Bug Fixes
+
+
+* **file-viewer:** revoke PDF blob URL when switching file types ([5b9ad64](https://github.com/Lundalogik/lime-elements/commit/5b9ad642f58c3251b49b820e5ea1dbeb3544b627)), closes [Lundalogik/lime-elements#3884](https://github.com/Lundalogik/lime-elements/issues/3884)
+
 ## [39.1.2](https://github.com/Lundalogik/lime-elements/compare/v39.1.1...v39.1.2) (2026-02-20)
 
 ### Bug Fixes
