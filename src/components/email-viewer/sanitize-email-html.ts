@@ -1,9 +1,8 @@
 import { unified } from 'unified';
 import rehypeParse from 'rehype-parse';
-import rehypeSanitize from 'rehype-sanitize';
+import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
-import { defaultSchema } from 'rehype-sanitize';
 import { Schema } from 'rehype-sanitize/lib';
 
 const allowedMimeTypes = new Set([
