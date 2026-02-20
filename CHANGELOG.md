@@ -1,3 +1,15 @@
+## [39.1.0](https://github.com/Lundalogik/lime-elements/compare/v39.0.4...v39.1.0) (2026-02-20)
+
+### Features
+
+
+* **email-viewer:** add new `private` component ([14ccbc4](https://github.com/Lundalogik/lime-elements/commit/14ccbc4cdd1844d56432707ac55e0a2e28d1cf67))
+* **file-viewer:** enable viewing `.eml` files ([63ea98d](https://github.com/Lundalogik/lime-elements/commit/63ea98d38b847514cdeb6c36403a50c73a3b806b))
+### Bug Fixes
+
+
+* **file-viewer:** improve error handling for PDF ([f8c5911](https://github.com/Lundalogik/lime-elements/commit/f8c59113303ef55611cee5d0df7b50c7d2a7aabf))
+
 ## [39.0.4](https://github.com/Lundalogik/lime-elements/compare/v39.0.3...v39.0.4) (2026-02-20)
 
 ### Bug Fixes
