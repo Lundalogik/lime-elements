@@ -28,7 +28,7 @@ export async function loadEmail(url: string): Promise<Email> {
         from: formatAddress(email.from),
         to: formatAddresses(email.to),
         cc: formatAddresses(email.cc),
-        date: email.date || undefined,
+        date: getRawHeader(email, 'date') || email.date || undefined,
     };
 
     const { attachments, cidUrlById } = extractAttachments(email);
@@ -67,6 +67,14 @@ async function parseEmail(url: string, buffer: ArrayBuffer): Promise<any> {
         const message = error instanceof Error ? error.message : String(error);
         throw new Error(`Failed to parse email from ${url}: ${message}`);
     }
+}
+
+function getRawHeader(email: any, name: string): string | undefined {
+    const header = (email.headers || []).find(
+        (h: any) => h.key === name.toLowerCase()
+    );
+
+    return header?.value || undefined;
 }
 
 function extractAttachments(email: any): {
