@@ -1,6 +1,3 @@
-# limel-example-spinner-size
-
-
 
 <!-- Auto Generated Below -->
 

@@ -1,6 +1,3 @@
-# limel-example-badge-string
-
-
 
 <!-- Auto Generated Below -->
 

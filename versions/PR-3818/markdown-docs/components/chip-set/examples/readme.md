@@ -1,6 +1,3 @@
-# limel-example-chip-set-input-type-with-menu-items
-
-
 
 <!-- Auto Generated Below -->
 

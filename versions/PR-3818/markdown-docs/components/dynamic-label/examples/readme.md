@@ -1,6 +1,3 @@
-# limel-example-dynamic-label-readonly-boolean
-
-
 
 <!-- Auto Generated Below -->
 

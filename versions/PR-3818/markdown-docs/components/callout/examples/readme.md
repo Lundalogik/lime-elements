@@ -1,6 +1,3 @@
-# limel-example-custom-type
-
-
 
 <!-- Auto Generated Below -->
 

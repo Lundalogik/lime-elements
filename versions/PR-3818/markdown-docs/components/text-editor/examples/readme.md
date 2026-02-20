@@ -1,6 +1,3 @@
-# limel-example-text-editor-with-tables
-
-
 
 <!-- Auto Generated Below -->
 

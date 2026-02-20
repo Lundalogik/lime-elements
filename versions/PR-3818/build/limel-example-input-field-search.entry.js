@@ -1,2 +1,1 @@
-import{r as e,h as i}from"./index-3de2295c.js";const s=class{constructor(i){e(this,i);this.handleChange=e=>{this.value=e.detail};this.value=undefined}render(){return i("limel-input-field",{label:"Search",type:"search",leadingIcon:"search",value:this.value,onChange:this.handleChange})}};export{s as limel_example_input_field_search};
-//# sourceMappingURL=limel-example-input-field-search.entry.js.map
+import{r as e,h as s}from"./index-BqlK_Alp.js";const i=class{constructor(s){e(this,s),this.handleChange=e=>{this.value=e.detail}}render(){return s("limel-input-field",{key:"3713331f861605d650273e1c0ba4de3061f450fd",label:"Search",type:"search",leadingIcon:"search",value:this.value,onChange:this.handleChange})}};export{i as limel_example_input_field_search}

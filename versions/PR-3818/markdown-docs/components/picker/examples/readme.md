@@ -1,6 +1,3 @@
-# limel-example-picker-value-as-object-with-actions
-
-
 
 <!-- Auto Generated Below -->
 

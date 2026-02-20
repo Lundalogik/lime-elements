@@ -1,6 +1,3 @@
-# limel-info-tile
-
-
 
 <!-- Auto Generated Below -->
 

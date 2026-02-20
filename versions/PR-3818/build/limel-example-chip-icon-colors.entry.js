@@ -1,2 +1,1 @@
-import{r,h as o}from"./index-3de2295c.js";const l=class{constructor(o){r(this,o)}render(){const r={name:"filled_star",color:"rgb(var(--color-yellow-default))",backgroundColor:"rgb(var(--color-blue-dark))"};return o("limel-chip",{text:"Golden star",icon:r})}};export{l as limel_example_chip_icon_colors};
-//# sourceMappingURL=limel-example-chip-icon-colors.entry.js.map
+import{r,h as o}from"./index-BqlK_Alp.js";const l=class{constructor(o){r(this,o)}render(){return o("limel-chip",{key:"1709956c68be79f82621c5da048c06babb21d8a8",text:"Golden star",icon:{name:"filled_star",color:"rgb(var(--color-yellow-default))",backgroundColor:"rgb(var(--color-blue-dark))"}})}};export{l as limel_example_chip_icon_colors}

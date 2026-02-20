@@ -1,6 +1,3 @@
-# limel-example-file-input-type-filtering
-
-
 
 <!-- Auto Generated Below -->
 

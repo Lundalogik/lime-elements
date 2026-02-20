@@ -1,6 +1,7 @@
 import { h, r as registerInstance, a as getElement } from './index-9UrzenzW.js';
 import { P as PropertyList, M as MethodList } from './methods-BAjd6f7g.js';
 import { g as getDefaultExportFromCjs } from './_commonjsHelpers-E-ZsRS8r.js';
+import { g as getRoute, s as scrollToElement } from './anchor-scroll-BAGXN2n6.js';
 
 function EventList({ events, id, }) {
     if (!events.length) {
@@ -140,30 +141,23 @@ const KompendiumComponent = class {
         window.removeEventListener('hashchange', this.handleRouteChange);
     }
     componentDidLoad() {
-        const route = this.getRoute();
-        this.scrollToElement(route);
+        const route = getRoute().split('#')[0];
+        scrollToElement(this.host.shadowRoot, route);
     }
     componentDidUpdate() {
         if (this.scrollToOnNextUpdate) {
-            this.scrollToElement(this.scrollToOnNextUpdate);
+            const route = this.scrollToOnNextUpdate.split('#')[0];
+            scrollToElement(this.host.shadowRoot, route);
             this.scrollToOnNextUpdate = null;
         }
     }
     handleRouteChange() {
-        const route = this.getRoute();
-        this.scrollToOnNextUpdate = route;
-    }
-    scrollToElement(id) {
-        const element = this.host.shadowRoot.getElementById(id);
-        if (!element) {
-            return;
-        }
-        element.scrollIntoView();
+        this.scrollToOnNextUpdate = getRoute().split('#')[0];
     }
     render() {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
-        return (h("article", { key: '25c0da9ed6bd380bab2c45dd05ad451f829c2067', class: "component" }, h("section", { key: '029617283bc0aaf08ae97e0efe8ce8c09037fe6a', class: "docs" }, this.renderDocs(tag, component))));
+        return (h("article", { key: 'e36149fd654bbc9851c25d6e4b9bb5a34b84f0a7', class: "component" }, h("section", { key: '844f6154fa86b4f84e6eb2a73d7e7ff13491f594', class: "docs" }, this.renderDocs(tag, component))));
     }
     renderDocs(tag, component) {
         let title = tag.split('-').slice(1).join(' ');
@@ -186,11 +180,8 @@ const KompendiumComponent = class {
         ];
     }
     getId(name) {
-        const route = this.getRoute().split('/').slice(0, 3).join('/');
+        const route = getRoute().split('#')[0].split('/').slice(0, 3).join('/');
         return [route, name].filter((item) => !!item).join('/') + '/';
-    }
-    getRoute() {
-        return location.hash.substr(1);
     }
     get host() { return getElement(this); }
 };

@@ -1,2 +1,1 @@
-import{r as e,h as i}from"./index-3de2295c.js";const t=class{constructor(i){e(this,i);this.handleChange=e=>{this.value=e.detail+""};this.value="10000"}render(){return i("limel-input-field",{label:"Price per unit",prefix:"$",value:this.value,type:"number",onChange:this.handleChange})}};export{t as limel_example_input_field_prefix};
-//# sourceMappingURL=limel-example-input-field-prefix.entry.js.map
+import{r as e,h as i}from"./index-BqlK_Alp.js";const t=class{constructor(i){e(this,i),this.value="10000",this.handleChange=e=>{this.value=e.detail+""}}render(){return i("limel-input-field",{key:"121009bf623c92653859b43772fb3fffbfe9e0da",label:"Price per unit",prefix:"$",value:this.value,type:"number",onChange:this.handleChange})}};export{t as limel_example_input_field_prefix}

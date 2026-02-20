@@ -1,6 +1,3 @@
-# limel-chip
-
-
 
 <!-- Auto Generated Below -->
 
@@ -49,7 +46,7 @@ or navigating to a page with more information about the item in the shopping lis
 | `image`      | --           | A picture to be displayed instead of the icon on the chip.                                                                                                                                                                | `Image`                                                                | `undefined`           |
 | `invalid`    | `invalid`    | Set to `true` to visualize the chip in an "invalid" or "error" state.                                                                                                                                                     | `boolean`                                                              | `false`               |
 | `language`   | `language`   | Defines the language for translations. Will translate the translatable strings on the components.                                                                                                                         | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`                |
-| `link`       | --           | If supplied, the chip will become a clickable link.                                                                                                                                                                       | `{ title?: string; target?: string; href: string; rel?: string; }`     | `undefined`           |
+| `link`       | --           | If supplied, the chip will become a clickable link.                                                                                                                                                                       | `"text" \| Link`                                                       | `undefined`           |
 | `loading`    | `loading`    | Set to `true` to put the component in the `loading` state, and render an indeterminate progress indicator inside the chip. This does _not_ disable the interactivity of the chip!                                         | `boolean`                                                              | `false`               |
 | `menuItems`  | --           | When provided, the chip will render an ellipsis menu with the supplied items. Also, this will hide the "remove button" when `removable={true}`, as the remove button will automatically become the last item in the menu. | `(ListSeparator \| MenuItem<any>)[]`                                   | `[]`                  |
 | `progress`   | `progress`   | Reflects the current value of a progress bar on the chip, visualizing the percentage of an ongoing process. Must be a number between `0` and `100`.                                                                       | `number`                                                               | `undefined`           |

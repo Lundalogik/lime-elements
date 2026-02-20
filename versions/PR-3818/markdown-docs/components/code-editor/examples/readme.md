@@ -1,6 +1,3 @@
-# limel-example-code-editor-readonly-with-line-numbers
-
-
 
 <!-- Auto Generated Below -->
 

@@ -1,6 +1,3 @@
-# limel-chip-set
-
-
 
 <!-- Auto Generated Below -->
 
@@ -97,6 +94,12 @@ Type: `Promise<boolean>`
 ### `setFocus(emptyInput?: boolean) => Promise<void>`
 
 Used to set focus to the chip-set input field.
+
+#### Parameters
+
+| Name         | Type      | Description                                     |
+| ------------ | --------- | ----------------------------------------------- |
+| `emptyInput` | `boolean` | - if `true`, any text in the input is discarded |
 
 #### Returns
 

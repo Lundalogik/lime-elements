@@ -1,6 +1,3 @@
-# limel-example-markdown-tables
-
-
 
 <!-- Auto Generated Below -->
 

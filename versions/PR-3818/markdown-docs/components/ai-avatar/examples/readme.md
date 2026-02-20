@@ -1,6 +1,3 @@
-# limel-example-ai-avatar-white-background
-
-
 
 <!-- Auto Generated Below -->
 

@@ -1,2 +1,1 @@
-import{r as e,h as t}from"./index-3de2295c.js";const r='This is 20% <meter value="0.2"></meter> and this is 100% <meter value="1" />';const s=class{constructor(t){e(this,t)}render(){return t("limel-markdown",{value:r,whitelist:[{tagName:"meter",attributes:["value"]}]})}};export{s as limel_example_markdown_custom_component};
-//# sourceMappingURL=limel-example-markdown-custom-component.entry.js.map
+import{r as e,h as t}from"./index-BqlK_Alp.js";const r=class{constructor(t){e(this,t)}render(){return t("limel-markdown",{key:"bdcdc1ebb66cf45e4ff15e715a18ed6f8cb31d55",value:'This is 20% <meter value="0.2"></meter> and this is 100% <meter value="1" />',whitelist:[{tagName:"meter",attributes:["value"]}]})}};export{r as limel_example_markdown_custom_component}

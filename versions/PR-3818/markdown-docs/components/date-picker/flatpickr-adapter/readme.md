@@ -1,6 +1,3 @@
-# limel-flatpickr-adapter
-
-
 
 <!-- Auto Generated Below -->
 

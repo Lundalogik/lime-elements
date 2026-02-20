@@ -1,6 +1,3 @@
-# limel-example-color-picker-manual-input
-
-
 
 <!-- Auto Generated Below -->
 

@@ -1,6 +1,3 @@
-# limel-example-chart-type-ring
-
-
 
 <!-- Auto Generated Below -->
 

@@ -1,6 +1,3 @@
-# limel-button
-
-
 
 <!-- Auto Generated Below -->
 
@@ -64,6 +61,7 @@
  - [limel-example-form-layout](../form/examples)
  - [limel-example-form-span-fields](../form/examples)
  - [limel-example-input-field-focus](../input-field/examples)
+ - [limel-example-input-field-selection](../input-field/examples)
  - [limel-example-menu-badge-icons](../menu/examples)
  - [limel-example-menu-basic](../menu/examples)
  - [limel-example-menu-composite](../menu/examples)
@@ -152,6 +150,7 @@ graph TD;
   limel-example-form-layout --> limel-button
   limel-example-form-span-fields --> limel-button
   limel-example-input-field-focus --> limel-button
+  limel-example-input-field-selection --> limel-button
   limel-example-menu-badge-icons --> limel-button
   limel-example-menu-basic --> limel-button
   limel-example-menu-composite --> limel-button
