@@ -60,7 +60,7 @@ const emailSanitizationSchema = {
         ...defaultSchema.protocols,
         // Email bodies often embed images as data URLs. We allow `data:` here,
         // but still validate the MIME type in `sanitizeDangerousUrls`.
-        src: [...defaultSrcProtocols, 'http', 'https', 'data'],
+        src: [...defaultSrcProtocols, 'data'],
     },
     attributes: {
         ...defaultSchema.attributes,
