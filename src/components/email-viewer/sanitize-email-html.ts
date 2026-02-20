@@ -76,6 +76,8 @@ const emailSanitizationSchema = {
             'width',
             'height',
         ],
+        font: ['color', 'size', 'face'],
+        meta: ['charset', 'http-equiv', 'httpEquiv', 'content', 'name'],
         colgroup: [...(defaultSchema.attributes.colgroup ?? []), 'span'],
         col: [...(defaultSchema.attributes.col ?? []), 'width', 'span'],
         '*': [
