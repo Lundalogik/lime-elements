@@ -99,6 +99,7 @@ function getWhiteList(allowedComponents: CustomElementDefinition[]): Schema {
 
     const whitelist: Schema = {
         ...defaultSchema,
+        strip: [...(defaultSchema.strip ?? []), 'style'],
         tagNames: [
             ...(defaultSchema.tagNames || []),
             ...allowedComponents.map((component) => component.tagName),
