@@ -37,6 +37,7 @@ Consumers should pre-sanitize `bodyHtml` before passing it to the component.
 
  - [limel-example-email-viewer-inline-image](examples)
  - [limel-example-email-viewer-plain-text](examples)
+ - [limel-example-email-viewer-remote-image-policy](examples)
  - [limel-file-viewer](../file-viewer)
 
 ### Depends on
@@ -59,6 +60,7 @@ graph TD;
   limel-tooltip --> limel-tooltip-content
   limel-example-email-viewer-inline-image --> limel-email-viewer
   limel-example-email-viewer-plain-text --> limel-email-viewer
+  limel-example-email-viewer-remote-image-policy --> limel-email-viewer
   limel-file-viewer --> limel-email-viewer
   style limel-email-viewer fill:#f9f,stroke:#333,stroke-width:4px
 ```
