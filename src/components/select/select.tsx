@@ -204,7 +204,7 @@ export class Select {
                 open={this.openMenu}
                 close={this.closeMenu}
                 checkValid={this.checkValid}
-                native={this.isMobileDevice}
+                native={this.isMobileDevice && !this.multiple}
                 dropdownZIndex={dropdownZIndex}
                 anchor={this.getAnchorElement()}
             />
@@ -224,7 +224,7 @@ export class Select {
     }
 
     private setMenuFocus() {
-        if (this.isMobileDevice) {
+        if (this.isMobileDevice && !this.multiple) {
             return;
         }
 
@@ -321,7 +321,12 @@ export class Select {
     }
 
     private emitFirstChangeEvent() {
-        return !this.hasChanged && this.isMobileDevice && !this.value;
+        return (
+            !this.hasChanged &&
+            this.isMobileDevice &&
+            !this.multiple &&
+            !this.value
+        );
     }
 
     private closeMenu() {
@@ -356,12 +361,8 @@ export class Select {
                 );
             });
 
-        if (this.multiple) {
-            this.change.emit(options);
-
-            return;
-        }
-
+        // Note: this.multiple is always false here because multi-select uses
+        // the custom dropdown, so native <select> never renders for it.
         this.change.emit(options[0]);
         this.menuOpen = false;
     }
