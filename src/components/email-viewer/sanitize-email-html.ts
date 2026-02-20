@@ -31,7 +31,7 @@ const allowedMimeTypes = new Set([
 export async function sanitizeEmailHTML(html: string): Promise<string> {
     const file = await unified()
         .use(rehypeParse)
-        .use(rehypeSanitize, getEmailSanitizationSchema())
+        .use(rehypeSanitize, emailSanitizationSchema)
         .use(() => {
             return (tree: any) => {
                 visit(tree, 'element', (node) => {
@@ -47,71 +47,70 @@ export async function sanitizeEmailHTML(html: string): Promise<string> {
 }
 
 /**
- * Returns a rehype-sanitize schema that allows all standard HTML elements
- * and attributes needed for rich email rendering, including `style`.
+ * Rehype-sanitize schema that allows all standard HTML elements and attributes
+ * needed for rich email rendering, including `style`.
+ *
+ * Hoisted to module scope since the schema has no runtime dependencies and
+ * doesn't need to be reconstructed on every sanitization call.
  */
-function getEmailSanitizationSchema(): Schema {
-    const defaultSrcProtocols = defaultSchema.protocols?.src ?? [];
+const defaultSrcProtocols = defaultSchema.protocols?.src ?? [];
 
-    const schema: Schema = {
-        ...defaultSchema,
-        protocols: {
-            ...defaultSchema.protocols,
-            // Email bodies often embed images as data URLs. We allow `data:` here,
-            // but still validate the MIME type in `sanitizeDangerousUrls`.
-            src: [...defaultSrcProtocols, 'http', 'https', 'data'],
-        },
-        attributes: {
-            ...defaultSchema.attributes,
-            table: [
-                ...(defaultSchema.attributes.table ?? []),
-                // Email HTML often relies on these legacy attributes.
-                'cellpadding',
-                'cellPadding',
-                'cellspacing',
-                'cellSpacing',
-                'border',
-                'dir',
-                'width',
-                'height',
-            ],
-            colgroup: [...(defaultSchema.attributes.colgroup ?? []), 'span'],
-            col: [...(defaultSchema.attributes.col ?? []), 'width', 'span'],
-            '*': [
-                ...(defaultSchema.attributes['*'] ?? []),
-                'style', // Allow inline styles on all elements
-                // NOTE: rehype/parse maps `class` to the HAST property name
-                // `className`, which is what rehype-sanitize checks.
-                'className',
-                'class', // Keep for completeness
-                'id', // Allow id for anchors/internal navigation
-                // Used to store remote image URLs without loading them immediately.
-                'data-remote-src',
-                'dataRemoteSrc',
-            ],
-        },
-        // Allow common email-specific tags
-        tagNames: [
-            ...(defaultSchema.tagNames ?? []),
-            // Allow full-document HTML emails. These tags won't render as text,
-            // but keeping them avoids their contents being surfaced as plain text.
-            'html',
-            'head',
-            'body',
-            'title',
-            'meta',
-            // Preserve embedded email CSS.
-            'style',
-            // Preserve table column sizing when using <colgroup>/<col>.
-            'colgroup',
-            'col',
-            'center', // Deprecated but widely used in email
-            'font', // Deprecated but widely used in email
+const emailSanitizationSchema: Schema = {
+    ...defaultSchema,
+    protocols: {
+        ...defaultSchema.protocols,
+        // Email bodies often embed images as data URLs. We allow `data:` here,
+        // but still validate the MIME type in `sanitizeDangerousUrls`.
+        src: [...defaultSrcProtocols, 'http', 'https', 'data'],
+    },
+    attributes: {
+        ...defaultSchema.attributes,
+        table: [
+            ...(defaultSchema.attributes.table ?? []),
+            // Email HTML often relies on these legacy attributes.
+            'cellpadding',
+            'cellPadding',
+            'cellspacing',
+            'cellSpacing',
+            'border',
+            'dir',
+            'width',
+            'height',
         ],
-    };
-
-    return schema;
-}
+        colgroup: [...(defaultSchema.attributes.colgroup ?? []), 'span'],
+        col: [...(defaultSchema.attributes.col ?? []), 'width', 'span'],
+        '*': [
+            ...(defaultSchema.attributes['*'] ?? []),
+            'style', // Allow inline styles on all elements
+            // NOTE: rehype/parse maps `class` to the HAST property name
+            // `className`, which is what rehype-sanitize checks.
+            'className',
+            'class', // Keep for completeness
+            'id', // Allow id for anchors/internal navigation
+            // Used to store remote image URLs without loading them immediately.
+            'data-remote-src',
+            'dataRemoteSrc',
+        ],
+    },
+    // Allow common email-specific tags
+    tagNames: [
+        ...(defaultSchema.tagNames ?? []),
+        // Allow full-document HTML emails. These tags won't render as text,
+        // but keeping them avoids their contents being surfaced as plain text.
+        'html',
+        'head',
+        'body',
+        'title',
+        'meta',
+        // Preserve embedded email CSS.
+        'style',
+        // Preserve table column sizing when using <colgroup>/<col>.
+        'colgroup',
+        'col',
+        'center', // Deprecated but widely used in email
+        'font', // Deprecated but widely used in email
+    ],
+};
 
 /**
  * Validates and normalizes potentially dangerous URL attributes.
