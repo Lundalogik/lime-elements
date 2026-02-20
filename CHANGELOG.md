@@ -1,3 +1,10 @@
+## [39.0.3](https://github.com/Lundalogik/lime-elements/compare/v39.0.2...v39.0.3) (2026-02-20)
+
+### Bug Fixes
+
+
+* **markdown:** strip style tags and their content ([afd4dc4](https://github.com/Lundalogik/lime-elements/commit/afd4dc4b4e8620bb95821b05494b9789ed5f7da5))
+
 ## [39.0.2](https://github.com/Lundalogik/lime-elements/compare/v39.0.1...v39.0.2) (2026-02-18)
 
 ### Bug Fixes
