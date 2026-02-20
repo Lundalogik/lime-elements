@@ -443,6 +443,8 @@ export class FileViewer {
     };
 
     private createURL = async (fileType: string) => {
+        this.revokePdfBlobUrl();
+
         const loaders: Record<string, () => Promise<void>> = {
             pdf: this.loadPdf,
             email: this.loadEmail,
@@ -457,7 +459,6 @@ export class FileViewer {
     };
 
     private loadPdf = async () => {
-        this.revokePdfBlobUrl();
         const response = await fetch(this.url);
 
         if (!response.ok) {
