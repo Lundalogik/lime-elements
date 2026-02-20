@@ -1,3 +1,10 @@
+## [39.1.2](https://github.com/Lundalogik/lime-elements/compare/v39.1.1...v39.1.2) (2026-02-20)
+
+### Bug Fixes
+
+
+* **email-viewer:** display dates in familiar email format instead of raw ISO timestamp ([10ee326](https://github.com/Lundalogik/lime-elements/commit/10ee326dd55344b3f45c25c829a2d835e81b6832)), closes [Lundalogik/lime-elements#3783](https://github.com/Lundalogik/lime-elements/issues/3783)
+
 ## [39.1.1](https://github.com/Lundalogik/lime-elements/compare/v39.1.0...v39.1.1) (2026-02-20)
 
 ### Bug Fixes
