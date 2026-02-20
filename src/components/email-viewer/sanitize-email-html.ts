@@ -3,7 +3,6 @@ import rehypeParse from 'rehype-parse';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
-import { Schema } from 'rehype-sanitize/lib';
 
 const allowedMimeTypes = new Set([
     'image/png',
@@ -55,7 +54,7 @@ export async function sanitizeEmailHTML(html: string): Promise<string> {
  */
 const defaultSrcProtocols = defaultSchema.protocols?.src ?? [];
 
-const emailSanitizationSchema: Schema = {
+const emailSanitizationSchema = {
     ...defaultSchema,
     protocols: {
         ...defaultSchema.protocols,
