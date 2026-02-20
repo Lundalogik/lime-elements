@@ -50,10 +50,18 @@ graph TD;
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
+  limel-file-viewer --> limel-email-viewer
   limel-file-viewer --> limel-icon
   limel-file-viewer --> limel-tooltip
   limel-file-viewer --> limel-menu
   limel-file-viewer --> limel-spinner
+  limel-email-viewer --> limel-badge
+  limel-email-viewer --> limel-collapsible-section
+  limel-email-viewer --> limel-markdown
+  limel-collapsible-section --> limel-icon
+  limel-collapsible-section --> limel-icon-button
+  limel-icon-button --> limel-icon
+  limel-icon-button --> limel-tooltip
   style limel-example-file-viewer-with-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
