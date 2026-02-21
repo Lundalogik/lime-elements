@@ -59,7 +59,9 @@ const emailSanitizationSchema = {
     ...defaultSchema,
     // Allow `id` attributes without the default 'user-content-' prefix so that
     // in-email anchor links (href="#section") resolve correctly.
-    clobber: (defaultSchema.clobber ?? []).filter((c) => c !== 'id'),
+    clobber: (defaultSchema.clobber ?? []).filter(
+        (c) => c !== 'id' && c !== 'name',
+    ),
     protocols: {
         ...defaultSchema.protocols,
         // Email bodies often embed images as data URLs. We allow `data:` here,
