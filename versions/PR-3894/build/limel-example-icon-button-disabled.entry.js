@@ -1,1 +1,0 @@
-import{r as e,h as i}from"./index-BqlK_Alp.js";const o=class{constructor(i){e(this,i)}render(){return[i("limel-icon-button",{key:"d08f21be5b959c40bc05394995e94c408de50903",label:"Add favourite",icon:"heart_outlined",disabled:!0,onClick:this.onClick})]}onClick(){console.log("This should never happen, since the button is disabled.")}};export{o as limel_example_icon_button_disabled}

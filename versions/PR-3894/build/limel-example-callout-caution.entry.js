@@ -1,1 +1,0 @@
-import{r as e,h as t}from"./index-BqlK_Alp.js";const l=class{constructor(t){e(this,t)}render(){return t("limel-callout",{key:"08615de8d0b6688243dbe2ff6d22e8145c23bbb5",type:"caution"},"I hope you read this.")}};export{l as limel_example_callout_caution}
