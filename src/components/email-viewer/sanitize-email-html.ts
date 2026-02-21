@@ -45,7 +45,7 @@ export async function sanitizeEmailHTML(html: string): Promise<string> {
     return file.toString();
 }
 
-// Fallback protocols for `src` attributes.
+// Base src protocols from defaultSchema, extended with 'data' below.
 const defaultSrcProtocols = defaultSchema.protocols?.src ?? [];
 
 /**
@@ -57,6 +57,9 @@ const defaultSrcProtocols = defaultSchema.protocols?.src ?? [];
  */
 const emailSanitizationSchema = {
     ...defaultSchema,
+    // Allow `id` attributes without the default 'user-content-' prefix so that
+    // in-email anchor links (href="#section") resolve correctly.
+    clobber: (defaultSchema.clobber ?? []).filter((c) => c !== 'id'),
     protocols: {
         ...defaultSchema.protocols,
         // Email bodies often embed images as data URLs. We allow `data:` here,
