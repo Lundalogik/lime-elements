@@ -12,7 +12,6 @@ describe('portalContains', () => {
             }
         }
         customElements.define('test-component', TestComponent);
-        await customElements.whenDefined('test-component');
     });
 
     describe('when child is a descendant', () => {
