@@ -1,6 +1,3 @@
-# limel-example-profile-picture-with-value
-
-
 
 <!-- Auto Generated Below -->
 

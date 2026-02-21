@@ -1,6 +1,3 @@
-# limel-example-header-slot-actions
-
-
 
 <!-- Auto Generated Below -->
 

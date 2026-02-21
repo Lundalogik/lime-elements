@@ -1,6 +1,3 @@
-# limel-example-prosemirror-adapter-with-custom-menu
-
-
 
 <!-- Auto Generated Below -->
 

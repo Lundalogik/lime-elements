@@ -1,6 +1,3 @@
-# limel-example-switch-readonly
-
-
 
 <!-- Auto Generated Below -->
 

@@ -1,6 +1,3 @@
-# limel-example-size-edge-case
-
-
 
 <!-- Auto Generated Below -->
 

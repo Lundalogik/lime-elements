@@ -1,2 +1,1 @@
-import{r as e,h as a}from"./index-0c4503aa.js";const r=class{constructor(a){e(this,a)}render(){return a("limel-header",{icon:"brake_warning",heading:"Useful information",subheading:"Note",supportingText:"Data couldn't be loaded!"})}};export{r as limel_example_header};
-//# sourceMappingURL=limel-example-header.entry.js.map
+import{r as e,h as a}from"./index-DBTJNfo7.js";const r=class{constructor(a){e(this,a)}render(){return a("limel-header",{key:"1d56799243e2b7a2a5ca2fb6d044ef5fa884c072",icon:"brake_warning",heading:"Useful information",subheading:"Note",supportingText:"Data couldn't be loaded!"})}};export{r as limel_example_header}

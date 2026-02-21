@@ -1,6 +1,3 @@
-# limel-example-switch-vs-checkbox
-
-
 
 <!-- Auto Generated Below -->
 

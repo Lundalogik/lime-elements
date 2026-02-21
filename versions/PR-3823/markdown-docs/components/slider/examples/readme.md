@@ -1,6 +1,3 @@
-# limel-example-slider-multiplier-percentage-colors
-
-
 
 <!-- Auto Generated Below -->
 

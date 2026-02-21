@@ -1,6 +1,3 @@
-# limel-example-icon-size
-
-
 
 <!-- Auto Generated Below -->
 

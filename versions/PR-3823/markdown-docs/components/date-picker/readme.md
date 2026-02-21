@@ -1,6 +1,3 @@
-# limel-date-picker
-
-
 
 <!-- Auto Generated Below -->
 

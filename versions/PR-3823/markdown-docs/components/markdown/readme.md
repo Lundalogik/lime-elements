@@ -1,6 +1,3 @@
-# limel-markdown
-
-
 
 <!-- Auto Generated Below -->
 
@@ -25,6 +22,7 @@ and renders it as HTML.
 ### Used by
 
  - [limel-card](../card)
+ - [limel-email-viewer](../email-viewer)
  - [limel-example-do-do-not](../../examples)
  - [limel-example-markdown-blockquotes](examples)
  - [limel-example-markdown-code](examples)
@@ -51,6 +49,7 @@ and renders it as HTML.
 ```mermaid
 graph TD;
   limel-card --> limel-markdown
+  limel-email-viewer --> limel-markdown
   limel-example-do-do-not --> limel-markdown
   limel-example-markdown-blockquotes --> limel-markdown
   limel-example-markdown-code --> limel-markdown
