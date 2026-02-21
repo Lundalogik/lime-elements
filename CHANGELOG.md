@@ -1,3 +1,11 @@
+## [39.1.4](https://github.com/Lundalogik/lime-elements/compare/v39.1.3...v39.1.4) (2026-02-21)
+
+### Bug Fixes
+
+
+* **color-picker:** reset isOpen state in disconnectedCallback ([c4b170b](https://github.com/Lundalogik/lime-elements/commit/c4b170bc6d82f3d50375aa34a4d6e316bed67923))
+* **portal:** guard against null container in animation cleanup ([1c70acc](https://github.com/Lundalogik/lime-elements/commit/1c70acc1ea5b6767bcbd5d11425681dc8f25525d))
+
 ## [39.1.3](https://github.com/Lundalogik/lime-elements/compare/v39.1.2...v39.1.3) (2026-02-20)
 
 ### Bug Fixes
