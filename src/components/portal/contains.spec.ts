@@ -49,7 +49,7 @@ describe('portalContains', () => {
     });
 
     describe('when child is a descendant in a portal', () => {
-        beforeEach(async () => {
+        beforeEach(() => {
             // This test duplicates some of the implementation from the
             // limel-portal component. The reason behind this is because the
             // `assignedElements` method does not seem to exist when running
