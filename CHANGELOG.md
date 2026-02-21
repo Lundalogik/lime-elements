@@ -1,3 +1,10 @@
+## [39.2.0](https://github.com/Lundalogik/lime-elements/compare/v39.1.4...v39.2.0) (2026-02-21)
+
+### Features
+
+
+* **code-editor:** use invalid prop for validation feedback ([c8b914b](https://github.com/Lundalogik/lime-elements/commit/c8b914b3bd0e28a8b4692582a541f70ca8436261))
+
 ## [39.1.4](https://github.com/Lundalogik/lime-elements/compare/v39.1.3...v39.1.4) (2026-02-21)
 
 ### Bug Fixes
