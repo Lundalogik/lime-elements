@@ -4,6 +4,17 @@ import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
 
+const allowedMimeTypes = new Set([
+    'image/png',
+    'image/jpeg',
+    'image/jpg',
+    'image/gif',
+    'image/webp',
+    'image/bmp',
+    'image/x-icon',
+    'image/vnd.microsoft.icon',
+]);
+
 /**
  * Sanitizes email HTML to prevent XSS and other security issues while
  * preserving the original visual appearance (layout, colors, fonts, etc.).
@@ -33,17 +44,6 @@ export async function sanitizeEmailHTML(html: string): Promise<string> {
 
     return file.toString();
 }
-
-const allowedMimeTypes = new Set([
-    'image/png',
-    'image/jpeg',
-    'image/jpg',
-    'image/gif',
-    'image/webp',
-    'image/bmp',
-    'image/x-icon',
-    'image/vnd.microsoft.icon',
-]);
 
 // Base src protocols from defaultSchema, extended with 'data' below.
 const defaultSrcProtocols = defaultSchema.protocols?.src ?? [];
