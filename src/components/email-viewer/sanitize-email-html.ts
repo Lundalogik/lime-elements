@@ -68,9 +68,8 @@ const emailSanitizationSchema = {
         table: [
             ...(defaultSchema.attributes.table ?? []),
             // Email HTML often relies on these legacy attributes.
-            'cellpadding',
+            // rehype-parse converts to camelCase HAST properties.
             'cellPadding',
-            'cellspacing',
             'cellSpacing',
             'border',
             'dir',
@@ -78,7 +77,7 @@ const emailSanitizationSchema = {
             'height',
         ],
         font: ['color', 'size', 'face'],
-        meta: ['charset', 'httpEquiv', 'content', 'name'],
+        meta: ['charset', 'content', 'name'],
         colgroup: [...(defaultSchema.attributes.colgroup ?? []), 'span'],
         col: [...(defaultSchema.attributes.col ?? []), 'width', 'span'],
         '*': [
