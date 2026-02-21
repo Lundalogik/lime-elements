@@ -45,6 +45,9 @@ export async function sanitizeEmailHTML(html: string): Promise<string> {
     return file.toString();
 }
 
+// Fallback protocols for `src` attributes.
+const defaultSrcProtocols = defaultSchema.protocols?.src ?? [];
+
 /**
  * Rehype-sanitize schema that allows all standard HTML elements and attributes
  * needed for rich email rendering, including `style`.
@@ -52,8 +55,6 @@ export async function sanitizeEmailHTML(html: string): Promise<string> {
  * Hoisted to module scope since the schema has no runtime dependencies and
  * doesn't need to be reconstructed on every sanitization call.
  */
-const defaultSrcProtocols = defaultSchema.protocols?.src ?? [];
-
 const emailSanitizationSchema = {
     ...defaultSchema,
     protocols: {
@@ -77,7 +78,7 @@ const emailSanitizationSchema = {
             'height',
         ],
         font: ['color', 'size', 'face'],
-        meta: ['charset', 'http-equiv', 'httpEquiv', 'content', 'name'],
+        meta: ['charset', 'httpEquiv', 'content', 'name'],
         colgroup: [...(defaultSchema.attributes.colgroup ?? []), 'span'],
         col: [...(defaultSchema.attributes.col ?? []), 'width', 'span'],
         '*': [
@@ -86,10 +87,8 @@ const emailSanitizationSchema = {
             // NOTE: rehype/parse maps `class` to the HAST property name
             // `className`, which is what rehype-sanitize checks.
             'className',
-            'class', // Keep for completeness
             'id', // Allow id for anchors/internal navigation
             // Used to store remote image URLs without loading them immediately.
-            'data-remote-src',
             'dataRemoteSrc',
         ],
     },
