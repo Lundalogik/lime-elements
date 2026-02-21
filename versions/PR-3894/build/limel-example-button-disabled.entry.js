@@ -1,0 +1,1 @@
+import{r as e,h as l}from"./index-BqlK_Alp.js";const s=class{constructor(l){e(this,l)}render(){return l("limel-button",{key:"2b4582389f7245f506bb06b99c4d5d0bd62d4969",label:"My Button",disabled:!0,onClick:this.onClick})}onClick(){console.log("This should never happen, since the button is disabled.")}};export{s as limel_example_button_disabled}

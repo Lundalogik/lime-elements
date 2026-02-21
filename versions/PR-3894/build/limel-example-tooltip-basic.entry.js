@@ -1,0 +1,1 @@
+import{r as e,h as l}from"./index-BqlK_Alp.js";const t=class{constructor(l){e(this,l)}render(){return[l("limel-button",{key:"55d0dcc19af0ece3af2ba91bfc113e12af59fc27",icon:"search",id:"tooltip-example"}),l("limel-tooltip",{key:"68b8368f91ebaf39e62f154e75ba4683cc3e2599",label:"Search",helperLabel:"alt + F",elementId:"tooltip-example"})]}};export{t as limel_example_tooltip_basic}

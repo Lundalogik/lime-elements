@@ -1,0 +1,1 @@
+import{r as e,h as t}from"./index-BqlK_Alp.js";const l=class{constructor(t){e(this,t),this.items=[{text:"King of Tokyo",value:1},{text:"Smash Up!",value:2},{text:"Pandemic",value:3},{text:"Catan",value:4},{text:"Ticket to Ride",value:5}]}render(){return t("limel-list",{key:"723833787950156bf51e227bac4fc280331c39fc",items:this.items})}};export{l as limel_example_list}
