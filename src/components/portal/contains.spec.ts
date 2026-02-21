@@ -1,19 +1,15 @@
 import { portalContains } from './contains';
 
+function createElementWithShadow(tag: string) {
+    const el = document.createElement(tag);
+    el.attachShadow({ mode: 'open' });
+
+    return el;
+}
+
 describe('portalContains', () => {
     let element: HTMLElement;
     let child: HTMLElement;
-
-    beforeEach(async () => {
-        class TestComponent extends HTMLElement {
-            constructor() {
-                super();
-                this.attachShadow({ mode: 'open' });
-            }
-        }
-        customElements.define('test-component', TestComponent);
-        await customElements.whenDefined('test-component');
-    });
 
     describe('when child is a descendant', () => {
         beforeEach(() => {
@@ -41,7 +37,7 @@ describe('portalContains', () => {
 
     describe('when child is a descendant in a shadowRoot', () => {
         beforeEach(() => {
-            element = document.createElement('test-component');
+            element = createElementWithShadow('div');
             child = document.createElement('span');
 
             element.shadowRoot.append(child);
@@ -62,7 +58,7 @@ describe('portalContains', () => {
             // still test that the `portalContains` still works when elements
             // are inside a portal
 
-            element = document.createElement('test-component');
+            element = createElementWithShadow('div');
             const portal = document.createElement('div');
             element.shadowRoot.append(portal);
 
@@ -72,7 +68,7 @@ describe('portalContains', () => {
                 portalSource: portal,
             });
 
-            const containerContent = document.createElement('test-component');
+            const containerContent = createElementWithShadow('div');
             container.append(containerContent);
 
             child = document.createElement('span');
