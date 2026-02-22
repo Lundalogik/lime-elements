@@ -1,5 +1,5 @@
 import { Component, h, Prop, Host } from '@stencil/core';
-import { Icon } from '../../global/shared-types/icon.types';
+import { IconName, Icon } from '../../global/shared-types/icon.types';
 import { getIconName } from '../icon/get-icon-props';
 
 /**
@@ -64,7 +64,7 @@ export class Header {
      * Icon to display
      */
     @Prop()
-    public icon?: string | Icon;
+    public icon?: IconName | Icon;
 
     /**
      * Title to display
