@@ -1,3 +1,10 @@
+## [39.2.2](https://github.com/Lundalogik/lime-elements/compare/v39.2.1...v39.2.2) (2026-02-22)
+
+### Bug Fixes
+
+
+* **email-viewer:** add explicit font and meta attributes to sanitization schema ([c3ea360](https://github.com/Lundalogik/lime-elements/commit/c3ea360fcc50fe7131caf366b695614d41c14e9d))
+
 ## [39.2.1](https://github.com/Lundalogik/lime-elements/compare/v39.2.0...v39.2.1) (2026-02-22)
 
 ### Bug Fixes
