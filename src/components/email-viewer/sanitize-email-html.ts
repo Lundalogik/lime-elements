@@ -75,6 +75,7 @@ function getEmailSanitizationSchema(): Schema {
                 'width',
                 'height',
             ],
+            font: ['face'],
             colgroup: [...(defaultSchema.attributes.colgroup ?? []), 'span'],
             col: [...(defaultSchema.attributes.col ?? []), 'width', 'span'],
             '*': [
