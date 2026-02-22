@@ -4,13 +4,16 @@
 
 ## Overview
 
-Using the props
-This component is initially designed to visualize a percentage on a scale of
-zero to 100. However, you can easily visualize a progress in other scales,
-simply by setting `maxValue`, `prefix` and `suffix`.
+Size presets
+You can chose a preset size for the component to render it desireably,
+using the `size` prop.
+However, if these preset sizes do not suit your UI needs, do not specify them
+and instead specify the size using the `--circular-progress-size` variable,
+which must always be according to our
+[size rhythm](#/DesignGuidelines/size-rhythms.md/) guidelines.
 
-Look at this example to see how the component displays an angle in a
-360-degrees scale, a 60-seconds scale, and a 5-stars rating.
+Note that the text size is automatically adjusted, based on the visual size
+of the component.
 
 ## Dependencies
 
@@ -21,8 +24,8 @@ Look at this example to see how the component displays an angle in a
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-circular-progress-props --> limel-circular-progress
-  style limel-example-circular-progress-props fill:#f9f,stroke:#333,stroke-width:4px
+  limel-example-circular-progress-sizes --> limel-circular-progress
+  style limel-example-circular-progress-sizes fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
