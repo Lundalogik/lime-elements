@@ -1,3 +1,11 @@
+## [39.2.1](https://github.com/Lundalogik/lime-elements/compare/v39.2.0...v39.2.1) (2026-02-22)
+
+### Bug Fixes
+
+
+* **email-viewer:** preserve font face attribute in sanitized email HTML ([8652fbf](https://github.com/Lundalogik/lime-elements/commit/8652fbf08bf62d4430d8960ec0cd01d8e42649db))
+* **email-viewer:** prevent id attribute clobbering in sanitized email HTML ([6ad9539](https://github.com/Lundalogik/lime-elements/commit/6ad9539f5a63db7a5f047338cb809d4741b051f9))
+
 ## [39.2.0](https://github.com/Lundalogik/lime-elements/compare/v39.1.4...v39.2.0) (2026-02-21)
 
 ### Features
