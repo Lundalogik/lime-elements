@@ -547,7 +547,38 @@ export class Picker {
             return;
         }
 
+        // Don't clear if a chip's menu is open - focus moved to the menu's portal
+        if (this.hasOpenChipMenu()) {
+            return;
+        }
+
         this.clearInputField();
+    }
+
+    private hasOpenChipMenu(): boolean {
+        if (!this.chipSet) {
+            return false;
+        }
+
+        // Query for any open menus inside the chips
+        const chips = this.chipSet.shadowRoot?.querySelectorAll('limel-chip');
+        if (!chips) {
+            return false;
+        }
+
+        for (const chip of chips) {
+            // Check the `open` property directly rather than using an attribute
+            // selector, because Stencil batches attribute reflection and
+            // the [open] attribute may not be on the DOM yet
+            const menu = chip.shadowRoot?.querySelector(
+                'limel-menu'
+            ) as HTMLLimelMenuElement;
+            if (menu?.open) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
