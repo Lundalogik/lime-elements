@@ -214,7 +214,11 @@ export class Card {
             return;
         }
 
-        return <img src={this.image.src} alt={this.image.alt} loading="lazy" />;
+        return (
+            <div class="image-wrapper">
+                <img src={this.image.src} alt={this.image.alt} loading="lazy" />
+            </div>
+        );
     }
 
     private renderHeader() {
