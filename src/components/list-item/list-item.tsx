@@ -144,17 +144,28 @@ export class ListItemComponent implements ListItem {
      */
     private readonly labelId: string;
 
+    /**
+     * Used to reference the icon's title for assistive technology.
+     */
+    private readonly iconTitleId: string;
+
     // Memoized reference for the action items to avoid unnecessary updates
     private memoizedActions?: Array<MenuItem | ListSeparator>;
 
     constructor() {
         this.labelId = createRandomString();
         this.descriptionId = createRandomString();
+        this.iconTitleId = createRandomString();
     }
 
     public render() {
+        const iconTitle = this.getIconTitle();
+        const labelledByIds = iconTitle
+            ? `${this.iconTitleId} ${this.labelId}`
+            : this.labelId;
+
         const ariaProps: any = {
-            'aria-labelledby': this.labelId,
+            'aria-labelledby': labelledByIds,
             'aria-describedby': this.secondaryText
                 ? this.descriptionId
                 : undefined,
@@ -178,6 +189,7 @@ export class ListItemComponent implements ListItem {
                 }}
                 {...ariaProps}
             >
+                {this.renderIconTitle(iconTitle)}
                 {this.renderRadioButton()}
                 {this.renderCheckbox()}
                 {this.renderIcon()}
@@ -191,6 +203,26 @@ export class ListItemComponent implements ListItem {
             </Host>
         );
     }
+
+    private getIconTitle(): string | undefined {
+        if (typeof this.icon === 'object' && this.icon?.title) {
+            return this.icon.title;
+        }
+
+        return undefined;
+    }
+
+    private renderIconTitle = (iconTitle: string | undefined) => {
+        if (!iconTitle) {
+            return;
+        }
+
+        return (
+            <span class="visually-hidden" id={this.iconTitleId}>
+                {iconTitle}
+            </span>
+        );
+    };
 
     private renderLabel = () => {
         return (
@@ -220,17 +252,14 @@ export class ListItemComponent implements ListItem {
 
         let iconColor: string | undefined;
         let iconBackgroundColor: string | undefined;
-        let title: string | undefined;
 
         if (typeof this.icon === 'object') {
             iconColor = this.icon.color;
             iconBackgroundColor = this.icon.backgroundColor;
-            title = this.icon.title;
         }
 
         const iconProps = {
-            'aria-label': title,
-            'aria-hidden': title ? null : 'true',
+            'aria-hidden': 'true',
             name: iconName,
             style: {
                 color: iconColor,
