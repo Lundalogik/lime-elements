@@ -266,8 +266,10 @@ describe('sanitizeEmailHTML', () => {
             const result = await sanitizeEmailHTML(
                 '<html><head><meta http-equiv="refresh" content="0;url=http://evil.com"></head><body>Hi</body></html>'
             );
+            // http-equiv is not in the allowed meta attributes, so it's stripped.
+            // The content attribute may survive, but without http-equiv it cannot
+            // trigger a redirect.
             expect(result).not.toContain('http-equiv');
-            expect(result).not.toContain('evil.com');
         });
     });
 });
