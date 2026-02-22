@@ -55,6 +55,10 @@ function getEmailSanitizationSchema(): Schema {
 
     const schema: Schema = {
         ...defaultSchema,
+        // Disable the 'user-content-' prefix that rehype-sanitize adds to
+        // id and name attributes. Email HTML uses ids for internal anchor
+        // links (href="#section") that must resolve without a prefix.
+        clobberPrefix: '',
         protocols: {
             ...defaultSchema.protocols,
             // Email bodies often embed images as data URLs. We allow `data:` here,
