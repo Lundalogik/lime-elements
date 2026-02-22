@@ -117,6 +117,8 @@ export class Select {
     private mdcFloatingLabel: MDCFloatingLabel;
     private isMobileDevice: boolean;
     private portalId: string;
+    private focusObserver: IntersectionObserver;
+    private focusTimeoutId: ReturnType<typeof setTimeout>;
 
     constructor() {
         this.handleMenuChange = this.handleMenuChange.bind(this);
@@ -165,6 +167,8 @@ export class Select {
     }
 
     public disconnectedCallback() {
+        this.cancelPendingFocus();
+
         if (this.mdcFloatingLabel) {
             this.mdcFloatingLabel.destroy();
         }
@@ -228,17 +232,61 @@ export class Select {
             return;
         }
 
-        requestAnimationFrame(() => {
+        this.cancelPendingFocus();
+
+        this.focusTimeoutId = setTimeout(() => {
+            this.focusTimeoutId = undefined;
+
+            if (!this.menuOpen) {
+                return;
+            }
+
             const list: HTMLElement = document.querySelector(
                 `#${this.portalId} limel-menu-surface limel-list`
             );
-            const firstItem: HTMLElement =
-                list?.shadowRoot?.querySelector('[tabindex]');
 
-            if (firstItem) {
-                firstItem.focus();
+            if (!list) {
+                return;
             }
-        });
+
+            this.focusObserver = new IntersectionObserver((entries) => {
+                const entry = entries[0];
+                if (!entry?.isIntersecting) {
+                    return;
+                }
+
+                this.focusObserver.disconnect();
+                this.focusObserver = undefined;
+
+                if (!this.menuOpen) {
+                    return;
+                }
+
+                this.focusFirstMenuItem(list);
+            });
+            this.focusObserver.observe(list);
+        }, 0);
+    }
+
+    private cancelPendingFocus() {
+        if (this.focusTimeoutId !== undefined) {
+            clearTimeout(this.focusTimeoutId);
+            this.focusTimeoutId = undefined;
+        }
+
+        if (this.focusObserver) {
+            this.focusObserver.disconnect();
+            this.focusObserver = undefined;
+        }
+    }
+
+    private focusFirstMenuItem(list: HTMLElement) {
+        const firstItem: HTMLElement =
+            list?.shadowRoot?.querySelector('[tabindex]');
+
+        if (firstItem) {
+            firstItem.focus({ preventScroll: true });
+        }
     }
 
     private setTriggerFocus() {
@@ -308,6 +356,7 @@ export class Select {
 
         this.change.emit(option);
         this.menuOpen = false;
+        this.cancelPendingFocus();
         this.setTriggerFocus();
     }
 
@@ -326,6 +375,7 @@ export class Select {
 
     private closeMenu() {
         this.menuOpen = false;
+        this.cancelPendingFocus();
         this.setTriggerFocus();
     }
 
