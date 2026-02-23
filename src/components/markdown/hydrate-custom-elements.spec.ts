@@ -1,3 +1,12 @@
+vi.mock('./safe-url-protocols', () => ({
+    SAFE_PROTOCOLS_BY_PROPERTY: new Map<string, Set<string>>([
+        ['href', new Set(['http', 'https', 'irc', 'ircs', 'mailto', 'xmpp'])],
+        ['src', new Set(['http', 'https'])],
+        ['cite', new Set(['http', 'https'])],
+        ['longDesc', new Set(['http', 'https'])],
+    ]),
+}));
+
 import { hydrateCustomElements } from './hydrate-custom-elements';
 
 describe('hydrateCustomElements', () => {
@@ -152,5 +161,213 @@ describe('hydrateCustomElements', () => {
         const chip = container.querySelector('limel-chip');
         expect((chip as any).link).toEqual({ href: 'x' });
         expect((chip as any).secret).toBeUndefined();
+    });
+
+    describe('URL sanitization', () => {
+        it('allows https hrefs', () => {
+            container.innerHTML =
+                '<limel-chip link=\'{"href":"https://example.com"}\'></limel-chip>';
+
+            hydrateCustomElements(container, [
+                { tagName: 'limel-chip', attributes: ['link'] },
+            ]);
+
+            const chip = container.querySelector('limel-chip');
+            expect((chip as any).link).toEqual({
+                href: 'https://example.com',
+            });
+        });
+
+        it('allows http hrefs', () => {
+            container.innerHTML =
+                '<limel-chip link=\'{"href":"http://example.com"}\'></limel-chip>';
+
+            hydrateCustomElements(container, [
+                { tagName: 'limel-chip', attributes: ['link'] },
+            ]);
+
+            const chip = container.querySelector('limel-chip');
+            expect((chip as any).link).toEqual({
+                href: 'http://example.com',
+            });
+        });
+
+        it('allows mailto hrefs', () => {
+            container.innerHTML =
+                '<limel-chip link=\'{"href":"mailto:user@example.com"}\'></limel-chip>';
+
+            hydrateCustomElements(container, [
+                { tagName: 'limel-chip', attributes: ['link'] },
+            ]);
+
+            const chip = container.querySelector('limel-chip');
+            expect((chip as any).link).toEqual({
+                href: 'mailto:user@example.com',
+            });
+        });
+
+        it('allows relative hrefs', () => {
+            container.innerHTML =
+                '<limel-chip link=\'{"href":"object/deal/1001"}\'></limel-chip>';
+
+            hydrateCustomElements(container, [
+                { tagName: 'limel-chip', attributes: ['link'] },
+            ]);
+
+            const chip = container.querySelector('limel-chip');
+            expect((chip as any).link).toEqual({
+                href: 'object/deal/1001',
+            });
+        });
+
+        it('removes javascript: hrefs', () => {
+            container.innerHTML =
+                '<limel-chip link=\'{"href":"javascript:alert(1)","target":"_blank"}\'></limel-chip>';
+
+            hydrateCustomElements(container, [
+                { tagName: 'limel-chip', attributes: ['link'] },
+            ]);
+
+            const chip = container.querySelector('limel-chip');
+            expect((chip as any).link).toEqual({ target: '_blank' });
+        });
+
+        it('removes data: hrefs', () => {
+            container.innerHTML =
+                '<limel-chip link=\'{"href":"data:text/html,<script>alert(1)</script>"}\'></limel-chip>';
+
+            hydrateCustomElements(container, [
+                { tagName: 'limel-chip', attributes: ['link'] },
+            ]);
+
+            const chip = container.querySelector('limel-chip');
+            expect((chip as any).link).toEqual({});
+        });
+
+        it('removes unsafe hrefs in nested objects', () => {
+            container.innerHTML =
+                '<my-comp data=\'{"child":{"href":"javascript:void(0)"}}\'></my-comp>';
+
+            hydrateCustomElements(container, [
+                { tagName: 'my-comp', attributes: ['data'] },
+            ]);
+
+            const comp = container.querySelector('my-comp');
+            expect((comp as any).data).toEqual({ child: {} });
+        });
+
+        it('removes unsafe hrefs in arrays of objects', () => {
+            container.innerHTML =
+                '<my-comp items=\'[{"href":"javascript:x"},{"href":"https://safe.com"}]\'></my-comp>';
+
+            hydrateCustomElements(container, [
+                { tagName: 'my-comp', attributes: ['items'] },
+            ]);
+
+            const comp = container.querySelector('my-comp');
+            expect((comp as any).items).toEqual([
+                {},
+                { href: 'https://safe.com' },
+            ]);
+        });
+
+        it('does not touch non-URL properties', () => {
+            container.innerHTML =
+                '<limel-chip link=\'{"href":"https://ok.com","target":"_blank","text":"Click"}\'></limel-chip>';
+
+            hydrateCustomElements(container, [
+                { tagName: 'limel-chip', attributes: ['link'] },
+            ]);
+
+            const chip = container.querySelector('limel-chip');
+            expect((chip as any).link).toEqual({
+                href: 'https://ok.com',
+                target: '_blank',
+                text: 'Click',
+            });
+        });
+
+        it('sanitizes src properties with unsafe protocols', () => {
+            container.innerHTML =
+                '<my-comp data=\'{"src":"javascript:alert(1)"}\'></my-comp>';
+
+            hydrateCustomElements(container, [
+                { tagName: 'my-comp', attributes: ['data'] },
+            ]);
+
+            const comp = container.querySelector('my-comp');
+            expect((comp as any).data).toEqual({});
+        });
+
+        it('allows src properties with safe protocols', () => {
+            container.innerHTML =
+                '<my-comp data=\'{"src":"https://example.com/image.png"}\'></my-comp>';
+
+            hydrateCustomElements(container, [
+                { tagName: 'my-comp', attributes: ['data'] },
+            ]);
+
+            const comp = container.querySelector('my-comp');
+            expect((comp as any).data).toEqual({
+                src: 'https://example.com/image.png',
+            });
+        });
+
+        it('is case-insensitive for protocol checks', () => {
+            container.innerHTML =
+                '<limel-chip link=\'{"href":"JAVASCRIPT:alert(1)"}\'></limel-chip>';
+
+            hydrateCustomElements(container, [
+                { tagName: 'limel-chip', attributes: ['link'] },
+            ]);
+
+            const chip = container.querySelector('limel-chip');
+            expect((chip as any).link).toEqual({});
+        });
+
+        it('logs a warning when an unsafe URL is removed', () => {
+            const warnSpy = vi
+                .spyOn(console, 'warn')
+                .mockImplementation(() => {});
+
+            container.innerHTML =
+                '<limel-chip link=\'{"href":"javascript:alert(1)"}\'></limel-chip>';
+
+            hydrateCustomElements(container, [
+                { tagName: 'limel-chip', attributes: ['link'] },
+            ]);
+
+            expect(warnSpy).toHaveBeenCalledWith(
+                expect.stringContaining('Removed unsafe URL')
+            );
+
+            warnSpy.mockRestore();
+        });
+
+        it('allows protocol-relative URLs', () => {
+            container.innerHTML =
+                '<limel-chip link=\'{"href":"//example.com"}\'></limel-chip>';
+            hydrateCustomElements(container, [
+                { tagName: 'limel-chip', attributes: ['link'] },
+            ]);
+            expect((container.querySelector('limel-chip') as any).link).toEqual(
+                {
+                    href: '//example.com',
+                }
+            );
+        });
+
+        it('allows hash-only links', () => {
+            container.innerHTML =
+                '<limel-chip link=\'{"href":"#section"}\'></limel-chip>';
+            hydrateCustomElements(container, [
+                { tagName: 'limel-chip', attributes: ['link'] },
+            ]);
+            expect((container.querySelector('limel-chip') as any).link).toEqual(
+                {
+                    href: '#section',
+                }
+            );
+        });
     });
 });
