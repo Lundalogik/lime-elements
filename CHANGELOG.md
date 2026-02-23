@@ -1,3 +1,10 @@
+## [39.3.0](https://github.com/Lundalogik/lime-elements/compare/v39.2.2...v39.3.0) (2026-02-23)
+
+### Features
+
+
+* **markdown:** hydrate JSON attributes on whitelisted custom elements ([ef3a7a9](https://github.com/Lundalogik/lime-elements/commit/ef3a7a95d7340362dc7916fe16542e39278e74b0))
+
 ## [39.2.2](https://github.com/Lundalogik/lime-elements/compare/v39.2.1...v39.2.2) (2026-02-22)
 
 ### Bug Fixes
