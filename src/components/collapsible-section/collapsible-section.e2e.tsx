@@ -5,6 +5,7 @@ describe('limel-collapsible-section', () => {
         let root: HTMLElement;
         let waitForChanges: () => Promise<void>;
         let setProps: (props: Record<string, any>) => void;
+        let spyOnEvent: (eventName: string) => any;
 
         beforeEach(async () => {
             const result = await render(
@@ -15,6 +16,7 @@ describe('limel-collapsible-section', () => {
             root = result.root;
             waitForChanges = result.waitForChanges;
             setProps = result.setProps;
+            spyOnEvent = result.spyOnEvent;
             await waitForChanges();
         });
 
@@ -41,11 +43,8 @@ describe('limel-collapsible-section', () => {
 
         describe('when clicking the header', () => {
             it('opens and emits open event', async () => {
-                const handleOpen = vi.fn();
-                const handleClose = vi.fn();
-
-                root.addEventListener('open', handleOpen);
-                root.addEventListener('close', handleClose);
+                const openSpy = spyOnEvent('open');
+                const closeSpy = spyOnEvent('close');
 
                 const toggle =
                     root.shadowRoot.querySelector('.open-close-toggle');
@@ -55,43 +54,39 @@ describe('limel-collapsible-section', () => {
                 expect((root as any).isOpen).toEqual(true);
                 const body = root.shadowRoot.querySelector('.body');
                 expect(body.getAttribute('aria-hidden')).toEqual('false');
-                expect(handleOpen).toHaveBeenCalled();
-                expect(handleClose).not.toHaveBeenCalled();
+                expect(openSpy).toHaveReceivedEventTimes(1);
+                expect(closeSpy).not.toHaveReceivedEvent();
             });
         });
 
         describe('when setting `isOpen` to `true`', () => {
             it('opens without emitting events', async () => {
-                const handleOpen = vi.fn();
-                const handleClose = vi.fn();
-
-                root.addEventListener('open', handleOpen);
-                root.addEventListener('close', handleClose);
+                const openSpy = spyOnEvent('open');
+                const closeSpy = spyOnEvent('close');
 
                 setProps({ isOpen: true });
                 await waitForChanges();
 
                 expect((root as any).isOpen).toEqual(true);
-                expect(handleOpen).not.toHaveBeenCalled();
-                expect(handleClose).not.toHaveBeenCalled();
+                expect(openSpy).not.toHaveReceivedEvent();
+                expect(closeSpy).not.toHaveReceivedEvent();
             });
         });
     });
 
     describe('with an action', () => {
         it('has an action button that emits action event when clicked', async () => {
-            const handleAction = vi.fn();
             const actions = [{ id: 'abc', icon: 'unit-test' }];
 
             const result = await render(
                 <limel-collapsible-section
                     header="Header text"
                     actions={actions}
-                    onAction={handleAction}
                 >
                     Body text
                 </limel-collapsible-section>
             );
+            const actionSpy = result.spyOnEvent('action');
             await result.waitForChanges();
 
             const actionButton =
@@ -101,8 +96,8 @@ describe('limel-collapsible-section', () => {
             (actionButton as HTMLElement).click();
             await result.waitForChanges();
 
-            expect(handleAction).toHaveBeenCalled();
-            expect(handleAction.mock.calls[0][0].detail).toEqual(actions[0]);
+            expect(actionSpy).toHaveReceivedEventTimes(1);
+            expect(actionSpy).toHaveReceivedEventDetail(actions[0]);
         });
     });
 });

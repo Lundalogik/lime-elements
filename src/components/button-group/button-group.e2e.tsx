@@ -20,13 +20,10 @@ describe('limel-button-group', () => {
         });
 
         it('emits a change event when a button is clicked', async () => {
-            const handleChange = vi.fn();
-            const { root, waitForChanges } = await render(
-                <limel-button-group
-                    value={items}
-                    onChange={handleChange}
-                ></limel-button-group>
+            const { root, waitForChanges, spyOnEvent } = await render(
+                <limel-button-group value={items}></limel-button-group>
             );
+            const changeSpy = spyOnEvent('change');
             await waitForChanges();
 
             const label = root.shadowRoot.querySelector(
@@ -35,8 +32,8 @@ describe('limel-button-group', () => {
             label.click();
             await waitForChanges();
 
-            expect(handleChange).toHaveBeenCalledTimes(1);
-            expect(handleChange.mock.calls[0][0].detail).toEqual({
+            expect(changeSpy).toHaveReceivedEventTimes(1);
+            expect(changeSpy).toHaveReceivedEventDetail({
                 id: '1',
                 title: 'Lime',
             });

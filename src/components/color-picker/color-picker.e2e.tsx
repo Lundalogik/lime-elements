@@ -93,13 +93,10 @@ describe('limel-color-picker', () => {
 
     describe('selecting a color', () => {
         it('emits change when a swatch is clicked', async () => {
-            const handleChange = vi.fn();
-            const { root, waitForChanges } = await render(
-                <limel-color-picker
-                    label="Hair color"
-                    onChange={handleChange}
-                ></limel-color-picker>
+            const { root, waitForChanges, spyOnEvent } = await render(
+                <limel-color-picker label="Hair color"></limel-color-picker>
             );
+            const changeSpy = spyOnEvent('change');
             await waitForChanges();
 
             const palette = await openAndFindPalette(root, waitForChanges);
@@ -118,8 +115,8 @@ describe('limel-color-picker', () => {
             pinkLight.click();
             await waitForChanges();
 
-            expect(handleChange).toHaveBeenCalledTimes(1);
-            expect(handleChange.mock.calls[0][0].detail).toEqual(
+            expect(changeSpy).toHaveReceivedEventTimes(1);
+            expect(changeSpy).toHaveReceivedEventDetail(
                 'rgb(var(--color-pink-light))'
             );
         });
@@ -213,14 +210,13 @@ describe('limel-color-picker', () => {
         });
 
         it('emits raw color value on custom swatch click', async () => {
-            const handleChange = vi.fn();
-            const { root, waitForChanges } = await render(
+            const { root, waitForChanges, spyOnEvent } = await render(
                 <limel-color-picker
                     label="Custom"
                     palette={customPalette}
-                    onChange={handleChange}
                 ></limel-color-picker>
             );
+            const changeSpy = spyOnEvent('change');
             await waitForChanges();
 
             const palette = await openAndFindPalette(root, waitForChanges);
@@ -236,8 +232,8 @@ describe('limel-color-picker', () => {
             buttons[1].click();
             await waitForChanges();
 
-            expect(handleChange).toHaveBeenCalledTimes(1);
-            expect(handleChange.mock.calls[0][0].detail).toEqual('#abcdef');
+            expect(changeSpy).toHaveReceivedEventTimes(1);
+            expect(changeSpy).toHaveReceivedEventDetail('#abcdef');
         });
     });
 });

@@ -61,18 +61,15 @@ describe('limel-breadcrumbs', () => {
     describe('when button like items are provided', () => {
         let root: HTMLElement;
         let waitForChanges: () => Promise<void>;
-        let handleSelect: ReturnType<typeof vi.fn>;
+        let selectSpy: any;
 
         beforeEach(async () => {
-            handleSelect = vi.fn();
             const result = await render(
-                <limel-breadcrumbs
-                    items={buttonLikeItems}
-                    onSelect={handleSelect}
-                />
+                <limel-breadcrumbs items={buttonLikeItems} />
             );
             root = result.root;
             waitForChanges = result.waitForChanges;
+            selectSpy = result.spyOnEvent('select');
             await waitForChanges();
         });
 
@@ -104,13 +101,13 @@ describe('limel-breadcrumbs', () => {
             (button as HTMLButtonElement).click();
             await waitForChanges();
 
-            expect(handleSelect).toHaveBeenCalledTimes(1);
-            expect(handleSelect.mock.calls[0][0].detail).toEqual({
+            expect(selectSpy).toHaveReceivedEventTimes(1);
+            expect(selectSpy).toHaveReceivedEventDetail({
+                text: 'step 1',
                 icon: {
                     name: 'fish',
                     color: 'rgb(var(--color-red-default))',
                 },
-                text: 'step 1',
             });
         });
     });

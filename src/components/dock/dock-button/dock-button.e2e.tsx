@@ -11,18 +11,15 @@ test('emits an event when dock menu is opened', async () => {
         },
     };
 
-    const { root, waitForChanges } = await render(
+    const { root, waitForChanges, spyOnEvent } = await render(
         <limel-dock-button item={item}></limel-dock-button>
     );
+    const menuOpenSpy = spyOnEvent('menuOpen');
     await waitForChanges();
-
-    const eventSpy = vi.fn();
-    root.addEventListener('menuOpen', (e: Event) =>
-        eventSpy((e as CustomEvent).detail)
-    );
 
     const button = root.querySelector('.button') as HTMLButtonElement;
     button.click();
     await waitForChanges();
-    expect(eventSpy).toHaveBeenCalledWith(item);
+    expect(menuOpenSpy).toHaveReceivedEventTimes(1);
+    expect(menuOpenSpy).toHaveReceivedEventDetail(item);
 });

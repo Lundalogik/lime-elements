@@ -27,20 +27,19 @@ describe('limel-progress-flow-item', () => {
 
     describe('when the item is clicked', () => {
         it('emits an interact event', async () => {
-            const handleInteract = vi.fn();
-            const { root, waitForChanges } = await render(
+            const { root, waitForChanges, spyOnEvent } = await render(
                 <limel-progress-flow-item
                     item={{ text: 'Customer contact' }}
-                    onInteract={handleInteract}
                 ></limel-progress-flow-item>
             );
+            const interactSpy = spyOnEvent('interact');
             await waitForChanges();
 
             const button = root.querySelector('button')!;
             button.click();
             await waitForChanges();
 
-            expect(handleInteract).toHaveBeenCalledTimes(1);
+            expect(interactSpy).toHaveReceivedEventTimes(1);
         });
     });
 

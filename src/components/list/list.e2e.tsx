@@ -184,23 +184,19 @@ describe('limel-list', () => {
             });
 
             it('emits change event when an item is selected', async () => {
-                const handleChange = vi.fn();
                 const items = [{ text: 'item 1' }];
-                const { root, waitForChanges } = await render(
-                    <limel-list
-                        type="selectable"
-                        items={items}
-                        onChange={handleChange}
-                    ></limel-list>
+                const { root, waitForChanges, spyOnEvent } = await render(
+                    <limel-list type="selectable" items={items}></limel-list>
                 );
+                const changeSpy = spyOnEvent('change');
                 await waitForChanges();
 
                 const item = root.shadowRoot.querySelector('limel-list-item');
                 (item as HTMLElement).click();
                 await waitForChanges();
 
-                expect(handleChange).toHaveBeenCalledTimes(1);
-                expect(handleChange.mock.calls[0][0].detail).toEqual({
+                expect(changeSpy).toHaveReceivedEventTimes(1);
+                expect(changeSpy).toHaveReceivedEventDetail({
                     ...items[0],
                     selected: true,
                 });

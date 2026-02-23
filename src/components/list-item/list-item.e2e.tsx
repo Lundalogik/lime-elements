@@ -54,22 +54,21 @@ describe('limel-list-item', () => {
     });
 
     it('renders action menu trigger without producing interact event', async () => {
-        const handleInteract = vi.fn();
-        const { root, waitForChanges } = await render(
+        const { root, waitForChanges, spyOnEvent } = await render(
             <limel-list-item
                 type="option"
                 text="Actions"
                 actions={[{ text: 'Action', value: 'a' }]}
-                onInteract={handleInteract}
             ></limel-list-item>
         );
+        const interactSpy = spyOnEvent('interact');
         await waitForChanges();
 
         const trigger = root.querySelector('.action-menu-trigger');
         expect(trigger).not.toBeNull();
         (trigger as HTMLElement).click();
         await waitForChanges();
-        expect(handleInteract).not.toHaveBeenCalled();
+        expect(interactSpy).not.toHaveReceivedEvent();
     });
 
     it('reflects aria-selected when type=option and selected prop changes', async () => {
