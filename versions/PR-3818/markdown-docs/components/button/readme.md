@@ -42,6 +42,7 @@
  - [limel-example-button-outlined](examples)
  - [limel-example-button-primary](examples)
  - [limel-example-button-reduce-presence](examples)
+ - [limel-example-code-editor-form](../form/examples)
  - [limel-example-collapsible-section-external-control](../collapsible-section/examples)
  - [limel-example-colors-in-components](../../design-guidelines/color-system/examples)
  - [limel-example-custom-error-message](../form/examples)
@@ -131,6 +132,7 @@ graph TD;
   limel-example-button-outlined --> limel-button
   limel-example-button-primary --> limel-button
   limel-example-button-reduce-presence --> limel-button
+  limel-example-code-editor-form --> limel-button
   limel-example-collapsible-section-external-control --> limel-button
   limel-example-colors-in-components --> limel-button
   limel-example-custom-error-message --> limel-button

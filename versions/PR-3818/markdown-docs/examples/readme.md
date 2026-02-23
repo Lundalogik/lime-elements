@@ -51,6 +51,7 @@ The component automatically formats different value types:
  - [limel-example-chip-set-input](../components/chip-set/examples)
  - [limel-example-chip-set-input-type-with-menu-items](../components/chip-set/examples)
  - [limel-example-code-editor-composite](../components/code-editor/examples)
+ - [limel-example-code-editor-form](../components/form/examples)
  - [limel-example-custom-component-form](../components/form/examples)
  - [limel-example-date-picker-custom-formatter](../components/date-picker/examples)
  - [limel-example-date-picker-date](../components/date-picker/examples)
@@ -176,6 +177,7 @@ graph TD;
   limel-example-chip-set-input --> limel-example-value
   limel-example-chip-set-input-type-with-menu-items --> limel-example-value
   limel-example-code-editor-composite --> limel-example-value
+  limel-example-code-editor-form --> limel-example-value
   limel-example-custom-component-form --> limel-example-value
   limel-example-date-picker-custom-formatter --> limel-example-value
   limel-example-date-picker-date --> limel-example-value
