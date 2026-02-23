@@ -4,10 +4,21 @@ import { globalConfig } from '../../global/config';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 import { ImageIntersectionObserver } from './image-intersection-observer';
 import { hydrateCustomElements } from './hydrate-custom-elements';
+import { DEFAULT_MARKDOWN_WHITELIST } from './default-whitelist';
 
 /**
  * The Markdown component receives markdown syntax
  * and renders it as HTML.
+ *
+ * A built-in set of lime-elements components is whitelisted by default
+ * and can be used directly in markdown content without any configuration.
+ * Consumers can extend this list via the `whitelist` prop or `limel-config`.
+ *
+ * When custom elements use JSON attribute values, any URL-bearing
+ * properties (`href`, `src`, `cite`, `longDesc`) are automatically
+ * sanitized using the same protocol allowlists as rehype-sanitize.
+ * URLs with dangerous schemes (e.g. `javascript:`, `data:`) are
+ * removed (with a console warning) to prevent script injection.
  *
  * @exampleComponent limel-example-markdown-headings
  * @exampleComponent limel-example-markdown-emphasis
@@ -41,11 +52,23 @@ export class Markdown {
     public value: string = '';
 
     /**
-     * Whitelisted html elements.
+     * Additional whitelisted custom elements to render inside markdown.
      *
-     * Any custom element added here will not be sanitized and thus rendered.
-     * Can also be set via `limel-config`. Setting this property will override
-     * the global config.
+     * A built-in set of lime-elements components (such as `limel-chip`,
+     * `limel-icon`, `limel-badge`, `limel-callout`, etc.) is always
+     * allowed by default. Any entries provided here are **merged** with
+     * those defaults — if both define the same `tagName`, their
+     * attributes are combined.
+     *
+     * Can also be set via `limel-config`. Setting this property will
+     * override the global config.
+     *
+     * JSON attribute values that contain URL-bearing properties
+     * (`href`, `src`, `cite`, `longDesc`) are automatically sanitized
+     * using the same protocol allowlists as rehype-sanitize. URLs with
+     * dangerous schemes (e.g. `javascript:`, `data:`) are removed
+     * (with a console warning).
+     *
      * @alpha
      */
     @Prop()
@@ -72,21 +95,45 @@ export class Markdown {
         try {
             this.cleanupImageIntersectionObserver();
 
+            // The whitelist merge and default import live here (not in
+            // markdown-parser.ts) because this component orchestrates both
+            // the parser and hydration, which both need the combined list.
+            if (
+                !this.cachedCombinedWhitelist ||
+                this.whitelist !== this.cachedConsumerWhitelist
+            ) {
+                this.cachedConsumerWhitelist = this.whitelist;
+                this.cachedCombinedWhitelist = mergeWhitelists(
+                    DEFAULT_MARKDOWN_WHITELIST,
+                    this.whitelist
+                );
+            }
+
+            const combinedWhitelist = this.cachedCombinedWhitelist;
+
             const html = await markdownToHTML(this.value, {
                 forceHardLineBreaks: true,
-                whitelist: this.whitelist ?? [],
+                whitelist: combinedWhitelist,
                 lazyLoadImages: this.lazyLoadImages,
                 removeEmptyParagraphs: this.removeEmptyParagraphs,
             });
 
             this.rootElement.innerHTML = html;
 
-            hydrateCustomElements(this.rootElement, this.whitelist ?? []);
+            // Hydration parses JSON attribute values (e.g. link='{"href":"..."}')
+            // into JS properties. URL sanitization happens here because
+            // rehype-sanitize can't inspect values inside JSON strings.
+            hydrateCustomElements(this.rootElement, combinedWhitelist);
 
             this.setupImageIntersectionObserver();
         } catch (error) {
             console.error(error);
         }
+    }
+
+    @Watch('whitelist')
+    public handleWhitelistChange() {
+        return this.textChanged();
     }
 
     @Watch('removeEmptyParagraphs')
@@ -96,6 +143,8 @@ export class Markdown {
 
     private rootElement: HTMLDivElement;
     private imageIntersectionObserver: ImageIntersectionObserver | null = null;
+    private cachedConsumerWhitelist?: CustomElementDefinition[];
+    private cachedCombinedWhitelist?: CustomElementDefinition[];
 
     public async componentDidLoad() {
         this.textChanged();
@@ -130,4 +179,40 @@ export class Markdown {
             this.imageIntersectionObserver = null;
         }
     }
+}
+
+/**
+ * Merge the default whitelist with a consumer-provided one.
+ * If both define the same tagName, their attributes are combined.
+ * @param defaults
+ * @param consumer
+ */
+function mergeWhitelists(
+    defaults: CustomElementDefinition[],
+    consumer?: CustomElementDefinition[]
+): CustomElementDefinition[] {
+    if (!consumer?.length) {
+        return defaults.map((def) => ({
+            ...def,
+            attributes: [...def.attributes],
+        }));
+    }
+
+    const merged = new Map<string, Set<string>>();
+
+    for (const def of [...defaults, ...consumer]) {
+        const existing = merged.get(def.tagName);
+        if (existing) {
+            for (const attr of def.attributes) {
+                existing.add(attr);
+            }
+        } else {
+            merged.set(def.tagName, new Set(def.attributes));
+        }
+    }
+
+    return [...merged.entries()].map(([tagName, attrs]) => ({
+        tagName,
+        attributes: [...attrs],
+    }));
 }
