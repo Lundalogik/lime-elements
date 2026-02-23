@@ -10,10 +10,11 @@ so that the parent component can react to it.
 
 ## Properties
 
-| Property   | Attribute  | Description                                                           | Type      | Default     |
-| ---------- | ---------- | --------------------------------------------------------------------- | --------- | ----------- |
-| `disabled` | `disabled` | When disabled, the hotkey is still rendered but will not emit events. | `boolean` | `false`     |
-| `value`    | `value`    | The hotkey                                                            | `string`  | `undefined` |
+| Property                | Attribute                 | Description                                                                                                                                                                             | Type      | Default     |
+| ----------------------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `disabled`              | `disabled`                | When disabled, the hotkey is still rendered but will not emit events.                                                                                                                   | `boolean` | `false`     |
+| `preventBrowserDefault` | `prevent-browser-default` | When `true`, matching hotkeys call `event.preventDefault()`.  Disable this only when you explicitly want the browser's native keyboard behavior to run together with your hotkey logic. | `boolean` | `true`      |
+| `value`                 | `value`                   | The hotkey                                                                                                                                                                              | `string`  | `undefined` |
 
 
 ## Events
@@ -30,6 +31,7 @@ so that the parent component can react to it.
  - [limel-example-hotkey-basic](examples)
  - [limel-example-hotkey-disabled](examples)
  - [limel-example-hotkey-duplicates](examples)
+ - [limel-example-hotkey-prevent-default](examples)
  - [limel-menu-item-meta](../list-item/menu-item-meta)
 
 ### Graph
@@ -38,6 +40,7 @@ graph TD;
   limel-example-hotkey-basic --> limel-hotkey
   limel-example-hotkey-disabled --> limel-hotkey
   limel-example-hotkey-duplicates --> limel-hotkey
+  limel-example-hotkey-prevent-default --> limel-hotkey
   limel-menu-item-meta --> limel-hotkey
   style limel-hotkey fill:#f9f,stroke:#333,stroke-width:4px
 ```

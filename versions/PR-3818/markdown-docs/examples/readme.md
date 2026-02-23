@@ -79,6 +79,7 @@ The component automatically formats different value types:
  - [limel-example-hotkey-basic](../components/hotkey/examples)
  - [limel-example-hotkey-disabled](../components/hotkey/examples)
  - [limel-example-hotkey-duplicates](../components/hotkey/examples)
+ - [limel-example-hotkey-prevent-default](../components/hotkey/examples)
  - [limel-example-input-field-autocomplete](../components/input-field/examples)
  - [limel-example-input-field-number](../components/input-field/examples)
  - [limel-example-input-field-showlink](../components/input-field/examples)
@@ -205,6 +206,7 @@ graph TD;
   limel-example-hotkey-basic --> limel-example-value
   limel-example-hotkey-disabled --> limel-example-value
   limel-example-hotkey-duplicates --> limel-example-value
+  limel-example-hotkey-prevent-default --> limel-example-value
   limel-example-input-field-autocomplete --> limel-example-value
   limel-example-input-field-number --> limel-example-value
   limel-example-input-field-showlink --> limel-example-value

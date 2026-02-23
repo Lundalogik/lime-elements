@@ -4,40 +4,42 @@
 
 ## Overview
 
-Duplicate hotkeys
+Prevent browser defaults
 
-If multiple enabled `<limel-hotkey>` instances are configured with the same
-hotkey (after normalization), only the first handler will run for each
-keypress. This prevents multiple actions from being triggered by a single
-keyboard event.
+By default, matching hotkeys call `event.preventDefault()` to avoid browser
+shortcuts (for example Save/Print dialogs) firing together with your app
+action.
 
-When a duplicate is detected at runtime, the first handler will log a
-`console.warn` (once per keypress) to help you spot and fix the conflict.
+Use `preventBrowserDefault={false}` when you explicitly want to keep the
+browser's native behavior.
 
-:::note
-Disabled instances are not counted and never emit events.
-:::
-
-- Press `2`.
-- Only one `hotkeyTrigger` will fire (the first handler wins).
-- A `console.warn` is logged to help you find the duplicate.
-
-This behavior is intentional: triggering multiple actions from a single
-keypress is usually surprising and can be unsafe.
+Try this example:
+- Keep "Prevent browser defaults" enabled and press
+<kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>S</kbd> or <kbd>P</kbd>:
+browser defaults are prevented.
+- Disable the switch and press the same hotkeys again:
+browser defaults are allowed.
 
 ## Dependencies
 
 ### Depends on
 
 - [limel-hotkey](..)
+- [limel-example-controls](../../../examples)
+- [limel-switch](../../switch)
 - [limel-example-value](../../../examples)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-hotkey-duplicates --> limel-hotkey
-  limel-example-hotkey-duplicates --> limel-example-value
-  style limel-example-hotkey-duplicates fill:#f9f,stroke:#333,stroke-width:4px
+  limel-example-hotkey-prevent-default --> limel-hotkey
+  limel-example-hotkey-prevent-default --> limel-example-controls
+  limel-example-hotkey-prevent-default --> limel-switch
+  limel-example-hotkey-prevent-default --> limel-example-value
+  limel-switch --> limel-helper-line
+  limel-switch --> limel-dynamic-label
+  limel-dynamic-label --> limel-icon
+  style limel-example-hotkey-prevent-default fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

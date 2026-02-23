@@ -62,6 +62,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-dynamic-label-readonly-boolean](../dynamic-label/examples)
  - [limel-example-file](../file/examples)
  - [limel-example-form-span-fields](../form/examples)
+ - [limel-example-hotkey-prevent-default](../hotkey/examples)
  - [limel-example-icon-button-composite](../icon-button/examples)
  - [limel-example-info-tile-loading](../info-tile/examples)
  - [limel-example-input-field-autocomplete](../input-field/examples)
@@ -133,6 +134,7 @@ graph TD;
   limel-example-dynamic-label-readonly-boolean --> limel-switch
   limel-example-file --> limel-switch
   limel-example-form-span-fields --> limel-switch
+  limel-example-hotkey-prevent-default --> limel-switch
   limel-example-icon-button-composite --> limel-switch
   limel-example-info-tile-loading --> limel-switch
   limel-example-input-field-autocomplete --> limel-switch
