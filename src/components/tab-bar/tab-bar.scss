@@ -82,7 +82,7 @@
             top: 0;
             bottom: 0;
             border-radius: 1rem;
-            right: -var(--limel-tab-separator-width);
+            right: calc(-1 * var(--limel-tab-separator-width));
         }
 
         &:last-of-type {
@@ -126,11 +126,11 @@
     }
 
     &:before {
-        left: -var(--limel-tab-active-outer-edge-curve-size);
+        left: calc(-1 * var(--limel-tab-active-outer-edge-curve-size));
         transform: rotateY(180deg);
     }
     &:after {
-        right: -var(--limel-tab-active-outer-edge-curve-size);
+        right: calc(-1 * var(--limel-tab-active-outer-edge-curve-size));
     }
 
     .mdc-ripple-upgraded--background-focused {
