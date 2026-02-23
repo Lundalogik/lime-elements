@@ -2,7 +2,7 @@ import { render, h } from '@stencil/vitest';
 
 describe('limel-checkbox (events)', () => {
     async function setup(props: Record<string, any> = {}) {
-        const { root, waitForChanges } = await render(
+        const { root, waitForChanges, spyOnEvent } = await render(
             <limel-checkbox {...props}></limel-checkbox>
         );
         await waitForChanges();
@@ -10,22 +10,21 @@ describe('limel-checkbox (events)', () => {
             'input[type="checkbox"]'
         );
 
-        return { root, input, waitForChanges };
+        return { root, input, waitForChanges, spyOnEvent };
     }
 
     it('emits change event with correct detail when toggled', async () => {
-        const { root, input, waitForChanges } = await setup({ checked: false });
-        const handler = vi.fn();
-        root.addEventListener('change', (e: Event) =>
-            handler((e as CustomEvent<boolean>).detail)
-        );
+        const { input, waitForChanges, spyOnEvent } = await setup({
+            checked: false,
+        });
+        const changeSpy = spyOnEvent('change');
         input!.checked = true;
         input!.dispatchEvent(
             new Event('change', { bubbles: true, composed: true })
         );
         await waitForChanges();
-        expect(handler).toHaveBeenCalledTimes(1);
-        expect(handler).toHaveBeenCalledWith(true);
+        expect(changeSpy).toHaveReceivedEventTimes(1);
+        expect(changeSpy).toHaveReceivedEventDetail(true);
     });
 
     it('renders the input as disabled when the disabled prop is set', async () => {

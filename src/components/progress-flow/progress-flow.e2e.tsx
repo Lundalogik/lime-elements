@@ -158,13 +158,12 @@ describe('limel-progress-flow', () => {
 
     describe('when a flow item is clicked', () => {
         it('emits a change event when item was not already selected', async () => {
-            const handleChange = vi.fn();
-            const { root, waitForChanges } = await render(
+            const { root, waitForChanges, spyOnEvent } = await render(
                 <limel-progress-flow
                     flowItems={[{ text: 'Customer contact' }]}
-                    onChange={handleChange}
                 ></limel-progress-flow>
             );
+            const changeSpy = spyOnEvent('change');
             await waitForChanges();
 
             const items = root.shadowRoot!.querySelectorAll(
@@ -175,20 +174,19 @@ describe('limel-progress-flow', () => {
             button.click();
             await waitForChanges();
 
-            expect(handleChange).toHaveBeenCalledTimes(1);
-            expect(handleChange.mock.calls[0][0].detail).toEqual({
+            expect(changeSpy).toHaveReceivedEventTimes(1);
+            expect(changeSpy).toHaveReceivedEventDetail({
                 text: 'Customer contact',
             });
         });
 
         it('does not emit a change event when item was already selected', async () => {
-            const handleChange = vi.fn();
-            const { root, waitForChanges } = await render(
+            const { root, waitForChanges, spyOnEvent } = await render(
                 <limel-progress-flow
                     flowItems={[{ text: 'Customer contact', selected: true }]}
-                    onChange={handleChange}
                 ></limel-progress-flow>
             );
+            const changeSpy = spyOnEvent('change');
             await waitForChanges();
 
             const items = root.shadowRoot!.querySelectorAll(
@@ -198,7 +196,7 @@ describe('limel-progress-flow', () => {
             button.click();
             await waitForChanges();
 
-            expect(handleChange).toHaveBeenCalledTimes(0);
+            expect(changeSpy).not.toHaveReceivedEvent();
         });
     });
 });

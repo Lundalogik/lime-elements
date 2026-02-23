@@ -41,27 +41,24 @@ describe('limel-chip-set', () => {
         });
 
         it('emits an interact event when a chip is clicked', async () => {
-            const handleInteract = vi.fn();
-            const { root, waitForChanges } = await render(
+            const { root, waitForChanges, spyOnEvent } = await render(
                 <limel-chip-set
                     label="Fruit"
                     value={getValue()}
-                    onInteract={handleInteract}
                 ></limel-chip-set>
             );
+            const interactSpy = spyOnEvent('interact');
             await waitForChanges();
 
             const chips = root.shadowRoot!.querySelectorAll('limel-chip');
             (chips[0] as HTMLElement).click();
             await waitForChanges();
 
-            expect(handleInteract).toHaveBeenCalledTimes(1);
-            expect(handleInteract.mock.calls[0][0].detail).toEqual(
-                expect.objectContaining({
-                    id: '1',
-                    text: 'Lime',
-                })
-            );
+            expect(interactSpy).toHaveReceivedEventTimes(1);
+            expect(interactSpy).toHaveReceivedEventDetail({
+                id: '1',
+                text: 'Lime',
+            });
         });
     });
 
@@ -102,53 +99,47 @@ describe('limel-chip-set', () => {
         });
 
         it('emits change event when the first chip is clicked', async () => {
-            const handleChange = vi.fn();
-            const { root, waitForChanges } = await render(
+            const { root, waitForChanges, spyOnEvent } = await render(
                 <limel-chip-set
                     type="choice"
                     value={getValue()}
-                    onChange={handleChange}
                 ></limel-chip-set>
             );
+            const changeSpy = spyOnEvent('change');
             await waitForChanges();
 
             const chips = root.shadowRoot!.querySelectorAll('limel-chip');
             (chips[0] as HTMLElement).click();
             await waitForChanges();
 
-            expect(handleChange).toHaveBeenCalledTimes(1);
-            expect(handleChange.mock.calls[0][0].detail).toEqual(
-                expect.objectContaining({
-                    id: '1',
-                    text: 'Lime',
-                    selected: false,
-                })
-            );
+            expect(changeSpy).toHaveReceivedEventTimes(1);
+            expect(changeSpy).toHaveReceivedEventDetail({
+                id: '1',
+                text: 'Lime',
+                selected: false,
+            });
         });
 
         it('emits change event when the second chip is clicked', async () => {
-            const handleChange = vi.fn();
-            const { root, waitForChanges } = await render(
+            const { root, waitForChanges, spyOnEvent } = await render(
                 <limel-chip-set
                     type="choice"
                     value={getValue()}
-                    onChange={handleChange}
                 ></limel-chip-set>
             );
+            const changeSpy = spyOnEvent('change');
             await waitForChanges();
 
             const chips = root.shadowRoot!.querySelectorAll('limel-chip');
             (chips[1] as HTMLElement).click();
             await waitForChanges();
 
-            expect(handleChange).toHaveBeenCalledTimes(1);
-            expect(handleChange.mock.calls[0][0].detail).toEqual(
-                expect.objectContaining({
-                    id: '2',
-                    text: 'Apple',
-                    selected: true,
-                })
-            );
+            expect(changeSpy).toHaveReceivedEventTimes(1);
+            expect(changeSpy).toHaveReceivedEventDetail({
+                id: '2',
+                text: 'Apple',
+                selected: true,
+            });
         });
     });
 
@@ -179,53 +170,47 @@ describe('limel-chip-set', () => {
         });
 
         it('emits change event to deselect when first chip is clicked', async () => {
-            const handleChange = vi.fn();
-            const { root, waitForChanges } = await render(
+            const { root, waitForChanges, spyOnEvent } = await render(
                 <limel-chip-set
                     type="filter"
                     value={getValue()}
-                    onChange={handleChange}
                 ></limel-chip-set>
             );
+            const changeSpy = spyOnEvent('change');
             await waitForChanges();
 
             const chips = root.shadowRoot!.querySelectorAll('limel-chip');
             (chips[0] as HTMLElement).click();
             await waitForChanges();
 
-            expect(handleChange).toHaveBeenCalledTimes(1);
-            expect(handleChange.mock.calls[0][0].detail).toEqual(
-                expect.objectContaining({
-                    id: '1',
-                    text: 'Lime',
-                    selected: false,
-                })
-            );
+            expect(changeSpy).toHaveReceivedEventTimes(1);
+            expect(changeSpy).toHaveReceivedEventDetail({
+                id: '1',
+                text: 'Lime',
+                selected: false,
+            });
         });
 
         it('emits change event to select when second chip is clicked', async () => {
-            const handleChange = vi.fn();
-            const { root, waitForChanges } = await render(
+            const { root, waitForChanges, spyOnEvent } = await render(
                 <limel-chip-set
                     type="filter"
                     value={getValue()}
-                    onChange={handleChange}
                 ></limel-chip-set>
             );
+            const changeSpy = spyOnEvent('change');
             await waitForChanges();
 
             const chips = root.shadowRoot!.querySelectorAll('limel-chip');
             (chips[1] as HTMLElement).click();
             await waitForChanges();
 
-            expect(handleChange).toHaveBeenCalledTimes(1);
-            expect(handleChange.mock.calls[0][0].detail).toEqual(
-                expect.objectContaining({
-                    id: '2',
-                    text: 'Apple',
-                    selected: true,
-                })
-            );
+            expect(changeSpy).toHaveReceivedEventTimes(1);
+            expect(changeSpy).toHaveReceivedEventDetail({
+                id: '2',
+                text: 'Apple',
+                selected: true,
+            });
         });
     });
 
@@ -253,28 +238,25 @@ describe('limel-chip-set', () => {
         });
 
         it('emits interact event when a chip is clicked', async () => {
-            const handleInteract = vi.fn();
-            const { root, waitForChanges } = await render(
+            const { root, waitForChanges, spyOnEvent } = await render(
                 <limel-chip-set
                     type="input"
                     value={getValue()}
-                    onInteract={handleInteract}
                 ></limel-chip-set>
             );
+            const interactSpy = spyOnEvent('interact');
             await waitForChanges();
 
             const chips = root.shadowRoot!.querySelectorAll('limel-chip');
             (chips[0] as HTMLElement).click();
             await waitForChanges();
 
-            expect(handleInteract).toHaveBeenCalledTimes(1);
-            expect(handleInteract.mock.calls[0][0].detail).toEqual(
-                expect.objectContaining({
-                    id: '1',
-                    text: 'Lime',
-                    removable: true,
-                })
-            );
+            expect(interactSpy).toHaveReceivedEventTimes(1);
+            expect(interactSpy).toHaveReceivedEventDetail({
+                id: '1',
+                text: 'Lime',
+                removable: true,
+            });
         });
     });
 });

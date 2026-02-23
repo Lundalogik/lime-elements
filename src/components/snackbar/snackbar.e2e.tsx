@@ -42,14 +42,13 @@ describe('limel-snackbar', () => {
         });
 
         it('emits an action event when button is clicked', async () => {
-            const handleAction = vi.fn();
-            const { root, waitForChanges, setProps } = await render(
+            const { root, waitForChanges, setProps, spyOnEvent } = await render(
                 <limel-snackbar
                     message="This is a message"
                     actionText="Press me!"
-                    onAction={handleAction}
                 ></limel-snackbar>
             );
+            const actionSpy = spyOnEvent('action');
             await waitForChanges();
 
             setProps({ open: true });
@@ -59,7 +58,7 @@ describe('limel-snackbar', () => {
             (button as any).click();
             await waitForChanges();
 
-            expect(handleAction).toHaveBeenCalledTimes(1);
+            expect(actionSpy).toHaveReceivedEventTimes(1);
         });
     });
 });
