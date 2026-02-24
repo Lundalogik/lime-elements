@@ -1,3 +1,10 @@
+## [39.4.0](https://github.com/Lundalogik/lime-elements/compare/v39.3.2...v39.4.0) (2026-02-24)
+
+### Features
+
+
+* **markdown:** add default whitelist of safe lime-elements components ([0ccc5e9](https://github.com/Lundalogik/lime-elements/commit/0ccc5e96d513459cecfebcb2eb4d9af0f4831cc0))
+
 ## [39.3.2](https://github.com/Lundalogik/lime-elements/compare/v39.3.1...v39.3.2) (2026-02-24)
 
 ### Bug Fixes
