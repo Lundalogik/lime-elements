@@ -1,17 +1,16 @@
 import { Component, h } from '@stencil/core';
 
-const markdown = [
-    'Check out this repo: ',
-    '<limel-chip text="GitHub" icon="github_copyrighted" ',
-    'link=\'{"href":"https://github.com/Lundalogik/lime-elements","title":"Open GitHub repo","target":"_blank"}\'',
-    '></limel-chip>',
-    ' ',
-    'Or visit the docs: ',
-    '<limel-chip text="Lime Elements" ',
-    'icon=\'{"name":"book","color":"rgb(var(--color-green-default))"}\'',
-    ' link=\'{"href":"https://lundalogik.github.io/lime-elements/","target":"_blank"}\'',
-    '></limel-chip>',
-].join('');
+const markdown = `Check out this repo:
+<limel-chip text="GitHub"
+    icon="github_copyrighted"
+    link='{"href":"https://github.com/Lundalogik/lime-elements","title":"Open GitHub repo","target":"_blank"}'
+    ></limel-chip>
+
+Or visit the docs:
+<limel-chip text="Lime Elements"
+    icon='{"name":"book","color":"rgb(var(--color-green-default))"}'
+    link='{"href":"https://lundalogik.github.io/lime-elements/","target":"_blank"}'
+    ></limel-chip>`;
 
 /**
  * Custom elements with complex props
@@ -30,12 +29,6 @@ const markdown = [
  * This is particularly useful when rendering AI chat responses that
  * include interactive components like chips, where the AI can output
  * HTML with JSON attribute values.
- * :::
- *
- * :::note
- * The custom element HTML must be on a single line in the markdown
- * source. Multiline HTML tags may be misinterpreted by the markdown
- * parser.
  * :::
  */
 @Component({
