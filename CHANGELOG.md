@@ -1,3 +1,10 @@
+## [39.4.1](https://github.com/Lundalogik/lime-elements/compare/v39.4.0...v39.4.1) (2026-02-24)
+
+### Bug Fixes
+
+
+* **markdown:** preserve custom elements in removeEmptyParagraphs ([f9391b2](https://github.com/Lundalogik/lime-elements/commit/f9391b24861624523da4f0cd7c1bcb3cdc6728c5)), closes [Lundalogik/lime-elements#3902](https://github.com/Lundalogik/lime-elements/issues/3902)
+
 ## [39.4.0](https://github.com/Lundalogik/lime-elements/compare/v39.3.2...v39.4.0) (2026-02-24)
 
 ### Features
