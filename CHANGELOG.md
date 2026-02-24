@@ -1,3 +1,10 @@
+## [39.3.2](https://github.com/Lundalogik/lime-elements/compare/v39.3.1...v39.3.2) (2026-02-24)
+
+### Bug Fixes
+
+
+* **tab-bar:** correctly position pseudo elements in tab bar ([302bf5f](https://github.com/Lundalogik/lime-elements/commit/302bf5f09aa10b2900bbe7ab4a103c1743e39716))
+
 ## [39.3.1](https://github.com/Lundalogik/lime-elements/compare/v39.3.0...v39.3.1) (2026-02-24)
 
 ### Bug Fixes
