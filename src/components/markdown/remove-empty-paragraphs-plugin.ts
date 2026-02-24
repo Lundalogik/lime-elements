@@ -102,7 +102,7 @@ const isNodeEffectivelyEmpty = (node: any): boolean => {
             return true;
         }
 
-        if (MEANINGFUL_VOID_ELEMENTS.has(tagName)) {
+        if (isMeaningfulElement(tagName)) {
             return false;
         }
 
@@ -120,6 +120,25 @@ const isNodeEffectivelyEmpty = (node: any): boolean => {
     }
 
     return true;
+};
+
+/**
+ * Returns true if the tag name belongs to a custom element (web component).
+ * Per the HTML spec, custom element names must contain a hyphen.
+ * @param tagName
+ */
+const isCustomElement = (tagName: string): boolean => {
+    return tagName.includes('-');
+};
+
+/**
+ * Returns true for elements that are meaningful even without children.
+ * Includes standard void elements (img, video, etc.) and custom elements
+ * (web components), which render their own shadow DOM content.
+ * @param tagName
+ */
+const isMeaningfulElement = (tagName: string): boolean => {
+    return MEANINGFUL_VOID_ELEMENTS.has(tagName) || isCustomElement(tagName);
 };
 
 const isWhitespace = (value: string): boolean => {

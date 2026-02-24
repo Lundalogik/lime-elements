@@ -61,6 +61,42 @@ describe('remove empty paragraphs plugin', () => {
         expect(tree.children).toHaveLength(0);
     });
 
+    it('keeps paragraphs containing custom elements (web components)', () => {
+        const paragraph = createParagraph([createElement('limel-spinner')]);
+        const tree = createRoot([paragraph]);
+
+        runPlugin(tree, true);
+
+        expect(tree.children).toHaveLength(1);
+        expect(tree.children[0]).toBe(paragraph);
+    });
+
+    it('keeps paragraphs containing custom elements with no children', () => {
+        const paragraph = createParagraph([
+            createElement('my-custom-component'),
+        ]);
+        const tree = createRoot([paragraph]);
+
+        runPlugin(tree, true);
+
+        expect(tree.children).toHaveLength(1);
+        expect(tree.children[0]).toBe(paragraph);
+    });
+
+    it('keeps paragraphs with custom elements alongside whitespace', () => {
+        const paragraph = createParagraph([
+            createText('   '),
+            createElement('limel-spinner'),
+            createText('\n'),
+        ]);
+        const tree = createRoot([paragraph]);
+
+        runPlugin(tree, true);
+
+        expect(tree.children).toHaveLength(1);
+        expect(tree.children[0]).toBe(paragraph);
+    });
+
     it('keeps text content inside paragraphs', () => {
         const paragraph = createParagraph([
             createElement('span', [createText('Meaningful text')]),
