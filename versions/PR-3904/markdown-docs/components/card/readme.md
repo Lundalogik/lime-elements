@@ -10,17 +10,17 @@ as an image or an icon, a body of text, or optional actions.
 
 ## Properties
 
-| Property      | Attribute     | Description                                                                                                     | Type                                 | Default      |
-| ------------- | ------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ------------ |
-| `actions`     | --            | Actions to display in the card, to provide the user with options to interact with the content.                  | `(ListSeparator \| ActionBarItem)[]` | `[]`         |
-| `clickable`   | `clickable`   | When true, improve the accessibility of the component and hints the user that the card can be interacted width. | `boolean`                            | `false`      |
-| `heading`     | `heading`     | Heading of the card, to provide a short title about the context.                                                | `string`                             | `undefined`  |
-| `icon`        | `icon`        | An icon, to display along with the heading and subheading.                                                      | `Icon \| string`                     | `undefined`  |
-| `image`       | --            | A hero image to display in the card, to enrich the content with visual information.                             | `Image`                              | `undefined`  |
-| `orientation` | `orientation` | The orientation of the card, specially useful when the card has an image.                                       | `"landscape" \| "portrait"`          | `'portrait'` |
-| `selected`    | `selected`    | Whether the card is selected                                                                                    | `boolean`                            | `false`      |
-| `subheading`  | `subheading`  | Subheading of the card to provide a short description of the context.                                           | `string`                             | `undefined`  |
-| `value`       | `value`       | The content of the card. Supports markdown, to provide a rich text experience.                                  | `string`                             | `undefined`  |
+| Property      | Attribute     | Description                                                                                                                                                 | Type                                 | Default      |
+| ------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ------------ |
+| `actions`     | --            | Actions to display in the card, to provide the user with options to interact with the content.                                                              | `(ListSeparator \| ActionBarItem)[]` | `[]`         |
+| `clickable`   | `clickable`   | When true, improve the accessibility of the component and hints the user that the card can be interacted width.                                             | `boolean`                            | `false`      |
+| `heading`     | `heading`     | Heading of the card, to provide a short title about the context.                                                                                            | `string`                             | `undefined`  |
+| `icon`        | `icon`        | An icon, to display along with the heading and subheading.                                                                                                  | `Icon \| string`                     | `undefined`  |
+| `image`       | --            | A hero image to display in the card, to enrich the content with visual information.                                                                         | `Image`                              | `undefined`  |
+| `orientation` | `orientation` | The orientation of the card, specially useful when the card has an image.                                                                                   | `"landscape" \| "portrait"`          | `'portrait'` |
+| `selected`    | `selected`    | When `true`, the card displays a visual selected state (highlighted border shadow). Should be used together with `clickable` to let users toggle selection. | `boolean`                            | `false`      |
+| `subheading`  | `subheading`  | Subheading of the card to provide a short description of the context.                                                                                       | `string`                             | `undefined`  |
+| `value`       | `value`       | The content of the card. Supports markdown, to provide a rich text experience.                                                                              | `string`                             | `undefined`  |
 
 
 ## Events
