@@ -1,3 +1,10 @@
+## [39.3.1](https://github.com/Lundalogik/lime-elements/compare/v39.3.0...v39.3.1) (2026-02-24)
+
+### Bug Fixes
+
+
+* **card:** ensure small images won't create huge cards ([5227301](https://github.com/Lundalogik/lime-elements/commit/5227301739f68ae44a6abc7fcf9b0e82a7a4f5d6))
+
 ## [39.3.0](https://github.com/Lundalogik/lime-elements/compare/v39.2.2...v39.3.0) (2026-02-23)
 
 ### Features
