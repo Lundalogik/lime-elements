@@ -224,3 +224,12 @@ section {
         @include mixins.the-3d-element--clickable;
     }
 }
+
+:host(limel-card[selected]) section {
+    &,
+    &:hover,
+    &:focus-visible,
+    &:active {
+        box-shadow: var(--shadow-focused-state);
+    }
+}

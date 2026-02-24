@@ -25,6 +25,7 @@ import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
  * @exampleComponent limel-example-card-image
  * @exampleComponent limel-example-card-actions
  * @exampleComponent limel-example-card-clickable
+ * @exampleComponent limel-example-card-selected
  * @exampleComponent limel-example-card-orientation
  * @exampleComponent limel-example-card-slot
  * @exampleComponent limel-example-card-styling
@@ -90,6 +91,13 @@ export class Card {
      */
     @Prop({ reflect: true })
     public orientation: 'landscape' | 'portrait' = 'portrait';
+
+    /**
+     * When `true`, the card displays a visual selected state (highlighted border shadow).
+     * Should be used together with `clickable` to let users toggle selection.
+     */
+    @Prop({ reflect: true })
+    public selected: boolean = false;
 
     /**
      * Fired when a action bar item has been clicked.
@@ -195,7 +203,14 @@ export class Card {
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
             >
-                <section tabindex={this.clickable ? 0 : ''}>
+                <section
+                    tabindex={this.clickable ? 0 : undefined}
+                    role={this.clickable ? 'button' : undefined}
+                    aria-pressed={
+                        this.clickable ? String(this.selected) : undefined
+                    }
+                    onKeyDown={this.clickable ? this.handleKeyDown : undefined}
+                >
                     {this.renderImage()}
                     <div class="body">
                         {this.renderHeader()}
@@ -305,6 +320,17 @@ export class Card {
         event.stopPropagation();
         if (isItem(event.detail)) {
             this.actionSelected.emit(event.detail);
+        }
+    };
+
+    private handleKeyDown = (event: KeyboardEvent) => {
+        if (event.target !== event.currentTarget) {
+            return;
+        }
+
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            this.host.click();
         }
     };
 
