@@ -133,6 +133,13 @@ describe('sanitizeEmailHTML', () => {
             expect(result).toContain(dataUrl);
         });
 
+        it('strips image/svg+xml data URLs', async () => {
+            const dataUrl =
+                'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciLz4=';
+            const result = await sanitizeEmailHTML(`<img src="${dataUrl}">`);
+            expect(result).not.toContain(dataUrl);
+        });
+
         it('strips data: images with disallowed MIME types', async () => {
             const result = await sanitizeEmailHTML(
                 '<img src="data:text/html;base64,PHNjcmlwdD4=">'
