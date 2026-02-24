@@ -222,6 +222,7 @@ export namespace Components {
         "icon"?: string | Icon;
         "image"?: Image_2;
         "orientation": 'landscape' | 'portrait';
+        "selected": boolean;
         "subheading"?: string;
         "value"?: string;
     }
@@ -1655,6 +1656,7 @@ export namespace JSX {
         "image"?: Image_2;
         "onActionSelected"?: (event: LimelCardCustomEvent<ActionBarItem>) => void;
         "orientation"?: 'landscape' | 'portrait';
+        "selected"?: boolean;
         "subheading"?: string;
         "value"?: string;
     }
@@ -1669,6 +1671,8 @@ export namespace JSX {
         "icon": string | Icon;
         // (undocumented)
         "orientation": 'landscape' | 'portrait';
+        // (undocumented)
+        "selected": boolean;
         // (undocumented)
         "subheading": string;
         // (undocumented)
