@@ -3,6 +3,7 @@ import { markdownToHTML } from './markdown-parser';
 import { globalConfig } from '../../global/config';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 import { ImageIntersectionObserver } from './image-intersection-observer';
+import { hydrateCustomElements } from './hydrate-custom-elements';
 
 /**
  * The Markdown component receives markdown syntax
@@ -21,6 +22,7 @@ import { ImageIntersectionObserver } from './image-intersection-observer';
  * @exampleComponent limel-example-markdown-blockquotes
  * @exampleComponent limel-example-markdown-horizontal-rule
  * @exampleComponent limel-example-markdown-custom-component
+ * @exampleComponent limel-example-markdown-custom-component-with-json-props
  * @exampleComponent limel-example-markdown-remove-empty-paragraphs
  * @exampleComponent limel-example-markdown-composite
  */
@@ -78,6 +80,8 @@ export class Markdown {
             });
 
             this.rootElement.innerHTML = html;
+
+            hydrateCustomElements(this.rootElement, this.whitelist ?? []);
 
             this.setupImageIntersectionObserver();
         } catch (error) {
