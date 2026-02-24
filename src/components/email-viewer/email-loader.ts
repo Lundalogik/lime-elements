@@ -86,14 +86,15 @@ function extractAttachments(email: any): {
 
     for (const attachment of email.attachments || []) {
         const contentId = normalizeContentId(attachment.contentId);
+        const hasContentId = Boolean(contentId);
         const isInline =
-            attachment.related || attachment.disposition === 'inline';
+            (hasContentId && attachment.disposition !== 'attachment') ||
+            attachment.related ||
+            attachment.disposition === 'inline';
+        const contentBytes = getAttachmentBytes(attachment.content);
 
         if (!isInline) {
-            const size =
-                attachment.content instanceof ArrayBuffer
-                    ? attachment.content.byteLength
-                    : undefined;
+            const size = contentBytes?.byteLength;
 
             attachments.push({
                 filename: attachment.filename || undefined,
@@ -103,12 +104,10 @@ function extractAttachments(email: any): {
             continue;
         }
 
-        const hasArrayBufferContent = attachment.content instanceof ArrayBuffer;
+        const hasBinaryContent = Boolean(contentBytes);
 
-        if (!contentId || !hasArrayBufferContent) {
-            const size = hasArrayBufferContent
-                ? attachment.content.byteLength
-                : undefined;
+        if (!contentId || !hasBinaryContent) {
+            const size = contentBytes?.byteLength;
 
             attachments.push({
                 filename: attachment.filename || undefined,
@@ -118,8 +117,12 @@ function extractAttachments(email: any): {
             continue;
         }
 
-        const mimeType = attachment.mimeType || 'application/octet-stream';
-        const base64 = arrayBufferToBase64(attachment.content);
+        const mimeType = resolveDataUrlMimeType(
+            attachment.mimeType,
+            contentBytes,
+            attachment.filename
+        );
+        const base64 = byteArrayToBase64(contentBytes);
         const dataUrl = `data:${mimeType};base64,${base64}`;
         cidUrlById.set(contentId, dataUrl);
     }
@@ -156,6 +159,10 @@ function normalizeContentId(contentId?: string): string {
 
     let normalized = contentId.trim();
 
+    if (normalized.toLowerCase().startsWith('cid:')) {
+        normalized = normalized.slice(4).trim();
+    }
+
     if (normalized.startsWith('<')) {
         normalized = normalized.slice(1);
     }
@@ -178,7 +185,7 @@ function replaceCidReferences(
     return html.replaceAll(
         /(src\s*=\s*["']?)cid:([^"'\s>]+)(["']?)/gi,
         (match, prefix, cid, suffix) => {
-            const normalized = normalizeContentId(cid);
+            const normalized = normalizeContentId(decodeCidReference(cid));
             const replacement = cidUrlById.get(normalized);
             if (!replacement) {
                 return match;
@@ -189,9 +196,31 @@ function replaceCidReferences(
     );
 }
 
-function arrayBufferToBase64(buffer: ArrayBuffer): string {
-    const bytes = new Uint8Array(buffer);
+function decodeCidReference(cid: string): string {
+    try {
+        return decodeURIComponent(cid);
+    } catch {
+        return cid;
+    }
+}
 
+function getAttachmentBytes(content: unknown): Uint8Array | undefined {
+    if (content instanceof ArrayBuffer) {
+        return new Uint8Array(content);
+    }
+
+    if (ArrayBuffer.isView(content)) {
+        return new Uint8Array(
+            content.buffer,
+            content.byteOffset,
+            content.byteLength
+        );
+    }
+
+    return undefined;
+}
+
+function byteArrayToBase64(bytes: Uint8Array): string {
     if (typeof btoa === 'function') {
         let binary = '';
         for (const byte of bytes) {
@@ -202,6 +231,173 @@ function arrayBufferToBase64(buffer: ArrayBuffer): string {
 
     // Jest/Node fallback
     return (globalThis as any).Buffer.from(bytes).toString('base64');
+}
+
+function resolveDataUrlMimeType(
+    mimeType: unknown,
+    bytes: Uint8Array,
+    filename?: string
+): string {
+    const normalizedMimeType =
+        typeof mimeType === 'string' ? mimeType.trim().toLowerCase() : '';
+    const detectedFromBytes = detectImageMimeTypeFromBytes(bytes);
+
+    if (normalizedMimeType.startsWith('image/')) {
+        if (
+            isTrustedDeclaredImageMimeType(
+                normalizedMimeType,
+                detectedFromBytes
+            )
+        ) {
+            return normalizedMimeType;
+        }
+
+        if (detectedFromBytes) {
+            return detectedFromBytes;
+        }
+    }
+
+    if (detectedFromBytes) {
+        return detectedFromBytes;
+    }
+
+    const detectedFromFilename = detectImageMimeTypeFromFilename(filename);
+    if (detectedFromFilename) {
+        return detectedFromFilename;
+    }
+
+    return normalizedMimeType || 'application/octet-stream';
+}
+
+function isTrustedDeclaredImageMimeType(
+    declaredMimeType: string,
+    detectedMimeType?: string
+): boolean {
+    if (!detectedMimeType) {
+        return true;
+    }
+
+    if (declaredMimeType === detectedMimeType) {
+        return true;
+    }
+
+    if (declaredMimeType === 'image/jpg' && detectedMimeType === 'image/jpeg') {
+        return true;
+    }
+
+    return (
+        declaredMimeType === 'image/vnd.microsoft.icon' &&
+        detectedMimeType === 'image/x-icon'
+    );
+}
+
+function detectImageMimeTypeFromBytes(bytes: Uint8Array): string | undefined {
+    return (
+        detectPngMimeType(bytes) ??
+        detectJpegMimeType(bytes) ??
+        detectGifMimeType(bytes) ??
+        detectWebpMimeType(bytes) ??
+        detectIconMimeType(bytes) ??
+        detectSvgMimeType(bytes)
+    );
+}
+
+function detectPngMimeType(bytes: Uint8Array): string | undefined {
+    if (
+        startsWithBytes(bytes, [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])
+    ) {
+        return 'image/png';
+    }
+}
+
+function detectJpegMimeType(bytes: Uint8Array): string | undefined {
+    if (startsWithBytes(bytes, [0xff, 0xd8, 0xff])) {
+        return 'image/jpeg';
+    }
+}
+
+function detectGifMimeType(bytes: Uint8Array): string | undefined {
+    const firstSix = bytesToAscii(bytes, 0, 6);
+    if (firstSix === 'GIF87a' || firstSix === 'GIF89a') {
+        return 'image/gif';
+    }
+}
+
+function detectWebpMimeType(bytes: Uint8Array): string | undefined {
+    const riff = bytesToAscii(bytes, 0, 4);
+    const webp = bytesToAscii(bytes, 8, 12);
+    if (riff === 'RIFF' && webp === 'WEBP') {
+        return 'image/webp';
+    }
+}
+
+function detectIconMimeType(bytes: Uint8Array): string | undefined {
+    if (startsWithBytes(bytes, [0x00, 0x00, 0x01, 0x00])) {
+        return 'image/x-icon';
+    }
+}
+
+function detectSvgMimeType(bytes: Uint8Array): string | undefined {
+    if (bytes.length < 5) {
+        return;
+    }
+
+    const utf8Prefix = new TextDecoder('utf8', { fatal: false }).decode(
+        bytes.slice(0, Math.min(bytes.length, 256))
+    );
+    const normalizedPrefix = utf8Prefix.trimStart().toLowerCase();
+
+    if (
+        normalizedPrefix.startsWith('<svg') ||
+        (normalizedPrefix.startsWith('<?xml') &&
+            normalizedPrefix.includes('<svg'))
+    ) {
+        return 'image/svg+xml';
+    }
+}
+
+function startsWithBytes(bytes: Uint8Array, prefix: number[]): boolean {
+    if (bytes.length < prefix.length) {
+        return false;
+    }
+
+    return prefix.every((value, index) => bytes[index] === value);
+}
+
+function bytesToAscii(
+    bytes: Uint8Array,
+    start: number,
+    endExclusive: number
+): string {
+    if (bytes.length < endExclusive) {
+        return '';
+    }
+
+    return String.fromCodePoint(...bytes.slice(start, endExclusive));
+}
+
+function detectImageMimeTypeFromFilename(
+    filename?: string
+): string | undefined {
+    const normalized = filename?.trim().toLowerCase();
+    if (!normalized || !normalized.includes('.')) {
+        return;
+    }
+
+    const extension = normalized.slice(normalized.lastIndexOf('.') + 1);
+
+    const mimeTypes: Record<string, string> = {
+        png: 'image/png',
+        jpg: 'image/jpeg',
+        jpeg: 'image/jpeg',
+        gif: 'image/gif',
+        webp: 'image/webp',
+        svg: 'image/svg+xml',
+        ico: 'image/x-icon',
+        bmp: 'image/bmp',
+    };
+
+    return mimeTypes[extension];
 }
 
 function isNonEmptyString(value: unknown): value is string {
@@ -275,3 +471,14 @@ function quoteDisplayNameIfNeeded(name: string): string {
     const escaped = name.replaceAll('\\', '\\\\').replaceAll('"', '\\' + '"');
     return `"${escaped}"`;
 }
+
+export const emailLoaderHelpers = {
+    normalizeContentId,
+    decodeCidReference,
+    replaceCidReferences,
+    getAttachmentBytes,
+    detectImageMimeTypeFromBytes,
+    detectImageMimeTypeFromFilename,
+    resolveDataUrlMimeType,
+    extractAttachments,
+};
