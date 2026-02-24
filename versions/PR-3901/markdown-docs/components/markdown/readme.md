@@ -28,6 +28,7 @@ and renders it as HTML.
  - [limel-example-markdown-code](examples)
  - [limel-example-markdown-composite](examples)
  - [limel-example-markdown-custom-component](examples)
+ - [limel-example-markdown-custom-component-with-json-props](examples)
  - [limel-example-markdown-emphasis](examples)
  - [limel-example-markdown-footnotes](examples)
  - [limel-example-markdown-headings](examples)
@@ -55,6 +56,7 @@ graph TD;
   limel-example-markdown-code --> limel-markdown
   limel-example-markdown-composite --> limel-markdown
   limel-example-markdown-custom-component --> limel-markdown
+  limel-example-markdown-custom-component-with-json-props --> limel-markdown
   limel-example-markdown-emphasis --> limel-markdown
   limel-example-markdown-footnotes --> limel-markdown
   limel-example-markdown-headings --> limel-markdown
