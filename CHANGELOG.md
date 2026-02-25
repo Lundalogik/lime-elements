@@ -1,3 +1,10 @@
+## [39.5.0](https://github.com/Lundalogik/lime-elements/compare/v39.4.1...v39.5.0) (2026-02-25)
+
+### Features
+
+
+* **card:** show selected state when an article is selected ([c3df744](https://github.com/Lundalogik/lime-elements/commit/c3df744100a6fad84b3e8e155621971f8430bb1f))
+
 ## [39.4.1](https://github.com/Lundalogik/lime-elements/compare/v39.4.0...v39.4.1) (2026-02-24)
 
 ### Bug Fixes
