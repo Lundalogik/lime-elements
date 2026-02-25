@@ -273,32 +273,32 @@ $ npm run lint
 
 ### Tests
 
-There are two types of tests in **lime-elements**: unit tests (spec), and end-to-end tests (e2e).
+Tests are powered by [Vitest](https://vitest.dev/) via `@stencil/vitest`. There are two types of tests: unit tests (spec) and end-to-end tests (e2e).
 
 Before pushing your code changes make sure all **tests pass** and that you have added tests for every possible case introduced by your code change:
 
 ```bash
-$ npm run test:all
+$ npm test
 ```
 
 **Tips:** During development you can:
-- run unit tests and e2e tests separately with `npm run test` and `npm run test:e2e`, respectively
-- run in watch mode with `npm run test:watch` or `npm run test:e2e:watch` to automatically run a test file when you modify it
+- run unit tests and e2e tests separately with `npm run test:spec` and `npm run test:e2e`, respectively
+- run in watch mode with `npm run test:watch` to automatically re-run tests when you modify a file
 - run only the test you are working on by adding `.only` to the test definition
 
-```js
-test('will not be run', t => {
-    t.fail();
+```ts
+test('will not be run', () => {
+    expect(true).toBe(false);
 });
 
-test.only('will be run', t => {
-    t.pass();
+test.only('will be run', () => {
+    expect(true).toBe(true);
 });
 ```
 
 `.only` also works for groups of tests:
 
-```js
+```ts
 describe.only('group with .only', () => {
     test('will be run', () => {
         expect(true).toBe(true);
