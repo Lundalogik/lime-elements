@@ -89,6 +89,7 @@ or navigating to a page with more information about the item in the shopping lis
  - [limel-example-file-input](../file-input/examples)
  - [limel-example-file-input-type-filtering](../file-input/examples)
  - [limel-example-menu-searchable](../menu/examples)
+ - [limel-example-menu-searchable-hotkeys](../menu/examples)
  - [limel-example-popover-trigger-interaction](../popover/examples)
  - [limel-showcase-card](../../examples/whats-new)
 
@@ -142,6 +143,7 @@ graph TD;
   limel-example-file-input --> limel-chip
   limel-example-file-input-type-filtering --> limel-chip
   limel-example-menu-searchable --> limel-chip
+  limel-example-menu-searchable-hotkeys --> limel-chip
   limel-example-popover-trigger-interaction --> limel-chip
   limel-showcase-card --> limel-chip
   style limel-chip fill:#f9f,stroke:#333,stroke-width:4px

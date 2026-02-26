@@ -98,6 +98,7 @@ The component automatically formats different value types:
  - [limel-example-menu-hotkeys](../components/menu/examples)
  - [limel-example-menu-open-sub-menu-programmatically](../components/menu/examples)
  - [limel-example-menu-searchable](../components/menu/examples)
+ - [limel-example-menu-searchable-hotkeys](../components/menu/examples)
  - [limel-example-menu-secondary-text](../components/menu/examples)
  - [limel-example-menu-separators](../components/menu/examples)
  - [limel-example-menu-sub-menu-lazy-loading](../components/menu/examples)
@@ -225,6 +226,7 @@ graph TD;
   limel-example-menu-hotkeys --> limel-example-value
   limel-example-menu-open-sub-menu-programmatically --> limel-example-value
   limel-example-menu-searchable --> limel-example-value
+  limel-example-menu-searchable-hotkeys --> limel-example-value
   limel-example-menu-secondary-text --> limel-example-value
   limel-example-menu-separators --> limel-example-value
   limel-example-menu-sub-menu-lazy-loading --> limel-example-value
