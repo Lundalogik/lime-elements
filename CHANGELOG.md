@@ -1,3 +1,10 @@
+## [39.5.1](https://github.com/Lundalogik/lime-elements/compare/v39.5.0...v39.5.1) (2026-02-26)
+
+### Bug Fixes
+
+
+* **email-viewer:** render inline cid logos in .eml previews ([29b85d3](https://github.com/Lundalogik/lime-elements/commit/29b85d3759e81ce0c3209fb911031d5a4f82a292))
+
 ## [39.5.0](https://github.com/Lundalogik/lime-elements/compare/v39.4.1...v39.5.0) (2026-02-25)
 
 ### Features
