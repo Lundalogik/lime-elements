@@ -9,7 +9,7 @@ import rehypeRaw from 'rehype-raw';
 import { visit } from 'unist-util-visit';
 import { sanitizeStyle } from './sanitize-style';
 import { Node } from 'unist';
-import { Schema } from 'rehype-sanitize/lib';
+import type { Options as Schema } from 'rehype-sanitize';
 import { createLazyLoadImagesPlugin } from './image-markdown-plugin';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 import { createLinksPlugin } from './link-markdown-plugin';
