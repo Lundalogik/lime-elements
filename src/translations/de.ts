@@ -37,6 +37,7 @@ export default {
         'Für diesen Dateityp kann keine Vorschau angezeigt werden.',
     'file-viewer.message.try-other-options':
         'Laden Sie die Datei herunter oder öffnen Sie sie in einem neuen Tab.',
+    'file-viewer.message.file-not-found': 'Datei nicht gefunden',
     'file-viewer.download': 'Herunterladen',
     'file-viewer.exit-fullscreen': 'Vollbildmodus beenden',
     'file-viewer.open-in-fullscreen': 'Im Vollbildmodus öffnen',

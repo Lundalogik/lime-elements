@@ -50,6 +50,33 @@ describe('limel-file-viewer', () => {
     }
 });
 
+describe('limel-file-viewer email not found', () => {
+    it('renders a file-not-found message when the email fails to load', async () => {
+        const originalFetch = globalThis.fetch;
+        try {
+            globalThis.fetch = vi
+                .fn()
+                .mockRejectedValue(new Error('Not found'));
+
+            const { root, waitForChanges } = await render(
+                <limel-file-viewer url="example.eml"></limel-file-viewer>
+            );
+
+            await waitForChanges();
+            await waitForChanges();
+
+            const emailViewer =
+                root?.shadowRoot?.querySelector('limel-email-viewer');
+            expect(emailViewer).toBeFalsy();
+
+            const notFound = root?.shadowRoot?.querySelector('div.no-support');
+            expect(notFound).toBeTruthy();
+        } finally {
+            globalThis.fetch = originalFetch;
+        }
+    });
+});
+
 describe('limel-file-viewer officeViewer', () => {
     const testCases = [
         { url: 'example.docx', officeViewer: 'microsoft-office' },
