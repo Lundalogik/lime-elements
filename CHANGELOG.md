@@ -1,3 +1,10 @@
+## [39.5.2](https://github.com/Lundalogik/lime-elements/compare/v39.5.1...v39.5.2) (2026-02-27)
+
+### Bug Fixes
+
+
+* **email-viewer:** fix date overflowing its container and overlapping download button ([df03885](https://github.com/Lundalogik/lime-elements/commit/df038850da36bc07b70313d8a270d05cca5ab91f)), closes [Lundalogik/lime-elements#3908](https://github.com/Lundalogik/lime-elements/issues/3908)
+
 ## [39.5.1](https://github.com/Lundalogik/lime-elements/compare/v39.5.0...v39.5.1) (2026-02-26)
 
 ### Bug Fixes
