@@ -259,6 +259,10 @@ export class FileViewer {
     };
 
     private renderEmail = () => {
+        if (!this.email) {
+            return this.renderFileNotFoundMessage();
+        }
+
         return [
             this.renderButtons(),
             <limel-email-viewer
@@ -322,6 +326,17 @@ export class FileViewer {
                     )}
                 </p>
                 {this.renderDownloadButton()}
+            </div>
+        );
+    };
+
+    private renderFileNotFoundMessage = () => {
+        return (
+            <div class="no-support" role="alert">
+                <h1>⚠️</h1>
+                <p>
+                    {this.getTranslation('file-viewer.message.file-not-found')}
+                </p>
             </div>
         );
     };

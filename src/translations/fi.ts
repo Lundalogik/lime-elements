@@ -37,6 +37,7 @@ export default {
         'Esikatselua ei voi näyttää tälle tiedostotyypille.',
     'file-viewer.message.try-other-options':
         'Lataa tiedosto tai avaa se uudessa välilehdessä.',
+    'file-viewer.message.file-not-found': 'Tiedostoa ei löydy',
     'file-viewer.download': 'Ladata',
     'file-viewer.exit-fullscreen': 'Poistu koko näytöstä',
     'file-viewer.open-in-fullscreen': 'Avaa koko näytössä',

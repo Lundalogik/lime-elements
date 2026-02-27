@@ -37,6 +37,7 @@ export default {
         "Impossible d'afficher un aperçu pour ce type de fichier.",
     'file-viewer.message.try-other-options':
         'Téléchargez le fichier ou ouvrez-le dans un nouvel onglet.',
+    'file-viewer.message.file-not-found': 'Fichier introuvable',
     'file-viewer.download': 'Télécharger',
     'file-viewer.exit-fullscreen': 'Quitter le mode plein écran',
     'file-viewer.open-in-fullscreen': 'Ouvrir en plein écran',

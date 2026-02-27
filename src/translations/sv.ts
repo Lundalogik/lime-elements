@@ -37,6 +37,7 @@ export default {
         'Kan inte visa en förhandsvisning för denna filtyp.',
     'file-viewer.message.try-other-options':
         'Ladda ner filen eller öppna den i en ny flik.',
+    'file-viewer.message.file-not-found': 'Filen hittades inte',
     'file-viewer.download': 'Ladda ner',
     'file-viewer.exit-fullscreen': 'Avsluta fullskärmsläge',
     'file-viewer.open-in-fullscreen': 'Öppna i fullskärmsläge',

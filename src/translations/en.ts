@@ -36,6 +36,7 @@ export default {
         'Cannot display a preview for this file type.',
     'file-viewer.message.try-other-options':
         'Download the file or open it in a new tab.',
+    'file-viewer.message.file-not-found': 'File not found',
     'file-viewer.download': 'Download',
     'file-viewer.exit-fullscreen': 'Exit fullscreen',
     'file-viewer.open-in-fullscreen': 'Open in fullscreen',

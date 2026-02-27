@@ -36,6 +36,7 @@ export default {
         'Kan geen voorbeeld weergeven voor dit bestandstype.',
     'file-viewer.message.try-other-options':
         'Download het bestand of open het in een nieuw tabblad.',
+    'file-viewer.message.file-not-found': 'Bestand niet gevonden',
     'file-viewer.download': 'Downloaden',
     'file-viewer.exit-fullscreen': 'Verlaat volledig scherm',
     'file-viewer.open-in-fullscreen': 'Open in volledig scherm',
