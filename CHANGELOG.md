@@ -1,3 +1,10 @@
+## [39.5.3](https://github.com/Lundalogik/lime-elements/compare/v39.5.2...v39.5.3) (2026-02-27)
+
+### Bug Fixes
+
+
+* import `Schema` type from `rehype-sanitize` public API instead of deep import ([ed57db1](https://github.com/Lundalogik/lime-elements/commit/ed57db13c0ab9cf9fa34b28f7a4910042095d07d)), closes [Lundalogik/lime-elements#3877](https://github.com/Lundalogik/lime-elements/issues/3877)
+
 ## [39.5.2](https://github.com/Lundalogik/lime-elements/compare/v39.5.1...v39.5.2) (2026-02-27)
 
 ### Bug Fixes
