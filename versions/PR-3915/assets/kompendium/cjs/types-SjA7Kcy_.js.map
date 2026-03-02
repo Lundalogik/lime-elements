@@ -1,0 +1,1 @@
+{"version":3,"file":"types-SjA7Kcy_.js","sources":["src/components/darkmode-switch/types.ts"],"sourcesContent":["export type Theme = 'system-default' | 'force-light' | 'force-dark';\nexport const THEME_EVENT_NAME = 'kompendiumTheme';\n"],"names":[],"mappings":";;AACO,MAAM,gBAAgB,GAAG;;;;"}
