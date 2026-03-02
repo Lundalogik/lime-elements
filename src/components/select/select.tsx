@@ -14,6 +14,11 @@ import {
 } from '@stencil/core';
 import { isMobileDevice } from '../../util/device';
 import { ENTER, SPACE } from '../../util/keycodes';
+import { LimelHotkeyTriggerDetail } from '../hotkey/hotkey.types';
+import {
+    normalizeHotkeyString,
+    tokenizeHotkeyString,
+} from '../../util/hotkeys';
 import { isMultiple } from '../../util/multiple';
 import { createRandomString } from '../../util/random-string';
 import { SelectTemplate, triggerIconColorWarning } from './select.template';
@@ -28,6 +33,7 @@ import { SelectTemplate, triggerIconColorWarning } from './select.template';
  * @exampleComponent limel-example-select-with-empty-option
  * @exampleComponent limel-example-select-preselected
  * @exampleComponent limel-example-select-change-options
+ * @exampleComponent limel-example-select-hotkeys
  * @exampleComponent limel-example-select-dialog
  */
 @Component({
@@ -119,6 +125,8 @@ export class Select {
     private portalId: string;
     private focusObserver: IntersectionObserver;
     private focusTimeoutId: ReturnType<typeof setTimeout>;
+    private surface: HTMLLimelMenuSurfaceElement;
+    private normalizedHotkeyCache = new Map<string, string | null>();
 
     constructor() {
         this.handleMenuChange = this.handleMenuChange.bind(this);
@@ -203,6 +211,7 @@ export class Select {
                 onMenuChange={this.handleMenuChange}
                 onNativeChange={this.handleNativeChange}
                 onTriggerPress={this.handleMenuTriggerKeyPress}
+                setMenuSurfaceRef={this.setMenuSurfaceElement}
                 multiple={this.multiple}
                 isOpen={this.menuOpen}
                 open={this.openMenu}
@@ -226,6 +235,33 @@ export class Select {
             this.checkValid = true;
         }
     }
+
+    @Watch('options')
+    protected watchOptions() {
+        this.normalizedHotkeyCache.clear();
+    }
+
+    private readonly setMenuSurfaceElement = (
+        element: HTMLLimelMenuSurfaceElement
+    ) => {
+        if (this.surface) {
+            this.surface.removeEventListener(
+                'hotkeyTrigger',
+                this.handleHotkeyTrigger,
+                false
+            );
+        }
+
+        this.surface = element;
+
+        if (this.surface) {
+            this.surface.addEventListener(
+                'hotkeyTrigger',
+                this.handleHotkeyTrigger,
+                false
+            );
+        }
+    };
 
     private setMenuFocus() {
         if (this.isMobileDevice) {
@@ -358,6 +394,103 @@ export class Select {
         this.menuOpen = false;
         this.cancelPendingFocus();
         this.setTriggerFocus();
+    }
+
+    private handleHotkeyTrigger = (
+        event: CustomEvent<LimelHotkeyTriggerDetail>
+    ) => {
+        if (this.isMobileDevice || !this.menuOpen) {
+            return;
+        }
+
+        const pressedHotkey = event.detail?.hotkey;
+        if (!pressedHotkey || this.isReservedSelectHotkey(pressedHotkey)) {
+            return;
+        }
+
+        const matchedOption = this.findOptionByHotkey(pressedHotkey);
+        if (!matchedOption || matchedOption.disabled) {
+            return;
+        }
+
+        event.stopPropagation();
+        event.detail.keyboardEvent.stopPropagation();
+        event.detail.keyboardEvent.preventDefault();
+
+        if (this.multiple) {
+            const currentValue = isMultiple(this.value) ? this.value : [];
+            const hasSelectedOption = currentValue.some(
+                (option) => option.value === matchedOption.value
+            );
+
+            const nextValue = hasSelectedOption
+                ? currentValue.filter(
+                      (option) => option.value !== matchedOption.value
+                  )
+                : [...currentValue, matchedOption];
+
+            this.change.emit(nextValue);
+
+            return;
+        }
+
+        this.change.emit(matchedOption);
+        this.menuOpen = false;
+        this.setTriggerFocus();
+    };
+
+    private isReservedSelectHotkey(hotkey: string): boolean {
+        const tokens = tokenizeHotkeyString(hotkey);
+        const key = tokens.at(-1);
+        if (!key) {
+            return false;
+        }
+
+        if (
+            key === 'arrowup' ||
+            key === 'arrowdown' ||
+            key === 'arrowleft' ||
+            key === 'arrowright'
+        ) {
+            return true;
+        }
+
+        if (key === 'tab') {
+            return true;
+        }
+
+        const hasModifiers = tokens.length > 1;
+        return (
+            !hasModifiers &&
+            (key === 'enter' || key === 'space' || key === 'escape')
+        );
+    }
+
+    private findOptionByHotkey(pressedHotkey: string): Option | null {
+        for (const option of this.getOptionsExcludingSeparators()) {
+            if (option.disabled || !option.hotkey) {
+                continue;
+            }
+
+            const normalized = this.getNormalizedHotkey(option.hotkey);
+            if (normalized && normalized === pressedHotkey) {
+                return option;
+            }
+        }
+
+        return null;
+    }
+
+    private getNormalizedHotkey(raw: string): string | null {
+        const cacheKey = raw.trim();
+        if (this.normalizedHotkeyCache.has(cacheKey)) {
+            return this.normalizedHotkeyCache.get(cacheKey) ?? null;
+        }
+
+        const normalized = normalizeHotkeyString(cacheKey);
+        this.normalizedHotkeyCache.set(cacheKey, normalized);
+
+        return normalized;
     }
 
     private openMenu() {
