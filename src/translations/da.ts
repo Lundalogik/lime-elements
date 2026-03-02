@@ -37,6 +37,7 @@ export default {
         'Kan ikke vise en forhåndsvisning af denne filtype.',
     'file-viewer.message.try-other-options':
         'Hent filen eller åbn den i en ny fane.',
+    'file-viewer.message.file-not-found': 'Filen blev ikke fundet',
     'file-viewer.download': 'Hent',
     'file-viewer.exit-fullscreen': 'Afslut fuldskærm',
     'file-viewer.open-in-fullscreen': 'Åbn i fuld skærm',
