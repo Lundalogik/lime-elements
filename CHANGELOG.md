@@ -1,3 +1,10 @@
+## [39.5.4](https://github.com/Lundalogik/lime-elements/compare/v39.5.3...v39.5.4) (2026-03-02)
+
+### Bug Fixes
+
+
+* **file-viewer:** show file-not-found message when email fails to load ([319c902](https://github.com/Lundalogik/lime-elements/commit/319c9021067614781b6ef45163e3c24456689fce))
+
 ## [39.5.3](https://github.com/Lundalogik/lime-elements/compare/v39.5.2...v39.5.3) (2026-02-27)
 
 ### Bug Fixes
