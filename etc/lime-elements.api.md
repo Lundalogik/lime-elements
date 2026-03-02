@@ -513,6 +513,12 @@ export namespace Components {
         "length"?: number;
         "maxLength"?: number;
     }
+    // @internal
+    export interface LimelHotkey {
+        "disabled": boolean;
+        "preventBrowserDefault": boolean;
+        "value": string;
+    }
     export interface LimelIcon {
         "badge": boolean;
         "name": string;
@@ -623,6 +629,8 @@ export namespace Components {
     export interface LimelMenuItemMeta {
         "badge"?: string | number;
         "commandText"?: string;
+        "disabled": boolean;
+        "hotkey"?: string;
         "showChevron": boolean;
     }
     // @internal (undocumented)
@@ -1372,6 +1380,10 @@ export namespace JSX {
         //
         // (undocumented)
         "limel-helper-line": Omit<LimelHelperLine, keyof LimelHelperLineAttributes> & { [K in keyof LimelHelperLine & keyof LimelHelperLineAttributes]?: LimelHelperLine[K] } & { [K in keyof LimelHelperLine & keyof LimelHelperLineAttributes as `attr:${K}`]?: LimelHelperLineAttributes[K] } & { [K in keyof LimelHelperLine & keyof LimelHelperLineAttributes as `prop:${K}`]?: LimelHelperLine[K] };
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-hotkey"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
+        // (undocumented)
+        "limel-hotkey": Omit<LimelHotkey, keyof LimelHotkeyAttributes> & { [K in keyof LimelHotkey & keyof LimelHotkeyAttributes]?: LimelHotkey[K] } & { [K in keyof LimelHotkey & keyof LimelHotkeyAttributes as `attr:${K}`]?: LimelHotkeyAttributes[K] } & { [K in keyof LimelHotkey & keyof LimelHotkeyAttributes as `prop:${K}`]?: LimelHotkey[K] };
         // (undocumented)
         "limel-icon": Omit<LimelIcon, keyof LimelIconAttributes> & { [K in keyof LimelIcon & keyof LimelIconAttributes]?: LimelIcon[K] } & { [K in keyof LimelIcon & keyof LimelIconAttributes as `attr:${K}`]?: LimelIconAttributes[K] } & { [K in keyof LimelIcon & keyof LimelIconAttributes as `prop:${K}`]?: LimelIcon[K] };
         // (undocumented)
@@ -2474,6 +2486,24 @@ export namespace JSX {
         "maxLength": number;
     }
 
+    // @internal
+    export interface LimelHotkey {
+        "disabled"?: boolean;
+        "onHotkeyTrigger"?: (event: LimelHotkeyCustomEvent<LimelHotkeyTriggerDetail>) => void;
+        "preventBrowserDefault"?: boolean;
+        "value"?: string;
+    }
+
+    // (undocumented)
+    export interface LimelHotkeyAttributes {
+        // (undocumented)
+        "disabled": boolean;
+        // (undocumented)
+        "preventBrowserDefault": boolean;
+        // (undocumented)
+        "value": string;
+    }
+
     export interface LimelIcon {
         "badge"?: boolean;
         "name"?: string;
@@ -2764,6 +2794,8 @@ export namespace JSX {
     export interface LimelMenuItemMeta {
         "badge"?: string | number;
         "commandText"?: string;
+        "disabled"?: boolean;
+        "hotkey"?: string;
         "showChevron"?: boolean;
     }
 
@@ -2773,6 +2805,10 @@ export namespace JSX {
         "badge": string;
         // (undocumented)
         "commandText": string;
+        // (undocumented)
+        "disabled": boolean;
+        // (undocumented)
+        "hotkey": string;
         // (undocumented)
         "showChevron": boolean;
     }
@@ -3807,6 +3843,23 @@ export interface LimelFormCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelFormElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelHotkeyCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelHotkeyCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelHotkeyElement;
+}
+
+// @public
+export type LimelHotkeyTriggerDetail = {
+    hotkey: string;
+    value: string;
+    keyboardEvent: KeyboardEvent;
+};
+
 // Warning: (ae-missing-release-tag) "LimelInputFieldCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -4090,6 +4143,7 @@ interface MenuItem<T = any> {
     badge?: number | string;
     commandText?: string;
     disabled?: boolean;
+    hotkey?: string;
     icon?: string | Icon;
     // @deprecated
     iconColor?: Color;

@@ -1,0 +1,33 @@
+@forward '../markdown/partial-styles/_kbd.scss';
+:host(limel-hotkey) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+:host(limel-hotkey[disabled]:not([disabled='false'])) {
+    opacity: 0.5;
+}
+
+kbd {
+    margin: 0;
+    font-size: 0.75rem;
+    box-shadow:
+        var(--button-shadow-pressed),
+        0 0.625rem 0.375px -0.5rem rgb(var(--color-black), 0.02),
+        0 0.025rem 0.5rem 0 rgb(var(--contrast-100)) inset;
+}
+
+span {
+    display: inline-block;
+    &::first-letter {
+        text-transform: uppercase;
+    }
+}
+
+kbd.is-glyph {
+    span {
+        transform: scale(1.2);
+    }
+}
