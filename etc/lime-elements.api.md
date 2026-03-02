@@ -4183,6 +4183,7 @@ export type OpenDirection = 'left-start' | 'left' | 'left-end' | 'right-start' |
 // @public
 interface Option_2<T extends string = string> {
     disabled?: boolean;
+    hotkey?: string;
     icon?: string | Icon;
     // @deprecated
     iconColor?: Color;
