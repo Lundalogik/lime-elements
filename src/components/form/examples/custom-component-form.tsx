@@ -50,7 +50,12 @@ export class CustomComponentFormExample {
                 onChange={this.handleFormChange}
                 value={this.formData}
                 schema={schema}
-            />,
+            >
+                <limel-example-custom-picker
+                    slot="hero"
+                    helperText="Pick your superhero!"
+                />
+            </limel-form>,
             <limel-example-value value={this.formData} />,
         ];
     }
