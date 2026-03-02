@@ -2,6 +2,7 @@ import { Component, Prop, h, Element, Host } from '@stencil/core';
 import { Link } from '../../global/shared-types/link.types';
 import { getRel } from '../../util/link-helper';
 import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
+import { IconName } from '../../global/shared-types/icon.types';
 
 /**
  * This component can be used on places such as a start page or a dashboard.
@@ -28,7 +29,7 @@ export class Shortcut {
      * Name of icon for the shortcut.
      */
     @Prop({ reflect: true })
-    public icon: string;
+    public icon: IconName;
 
     /**
      * The text to show below the shortcut. Long label will be truncated.

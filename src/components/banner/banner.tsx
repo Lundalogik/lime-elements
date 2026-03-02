@@ -1,4 +1,5 @@
 import { Component, h, Method, Prop, State } from '@stencil/core';
+import { IconName } from '../../global/shared-types/icon.types';
 
 /**
  * @exampleComponent limel-example-banner
@@ -20,7 +21,7 @@ export class Banner {
      * Set icon for the banner
      */
     @Prop({ reflect: true })
-    public icon: string;
+    public icon: IconName;
 
     @State()
     private isOpen = false;

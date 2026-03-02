@@ -7,7 +7,7 @@ import {
     Host,
     Prop,
 } from '@stencil/core';
-import { Icon } from '../../global/shared-types/icon.types';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 import { Languages } from '../date-picker/date.types';
 import { Link } from '../../global/shared-types/link.types';
 import { getRel } from '../../util/link-helper';
@@ -106,7 +106,7 @@ export class Chip implements ChipInterface {
      * Icon of the chip.
      */
     @Prop()
-    public icon?: string | Icon;
+    public icon?: IconName | Icon;
 
     /**
      * A picture to be displayed instead of the icon on the chip.

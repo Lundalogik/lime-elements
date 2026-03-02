@@ -1,5 +1,5 @@
 import { ListSeparator } from '../../global/shared-types/separator.types';
-import { Icon } from '../../global/shared-types/icon.types';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 import { MenuItem } from '../menu/menu.types';
 import { Image } from '../../global/shared-types/image.types';
 import { Color } from '../../global/shared-types/color.types';
@@ -27,7 +27,7 @@ export interface ListItem<T = any> {
     /**
      * Icon of the list item.
      */
-    icon?: string | Icon;
+    icon?: IconName | Icon;
 
     /**
      * Background color of the icon. Overrides `--icon-background-color`.
