@@ -31,6 +31,15 @@ export interface Option<T extends string = string> {
     value: T;
 
     /**
+     * Optional keyboard shortcut for selecting this option when the custom
+     * dropdown is open.
+     *
+     * If the option also has a `primaryComponent`, that component is shown
+     * instead of the hotkey, but the hotkey still works.
+     */
+    hotkey?: string;
+
+    /**
      * Set to `true` to make this option disabled and not possible to select.
      */
     disabled?: boolean;

@@ -202,7 +202,12 @@ const SelectDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
 };
 
 const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
-    const items = createMenuItems(props.options, props.value, props.required);
+    const items = createMenuItems(
+        props.options,
+        props.value,
+        props.required,
+        props.isOpen
+    );
 
     return (
         <limel-portal
@@ -297,12 +302,15 @@ function isSelected(option: Option, value: Option | Option[]): boolean {
  * @param value - the currently selected option or options
  * @param selectIsRequired - whether the select requires a value, in which
  * case the "empty" option is left out
+ * @param isOpen - whether the dropdown is open, which decides whether the
+ * hotkeys of the options are shown as active
  * @returns the items to render in the dropdown
  */
 export function createMenuItems(
     options: Array<Option | ListSeparator>,
     value: Option | Option[],
-    selectIsRequired = false
+    selectIsRequired = false,
+    isOpen = false
 ): Array<ListItem<Option> | ListSeparator> {
     const menuOptionFilter = getMenuOptionFilter(selectIsRequired);
 
@@ -315,10 +323,25 @@ export function createMenuItems(
         }
 
         const selected = isSelected(option, value);
-        const { text, secondaryText, disabled, primaryComponent } = option;
+        const { text, secondaryText, disabled, hotkey } = option;
         const name = getIconName(option.icon);
 
         const color = getIconColor(option.icon, option.iconColor);
+
+        const primaryComponent =
+            option.primaryComponent ??
+            (hotkey
+                ? {
+                      name: 'limel-hotkey',
+                      props: {
+                          value: hotkey,
+                          disabled: !isOpen || disabled,
+                          style: {
+                              order: '2',
+                          },
+                      },
+                  }
+                : undefined);
 
         if (!name) {
             return {
