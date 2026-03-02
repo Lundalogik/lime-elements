@@ -17,6 +17,7 @@ export const EditorMenuTypes = {
     Strikethrough: 'strikethrough',
     Code: 'code',
     CodeBlock: 'code_block',
+    Highlight: 'highlight',
 };
 
 /**
