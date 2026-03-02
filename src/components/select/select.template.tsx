@@ -189,7 +189,12 @@ const SelectDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
 };
 
 const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
-    const items = createMenuItems(props.options, props.value, props.required);
+    const items = createMenuItems(
+        props.options,
+        props.value,
+        props.required,
+        props.isOpen
+    );
 
     return (
         <limel-portal
@@ -274,7 +279,8 @@ function isSelected(option: Option, value: Option | Option[]): boolean {
 function createMenuItems(
     options: Array<Option | ListSeparator>,
     value: Option | Option[],
-    selectIsRequired = false
+    selectIsRequired = false,
+    isOpen = false
 ): Array<ListItem<Option> | ListSeparator> {
     const menuOptionFilter = getMenuOptionFilter(selectIsRequired);
 
@@ -287,10 +293,23 @@ function createMenuItems(
         }
 
         const selected = isSelected(option, value);
-        const { text, secondaryText, disabled } = option;
+        const { text, secondaryText, disabled, hotkey } = option;
         const name = getIconName(option.icon);
 
         const color = getIconColor(option.icon, option.iconColor);
+
+        const primaryComponent = hotkey
+            ? {
+                  name: 'limel-hotkey',
+                  props: {
+                      value: hotkey,
+                      disabled: !isOpen || disabled,
+                      style: {
+                          order: '2',
+                      },
+                  },
+              }
+            : undefined;
 
         if (!name) {
             return {
@@ -298,6 +317,7 @@ function createMenuItems(
                 secondaryText: secondaryText,
                 selected: selected,
                 disabled: disabled,
+                primaryComponent,
                 value: option,
             };
         }
@@ -307,6 +327,7 @@ function createMenuItems(
             secondaryText: secondaryText,
             selected: selected,
             disabled: disabled,
+            primaryComponent,
             value: option,
             icon: {
                 name: name,
