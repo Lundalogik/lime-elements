@@ -73,13 +73,15 @@
         &.date {
             position: absolute;
             right: 0.25rem;
-            transform: translateY(-50%);
+            bottom: 0;
+            transform: translateY(50%);
 
             font-size: 0.625rem;
             border-radius: 9rem;
-            padding: 0.25rem 0.5rem;
+            padding: 0.125rem 0.25rem;
 
-            background-color: rgb(var(--contrast-100), 0.3);
+            background-color: rgb(var(--contrast-100), 0.8);
+            border: rgb(var(--contrast-600)) solid 1px;
 
             dt {
                 @include mixins.visually-hidden();
@@ -91,7 +93,7 @@
 .attachments {
     flex-shrink: 0;
     padding: 0.5rem;
-    border-bottom: 1px dashed rgba(var(--contrast-700));
+    border-bottom: 1px dashed rga(var(--contrast-700));
 
     span {
         padding-left: 0.25rem;
