@@ -1,5 +1,5 @@
 import { MenuItem } from '../../components';
-import { Icon, IconName } from '../../global/shared-types/icon.types';
+import { Icon, IconName } from './icon.types';
 import { Color } from './color.types';
 import { ListSeparator } from './separator.types';
 
