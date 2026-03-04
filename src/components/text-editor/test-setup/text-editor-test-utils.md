@@ -9,12 +9,12 @@ This directory contains utility functions and setup code to help test the text e
    - `createCustomTestSchema(options)` - Creates a custom schema with specified extensions
 
 2. **Editor State Utilities**
-   - `createEditorState(content?, schema?)` - Creates an editor state with optional content
-   - `createEditorStateWithSelection(content, from, to, schema?)` - Creates an editor state with a specific selection
+   - `createEditorState(content?, schema?, plugins?)` - Creates an editor state with optional content
+   - `createEditorStateWithSelection(content, from, to, schema?, plugins?)` - Creates an editor state with a specific selection
 
 3. **Editor View Utilities**
-   - `createEditorView(state, dispatchSpy?)` - Creates a ProseMirror editor view with an optional dispatch spy
-   - `cleanupEditorView(view)` - Properly destroys an editor view to prevent memory leaks
+   - `createEditorView(state?, dispatchSpy?, parentElement?)` - Creates a ProseMirror editor view with an optional dispatch spy
+   - `cleanupEditorView(view, container?)` - Properly destroys an editor view to prevent memory leaks
 
 4. **Content Generation**
    - `createDocWithText(text, schema?)` - Creates a document with plain text
@@ -51,7 +51,7 @@ import {
   createEditorView,
   simulateKeyPress,
   cleanupEditorView 
-} from '../test-setup/test-utils';
+} from '../test-setup/editor-test-utils';
 
 describe('Text Editor', () => {
   let schema, state, view;
@@ -81,7 +81,7 @@ import {
   createEditorState,
   testCommand,
   createCommandTester
-} from '../test-setup/test-utils';
+} from '../test-setup/editor-test-utils';
 import { toggleMark } from 'prosemirror-commands';
 
 describe('Text Editor Commands', () => {
@@ -120,7 +120,7 @@ import {
   simulateKeyPress,
   simulatePaste,
   cleanupEditorView
-} from '../test-setup/test-utils';
+} from '../test-setup/editor-test-utils';
 
 describe('Text Editor Event Handling', () => {
   let view, container;

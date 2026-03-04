@@ -101,8 +101,8 @@ const htmlDoc = createDocWithHTML('<p>HTML <em>content</em></p>');
 
 // Create a document with formatted text
 const formattedDoc = createDocWithFormattedText('Bold and italic text', [
-  { type: 'strong', attrs: {} },           // Apply to all text
-  { type: 'em', attrs: {}, from: 0, to: 4 } // Only apply to "Bold"
+  { type: 'strong' },
+  { type: 'em' },
 ]);
 
 // Create various structured documents
@@ -122,14 +122,11 @@ const codeDoc = createDocWithCodeBlock('function test() { return true; }');
 ```typescript
 // Test if a command can be applied
 const result = getCommandResult(toggleMark(schema.marks.strong), state);
-expect(result.canApply).toBe(true);
+expect(result.result).toBe(true);
 
 // Test a command with expectations
 testCommand(toggleMark(schema.marks.strong), state, {
-  shouldApply: true,                         // Command should apply
-  docChanged: true,                          // Document should change
-  selectionChanged: false,                   // Selection should not change
-  storedMarksChanged: false                  // Stored marks should not change
+  shouldApply: true,
 });
 
 // Create a reusable command tester
@@ -161,13 +158,13 @@ someCommand(view.state, view.dispatch, view);
 expect(dispatchSpy).toHaveBeenCalled();
 
 // Get the latest state after updates
-const updatedState = dispatchSpy.state;
+const updatedState = view.state;
 ```
 
 ### 7. Selection Helpers
 
 - `setTextSelection(state, from, to)` - Creates a text selection
-- `setNodeSelection(state, pos)` - Creates a node selection (planned)
+- `setNodeSelection(state, pos)` - Creates a node selection
 
 ```typescript
 // Create a state with a selection
@@ -213,7 +210,7 @@ import {
   createEditorState, 
   createEditorView,
   cleanupEditorView 
-} from '../test-setup/test-utils';
+} from '../test-setup/editor-test-utils';
 
 describe('Text Editor', () => {
   let schema, state, view, container;
@@ -243,7 +240,7 @@ import {
   createTestSchema,
   createEditorStateWithSelection,
   testCommand
-} from '../test-setup/test-utils';
+} from '../test-setup/editor-test-utils';
 import { toggleMark } from 'prosemirror-commands';
 
 describe('Bold Command', () => {
@@ -261,7 +258,6 @@ describe('Bold Command', () => {
     const boldMark = schema.marks.strong;
     testCommand(toggleMark(boldMark), state, {
       shouldApply: true,
-      docChanged: true
     });
   });
   
@@ -276,7 +272,6 @@ describe('Bold Command', () => {
     const boldMark = schema.marks.strong;
     testCommand(toggleMark(boldMark), state, {
       shouldApply: true,
-      docChanged: true
     });
     
     // Verify bold was removed (use the resulting state from testCommand)
@@ -295,7 +290,7 @@ import {
   setTextSelection,
   simulateKeyPress,
   cleanupEditorView
-} from '../test-setup/test-utils';
+} from '../test-setup/editor-test-utils';
 
 describe('Keyboard Shortcuts', () => {
   let schema, view, container;
@@ -314,8 +309,10 @@ describe('Keyboard Shortcuts', () => {
   
   it('should apply bold with Ctrl+B', () => {
     // Set selection
-    const newState = setTextSelection(view.state, 1, 5);
-    view.dispatch(newState.tr);
+    const selectionTr = view.state.tr.setSelection(
+        TextSelection.create(view.state.doc, 1, 5)
+    );
+    view.dispatch(selectionTr);
     
     // Simulate Ctrl+B
     simulateKeyPress(view, 'b', { ctrl: true });
@@ -367,7 +364,7 @@ import {
   createEditorView,
   simulatePaste,
   cleanupEditorView
-} from '../test-setup/test-utils';
+} from '../test-setup/editor-test-utils';
 
 describe('Paste Handling', () => {
   let view, container;
@@ -422,7 +419,7 @@ import {
   createEditorView,
   simulateKeyPress,
   cleanupEditorView
-} from '../test-setup/test-utils';
+} from '../test-setup/editor-test-utils';
 import { wrapInList } from 'prosemirror-schema-list';
 
 describe('List Functionality', () => {
@@ -431,8 +428,7 @@ describe('List Functionality', () => {
   beforeEach(() => {
     schema = createTestSchema();
     const listItems = ['First item', 'Second item', 'Third item'];
-    const doc = createDocWithBulletList(listItems, schema);
-    const state = createEditorState(doc);
+    const state = createDocWithBulletList(listItems, schema);
     const result = createEditorView(state);
     view = result.view;
     container = result.container;
@@ -525,10 +521,10 @@ describe('List Functionality', () => {
 | | `testCommandWithView()` | ✅ Implemented |
 | | `createCommandTester()` | ✅ Implemented |
 | **Mocks** | `createDispatchSpy()` | ✅ Implemented |
-| | `createMockEditorView()` | ⏳ Planned |
+| | `createMockEditorView()` | ✅ Implemented |
 | | `mockProseMirrorDOMEnvironment()` | ✅ Implemented |
 | **Selection Helpers** | `setTextSelection()` | ✅ Implemented |
-| | `setNodeSelection()` | ⏳ Planned |
+| | `setNodeSelection()` | ✅ Implemented |
 | **Event Simulation** | `simulateKeyPress()` | ✅ Implemented |
 | | `simulatePaste()` | ✅ Implemented |
 | | `simulateClick()` | ✅ Implemented |
