@@ -8,8 +8,8 @@ import {
     createDocWithHeading,
     createDocWithBlockquote,
     createDocWithCodeBlock,
+    MarkApplication,
 } from './content-generator';
-import { MarkSpec } from 'prosemirror-model';
 
 describe('Content Generation Utilities', () => {
     describe('createDocWithText', () => {
@@ -65,7 +65,7 @@ describe('Content Generation Utilities', () => {
     describe('createDocWithFormattedText', () => {
         it('should apply specified marks to text', () => {
             const text = 'Formatted text';
-            const marks: MarkSpec[] = [{ type: 'strong' }, { type: 'em' }];
+            const marks: MarkApplication[] = [{ type: 'strong' }, { type: 'em' }];
 
             const state = createDocWithFormattedText(text, marks);
 
@@ -92,12 +92,12 @@ describe('Content Generation Utilities', () => {
 
         it('should apply marks with attributes', () => {
             const text = 'Link text';
-            const marks: MarkSpec[] = [
+            const marks: MarkApplication[] = [
                 {
                     type: 'link',
                     attrs: {
-                        href: { default: 'https://example.com' },
-                        title: { default: 'Example' },
+                        href: 'https://example.com',
+                        title: 'Example',
                     },
                 },
             ];
@@ -112,19 +112,15 @@ describe('Content Generation Utilities', () => {
                 expect(linkMark).toBeDefined();
 
                 if (linkMark) {
-                    expect(linkMark.attrs.href).toEqual({
-                        default: 'https://example.com',
-                    });
-                    expect(linkMark.attrs.title).toEqual({
-                        default: 'Example',
-                    });
+                    expect(linkMark.attrs.href).toBe('https://example.com');
+                    expect(linkMark.attrs.title).toBe('Example');
                 }
             }
         });
 
         it('should throw an error for invalid mark types', () => {
             const text = 'Test';
-            const marks: MarkSpec[] = [{ type: 'nonexistent_mark' }];
+            const marks: MarkApplication[] = [{ type: 'nonexistent_mark' }];
 
             expect(() => {
                 createDocWithFormattedText(text, marks);
@@ -154,18 +150,10 @@ describe('Content Generation Utilities', () => {
             }
         });
 
-        it('should handle empty list', () => {
-            const state = createDocWithBulletList([]);
-
-            expect(state).toBeInstanceOf(EditorState);
-
-            const firstChild = state.doc.firstChild;
-            expect(firstChild).toBeDefined();
-
-            if (firstChild) {
-                expect(firstChild.type.name).toBe('bullet_list');
-                expect(firstChild.childCount).toBe(0);
-            }
+        it('should throw when given an empty items array', () => {
+            expect(() => createDocWithBulletList([])).toThrow(
+                'createDocWithBulletList requires at least one item',
+            );
         });
     });
 

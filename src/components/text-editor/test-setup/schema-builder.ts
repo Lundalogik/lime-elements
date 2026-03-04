@@ -1,4 +1,4 @@
-import { Schema } from 'prosemirror-model';
+import { Schema, MarkSpec, NodeSpec } from 'prosemirror-model';
 import { schema as basicSchema } from 'prosemirror-schema-basic';
 import { addListNodes } from 'prosemirror-schema-list';
 import { strikethrough } from '../prosemirror-adapter/menu/menu-schema-extender';
@@ -48,8 +48,8 @@ export function createCustomTestSchema(options: {
     addLists?: boolean;
     addStrikethrough?: boolean;
     addUnderline?: boolean;
-    customMarks?: Record<string, any>;
-    customNodes?: Record<string, any>;
+    customMarks?: Record<string, MarkSpec>;
+    customNodes?: Record<string, NodeSpec>;
 }): Schema {
     let nodes = basicSchema.spec.nodes;
 

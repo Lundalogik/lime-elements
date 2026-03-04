@@ -1,7 +1,18 @@
-import { Schema, Mark, Fragment, Node, MarkSpec } from 'prosemirror-model';
+import { Schema, Mark, Fragment, Node, Attrs } from 'prosemirror-model';
 import { createTestSchema } from './schema-builder';
 import { createEditorState } from './editor-state-builder';
 import { EditorState } from 'prosemirror-state';
+
+/**
+ * Represents a mark applied to text, with a type name and optional attributes.
+ * This is distinct from `MarkSpec` (which defines how a mark is configured in a schema)
+ * and from ProseMirror's `Mark` (which is a live instance). Use this when specifying
+ * which marks to apply to a text node in test content helpers.
+ */
+export interface MarkApplication {
+    type: string;
+    attrs?: Attrs;
+}
 
 /**
  * Creates a document with plain text content wrapped in a paragraph.
@@ -43,7 +54,7 @@ export function createDocWithHTML(html: string, schema?: Schema): EditorState {
  */
 export function createDocWithFormattedText(
     text: string,
-    marks: MarkSpec[],
+    marks: MarkApplication[],
     schema?: Schema,
 ): EditorState {
     const editorSchema = schema || createTestSchema();
@@ -65,7 +76,7 @@ export function createDocWithFormattedText(
  */
 function createTextNodeWithMarks(
     text: string,
-    marks: MarkSpec[],
+    marks: MarkApplication[],
     schema: Schema,
 ): Node {
     const appliedMarks: Mark[] = marks.map((markSpec) => {
@@ -93,6 +104,10 @@ export function createDocWithBulletList(
     items: string[],
     schema?: Schema,
 ): EditorState {
+    if (items.length === 0) {
+        throw new Error('createDocWithBulletList requires at least one item');
+    }
+
     const editorSchema = schema || createTestSchema();
 
     const listItems = items.map((text) => {
