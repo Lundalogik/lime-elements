@@ -6,11 +6,12 @@ import {
     createDispatchSpy,
     cleanupEditorView,
     mockProseMirrorDOMEnvironment,
+    createMockEditorView,
 } from './editor-view-builder';
 
 describe('Editor View Utilities', () => {
-    let view: EditorView;
-    let container: HTMLElement;
+    let view: EditorView | null;
+    let container: HTMLElement | null;
 
     afterEach(() => {
         if (view) {
@@ -155,6 +156,40 @@ describe('Editor View Utilities', () => {
             container = null;
 
             removeChildSpy.mockRestore();
+        });
+    });
+
+    describe('createMockEditorView', () => {
+        it('should create a mock view with default state', () => {
+            const mock = createMockEditorView();
+
+            expect(mock.state).toBeInstanceOf(EditorState);
+            expect(typeof mock.dispatch).toBe('function');
+            expect(mock.dom).toBeDefined();
+        });
+
+        it('should use provided state', () => {
+            const state = createEditorState('<p>Custom</p>');
+            const mock = createMockEditorView(state);
+
+            expect(mock.state).toBe(state);
+            expect(mock.state.doc.textContent).toBe('Custom');
+        });
+
+        it('should have spy functions for dispatch and destroy', () => {
+            const mock = createMockEditorView();
+
+            expect(mock.dispatch).toHaveBeenCalledTimes(0);
+            mock.destroy();
+            expect(mock.destroy).toHaveBeenCalledTimes(1);
+        });
+
+        it('should update state when dispatch is called', () => {
+            const state = createEditorState('<p>Hello</p>');
+            const mock = createMockEditorView(state);
+            const tr = mock.state.tr.insertText(' world', mock.state.doc.content.size - 1);
+            mock.dispatch(tr);
+            expect(mock.state.doc.textContent).toBe('Hello world');
         });
     });
 

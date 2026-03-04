@@ -1,9 +1,10 @@
-import { EditorState, TextSelection } from 'prosemirror-state';
+import { EditorState, TextSelection, NodeSelection } from 'prosemirror-state';
 import { createCustomTestSchema } from './schema-builder';
 import {
     createEditorState,
     createEditorStateWithSelection,
     setTextSelection,
+    setNodeSelection,
 } from './editor-state-builder';
 
 describe('Editor State Utilities', () => {
@@ -79,6 +80,25 @@ describe('Editor State Utilities', () => {
             expect(newState).not.toBe(originalState); // Should be a new state object
             expect(newState.selection.from).toBe(from);
             expect(newState.selection.to).toBe(to);
+        });
+    });
+
+    describe('setNodeSelection', () => {
+        it('should create a NodeSelection at the specified position', () => {
+            // Using a heading because it places a selectable node at position 0.
+            const state = createEditorState('<h1>Test</h1>');
+            // Position 0 is immediately before the h1 node
+            const newState = setNodeSelection(state, 0);
+
+            expect(newState.selection).toBeInstanceOf(NodeSelection);
+            expect(newState.selection.from).toBe(0);
+        });
+
+        it('should return a new state object', () => {
+            const originalState = createEditorState('<h1>Test</h1>');
+            const newState = setNodeSelection(originalState, 0);
+
+            expect(newState).not.toBe(originalState);
         });
     });
 });

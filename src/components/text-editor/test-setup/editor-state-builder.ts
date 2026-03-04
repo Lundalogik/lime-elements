@@ -1,5 +1,4 @@
-/* eslint-disable multiline-ternary */
-import { EditorState, TextSelection, Plugin } from 'prosemirror-state';
+import { EditorState, TextSelection, NodeSelection, Plugin } from 'prosemirror-state';
 import { DOMParser, Schema } from 'prosemirror-model';
 import { createTestSchema } from './schema-builder';
 
@@ -18,8 +17,8 @@ export function createEditorState(
 ): EditorState {
     const editorSchema = schema || createTestSchema();
 
-    // eslint-disable-next-line prettier/prettier
-    const doc = content? parseContentToDoc(content, editorSchema)
+    const doc = content
+        ? parseContentToDoc(content, editorSchema)
         : editorSchema.topNodeType.createAndFill();
 
     return EditorState.create({
@@ -72,6 +71,22 @@ export function setTextSelection(
     to: number = from,
 ): EditorState {
     const selection = TextSelection.create(state.doc, from, to);
+
+    return state.apply(state.tr.setSelection(selection));
+}
+
+/**
+ * Sets a node selection on an existing editor state.
+ *
+ * @param state - The editor state to modify
+ * @param pos - Position immediately before the node to select
+ * @returns A new editor state with the specified node selection
+ */
+export function setNodeSelection(
+    state: EditorState,
+    pos: number,
+): EditorState {
+    const selection = NodeSelection.create(state.doc, pos);
 
     return state.apply(state.tr.setSelection(selection));
 }

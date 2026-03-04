@@ -1,4 +1,4 @@
-import { EditorState } from 'prosemirror-state';
+import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { createEditorState } from './editor-state-builder';
 import { createTestSchema } from './schema-builder';
@@ -26,7 +26,7 @@ export function createEditorView(
 
     const viewProps: {
         state: EditorState;
-        dispatchTransaction?: (tr: any) => void;
+        dispatchTransaction?: (tr: Transaction) => void;
     } = {
         state: editorState,
     };
@@ -57,8 +57,6 @@ export function createDispatchSpy(autoUpdate = true): jest.Mock {
         if (autoUpdate && viewRef) {
             viewRef.updateState(viewRef.state.apply(transaction));
         }
-
-        return transaction;
     });
 
     (spy as any).setView = (view: EditorView) => {
@@ -85,8 +83,51 @@ export function cleanupEditorView(
 }
 
 /**
+ * A lightweight mock for EditorView, suitable for unit tests that need a
+ * view-shaped object (e.g., commands that accept `view` as a third argument)
+ * but do not require real DOM mounting or plugin infrastructure.
+ */
+export interface MockEditorView {
+    state: EditorState;
+    dispatch: jest.Mock;
+    dom: HTMLElement;
+    destroy: jest.Mock;
+}
+
+/**
+ * Creates a lightweight mock EditorView for unit testing.
+ *
+ * Use this when you need a view-shaped object without real DOM mounting.
+ * For tests that require actual ProseMirror DOM rendering or plugin
+ * interaction, use `createEditorView` instead.
+ *
+ * Calling `mock.dispatch(tr)` updates `mock.state` (just like a real view),
+ * so subsequent reads of `mock.state` reflect the result of applied transactions.
+ *
+ * @param state - Optional editor state (creates a default empty state if omitted)
+ * @returns A MockEditorView with jest spy functions for dispatch and destroy
+ */
+export function createMockEditorView(state?: EditorState): MockEditorView {
+    const mock = {
+        state: state ?? createEditorState(),
+        dom: document.createElement('div'),
+        destroy: jest.fn(),
+    } as unknown as MockEditorView;
+
+    mock.dispatch = jest.fn((tr: Transaction) => {
+        mock.state = mock.state.apply(tr);
+    });
+
+    return mock;
+}
+
+/**
  * Sets up a minimal DOM environment for ProseMirror if one doesn't exist.
  * This is useful for testing in Node environments without a full DOM.
+ *
+ * **Note:** In this project's Vitest/jsdom test environment, `window` and `document`
+ * are always defined, so this function will be a no-op in normal test runs.
+ * It is only useful when running tests in a pure Node.js environment without jsdom.
  *
  * @returns A cleanup function to restore the original environment
  */
