@@ -45,6 +45,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-button-group](../button-group/examples)
  - [limel-example-button-group-icons](../button-group/examples)
  - [limel-example-button-group-mix](../button-group/examples)
+ - [limel-example-card-selected](../card/examples)
  - [limel-example-chart-axis-labels](../chart/examples)
  - [limel-example-checkbox](../checkbox/examples)
  - [limel-example-checkbox-readonly](../checkbox/examples)
@@ -116,6 +117,7 @@ graph TD;
   limel-example-button-group --> limel-switch
   limel-example-button-group-icons --> limel-switch
   limel-example-button-group-mix --> limel-switch
+  limel-example-card-selected --> limel-switch
   limel-example-chart-axis-labels --> limel-switch
   limel-example-checkbox --> limel-switch
   limel-example-checkbox-readonly --> limel-switch

@@ -7,14 +7,24 @@
 The Markdown component receives markdown syntax
 and renders it as HTML.
 
+A built-in set of lime-elements components is whitelisted by default
+and can be used directly in markdown content without any configuration.
+Consumers can extend this list via the `whitelist` prop or `limel-config`.
+
+When custom elements use JSON attribute values, any URL-bearing
+properties (`href`, `src`, `cite`, `longDesc`) are automatically
+sanitized using the same protocol allowlists as rehype-sanitize.
+URLs with dangerous schemes (e.g. `javascript:`, `data:`) are
+removed (with a console warning) to prevent script injection.
+
 ## Properties
 
-| Property                | Attribute                 | Description                                                                                                                                                                                                       | Type                        | Default                          |
-| ----------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- | -------------------------------- |
-| `lazyLoadImages`        | `lazy-load-images`        | Enable lazy loading for images                                                                                                                                                                                    | `boolean`                   | `false`                          |
-| `removeEmptyParagraphs` | `remove-empty-paragraphs` | Set to `false` to preserve empty paragraphs before rendering. Empty paragraphs are paragraphs that do not contain any meaningful content (text, images, etc.), or only contain whitespace (`<br />` or `&nbsp;`). | `boolean`                   | `true`                           |
-| `value`                 | `value`                   | The input text. Treated as GitHub Flavored Markdown, with the addition that any included HTML will be parsed and rendered as HTML, rather than as text.                                                           | `string`                    | `''`                             |
-| `whitelist`             | --                        | Whitelisted html elements.  Any custom element added here will not be sanitized and thus rendered. Can also be set via `limel-config`. Setting this property will override the global config.                     | `CustomElementDefinition[]` | `globalConfig.markdownWhitelist` |
+| Property                | Attribute                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Type                        | Default                          |
+| ----------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- | -------------------------------- |
+| `lazyLoadImages`        | `lazy-load-images`        | Enable lazy loading for images                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `boolean`                   | `false`                          |
+| `removeEmptyParagraphs` | `remove-empty-paragraphs` | Set to `false` to preserve empty paragraphs before rendering. Empty paragraphs are paragraphs that do not contain any meaningful content (text, images, etc.), or only contain whitespace (`<br />` or `&nbsp;`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | `boolean`                   | `true`                           |
+| `value`                 | `value`                   | The input text. Treated as GitHub Flavored Markdown, with the addition that any included HTML will be parsed and rendered as HTML, rather than as text.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `string`                    | `''`                             |
+| `whitelist`             | --                        | Additional whitelisted custom elements to render inside markdown.  A built-in set of lime-elements components (such as `limel-chip`, `limel-icon`, `limel-badge`, `limel-callout`, etc.) is always allowed by default. Any entries provided here are **merged** with those defaults — if both define the same `tagName`, their attributes are combined.  Can also be set via `limel-config`. Setting this property will override the global config.  JSON attribute values that contain URL-bearing properties (`href`, `src`, `cite`, `longDesc`) are automatically sanitized using the same protocol allowlists as rehype-sanitize. URLs with dangerous schemes (e.g. `javascript:`, `data:`) are removed (with a console warning). | `CustomElementDefinition[]` | `globalConfig.markdownWhitelist` |
 
 
 ## Dependencies
@@ -22,11 +32,13 @@ and renders it as HTML.
 ### Used by
 
  - [limel-card](../card)
+ - [limel-email-viewer](../email-viewer)
  - [limel-example-do-do-not](../../examples)
  - [limel-example-markdown-blockquotes](examples)
  - [limel-example-markdown-code](examples)
  - [limel-example-markdown-composite](examples)
  - [limel-example-markdown-custom-component](examples)
+ - [limel-example-markdown-custom-component-with-json-props](examples)
  - [limel-example-markdown-emphasis](examples)
  - [limel-example-markdown-footnotes](examples)
  - [limel-example-markdown-headings](examples)
@@ -48,11 +60,13 @@ and renders it as HTML.
 ```mermaid
 graph TD;
   limel-card --> limel-markdown
+  limel-email-viewer --> limel-markdown
   limel-example-do-do-not --> limel-markdown
   limel-example-markdown-blockquotes --> limel-markdown
   limel-example-markdown-code --> limel-markdown
   limel-example-markdown-composite --> limel-markdown
   limel-example-markdown-custom-component --> limel-markdown
+  limel-example-markdown-custom-component-with-json-props --> limel-markdown
   limel-example-markdown-emphasis --> limel-markdown
   limel-example-markdown-footnotes --> limel-markdown
   limel-example-markdown-headings --> limel-markdown
