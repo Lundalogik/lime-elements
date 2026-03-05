@@ -1,3 +1,10 @@
+## [39.5.5](https://github.com/Lundalogik/lime-elements/compare/v39.5.4...v39.5.5) (2026-03-05)
+
+### Bug Fixes
+
+
+* **select:** fix page scrolling to top when opening dropdown ([f2a7b9a](https://github.com/Lundalogik/lime-elements/commit/f2a7b9af5503d3cfdb8bda072baf192378bcb7af)), closes [Lundalogik/lime-elements#3831](https://github.com/Lundalogik/lime-elements/issues/3831)
+
 ## [39.5.4](https://github.com/Lundalogik/lime-elements/compare/v39.5.3...v39.5.4) (2026-03-02)
 
 ### Bug Fixes
