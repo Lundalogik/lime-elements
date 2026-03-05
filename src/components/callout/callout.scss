@@ -4,7 +4,16 @@
  * @prop --callout-color: Color used in the UI to add more contextual meaning about the type of the information. This color is different based on the chosen `type`, but you can override it using this prop.
 */
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    min-height: 0;
+    min-width: 0;
+}
+
 :host(limel-callout) {
+    box-sizing: border-box;
     display: flex;
     border-radius: 0.5rem;
     overflow: hidden;
