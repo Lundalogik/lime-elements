@@ -30,6 +30,7 @@
  - [limel-example-button-group-composite](../button-group/examples)
  - [limel-example-callout-composite](../callout/examples)
  - [limel-example-chip-set-composite](../chip-set/examples)
+ - [limel-example-code-editor-form](examples)
  - [limel-example-custom-component-form](examples)
  - [limel-example-custom-error-message](examples)
  - [limel-example-date-picker-composite](../date-picker/examples)
@@ -64,6 +65,7 @@ graph TD;
   limel-example-button-group-composite --> limel-form
   limel-example-callout-composite --> limel-form
   limel-example-chip-set-composite --> limel-form
+  limel-example-code-editor-form --> limel-form
   limel-example-custom-component-form --> limel-form
   limel-example-custom-error-message --> limel-form
   limel-example-date-picker-composite --> limel-form
