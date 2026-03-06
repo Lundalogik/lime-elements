@@ -1,3 +1,11 @@
+## [39.5.6](https://github.com/Lundalogik/lime-elements/compare/v39.5.5...v39.5.6) (2026-03-06)
+
+### Bug Fixes
+
+
+* **callout:** prevent slotted content from overflowing container ([07f1e06](https://github.com/Lundalogik/lime-elements/commit/07f1e064a683d63fcf4d3d8ecad3fbd231d73a7f))
+* **select:** use custom dropdown for multi-select on mobile ([2c73f24](https://github.com/Lundalogik/lime-elements/commit/2c73f2476fa1f7e876ba10ba2bec1a77822833b2)), closes [#3851](https://github.com/Lundalogik/lime-elements/issues/3851)
+
 ## [39.5.5](https://github.com/Lundalogik/lime-elements/compare/v39.5.4...v39.5.5) (2026-03-05)
 
 ### Bug Fixes
