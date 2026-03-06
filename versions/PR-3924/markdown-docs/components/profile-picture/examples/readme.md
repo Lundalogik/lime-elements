@@ -4,15 +4,7 @@
 
 ## Overview
 
-Styling
-
-Even though the component's main use case is displaying a profile picture—in
-which a file input, an image viewer, and other controls are combined within
-the same component—it can also be styled to fit different design requirements.
-
-Custom CSS property `--profile-picture-border-radius` can be used to customize
-the appearance of the component. Additionally, you can define a custom size or
-aspect ratio to render the image as desired.
+With pre-defined value
 
 ## Dependencies
 
@@ -24,8 +16,8 @@ aspect ratio to render the image as desired.
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-profile-picture-styling --> limel-profile-picture
-  limel-example-profile-picture-styling --> limel-example-value
+  limel-example-profile-picture-with-value --> limel-profile-picture
+  limel-example-profile-picture-with-value --> limel-example-value
   limel-profile-picture --> limel-tooltip
   limel-profile-picture --> limel-file-dropzone
   limel-profile-picture --> limel-file-input
@@ -42,7 +34,7 @@ graph TD;
   limel-icon-button --> limel-icon
   limel-icon-button --> limel-tooltip
   limel-callout --> limel-icon
-  style limel-example-profile-picture-styling fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-profile-picture-with-value fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
