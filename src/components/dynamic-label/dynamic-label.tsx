@@ -1,7 +1,7 @@
 import { getIconName } from '../icon/get-icon-props';
 import { Component, Prop, h } from '@stencil/core';
 import { Label, LabelValue } from './label.types';
-import { Icon } from '../../interface';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 
 /**
  * This components displays a different label depending on the current given
@@ -59,7 +59,7 @@ export class DynamicLabel {
         ];
     }
 
-    private renderIcon(icon?: string | Icon) {
+    private renderIcon(icon?: IconName | Icon) {
         const iconName = getIconName(icon);
         if (!iconName) {
             return;

@@ -1,4 +1,4 @@
-import { Icon } from '../../interface';
+import { IconName, Icon } from '../../interface';
 
 export type LabelValue = string | number | boolean | null | undefined;
 
@@ -22,5 +22,5 @@ export interface Label<T = LabelValue> {
     /**
      * Icon to display when the label is active
      */
-    icon?: string | Icon;
+    icon?: IconName | Icon;
 }

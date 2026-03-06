@@ -9,7 +9,7 @@ import {
     State,
 } from '@stencil/core';
 import { Image } from '../../global/shared-types/image.types';
-import { Icon } from '../../global/shared-types/icon.types';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 import { isItem } from '../action-bar/is-item';
 import { getIconName } from '../icon/get-icon-props';
 import { ListSeparator } from '../../global/shared-types/separator.types';
@@ -62,7 +62,7 @@ export class Card {
      * An icon, to display along with the heading and subheading.
      */
     @Prop({ reflect: true })
-    public icon?: string | Icon;
+    public icon?: IconName | Icon;
 
     /**
      * The content of the card.
