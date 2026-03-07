@@ -4,7 +4,7 @@ describe('limel-helper-line', () => {
     describe('renders when given valid props', () => {
         let root: HTMLElement;
         let waitForChanges: () => Promise<void>;
-        let setProps: (props: Record<string, any>) => void;
+        let setProps: (props: Record<string, any>) => Promise<void>;
 
         beforeEach(async () => {
             const result = await render(
@@ -43,7 +43,7 @@ describe('limel-helper-line', () => {
 
         describe('when changing the `length`, the counter is updated', () => {
             beforeEach(async () => {
-                setProps({ length: 12 });
+                await setProps({ length: 12 });
                 await waitForChanges();
             });
 
