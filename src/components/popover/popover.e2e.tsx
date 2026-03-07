@@ -31,7 +31,7 @@ describe('limel-popover', () => {
         );
         await waitForChanges();
 
-        setProps({ open: false });
+        await setProps({ open: false });
         await waitForChanges();
 
         expect((root as any).open).toBe(false);

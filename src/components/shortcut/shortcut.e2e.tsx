@@ -4,7 +4,7 @@ describe('limel-shortcut', () => {
     describe('with a label', () => {
         let root: HTMLElement;
         let waitForChanges: () => Promise<void>;
-        let setProps: (props: Record<string, any>) => void;
+        let setProps: (props: Record<string, any>) => Promise<void>;
 
         beforeEach(async () => {
             const result = await render(
@@ -28,7 +28,7 @@ describe('limel-shortcut', () => {
 
         describe('when changing the label', () => {
             beforeEach(async () => {
-                setProps({ label: 'imTired' });
+                await setProps({ label: 'imTired' });
                 await waitForChanges();
             });
 
@@ -47,7 +47,7 @@ describe('limel-shortcut', () => {
     describe('with `link` `title`', () => {
         let root: HTMLElement;
         let waitForChanges: () => Promise<void>;
-        let setProps: (props: Record<string, any>) => void;
+        let setProps: (props: Record<string, any>) => Promise<void>;
 
         beforeEach(async () => {
             const result = await render(
@@ -75,7 +75,7 @@ describe('limel-shortcut', () => {
 
         describe('when changing the `link` `title`', () => {
             beforeEach(async () => {
-                setProps({ link: { title: 'I need a cup of tea' } });
+                await setProps({ link: { title: 'I need a cup of tea' } });
                 await waitForChanges();
             });
 
@@ -98,7 +98,7 @@ describe('limel-shortcut', () => {
     describe('with a label and a `link` `title`', () => {
         let root: HTMLElement;
         let waitForChanges: () => Promise<void>;
-        let setProps: (props: Record<string, any>) => void;
+        let setProps: (props: Record<string, any>) => Promise<void>;
 
         beforeEach(async () => {
             const result = await render(
@@ -127,7 +127,7 @@ describe('limel-shortcut', () => {
 
         describe('when changing the `label`', () => {
             beforeEach(async () => {
-                setProps({ label: 'imTired' });
+                await setProps({ label: 'imTired' });
                 await waitForChanges();
             });
 
@@ -141,7 +141,7 @@ describe('limel-shortcut', () => {
 
         describe('when changing the `link` `title`', () => {
             beforeEach(async () => {
-                setProps({
+                await setProps({
                     link: { title: 'I need a cup of tea' },
                 });
                 await waitForChanges();
@@ -159,7 +159,7 @@ describe('limel-shortcut', () => {
     describe('with a value for badge', () => {
         let root: HTMLElement;
         let waitForChanges: () => Promise<void>;
-        let setProps: (props: Record<string, any>) => void;
+        let setProps: (props: Record<string, any>) => Promise<void>;
 
         beforeEach(async () => {
             const result = await render(
@@ -178,7 +178,7 @@ describe('limel-shortcut', () => {
 
         describe('when changing the badge value', () => {
             beforeEach(async () => {
-                setProps({ badge: '3' });
+                await setProps({ badge: '3' });
                 await waitForChanges();
             });
 

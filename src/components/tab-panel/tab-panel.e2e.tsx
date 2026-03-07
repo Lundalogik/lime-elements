@@ -42,7 +42,7 @@ describe('limel-tab-panel', () => {
             { id: 'foo', text: 'Foo' },
             { id: 'bar', text: 'Bar', active: true },
         ];
-        setProps({ tabs: newTabs });
+        await setProps({ tabs: newTabs });
         await waitForChanges();
 
         const fooDiv = root.querySelector('#foo') as HTMLElement;

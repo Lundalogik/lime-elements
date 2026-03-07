@@ -18,7 +18,7 @@ describe('limel-switch', () => {
             );
             await waitForChanges();
 
-            setProps({ label: 'new label' });
+            await setProps({ label: 'new label' });
             await waitForChanges();
 
             const label = root.shadowRoot.querySelector('label');
@@ -59,7 +59,7 @@ describe('limel-switch', () => {
             );
             await waitForChanges();
 
-            setProps({ value: true });
+            await setProps({ value: true });
             await waitForChanges();
 
             const mdcSwitch = root.shadowRoot.querySelector('.mdc-switch');
@@ -74,7 +74,7 @@ describe('limel-switch', () => {
             );
             await waitForChanges();
 
-            setProps({ value: false });
+            await setProps({ value: false });
             await waitForChanges();
 
             const mdcSwitch = root.shadowRoot.querySelector('.mdc-switch');
@@ -113,7 +113,7 @@ describe('limel-switch', () => {
             );
             await waitForChanges();
 
-            setProps({ disabled: true });
+            await setProps({ disabled: true });
             await waitForChanges();
 
             const mdcSwitch = root.shadowRoot.querySelector('.mdc-switch');
@@ -126,7 +126,7 @@ describe('limel-switch', () => {
             );
             await waitForChanges();
 
-            setProps({ disabled: false });
+            await setProps({ disabled: false });
             await waitForChanges();
 
             const mdcSwitch = root.shadowRoot.querySelector('.mdc-switch');

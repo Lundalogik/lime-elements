@@ -79,7 +79,7 @@ describe('limel-list-item', () => {
 
         expect(root.getAttribute('aria-selected')).toEqual('false');
 
-        setProps({ selected: true });
+        await setProps({ selected: true });
         await waitForChanges();
 
         expect(root.getAttribute('aria-selected')).toEqual('true');

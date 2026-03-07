@@ -4,7 +4,7 @@ describe('limel-collapsible-section', () => {
     describe('with a header and body', () => {
         let root: HTMLElement;
         let waitForChanges: () => Promise<void>;
-        let setProps: (props: Record<string, any>) => void;
+        let setProps: (props: Record<string, any>) => Promise<void>;
         let spyOnEvent: (eventName: string) => any;
 
         beforeEach(async () => {
@@ -33,7 +33,7 @@ describe('limel-collapsible-section', () => {
 
         describe('when changing the header', () => {
             it('displays the new header', async () => {
-                setProps({ header: 'new header' });
+                await setProps({ header: 'new header' });
                 await waitForChanges();
 
                 const header = root.shadowRoot.querySelector('header');
@@ -64,7 +64,7 @@ describe('limel-collapsible-section', () => {
                 const openSpy = spyOnEvent('open');
                 const closeSpy = spyOnEvent('close');
 
-                setProps({ isOpen: true });
+                await setProps({ isOpen: true });
                 await waitForChanges();
 
                 expect((root as any).isOpen).toEqual(true);
