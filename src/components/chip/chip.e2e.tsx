@@ -15,7 +15,7 @@ describe('limel-chip', () => {
         const { root, waitForChanges, setProps } = await render(
             <limel-chip></limel-chip>
         );
-        setProps({ link: { href: 'http://example.com' } });
+        await setProps({ link: { href: 'http://example.com' } });
         await waitForChanges();
 
         const linkElement = root.shadowRoot.querySelector('a');
