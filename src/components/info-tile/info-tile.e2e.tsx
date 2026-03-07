@@ -9,6 +9,7 @@ describe('limel-info-tile', () => {
             await waitForChanges();
 
             const valueGroup = root.shadowRoot!.querySelector('.value-group');
+            expect(valueGroup).not.toBeNull();
             expect(valueGroup.textContent).toEqual('Test value');
         });
     });
@@ -21,6 +22,7 @@ describe('limel-info-tile', () => {
             await waitForChanges();
 
             const label = root.shadowRoot!.querySelector('.label');
+            expect(label).not.toBeNull();
             expect(label.textContent).toEqual('Test label');
         });
     });

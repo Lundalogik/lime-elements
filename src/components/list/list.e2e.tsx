@@ -9,6 +9,7 @@ describe('limel-list', () => {
             await waitForChanges();
 
             const innerList = root.shadowRoot.querySelector('ul');
+            expect(innerList).not.toBeNull();
             expect(innerList.classList.contains('mdc-deprecated-list')).toBe(
                 true
             );
@@ -27,6 +28,7 @@ describe('limel-list', () => {
             await waitForChanges();
 
             const itemEl = root.shadowRoot.querySelector('limel-list-item');
+            expect(itemEl).not.toBeNull();
             expect(itemEl.classList.contains('mdc-deprecated-list-item')).toBe(
                 true
             );
@@ -87,6 +89,7 @@ describe('limel-list', () => {
 
             const separatorEl =
                 root.shadowRoot.querySelector('[role="separator"]');
+            expect(separatorEl).not.toBeNull();
             expect(
                 separatorEl.classList.contains('mdc-deprecated-list-divider')
             ).toBe(true);
@@ -153,6 +156,7 @@ describe('limel-list', () => {
                 await waitForChanges();
 
                 const innerList = root.shadowRoot.querySelector('ul');
+                expect(innerList).not.toBeNull();
                 expect(innerList.classList.contains('selectable')).toBe(false);
             });
         });
@@ -168,6 +172,7 @@ describe('limel-list', () => {
                 await waitForChanges();
 
                 const itemEl = root.shadowRoot.querySelector('limel-list-item');
+                expect(itemEl).not.toBeNull();
                 expect(itemEl.getAttribute('type')).toEqual('option');
                 expect(itemEl.getAttribute('role')).toEqual('option');
             });
@@ -192,6 +197,7 @@ describe('limel-list', () => {
                 await waitForChanges();
 
                 const item = root.shadowRoot.querySelector('limel-list-item');
+                expect(item).not.toBeNull();
                 (item as HTMLElement).click();
                 await waitForChanges();
 

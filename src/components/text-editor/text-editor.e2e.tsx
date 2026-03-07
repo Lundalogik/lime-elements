@@ -34,7 +34,7 @@ describe('limel-text-editor', () => {
         return { root: root as HTMLLimelTextEditorElement, waitForChanges };
     }
 
-    function getAdapter(root: HTMLElement): HTMLElement {
+    function getAdapter(root: HTMLElement): Element | null {
         return root.shadowRoot.querySelector('limel-prosemirror-adapter');
     }
 
@@ -52,13 +52,15 @@ describe('limel-text-editor', () => {
 
     test('default content type is markdown', async () => {
         const { root } = await createComponent();
-        const adapter = getAdapter(root) as any;
-        expect(adapter.contentType).toBe('markdown');
+        const adapter = getAdapter(root);
+        expect(adapter).not.toBeNull();
+        expect((adapter as any).contentType).toBe('markdown');
     });
 
     test('language attribute is set to en', async () => {
         const { root } = await createComponent();
         const adapter = getAdapter(root);
+        expect(adapter).not.toBeNull();
         expect(adapter.getAttribute('language')).toBe('en');
     });
 
@@ -67,9 +69,10 @@ describe('limel-text-editor', () => {
             contentType: 'html',
             value: '<p>test</p>',
         });
-        const adapter = getAdapter(root) as any;
-        expect(adapter.contentType).toBe('html');
-        expect(adapter.value).toBe('<p>test</p>');
+        const adapter = getAdapter(root);
+        expect(adapter).not.toBeNull();
+        expect((adapter as any).contentType).toBe('html');
+        expect((adapter as any).value).toBe('<p>test</p>');
     });
 
     test('placeholder is rendered as aria-placeholder on adapter', async () => {
@@ -78,6 +81,7 @@ describe('limel-text-editor', () => {
             placeholder: 'test placeholder',
         });
         const adapter = getAdapter(root);
+        expect(adapter).not.toBeNull();
         expect(adapter.getAttribute('aria-placeholder')).toBe(
             'test placeholder'
         );
@@ -89,6 +93,7 @@ describe('limel-text-editor', () => {
             disabled: true,
         });
         const adapter = getAdapter(root);
+        expect(adapter).not.toBeNull();
         expect(adapter.hasAttribute('aria-disabled')).toBe(true);
     });
 
@@ -98,6 +103,7 @@ describe('limel-text-editor', () => {
             disabled: false,
         });
         const adapter = getAdapter(root);
+        expect(adapter).not.toBeNull();
         expect(adapter.hasAttribute('aria-disabled')).toBe(false);
     });
 
@@ -108,6 +114,7 @@ describe('limel-text-editor', () => {
             'limel-notched-outline'
         ) as any;
         const adapter = getAdapter(root);
+        expect(adapter).not.toBeNull();
 
         const labelId = notchedOutline.labelId;
         expect(labelId).toBeTruthy();
