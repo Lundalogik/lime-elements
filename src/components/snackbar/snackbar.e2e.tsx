@@ -8,7 +8,7 @@ describe('limel-snackbar', () => {
             );
             await waitForChanges();
 
-            setProps({ open: true });
+            await setProps({ open: true });
             await waitForChanges();
 
             const popover = root.shadowRoot!.querySelector('[popover]');
@@ -29,7 +29,7 @@ describe('limel-snackbar', () => {
             );
             await waitForChanges();
 
-            setProps({ open: true });
+            await setProps({ open: true });
             await waitForChanges();
 
             const popover = root.shadowRoot!.querySelector('[popover]');
@@ -51,7 +51,7 @@ describe('limel-snackbar', () => {
             const actionSpy = spyOnEvent('action');
             await waitForChanges();
 
-            setProps({ open: true });
+            await setProps({ open: true });
             await waitForChanges();
 
             const button = root.shadowRoot!.querySelector('limel-button');

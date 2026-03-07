@@ -26,7 +26,7 @@ describe('limel-select (native)', () => {
             );
             await waitForChanges();
 
-            setProps({ label: 'new label' });
+            await setProps({ label: 'new label' });
             await waitForChanges();
 
             const label = root.shadowRoot.querySelector(
@@ -81,7 +81,7 @@ describe('limel-select (native)', () => {
             );
             await waitForChanges();
 
-            setProps({ disabled: true });
+            await setProps({ disabled: true });
             await waitForChanges();
 
             const container = root.shadowRoot.querySelector('.limel-select');
@@ -100,7 +100,7 @@ describe('limel-select (native)', () => {
             );
             await waitForChanges();
 
-            setProps({ disabled: false });
+            await setProps({ disabled: false });
             await waitForChanges();
 
             const container = root.shadowRoot.querySelector('.limel-select');
@@ -157,7 +157,7 @@ describe('limel-select (menu)', () => {
             );
             await waitForChanges();
 
-            setProps({ disabled: true });
+            await setProps({ disabled: true });
             await waitForChanges();
 
             const mdcSelect = root.shadowRoot.querySelector('.limel-select');
@@ -172,7 +172,7 @@ describe('limel-select (menu)', () => {
             );
             await waitForChanges();
 
-            setProps({ disabled: false });
+            await setProps({ disabled: false });
             await waitForChanges();
 
             const mdcSelect = root.shadowRoot.querySelector('.limel-select');

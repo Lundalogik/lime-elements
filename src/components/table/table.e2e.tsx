@@ -60,7 +60,7 @@ describe('limel-table', () => {
         await waitForChanges();
 
         const updatedData = [{ id: 1, name: 'Jane' }];
-        setProps({ data: updatedData });
+        await setProps({ data: updatedData });
         await waitForChanges();
 
         expect((root as any).data).toEqual(updatedData);

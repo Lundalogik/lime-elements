@@ -18,7 +18,7 @@ describe('limel-split-button', () => {
             );
             await waitForChanges();
 
-            setProps({ label: 'new Label' });
+            await setProps({ label: 'new Label' });
             await waitForChanges();
 
             const limelButton = root.shadowRoot!.querySelector('limel-button');

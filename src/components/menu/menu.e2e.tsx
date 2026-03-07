@@ -17,7 +17,7 @@ describe('limel-menu', () => {
         );
         await waitForChanges();
 
-        setProps({ open: true });
+        await setProps({ open: true });
         await waitForChanges();
 
         expect((root as any).open).toBe(true);

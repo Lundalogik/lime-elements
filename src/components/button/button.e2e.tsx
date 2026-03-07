@@ -18,7 +18,7 @@ describe('limel-button', () => {
             );
             await waitForChanges();
 
-            setProps({ label: 'new label' });
+            await setProps({ label: 'new label' });
             await waitForChanges();
 
             const innerButton = root.shadowRoot.querySelector('button');
@@ -49,7 +49,7 @@ describe('limel-button', () => {
             );
             await waitForChanges();
 
-            setProps({ primary: true });
+            await setProps({ primary: true });
             await waitForChanges();
             expect((root as any).primary).toBe(true);
         });
@@ -60,7 +60,7 @@ describe('limel-button', () => {
             );
             await waitForChanges();
 
-            setProps({ primary: false });
+            await setProps({ primary: false });
             await waitForChanges();
             expect((root as any).primary).toBeFalsy();
         });
@@ -95,7 +95,7 @@ describe('limel-button', () => {
             );
             await waitForChanges();
 
-            setProps({ disabled: true });
+            await setProps({ disabled: true });
             await waitForChanges();
 
             const innerButton = root.shadowRoot.querySelector('button');
@@ -108,7 +108,7 @@ describe('limel-button', () => {
             );
             await waitForChanges();
 
-            setProps({ disabled: false });
+            await setProps({ disabled: false });
             await waitForChanges();
 
             const innerButton = root.shadowRoot.querySelector('button');
@@ -147,7 +147,7 @@ describe('limel-button', () => {
             );
             await waitForChanges();
 
-            setProps({ loading: true });
+            await setProps({ loading: true });
             await waitForChanges();
 
             const innerButton = root.shadowRoot.querySelector('button');
@@ -160,7 +160,7 @@ describe('limel-button', () => {
             );
             await waitForChanges();
 
-            setProps({ loading: false });
+            await setProps({ loading: false });
             await waitForChanges();
 
             const innerButton = root.shadowRoot.querySelector('button');
@@ -174,7 +174,7 @@ describe('limel-button', () => {
             );
             await waitForChanges();
 
-            setProps({ loading: false, loadingFailed: true });
+            await setProps({ loading: false, loadingFailed: true });
             await waitForChanges();
 
             const innerButton = root.shadowRoot.querySelector('button');
