@@ -13,7 +13,7 @@ describe('limel-file-viewer', () => {
             await waitForChanges();
 
             const img = root.shadowRoot.querySelector('img');
-            expect(img).toBeTruthy();
+            expect(img).not.toBeNull();
             expect(img.getAttribute('src')).toContain('/assets/test.gif');
         });
 
@@ -58,7 +58,7 @@ describe('limel-file-viewer', () => {
             await waitForChanges();
 
             const obj = root.shadowRoot.querySelector('object');
-            expect(obj).toBeTruthy();
+            expect(obj).not.toBeNull();
             expect(obj.getAttribute('data')).toContain('/assets/file.txt');
         });
     });
