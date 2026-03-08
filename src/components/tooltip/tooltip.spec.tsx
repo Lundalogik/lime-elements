@@ -51,7 +51,8 @@ describe('limel-tooltip', () => {
 
     test('aria-hidden is set when the owner element is NOT hovered', async () => {
         const { content } = await setup();
-        expect(content?.hasAttribute('aria-hidden')).toBe(true);
+        expect(content).not.toBeNull();
+        expect(content!.hasAttribute('aria-hidden')).toBe(true);
     });
 
     test('aria-hidden is removed when the owner element is hovered', async () => {
@@ -63,6 +64,7 @@ describe('limel-tooltip', () => {
         const content = tooltip?.shadowRoot?.querySelector(
             'limel-tooltip-content'
         );
-        expect(content?.getAttribute('aria-hidden')).not.toBe('true');
+        expect(content).not.toBeNull();
+        expect(content!.getAttribute('aria-hidden')).not.toBe('true');
     });
 });

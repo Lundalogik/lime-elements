@@ -86,12 +86,13 @@ describe('limel-file-viewer officeViewer', () => {
 
     for (const testCase of testCases) {
         it(`renders using ${testCase.officeViewer} officeViewer`, async () => {
-            const { root } = await render(
+            const { root, waitForChanges } = await render(
                 <limel-file-viewer
                     url={testCase.url}
                     officeViewer={testCase.officeViewer}
                 ></limel-file-viewer>
             );
+            await waitForChanges();
 
             expect(root).toBeDefined();
         });
