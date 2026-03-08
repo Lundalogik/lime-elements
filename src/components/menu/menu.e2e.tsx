@@ -46,7 +46,7 @@ describe('limel-menu', () => {
             await waitForChanges();
 
             const defaultButton = root.querySelector('button[slot="trigger"]');
-            expect(defaultButton.getAttribute('aria-haspopup')).toBeTruthy();
+            expect(defaultButton.getAttribute('aria-haspopup')).toBe('true');
             expect(defaultButton.getAttribute('role')).toEqual('button');
         });
 
