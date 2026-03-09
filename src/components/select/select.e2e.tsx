@@ -85,9 +85,11 @@ describe('limel-select (native)', () => {
             await waitForChanges();
 
             const container = root.shadowRoot.querySelector('.limel-select');
+            const innerSelect = root.shadowRoot.querySelector('select');
             expect(container.classList.contains('mdc-select--disabled')).toBe(
                 true
             );
+            expect(innerSelect.hasAttribute('disabled')).toBe(true);
         });
 
         it('becomes enabled when property changes to false', async () => {
@@ -104,9 +106,11 @@ describe('limel-select (native)', () => {
             await waitForChanges();
 
             const container = root.shadowRoot.querySelector('.limel-select');
+            const innerSelect = root.shadowRoot.querySelector('select');
             expect(container.classList.contains('mdc-select--disabled')).toBe(
                 false
             );
+            expect(innerSelect.hasAttribute('disabled')).toBe(false);
         });
     });
 });
@@ -123,6 +127,21 @@ describe('limel-select (menu)', () => {
                 '.limel-notched-outline--notch label'
             );
             expect(label.textContent).toEqual('Favourite Doctor');
+        });
+
+        it('displays the new label when changed', async () => {
+            const { root, waitForChanges, setProps } = await render(
+                <limel-select label="Favourite Doctor"></limel-select>
+            );
+            await waitForChanges();
+
+            await setProps({ label: 'new label' });
+            await waitForChanges();
+
+            const label = root.shadowRoot.querySelector(
+                '.limel-notched-outline--notch label'
+            );
+            expect(label.textContent).toEqual('new label');
         });
     });
 
