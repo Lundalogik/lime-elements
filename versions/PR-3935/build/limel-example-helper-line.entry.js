@@ -1,0 +1,1 @@
+import{r as e,h as t}from"./index-DBTJNfo7.js";const r=class{constructor(t){e(this,t)}render(){return t("limel-helper-line",{key:"174e82651490cdedca5f62db3ac00fe87fac8774",helperText:"Do not forget to forget things!",length:10,maxLength:20,helperTextId:"tf-helper-text"})}};export{r as limel_example_helper_line}
