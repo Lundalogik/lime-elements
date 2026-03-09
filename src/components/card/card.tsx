@@ -25,6 +25,7 @@ import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
  * @exampleComponent limel-example-card-image
  * @exampleComponent limel-example-card-actions
  * @exampleComponent limel-example-card-clickable
+ * @exampleComponent limel-example-card-3d-effect
  * @exampleComponent limel-example-card-selected
  * @exampleComponent limel-example-card-orientation
  * @exampleComponent limel-example-card-slot
@@ -98,6 +99,13 @@ export class Card {
      */
     @Prop({ reflect: true })
     public selected: boolean = false;
+
+    /**
+     * When `true`, the card displays a glow effect on hover,
+     * following the 3D tilt hover effect.
+     */
+    @Prop({ reflect: true })
+    public show3dEffect: boolean = true;
 
     /**
      * Fired when a action bar item has been clicked.
@@ -200,8 +208,12 @@ export class Card {
     public render() {
         return (
             <Host
-                onMouseEnter={this.handleMouseEnter}
-                onMouseLeave={this.handleMouseLeave}
+                onMouseEnter={
+                    this.show3dEffect ? this.handleMouseEnter : undefined
+                }
+                onMouseLeave={
+                    this.show3dEffect ? this.handleMouseLeave : undefined
+                }
             >
                 <section
                     tabindex={this.clickable ? 0 : undefined}
@@ -218,7 +230,7 @@ export class Card {
                         {this.renderValue()}
                         {this.renderActionBar()}
                     </div>
-                    <limel-3d-hover-effect-glow />
+                    {this.show3dEffect && <limel-3d-hover-effect-glow />}
                 </section>
             </Host>
         );
