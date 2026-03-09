@@ -258,5 +258,43 @@ describe('limel-chip-set', () => {
                 removable: true,
             });
         });
+
+        describe('when disabled', () => {
+            it('hides the remove button on removable chips', async () => {
+                const { root, waitForChanges } = await render(
+                    <limel-chip-set
+                        type="input"
+                        disabled={true}
+                        value={getValue()}
+                    ></limel-chip-set>
+                );
+                await waitForChanges();
+
+                const chips = root.shadowRoot!.querySelectorAll('limel-chip');
+                const firstChip = chips[0];
+                const removeButton =
+                    firstChip.shadowRoot?.querySelector('.remove-button');
+                expect(removeButton).toBeNull();
+            });
+        });
+
+        describe('when readonly', () => {
+            it('hides the remove button on removable chips', async () => {
+                const { root, waitForChanges } = await render(
+                    <limel-chip-set
+                        type="input"
+                        readonly={true}
+                        value={getValue()}
+                    ></limel-chip-set>
+                );
+                await waitForChanges();
+
+                const chips = root.shadowRoot!.querySelectorAll('limel-chip');
+                const firstChip = chips[0];
+                const removeButton =
+                    firstChip.shadowRoot?.querySelector('.remove-button');
+                expect(removeButton).toBeNull();
+            });
+        });
     });
 });
