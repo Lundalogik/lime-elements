@@ -57,6 +57,62 @@ describe('limel-collapsible-section', () => {
                 expect(openSpy).toHaveReceivedEventTimes(1);
                 expect(closeSpy).not.toHaveReceivedEvent();
             });
+
+            it('closes and emits close event when clicked again', async () => {
+                const toggle =
+                    root.shadowRoot.querySelector('.open-close-toggle');
+
+                // Open first
+                (toggle as HTMLElement).click();
+                await waitForChanges();
+                expect((root as any).isOpen).toEqual(true);
+
+                // Now set up spies and close
+                const openSpy = spyOnEvent('open');
+                const closeSpy = spyOnEvent('close');
+
+                (toggle as HTMLElement).click();
+                await waitForChanges();
+
+                expect((root as any).isOpen).toEqual(false);
+                const body = root.shadowRoot.querySelector('.body');
+                expect(body.getAttribute('aria-hidden')).toEqual('true');
+                expect(closeSpy).toHaveReceivedEventTimes(1);
+                expect(openSpy).not.toHaveReceivedEvent();
+            });
+        });
+
+        describe('keyboard accessibility', () => {
+            it('has a focusable toggle button', () => {
+                const toggle = root.shadowRoot.querySelector(
+                    '.open-close-toggle'
+                ) as HTMLElement;
+                expect(toggle.tagName.toLowerCase()).toEqual('button');
+            });
+
+            it('has correct aria-expanded when collapsed', () => {
+                const toggle =
+                    root.shadowRoot.querySelector('.open-close-toggle');
+                expect(toggle.getAttribute('aria-expanded')).toEqual('false');
+            });
+
+            it('has correct aria-expanded when open', async () => {
+                await setProps({ isOpen: true });
+                await waitForChanges();
+
+                const toggle =
+                    root.shadowRoot.querySelector('.open-close-toggle');
+                expect(toggle.getAttribute('aria-expanded')).toEqual('true');
+            });
+
+            it('has aria-controls pointing to the body region', () => {
+                const toggle =
+                    root.shadowRoot.querySelector('.open-close-toggle');
+                const body = root.shadowRoot.querySelector('.body');
+                expect(toggle.getAttribute('aria-controls')).toEqual(
+                    body.getAttribute('id')
+                );
+            });
         });
 
         describe('when setting `isOpen` to `true`', () => {
