@@ -213,7 +213,7 @@ limel-3d-hover-effect-glow {
     border-radius: var(--card-border-radius, $default-border-radius);
 }
 
-:host(limel-card) {
+:host(limel-card[show-3d-effect]) {
     @include mixins.parent-of-the-3d-element;
 }
 

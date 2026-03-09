@@ -223,6 +223,7 @@ export namespace Components {
         "image"?: Image_2;
         "orientation": 'landscape' | 'portrait';
         "selected": boolean;
+        "show3dEffect": boolean;
         "subheading"?: string;
         "value"?: string;
     }
@@ -1657,6 +1658,7 @@ export namespace JSX {
         "onActionSelected"?: (event: LimelCardCustomEvent<ActionBarItem>) => void;
         "orientation"?: 'landscape' | 'portrait';
         "selected"?: boolean;
+        "show3dEffect"?: boolean;
         "subheading"?: string;
         "value"?: string;
     }
@@ -1673,6 +1675,8 @@ export namespace JSX {
         "orientation": 'landscape' | 'portrait';
         // (undocumented)
         "selected": boolean;
+        // (undocumented)
+        "show3dEffect": boolean;
         // (undocumented)
         "subheading": string;
         // (undocumented)
