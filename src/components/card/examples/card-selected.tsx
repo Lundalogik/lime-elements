@@ -1,7 +1,7 @@
 import { Component, h, State } from '@stencil/core';
 
 /**
- * Example: Card with selectable state
+ * Card with selectable state
  */
 @Component({
     tag: 'limel-example-card-selected',
@@ -36,11 +36,13 @@ export class LimelExampleCardSelected {
                     clickable={true}
                     onClick={this.toggleSelected}
                 />
-                <limel-switch
-                    label="Selected"
-                    value={this.selected}
-                    onChange={this.handleSwitchChange}
-                />
+                <limel-example-controls>
+                    <limel-switch
+                        label="Selected"
+                        value={this.selected}
+                        onChange={this.handleSwitchChange}
+                    />
+                </limel-example-controls>
             </div>
         );
     }
