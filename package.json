@@ -123,6 +123,7 @@
   "homepage": "https://github.com/Lundalogik/lime-elements#readme",
   "packageManager": "npm@>=10.9",
   "dependencies": {
+    "diff": "^7.0.0",
     "sortablejs": "^1.15.6"
   }
 }
