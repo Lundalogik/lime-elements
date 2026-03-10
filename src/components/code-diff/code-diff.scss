@@ -1,0 +1,474 @@
+@use '../../style/mixins';
+
+/**
+ * @prop --code-diff-max-height: Maximum height before scrolling, defaults to `none` (no limit).
+ * @prop --code-diff-font-size: Font size of the diff content, defaults to `0.75rem`.
+ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 0;
+}
+
+:host(limel-code-diff) {
+    // Colors that are the same in both light and dark modes
+    --diff-added-bg: rgb(var(--color-green-default), 0.1);
+    --diff-added-bg-hover: rgb(var(--color-green-default), 0.3);
+    --diff-added-highlight-bg: rgb(var(--color-green-default), 0.3);
+    --diff-removed-bg: rgb(var(--color-red-default), 0.1);
+    --diff-removed-bg-hover: rgb(var(--color-red-default), 0.3);
+    --diff-removed-highlight-bg: rgb(var(--color-red-default), 0.3);
+    --diff-context-bg: transparent;
+    --diff-indicator-added-color: rgb(var(--color-green-default));
+    --diff-indicator-removed-color: rgb(var(--color-red-default));
+    --diff-stat-added-color: rgb(var(--color-green-default));
+    --diff-stat-removed-color: rgb(var(--color-red-default));
+    --search-match-bg: rgb(var(--color-amber-default), 0.3);
+    --search-match-current-bg: rgb(var(--color-amber-default), 0.6);
+
+    --diff-line-hover-bg: rgb(var(--contrast-800), 0.08);
+    --diff-gutter-bg: rgb(var(--contrast-200));
+    --diff-gutter-text-color: rgb(var(--contrast-700));
+    --diff-text-color: rgb(var(--contrast-1100));
+    --diff-border-color: rgb(var(--contrast-400));
+    --diff-collapsed-bg: rgb(var(--contrast-200));
+    --diff-collapsed-text-color: rgb(var(--contrast-800));
+    --diff-header-bg: rgb(var(--contrast-200));
+    --diff-empty-text-color: rgb(var(--contrast-700));
+    --diff-split-divider-color: rgb(var(--contrast-400));
+    --diff-empty-cell-bg: rgb(var(--contrast-100));
+
+    // Syntax highlighting
+    --syntax-string-color: rgb(var(--color-green-dark));
+    --syntax-number-color: rgb(var(--color-blue-default));
+    --syntax-boolean-color: rgb(var(--color-amber-darker));
+    --syntax-key-color: rgb(var(--color-sky-dark));
+    --syntax-null-color: rgb(var(--contrast-700));
+    --syntax-punctuation-color: rgb(var(--contrast-700));
+
+    // Search
+    --search-bar-bg: rgb(var(--contrast-100));
+    --search-bar-border: rgb(var(--contrast-400));
+
+    --limel-code-diff-line-number-padding: 0.25rem;
+
+    @include mixins.font-family(sans-serif);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    color: var(--diff-text-color);
+    border: 1px solid var(--diff-border-color);
+    border-radius: 0.5rem;
+    max-height: var(--code-diff-max-height, none);
+}
+
+.screen-reader-only {
+    @include mixins.visually-hidden();
+}
+
+// ─── Header ──────────────────────────────────────────────────────────
+.diff-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.125rem 0.125rem 0.125rem 0.5rem;
+    background: var(--diff-header-bg);
+    border-bottom: 1px solid var(--diff-border-color);
+    @include mixins.font-family(sans-serif);
+    font-size: 0.75rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.diff-header__labels {
+    display: flex;
+    gap: 0.75rem;
+    font-weight: 500;
+}
+
+.diff-header__old,
+.diff-header__new {
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    box-shadow: var(--shadow-brighten-edges-outside);
+}
+
+.diff-header__old {
+    background-color: var(--diff-removed-bg);
+}
+
+.diff-header__new {
+    background-color: var(--diff-added-bg);
+}
+
+.diff-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.search-toggle--active {
+    --limel-theme-on-surface-color: var(--mdc-theme-primary);
+}
+
+.diff-header__stats {
+    @include mixins.font-family(monospace);
+
+    display: flex;
+    gap: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.stat {
+    @include mixins.font-family(monospace);
+    font-size: 0.8125rem;
+    font-weight: 600;
+
+    &--added {
+        color: var(--diff-stat-added-color);
+    }
+
+    &--removed {
+        color: var(--diff-stat-removed-color);
+    }
+}
+
+// ─── Search bar ──────────────────────────────────────────────────────
+.search-bar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0 0.25rem 0.25rem;
+    background: var(--search-bar-bg);
+    border-bottom: 1px solid var(--search-bar-border);
+
+    limel-action-bar {
+        --action-bar-background-color: transparent;
+        min-width: 2.5rem;
+        flex-shrink: 0;
+    }
+
+    limel-input-field {
+        flex-grow: 1;
+    }
+
+    &__count {
+        color: var(--diff-collapsed-text-color);
+        white-space: nowrap;
+        min-width: 4rem;
+        text-align: center;
+        font-size: 0.75rem;
+    }
+}
+
+// ─── Search match highlights ─────────────────────────────────────────
+.search-match {
+    background: var(--search-match-bg);
+    color: inherit;
+    border-radius: 0.125rem;
+
+    &--current {
+        background: var(--search-match-current-bg);
+        outline: 1px solid rgb(var(--color-amber-dark), 0.5);
+    }
+}
+
+// ─── Change group (hover copy) ───────────────────────────────────────
+.change-group {
+    position: relative;
+
+    &__copy {
+        --icon-background-color: rgb(var(--contrast-100));
+        scale: 0.9;
+        position: absolute;
+        top: 0.125rem;
+        right: 0.5rem;
+        display: none;
+    }
+
+    &:hover &__copy {
+        display: inline-flex;
+    }
+}
+
+// ─── Diff body ───────────────────────────────────────────────────────
+.diff-body {
+    flex-grow: 1;
+    overflow-x: auto;
+    @include mixins.font-family(monospace);
+    font-size: var(--code-diff-font-size, 0.75rem);
+
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: 0.125rem solid rgb(var(--color-blue-default));
+        outline-offset: 0.125rem;
+        border-radius: 0.25rem;
+    }
+}
+
+// ─── Unified diff lines ─────────────────────────────────────────────
+.diff-line {
+    display: flex;
+    align-items: stretch;
+    min-height: 1.25rem;
+    line-height: 1.25rem;
+
+    &:hover {
+        .line-content {
+            transition-duration: 0.2s;
+            background: var(--diff-line-hover-bg);
+        }
+    }
+
+    &--added {
+        .line-content {
+            background: var(--diff-added-bg);
+        }
+
+        .line-indicator {
+            color: var(--diff-indicator-added-color);
+        }
+
+        &:hover .line-content {
+            background: var(--diff-added-bg-hover);
+        }
+    }
+
+    &--removed {
+        .line-content {
+            background: var(--diff-removed-bg);
+        }
+
+        .line-indicator {
+            color: var(--diff-indicator-removed-color);
+        }
+
+        &:hover .line-content {
+            background: var(--diff-removed-bg-hover);
+        }
+    }
+
+    &--context {
+        .line-content {
+            background: var(--diff-context-bg);
+        }
+    }
+
+    &--collapsed {
+        display: flex;
+        justify-content: center;
+        background: var(--diff-collapsed-bg);
+        border-top: 1px solid var(--diff-border-color);
+        border-bottom: 1px solid var(--diff-border-color);
+    }
+
+    &--focused {
+        outline: 0.125rem solid rgb(var(--color-blue-default));
+        outline-offset: -0.125rem;
+        z-index: 1;
+    }
+}
+
+// ─── Line numbers ────────────────────────────────────────────────────
+.line-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: calc(1ch + 2 * var(--limel-code-diff-line-number-padding));
+    width: var(
+        --limel-line-number-min-width
+    ); // is calculated in the tsx, and set as an inline style on the Host element
+    padding: 0 var(--limel-code-diff-line-number-padding);
+    background: var(--diff-gutter-bg);
+    color: var(--diff-gutter-text-color);
+    user-select: none;
+    text-align: right;
+    flex-shrink: 0;
+
+    &--old {
+        border-right: 1px solid var(--diff-border-color);
+    }
+}
+
+// ─── Indicator (+/-/space) ───────────────────────────────────────────
+.line-indicator {
+    // position: sticky;
+    // left: calc(2 * #{$line-number-min-width});
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    flex-shrink: 0;
+    user-select: none;
+    font-weight: 600;
+    background: var(--diff-gutter-bg);
+}
+
+// ─── Line content ────────────────────────────────────────────────────
+.line-content {
+    flex: 1;
+    padding: 0 0.75rem;
+    white-space: pre;
+    overflow-x: visible;
+    min-width: 0;
+    transition: background-color 0.6s ease;
+}
+
+// ─── Word-level highlight marks ──────────────────────────────────────
+mark {
+    background: transparent;
+    color: inherit;
+    border-radius: 0.125rem;
+
+    &.segment--added {
+        background: var(--diff-added-highlight-bg);
+    }
+
+    &.segment--removed {
+        background: var(--diff-removed-highlight-bg);
+    }
+}
+
+// ─── Syntax highlighting tokens ──────────────────────────────────────
+.syntax--string {
+    color: var(--syntax-string-color);
+}
+
+.syntax--number {
+    color: var(--syntax-number-color);
+}
+
+.syntax--boolean {
+    color: var(--syntax-boolean-color);
+}
+
+.syntax--null {
+    color: var(--syntax-null-color);
+    font-style: italic;
+}
+
+.syntax--key {
+    color: var(--syntax-key-color);
+}
+
+.syntax--punctuation {
+    color: var(--syntax-punctuation-color);
+}
+
+// ─── Expand button ───────────────────────────────────────────────────
+.expand-button {
+    all: unset;
+    @include mixins.is-flat-clickable();
+    @include mixins.visualize-keyboard-focus();
+    padding: 0 0.75rem;
+    border-radius: 0.25rem;
+    margin: 0.125rem;
+    width: calc(100% - 0.25rem);
+    text-align: center;
+}
+
+// ─── Empty state ─────────────────────────────────────────────────────
+.diff-empty {
+    padding: 2rem;
+    text-align: center;
+    color: var(--diff-empty-text-color);
+    font-style: italic;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// ─── Split (side-by-side) view ──────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════
+
+.diff-line--split {
+    display: flex;
+    align-items: stretch;
+    min-height: 1.25rem;
+    line-height: 1.25rem;
+
+    &:hover {
+        .split-content--removed {
+            background: var(--diff-removed-bg-hover);
+        }
+
+        .split-content--added {
+            background: var(--diff-added-bg-hover);
+        }
+
+        .split-content--context {
+            background: var(--diff-line-hover-bg);
+        }
+    }
+}
+
+.split-content {
+    flex: 1;
+    padding: 0 0.75rem;
+    white-space: pre;
+    overflow-x: visible;
+    min-width: 0;
+
+    &--left {
+        border-right: 1px solid var(--diff-split-divider-color);
+    }
+
+    &--removed {
+        background: var(--diff-removed-bg);
+    }
+
+    &--added {
+        background: var(--diff-added-bg);
+    }
+
+    &--context {
+        background: var(--diff-context-bg);
+    }
+
+    &--empty {
+        background: var(--diff-empty-cell-bg);
+    }
+}
+
+.split-content--left {
+    // in split mode, prevents the content of left side to
+    // leak under the right side when long lines are not wrapped
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
+.change-group:has(.diff-line--split) > .change-group__copy {
+    right: calc(50% - var(--limel-line-number-min-width));
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// ─── Line wrap mode ─────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════
+
+:host(limel-code-diff[line-wrapping]) {
+    .diff-body {
+        overflow-x: hidden;
+    }
+
+    .line-content,
+    .split-content {
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        word-break: break-all;
+    }
+
+    // In split view, constrain each side to 50% so wrapping kicks in
+    .diff-line--split {
+        .split-content {
+            flex: 1 1 0%;
+            max-width: calc(50% - var(--limel-line-number-min-width));
+        }
+    }
+}
