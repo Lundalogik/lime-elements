@@ -1,3 +1,10 @@
+## [39.5.7](https://github.com/Lundalogik/lime-elements/compare/v39.5.6...v39.5.7) (2026-03-10)
+
+### Bug Fixes
+
+
+* **card:** make 3d effect optional ([48bef5a](https://github.com/Lundalogik/lime-elements/commit/48bef5a65837aceeb30be3bc65e7c3fd15ac14ed))
+
 ## [39.5.6](https://github.com/Lundalogik/lime-elements/compare/v39.5.5...v39.5.6) (2026-03-06)
 
 ### Bug Fixes
