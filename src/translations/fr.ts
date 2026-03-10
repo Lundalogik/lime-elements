@@ -53,10 +53,10 @@ export default {
     'file-viewer.email.remote-images.warning':
         'Les images ne sont pas chargées afin de protéger votre vie privée.',
     'file-viewer.email.remote-images.warning.description': `De nombreux e-mails contiennent des images hébergées sur des serveurs externes.
-Lorsque les images sont chargées, votre appareil les demande au serveur de l’expéditeur.
-Cela peut révéler à l’expéditeur que vous avez ouvert le message, quand vous l’avez ouvert, ainsi que des métadonnées telles que votre adresse IP et des informations sur votre appareil/navigateur.
+Lorsque les images sont chargées, votre appareil les demande au serveur de l'expéditeur.
+Cela peut révéler à l'expéditeur que vous avez ouvert le message, quand vous l'avez ouvert, ainsi que des métadonnées telles que votre adresse IP et des informations sur votre appareil/navigateur.
 
-Vous pouvez laisser les images bloquées (l’e-mail peut sembler incomplet) ou les charger si vous faites confiance à l’expéditeur.`,
+Vous pouvez laisser les images bloquées (l'e-mail peut sembler incomplet) ou les charger si vous faites confiance à l'expéditeur.`,
     'file-viewer.email.remote-images.load': 'Charger les images',
     'editor-menu.bold': 'Gras',
     'editor-menu.italic': 'Italique',
@@ -83,7 +83,39 @@ Vous pouvez laisser les images bloquées (l’e-mail peut sembler incomplet) ou 
     'ai-avatar.thinking': 'en réflexion',
     'table.select-all': 'Sélectionner toutes les lignes',
     'table.select-row': 'Sélectionner cette ligne',
-    'profile-picture.remove': 'Supprimer l’image sélectionnée',
+    'code-diff.table-label': 'Comparaison de code',
+    'code-diff.no-differences': 'Aucune différence',
+    'code-diff.no-differences-found': 'Aucune différence trouvée',
+    'code-diff.copy-old-version':
+        'Copier l\u2019ancienne version dans le presse-papiers',
+    'code-diff.copied': 'Copié !',
+    'code-diff.copied-to-clipboard': 'Copié dans le presse-papiers',
+    'code-diff.copy-change':
+        'Copier l\u2019ancienne version de cette modification',
+    'code-diff.search': 'Rechercher dans les lignes supprimées',
+    'code-diff.previous-match': 'Correspondance précédente',
+    'code-diff.next-match': 'Correspondance suivante',
+    'code-diff.close-search': 'Fermer la recherche',
+    'code-diff.no-matches': 'Aucune correspondance',
+    'code-diff.match-count': '{ current } sur { total }',
+    'code-diff.hidden-lines': '··· { count } lignes masquées ···',
+    'code-diff.show-hidden-lines': 'Afficher { count } lignes masquées',
+    'code-diff.expanded-lines': 'Lignes masquées affichées',
+    'code-diff.expanded-lines-end': 'Lignes masquées à la fin affichées',
+    'code-diff.line-added': 'Ajouté',
+    'code-diff.line-removed': 'Supprimé',
+    'code-diff.line-context': 'Inchangé',
+    'code-diff.old-line': 'Ancienne ligne { number }',
+    'code-diff.new-line': 'Nouvelle ligne { number }',
+    'code-diff.diff-addition': '{ count } ajout',
+    'code-diff.diff-additions': '{ count } ajouts',
+    'code-diff.diff-deletion': '{ count } suppression',
+    'code-diff.diff-deletions': '{ count } suppressions',
+    'code-diff.old-heading': 'Original',
+    'code-diff.new-heading': 'Modifié',
+    'code-diff.diff-summary':
+        'Diff : { parts }. Utilisez les touches fléchées pour naviguer.',
+    'profile-picture.remove': 'Supprimer l\u2019image sélectionnée',
     'profile-picture.unsupported-preview.title':
         "Format d'image non pris en charge",
     'profile-picture.unsupported-preview.description':
