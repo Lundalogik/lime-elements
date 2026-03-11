@@ -3,6 +3,9 @@ import { Component, h, Host, State } from '@stencil/core';
 
 /**
  * List with Pictures and Icons
+ * A list item can display a picture, an icon, or both simultaneously.
+ * By default, the picture has a rounded shape, but you can customize it
+ * using the `--list-item-image-border-radius` CSS custom property.
  *
  * :::note
  * While it's technically possible to display both images and icons simultaneously
