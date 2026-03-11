@@ -1,0 +1,1 @@
+const n=window.navigator.userAgent;function i(){return/iPad|iPhone|iPod/i.test(n)&&!window.MSStream}function o(){return/Android/i.test(n)}function r(){return o()||i()}export{i as a,o as b,r as i}
