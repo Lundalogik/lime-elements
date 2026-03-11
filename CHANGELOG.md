@@ -1,3 +1,10 @@
+## [39.6.0](https://github.com/Lundalogik/lime-elements/compare/v39.5.7...v39.6.0) (2026-03-11)
+
+### Features
+
+
+* **list:** add `--list-item-image-border-radius` custom CSS prop ([31bb9ae](https://github.com/Lundalogik/lime-elements/commit/31bb9ae62d0338d13c0eaa01c10b2afa48530607))
+
 ## [39.5.7](https://github.com/Lundalogik/lime-elements/compare/v39.5.6...v39.5.7) (2026-03-10)
 
 ### Bug Fixes
