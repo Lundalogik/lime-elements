@@ -2,6 +2,7 @@
  * @prop --notification-badge-text-color: (Publicly documented in `limel-menu` too) Defines the text color of notification badges. Defaults to `--color-white`.
  * @prop --notification-badge-background-color: (Publicly documented in `limel-menu` too) Defines the background color of notification badges. Defaults to `--color-red-default`.
  * @prop --limel-list-item-menu-order: Defines the order of the menu, within the list item's flexbox. Defaults to `3`.
+ * @prop --list-item-image-border-radius: Defines the border radius of the list item image. Defaults to `50%`.
  */
 
 @use '../../style/mixins';
@@ -141,7 +142,7 @@ limel-list-item {
     img {
         flex-shrink: 0;
         object-fit: cover;
-        border-radius: 50%;
+        border-radius: var(--list-item-image-border-radius, 50%);
         width: 2rem;
         height: 2rem;
         box-shadow: 0 0 0 1px rgb(var(--contrast-800), 0.5);
