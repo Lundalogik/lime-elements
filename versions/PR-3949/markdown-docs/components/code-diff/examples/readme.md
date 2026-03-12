@@ -21,6 +21,11 @@ to see exactly what changed.
 ```mermaid
 graph TD;
   limel-example-code-diff-split --> limel-code-diff
+  limel-code-diff --> limel-icon-button
+  limel-icon-button --> limel-icon
+  limel-icon-button --> limel-tooltip
+  limel-tooltip --> limel-portal
+  limel-tooltip --> limel-tooltip-content
   style limel-example-code-diff-split fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -39,9 +39,18 @@ and collapsible unchanged context sections.
  - [limel-example-code-diff-line-wrap](examples)
  - [limel-example-code-diff-split](examples)
 
+### Depends on
+
+- [limel-icon-button](../icon-button)
+
 ### Graph
 ```mermaid
 graph TD;
+  limel-code-diff --> limel-icon-button
+  limel-icon-button --> limel-icon
+  limel-icon-button --> limel-tooltip
+  limel-tooltip --> limel-portal
+  limel-tooltip --> limel-tooltip-content
   limel-example-code-diff --> limel-code-diff
   limel-example-code-diff-expand --> limel-code-diff
   limel-example-code-diff-headings --> limel-code-diff
