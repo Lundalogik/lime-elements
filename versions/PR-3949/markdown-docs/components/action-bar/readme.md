@@ -45,6 +45,7 @@ empower users to interact with the software and perform desired actions effortle
 ### Used by
 
  - [limel-card](../card)
+ - [limel-code-diff](../code-diff)
  - [limel-example-action-bar-basic](examples)
  - [limel-example-action-bar-colors](examples)
  - [limel-example-action-bar-floating](examples)
@@ -93,6 +94,7 @@ graph TD;
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
   limel-card --> limel-action-bar
+  limel-code-diff --> limel-action-bar
   limel-example-action-bar-basic --> limel-action-bar
   limel-example-action-bar-colors --> limel-action-bar
   limel-example-action-bar-floating --> limel-action-bar

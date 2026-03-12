@@ -42,15 +42,40 @@ and collapsible unchanged context sections.
 ### Depends on
 
 - [limel-icon-button](../icon-button)
+- [limel-action-bar](../action-bar)
 
 ### Graph
 ```mermaid
 graph TD;
   limel-code-diff --> limel-icon-button
+  limel-code-diff --> limel-action-bar
   limel-icon-button --> limel-icon
   limel-icon-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-action-bar --> limel-action-bar-item
+  limel-action-bar --> limel-action-bar-overflow-menu
+  limel-action-bar --> limel-icon
+  limel-action-bar --> limel-tooltip
+  limel-action-bar-item --> limel-icon
+  limel-action-bar-item --> limel-tooltip
+  limel-action-bar-overflow-menu --> limel-icon
+  limel-action-bar-overflow-menu --> limel-menu
+  limel-menu --> limel-spinner
+  limel-menu --> limel-breadcrumbs
+  limel-menu --> limel-input-field
+  limel-menu --> limel-menu-list
+  limel-menu --> limel-badge
+  limel-menu --> limel-portal
+  limel-menu --> limel-menu-surface
+  limel-breadcrumbs --> limel-icon
+  limel-breadcrumbs --> limel-tooltip
+  limel-input-field --> limel-helper-line
+  limel-input-field --> limel-icon
+  limel-input-field --> limel-portal
+  limel-input-field --> limel-menu-surface
+  limel-input-field --> limel-list
+  limel-input-field --> limel-notched-outline
   limel-example-code-diff --> limel-code-diff
   limel-example-code-diff-expand --> limel-code-diff
   limel-example-code-diff-headings --> limel-code-diff
