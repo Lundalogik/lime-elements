@@ -22,11 +22,18 @@ to see exactly what changed.
 graph TD;
   limel-example-code-diff-split --> limel-code-diff
   limel-code-diff --> limel-icon-button
+  limel-code-diff --> limel-input-field
   limel-code-diff --> limel-action-bar
   limel-icon-button --> limel-icon
   limel-icon-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-input-field --> limel-helper-line
+  limel-input-field --> limel-icon
+  limel-input-field --> limel-portal
+  limel-input-field --> limel-menu-surface
+  limel-input-field --> limel-list
+  limel-input-field --> limel-notched-outline
   limel-action-bar --> limel-action-bar-item
   limel-action-bar --> limel-action-bar-overflow-menu
   limel-action-bar --> limel-icon
@@ -44,12 +51,6 @@ graph TD;
   limel-menu --> limel-menu-surface
   limel-breadcrumbs --> limel-icon
   limel-breadcrumbs --> limel-tooltip
-  limel-input-field --> limel-helper-line
-  limel-input-field --> limel-icon
-  limel-input-field --> limel-portal
-  limel-input-field --> limel-menu-surface
-  limel-input-field --> limel-list
-  limel-input-field --> limel-notched-outline
   style limel-example-code-diff-split fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
