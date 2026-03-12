@@ -32,6 +32,7 @@ and collapsible unchanged context sections.
 ### Used by
 
  - [limel-example-code-diff](examples)
+ - [limel-example-code-diff-expand](examples)
  - [limel-example-code-diff-json](examples)
  - [limel-example-code-diff-line-wrap](examples)
  - [limel-example-code-diff-split](examples)
@@ -40,6 +41,7 @@ and collapsible unchanged context sections.
 ```mermaid
 graph TD;
   limel-example-code-diff --> limel-code-diff
+  limel-example-code-diff-expand --> limel-code-diff
   limel-example-code-diff-json --> limel-code-diff
   limel-example-code-diff-line-wrap --> limel-code-diff
   limel-example-code-diff-split --> limel-code-diff
