@@ -1,1 +1,1 @@
-import{r as e,h as r}from"./index-DBTJNfo7.js";const t=class{constructor(r){e(this,r)}render(){return r("limel-helper-line",{key:"165f4c8b39ce264bac36435ed297171bedb4e0eb",length:10,maxLength:20,helperTextId:"tf-helper-text"})}};export{t as limel_example_helper_line_character_counter}
+import{r as e,h as r}from"./index-DBTJNfo7.js";const t=class{constructor(r){e(this,r)}render(){return r("limel-helper-line",{key:"046b0044dc1dd56dd6005d1c539d3604ac0c7a0b",length:10,maxLength:20,helperTextId:"tf-helper-text"})}};export{t as limel_example_helper_line_character_counter}
