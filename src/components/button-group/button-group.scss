@@ -3,29 +3,24 @@
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
 
-@use '@material/chips/deprecated/mdc-chips';
 /**
 * @prop --button-group-background-color: Background color of the component. Defaults to `--contrast-400`
 */
 
-.mdc-chip {
-    // As long as this component is depended on MDC,
-    // we need to force it to be font-agnostic.
-    // When MDC-dependency is removed, this block can also be removed.
-    // However, on removal of MDC-dependency, we should also make sure to check
-    // other font-related styles that might be set by MDC,
-    // such as `letter-spacing` or `font-size`.
-    font-family: inherit;
-}
-
-.mdc-chip {
+.button {
     @include mixins.is-flat-inset-clickable($background-color: transparent);
+    position: relative;
+    box-sizing: border-box;
+    align-items: center;
     max-width: 100%;
     min-width: functions.pxToRem(32);
+    height: functions.pxToRem(32);
     padding: 0 functions.pxToRem(1);
     display: inline-grid;
     grid-auto-flow: column;
-    margin: functions.pxToRem(2) !important;
+    margin: functions.pxToRem(2);
+    border-radius: functions.pxToRem(16);
+    font-family: inherit;
     font-size: var(--limel-theme-default-font-size);
     user-select: none;
 
@@ -57,7 +52,7 @@
         display: flex;
         align-items: center;
         &:has(> limel-badge) {
-            .mdc-chip__text {
+            .button__label {
                 padding-right: 0.25rem;
             }
         }
@@ -90,7 +85,7 @@
     }
 
     span[role='gridcell'] {
-        min-width: 0; // This is needed to force mdc-chip__text (which is inside this span) to truncate
+        min-width: 0; // This is needed to force button__label (which is inside this span) to truncate
 
         &:focus-within {
             // Cannot use `:focus-visible` here, since it is the radio button
@@ -101,21 +96,22 @@
         }
 
         &:only-child {
-            .mdc-chip__text {
+            .button__label {
                 padding-left: functions.pxToRem(12);
             }
         }
 
         &:first-child {
-            .mdc-chip__text {
+            .button__label {
                 padding-left: functions.pxToRem(12);
             }
         }
     }
 
-    &.mdc-chip--selected {
+    &.button--selected {
         background-color: var(--limel-theme-surface-background-color);
         box-shadow: var(--button-shadow-inset);
+        color: var(--lime-primary-color, var(--limel-theme-primary-color));
 
         &:active {
             box-shadow: var(--button-shadow-inset-pressed);
@@ -123,7 +119,8 @@
     }
 }
 
-.mdc-chip__text {
+.button__label {
+    white-space: nowrap;
     font-size: var(--limel-theme-default-small-font-size);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -131,7 +128,14 @@
     padding: 0 functions.pxToRem(12) 0 functions.pxToRem(4);
 }
 
-.mdc-chip-set {
+.button__icon {
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.button-group {
+    display: flex;
+    box-sizing: border-box;
     align-items: center;
     border-radius: functions.pxToRem(60);
     background-color: var(
@@ -156,6 +160,6 @@ limel-badge {
     pointer-events: none;
 }
 
-.mdc-chip:not(.mdc-chip--selected) {
+.button:not(.button--selected) {
     --badge-background-color: rgb(var(--contrast-200));
 }
