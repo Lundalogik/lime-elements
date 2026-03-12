@@ -19,7 +19,7 @@ and collapsible unchanged context sections.
 | `contextLines`        | `context-lines`        | Number of unchanged context lines to display around each change.                                                                                                    | `number`                                                               | `3`         |
 | `language`            | `language`             | Language for syntax highlighting. Currently supports `"json"`. When set, code tokens are colorized (strings, numbers, keys, etc.) alongside the diff highlighting.  | `string`                                                               | `undefined` |
 | `layout`              | `layout`               | The layout of the diff view. - `unified` — single column with interleaved additions and removals - `split` — side-by-side comparison with old on left, new on right | `"split" \| "unified"`                                                 | `'unified'` |
-| `lineWrapping`        | `line-wrapping`        | When `true`, long lines are wrapped instead of causing horizontal scrolling. Useful when comparing prose or config files with long values.                          | `boolean`                                                              | `false`     |
+| `lineWrapping`        | `line-wrapping`        | When `true`, long lines are wrapped instead of causing horizontal scrolling. Useful when comparing prose or config files with long values.                          | `boolean`                                                              | `true`      |
 | `newHeading`          | `new-heading`          | Heading for the modified (after) version, displayed in the diff header. Defaults to `"Modified"`, localized via `translationLanguage`.                              | `string`                                                               | `undefined` |
 | `newValue`            | `new-value`            | The "after" value to compare. Can be a string or an object (which will be serialized to JSON).                                                                      | `object \| string`                                                     | `''`        |
 | `oldHeading`          | `old-heading`          | Heading for the original (before) version, displayed in the diff header. Defaults to `"Original"`, localized via `translationLanguage`.                             | `string`                                                               | `undefined` |
@@ -32,7 +32,7 @@ and collapsible unchanged context sections.
 
 ### Used by
 
- - [limel-example-code-diff](examples)
+ - [limel-example-code-diff-basic](examples)
  - [limel-example-code-diff-expand](examples)
  - [limel-example-code-diff-headings](examples)
  - [limel-example-code-diff-json](examples)
@@ -78,7 +78,7 @@ graph TD;
   limel-menu --> limel-menu-surface
   limel-breadcrumbs --> limel-icon
   limel-breadcrumbs --> limel-tooltip
-  limel-example-code-diff --> limel-code-diff
+  limel-example-code-diff-basic --> limel-code-diff
   limel-example-code-diff-expand --> limel-code-diff
   limel-example-code-diff-headings --> limel-code-diff
   limel-example-code-diff-json --> limel-code-diff
