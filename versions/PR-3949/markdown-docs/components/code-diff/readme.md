@@ -19,9 +19,9 @@ and collapsible unchanged context sections.
 | `contextLines`        | `context-lines`        | Number of unchanged context lines to display around each change.                                                                                                    | `number`                                                               | `3`         |
 | `language`            | `language`             | Language for syntax highlighting. Currently supports `"json"`. When set, code tokens are colorized (strings, numbers, keys, etc.) alongside the diff highlighting.  | `string`                                                               | `undefined` |
 | `lineWrap`            | `line-wrap`            | When `true`, long lines are wrapped instead of causing horizontal scrolling. Useful when comparing prose or config files with long values.                          | `boolean`                                                              | `false`     |
-| `newHeader`           | `new-header`           | Label for the new (after) version, displayed in the diff header.                                                                                                    | `string`                                                               | `undefined` |
+| `newHeading`          | `new-heading`          | Heading for the modified (after) version, displayed in the diff header. Defaults to `"Modified"`, localized via `translationLanguage`.                              | `string`                                                               | `undefined` |
 | `newValue`            | `new-value`            | The "after" value to compare. Can be a string or an object (which will be serialized to JSON).                                                                      | `object \| string`                                                     | `''`        |
-| `oldHeader`           | `old-header`           | Label for the old (before) version, displayed in the diff header.                                                                                                   | `string`                                                               | `undefined` |
+| `oldHeading`          | `old-heading`          | Heading for the original (before) version, displayed in the diff header. Defaults to `"Original"`, localized via `translationLanguage`.                             | `string`                                                               | `undefined` |
 | `oldValue`            | `old-value`            | The "before" value to compare. Can be a string or an object (which will be serialized to JSON).                                                                     | `object \| string`                                                     | `''`        |
 | `reformatJson`        | `reformat-json`        | When `true`, JSON values are parsed, keys are sorted, and indentation is normalized before diffing. This eliminates noise from formatting or key-order differences. | `boolean`                                                              | `false`     |
 | `translationLanguage` | `translation-language` | Defines the language for translations. Will translate all visible labels and announcements.                                                                         | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`      |
@@ -34,6 +34,7 @@ and collapsible unchanged context sections.
 
  - [limel-example-code-diff](examples)
  - [limel-example-code-diff-expand](examples)
+ - [limel-example-code-diff-headings](examples)
  - [limel-example-code-diff-json](examples)
  - [limel-example-code-diff-line-wrap](examples)
  - [limel-example-code-diff-split](examples)
@@ -43,6 +44,7 @@ and collapsible unchanged context sections.
 graph TD;
   limel-example-code-diff --> limel-code-diff
   limel-example-code-diff-expand --> limel-code-diff
+  limel-example-code-diff-headings --> limel-code-diff
   limel-example-code-diff-json --> limel-code-diff
   limel-example-code-diff-line-wrap --> limel-code-diff
   limel-example-code-diff-split --> limel-code-diff
