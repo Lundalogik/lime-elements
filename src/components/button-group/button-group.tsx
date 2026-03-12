@@ -87,9 +87,8 @@ export class ButtonGroup {
 
     public render() {
         const classes = {
-            'mdc-chip-set': true,
+            'button-group': true,
             disabled: this.disabled,
-            'mdc-chip-set--choice': true,
         };
 
         return (
@@ -105,8 +104,8 @@ export class ButtonGroup {
         const buttonId = `b${button.id}`;
 
         const classes = {
-            'mdc-chip': true,
-            'mdc-chip--selected': this.isButtonChecked(button),
+            button: true,
+            'button--selected': this.isButtonChecked(button),
         };
 
         return (
@@ -141,7 +140,7 @@ export class ButtonGroup {
     }
 
     private renderLabel(button: Button) {
-        return <span class="mdc-chip__text">{button.title}</span>;
+        return <span class="button__label">{button.title}</span>;
     }
 
     private renderIcon(button: Button) {
@@ -152,7 +151,7 @@ export class ButtonGroup {
         return [
             <limel-icon
                 id={iconId}
-                class="mdc-chip__icon"
+                class="button__icon"
                 aria-label={button.title}
                 name={button.icon}
                 size="small"

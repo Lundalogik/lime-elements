@@ -14,7 +14,7 @@ describe('limel-button-group', () => {
             );
             await waitForChanges();
 
-            const buttons = root.shadowRoot.querySelectorAll('.mdc-chip');
+            const buttons = root.shadowRoot.querySelectorAll('.button');
             expect(buttons.length).toEqual(3);
             expect(buttons[0].textContent).toContain('Lime');
         });
@@ -27,7 +27,7 @@ describe('limel-button-group', () => {
             await waitForChanges();
 
             const label = root.shadowRoot.querySelector(
-                '.mdc-chip label'
+                '.button label'
             ) as HTMLElement;
             label.click();
             await waitForChanges();
