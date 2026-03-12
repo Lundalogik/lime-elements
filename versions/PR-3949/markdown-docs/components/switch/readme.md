@@ -57,6 +57,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-chip-set-filter](../chip-set/examples)
  - [limel-example-chip-set-filter-badge](../chip-set/examples)
  - [limel-example-chip-set-input](../chip-set/examples)
+ - [limel-example-code-diff-line-wrap](../code-diff/examples)
  - [limel-example-code-editor-composite](../code-editor/examples)
  - [limel-example-code-editor-copy](../code-editor/examples)
  - [limel-example-dialog-nested-close-events](../dialog/examples)
@@ -130,6 +131,7 @@ graph TD;
   limel-example-chip-set-filter --> limel-switch
   limel-example-chip-set-filter-badge --> limel-switch
   limel-example-chip-set-input --> limel-switch
+  limel-example-code-diff-line-wrap --> limel-switch
   limel-example-code-editor-composite --> limel-switch
   limel-example-code-editor-copy --> limel-switch
   limel-example-dialog-nested-close-events --> limel-switch
