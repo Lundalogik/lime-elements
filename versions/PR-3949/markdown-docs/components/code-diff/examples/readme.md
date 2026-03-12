@@ -6,7 +6,7 @@
 
 Split (side-by-side) view
 
-Set `viewMode` to `split` for a side-by-side comparison.
+Set `layout` to `split` for a side-by-side comparison.
 The old version is shown on the left, the new version on the right.
 Paired changes are aligned on the same row, making it easy
 to see exactly what changed.
