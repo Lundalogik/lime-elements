@@ -4,24 +4,20 @@
 
 ## Overview
 
-This component is used internally to visualize hotkeys in other components,
-such as the menu. It will also emit an event when the hotkey is pressed,
-so that the parent component can react to it.
+This is a display-only component used to visualize keyboard shortcuts.
+It renders hotkey strings as styled `<kbd>` elements with
+platform-aware glyphs (e.g. `⌘` on macOS, `⊞ Win` on Windows).
+
+It does **not** listen for or handle any keyboard events.
+Keyboard event handling is the responsibility of the parent component
+(e.g. `limel-menu` or `limel-select`).
 
 ## Properties
 
-| Property                | Attribute                 | Description                                                                                                                                                                             | Type      | Default     |
-| ----------------------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `disabled`              | `disabled`                | When disabled, the hotkey is still rendered but will not emit events.                                                                                                                   | `boolean` | `false`     |
-| `preventBrowserDefault` | `prevent-browser-default` | When `true`, matching hotkeys call `event.preventDefault()`.  Disable this only when you explicitly want the browser's native keyboard behavior to run together with your hotkey logic. | `boolean` | `true`      |
-| `value`                 | `value`                   | The hotkey                                                                                                                                                                              | `string`  | `undefined` |
-
-
-## Events
-
-| Event           | Description                                  | Type                                                                            |
-| --------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
-| `hotkeyTrigger` | Emits when the configured hotkey is pressed. | `CustomEvent<{ hotkey: string; value: string; keyboardEvent: KeyboardEvent; }>` |
+| Property   | Attribute  | Description                                                         | Type      | Default     |
+| ---------- | ---------- | ------------------------------------------------------------------- | --------- | ----------- |
+| `disabled` | `disabled` | When `true`, the hotkey is rendered in a visually disabled state.   | `boolean` | `false`     |
+| `value`    | `value`    | The hotkey string to visualize, e.g. `"meta+c"` or `"shift+enter"`. | `string`  | `undefined` |
 
 
 ## Dependencies
@@ -30,8 +26,6 @@ so that the parent component can react to it.
 
  - [limel-example-hotkey-basic](examples)
  - [limel-example-hotkey-disabled](examples)
- - [limel-example-hotkey-duplicates](examples)
- - [limel-example-hotkey-prevent-default](examples)
  - [limel-menu-item-meta](../list-item/menu-item-meta)
 
 ### Graph
@@ -39,8 +33,6 @@ so that the parent component can react to it.
 graph TD;
   limel-example-hotkey-basic --> limel-hotkey
   limel-example-hotkey-disabled --> limel-hotkey
-  limel-example-hotkey-duplicates --> limel-hotkey
-  limel-example-hotkey-prevent-default --> limel-hotkey
   limel-menu-item-meta --> limel-hotkey
   style limel-hotkey fill:#f9f,stroke:#333,stroke-width:4px
 ```
