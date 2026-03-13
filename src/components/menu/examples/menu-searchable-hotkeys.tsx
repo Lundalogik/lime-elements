@@ -4,7 +4,10 @@ import {
     LimelMenuCustomEvent,
 } from '@limetech/lime-elements';
 import { Component, Host, State, h } from '@stencil/core';
-import { isAppleDevice } from '../../../util/device';
+
+const isApple = /Mac|iPhone|iPad|iPod/i.test(
+    (navigator as any).userAgentData?.platform ?? navigator.platform ?? ''
+);
 
 type SuggestionValue = {
     propertyName?: string;
@@ -59,11 +62,11 @@ export class MenuSearchableHotkeysExample {
     private lastSelectedItem = '';
 
     private get primaryHotkey() {
-        return isAppleDevice() ? 'meta+enter' : 'ctrl+enter';
+        return isApple ? 'meta+enter' : 'ctrl+enter';
     }
 
     private get applyAllHotkey() {
-        return isAppleDevice() ? 'meta+alt+enter' : 'ctrl+alt+enter';
+        return isApple ? 'meta+alt+enter' : 'ctrl+alt+enter';
     }
 
     public render() {

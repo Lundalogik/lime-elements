@@ -38,7 +38,6 @@ import {
     normalizeHotkeyString,
     tokenizeHotkeyString,
 } from '../../util/hotkeys';
-import { LimelHotkeyTriggerDetail } from '../hotkey/hotkey.types';
 
 interface MenuCrumbItem extends BreadcrumbsItem {
     menuItem?: MenuItem;
@@ -68,8 +67,8 @@ const DEFAULT_ROOT_BREADCRUMBS_ITEM: BreadcrumbsItem = {
  * @exampleComponent limel-example-menu-sub-menu-lazy-loading
  * @exampleComponent limel-example-menu-sub-menu-lazy-loading-infinite
  * @exampleComponent limel-example-menu-searchable
- * @exampleComponent limel-example-menu-searchable-hotkeys
  * @exampleComponent limel-example-menu-hotkeys
+ * @exampleComponent limel-example-menu-searchable-hotkeys
  * @exampleComponent limel-example-menu-composite
  */
 @Component({
@@ -211,9 +210,8 @@ export class Menu {
     private portalId: string;
     private breadcrumbs: HTMLLimelBreadcrumbsElement;
     private triggerElement: HTMLSlotElement;
-    private surface: HTMLLimelMenuSurfaceElement;
     private selectedMenuItem?: MenuItem;
-    private normalizedHotkeyCache = new Map<string, string | null>();
+    private readonly normalizedHotkeyCache = new Map<string, string | null>();
 
     constructor() {
         this.portalId = createRandomString();
@@ -248,7 +246,6 @@ export class Menu {
                     containerStyle={{ 'z-index': dropdownZIndex }}
                 >
                     <limel-menu-surface
-                        ref={this.setSurfaceElement}
                         open={this.open}
                         onDismiss={this.onClose}
                         style={{
@@ -279,46 +276,54 @@ export class Menu {
         this.setFocus();
     }
 
+    public connectedCallback() {
+        if (this.open) {
+            document.addEventListener(
+                'keydown',
+                this.handleDocumentKeyDown,
+                true
+            );
+        }
+    }
+
+    public disconnectedCallback() {
+        document.removeEventListener(
+            'keydown',
+            this.handleDocumentKeyDown,
+            true
+        );
+    }
+
     @Watch('open')
     protected openWatcher(newValue: boolean) {
         const opened = newValue;
         if (opened) {
+            document.addEventListener(
+                'keydown',
+                this.handleDocumentKeyDown,
+                true
+            );
             this.setFocus();
         } else {
+            document.removeEventListener(
+                'keydown',
+                this.handleDocumentKeyDown,
+                true
+            );
             this.clearSearch();
         }
     }
 
-    private readonly setSurfaceElement = (
-        element: HTMLLimelMenuSurfaceElement
-    ) => {
-        if (this.surface) {
-            this.surface.removeEventListener(
-                'hotkeyTrigger',
-                this.handleHotkeyTrigger,
-                false
-            );
-        }
-
-        this.surface = element;
-
-        if (this.surface) {
-            this.surface.addEventListener(
-                'hotkeyTrigger',
-                this.handleHotkeyTrigger,
-                false
-            );
-        }
-    };
-
-    private readonly handleHotkeyTrigger = (
-        event: CustomEvent<LimelHotkeyTriggerDetail>
-    ) => {
-        if (!this.open) {
+    private readonly handleDocumentKeyDown = (event: KeyboardEvent) => {
+        if (!this.open || event.defaultPrevented || event.repeat) {
             return;
         }
 
-        const pressedHotkey = event.detail?.hotkey;
+        if (this.isFromTextInput(event) && !this.hasModifier(event)) {
+            return;
+        }
+
+        const pressedHotkey = hotkeyFromKeyboardEvent(event);
         if (!pressedHotkey) {
             return;
         }
@@ -333,10 +338,43 @@ export class Menu {
         }
 
         event.stopPropagation();
-        event.detail.keyboardEvent.stopPropagation();
-        event.detail.keyboardEvent.preventDefault();
+        event.preventDefault();
         this.handleSelect(matchedItem);
     };
+
+    private isFromTextInput(event: KeyboardEvent): boolean {
+        const path =
+            typeof event.composedPath === 'function'
+                ? event.composedPath()
+                : [];
+
+        for (const node of path) {
+            if (!('tagName' in (node as any))) {
+                continue;
+            }
+
+            const element = node as HTMLElement;
+
+            if (element.isContentEditable) {
+                return true;
+            }
+
+            const tagName = element.tagName;
+            if (
+                tagName === 'INPUT' ||
+                tagName === 'TEXTAREA' ||
+                tagName === 'SELECT'
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private hasModifier(event: KeyboardEvent): boolean {
+        return event.ctrlKey || event.metaKey || event.altKey;
+    }
 
     private isReservedMenuHotkey(hotkey: string): boolean {
         const tokens = tokenizeHotkeyString(hotkey);
@@ -575,19 +613,8 @@ export class Menu {
     // Will change focus to breadcrumbs (if present) or the first/last item
     // in the dropdown list to enable selection with the keyboard
     private readonly handleInputKeyDown = (event: KeyboardEvent) => {
-        const hasModifier = event.ctrlKey || event.metaKey || event.altKey;
-        if (hasModifier) {
-            const pressedHotkey = hotkeyFromKeyboardEvent(event);
-            if (pressedHotkey && !this.isReservedMenuHotkey(pressedHotkey)) {
-                const matchedItem = this.findMenuItemByHotkey(pressedHotkey);
-                if (matchedItem) {
-                    event.stopPropagation();
-                    event.preventDefault();
-                    this.handleSelect(matchedItem);
-
-                    return;
-                }
-            }
+        if (event.defaultPrevented) {
+            return;
         }
 
         const isForwardTab =

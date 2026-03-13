@@ -74,7 +74,7 @@ export class MenuHotkeysExample {
             items: [{ text: 'Trello' }, { text: 'Asana' }],
         },
         { separator: true },
-        { text: 'Delete message…', hotkey: 'delete' },
+        { text: 'Delete message…', hotkey: 'backspace' },
     ];
 
     public render() {
