@@ -14,8 +14,8 @@ import {
 } from '@stencil/core';
 import { isMobileDevice } from '../../util/device';
 import { ENTER, SPACE } from '../../util/keycodes';
-import { LimelHotkeyTriggerDetail } from '../hotkey/hotkey.types';
 import {
+    hotkeyFromKeyboardEvent,
     normalizeHotkeyString,
     tokenizeHotkeyString,
 } from '../../util/hotkeys';
@@ -125,8 +125,7 @@ export class Select {
     private portalId: string;
     private focusObserver: IntersectionObserver;
     private focusTimeoutId: ReturnType<typeof setTimeout>;
-    private surface: HTMLLimelMenuSurfaceElement;
-    private normalizedHotkeyCache = new Map<string, string | null>();
+    private readonly normalizedHotkeyCache = new Map<string, string | null>();
 
     constructor() {
         this.handleMenuChange = this.handleMenuChange.bind(this);
@@ -175,6 +174,11 @@ export class Select {
     }
 
     public disconnectedCallback() {
+        document.removeEventListener(
+            'keydown',
+            this.handleDocumentKeyDown,
+            true
+        );
         this.cancelPendingFocus();
 
         if (this.mdcFloatingLabel) {
@@ -211,7 +215,6 @@ export class Select {
                 onMenuChange={this.handleMenuChange}
                 onNativeChange={this.handleNativeChange}
                 onTriggerPress={this.handleMenuTriggerKeyPress}
-                setMenuSurfaceRef={this.setMenuSurfaceElement}
                 multiple={this.multiple}
                 isOpen={this.menuOpen}
                 open={this.openMenu}
@@ -226,6 +229,20 @@ export class Select {
 
     @Watch('menuOpen')
     protected watchOpen(newValue: boolean, oldValue: boolean) {
+        if (newValue) {
+            document.addEventListener(
+                'keydown',
+                this.handleDocumentKeyDown,
+                true
+            );
+        } else {
+            document.removeEventListener(
+                'keydown',
+                this.handleDocumentKeyDown,
+                true
+            );
+        }
+
         if (this.checkValid) {
             return;
         }
@@ -240,28 +257,6 @@ export class Select {
     protected watchOptions() {
         this.normalizedHotkeyCache.clear();
     }
-
-    private readonly setMenuSurfaceElement = (
-        element: HTMLLimelMenuSurfaceElement
-    ) => {
-        if (this.surface) {
-            this.surface.removeEventListener(
-                'hotkeyTrigger',
-                this.handleHotkeyTrigger,
-                false
-            );
-        }
-
-        this.surface = element;
-
-        if (this.surface) {
-            this.surface.addEventListener(
-                'hotkeyTrigger',
-                this.handleHotkeyTrigger,
-                false
-            );
-        }
-    };
 
     private setMenuFocus() {
         if (this.isMobileDevice) {
@@ -396,14 +391,17 @@ export class Select {
         this.setTriggerFocus();
     }
 
-    private handleHotkeyTrigger = (
-        event: CustomEvent<LimelHotkeyTriggerDetail>
-    ) => {
-        if (this.isMobileDevice || !this.menuOpen) {
+    private readonly handleDocumentKeyDown = (event: KeyboardEvent) => {
+        if (
+            this.isMobileDevice ||
+            !this.menuOpen ||
+            event.defaultPrevented ||
+            event.repeat
+        ) {
             return;
         }
 
-        const pressedHotkey = event.detail?.hotkey;
+        const pressedHotkey = hotkeyFromKeyboardEvent(event);
         if (!pressedHotkey || this.isReservedSelectHotkey(pressedHotkey)) {
             return;
         }
@@ -414,8 +412,7 @@ export class Select {
         }
 
         event.stopPropagation();
-        event.detail.keyboardEvent.stopPropagation();
-        event.detail.keyboardEvent.preventDefault();
+        event.preventDefault();
 
         if (this.multiple) {
             const currentValue = isMultiple(this.value) ? this.value : [];

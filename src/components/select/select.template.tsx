@@ -20,7 +20,6 @@ interface SelectTemplateProps {
     id: string;
     onMenuChange: (event: CustomEvent<ListItem | ListItem[]>) => void;
     onTriggerPress: (event: KeyboardEvent) => void;
-    setMenuSurfaceRef: (element: HTMLLimelMenuSurfaceElement) => void;
     isOpen: boolean;
     open: () => void;
     close: () => void;
@@ -206,7 +205,6 @@ const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
             anchor={props.anchor}
         >
             <limel-menu-surface
-                ref={props.setMenuSurfaceRef}
                 open={props.isOpen}
                 onDismiss={props.close}
                 style={{
