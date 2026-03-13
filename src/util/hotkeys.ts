@@ -2,7 +2,6 @@
  * These helpers provide a consistent way to:
  * - Normalize user-defined hotkey strings (e.g. "cmd+k", "ctrl+shift+p")
  * - Normalize `KeyboardEvent`s into the same canonical hotkey format
- * - Detect when a keyboard event likely originated from a text-input context
  *
  * **Canonical format**
  * - Modifiers are ordered: `meta`, `ctrl`, `alt`, `shift`
@@ -240,45 +239,4 @@ export const hotkeyFromKeyboardEvent = (
         meta: event.metaKey,
         shift,
     });
-};
-
-/**
- * Check whether a `KeyboardEvent` likely originated from a typing context.
- *
- * Returns `true` for events coming from:
- * - `input`, `textarea`, `select`
- * - `contenteditable` elements
- * - elements with `role="textbox"`
- *
- * @param event - Keyboard event to inspect.
- */
-export const isKeyboardEventFromTextInput = (event: KeyboardEvent): boolean => {
-    const path =
-        typeof event.composedPath === 'function' ? event.composedPath() : [];
-
-    for (const node of path) {
-        if (!(node instanceof Element)) {
-            continue;
-        }
-
-        if ((node as HTMLElement).isContentEditable) {
-            return true;
-        }
-
-        const tagName = node.tagName;
-        if (
-            tagName === 'INPUT' ||
-            tagName === 'TEXTAREA' ||
-            tagName === 'SELECT'
-        ) {
-            return true;
-        }
-
-        // Common pattern: elements with role=textbox
-        if (node.getAttribute('role') === 'textbox') {
-            return true;
-        }
-    }
-
-    return false;
 };
