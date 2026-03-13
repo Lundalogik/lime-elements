@@ -1,1 +1,0 @@
-import{r as e,h as o}from"./index-CVv9iInn.js";const c=class{constructor(o){e(this,o)}render(){return[o("limel-icon-button",{key:"622284b3e8d3acc5d28837d689c778c999bdad0e",label:"Add favourite",icon:"heart_outlined",onClick:this.onClick})]}onClick(){console.log("Button clicked.")}};export{c as limel_example_icon_button_basic}

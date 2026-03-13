@@ -1,1 +1,0 @@
-import{r as e,h as t}from"./index-CVv9iInn.js";const r=class{constructor(t){e(this,t)}render(){return t("limel-markdown",{key:"27ae791ff67fb57d859c52b637820f72a4bdf646",value:'This is 20% <meter value="0.2"></meter> and this is 100% <meter value="1" />',whitelist:[{tagName:"meter",attributes:["value"]}]})}};export{r as limel_example_markdown_custom_component}

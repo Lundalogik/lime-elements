@@ -1,1 +1,0 @@
-import{r as e,h as a}from"./index-CVv9iInn.js";const l=class{constructor(a){e(this,a)}render(){return[a("limel-button",{key:"3e0554cebfd014d4a78abb55a9c1ef2f8f9d903a",icon:"search",id:"tooltip-example"}),a("limel-tooltip",{key:"a417ef3dc33ce38b86aa511b4ba96c88d4fd1ebf",label:"Search",helperLabel:"alt + F",elementId:"tooltip-example"})]}};export{l as limel_example_tooltip_basic}
