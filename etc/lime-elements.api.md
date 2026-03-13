@@ -517,7 +517,6 @@ export namespace Components {
     // @internal
     export interface LimelHotkey {
         "disabled": boolean;
-        "preventBrowserDefault": boolean;
         "value": string;
     }
     export interface LimelIcon {
@@ -2493,8 +2492,6 @@ export namespace JSX {
     // @internal
     export interface LimelHotkey {
         "disabled"?: boolean;
-        "onHotkeyTrigger"?: (event: LimelHotkeyCustomEvent<LimelHotkeyTriggerDetail>) => void;
-        "preventBrowserDefault"?: boolean;
         "value"?: string;
     }
 
@@ -2502,8 +2499,6 @@ export namespace JSX {
     export interface LimelHotkeyAttributes {
         // (undocumented)
         "disabled": boolean;
-        // (undocumented)
-        "preventBrowserDefault": boolean;
         // (undocumented)
         "value": string;
     }
@@ -3846,23 +3841,6 @@ export interface LimelFormCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
     target: HTMLLimelFormElement;
 }
-
-// Warning: (ae-missing-release-tag) "LimelHotkeyCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export interface LimelHotkeyCustomEvent<T> extends CustomEvent<T> {
-    // (undocumented)
-    detail: T;
-    // (undocumented)
-    target: HTMLLimelHotkeyElement;
-}
-
-// @public
-export type LimelHotkeyTriggerDetail = {
-    hotkey: string;
-    value: string;
-    keyboardEvent: KeyboardEvent;
-};
 
 // Warning: (ae-missing-release-tag) "LimelInputFieldCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //

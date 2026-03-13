@@ -1,10 +1,9 @@
-import { Component, h, Host, State } from '@stencil/core';
-import type { LimelHotkeyTriggerDetail } from '@limetech/lime-elements';
+import { Component, h, Host } from '@stencil/core';
 
 /**
  * Basic example
  *
- * The value is passed as a string, indicating which hotkey to listen for.
+ * The value is passed as a string, indicating which hotkey to display.
  *
  * The component will automatically detect the operating system, and
  * render the hotkey accordingly, using standard glyphs to save space.
@@ -24,12 +23,14 @@ import type { LimelHotkeyTriggerDetail } from '@limetech/lime-elements';
  * ⌘+C on macOS and Ctrl+C on Windows/Linux), detect the OS in your application
  * and pass the appropriate hotkey string.
  *
- * - `ctrl` means “Control specifically” on all platforms.
- * - `cmd` or `command` always render as <kbd>⌘</kbd> (even on Windows/Linux),
- * and are normalized as aliases for `meta` when matching.
- * - Matching hotkeys call `event.preventDefault()` by default, to avoid browser
- * shortcuts (like Save/Print) firing together with your action. Set
- * `preventBrowserDefault={false}` if you need to keep browser defaults.
+ * - `ctrl` means "Control specifically" on all platforms.
+ * - `cmd` or `command` always render as <kbd>⌘</kbd> (even on Windows/Linux).
+ * :::
+ *
+ * :::important
+ * This component is **display-only**. It does not listen for or handle
+ * any keyboard events. Keyboard event handling is the responsibility
+ * of the parent component (e.g. `limel-menu` or `limel-select`).
  * :::
  */
 @Component({
@@ -38,12 +39,9 @@ import type { LimelHotkeyTriggerDetail } from '@limetech/lime-elements';
     styleUrl: 'hotkey-basic.scss',
 })
 export class HotkeyBasicExample {
-    @State()
-    private lastSelectedHotkey: string;
-
     public render() {
         return (
-            <Host onHotkeyTrigger={this.handleHotkeyTrigger}>
+            <Host>
                 <limel-hotkey value="s" />
                 <limel-hotkey value="alt+s" />
                 <limel-hotkey value="meta+c" />
@@ -55,17 +53,7 @@ export class HotkeyBasicExample {
                 <limel-hotkey value="tab" />
                 <limel-hotkey value="+" />
                 <limel-hotkey value="-" />
-                <limel-example-value
-                    label="Last triggered hotkey"
-                    value={this.lastSelectedHotkey}
-                />
             </Host>
         );
     }
-
-    private handleHotkeyTrigger = (
-        event: CustomEvent<LimelHotkeyTriggerDetail>
-    ) => {
-        this.lastSelectedHotkey = event.detail.hotkey;
-    };
 }

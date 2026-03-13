@@ -1,9 +1,11 @@
-import { Component, h, Host, State } from '@stencil/core';
-import type { LimelHotkeyTriggerDetail } from '@limetech/lime-elements';
+import { Component, h, Host } from '@stencil/core';
 
 /**
- * The `disabled` prop.
- * When set to `true`, the hotkey is still rendered but will not emit events.
+ * The `disabled` prop
+ *
+ * When set to `true`, the hotkey is rendered in a visually disabled state.
+ * This is useful when the action associated with the hotkey is temporarily
+ * unavailable (e.g. a disabled menu item).
  */
 @Component({
     tag: 'limel-example-hotkey-disabled',
@@ -11,25 +13,12 @@ import type { LimelHotkeyTriggerDetail } from '@limetech/lime-elements';
     styleUrl: 'hotkey-basic.scss',
 })
 export class HotkeyDisabledExample {
-    @State()
-    private lastSelectedHotkey: string;
-
     public render() {
         return (
-            <Host onHotkeyTrigger={this.handleHotkeyTrigger}>
+            <Host>
                 <limel-hotkey value="a" disabled={true} />
                 <limel-hotkey value="b" />
-                <limel-example-value
-                    label="Last triggered hotkey"
-                    value={this.lastSelectedHotkey}
-                />
             </Host>
         );
     }
-
-    private handleHotkeyTrigger = (
-        event: CustomEvent<LimelHotkeyTriggerDetail>
-    ) => {
-        this.lastSelectedHotkey = event.detail.hotkey;
-    };
 }
