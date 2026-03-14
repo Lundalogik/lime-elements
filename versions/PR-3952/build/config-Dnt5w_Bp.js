@@ -1,1 +1,0 @@
-const t=new class{constructor(){this.iconPath="",this.defaultLocale=navigator.language,this.featureSwitches=function(t){const o={};for(let s=0;s<t.length;s++){const r=t.key(s),n=t.getItem(r);["true","false"].includes(n)&&(o[r]="true"===n)}return o}(localStorage)}};export{t as g}
