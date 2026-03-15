@@ -14,6 +14,11 @@ import {
 } from '@stencil/core';
 import { isMobileDevice } from '../../util/device';
 import { ENTER, SPACE } from '../../util/keycodes';
+import {
+    hotkeyFromKeyboardEvent,
+    normalizeHotkeyString,
+    tokenizeHotkeyString,
+} from '../../util/hotkeys';
 import { isMultiple } from '../../util/multiple';
 import { createRandomString } from '../../util/random-string';
 import { SelectTemplate, triggerIconColorWarning } from './select.template';
@@ -28,6 +33,7 @@ import { SelectTemplate, triggerIconColorWarning } from './select.template';
  * @exampleComponent limel-example-select-with-empty-option
  * @exampleComponent limel-example-select-preselected
  * @exampleComponent limel-example-select-change-options
+ * @exampleComponent limel-example-select-hotkeys
  * @exampleComponent limel-example-select-dialog
  */
 @Component({
@@ -119,6 +125,7 @@ export class Select {
     private portalId: string;
     private focusObserver: IntersectionObserver;
     private focusTimeoutId: ReturnType<typeof setTimeout>;
+    private readonly normalizedHotkeyCache = new Map<string, string | null>();
 
     constructor() {
         this.handleMenuChange = this.handleMenuChange.bind(this);
@@ -167,6 +174,11 @@ export class Select {
     }
 
     public disconnectedCallback() {
+        document.removeEventListener(
+            'keydown',
+            this.handleDocumentKeyDown,
+            true
+        );
         this.cancelPendingFocus();
 
         if (this.mdcFloatingLabel) {
@@ -217,6 +229,20 @@ export class Select {
 
     @Watch('menuOpen')
     protected watchOpen(newValue: boolean, oldValue: boolean) {
+        if (newValue) {
+            document.addEventListener(
+                'keydown',
+                this.handleDocumentKeyDown,
+                true
+            );
+        } else {
+            document.removeEventListener(
+                'keydown',
+                this.handleDocumentKeyDown,
+                true
+            );
+        }
+
         if (this.checkValid) {
             return;
         }
@@ -225,6 +251,11 @@ export class Select {
         if (!newValue && oldValue) {
             this.checkValid = true;
         }
+    }
+
+    @Watch('options')
+    protected watchOptions() {
+        this.normalizedHotkeyCache.clear();
     }
 
     private setMenuFocus() {
@@ -358,6 +389,105 @@ export class Select {
         this.menuOpen = false;
         this.cancelPendingFocus();
         this.setTriggerFocus();
+    }
+
+    private readonly handleDocumentKeyDown = (event: KeyboardEvent) => {
+        if (
+            this.isMobileDevice ||
+            !this.menuOpen ||
+            event.defaultPrevented ||
+            event.repeat
+        ) {
+            return;
+        }
+
+        const pressedHotkey = hotkeyFromKeyboardEvent(event);
+        if (!pressedHotkey || this.isReservedSelectHotkey(pressedHotkey)) {
+            return;
+        }
+
+        const matchedOption = this.findOptionByHotkey(pressedHotkey);
+        if (!matchedOption || matchedOption.disabled) {
+            return;
+        }
+
+        event.stopPropagation();
+        event.preventDefault();
+
+        if (this.multiple) {
+            const currentValue = isMultiple(this.value) ? this.value : [];
+            const hasSelectedOption = currentValue.some(
+                (option) => option.value === matchedOption.value
+            );
+
+            const nextValue = hasSelectedOption
+                ? currentValue.filter(
+                      (option) => option.value !== matchedOption.value
+                  )
+                : [...currentValue, matchedOption];
+
+            this.change.emit(nextValue);
+
+            return;
+        }
+
+        this.change.emit(matchedOption);
+        this.menuOpen = false;
+        this.setTriggerFocus();
+    };
+
+    private isReservedSelectHotkey(hotkey: string): boolean {
+        const tokens = tokenizeHotkeyString(hotkey);
+        const key = tokens.at(-1);
+        if (!key) {
+            return false;
+        }
+
+        if (
+            key === 'arrowup' ||
+            key === 'arrowdown' ||
+            key === 'arrowleft' ||
+            key === 'arrowright'
+        ) {
+            return true;
+        }
+
+        if (key === 'tab') {
+            return true;
+        }
+
+        const hasModifiers = tokens.length > 1;
+        return (
+            !hasModifiers &&
+            (key === 'enter' || key === 'space' || key === 'escape')
+        );
+    }
+
+    private findOptionByHotkey(pressedHotkey: string): Option | null {
+        for (const option of this.getOptionsExcludingSeparators()) {
+            if (option.disabled || !option.hotkey) {
+                continue;
+            }
+
+            const normalized = this.getNormalizedHotkey(option.hotkey);
+            if (normalized && normalized === pressedHotkey) {
+                return option;
+            }
+        }
+
+        return null;
+    }
+
+    private getNormalizedHotkey(raw: string): string | null {
+        const cacheKey = raw.trim();
+        if (this.normalizedHotkeyCache.has(cacheKey)) {
+            return this.normalizedHotkeyCache.get(cacheKey) ?? null;
+        }
+
+        const normalized = normalizeHotkeyString(cacheKey);
+        this.normalizedHotkeyCache.set(cacheKey, normalized);
+
+        return normalized;
     }
 
     private openMenu() {
