@@ -311,6 +311,19 @@ export namespace Components {
         "suffix": string;
         "value": number;
     }
+    // @beta
+    export interface LimelCodeDiff {
+        "contextLines": number;
+        "language"?: string;
+        "layout": 'unified' | 'split';
+        "lineWrapping": boolean;
+        "newHeading"?: string;
+        "newValue": string | object;
+        "oldHeading"?: string;
+        "oldValue": string | object;
+        "reformatJson": boolean;
+        "translationLanguage": Languages;
+    }
     // (undocumented)
     export interface LimelCodeEditor {
         "colorScheme": ColorScheme;
@@ -1299,6 +1312,10 @@ export namespace JSX {
         "limel-chip-set": Omit<LimelChipSet, keyof LimelChipSetAttributes> & { [K in keyof LimelChipSet & keyof LimelChipSetAttributes]?: LimelChipSet[K] } & { [K in keyof LimelChipSet & keyof LimelChipSetAttributes as `attr:${K}`]?: LimelChipSetAttributes[K] } & { [K in keyof LimelChipSet & keyof LimelChipSetAttributes as `prop:${K}`]?: LimelChipSet[K] };
         // (undocumented)
         "limel-circular-progress": Omit<LimelCircularProgress, keyof LimelCircularProgressAttributes> & { [K in keyof LimelCircularProgress & keyof LimelCircularProgressAttributes]?: LimelCircularProgress[K] } & { [K in keyof LimelCircularProgress & keyof LimelCircularProgressAttributes as `attr:${K}`]?: LimelCircularProgressAttributes[K] } & { [K in keyof LimelCircularProgress & keyof LimelCircularProgressAttributes as `prop:${K}`]?: LimelCircularProgress[K] };
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-code-diff"" is marked as @public, but its signature references "JSX" which is marked as @beta
+        //
+        // (undocumented)
+        "limel-code-diff": Omit<LimelCodeDiff, keyof LimelCodeDiffAttributes> & { [K in keyof LimelCodeDiff & keyof LimelCodeDiffAttributes]?: LimelCodeDiff[K] } & { [K in keyof LimelCodeDiff & keyof LimelCodeDiffAttributes as `attr:${K}`]?: LimelCodeDiffAttributes[K] } & { [K in keyof LimelCodeDiff & keyof LimelCodeDiffAttributes as `prop:${K}`]?: LimelCodeDiff[K] };
         // (undocumented)
         "limel-code-editor": Omit<LimelCodeEditor, keyof LimelCodeEditorAttributes> & { [K in keyof LimelCodeEditor & keyof LimelCodeEditorAttributes]?: LimelCodeEditor[K] } & { [K in keyof LimelCodeEditor & keyof LimelCodeEditorAttributes as `attr:${K}`]?: LimelCodeEditorAttributes[K] } & { [K in keyof LimelCodeEditor & keyof LimelCodeEditorAttributes as `prop:${K}`]?: LimelCodeEditor[K] };
         // (undocumented)
@@ -1916,6 +1933,44 @@ export namespace JSX {
         "suffix": string;
         // (undocumented)
         "value": number;
+    }
+
+    // @beta
+    export interface LimelCodeDiff {
+        "contextLines"?: number;
+        "language"?: string;
+        "layout"?: 'unified' | 'split';
+        "lineWrapping"?: boolean;
+        "newHeading"?: string;
+        "newValue"?: string | object;
+        "oldHeading"?: string;
+        "oldValue"?: string | object;
+        "reformatJson"?: boolean;
+        "translationLanguage"?: Languages;
+    }
+
+    // (undocumented)
+    export interface LimelCodeDiffAttributes {
+        // (undocumented)
+        "contextLines": number;
+        // (undocumented)
+        "language": string;
+        // (undocumented)
+        "layout": 'unified' | 'split';
+        // (undocumented)
+        "lineWrapping": boolean;
+        // (undocumented)
+        "newHeading": string;
+        // (undocumented)
+        "newValue": string | object;
+        // (undocumented)
+        "oldHeading": string;
+        // (undocumented)
+        "oldValue": string | object;
+        // (undocumented)
+        "reformatJson": boolean;
+        // (undocumented)
+        "translationLanguage": Languages;
     }
 
     // (undocumented)
