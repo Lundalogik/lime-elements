@@ -1,3 +1,10 @@
+## [39.7.1](https://github.com/Lundalogik/lime-elements/compare/v39.7.0...v39.7.1) (2026-03-16)
+
+### Reverts
+
+
+* Revert "fix(example-controls): switch from grid to flexbox layout" ([87f48a7](https://github.com/Lundalogik/lime-elements/commit/87f48a7700042d5c511f3d3dcf87bd2b7490b8e9))
+
 ## [39.7.0](https://github.com/Lundalogik/lime-elements/compare/v39.6.0...v39.7.0) (2026-03-16)
 
 ### Features
