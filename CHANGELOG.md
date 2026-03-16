@@ -1,3 +1,10 @@
+## [39.7.0](https://github.com/Lundalogik/lime-elements/compare/v39.6.0...v39.7.0) (2026-03-16)
+
+### Features
+
+
+* **code diff:** show differences in code or json objects ([b7b604f](https://github.com/Lundalogik/lime-elements/commit/b7b604f2c99ca625682800d0f87fbaf272bd5d04))
+
 ## [39.6.0](https://github.com/Lundalogik/lime-elements/compare/v39.5.7...v39.6.0) (2026-03-11)
 
 ### Features
