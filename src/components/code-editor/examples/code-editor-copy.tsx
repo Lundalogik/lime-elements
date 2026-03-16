@@ -29,7 +29,9 @@ export class CodeExampleCopy {
                     onChange={this.handleChange}
                 />
 
-                <limel-example-controls>
+                <limel-example-controls
+                    style={{ '--example-controls-column-layout': 'auto-fit' }}
+                >
                     <limel-switch
                         value={this.showCopyButton}
                         label="showCopyButton"

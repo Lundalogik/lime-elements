@@ -53,7 +53,9 @@ export class SliderCompositeExample {
 
     private renderForm = () => {
         return (
-            <limel-example-controls>
+            <limel-example-controls
+                style={{ '--example-controls-column-layout': 'auto-fit' }}
+            >
                 <limel-form
                     schema={this.schema}
                     value={this.props}

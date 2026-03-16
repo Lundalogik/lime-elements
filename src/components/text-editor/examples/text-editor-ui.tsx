@@ -59,7 +59,9 @@ export class TextEditorUiExample {
                     ui={this.selectedUi.value}
                     placeholder={placeholderText}
                 />
-                <limel-example-controls>
+                <limel-example-controls
+                    style={{ '--example-controls-column-layout': 'auto-fit' }}
+                >
                     <limel-example-value value={this.value} />
                     <limel-select
                         label="ui"

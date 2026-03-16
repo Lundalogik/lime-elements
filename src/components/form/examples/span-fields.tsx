@@ -171,7 +171,9 @@ export class FormLayoutExample {
 
     public render() {
         return [
-            <limel-example-controls>
+            <limel-example-controls
+                style={{ '--example-controls-column-layout': 'auto-fit' }}
+            >
                 <limel-switch
                     label="Dense layout"
                     value={this.dense}

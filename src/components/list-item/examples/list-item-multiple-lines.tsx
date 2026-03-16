@@ -55,7 +55,11 @@ export class ListItemMultipleLinesExample {
                         icon="text_width"
                     />
                 </ul>
-                <limel-example-controls>
+                <limel-example-controls
+                    style={{
+                        '--example-controls-column-layout': 'auto-fit',
+                    }}
+                >
                     <limel-select
                         label="maxLinesSecondaryText"
                         options={this.options}

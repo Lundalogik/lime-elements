@@ -69,7 +69,11 @@ export class ChartAxisLabelsExample {
                     accessibleItemsLabel="City"
                     orientation={this.orientation}
                 />
-                <limel-example-controls>
+                <limel-example-controls
+                    style={{
+                        '--example-controls-max-columns-width': '10rem',
+                    }}
+                >
                     <limel-select
                         label="orientation"
                         value={this.getSelectedOrientation()}

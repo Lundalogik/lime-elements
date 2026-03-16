@@ -50,7 +50,11 @@ export class ColorPickerCustomPaletteExample {
                     onChange={this.onChange}
                     paletteColumnCount={this.paletteColumnCount}
                 />
-                <limel-example-controls>
+                <limel-example-controls
+                    style={{
+                        '--example-controls-column-layout': 'auto-fit',
+                    }}
+                >
                     <limel-checkbox
                         checked={this.paletteColumnCount === 3}
                         label="Set `paletteColumnCount` to 3"
