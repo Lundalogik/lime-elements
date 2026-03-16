@@ -33,7 +33,9 @@ export class SnackbarPersistentNonDismissibleExample {
                 dismissible={false}
                 onHide={this.handleHide}
             />,
-            <limel-example-controls>
+            <limel-example-controls
+                style={{ '--example-controls-column-layout': 'auto-fit' }}
+            >
                 <limel-switch
                     label="Toggle online status"
                     onChange={this.handleChange}

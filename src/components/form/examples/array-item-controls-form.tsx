@@ -49,7 +49,9 @@ export class FormArrayItemControlsExample {
     public render() {
         return (
             <Host>
-                <limel-example-controls>
+                <limel-example-controls
+                    style={{ '--example-controls-column-layout': 'auto-fit' }}
+                >
                     <limel-checkbox
                         label="allowItemReorder"
                         checked={this.allowItemReorder}
