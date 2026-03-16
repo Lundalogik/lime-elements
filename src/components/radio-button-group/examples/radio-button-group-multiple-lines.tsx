@@ -68,7 +68,9 @@ export class RadioButtonGroupMultipleLinesExample {
                 maxLinesSecondaryText={this.maxLines}
                 onChange={this.handlePlanChange}
             />,
-            <limel-example-controls>
+            <limel-example-controls
+                style={{ '--example-controls-column-layout': 'auto-fit' }}
+            >
                 <limel-select
                     label="Max lines of secondary text"
                     value={this.getSelectedMaxLines()}

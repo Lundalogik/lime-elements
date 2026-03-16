@@ -51,7 +51,9 @@ export class TableExampleSortingDisabled {
                     columns={this.columns}
                     sortableColumns={!this.disableAllSorting}
                 />
-                <limel-example-controls>
+                <limel-example-controls
+                    style={{ '--example-controls-column-layout': 'auto-fit' }}
+                >
                     <limel-checkbox
                         checked={this.disableAllSorting}
                         label="Disable sorting on all columns"

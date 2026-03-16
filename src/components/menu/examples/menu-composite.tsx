@@ -83,7 +83,9 @@ export class MenuCompositeExample {
             >
                 <limel-button label="Menu" slot="trigger" />
             </limel-menu>,
-            <limel-example-controls>
+            <limel-example-controls
+                style={{ '--example-controls-column-layout': 'auto-fit' }}
+            >
                 <limel-form
                     schema={this.schema}
                     value={this.props}
