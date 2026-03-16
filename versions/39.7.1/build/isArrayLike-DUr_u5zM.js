@@ -1,0 +1,1 @@
+import{i as n}from"./isFunction-C8a2KtkQ.js";function t(n){return"number"==typeof n&&n>-1&&n%1==0&&n<=9007199254740991}function r(r){return null!=r&&t(r.length)&&!n(r)}export{t as a,r as i}
