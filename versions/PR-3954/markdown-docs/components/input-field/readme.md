@@ -83,6 +83,7 @@ Type: `Promise<number>`
 
 ### Used by
 
+ - [limel-code-diff](../code-diff)
  - [limel-color-picker](../color-picker)
  - [limel-color-picker-palette](../color-picker)
  - [limel-date-picker](../date-picker)
@@ -146,6 +147,7 @@ graph TD;
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
+  limel-code-diff --> limel-input-field
   limel-color-picker --> limel-input-field
   limel-color-picker-palette --> limel-input-field
   limel-date-picker --> limel-input-field
