@@ -170,6 +170,7 @@ function createImageNodeSpec(language: Languages): NodeSpec {
                         src: dom.getAttribute('src') || '',
                         alt: dom.getAttribute('alt') || 'file',
                         width: dom.style.width || '',
+                        height: dom.style.height || '',
                         maxWidth: '100%',
                         state: 'success',
                         fileInfoId: crypto.randomUUID(),
