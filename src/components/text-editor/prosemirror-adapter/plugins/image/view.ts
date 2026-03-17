@@ -99,6 +99,7 @@ class ImageView implements NodeView {
 
         const startX = event.clientX;
         const startWidth = this.img.offsetWidth;
+        this.img.style.height = '';
 
         const onPointerMove = (e: PointerEvent) => {
             const delta = e.clientX - startX;
