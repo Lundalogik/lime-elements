@@ -1,1 +1,0 @@
-import{r as o,h as c}from"./index-DBTJNfo7.js";const t=class{constructor(c){o(this,c)}render(){return[c("limel-icon-button",{key:"bbc1c8757db4d2304bd0c165614885f240a5c0a8",label:"Add favourite",icon:"heart_outlined",onClick:this.onClick})]}onClick(){console.log("Button clicked.")}};export{t as limel_example_icon_button_basic}
