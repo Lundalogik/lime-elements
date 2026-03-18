@@ -1,1 +1,0 @@
-const a="Tab",s="Enter",r="Escape",e="Space",o="Backspace",c="Delete",t="ArrowUp",p="ArrowDown",w="ArrowLeft",A="ArrowRight";export{t as A,o as B,c as D,s as E,e as S,a as T,r as a,p as b,w as c,A as d}
