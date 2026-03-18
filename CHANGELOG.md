@@ -1,3 +1,10 @@
+## [39.7.2](https://github.com/Lundalogik/lime-elements/compare/v39.7.1...v39.7.2) (2026-03-18)
+
+### Bug Fixes
+
+
+* **text-editor:** preserve image height when parsing HTML ([9b35888](https://github.com/Lundalogik/lime-elements/commit/9b358880c5d3c6f7d449cc5ea5df0a8db1940898)), closes [Lundalogik/crm-client#788](https://github.com/Lundalogik/crm-client/issues/788)
+
 ## [39.7.1](https://github.com/Lundalogik/lime-elements/compare/v39.7.0...v39.7.1) (2026-03-16)
 
 ### Reverts
