@@ -21,7 +21,16 @@ export const config: Config = {
             type: 'dist',
             copy: [
                 { src: 'style/' },
+
+                // Deprecated legacy paths for consumers still using
+                // direct imports like `dist/scss/mixins` or
+                // `dist/lime-elements/scss/mixins`.
+                // Use `@use '@limetech/lime-elements'` instead.
                 { src: 'style/mixins.scss', dest: 'scss/mixins.scss' },
+                {
+                    src: 'style/mixins.scss',
+                    dest: '../scss/mixins.scss',
+                },
             ],
         },
         {

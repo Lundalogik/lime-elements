@@ -8,6 +8,7 @@ export default [
             'src/contributing.md',
             'src/events.md',
             'src/theming.md',
+            'src/style-utilities.md',
         ],
     },
     {

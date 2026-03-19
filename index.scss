@@ -1,0 +1,9 @@
+/**
+ * Root-level entry point for consuming @limetech/lime-elements SCSS utilities.
+ *
+ * This file enables the clean import path:
+ * `@use '@limetech/lime-elements' as lime-elements;`
+ *
+ * It simply forwards everything from the built exports file.
+ */
+@forward 'dist/lime-elements/style/exports';
