@@ -1,13 +1,12 @@
-import { MDCSwitch } from '@material/switch';
 import {
     Component,
     Element,
     Event,
     EventEmitter,
     h,
+    Host,
     Prop,
     State,
-    Watch,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import {
@@ -102,116 +101,59 @@ export class Switch {
     @State()
     private fieldId = createRandomString();
 
-    private mdcSwitch: MDCSwitch;
-
-    public connectedCallback() {
-        this.initialize();
-    }
-
     public componentWillLoad() {
         makeEnterClickable(this.host);
     }
 
-    public componentDidLoad() {
-        this.initialize();
-    }
-
-    private initialize() {
-        const element = this.host.shadowRoot.querySelector(
-            '.mdc-switch'
-        ) as HTMLButtonElement;
-        if (!element) {
-            return;
-        }
-
-        this.mdcSwitch = new MDCSwitch(element);
-    }
-
     public disconnectedCallback() {
         removeEnterClickable(this.host);
-        this.mdcSwitch?.destroy();
     }
 
     public render() {
-        if (this.readonly) {
-            let icon: string | Icon = 'minus';
-            if (this.value) {
-                icon = {
-                    name: 'ok',
-                    color: 'var(--lime-primary-color, var(--limel-theme-primary-color))',
-                };
-            }
+        return (
+            <Host>
+                {this.readonly
+                    ? this.renderReadonly()
+                    : this.renderInteractive()}
+                {this.renderHelperLine()}
+            </Host>
+        );
+    }
 
-            return [
-                <limel-dynamic-label
-                    value={this.value}
-                    aria-controls={
-                        this.helperText ? this.helperTextId : undefined
-                    }
-                    defaultLabel={{ text: this.label, icon: icon }}
-                    labels={this.readonlyLabels}
-                />,
-                this.renderHelperLine(),
-            ];
-        }
+    private renderReadonly = () => {
+        const icon: string | Icon = this.value
+            ? {
+                  name: 'ok',
+                  color: 'var(--lime-primary-color, var(--limel-theme-primary-color))',
+              }
+            : 'minus';
 
+        return (
+            <limel-dynamic-label
+                value={this.value}
+                aria-describedby={this.ariaDescribedBy}
+                defaultLabel={{ text: this.label, icon: icon }}
+                labels={this.readonlyLabels}
+            />
+        );
+    };
+
+    private renderInteractive = () => {
         return [
             <button
                 id={this.fieldId}
-                class={{
-                    'mdc-switch': true,
-                    'mdc-switch--unselected': !this.value,
-                    'mdc-switch--selected': this.value,
-                }}
                 type="button"
                 role="switch"
-                aria-checked={this.value}
+                aria-checked={String(this.value)}
                 disabled={this.disabled}
                 onClick={this.handleClick}
-                aria-controls={this.helperText ? this.helperTextId : undefined}
+                aria-describedby={this.ariaDescribedBy}
             >
-                <div class="mdc-switch__track" />
-                <div class="mdc-switch__handle-track">
-                    <div class="mdc-switch__handle">
-                        <div class="mdc-switch__shadow">
-                            <div class="mdc-elevation-overlay"></div>
-                        </div>
-                        <div class="mdc-switch__ripple"></div>
-                        <div class="mdc-switch__icons">
-                            <svg
-                                class="mdc-switch__icon mdc-switch__icon--on"
-                                viewBox="0 0 24 24"
-                            >
-                                <path d="M19.69,5.23L8.96,15.96l-4.23-4.23L2.96,13.5l6,6L21.46,7L19.69,5.23z" />
-                            </svg>
-                            <svg
-                                class="mdc-switch__icon mdc-switch__icon--off"
-                                viewBox="0 0 24 24"
-                            >
-                                <path d="M20 13H4v-2h16v2z" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
+                <span class="handle" />
             </button>,
-            <label
-                class={`${this.disabled ? 'disabled' : ''}`}
-                htmlFor={this.fieldId}
-            >
-                {this.label}
-            </label>,
-            this.renderHelperLine(),
+            <label htmlFor={this.fieldId}>{this.label}</label>,
         ];
-    }
-
-    @Watch('value')
-    protected valueWatcher(newValue: boolean) {
-        if (!this.mdcSwitch) {
-            return;
-        }
-
-        this.mdcSwitch.selected = newValue;
-    }
+    };
 
     private renderHelperLine = () => {
         if (!this.hasHelperText()) {
@@ -226,6 +168,10 @@ export class Switch {
             />
         );
     };
+
+    private get ariaDescribedBy(): string | undefined {
+        return this.helperText ? this.helperTextId : undefined;
+    }
 
     private hasHelperText = () => {
         return this.helperText !== null && this.helperText !== undefined;

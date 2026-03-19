@@ -1,121 +1,111 @@
-@forward './partial-styles/helper-text';
-@use '../../style/functions';
-@use '../../style/internal/shared_input-select-picker';
-@use '@material/switch/styles';
+@use '../../style/mixins';
 
-$scale-factor: 0.8;
+$track-width: 2.25rem;
+$track-height: 1.25rem;
+$handle-size: 1.25rem;
+$animation-duration: 0.2s;
+$min-height: 1.75rem;
 
 :host(limel-switch) {
-    isolation: isolate;
-
-    min-height: 1.75rem;
+    min-height: $min-height;
 
     display: flex;
     align-items: flex-start;
     gap: 0.5rem;
-
-    --mdc-switch-selected-icon-color: transparent;
-    --mdc-switch-unselected-icon-color: transparent;
-
-    --mdc-switch-disabled-selected-icon-opacity: 1;
-    --mdc-switch-disabled-unselected-icon-opacity: 1;
-
-    --mdc-switch-selected-icon-size: 0.75rem;
-    --mdc-switch-unselected-icon-size: 0.75rem;
-
-    --mdc-switch-track-height: 1.25rem;
-    --mdc-switch-track-shape: var(--mdc-switch-track-height);
-
-    --mdc-switch-unselected-focus-handle-color: var(
-        --lime-elevated-surface-background-color
-    );
-    --mdc-switch-selected-focus-handle-color: var(
-        --lime-elevated-surface-background-color
-    );
-    --mdc-switch-unselected-pressed-handle-color: var(
-        --lime-elevated-surface-background-color
-    );
-    --mdc-switch-selected-pressed-handle-color: var(
-        --lime-elevated-surface-background-color
-    );
-    --mdc-switch-unselected-handle-color: var(
-        --lime-elevated-surface-background-color
-    );
-    --mdc-switch-unselected-hover-handle-color: var(
-        --lime-elevated-surface-background-color
-    );
-    --mdc-switch-selected-handle-color: var(
-        --lime-elevated-surface-background-color
-    );
-    --mdc-switch-selected-hover-handle-color: var(
-        --lime-elevated-surface-background-color
-    );
-
-    --mdc-switch-unselected-track-color: rgb(var(--contrast-700));
-    --mdc-switch-unselected-focus-track-color: rgb(var(--contrast-800));
-    --mdc-switch-unselected-pressed-track-color: rgb(var(--contrast-800));
-    --mdc-switch-unselected-hover-track-color: rgb(var(--contrast-800));
-    --mdc-switch-selected-focus-track-color: var(
-        --lime-primary-color,
-        var(--limel-theme-primary-color)
-    );
-    --mdc-switch-selected-pressed-track-color: var(
-        --lime-primary-color,
-        var(--limel-theme-primary-color)
-    );
-    --mdc-switch-selected-track-color: var(
-        --lime-primary-color,
-        var(--limel-theme-primary-color)
-    );
-    --mdc-switch-selected-hover-track-color: var(
-        --lime-primary-color,
-        var(--limel-theme-primary-color)
-    );
-
-    --mdc-switch-handle-elevation: var(--button-shadow-normal);
-    --mdc-switch-disabled-track-opacity: 0.4;
-
-    --mdc-switch-disabled-selected-handle-color: rgb(var(--contrast-1000));
-    --mdc-switch-disabled-unselected-handle-color: rgb(var(--contrast-1000));
 }
 
-.mdc-switch {
-    margin-top: 0.25rem;
-    &:hover {
-        --mdc-switch-handle-elevation: var(--button-shadow-hovered);
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: background-color calc(#{$animation-duration} + 0.2s) ease;
+
+    flex-shrink: 0;
+
+    display: inline-flex;
+    align-items: center;
+
+    margin: 0.25rem 0 0 0;
+    padding: 0;
+
+    width: $track-width;
+    height: $track-height;
+    border-radius: $track-height;
+    background-color: rgb(var(--contrast-700));
+
+    :host([disabled]) & {
+        opacity: 0.4;
+
+        cursor: not-allowed;
+    }
+
+    &[aria-checked='true'] {
+        background-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
     }
 }
 
-label {
-    padding-top: 0.25rem;
-    font-size: var(--limel-theme-default-font-size);
+.handle {
+    position: relative;
 
-    &:not(.disabled) {
-        cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: $handle-size;
+    height: $handle-size;
+    border-radius: 50%;
+
+    transition:
+        transform $animation-duration cubic-bezier(0.46, 0.52, 0.27, 1.55),
+        box-shadow $animation-duration ease,
+        background-color $animation-duration ease;
+
+    transform: translateX(0);
+    button[aria-checked='true'] & {
+        transform: translateX($track-width - $handle-size);
     }
-}
 
-label {
-    // As long as this component is depended on MDC,
-    // we need to force it to be font-agnostic.
-    // When MDC-dependency is removed, this block can also be removed.
-    // However, on removal of MDC-dependency, we should also make sure to check
-    // other font-related styles that might be set by MDC,
-    // such as `letter-spacing` or `font-size`.
-    font-family: inherit;
-}
+    button:focus-visible & {
+        background-color: rgb(var(--color-white), 0.6);
+        box-shadow:
+            var(--shadow-depth-8-focused), var(--shadow-brighten-edges-inside);
+    }
 
-.mdc-switch {
-    &.mdc-switch--selected,
-    &.mdc-switch.mdc-switch--unselected {
-        .mdc-switch__handle {
-            &:after,
-            &:before {
-                transform: scale($scale-factor);
-            }
+    &:after {
+        transition: mixins.$clickable-normal-state-transitions;
+        content: '';
+        position: absolute;
+        inset: 0.125rem;
+        border-radius: 50%;
+
+        background-color: var(--lime-elevated-surface-background-color);
+        box-shadow: var(--button-shadow-normal), var(--button-shadow-normal);
+
+        button:hover:not(:disabled) & {
+            box-shadow:
+                var(--button-shadow-normal), var(--button-shadow-hovered);
         }
     }
-    .mdc-switch__shadow {
-        transform: scale($scale-factor);
+}
+
+svg {
+    width: 0.625rem;
+    height: 0.625rem;
+    fill: var(--lime-elevated-surface-background-color);
+}
+
+label {
+    font-size: var(--limel-theme-default-font-size);
+    padding-top: 0.25rem;
+    cursor: pointer;
+
+    :host([disabled]) & {
+        cursor: not-allowed;
+        opacity: 0.4;
     }
 }
+
+@include mixins.hide-helper-line-when-not-needed(limel-switch);

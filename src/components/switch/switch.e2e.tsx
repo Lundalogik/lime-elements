@@ -33,10 +33,8 @@ describe('limel-switch', () => {
             );
             await waitForChanges();
 
-            const mdcSwitch = root.shadowRoot.querySelector('.mdc-switch');
-            expect(mdcSwitch.classList.contains('mdc-switch--selected')).toBe(
-                false
-            );
+            const switchEl = root.shadowRoot.querySelector('button');
+            expect(switchEl.getAttribute('aria-checked')).toBe('false');
             expect((root as any).value).toBeFalsy();
         });
 
@@ -46,10 +44,8 @@ describe('limel-switch', () => {
             );
             await waitForChanges();
 
-            const mdcSwitch = root.shadowRoot.querySelector('.mdc-switch');
-            expect(mdcSwitch.classList.contains('mdc-switch--selected')).toBe(
-                true
-            );
+            const switchEl = root.shadowRoot.querySelector('button');
+            expect(switchEl.getAttribute('aria-checked')).toBe('true');
             expect((root as any).value).toEqual(true);
         });
 
@@ -62,10 +58,8 @@ describe('limel-switch', () => {
             await setProps({ value: true });
             await waitForChanges();
 
-            const mdcSwitch = root.shadowRoot.querySelector('.mdc-switch');
-            expect(mdcSwitch.classList.contains('mdc-switch--selected')).toBe(
-                true
-            );
+            const switchEl = root.shadowRoot.querySelector('button');
+            expect(switchEl.getAttribute('aria-checked')).toBe('true');
         });
 
         it('turns "off" when set to false via setProps', async () => {
@@ -77,10 +71,8 @@ describe('limel-switch', () => {
             await setProps({ value: false });
             await waitForChanges();
 
-            const mdcSwitch = root.shadowRoot.querySelector('.mdc-switch');
-            expect(mdcSwitch.classList.contains('mdc-switch--selected')).toBe(
-                false
-            );
+            const switchEl = root.shadowRoot.querySelector('button');
+            expect(switchEl.getAttribute('aria-checked')).toBe('false');
         });
     });
 
@@ -91,8 +83,8 @@ describe('limel-switch', () => {
             );
             await waitForChanges();
 
-            const mdcSwitch = root.shadowRoot.querySelector('.mdc-switch');
-            expect(mdcSwitch.hasAttribute('disabled')).toBe(false);
+            const switchEl = root.shadowRoot.querySelector('button');
+            expect(switchEl.hasAttribute('disabled')).toBe(false);
             expect((root as any).disabled).toBeFalsy();
         });
 
@@ -102,8 +94,8 @@ describe('limel-switch', () => {
             );
             await waitForChanges();
 
-            const mdcSwitch = root.shadowRoot.querySelector('.mdc-switch');
-            expect(mdcSwitch.hasAttribute('disabled')).toBe(true);
+            const switchEl = root.shadowRoot.querySelector('button');
+            expect(switchEl.hasAttribute('disabled')).toBe(true);
             expect((root as any).disabled).toEqual(true);
         });
 
@@ -116,8 +108,8 @@ describe('limel-switch', () => {
             await setProps({ disabled: true });
             await waitForChanges();
 
-            const mdcSwitch = root.shadowRoot.querySelector('.mdc-switch');
-            expect(mdcSwitch.hasAttribute('disabled')).toBe(true);
+            const switchEl = root.shadowRoot.querySelector('button');
+            expect(switchEl.hasAttribute('disabled')).toBe(true);
         });
 
         it('becomes enabled when property changes to false', async () => {
@@ -129,8 +121,8 @@ describe('limel-switch', () => {
             await setProps({ disabled: false });
             await waitForChanges();
 
-            const mdcSwitch = root.shadowRoot.querySelector('.mdc-switch');
-            expect(mdcSwitch.hasAttribute('disabled')).toBe(false);
+            const switchEl = root.shadowRoot.querySelector('button');
+            expect(switchEl.hasAttribute('disabled')).toBe(false);
         });
     });
 });
