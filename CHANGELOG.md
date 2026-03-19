@@ -1,3 +1,10 @@
+## [39.8.1](https://github.com/Lundalogik/lime-elements/compare/v39.8.0...v39.8.1) (2026-03-19)
+
+### Bug Fixes
+
+
+* **test:** suppress Stencil teardown race in vitest ([c2a9b4d](https://github.com/Lundalogik/lime-elements/commit/c2a9b4d11a5205f7de2e5ff5f7162a973e839a5e))
+
 ## [39.8.0](https://github.com/Lundalogik/lime-elements/compare/v39.7.2...v39.8.0) (2026-03-19)
 
 ### Features
