@@ -11,8 +11,10 @@
   "main": "dist/index.cjs.js",
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
+  "sass": "index.scss",
   "files": [
     "dist/",
+    "index.scss",
     "CHANGELOG.md"
   ],
   "scripts": {

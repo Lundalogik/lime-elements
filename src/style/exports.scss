@@ -1,0 +1,12 @@
+/**
+ * Public SCSS exports for consumers of @limetech/lime-elements.
+ *
+ * This file provides reusable styling utilities.
+ *
+ * Import this file using:
+ * `@use '@limetech/lime-elements' as lime-elements;`
+ *
+ * For detailed documentation of each utility, its parameters,
+ * and usage examples, refer to the respective source files.
+ */
+@forward 'mixins';
