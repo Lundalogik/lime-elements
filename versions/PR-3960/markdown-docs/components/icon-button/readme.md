@@ -4,12 +4,13 @@
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                                    | Type             | Default     |
-| ---------- | ---------- | ---------------------------------------------------------------------------------------------- | ---------------- | ----------- |
-| `disabled` | `disabled` | Set to `true` to disable the button.                                                           | `boolean`        | `false`     |
-| `elevated` | `elevated` | Set to `true` to give the button our standard "elevated" look, lifting it off the flat layout. | `boolean`        | `false`     |
-| `icon`     | `icon`     | The icon to display.                                                                           | `Icon \| string` | `undefined` |
-| `label`    | `label`    | The text to show to screenreaders and other assistive tech.                                    | `string`         | `undefined` |
+| Property      | Attribute      | Description                                                                                                                               | Type             | Default     |
+| ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ----------- |
+| `disabled`    | `disabled`     | Set to `true` to disable the button.                                                                                                      | `boolean`        | `false`     |
+| `elevated`    | `elevated`     | Set to `true` to give the button our standard "elevated" look, lifting it off the flat layout.                                            | `boolean`        | `false`     |
+| `helperLabel` | `helper-label` | Additional helper text for the tooltip. Example usage can be a keyboard shortcut to activate the function of the button.                  | `string`         | `undefined` |
+| `icon`        | `icon`         | The icon to display.                                                                                                                      | `Icon \| string` | `undefined` |
+| `label`       | `label`        | The text to show to screenreaders and other assistive tech. It is also displayed as a tooltip when the user hovers or focuses the button. | `string`         | `undefined` |
 
 
 ## Dependencies
@@ -25,6 +26,7 @@
  - [limel-example-icon-button-composite](examples)
  - [limel-example-icon-button-disabled](examples)
  - [limel-example-icon-button-elevated](examples)
+ - [limel-example-icon-button-helper-label](examples)
  - [limel-example-icon-button-icon](examples)
  - [limel-example-icon-button-toggle-state](examples)
  - [limel-example-menu-notification](../menu/examples)
@@ -54,6 +56,7 @@ graph TD;
   limel-example-icon-button-composite --> limel-icon-button
   limel-example-icon-button-disabled --> limel-icon-button
   limel-example-icon-button-elevated --> limel-icon-button
+  limel-example-icon-button-helper-label --> limel-icon-button
   limel-example-icon-button-icon --> limel-icon-button
   limel-example-icon-button-toggle-state --> limel-icon-button
   limel-example-menu-notification --> limel-icon-button
