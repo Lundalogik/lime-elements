@@ -3,6 +3,29 @@
 // Load Stencil custom matchers (toEqualHtml, toHaveAttribute, etc.)
 import '@stencil/vitest';
 
+// Suppress Stencil-internal unhandled rejections from cross-test leaks.
+// After teardown, Stencil's `emitEvent` microtask may fire on a cleaned-up
+// window/element whose `dispatchEvent` no longer exists. This is harmless
+// but Vitest treats unhandled rejections as test failures.
+if (
+    typeof process !== 'undefined' &&
+    !(process as any).__vitestUnhandledRejectionListenerInstalled
+) {
+    (process as any).__vitestUnhandledRejectionListenerInstalled = true;
+    process.on('unhandledRejection', (reason: unknown) => {
+        if (
+            reason instanceof TypeError &&
+            reason.message === 'elm.dispatchEvent is not a function'
+        ) {
+            // Swallow — this is a known Stencil mock-doc teardown race.
+            return;
+        }
+
+        // Re-throw anything else so real errors aren't silenced.
+        throw reason;
+    });
+}
+
 // Load Stencil components (built by stencil-test before Vitest runs)
 await import('./dist/lime-elements/lime-elements.esm.js');
 
