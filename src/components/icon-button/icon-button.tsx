@@ -13,6 +13,7 @@ import { getIconName, getIconTitle } from '../icon/get-icon-props';
  * @exampleComponent limel-example-icon-button-elevated
  * @exampleComponent limel-example-icon-button-toggle-state
  * @exampleComponent limel-example-icon-button-icon
+ * @exampleComponent limel-example-icon-button-helper-label
  * @exampleComponent limel-example-icon-button-composite
  */
 @Component({
@@ -36,9 +37,19 @@ export class IconButton {
 
     /**
      * The text to show to screenreaders and other assistive tech.
+     * It is also displayed as a tooltip when the user hovers
+     * or focuses the button.
      */
     @Prop({ reflect: true })
     public label: string;
+
+    /**
+     * Additional helper text for the tooltip.
+     * Example usage can be a keyboard shortcut to activate
+     * the function of the button.
+     */
+    @Prop({ reflect: true })
+    public helperLabel?: string;
 
     /**
      * Set to `true` to disable the button.
@@ -116,7 +127,13 @@ export class IconButton {
 
     private renderTooltip(tooltipId) {
         if (this.label) {
-            return <limel-tooltip elementId={tooltipId} label={this.label} />;
+            return (
+                <limel-tooltip
+                    elementId={tooltipId}
+                    label={this.label}
+                    helperLabel={this.helperLabel}
+                />
+            );
         }
     }
 
