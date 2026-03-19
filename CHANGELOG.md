@@ -1,3 +1,10 @@
+## [39.9.0](https://github.com/Lundalogik/lime-elements/compare/v39.8.1...v39.9.0) (2026-03-19)
+
+### Features
+
+
+* **style:** enable importing shared SCSS mixins and utilities ([76c26e0](https://github.com/Lundalogik/lime-elements/commit/76c26e0c24bd073b776251dbc74da8f74df1b37c))
+
 ## [39.8.1](https://github.com/Lundalogik/lime-elements/compare/v39.8.0...v39.8.1) (2026-03-19)
 
 ### Bug Fixes
