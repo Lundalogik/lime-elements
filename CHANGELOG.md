@@ -1,3 +1,10 @@
+## [39.8.0](https://github.com/Lundalogik/lime-elements/compare/v39.7.2...v39.8.0) (2026-03-19)
+
+### Features
+
+
+* **icon-button:** add `helperLabel` prop ([9e7435a](https://github.com/Lundalogik/lime-elements/commit/9e7435ad03aa725b7c75f6b7c1bc65a254ad5344))
+
 ## [39.7.2](https://github.com/Lundalogik/lime-elements/compare/v39.7.1...v39.7.2) (2026-03-18)
 
 ### Bug Fixes
