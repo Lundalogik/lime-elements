@@ -34,6 +34,21 @@ Audit UI code for WCAG 2.1 AA compliance, plus lime-elements-specific patterns l
 
 **Triggers on:** "check accessibility", "a11y audit", "WCAG compliance check"
 
+## Agents
+
+### UI Assistant (`ui-assistant`)
+An orchestration agent that coordinates all four skills into a structured, multi-phase workflow. It classifies your request, runs the relevant phases in order, and fixes any issues found during review.
+
+**Phases:** Component Selection → Build → Design Review → Accessibility Audit → Fix
+
+**Use it for:**
+- Full build requests: "Build me a settings dialog with a switch and save button"
+- Code reviews: "Review this form against the design system"
+- Targeted audits: "Check accessibility on my dialog code"
+- Component guidance: "What component should I use for file upload?"
+
+**Invoke with:** `@ui-assistant` or "use the ui-assistant agent"
+
 ## Reference Docs
 
 The plugin bundles distilled design system knowledge in `references/`:
@@ -41,6 +56,7 @@ The plugin bundles distilled design system knowledge in `references/`:
 - **`design-system.md`** — Color system (palettes, CSS variables, dark mode, accent color), size rhythms (4x rule, rem units), shadows (button/surface/state variables), declutter philosophy
 - **`component-catalog.md`** — All ~50 public components with tag names, key props, and use cases
 - **`interaction-patterns.md`** — Switch vs checkbox, disabled vs readonly, hidden vs disabled, action button placement and labeling
+- **`quick-start.md`** — Standalone HTML loading pattern (required CSS/JS files, CDN URLs, limel-config setup, complete minimal working example)
 
 ## What This Plugin Does NOT Do
 

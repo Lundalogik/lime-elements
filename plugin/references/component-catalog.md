@@ -7,6 +7,26 @@ All components use the `limel-` tag prefix. They are Web Components (shadow DOM)
 
 ---
 
+## Prerequisites
+
+Every page that uses lime-elements needs these resources loaded:
+
+1. **CSS:** `color-palette-extended.css` (color palette) + `lime-elements.css` (component styles)
+2. **JS:** `lime-elements.esm.js` with `type="module"`
+3. **Config:** A `<limel-config>` element with `iconPath` set:
+   ```html
+   <limel-config></limel-config>
+   <script>
+       document.querySelector('limel-config').config = {
+           iconPath: 'https://lundalogik.github.io/lime-icons8/',
+       };
+   </script>
+   ```
+
+For the full loading pattern with CDN URLs and a complete working example, see [`quick-start.md`](quick-start.md).
+
+---
+
 ## Navigation & Layout
 
 ### `limel-dock`

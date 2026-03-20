@@ -18,6 +18,7 @@ You are helping the user build a user interface using `@limetech/lime-elements`,
    - What data is being displayed or collected?
    - What actions does the user need?
    - What's the context (dialog, full page, card, form)?
+   - **Does the user want a Stencil component or standalone HTML?** Default to Stencil for projects that already use it. Default to standalone HTML for quick prototyping, demos, or non-Stencil projects.
 
 3. **Choose components.** Select the most appropriate `limel-*` components from the catalog. Prefer:
    - `limel-form` for schema-driven forms over manually composing individual fields
@@ -25,7 +26,11 @@ You are helping the user build a user interface using `@limetech/lime-elements`,
    - `limel-switch` for instant-effect toggles, `limel-checkbox` for submit-to-apply
    - `limel-dialog` for focused interactions, `limel-popover` for contextual options
 
-4. **Write the code.** Output working Stencil.js TSX (or framework-agnostic HTML if requested). Follow these conventions:
+4. **Write the code.** Output working Stencil.js TSX or standalone HTML depending on step 2. Follow these conventions:
+
+   **For standalone HTML output:** Read `${CLAUDE_PLUGIN_ROOT}/references/quick-start.md` first. You **must** include the full loading boilerplate: all 3 files (color-palette-extended.css, lime-elements.css, lime-elements.esm.js), `limel-config` with iconPath, z-index variables, and a note about serving via HTTP (not file://). Use vanilla JS event listeners (`addEventListener`) instead of JSX handlers.
+
+   For all output formats, follow these conventions:
    - **Colors:** Use CSS custom properties from the color system. Set `--lime-primary-color` for accent. Use `--lime-elevated-surface-background-color` for cards/modals. Use contrast scale for neutral UI.
    - **Sizing:** All spacing in multiples of 4, using rem units. `1px` for borders only.
    - **Shadows:** Use `--button-shadow-*` for buttons, surface shadow variables for cards/modals. Transition shadow changes smoothly.
