@@ -17,7 +17,7 @@ import { Component, h, State } from '@stencil/core';
  * :::
  */
 @Component({
-    tag: 'limel-example-snackbar',
+    tag: 'limel-example-snackbar-basic',
     shadow: true,
 })
 export class SnackbarExample {
