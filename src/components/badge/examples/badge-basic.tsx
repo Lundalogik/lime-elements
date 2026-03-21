@@ -17,8 +17,8 @@ import { Component, h } from '@stencil/core';
  *:::
  */
 @Component({
-    tag: 'limel-example-badge',
-    styleUrl: 'badge.scss',
+    tag: 'limel-example-badge-basic',
+    styleUrl: 'badge-basic.scss',
     shadow: true,
 })
 export class BadgeExample {
