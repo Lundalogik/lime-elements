@@ -1,9 +1,9 @@
 import { Component, h, State } from '@stencil/core';
 
 @Component({
-    tag: 'limel-example-checkbox',
+    tag: 'limel-example-checkbox-basic',
     shadow: true,
-    styleUrl: 'checkbox.scss',
+    styleUrl: 'checkbox-basic.scss',
 })
 export class CheckboxExample {
     @State()

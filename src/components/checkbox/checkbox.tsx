@@ -33,7 +33,7 @@ import { Label } from '../dynamic-label/label.types';
  * But there is an important difference between the two! Please read our guidelines about
  * [Switch vs. Checkbox](#/DesignGuidelines/switch-vs-checkbox.md/).
  *
- * @exampleComponent limel-example-checkbox
+ * @exampleComponent limel-example-checkbox-basic
  * @exampleComponent limel-example-checkbox-helper-text
  * @exampleComponent limel-example-checkbox-readonly
  */
