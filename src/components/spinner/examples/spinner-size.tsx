@@ -6,7 +6,7 @@ import { Component, h } from '@stencil/core';
 @Component({
     tag: 'limel-example-spinner-size',
     shadow: true,
-    styleUrl: 'spinner.scss',
+    styleUrl: 'spinner-basic.scss',
 })
 export class SpinnerSizeExample {
     public render() {

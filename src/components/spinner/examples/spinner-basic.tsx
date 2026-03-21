@@ -9,7 +9,7 @@ import { Component, State, h } from '@stencil/core';
  * which renders the spinner's shape as Lime Technologies' logo.
  */
 @Component({
-    tag: 'limel-example-spinner',
+    tag: 'limel-example-spinner-basic',
     shadow: true,
 })
 export class SpinnerExample {
