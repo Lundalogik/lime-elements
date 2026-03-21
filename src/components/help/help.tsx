@@ -19,7 +19,7 @@ import { Link } from '../../global/shared-types/link.types';
  * of an app more effortlessly, minimizes the learning curve,
  * transforming complex features into accessible opportunities for exploration.
  *
- * @exampleComponent limel-example-help
+ * @exampleComponent limel-example-help-basic
  * @exampleComponent limel-example-read-more
  * @exampleComponent limel-example-open-direction
  * @exampleComponent limel-example-placement
