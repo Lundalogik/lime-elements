@@ -1,13 +1,13 @@
 import { Component, Element, h, State } from '@stencil/core';
 
 @Component({
-    tag: 'limel-example-banner',
+    tag: 'limel-example-banner-basic',
     shadow: true,
-    styleUrl: 'banner.scss',
+    styleUrl: 'banner-basic.scss',
 })
 export class BannerExample {
     @Element()
-    private host: HTMLLimelExampleBannerElement;
+    private host: HTMLLimelExampleBannerBasicElement;
 
     @State()
     private disabled = false;

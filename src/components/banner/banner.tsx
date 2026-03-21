@@ -1,7 +1,7 @@
 import { Component, h, Method, Prop, State } from '@stencil/core';
 
 /**
- * @exampleComponent limel-example-banner
+ * @exampleComponent limel-example-banner-basic
  * @slot buttons - Buttons to show in the banner
  */
 @Component({
