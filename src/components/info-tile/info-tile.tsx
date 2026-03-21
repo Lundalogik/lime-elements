@@ -13,7 +13,7 @@ import { getRel } from '../../util/link-helper';
  * a new screen or web page, you need to provide a URL,
  * using the `link` property.
  *
- * @exampleComponent limel-example-info-tile
+ * @exampleComponent limel-example-info-tile-basic
  * @exampleComponent limel-example-info-tile-badge
  * @exampleComponent limel-example-info-tile-progress
  * @exampleComponent limel-example-info-tile-loading
