@@ -103,8 +103,7 @@ export class CircularProgress {
         if (
             this.suffix !== '%' &&
             this.suffix !== null &&
-            this.suffix !== undefined &&
-            this.valueSuffix === undefined
+            this.suffix !== undefined
         ) {
             console.warn(
                 'The `suffix` property is deprecated and will be removed in a future version. Use `valueSuffix` instead.'

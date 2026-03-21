@@ -51,6 +51,8 @@ export const DEFAULT_MARKDOWN_WHITELIST: CustomElementDefinition[] = [
             'max-value',
             'prefix',
             'suffix',
+            'value-prefix',
+            'value-suffix',
             'size',
             'display-percentage-colors',
         ],
@@ -61,6 +63,15 @@ export const DEFAULT_MARKDOWN_WHITELIST: CustomElementDefinition[] = [
     },
     {
         tagName: 'limel-info-tile',
-        attributes: ['value', 'icon', 'label', 'prefix', 'suffix', 'badge'],
+        attributes: [
+            'value',
+            'icon',
+            'label',
+            'prefix',
+            'suffix',
+            'value-prefix',
+            'value-suffix',
+            'badge',
+        ],
     },
 ];
