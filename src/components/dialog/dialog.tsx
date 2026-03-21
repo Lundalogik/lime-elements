@@ -30,7 +30,7 @@ import { createRandomString } from '../../util/random-string';
  * from Lime Web Components to open dialogs in Lime CRM.
  * :::
  *
- * @exampleComponent limel-example-dialog
+ * @exampleComponent limel-example-dialog-basic
  * @exampleComponent limel-example-dialog-nested-close-events
  * @exampleComponent limel-example-dialog-heading
  * @exampleComponent limel-example-dialog-heading-actions

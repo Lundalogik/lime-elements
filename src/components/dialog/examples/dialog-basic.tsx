@@ -1,7 +1,7 @@
 import { Component, h, State } from '@stencil/core';
 
 @Component({
-    tag: 'limel-example-dialog',
+    tag: 'limel-example-dialog-basic',
     shadow: true,
 })
 export class DialogExample {
