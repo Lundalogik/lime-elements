@@ -48,15 +48,29 @@ export class CircularProgress {
 
     /**
      * The prefix which is displayed before the `value`, must be a few characters characters long.
+     * @deprecated Use `valuePrefix` instead. Will be removed in a future version.
      */
     @Prop({ reflect: true })
     public prefix?: string = null;
 
     /**
      * The suffix which is displayed after the `value`, must be one or two characters long. Defaults to `%`
+     * @deprecated Use `valueSuffix` instead. Will be removed in a future version.
      */
     @Prop()
     public suffix: string = '%';
+
+    /**
+     * The prefix which is displayed before the `value`, must be a few characters characters long.
+     */
+    @Prop({ reflect: true })
+    public valuePrefix?: string = null;
+
+    /**
+     * The suffix which is displayed after the `value`, must be one or two characters long. Defaults to `%`
+     */
+    @Prop({ reflect: true })
+    public valueSuffix?: string;
 
     /**
      * When set to `true`, makes the filled section showing the percentage colorful. Colors change with intervals of 10%.
@@ -79,6 +93,26 @@ export class CircularProgress {
         const currentPercentage = (this.value * PERCENT) / this.maxValue + '%';
         const value = Math.round(this.value * 10) / 10;
 
+        // Warn about deprecated props
+        if (this.prefix !== null && this.prefix !== undefined) {
+            console.warn(
+                'The `prefix` property is deprecated and will be removed in a future version. Use `valuePrefix` instead.'
+            );
+        }
+        if (
+            this.suffix !== '%' &&
+            this.suffix !== null &&
+            this.suffix !== undefined &&
+            this.valueSuffix === undefined
+        ) {
+            console.warn(
+                'The `suffix` property is deprecated and will be removed in a future version. Use `valueSuffix` instead.'
+            );
+        }
+
+        const effectivePrefix = this.valuePrefix ?? this.prefix;
+        const effectiveSuffix = this.valueSuffix ?? this.suffix ?? '%';
+
         return (
             <div
                 role="progressbar"
@@ -89,17 +123,17 @@ export class CircularProgress {
                 aria-valuenow={this.value}
                 style={{ '--percentage': currentPercentage }}
             >
-                {this.renderPrefix()}
+                {this.renderPrefix(effectivePrefix)}
                 <span class="value">
                     {abbreviate(value)}
-                    <span class="suffix">{this.suffix}</span>
+                    <span class="suffix">{effectiveSuffix}</span>
                 </span>
             </div>
         );
     }
-    private renderPrefix = () => {
-        if (this.prefix) {
-            return <span class="prefix">{this.prefix}</span>;
+    private renderPrefix = (prefix?: string) => {
+        if (prefix) {
+            return <span class="prefix">{prefix}</span>;
         }
     };
 }
