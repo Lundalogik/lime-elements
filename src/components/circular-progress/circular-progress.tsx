@@ -64,7 +64,7 @@ export class CircularProgress {
      * The prefix which is displayed before the `value`, must be a few characters characters long.
      */
     @Prop({ reflect: true })
-    public valuePrefix?: string = null;
+    public valuePrefix?: string;
 
     /**
      * The suffix which is displayed after the `value`, must be one or two characters long. Defaults to `%`
