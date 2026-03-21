@@ -13,9 +13,9 @@ import { Tab } from '@limetech/lime-elements';
  * @sourceFile tab-panel-content.scss
  */
 @Component({
-    tag: 'limel-example-tab-panel',
+    tag: 'limel-example-tab-panel-basic',
     shadow: true,
-    styleUrl: 'tab-panel.scss',
+    styleUrl: 'tab-panel-basic.scss',
 })
 export class TabPanelExample {
     @State()
