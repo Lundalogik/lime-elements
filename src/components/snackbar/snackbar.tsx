@@ -40,7 +40,7 @@ const hideAnimationDuration = 300;
  * [Dialog](#/component/limel-dialog/) is a better choice.
  * :::
  *
- * @exampleComponent limel-example-snackbar
+ * @exampleComponent limel-example-snackbar-basic
  * @exampleComponent limel-example-snackbar-with-action
  * @exampleComponent limel-example-snackbar-with-changing-messages
  * @exampleComponent limel-example-snackbar-dismissible
