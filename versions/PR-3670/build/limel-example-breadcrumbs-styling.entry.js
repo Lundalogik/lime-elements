@@ -1,2 +1,0 @@
-import{r as e,h as r}from"./index-2714248e.js";const t="limel-breadcrumbs{--breadcrumbs-item-text-color:rgb(var(--color-blue-dark));--breadcrumbs-item-max-width:5rem}";const o=class{constructor(r){e(this,r);this.items=[{text:"Home",icon:{name:"smart_home",color:"rgb(var(--color-cyan-light))"}},{text:"Products",icon:"menu"},{text:"Phones",icon:"iphone_x"},{text:"Accessories"}]}render(){return r("limel-breadcrumbs",{items:this.items})}};o.style=t;export{o as limel_example_breadcrumbs_styling};
-//# sourceMappingURL=limel-example-breadcrumbs-styling.entry.js.map

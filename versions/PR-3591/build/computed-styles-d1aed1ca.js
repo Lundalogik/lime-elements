@@ -1,2 +1,0 @@
-async function e(e,t){return new Promise((n=>{requestAnimationFrame((()=>{const o={};const r=getComputedStyle(e);t.forEach((e=>{o[e]=r.getPropertyValue(e).trim()}));n(o)}))}))}export{e as g};
-//# sourceMappingURL=computed-styles-d1aed1ca.js.map

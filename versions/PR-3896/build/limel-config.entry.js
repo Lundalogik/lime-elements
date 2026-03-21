@@ -1,1 +1,0 @@
-import{r as o}from"./index-xvTBZcD2.js";import{g as t}from"./config-Dnt5w_Bp.js";const s=class{constructor(t){o(this,t)}componentDidLoad(){this.setGlobalConfig()}componentDidUpdate(){this.setGlobalConfig()}setGlobalConfig(){if(this.config)for(const o of Object.keys(this.config))t[o]=this.config[o]}render(){return null}};export{s as limel_config}
