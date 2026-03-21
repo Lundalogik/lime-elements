@@ -42,7 +42,7 @@ import { createRandomString } from '../../util/random-string';
  * inherits its width from its content.
  *
  * @exampleComponent limel-example-button-group-icons
- * @exampleComponent limel-example-button-group
+ * @exampleComponent limel-example-button-group-basic
  * @exampleComponent limel-example-button-group-mix
  * @exampleComponent limel-example-button-group-badges
  * @exampleComponent limel-example-button-group-composite

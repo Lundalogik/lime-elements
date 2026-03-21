@@ -8,7 +8,7 @@ import { Button, LimelButtonGroupCustomEvent } from '@limetech/lime-elements';
  * descriptive enough.
  */
 @Component({
-    tag: 'limel-example-button-group',
+    tag: 'limel-example-button-group-basic',
     shadow: true,
 })
 export class ButtonGroupExample {
