@@ -10,9 +10,9 @@ import { data } from '../../table/examples/birds';
  */
 
 @Component({
-    tag: 'limel-example-code-editor',
+    tag: 'limel-example-code-editor-basic',
     shadow: true,
-    styleUrl: 'code-editor.scss',
+    styleUrl: 'code-editor-basic.scss',
 })
 export class CodeExample {
     @State()
