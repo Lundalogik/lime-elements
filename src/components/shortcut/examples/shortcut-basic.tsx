@@ -16,9 +16,9 @@ import { Component, h } from '@stencil/core';
  *
  */
 @Component({
-    tag: 'limel-example-shortcut',
+    tag: 'limel-example-shortcut-basic',
     shadow: true,
-    styleUrl: 'shortcut.scss',
+    styleUrl: 'shortcut-basic.scss',
 })
 export class ShortcutExample {
     public render() {

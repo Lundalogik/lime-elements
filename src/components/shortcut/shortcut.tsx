@@ -12,7 +12,7 @@ import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
  * However, it is possible to override that behavior, by specifying a `target`
  * for the `link` property
  *
- * @exampleComponent limel-example-shortcut
+ * @exampleComponent limel-example-shortcut-basic
  * @exampleComponent limel-example-shortcut-notification
  * @exampleComponent limel-example-shortcut-styling
  * @exampleComponent limel-example-shortcut-with-click-handler

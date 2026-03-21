@@ -5,7 +5,7 @@ import { Component, h } from '@stencil/core';
 @Component({
     tag: 'limel-example-shortcut-with-click-handler',
     shadow: true,
-    styleUrl: 'shortcut.scss',
+    styleUrl: 'shortcut-basic.scss',
 })
 export class ShortcutWithClickHandlerExample {
     public render() {
