@@ -22,7 +22,7 @@ const PERCENT = 100;
  * full progress.
  * :::
  *
- * @exampleComponent limel-example-circular-progress
+ * @exampleComponent limel-example-circular-progress-basic
  * @exampleComponent limel-example-circular-progress-sizes
  * @exampleComponent limel-example-circular-progress-props
  * @exampleComponent limel-example-circular-progress-css-variables
