@@ -2,7 +2,7 @@ import { SpinnerSize } from './spinner.types';
 import { Component, Prop, h, Host } from '@stencil/core';
 
 /**
- * @exampleComponent limel-example-spinner
+ * @exampleComponent limel-example-spinner-basic
  * @exampleComponent limel-example-spinner-color
  * @exampleComponent limel-example-spinner-size
  */
