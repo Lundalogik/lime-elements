@@ -5,9 +5,9 @@ import { Component, h, State } from '@stencil/core';
  * Basic example
  */
 @Component({
-    tag: 'limel-example-file-dropzone',
+    tag: 'limel-example-file-dropzone-basic',
     shadow: true,
-    styleUrl: 'file-dropzone.scss',
+    styleUrl: 'file-dropzone-basic.scss',
 })
 export class FileDropzoneExample {
     @State()
