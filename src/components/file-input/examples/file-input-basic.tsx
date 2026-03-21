@@ -5,7 +5,7 @@ import { Component, h, State } from '@stencil/core';
  * Basic example
  */
 @Component({
-    tag: 'limel-example-file-input',
+    tag: 'limel-example-file-input-basic',
     shadow: true,
 })
 export class FileInputExample {
