@@ -21,7 +21,7 @@ const markdown = `
  * providing a richer experience for the user.
  */
 @Component({
-    tag: 'limel-example-help',
+    tag: 'limel-example-help-basic',
     shadow: true,
 })
 export class HelpExample {
