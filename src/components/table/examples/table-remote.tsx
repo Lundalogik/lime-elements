@@ -13,7 +13,7 @@ type BirdRow = Bird & { id: string };
  */
 @Component({
     tag: 'limel-example-table-remote',
-    styleUrl: 'table.scss',
+    styleUrl: 'table-basic.scss',
     shadow: true,
 })
 export class TableExampleRemote {

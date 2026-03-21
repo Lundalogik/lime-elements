@@ -19,8 +19,8 @@ import { Person, persons } from './persons';
  * @sourceFile persons.ts
  */
 @Component({
-    tag: 'limel-example-table',
-    styleUrl: 'table.scss',
+    tag: 'limel-example-table-basic',
+    styleUrl: 'table-basic.scss',
     shadow: true,
 })
 export class TableExample {

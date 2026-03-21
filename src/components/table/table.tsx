@@ -41,7 +41,7 @@ import translate from '../../global/translations';
 const FIRST_PAGE = 1;
 
 /**
- * @exampleComponent limel-example-table
+ * @exampleComponent limel-example-table-basic
  * @exampleComponent limel-example-table-custom-components
  * @exampleComponent limel-example-table-header-menu
  * @exampleComponent limel-example-table-movable-columns
