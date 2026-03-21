@@ -16,7 +16,7 @@ import { Icon } from '../../interface';
  * provide the best way of _visualizing information_, potentially leading to
  * confusion and negatively affecting the end-users' experience.
  *
- * @exampleComponent limel-example-dynamic-label
+ * @exampleComponent limel-example-dynamic-label-basic
  * @exampleComponent limel-example-dynamic-label-readonly-boolean
  */
 @Component({

@@ -7,7 +7,7 @@ import { Component, State, h } from '@stencil/core';
  * while the default label (including its icon) is ignored.
  */
 @Component({
-    tag: 'limel-example-dynamic-label',
+    tag: 'limel-example-dynamic-label-basic',
     shadow: true,
 })
 export class DynamicLabelExample {
