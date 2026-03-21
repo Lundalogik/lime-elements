@@ -1,2 +1,0 @@
-import{r as i,h as e}from"./index-2714248e.js";const t=class{constructor(e){i(this,e);this.handleChange=i=>{this.value=i.detail};this.onAction=()=>{console.log(`Sending email to ${this.value}`)};this.value=undefined}render(){return e("limel-input-field",{label:"Email address",type:"email",value:this.value,trailingIcon:"filled_message",onChange:this.handleChange,onAction:this.onAction})}};export{t as limel_example_input_field_icon_trailing};
-//# sourceMappingURL=limel-example-input-field-icon-trailing.entry.js.map

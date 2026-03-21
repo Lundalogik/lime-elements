@@ -1,2 +1,0 @@
-import{r as e,h as t}from"./index-2714248e.js";const i=class{constructor(t){e(this,t);this.handleChange=e=>{this.value=e.detail};this.handleImagePasted=async e=>{const t=e.detail;t.insertThumbnail();t.insertImage()};this.value="Copy an image file and paste it here."}render(){return t("limel-text-editor",{value:this.value,onChange:this.handleChange,onImagePasted:this.handleImagePasted,contentType:"html"})}};export{i as limel_example_text_editor_with_inline_images_base64};
-//# sourceMappingURL=limel-example-text-editor-with-inline-images-base64.entry.js.map

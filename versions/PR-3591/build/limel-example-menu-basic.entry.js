@@ -1,2 +1,0 @@
-import{r as e,h as t}from"./index-2714248e.js";const s=class{constructor(t){e(this,t);this.items=[{text:"Copy"},{text:"Cut"},{separator:true},{text:"Paste"}];this.handleSelect=e=>{this.lastSelectedItem=e.detail.text};this.lastSelectedItem=undefined}render(){return[t("limel-menu",{items:this.items,onSelect:this.handleSelect},t("limel-button",{label:"Menu",slot:"trigger"})),t("limel-example-value",{label:"Last selected item",value:this.lastSelectedItem})]}};export{s as limel_example_menu_basic};
-//# sourceMappingURL=limel-example-menu-basic.entry.js.map

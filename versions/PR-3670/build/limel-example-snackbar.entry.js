@@ -1,2 +1,0 @@
-import{r as s,h as e}from"./index-2714248e.js";const t=class{constructor(e){s(this,e);this.handleShowSnackbar=()=>{this.isOpen=true};this.handleHideSnackbar=()=>{this.isOpen=false;console.log("The scan is still going on in the background.")};this.isOpen=false}render(){return[e("limel-button",{label:"Show snackbar",onClick:this.handleShowSnackbar}),e("limel-snackbar",{open:this.isOpen,message:"Quick scan started. It takes a couple of minutes…",onHide:this.handleHideSnackbar})]}};export{t as limel_example_snackbar};
-//# sourceMappingURL=limel-example-snackbar.entry.js.map

@@ -1,2 +1,0 @@
-import{r as o,h as e}from"./index-2714248e.js";const s=class{constructor(e){o(this,e)}render(){return e("limel-callout",{icon:"pokemon"},"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.")}};export{s as limel_example_callout_custom_icon};
-//# sourceMappingURL=limel-example-callout-custom-icon.entry.js.map
