@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, Watch } from '@stencil/core';
 import { CircularProgressSize } from '../circular-progress/circular-progress.types';
 import { abbreviate } from '../badge/format';
 
@@ -84,21 +84,22 @@ export class CircularProgress {
     @Prop({ reflect: true })
     public size: CircularProgressSize;
 
-    public render() {
-        const classList = {
-            'lime-circular-progress': true,
-            'displays-percentage-colors': this.displayPercentageColors,
-        };
+    public componentWillLoad() {
+        this.warnIfDeprecatedPrefix();
+        this.warnIfDeprecatedSuffix();
+    }
 
-        const currentPercentage = (this.value * PERCENT) / this.maxValue + '%';
-        const value = Math.round(this.value * 10) / 10;
-
-        // Warn about deprecated props
+    @Watch('prefix')
+    private warnIfDeprecatedPrefix() {
         if (this.prefix !== null && this.prefix !== undefined) {
             console.warn(
                 'The `prefix` property is deprecated and will be removed in a future version. Use `valuePrefix` instead.'
             );
         }
+    }
+
+    @Watch('suffix')
+    private warnIfDeprecatedSuffix() {
         if (
             this.suffix !== '%' &&
             this.suffix !== null &&
@@ -109,15 +110,33 @@ export class CircularProgress {
                 'The `suffix` property is deprecated and will be removed in a future version. Use `valueSuffix` instead.'
             );
         }
+    }
+
+    public render() {
+        const classList = {
+            'lime-circular-progress': true,
+            'displays-percentage-colors': this.displayPercentageColors,
+        };
+
+        const currentPercentage = (this.value * PERCENT) / this.maxValue + '%';
+        const value = Math.round(this.value * 10) / 10;
 
         const effectivePrefix = this.valuePrefix ?? this.prefix;
         const effectiveSuffix = this.valueSuffix ?? this.suffix ?? '%';
+
+        const ariaValueText = [
+            effectivePrefix,
+            abbreviate(value),
+            effectiveSuffix,
+        ]
+            .filter(Boolean)
+            .join('');
 
         return (
             <div
                 role="progressbar"
                 class={classList}
-                aria-label="%"
+                aria-valuetext={ariaValueText}
                 aria-valuemin="0"
                 aria-valuemax={this.maxValue}
                 aria-valuenow={this.value}

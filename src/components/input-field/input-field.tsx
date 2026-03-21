@@ -359,19 +359,25 @@ export class InputField {
         }
     }
 
-    public render() {
-        // Warn about deprecated props
+    @Watch('prefix')
+    private warnIfDeprecatedPrefix() {
         if (this.prefix !== null && this.prefix !== undefined) {
             console.warn(
                 'The `prefix` property is deprecated and will be removed in a future version. Use `valuePrefix` instead.'
             );
         }
+    }
+
+    @Watch('suffix')
+    private warnIfDeprecatedSuffix() {
         if (this.suffix !== null && this.suffix !== undefined) {
             console.warn(
                 'The `suffix` property is deprecated and will be removed in a future version. Use `valueSuffix` instead.'
             );
         }
+    }
 
+    public render() {
         const properties = this.getAdditionalProps();
         properties['aria-labelledby'] = this.labelId;
         properties.class = 'mdc-text-field__input';
@@ -480,6 +486,8 @@ export class InputField {
         }
 
         this.mapCompletions();
+        this.warnIfDeprecatedPrefix();
+        this.warnIfDeprecatedSuffix();
 
         window.addEventListener('resize', this.layout, { passive: true });
         this.limelInputField.addEventListener('focus', this.setFocus);

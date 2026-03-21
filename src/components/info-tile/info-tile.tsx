@@ -1,4 +1,4 @@
-import { Component, Prop, h, Element, Host, State } from '@stencil/core';
+import { Component, Prop, h, Element, Host, State, Watch } from '@stencil/core';
 import { InfoTileProgress } from '../info-tile/info-tile.types';
 import { Link } from '../../global/shared-types/link.types';
 import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
@@ -110,7 +110,7 @@ export class InfoTile {
      *
      * Defaults:
      * - `maxValue`: 100
-     * - `suffix`: %
+     * - `valueSuffix`: %
      * - `displayPercentageColors`: false
      *
      * Colors change with intervals of 10 %.
@@ -137,21 +137,56 @@ export class InfoTile {
         this.handleMouseEnter = handleMouseEnter;
         this.handleMouseLeave = handleMouseLeave;
         this.updateHasPrimarySlotContent();
+        this.warnIfDeprecatedPrefix();
+        this.warnIfDeprecatedSuffix();
+        this.warnIfDeprecatedProgressPrefix();
+        this.warnIfDeprecatedProgressSuffix();
     }
 
-    public render() {
-        // Warn about deprecated props
+    @Watch('prefix')
+    private warnIfDeprecatedPrefix() {
         if (this.prefix !== null && this.prefix !== undefined) {
             console.warn(
                 'The `prefix` property is deprecated and will be removed in a future version. Use `valuePrefix` instead.'
             );
         }
+    }
+
+    @Watch('suffix')
+    private warnIfDeprecatedSuffix() {
         if (this.suffix !== null && this.suffix !== undefined) {
             console.warn(
                 'The `suffix` property is deprecated and will be removed in a future version. Use `valueSuffix` instead.'
             );
         }
+    }
 
+    @Watch('progress')
+    private warnIfDeprecatedProgressPrefix() {
+        if (
+            this.progress?.prefix !== null &&
+            this.progress?.prefix !== undefined
+        ) {
+            console.warn(
+                'The `prefix` property in InfoTileProgress is deprecated and will be removed in a future version. Use `valuePrefix` instead.'
+            );
+        }
+    }
+
+    @Watch('progress')
+    private warnIfDeprecatedProgressSuffix() {
+        if (
+            this.progress?.suffix !== null &&
+            this.progress?.suffix !== undefined &&
+            this.progress?.valueSuffix === undefined
+        ) {
+            console.warn(
+                'The `suffix` property in InfoTileProgress is deprecated and will be removed in a future version. Use `valueSuffix` instead.'
+            );
+        }
+    }
+
+    public render() {
         const effectivePrefix = this.valuePrefix ?? this.prefix;
         const effectiveSuffix = this.valueSuffix ?? this.suffix;
 
@@ -277,25 +312,6 @@ export class InfoTile {
             return;
         }
 
-        // Warn about deprecated progress props
-        if (
-            this.progress.prefix !== null &&
-            this.progress.prefix !== undefined
-        ) {
-            console.warn(
-                'The `prefix` property in InfoTileProgress is deprecated and will be removed in a future version. Use `valuePrefix` instead.'
-            );
-        }
-        if (
-            this.progress.suffix !== null &&
-            this.progress.suffix !== undefined &&
-            this.progress.valueSuffix === undefined
-        ) {
-            console.warn(
-                'The `suffix` property in InfoTileProgress is deprecated and will be removed in a future version. Use `valueSuffix` instead.'
-            );
-        }
-
         const effectiveProgressPrefix =
             this.progress.valuePrefix ?? this.progress.prefix;
         const effectiveProgressSuffix =
@@ -306,9 +322,6 @@ export class InfoTile {
                 class="progress"
                 valuePrefix={effectiveProgressPrefix}
                 valueSuffix={effectiveProgressSuffix}
-                // Keep old props for backward compatibility until circular-progress only uses new props
-                prefix={effectiveProgressPrefix}
-                suffix={effectiveProgressSuffix}
                 value={this.progress.value}
                 maxValue={this.progress.maxValue}
                 displayPercentageColors={this.progress.displayPercentageColors}
