@@ -19,7 +19,7 @@ import { ListRendererConfig } from './list-renderer-config';
 const { ACTION_EVENT } = listStrings;
 
 /**
- * @exampleComponent limel-example-list
+ * @exampleComponent limel-example-list-basic
  * @exampleComponent limel-example-list-secondary
  * @exampleComponent limel-example-list-separator
  * @exampleComponent limel-example-list-icons

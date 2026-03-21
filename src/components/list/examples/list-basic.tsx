@@ -5,7 +5,7 @@ import { Component, h } from '@stencil/core';
  * Basic list
  */
 @Component({
-    tag: 'limel-example-list',
+    tag: 'limel-example-list-basic',
     shadow: true,
 })
 export class ListExample {
