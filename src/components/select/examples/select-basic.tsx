@@ -3,7 +3,7 @@ import { Component, h, Host, State } from '@stencil/core';
 
 @Component({
     shadow: true,
-    tag: 'limel-example-select',
+    tag: 'limel-example-select-basic',
 })
 export class SelectExample {
     @State()
