@@ -19,7 +19,7 @@ import { createRandomString } from '../../util/random-string';
 import { SelectTemplate, triggerIconColorWarning } from './select.template';
 
 /**
- * @exampleComponent limel-example-select
+ * @exampleComponent limel-example-select-basic
  * @exampleComponent limel-example-select-with-icons
  * @exampleComponent limel-example-select-with-separators
  * @exampleComponent limel-example-select-with-secondary-text
