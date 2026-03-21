@@ -24,7 +24,7 @@ import { partition } from 'lodash-es';
  * The event detail would be an array of `FileInfo` objects,
  * each representing a file dropped into the dropzone.
  *
- * @exampleComponent limel-example-file-dropzone
+ * @exampleComponent limel-example-file-dropzone-basic
  * @exampleComponent limel-example-file-dropzone-type-filtering
  * @private
  */
