@@ -42,7 +42,7 @@ import { getIconName } from '../icon/get-icon-props';
  * and take a lot of attention from users.
  * :::
  *
- * @exampleComponent limel-example-header
+ * @exampleComponent limel-example-header-basic
  * @exampleComponent limel-example-header-slot-actions
  * @exampleComponent limel-example-header-colors
  * @exampleComponent limel-example-header-responsive
