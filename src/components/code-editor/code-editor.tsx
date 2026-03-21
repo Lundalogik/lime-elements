@@ -31,7 +31,7 @@ import { Languages } from '../date-picker/date.types';
 type CopyState = 'idle' | 'success' | 'failed';
 
 /**
- * @exampleComponent limel-example-code-editor
+ * @exampleComponent limel-example-code-editor-basic
  * @exampleComponent limel-example-code-editor-readonly-with-line-numbers
  * @exampleComponent limel-example-code-editor-fold-lint-wrap
  * @exampleComponent limel-example-code-editor-copy
