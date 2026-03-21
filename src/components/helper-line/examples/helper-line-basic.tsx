@@ -4,7 +4,7 @@ import { Component, h } from '@stencil/core';
  * Basic example
  */
 @Component({
-    tag: 'limel-example-helper-line',
+    tag: 'limel-example-helper-line-basic',
     shadow: true,
 })
 export class HelperLineExample {
