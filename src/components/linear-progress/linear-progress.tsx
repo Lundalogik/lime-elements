@@ -8,7 +8,7 @@ const PERCENT = 100;
  * The linear progress component can be used to visualize the current state of a progress in a scale;
  * for example percentage of completion of a task.
  *
- * @exampleComponent limel-example-linear-progress
+ * @exampleComponent limel-example-linear-progress-basic
  * @exampleComponent limel-example-linear-progress-indeterminate
  * @exampleComponent limel-example-linear-progress-accessible-label
  * @exampleComponent limel-example-linear-progress-color

@@ -10,7 +10,7 @@ const FRACTION = 100;
  */
 @Component({
     shadow: true,
-    tag: 'limel-example-linear-progress',
+    tag: 'limel-example-linear-progress-basic',
 })
 export class LinearProgressExample {
     @State()
