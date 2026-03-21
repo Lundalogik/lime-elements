@@ -38,7 +38,7 @@ const OVERLAP_PERCENTAGE = 20;
  * A tab will never be removed or get disabled, even if there is no content under it.
  * :::
  *
- * @exampleComponent limel-example-tab-bar
+ * @exampleComponent limel-example-tab-bar-basic
  * @exampleComponent limel-example-tab-bar-with-dynamic-tab-width
  * @exampleComponent limel-example-tab-bar-with-equal-tab-width
  */

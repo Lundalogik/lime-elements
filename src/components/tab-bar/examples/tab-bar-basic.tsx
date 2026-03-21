@@ -2,7 +2,7 @@ import { Component, h, State } from '@stencil/core';
 import { Tab } from '@limetech/lime-elements';
 
 @Component({
-    tag: 'limel-example-tab-bar',
+    tag: 'limel-example-tab-bar-basic',
     shadow: true,
 })
 export class TabBarExample {
