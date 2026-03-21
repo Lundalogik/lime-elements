@@ -11,7 +11,7 @@ import { Component, h, Host, State } from '@stencil/core';
  * [limel-button-group](#/component/limel-button-group/).
  */
 @Component({
-    tag: 'limel-example-chip-set',
+    tag: 'limel-example-chip-set-basic',
     shadow: true,
 })
 export class ChipSetExample {
