@@ -2,8 +2,8 @@ import { Component, h, State } from '@stencil/core';
 
 @Component({
     shadow: true,
-    tag: 'limel-example-circular-progress',
-    styleUrl: 'circular-progress.scss',
+    tag: 'limel-example-circular-progress-basic',
+    styleUrl: 'circular-progress-basic.scss',
 })
 export class CircularProgressExample {
     @State()

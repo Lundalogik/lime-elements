@@ -13,7 +13,7 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     shadow: true,
     tag: 'limel-example-circular-progress-percentage-colors',
-    styleUrl: 'circular-progress.scss',
+    styleUrl: 'circular-progress-basic.scss',
 })
 export class CircularProgressPercentageColorsExample {
     @State()

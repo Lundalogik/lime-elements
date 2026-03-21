@@ -11,7 +11,7 @@ import { Component, h } from '@stencil/core';
 @Component({
     shadow: true,
     tag: 'limel-example-circular-progress-props',
-    styleUrl: 'circular-progress.scss',
+    styleUrl: 'circular-progress-basic.scss',
 })
 export class CircularProgressPropsExample {
     private degree = 45;
