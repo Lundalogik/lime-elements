@@ -5,7 +5,7 @@ import { Component, h, State } from '@stencil/core';
  * Basic example
  */
 @Component({
-    tag: 'limel-example-file',
+    tag: 'limel-example-file-basic',
     shadow: true,
 })
 export class FileExample {
