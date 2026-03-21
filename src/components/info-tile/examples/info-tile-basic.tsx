@@ -24,9 +24,9 @@ import { Component, h } from '@stencil/core';
  * :::
  */
 @Component({
-    tag: 'limel-example-info-tile',
+    tag: 'limel-example-info-tile-basic',
     shadow: true,
-    styleUrl: 'info-tile.scss',
+    styleUrl: 'info-tile-basic.scss',
 })
 export class InfoTileExample {
     public render() {

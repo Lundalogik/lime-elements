@@ -17,7 +17,7 @@ import { chartItems } from '../../chart/examples/chart-items-stack';
 @Component({
     tag: 'limel-example-info-tile-primary-slot',
     shadow: true,
-    styleUrl: 'info-tile.scss',
+    styleUrl: 'info-tile-basic.scss',
 })
 export class InfoTilePrimarySlotExample {
     public render() {
