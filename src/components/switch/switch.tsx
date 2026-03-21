@@ -30,7 +30,7 @@ import { Icon } from '../../interface';
  * But there is an important difference between the two! Please read our guidelines about
  * [Switch vs. Checkbox](#/DesignGuidelines/switch-vs-checkbox.md/).
  *
- * @exampleComponent limel-example-switch
+ * @exampleComponent limel-example-switch-basic
  * @exampleComponent limel-example-switch-helper-text
  * @exampleComponent limel-example-switch-readonly
  */

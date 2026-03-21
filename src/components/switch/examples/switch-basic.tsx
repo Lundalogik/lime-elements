@@ -2,7 +2,7 @@ import { Component, h, State } from '@stencil/core';
 
 @Component({
     shadow: true,
-    tag: 'limel-example-switch',
+    tag: 'limel-example-switch-basic',
 })
 export class SwitchExample {
     @State()
