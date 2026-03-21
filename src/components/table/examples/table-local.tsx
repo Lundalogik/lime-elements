@@ -14,7 +14,7 @@ import { capitalize } from 'lodash-es';
  */
 @Component({
     tag: 'limel-example-table-local',
-    styleUrl: 'table.scss',
+    styleUrl: 'table-basic.scss',
     shadow: true,
 })
 export class TableExampleLocal {

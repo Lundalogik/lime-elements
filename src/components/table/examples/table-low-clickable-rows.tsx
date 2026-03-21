@@ -14,7 +14,7 @@ import { Column } from '@limetech/lime-elements';
  */
 @Component({
     tag: 'limel-example-table-interactive-rows',
-    styleUrl: 'table.scss',
+    styleUrl: 'table-basic.scss',
     shadow: true,
 })
 export class TableExample {

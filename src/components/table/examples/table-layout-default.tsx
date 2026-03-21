@@ -42,7 +42,7 @@ import { invoices, Invoice } from './invoices';
  */
 @Component({
     tag: 'limel-example-table-layout-default',
-    styleUrl: 'table.scss',
+    styleUrl: 'table-basic.scss',
     shadow: true,
 })
 export class TableExampleLayoutDefault {

@@ -16,7 +16,7 @@ import { persons, Person } from './persons';
 @Component({
     tag: 'limel-example-table-header-menu',
     shadow: true,
-    styleUrl: 'table.scss',
+    styleUrl: 'table-basic.scss',
 })
 export class TableExampleHeadermenu {
     private tableData: Person[] = persons;

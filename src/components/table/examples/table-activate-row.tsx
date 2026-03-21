@@ -9,7 +9,7 @@ import { persons, Person } from './persons';
  */
 @Component({
     tag: 'limel-example-table-activate-row',
-    styleUrl: 'table.scss',
+    styleUrl: 'table-basic.scss',
     shadow: true,
 })
 export class TableExampleActivateRow {

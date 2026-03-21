@@ -17,7 +17,7 @@ import { invoices, Invoice } from './invoices';
  */
 @Component({
     tag: 'limel-example-table-layout-stretch-last-column',
-    styleUrl: 'table.scss',
+    styleUrl: 'table-basic.scss',
     shadow: true,
 })
 export class TableExampleLayoutStretchLastColumn {
