@@ -11,7 +11,7 @@ import { Component, h } from '@stencil/core';
  */
 
 @Component({
-    tag: 'limel-example-header',
+    tag: 'limel-example-header-basic',
     shadow: true,
 })
 export class HeaderExample {
