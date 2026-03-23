@@ -68,9 +68,11 @@ export class CircularProgress {
 
     /**
      * The suffix which is displayed after the `value`, must be one or two characters long. Defaults to `%`
+     *
+     * @todo Change default value to `'%'` once the deprecated `suffix` property is removed.
      */
     @Prop({ reflect: true })
-    public valueSuffix?: string = '%';
+    public valueSuffix?: string = null;
 
     /**
      * When set to `true`, makes the filled section showing the percentage colorful. Colors change with intervals of 10%.
@@ -121,10 +123,7 @@ export class CircularProgress {
         const value = Math.round(this.value * 10) / 10;
 
         const effectivePrefix = this.valuePrefix ?? this.prefix;
-        const effectiveSuffix =
-            this.suffix !== '%' && this.suffix != null
-                ? this.suffix
-                : this.valueSuffix;
+        const effectiveSuffix = this.valueSuffix ?? this.suffix;
 
         const ariaValueText = [
             effectivePrefix,
