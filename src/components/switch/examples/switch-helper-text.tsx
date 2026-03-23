@@ -1,13 +1,13 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
 
 /**
  * With `helperText`
  *
- * Switch can have a helper text, which is useful when providing additional information and
- * can clarify functionality of the switch for the user.
+ * Switch can have a helper text, which is useful when providing
+ * additional information and can clarify functionality of the
+ * switch for the user.
  *
- * The helper text is displayed when the user puts focus on the switch, and works with keyboard
- * navigation as well. However, on touchscreen devices, the helper text is always displayed.
+ * The helper text is displayed when the user interacts with the switch.
  */
 
 @Component({
@@ -28,40 +28,42 @@ export class SwitchExampleHelperText {
     private invalid = false;
 
     public render() {
-        return [
-            <limel-switch
-                label={`Ask Siri: ${this.value.toString()}`}
-                value={this.value}
-                disabled={this.disabled}
-                readonly={this.readonly}
-                invalid={this.invalid}
-                onChange={this.changeHandler}
-                helperText={'Siri helps you get things done, just by asking.'}
-            />,
-            <limel-example-controls>
+        return (
+            <Host>
                 <limel-switch
-                    value={this.disabled}
-                    label="Disabled"
-                    onChange={this.setDisabled}
-                />
-                <limel-switch
-                    value={this.readonly}
-                    label="Readonly"
-                    onChange={this.setReadonly}
-                />
-                <limel-switch
-                    value={this.invalid}
-                    label="Invalid"
-                    onChange={this.setInvalid}
-                />
-                <limel-switch
+                    label="Ask Siri"
+                    helperText="Siri helps you get things done, just by asking."
                     value={this.value}
-                    label="Selected"
-                    onChange={this.setChecked}
+                    disabled={this.disabled}
+                    readonly={this.readonly}
+                    invalid={this.invalid}
+                    onChange={this.changeHandler}
                 />
-            </limel-example-controls>,
-            <limel-example-value value={this.value} />,
-        ];
+                <limel-example-controls>
+                    <limel-switch
+                        value={this.disabled}
+                        label="Disabled"
+                        onChange={this.setDisabled}
+                    />
+                    <limel-switch
+                        value={this.readonly}
+                        label="Readonly"
+                        onChange={this.setReadonly}
+                    />
+                    <limel-switch
+                        value={this.invalid}
+                        label="Invalid"
+                        onChange={this.setInvalid}
+                    />
+                    <limel-switch
+                        value={this.value}
+                        label="Selected"
+                        onChange={this.setChecked}
+                    />
+                </limel-example-controls>
+                <limel-example-value value={this.value} />
+            </Host>
+        );
     }
 
     private changeHandler = (event: CustomEvent<boolean>) => {
