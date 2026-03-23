@@ -112,6 +112,13 @@ export class Select {
     private menuOpen: boolean = false;
 
     private hasChanged: boolean = false;
+
+    @Watch('value')
+    @Watch('options')
+    protected resetHasChanged() {
+        this.hasChanged = false;
+    }
+
     private checkValid: boolean = false;
     private mdcSelectHelperText: MDCSelectHelperText;
     private mdcFloatingLabel: MDCFloatingLabel;
@@ -361,21 +368,40 @@ export class Select {
     }
 
     private openMenu() {
-        if (this.emitFirstChangeEvent()) {
+        const autoSelectOption = this.getFirstNativeAutoSelectOption();
+        if (autoSelectOption) {
             this.hasChanged = true;
-            this.change.emit(this.getOptionsExcludingSeparators()[0]);
+            this.change.emit(autoSelectOption);
         }
 
         this.menuOpen = true;
     }
 
-    private emitFirstChangeEvent() {
-        return (
-            !this.hasChanged &&
-            this.isMobileDevice &&
-            !this.multiple &&
-            !this.value
-        );
+    private getFirstNativeAutoSelectOption(): Option | undefined {
+        if (this.hasChanged || !this.isMobileDevice || this.multiple) {
+            return undefined;
+        }
+
+        const options = this.getOptionsExcludingSeparators();
+
+        // Also treat it as "no value" when the current value doesn't match
+        // any available option (e.g. an empty option that was filtered out
+        // by a required field).
+        const currentValue = this.value;
+        const hasMatchingValue =
+            currentValue &&
+            !Array.isArray(currentValue) &&
+            options.some((o) => o.value === currentValue.value);
+
+        if (hasMatchingValue) {
+            return undefined;
+        }
+
+        if (options.length > 0 && !options[0].value) {
+            return undefined;
+        }
+
+        return options.find((o) => !o.disabled && o.value);
     }
 
     private closeMenu() {
