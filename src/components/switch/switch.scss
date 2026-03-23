@@ -10,8 +10,17 @@ $min-height: 1.75rem;
     min-height: $min-height;
 
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
+}
+
+.switch {
+    display: grid;
+    grid-template-columns: auto 1fr;
     gap: 0.5rem;
+    align-items: center;
+    width: 100%;
+    min-height: $min-height;
 }
 
 button {
@@ -25,7 +34,6 @@ button {
     display: inline-flex;
     align-items: center;
 
-    margin: 0.25rem 0 0 0;
     padding: 0;
 
     width: $track-width;
@@ -99,8 +107,8 @@ svg {
 
 label {
     font-size: var(--limel-theme-default-font-size);
-    padding-top: 0.25rem;
     cursor: pointer;
+    width: fit-content;
 
     :host([disabled]) & {
         cursor: not-allowed;
