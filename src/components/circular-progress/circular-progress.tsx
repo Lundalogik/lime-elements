@@ -47,7 +47,7 @@ export class CircularProgress {
     public maxValue: number = PERCENT;
 
     /**
-     * The prefix which is displayed before the `value`, must be a few characters characters long.
+     * The prefix which is displayed before the `value`, must be a few characters long.
      * @deprecated Use `valuePrefix` instead. Will be removed in a future version.
      */
     @Prop({ reflect: true })
@@ -61,7 +61,7 @@ export class CircularProgress {
     public suffix: string = '%';
 
     /**
-     * The prefix which is displayed before the `value`, must be a few characters characters long.
+     * The prefix which is displayed before the `value`, must be a few characters long.
      */
     @Prop({ reflect: true })
     public valuePrefix?: string = null;
