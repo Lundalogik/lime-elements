@@ -139,20 +139,22 @@ export class Switch {
     };
 
     private renderInteractive = () => {
-        return [
-            <button
-                id={this.fieldId}
-                type="button"
-                role="switch"
-                aria-checked={String(this.value)}
-                disabled={this.disabled}
-                onClick={this.handleClick}
-                aria-describedby={this.ariaDescribedBy}
-            >
-                <span class="handle" />
-            </button>,
-            <label htmlFor={this.fieldId}>{this.label}</label>,
-        ];
+        return (
+            <div class="switch">
+                <button
+                    id={this.fieldId}
+                    type="button"
+                    role="switch"
+                    aria-checked={String(this.value)}
+                    disabled={this.disabled}
+                    onClick={this.handleClick}
+                    aria-describedby={this.ariaDescribedBy}
+                >
+                    <span class="handle" />
+                </button>
+                <label htmlFor={this.fieldId}>{this.label}</label>
+            </div>
+        );
     };
 
     private renderHelperLine = () => {
