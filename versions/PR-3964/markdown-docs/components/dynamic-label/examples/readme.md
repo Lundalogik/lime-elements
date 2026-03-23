@@ -51,8 +51,8 @@ graph TD;
   limel-dynamic-label --> limel-icon
   limel-checkbox --> limel-dynamic-label
   limel-checkbox --> limel-helper-line
-  limel-switch --> limel-helper-line
   limel-switch --> limel-dynamic-label
+  limel-switch --> limel-helper-line
   style limel-example-dynamic-label-readonly-boolean fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

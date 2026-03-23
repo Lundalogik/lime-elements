@@ -28,8 +28,8 @@ graph TD;
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
-  limel-switch --> limel-helper-line
   limel-switch --> limel-dynamic-label
+  limel-switch --> limel-helper-line
   limel-dynamic-label --> limel-icon
   style limel-example-input-field-textarea fill:#f9f,stroke:#333,stroke-width:4px
 ```
