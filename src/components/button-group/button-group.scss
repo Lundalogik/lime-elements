@@ -13,13 +13,13 @@
     box-sizing: border-box;
     align-items: center;
     max-width: 100%;
-    min-width: functions.pxToRem(32);
-    height: functions.pxToRem(32);
-    padding: 0 functions.pxToRem(1);
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.0625rem;
     display: inline-grid;
     grid-auto-flow: column;
-    margin: functions.pxToRem(2);
-    border-radius: functions.pxToRem(16);
+    margin: 0.125rem;
+    border-radius: 1rem;
     font-family: inherit;
     font-size: var(--limel-theme-default-font-size);
     user-select: none;
@@ -29,9 +29,9 @@
             content: '';
             display: block;
 
-            height: functions.pxToRem(16);
-            width: functions.pxToRem(2);
-            border-radius: functions.pxToRem(4);
+            height: 1rem;
+            width: 0.125rem;
+            border-radius: 0.25rem;
             background-color: var(
                 --button-group-text-color,
                 rgb(var(--contrast-1200))
@@ -39,7 +39,7 @@
             opacity: 0.1;
 
             position: absolute;
-            right: functions.pxToRem(-3);
+            right: -0.1875rem;
             top: 0;
             bottom: 0;
             margin: auto;
@@ -78,7 +78,7 @@
                     right: 0;
                     bottom: 0;
                     left: 0;
-                    border-radius: functions.pxToRem(60);
+                    border-radius: 3.75rem;
                     box-shadow: var(--shadow-depth-8-focused);
                     z-index: z-index.$button-group-radio-button-keyboard-focused;
                 }
@@ -101,13 +101,13 @@
 
         &:only-child {
             .button__label {
-                padding-left: functions.pxToRem(12);
+                padding-left: 0.75rem;
             }
         }
 
         &:first-child {
             .button__label {
-                padding-left: functions.pxToRem(12);
+                padding-left: 0.75rem;
             }
         }
     }
@@ -129,7 +129,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
-    padding: 0 functions.pxToRem(12) 0 functions.pxToRem(4);
+    padding: 0 0.75rem 0 0.25rem;
 }
 
 .button__icon {
@@ -141,7 +141,7 @@
     display: flex;
     box-sizing: border-box;
     align-items: center;
-    border-radius: functions.pxToRem(60);
+    border-radius: 3.75rem;
     background-color: var(
         --button-group-background-color,
         rgb(var(--contrast-400))
