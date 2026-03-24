@@ -1,3 +1,10 @@
+## [39.9.3](https://github.com/Lundalogik/lime-elements/compare/v39.9.2...v39.9.3) (2026-03-24)
+
+### Bug Fixes
+
+
+* **slider:** ensure defined `step` is considered from the first interaction ([36f8fa7](https://github.com/Lundalogik/lime-elements/commit/36f8fa784cf1c44672ddcadc127694b90af6a9b5))
+
 ## [39.9.2](https://github.com/Lundalogik/lime-elements/compare/v39.9.1...v39.9.2) (2026-03-24)
 
 ### Bug Fixes
