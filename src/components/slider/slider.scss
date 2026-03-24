@@ -2,7 +2,6 @@
 @forward './partial-styles/readonly';
 @forward './partial-styles/thumb';
 @forward './partial-styles/helper-text';
-@use '../../style/internal/z-index';
 @use '../../style/functions';
 @use '../../style/internal/shared_input-select-picker';
 @use '@material/slider/styles';
