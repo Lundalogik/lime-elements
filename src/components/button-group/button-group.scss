@@ -6,6 +6,12 @@
 * @prop --button-group-background-color: Background color of the component. Defaults to `--contrast-400`
 */
 
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
 :host(limel-button-group) {
     display: flex;
     box-sizing: border-box;
@@ -30,17 +36,17 @@
 .button {
     @include mixins.is-flat-inset-clickable($background-color: transparent);
     position: relative;
-    box-sizing: border-box;
+    display: inline-grid;
+    grid-auto-flow: column;
+
     align-items: center;
     max-width: 100%;
     min-width: 2rem;
     height: 2rem;
     padding: 0 0.0625rem;
-    display: inline-grid;
-    grid-auto-flow: column;
     margin: 0.125rem;
     border-radius: 1rem;
-    font-family: inherit;
+
     font-size: var(--limel-theme-default-font-size);
     user-select: none;
 
@@ -71,8 +77,9 @@
         transition: color 0.2s ease;
         display: flex;
         align-items: center;
-        flex: 1; // Fill the entire gridcell
-        height: 100%; // Fill the entire height of the gridcell
+        flex: 1;
+        height: 100%;
+        min-width: 0; // Needed to force button__label to truncate
         &:has(> limel-badge) {
             .button__label {
                 padding-right: 0.25rem;
@@ -81,8 +88,8 @@
     }
 
     input[type='radio'] {
-        width: 0;
         position: absolute;
+        width: 0;
         opacity: 0; // This removes some visual defects on iOS and Firefox, created by "user agent styles"
 
         &:focus-visible {
@@ -105,29 +112,20 @@
         }
     }
 
-    span[role='gridcell'] {
-        min-width: 0; // This is needed to force button__label (which is inside this span) to truncate
-        height: 100%; // Fill the grid cell vertically
-        display: flex; // Make it a flex container for the label
+    &:focus-within {
+        outline: none;
+        color: var(--lime-primary-color, var(--limel-theme-primary-color));
+    }
 
-        &:focus-within {
-            // Cannot use `:focus-visible` here, since it is the radio button
-            // which gets focused, which is inside this element…
-            // and we are removing or hiding the visual appearance of the button
-            outline: none;
-            color: var(--lime-primary-color, var(--limel-theme-primary-color));
+    &:only-child {
+        .button__label {
+            padding-left: 0.75rem;
         }
+    }
 
-        &:only-child {
-            .button__label {
-                padding-left: 0.75rem;
-            }
-        }
-
-        &:first-child {
-            .button__label {
-                padding-left: 0.75rem;
-            }
+    &:first-child {
+        .button__label {
+            padding-left: 0.75rem;
         }
     }
 
@@ -145,8 +143,7 @@
 .button__label {
     @include mixins.truncate-text();
     font-size: var(--limel-theme-default-small-font-size);
-    display: block;
-    padding: 0 0.75rem 0 0.25rem;
+    padding: 0 0.75rem;
 }
 
 .button__icon {

@@ -87,7 +87,9 @@ export class ButtonGroup {
     }
 
     public render() {
-        return <Host role="grid">{this.value.map(this.renderButton)}</Host>;
+        return (
+            <Host role="radiogroup">{this.value.map(this.renderButton)}</Host>
+        );
     }
 
     private renderButton(button: Button) {
@@ -101,20 +103,18 @@ export class ButtonGroup {
         };
 
         return (
-            <div class={classes} role="row">
-                <span role="gridcell">
-                    <input
-                        type="radio"
-                        name={this.radioGroupName}
-                        checked={this.isButtonChecked(button)}
-                        id={buttonId}
-                        onChange={this.onChange}
-                    />
-                    <label htmlFor={buttonId}>
-                        {this.renderContent(button)}
-                        {this.renderBadge(button)}
-                    </label>
-                </span>
+            <div class={classes}>
+                <input
+                    type="radio"
+                    name={this.radioGroupName}
+                    checked={this.isButtonChecked(button)}
+                    id={buttonId}
+                    onChange={this.onChange}
+                />
+                <label htmlFor={buttonId}>
+                    {this.renderContent(button)}
+                    {this.renderBadge(button)}
+                </label>
             </div>
         );
     }
