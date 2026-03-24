@@ -357,8 +357,15 @@ export class Slider {
             inputElement.setAttribute('max', `${newMax}`);
         }
 
-        if (!this.isMultipleOfStep(value, this.step)) {
-            inputElement.removeAttribute('step');
+        if (this.step) {
+            const step = this.multiplyByFactor(this.step);
+            const scaledValue = this.multiplyByFactor(value);
+            if (!this.isMultipleOfStep(scaledValue, step)) {
+                const roundedValue = this.roundToStep(scaledValue, step);
+                inputElement.setAttribute('value', `${roundedValue}`);
+            }
+
+            inputElement.setAttribute('step', `${step}`);
         }
 
         this.createMDCSlider();
