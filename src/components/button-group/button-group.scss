@@ -6,6 +6,27 @@
 * @prop --button-group-background-color: Background color of the component. Defaults to `--contrast-400`
 */
 
+:host(limel-button-group) {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    border-radius: 3.75rem;
+    background-color: var(
+        --button-group-background-color,
+        rgb(var(--contrast-400))
+    );
+
+    width: max-content;
+    max-width: 100%;
+
+    flex-wrap: nowrap; // Not sure about this. It'll put items on one row, but also can look bad on action bars. Kia
+}
+
+:host([disabled]:not([disabled='false'])) {
+    @include shared_input-select-picker.looks-disabled;
+    pointer-events: none;
+}
+
 .button {
     @include mixins.is-flat-inset-clickable($background-color: transparent);
     position: relative;
@@ -133,28 +154,6 @@
 .button__icon {
     border-radius: 50%;
     vertical-align: middle;
-}
-
-.button-group {
-    display: flex;
-    box-sizing: border-box;
-    align-items: center;
-    border-radius: 3.75rem;
-    background-color: var(
-        --button-group-background-color,
-        rgb(var(--contrast-400))
-    );
-    padding: 0;
-
-    width: max-content;
-    max-width: 100%;
-
-    flex-wrap: nowrap; // Not sure about this. It'll put items on one row, but also can look bad on action bars. Kia
-
-    &.disabled {
-        @include shared_input-select-picker.looks-disabled;
-        pointer-events: none;
-    }
 }
 
 limel-badge {
