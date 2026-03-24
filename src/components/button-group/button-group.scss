@@ -143,10 +143,8 @@
 }
 
 .button__label {
-    white-space: nowrap;
+    @include mixins.truncate-text();
     font-size: var(--limel-theme-default-small-font-size);
-    overflow: hidden;
-    text-overflow: ellipsis;
     display: block;
     padding: 0 0.75rem 0 0.25rem;
 }
