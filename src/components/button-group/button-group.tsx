@@ -108,6 +108,7 @@ export class ButtonGroup {
                     type="radio"
                     name={this.radioGroupName}
                     checked={this.isButtonChecked(button)}
+                    disabled={this.disabled}
                     id={buttonId}
                     onChange={this.onChange}
                 />
