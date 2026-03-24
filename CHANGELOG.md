@@ -1,3 +1,12 @@
+## [39.9.2](https://github.com/Lundalogik/lime-elements/compare/v39.9.1...v39.9.2) (2026-03-24)
+
+### Bug Fixes
+
+
+* **button-group:** correct structure and accessibility ([6be11fc](https://github.com/Lundalogik/lime-elements/commit/6be11fcf33c725d7141e7e7c424895765d8528b9))
+* **button-group:** correctly disable the buttons ([8dc57d2](https://github.com/Lundalogik/lime-elements/commit/8dc57d2b0dac9f07ac898c17aa524535c7684f35))
+* **button-group:** make label fill entire clickable button area ([c251604](https://github.com/Lundalogik/lime-elements/commit/c251604de44c2e9b5cd06ea3b564abab5cd7f160)), closes [Lundalogik/lime-elements#3972](https://github.com/Lundalogik/lime-elements/issues/3972)
+
 ## [39.9.1](https://github.com/Lundalogik/lime-elements/compare/v39.9.0...v39.9.1) (2026-03-24)
 
 ### Bug Fixes
