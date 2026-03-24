@@ -51,6 +51,8 @@
         transition: color 0.2s ease;
         display: flex;
         align-items: center;
+        flex: 1; // Fill the entire gridcell
+        height: 100%; // Fill the entire height of the gridcell
         &:has(> limel-badge) {
             .button__label {
                 padding-right: 0.25rem;
@@ -86,6 +88,8 @@
 
     span[role='gridcell'] {
         min-width: 0; // This is needed to force button__label (which is inside this span) to truncate
+        height: 100%; // Fill the grid cell vertically
+        display: flex; // Make it a flex container for the label
 
         &:focus-within {
             // Cannot use `:focus-visible` here, since it is the radio button
