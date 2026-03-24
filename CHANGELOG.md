@@ -1,3 +1,10 @@
+## [39.9.1](https://github.com/Lundalogik/lime-elements/compare/v39.9.0...v39.9.1) (2026-03-24)
+
+### Bug Fixes
+
+
+* **switch:** ensure the helper text renders below the switch ([48a06b9](https://github.com/Lundalogik/lime-elements/commit/48a06b9569a77329e0f721c2fec769bf1d97a53b))
+
 ## [39.9.0](https://github.com/Lundalogik/lime-elements/compare/v39.8.1...v39.9.0) (2026-03-19)
 
 ### Features
