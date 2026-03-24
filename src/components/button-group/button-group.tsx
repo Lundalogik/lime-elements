@@ -3,6 +3,7 @@ import {
     Event,
     EventEmitter,
     h,
+    Host,
     Prop,
     State,
     Watch,
@@ -86,16 +87,7 @@ export class ButtonGroup {
     }
 
     public render() {
-        const classes = {
-            'button-group': true,
-            disabled: this.disabled,
-        };
-
-        return (
-            <div class={classes} role="grid">
-                {this.value.map(this.renderButton)}
-            </div>
-        );
+        return <Host role="grid">{this.value.map(this.renderButton)}</Host>;
     }
 
     private renderButton(button: Button) {
