@@ -3,6 +3,7 @@ import {
     Event,
     EventEmitter,
     h,
+    Host,
     Prop,
     State,
     Watch,
@@ -86,15 +87,8 @@ export class ButtonGroup {
     }
 
     public render() {
-        const classes = {
-            'button-group': true,
-            disabled: this.disabled,
-        };
-
         return (
-            <div class={classes} role="grid">
-                {this.value.map(this.renderButton)}
-            </div>
+            <Host role="radiogroup">{this.value.map(this.renderButton)}</Host>
         );
     }
 
@@ -109,20 +103,19 @@ export class ButtonGroup {
         };
 
         return (
-            <div class={classes} role="row">
-                <span role="gridcell">
-                    <input
-                        type="radio"
-                        name={this.radioGroupName}
-                        checked={this.isButtonChecked(button)}
-                        id={buttonId}
-                        onChange={this.onChange}
-                    />
-                    <label htmlFor={buttonId}>
-                        {this.renderContent(button)}
-                        {this.renderBadge(button)}
-                    </label>
-                </span>
+            <div class={classes}>
+                <input
+                    type="radio"
+                    name={this.radioGroupName}
+                    checked={this.isButtonChecked(button)}
+                    disabled={this.disabled}
+                    id={buttonId}
+                    onChange={this.onChange}
+                />
+                <label htmlFor={buttonId}>
+                    {this.renderContent(button)}
+                    {this.renderBadge(button)}
+                </label>
             </div>
         );
     }

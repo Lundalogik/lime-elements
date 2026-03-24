@@ -1,4 +1,3 @@
-@use '../../style/internal/z-index';
 @use '../../style/functions';
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
@@ -7,20 +6,52 @@
 * @prop --button-group-background-color: Background color of the component. Defaults to `--contrast-400`
 */
 
-.button {
-    @include mixins.is-flat-inset-clickable($background-color: transparent);
-    position: relative;
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+:host(limel-button-group) {
+    display: flex;
     box-sizing: border-box;
     align-items: center;
+    border-radius: 3.75rem;
+    background-color: var(
+        --button-group-background-color,
+        rgb(var(--contrast-400))
+    );
+
+    width: max-content;
     max-width: 100%;
-    min-width: functions.pxToRem(32);
-    height: functions.pxToRem(32);
-    padding: 0 functions.pxToRem(1);
+
+    flex-wrap: nowrap; // Not sure about this. It'll put items on one row, but also can look bad on action bars. Kia
+}
+
+:host([disabled]:not([disabled='false'])) {
+    @include shared_input-select-picker.looks-disabled;
+}
+
+.button {
+    @include mixins.is-flat-inset-clickable($background-color: transparent);
+    &:has(input[disabled]) {
+        &:hover {
+            box-shadow: none;
+            transform: none;
+        }
+    }
+    position: relative;
     display: inline-grid;
     grid-auto-flow: column;
-    margin: functions.pxToRem(2);
-    border-radius: functions.pxToRem(16);
-    font-family: inherit;
+
+    align-items: center;
+    max-width: 100%;
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.0625rem;
+    margin: 0.125rem;
+    border-radius: 1rem;
+
     font-size: var(--limel-theme-default-font-size);
     user-select: none;
 
@@ -29,9 +60,9 @@
             content: '';
             display: block;
 
-            height: functions.pxToRem(16);
-            width: functions.pxToRem(2);
-            border-radius: functions.pxToRem(4);
+            height: 1rem;
+            width: 0.125rem;
+            border-radius: 0.25rem;
             background-color: var(
                 --button-group-text-color,
                 rgb(var(--contrast-1200))
@@ -39,7 +70,7 @@
             opacity: 0.1;
 
             position: absolute;
-            right: functions.pxToRem(-3);
+            right: -0.1875rem;
             top: 0;
             bottom: 0;
             margin: auto;
@@ -51,6 +82,9 @@
         transition: color 0.2s ease;
         display: flex;
         align-items: center;
+        flex: 1;
+        height: 100%;
+        min-width: 0; // Needed to force button__label to truncate
         &:has(> limel-badge) {
             .button__label {
                 padding-right: 0.25rem;
@@ -59,8 +93,8 @@
     }
 
     input[type='radio'] {
-        width: 0;
         position: absolute;
+        width: 0;
         opacity: 0; // This removes some visual defects on iOS and Firefox, created by "user agent styles"
 
         &:focus-visible {
@@ -76,35 +110,27 @@
                     right: 0;
                     bottom: 0;
                     left: 0;
-                    border-radius: functions.pxToRem(60);
+                    border-radius: 3.75rem;
                     box-shadow: var(--shadow-depth-8-focused);
-                    z-index: z-index.$button-group-radio-button-keyboard-focused;
                 }
             }
         }
     }
 
-    span[role='gridcell'] {
-        min-width: 0; // This is needed to force button__label (which is inside this span) to truncate
+    &:focus-within {
+        outline: none;
+        color: var(--lime-primary-color, var(--limel-theme-primary-color));
+    }
 
-        &:focus-within {
-            // Cannot use `:focus-visible` here, since it is the radio button
-            // which gets focused, which is inside this element…
-            // and we are removing or hiding the visual appearance of the button
-            outline: none;
-            color: var(--lime-primary-color, var(--limel-theme-primary-color));
+    &:only-child {
+        .button__label {
+            padding-left: 0.75rem;
         }
+    }
 
-        &:only-child {
-            .button__label {
-                padding-left: functions.pxToRem(12);
-            }
-        }
-
-        &:first-child {
-            .button__label {
-                padding-left: functions.pxToRem(12);
-            }
+    &:first-child {
+        .button__label {
+            padding-left: 0.75rem;
         }
     }
 
@@ -120,39 +146,14 @@
 }
 
 .button__label {
-    white-space: nowrap;
+    @include mixins.truncate-text();
     font-size: var(--limel-theme-default-small-font-size);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-    padding: 0 functions.pxToRem(12) 0 functions.pxToRem(4);
+    padding: 0 0.75rem;
 }
 
 .button__icon {
     border-radius: 50%;
     vertical-align: middle;
-}
-
-.button-group {
-    display: flex;
-    box-sizing: border-box;
-    align-items: center;
-    border-radius: functions.pxToRem(60);
-    background-color: var(
-        --button-group-background-color,
-        rgb(var(--contrast-400))
-    );
-    padding: 0;
-
-    width: max-content;
-    max-width: 100%;
-
-    flex-wrap: nowrap; // Not sure about this. It'll put items on one row, but also can look bad on action bars. Kia
-
-    &.disabled {
-        @include shared_input-select-picker.looks-disabled;
-        pointer-events: none;
-    }
 }
 
 limel-badge {
