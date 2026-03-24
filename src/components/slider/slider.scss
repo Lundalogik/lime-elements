@@ -2,7 +2,7 @@
 @forward './partial-styles/readonly';
 @forward './partial-styles/thumb';
 @forward './partial-styles/helper-text';
-@use '../../style/functions';
+
 @use '../../style/internal/shared_input-select-picker';
 @use '@material/slider/styles';
 
@@ -89,7 +89,7 @@ div[slot='content'] {
     line-height: 1;
     transition: opacity 0.2s ease;
     opacity: 0.7;
-    font-size: functions.pxToRem(12);
+    font-size: 0.75rem;
     color: shared_input-select-picker.$helper-text-color;
 }
 
@@ -104,17 +104,17 @@ div[slot='content'] {
         bottom: 0;
         margin: auto;
 
-        width: functions.pxToRem(6);
-        height: functions.pxToRem(6);
+        width: 0.375rem;
+        height: 0.375rem;
         border-radius: 50%;
         background-color: rgba(var(--contrast-700), 0.6);
     }
 
     &:before {
-        left: functions.pxToRem(-12);
+        left: -0.75rem;
     }
 
     &:after {
-        right: functions.pxToRem(-12);
+        right: -0.75rem;
     }
 }
