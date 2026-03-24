@@ -1,4 +1,3 @@
-@use '../../style/internal/z-index';
 @use '../../style/functions';
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
@@ -80,7 +79,6 @@
                     left: 0;
                     border-radius: 3.75rem;
                     box-shadow: var(--shadow-depth-8-focused);
-                    z-index: z-index.$button-group-radio-button-keyboard-focused;
                 }
             }
         }
