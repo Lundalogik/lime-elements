@@ -30,8 +30,8 @@ graph TD;
   limel-example-slider-multiplier-percentage-colors --> limel-example-value
   limel-slider --> limel-helper-line
   limel-slider --> limel-notched-outline
-  limel-switch --> limel-helper-line
   limel-switch --> limel-dynamic-label
+  limel-switch --> limel-helper-line
   limel-dynamic-label --> limel-icon
   style limel-example-slider-multiplier-percentage-colors fill:#f9f,stroke:#333,stroke-width:4px
 ```
