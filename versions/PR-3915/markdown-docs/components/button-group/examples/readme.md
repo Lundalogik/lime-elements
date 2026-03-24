@@ -32,8 +32,8 @@ graph TD;
   limel-button-group --> limel-badge
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
-  limel-switch --> limel-helper-line
   limel-switch --> limel-dynamic-label
+  limel-switch --> limel-helper-line
   limel-dynamic-label --> limel-icon
   style limel-example-button-group-mix fill:#f9f,stroke:#333,stroke-width:4px
 ```

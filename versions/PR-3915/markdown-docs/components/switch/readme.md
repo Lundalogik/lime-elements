@@ -106,14 +106,14 @@ But there is an important difference between the two! Please read our guidelines
 
 ### Depends on
 
-- [limel-helper-line](../helper-line)
 - [limel-dynamic-label](../dynamic-label)
+- [limel-helper-line](../helper-line)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-switch --> limel-helper-line
   limel-switch --> limel-dynamic-label
+  limel-switch --> limel-helper-line
   limel-dynamic-label --> limel-icon
   limel-example-button-composite --> limel-switch
   limel-example-button-group --> limel-switch
