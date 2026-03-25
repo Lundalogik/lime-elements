@@ -19,6 +19,7 @@ const DEFAULT_MIN_VALUE = 0;
  * @exampleComponent limel-example-slider-basic
  * @exampleComponent limel-example-slider-multiplier
  * @exampleComponent limel-example-slider-multiplier-percentage-colors
+ * @exampleComponent limel-example-slider-unit
  * @exampleComponent limel-example-slider-composite
  */
 @Component({
