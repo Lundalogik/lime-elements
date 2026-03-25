@@ -14,6 +14,7 @@ import { createRandomString } from '../../util/random-string';
 const DEFAULT_FACTOR = 1;
 const DEFAULT_MAX_VALUE = 100;
 const DEFAULT_MIN_VALUE = 0;
+const MAX_VISIBLE_STEP_DOTS = 20;
 
 /**
  * @exampleComponent limel-example-slider-basic
@@ -189,6 +190,7 @@ export class Slider {
                             />
                             <div class="track">
                                 <div class="active" />
+                                {this.renderStepDots(min, max)}
                             </div>
                             <div class="thumb">
                                 <div class="knob" />
@@ -219,6 +221,20 @@ export class Slider {
         this.displayValue = this.multiplyByFactor(this.getValue());
         this.setPercentageClass(this.getValue());
     }
+
+    private renderStepDots = (min: number, max: number) => {
+        if (!this.step) {
+            return;
+        }
+
+        const step = this.multiplyByFactor(this.step);
+        const count = Math.floor((max - min) / step) + 1;
+        if (count > MAX_VISIBLE_STEP_DOTS) {
+            return;
+        }
+
+        return Array.from({ length: count }, () => <span class="step-dot" />);
+    };
 
     private renderHelperLine = () => {
         if (!this.helperText) {

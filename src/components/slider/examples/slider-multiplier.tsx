@@ -15,6 +15,12 @@ import { Component, h, State } from '@stencil/core';
  *
  * If the initial value is not aligned to a step,
  * the slider rounds it to the nearest valid step on the first interaction.
+ *
+ * :::note
+ * When `step` is set, the slider renders dots on the track to visualize
+ * the snap points. However, if the number of steps exceeds 20,
+ * the dots are hidden to avoid visual clutter.
+ * :::
  */
 @Component({
     tag: 'limel-example-slider-multiplier',

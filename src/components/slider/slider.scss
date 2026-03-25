@@ -72,12 +72,17 @@ input[type='range'] {
 
 .track {
     transition: background-color 0.5s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     position: absolute;
     left: 0;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    height: 0.25rem;
+    height: 0.5rem;
     border-radius: 1rem;
     background-color: rgba(var(--contrast-700), 0.6);
 
@@ -115,6 +120,21 @@ input[type='range'] {
             --lime-primary-color,
             var(--limel-theme-primary-color)
         );
+    }
+}
+
+.step-dot {
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+    height: 0.25rem;
+    width: 0.25rem;
+
+    background-color: rgb(var(--contrast-100), 0.6);
+
+    &:first-of-type,
+    &:last-of-type {
+        opacity: 0;
     }
 }
 
