@@ -1,7 +1,5 @@
-import { MDCSlider, MDCSliderChangeEventDetail } from '@material/slider';
 import {
     Component,
-    Element,
     Event,
     EventEmitter,
     h,
@@ -123,42 +121,30 @@ export class Slider {
     @Event()
     private change: EventEmitter<number>;
 
-    @Element()
-    private rootElement: HTMLLimelSliderElement;
-
     @State()
     private percentageClass: string;
 
-    private mdcSlider: MDCSlider;
+    @State()
+    private displayValue: number;
+
     private labelId: string;
     private helperTextId: string;
-    private observer: ResizeObserver;
 
     public constructor() {
         this.labelId = createRandomString();
         this.helperTextId = createRandomString();
     }
 
-    public connectedCallback() {
-        this.initialize();
-        this.observer = new ResizeObserver(this.resizeObserverCallback);
-        this.observer.observe(this.rootElement);
-    }
-
     public componentWillLoad() {
-        this.setPercentageClass(this.value);
-    }
-
-    public componentDidLoad() {
-        this.initialize();
-    }
-
-    public disconnectedCallback() {
-        this.destroyMDCSlider();
-        this.observer.disconnect();
+        this.displayValue = this.multiplyByFactor(this.getValue());
+        this.setPercentageClass(this.getValue());
     }
 
     public render() {
+        const min = this.multiplyByFactor(this.valuemin);
+        const max = this.multiplyByFactor(this.valuemax);
+        const fraction = this.getFraction();
+
         const inputProps: any = {};
         if (this.step) {
             inputProps.step = this.multiplyByFactor(this.step);
@@ -181,8 +167,45 @@ export class Slider {
                     hasFloatingLabel={true}
                 >
                     <div slot="content">
-                        {this.renderRangeContainer()}
-                        {this.renderSliderContainer(inputProps)}
+                        <div
+                            class="slider"
+                            style={{ '--slider-fraction': `${fraction}` }}
+                        >
+                            <input
+                                type="range"
+                                min={min}
+                                max={max}
+                                value={this.displayValue}
+                                aria-labelledby={this.labelId}
+                                aria-describedby={
+                                    this.helperText
+                                        ? this.helperTextId
+                                        : undefined
+                                }
+                                onInput={this.handleInput}
+                                onChange={this.handleChange}
+                                {...inputProps}
+                            />
+                            <div class="track">
+                                <div class="active" />
+                            </div>
+                            <div class="thumb">
+                                <div class="knob" />
+                                <div class="indicator" aria-hidden="true">
+                                    {this.displayValue}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="range-labels">
+                            <span class="min">
+                                {this.multiplyByFactor(this.valuemin)}
+                                {this.unit}
+                            </span>
+                            <span class="max">
+                                {this.multiplyByFactor(this.valuemax)}
+                                {this.unit}
+                            </span>
+                        </div>
                     </div>
                 </limel-notched-outline>
                 {this.renderHelperLine()}
@@ -190,115 +213,11 @@ export class Slider {
         );
     }
 
-    @Watch('disabled')
-    protected watchDisabled() {
-        this.updateDisabledState();
-    }
-
-    @Watch('readonly')
-    protected watchReadonly() {
-        this.updateDisabledState();
-    }
-
     @Watch('value')
     protected watchValue() {
-        if (!this.mdcSlider) {
-            return;
-        }
-
-        const value = this.multiplyByFactor(this.getValue());
-        this.mdcSlider.setValue(value);
-
-        if (this.isStepConfigured()) {
-            return;
-        }
-
-        const step = this.multiplyByFactor(this.step);
-        if (!this.isMultipleOfStep(value, step)) {
-            return;
-        }
-
-        this.reCreateSliderWithStep();
+        this.displayValue = this.multiplyByFactor(this.getValue());
+        this.setPercentageClass(this.getValue());
     }
-
-    private renderRangeContainer = () => {
-        return (
-            <div class="slider__content-range-container">
-                <span class="slider__content-min-label">
-                    {this.multiplyByFactor(this.valuemin)}
-                    {this.unit}
-                </span>
-                <span class="slider__content-max-label">
-                    {this.multiplyByFactor(this.valuemax)}
-                    {this.unit}
-                </span>
-            </div>
-        );
-    };
-
-    private renderSliderContainer = (inputProps: any) => {
-        return (
-            <div
-                class={{
-                    'mdc-slider': true,
-                    'mdc-slider--discrete': true,
-                    'mdc-slider--disabled': this.disabled || this.readonly,
-                }}
-            >
-                {this.renderSliderInput(inputProps)}
-                {this.renderTrack()}
-                {this.renderThumb()}
-            </div>
-        );
-    };
-
-    private renderSliderInput = (inputProps: any) => {
-        return (
-            <input
-                class="mdc-slider__input"
-                type="range"
-                min={this.multiplyByFactor(this.valuemin)}
-                max={this.multiplyByFactor(this.valuemax)}
-                value={this.multiplyByFactor(this.value)}
-                name="volume"
-                aria-labelledby={this.labelId}
-                aria-describedby={
-                    this.helperText ? this.helperTextId : undefined
-                }
-                aria-controls={this.helperText ? this.helperTextId : undefined}
-                {...inputProps}
-            />
-        );
-    };
-
-    private renderTrack = () => {
-        return (
-            <div class="mdc-slider__track">
-                <div class="mdc-slider__track--inactive" />
-                <div class="mdc-slider__track--active">
-                    <div class="mdc-slider__track--active_fill" />
-                </div>
-            </div>
-        );
-    };
-
-    private renderThumb = () => {
-        return (
-            <div class="mdc-slider__thumb">
-                <div
-                    class="mdc-slider__value-indicator-container"
-                    aria-hidden="true"
-                >
-                    <div class="mdc-slider__value-indicator">
-                        <span class="mdc-slider__value-indicator-text">
-                            {this.multiplyByFactor(this.value)}
-                        </span>
-                    </div>
-                </div>
-                <div class="mdc-slider__thumb-knob" />
-            </div>
-        );
-    };
 
     private renderHelperLine = () => {
         if (!this.helperText) {
@@ -314,92 +233,18 @@ export class Slider {
         );
     };
 
-    private initialize = () => {
-        const inputElement = this.getInputElement();
-        if (!inputElement) {
-            return;
-        }
-
-        const value = this.getValue();
-
-        /*
-        For some reason the input element's `value` attribute is removed
-        (probably by Stencil) when the element is first rendered. But if the
-        attribute is missing when MDCSlider is initialized (MDC v11.0.0),
-        MDCSlider crashes.
-        So we add the attribute right before initializing MDCSlider. /Ads
-        */
-        inputElement.setAttribute('value', `${this.multiplyByFactor(value)}`);
-
-        /*
-        When creating the `mdcSlider` component, its important that the value set in
-        the input field obeys the range and the step size.
-
-        The MDCSlider will throw an exception unless the value in the input element
-        is dividible by the step value and is in the provided range.
-        If an exception occurs, this component will crash and it will be impossible to change
-        its value.
-        The logic below ensures that the component will render even though the
-        provided value is wrong.
-        This could be considered wrong, but it at least fixes so that it's possible
-        to change the value from the UI.
-        */
-        const greaterThanOrEqualMin = value >= this.valuemin;
-        const lessThanOrEqualMax = value <= this.valuemax;
-
-        if (!greaterThanOrEqualMin) {
-            const newMin = this.multiplyByFactor(value);
-            inputElement.setAttribute('min', `${newMin}`);
-        }
-
-        if (!lessThanOrEqualMax) {
-            const newMax = this.multiplyByFactor(value);
-            inputElement.setAttribute('max', `${newMax}`);
-        }
-
-        if (this.step) {
-            const step = this.multiplyByFactor(this.step);
-            const scaledValue = this.multiplyByFactor(value);
-            if (!this.isMultipleOfStep(scaledValue, step)) {
-                const roundedValue = this.roundToStep(scaledValue, step);
-                inputElement.setAttribute('value', `${roundedValue}`);
-            }
-
-            inputElement.setAttribute('step', `${step}`);
-        }
-
-        this.createMDCSlider();
+    private handleInput = (event: Event) => {
+        event.stopPropagation();
+        const input = event.target as HTMLInputElement;
+        const value = Number(input.value);
+        this.displayValue = value;
+        this.setPercentageClass(value / this.factor);
     };
 
-    private reCreateSliderWithStep = () => {
-        const inputElement = this.getInputElement();
-        const step = `${this.multiplyByFactor(this.step)}`;
-
-        inputElement.setAttribute('step', step);
-
-        this.destroyMDCSlider();
-        this.createMDCSlider();
-    };
-
-    private createMDCSlider = () => {
-        const element = this.getRootElement();
-
-        this.mdcSlider = new MDCSlider(element);
-        this.mdcSlider.listen('MDCSlider:change', this.changeHandler);
-        this.mdcSlider.listen('MDCSlider:input', this.inputHandler);
-    };
-
-    private destroyMDCSlider() {
-        this.mdcSlider.unlisten('MDCSlider:change', this.changeHandler);
-        this.mdcSlider.unlisten('MDCSlider:input', this.inputHandler);
-        this.mdcSlider.destroy();
-        this.mdcSlider = undefined;
-    }
-
-    private changeHandler = (
-        event: CustomEvent<MDCSliderChangeEventDetail>
-    ) => {
-        let value = event.detail.value;
+    private handleChange = (event: Event) => {
+        event.stopPropagation();
+        const input = event.target as HTMLInputElement;
+        let value = Number(input.value);
         const step = this.multiplyByFactor(this.step);
 
         if (!this.isMultipleOfStep(value, step)) {
@@ -409,29 +254,14 @@ export class Slider {
         this.change.emit(value / this.factor);
     };
 
-    private inputHandler = (event: CustomEvent<MDCSliderChangeEventDetail>) => {
-        this.setPercentageClass(event.detail.value / this.factor);
-    };
-
     private getContainerClassList = () => {
-        return {
-            [this.percentageClass]: true,
-            'displays-percentage-colors': this.displaysPercentageColors,
-            disabled: this.disabled || this.readonly,
-            readonly: this.readonly,
-        };
-    };
-
-    private resizeObserverCallback = () => {
-        this.mdcSlider?.layout();
-    };
-
-    private updateDisabledState = () => {
-        if (!this.mdcSlider) {
-            return;
+        if (!this.percentageClass) {
+            return {};
         }
 
-        this.mdcSlider?.setDisabled(this.disabled || this.readonly);
+        return {
+            [this.percentageClass]: true,
+        };
     };
 
     private multiplyByFactor = (value: number) => {
@@ -445,6 +275,20 @@ export class Slider {
         }
 
         return value;
+    };
+
+    private getFraction = (): number => {
+        const min = this.multiplyByFactor(this.valuemin);
+        const max = this.multiplyByFactor(this.valuemax);
+
+        if (max === min) {
+            return 0;
+        }
+
+        return Math.max(
+            0,
+            Math.min(1, (this.displayValue - min) / (max - min))
+        );
     };
 
     private setPercentageClass = (value: number) => {
@@ -463,31 +307,5 @@ export class Slider {
 
     private roundToStep = (value: number, step: number): number => {
         return Math.round(value / step) * step;
-    };
-
-    private getRootElement = (): HTMLElement | undefined => {
-        return this.rootElement.shadowRoot.querySelector('.mdc-slider');
-    };
-
-    private getInputElement = (): HTMLInputElement | undefined => {
-        const element = this.getRootElement();
-        if (!element) {
-            return;
-        }
-
-        return element.querySelector('input');
-    };
-
-    private isStepConfigured = (): boolean => {
-        if (!this.step) {
-            return true;
-        }
-
-        const input = this.getInputElement();
-        if (!input) {
-            return true;
-        }
-
-        return input.hasAttribute('step');
     };
 }
