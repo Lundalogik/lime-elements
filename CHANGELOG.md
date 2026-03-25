@@ -1,3 +1,10 @@
+## [39.9.4](https://github.com/Lundalogik/lime-elements/compare/v39.9.3...v39.9.4) (2026-03-25)
+
+### Bug Fixes
+
+
+* **select:** handle native select when value doesn't match any option ([246376e](https://github.com/Lundalogik/lime-elements/commit/246376e172339dbf607736a57f2805a1bae2b165)), closes [Lundalogik/crm-client#420](https://github.com/Lundalogik/crm-client/issues/420)
+
 ## [39.9.3](https://github.com/Lundalogik/lime-elements/compare/v39.9.2...v39.9.3) (2026-03-24)
 
 ### Bug Fixes
