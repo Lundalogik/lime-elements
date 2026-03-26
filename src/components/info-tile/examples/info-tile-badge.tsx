@@ -32,7 +32,7 @@ export class InfoTileBadgeExample {
                 icon="water"
                 label="Average weekly usage"
                 value={this.StringValue}
-                suffix="L"
+                valueSuffix="L"
                 badge={this.StringBadge}
                 link={{ href: '#' }}
             />,

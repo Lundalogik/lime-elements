@@ -24,6 +24,6 @@ export class CircularProgressCssVariablesExample {
     private value = 90;
 
     public render() {
-        return <limel-circular-progress prefix="↗" value={this.value} />;
+        return <limel-circular-progress valuePrefix="↗" value={this.value} />;
     }
 }

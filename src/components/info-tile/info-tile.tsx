@@ -1,4 +1,4 @@
-import { Component, Prop, h, Element, Host, State } from '@stencil/core';
+import { Component, Prop, h, Element, Host, State, Watch } from '@stencil/core';
 import { InfoTileProgress } from '../info-tile/info-tile.types';
 import { Link } from '../../global/shared-types/link.types';
 import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
@@ -47,15 +47,29 @@ export class InfoTile {
 
     /**
      * A string of text that is visually placed before the value.
+     * @deprecated Use `valuePrefix` instead. Will be removed in a future version.
      */
     @Prop({ reflect: true })
     public prefix?: string;
 
     /**
      * A string of text that is visually placed after the value.
+     * @deprecated Use `valueSuffix` instead. Will be removed in a future version.
      */
     @Prop({ reflect: true })
     public suffix?: string;
+
+    /**
+     * A string of text that is visually placed before the value.
+     */
+    @Prop({ reflect: true })
+    public valuePrefix?: string;
+
+    /**
+     * A string of text that is visually placed after the value.
+     */
+    @Prop({ reflect: true })
+    public valueSuffix?: string;
 
     /**
      * Set to `true` if info tile is disabled.
@@ -96,7 +110,7 @@ export class InfoTile {
      *
      * Defaults:
      * - `maxValue`: 100
-     * - `suffix`: %
+     * - `valueSuffix`: %
      * - `displayPercentageColors`: false
      *
      * Colors change with intervals of 10 %.
@@ -123,19 +137,73 @@ export class InfoTile {
         this.handleMouseEnter = handleMouseEnter;
         this.handleMouseLeave = handleMouseLeave;
         this.updateHasPrimarySlotContent();
+        this.warnIfDeprecatedPrefix();
+        this.warnIfDeprecatedSuffix();
+        this.warnIfDeprecatedProgressPrefix();
+        this.warnIfDeprecatedProgressSuffix();
+    }
+
+    @Watch('prefix')
+    private warnIfDeprecatedPrefix() {
+        if (this.prefix !== null && this.prefix !== undefined) {
+            console.warn(
+                'The `prefix` property is deprecated and will be removed in a future version. Use `valuePrefix` instead.'
+            );
+        }
+    }
+
+    @Watch('suffix')
+    private warnIfDeprecatedSuffix() {
+        if (this.suffix !== null && this.suffix !== undefined) {
+            console.warn(
+                'The `suffix` property is deprecated and will be removed in a future version. Use `valueSuffix` instead.'
+            );
+        }
+    }
+
+    @Watch('progress')
+    private warnIfDeprecatedProgressPrefix() {
+        if (
+            this.progress?.prefix !== null &&
+            this.progress?.prefix !== undefined
+        ) {
+            console.warn(
+                'The `prefix` property in InfoTileProgress is deprecated and will be removed in a future version. Use `valuePrefix` instead.'
+            );
+        }
+    }
+
+    @Watch('progress')
+    private warnIfDeprecatedProgressSuffix() {
+        if (
+            this.progress?.suffix !== null &&
+            this.progress?.suffix !== undefined &&
+            this.progress?.valueSuffix === undefined
+        ) {
+            console.warn(
+                'The `suffix` property in InfoTileProgress is deprecated and will be removed in a future version. Use `valueSuffix` instead.'
+            );
+        }
     }
 
     public render() {
+        const effectivePrefix = this.valuePrefix ?? this.prefix;
+        const effectiveSuffix = this.valueSuffix ?? this.suffix;
+
         const extendedAriaLabel =
-            this.checkProps(this?.prefix) +
+            this.checkProps(effectivePrefix) +
             this.value +
             ' ' +
-            this.checkProps(this?.suffix) +
+            this.checkProps(effectiveSuffix) +
             this.checkProps(this?.label) +
             '. ' +
-            this.checkProps(this?.progress?.prefix) +
+            this.checkProps(
+                this?.progress?.valuePrefix ?? this?.progress?.prefix
+            ) +
             this.checkProps(this?.progress?.value) +
-            this.checkProps(this?.progress?.suffix) +
+            this.checkProps(
+                this?.progress?.valueSuffix ?? this?.progress?.suffix
+            ) +
             this.checkProps(this?.link?.title);
 
         const link = this.disabled ? '#' : this.link?.href;
@@ -188,8 +256,9 @@ export class InfoTile {
     }
 
     private renderPrefix = () => {
-        if (this.prefix) {
-            return <span class="prefix">{this.prefix}</span>;
+        const effectivePrefix = this.valuePrefix ?? this.prefix;
+        if (effectivePrefix) {
+            return <span class="prefix">{effectivePrefix}</span>;
         }
     };
 
@@ -215,8 +284,9 @@ export class InfoTile {
     };
 
     private renderSuffix = () => {
-        if (this.suffix) {
-            return <span class="suffix">{this.suffix}</span>;
+        const effectiveSuffix = this.valueSuffix ?? this.suffix;
+        if (effectiveSuffix) {
+            return <span class="suffix">{effectiveSuffix}</span>;
         }
     };
 
@@ -242,12 +312,17 @@ export class InfoTile {
             return;
         }
 
+        const effectiveProgressPrefix =
+            this.progress.valuePrefix ?? this.progress.prefix;
+        const effectiveProgressSuffix =
+            this.progress.valueSuffix ?? this.progress.suffix;
+
         return (
             <limel-circular-progress
                 class="progress"
-                prefix={this.progress.prefix}
+                valuePrefix={effectiveProgressPrefix}
+                valueSuffix={effectiveProgressSuffix}
                 value={this.progress.value}
-                suffix={this.progress.suffix}
                 maxValue={this.progress.maxValue}
                 displayPercentageColors={this.progress.displayPercentageColors}
             />

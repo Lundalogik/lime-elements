@@ -37,7 +37,7 @@ export class InfoTilePrimarySlotExample {
                     icon="cloud_storage"
                     label="Cloud storage usage"
                     value="215"
-                    suffix="GB"
+                    valueSuffix="GB"
                     link={link}
                     progress={progress} // won't be rendered
                 >

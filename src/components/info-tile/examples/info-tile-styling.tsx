@@ -21,7 +21,7 @@ export class InfoTileStylingExample {
     private progress: InfoTileProgress = {
         value: 12,
         maxValue: 100,
-        suffix: '%',
+        valueSuffix: '%',
         displayPercentageColors: false,
     };
 
@@ -31,16 +31,16 @@ export class InfoTileStylingExample {
                 icon="electricity"
                 label="Average weekly usage"
                 value={this.value}
-                suffix="kWh"
+                valueSuffix="kWh"
                 badge={this.badge}
             />,
             <limel-info-tile
                 label="Average weekly usage"
                 icon="electricity"
                 value={this.value}
-                suffix="kWh"
+                valueSuffix="kWh"
                 progress={this.progress}
-                prefix="↑"
+                valuePrefix="↑"
             />,
         ];
     }

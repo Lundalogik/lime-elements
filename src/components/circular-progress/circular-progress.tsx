@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, Watch } from '@stencil/core';
 import { CircularProgressSize } from '../circular-progress/circular-progress.types';
 import { abbreviate } from '../badge/format';
 
@@ -47,16 +47,32 @@ export class CircularProgress {
     public maxValue: number = PERCENT;
 
     /**
-     * The prefix which is displayed before the `value`, must be a few characters characters long.
+     * The prefix which is displayed before the `value`, must be a few characters long.
+     * @deprecated Use `valuePrefix` instead. Will be removed in a future version.
      */
     @Prop({ reflect: true })
     public prefix?: string = null;
 
     /**
      * The suffix which is displayed after the `value`, must be one or two characters long. Defaults to `%`
+     * @deprecated Use `valueSuffix` instead. Will be removed in a future version.
      */
     @Prop()
     public suffix: string = '%';
+
+    /**
+     * The prefix which is displayed before the `value`, must be a few characters long.
+     */
+    @Prop({ reflect: true })
+    public valuePrefix?: string = null;
+
+    /**
+     * The suffix which is displayed after the `value`, must be one or two characters long. Defaults to `%`
+     *
+     * @todo Change default value to `'%'` once the deprecated `suffix` property is removed.
+     */
+    @Prop({ reflect: true })
+    public valueSuffix?: string = null;
 
     /**
      * When set to `true`, makes the filled section showing the percentage colorful. Colors change with intervals of 10%.
@@ -70,6 +86,33 @@ export class CircularProgress {
     @Prop({ reflect: true })
     public size: CircularProgressSize;
 
+    public componentWillLoad() {
+        this.warnIfDeprecatedPrefix();
+        this.warnIfDeprecatedSuffix();
+    }
+
+    @Watch('prefix')
+    private warnIfDeprecatedPrefix() {
+        if (this.prefix !== null && this.prefix !== undefined) {
+            console.warn(
+                'The `prefix` property is deprecated and will be removed in a future version. Use `valuePrefix` instead.'
+            );
+        }
+    }
+
+    @Watch('suffix')
+    private warnIfDeprecatedSuffix() {
+        if (
+            this.suffix !== '%' &&
+            this.suffix !== null &&
+            this.suffix !== undefined
+        ) {
+            console.warn(
+                'The `suffix` property is deprecated and will be removed in a future version. Use `valueSuffix` instead.'
+            );
+        }
+    }
+
     public render() {
         const classList = {
             'lime-circular-progress': true,
@@ -79,27 +122,38 @@ export class CircularProgress {
         const currentPercentage = (this.value * PERCENT) / this.maxValue + '%';
         const value = Math.round(this.value * 10) / 10;
 
+        const effectivePrefix = this.valuePrefix ?? this.prefix;
+        const effectiveSuffix = this.valueSuffix ?? this.suffix;
+
+        const ariaValueText = [
+            effectivePrefix,
+            abbreviate(value),
+            effectiveSuffix,
+        ]
+            .filter(Boolean)
+            .join('');
+
         return (
             <div
                 role="progressbar"
                 class={classList}
-                aria-label="%"
+                aria-valuetext={ariaValueText}
                 aria-valuemin="0"
                 aria-valuemax={this.maxValue}
                 aria-valuenow={this.value}
                 style={{ '--percentage': currentPercentage }}
             >
-                {this.renderPrefix()}
+                {this.renderPrefix(effectivePrefix)}
                 <span class="value">
                     {abbreviate(value)}
-                    <span class="suffix">{this.suffix}</span>
+                    <span class="suffix">{effectiveSuffix}</span>
                 </span>
             </div>
         );
     }
-    private renderPrefix = () => {
-        if (this.prefix) {
-            return <span class="prefix">{this.prefix}</span>;
+    private renderPrefix = (prefix?: string) => {
+        if (prefix) {
+            return <span class="prefix">{prefix}</span>;
         }
     };
 }

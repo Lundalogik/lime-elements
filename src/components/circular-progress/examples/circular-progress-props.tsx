@@ -37,26 +37,26 @@ export class CircularProgressPropsExample {
                 size="x-large"
                 value={this.degree}
                 maxValue={this.maxDegrees}
-                suffix={this.degrees}
+                valueSuffix={this.degrees}
             />,
             <limel-circular-progress
                 size="x-large"
                 value={this.second}
                 maxValue={this.maxSeconds}
-                suffix={this.seconds}
+                valueSuffix={this.seconds}
             />,
             <limel-circular-progress
                 size="x-large"
                 value={this.star}
                 maxValue={this.maxStars}
-                suffix={this.stars}
+                valueSuffix={this.stars}
             />,
             <limel-circular-progress
                 size="x-large"
                 value={this.budget}
                 maxValue={this.maxBudget}
-                suffix={this.currency}
-                prefix={this.increase}
+                valueSuffix={this.currency}
+                valuePrefix={this.increase}
             />,
         ];
     }

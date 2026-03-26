@@ -30,7 +30,7 @@ export class InfoTileProgressExample {
     @State()
     private progress: InfoTileProgress = {
         value: 76,
-        prefix: '↑',
+        valuePrefix: '↑',
         displayPercentageColors: true,
     };
 
@@ -39,9 +39,9 @@ export class InfoTileProgressExample {
             <limel-info-tile
                 label="Won deals this month"
                 icon="money"
-                prefix="Total value"
+                valuePrefix="Total value"
                 value="70,659"
-                suffix="EUR"
+                valueSuffix="EUR"
                 link={{ href: '#' }}
                 progress={this.progress}
             />,

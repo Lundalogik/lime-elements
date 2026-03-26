@@ -107,6 +107,7 @@ export class InputField {
     /**
      * A short piece of text to display before the value inside the input field.
      * Displayed for all types except `textarea`.
+     * @deprecated Use `valuePrefix` instead. Will be removed in a future version.
      */
     @Prop({ reflect: true })
     public prefix: string;
@@ -114,9 +115,24 @@ export class InputField {
     /**
      * A short piece of text to display after the value inside the input field.
      * Displayed for all types except `textarea`.
+     * @deprecated Use `valueSuffix` instead. Will be removed in a future version.
      */
     @Prop({ reflect: true })
     public suffix: string;
+
+    /**
+     * A short piece of text to display before the value inside the input field.
+     * Displayed for all types except `textarea`.
+     */
+    @Prop({ reflect: true })
+    public valuePrefix: string;
+
+    /**
+     * A short piece of text to display after the value inside the input field.
+     * Displayed for all types except `textarea`.
+     */
+    @Prop({ reflect: true })
+    public valueSuffix: string;
 
     /**
      * Set to `true` to indicate that the field is required.
@@ -343,6 +359,24 @@ export class InputField {
         }
     }
 
+    @Watch('prefix')
+    private warnIfDeprecatedPrefix() {
+        if (this.prefix !== null && this.prefix !== undefined) {
+            console.warn(
+                'The `prefix` property is deprecated and will be removed in a future version. Use `valuePrefix` instead.'
+            );
+        }
+    }
+
+    @Watch('suffix')
+    private warnIfDeprecatedSuffix() {
+        if (this.suffix !== null && this.suffix !== undefined) {
+            console.warn(
+                'The `suffix` property is deprecated and will be removed in a future version. Use `valueSuffix` instead.'
+            );
+        }
+    }
+
     public render() {
         const properties = this.getAdditionalProps();
         properties['aria-labelledby'] = this.labelId;
@@ -452,6 +486,8 @@ export class InputField {
         }
 
         this.mapCompletions();
+        this.warnIfDeprecatedPrefix();
+        this.warnIfDeprecatedSuffix();
 
         window.addEventListener('resize', this.layout, { passive: true });
         this.limelInputField.addEventListener('focus', this.setFocus);
@@ -640,11 +676,13 @@ export class InputField {
             'mdc-text-field__affix--suffix': true,
         };
 
-        return <span class={classList}>{this.suffix}</span>;
+        const effectiveSuffix = this.valueSuffix ?? this.suffix;
+        return <span class={classList}>{effectiveSuffix}</span>;
     };
 
     private hasSuffix = () => {
-        return this.suffix !== null && this.suffix !== undefined;
+        const effectiveSuffix = this.valueSuffix ?? this.suffix;
+        return effectiveSuffix !== null && effectiveSuffix !== undefined;
     };
 
     private renderPrefix = () => {
@@ -657,11 +695,13 @@ export class InputField {
             'mdc-text-field__affix--prefix': true,
         };
 
-        return <span class={classList}>{this.prefix}</span>;
+        const effectivePrefix = this.valuePrefix ?? this.prefix;
+        return <span class={classList}>{effectivePrefix}</span>;
     };
 
     private hasPrefix = () => {
-        return this.prefix !== null && this.prefix !== undefined;
+        const effectivePrefix = this.valuePrefix ?? this.prefix;
+        return effectivePrefix !== null && effectivePrefix !== undefined;
     };
 
     private isInvalid = () => {
