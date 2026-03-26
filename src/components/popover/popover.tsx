@@ -160,7 +160,7 @@ export class Popover {
         if (this.open && !clickedInside) {
             event.stopPropagation();
             event.preventDefault();
-            this.requestCloseAndRestoreFocus();
+            this.close.emit();
         }
     }
 
