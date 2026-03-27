@@ -123,10 +123,10 @@ export class Popover {
             document.addEventListener('click', this.globalClickListener, {
                 capture: true,
             });
-            document.addEventListener('keyup', this.handleGlobalKeyPress);
+            document.addEventListener('keydown', this.handleGlobalKeyPress);
         } else {
             document.removeEventListener('click', this.globalClickListener);
-            document.removeEventListener('keyup', this.handleGlobalKeyPress);
+            document.removeEventListener('keydown', this.handleGlobalKeyPress);
         }
     }
 
