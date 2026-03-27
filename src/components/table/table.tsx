@@ -28,10 +28,12 @@ import {
     ColumnSorter,
     ColumnAggregate,
     RowData,
+    RowReorderEvent,
 } from './table.types';
 import { ColumnDefinitionFactory, createColumnSorter } from './columns';
 import { isEqual, has } from 'lodash-es';
 import { ElementPool } from './element-pool';
+import { RowDragManager } from './row-drag-manager';
 import { TableSelection } from './table-selection';
 import { _mapLayout, Layout } from './layout';
 import { areRowsEqual } from './utils';
@@ -45,6 +47,7 @@ const FIRST_PAGE = 1;
  * @exampleComponent limel-example-table-custom-components
  * @exampleComponent limel-example-table-header-menu
  * @exampleComponent limel-example-table-movable-columns
+ * @exampleComponent limel-example-table-movable-rows
  * @exampleComponent limel-example-table-sorting-disabled
  * @exampleComponent limel-example-table-pagination
  * @exampleComponent limel-example-table-local
@@ -126,6 +129,14 @@ export class Table {
      */
     @Prop({ reflect: true })
     public movableColumns: boolean;
+
+    /**
+     * Set to `true` to enable reordering of the rows by dragging them.
+     * A drag handle will be rendered at the start of each row.
+     * Only available in `local` mode without pagination.
+     */
+    @Prop({ reflect: true })
+    public movableRows: boolean;
 
     /**
      * Set to `false` to disable column sorting through header interactions.
@@ -216,6 +227,13 @@ export class Table {
     public changeColumns: EventEmitter<Column[]>;
 
     /**
+     * Emitted when a row has been reordered via drag-and-drop.
+     * The event detail describes which row was moved and where it was placed.
+     */
+    @Event()
+    public reorder: EventEmitter<RowReorderEvent<any>>;
+
+    /**
      * Emitted when the row selection has been changed
      */
     @Event()
@@ -240,8 +258,10 @@ export class Table {
     private destroyed = false;
     private resizeObserver: ResizeObserver;
     private currentSorting: ColumnSorter[];
+    private rowDragManager: RowDragManager;
     private tableSelection: TableSelection;
     private shouldSort = false;
+    private hasWarnedOnConflictingMovableAndSortable = false;
 
     constructor() {
         this.handleDataSorting = this.handleDataSorting.bind(this);
@@ -261,6 +281,8 @@ export class Table {
     }
 
     public componentWillLoad() {
+        this.warnOnConflictingMovableAndSortable();
+        this.initRowDragManager();
         this.initTableSelection();
     }
 
@@ -272,6 +294,9 @@ export class Table {
     public disconnectedCallback() {
         this.destroyed = true;
         this.initialized = false;
+
+        this.rowDragManager?.destroy();
+        this.rowDragManager = null;
 
         if (this.resizeObserver) {
             this.resizeObserver.disconnect();
@@ -425,14 +450,38 @@ export class Table {
         this.init();
     }
 
+    @Watch('movableRows')
+    protected updateMovableRows() {
+        this.warnOnConflictingMovableAndSortable();
+        this.pool.releaseAll();
+        this.rowDragManager?.destroy();
+        this.rowDragManager = null;
+        this.initRowDragManager();
+        this.init();
+    }
+
     @Watch('sortableColumns')
     protected updateSortableColumns() {
+        this.warnOnConflictingMovableAndSortable();
         if (!this.tabulator) {
             return;
         }
 
         this.tabulator.setColumns(this.getColumnDefinitions());
         this.shouldSort = true;
+    }
+
+    private warnOnConflictingMovableAndSortable() {
+        if (this.hasWarnedOnConflictingMovableAndSortable) {
+            return;
+        }
+
+        if (this.movableRows && this.sortableColumns) {
+            console.warn(
+                'limel-table: combining `movableRows` with `sortableColumns` is not recommended. Sorting reorders the rows visually, so dragging a row to a new position will not match the underlying data order. Set `sortableColumns` to `false` when using `movableRows`.'
+            );
+            this.hasWarnedOnConflictingMovableAndSortable = true;
+        }
     }
 
     @Watch('sorting')
@@ -557,6 +606,7 @@ export class Table {
         // matter if its rendered or not.
         if (!('ResizeObserver' in window)) {
             this.tabulator = this.createTabulator(table);
+            this.rowDragManager?.observe(table);
             this.setSelection();
 
             return;
@@ -569,6 +619,7 @@ export class Table {
                 }
 
                 this.tabulator = this.createTabulator(table);
+                this.rowDragManager?.observe(table);
                 this.setSelection();
                 this.resizeObserver?.unobserve(table);
                 this.resizeObserver?.disconnect();
@@ -584,6 +635,11 @@ export class Table {
         tabulator.on('pageLoaded', this.handlePageLoaded);
         tabulator.on('columnMoved', this.handleMoveColumn);
         tabulator.on('renderComplete', this.handleRenderComplete);
+
+        if (this.rowDragManager) {
+            tabulator.on('rowMoved', this.rowDragManager.handleRowMoved);
+        }
+
         tabulator.on('tableBuilt', () => {
             if (this.destroyed) {
                 tabulator.destroy();
@@ -603,6 +659,16 @@ export class Table {
         });
 
         return tabulator;
+    }
+
+    private initRowDragManager() {
+        if (this.movableRows) {
+            this.rowDragManager = new RowDragManager(
+                this.pool,
+                this.reorder,
+                this.language
+            );
+        }
     }
 
     private initTableSelection() {
@@ -633,6 +699,7 @@ export class Table {
         const ajaxOptions = this.getAjaxOptions();
         const paginationOptions = this.getPaginationOptions();
         const columnOptions = this.getColumnOptions();
+        const rowDragOptions = this.getRowDragOptions();
 
         return {
             data: this.data,
@@ -644,6 +711,7 @@ export class Table {
             initialSort: this.getInitialSorting(),
             nestedFieldSeparator: false,
             ...columnOptions,
+            ...rowDragOptions,
         };
     }
 
@@ -938,6 +1006,17 @@ export class Table {
         };
     };
 
+    private readonly getRowDragOptions = (): object => {
+        if (!this.rowDragManager) {
+            return {};
+        }
+
+        return {
+            movableRows: true,
+            rowHeader: this.rowDragManager.getRowHeaderDefinition(),
+        };
+    };
+
     private readonly handleMoveColumn = (
         _,
         components: TabulatorColumnComponent[]
@@ -977,6 +1056,7 @@ export class Table {
                         'has-pagination': totalRows > this.pageSize,
                         'has-aggregation': this.hasAggregation(this.columns),
                         'has-movable-columns': this.movableColumns,
+                        'has-movable-rows': !!this.rowDragManager,
                         'has-rowselector': this.selectable,
                         'has-selection': this.tableSelection?.hasSelection,
                     }}

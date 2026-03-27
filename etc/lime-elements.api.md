@@ -861,6 +861,7 @@ export namespace Components {
         "loading": boolean;
         "mode": 'local' | 'remote';
         "movableColumns": boolean;
+        "movableRows": boolean;
         "page": number;
         "pageSize": number;
         "paginationLocation": 'top' | 'bottom';
@@ -3454,10 +3455,12 @@ export namespace JSX {
         "loading"?: boolean;
         "mode"?: 'local' | 'remote';
         "movableColumns"?: boolean;
+        "movableRows"?: boolean;
         "onActivate"?: (event: LimelTableCustomEvent<object>) => void;
         "onChangeColumns"?: (event: LimelTableCustomEvent<Column[]>) => void;
         "onChangePage"?: (event: LimelTableCustomEvent<number>) => void;
         "onLoad"?: (event: LimelTableCustomEvent<TableParams>) => void;
+        "onReorder"?: (event: LimelTableCustomEvent<RowReorderEvent<any>>) => void;
         "onSelect"?: (event: LimelTableCustomEvent<object[]>) => void;
         "onSelectAll"?: (event: LimelTableCustomEvent<boolean>) => void;
         "onSort"?: (event: LimelTableCustomEvent<ColumnSorter[]>) => void;
@@ -3485,6 +3488,8 @@ export namespace JSX {
         "mode": 'local' | 'remote';
         // (undocumented)
         "movableColumns": boolean;
+        // (undocumented)
+        "movableRows": boolean;
         // (undocumented)
         "page": number;
         // (undocumented)
@@ -4309,6 +4314,13 @@ export type RowData = {
 // @public
 export interface RowLayoutOptions extends FormLayoutOptions<FormLayoutType | `${FormLayoutType}`> {
     icon?: string;
+}
+
+// @public
+export interface RowReorderEvent<T> {
+    above: boolean;
+    fromRow: T;
+    toRow: T;
 }
 
 // @public

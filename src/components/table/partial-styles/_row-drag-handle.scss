@@ -1,27 +1,12 @@
-.select-all,
-.limel-table--row-selector {
-    --limel-checkbox-min-height: 1.25rem; // as big as the box itself
+.limel-table-drag-handle {
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
 
-    text-overflow: unset !important; // Otherwise a `…` will be rendered besides the checkbox, since we truncate all cells
+    text-overflow: unset !important;
     padding: 0 !important;
-}
 
-.select-all {
-    position: absolute;
-    z-index: var(--limel-table-row-selector-z-index);
-    left: 0.375rem;
-    top: 0.1875rem;
-
-    .has-movable-rows & {
-        left: calc(var(--limel-table-drag-handle-width) + 0.375rem);
-    }
-}
-
-.limel-table--row-selector {
-    position: sticky !important; // otherwise will be overwritten from `.tabulator-row .tabulator-cell`
+    position: sticky !important;
     left: 0;
     border-width: 0;
     z-index: var(--limel-table-row-selector-z-index);
@@ -37,7 +22,7 @@
         );
     }
 
-    limel-checkbox {
+    limel-drag-handle {
         transition: opacity 0.2s ease;
         opacity: 0.3;
 
@@ -45,14 +30,13 @@
             opacity: 1;
         }
 
-        .has-selection & {
-            opacity: 1;
+        .tabulator-block-select .tabulator-row & {
+            opacity: 0.3;
+            transition: none;
+            pointer-events: none;
         }
     }
 
-    // make the row selector column non-resizable by hiding
-    // the resize handles between the frozen column and the
-    // column next to it
     .tabulator-col-resize-handle {
         display: none;
     }
@@ -62,14 +46,22 @@
             display: none;
         }
     }
+
+    &.tabulator-cell {
+        border-bottom: transparent !important;
+        border-right: inherit !important;
+    }
+    &.tabulator-col {
+        border-right: inherit !important;
+    }
 }
 
-.has-movable-columns
-    .tabulator-header
-    .tabulator-col.limel-table--row-selector {
+.has-movable-columns .tabulator-header .tabulator-col.limel-table-drag-handle {
     border: none;
     cursor: default !important;
     pointer-events: none;
+    border-right: inherit;
+    border-bottom: inherit;
     background-color: transparent;
     background-image: linear-gradient(
         to right,
@@ -79,12 +71,9 @@
     left: 0;
 }
 
-.tabulator-calcs {
-    .tabulator-cell {
-        .has-selection & {
-            color: var(
-                --table-arrow-color--active
-            ); // to indicate that aggregated numbers are coming from the selcted rows not all rows
-        }
-    }
+.tabulator-row.tabulator-moving
+    .limel-table-drag-handle
+    limel-drag-handle
+    button:last-of-type {
+    display: none; /** tabulator will make a copy of limel-drag-handle on move. So hide the 2nd child */
 }

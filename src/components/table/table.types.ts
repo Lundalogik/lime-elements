@@ -217,3 +217,26 @@ export interface ColumnAggregate {
 export type RowData = {
     id?: string | number;
 };
+
+/**
+ * Describes a row reorder operation.
+ * Emitted when a row is moved via drag-and-drop.
+ * @public
+ */
+export interface RowReorderEvent<T> {
+    /**
+     * The data of the row that was moved
+     */
+    fromRow: T;
+
+    /**
+     * The data of the row that was used as the drop target
+     */
+    toRow: T;
+
+    /**
+     * If `true`, the row was placed above the target row.
+     * If `false`, it was placed below.
+     */
+    above: boolean;
+}

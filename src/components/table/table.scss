@@ -10,6 +10,7 @@
 @forward './partial-styles/movable-columns';
 @forward './partial-styles/tabulator-footer';
 @forward './partial-styles/row-selection';
+@forward './partial-styles/row-drag-handle';
 
 /*
 * @prop --table-max-column-width: defines a maximum width for columns using standard size units, to prevent the table from growing too wide. Set to `auto` if you do not need this limitation. Defaults to `40rem`.
