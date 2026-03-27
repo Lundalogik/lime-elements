@@ -30,6 +30,7 @@ import {
     ARROW_LEFT,
     ARROW_RIGHT,
     ARROW_UP,
+    ESCAPE,
     TAB,
 } from '../../util/keycodes';
 import { focusTriggerElement } from '../../util/focus-trigger-element';
@@ -205,6 +206,7 @@ export class Menu {
     private breadcrumbs: HTMLLimelBreadcrumbsElement;
     private triggerElement: HTMLSlotElement;
     private selectedMenuItem?: MenuItem;
+    private shouldRestoreFocusOnClose = false;
 
     constructor() {
         this.portalId = createRandomString();
@@ -272,8 +274,18 @@ export class Menu {
     protected openWatcher(newValue: boolean) {
         const opened = newValue;
         if (opened) {
+            document.addEventListener(
+                'keydown',
+                this.handleEscapeCapture,
+                true
+            );
             this.setFocus();
         } else {
+            document.removeEventListener(
+                'keydown',
+                this.handleEscapeCapture,
+                true
+            );
             this.clearSearch();
         }
     }
@@ -671,11 +683,23 @@ export class Menu {
         }
     };
 
+    private readonly handleEscapeCapture = (event: KeyboardEvent) => {
+        if (event.key === ESCAPE && this.open) {
+            this.shouldRestoreFocusOnClose = true;
+        }
+    };
+
     private readonly onClose = () => {
+        const restoreFocus = this.shouldRestoreFocusOnClose;
+        this.shouldRestoreFocusOnClose = false;
+
         this.cancel.emit();
         this.open = false;
         this.currentSubMenu = null;
-        setTimeout(this.focusTrigger, 0);
+
+        if (restoreFocus) {
+            setTimeout(this.focusTrigger, 0);
+        }
     };
 
     private readonly onTriggerClick = (event: MouseEvent) => {
