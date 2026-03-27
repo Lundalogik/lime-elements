@@ -37,7 +37,7 @@ full progress.
 
 ### Used by
 
- - [limel-example-circular-progress](examples)
+ - [limel-example-circular-progress-basic](examples)
  - [limel-example-circular-progress-css-variables](examples)
  - [limel-example-circular-progress-percentage-colors](examples)
  - [limel-example-circular-progress-props](examples)
@@ -48,7 +48,7 @@ full progress.
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-circular-progress --> limel-circular-progress
+  limel-example-circular-progress-basic --> limel-circular-progress
   limel-example-circular-progress-css-variables --> limel-circular-progress
   limel-example-circular-progress-percentage-colors --> limel-circular-progress
   limel-example-circular-progress-props --> limel-circular-progress
