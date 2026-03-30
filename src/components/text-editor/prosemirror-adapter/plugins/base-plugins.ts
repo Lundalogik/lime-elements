@@ -10,9 +10,10 @@ import { buildInputRules } from './input-rules';
 /**
  * Assembles the base ProseMirror plugins for the text editor.
  *
- * Replaces the opaque `exampleSetup()` call with explicit imports
- * from stable ProseMirror packages.
- * @param schema
+ * Provides infrastructure plugins only: input rules, base keymap
+ * (Enter, Backspace, Delete), drop cursor, gap cursor, and history.
+ * Schema-aware keybindings are handled by MenuCommandFactory.buildKeymap().
+ * @param schema - The ProseMirror schema to build plugins for
  */
 export function buildBasePlugins(schema: Schema): Plugin[] {
     return [

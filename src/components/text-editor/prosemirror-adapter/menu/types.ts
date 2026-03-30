@@ -11,12 +11,24 @@ export const EditorMenuTypes = {
     HeaderLevel1: 'headerlevel1',
     HeaderLevel2: 'headerlevel2',
     HeaderLevel3: 'headerlevel3',
+    HeaderLevel4: 'headerlevel4',
+    HeaderLevel5: 'headerlevel5',
+    HeaderLevel6: 'headerlevel6',
     Link: 'link',
     OrderedList: 'ordered_list',
     BulletList: 'bullet_list',
     Strikethrough: 'strikethrough',
     Code: 'code',
     CodeBlock: 'code_block',
+    Paragraph: 'paragraph',
+    HardBreak: 'hard_break',
+    HorizontalRule: 'horizontal_rule',
+    SplitListItem: 'split_list_item',
+    LiftListItem: 'lift_list_item',
+    SinkListItem: 'sink_list_item',
+    WrapInBulletList: 'wrap_bullet_list',
+    WrapInOrderedList: 'wrap_ordered_list',
+    WrapInBlockquote: 'wrap_blockquote',
 };
 
 /**
@@ -45,6 +57,9 @@ export const LevelMapping = {
     one: 1,
     two: 2,
     three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
 };
 
 /**
