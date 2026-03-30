@@ -1,0 +1,28 @@
+@use '../../../style/mixins';
+
+:host {
+    --masonry-layout-min-column-width: 10rem;
+    --masonry-layout-gap: 0.5rem;
+}
+
+section {
+    @include mixins.is-resizable(
+        $direction: both,
+        $width: 100%,
+        $min-width: 10rem,
+        $max-width: 100%,
+        $height: auto
+    );
+}
+
+.card {
+    box-sizing: border-box;
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    background-color: rgb(var(--contrast-400));
+
+    h3 {
+        margin: 0;
+        font-size: 0.75rem;
+    }
+}
