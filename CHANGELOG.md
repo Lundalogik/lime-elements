@@ -1,3 +1,12 @@
+## [39.9.5](https://github.com/Lundalogik/lime-elements/compare/v39.9.4...v39.9.5) (2026-03-30)
+
+### Bug Fixes
+
+
+* **popover:** don't restore focus to trigger on click-outside dismiss ([4452a1d](https://github.com/Lundalogik/lime-elements/commit/4452a1d13667bbef0a9e2330a656087fe027dd0b))
+* **popover:** don't restore focus to trigger on click-outside dismiss ([21820e4](https://github.com/Lundalogik/lime-elements/commit/21820e441c198452f55f9bb2c5582b51126812a5))
+* **popover:** handle Esc on `keydown` instead of `keyup` ([99bac40](https://github.com/Lundalogik/lime-elements/commit/99bac401789ed5b8e0333e9ccca1a01f968835d6))
+
 ## [39.9.4](https://github.com/Lundalogik/lime-elements/compare/v39.9.3...v39.9.4) (2026-03-25)
 
 ### Bug Fixes
