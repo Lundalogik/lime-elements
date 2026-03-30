@@ -1,3 +1,10 @@
+## [39.10.0](https://github.com/Lundalogik/lime-elements/compare/v39.9.5...v39.10.0) (2026-03-30)
+
+### Features
+
+
+* **menu:** add `hotkey` prop for items & improve keyboard navigation ([7d49081](https://github.com/Lundalogik/lime-elements/commit/7d49081586fc4679ac8bbda671f72697d541bee8))
+
 ## [39.9.5](https://github.com/Lundalogik/lime-elements/compare/v39.9.4...v39.9.5) (2026-03-30)
 
 ### Bug Fixes
