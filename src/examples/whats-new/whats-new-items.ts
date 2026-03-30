@@ -26,6 +26,97 @@ export type ShowcaseItem = {
 
 export const whatsNewItems: ShowcaseItem[] = [
     {
+        componentName: 'Icon Button',
+        heading: 'Display a helper label in tooltip',
+        description:
+            'Using the `helperLabel` prop, you can display additional helper text in the tooltip, for example a keyboard shortcut.',
+        releaseDate: '2026-03-19',
+        version: '39.8.0',
+        demoTag: 'limel-example-icon-button-helper-label',
+    },
+    {
+        componentName: 'Code Diff',
+        heading: 'Brand new component',
+        description:
+            'A new component for showing differences between two versions of code or JSON objects. Removed lines are highlighted in red, added lines in green, and word-level changes within modified lines are highlighted with a darker shade.',
+        releaseDate: '2026-03-16',
+        version: '39.7.0',
+        type: 'component',
+        demoTag: 'limel-example-code-diff-basic',
+    },
+    {
+        componentName: 'List',
+        heading: 'Customize image border radius',
+        description:
+            'A new CSS custom property `--list-item-image-border-radius` lets you customize the border radius of images displayed in list items.',
+        releaseDate: '2026-03-11',
+        version: '39.6.0',
+        demoTag: 'limel-example-list-pictures',
+    },
+    {
+        componentName: 'Card',
+        heading: 'Make 3D effect optional',
+        description:
+            'By default, cards have a 3D tilt hover effect with a glow. You can now disable it by setting the `show3dEffect` prop to `false`.',
+        releaseDate: '2026-03-10',
+        version: '39.5.7',
+        demoTag: 'limel-example-card-3d-effect',
+    },
+    {
+        componentName: 'Card',
+        heading: 'Show a selected state',
+        description:
+            'The card component now supports a `selected` property, allowing it to visually indicate when an article is selected.',
+        releaseDate: '2026-02-25',
+        version: '39.5.0',
+        demoTag: 'limel-example-card-selected',
+    },
+    {
+        componentName: 'Markdown',
+        heading: 'Render custom elements',
+        description:
+            'Using the `whitelist` prop, you can allow custom HTML elements to be rendered inside the markdown component. Specify the tag name and allowed attributes for each element.',
+        releaseDate: '2026-02-24',
+        version: '39.4.0',
+        demoTag: 'limel-example-markdown-custom-component',
+    },
+    {
+        componentName: 'Slider',
+        heading: 'Display percentage colors',
+        description:
+            'Set the `displaysPercentageColors` prop to `true` and the slider will automatically visualize percentage colors in real-time, changing with intervals of 10 as users drag the slider pin.',
+        releaseDate: '2026-01-31',
+        version: '38.44.0',
+        demoTag: 'limel-example-slider-multiplier-percentage-colors',
+    },
+    {
+        componentName: 'Chart',
+        heading: 'Display axis labels, item text & values',
+        description:
+            'New props `displayAxisLabels`, `displayItemText`, and `displayItemValue` let you control the visibility of axis labels, item texts, and values for chart types that have X and Y axes.',
+        releaseDate: '2026-01-29',
+        version: '38.43.0',
+        demoTag: 'limel-example-chart-axis-labels',
+    },
+    {
+        componentName: 'Table',
+        heading: 'Control pagination location',
+        description:
+            'A new `paginationLocation` property lets you control where the pagination controls are rendered, either at the `top` or `bottom` of the table.',
+        releaseDate: '2026-01-15',
+        version: '38.38.0',
+        demoTag: 'limel-example-table-pagination',
+    },
+    {
+        componentName: 'Code Editor',
+        heading: 'Copy button',
+        description:
+            'The code editor now features a copy button that appears on hover and focus. Its visibility can be toggled using the `showCopyButton` property.',
+        releaseDate: '2026-01-09',
+        version: '38.36.0',
+        demoTag: 'limel-example-code-editor-copy',
+    },
+    {
         componentName: 'Code Editor',
         heading: 'Standard Input Props',
         description:
@@ -60,15 +151,6 @@ export const whatsNewItems: ShowcaseItem[] = [
         releaseDate: '2025-10-07',
         version: '38.28.0',
         demoTag: 'limel-example-color-picker-manual-input',
-    },
-    {
-        componentName: 'Color Picker',
-        heading: 'Set standard input props',
-        description:
-            'Like other input fields, the icon picker component now supports standard input field properties, such as `disabled`, `readonly`, and `required`.',
-        releaseDate: '2025-10-03',
-        version: '38.26.0',
-        demoTag: 'limel-example-color-picker-composite',
     },
     {
         componentName: 'Color Picker',
