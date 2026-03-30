@@ -64,8 +64,8 @@ graph TD;
   limel-text-editor-link-menu --> limel-button
   limel-button --> limel-icon
   limel-button --> limel-spinner
-  limel-switch --> limel-helper-line
   limel-switch --> limel-dynamic-label
+  limel-switch --> limel-helper-line
   limel-dynamic-label --> limel-icon
   style limel-example-text-editor-with-tables fill:#f9f,stroke:#333,stroke-width:4px
 ```
