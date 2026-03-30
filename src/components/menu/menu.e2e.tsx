@@ -379,68 +379,6 @@ describe('limel-menu', () => {
             expect(handler).not.toHaveBeenCalled();
         });
 
-        it('does not trigger alt-only hotkeys while search input is focused', async () => {
-            // Alt is excluded from hasModifier to support international
-            // keyboard input (Option+e for é, AltGr+e for €). This means
-            // alt-only hotkeys won't fire from text inputs — only Ctrl/Meta
-            // combos will.
-            const searchableItems = [{ text: 'Alt action', hotkey: 'alt+x' }];
-            const searcher = vi.fn().mockResolvedValue(searchableItems);
-
-            const { root, waitForChanges } = await render(
-                <limel-menu searcher={searcher} open={true}>
-                    <button slot="trigger">Menu</button>
-                </limel-menu>
-            );
-            await waitForChanges();
-
-            const handler = vi.fn();
-            root.addEventListener('select', (e: Event) =>
-                handler((e as CustomEvent).detail)
-            );
-
-            const surface = document.querySelector('limel-menu-surface');
-            expect(surface).toBeTruthy();
-
-            const input =
-                surface?.querySelector('limel-input-field') ||
-                surface?.shadowRoot?.querySelector('limel-input-field');
-            expect(input).toBeTruthy();
-
-            // Trigger search so items appear
-            input!.dispatchEvent(
-                new CustomEvent('change', {
-                    detail: 'a',
-                    bubbles: true,
-                    composed: true,
-                })
-            );
-            await waitForChanges();
-
-            // Find the native <input> inside limel-input-field's shadow DOM.
-            // isFromTextInput checks composedPath() for INPUT/TEXTAREA/SELECT,
-            // so the event must originate from the native element, not the
-            // custom element wrapper.
-            const nativeInput =
-                input!.shadowRoot?.querySelector('input') ?? input!;
-
-            // Alt+X from within the text input should NOT trigger the hotkey
-            // because Alt alone is not treated as a modifier (to allow
-            // special character input on international keyboards)
-            nativeInput.dispatchEvent(
-                new KeyboardEvent('keydown', {
-                    key: 'x',
-                    code: 'KeyX',
-                    altKey: true,
-                    bubbles: true,
-                    composed: true,
-                })
-            );
-            await waitForChanges();
-
-            expect(handler).not.toHaveBeenCalled();
-        });
-
         it('selects the first match when multiple items have the same hotkey', async () => {
             const hotkeyItems = [
                 { text: 'First duplicate', hotkey: 'k' },

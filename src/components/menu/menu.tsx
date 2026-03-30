@@ -378,19 +378,8 @@ export class Menu {
         return false;
     }
 
-    // Only Ctrl and Meta count as "real" modifiers for the text-input bypass.
-    // Alt/Option is intentionally excluded because it is used for typing
-    // special characters on international keyboards and macOS (e.g. Option+e
-    // for é, AltGr+e for € on Windows). This means alt-only hotkeys like
-    // "alt+x" will NOT fire while a text input (e.g. the search field) is
-    // focused — only Ctrl/Meta combos will. AltGraph is also explicitly
-    // rejected because Windows synthesizes ctrlKey=true for AltGr keypresses.
     private hasModifier(event: KeyboardEvent): boolean {
-        if (event.getModifierState?.('AltGraph')) {
-            return false;
-        }
-
-        return event.ctrlKey || event.metaKey;
+        return event.ctrlKey || event.metaKey || event.altKey;
     }
 
     private isReservedMenuHotkey(hotkey: string): boolean {
