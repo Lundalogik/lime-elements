@@ -556,12 +556,15 @@ export class Table {
 
                 return;
             }
-
             this.initialized = true;
-            if (this.isRemoteMode() && !this.data?.length) {
-                this.tabulator.setData();
-            } else if (!this.isRemoteMode()) {
+            if (this.data?.length) {
                 this.updateData(this.data, []);
+
+                if (this.isRemoteMode()) {
+                    this.updateMaxPage();
+                }
+            } else if (this.isRemoteMode()) {
+                this.tabulator.setData();
             }
         });
 
