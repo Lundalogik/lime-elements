@@ -30,7 +30,7 @@ confusion and negatively affecting the end-users' experience.
 ### Used by
 
  - [limel-checkbox](../checkbox)
- - [limel-example-dynamic-label](examples)
+ - [limel-example-dynamic-label-basic](examples)
  - [limel-example-dynamic-label-readonly-boolean](examples)
  - [limel-list-item](../list-item)
  - [limel-switch](../switch)
@@ -44,7 +44,7 @@ confusion and negatively affecting the end-users' experience.
 graph TD;
   limel-dynamic-label --> limel-icon
   limel-checkbox --> limel-dynamic-label
-  limel-example-dynamic-label --> limel-dynamic-label
+  limel-example-dynamic-label-basic --> limel-dynamic-label
   limel-example-dynamic-label-readonly-boolean --> limel-dynamic-label
   limel-list-item --> limel-dynamic-label
   limel-switch --> limel-dynamic-label

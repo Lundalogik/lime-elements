@@ -27,7 +27,7 @@ for the `link` property
 
 ### Used by
 
- - [limel-example-shortcut](examples)
+ - [limel-example-shortcut-basic](examples)
  - [limel-example-shortcut-notification](examples)
  - [limel-example-shortcut-styling](examples)
  - [limel-example-shortcut-with-click-handler](examples)
@@ -44,7 +44,7 @@ graph TD;
   limel-shortcut --> limel-badge
   limel-shortcut --> limel-icon
   limel-shortcut --> limel-3d-hover-effect-glow
-  limel-example-shortcut --> limel-shortcut
+  limel-example-shortcut-basic --> limel-shortcut
   limel-example-shortcut-notification --> limel-shortcut
   limel-example-shortcut-styling --> limel-shortcut
   limel-example-shortcut-with-click-handler --> limel-shortcut
