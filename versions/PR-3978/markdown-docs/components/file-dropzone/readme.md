@@ -38,7 +38,7 @@ each representing a file dropped into the dropzone.
 
 ### Used by
 
- - [limel-example-file-dropzone](examples)
+ - [limel-example-file-dropzone-basic](examples)
  - [limel-example-file-dropzone-type-filtering](examples)
  - [limel-file](../file)
  - [limel-profile-picture](../profile-picture)
@@ -51,7 +51,7 @@ each representing a file dropped into the dropzone.
 ```mermaid
 graph TD;
   limel-file-dropzone --> limel-icon
-  limel-example-file-dropzone --> limel-file-dropzone
+  limel-example-file-dropzone-basic --> limel-file-dropzone
   limel-example-file-dropzone-type-filtering --> limel-file-dropzone
   limel-file --> limel-file-dropzone
   limel-profile-picture --> limel-file-dropzone

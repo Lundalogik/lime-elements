@@ -84,9 +84,9 @@ or navigating to a page with more information about the item in the shopping lis
  - [limel-example-chip-readonly-border](examples)
  - [limel-example-chip-removable](examples)
  - [limel-example-chip-size](examples)
- - [limel-example-file-dropzone](../file-dropzone/examples)
+ - [limel-example-file-dropzone-basic](../file-dropzone/examples)
  - [limel-example-file-dropzone-type-filtering](../file-dropzone/examples)
- - [limel-example-file-input](../file-input/examples)
+ - [limel-example-file-input-basic](../file-input/examples)
  - [limel-example-file-input-type-filtering](../file-input/examples)
  - [limel-example-menu-searchable](../menu/examples)
  - [limel-example-menu-searchable-hotkeys](../menu/examples)
@@ -138,9 +138,9 @@ graph TD;
   limel-example-chip-readonly-border --> limel-chip
   limel-example-chip-removable --> limel-chip
   limel-example-chip-size --> limel-chip
-  limel-example-file-dropzone --> limel-chip
+  limel-example-file-dropzone-basic --> limel-chip
   limel-example-file-dropzone-type-filtering --> limel-chip
-  limel-example-file-input --> limel-chip
+  limel-example-file-input-basic --> limel-chip
   limel-example-file-input-type-filtering --> limel-chip
   limel-example-menu-searchable --> limel-chip
   limel-example-menu-searchable-hotkeys --> limel-chip

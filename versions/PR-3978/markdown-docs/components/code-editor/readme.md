@@ -34,7 +34,7 @@
 
 ### Used by
 
- - [limel-example-code-editor](examples)
+ - [limel-example-code-editor-basic](examples)
  - [limel-example-code-editor-composite](examples)
  - [limel-example-code-editor-copy](examples)
  - [limel-example-code-editor-fold-lint-wrap](examples)
@@ -51,7 +51,7 @@
 graph TD;
   limel-code-editor --> limel-helper-line
   limel-code-editor --> limel-notched-outline
-  limel-example-code-editor --> limel-code-editor
+  limel-example-code-editor-basic --> limel-code-editor
   limel-example-code-editor-composite --> limel-code-editor
   limel-example-code-editor-copy --> limel-code-editor
   limel-example-code-editor-fold-lint-wrap --> limel-code-editor

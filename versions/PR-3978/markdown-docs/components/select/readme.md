@@ -53,7 +53,7 @@
  - [limel-example-picker-static-actions](../picker/examples)
  - [limel-example-profile-picture-image-fit](../profile-picture/examples)
  - [limel-example-radio-button-group-multiple-lines](../radio-button-group/examples)
- - [limel-example-select](examples)
+ - [limel-example-select-basic](examples)
  - [limel-example-select-change-options](examples)
  - [limel-example-select-dialog](examples)
  - [limel-example-select-multiple](examples)
@@ -110,7 +110,7 @@ graph TD;
   limel-example-picker-static-actions --> limel-select
   limel-example-profile-picture-image-fit --> limel-select
   limel-example-radio-button-group-multiple-lines --> limel-select
-  limel-example-select --> limel-select
+  limel-example-select-basic --> limel-select
   limel-example-select-change-options --> limel-select
   limel-example-select-dialog --> limel-select
   limel-example-select-multiple --> limel-select

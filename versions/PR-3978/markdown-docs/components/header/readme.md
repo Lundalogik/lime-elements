@@ -71,7 +71,7 @@ and take a lot of attention from users.
  - [limel-example-action-buttons-icon-color](../../design-guidelines/action-buttons/examples)
  - [limel-example-action-buttons-third-alternative](../../design-guidelines/action-buttons/examples)
  - [limel-example-chart-accessibility](../chart/examples)
- - [limel-example-header](examples)
+ - [limel-example-header-basic](examples)
  - [limel-example-header-colors](examples)
  - [limel-example-header-narrow](examples)
  - [limel-example-header-responsive](examples)
@@ -93,7 +93,7 @@ graph TD;
   limel-example-action-buttons-icon-color --> limel-header
   limel-example-action-buttons-third-alternative --> limel-header
   limel-example-chart-accessibility --> limel-header
-  limel-example-header --> limel-header
+  limel-example-header-basic --> limel-header
   limel-example-header-colors --> limel-header
   limel-example-header-narrow --> limel-header
   limel-example-header-responsive --> limel-header
