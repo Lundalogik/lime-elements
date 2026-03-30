@@ -1,0 +1,27 @@
+/**
+ * @prop --masonry-layout-min-column-width: Minimum width of each column. Defaults to `12rem`. Values must be in `rem` or `px`.
+ * @prop --masonry-layout-gap: Gap between items. Defaults to `1rem`. Values must be in `rem` or `px`.
+ */
+
+:host(limel-masonry-layout) {
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+    visibility: hidden;
+
+    ::slotted(*) {
+        opacity: 0;
+        // `width` is written directly onto slotted children.
+        // Without `box-sizing: border-box;` this, any padding or border
+        // will cause them to overflow the calculated column width.
+        box-sizing: border-box;
+    }
+}
+
+:host(limel-masonry-layout.is-laid-out) {
+    visibility: visible;
+
+    ::slotted(*) {
+        opacity: 1;
+    }
+}

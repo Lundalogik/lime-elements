@@ -623,6 +623,10 @@ export namespace Components {
         // @alpha
         "whitelist"?: CustomElementDefinition[];
     }
+    // @beta
+    export interface LimelMasonryLayout {
+        "ordered": boolean;
+    }
     // (undocumented)
     export interface LimelMenu {
         "badgeIcons": boolean;
@@ -1420,6 +1424,10 @@ export namespace JSX {
         "limel-list-item": Omit<LimelListItem, keyof LimelListItemAttributes> & { [K in keyof LimelListItem & keyof LimelListItemAttributes]?: LimelListItem[K] } & { [K in keyof LimelListItem & keyof LimelListItemAttributes as `attr:${K}`]?: LimelListItemAttributes[K] } & { [K in keyof LimelListItem & keyof LimelListItemAttributes as `prop:${K}`]?: LimelListItem[K] };
         // (undocumented)
         "limel-markdown": Omit<LimelMarkdown, keyof LimelMarkdownAttributes> & { [K in keyof LimelMarkdown & keyof LimelMarkdownAttributes]?: LimelMarkdown[K] } & { [K in keyof LimelMarkdown & keyof LimelMarkdownAttributes as `attr:${K}`]?: LimelMarkdownAttributes[K] } & { [K in keyof LimelMarkdown & keyof LimelMarkdownAttributes as `prop:${K}`]?: LimelMarkdown[K] };
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-masonry-layout"" is marked as @public, but its signature references "JSX" which is marked as @beta
+        //
+        // (undocumented)
+        "limel-masonry-layout": Omit<LimelMasonryLayout, keyof LimelMasonryLayoutAttributes> & { [K in keyof LimelMasonryLayout & keyof LimelMasonryLayoutAttributes]?: LimelMasonryLayout[K] } & { [K in keyof LimelMasonryLayout & keyof LimelMasonryLayoutAttributes as `attr:${K}`]?: LimelMasonryLayoutAttributes[K] } & { [K in keyof LimelMasonryLayout & keyof LimelMasonryLayoutAttributes as `prop:${K}`]?: LimelMasonryLayout[K] };
         // (undocumented)
         "limel-menu": Omit<LimelMenu, keyof LimelMenuAttributes> & { [K in keyof LimelMenu & keyof LimelMenuAttributes]?: LimelMenu[K] } & { [K in keyof LimelMenu & keyof LimelMenuAttributes as `attr:${K}`]?: LimelMenuAttributes[K] } & { [K in keyof LimelMenu & keyof LimelMenuAttributes as `prop:${K}`]?: LimelMenu[K] };
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-menu-item-meta"" is marked as @public, but its signature references "JSX" which is marked as @internal
@@ -2808,6 +2816,17 @@ export namespace JSX {
         "removeEmptyParagraphs": boolean;
         // (undocumented)
         "value": string;
+    }
+
+    // @beta
+    export interface LimelMasonryLayout {
+        "ordered"?: boolean;
+    }
+
+    // (undocumented)
+    export interface LimelMasonryLayoutAttributes {
+        // (undocumented)
+        "ordered": boolean;
     }
 
     // (undocumented)
