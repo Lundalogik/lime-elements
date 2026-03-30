@@ -12,6 +12,7 @@ import { buildInputRules } from './input-rules';
  *
  * Replaces the opaque `exampleSetup()` call with explicit imports
  * from stable ProseMirror packages.
+ * @param schema
  */
 export function buildBasePlugins(schema: Schema): Plugin[] {
     return [

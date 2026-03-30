@@ -404,7 +404,7 @@ export class ProsemirrorAdapter {
                 keymap(this.menuCommandFactory.buildKeymap()),
                 createTriggerPlugin(
                     this.triggerCharacters,
-                    this.contentConverter,
+                    this.contentConverter
                 ),
                 createLinkPlugin(this.handleNewLinkSelection),
                 createImageInserterPlugin(this.imagePasted.emit),
@@ -412,7 +412,7 @@ export class ProsemirrorAdapter {
                 createMenuStateTrackingPlugin(
                     editorMenuTypesArray,
                     this.menuCommandFactory,
-                    this.updateActiveActionBarItems,
+                    this.updateActiveActionBarItems
                 ),
                 createActionBarInteractionPlugin(this.menuCommandFactory),
                 ...getTableEditingPlugins(this.contentType === 'html'),

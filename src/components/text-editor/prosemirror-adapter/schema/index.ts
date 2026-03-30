@@ -9,6 +9,10 @@ import { buildMarks } from './marks';
  *
  * Assembles nodes and marks from cherry-picked prosemirror-schema-basic
  * specs and our own custom specs (image, link, strikethrough, tables).
+ * @param options
+ * @param options.customElements
+ * @param options.contentType
+ * @param options.language
  */
 export function createSchema(options: {
     customElements?: CustomElementDefinition[];

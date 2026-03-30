@@ -31,17 +31,17 @@ const baseNodes: OrderedMap<NodeSpec> = OrderedMap.from({
  * 3. Adds list nodes (ordered_list, bullet_list, list_item)
  * 4. Conditionally adds table nodes (HTML content type only)
  * 5. Appends our custom image node
+ * @param options
+ * @param options.customElements
+ * @param options.contentType
+ * @param options.language
  */
 export function buildNodes(options: {
     customElements?: CustomElementDefinition[];
     contentType?: string;
     language?: Languages;
 }): OrderedMap<NodeSpec> {
-    const {
-        customElements = [],
-        contentType,
-        language,
-    } = options;
+    const { customElements = [], contentType, language } = options;
 
     let nodes = baseNodes;
 

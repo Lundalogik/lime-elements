@@ -16,14 +16,13 @@ import { Plugin } from 'prosemirror-state';
  * Includes smart quotes, ellipsis, em dash, and markdown-style
  * shortcuts for blockquote, lists, code block, and headings.
  * Only creates rules for nodes that exist in the given schema.
+ * @param schema
  */
 export function buildInputRules(schema: Schema): Plugin {
     const rules: InputRule[] = [...smartQuotes, ellipsis, emDash];
 
     if (schema.nodes.blockquote) {
-        rules.push(
-            wrappingInputRule(/^\s*>\s$/, schema.nodes.blockquote),
-        );
+        rules.push(wrappingInputRule(/^\s*>\s$/, schema.nodes.blockquote));
     }
 
     if (schema.nodes.ordered_list) {
@@ -33,21 +32,19 @@ export function buildInputRules(schema: Schema): Plugin {
                 schema.nodes.ordered_list,
                 (match) => ({ order: +match[1] }),
                 (match, node) =>
-                    node.childCount + node.attrs.order === +match[1],
-            ),
+                    node.childCount + node.attrs.order === +match[1]
+            )
         );
     }
 
     if (schema.nodes.bullet_list) {
         rules.push(
-            wrappingInputRule(/^\s*([-+*])\s$/, schema.nodes.bullet_list),
+            wrappingInputRule(/^\s*([-+*])\s$/, schema.nodes.bullet_list)
         );
     }
 
     if (schema.nodes.code_block) {
-        rules.push(
-            textblockTypeInputRule(/^```$/, schema.nodes.code_block),
-        );
+        rules.push(textblockTypeInputRule(/^```$/, schema.nodes.code_block));
     }
 
     if (schema.nodes.heading) {
@@ -55,8 +52,8 @@ export function buildInputRules(schema: Schema): Plugin {
             textblockTypeInputRule(
                 /^(#{1,6})\s$/,
                 schema.nodes.heading,
-                (match) => ({ level: match[1].length }),
-            ),
+                (match) => ({ level: match[1].length })
+            )
         );
     }
 
