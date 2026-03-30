@@ -27,7 +27,7 @@ export class ExampleWhatsNew {
             h(tag as any, { slot: 'demo' } as any);
 
         return (
-            <div class="thumbnails-grid">
+            <limel-masonry-layout>
                 {this.items.map((item) => (
                     <limel-showcase-card
                         heading={item.heading}
@@ -40,7 +40,7 @@ export class ExampleWhatsNew {
                         {renderDemo(item.demoTag)}
                     </limel-showcase-card>
                 ))}
-            </div>
+            </limel-masonry-layout>
         );
     }
 }
