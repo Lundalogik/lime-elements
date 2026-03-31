@@ -1,3 +1,10 @@
+## [39.10.1](https://github.com/Lundalogik/lime-elements/compare/v39.10.0...v39.10.1) (2026-03-31)
+
+### Bug Fixes
+
+
+* **table:** ensure pagination updates after re-init in remote mode ([e42ece6](https://github.com/Lundalogik/lime-elements/commit/e42ece6ef8c2f9e87699d8c0fd73d34a2276caf1))
+
 ## [39.10.0](https://github.com/Lundalogik/lime-elements/compare/v39.9.5...v39.10.0) (2026-03-30)
 
 ### Features
