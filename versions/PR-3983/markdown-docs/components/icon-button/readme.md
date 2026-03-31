@@ -29,6 +29,7 @@
  - [limel-example-icon-button-helper-label](examples)
  - [limel-example-icon-button-icon](examples)
  - [limel-example-icon-button-toggle-state](examples)
+ - [limel-example-menu-hotkeys](../menu/examples)
  - [limel-example-menu-notification](../menu/examples)
  - [limel-example-tooltip-max-character](../tooltip/examples)
  - [limel-list-item](../list-item)
@@ -59,6 +60,7 @@ graph TD;
   limel-example-icon-button-helper-label --> limel-icon-button
   limel-example-icon-button-icon --> limel-icon-button
   limel-example-icon-button-toggle-state --> limel-icon-button
+  limel-example-menu-hotkeys --> limel-icon-button
   limel-example-menu-notification --> limel-icon-button
   limel-example-tooltip-max-character --> limel-icon-button
   limel-list-item --> limel-icon-button
