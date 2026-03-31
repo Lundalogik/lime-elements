@@ -26,12 +26,17 @@ such as photo galleries or dashboards.
 
 ### Depends on
 
+- [limel-tab-panel](../../tab-panel)
 - [limel-masonry-layout](..)
 
 ### Graph
 ```mermaid
 graph TD;
+  limel-example-masonry-layout-ordered --> limel-tab-panel
   limel-example-masonry-layout-ordered --> limel-masonry-layout
+  limel-tab-panel --> limel-tab-bar
+  limel-tab-bar --> limel-icon
+  limel-tab-bar --> limel-badge
   style limel-example-masonry-layout-ordered fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

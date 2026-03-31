@@ -16,7 +16,7 @@ reliable cross-browser support — unlike CSS-only approaches such as
 browser support or produce poor results.
 
 The number of columns is determined automatically based on the
-available width and the preferred column width.
+available width and the minimum column width.
 
 :::note
 This component has `shadow: false`, so consumers can treat it as
