@@ -43,7 +43,6 @@ inside the actual tab, e.g. to change the icon, color or badge.
 
 ### Used by
 
- - [limel-example-masonry-layout-ordered](../masonry-layout/examples)
  - [limel-example-tab-panel-basic](examples)
 
 ### Depends on
@@ -56,7 +55,6 @@ graph TD;
   limel-tab-panel --> limel-tab-bar
   limel-tab-bar --> limel-icon
   limel-tab-bar --> limel-badge
-  limel-example-masonry-layout-ordered --> limel-tab-panel
   limel-example-tab-panel-basic --> limel-tab-panel
   style limel-tab-panel fill:#f9f,stroke:#333,stroke-width:4px
 ```
