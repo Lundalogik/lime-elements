@@ -1,3 +1,7 @@
+/**
+* @prop --hotkey-text-transform: Defines the text transformation of the hotkey. Defaults to `uppercase` to render the hotkey that resembles a physical keyboard key.
+*/
+
 @forward '../markdown/partial-styles/_kbd.scss';
 :host(limel-hotkey) {
     display: flex;
@@ -11,6 +15,7 @@
 }
 
 kbd {
+    text-transform: var(--hotkey-text-transform, uppercase);
     margin: 0;
     font-size: 0.75rem;
     box-shadow:
@@ -21,9 +26,6 @@ kbd {
 
 span {
     display: inline-block;
-    &::first-letter {
-        text-transform: uppercase;
-    }
 }
 
 kbd.is-glyph {
