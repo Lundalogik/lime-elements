@@ -120,6 +120,7 @@ export class Tooltip {
 
     public disconnectedCallback() {
         this.removeListeners();
+        this.tooltipTimer.hide();
     }
 
     public render(): JSX.Element {
