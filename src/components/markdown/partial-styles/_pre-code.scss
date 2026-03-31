@@ -1,9 +1,20 @@
 @use '../../../style/mixins';
 @use '../../../style/functions';
 
+pre,
+pre p,
 code {
     @include mixins.font-family(monospace);
-    font-size: var(--limel-theme-default-small-font-size);
+    font-size: 0.75rem;
+}
+
+pre {
+    max-width: 100%;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+code {
     letter-spacing: functions.pxToRem(-0.2);
     color: rgb(var(--contrast-1300));
 
@@ -21,6 +32,4 @@ pre > code {
     display: block;
     margin: 0.5rem 0;
     padding: 0.5rem 0.75rem;
-    overflow: auto;
-    white-space: pre-wrap;
 }
