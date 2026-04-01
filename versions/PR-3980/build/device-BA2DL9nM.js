@@ -1,1 +1,0 @@
-function n(){var n;return"undefined"==typeof navigator?"":null!==(n=navigator.userAgent)&&void 0!==n?n:""}function i(){const i=n();return/iPad|iPhone|iPod/i.test(i)&&!globalThis.MSStream}function o(){const i=n();return/Android/i.test(i)}function t(){return o()||i()}export{i as a,o as b,t as i}

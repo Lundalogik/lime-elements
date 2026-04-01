@@ -53,6 +53,7 @@
  - [limel-example-menu-open-direction](examples)
  - [limel-example-menu-open-sub-menu-programmatically](examples)
  - [limel-example-menu-searchable](examples)
+ - [limel-example-menu-searchable-hotkeys](examples)
  - [limel-example-menu-secondary-text](examples)
  - [limel-example-menu-separators](examples)
  - [limel-example-menu-sub-menu-lazy-loading](examples)
@@ -107,6 +108,7 @@ graph TD;
   limel-example-menu-open-direction --> limel-menu
   limel-example-menu-open-sub-menu-programmatically --> limel-menu
   limel-example-menu-searchable --> limel-menu
+  limel-example-menu-searchable-hotkeys --> limel-menu
   limel-example-menu-secondary-text --> limel-menu
   limel-example-menu-separators --> limel-menu
   limel-example-menu-sub-menu-lazy-loading --> limel-menu

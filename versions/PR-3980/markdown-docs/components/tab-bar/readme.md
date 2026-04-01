@@ -37,7 +37,7 @@ A tab will never be removed or get disabled, even if there is no content under i
 
 ### Used by
 
- - [limel-example-tab-bar](examples)
+ - [limel-example-tab-bar-basic](examples)
  - [limel-example-tab-bar-with-dynamic-tab-width](examples)
  - [limel-example-tab-bar-with-equal-tab-width](examples)
  - [limel-tab-panel](../tab-panel)
@@ -52,7 +52,7 @@ A tab will never be removed or get disabled, even if there is no content under i
 graph TD;
   limel-tab-bar --> limel-icon
   limel-tab-bar --> limel-badge
-  limel-example-tab-bar --> limel-tab-bar
+  limel-example-tab-bar-basic --> limel-tab-bar
   limel-example-tab-bar-with-dynamic-tab-width --> limel-tab-bar
   limel-example-tab-bar-with-equal-tab-width --> limel-tab-bar
   limel-tab-panel --> limel-tab-bar
