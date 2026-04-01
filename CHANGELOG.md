@@ -1,3 +1,11 @@
+## [39.10.3](https://github.com/Lundalogik/lime-elements/compare/v39.10.2...v39.10.3) (2026-04-01)
+
+### Bug Fixes
+
+
+* **markdown:** prevent layout issues when `code` appears at the end of a line ([80b67ca](https://github.com/Lundalogik/lime-elements/commit/80b67ca4dfe7dbcd51c243b69f6a5aa26db4f570))
+* **markdown:** render code and pre in multiple lines & avoid overflowing ([6a000a9](https://github.com/Lundalogik/lime-elements/commit/6a000a97433709efc8d31d5773775220bfb9d3b7))
+
 ## [39.10.2](https://github.com/Lundalogik/lime-elements/compare/v39.10.1...v39.10.2) (2026-04-01)
 
 ### Bug Fixes
