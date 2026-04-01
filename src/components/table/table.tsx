@@ -147,18 +147,6 @@ export class Table {
     public page: number = FIRST_PAGE;
 
     /**
-     * Emitted when `mode` is `local` the data is sorted
-     */
-    @Event()
-    public sort: EventEmitter<ColumnSorter[]>;
-
-    /**
-     * Emitted when a new page has been set
-     */
-    @Event()
-    public changePage: EventEmitter<number>;
-
-    /**
      * A message to display when the table has no data
      */
     @Prop()
@@ -195,6 +183,18 @@ export class Table {
      */
     @Prop({ reflect: true })
     public paginationLocation: 'top' | 'bottom' = 'bottom';
+
+    /**
+     * Emitted when `mode` is `local` the data is sorted
+     */
+    @Event()
+    public sort: EventEmitter<ColumnSorter[]>;
+
+    /**
+     * Emitted when a new page has been set
+     */
+    @Event()
+    public changePage: EventEmitter<number>;
 
     /**
      * Emitted when `mode` is `remote` and the table is loading new data. The
