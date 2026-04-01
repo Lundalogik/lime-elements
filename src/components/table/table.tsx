@@ -83,7 +83,7 @@ export class Table {
      * done locally with the data given. When in `remote` mode, the consumer
      * is responsible to give the table new data when a `load` event occurs
      */
-    @Prop()
+    @Prop({ reflect: true })
     public mode: 'local' | 'remote' = 'local';
 
     /**
@@ -94,19 +94,19 @@ export class Table {
      * - `stretchColumns`: stretches all columns to fill the available width when possible.
      * - `lowDensity`: makes columns as wide as their contents, and creates a low density and airy layout.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public layout: Layout;
 
     /**
      * Number of rows per page
      */
-    @Prop()
+    @Prop({ reflect: true })
     public pageSize: number;
 
     /**
      * The number of total rows available for the data
      */
-    @Prop()
+    @Prop({ reflect: true })
     public totalRows: number;
 
     /**
@@ -124,26 +124,26 @@ export class Table {
     /**
      * Set to `true` to enable reordering of the columns by dragging them
      */
-    @Prop()
+    @Prop({ reflect: true })
     public movableColumns: boolean;
 
     /**
      * Set to `false` to disable column sorting through header interactions.
      * Programmatic sorting through the `sorting` prop and `sort` event remains available.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public sortableColumns: boolean = true;
 
     /**
      * Set to `true` to trigger loading animation
      */
-    @Prop()
+    @Prop({ reflect: true })
     public loading: boolean = false;
 
     /**
      * The page to show
      */
-    @Prop()
+    @Prop({ reflect: true })
     public page: number = FIRST_PAGE;
 
     /**
@@ -173,7 +173,7 @@ export class Table {
     /**
      * Enables row selection
      */
-    @Prop()
+    @Prop({ reflect: true })
     public selectable: boolean;
 
     /**
