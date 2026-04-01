@@ -1,3 +1,10 @@
+## [39.10.2](https://github.com/Lundalogik/lime-elements/compare/v39.10.1...v39.10.2) (2026-04-01)
+
+### Bug Fixes
+
+
+* **markdown:** improve visual style of `kbd` elements ([c3a8ce7](https://github.com/Lundalogik/lime-elements/commit/c3a8ce7a4b519ef924f476c132e65a1ef789a593))
+
 ## [39.10.1](https://github.com/Lundalogik/lime-elements/compare/v39.10.0...v39.10.1) (2026-03-31)
 
 ### Bug Fixes
