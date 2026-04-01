@@ -1,5 +1,6 @@
 .select-all,
-.limel-table--row-selector {
+.limel-table--row-selector,
+.limel-table-drag-handle {
     --limel-checkbox-min-height: 1.25rem; // as big as the box itself
     display: inline-flex !important;
     align-items: center;
@@ -21,10 +22,18 @@
 }
 
 .limel-table--row-selector {
-    position: sticky !important; // otherwise will be overwritten from `.tabulator-row .tabulator-cell`
     left: 0;
-    border-width: 0;
-    z-index: var(--limel-table-row-selector-z-index);
+
+    .has-movable-rows & {
+        left: var(--limel-table-drag-handle-width);
+    }
+}
+
+.limel-table--row-selector,
+.limel-table-drag-handle {
+    position: sticky !important; // otherwise will be overwritten from `.tabulator-row .tabulator-cell`
+    border: none !important;
+    z-index: var(--limel-table-row-selector-z-index) !important;
 
     &:before {
         content: '';
@@ -64,19 +73,20 @@
     }
 }
 
-.has-movable-columns
-    .tabulator-header
-    .tabulator-col.limel-table--row-selector {
-    border: none;
-    cursor: default !important;
-    pointer-events: none;
-    background-color: transparent;
-    background-image: linear-gradient(
-        to right,
-        rgb(var(--table-header-background-color--hover)) 70%,
-        rgb(var(--table-header-background-color--hover), 0)
-    );
-    left: 0;
+.has-movable-columns .tabulator-header {
+    .tabulator-col.limel-table--row-selector,
+    .tabulator-col.limel-table-drag-handle {
+        border: none;
+        cursor: default !important;
+        pointer-events: none;
+        background-color: transparent;
+        background-image: linear-gradient(
+            to right,
+            rgb(var(--table-header-background-color--hover)) 70%,
+            rgb(var(--table-header-background-color--hover), 0)
+        );
+        left: 0;
+    }
 }
 
 .tabulator-calcs {

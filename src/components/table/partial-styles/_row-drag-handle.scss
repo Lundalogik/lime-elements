@@ -1,74 +1,22 @@
+// common styles are written in `_row-selection.scss` and imported in `table.scss`
 .limel-table-drag-handle {
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-
-    text-overflow: unset !important;
-    padding: 0 !important;
-
-    position: sticky !important;
+    transition: opacity 0.3s ease;
     left: 0;
-    border-width: 0;
-    z-index: var(--limel-table-row-selector-z-index);
+    width: var(--limel-table-drag-handle-width) !important;
+    height: 2rem !important;
+    user-select: none;
 
-    &:before {
-        content: '';
-        inset: 0.25rem 0;
-        position: absolute;
-        background-image: linear-gradient(
-            to right,
-            rgb(var(--limel-table-row-background-color)) 70%,
-            rgb(var(--limel-table-row-background-color), 0)
-        );
+    .has-rowselector & {
+        background-image: none !important;
+        background-color: rgb(
+            var(--limel-table-row-background-color)
+        ) !important;
     }
 
-    limel-drag-handle {
-        transition: opacity 0.2s ease;
+    .tabulator-block-select & {
+        pointer-events: none;
         opacity: 0.3;
-
-        .tabulator-row:hover & {
-            opacity: 1;
-        }
-
-        .tabulator-block-select .tabulator-row & {
-            opacity: 0.3;
-            transition: none;
-            pointer-events: none;
-        }
     }
-
-    .tabulator-col-resize-handle {
-        display: none;
-    }
-    & + .tabulator-col,
-    & + .tabulator-cell {
-        .tabulator-col-resize-handle.prev {
-            display: none;
-        }
-    }
-
-    &.tabulator-cell {
-        border-bottom: transparent !important;
-        border-right: inherit !important;
-    }
-    &.tabulator-col {
-        border-right: inherit !important;
-    }
-}
-
-.has-movable-columns .tabulator-header .tabulator-col.limel-table-drag-handle {
-    border: none;
-    cursor: default !important;
-    pointer-events: none;
-    border-right: inherit;
-    border-bottom: inherit;
-    background-color: transparent;
-    background-image: linear-gradient(
-        to right,
-        rgb(var(--table-header-background-color--hover)) 70%,
-        rgb(var(--table-header-background-color--hover), 0)
-    );
-    left: 0;
 }
 
 .tabulator-row.tabulator-moving
