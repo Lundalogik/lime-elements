@@ -252,7 +252,7 @@ export class ListItemComponent implements ListItem {
         const PrimaryComponent: any = primary.name;
         const props = primary.props || {};
 
-        return <PrimaryComponent {...props} />;
+        return <PrimaryComponent {...props} disabled={this.disabled} />;
     };
 
     private renderImage = () => {

@@ -60,6 +60,7 @@ const DEFAULT_ROOT_BREADCRUMBS_ITEM: BreadcrumbsItem = {
  * @exampleComponent limel-example-menu-surface-width
  * @exampleComponent limel-example-menu-separators
  * @exampleComponent limel-example-menu-icons
+ * @exampleComponent limel-example-menu-primary-component
  * @exampleComponent limel-example-menu-badge-icons
  * @exampleComponent limel-example-menu-grid
  * @exampleComponent limel-example-menu-secondary-text

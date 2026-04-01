@@ -111,18 +111,20 @@ export class MenuListRenderer {
             !!item.hotkey ||
             !!item.commandText;
 
-        const primaryComponent = hasMeta
-            ? {
-                  name: 'limel-menu-item-meta',
-                  props: {
-                      commandText: item.commandText,
-                      hotkey: item.hotkey,
-                      disabled: !!item.disabled,
-                      badge: item.badge,
-                      showChevron: hasSubMenu,
-                  },
-              }
-            : undefined;
+        const primaryComponent =
+            hasMeta || item.primaryComponent
+                ? {
+                      name: 'limel-menu-item-meta',
+                      props: {
+                          commandText: item.commandText,
+                          hotkey: item.hotkey,
+                          disabled: !!item.disabled,
+                          badge: item.badge,
+                          showChevron: hasSubMenu,
+                          primaryComponent: item.primaryComponent,
+                      },
+                  }
+                : undefined;
 
         const key = (item as any).id ?? `item-${index}`;
         const classNames = {
