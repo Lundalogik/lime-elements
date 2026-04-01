@@ -18,13 +18,6 @@ browser support or produce poor results.
 The number of columns is determined automatically based on the
 available width and the minimum column width.
 
-:::note
-This component has no Shadow DOM. Its children live in the
-light DOM, just like children of a regular `div`. This means
-you can directly select and style them from the parent component's
-stylesheet, without worrying about shadow boundaries.
-:::
-
 ## Properties
 
 | Property  | Attribute | Description                                                                                                                | Type      | Default |
