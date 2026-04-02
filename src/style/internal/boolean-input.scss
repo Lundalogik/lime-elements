@@ -41,6 +41,7 @@ label.boolean-input-label {
     cursor: pointer;
     position: relative;
     width: 100%;
+    overflow-wrap: var(--limel-boolean-input-label-overflow-wrap, normal);
 
     font-size: var(--limel-theme-default-small-font-size);
     color: var(--limel-theme-text-primary-on-background-color);
