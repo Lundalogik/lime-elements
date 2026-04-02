@@ -10,7 +10,6 @@ import {
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import JSONSchemaForm, { AjvError } from '@rjsf/core';
-import retargetEvents from 'react-shadow-dom-retarget-events';
 import {
     FormError,
     FormSchema,
@@ -117,6 +116,7 @@ export class Form {
     private modifiedSchema: FormSchema;
     private validator: Ajv.ValidateFunction;
     private root: Root;
+    private initialized = false;
 
     public constructor() {
         this.handleChange = this.handleChange.bind(this);
@@ -137,12 +137,16 @@ export class Form {
     }
 
     private initialize() {
+        if (this.initialized) {
+            return;
+        }
+
         if (!this.host.shadowRoot.querySelector('.root')) {
             return;
         }
 
+        this.initialized = true;
         this.reactRender();
-        retargetEvents(this.host.shadowRoot);
         this.validateForm(this.value);
     }
 
@@ -156,6 +160,8 @@ export class Form {
             this.root.unmount();
             this.root = undefined;
         }
+
+        this.initialized = false;
     }
 
     public render() {
