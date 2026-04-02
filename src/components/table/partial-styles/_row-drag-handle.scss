@@ -14,14 +14,18 @@
     }
 
     .tabulator-block-select & {
-        pointer-events: none;
         opacity: 0.3;
+        cursor: grabbing;
+
+        limel-drag-handle,
+        limel-drag-handle * {
+            pointer-events: none !important;
+        }
     }
 }
 
-.tabulator-row.tabulator-moving
-    .limel-table-drag-handle
-    limel-drag-handle
-    button:last-of-type {
-    display: none; /** tabulator will make a copy of limel-drag-handle on move. So hide the 2nd child */
+.tabulator-row.tabulator-moving {
+    .limel-table-drag-handle limel-drag-handle button:last-of-type {
+        display: none; /** tabulator will make a copy of limel-drag-handle on move. So hide the 2nd child */
+    }
 }
