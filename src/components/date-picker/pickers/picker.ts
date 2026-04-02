@@ -67,11 +67,11 @@ export abstract class Picker {
     }
 
     public setValue(value: Date) {
-        this.flatpickr.setDate(value, false);
+        this.flatpickr?.setDate(value, false);
     }
 
     public redraw() {
-        this.flatpickr.redraw();
+        this.flatpickr?.redraw();
     }
 
     public destroy() {
@@ -80,6 +80,7 @@ export abstract class Picker {
         }
 
         this.flatpickr.destroy();
+        this.flatpickr = null;
     }
 
     public abstract getConfig(
@@ -139,6 +140,6 @@ export abstract class Picker {
     }
 
     private handleOnClose() {
-        this.flatpickr.element.focus();
+        this.flatpickr?.element.focus();
     }
 }
