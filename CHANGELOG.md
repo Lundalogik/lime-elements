@@ -1,3 +1,11 @@
+## [39.10.4](https://github.com/Lundalogik/lime-elements/compare/v39.10.3...v39.10.4) (2026-04-02)
+
+### Bug Fixes
+
+
+* **slider:** improve interaction design & improve UI ([c19db64](https://github.com/Lundalogik/lime-elements/commit/c19db642fb93cbb60ecb8937a8aff21d06b23381))
+* **slider:** visualize `step`s if the prop is set ([e333abd](https://github.com/Lundalogik/lime-elements/commit/e333abdbd5f6b28af728089fc4b9ad67c4c47856))
+
 ## [39.10.3](https://github.com/Lundalogik/lime-elements/compare/v39.10.2...v39.10.3) (2026-04-01)
 
 ### Bug Fixes
