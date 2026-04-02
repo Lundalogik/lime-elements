@@ -1,1 +1,0 @@
-var a,n;!function(a){a.Default="default",a.Grid="grid",a.Row="row"}(a||(a={})),function(a){a.Average="avg",a.Maximum="max",a.Minimum="min",a.Sum="sum",a.Count="count"}(n||(n={}));export{n as C,a as F}
