@@ -25,9 +25,8 @@ import { SchemaField as CustomSchemaField } from './fields/schema-field';
 import { ArrayField as CustomArrayField } from './fields/array-field';
 import { ObjectField as CustomObjectField } from './fields/object-field';
 import { widgets } from './widgets';
-import { createRandomString } from '../../util/random-string';
 import Ajv, { RequiredParams } from 'ajv';
-import { isInteger } from './validators';
+import { getValidator, getSchemaId } from './schema-cache';
 import { mapValues } from 'lodash-es';
 
 /**
@@ -232,10 +231,10 @@ export class Form {
     }
 
     private setSchemaId() {
-        // Due to a bug in react-jsonschema-form, validation will stop working if the schema is updated.
-        // A workaround at the moment is to always give it a unique ID
+        // RJSF v2 requires a unique $id per distinct schema to avoid
+        // validation cache collisions.
         // https://github.com/rjsf-team/react-jsonschema-form/issues/1563
-        const id = `${this.schema.$id}-${createRandomString()}`;
+        const id = getSchemaId(this.schema);
         this.modifiedSchema = {
             ...this.schema,
             id: id,
@@ -244,16 +243,11 @@ export class Form {
     }
 
     private createValidator() {
-        const validator = new Ajv({
-            unknownFormats: 'ignore',
-            allErrors: true,
-            multipleOfPrecision: 2,
-        }).addFormat('integer', isInteger);
-        this.validator = validator.compile(this.schema);
+        this.validator = getValidator(this.schema);
     }
 
     private getValidationErrors(): FormError[] {
-        const errors = this.validator.errors || [];
+        const errors = [...(this.validator.errors || [])];
 
         return errors.map((error: Ajv.ErrorObject): FormError => {
             let property = error.dataPath;
