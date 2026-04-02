@@ -4,6 +4,9 @@
  */
 
 :host(limel-example-controls) {
+    --checkbox-label-overflow-wrap: break-word;
+    --switch-label-overflow-wrap: break-word;
+
     display: grid;
     grid-template-columns: repeat(
         var(--example-controls-column-layout, auto-fill),
