@@ -1,5 +1,9 @@
 @use '../../style/mixins';
 
+/**
+* @prop --switch-label-overflow-wrap: Controls how long unbreakable words (e.g. camelCase strings with no spaces) wrap within the label. Accepts any valid `overflow-wrap` value. Defaults to `normal`.
+*/
+
 $track-width: 2.25rem;
 $track-height: 1.25rem;
 $handle-size: 1.25rem;
@@ -109,6 +113,9 @@ label {
     font-size: var(--limel-theme-default-font-size);
     cursor: pointer;
     width: fit-content;
+    overflow-wrap: var(--switch-label-overflow-wrap, normal);
+    max-width: 100%;
+    min-width: 0;
 
     :host([disabled]) & {
         cursor: not-allowed;
