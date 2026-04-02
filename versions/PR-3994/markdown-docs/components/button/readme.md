@@ -71,6 +71,7 @@
  - [limel-example-menu-icons](../menu/examples)
  - [limel-example-menu-open-direction](../menu/examples)
  - [limel-example-menu-open-sub-menu-programmatically](../menu/examples)
+ - [limel-example-menu-primary-component](../menu/examples)
  - [limel-example-menu-secondary-text](../menu/examples)
  - [limel-example-menu-separators](../menu/examples)
  - [limel-example-menu-sub-menu-lazy-loading](../menu/examples)
@@ -161,6 +162,7 @@ graph TD;
   limel-example-menu-icons --> limel-button
   limel-example-menu-open-direction --> limel-button
   limel-example-menu-open-sub-menu-programmatically --> limel-button
+  limel-example-menu-primary-component --> limel-button
   limel-example-menu-secondary-text --> limel-button
   limel-example-menu-separators --> limel-button
   limel-example-menu-sub-menu-lazy-loading --> limel-button
