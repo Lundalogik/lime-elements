@@ -138,3 +138,66 @@ describe('limel-table data updates', () => {
         expect(tabulator.updateOrAddData).toHaveBeenCalledWith(data);
     });
 });
+
+describe('limel-table aggregate updates', () => {
+    let component: Table;
+
+    beforeEach(() => {
+        component = new Table();
+        (component as any).columns = [
+            { field: 'name', title: 'Name' },
+            { field: 'amount', title: 'Amount' },
+        ];
+        (component as any).tabulator = {
+            setColumns: vi.fn(),
+            recalc: vi.fn(),
+            rowManager: { redraw: vi.fn() },
+            destroy: vi.fn(),
+        };
+        (component as any).pool = { releaseAll: vi.fn() };
+        (component as any).initialized = true;
+        (component as any).host = {
+            shadowRoot: {
+                querySelector: vi
+                    .fn()
+                    .mockReturnValue(document.createElement('div')),
+            },
+        };
+    });
+
+    it('does not destroy tabulator when aggregate fields change', () => {
+        const oldAggregates: any[] = [];
+        const newAggregates = [{ field: 'amount', value: 100 }];
+
+        (component as any).updateAggregates(newAggregates, oldAggregates);
+
+        const tabulator = (component as any).tabulator;
+        expect(tabulator.destroy).not.toHaveBeenCalled();
+        expect(tabulator.setColumns).toHaveBeenCalled();
+        expect(tabulator.recalc).toHaveBeenCalled();
+        expect(tabulator.rowManager.redraw).toHaveBeenCalled();
+    });
+
+    it('recalculates without setColumns when aggregate values change but fields are the same', () => {
+        const oldAggregates = [{ field: 'amount', value: 100 }];
+        const newAggregates = [{ field: 'amount', value: 200 }];
+
+        (component as any).updateAggregates(newAggregates, oldAggregates);
+
+        const tabulator = (component as any).tabulator;
+        expect(tabulator.destroy).not.toHaveBeenCalled();
+        expect(tabulator.setColumns).not.toHaveBeenCalled();
+        expect(tabulator.recalc).toHaveBeenCalled();
+        expect(tabulator.rowManager.redraw).toHaveBeenCalled();
+    });
+
+    it('does nothing when aggregates are equal', () => {
+        const aggregates = [{ field: 'amount', value: 100 }];
+
+        (component as any).updateAggregates(aggregates, aggregates);
+
+        const tabulator = (component as any).tabulator;
+        expect(tabulator.setColumns).not.toHaveBeenCalled();
+        expect(tabulator.recalc).not.toHaveBeenCalled();
+    });
+});
