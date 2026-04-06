@@ -399,9 +399,7 @@ export class Table {
         }
 
         if (!this.haveSameAggregateFields(newAggregates, oldAggregates)) {
-            this.init();
-
-            return;
+            this.tabulator.setColumns(this.getColumnDefinitions());
         }
 
         this.tabulator.recalc();
