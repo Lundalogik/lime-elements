@@ -1,3 +1,11 @@
+## [39.11.0](https://github.com/Lundalogik/lime-elements/compare/v39.10.4...v39.11.0) (2026-04-07)
+
+### Features
+
+
+* **checkbox:** enable consumers to control label's `overflow-wrap` ([09f2f3a](https://github.com/Lundalogik/lime-elements/commit/09f2f3af6fc30ef0cda4628ad05489a9ab6d5bd8))
+* **switch:** enable consumers to control label's `overflow-wrap` ([06f10ef](https://github.com/Lundalogik/lime-elements/commit/06f10ef9e97b4db2551bfbf50647f5ca5adffc17))
+
 ## [39.10.4](https://github.com/Lundalogik/lime-elements/compare/v39.10.3...v39.10.4) (2026-04-02)
 
 ### Bug Fixes
