@@ -1,0 +1,1 @@
+import{r as e,h as i}from"./index-DBTJNfo7.js";const t=class{constructor(i){e(this,i)}render(){return i("limel-shortcut",{key:"47f44bf9ed53f5cefe9c463354acc874f025b6ba",icon:"wikipedia",label:"Wikipedia",link:{href:"https://www.wikipedia.org/",title:"Open Wikipedia in a new tab.",target:"_blank"}})}};t.style="limel-shortcut{width:20%}";export{t as limel_example_shortcut_basic}
