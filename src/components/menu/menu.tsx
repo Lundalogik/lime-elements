@@ -70,6 +70,7 @@ const DEFAULT_ROOT_BREADCRUMBS_ITEM: BreadcrumbsItem = {
  * @exampleComponent limel-example-menu-searchable
  * @exampleComponent limel-example-menu-hotkeys
  * @exampleComponent limel-example-menu-searchable-hotkeys
+ * @exampleComponent limel-example-menu-keep-open
  * @exampleComponent limel-example-menu-composite
  */
 @Component({
@@ -187,6 +188,12 @@ export class Menu {
      */
     @Prop()
     public emptyResultMessage?: string;
+
+    /**
+     * When `true`, the menu stays open after an item is selected.
+     */
+    @Prop({ reflect: true })
+    public keepOpenOnSelect = false;
 
     /**
      * Is emitted when a menu item with a sub-menu is selected.
@@ -771,6 +778,20 @@ export class Menu {
         }
     };
 
+    private readonly refreshSearch = async () => {
+        const query = this.searchValue;
+        this.loadingSubItems = true;
+
+        const result = await this.searcher(query);
+        if (this.searchValue !== query) {
+            return;
+        }
+
+        this.searchResults = result;
+        this.loadingSubItems = false;
+        this.setFocus();
+    };
+
     private readonly clearSearch = () => {
         this.searchValue = '';
         this.searchResults = null;
@@ -913,6 +934,15 @@ export class Menu {
         this.loadingSubItems = false;
 
         this.select.emit(menuItem);
+
+        if (this.keepOpenOnSelect) {
+            if (isFunction(this.searcher) && this.searchValue) {
+                this.refreshSearch();
+            }
+
+            return;
+        }
+
         this.open = false;
         this.currentSubMenu = null;
         setTimeout(this.focusTrigger, 0);
