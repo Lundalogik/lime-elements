@@ -39,7 +39,6 @@ export class YearPicker extends Picker {
     }
 
     public destroy() {
-        super.destroy();
         if (!this.nativePicker) {
             this.flatpickr?.prevMonthNav?.removeEventListener(
                 'mousedown',
@@ -50,6 +49,8 @@ export class YearPicker extends Picker {
                 this.nextYears
             );
         }
+
+        super.destroy();
     }
 
     private prevYears = (event: MouseEvent) => {
