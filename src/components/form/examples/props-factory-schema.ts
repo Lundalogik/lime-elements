@@ -10,11 +10,6 @@ export const schema: FormSchema<PropsFactoryFormData> = {
         hero: {
             type: 'integer',
             title: 'Hero',
-            lime: {
-                component: {
-                    name: 'limel-example-props-factory-picker',
-                },
-            },
         },
     },
 };
