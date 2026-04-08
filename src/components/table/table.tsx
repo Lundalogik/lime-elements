@@ -322,8 +322,9 @@ export class Table {
     protected updateData(newData: RowData[] = [], oldData: RowData[] = []) {
         const newIds = this.getRowIds(newData);
         const oldIds = this.getRowIds(oldData);
-        const shouldReplace = this.shouldReplaceData(newIds, oldIds);
-        const hasRowUpdates = !areRowsEqual(newData, oldData);
+        const shouldReplace =
+            !this.areEqualIds(newIds, oldIds) ||
+            !this.isSameOrder(newIds, oldIds);
 
         setTimeout(() => {
             if (!this.tabulator || !this.initialized) {
@@ -338,9 +339,16 @@ export class Table {
                 return;
             }
 
-            if (hasRowUpdates) {
-                this.tabulator.updateData(newData);
-                this.setSelection();
+            if (!areRowsEqual(newData, oldData)) {
+                const patched = this.fillMissingFields(newData, oldData);
+                this.tabulator.updateData(patched).then(() => {
+                    if (!this.tabulator) {
+                        return;
+                    }
+
+                    this.reformatChangedRows(newData, oldData);
+                    this.setSelection();
+                });
 
                 return;
             }
@@ -443,14 +451,42 @@ export class Table {
         this.tabulator.setSort(newSorting);
     }
 
-    private shouldReplaceData(
-        newIds: Array<string | number>,
-        oldIds: Array<string | number>
-    ) {
-        return (
-            !this.areEqualIds(newIds, oldIds) ||
-            !this.isSameOrder(newIds, oldIds)
-        );
+    private reformatChangedRows(newData: RowData[], oldData: RowData[]) {
+        for (const [i, newRow] of newData.entries()) {
+            if (!!newRow?.id && !isEqual(newRow, oldData[i])) {
+                const row = this.tabulator.getRow(newRow.id);
+                if (row) {
+                    row.reformat();
+                }
+            }
+        }
+    }
+
+    private fillMissingFields(
+        newData: RowData[],
+        oldData: RowData[]
+    ): RowData[] {
+        return newData.map((newRow, index) => {
+            const oldRow = oldData[index];
+            if (!oldRow) {
+                return newRow;
+            }
+
+            const missingKeys = Object.keys(oldRow).filter(
+                (key) => !(key in newRow)
+            );
+
+            if (missingKeys.length === 0) {
+                return newRow;
+            }
+
+            const patched = { ...newRow };
+            for (const key of missingKeys) {
+                patched[key] = undefined;
+            }
+
+            return patched;
+        });
     }
 
     private getRowIds(data: RowData[]): Array<string | number> {
