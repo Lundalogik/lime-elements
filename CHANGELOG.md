@@ -1,3 +1,10 @@
+## [39.12.0](https://github.com/Lundalogik/lime-elements/compare/v39.11.1...v39.12.0) (2026-04-08)
+
+### Features
+
+
+* **masonry-layout:** add new component ([9f19b35](https://github.com/Lundalogik/lime-elements/commit/9f19b3504102ff61258e6fa3248d29684e5f06ae))
+
 ## [39.11.1](https://github.com/Lundalogik/lime-elements/compare/v39.11.0...v39.11.1) (2026-04-08)
 
 ### Performance Improvements
