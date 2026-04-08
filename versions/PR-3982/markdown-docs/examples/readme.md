@@ -94,6 +94,7 @@ The component automatically formats different value types:
  - [limel-example-menu-hotkeys](../components/menu/examples)
  - [limel-example-menu-open-sub-menu-programmatically](../components/menu/examples)
  - [limel-example-menu-searchable](../components/menu/examples)
+ - [limel-example-menu-searchable-hotkeys](../components/menu/examples)
  - [limel-example-menu-secondary-text](../components/menu/examples)
  - [limel-example-menu-separators](../components/menu/examples)
  - [limel-example-menu-sub-menu-lazy-loading](../components/menu/examples)
@@ -139,6 +140,7 @@ The component automatically formats different value types:
  - [limel-example-slider-basic](../components/slider/examples)
  - [limel-example-slider-multiplier](../components/slider/examples)
  - [limel-example-slider-multiplier-percentage-colors](../components/slider/examples)
+ - [limel-example-slider-unit](../components/slider/examples)
  - [limel-example-switch-basic](../components/switch/examples)
  - [limel-example-switch-helper-text](../components/switch/examples)
  - [limel-example-switch-readonly](../components/switch/examples)
@@ -217,6 +219,7 @@ graph TD;
   limel-example-menu-hotkeys --> limel-example-value
   limel-example-menu-open-sub-menu-programmatically --> limel-example-value
   limel-example-menu-searchable --> limel-example-value
+  limel-example-menu-searchable-hotkeys --> limel-example-value
   limel-example-menu-secondary-text --> limel-example-value
   limel-example-menu-separators --> limel-example-value
   limel-example-menu-sub-menu-lazy-loading --> limel-example-value
@@ -262,6 +265,7 @@ graph TD;
   limel-example-slider-basic --> limel-example-value
   limel-example-slider-multiplier --> limel-example-value
   limel-example-slider-multiplier-percentage-colors --> limel-example-value
+  limel-example-slider-unit --> limel-example-value
   limel-example-switch-basic --> limel-example-value
   limel-example-switch-helper-text --> limel-example-value
   limel-example-switch-readonly --> limel-example-value
