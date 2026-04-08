@@ -1,3 +1,10 @@
+## [39.11.1](https://github.com/Lundalogik/lime-elements/compare/v39.11.0...v39.11.1) (2026-04-08)
+
+### Performance Improvements
+
+
+* **date-picker:** defer flatpickr destroy to survive portal-driven DOM moves ([48c5462](https://github.com/Lundalogik/lime-elements/commit/48c5462a349633137fcb2957acb26620934f2196))
+
 ## [39.11.0](https://github.com/Lundalogik/lime-elements/compare/v39.10.4...v39.11.0) (2026-04-07)
 
 ### Features
