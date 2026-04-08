@@ -26,8 +26,12 @@ describe('limel-table data updates', () => {
         component = new Table();
         (component as any).tabulator = {
             replaceData: vi.fn(),
-            updateData: vi.fn(),
+            updateData: vi.fn().mockResolvedValue(undefined),
             updateOrAddData: vi.fn(),
+            getRow: vi.fn().mockReturnValue({ reformat: vi.fn() }),
+        };
+        (component as any).pool = {
+            releaseAll: vi.fn(),
         };
         (component as any).setSelection = vi.fn();
         (component as any).initialized = true;
@@ -37,19 +41,37 @@ describe('limel-table data updates', () => {
         vi.useRealTimers();
     });
 
-    it('updates rows without replacing data when row content changes', () => {
+    it('uses updateData and reformats changed rows when row content changes', async () => {
         vi.useFakeTimers();
 
         const oldData = [{ id: 1, name: 'John' }];
         const newData = [{ id: 1, name: 'Jane' }];
 
         (component as any).updateData(newData, oldData);
-        vi.runAllTimers();
+        await vi.runAllTimersAsync();
 
         const tabulator = (component as any).tabulator;
         expect(tabulator.replaceData).not.toHaveBeenCalled();
         expect(tabulator.updateData).toHaveBeenCalledWith(newData);
-        expect(tabulator.updateOrAddData).not.toHaveBeenCalled();
+        expect(tabulator.getRow).toHaveBeenCalledWith(1);
+        expect(tabulator.getRow(1).reformat).toHaveBeenCalled();
+        expect((component as any).pool.releaseAll).not.toHaveBeenCalled();
+    });
+
+    it('fills missing fields with undefined when updating rows', async () => {
+        vi.useFakeTimers();
+
+        const oldData = [{ id: 1, name: 'John', status: 'unread' }];
+        const newData = [{ id: 1, name: 'John' }];
+
+        (component as any).updateData(newData, oldData);
+        await vi.runAllTimersAsync();
+
+        const tabulator = (component as any).tabulator;
+        expect(tabulator.replaceData).not.toHaveBeenCalled();
+        expect(tabulator.updateData).toHaveBeenCalledWith([
+            { id: 1, name: 'John', status: undefined },
+        ]);
     });
 
     it('replaces data when the dataset changes', () => {
