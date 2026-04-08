@@ -4,9 +4,9 @@
 
 ## Overview
 
-Nesting a component in the card
-You can nest any component inside the card, to provide a more complex
-and interactive experience to the user.
+Styling
+The component offers a few styling options in form of custom CSS variables,
+to make it fit better in different contexts.
 
 ## Dependencies
 
@@ -18,8 +18,8 @@ and interactive experience to the user.
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-card-slot --> limel-card
-  limel-example-card-slot --> limel-example-card-nested-component
+  limel-example-card-styling --> limel-card
+  limel-example-card-styling --> limel-example-card-nested-component
   limel-card --> limel-3d-hover-effect-glow
   limel-card --> limel-icon
   limel-card --> limel-markdown
@@ -53,7 +53,7 @@ graph TD;
   limel-example-card-nested-component --> limel-action-bar
   limel-slider --> limel-helper-line
   limel-slider --> limel-notched-outline
-  style limel-example-card-slot fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-card-styling fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
