@@ -157,13 +157,28 @@ export class FileViewer {
     private email?: Email;
 
     private pdfBlobUrl?: string;
+    private revokeAnimationFrame?: number;
 
     constructor() {
         this.fullscreen = new Fullscreen(this.HostElement);
     }
 
     public disconnectedCallback() {
-        this.revokePdfBlobUrl();
+        if (this.revokeAnimationFrame !== undefined) {
+            cancelAnimationFrame(this.revokeAnimationFrame);
+        }
+
+        this.revokeAnimationFrame = requestAnimationFrame(() => {
+            this.revokePdfBlobUrl();
+            this.revokeAnimationFrame = undefined;
+        });
+    }
+
+    public connectedCallback() {
+        if (this.revokeAnimationFrame !== undefined) {
+            cancelAnimationFrame(this.revokeAnimationFrame);
+            this.revokeAnimationFrame = undefined;
+        }
     }
 
     public async componentWillLoad() {
