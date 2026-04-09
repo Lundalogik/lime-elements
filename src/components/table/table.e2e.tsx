@@ -165,6 +165,64 @@ describe('limel-table', () => {
     });
 
     describe('remote sorting', () => {
+        it('displays data in the order returned by the server, without re-sorting locally', async () => {
+            // Initial data is in reverse numeric order (unsorted).
+            // After sorting, the server returns data in numeric ASC order.
+            // If Tabulator re-sorts locally as strings, it would produce
+            // "1","10","11","2","20" instead of 1, 2, 10, 11, 20.
+            const columns = [{ field: 'order', title: 'Order' }];
+            const initialData = [
+                { id: 5, order: 20 },
+                { id: 4, order: 11 },
+                { id: 3, order: 10 },
+                { id: 2, order: 2 },
+                { id: 1, order: 1 },
+            ];
+
+            const { root, waitForChanges, setProps } = await renderTable({
+                mode: 'remote',
+                data: initialData,
+                columns,
+                totalRows: 5,
+                pageSize: 5,
+            });
+
+            // Simulate server responding with numerically sorted data
+            const serverSortedData = [
+                { id: 1, order: 1 },
+                { id: 2, order: 2 },
+                { id: 3, order: 10 },
+                { id: 4, order: 11 },
+                { id: 5, order: 20 },
+            ];
+
+            root.addEventListener('load', (event: CustomEvent) => {
+                if (event.detail?.sorters?.length) {
+                    setProps({ data: serverSortedData });
+                }
+            });
+
+            const container = getContainer(root);
+            const headers = container.querySelectorAll('[role="columnheader"]');
+
+            (headers[0] as HTMLElement).click();
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 300));
+            await waitForChanges();
+
+            const rows = container.querySelectorAll(
+                '.tabulator-table .tabulator-row'
+            );
+            const displayedValues = [...rows].map((row) => {
+                const cell = row.querySelector('[role="gridcell"]');
+
+                return Number(cell?.textContent);
+            });
+
+            // Must match server response — string sort would give [1, 10, 11, 2, 20]
+            expect(displayedValues).toEqual([1, 2, 10, 11, 20]);
+        });
+
         it('emits load event with sorters when clicking a column header', async () => {
             const columns = [
                 { field: 'colA', title: 'A' },
