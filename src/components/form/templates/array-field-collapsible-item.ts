@@ -1,15 +1,13 @@
 import { Action } from '../../collapsible-section/action';
-import React from 'react';
+import React, { PropsWithChildren, ReactNode } from 'react';
 import { findTitle } from './common';
-import { ArrayFieldItem, Runnable } from './types';
+import { ArrayFieldItemButtonsTemplateProps } from '@rjsf/utils';
+import { Runnable } from './types';
 import { isEmpty } from 'lodash-es';
 import { JSONSchema7 } from 'json-schema';
 
-interface CollapsibleItemProps {
-    /**
-     * Data from reach-jsonschema-form
-     */
-    item: ArrayFieldItem;
+export interface CollapsibleItemProps {
+    buttonsProps: ArrayFieldItemButtonsTemplateProps;
 
     /**
      * The index of the field in the array
@@ -42,12 +40,14 @@ interface CollapsibleItemProps {
     allowItemReorder: boolean;
 }
 
-export class CollapsibleItemTemplate extends React.Component<CollapsibleItemProps> {
+export class CollapsibleItemTemplate extends React.Component<
+    PropsWithChildren<CollapsibleItemProps>
+> {
     state = {
         isOpen: false,
     };
 
-    constructor(public props: CollapsibleItemProps) {
+    constructor(public props: PropsWithChildren<CollapsibleItemProps>) {
         super(props);
         this.handleAction = this.handleAction.bind(this);
         this.isDeepEmpty = this.isDeepEmpty.bind(this);
@@ -79,9 +79,9 @@ export class CollapsibleItemTemplate extends React.Component<CollapsibleItemProp
 
     public render() {
         const { data, schema, formSchema } = this.props;
-        let children: any;
+        let children: ReactNode;
         if (this.state.isOpen) {
-            children = this.props.item.children;
+            children = this.props.children;
         }
 
         const dragHandle = this.props.allowItemReorder
@@ -111,15 +111,15 @@ export class CollapsibleItemTemplate extends React.Component<CollapsibleItemProp
     }
 
     private setActions(element: HTMLLimelCollapsibleSectionElement) {
-        const { item, index, allowItemRemoval } = this.props;
+        const { buttonsProps, allowItemRemoval } = this.props;
         const actions: Array<Action & Runnable> = [];
 
         if (allowItemRemoval) {
             actions.push({
                 id: 'remove',
                 icon: 'trash',
-                disabled: !item.hasRemove,
-                run: item.onDropIndexClick(index),
+                disabled: !buttonsProps.hasRemove,
+                run: buttonsProps.onRemoveItem,
             });
         }
 

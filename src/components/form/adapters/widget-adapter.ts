@@ -1,7 +1,13 @@
 import React from 'react';
 import { WidgetProps } from '../widgets/types';
-import { capitalize } from 'lodash-es';
+import {
+    hasValue,
+    isFieldInvalid,
+    isFieldRequired,
+    getErrorText,
+} from '../validation-display';
 import { getHelpComponent } from '../help';
+import { RowLayoutContext } from '../row/row-context';
 
 export interface WidgetAdapterProps {
     name: string;
@@ -22,6 +28,9 @@ export interface WidgetAdapterProps {
  * Link: https://react-jsonschema-form.readthedocs.io/
  */
 export class LimeElementsWidgetAdapter extends React.Component<WidgetAdapterProps> {
+    public static readonly contextType = RowLayoutContext;
+    declare context: React.ContextType<typeof RowLayoutContext>;
+
     state = {
         modified: false,
     };
@@ -32,64 +41,44 @@ export class LimeElementsWidgetAdapter extends React.Component<WidgetAdapterProp
         this.handleBlur = this.handleBlur.bind(this);
     }
 
-    private hasValue() {
-        const value = this.getValue();
-        if (!value) {
-            return false;
-        }
-
-        if (Array.isArray(value)) {
-            return value.length > 0;
-        }
-
-        if (value instanceof Date) {
-            return true;
-        }
-
-        if (typeof value === 'object') {
-            return Object.entries(value).length > 0;
-        }
-
-        return true;
-    }
-
     private handleBlur() {
         this.setState({ modified: true });
     }
 
     private getLabel() {
-        const { schema, label } = this.props.widgetProps;
+        if (this.context) {
+            return '';
+        }
+
+        const { schema, label, hideLabel } = this.props.widgetProps;
+
+        if (hideLabel) {
+            return '';
+        }
 
         return label || schema.title;
     }
 
     private isInvalid() {
         const { modified } = this.state;
-        const { rawErrors } = this.props.widgetProps;
+        const { rawErrors, required, schema } = this.props.widgetProps;
 
-        return (
-            !!rawErrors && (modified || this.hasValue() || !this.isRequired())
-        );
-    }
-
-    private isRequired() {
-        const { required, schema } = this.props.widgetProps;
-
-        return required || schema.minItems > 0;
+        return isFieldInvalid({
+            hasErrors: !!rawErrors,
+            modified: modified,
+            hasValue: hasValue(this.getValue()),
+            required: isFieldRequired({ required, minItems: schema.minItems }),
+        });
     }
 
     private getHelperText() {
         const { rawErrors, schema } = this.props.widgetProps;
 
         if (!this.isInvalid()) {
-            return schema.description;
+            return this.context ? '' : schema.description;
         }
 
-        if (rawErrors) {
-            return capitalize(rawErrors[0]);
-        }
-
-        return schema.description;
+        return getErrorText(rawErrors || [], schema.description);
     }
 
     private getValue() {
@@ -114,7 +103,10 @@ export class LimeElementsWidgetAdapter extends React.Component<WidgetAdapterProp
                 label: this.getLabel(),
                 disabled: disabled,
                 readonly: readonly,
-                required: this.isRequired(),
+                required: isFieldRequired({
+                    required: this.props.widgetProps.required,
+                    minItems: this.props.widgetProps.schema.minItems,
+                }),
                 invalid: this.isInvalid(),
                 'helper-text': this.getHelperText(),
                 ...extraProps,

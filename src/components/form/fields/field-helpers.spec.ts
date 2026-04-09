@@ -93,7 +93,7 @@ describe('resetDependentFields()', () => {
                                     },
                                     value: {
                                         type: 'object',
-                                        $ref: '#definitions/ObjectSchema',
+                                        $ref: '#/definitions/ObjectSchema',
                                     },
                                 },
                             },

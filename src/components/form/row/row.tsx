@@ -1,5 +1,6 @@
 import React from 'react';
 import { RowProps } from '../templates/types';
+import { RowLayoutContext } from './row-context';
 
 export class Row extends React.Component<RowProps> {
     constructor(public props: RowProps) {
@@ -57,19 +58,11 @@ export class Row extends React.Component<RowProps> {
     }
 
     private renderChildren() {
-        const children = this.props.children;
-
-        return {
-            ...children,
-            props: {
-                ...children.props,
-                schema: {
-                    ...children.props.schema,
-                    title: null,
-                    description: null,
-                },
-            },
-        };
+        return React.createElement(
+            RowLayoutContext.Provider,
+            { value: true },
+            this.props.children
+        );
     }
 
     private get schema() {

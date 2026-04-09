@@ -1,12 +1,22 @@
-import JSONSchemaField from '@rjsf/core/lib/components/fields/SchemaField';
 import React from 'react';
-import { FieldProps } from './types';
-import { isEmpty, capitalize } from 'lodash-es';
+import { getDefaultRegistry } from '@rjsf/core';
+import { FieldProps, FieldPathList } from '@rjsf/utils';
+import { isEmpty } from 'lodash-es';
+import {
+    hasValue,
+    isFieldInvalid,
+    isFieldRequired,
+    getErrorText,
+} from '../validation-display';
 import { resetDependentFields } from './field-helpers';
 import { FieldTemplate } from '../templates';
 import { getHelpComponent } from '../help';
 import { FormComponent, FormSchema } from '../form.types';
 import { TimePicker } from '../widgets/time-picker';
+import { RowLayoutContext } from '../row/row-context';
+
+const { fields: defaultFields } = getDefaultRegistry();
+const BaseSchemaField = defaultFields.SchemaField;
 
 /**
  * If given a value and schema, check if the value should be translated
@@ -54,14 +64,6 @@ const hasCustomComponent = (schema): boolean => {
 };
 
 const verifyCustomComponentIsDefined = (elementName): void => {
-    const supportsCustomElements = 'customElements' in window;
-
-    if (!supportsCustomElements) {
-        throw new Error(
-            'Custom form elements are not supported by this browser!'
-        );
-    }
-
     if (!customElements.get(elementName)) {
         throw new Error(`Custom form element '${elementName}' is not defined!`);
     }
@@ -102,6 +104,9 @@ export function getFactoryProps(
 }
 
 export class SchemaField extends React.Component<FieldProps> {
+    public static readonly contextType = RowLayoutContext;
+    declare context: React.ContextType<typeof RowLayoutContext>;
+
     state = {
         modified: false,
     };
@@ -113,69 +118,26 @@ export class SchemaField extends React.Component<FieldProps> {
             this.handleCustomComponentChange.bind(this);
     }
 
-    private hasValue() {
-        const value = this.getValue();
-        if (!value) {
-            return false;
-        }
-
-        if (Array.isArray(value)) {
-            return value.length > 0;
-        }
-
-        if (value instanceof Date) {
-            return true;
-        }
-
-        if (typeof value === 'object') {
-            return !isEmpty(value);
-        }
-
-        return true;
-    }
-
-    private getLabel() {
-        const { schema } = this.props;
-
-        return schema.title;
-    }
-
     private isInvalid() {
         const { modified } = this.state;
-        const { errorSchema } = this.props;
+        const { errorSchema, required, schema } = this.props;
 
-        return (
-            (modified || this.hasValue() || !this.isRequired()) &&
-            !isEmpty(errorSchema)
-        );
-    }
-
-    private isRequired() {
-        const { required, schema } = this.props;
-
-        return required || schema.minItems > 0;
+        return isFieldInvalid({
+            hasErrors: !isEmpty(errorSchema),
+            modified: modified,
+            hasValue: hasValue(this.props.formData),
+            required: isFieldRequired({ required, minItems: schema.minItems }),
+        });
     }
 
     private getHelperText() {
         const { errorSchema, schema } = this.props;
+        const hasErrors = !isEmpty(errorSchema) && '__errors' in errorSchema;
+        const errors =
+            this.isInvalid() && hasErrors ? errorSchema.__errors : [];
+        const fallbackText = schema.lime?.component?.props?.helperText;
 
-        if (!this.isInvalid()) {
-            const helperText = schema.lime?.component?.props?.helperText;
-
-            return helperText || schema.description;
-        }
-
-        if (!isEmpty(errorSchema) && '__errors' in errorSchema) {
-            return capitalize(errorSchema.__errors[0]);
-        }
-
-        return schema.description;
-    }
-
-    private getValue() {
-        const { formData } = this.props;
-
-        return formData;
+        return getErrorText(errors, schema.description, fallbackText);
     }
 
     private handleCustomComponentChange(
@@ -190,10 +152,10 @@ export class SchemaField extends React.Component<FieldProps> {
             value = undefined;
         }
 
-        this.handleChange(value);
+        this.handleChange(value, this.props.fieldPathId.path);
     }
 
-    private handleChange(data) {
+    private handleChange(data: unknown, path: FieldPathList) {
         const { formData, schema } = this.props;
         const { rootSchema } = this.props.registry;
 
@@ -206,7 +168,7 @@ export class SchemaField extends React.Component<FieldProps> {
             rootSchema
         );
 
-        this.props.onChange(newData);
+        this.props.onChange(newData, path);
     }
 
     private buildCustomComponentProps() {
@@ -215,21 +177,26 @@ export class SchemaField extends React.Component<FieldProps> {
             readonly,
             name,
             registry,
-            schema,
+            schema: rawSchema,
             errorSchema,
-            idSchema,
+            fieldPathId,
         } = this.props;
+        const schema = rawSchema as FormSchema;
         const factoryProps = getFactoryProps(registry.formContext, schema);
 
         return {
             ...factoryProps,
-            value: this.getValue(),
-            required: this.isRequired(),
+            value: this.props.formData,
+            required: isFieldRequired({
+                required: this.props.required,
+                minItems: schema.minItems,
+            }),
             readonly: readonly || schema.readOnly,
             disabled: disabled,
             invalid: this.isInvalid(),
-            label: this.getLabel(),
-            helperText: this.getHelperText(),
+            label: this.context ? '' : schema.title,
+            helperText:
+                this.context && !this.isInvalid() ? '' : this.getHelperText(),
             ref: (element: FormComponent) => {
                 element.formInfo = {
                     schema: schema,
@@ -237,7 +204,7 @@ export class SchemaField extends React.Component<FieldProps> {
                     errorSchema: errorSchema,
                     rootValue: registry.formContext.rootValue,
                     name: name,
-                    schemaPath: this.getSchemaPath(idSchema?.$id),
+                    schemaPath: fieldPathId?.path?.map(String),
                 };
 
                 return () => {};
@@ -246,9 +213,9 @@ export class SchemaField extends React.Component<FieldProps> {
     }
 
     private renderCustomComponent(props: FieldProps) {
-        const { name, props: userDefinedComponentProps } = getCustomComponent(
-            props.schema
-        );
+        const schema = props.schema as FormSchema;
+        const { name, props: userDefinedComponentProps } =
+            getCustomComponent(schema);
 
         verifyCustomComponentIsDefined(name);
 
@@ -262,10 +229,10 @@ export class SchemaField extends React.Component<FieldProps> {
             FieldTemplate,
             {
                 ...this.props,
-                classNames: 'form-group field field-custom',
+                classNames: 'rjsf-field rjsf-field-custom',
             },
             component,
-            getHelpComponent(props.schema)
+            getHelpComponent(schema)
         );
     }
 
@@ -290,24 +257,6 @@ export class SchemaField extends React.Component<FieldProps> {
             };
         }
 
-        return React.createElement(JSONSchemaField, fieldProps);
-    }
-
-    /**
-     * Gets the path to the current property within the schema
-     *
-     * @param schemaId - the id of the schema
-     * @returns an array with the schema path for the current property
-     * @example
-     * const schemaId = 'root_sections_0_controls_0_name';
-     * const schemaPath = getSchemaPath(schemaId);
-     * // ➡ ['sections', '0', 'controls', '0', 'name']
-     */
-    private getSchemaPath(schemaId: string): string[] {
-        if (schemaId === undefined) {
-            return undefined;
-        }
-
-        return schemaId.replace('root_', '').split('_');
+        return React.createElement(BaseSchemaField, fieldProps);
     }
 }
