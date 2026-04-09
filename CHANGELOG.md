@@ -1,3 +1,10 @@
+## [39.12.1](https://github.com/Lundalogik/lime-elements/compare/v39.12.0...v39.12.1) (2026-04-09)
+
+### Performance Improvements
+
+
+* **form:** cache compiled Ajv validators by schema content ([69c3466](https://github.com/Lundalogik/lime-elements/commit/69c3466afd37ffc3af9bd56c61c78c41f0a51cbb))
+
 ## [39.12.0](https://github.com/Lundalogik/lime-elements/compare/v39.11.1...v39.12.0) (2026-04-08)
 
 ### Features
