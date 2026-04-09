@@ -139,6 +139,26 @@ describe('limel-table data updates', () => {
     });
 });
 
+describe('limel-table remote mode options', () => {
+    let component: Table;
+
+    beforeEach(() => {
+        component = new Table();
+    });
+
+    it('sets sortMode to "remote" when mode is remote', () => {
+        (component as any).mode = 'remote';
+        const options = (component as any).getAjaxOptions();
+        expect(options.sortMode).toEqual('remote');
+    });
+
+    it('does not set sortMode when mode is not remote', () => {
+        (component as any).mode = 'local';
+        const options = (component as any).getAjaxOptions();
+        expect(options.sortMode).toBeUndefined();
+    });
+});
+
 describe('limel-table aggregate updates', () => {
     let component: Table;
 

@@ -719,7 +719,7 @@ export class Table {
         const remoteUrl = 'https://localhost';
 
         return {
-            ajaxSorting: true,
+            sortMode: 'remote',
             ajaxURL: remoteUrl,
             ajaxRequestFunc: this.requestData,
             ajaxRequesting: this.handleAjaxRequesting,
@@ -766,10 +766,16 @@ export class Table {
         // we always return the existing data from this function, therefore
         // relying on the consumer component to handle the loading
         // state via the loading prop, if it actually decides to load new data.
-        const resolveExistingData = Promise.resolve({
-            last_page: this.calculatePageCount(),
-            data: this.data,
-        });
+        //
+        // When pagination is enabled, Tabulator's pagination module unwraps
+        // the `{last_page, data}` format. Without pagination, Tabulator
+        // expects a plain array directly.
+        const resolveExistingData = this.pageSize
+            ? Promise.resolve({
+                  last_page: this.calculatePageCount(),
+                  data: this.data,
+              })
+            : Promise.resolve(this.data);
 
         if (!isEqual(this.currentLoad, load)) {
             this.currentSorting = columnSorters;
