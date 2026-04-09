@@ -1,98 +1,115 @@
-@use '../../../style/functions';
+.thumb {
+    position: absolute;
+    left: calc(var(--slider-fraction) * 100%);
+    top: 0;
+    bottom: 0;
+    width: 0;
+    z-index: 1;
+}
 
-.mdc-slider__thumb-knob {
-    .mdc-slider:not(.mdc-slider--disabled) & {
+.knob {
+    transition: border-color 0.5s ease;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate3d(-50%, -50%, 0);
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    border: 0.5rem solid;
+    border-color: var(--lime-primary-color, var(--limel-theme-primary-color));
+    background-color: rgb(var(--contrast-100));
+
+    &:before,
+    &:after {
+        transition: all 0.2s ease 0.2s;
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+
+        width: 0;
+        height: 0;
+        border: 0.375rem solid transparent;
+    }
+
+    :host([disabled]:not([disabled='false'])) & {
         &:before,
         &:after {
-            transition: all 0.2s ease 0.2s;
-            content: '';
-            display: block;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            margin: auto;
-
-            opacity: 0;
-
-            width: 0;
-            height: 0;
-            border: functions.pxToRem(4) solid transparent;
-            border-top-color: rgba(var(--contrast-1400), 0.6);
+            content: none;
         }
+    }
+
+    &:before {
+        opacity: calc(var(--slider-fraction) * 100);
+        left: -1rem;
+        transform: rotate(90deg);
+    }
+    &:after {
+        opacity: calc((1 - var(--slider-fraction)) * 100);
+        right: -1rem;
+        transform: rotate(-90deg);
+    }
+
+    .slider:hover &,
+    .slider:has(input[type='range']:active) &,
+    .slider:has(input[type='range']:focus) & {
+        box-shadow: var(--button-shadow-normal);
 
         &:before {
-            left: functions.pxToRem(-20);
-            transform: rotate(90deg);
+            left: -1.5rem;
+            border-top-color: rgb(var(--contrast-1400), 0.5);
         }
         &:after {
-            right: functions.pxToRem(-20);
-            transform: rotate(-90deg);
-        }
-
-        &:hover {
-            &:before {
-                opacity: 0.8;
-                left: functions.pxToRem(-28);
-            }
-            &:after {
-                opacity: 0.8;
-                right: functions.pxToRem(-28);
-            }
+            right: -1.5rem;
+            border-top-color: rgb(var(--contrast-1400), 0.5);
         }
     }
 }
 
-.mdc-slider {
-    .mdc-slider__thumb {
-        top: -0.25rem;
-    }
-    .mdc-slider__value-indicator-container {
-        z-index: 1; //FIXME
-    }
-    .mdc-slider__value-indicator {
-        transition: transform 0.2s ease-out;
-        opacity: 1; // makes sure number is being always displayed, not only while dragging
-        transform: scale(1) translateY(functions.pxToRem(32));
-        border-radius: functions.pxToRem(20);
-        padding: 0 functions.pxToRem(8);
-        height: functions.pxToRem(24);
+.indicator {
+    user-select: none;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: 1;
 
-        &:before {
-            border-top-color: transparent;
-        }
-    }
-    .mdc-slider__value-indicator-text {
-        color: rgb(var(--color-white));
-    }
+    transform: translate3d(-50%, -50%, 0);
+    transform-origin: bottom center;
+    transition:
+        transform 0.2s ease-out,
+        box-shadow 0.2s ease-out,
+        background-color 0.5s ease;
 
-    .mdc-ripple-upgraded--foreground-activation {
-        // when the pin is being dragged, which only happens when component is not `disabled` of course
-        .mdc-slider__value-indicator {
-            transform: scale(1.5) translateY(0);
-            box-shadow: var(--shadow-depth-16);
+    border-radius: 1.25rem;
+    padding: 0 0.375rem;
+    height: 1.25rem;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
 
-            &:before {
-                border-top-color: var(
-                    --lime-primary-color,
-                    var(--limel-theme-primary-color)
-                );
-            }
-        }
-    }
+    color: rgb(var(--color-white));
+    font-size: 0.6875rem;
 
-    &:not(.mdc-slider--disabled) {
-        .mdc-slider__value-indicator {
-            box-shadow: var(--button-shadow-normal);
-        }
-    }
+    background-color: var(
+        --lime-primary-color,
+        var(--limel-theme-primary-color)
+    );
+    box-shadow: var(--button-shadow-normal);
 }
 
-.mdc-slider__value-indicator {
-    .mdc-slider:not(.mdc-slider--disabled) &,
-    :host(limel-slider[readonly]) & {
-        background-color: var(
-            --lime-primary-color,
-            var(--limel-theme-primary-color)
-        );
+:host(:not([disabled]):not([readonly])) {
+    input[type='range'] {
+        // When the slider is being actively dragged
+        &:active,
+        &:focus {
+            ~ .thumb .indicator {
+                transform: translate3d(-50%, calc(-100% - 0.75rem), 0)
+                    scale(1.25);
+                box-shadow: var(--shadow-depth-16);
+            }
+        }
     }
 }

@@ -1,0 +1,32 @@
+@use '../../../style/mixins';
+
+:host {
+    --masonry-layout-min-column-width: 10rem;
+}
+
+section {
+    @include mixins.is-resizable(
+        $direction: horizontal,
+        $width: 100%,
+        $min-width: 10rem,
+        $max-width: 100%,
+        $height: auto
+    );
+    padding: 0;
+}
+
+.card {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: rgb(var(--contrast-400));
+    font-weight: bold;
+}
+
+limel-example-controls {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}

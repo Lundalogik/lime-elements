@@ -1,0 +1,12 @@
+@forward './masonry-layout-basic';
+
+.card {
+    padding: 0;
+
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: inherit;
+    }
+}

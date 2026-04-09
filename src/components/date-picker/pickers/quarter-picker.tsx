@@ -42,7 +42,6 @@ export class QuarterPicker extends Picker {
     }
 
     public destroy() {
-        super.destroy();
         if (!this.nativePicker) {
             this.flatpickr?.prevMonthNav?.removeEventListener(
                 'mousedown',
@@ -53,6 +52,8 @@ export class QuarterPicker extends Picker {
                 this.nextYear
             );
         }
+
+        super.destroy();
     }
 
     public getConfig(nativePicker: boolean): flatpickr.Options.Options {

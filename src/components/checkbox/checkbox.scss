@@ -27,11 +27,17 @@
 
 /**
 * @prop --checkbox-unchecked-border-color: Affects the border color of the default state of the checkbox (when it is not checked). Defaults to `--contrast-900`.
+* @prop --checkbox-label-overflow-wrap: Controls how long unbreakable words (e.g. camelCase strings with no spaces) wrap within the label. Accepts any valid `overflow-wrap` value. Defaults to `normal`.
 */
 
 @forward '../../style/internal/boolean-input';
 
 :host(limel-checkbox) {
+    --limel-boolean-input-label-overflow-wrap: var(
+        --checkbox-label-overflow-wrap,
+        normal
+    );
+
     min-height: var(--limel-checkbox-min-height, 2.5rem); // prevents flickering
     // when switching between `readonly` and normal states in `limel-checkbox`,
     // but not where `CheckboxTemplate` is imported & used.

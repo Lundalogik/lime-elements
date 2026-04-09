@@ -9,6 +9,7 @@ import { QuarterPicker } from '../pickers/quarter-picker';
 import { TimePicker } from '../pickers/time-picker';
 import { WeekPicker } from '../pickers/week-picker';
 import { YearPicker } from '../pickers/year-picker';
+import { DeferredDestroy } from './deferred-destroy';
 
 /**
  * This component is internal and only supposed to be used by
@@ -71,6 +72,7 @@ export class DatePickerCalendar {
 
     private picker: Picker;
     private flatPickrCreated: boolean = false;
+    private deferredDestroy = new DeferredDestroy();
 
     private container: HTMLElement;
 
@@ -173,9 +175,15 @@ export class DatePickerCalendar {
         this.flatPickrCreated = true;
     }
 
+    public connectedCallback() {
+        this.deferredDestroy.cancel();
+    }
+
     public disconnectedCallback() {
-        this.picker.destroy();
-        this.flatPickrCreated = false;
+        this.deferredDestroy.schedule(() => {
+            this.picker.destroy();
+            this.flatPickrCreated = false;
+        });
     }
 
     public render() {

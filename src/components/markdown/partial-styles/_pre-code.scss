@@ -1,22 +1,27 @@
 @use '../../../style/mixins';
 @use '../../../style/functions';
 
+pre,
+pre p,
 code {
     @include mixins.font-family(monospace);
-    font-size: var(--limel-theme-default-small-font-size);
+    font-size: 0.75rem;
+}
+
+pre {
+    max-width: 100%;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+code {
     letter-spacing: functions.pxToRem(-0.2);
     color: rgb(var(--contrast-1300));
 
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
     tab-size: 4;
-
-    -webkit-hyphens: none;
-    -moz-hyphens: none;
-    -ms-hyphens: none;
     hyphens: none;
 
-    display: inline-block;
+    display: inline;
     border-radius: 0.25rem;
     padding: functions.pxToRem(0.5) 0.25rem;
 
@@ -27,6 +32,4 @@ pre > code {
     display: block;
     margin: 0.5rem 0;
     padding: 0.5rem 0.75rem;
-    overflow: auto;
-    white-space: pre-wrap;
 }
