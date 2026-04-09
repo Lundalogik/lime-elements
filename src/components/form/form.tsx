@@ -5,11 +5,11 @@ import {
     EventEmitter,
     h,
     Prop,
-    Watch,
 } from '@stencil/core';
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
-import JSONSchemaForm, { AjvError } from '@rjsf/core';
+import JSONSchemaForm, { IChangeEvent } from '@rjsf/core';
+import { RJSFValidationError } from '@rjsf/utils';
 import {
     FormError,
     FormSchema,
@@ -18,6 +18,7 @@ import {
 } from './form.types';
 import {
     ArrayFieldTemplate,
+    ArrayFieldItemTemplate,
     FieldTemplate,
     ObjectFieldTemplate,
 } from './templates';
@@ -25,8 +26,7 @@ import { SchemaField as CustomSchemaField } from './fields/schema-field';
 import { ArrayField as CustomArrayField } from './fields/array-field';
 import { ObjectField as CustomObjectField } from './fields/object-field';
 import { widgets } from './widgets';
-import Ajv, { RequiredParams } from 'ajv';
-import { getValidator, getSchemaId } from './schema-cache';
+import { rjsfValidator } from './validator';
 import { mapValues } from 'lodash-es';
 
 /**
@@ -112,8 +112,6 @@ export class Form {
     private host: HTMLLimelFormElement;
 
     private isValid = true;
-    private modifiedSchema: FormSchema;
-    private validator: Ajv.ValidateFunction;
     private root: Root;
     private initialized = false;
 
@@ -124,11 +122,6 @@ export class Form {
 
     public connectedCallback() {
         this.initialize();
-    }
-
-    public componentWillLoad() {
-        this.setSchemaId();
-        this.createValidator();
     }
 
     public componentDidLoad() {
@@ -146,12 +139,12 @@ export class Form {
 
         this.initialized = true;
         this.reactRender();
-        this.validateForm(this.value);
+        this.validateFormData();
     }
 
     public componentDidUpdate() {
         this.reactRender();
-        this.validateForm(this.value);
+        this.validateFormData();
     }
 
     public disconnectedCallback() {
@@ -177,27 +170,31 @@ export class Form {
             React.createElement(
                 JSONSchemaForm,
                 {
-                    schema: this.modifiedSchema,
+                    schema: this.schema,
                     formData: this.value,
                     onChange: this.handleChange,
                     widgets: widgets,
-                    liveValidate: true,
+                    validator: rjsfValidator,
+                    liveValidate: 'onChange',
                     showErrorList: false,
                     extraErrors: this.getExtraErrors(this.errors),
-                    FieldTemplate: FieldTemplate,
-                    ArrayFieldTemplate: ArrayFieldTemplate as any,
-                    ObjectFieldTemplate: ObjectFieldTemplate,
+                    templates: {
+                        FieldTemplate: FieldTemplate,
+                        ArrayFieldTemplate: ArrayFieldTemplate,
+                        ArrayFieldItemTemplate: ArrayFieldItemTemplate,
+                        ObjectFieldTemplate: ObjectFieldTemplate,
+                    },
                     disabled: this.disabled,
                     transformErrors: this.getCustomErrorMessages,
                     formContext: {
-                        schema: this.modifiedSchema,
+                        schema: this.schema,
                         rootValue: this.value,
                         propsFactory: this.propsFactory,
                     },
                     fields: {
-                        SchemaField: CustomSchemaField as any,
-                        ArrayField: CustomArrayField as any,
-                        ObjectField: CustomObjectField as any,
+                        SchemaField: CustomSchemaField,
+                        ArrayField: CustomArrayField,
+                        ObjectField: CustomObjectField,
                     },
                 },
                 []
@@ -205,63 +202,45 @@ export class Form {
         );
     }
 
-    private handleChange(event: any) {
+    private handleChange(event: IChangeEvent) {
         this.change.emit(event.formData);
     }
 
-    private validateForm(value: object) {
-        const isValid = this.validator(value) === true;
-        const errors: FormError[] = this.getValidationErrors();
-        const status: ValidationStatus = {
-            valid: isValid,
-            errors: errors,
-        };
+    private validateFormData() {
+        const { errors } = rjsfValidator.validateFormData(
+            this.value ?? {},
+            this.schema
+        );
+        this.emitValidationStatus(errors);
+    }
 
-        if (this.isValid !== status.valid || !status.valid) {
+    private hasExtraErrors(): boolean {
+        return !!this.errors && Object.keys(this.errors).length > 0;
+    }
+
+    private emitValidationStatus(errors: RJSFValidationError[]) {
+        const valid =
+            (!errors || errors.length === 0) && !this.hasExtraErrors();
+        const formErrors = this.mapErrors(errors ?? []);
+        const status: ValidationStatus = { valid: valid, errors: formErrors };
+
+        if (this.isValid !== valid || !valid) {
             this.validate.emit(status);
         }
 
-        this.isValid = status.valid;
+        this.isValid = valid;
     }
 
-    @Watch('schema')
-    public setSchema() {
-        this.setSchemaId();
-        this.createValidator();
-    }
-
-    private setSchemaId() {
-        // RJSF v2 requires a unique $id per distinct schema to avoid
-        // validation cache collisions.
-        // https://github.com/rjsf-team/react-jsonschema-form/issues/1563
-        const id = getSchemaId(this.schema);
-        this.modifiedSchema = {
-            ...this.schema,
-            id: id,
-            $id: id,
-        };
-    }
-
-    private createValidator() {
-        this.validator = getValidator(this.schema);
-    }
-
-    private getValidationErrors(): FormError[] {
-        const errors = [...(this.validator.errors || [])];
-
-        return errors.map((error: Ajv.ErrorObject): FormError => {
-            let property = error.dataPath;
-            if (error.keyword === 'required') {
-                property = (error.params as RequiredParams).missingProperty;
-            }
-
-            return {
-                name: error.keyword,
-                property: property,
+    private mapErrors(errors: RJSFValidationError[]): FormError[] {
+        return errors.map(
+            (error): FormError => ({
+                name: error.name,
+                property: error.property,
                 message: error.message,
                 schemaPath: error.schemaPath,
-            };
-        });
+                params: error.params,
+            })
+        );
     }
 
     private getExtraErrors(errors: ValidationError): ExtraError | undefined {
@@ -278,33 +257,25 @@ export class Form {
         });
     }
 
-    private getCustomErrorMessages(originalErrors: AjvError[]): AjvError[] {
+    private getCustomErrorMessages(
+        originalErrors: RJSFValidationError[]
+    ): RJSFValidationError[] {
         if (!this.transformErrors) {
             return originalErrors;
         }
 
-        const errors: FormError[] = originalErrors.map((error: AjvError) => {
-            return {
-                name: error.name,
-                params: error.params,
-                property: error.property,
-                message: error.message,
-                // For some reason 'schemaPath' is missing from the AjvError type definition:
-                // https://github.com/rjsf-team/react-jsonschema-form/issues/2140
+        const errors: FormError[] = this.mapErrors(originalErrors);
 
-                schemaPath: error['schemaPath'],
-            };
-        });
-
-        // Use `.call({}, …)` here to bind `this` to an empty object to prevent
-        // the consumer submitted `transformErrors` from getting access to our
-        // component's internals. /Ads
+        // Use `.call({}, …)` to prevent the consumer's `transformErrors`
+        // from getting access to our component's internals. /Ads
         return this.transformErrors
             .call({}, errors)
             .map((transformedError: FormError) => {
-                const originalError = originalErrors.find((error: AjvError) => {
-                    return transformedError.property === error.property;
-                });
+                const originalError = originalErrors.find(
+                    (error: RJSFValidationError) => {
+                        return transformedError.property === error.property;
+                    }
+                );
 
                 return {
                     ...originalError,

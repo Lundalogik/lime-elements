@@ -2,8 +2,22 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 import { kompendium } from 'kompendium';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import type { Plugin } from 'rollup';
 
 import guides from './guides';
+
+// Stencil's bundled @rollup/plugin-commonjs crashes during watch-mode
+// rebuilds on stale cache metadata. This hook runs first and tells
+// Rollup to use the cached transform for any module whose source is
+// unchanged, which is always correct during a dev watch session.
+function commonjsCacheFix(): Plugin {
+    return {
+        name: 'commonjs-cache-fix',
+        shouldTransformCachedModule() {
+            return false;
+        },
+    };
+}
 
 export const config: Config = {
     hashFileNames: false,
@@ -14,7 +28,7 @@ export const config: Config = {
         }),
     ],
     rollupPlugins: {
-        before: [nodeResolve()],
+        before: [commonjsCacheFix(), nodeResolve()],
     },
     outputTargets: [
         {

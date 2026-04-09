@@ -1,7 +1,11 @@
-import JSONArrayField from '@rjsf/core/lib/components/fields/ArrayField';
 import React from 'react';
-import { ArrayProps } from './types';
+import { getDefaultRegistry } from '@rjsf/core';
+import { FieldProps } from '@rjsf/utils';
 import { resetDependentFields } from './field-helpers';
+import { ARRAY_REORDER_EVENT } from '../templates/array-field';
+
+const { fields: defaultFields } = getDefaultRegistry();
+const BaseArrayField = defaultFields.ArrayField;
 
 /**
  * This override field exists to supplement the need to reset dependent fields
@@ -15,6 +19,10 @@ import { resetDependentFields } from './field-helpers';
  * same resetting of dependent fields here in this component by detecting changed list items and calling
  * `resetDependentFields` on the changed list items. This is possible because the ArrayField is also given
  * the raw schema so it can properly call `resetDependentFields`
+ *
+ * This field also handles drag-and-drop reordering. The ArrayFieldTemplate
+ * dispatches an `arrayReorder` DOM event when Sortable.js completes a drag.
+ * This field listens for that event and reorders the form data via onChange.
  *
  * This form has to handle several events that can affect the list:
  *
@@ -30,20 +38,62 @@ import { resetDependentFields } from './field-helpers';
  * 4. An on change event where list items are swapped or scrambled due to list items being swapped or sorted
  * Solution: Ignore all changes and just pass the event through
  */
-export class ArrayField extends React.Component<ArrayProps> {
+export class ArrayField extends React.Component<FieldProps> {
+    private wrapper?: HTMLDivElement;
+
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
+        this.handleReorder = this.handleReorder.bind(this);
+        this.setWrapper = this.setWrapper.bind(this);
     }
 
-    private handleChange(newData, errorSchema) {
+    componentWillUnmount() {
+        this.setWrapper(null);
+    }
+
+    private setWrapper(element: HTMLDivElement | null) {
+        if (this.wrapper) {
+            this.wrapper.removeEventListener(
+                ARRAY_REORDER_EVENT,
+                this.handleReorder
+            );
+        }
+
+        this.wrapper = element ?? undefined;
+
+        if (this.wrapper) {
+            this.wrapper.addEventListener(
+                ARRAY_REORDER_EVENT,
+                this.handleReorder
+            );
+        }
+    }
+
+    private handleReorder(event: Event) {
+        event.stopPropagation();
+        const { fromIndex, toIndex } = (event as CustomEvent).detail;
+        const { formData, fieldPathId } = this.props;
+
+        if (!Array.isArray(formData) || !fieldPathId) {
+            return;
+        }
+
+        const reordered = [...formData];
+        const [item] = reordered.splice(fromIndex, 1);
+        reordered.splice(toIndex, 0, item);
+
+        this.props.onChange(reordered, fieldPathId.path);
+    }
+
+    private handleChange(newData, path) {
         const { formData: oldData, schema } = this.props;
         const { rootSchema } = this.props.registry;
 
         // This case handles when the first list item is added. When there are no
         // items we get undefined instead of []
         if (!oldData) {
-            this.props.onChange(newData, errorSchema);
+            this.props.onChange(newData, path);
 
             return;
         }
@@ -51,7 +101,7 @@ export class ArrayField extends React.Component<ArrayProps> {
         // This case happens when we add or remove an item from the list
         // No need to check for resetting fields unless we change data
         if (oldData.length !== newData.length) {
-            this.props.onChange(newData, errorSchema);
+            this.props.onChange(newData, path);
 
             return;
         }
@@ -80,7 +130,7 @@ export class ArrayField extends React.Component<ArrayProps> {
             );
         }
 
-        this.props.onChange(newData, errorSchema);
+        this.props.onChange(newData, path);
     }
 
     render() {
@@ -89,6 +139,10 @@ export class ArrayField extends React.Component<ArrayProps> {
             onChange: this.handleChange,
         };
 
-        return React.createElement(JSONArrayField, arrayProps);
+        return React.createElement(
+            'div',
+            { ref: this.setWrapper },
+            React.createElement(BaseArrayField as any, arrayProps)
+        );
     }
 }

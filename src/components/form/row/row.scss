@@ -52,7 +52,7 @@
         // This ensures correct placement for help component
         position: relative;
 
-        > .form-group.field {
+        > .rjsf-field {
             position: unset;
 
             limel-help {
@@ -94,7 +94,7 @@
         }
     }
 
-    .form-group.field {
+    .rjsf-field {
         flex-shrink: 0;
         display: flex;
         align-content: center;

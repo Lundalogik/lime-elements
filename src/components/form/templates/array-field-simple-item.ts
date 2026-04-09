@@ -1,18 +1,19 @@
-import React from 'react';
-import { ArrayFieldItem } from './types';
+import React, { PropsWithChildren } from 'react';
+import { ArrayFieldItemButtonsTemplateProps } from '@rjsf/utils';
 
-interface SimpleItemProps {
-    item: ArrayFieldItem;
+export interface SimpleItemProps {
+    buttonsProps: ArrayFieldItemButtonsTemplateProps;
     index: number;
     allowItemRemoval: boolean;
     allowItemReorder: boolean;
-    dataIndex: number;
 }
 
 const LIMEL_ICON_BUTTON = 'limel-icon-button';
 
-export class SimpleItemTemplate extends React.Component<SimpleItemProps> {
-    constructor(public props: SimpleItemProps) {
+export class SimpleItemTemplate extends React.Component<
+    PropsWithChildren<SimpleItemProps>
+> {
+    constructor(public props: PropsWithChildren<SimpleItemProps>) {
         super(props);
     }
 
@@ -23,17 +24,17 @@ export class SimpleItemTemplate extends React.Component<SimpleItemProps> {
     }
 
     public render() {
-        const { item, allowItemReorder } = this.props;
+        const { allowItemReorder } = this.props;
 
         return React.createElement(
             'div',
             {
                 className: 'array-item limel-form-array-item--simple',
-                'data-reorder-id': String(this.props.dataIndex),
+                'data-reorder-id': String(this.props.index),
                 'data-reorderable': allowItemReorder ? 'true' : 'false',
             },
-            this.props.item.children,
-            this.renderRemoveButton(item),
+            this.props.children,
+            this.renderRemoveButton(),
             this.renderDragHandle()
         );
     }
@@ -48,14 +49,14 @@ export class SimpleItemTemplate extends React.Component<SimpleItemProps> {
         });
     }
 
-    private renderRemoveButton(item: ArrayFieldItem) {
+    private renderRemoveButton() {
         if (!this.props.allowItemRemoval) {
             return;
         }
 
         const props: any = {
             icon: 'trash',
-            disabled: !item.hasRemove,
+            disabled: !this.props.buttonsProps.hasRemove,
             ref: this.setRemoveButton,
         };
 
@@ -63,8 +64,7 @@ export class SimpleItemTemplate extends React.Component<SimpleItemProps> {
     }
 
     private handleRemove = (event: PointerEvent): void => {
-        const { item, index } = this.props;
-        item.onDropIndexClick(index)(event);
+        this.props.buttonsProps.onRemoveItem(event);
     };
 
     private readonly setRemoveButton = (
