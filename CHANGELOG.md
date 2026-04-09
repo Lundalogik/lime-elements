@@ -1,3 +1,10 @@
+## [39.12.2](https://github.com/Lundalogik/lime-elements/compare/v39.12.1...v39.12.2) (2026-04-09)
+
+### Bug Fixes
+
+
+* **table:** use updateData with targeted reformat for row updates ([aa3fc15](https://github.com/Lundalogik/lime-elements/commit/aa3fc15c149fe1970965688568d76a546b90ad0a))
+
 ## [39.12.1](https://github.com/Lundalogik/lime-elements/compare/v39.12.0...v39.12.1) (2026-04-09)
 
 ### Performance Improvements
