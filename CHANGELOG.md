@@ -1,3 +1,10 @@
+## [39.12.3](https://github.com/Lundalogik/lime-elements/compare/v39.12.2...v39.12.3) (2026-04-09)
+
+### Bug Fixes
+
+
+* **file-viewer:** defer blob url revocation to ([37760dc](https://github.com/Lundalogik/lime-elements/commit/37760dc28d5159c4ce3411173a4c5de5cc69f578))
+
 ## [39.12.2](https://github.com/Lundalogik/lime-elements/compare/v39.12.1...v39.12.2) (2026-04-09)
 
 ### Bug Fixes
