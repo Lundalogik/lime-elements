@@ -4,6 +4,7 @@ import { globalConfig } from '../../global/config';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 import { ImageIntersectionObserver } from './image-intersection-observer';
 import { hydrateCustomElements } from './hydrate-custom-elements';
+import { morphChildren } from './morph-dom';
 import { DEFAULT_MARKDOWN_WHITELIST } from './default-whitelist';
 
 /**
@@ -118,7 +119,7 @@ export class Markdown {
                 removeEmptyParagraphs: this.removeEmptyParagraphs,
             });
 
-            this.rootElement.innerHTML = html;
+            morphChildren(this.rootElement, html);
 
             // Hydration parses JSON attribute values (e.g. link='{"href":"..."}')
             // into JS properties. URL sanitization happens here because
