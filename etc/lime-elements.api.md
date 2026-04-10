@@ -195,7 +195,6 @@ export namespace Components {
         "divider": string;
         "items": BreadcrumbsItem[];
     }
-    // (undocumented)
     export interface LimelButton {
         "disabled": boolean;
         "icon": string | Icon;
@@ -1626,7 +1625,6 @@ export namespace JSX {
         "divider": string;
     }
 
-    // (undocumented)
     export interface LimelButton {
         "disabled"?: boolean;
         "icon"?: string | Icon;
