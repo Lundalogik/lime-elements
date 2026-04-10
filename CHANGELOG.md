@@ -1,3 +1,11 @@
+## [39.10.5](https://github.com/Lundalogik/lime-elements/compare/v39.10.4...v39.10.5) (2026-04-10)
+
+### Bug Fixes
+
+
+* **table:** prevent local re-sort of server data in remote mode ([adacf13](https://github.com/Lundalogik/lime-elements/commit/adacf132d94825e7bc04ba53d365e1ddc0f3856e)), closes [#4008](https://github.com/Lundalogik/lime-elements/issues/4008)
+* **table:** use setColumns instead of init when aggregate fields change ([f44b249](https://github.com/Lundalogik/lime-elements/commit/f44b2496ca50e44e5b851515cdf8fbb3c1aea191))
+
 ## [39.10.4](https://github.com/Lundalogik/lime-elements/compare/v39.10.3...v39.10.4) (2026-04-02)
 
 ### Bug Fixes
