@@ -1,0 +1,1 @@
+import{r as e,h as t}from"./index-DBTJNfo7.js";const a=class{constructor(t){e(this,t)}render(){return t("limel-button",{key:"af6083a637905b43ae29786f444fe0ea81e221b4",label:"My Button",disabled:!0,loading:!0})}};export{a as limel_example_button_loading}
