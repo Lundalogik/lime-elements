@@ -1,3 +1,10 @@
+## [39.12.5](https://github.com/Lundalogik/lime-elements/compare/v39.12.4...v39.12.5) (2026-04-13)
+
+### Bug Fixes
+
+
+* **markdown:** avoid unnecessary destruction and recreation of custom elements when value is updated ([effb618](https://github.com/Lundalogik/lime-elements/commit/effb6180cf41dcdf5cc9b19c114011b547207512)), closes [Lundalogik/crm-insights-and-intelligence#237](https://github.com/Lundalogik/crm-insights-and-intelligence/issues/237)
+
 ## [39.12.4](https://github.com/Lundalogik/lime-elements/compare/v39.12.3...v39.12.4) (2026-04-10)
 
 ### Bug Fixes
