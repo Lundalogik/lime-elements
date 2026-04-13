@@ -1,7 +1,24 @@
-import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
+import {
+    chainCommands,
+    exitCode,
+    joinDown,
+    joinUp,
+    lift,
+    selectParentNode,
+    setBlockType,
+    toggleMark,
+    wrapIn,
+} from 'prosemirror-commands';
+import { undo, redo } from 'prosemirror-history';
+import { undoInputRule } from 'prosemirror-inputrules';
 import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
-import { findWrapping, liftTarget } from 'prosemirror-transform';
+import {
+    splitListItem,
+    liftListItem,
+    sinkListItem,
+} from 'prosemirror-schema-list';
 import { Command, EditorState, TextSelection } from 'prosemirror-state';
+import { findWrapping, liftTarget } from 'prosemirror-transform';
 import { EditorMenuTypes, EditorTextLink, LevelMapping } from './types';
 import { getLinkAttributes } from '../plugins/link/utils';
 
@@ -295,6 +312,61 @@ const createListCommand = (
     return command;
 };
 
+const createSplitListItemCommand = (schema: Schema): CommandWithActive => {
+    const type = schema.nodes.list_item;
+
+    return splitListItem(type);
+};
+
+const createLiftListItemCommand = (schema: Schema): CommandWithActive => {
+    const type = schema.nodes.list_item;
+
+    return liftListItem(type);
+};
+
+const createSinkListItemCommand = (schema: Schema): CommandWithActive => {
+    const type = schema.nodes.list_item;
+
+    return sinkListItem(type);
+};
+
+const createHardBreakCommand = (schema: Schema): CommandWithActive => {
+    const br = schema.nodes.hard_break;
+
+    return chainCommands(exitCode, (state, dispatch) => {
+        if (dispatch) {
+            dispatch(
+                state.tr.replaceSelectionWith(br.create()).scrollIntoView()
+            );
+        }
+
+        return true;
+    });
+};
+
+const createHorizontalRuleCommand = (schema: Schema): CommandWithActive => {
+    const hr = schema.nodes.horizontal_rule;
+
+    return (state, dispatch) => {
+        if (dispatch) {
+            dispatch(
+                state.tr.replaceSelectionWith(hr.create()).scrollIntoView()
+            );
+        }
+
+        return true;
+    };
+};
+
+const createWrapInNodeCommand = (
+    schema: Schema,
+    nodeType: string
+): CommandWithActive => {
+    const type = schema.nodes[nodeType];
+
+    return wrapIn(type);
+};
+
 const commandMapping: CommandMapping = {
     strong: createToggleMarkCommand,
     em: createToggleMarkCommand,
@@ -320,15 +392,44 @@ const commandMapping: CommandMapping = {
             LevelMapping.Heading,
             LevelMapping.three
         ),
+    headerlevel4: (schema) =>
+        createSetNodeTypeCommand(
+            schema,
+            LevelMapping.Heading,
+            LevelMapping.four
+        ),
+    headerlevel5: (schema) =>
+        createSetNodeTypeCommand(
+            schema,
+            LevelMapping.Heading,
+            LevelMapping.five
+        ),
+    headerlevel6: (schema) =>
+        createSetNodeTypeCommand(
+            schema,
+            LevelMapping.Heading,
+            LevelMapping.six
+        ),
     blockquote: (schema) =>
         createWrapInCommand(schema, EditorMenuTypes.Blockquote),
-
     code_block: (schema) =>
         createSetNodeTypeCommand(schema, EditorMenuTypes.CodeBlock),
+    paragraph: (schema) =>
+        createSetNodeTypeCommand(schema, EditorMenuTypes.Paragraph),
     ordered_list: (schema) =>
         createListCommand(schema, EditorMenuTypes.OrderedList),
     bullet_list: (schema) =>
         createListCommand(schema, EditorMenuTypes.BulletList),
+    split_list_item: (schema) => createSplitListItemCommand(schema),
+    lift_list_item: (schema) => createLiftListItemCommand(schema),
+    sink_list_item: (schema) => createSinkListItemCommand(schema),
+    hard_break: (schema) => createHardBreakCommand(schema),
+    horizontal_rule: (schema) => createHorizontalRuleCommand(schema),
+    wrap_bullet_list: (schema) =>
+        createWrapInNodeCommand(schema, 'bullet_list'),
+    wrap_ordered_list: (schema) =>
+        createWrapInNodeCommand(schema, 'ordered_list'),
+    wrap_blockquote: (schema) => createWrapInNodeCommand(schema, 'blockquote'),
 };
 
 export class MenuCommandFactory {
@@ -347,16 +448,59 @@ export class MenuCommandFactory {
         return commandFunc(this.schema, mark, link);
     }
 
-    buildKeymap() {
+    buildKeymap(): { [key: string]: Command } {
         return {
+            // History
+            'Mod-z': undo,
+            'Shift-Mod-z': redo,
+            Backspace: undoInputRule,
+
+            // Navigation
+            'Alt-ArrowUp': joinUp,
+            'Alt-ArrowDown': joinDown,
+            'Mod-BracketLeft': lift,
+            Escape: selectParentNode,
+
+            // Mark toggles
+            'Mod-b': this.getCommand(EditorMenuTypes.Bold),
             'Mod-B': this.getCommand(EditorMenuTypes.Bold),
+            'Mod-i': this.getCommand(EditorMenuTypes.Italic),
             'Mod-I': this.getCommand(EditorMenuTypes.Italic),
+            'Mod-`': this.getCommand(EditorMenuTypes.Code),
+            'Mod-Shift-x': this.getCommand(EditorMenuTypes.Strikethrough),
+            'Mod-Shift-X': this.getCommand(EditorMenuTypes.Strikethrough),
+
+            // Block types (Mod-Shift)
             'Mod-Shift-1': this.getCommand(EditorMenuTypes.HeaderLevel1),
             'Mod-Shift-2': this.getCommand(EditorMenuTypes.HeaderLevel2),
             'Mod-Shift-3': this.getCommand(EditorMenuTypes.HeaderLevel3),
-            'Mod-Shift-X': this.getCommand(EditorMenuTypes.Strikethrough),
-            'Mod-`': this.getCommand(EditorMenuTypes.Code),
+            'Mod-Shift-c': this.getCommand(EditorMenuTypes.CodeBlock),
             'Mod-Shift-C': this.getCommand(EditorMenuTypes.CodeBlock),
+
+            // Block types (Shift-Ctrl)
+            'Shift-Ctrl-0': this.getCommand(EditorMenuTypes.Paragraph),
+            'Shift-Ctrl-1': this.getCommand(EditorMenuTypes.HeaderLevel1),
+            'Shift-Ctrl-2': this.getCommand(EditorMenuTypes.HeaderLevel2),
+            'Shift-Ctrl-3': this.getCommand(EditorMenuTypes.HeaderLevel3),
+            'Shift-Ctrl-4': this.getCommand(EditorMenuTypes.HeaderLevel4),
+            'Shift-Ctrl-5': this.getCommand(EditorMenuTypes.HeaderLevel5),
+            'Shift-Ctrl-6': this.getCommand(EditorMenuTypes.HeaderLevel6),
+            'Shift-Ctrl-\\': this.getCommand(EditorMenuTypes.CodeBlock),
+
+            // List operations
+            Enter: this.getCommand(EditorMenuTypes.SplitListItem),
+            'Mod-[': this.getCommand(EditorMenuTypes.LiftListItem),
+            'Mod-]': this.getCommand(EditorMenuTypes.SinkListItem),
+            'Shift-Ctrl-8': this.getCommand(EditorMenuTypes.WrapInBulletList),
+            'Shift-Ctrl-9': this.getCommand(EditorMenuTypes.WrapInOrderedList),
+
+            // Wrapping
+            'Ctrl->': this.getCommand(EditorMenuTypes.WrapInBlockquote),
+
+            // Insertions
+            'Mod-Enter': this.getCommand(EditorMenuTypes.HardBreak),
+            'Shift-Enter': this.getCommand(EditorMenuTypes.HardBreak),
+            'Mod-_': this.getCommand(EditorMenuTypes.HorizontalRule),
         };
     }
 }

@@ -120,13 +120,15 @@ function getImageHTML(attrs: ImageNodeAttrs): string {
     }
 
     const styleAttribute = style.length > 0 ? ` style="${style.join('')}"` : '';
+    const titleAttribute = attrs.title ? ` title="${attrs.title}"` : '';
 
-    return `<img src="${attrs.src}" alt="${attrs.alt}"${styleAttribute} />`;
+    return `<img src="${attrs.src}" alt="${attrs.alt}"${titleAttribute}${styleAttribute} />`;
 }
 
 export interface ImageNodeAttrs {
     src: string;
     alt: string;
+    title?: string | null;
     state: EditorImageState;
     fileInfoId: string | number;
     height?: string;
@@ -140,9 +142,11 @@ function createImageNodeSpec(language: Languages): NodeSpec {
     return {
         group: 'inline',
         inline: true,
+        draggable: true,
         attrs: {
             src: { default: '' },
             alt: { default: '' },
+            title: { default: null },
             fileInfoId: { default: '' },
             height: { default: '' },
             width: { default: '' },
@@ -169,6 +173,7 @@ function createImageNodeSpec(language: Languages): NodeSpec {
                     return {
                         src: dom.getAttribute('src') || '',
                         alt: dom.getAttribute('alt') || 'file',
+                        title: dom.getAttribute('title') || null,
                         width: dom.style.width || '',
                         height: dom.style.height || '',
                         maxWidth: '100%',
@@ -230,6 +235,7 @@ function updateImageElement(
     node: Node
 ): HTMLImageElement {
     img.alt = node.attrs.alt;
+    img.title = node.attrs.title || '';
     applyImageStyles(img, node);
 
     return img;
@@ -239,6 +245,10 @@ function createImageElement(node: Node): HTMLImageElement {
     const img = document.createElement('img');
     img.src = node.attrs.src;
     img.alt = node.attrs.alt;
+    if (node.attrs.title) {
+        img.title = node.attrs.title;
+    }
+
     applyImageStyles(img, node);
 
     return img;

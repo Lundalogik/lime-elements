@@ -12,10 +12,9 @@ import {
 import { EditorState, Transaction, Selection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Schema, DOMParser } from 'prosemirror-model';
-import { schema } from 'prosemirror-schema-basic';
-import { addListNodes } from 'prosemirror-schema-list';
-import { exampleSetup } from 'prosemirror-example-setup';
 import { keymap } from 'prosemirror-keymap';
+import { createSchema } from './schema';
+import { buildBasePlugins } from './plugins/base-plugins';
 import { ActionBarItem } from '../../../components/action-bar/action-bar.types';
 import { ListSeparator } from '../../../components/list-item/list-item.types';
 import { MenuCommandFactory } from './menu/menu-commands';
@@ -33,15 +32,12 @@ import { createRandomString } from '../../../util/random-string';
 import { isItem } from '../../action-bar/is-item';
 import { cloneDeep, debounce } from 'lodash-es';
 import { Languages } from '../../date-picker/date.types';
-import { strikethrough } from './menu/menu-schema-extender';
 import { createLinkPlugin } from './plugins/link/link-plugin';
-import { linkMarkSpec } from './plugins/link/link-mark';
 import { createImageInserterPlugin } from './plugins/image/inserter';
 import { createImageViewPlugin } from './plugins/image/view';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
 import { CustomElementDefinition } from '../../../global/shared-types/custom-element.types';
-import { createNodeSpec } from '../utils/plugin-factory';
 import { createTriggerPlugin } from './plugins/trigger/factory';
 import {
     TriggerCharacter,
@@ -50,8 +46,8 @@ import {
     EditorMetadata,
     EditorLink,
 } from '../text-editor.types';
-import { getTableNodes, getTableEditingPlugins } from './plugins/table-plugin';
-import { getImageNode, imageCache } from './plugins/image/node';
+import { getTableEditingPlugins } from './plugins/table-plugin';
+import { imageCache } from './plugins/image/node';
 import { EditorUiType } from '../types';
 import {
     getMetadataFromDoc,
@@ -377,28 +373,10 @@ export class ProsemirrorAdapter {
     }
 
     private initializeSchema() {
-        let nodes = schema.spec.nodes;
-
-        for (const customElement of this.customElements) {
-            const newNodeSpec = createNodeSpec(customElement);
-            const nodeName = customElement.tagName;
-
-            nodes = nodes.append({ [nodeName]: newNodeSpec });
-        }
-        nodes = addListNodes(nodes, 'paragraph block*', 'block');
-
-        if (this.contentType === 'html') {
-            nodes = nodes.append(getTableNodes());
-        }
-
-        nodes = nodes.append(getImageNode(this.language));
-
-        return new Schema({
-            nodes: nodes,
-            marks: schema.spec.marks.append({
-                strikethrough: strikethrough,
-                link: linkMarkSpec,
-            }),
+        return createSchema({
+            customElements: this.customElements,
+            contentType: this.contentType,
+            language: this.language,
         });
     }
 
@@ -422,7 +400,7 @@ export class ProsemirrorAdapter {
         return EditorState.create({
             doc: initialDoc,
             plugins: [
-                ...exampleSetup({ schema: this.schema, menuBar: false }),
+                ...buildBasePlugins(this.schema),
                 keymap(this.menuCommandFactory.buildKeymap()),
                 createTriggerPlugin(
                     this.triggerCharacters,

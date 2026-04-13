@@ -77,7 +77,6 @@
     "parse-css-color": "^0.2.1",
     "postal-mime": "^2.7.3",
     "prettier": "^3.5.0",
-    "prosemirror-example-setup": "^1.2.3",
     "prosemirror-markdown": "^1.13.2",
     "prosemirror-model": ">=1.22.1",
     "prosemirror-schema-basic": "^1.2.4",
@@ -126,6 +125,15 @@
   "packageManager": "npm@>=10.9",
   "dependencies": {
     "diff": "^8.0.3",
+    "prosemirror-commands": "^1.7.1",
+    "prosemirror-dropcursor": "^1.8.2",
+    "prosemirror-gapcursor": "^1.4.1",
+    "prosemirror-history": "^1.5.0",
+    "prosemirror-inputrules": "^1.5.1",
+    "prosemirror-keymap": "^1.2.3",
+    "prosemirror-schema-list": "^1.5.1",
+    "prosemirror-state": "^1.4.4",
+    "prosemirror-view": "^1.41.7",
     "sortablejs": "^1.15.6"
   }
 }
