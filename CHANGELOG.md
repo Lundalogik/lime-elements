@@ -1,3 +1,10 @@
+## [39.13.1](https://github.com/Lundalogik/lime-elements/compare/v39.13.0...v39.13.1) (2026-04-14)
+
+### Bug Fixes
+
+
+* **chip:** expose correct CSS baseline for inline text alignment ([bb19a89](https://github.com/Lundalogik/lime-elements/commit/bb19a89af67ea1e5c631f2f8d7b0e45249f11006))
+
 ## [39.13.0](https://github.com/Lundalogik/lime-elements/compare/v39.12.6...v39.13.0) (2026-04-14)
 
 ### Features
