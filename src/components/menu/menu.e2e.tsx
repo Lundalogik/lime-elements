@@ -118,7 +118,7 @@ describe('limel-menu', () => {
     // Menu item selection tests are skipped — the menu uses a portal
     // which causes a classList null reference during teardown in the
     // Stencil vitest render environment. These interactions need full
-    // Puppeteer/Playwright page-level tests.
+    // page-level tests.
 
     // Focus restoration and keyboard navigation tests are skipped —
     // they require real browser focus management (page.keyboard, page.focus)
