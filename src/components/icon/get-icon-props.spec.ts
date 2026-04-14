@@ -109,7 +109,6 @@ for (let { func, iconPropertyName, attributeName } of [
             });
             describe(`and ${attributeName} is provided`, () => {
                 beforeEach(() => {
-                    // eslint-disable-next-line sonarjs/updated-loop-counter
                     attributeName = 'blue';
                 });
                 it(`returns the icon.${iconPropertyName} value`, () => {
@@ -119,7 +118,6 @@ for (let { func, iconPropertyName, attributeName } of [
             });
             describe(`and ${attributeName} is \`undefined\``, () => {
                 beforeEach(() => {
-                    // eslint-disable-next-line sonarjs/updated-loop-counter
                     attributeName = undefined;
                 });
                 it(`returns the icon.${iconPropertyName} value`, () => {
