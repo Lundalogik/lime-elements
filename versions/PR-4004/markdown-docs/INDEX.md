@@ -1,6 +1,6 @@
 # Lime Elements Documentation
 
-**Version 39.11.1**
+**Version 39.12.5**
 
 A comprehensive design system and component library built with Stencil.
 
@@ -16,7 +16,7 @@ npm install @limetech/lime-elements
 <limel-button primary label="Hello World"></limel-button>
 ```
 
-## Components (68)
+## Components (69)
 
 | [3d Hover Effect Glow](components/3d-hover-effect-glow/readme.md) | [Action Bar](components/action-bar/readme.md) | [Ai Avatar](components/ai-avatar/readme.md) |
 | --- | --- | --- | 
@@ -34,14 +34,14 @@ npm install @limetech/lime-elements
 | [Hotkey](components/hotkey/readme.md) | [Icon](components/icon/readme.md) | [Icon Button](components/icon-button/readme.md) |
 | [Info Tile](components/info-tile/readme.md) | [Input Field](components/input-field/readme.md) | [Linear Progress](components/linear-progress/readme.md) |
 | [List](components/list/readme.md) | [List Item](components/list-item/readme.md) | [Markdown](components/markdown/readme.md) |
-| [Menu](components/menu/readme.md) | [Menu List](components/menu-list/readme.md) | [Menu Surface](components/menu-surface/readme.md) |
-| [Notched Outline](components/notched-outline/readme.md) | [Picker](components/picker/readme.md) | [Popover](components/popover/readme.md) |
-| [Popover Surface](components/popover-surface/readme.md) | [Portal](components/portal/readme.md) | [Profile Picture](components/profile-picture/readme.md) |
-| [Progress Flow](components/progress-flow/readme.md) | [Radio Button Group](components/radio-button-group/readme.md) | [Select](components/select/readme.md) |
-| [Shortcut](components/shortcut/readme.md) | [Slider](components/slider/readme.md) | [Snackbar](components/snackbar/readme.md) |
-| [Spinner](components/spinner/readme.md) | [Split Button](components/split-button/readme.md) | [Switch](components/switch/readme.md) |
-| [Tab Bar](components/tab-bar/readme.md) | [Tab Panel](components/tab-panel/readme.md) | [Table](components/table/readme.md) |
-| [Text Editor](components/text-editor/readme.md) | [Tooltip](components/tooltip/readme.md) |
+| [Masonry Layout](components/masonry-layout/readme.md) | [Menu](components/menu/readme.md) | [Menu List](components/menu-list/readme.md) |
+| [Menu Surface](components/menu-surface/readme.md) | [Notched Outline](components/notched-outline/readme.md) | [Picker](components/picker/readme.md) |
+| [Popover](components/popover/readme.md) | [Popover Surface](components/popover-surface/readme.md) | [Portal](components/portal/readme.md) |
+| [Profile Picture](components/profile-picture/readme.md) | [Progress Flow](components/progress-flow/readme.md) | [Radio Button Group](components/radio-button-group/readme.md) |
+| [Select](components/select/readme.md) | [Shortcut](components/shortcut/readme.md) | [Slider](components/slider/readme.md) |
+| [Snackbar](components/snackbar/readme.md) | [Spinner](components/spinner/readme.md) | [Split Button](components/split-button/readme.md) |
+| [Switch](components/switch/readme.md) | [Tab Bar](components/tab-bar/readme.md) | [Tab Panel](components/tab-panel/readme.md) |
+| [Table](components/table/readme.md) | [Text Editor](components/text-editor/readme.md) | [Tooltip](components/tooltip/readme.md) |
 
 
 ## Design Guidelines
