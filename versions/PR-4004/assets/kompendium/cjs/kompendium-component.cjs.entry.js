@@ -2,7 +2,7 @@
 
 var index = require('./index-DYiJ6dQL.js');
 var methods = require('./methods-DoA78dOH.js');
-var _commonjsHelpers = require('./_commonjsHelpers-B83fTs8d.js');
+var _commonjsHelpers = require('./_commonjsHelpers-BJu3ubxk.js');
 var anchorScroll = require('./anchor-scroll-BmplAyR0.js');
 
 function EventList({ events, id, }) {
