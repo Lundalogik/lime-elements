@@ -30,7 +30,7 @@ describe('sanitizeEmailHTML', () => {
             const result = await sanitizeEmailHTML(
                 `<a href="javascript:alert(1)">click</a>`
             );
-            // eslint-disable-next-line sonarjs/code-eval -- Testing sanitizer strips malicious URLs
+
             expect(result).not.toContain(`javascript:`);
         });
     });
