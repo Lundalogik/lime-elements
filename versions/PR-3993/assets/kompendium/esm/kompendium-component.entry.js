@@ -1,6 +1,6 @@
 import { h, r as registerInstance, a as getElement } from './index-9UrzenzW.js';
 import { P as PropertyList, M as MethodList } from './methods-BAjd6f7g.js';
-import { g as getDefaultExportFromCjs } from './_commonjsHelpers-E-ZsRS8r.js';
+import { g as getDefaultExportFromCjs } from './_commonjsHelpers-BFTU3MAI.js';
 import { g as getRoute, s as scrollToElement } from './anchor-scroll-BAGXN2n6.js';
 
 function EventList({ events, id, }) {

@@ -11,6 +11,7 @@
 | `emptyResultMessage` | `empty-result-message` | Message to display when search returns 0 results.                                                                                                                                                                                                  | `string`                                                                                                                                                             | `undefined`                     |
 | `gridLayout`         | `grid-layout`          | Renders list items in a grid layout, rather than a vertical list                                                                                                                                                                                   | `boolean`                                                                                                                                                            | `false`                         |
 | `items`              | --                     | A list of items and separators to show in the menu.                                                                                                                                                                                                | `(ListSeparator \| MenuItem<any>)[]`                                                                                                                                 | `[]`                            |
+| `keepOpenOnSelect`   | `keep-open-on-select`  | When `true`, the menu stays open after an item is selected.                                                                                                                                                                                        | `boolean`                                                                                                                                                            | `false`                         |
 | `open`               | `open`                 | Sets the open state of the menu.                                                                                                                                                                                                                   | `boolean`                                                                                                                                                            | `false`                         |
 | `openDirection`      | `open-direction`       | Decides the menu's location in relation to its trigger                                                                                                                                                                                             | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom-start'`                |
 | `rootItem`           | --                     | A root breadcrumb item to show above the menu items. Clicking it navigates back from a sub-menu to the root menu.                                                                                                                                  | `BreadcrumbsItem`                                                                                                                                                    | `DEFAULT_ROOT_BREADCRUMBS_ITEM` |
@@ -49,6 +50,7 @@
  - [limel-example-menu-grid](examples)
  - [limel-example-menu-hotkeys](examples)
  - [limel-example-menu-icons](examples)
+ - [limel-example-menu-keep-open](examples)
  - [limel-example-menu-notification](examples)
  - [limel-example-menu-open-direction](examples)
  - [limel-example-menu-open-sub-menu-programmatically](examples)
@@ -104,6 +106,7 @@ graph TD;
   limel-example-menu-grid --> limel-menu
   limel-example-menu-hotkeys --> limel-menu
   limel-example-menu-icons --> limel-menu
+  limel-example-menu-keep-open --> limel-menu
   limel-example-menu-notification --> limel-menu
   limel-example-menu-open-direction --> limel-menu
   limel-example-menu-open-sub-menu-programmatically --> limel-menu

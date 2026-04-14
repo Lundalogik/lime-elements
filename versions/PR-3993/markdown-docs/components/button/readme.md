@@ -2,6 +2,21 @@
 <!-- Auto Generated Below -->
 
 
+## Overview
+
+Buttons allow users to take actions with a single tap or click.
+They are intentionally designed to look and feel clickable,
+and should clearly communicate the action that will happen
+when the user interacts with them.
+
+The component offers three visual variants — **default**, **primary**,
+and **outlined** — that together establish a hierarchy of actions.
+See the examples below for guidance on when to use each variant.
+
+For more guidance on how to arrange buttons and choose between
+primary and secondary actions, see our
+[Action buttons design guidelines](#/DesignGuidelines/action-buttons.md/).
+
 ## Properties
 
 | Property        | Attribute        | Description                                                                                               | Type             | Default     |
@@ -31,6 +46,7 @@
  - [limel-example-banner-basic](../banner/examples)
  - [limel-example-builtin-field-types-form](../form/examples)
  - [limel-example-button-basic](examples)
+ - [limel-example-button-button-hierarchy](examples)
  - [limel-example-button-click-fail](examples)
  - [limel-example-button-click-success](examples)
  - [limel-example-button-colors](examples)
@@ -121,6 +137,7 @@ graph TD;
   limel-example-banner-basic --> limel-button
   limel-example-builtin-field-types-form --> limel-button
   limel-example-button-basic --> limel-button
+  limel-example-button-button-hierarchy --> limel-button
   limel-example-button-click-fail --> limel-button
   limel-example-button-click-success --> limel-button
   limel-example-button-colors --> limel-button
