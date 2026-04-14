@@ -1,3 +1,10 @@
+## [39.13.0](https://github.com/Lundalogik/lime-elements/compare/v39.12.6...v39.13.0) (2026-04-14)
+
+### Features
+
+
+* **menu:** enable keeping the menu open after selection ([5564114](https://github.com/Lundalogik/lime-elements/commit/55641149e3f0c397b194cead3996de9aa29bace5))
+
 ## [39.12.6](https://github.com/Lundalogik/lime-elements/compare/v39.12.5...v39.12.6) (2026-04-14)
 
 ### Bug Fixes
