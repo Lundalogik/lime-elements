@@ -9,19 +9,20 @@ import { Component, h } from '@stencil/core';
 @Component({
     tag: 'limel-example-button-disabled',
     shadow: true,
+    styleUrl: 'button-disabled.scss',
 })
 export class ButtonDisabledExample {
     public render() {
         return (
-            <limel-button
-                label="My Button"
-                disabled={true}
-                onClick={this.onClick}
-            />
+            <div class="disabled-buttons">
+                <limel-button label="Default" disabled={true} />
+                <limel-button label="Primary" primary={true} disabled={true} />
+                <limel-button
+                    label="Outlined"
+                    outlined={true}
+                    disabled={true}
+                />
+            </div>
         );
-    }
-
-    private onClick() {
-        console.log('This should never happen, since the button is disabled.');
     }
 }
