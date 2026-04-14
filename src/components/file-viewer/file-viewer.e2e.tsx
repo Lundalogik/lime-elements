@@ -1,8 +1,7 @@
 import { render, h } from '@stencil/vitest';
 
 describe('limel-file-viewer', () => {
-    // The old e2e tests relied on Puppeteer serving static files (images, PDFs, etc.)
-    // from the filesystem. The Stencil vitest render doesn't serve files,
+    // The Stencil vitest render doesn't serve files,
     // so we test rendering logic based on URL extension detection.
 
     describe('with image URL', () => {
