@@ -23,6 +23,11 @@ button.mdc-button {
 }
 
 button {
+    --_primary-color: var(
+        --lime-primary-color,
+        var(--limel-theme-primary-color)
+    );
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,42 +45,51 @@ button {
     min-height: 2.25rem;
     width: 100%;
 
-    &:disabled {
-        cursor: not-allowed;
-
-        &.outlined {
-            border-color: rgba(var(--contrast-1700), 0.2);
-        }
-    }
-
     &:not(:disabled) {
         @include mixins.is-elevated-clickable();
         @include mixins.visualize-keyboard-focus;
     }
 
+    &:disabled {
+        cursor: not-allowed;
+    }
+
+    // Primary button
     :host(limel-button[primary]) & {
         &:not(:disabled) {
             color: var(
                 --lime-on-primary-color,
                 var(--limel-theme-on-primary-color)
             );
-            background-color: var(
-                --lime-primary-color,
-                var(--limel-theme-primary-color)
-            );
+            background-color: var(--_primary-color);
         }
         &:disabled {
-            background-color: rgba(var(--contrast-1700), 0.15);
+            background-color: color-mix(
+                in srgb,
+                var(--_primary-color),
+                transparent 80%
+            );
         }
     }
 
+    // Outlined button
     :host(limel-button:not([primary])) & {
         &:not(:disabled) {
-            color: var(--lime-primary-color, var(--limel-theme-primary-color));
+            color: var(--_primary-color);
         }
-        &:disabled {
-            color: rgba(var(--contrast-1600), 0.37);
-            background-color: rgba(var(--contrast-1600), 0.1);
+        &:disabled.outlined {
+            color: color-mix(in srgb, var(--_primary-color), transparent 60%);
+            border-color: color-mix(
+                in srgb,
+                var(--_primary-color),
+                transparent 70%
+            );
+        }
+
+        // Default button
+        &:disabled:not(.outlined) {
+            color: rgba(var(--contrast-1100), 0.37);
+            background-color: rgba(var(--contrast-900), 0.1);
         }
     }
 }
@@ -145,7 +159,7 @@ svg {
 
 .outlined {
     border: 1px solid;
-    border-color: var(--lime-primary-color, var(--limel-theme-primary-color));
+    border-color: var(--_primary-color);
 }
 
 @keyframes shake {

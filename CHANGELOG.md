@@ -1,3 +1,10 @@
+## [39.12.6](https://github.com/Lundalogik/lime-elements/compare/v39.12.5...v39.12.6) (2026-04-14)
+
+### Bug Fixes
+
+
+* **button:** add distinct disabled styles for default, primary and outlined variants ([46bf584](https://github.com/Lundalogik/lime-elements/commit/46bf5841467309e96c110c64392ef5623b9ac5b9))
+
 ## [39.12.5](https://github.com/Lundalogik/lime-elements/compare/v39.12.4...v39.12.5) (2026-04-13)
 
 ### Bug Fixes
