@@ -1,14 +1,21 @@
-import { Schema } from 'prosemirror-model';
+import { Fragment, Node, Schema } from 'prosemirror-model';
+import { EditorView } from 'prosemirror-view';
+import { Trigger } from '../../../../text-editor/text-editor.types';
+import { ContentTypeConverter } from '../../../utils/content-type-converter';
 import { createHtmlInserter } from './create-html-inserter';
 
 describe('createHtmlInserter', () => {
-    let mockContentConverter: any;
-    let mockDispatchTransaction: Mock<any>;
+    let mockContentConverter: ContentTypeConverter;
+    let mockDispatchTransaction: Mock<
+        (view: EditorView, startPos: number, fragment: Fragment | Node) => void
+    >;
     let schema: Schema;
+    let trigger: Trigger;
 
     beforeEach(() => {
         mockContentConverter = {
             parseAsHTML: vi.fn((input) => Promise.resolve(`<p>${input}</p>`)),
+            serialize: vi.fn(),
         };
 
         mockDispatchTransaction = vi.fn();
@@ -21,13 +28,15 @@ describe('createHtmlInserter', () => {
             },
             marks: {},
         });
+
+        trigger = { character: '!', position: 0 };
     });
 
     it('resolves after inserting valid HTML into the editor', async () => {
         const inserter = await createHtmlInserter(
-            { state: { schema: schema } } as any, // Mock EditorView
+            { state: { schema: schema } } as EditorView,
             mockContentConverter,
-            0, // startPos
+            trigger,
             mockDispatchTransaction
         );
 
@@ -43,9 +52,9 @@ describe('createHtmlInserter', () => {
 
     it('resolves after handling invalid HTML gracefully', async () => {
         const inserter = await createHtmlInserter(
-            { state: { schema: schema } } as any,
+            { state: { schema: schema } } as EditorView,
             mockContentConverter,
-            0,
+            trigger,
             mockDispatchTransaction
         );
 
@@ -61,9 +70,9 @@ describe('createHtmlInserter', () => {
 
     it('dispatches the correct fragment for nested HTML', async () => {
         const inserter = await createHtmlInserter(
-            { state: { schema: schema } } as any,
+            { state: { schema: schema } } as EditorView,
             mockContentConverter,
-            0,
+            trigger,
             mockDispatchTransaction
         );
 
@@ -94,5 +103,24 @@ describe('createHtmlInserter', () => {
                 ],
             },
         ]);
+    });
+
+    it('reads the current trigger position at dispatch time, not the captured value', async () => {
+        trigger.position = 5;
+
+        const inserter = await createHtmlInserter(
+            { state: { schema: schema } } as EditorView,
+            mockContentConverter,
+            trigger,
+            mockDispatchTransaction
+        );
+
+        // Simulate the position being mapped by appendTransaction
+        trigger.position = 10;
+
+        await inserter('<p>test</p>');
+
+        const dispatchedStartPos = mockDispatchTransaction.mock.calls[0][1];
+        expect(dispatchedStartPos).toBe(10);
     });
 });

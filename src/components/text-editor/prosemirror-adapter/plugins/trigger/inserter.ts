@@ -18,7 +18,7 @@ export const inserterFactory = (
         insertHtml: createHtmlInserter(
             view,
             contentConverter,
-            trigger.position,
+            trigger,
             dispatchTransaction
         ),
         stopTrigger: () => stopTriggerTransaction(view),

@@ -36,6 +36,16 @@ export const getAppendTransactionHandler = (
             return;
         }
 
+        for (const transaction of transactions) {
+            if (transaction.docChanged) {
+                activeTrigger.position = transaction.mapping.map(
+                    activeTrigger.position,
+                    // eslint-disable-next-line unicorn/no-array-method-this-argument -- ProseMirror Mapping#map(pos, assoc), not Array#map
+                    -1
+                );
+            }
+        }
+
         monitorTriggeredText(
             newState.doc,
             activeTrigger,
