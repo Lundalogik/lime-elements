@@ -9,6 +9,8 @@ import { monitorTriggeredText } from './monitor-triggered-text';
 import { getAppendTransactionHandler } from './append-transaction-handler';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
+import { Schema } from 'prosemirror-model';
+import { Trigger } from '../../../../../text-editor/text-editor.types';
 
 describe('getAppendTransactionHandler', () => {
     let getActiveTrigger: Mock<any>;
@@ -139,6 +141,77 @@ describe('getAppendTransactionHandler', () => {
             contentConverter,
             getCurrentView()
         );
+    });
+
+    it('maps the trigger position through document-changing transactions', () => {
+        const schema = new Schema({
+            nodes: {
+                doc: { content: 'block+' },
+                paragraph: { group: 'block', content: 'inline*' },
+                text: { group: 'inline' },
+            },
+            marks: {},
+        });
+
+        const doc = schema.node('doc', null, [
+            schema.node('paragraph', null, [schema.text('hello @world')]),
+        ]);
+
+        const state = EditorState.create({ doc, schema });
+
+        // Insert text before the trigger position, shifting it right
+        const transaction = state.tr.insertText('abc ', 1);
+
+        const trigger: Trigger = { character: '@', position: 7 };
+        getActiveTrigger.mockReturnValue(trigger);
+        vi.mocked(detectTriggerRemoval).mockReturnValue(false);
+
+        const handler = getAppendTransactionHandler(
+            getCurrentView,
+            getActiveTrigger,
+            resetActiveTrigger,
+            contentConverter
+        );
+        handler([transaction], oldState, newState);
+
+        expect(trigger.position).toBe(11);
+    });
+
+    it('maps trigger position cumulatively across multiple transactions', () => {
+        const schema = new Schema({
+            nodes: {
+                doc: { content: 'block+' },
+                paragraph: { group: 'block', content: 'inline*' },
+                text: { group: 'inline' },
+            },
+            marks: {},
+        });
+
+        const doc = schema.node('doc', null, [
+            schema.node('paragraph', null, [schema.text('hello @world')]),
+        ]);
+
+        const state = EditorState.create({ doc, schema });
+
+        // Two transactions that both insert before the trigger
+        const tr1 = state.tr.insertText('ab ', 1);
+        const state2 = state.apply(tr1);
+        const tr2 = state2.tr.insertText('cd ', 1);
+
+        const trigger: Trigger = { character: '@', position: 7 };
+        getActiveTrigger.mockReturnValue(trigger);
+        vi.mocked(detectTriggerRemoval).mockReturnValue(false);
+
+        const handler = getAppendTransactionHandler(
+            getCurrentView,
+            getActiveTrigger,
+            resetActiveTrigger,
+            contentConverter
+        );
+        handler([tr1, tr2], oldState, newState);
+
+        // Position 7 -> 10 (after 'ab ') -> 13 (after 'cd ')
+        expect(trigger.position).toBe(13);
     });
 
     it('handles integration with monitorTriggeredText correctly', () => {

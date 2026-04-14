@@ -1,11 +1,12 @@
 import { Node, DOMParser, Fragment } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
+import { Trigger } from '../../../../text-editor/text-editor.types';
 import { ContentTypeConverter } from '../../../utils/content-type-converter';
 
 export const createHtmlInserter = (
     view: EditorView,
     contentConverter: ContentTypeConverter,
-    startPos: number,
+    trigger: Trigger,
     dispatchTransaction: (
         view: EditorView,
         startPos: number,
@@ -20,6 +21,6 @@ export const createHtmlInserter = (
 
         const fragment = DOMParser.fromSchema(schema).parse(container).content;
 
-        dispatchTransaction(view, startPos, fragment);
+        dispatchTransaction(view, trigger.position, fragment);
     };
 };
