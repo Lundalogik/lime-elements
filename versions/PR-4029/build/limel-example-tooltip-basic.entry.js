@@ -1,0 +1,1 @@
+import{r as e,h as a}from"./index-DBTJNfo7.js";const l=class{constructor(a){e(this,a)}render(){return[a("limel-button",{key:"cc3a51cc52f76ba5cbb446317705577895c09a3a",icon:"search",id:"tooltip-example"}),a("limel-tooltip",{key:"ae0a5301e3405c8d9bab591161959c559b7caeee",label:"Search",helperLabel:"alt + F",elementId:"tooltip-example"})]}};export{l as limel_example_tooltip_basic}
