@@ -15,8 +15,8 @@
     }
 
     &:focus-visible {
-        outline: none;
-        box-shadow: var(--shadow-depth-8-focused);
+        outline: var(--outline-focus-visible);
+        outline-offset: 0.03125rem; // 0.5px
     }
 }
 
@@ -602,7 +602,9 @@ $clickable-normal-state-transitions: (
     }
 
     &:focus-visible {
-        box-shadow: var(--shadow-depth-8-focused), var(--button-shadow-hovered);
+        // box-shadow: var(--shadow-depth-8-focused), var(--button-shadow-hovered);
+        outline: var(--outline-focus-visible);
+        outline-offset: var(--outline-focus-visible-offset);
     }
 
     &:focus-visible:active {
