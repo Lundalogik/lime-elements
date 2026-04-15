@@ -36,6 +36,10 @@
 :host(limel-chip[size='small']) {
     --limel-chip-height: 1.5rem;
     --limel-chip-gap: 0.25rem;
+
+    .text {
+        font-size: var(--limel-theme-default-small-font-size);
+    }
 }
 
 * {
