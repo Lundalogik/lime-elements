@@ -108,6 +108,11 @@ export interface Chip<T = any> {
      * indeterminate progress indicator inside the chip.
      */
     loading?: boolean;
+
+    /**
+     * Set to `true` to visualize the chip in an "invalid" or "error" state.
+     */
+    invalid?: boolean;
 }
 
 /**
