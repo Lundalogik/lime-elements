@@ -1,3 +1,10 @@
+## [39.13.2](https://github.com/Lundalogik/lime-elements/compare/v39.13.1...v39.13.2) (2026-04-15)
+
+### Bug Fixes
+
+
+* **chip:** make font size smaller when `size="small"` ([e53db3b](https://github.com/Lundalogik/lime-elements/commit/e53db3b82dfbcb00eaa1100e911b66b22e58599c))
+
 ## [39.13.1](https://github.com/Lundalogik/lime-elements/compare/v39.13.0...v39.13.1) (2026-04-14)
 
 ### Bug Fixes
