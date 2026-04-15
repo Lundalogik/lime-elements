@@ -4180,6 +4180,7 @@ export interface ListItem<T = any> {
     // @deprecated
     iconColor?: Color;
     image?: Image_2;
+    invalid?: boolean;
     primaryComponent?: ListComponent;
     secondaryText?: string;
     selected?: boolean;
