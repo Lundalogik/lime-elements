@@ -356,6 +356,7 @@ export class Picker {
             image: listItem.image,
             value: listItem,
             menuItems: listItem.actions,
+            invalid: listItem.invalid,
         };
     };
 

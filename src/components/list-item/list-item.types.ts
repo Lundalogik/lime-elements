@@ -50,6 +50,18 @@ export interface ListItem<T = any> {
     selected?: boolean;
 
     /**
+     * Set to `true` to visualize the item in an "invalid" or "error" state.
+     *
+     * :::note
+     * This flag is currently only honoured when the item is rendered as a
+     * chip by `limel-picker`. It has no visual effect in plain lists or
+     * menus today; see the `limel-list` / `limel-menu` roadmap for when
+     * that support is added.
+     * :::
+     */
+    invalid?: boolean;
+
+    /**
      * Value of the list item.
      */
     value?: T;
