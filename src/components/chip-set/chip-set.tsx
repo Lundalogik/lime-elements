@@ -626,6 +626,7 @@ export class ChipSet {
             selected: chip.selected,
             disabled: this.disabled,
             loading: chip.loading,
+            invalid: chip.invalid,
             readonly: readonly,
             type: chipType,
             removable: removable,
