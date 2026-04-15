@@ -83,6 +83,7 @@ export interface Chip<T = any> {
     iconTitle?: string;
     id: number | string;
     image?: Image_2;
+    invalid?: boolean;
     loading?: boolean;
     menuItems?: Array<MenuItem | ListSeparator>;
     removable?: boolean;
