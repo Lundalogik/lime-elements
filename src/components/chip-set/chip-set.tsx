@@ -56,6 +56,7 @@ import { createRandomString } from '../../util/random-string';
  * @exampleComponent limel-example-chip-set-filter
  * @exampleComponent limel-example-chip-set-filter-badge
  * @exampleComponent limel-example-chip-set-input
+ * @exampleComponent limel-example-chip-set-invalid-chips
  * @exampleComponent limel-example-chip-set-input-type-with-menu-items
  * @exampleComponent limel-example-chip-set-input-type-text
  * @exampleComponent limel-example-chip-set-input-type-search
