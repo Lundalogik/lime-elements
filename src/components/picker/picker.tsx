@@ -661,6 +661,7 @@ export class Picker {
 
     private handleChange(event: LimelChipSetCustomEvent<Chip | Chip[]>) {
         event.stopPropagation();
+        this.textValue = '';
 
         let newValue = null;
         if (this.multiple) {
