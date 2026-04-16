@@ -1,3 +1,10 @@
+## [39.13.3](https://github.com/Lundalogik/lime-elements/compare/v39.13.2...v39.13.3) (2026-04-16)
+
+### Bug Fixes
+
+
+* **picker:** reset search query when a value is selected or removed ([1faaeac](https://github.com/Lundalogik/lime-elements/commit/1faaeacc63e2131896e48466fce614cf2c541237)), closes [#4031](https://github.com/Lundalogik/lime-elements/issues/4031)
+
 ## [39.13.2](https://github.com/Lundalogik/lime-elements/compare/v39.13.1...v39.13.2) (2026-04-15)
 
 ### Bug Fixes
