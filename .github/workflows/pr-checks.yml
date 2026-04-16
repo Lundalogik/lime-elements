@@ -65,6 +65,23 @@ jobs:
       - uses: wagoid/commitlint-github-action@b948419dd99f3fd78a6548d48f94e3df7f6bf3ed # v6.2.1
         if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
 
+  sonarcloud:
+    name: SonarCloud
+    if: >-
+      github.actor != 'dependabot[bot]' &&
+      github.event_name != 'merge_group' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@299e4b793aaa83bf2aba7c9c14bedbb485688ec4 # v7.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   autosquash:
     name: Block Autosquash Commits
     runs-on: ubuntu-latest

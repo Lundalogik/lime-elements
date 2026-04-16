@@ -16,11 +16,30 @@
     align-items: center;
     min-width: 0;
     max-width: min(var(--chip-max-width, 100%), 25rem);
+
+    // Invisible baseline anchor.
+    // An inline-flex container with `align-items: center` synthesizes its
+    // CSS baseline at the bottom edge, which makes `vertical-align: baseline`
+    // useless for consumers embedding a chip in running text. This pseudo
+    // participates in baseline alignment, so the host's CSS baseline becomes
+    // the pseudo's text baseline. With `line-height` equal to the chip height
+    // and the same font-size as `.text`, that baseline sits at exactly the
+    // same vertical position as the centered `.text` element's baseline.
+    &::before {
+        content: '\200b'; // zero-width space
+        align-self: baseline;
+        line-height: var(--limel-chip-height);
+        font-size: var(--limel-theme-default-font-size, 0.875rem);
+    }
 }
 
 :host(limel-chip[size='small']) {
     --limel-chip-height: 1.5rem;
     --limel-chip-gap: 0.25rem;
+
+    .text {
+        font-size: var(--limel-theme-default-small-font-size);
+    }
 }
 
 * {
