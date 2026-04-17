@@ -1,3 +1,10 @@
+## [39.14.0](https://github.com/Lundalogik/lime-elements/compare/v39.13.3...v39.14.0) (2026-04-17)
+
+### Features
+
+
+* **form:** upgrade `@rjsf/core` from v2 to v6 ([5d60740](https://github.com/Lundalogik/lime-elements/commit/5d607405883aa8fd35358348171f16b5af072053))
+
 ## [39.13.3](https://github.com/Lundalogik/lime-elements/compare/v39.13.2...v39.13.3) (2026-04-16)
 
 ### Bug Fixes
