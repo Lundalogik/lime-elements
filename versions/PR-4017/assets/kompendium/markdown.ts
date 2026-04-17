@@ -1,13 +1,17 @@
-import unified from 'unified';
-import markdown from 'remark-parse';
-import frontmatter from 'remark-frontmatter';
-import parseFrontmatter from 'remark-parse-yaml';
-import admonitions from 'remark-admonitions';
-import remark2rehype from 'remark-rehype';
-import raw from 'rehype-raw';
-import slug from 'rehype-slug';
-import html from 'rehype-stringify';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkFrontmatter from 'remark-frontmatter';
+import remarkDirective from 'remark-directive';
+import remarkGfm from 'remark-gfm';
+import remarkRehype from 'remark-rehype';
+import rehypeRaw from 'rehype-raw';
+import rehypeSlug from 'rehype-slug';
+import rehypeStringify from 'rehype-stringify';
 import { saveFrontmatter } from './markdown-frontmatter';
+import {
+    admonitions,
+    normalizeLegacyAdmonitions,
+} from './markdown-admonitions';
 import { kompendiumCode } from './markdown-code';
 import { typeLinks } from './markdown-typelinks';
 
@@ -21,21 +25,25 @@ export interface File {
 }
 
 export async function markdownToHtml(text: string, types = []): Promise<File> {
-    return new Promise((resolve) => {
-        unified()
-            .use(markdown)
-            .use(frontmatter)
-            .use(parseFrontmatter)
-            .use(saveFrontmatter)
-            .use(admonitions, { icons: 'none' })
-            .use(remark2rehype, { allowDangerousHtml: true })
-            .use(raw)
-            .use(slug)
-            .use(typeLinks, { types: types })
-            .use(kompendiumCode)
-            .use(html)
-            .process(text, (_, file) => {
-                resolve(file);
-            });
-    });
+    const normalized = normalizeLegacyAdmonitions(text);
+
+    const file = await unified()
+        .use(remarkParse)
+        .use(remarkGfm)
+        .use(remarkFrontmatter)
+        .use(saveFrontmatter)
+        .use(remarkDirective)
+        .use(admonitions)
+        .use(remarkRehype, { allowDangerousHtml: true })
+        .use(rehypeRaw)
+        .use(rehypeSlug)
+        .use(typeLinks, { types: types })
+        .use(kompendiumCode)
+        .use(rehypeStringify)
+        .process(normalized);
+
+    return {
+        data: file.data as File['data'],
+        toString: () => file.toString(),
+    };
 }
