@@ -1,3 +1,10 @@
+## [39.14.1](https://github.com/Lundalogik/lime-elements/compare/v39.14.0...v39.14.1) (2026-04-20)
+
+### Bug Fixes
+
+
+* **text-editor:** correctly map trigger position through document changes ([7bbd3d3](https://github.com/Lundalogik/lime-elements/commit/7bbd3d38d60d3b21048a364caaf47dd027768d88))
+
 ## [39.14.0](https://github.com/Lundalogik/lime-elements/compare/v39.13.3...v39.14.0) (2026-04-17)
 
 ### Features
