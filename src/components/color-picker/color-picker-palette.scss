@@ -77,7 +77,7 @@ limel-input-field {
 }
 
 button.swatch {
-    all: unset;
+    @include mixins.reset-button-user-agent-styles;
     position: relative;
     display: flex;
     justify-content: center;

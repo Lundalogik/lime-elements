@@ -6,7 +6,7 @@ limel-popover {
 }
 
 button[slot='trigger'] {
-    all: unset;
+    @include mixins.reset-button-user-agent-styles;
 
     @include mixins.is-flat-clickable(
         $color--hovered: rgb(var(--color-sky-dark)),

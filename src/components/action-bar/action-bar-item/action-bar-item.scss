@@ -14,7 +14,7 @@ limel-action-bar-item {
 }
 
 button {
-    all: unset;
+    @include mixins.reset-button-user-agent-styles;
 
     &:not([disabled]) {
         @include mixins.is-flat-inset-clickable(

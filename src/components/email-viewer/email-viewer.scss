@@ -172,7 +172,7 @@ limel-collapsible-section {
     box-shadow: var(--shadow-depth-8);
 
     button {
-        all: unset;
+        @include mixins.reset-button-user-agent-styles;
         flex-shrink: 0;
         border-radius: 0.375rem;
         padding: 0.25rem 0.5rem;

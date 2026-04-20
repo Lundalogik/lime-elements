@@ -7,7 +7,7 @@ limel-drag-handle {
 }
 
 button.limel-drag-handle {
-    all: unset;
+    @include mixins.reset-button-user-agent-styles;
     @include mixins.visualize-keyboard-focus();
     @include mixins.is-flat-clickable(
         $color--hovered: var(--mdc-theme-primary),

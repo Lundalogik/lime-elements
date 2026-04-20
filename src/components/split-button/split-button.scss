@@ -66,8 +66,8 @@ limel-menu {
     }
 }
 
-.menu-trigger {
-    all: unset;
+button.menu-trigger {
+    @include mixins.reset-button-user-agent-styles;
 
     text-align: center;
     font-weight: bold;

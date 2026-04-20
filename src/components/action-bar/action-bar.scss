@@ -97,8 +97,8 @@
     }
 }
 
-.expand-shrink {
-    all: unset;
+button.expand-shrink {
+    @include mixins.reset-button-user-agent-styles;
     box-sizing: border-box;
     border-radius: 50%;
 

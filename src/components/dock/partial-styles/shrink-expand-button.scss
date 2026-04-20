@@ -1,8 +1,8 @@
 @use '../../../style/mixins';
 @use '../../../style/functions';
 
-.expand-shrink {
-    all: unset;
+button.expand-shrink {
+    @include mixins.reset-button-user-agent-styles;
     box-sizing: border-box;
 
     @include mixins.is-flat-clickable();
