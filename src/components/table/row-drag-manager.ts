@@ -19,7 +19,7 @@ export class RowDragManager {
     constructor(
         private readonly pool: ElementPool,
         private readonly reorderEvent: EventEmitter<RowReorderEvent<any>>,
-        private readonly language: Languages
+        private readonly getLanguage: () => Languages
     ) {
         this.handleRowMoved = this.handleRowMoved.bind(this);
     }
@@ -140,7 +140,7 @@ export class RowDragManager {
             const element = this.pool.get(LIMEL_DRAG_HANDLE);
             setElementProperties(element, {
                 dragDirection: 'vertical',
-                language: this.language,
+                language: this.getLanguage(),
             });
 
             return element;

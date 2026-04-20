@@ -672,7 +672,7 @@ export class Table {
             this.rowDragManager = new RowDragManager(
                 this.pool,
                 this.reorder,
-                this.language
+                () => this.language
             );
         }
     }
