@@ -27,6 +27,16 @@
     .has-movable-rows & {
         left: var(--limel-table-drag-handle-width);
     }
+
+    // During a row-drag, let mousemove reach the row element so Tabulator
+    // can track the drop target — otherwise the checkbox child captures
+    // events and the row never registers the hover.
+    .tabulator-block-select & {
+        &,
+        * {
+            pointer-events: none !important;
+        }
+    }
 }
 
 .limel-table--row-selector,
@@ -86,6 +96,12 @@
             rgb(var(--table-header-background-color--hover), 0)
         );
         left: 0;
+    }
+}
+
+.has-movable-columns.has-movable-rows .tabulator-header {
+    .tabulator-col.limel-table--row-selector {
+        left: var(--limel-table-drag-handle-width);
     }
 }
 

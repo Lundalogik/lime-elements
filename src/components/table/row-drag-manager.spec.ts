@@ -274,4 +274,29 @@ describe('RowDragManager', () => {
             expect(() => manager.destroy()).not.toThrow();
         });
     });
+
+    describe('post-drop click gate', () => {
+        beforeEach(() => {
+            vi.useFakeTimers();
+        });
+
+        afterEach(() => {
+            vi.useRealTimers();
+        });
+
+        it('is false before any drag has ended', () => {
+            expect(manager.wasDragJustEnded()).toBe(false);
+        });
+
+        it('is true immediately after markDragEnd', () => {
+            manager.markDragEnd();
+            expect(manager.wasDragJustEnded()).toBe(true);
+        });
+
+        it('returns to false after the suppression window elapses', () => {
+            manager.markDragEnd();
+            vi.advanceTimersByTime(500);
+            expect(manager.wasDragJustEnded()).toBe(false);
+        });
+    });
 });

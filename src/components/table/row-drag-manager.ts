@@ -6,6 +6,7 @@ import { RowReorderEvent } from './table.types';
 import { Languages } from '../date-picker/date.types';
 
 const LIMEL_DRAG_HANDLE = 'limel-drag-handle';
+const POST_DROP_CLICK_WINDOW_MS = 250;
 
 /**
  * Provides row drag-and-drop reordering configuration for Tabulator
@@ -13,6 +14,7 @@ const LIMEL_DRAG_HANDLE = 'limel-drag-handle';
  */
 export class RowDragManager {
     private mutationObserver: MutationObserver | null = null;
+    private dragEndTimestamp = 0;
 
     constructor(
         private readonly pool: ElementPool,
@@ -91,6 +93,25 @@ export class RowDragManager {
                 above: true,
             });
         }
+    }
+
+    /**
+     * Tabulator fires `rowMoved` (and `rowMoveCancelled`) from its `mouseup`
+     * handler. The browser may then dispatch a `click` on the drop target,
+     * which would bubble to Tabulator's own click handling and trigger a
+     * spurious row activation. Call this from both events so
+     * {@link wasDragJustEnded} can gate the click.
+     */
+    public readonly markDragEnd = (): void => {
+        this.dragEndTimestamp = Date.now();
+    };
+
+    /**
+     * True if a drag just finished within the post-drop window. Used by the
+     * host to ignore the click that the browser fires after `mouseup`.
+     */
+    public wasDragJustEnded(): boolean {
+        return Date.now() - this.dragEndTimestamp < POST_DROP_CLICK_WINDOW_MS;
     }
 
     private readonly handleCellClick = (ev: Event): void => {
