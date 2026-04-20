@@ -174,9 +174,16 @@ export class TableSelection {
         row: TabulatorRowComponent,
         checked: boolean
     ): void => {
-        const cell = row.getCells()[0];
-        if (cell) {
-            const checkBox = cell.getElement().querySelector(LIMEL_CHECKBOX);
+        // Look up by class instead of cell index: when `movableRows` is
+        // enabled, the drag-handle column occupies index 0 and the
+        // row-selector shifts to index 1. Keep the `.limel-table--row-selector`
+        // class in sync with `getRowSelectorColumnDefinition` if renamed.
+        const checkBox = row
+            .getElement()
+            .querySelector<HTMLLimelCheckboxElement>(
+                `.limel-table--row-selector ${LIMEL_CHECKBOX}`
+            );
+        if (checkBox) {
             checkBox.checked = checked;
         }
     };

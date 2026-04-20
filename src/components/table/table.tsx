@@ -133,7 +133,8 @@ export class Table {
     /**
      * Set to `true` to enable reordering of the rows by dragging them.
      * A drag handle will be rendered at the start of each row.
-     * Only available in `local` mode without pagination.
+     * Listen for the `reorder` event and update the `data` prop accordingly —
+     * the table will not persist the new order on its own.
      */
     @Prop({ reflect: true })
     public movableRows: boolean;
@@ -229,6 +230,9 @@ export class Table {
     /**
      * Emitted when a row has been reordered via drag-and-drop.
      * The event detail describes which row was moved and where it was placed.
+     * The consumer is responsible for updating the `data` prop to reflect the
+     * new order; otherwise the next render will revert the row to its original
+     * position.
      */
     @Event()
     public reorder: EventEmitter<RowReorderEvent<any>>;
@@ -638,6 +642,8 @@ export class Table {
 
         if (this.rowDragManager) {
             tabulator.on('rowMoved', this.rowDragManager.handleRowMoved);
+            tabulator.on('rowMoved', this.rowDragManager.markDragEnd);
+            tabulator.on('rowMoveCancelled', this.rowDragManager.markDragEnd);
         }
 
         tabulator.on('tableBuilt', () => {
@@ -908,6 +914,10 @@ export class Table {
         }
 
         if (event.defaultPrevented) {
+            return;
+        }
+
+        if (this.rowDragManager?.wasDragJustEnded()) {
             return;
         }
 

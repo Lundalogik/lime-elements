@@ -42,12 +42,10 @@ describe('table selection', () => {
         ...rowData: any[]
     ) => Map<any, { checked: boolean }> = (...rowData: any[]) => {
         const rowCheckboxMap = new Map<any, { checked: boolean }>();
-        const makeCell: (row: any, data: any) => CellComponent = (
+        const makeCell: (
             row: any,
-            data: any
-        ) => {
-            const checkbox = { checked: false };
-            rowCheckboxMap.set(data, checkbox);
+            checkbox: { checked: boolean }
+        ) => CellComponent = (row, checkbox) => {
             const cell: any = {
                 getElement: () => ({
                     querySelector: () => checkbox,
@@ -62,11 +60,17 @@ describe('table selection', () => {
             data,
             position
         ) => {
+            const checkbox = { checked: false };
+            rowCheckboxMap.set(data, checkbox);
             const row: Partial<RowComponent> = {
                 getData: () => data,
                 getPosition: () => position,
+                getElement: () =>
+                    ({
+                        querySelector: () => checkbox,
+                    }) as any,
             };
-            row.getCells = () => [makeCell(row, data)];
+            row.getCells = () => [makeCell(row, checkbox)];
 
             return row as any;
         };
