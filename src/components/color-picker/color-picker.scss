@@ -9,7 +9,7 @@
 }
 
 button[slot='trigger'] {
-    all: unset;
+    @include mixins.reset-button-user-agent-styles;
     box-sizing: border-box;
     position: relative;
     isolation: isolate;

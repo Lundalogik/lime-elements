@@ -1,8 +1,8 @@
 @use '../../../style/mixins';
 @use '../../../style/functions';
 
-.button {
-    all: unset;
+button.button {
+    @include mixins.reset-button-user-agent-styles;
     isolation: isolate;
     position: relative;
 

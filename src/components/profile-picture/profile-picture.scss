@@ -31,7 +31,7 @@ button.avatar {
 }
 
 button {
-    all: unset;
+    @include mixins.reset-button-user-agent-styles;
     display: block;
     @include mixins.visualize-keyboard-focus();
 

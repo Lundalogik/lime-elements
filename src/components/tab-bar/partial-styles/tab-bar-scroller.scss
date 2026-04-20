@@ -63,7 +63,7 @@ $space-around-buttons: 0.25rem;
     }
 
     button {
-        all: unset;
+        @include mixins.reset-button-user-agent-styles;
         display: flex;
         align-items: center;
         justify-content: center;
