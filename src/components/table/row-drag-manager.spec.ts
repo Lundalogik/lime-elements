@@ -33,13 +33,19 @@ describe('RowDragManager', () => {
     let manager: RowDragManager;
     let mockPool: ReturnType<typeof createMockPool>;
     let mockEmitter: ReturnType<typeof createMockEventEmitter>;
+    let language: 'en' | 'sv';
 
     beforeEach(() => {
         vi.clearAllMocks();
         mockPool = createMockPool();
         mockEmitter = createMockEventEmitter();
+        language = 'en';
 
-        manager = new RowDragManager(mockPool as any, mockEmitter as any, 'en');
+        manager = new RowDragManager(
+            mockPool as any,
+            mockEmitter as any,
+            () => language
+        );
     });
 
     describe('getRowHeaderDefinition', () => {
@@ -70,6 +76,19 @@ describe('RowDragManager', () => {
             expect(setElementProperties).toHaveBeenCalledWith(
                 expect.any(HTMLElement),
                 { dragDirection: 'vertical', language: 'en' }
+            );
+        });
+
+        it('reads language lazily so host prop changes propagate', () => {
+            const definition = manager.getRowHeaderDefinition() as any;
+            const formatter = definition.formatter as () => HTMLElement;
+
+            language = 'sv';
+            formatter();
+
+            expect(setElementProperties).toHaveBeenLastCalledWith(
+                expect.any(HTMLElement),
+                { dragDirection: 'vertical', language: 'sv' }
             );
         });
 
