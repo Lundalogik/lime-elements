@@ -600,7 +600,7 @@ describe('sanitizeHTML', () => {
             const result = await sanitizeHTML(
                 '<a href="javascript:alert(1)">Click</a>'
             );
-            // eslint-disable-next-line sonarjs/code-eval -- Testing sanitizer strips malicious URLs
+
             expect(result).not.toContain('javascript:');
             expect(result).toEqualHtml('<a>Click</a>');
         });
@@ -609,7 +609,7 @@ describe('sanitizeHTML', () => {
             const result = await sanitizeHTML(
                 '<img src="javascript:alert(1)">'
             );
-            // eslint-disable-next-line sonarjs/code-eval -- Testing sanitizer strips malicious URLs
+
             expect(result).not.toContain('javascript:');
             expect(result).toEqualHtml('<img>');
         });

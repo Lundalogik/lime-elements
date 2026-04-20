@@ -1,3 +1,52 @@
+## [39.14.0](https://github.com/Lundalogik/lime-elements/compare/v39.13.3...v39.14.0) (2026-04-17)
+
+### Features
+
+
+* **form:** upgrade `@rjsf/core` from v2 to v6 ([5d60740](https://github.com/Lundalogik/lime-elements/commit/5d607405883aa8fd35358348171f16b5af072053))
+
+## [39.13.3](https://github.com/Lundalogik/lime-elements/compare/v39.13.2...v39.13.3) (2026-04-16)
+
+### Bug Fixes
+
+
+* **picker:** reset search query when a value is selected or removed ([1faaeac](https://github.com/Lundalogik/lime-elements/commit/1faaeacc63e2131896e48466fce614cf2c541237)), closes [#4031](https://github.com/Lundalogik/lime-elements/issues/4031)
+
+## [39.13.2](https://github.com/Lundalogik/lime-elements/compare/v39.13.1...v39.13.2) (2026-04-15)
+
+### Bug Fixes
+
+
+* **chip:** make font size smaller when `size="small"` ([e53db3b](https://github.com/Lundalogik/lime-elements/commit/e53db3b82dfbcb00eaa1100e911b66b22e58599c))
+
+## [39.13.1](https://github.com/Lundalogik/lime-elements/compare/v39.13.0...v39.13.1) (2026-04-14)
+
+### Bug Fixes
+
+
+* **chip:** expose correct CSS baseline for inline text alignment ([bb19a89](https://github.com/Lundalogik/lime-elements/commit/bb19a89af67ea1e5c631f2f8d7b0e45249f11006))
+
+## [39.13.0](https://github.com/Lundalogik/lime-elements/compare/v39.12.6...v39.13.0) (2026-04-14)
+
+### Features
+
+
+* **menu:** enable keeping the menu open after selection ([5564114](https://github.com/Lundalogik/lime-elements/commit/55641149e3f0c397b194cead3996de9aa29bace5))
+
+## [39.12.6](https://github.com/Lundalogik/lime-elements/compare/v39.12.5...v39.12.6) (2026-04-14)
+
+### Bug Fixes
+
+
+* **button:** add distinct disabled styles for default, primary and outlined variants ([46bf584](https://github.com/Lundalogik/lime-elements/commit/46bf5841467309e96c110c64392ef5623b9ac5b9))
+
+## [39.12.5](https://github.com/Lundalogik/lime-elements/compare/v39.12.4...v39.12.5) (2026-04-13)
+
+### Bug Fixes
+
+
+* **markdown:** avoid unnecessary destruction and recreation of custom elements when value is updated ([effb618](https://github.com/Lundalogik/lime-elements/commit/effb6180cf41dcdf5cc9b19c114011b547207512)), closes [Lundalogik/crm-insights-and-intelligence#237](https://github.com/Lundalogik/crm-insights-and-intelligence/issues/237)
+
 ## [39.12.4](https://github.com/Lundalogik/lime-elements/compare/v39.12.3...v39.12.4) (2026-04-10)
 
 ### Bug Fixes

@@ -1,15 +1,11 @@
 import React from 'react';
-import { isObjectType } from '../schema';
-import { CollapsibleItemTemplate } from './array-field-collapsible-item';
-import { SimpleItemTemplate } from './array-field-simple-item';
 import { renderDescription, renderTitle } from './common';
-import { ArrayFieldItem, ArrayFieldTemplateProps } from './types';
+import { ArrayFieldTemplateProps } from './types';
 import { FormSchema } from '../form.types';
 import Sortable, { SortableEvent } from 'sortablejs';
+import { ArrayFieldContext, ArrayFieldOptions } from './array-context';
 
-interface ArrayItemControls {
-    allowItemRemoval: boolean;
-}
+export const ARRAY_REORDER_EVENT = 'arrayReorder';
 
 interface ArrayFieldTemplateState {
     order: number[];
@@ -32,7 +28,9 @@ export class ArrayFieldTemplate extends React.Component<
     private draggedItemIndex?: number;
     private dropElevationTimeout?: ReturnType<typeof setTimeout>;
     private dropElevationTarget?: HTMLElement;
-    private itemByIndex: Map<number, ArrayFieldItem> = new Map();
+    private cachedContextValue: ArrayFieldOptions | null = null;
+    private cachedSchema?: FormSchema;
+    private cachedFormData?: any[];
 
     public constructor(props: ArrayFieldTemplateProps) {
         super(props);
@@ -78,26 +76,27 @@ export class ArrayFieldTemplate extends React.Component<
     }
 
     public render() {
-        const controls = this.getItemControls();
-        const { ordered: orderedItems, byIndex } = this.getOrderedItems();
-        this.itemByIndex = byIndex;
+        const orderedItems = this.getOrderedItems();
+        const contextValue = this.getContextValue();
 
         return React.createElement(
-            'div',
-            {},
-            renderTitle(this.props.title),
-            renderDescription(this.props.schema.description),
+            ArrayFieldContext.Provider,
+            { value: contextValue },
             React.createElement(
                 'div',
-                {
-                    className: 'array-items',
-                    ref: this.setContainer,
-                },
-                orderedItems.map((item, index) =>
-                    this.renderItem(item, index, controls)
-                )
-            ),
-            this.renderAddButton()
+                {},
+                renderTitle(this.props.title),
+                renderDescription(this.props.schema.description),
+                React.createElement(
+                    'div',
+                    {
+                        className: 'array-items',
+                        ref: this.setContainer,
+                    },
+                    orderedItems
+                ),
+                this.renderAddButton()
+            )
         );
     }
 
@@ -114,48 +113,10 @@ export class ArrayFieldTemplate extends React.Component<
         });
     }
 
-    private getItemControls(): ArrayItemControls {
-        return {
-            allowItemRemoval: this.canRemoveItems(),
-        };
-    }
-
     private readonly handleAddClick = (event: MouseEvent) => {
         event.stopPropagation();
         this.props.onAddClick(event);
     };
-
-    private renderItem(
-        item: ArrayFieldItem,
-        index: number,
-        controls: ArrayItemControls
-    ) {
-        const { schema, formData, formContext } = this.props;
-        const itemIndex = item.index ?? index;
-        const allowItemReorder = this.isItemReorderable(item);
-
-        if (isObjectType(schema.items as FormSchema)) {
-            return React.createElement(CollapsibleItemTemplate, {
-                key: item.key,
-                item: item,
-                data: Array.isArray(formData) ? formData[itemIndex] : undefined,
-                schema: schema,
-                formSchema: formContext.schema,
-                index: itemIndex,
-                allowItemRemoval: controls.allowItemRemoval,
-                allowItemReorder: allowItemReorder,
-            });
-        }
-
-        return React.createElement(SimpleItemTemplate, {
-            key: item.key,
-            item: item,
-            index: itemIndex,
-            dataIndex: itemIndex,
-            allowItemRemoval: controls.allowItemRemoval,
-            allowItemReorder: allowItemReorder,
-        });
-    }
 
     private readonly setContainer = (element: HTMLDivElement | null) => {
         if (this.container === element) {
@@ -167,24 +128,22 @@ export class ArrayFieldTemplate extends React.Component<
         this.setupDragController();
     };
 
-    private getOrderedItems(): {
-        ordered: ArrayFieldItem[];
-        byIndex: Map<number, ArrayFieldItem>;
-    } {
+    private getOrderedItems(): React.ReactElement[] {
         const items = this.props.items ?? [];
-        const byIndex = new Map<number, ArrayFieldItem>();
-
-        let entryIndex = 0;
-        for (const entry of items) {
-            byIndex.set(entry.index ?? entryIndex, entry);
-            entryIndex += 1;
+        if (items.length === 0) {
+            return [];
         }
 
-        const ordered: ArrayFieldItem[] = [];
+        const byKey = new Map<number, React.ReactElement>();
+        for (const [index, item] of items.entries()) {
+            byKey.set(index, item);
+        }
+
+        const ordered: React.ReactElement[] = [];
         const used = new Set<number>();
 
         for (const index of this.state.order) {
-            const entry = byIndex.get(index);
+            const entry = byKey.get(index);
             if (!entry) {
                 continue;
             }
@@ -193,16 +152,13 @@ export class ArrayFieldTemplate extends React.Component<
             used.add(index);
         }
 
-        for (const [index, entry] of byIndex.entries()) {
+        for (const [index, entry] of byKey.entries()) {
             if (!used.has(index)) {
                 ordered.push(entry);
             }
         }
 
-        return {
-            ordered,
-            byIndex,
-        };
+        return ordered;
     }
 
     private readonly handleSortStart = (event: SortableEvent) => {
@@ -267,25 +223,12 @@ export class ArrayFieldTemplate extends React.Component<
             return;
         }
 
-        const targetItem = (this.props.items ?? []).find((entry) => {
-            return (entry.index ?? -1) === draggedItemIndex;
-        });
-
-        if (!targetItem || typeof targetItem.onReorderClick !== 'function') {
-            this.scheduleDropElevationRemoval();
-            return;
-        }
-
-        requestAnimationFrame(() => {
-            const reorder = targetItem.onReorderClick(
-                draggedItemIndex,
-                toPosition
-            );
-
-            if (typeof reorder === 'function') {
-                reorder();
-            }
-        });
+        this.container?.dispatchEvent(
+            new CustomEvent(ARRAY_REORDER_EVENT, {
+                bubbles: true,
+                detail: { fromIndex: fromPosition, toIndex: toPosition },
+            })
+        );
 
         this.scheduleDropElevationRemoval();
     };
@@ -296,8 +239,10 @@ export class ArrayFieldTemplate extends React.Component<
             return;
         }
 
-        const reorderableCount = this.getReorderableOrder().length;
-        if (reorderableCount < 2) {
+        const reorderableItems = this.container.querySelectorAll(
+            `:scope > ${DRAGGABLE_ITEM_SELECTOR}`
+        );
+        if (reorderableItems.length < 2) {
             this.teardownDragController();
             return;
         }
@@ -354,42 +299,6 @@ export class ArrayFieldTemplate extends React.Component<
         const limeOptions = schema?.lime || {};
 
         return limeOptions.allowItemReorder !== false;
-    }
-
-    private canRemoveItems(): boolean {
-        const schema = this.props.schema as FormSchema;
-        const limeOptions = schema?.lime || {};
-
-        return limeOptions.allowItemRemoval !== false;
-    }
-
-    private isItemReorderable(item: ArrayFieldItem): boolean {
-        return (
-            this.canReorderItems() &&
-            Boolean(item?.hasMoveDown || item?.hasMoveUp)
-        );
-    }
-
-    private isIndexReorderable(index: number): boolean {
-        const item = this.itemByIndex.get(index);
-
-        if (!item) {
-            return false;
-        }
-
-        return this.isItemReorderable(item);
-    }
-
-    private getReorderableOrder(order: number[] = this.state.order): number[] {
-        const result: number[] = [];
-
-        for (const index of order) {
-            if (this.isIndexReorderable(index)) {
-                result.push(index);
-            }
-        }
-
-        return result;
     }
 
     private readOrderFromDom(): number[] {
@@ -481,7 +390,26 @@ export class ArrayFieldTemplate extends React.Component<
         return true;
     }
 
-    private extractIndices(items: ArrayFieldItem[] = []): number[] {
-        return (items ?? []).map((item, index) => item.index ?? index);
+    private extractIndices(items: React.ReactElement[] = []): number[] {
+        return (items ?? []).map((_, index) => index);
+    }
+
+    private getContextValue(): ArrayFieldOptions {
+        const schema = this.props.schema as FormSchema;
+        const formData = (this.props.formData ?? []) as any[];
+
+        if (
+            this.cachedContextValue &&
+            this.cachedSchema === schema &&
+            this.cachedFormData === formData
+        ) {
+            return this.cachedContextValue;
+        }
+
+        this.cachedSchema = schema;
+        this.cachedFormData = formData;
+        this.cachedContextValue = { arraySchema: schema, formData };
+
+        return this.cachedContextValue;
     }
 }

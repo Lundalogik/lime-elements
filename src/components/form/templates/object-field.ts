@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     FormLayoutType,
     LimeLayoutOptions,
@@ -10,19 +10,27 @@ import { GridLayout } from './grid-layout';
 import { RowLayout } from './row-layout';
 import { LimeObjectFieldTemplateProps, ObjectFieldProperty } from './types';
 import { JSONSchema7 } from 'json-schema';
+import { FieldPathId } from '@rjsf/utils';
 import { getHelpComponent } from '../help';
+import { ArrayFieldContext } from './array-context';
 
 export const ObjectFieldTemplate = (props: LimeObjectFieldTemplateProps) => {
-    const id = props.idSchema.$id;
+    const arrayContext = useContext(ArrayFieldContext);
+    const id = props.fieldPathId.$id;
+
+    if (arrayContext && id !== 'root') {
+        return React.createElement(
+            ArrayFieldContext.Provider,
+            { value: null },
+            renderProperties(props.properties, props.schema)
+        );
+    }
+
     if (id === 'root' || !isCollapsible(props.schema)) {
         return renderFieldWithTitle(props);
     }
 
-    if (isCollapsible(props.schema)) {
-        return renderCollapsibleField(props);
-    }
-
-    return renderProperties(props.properties, props.schema);
+    return renderCollapsibleField(props);
 };
 
 function renderFieldWithTitle(props: LimeObjectFieldTemplateProps) {
@@ -30,7 +38,7 @@ function renderFieldWithTitle(props: LimeObjectFieldTemplateProps) {
         React.Fragment,
         {},
         renderSectionHeader(props),
-        renderDescription(props.description),
+        renderDescription(props.description as string),
         renderProperties(props.properties, props.schema)
     );
 }
@@ -60,29 +68,32 @@ function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
         {
             header: props.title,
             id: getSchemaObjectPropertyPath(
-                props.formContext.schema,
-                props.idSchema
+                props.registry.formContext.schema,
+                props.fieldPathId
             ),
             'is-open': defaultOpen,
         },
         helpElement,
-        renderDescription(props.description),
+        renderDescription(props.description as string),
         renderProperties(props.properties, props.schema)
     );
 }
 
 function getSchemaObjectPropertyPath(
     schema: JSONSchema7,
-    subSchema: JSONSchema7
+    fieldPathId: FieldPathId
 ) {
     const refPrefixLength = 2;
     const matchAllForwardSlashes = /\//g;
-    const rootPath = (schema.$ref as string)
-        ?.replace(matchAllForwardSlashes, '.')
-        .slice(refPrefixLength);
-    const subSchemaPath = subSchema.$id?.replace('_', '.properties.');
+    const rootPath =
+        (schema.$ref as string)
+            ?.replace(matchAllForwardSlashes, '.')
+            .slice(refPrefixLength) ?? '';
+    const subSchemaPath = fieldPathId.path
+        .map((segment) => `.properties.${segment}`)
+        .join('');
 
-    return subSchemaPath.replace('root', rootPath);
+    return `${rootPath}${subSchemaPath}`;
 }
 
 function renderProperties(

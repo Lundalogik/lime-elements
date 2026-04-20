@@ -65,12 +65,12 @@ export class Select extends React.Component {
 function createOption(item: {
     label: string;
     value: string;
-    schema: Record<string, unknown>;
+    schema?: Record<string, unknown>;
 }): Option {
     return {
         text: item.label,
         value: item.value,
-        disabled: !!item.schema.readOnly,
+        disabled: !!item.schema?.readOnly,
     };
 }
 

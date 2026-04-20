@@ -7,9 +7,23 @@ import { Icon } from '../../global/shared-types/icon.types';
 import { getIconName, getIconTitle } from '../icon/get-icon-props';
 
 /**
+ * Buttons allow users to take actions with a single tap or click.
+ * They are intentionally designed to look and feel clickable,
+ * and should clearly communicate the action that will happen
+ * when the user interacts with them.
+ *
+ * The component offers three visual variants — **default**, **primary**,
+ * and **outlined** — that together establish a hierarchy of actions.
+ * See the examples below for guidance on when to use each variant.
+ *
+ * For more guidance on how to arrange buttons and choose between
+ * primary and secondary actions, see our
+ * [Action buttons design guidelines](#/DesignGuidelines/action-buttons.md/).
+ *
  * @exampleComponent limel-example-button-basic
  * @exampleComponent limel-example-button-primary
  * @exampleComponent limel-example-button-outlined
+ * @exampleComponent limel-example-button-button-hierarchy
  * @exampleComponent limel-example-button-disabled
  * @exampleComponent limel-example-button-icon
  * @exampleComponent limel-example-button-loading

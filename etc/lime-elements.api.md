@@ -195,7 +195,6 @@ export namespace Components {
         "divider": string;
         "items": BreadcrumbsItem[];
     }
-    // (undocumented)
     export interface LimelButton {
         "disabled": boolean;
         "icon": string | Icon;
@@ -635,6 +634,7 @@ export namespace Components {
         "emptyResultMessage"?: string;
         "gridLayout": boolean;
         "items": Array<MenuItem | ListSeparator>;
+        "keepOpenOnSelect": boolean;
         "loading": boolean;
         "open": boolean;
         "openDirection": OpenDirection;
@@ -1626,7 +1626,6 @@ export namespace JSX {
         "divider": string;
     }
 
-    // (undocumented)
     export interface LimelButton {
         "disabled"?: boolean;
         "icon"?: string | Icon;
@@ -2836,6 +2835,7 @@ export namespace JSX {
         "emptyResultMessage"?: string;
         "gridLayout"?: boolean;
         "items"?: Array<MenuItem | ListSeparator>;
+        "keepOpenOnSelect"?: boolean;
         "onCancel"?: (event: LimelMenuCustomEvent<void>) => void;
         "onNavigateMenu"?: (event: LimelMenuCustomEvent<MenuItem | null>) => void;
         "onSelect"?: (event: LimelMenuCustomEvent<MenuItem>) => void;
@@ -2857,6 +2857,8 @@ export namespace JSX {
         "emptyResultMessage": string;
         // (undocumented)
         "gridLayout": boolean;
+        // (undocumented)
+        "keepOpenOnSelect": boolean;
         // (undocumented)
         "open": boolean;
         // (undocumented)

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldProps } from '@rjsf/core';
+import { FieldProps } from '@rjsf/utils';
 import { isEmpty } from 'lodash-es';
 
 interface CodeEditorState {
@@ -87,7 +87,7 @@ export class CodeEditor extends React.Component<FieldProps, CodeEditorState> {
             return;
         }
 
-        props.onChange(value);
+        props.onChange(value, props.fieldPathId.path);
         this.setState({ validationError: '', modified: true });
     }
 }
