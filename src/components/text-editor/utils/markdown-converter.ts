@@ -12,6 +12,7 @@ import {
     getImageNodeMarkdownSerializer,
     hasImageNode,
 } from '../prosemirror-adapter/plugins/image/node';
+import { hasCustomElementNode } from './has-custom-element-node';
 import { Languages } from '../../date-picker/date.types';
 
 type MarkdownSerializerFunction = (
@@ -83,8 +84,9 @@ export class MarkdownConverter implements ContentTypeConverter {
 
     public serialize = (view: EditorView): string => {
         if (
-            view.dom.textContent.trim() === '' &&
-            !hasImageNode(view.state.doc)
+            view.state.doc.textContent.trim() === '' &&
+            !hasImageNode(view.state.doc) &&
+            !hasCustomElementNode(view.state.doc, this.customNodes)
         ) {
             return '';
         }
