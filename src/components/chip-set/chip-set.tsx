@@ -540,6 +540,13 @@ export class ChipSet {
             return this.isFull();
         }
 
+        // Keep the input visible while it holds uncommitted text, so typed
+        // content doesn't disappear when focus leaves (e.g. tabbing to a
+        // sibling action).
+        if (this.textValue) {
+            return false;
+        }
+
         // If there are chips in the picker, hide the input to avoid the input
         // being placed on a new line and adding ugly space beneath the chips.
         // If there are no chips, show the input, or the picker will look weird.
