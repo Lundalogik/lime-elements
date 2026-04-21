@@ -707,12 +707,15 @@ export class Picker {
             return;
         }
 
-        event.preventDefault();
-
         if (isForwardTab || isDown) {
             const listElement: HTMLElement = list.shadowRoot.querySelector(
                 '.mdc-deprecated-list-item:first-child'
             );
+            if (!listElement) {
+                return;
+            }
+
+            event.preventDefault();
             listElement.focus();
 
             return;
@@ -722,6 +725,11 @@ export class Picker {
             const listElement: HTMLElement = list.shadowRoot.querySelector(
                 '.mdc-deprecated-list-item:last-child'
             );
+            if (!listElement) {
+                return;
+            }
+
+            event.preventDefault();
             listElement.focus();
         }
     }
