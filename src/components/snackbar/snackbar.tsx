@@ -46,6 +46,7 @@ const hideAnimationDuration = 300;
  * @exampleComponent limel-example-snackbar-dismissible
  * @exampleComponent limel-example-snackbar-persistent
  * @exampleComponent limel-example-snackbar-persistent-non-dismissible
+ * @exampleComponent limel-example-snackbar-with-markdown
  */
 @Component({
     tag: 'limel-snackbar',
@@ -60,7 +61,18 @@ export class Snackbar {
     public open: boolean = false;
 
     /**
-     * The text message to display.
+     * The message to display.
+     *
+     * Supports [Markdown](#/component/limel-markdown/) for light inline
+     * emphasis such as `**bold**` or `*italic*`. See the Markdown example
+     * below for UX guidance.
+     *
+     * :::important
+     * When the message is composed from dynamic content such as user
+     * input or translated strings, escape Markdown-sensitive characters
+     * (`*`, `_`, backtick, `#`, `[`, `]`) with a leading backslash to
+     * prevent unintended formatting.
+     * :::
      */
     @Prop()
     public message: string;
@@ -229,7 +241,7 @@ export class Snackbar {
                 aria-relevant={this.open ? 'additions' : undefined}
             >
                 <div class="surface">
-                    <div class="label">{this.message}</div>
+                    <limel-markdown class="label" value={this.message} />
                     {this.renderActions(this.actionText)}
                     {this.renderDismissButton(this.dismissible)}
                 </div>

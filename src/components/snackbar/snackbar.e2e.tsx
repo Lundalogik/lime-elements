@@ -14,8 +14,11 @@ describe('limel-snackbar', () => {
             const popover = root.shadowRoot!.querySelector('[popover]');
             expect(popover.classList.contains('open')).toBe(true);
 
-            const label = popover.querySelector('.label');
-            expect(label.textContent).toEqual('This is a message');
+            const label = popover.querySelector(
+                'limel-markdown.label'
+            ) as HTMLLimelMarkdownElement;
+            const rendered = label.shadowRoot!.querySelector('#markdown');
+            expect(rendered!.textContent!.trim()).toEqual('This is a message');
         });
     });
 
@@ -34,8 +37,11 @@ describe('limel-snackbar', () => {
 
             const popover = root.shadowRoot!.querySelector('[popover]');
 
-            const label = popover.querySelector('.label');
-            expect(label.textContent).toEqual('This is a message');
+            const label = popover.querySelector(
+                'limel-markdown.label'
+            ) as HTMLLimelMarkdownElement;
+            const rendered = label.shadowRoot!.querySelector('#markdown');
+            expect(rendered!.textContent!.trim()).toEqual('This is a message');
 
             const button = root.shadowRoot!.querySelector('limel-button');
             expect(button.getAttribute('label')).toEqual('Press me!');
