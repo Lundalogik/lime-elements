@@ -1,3 +1,10 @@
+## [39.15.0](https://github.com/Lundalogik/lime-elements/compare/v39.14.1...v39.15.0) (2026-04-21)
+
+### Features
+
+
+* **mixins:** add `[@mixin](https://github.com/mixin) reset-button-user-agent-styles` ([eb9845a](https://github.com/Lundalogik/lime-elements/commit/eb9845a164d405d02a84cebad51adffeb7e26dd9))
+
 ## [39.14.1](https://github.com/Lundalogik/lime-elements/compare/v39.14.0...v39.14.1) (2026-04-20)
 
 ### Bug Fixes
