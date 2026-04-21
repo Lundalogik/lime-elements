@@ -708,8 +708,10 @@ export class Picker {
         }
 
         if (isForwardTab || isDown) {
+            // Match by class only (not `:first-child`) so a leading
+            // `ListSeparator` doesn't shadow the first focusable item.
             const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:first-child'
+                '.mdc-deprecated-list-item'
             );
             if (!listElement) {
                 return;
@@ -722,9 +724,10 @@ export class Picker {
         }
 
         if (isUp) {
-            const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:last-child'
+            const listItems = list.shadowRoot.querySelectorAll<HTMLElement>(
+                '.mdc-deprecated-list-item'
             );
+            const listElement = [...listItems].at(-1);
             if (!listElement) {
                 return;
             }
