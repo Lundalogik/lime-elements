@@ -1,3 +1,10 @@
+## [39.15.1](https://github.com/Lundalogik/lime-elements/compare/v39.15.0...v39.15.1) (2026-04-21)
+
+### Bug Fixes
+
+
+* **chip-set:** keep input visible when it contains text ([a8d322c](https://github.com/Lundalogik/lime-elements/commit/a8d322c81fa1bb495074991198c92197c572736a)), closes [#4037](https://github.com/Lundalogik/lime-elements/issues/4037)
+
 ## [39.15.0](https://github.com/Lundalogik/lime-elements/compare/v39.14.1...v39.15.0) (2026-04-21)
 
 ### Features
