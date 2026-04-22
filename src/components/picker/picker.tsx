@@ -38,6 +38,7 @@ const DEFAULT_SEARCHER_MAX_RESULTS = 20;
  * @exampleComponent limel-example-picker-empty-suggestions
  * @exampleComponent limel-example-picker-leading-icon
  * @exampleComponent limel-example-picker-static-actions
+ * @exampleComponent limel-example-picker-sections
  * @exampleComponent limel-example-picker-composite
  */
 @Component({
