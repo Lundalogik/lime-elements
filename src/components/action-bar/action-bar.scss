@@ -99,6 +99,7 @@
 
 button.expand-shrink {
     @include mixins.reset-button-user-agent-styles;
+    width: auto; // override full-width from action-bar layout
     box-sizing: border-box;
     border-radius: 50%;
 
