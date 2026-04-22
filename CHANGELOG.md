@@ -1,3 +1,10 @@
+## [39.16.1](https://github.com/Lundalogik/lime-elements/compare/v39.16.0...v39.16.1) (2026-04-22)
+
+### Bug Fixes
+
+
+* **action-bar:** prevent shrink/expand button from stretching to full width ([f73d2f8](https://github.com/Lundalogik/lime-elements/commit/f73d2f8d7d6ddb21a5cd3665773df3c4f79a4257))
+
 ## [39.16.0](https://github.com/Lundalogik/lime-elements/compare/v39.15.1...v39.16.0) (2026-04-22)
 
 ### Features
