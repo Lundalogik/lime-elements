@@ -10,8 +10,9 @@ The `message` property supports [Markdown](#/component/limel-markdown/)
 syntax. This lets you lightly emphasize a single word with `**bold**`
 or `*italic*` so the reader can scan the feedback more quickly.
 
-In this example, the entity name *"Westeros Ltd."* is rendered in bold
-to make it easy to tell apart from the rest of the sentence.
+In this example, the entity name *"Westeros Ltd."* is rendered in bold,
+and the ticket reference `#1374` is escaped with a leading backslash
+(`\#1374`) to prevent it from being interpreted as a Markdown heading.
 
 :::important
 Keep the feedback short and brief. A snackbar is a quick, ignorable
@@ -24,6 +25,13 @@ If you need more than a single sentence, or the information is
 important enough to require the user's attention, reach for a
 [Banner](#/component/limel-banner/) or
 [Dialog](#/component/limel-dialog/) instead.
+:::
+
+:::important
+When the message is composed from dynamic content such as user
+input or translated strings, escape Markdown-sensitive characters
+(`*`, `_`, `` ` ``, `#`, `[`, `]`) with a leading backslash to
+prevent unintended formatting.
 :::
 
 ## Dependencies
