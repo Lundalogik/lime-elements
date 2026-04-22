@@ -1,3 +1,10 @@
+## [39.16.0](https://github.com/Lundalogik/lime-elements/compare/v39.15.1...v39.16.0) (2026-04-22)
+
+### Features
+
+
+* **snackbar:** add support for Markdown format in `message` prop ([ecc49bd](https://github.com/Lundalogik/lime-elements/commit/ecc49bd3a21b34667569df4eead87c3b09f12df5))
+
 ## [39.15.1](https://github.com/Lundalogik/lime-elements/compare/v39.15.0...v39.15.1) (2026-04-21)
 
 ### Bug Fixes
