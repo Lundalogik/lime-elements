@@ -30,7 +30,7 @@ important enough to require the user's attention, reach for a
 :::important
 When the message is composed from dynamic content such as user
 input or translated strings, escape Markdown-sensitive characters
-(`*`, `_`, `` ` ``, `#`, `[`, `]`) with a leading backslash to
+(`*`, `_`, backtick, `#`, `[`, `]`) with a leading backslash to
 prevent unintended formatting.
 :::
 
