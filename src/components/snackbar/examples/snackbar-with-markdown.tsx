@@ -39,6 +39,8 @@ export class SnackbarWithMarkdownExample {
     @State()
     private isOpen: boolean = false;
 
+    private readonly message = String.raw`\#1374 — **"Westeros Ltd."** was saved successfully.`;
+
     public render() {
         return [
             <limel-button
@@ -49,7 +51,7 @@ export class SnackbarWithMarkdownExample {
             <limel-snackbar
                 key="snackbar"
                 open={this.isOpen}
-                message='\\#1374 — **"Westeros Ltd."** was saved successfully.'
+                message={this.message}
                 onHide={this.handleHideSnackbar}
             />,
         ];
