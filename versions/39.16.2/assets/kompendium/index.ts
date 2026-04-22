@@ -1,0 +1,1 @@
+export { kompendium } from './generator';
