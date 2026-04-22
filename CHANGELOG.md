@@ -1,3 +1,11 @@
+## [39.16.2](https://github.com/Lundalogik/lime-elements/compare/v39.16.1...v39.16.2) (2026-04-22)
+
+### Bug Fixes
+
+
+* **picker:** guard against missing list items in handleInputKeyDown ([277774e](https://github.com/Lundalogik/lime-elements/commit/277774e90799834f192db83f41a9a79508e2ff28))
+* **picker:** select first/last list-item by class to handle leading seperators ([5a69dd2](https://github.com/Lundalogik/lime-elements/commit/5a69dd2e43b8587bd6dd07c93753c5ae3156a778))
+
 ## [39.16.1](https://github.com/Lundalogik/lime-elements/compare/v39.16.0...v39.16.1) (2026-04-22)
 
 ### Bug Fixes
