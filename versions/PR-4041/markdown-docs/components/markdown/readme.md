@@ -54,6 +54,7 @@ removed (with a console warning) to prevent script injection.
  - [limel-form](../form)
  - [limel-help-content](../help)
  - [limel-showcase-card](../../examples/whats-new)
+ - [limel-snackbar](../snackbar)
  - [limel-text-editor](../text-editor)
 
 ### Graph
@@ -82,6 +83,7 @@ graph TD;
   limel-form --> limel-markdown
   limel-help-content --> limel-markdown
   limel-showcase-card --> limel-markdown
+  limel-snackbar --> limel-markdown
   limel-text-editor --> limel-markdown
   style limel-markdown fill:#f9f,stroke:#333,stroke-width:4px
 ```
