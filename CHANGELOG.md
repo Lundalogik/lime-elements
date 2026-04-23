@@ -1,3 +1,10 @@
+## [39.16.3](https://github.com/Lundalogik/lime-elements/compare/v39.16.2...v39.16.3) (2026-04-23)
+
+### Bug Fixes
+
+
+* **text-editor:** prevent serialize from treating custom elements as empty content ([cf03f5e](https://github.com/Lundalogik/lime-elements/commit/cf03f5e724ad3d8249a53ee741c33c41668882a6))
+
 ## [39.16.2](https://github.com/Lundalogik/lime-elements/compare/v39.16.1...v39.16.2) (2026-04-22)
 
 ### Bug Fixes
