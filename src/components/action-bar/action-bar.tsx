@@ -40,6 +40,7 @@ import { Icon } from '../../global/shared-types/icon.types';
  * @exampleComponent limel-example-action-bar-colors
  * @exampleComponent limel-example-action-bar-floating
  * @exampleComponent limel-example-action-bar-floating-expand
+ * @exampleComponent limel-example-action-bar-floating-few-icon-only
  * @exampleComponent limel-example-action-bar-styling
  * @exampleComponent limel-example-action-bar-as-primary-component
  * @exampleComponent limel-example-action-bar-icon-title
@@ -210,6 +211,12 @@ export class ActionBar {
 
     private renderCollapseExpandButton() {
         if (!this.collapsible || this.actions.length <= 1) {
+            return;
+        }
+
+        const items = this.actions.filter(isItem);
+        const allIconOnly = items.every((item) => item.iconOnly);
+        if (items.length < 4 && allIconOnly) {
             return;
         }
 
