@@ -5,6 +5,7 @@ export default {
     loading: 'Ladataan…',
     value: 'Arvo',
     items: 'Kohteet',
+    'action-bar': 'Toimintopalkki',
     'callout.note': 'Huomio',
     'callout.important': 'Tärkeää',
     'callout.tip': 'Vinkki',

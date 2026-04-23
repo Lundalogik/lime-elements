@@ -12,6 +12,7 @@ import { ListSeparator } from '../list-item/list-item.types';
 import { MenuItem, OpenDirection } from '../menu/menu.types';
 import { ActionBarItem } from './action-bar.types';
 import { Languages } from './../date-picker/date.types';
+import translate from './../../global/translations';
 import { isItem } from './is-item';
 
 /**
@@ -57,7 +58,11 @@ export class ActionBar {
     /**
      * A label used to describe the purpose of the element to users
      * of assistive technologies, like screen readers.
-     * Example value: "toolbar"
+     * If not set, a localized default ("Action bar" in English, translated
+     * via the `language` prop) is used, so the element is never announced
+     * without a name. Override this when a more specific label would help
+     * users tell multiple action bars apart — for example "Bulk actions"
+     * or "Contextual actions".
      */
     @Prop({ reflect: true })
     public accessibleLabel?: string;
@@ -152,7 +157,10 @@ export class ActionBar {
 
         return (
             <Host
-                aria-label={this.accessibleLabel}
+                aria-label={
+                    this.accessibleLabel ??
+                    translate.get('action-bar', this.language)
+                }
                 class={{
                     'is-full-width': this.layout === 'fullWidth',
                     'is-floating': this.layout === 'floating',

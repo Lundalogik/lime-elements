@@ -5,6 +5,7 @@ export default {
     loading: 'Laddar…',
     value: 'Värde',
     items: 'Objekt',
+    'action-bar': 'Åtgärdsfält',
     'callout.note': 'Obs',
     'callout.important': 'Viktigt',
     'callout.tip': 'Tips',
