@@ -5,6 +5,7 @@ export default {
     loading: 'Chargement…',
     value: 'Valeur',
     items: 'Éléments',
+    'action-bar': "Barre d'actions",
     'callout.note': 'Note',
     'callout.important': 'Important',
     'callout.tip': 'Conseil',

@@ -5,6 +5,7 @@ export default {
     loading: 'Indlæser…',
     value: 'Værdi',
     items: 'Elementer',
+    'action-bar': 'Handlingslinje',
     'callout.note': 'Bemærk',
     'callout.important': 'Vigtig',
     'callout.tip': 'Tip',

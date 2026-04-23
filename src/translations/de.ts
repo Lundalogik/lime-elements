@@ -5,6 +5,7 @@ export default {
     loading: 'Laden…',
     value: 'Wert',
     items: 'Elemente',
+    'action-bar': 'Aktionsleiste',
     'callout.note': 'Hinweis',
     'callout.important': 'Wichtig',
     'callout.tip': 'Tipp',

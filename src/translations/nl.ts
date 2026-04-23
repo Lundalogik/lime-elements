@@ -5,6 +5,7 @@ export default {
     loading: 'Laden…',
     value: 'Waarde',
     items: 'items',
+    'action-bar': 'Actiebalk',
     'callout.note': 'Opmerking',
     'callout.important': 'Belangrijk',
     'callout.tip': 'Tip',

@@ -5,6 +5,7 @@ export default {
     loading: 'Laster…',
     value: 'Verdi',
     items: 'Elementer',
+    'action-bar': 'Handlingsfelt',
     'callout.note': 'Note',
     'callout.important': 'Viktig',
     'callout.tip': 'Tip',

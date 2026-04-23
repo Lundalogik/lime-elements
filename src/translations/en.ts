@@ -5,6 +5,7 @@ export default {
     loading: 'Loading…',
     value: 'Value',
     items: 'Items',
+    'action-bar': 'Action bar',
     'callout.note': 'Note',
     'callout.important': 'Important',
     'callout.tip': 'Tip',
