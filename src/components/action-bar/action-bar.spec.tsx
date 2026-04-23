@@ -54,9 +54,7 @@ describe('action-bar', () => {
         global.IntersectionObserver = mockConstructor;
         (globalThis as any).IntersectionObserver = mockConstructor;
 
-        const result = await render(
-            <limel-action-bar language="en" actions={actionsIn} />
-        );
+        const result = await render(<limel-action-bar actions={actionsIn} />);
         root = result.root;
         waitForChanges = result.waitForChanges;
 

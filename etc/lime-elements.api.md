@@ -159,6 +159,7 @@ export namespace Components {
     export interface LimelActionBar {
         "accessibleLabel"?: string;
         "actions": Array<ActionBarItem | ListSeparator>;
+        // @deprecated (undocumented)
         "collapsible": boolean;
         "language": Languages;
         "layout"?: 'fullWidth' | 'floating';
@@ -174,7 +175,6 @@ export namespace Components {
     export interface LimelActionBarOverflowMenu {
         "items": Array<MenuItem | ListSeparator>;
         "openDirection": OpenDirection;
-        "overFlowIcon"?: Icon;
     }
     // @internal
     export interface LimelAiAvatar {
@@ -1525,6 +1525,7 @@ export namespace JSX {
     export interface LimelActionBar {
         "accessibleLabel"?: string;
         "actions"?: Array<ActionBarItem | ListSeparator>;
+        // @deprecated (undocumented)
         "collapsible"?: boolean;
         "language"?: Languages;
         "layout"?: 'fullWidth' | 'floating';
@@ -1569,7 +1570,6 @@ export namespace JSX {
         // @public
         "onSelect"?: (event: LimelActionBarOverflowMenuCustomEvent<ActionBarItem>) => void;
         "openDirection"?: OpenDirection;
-        "overFlowIcon"?: Icon;
     }
 
     // (undocumented)
