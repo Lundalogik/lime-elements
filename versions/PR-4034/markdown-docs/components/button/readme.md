@@ -104,6 +104,7 @@ primary and secondary actions, see our
  - [limel-example-snackbar-persistent-non-dismissible](../snackbar/examples)
  - [limel-example-snackbar-with-action](../snackbar/examples)
  - [limel-example-snackbar-with-changing-messages](../snackbar/examples)
+ - [limel-example-snackbar-with-markdown](../snackbar/examples)
  - [limel-example-switch-vs-checkbox](../../design-guidelines/boolean/examples)
  - [limel-example-tab-panel-content](../tab-panel/examples)
  - [limel-example-table-selectable-rows](../table/examples)
@@ -195,6 +196,7 @@ graph TD;
   limel-example-snackbar-persistent-non-dismissible --> limel-button
   limel-example-snackbar-with-action --> limel-button
   limel-example-snackbar-with-changing-messages --> limel-button
+  limel-example-snackbar-with-markdown --> limel-button
   limel-example-switch-vs-checkbox --> limel-button
   limel-example-tab-panel-content --> limel-button
   limel-example-table-selectable-rows --> limel-button

@@ -108,6 +108,7 @@ The component automatically formats different value types:
  - [limel-example-picker-icons](../components/picker/examples)
  - [limel-example-picker-multiple](../components/picker/examples)
  - [limel-example-picker-pictures](../components/picker/examples)
+ - [limel-example-picker-sections](../components/picker/examples)
  - [limel-example-picker-static-actions](../components/picker/examples)
  - [limel-example-picker-value-as-object](../components/picker/examples)
  - [limel-example-picker-value-as-object-with-actions](../components/picker/examples)
@@ -234,6 +235,7 @@ graph TD;
   limel-example-picker-icons --> limel-example-value
   limel-example-picker-multiple --> limel-example-value
   limel-example-picker-pictures --> limel-example-value
+  limel-example-picker-sections --> limel-example-value
   limel-example-picker-static-actions --> limel-example-value
   limel-example-picker-value-as-object --> limel-example-value
   limel-example-picker-value-as-object-with-actions --> limel-example-value
