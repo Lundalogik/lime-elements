@@ -12,9 +12,7 @@ import { ListSeparator } from '../list-item/list-item.types';
 import { MenuItem, OpenDirection } from '../menu/menu.types';
 import { ActionBarItem } from './action-bar.types';
 import { Languages } from './../date-picker/date.types';
-import translate from './../../global/translations';
 import { isItem } from './is-item';
-import { Icon } from '../../global/shared-types/icon.types';
 
 /**
  * An action bar is a user interface element commonly found in software applications and websites.
@@ -39,7 +37,6 @@ import { Icon } from '../../global/shared-types/icon.types';
  * @exampleComponent limel-example-action-bar-selected-item
  * @exampleComponent limel-example-action-bar-colors
  * @exampleComponent limel-example-action-bar-floating
- * @exampleComponent limel-example-action-bar-floating-expand
  * @exampleComponent limel-example-action-bar-styling
  * @exampleComponent limel-example-action-bar-as-primary-component
  * @exampleComponent limel-example-action-bar-icon-title
@@ -58,18 +55,18 @@ export class ActionBar {
     public actions: Array<ActionBarItem | ListSeparator> = [];
 
     /**
-     * Defines the language for translations.
-     */
-    @Prop({ reflect: true })
-    public language: Languages = document.documentElement.lang as Languages;
-
-    /**
      * A label used to describe the purpose of the element to users
      * of assistive technologies, like screen readers.
      * Example value: "toolbar"
      */
     @Prop({ reflect: true })
     public accessibleLabel?: string;
+
+    /**
+     * Defines the language for translations.
+     */
+    @Prop()
+    public language: Languages = 'en';
 
     /**
      * - When set to `fullWidth`, the component will take the
@@ -86,7 +83,10 @@ export class ActionBar {
     public layout?: 'fullWidth' | 'floating';
 
     /**
-     * When set to `true`, the action bar will be collapsible.
+     * @deprecated The prop has no effect any longer.
+     * It will be removed in a future major version.
+     * If you need this behavior, implement the expand/shrink (or resize) in
+     * the consuming UI instead.
      */
     @Prop({ reflect: true })
     public collapsible = false;
@@ -111,16 +111,18 @@ export class ActionBar {
     @State()
     private overflowCutoff: number = this.actions.length;
 
-    /**
-     * Indicates whether the action bar is currently in a collapsed state.
-     */
-    @State()
-    private actionBarIsShrunk = false;
-
     private hasRendered = false;
     private intersectionObserver: IntersectionObserver;
     private isFirstIntersectionCheck = true;
     private actionBarItems: HTMLLimelActionBarItemElement[] = [];
+
+    public componentWillLoad() {
+        if (this.collapsible) {
+            console.warn(
+                'The `collapsible` prop on `limel-action-bar` is deprecated and no longer has any effect. It will be removed in a future major version. If you need expand/shrink behavior, implement it in the consuming UI instead of relying on the action bar itself.'
+            );
+        }
+    }
 
     public connectedCallback() {
         if (this.hasRendered) {
@@ -154,8 +156,6 @@ export class ActionBar {
                 class={{
                     'is-full-width': this.layout === 'fullWidth',
                     'is-floating': this.layout === 'floating',
-                    'is-shrunk': this.actionBarIsShrunk && this.collapsible,
-                    'can-be-shrunk': !!this.collapsible,
                 }}
                 role="grid"
             >
@@ -163,7 +163,6 @@ export class ActionBar {
                     {this.actions.map(this.renderActionBarItem)}
                 </div>
                 {this.renderOverflowMenu(overflowActions)}
-                {this.renderCollapseExpandButton()}
             </Host>
         );
     }
@@ -189,53 +188,14 @@ export class ActionBar {
             return;
         }
 
-        const shrunkOverFlowIcon: Icon = {
-            name: 'more',
-            color: 'rgb(var(--contrast-1000))',
-            title: this.getTranslation('action-bar.actions'),
-        };
-
         return (
             <limel-action-bar-overflow-menu
                 openDirection={this.openDirection}
                 items={items}
                 onSelect={this.handleSelect}
                 role="gridcell"
-                overFlowIcon={
-                    this.actionBarIsShrunk ? shrunkOverFlowIcon : undefined
-                }
             />
         );
-    };
-
-    private renderCollapseExpandButton() {
-        if (!this.collapsible || this.actions.length <= 1) {
-            return;
-        }
-
-        return (
-            <button
-                class={{
-                    'expand-shrink': true,
-                }}
-                aria-label={this.tooltipLabel}
-                type="button"
-                onClick={this.handleCollapseExpandClick}
-            >
-                <limel-icon
-                    name="double_left"
-                    id="tooltip-expand-shrink-button"
-                />
-                <limel-tooltip
-                    label={this.tooltipLabel}
-                    elementId="tooltip-expand-shrink-button"
-                />
-            </button>
-        );
-    }
-
-    private handleCollapseExpandClick = () => {
-        this.actionBarIsShrunk = !this.actionBarIsShrunk;
     };
 
     private isVisible(index: number) {
@@ -249,19 +209,6 @@ export class ActionBar {
         if (isItem(event.detail)) {
             this.itemSelected.emit(event.detail);
         }
-    };
-
-    private get tooltipLabel() {
-        let key = 'action-bar.collapse';
-        if (this.actionBarIsShrunk) {
-            key = 'action-bar.expand';
-        }
-
-        return this.getTranslation(key);
-    }
-
-    private getTranslation = (key: string) => {
-        return translate.get(key, this.language);
     };
 
     private readonly handleIntersection = (
