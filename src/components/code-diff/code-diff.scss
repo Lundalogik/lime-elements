@@ -365,8 +365,8 @@ mark {
 }
 
 // ─── Expand button ───────────────────────────────────────────────────
-.expand-button {
-    all: unset;
+button.expand-button {
+    @include mixins.reset-button-user-agent-styles;
     @include mixins.is-flat-clickable();
     @include mixins.visualize-keyboard-focus();
     padding: 0 0.75rem;

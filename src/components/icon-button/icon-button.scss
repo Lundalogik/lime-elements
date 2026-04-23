@@ -7,7 +7,7 @@
 @include mixins.visualize-aria-expanded('button');
 
 button {
-    all: unset;
+    @include mixins.reset-button-user-agent-styles;
     &:not(:disabled) {
         @include mixins.is-flat-clickable(
             $background-color: var(--icon-background-color, transparent)

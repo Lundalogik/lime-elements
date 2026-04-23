@@ -19,8 +19,8 @@
     display: none;
 }
 
-.open-close-toggle {
-    all: unset;
+button.open-close-toggle {
+    @include mixins.reset-button-user-agent-styles;
     position: absolute;
     inset: 0;
     width: 100%; // for Firefox

@@ -1,3 +1,39 @@
+## [39.16.2](https://github.com/Lundalogik/lime-elements/compare/v39.16.1...v39.16.2) (2026-04-22)
+
+### Bug Fixes
+
+
+* **picker:** guard against missing list items in handleInputKeyDown ([277774e](https://github.com/Lundalogik/lime-elements/commit/277774e90799834f192db83f41a9a79508e2ff28))
+* **picker:** select first/last list-item by class to handle leading seperators ([5a69dd2](https://github.com/Lundalogik/lime-elements/commit/5a69dd2e43b8587bd6dd07c93753c5ae3156a778))
+
+## [39.16.1](https://github.com/Lundalogik/lime-elements/compare/v39.16.0...v39.16.1) (2026-04-22)
+
+### Bug Fixes
+
+
+* **action-bar:** prevent shrink/expand button from stretching to full width ([f73d2f8](https://github.com/Lundalogik/lime-elements/commit/f73d2f8d7d6ddb21a5cd3665773df3c4f79a4257))
+
+## [39.16.0](https://github.com/Lundalogik/lime-elements/compare/v39.15.1...v39.16.0) (2026-04-22)
+
+### Features
+
+
+* **snackbar:** add support for Markdown format in `message` prop ([ecc49bd](https://github.com/Lundalogik/lime-elements/commit/ecc49bd3a21b34667569df4eead87c3b09f12df5))
+
+## [39.15.1](https://github.com/Lundalogik/lime-elements/compare/v39.15.0...v39.15.1) (2026-04-21)
+
+### Bug Fixes
+
+
+* **chip-set:** keep input visible when it contains text ([a8d322c](https://github.com/Lundalogik/lime-elements/commit/a8d322c81fa1bb495074991198c92197c572736a)), closes [#4037](https://github.com/Lundalogik/lime-elements/issues/4037)
+
+## [39.15.0](https://github.com/Lundalogik/lime-elements/compare/v39.14.1...v39.15.0) (2026-04-21)
+
+### Features
+
+
+* **mixins:** add `[@mixin](https://github.com/mixin) reset-button-user-agent-styles` ([eb9845a](https://github.com/Lundalogik/lime-elements/commit/eb9845a164d405d02a84cebad51adffeb7e26dd9))
+
 ## [39.14.1](https://github.com/Lundalogik/lime-elements/compare/v39.14.0...v39.14.1) (2026-04-20)
 
 ### Bug Fixes

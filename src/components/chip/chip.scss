@@ -209,8 +209,8 @@ limel-badge {
     font-size: var(--limel-theme-default-font-size);
 }
 
-.trailing-button {
-    all: unset;
+button.trailing-button {
+    @include mixins.reset-button-user-agent-styles;
     @include mixins.is-flat-clickable();
 
     z-index: 1;

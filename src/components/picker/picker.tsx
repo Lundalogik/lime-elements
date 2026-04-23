@@ -38,6 +38,7 @@ const DEFAULT_SEARCHER_MAX_RESULTS = 20;
  * @exampleComponent limel-example-picker-empty-suggestions
  * @exampleComponent limel-example-picker-leading-icon
  * @exampleComponent limel-example-picker-static-actions
+ * @exampleComponent limel-example-picker-sections
  * @exampleComponent limel-example-picker-composite
  */
 @Component({
@@ -707,21 +708,32 @@ export class Picker {
             return;
         }
 
-        event.preventDefault();
-
         if (isForwardTab || isDown) {
+            // Match by class only (not `:first-child`) so a leading
+            // `ListSeparator` doesn't shadow the first focusable item.
             const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:first-child'
+                '.mdc-deprecated-list-item'
             );
+            if (!listElement) {
+                return;
+            }
+
+            event.preventDefault();
             listElement.focus();
 
             return;
         }
 
         if (isUp) {
-            const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:last-child'
+            const listItems = list.shadowRoot.querySelectorAll<HTMLElement>(
+                '.mdc-deprecated-list-item'
             );
+            const listElement = [...listItems].at(-1);
+            if (!listElement) {
+                return;
+            }
+
+            event.preventDefault();
             listElement.focus();
         }
     }

@@ -274,8 +274,8 @@ limel-notched-outline {
     flex-grow: 1;
 }
 
-.copy-button {
-    all: unset;
+button.copy-button {
+    @include mixins.reset-button-user-agent-styles;
     @include mixins.is-elevated-clickable();
     @include mixins.visualize-keyboard-focus();
     position: absolute;
