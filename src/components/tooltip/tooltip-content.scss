@@ -1,15 +1,14 @@
 :host(limel-tooltip-content) {
     display: flex;
-
     border-radius: 0.25rem;
     padding: 0.25rem 0.5rem;
     background-color: rgb(var(--contrast-1300));
-    box-shadow: var(--shadow-depth-16);
+    box-shadow: var(--shadow-depth-16), var(--shadow-brighten-edges-inside);
 }
 
 text {
     font-size: var(--limel-theme-default-font-size); // 14px
-    line-height: 1.25;
+    line-height: normal;
     display: flex;
     column-gap: 1rem;
 
