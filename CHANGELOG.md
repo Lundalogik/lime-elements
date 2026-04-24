@@ -1,3 +1,11 @@
+## [39.16.4](https://github.com/Lundalogik/lime-elements/compare/v39.16.3...v39.16.4) (2026-04-24)
+
+### Bug Fixes
+
+
+* **markdown:** don't break links in table cells ([0d5f98a](https://github.com/Lundalogik/lime-elements/commit/0d5f98a7397cbf5ac3cb5c49ae80e2d4cf583942))
+* **markdown:** prevent inline code inside headings being rendered tiny ([53b2a51](https://github.com/Lundalogik/lime-elements/commit/53b2a51e8bf1c66c50819f5652965df6834f591b))
+
 ## [39.16.3](https://github.com/Lundalogik/lime-elements/compare/v39.16.2...v39.16.3) (2026-04-23)
 
 ### Bug Fixes
