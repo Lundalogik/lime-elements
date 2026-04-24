@@ -53,10 +53,18 @@ export class TooltipContent {
         return [
             <text class={{ 'has-column-layout': isLabelsTextLong }} {...props}>
                 <div class="label">{this.label}</div>
-                <div class="helper-label">{this.helperLabel}</div>
+                {this.renderHelperLabel()}
                 {this.renderHotkey()}
             </text>,
         ];
+    }
+
+    private renderHelperLabel() {
+        if (!this.helperLabel) {
+            return;
+        }
+
+        return <div class="helper-label">{this.helperLabel}</div>;
     }
 
     private renderHotkey() {
