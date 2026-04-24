@@ -31,8 +31,4 @@ text {
 
 .helper-label {
     color: rgb(var(--contrast-800));
-
-    &:empty {
-        display: none;
-    }
 }
