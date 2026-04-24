@@ -14,13 +14,16 @@ vi.mock('./tooltip-timer', () => {
 import { render, h } from '@stencil/vitest';
 
 describe('limel-tooltip', () => {
-    async function setup() {
+    async function setup(
+        props: { hotkey?: string; helperLabel?: string } = {}
+    ) {
         const { root, waitForChanges } = await render(
             <div>
                 <a id="tooltip-test">Testing tooltip</a>
                 <limel-tooltip
                     elementId="tooltip-test"
                     label="Description"
+                    {...props}
                 ></limel-tooltip>
             </div>
         );
@@ -34,8 +37,17 @@ describe('limel-tooltip', () => {
             'limel-tooltip-content'
         );
         const portal = tooltip?.shadowRoot?.querySelector('limel-portal');
+        const hotkey = content?.shadowRoot?.querySelector('limel-hotkey');
 
-        return { root, anchor, tooltip, content, portal, waitForChanges };
+        return {
+            root,
+            anchor,
+            tooltip,
+            content,
+            portal,
+            hotkey,
+            waitForChanges,
+        };
     }
 
     test('the component renders', async () => {
@@ -66,5 +78,29 @@ describe('limel-tooltip', () => {
         );
         expect(content).not.toBeNull();
         expect(content!.getAttribute('aria-hidden')).not.toBe('true');
+    });
+
+    describe('hotkey prop', () => {
+        test('does not render limel-hotkey when hotkey is not set', async () => {
+            const { hotkey } = await setup();
+            expect(hotkey).toBeFalsy();
+        });
+
+        test('renders limel-hotkey when hotkey is set', async () => {
+            const { hotkey } = await setup({ hotkey: 'ctrl+f' });
+            expect(hotkey).toBeTruthy();
+            expect(hotkey!.getAttribute('value')).toBe('ctrl+f');
+        });
+
+        test('normalizes the hotkey string before passing it on', async () => {
+            const { hotkey } = await setup({ hotkey: 'CMD+Enter' });
+            expect(hotkey).toBeTruthy();
+            expect(hotkey!.getAttribute('value')).toBe('meta+enter');
+        });
+
+        test('does not render limel-hotkey for an invalid hotkey', async () => {
+            const { hotkey } = await setup({ hotkey: 'ctrl+' });
+            expect(hotkey).toBeFalsy();
+        });
     });
 });

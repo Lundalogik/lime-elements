@@ -49,6 +49,7 @@ const DEFAULT_MAX_LENGTH = 50;
  *
  * @exampleComponent limel-example-tooltip-basic
  * @exampleComponent limel-example-tooltip-max-character
+ * @exampleComponent limel-example-tooltip-hotkey
  * @exampleComponent limel-example-tooltip-composite
  */
 @Component({
@@ -73,11 +74,17 @@ export class Tooltip {
 
     /**
      * Additional helper text for the element.
-     * Example usage can be a keyboard shortcut to activate the function of the
-     * owner element.
      */
     @Prop({ reflect: true })
     public helperLabel?: string;
+
+    /**
+     * Keyboard shortcut to visualize inside the tooltip, e.g. `"ctrl+f"`.
+     * Display-only: the tooltip does not listen for the keystroke.
+     * Catching the hotkey is the consumer's responsibility.
+     */
+    @Prop({ reflect: true })
+    public hotkey?: string;
 
     /**
      * The maximum amount of characters before rendering 'label' and
@@ -142,6 +149,7 @@ export class Tooltip {
                     <limel-tooltip-content
                         label={this.label}
                         helperLabel={this.helperLabel}
+                        hotkey={this.hotkey}
                         maxlength={this.maxlength}
                         role="tooltip"
                         aria-hidden={!this.open}

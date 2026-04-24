@@ -907,6 +907,7 @@ export namespace Components {
     export interface LimelTooltip {
         "elementId": string;
         "helperLabel"?: string;
+        "hotkey"?: string;
         "label": string;
         "maxlength"?: number;
         "openDirection": OpenDirection;
@@ -914,6 +915,7 @@ export namespace Components {
     // @internal
     export interface LimelTooltipContent {
         "helperLabel"?: string;
+        "hotkey"?: string;
         "label": string;
         "maxlength"?: number;
     }
@@ -3597,6 +3599,7 @@ export namespace JSX {
     export interface LimelTooltip {
         "elementId": string;
         "helperLabel"?: string;
+        "hotkey"?: string;
         "label": string;
         "maxlength"?: number;
         "openDirection"?: OpenDirection;
@@ -3609,6 +3612,8 @@ export namespace JSX {
         // (undocumented)
         "helperLabel": string;
         // (undocumented)
+        "hotkey": string;
+        // (undocumented)
         "label": string;
         // (undocumented)
         "maxlength": number;
@@ -3619,6 +3624,7 @@ export namespace JSX {
     // @internal
     export interface LimelTooltipContent {
         "helperLabel"?: string;
+        "hotkey"?: string;
         "label": string;
         "maxlength"?: number;
     }
@@ -3627,6 +3633,8 @@ export namespace JSX {
     export interface LimelTooltipContentAttributes {
         // (undocumented)
         "helperLabel": string;
+        // (undocumented)
+        "hotkey": string;
         // (undocumented)
         "label": string;
         // (undocumented)
