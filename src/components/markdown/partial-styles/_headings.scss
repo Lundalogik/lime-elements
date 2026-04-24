@@ -54,6 +54,12 @@ h6 {
     hyphens: auto;
     -webkit-hyphens: auto;
 
+    // Inline `code` should scale with the heading size instead of
+    // collapsing to the standalone `code` font-size from `_pre-code.scss`.
+    code {
+        font-size: inherit;
+    }
+
     :not([contenteditable='true']) & {
         text-wrap: balance;
     }
