@@ -1,4 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
+import { normalizeHotkeyString } from '../../util/hotkeys';
 
 /**
  * This component is used internally by `limel-tooltip`.
@@ -29,6 +30,12 @@ export class TooltipContent {
     @Prop({ reflect: true })
     maxlength?: number;
 
+    /**
+     * Read more in tooltip.tsx
+     */
+    @Prop({ reflect: true })
+    hotkey?: string;
+
     public render() {
         let isLabelsTextLong = false;
         if (this.helperLabel && this.maxlength) {
@@ -47,7 +54,21 @@ export class TooltipContent {
             <text class={{ 'has-column-layout': isLabelsTextLong }} {...props}>
                 <div class="label">{this.label}</div>
                 <div class="helper-label">{this.helperLabel}</div>
+                {this.renderHotkey()}
             </text>,
         ];
+    }
+
+    private renderHotkey() {
+        if (!this.hotkey) {
+            return;
+        }
+
+        const normalized = normalizeHotkeyString(this.hotkey);
+        if (!normalized) {
+            return;
+        }
+
+        return <limel-hotkey value={normalized} />;
     }
 }
