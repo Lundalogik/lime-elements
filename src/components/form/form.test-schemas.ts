@@ -335,3 +335,34 @@ export const nestedArrayObjectSchema: FormSchema = {
         },
     },
 };
+
+export const topLevelStringCustomComponentSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        icon: {
+            type: 'string',
+            title: 'Icon',
+            lime: { component: { name: 'limel-input-field' } },
+        },
+    },
+};
+
+export const nestedStringCustomComponentSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        views: {
+            type: 'array',
+            title: 'Views',
+            items: {
+                type: 'object',
+                properties: {
+                    icon: {
+                        type: 'string',
+                        title: 'Icon',
+                        lime: { component: { name: 'limel-input-field' } },
+                    },
+                },
+            },
+        },
+    },
+};

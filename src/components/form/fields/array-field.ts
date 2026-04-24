@@ -1,8 +1,9 @@
 import React from 'react';
 import { getDefaultRegistry } from '@rjsf/core';
 import { FieldProps } from '@rjsf/utils';
-import { resetDependentFields } from './field-helpers';
+import { resetDependentFields, schemaAllowsNull } from './field-helpers';
 import { ARRAY_REORDER_EVENT } from '../templates/array-field';
+import { FormSchema } from '../form.types';
 
 const { fields: defaultFields } = getDefaultRegistry();
 const BaseArrayField = defaultFields.ArrayField;
@@ -87,8 +88,31 @@ export class ArrayField extends React.Component<FieldProps> {
     }
 
     private handleChange(newData, path) {
-        const { formData: oldData, schema } = this.props;
+        const { formData: oldData, schema, fieldPathId } = this.props;
         const { rootSchema } = this.props.registry;
+
+        // RJSF v6's built-in ArrayField shares one onChange handler across all
+        // descendants, so changes to leaves deep inside an array item bubble
+        // through here with the leaf value (not the full array) and a path
+        // that is deeper than this field's own path. In that case the
+        // array-shape logic below does not apply and would crash on scalar
+        // `newData`. The built-in handler also coerces `undefined` to `null`
+        // for every child change, which breaks field clearing for custom
+        // components; restore `undefined` when the leaf schema does not
+        // include `'null'`, mirroring the ingress conversion in `schema-field`.
+        if (fieldPathId && path.length > fieldPathId.path.length) {
+            const leafSchema = getSchemaAtPath(
+                schema as FormSchema,
+                path.slice(fieldPathId.path.length)
+            );
+            const value =
+                newData === null && !schemaAllowsNull(leafSchema)
+                    ? undefined
+                    : newData;
+            this.props.onChange(value, path);
+
+            return;
+        }
 
         // This case handles when the first list item is added. When there are no
         // items we get undefined instead of []
@@ -145,4 +169,33 @@ export class ArrayField extends React.Component<FieldProps> {
             React.createElement(BaseArrayField as any, arrayProps)
         );
     }
+}
+
+function getSchemaAtPath(
+    schema: FormSchema,
+    pathSegments: Array<string | number>
+): FormSchema | undefined {
+    let current: FormSchema | undefined = schema;
+    for (const segment of pathSegments) {
+        if (!current) {
+            return;
+        }
+
+        current = resolveSchemaSegment(current, segment);
+    }
+
+    return current;
+}
+
+function resolveSchemaSegment(
+    schema: FormSchema,
+    segment: string | number
+): FormSchema | undefined {
+    if (typeof segment === 'number') {
+        const items = schema.items;
+
+        return Array.isArray(items) ? items[segment] : items;
+    }
+
+    return schema.properties?.[segment];
 }
