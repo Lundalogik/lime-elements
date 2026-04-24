@@ -22,7 +22,7 @@ p {
     margin-top: 0;
     margin-bottom: 0.5rem;
 
-    &:only-child {
+    &:last-child {
         margin-bottom: 0;
     }
 }
