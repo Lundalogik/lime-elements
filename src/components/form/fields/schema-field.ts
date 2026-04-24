@@ -8,7 +8,7 @@ import {
     isFieldRequired,
     getErrorText,
 } from '../validation-display';
-import { resetDependentFields } from './field-helpers';
+import { resetDependentFields, schemaAllowsNull } from './field-helpers';
 import { FieldTemplate } from '../templates';
 import { getHelpComponent } from '../help';
 import { FormComponent, FormSchema } from '../form.types';
@@ -43,7 +43,7 @@ const BaseSchemaField = defaultFields.SchemaField;
  * @returns whether or not null should be changed to undefined
  */
 const shouldChangeToUndefined = (value, schema): boolean => {
-    return value === null && !schema.type.includes('null');
+    return value === null && !schemaAllowsNull(schema);
 };
 
 const hasCustomComponent = (schema): boolean => {

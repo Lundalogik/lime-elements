@@ -1,5 +1,6 @@
 import { union, isEqual, isPlainObject, negate } from 'lodash-es';
 import { retrieveSchema, ADDITIONAL_PROPERTY_FLAG } from '@rjsf/utils';
+import { JSONSchema7 } from 'json-schema';
 import { FormSchema } from '../form.types';
 import { rjsfValidator } from '../validator';
 
@@ -97,3 +98,20 @@ export function isCustomObjectSchema(schema: FormSchema) {
 function isAdditionalProperty(schema: FormSchema): boolean {
     return schema[ADDITIONAL_PROPERTY_FLAG] === true;
 }
+
+/**
+ * Check whether a schema permits `null` as a valid value. Used to decide
+ * whether a cleared field value should be preserved as `null` or converted
+ * to `undefined` so the property can be removed from the form data.
+ *
+ * @param schema - the schema to check
+ * @returns true if the schema's type is `'null'` or includes `'null'`
+ */
+export const schemaAllowsNull = (schema: JSONSchema7 | undefined): boolean => {
+    const type = schema?.type;
+    if (!type) {
+        return false;
+    }
+
+    return Array.isArray(type) ? type.includes('null') : type === 'null';
+};

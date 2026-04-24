@@ -29,6 +29,8 @@ import {
     rowLayoutSchema,
     rowLayoutWithCustomComponentSchema,
     nestedArrayObjectSchema,
+    topLevelStringCustomComponentSchema,
+    nestedStringCustomComponentSchema,
 } from './form.test-schemas';
 
 const fieldTypeTests = [
@@ -498,6 +500,36 @@ test('renders nested objects inside array items without inheriting array context
         'limel-collapsible-section limel-collapsible-section'
     );
     expect(nestedCollapsibles.length).toBe(0);
+});
+
+test('converts null to undefined via schema-field when top-level custom component clears', async () => {
+    const onChange = vi.fn();
+    const { change } = await renderForm({
+        schema: topLevelStringCustomComponentSchema,
+        value: { icon: 'star' },
+        onChange,
+    });
+
+    await change('Icon', undefined);
+
+    expect(onChange).toHaveBeenCalled();
+    const latest = onChange.mock.lastCall[0].detail;
+    expect(latest.icon).toBeUndefined();
+});
+
+test('converts null to undefined via array-field when nested custom component clears', async () => {
+    const onChange = vi.fn();
+    const { change } = await renderForm({
+        schema: nestedStringCustomComponentSchema,
+        value: { views: [{}] },
+        onChange,
+    });
+
+    await change('Icon', 'star');
+    await change('Icon', undefined);
+
+    const latest = onChange.mock.lastCall[0].detail;
+    expect(latest.views[0].icon).toBeUndefined();
 });
 
 async function renderForm(props: Record<string, any> = {}) {
