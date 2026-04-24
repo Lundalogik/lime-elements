@@ -1,6 +1,7 @@
 import React from 'react';
 import { getDefaultRegistry } from '@rjsf/core';
-import { FieldProps } from '@rjsf/utils';
+import { FieldProps, FieldPathList } from '@rjsf/utils';
+import { cloneDeep, isPlainObject, set } from 'lodash-es';
 import { resetDependentFields, schemaAllowsNull } from './field-helpers';
 import { ARRAY_REORDER_EVENT } from '../templates/array-field';
 import { FormSchema } from '../form.types';
@@ -88,28 +89,11 @@ export class ArrayField extends React.Component<FieldProps> {
     }
 
     private handleChange(newData, path) {
-        const { formData: oldData, schema, fieldPathId } = this.props;
+        const { formData: oldData, schema } = this.props;
         const { rootSchema } = this.props.registry;
 
-        // RJSF v6's built-in ArrayField shares one onChange handler across all
-        // descendants, so changes to leaves deep inside an array item bubble
-        // through here with the leaf value (not the full array) and a path
-        // that is deeper than this field's own path. In that case the
-        // array-shape logic below does not apply and would crash on scalar
-        // `newData`. The built-in handler also coerces `undefined` to `null`
-        // for every child change, which breaks field clearing for custom
-        // components; restore `undefined` when the leaf schema does not
-        // include `'null'`, mirroring the ingress conversion in `schema-field`.
-        if (fieldPathId && path.length > fieldPathId.path.length) {
-            const leafSchema = getSchemaAtPath(
-                schema as FormSchema,
-                path.slice(fieldPathId.path.length)
-            );
-            const value =
-                newData === null && !schemaAllowsNull(leafSchema)
-                    ? undefined
-                    : newData;
-            this.props.onChange(value, path);
+        if (this.isDeepLeafChange(path)) {
+            this.handleDeepLeafChange(newData, path);
 
             return;
         }
@@ -157,6 +141,69 @@ export class ArrayField extends React.Component<FieldProps> {
         this.props.onChange(newData, path);
     }
 
+    /**
+     * RJSF v6's built-in ArrayField shares one onChange handler across all
+     * descendants, so changes to leaves deep inside an array item bubble
+     * through here with the leaf value (not the full array) and a path that
+     * is deeper than this field's own path.
+     * @param path
+     */
+    private isDeepLeafChange(path: FieldPathList): boolean {
+        const { formData, fieldPathId } = this.props;
+
+        return (
+            Array.isArray(formData) &&
+            !!fieldPathId &&
+            path.length > fieldPathId.path.length
+        );
+    }
+
+    /**
+     * Rebuild the affected item locally so we can (a) restore `undefined`
+     * when the leaf schema does not allow `null` — the built-in handler
+     * coerces `undefined` to `null`, which breaks field clearing for custom
+     * components — and (b) still run `resetDependentFields` at the item
+     * level so sibling fields that became obsolete for the new data are
+     * cleared.
+     * @param newData
+     * @param path
+     */
+    private handleDeepLeafChange(newData: unknown, path: FieldPathList): void {
+        const { formData: oldData, fieldPathId } = this.props;
+
+        const [indexSegment, ...pathInItem] = path.slice(
+            fieldPathId.path.length
+        );
+        const index = Number(indexSegment);
+
+        const newArray = [...oldData];
+        newArray[index] = this.buildResetItem(newData, index, pathInItem);
+        this.props.onChange(newArray, fieldPathId.path);
+    }
+
+    private buildResetItem(
+        newData: unknown,
+        index: number,
+        pathInItem: Array<string | number>
+    ): unknown {
+        const { formData: oldData, schema } = this.props;
+        const { rootSchema } = this.props.registry;
+
+        const itemSchema = (
+            Array.isArray(schema.items) ? schema.items[index] : schema.items
+        ) as FormSchema;
+        const leafSchema = getSchemaAtPath(itemSchema, pathInItem);
+        const value =
+            newData === null && !schemaAllowsNull(leafSchema)
+                ? undefined
+                : newData;
+
+        const oldItem = oldData[index];
+        const newItem = setValueAtPath(oldItem, pathInItem, value);
+
+        return resetDependentFields(oldItem, newItem, itemSchema, rootSchema);
+    }
+
     render() {
         const arrayProps = {
             ...this.props,
@@ -198,4 +245,47 @@ function resolveSchemaSegment(
     }
 
     return schema.properties?.[segment];
+}
+
+/**
+ * Return a copy of `target` with `value` written at the location described
+ * by `pathSegments`, creating intermediate containers as needed. Numeric
+ * segments address arrays; string segments address object keys. `target`
+ * is not mutated.
+ *
+ * @param target
+ * @param pathSegments
+ * @param value
+ * @example
+ * setValueAtPath({ a: { b: 1 } }, ['a', 'b'], 2); // → { a: { b: 2 } }
+ * setValueAtPath([{ x: 1 }], [0, 'x'], 9);        // → [{ x: 9 }]
+ */
+function setValueAtPath(
+    target: unknown,
+    pathSegments: Array<string | number>,
+    value: unknown
+): unknown {
+    if (pathSegments.length === 0) {
+        return value;
+    }
+
+    const clone = cloneContainer(target, pathSegments[0]);
+    set(clone, pathSegments, value);
+
+    return clone;
+}
+
+function cloneContainer(
+    target: unknown,
+    firstSegment: string | number
+): object {
+    if (Array.isArray(target) || isPlainObject(target)) {
+        return cloneDeep(target) as object;
+    }
+
+    if (typeof firstSegment === 'number') {
+        return [];
+    }
+
+    return {};
 }
