@@ -31,6 +31,7 @@ import {
     nestedArrayObjectSchema,
     topLevelStringCustomComponentSchema,
     nestedStringCustomComponentSchema,
+    arrayItemWithDependenciesSchema,
 } from './form.test-schemas';
 
 const fieldTypeTests = [
@@ -515,6 +516,22 @@ test('converts null to undefined via schema-field when top-level custom componen
     expect(onChange).toHaveBeenCalled();
     const latest = onChange.mock.lastCall[0].detail;
     expect(latest.icon).toBeUndefined();
+});
+
+test('resets dependent sibling in array item when trigger field changes', async () => {
+    const onChange = vi.fn();
+    const { change } = await renderForm({
+        schema: arrayItemWithDependenciesSchema,
+        value: { entries: [{}] },
+        onChange,
+    });
+
+    await change('Use A', true);
+    await change('Value A', 'hello');
+    await change('Use A', false);
+
+    const latest = onChange.mock.lastCall[0].detail;
+    expect(latest.entries[0].valueA).toBeUndefined();
 });
 
 test('converts null to undefined via array-field when nested custom component clears', async () => {

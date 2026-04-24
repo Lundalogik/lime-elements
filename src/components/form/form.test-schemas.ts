@@ -347,6 +347,50 @@ export const topLevelStringCustomComponentSchema: FormSchema = {
     },
 };
 
+export const arrayItemWithDependenciesSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        entries: {
+            type: 'array',
+            title: 'Entries',
+            items: {
+                type: 'object',
+                properties: {
+                    useA: {
+                        type: 'boolean',
+                        title: 'Use A',
+                    },
+                },
+                required: ['useA'],
+                dependencies: {
+                    useA: {
+                        oneOf: [
+                            {
+                                properties: {
+                                    useA: { const: true },
+                                    valueA: {
+                                        type: 'string',
+                                        title: 'Value A',
+                                    },
+                                },
+                            },
+                            {
+                                properties: {
+                                    useA: { const: false },
+                                    valueB: {
+                                        type: 'string',
+                                        title: 'Value B',
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                },
+            },
+        },
+    },
+};
+
 export const nestedStringCustomComponentSchema: FormSchema = {
     type: 'object',
     properties: {
