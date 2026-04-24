@@ -27,6 +27,17 @@
         vertical-align: top;
         transition: background-color 0.2s ease;
         font-size: var(--limel-theme-default-font-size); // 14px
+
+        // Tables scroll horizontally (see `overflow-x: auto` below), so
+        // cell content should not be broken mid-word. Override the
+        // aggressive `word-break` rules from `_body-text.scss` that
+        // would otherwise shatter emails and links character-by-character.
+        p,
+        li,
+        a {
+            word-break: normal;
+            overflow-wrap: normal;
+        }
     }
 
     td {
