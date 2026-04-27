@@ -58,6 +58,7 @@ graph TD;
   limel-icon-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-example-email-viewer-inline-image --> limel-email-viewer
   limel-example-email-viewer-plain-text --> limel-email-viewer
   limel-example-email-viewer-remote-image-policy --> limel-email-viewer

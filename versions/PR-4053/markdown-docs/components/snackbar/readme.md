@@ -89,6 +89,7 @@ graph TD;
   limel-icon-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-example-snackbar-basic --> limel-snackbar
   limel-example-snackbar-dismissible --> limel-snackbar
   limel-example-snackbar-persistent --> limel-snackbar
