@@ -1,3 +1,24 @@
+## [39.17.0](https://github.com/Lundalogik/lime-elements/compare/v39.16.4...v39.17.0) (2026-04-27)
+
+### Features
+
+
+* **tooltip:** add a new `hotkey` prop ([3c47eee](https://github.com/Lundalogik/lime-elements/commit/3c47eeef3d6e06da18d8c68e0cda4b501be9aecd))
+### Bug Fixes
+
+
+* **icon-button:** use `label` prop as `aria-label` on the `button` element ([5138a5d](https://github.com/Lundalogik/lime-elements/commit/5138a5d2a9dac209e6e54c0cdd05d3548f07d022))
+* **tooltip:** generic UI improvements ([1dd2a1a](https://github.com/Lundalogik/lime-elements/commit/1dd2a1adc4f553b6e1a88eb2e841be74228b1e29))
+* **tooltip:** improve UI design of the content ([4c39fa9](https://github.com/Lundalogik/lime-elements/commit/4c39fa993546cc4e96688f6ea146841a0bf32255))
+
+## [39.16.4](https://github.com/Lundalogik/lime-elements/compare/v39.16.3...v39.16.4) (2026-04-24)
+
+### Bug Fixes
+
+
+* **markdown:** don't break links in table cells ([0d5f98a](https://github.com/Lundalogik/lime-elements/commit/0d5f98a7397cbf5ac3cb5c49ae80e2d4cf583942))
+* **markdown:** prevent inline code inside headings being rendered tiny ([53b2a51](https://github.com/Lundalogik/lime-elements/commit/53b2a51e8bf1c66c50819f5652965df6834f591b))
+
 ## [39.16.3](https://github.com/Lundalogik/lime-elements/compare/v39.16.2...v39.16.3) (2026-04-23)
 
 ### Bug Fixes

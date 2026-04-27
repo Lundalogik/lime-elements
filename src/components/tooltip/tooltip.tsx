@@ -21,18 +21,6 @@ const DEFAULT_MAX_LENGTH = 50;
  * itself is interactive, it will remain interactible even with a tooltip bound
  * to it.
  *
- * :::note
- * In order to display the tooltip, the tooltip element and its trigger element
- * must be within the same document or document fragment (the same shadowRoot).
- * Often, it's easiest to just place them next to each other like in the example
- * below, but if you need to, you can place them differently.
- *
- * ```html
- * <limel-button icon="search" id="tooltip-example" />
- * <limel-tooltip label="Search" elementId="tooltip-example" />
- * ```
- * :::
- *
  * ## Usage
  * - Keep in mind that tooltips can be distracting, and can be perceived as an interruption.
  * Use them only when they add significant value.
@@ -49,6 +37,8 @@ const DEFAULT_MAX_LENGTH = 50;
  *
  * @exampleComponent limel-example-tooltip-basic
  * @exampleComponent limel-example-tooltip-max-character
+ * @exampleComponent limel-example-tooltip-hotkey
+ * @exampleComponent limel-example-tooltip-accessibility
  * @exampleComponent limel-example-tooltip-composite
  */
 @Component({
@@ -73,11 +63,17 @@ export class Tooltip {
 
     /**
      * Additional helper text for the element.
-     * Example usage can be a keyboard shortcut to activate the function of the
-     * owner element.
      */
     @Prop({ reflect: true })
     public helperLabel?: string;
+
+    /**
+     * Keyboard shortcut to visualize inside the tooltip, e.g. `"ctrl+f"`.
+     * Display-only: the tooltip does not listen for the keystroke.
+     * Catching the hotkey is the consumer's responsibility.
+     */
+    @Prop({ reflect: true })
+    public hotkey?: string;
 
     /**
      * The maximum amount of characters before rendering 'label' and
@@ -114,7 +110,7 @@ export class Tooltip {
 
     public connectedCallback() {
         this.ownerElement = getOwnerElement(this.elementId, this.host);
-        this.setOwnerAriaLabel();
+        this.setOwnerAriaDescribedby();
         this.addListeners();
     }
 
@@ -142,6 +138,7 @@ export class Tooltip {
                     <limel-tooltip-content
                         label={this.label}
                         helperLabel={this.helperLabel}
+                        hotkey={this.hotkey}
                         maxlength={this.maxlength}
                         role="tooltip"
                         aria-hidden={!this.open}
@@ -152,7 +149,7 @@ export class Tooltip {
         );
     }
 
-    private setOwnerAriaLabel() {
+    private setOwnerAriaDescribedby() {
         this.ownerElement?.setAttribute('aria-describedby', this.tooltipId);
     }
 
