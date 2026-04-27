@@ -1,3 +1,14 @@
+## [39.17.3](https://github.com/Lundalogik/lime-elements/compare/v39.17.2...v39.17.3) (2026-04-27)
+
+### Bug Fixes
+
+
+* **action-bar:** improve accessibility by adding a default aria-label ([aa80d58](https://github.com/Lundalogik/lime-elements/commit/aa80d58b5046b9cc486b63ca45b70d74b4df0236))
+### Reverts
+
+
+* **action-bar:** remove collapsible behavior, deprecate `collapsible` prop ([3a5329f](https://github.com/Lundalogik/lime-elements/commit/3a5329ff06f326c8e64fd88531bc3827d43ed409))
+
 ## [39.17.2](https://github.com/Lundalogik/lime-elements/compare/v39.17.1...v39.17.2) (2026-04-27)
 
 ### Bug Fixes
