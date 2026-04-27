@@ -43,15 +43,15 @@ export class TooltipContent {
                 this.label.length + this.helperLabel.length > this.maxlength;
         }
 
-        const props: any = {};
-        if (this.maxlength) {
-            props.style = {
-                '--tooltip-max-width-of-text': `${this.maxlength}` + 'ch',
-            };
-        }
+        const style = this.maxlength
+            ? { '--tooltip-max-width-of-text': `${this.maxlength}ch` }
+            : undefined;
 
         return (
-            <Host class={{ 'has-column-layout': isLabelsTextLong }} {...props}>
+            <Host
+                class={{ 'has-column-layout': isLabelsTextLong }}
+                style={style}
+            >
                 <div class="label">{this.label}</div>
                 {this.renderHelperLabel()}
                 {this.renderHotkey()}
