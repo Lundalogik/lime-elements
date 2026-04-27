@@ -95,6 +95,7 @@ export class IconButton {
         return (
             <Host onClick={this.filterClickWhenDisabled}>
                 <button
+                    aria-label={this.label}
                     disabled={this.disabled}
                     id={this.tooltipId}
                     {...buttonAttributes}
