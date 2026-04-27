@@ -1,3 +1,12 @@
+## [39.17.1](https://github.com/Lundalogik/lime-elements/compare/v39.17.0...v39.17.1) (2026-04-27)
+
+### Bug Fixes
+
+
+* **form:** allow clearing custom components nested inside array items ([02910c1](https://github.com/Lundalogik/lime-elements/commit/02910c1b10fca4e5fbea564555dc4db75be82c99))
+* **form:** preserve nested-object leaf data inside array items ([8e29997](https://github.com/Lundalogik/lime-elements/commit/8e299974ed9b3b14dd9eda4313ded2106716225d))
+* **form:** reset obsolete dependent fields inside array items on trigger change ([7e1458e](https://github.com/Lundalogik/lime-elements/commit/7e1458e54467db9f2019a1160a52dad94b7e7a14))
+
 ## [39.17.0](https://github.com/Lundalogik/lime-elements/compare/v39.16.4...v39.17.0) (2026-04-27)
 
 ### Features
