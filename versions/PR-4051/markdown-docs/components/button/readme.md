@@ -109,6 +109,7 @@ primary and secondary actions, see our
  - [limel-example-tab-panel-content](../tab-panel/examples)
  - [limel-example-table-selectable-rows](../table/examples)
  - [limel-example-text-editor-as-form-component](../text-editor/examples)
+ - [limel-example-tooltip-accessibility](../tooltip/examples)
  - [limel-example-tooltip-basic](../tooltip/examples)
  - [limel-example-tooltip-composite](../tooltip/examples)
  - [limel-example-tooltip-declutter](../../design-guidelines/declutter/examples)
@@ -202,6 +203,7 @@ graph TD;
   limel-example-tab-panel-content --> limel-button
   limel-example-table-selectable-rows --> limel-button
   limel-example-text-editor-as-form-component --> limel-button
+  limel-example-tooltip-accessibility --> limel-button
   limel-example-tooltip-basic --> limel-button
   limel-example-tooltip-composite --> limel-button
   limel-example-tooltip-declutter --> limel-button
