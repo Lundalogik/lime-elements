@@ -50,6 +50,7 @@ const DEFAULT_MAX_LENGTH = 50;
  * @exampleComponent limel-example-tooltip-basic
  * @exampleComponent limel-example-tooltip-max-character
  * @exampleComponent limel-example-tooltip-hotkey
+ * @exampleComponent limel-example-tooltip-accessibility
  * @exampleComponent limel-example-tooltip-composite
  */
 @Component({
