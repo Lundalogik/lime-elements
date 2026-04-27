@@ -1,3 +1,10 @@
+## [39.17.2](https://github.com/Lundalogik/lime-elements/compare/v39.17.1...v39.17.2) (2026-04-27)
+
+### Bug Fixes
+
+
+* **card:** don't show hover effects when card is neither clickable nor has 3D effect ([20cf51b](https://github.com/Lundalogik/lime-elements/commit/20cf51b5a425a05eb259d39f80c24ca9bf130fe7))
+
 ## [39.17.1](https://github.com/Lundalogik/lime-elements/compare/v39.17.0...v39.17.1) (2026-04-27)
 
 ### Bug Fixes
