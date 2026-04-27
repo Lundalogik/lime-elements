@@ -391,6 +391,53 @@ export const arrayItemWithDependenciesSchema: FormSchema = {
     },
 };
 
+export const arrayItemWithDependenciesAndCustomConfigSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        entries: {
+            type: 'array',
+            title: 'Entries',
+            items: {
+                type: 'object',
+                properties: {
+                    useA: {
+                        type: 'boolean',
+                        title: 'Use A',
+                    },
+                    config: {
+                        type: 'object',
+                        title: 'Config',
+                        additionalProperties: { type: 'string' },
+                        lime: {
+                            component: { name: 'limel-input-field' },
+                        },
+                    },
+                },
+                required: ['useA'],
+                dependencies: {
+                    useA: {
+                        oneOf: [
+                            {
+                                properties: {
+                                    useA: { const: true },
+                                    valueA: {
+                                        type: 'string',
+                                        title: 'Value A',
+                                    },
+                                },
+                            },
+                            {
+                                properties: { useA: { const: false } },
+                            },
+                        ],
+                    },
+                },
+                additionalProperties: true,
+            },
+        },
+    },
+};
+
 export const nestedStringCustomComponentSchema: FormSchema = {
     type: 'object',
     properties: {

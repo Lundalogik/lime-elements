@@ -161,6 +161,12 @@ export class SchemaField extends React.Component<FieldProps> {
 
         this.setState({ modified: true });
 
+        if (this.isDeepLeafChange(path)) {
+            this.props.onChange(data, path);
+
+            return;
+        }
+
         const newData = resetDependentFields(
             formData,
             data,
@@ -169,6 +175,21 @@ export class SchemaField extends React.Component<FieldProps> {
         );
 
         this.props.onChange(newData, path);
+    }
+
+    /**
+     * RJSF v6's built-in ArrayField shares one onChange handler across all
+     * descendants, so changes to leaves deep inside an array item bubble
+     * through this SchemaField with a path that is deeper than its own.
+     * The enclosing ArrayField rebuilds the affected item and runs
+     * `resetDependentFields` at the item level (see array-field.ts), so we
+     * must pass the partial leaf data through untouched here.
+     * @param path
+     */
+    private isDeepLeafChange(path: FieldPathList): boolean {
+        const { fieldPathId } = this.props;
+
+        return !!fieldPathId && path.length > fieldPathId.path.length;
     }
 
     private buildCustomComponentProps() {
