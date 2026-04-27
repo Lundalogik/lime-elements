@@ -110,7 +110,7 @@ export class Tooltip {
 
     public connectedCallback() {
         this.ownerElement = getOwnerElement(this.elementId, this.host);
-        this.setOwnerAriaLabel();
+        this.setOwnerAriaDescribedby();
         this.addListeners();
     }
 
@@ -149,7 +149,7 @@ export class Tooltip {
         );
     }
 
-    private setOwnerAriaLabel() {
+    private setOwnerAriaDescribedby() {
         this.ownerElement?.setAttribute('aria-describedby', this.tooltipId);
     }
 
