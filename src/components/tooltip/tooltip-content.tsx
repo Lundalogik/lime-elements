@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Host, Prop } from '@stencil/core';
 import { normalizeHotkeyString } from '../../util/hotkeys';
 
 /**
@@ -50,13 +50,13 @@ export class TooltipContent {
             };
         }
 
-        return [
-            <text class={{ 'has-column-layout': isLabelsTextLong }} {...props}>
+        return (
+            <Host class={{ 'has-column-layout': isLabelsTextLong }} {...props}>
                 <div class="label">{this.label}</div>
                 {this.renderHelperLabel()}
                 {this.renderHotkey()}
-            </text>,
-        ];
+            </Host>
+        );
     }
 
     private renderHelperLabel() {
