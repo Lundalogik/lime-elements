@@ -50,6 +50,7 @@ standard sizes defined that can be used with the `size` property.
  - [limel-example-shadows-bad-usage](../../design-guidelines/shadows/examples)
  - [limel-example-tab-panel-content](../tab-panel/examples)
  - [limel-example-table-food](../table/examples)
+ - [limel-example-tooltip-accessibility](../tooltip/examples)
  - [limel-file-dropzone](../file-dropzone)
  - [limel-file-viewer](../file-viewer)
  - [limel-header](../header)
@@ -92,6 +93,7 @@ graph TD;
   limel-example-shadows-bad-usage --> limel-icon
   limel-example-tab-panel-content --> limel-icon
   limel-example-table-food --> limel-icon
+  limel-example-tooltip-accessibility --> limel-icon
   limel-file-dropzone --> limel-icon
   limel-file-viewer --> limel-icon
   limel-header --> limel-icon

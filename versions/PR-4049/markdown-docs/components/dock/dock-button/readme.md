@@ -44,6 +44,7 @@ graph TD;
   limel-popover --> limel-popover-surface
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-dock --> limel-dock-button
   style limel-dock-button fill:#f9f,stroke:#333,stroke-width:4px
 ```

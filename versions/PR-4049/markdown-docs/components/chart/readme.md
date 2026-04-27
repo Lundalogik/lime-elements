@@ -75,6 +75,7 @@ graph TD;
   limel-chart --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-example-chart-accessibility --> limel-chart
   limel-example-chart-axis-increment --> limel-chart
   limel-example-chart-axis-labels --> limel-chart

@@ -53,6 +53,7 @@ graph TD;
   limel-popover --> limel-popover-surface
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-example-dock-basic --> limel-dock
   limel-example-dock-colors-css --> limel-dock
   limel-example-dock-custom-component --> limel-dock
