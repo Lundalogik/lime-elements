@@ -83,6 +83,7 @@ graph TD;
   limel-icon-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-menu --> limel-spinner
   limel-menu --> limel-breadcrumbs
   limel-menu --> limel-input-field

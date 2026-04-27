@@ -27,6 +27,7 @@ graph TD;
   limel-action-bar-item --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-action-bar-overflow-menu --> limel-menu
   limel-menu --> limel-spinner
   limel-menu --> limel-breadcrumbs

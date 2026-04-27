@@ -73,6 +73,7 @@ graph TD;
   limel-button-group --> limel-badge
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-example-button-group-badges --> limel-button-group
   limel-example-button-group-basic --> limel-button-group
   limel-example-button-group-composite --> limel-button-group

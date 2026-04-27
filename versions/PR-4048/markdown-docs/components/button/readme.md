@@ -109,9 +109,11 @@ primary and secondary actions, see our
  - [limel-example-tab-panel-content](../tab-panel/examples)
  - [limel-example-table-selectable-rows](../table/examples)
  - [limel-example-text-editor-as-form-component](../text-editor/examples)
+ - [limel-example-tooltip-accessibility](../tooltip/examples)
  - [limel-example-tooltip-basic](../tooltip/examples)
  - [limel-example-tooltip-composite](../tooltip/examples)
  - [limel-example-tooltip-declutter](../../design-guidelines/declutter/examples)
+ - [limel-example-tooltip-hotkey](../tooltip/examples)
  - [limel-snackbar](../snackbar)
  - [limel-split-button](../split-button)
  - [limel-text-editor-link-menu](../text-editor/link-menu)
@@ -201,9 +203,11 @@ graph TD;
   limel-example-tab-panel-content --> limel-button
   limel-example-table-selectable-rows --> limel-button
   limel-example-text-editor-as-form-component --> limel-button
+  limel-example-tooltip-accessibility --> limel-button
   limel-example-tooltip-basic --> limel-button
   limel-example-tooltip-composite --> limel-button
   limel-example-tooltip-declutter --> limel-button
+  limel-example-tooltip-hotkey --> limel-button
   limel-snackbar --> limel-button
   limel-split-button --> limel-button
   limel-text-editor-link-menu --> limel-button

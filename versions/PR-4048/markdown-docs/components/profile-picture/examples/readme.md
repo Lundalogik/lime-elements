@@ -28,6 +28,7 @@ graph TD;
   limel-profile-picture --> limel-callout
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-file-dropzone --> limel-icon
   limel-popover --> limel-portal
   limel-popover --> limel-popover-surface

@@ -54,6 +54,7 @@ graph TD;
   limel-icon-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-input-field --> limel-helper-line
   limel-input-field --> limel-icon
   limel-input-field --> limel-portal
