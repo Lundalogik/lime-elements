@@ -37,8 +37,8 @@ graph TD;
   limel-example-switch-readonly --> limel-switch
   limel-example-switch-readonly --> limel-example-controls
   limel-example-switch-readonly --> limel-example-value
-  limel-switch --> limel-helper-line
   limel-switch --> limel-dynamic-label
+  limel-switch --> limel-helper-line
   limel-dynamic-label --> limel-icon
   style limel-example-switch-readonly fill:#f9f,stroke:#333,stroke-width:4px
 ```

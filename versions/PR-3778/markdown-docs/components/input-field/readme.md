@@ -83,6 +83,7 @@ Type: `Promise<number>`
 
 ### Used by
 
+ - [limel-code-diff](../code-diff)
  - [limel-color-picker](../color-picker)
  - [limel-color-picker-palette](../color-picker)
  - [limel-date-picker](../date-picker)
@@ -97,7 +98,7 @@ Type: `Promise<number>`
  - [limel-example-chart-type-pie](../chart/examples)
  - [limel-example-chart-type-ring](../chart/examples)
  - [limel-example-chip-set-input](../chip-set/examples)
- - [limel-example-circular-progress](../circular-progress/examples)
+ - [limel-example-circular-progress-basic](../circular-progress/examples)
  - [limel-example-circular-progress-percentage-colors](../circular-progress/examples)
  - [limel-example-collapsible-section-invalid](../collapsible-section/examples)
  - [limel-example-color-picker-composite](../color-picker/examples)
@@ -122,7 +123,7 @@ Type: `Promise<number>`
  - [limel-example-input-field-text-decluttering-guidelines](../../design-guidelines/declutter/examples)
  - [limel-example-input-field-text-multiple](examples)
  - [limel-example-input-field-textarea](examples)
- - [limel-example-linear-progress](../linear-progress/examples)
+ - [limel-example-linear-progress-basic](../linear-progress/examples)
  - [limel-example-markdown-composite](../markdown/examples)
  - [limel-example-text-editor-composite](../text-editor/examples)
  - [limel-menu](../menu)
@@ -146,6 +147,7 @@ graph TD;
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
+  limel-code-diff --> limel-input-field
   limel-color-picker --> limel-input-field
   limel-color-picker-palette --> limel-input-field
   limel-date-picker --> limel-input-field
@@ -160,7 +162,7 @@ graph TD;
   limel-example-chart-type-pie --> limel-input-field
   limel-example-chart-type-ring --> limel-input-field
   limel-example-chip-set-input --> limel-input-field
-  limel-example-circular-progress --> limel-input-field
+  limel-example-circular-progress-basic --> limel-input-field
   limel-example-circular-progress-percentage-colors --> limel-input-field
   limel-example-collapsible-section-invalid --> limel-input-field
   limel-example-color-picker-composite --> limel-input-field
@@ -185,7 +187,7 @@ graph TD;
   limel-example-input-field-text-decluttering-guidelines --> limel-input-field
   limel-example-input-field-text-multiple --> limel-input-field
   limel-example-input-field-textarea --> limel-input-field
-  limel-example-linear-progress --> limel-input-field
+  limel-example-linear-progress-basic --> limel-input-field
   limel-example-markdown-composite --> limel-input-field
   limel-example-text-editor-composite --> limel-input-field
   limel-menu --> limel-input-field

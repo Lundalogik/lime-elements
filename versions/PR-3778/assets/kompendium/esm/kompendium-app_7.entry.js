@@ -1,7 +1,7 @@
 import { r as registerInstance, h, a as getElement } from './index-9UrzenzW.js';
 import { s as setTypes } from './markdown-types-Ajsawr_9.js';
 import { T as THEME_EVENT_NAME } from './types-BIPLEi1G.js';
-import { c as commonjsGlobal, g as getDefaultExportFromCjs } from './_commonjsHelpers-E-ZsRS8r.js';
+import { c as commonjsGlobal, g as getDefaultExportFromCjs } from './_commonjsHelpers-BFTU3MAI.js';
 
 /**
  * Fuse.js v6.4.6 - Lightweight fuzzy-search (http://fusejs.io)

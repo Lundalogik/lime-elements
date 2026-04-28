@@ -113,7 +113,7 @@ does not return anything, but methods have to be async
 ### Used by
 
  - [limel-example-chip-icon-color](examples)
- - [limel-example-chip-set](examples)
+ - [limel-example-chip-set-basic](examples)
  - [limel-example-chip-set-choice](examples)
  - [limel-example-chip-set-composite](examples)
  - [limel-example-chip-set-filter](examples)
@@ -155,6 +155,7 @@ graph TD;
   limel-breadcrumbs --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-input-field --> limel-helper-line
   limel-input-field --> limel-icon
   limel-input-field --> limel-portal
@@ -162,7 +163,7 @@ graph TD;
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
   limel-example-chip-icon-color --> limel-chip-set
-  limel-example-chip-set --> limel-chip-set
+  limel-example-chip-set-basic --> limel-chip-set
   limel-example-chip-set-choice --> limel-chip-set
   limel-example-chip-set-composite --> limel-chip-set
   limel-example-chip-set-filter --> limel-chip-set

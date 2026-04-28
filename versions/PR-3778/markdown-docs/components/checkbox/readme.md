@@ -60,7 +60,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-boolean-checkboxes](../../design-guidelines/boolean/examples)
  - [limel-example-button-disabled-vs-hidden](../../design-guidelines/disabled-hidden/examples)
  - [limel-example-chart-accessibility](../chart/examples)
- - [limel-example-checkbox](examples)
+ - [limel-example-checkbox-basic](examples)
  - [limel-example-checkbox-helper-text](examples)
  - [limel-example-checkbox-readonly](examples)
  - [limel-example-color-picker-composite](../color-picker/examples)
@@ -68,8 +68,8 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-color-picker-manual-input](../color-picker/examples)
  - [limel-example-dialog-action-buttons](../dialog/examples)
  - [limel-example-dynamic-label-readonly-boolean](../dynamic-label/examples)
- - [limel-example-file-dropzone](../file-dropzone/examples)
- - [limel-example-file-input](../file-input/examples)
+ - [limel-example-file-dropzone-basic](../file-dropzone/examples)
+ - [limel-example-file-input-basic](../file-input/examples)
  - [limel-example-file-input-type-filtering](../file-input/examples)
  - [limel-example-form-array-item-controls](../form/examples)
  - [limel-example-helper-line-animation](../helper-line/examples)
@@ -112,7 +112,7 @@ graph TD;
   limel-example-boolean-checkboxes --> limel-checkbox
   limel-example-button-disabled-vs-hidden --> limel-checkbox
   limel-example-chart-accessibility --> limel-checkbox
-  limel-example-checkbox --> limel-checkbox
+  limel-example-checkbox-basic --> limel-checkbox
   limel-example-checkbox-helper-text --> limel-checkbox
   limel-example-checkbox-readonly --> limel-checkbox
   limel-example-color-picker-composite --> limel-checkbox
@@ -120,8 +120,8 @@ graph TD;
   limel-example-color-picker-manual-input --> limel-checkbox
   limel-example-dialog-action-buttons --> limel-checkbox
   limel-example-dynamic-label-readonly-boolean --> limel-checkbox
-  limel-example-file-dropzone --> limel-checkbox
-  limel-example-file-input --> limel-checkbox
+  limel-example-file-dropzone-basic --> limel-checkbox
+  limel-example-file-input-basic --> limel-checkbox
   limel-example-file-input-type-filtering --> limel-checkbox
   limel-example-form-array-item-controls --> limel-checkbox
   limel-example-helper-line-animation --> limel-checkbox

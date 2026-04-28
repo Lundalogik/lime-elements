@@ -23,14 +23,14 @@ empower users to interact with the software and perform desired actions effortle
 
 ## Properties
 
-| Property          | Attribute          | Description                                                                                                                                                                                                                                                                                                                                                | Type                                                                                                                                                                 | Default                                      |
-| ----------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
-| `accessibleLabel` | `accessible-label` | A label used to describe the purpose of the element to users of assistive technologies, like screen readers. Example value: "toolbar"                                                                                                                                                                                                                      | `string`                                                                                                                                                             | `undefined`                                  |
-| `actions`         | --                 | Items that are placed in the action bar. These represent primary actions.                                                                                                                                                                                                                                                                                  | `(ListSeparator \| ActionBarItem)[]`                                                                                                                                 | `[]`                                         |
-| `collapsible`     | `collapsible`      | When set to `true`, the action bar will be collapsible.                                                                                                                                                                                                                                                                                                    | `boolean`                                                                                                                                                            | `false`                                      |
-| `language`        | `language`         | Defines the language for translations.                                                                                                                                                                                                                                                                                                                     | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"`                                                                                               | `document.documentElement.lang as Languages` |
-| `layout`          | `layout`           | - When set to `fullWidth`, the component will take the entire width of its container. - When set to `floating`, the component will get basic stylings to visualize the floating state. :::note You should still properly position the component according to the structure of your user interface. For example, use an `absolute` or `fixed` position. ::: | `"floating" \| "fullWidth"`                                                                                                                                          | `undefined`                                  |
-| `openDirection`   | `open-direction`   | Defines the location that the content of the overflow menu appears, in relation to its trigger.                                                                                                                                                                                                                                                            | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `undefined`                                  |
+| Property          | Attribute          | Description                                                                                                                                                                                                                                                                                                                                                                                                           | Type                                                                                                                                                                 | Default     |
+| ----------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `accessibleLabel` | `accessible-label` | A label used to describe the purpose of the element to users of assistive technologies, like screen readers. If not set, a localized default ("Action bar" in English, translated via the `language` prop) is used, so the element is never announced without a name. Override this when a more specific label would help users tell multiple action bars apart — for example "Bulk actions" or "Contextual actions". | `string`                                                                                                                                                             | `undefined` |
+| `actions`         | --                 | Items that are placed in the action bar. These represent primary actions.                                                                                                                                                                                                                                                                                                                                             | `(ListSeparator \| ActionBarItem)[]`                                                                                                                                 | `[]`        |
+| `collapsible`     | `collapsible`      | <span style="color:red">**[DEPRECATED]**</span> The prop has no effect any longer. It will be removed in a future major version. If you need this behavior, implement the expand/shrink (or resize) in the consuming UI instead.<br/><br/>                                                                                                                                                                            | `boolean`                                                                                                                                                            | `false`     |
+| `language`        | `language`         | Defines the language for translations.                                                                                                                                                                                                                                                                                                                                                                                | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"`                                                                                               | `'en'`      |
+| `layout`          | `layout`           | - When set to `fullWidth`, the component will take the entire width of its container. - When set to `floating`, the component will get basic stylings to visualize the floating state. :::note You should still properly position the component according to the structure of your user interface. For example, use an `absolute` or `fixed` position. :::                                                            | `"floating" \| "fullWidth"`                                                                                                                                          | `undefined` |
+| `openDirection`   | `open-direction`   | Defines the location that the content of the overflow menu appears, in relation to its trigger.                                                                                                                                                                                                                                                                                                                       | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `undefined` |
 
 
 ## Events
@@ -45,10 +45,10 @@ empower users to interact with the software and perform desired actions effortle
 ### Used by
 
  - [limel-card](../card)
+ - [limel-code-diff](../code-diff)
  - [limel-example-action-bar-basic](examples)
  - [limel-example-action-bar-colors](examples)
  - [limel-example-action-bar-floating](examples)
- - [limel-example-action-bar-floating-expand](examples)
  - [limel-example-action-bar-icon-title](examples)
  - [limel-example-action-bar-in-list](examples)
  - [limel-example-action-bar-overflow-menu](examples)
@@ -61,21 +61,17 @@ empower users to interact with the software and perform desired actions effortle
 
 - [limel-action-bar-item](action-bar-item)
 - [limel-action-bar-overflow-menu](action-bar-item)
-- [limel-icon](../icon)
-- [limel-tooltip](../tooltip)
 
 ### Graph
 ```mermaid
 graph TD;
   limel-action-bar --> limel-action-bar-item
   limel-action-bar --> limel-action-bar-overflow-menu
-  limel-action-bar --> limel-icon
-  limel-action-bar --> limel-tooltip
   limel-action-bar-item --> limel-icon
   limel-action-bar-item --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
-  limel-action-bar-overflow-menu --> limel-icon
+  limel-tooltip-content --> limel-hotkey
   limel-action-bar-overflow-menu --> limel-menu
   limel-menu --> limel-spinner
   limel-menu --> limel-breadcrumbs
@@ -93,10 +89,10 @@ graph TD;
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
   limel-card --> limel-action-bar
+  limel-code-diff --> limel-action-bar
   limel-example-action-bar-basic --> limel-action-bar
   limel-example-action-bar-colors --> limel-action-bar
   limel-example-action-bar-floating --> limel-action-bar
-  limel-example-action-bar-floating-expand --> limel-action-bar
   limel-example-action-bar-icon-title --> limel-action-bar
   limel-example-action-bar-in-list --> limel-action-bar
   limel-example-action-bar-overflow-menu --> limel-action-bar

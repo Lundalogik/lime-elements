@@ -27,15 +27,15 @@ For more complex interactions and for delivering more detailed information,
 
 ## Properties
 
-| Property      | Attribute     | Description                                                                                                                                                                                                                                                                                       | Type                                                                   | Default     |
-| ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------- |
-| `actionText`  | `action-text` | The text to display for the action button.                                                                                                                                                                                                                                                        | `string`                                                               | `undefined` |
-| `dismissible` | `dismissible` | When `true` displays a dismiss button on the snackbar, allowing users to close it.                                                                                                                                                                                                                | `boolean`                                                              | `true`      |
-| `language`    | `language`    | Defines the language for translations.                                                                                                                                                                                                                                                            | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`      |
-| `message`     | `message`     | The text message to display.                                                                                                                                                                                                                                                                      | `string`                                                               | `undefined` |
-| `multiline`   | `multiline`   | <span style="color:red">**[DEPRECATED]**</span> Setting this property no longer has any effect. The property will be removed in a future major version.<br/><br/>Whether to show the snackbar with space for multiple lines of text                                                               | `boolean`                                                              | `undefined` |
-| `open`        | `open`        | `true` if the snackbar is open, `false` otherwise.                                                                                                                                                                                                                                                | `boolean`                                                              | `false`     |
-| `timeout`     | `timeout`     | The amount of time in milliseconds to show the snackbar. If set to `-1`, the snackbar will be persistent. This means: - either the end user will need to close it manually, which requires the `dismissible` property to be set to `true`. - or the snackbar needs to be closed programmatically. | `number`                                                               | `5000`      |
+| Property      | Attribute     | Description                                                                                                                                                                                                                                                                                                                                                                                                                             | Type                                                                   | Default     |
+| ------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------- |
+| `actionText`  | `action-text` | The text to display for the action button.                                                                                                                                                                                                                                                                                                                                                                                              | `string`                                                               | `undefined` |
+| `dismissible` | `dismissible` | When `true` displays a dismiss button on the snackbar, allowing users to close it.                                                                                                                                                                                                                                                                                                                                                      | `boolean`                                                              | `true`      |
+| `language`    | `language`    | Defines the language for translations.                                                                                                                                                                                                                                                                                                                                                                                                  | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`      |
+| `message`     | `message`     | The message to display.  Supports [Markdown](#/component/limel-markdown/) for light inline emphasis such as `**bold**` or `*italic*`. See the Markdown example below for UX guidance.  :::important When the message is composed from dynamic content such as user input or translated strings, escape Markdown-sensitive characters (`*`, `_`, backtick, `#`, `[`, `]`) with a leading backslash to prevent unintended formatting. ::: | `string`                                                               | `undefined` |
+| `multiline`   | `multiline`   | <span style="color:red">**[DEPRECATED]**</span> Setting this property no longer has any effect. The property will be removed in a future major version.<br/><br/>Whether to show the snackbar with space for multiple lines of text                                                                                                                                                                                                     | `boolean`                                                              | `undefined` |
+| `open`        | `open`        | `true` if the snackbar is open, `false` otherwise.                                                                                                                                                                                                                                                                                                                                                                                      | `boolean`                                                              | `false`     |
+| `timeout`     | `timeout`     | The amount of time in milliseconds to show the snackbar. If set to `-1`, the snackbar will be persistent. This means: - either the end user will need to close it manually, which requires the `dismissible` property to be set to `true`. - or the snackbar needs to be closed programmatically.                                                                                                                                       | `number`                                                               | `5000`      |
 
 
 ## Events
@@ -63,21 +63,24 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [limel-example-snackbar](examples)
+ - [limel-example-snackbar-basic](examples)
  - [limel-example-snackbar-dismissible](examples)
  - [limel-example-snackbar-persistent](examples)
  - [limel-example-snackbar-persistent-non-dismissible](examples)
  - [limel-example-snackbar-with-action](examples)
  - [limel-example-snackbar-with-changing-messages](examples)
+ - [limel-example-snackbar-with-markdown](examples)
 
 ### Depends on
 
+- [limel-markdown](../markdown)
 - [limel-button](../button)
 - [limel-icon-button](../icon-button)
 
 ### Graph
 ```mermaid
 graph TD;
+  limel-snackbar --> limel-markdown
   limel-snackbar --> limel-button
   limel-snackbar --> limel-icon-button
   limel-button --> limel-icon
@@ -86,12 +89,14 @@ graph TD;
   limel-icon-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
-  limel-example-snackbar --> limel-snackbar
+  limel-tooltip-content --> limel-hotkey
+  limel-example-snackbar-basic --> limel-snackbar
   limel-example-snackbar-dismissible --> limel-snackbar
   limel-example-snackbar-persistent --> limel-snackbar
   limel-example-snackbar-persistent-non-dismissible --> limel-snackbar
   limel-example-snackbar-with-action --> limel-snackbar
   limel-example-snackbar-with-changing-messages --> limel-snackbar
+  limel-example-snackbar-with-markdown --> limel-snackbar
   style limel-snackbar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -1,6 +1,6 @@
 # Lime Elements Documentation
 
-**Version 39.5.4**
+**Version 39.17.3**
 
 A comprehensive design system and component library built with Stencil.
 
@@ -16,7 +16,7 @@ npm install @limetech/lime-elements
 <limel-button primary label="Hello World"></limel-button>
 ```
 
-## Components (66)
+## Components (69)
 
 | [3d Hover Effect Glow](components/3d-hover-effect-glow/readme.md) | [Action Bar](components/action-bar/readme.md) | [Ai Avatar](components/ai-avatar/readme.md) |
 | --- | --- | --- | 
@@ -24,16 +24,17 @@ npm install @limetech/lime-elements
 | [Button](components/button/readme.md) | [Button Group](components/button-group/readme.md) | [Callout](components/callout/readme.md) |
 | [Card](components/card/readme.md) | [Chart](components/chart/readme.md) | [Checkbox](components/checkbox/readme.md) |
 | [Chip](components/chip/readme.md) | [Chip Set](components/chip-set/readme.md) | [Circular Progress](components/circular-progress/readme.md) |
-| [Code Editor](components/code-editor/readme.md) | [Collapsible Section](components/collapsible-section/readme.md) | [Color Picker](components/color-picker/readme.md) |
-| [Config](components/config/readme.md) | [Date Picker](components/date-picker/readme.md) | [Dialog](components/dialog/readme.md) |
-| [Dock](components/dock/readme.md) | [Drag Handle](components/drag-handle/readme.md) | [Dynamic Label](components/dynamic-label/readme.md) |
-| [Email Viewer](components/email-viewer/readme.md) | [File](components/file/readme.md) | [File Dropzone](components/file-dropzone/readme.md) |
-| [File Input](components/file-input/readme.md) | [File Viewer](components/file-viewer/readme.md) | [Flex Container](components/flex-container/readme.md) |
-| [Form](components/form/readme.md) | [Grid](components/grid/readme.md) | [Header](components/header/readme.md) |
-| [Help](components/help/readme.md) | [Helper Line](components/helper-line/readme.md) | [Icon](components/icon/readme.md) |
-| [Icon Button](components/icon-button/readme.md) | [Info Tile](components/info-tile/readme.md) | [Input Field](components/input-field/readme.md) |
-| [Linear Progress](components/linear-progress/readme.md) | [List](components/list/readme.md) | [List Item](components/list-item/readme.md) |
-| [Markdown](components/markdown/readme.md) | [Menu](components/menu/readme.md) | [Menu List](components/menu-list/readme.md) |
+| [Code Diff](components/code-diff/readme.md) | [Code Editor](components/code-editor/readme.md) | [Collapsible Section](components/collapsible-section/readme.md) |
+| [Color Picker](components/color-picker/readme.md) | [Config](components/config/readme.md) | [Date Picker](components/date-picker/readme.md) |
+| [Dialog](components/dialog/readme.md) | [Dock](components/dock/readme.md) | [Drag Handle](components/drag-handle/readme.md) |
+| [Dynamic Label](components/dynamic-label/readme.md) | [Email Viewer](components/email-viewer/readme.md) | [File](components/file/readme.md) |
+| [File Dropzone](components/file-dropzone/readme.md) | [File Input](components/file-input/readme.md) | [File Viewer](components/file-viewer/readme.md) |
+| [Flex Container](components/flex-container/readme.md) | [Form](components/form/readme.md) | [Grid](components/grid/readme.md) |
+| [Header](components/header/readme.md) | [Help](components/help/readme.md) | [Helper Line](components/helper-line/readme.md) |
+| [Hotkey](components/hotkey/readme.md) | [Icon](components/icon/readme.md) | [Icon Button](components/icon-button/readme.md) |
+| [Info Tile](components/info-tile/readme.md) | [Input Field](components/input-field/readme.md) | [Linear Progress](components/linear-progress/readme.md) |
+| [List](components/list/readme.md) | [List Item](components/list-item/readme.md) | [Markdown](components/markdown/readme.md) |
+| [Masonry Layout](components/masonry-layout/readme.md) | [Menu](components/menu/readme.md) | [Menu List](components/menu-list/readme.md) |
 | [Menu Surface](components/menu-surface/readme.md) | [Notched Outline](components/notched-outline/readme.md) | [Picker](components/picker/readme.md) |
 | [Popover](components/popover/readme.md) | [Popover Surface](components/popover-surface/readme.md) | [Portal](components/portal/readme.md) |
 | [Profile Picture](components/profile-picture/readme.md) | [Progress Flow](components/progress-flow/readme.md) | [Radio Button Group](components/radio-button-group/readme.md) |

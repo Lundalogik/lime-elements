@@ -1,4 +1,5 @@
-import map from "unist-util-map";
+import { map } from "unist-util-map";
+import { isElement } from "./markdown-nodes";
 export function kompendiumCode() {
     return transformer;
 }
@@ -6,7 +7,7 @@ function transformer(tree) {
     return map(tree, mapCodeNode);
 }
 function mapCodeNode(node) {
-    if (node.type !== 'element') {
+    if (!isElement(node)) {
         return node;
     }
     if (node.tagName !== 'code') {
@@ -23,17 +24,14 @@ function mapCodeNode(node) {
         properties: {
             language: language,
         },
-        children: [],
     };
 }
 function getLanguage(props) {
-    if (!props) {
+    const className = props === null || props === void 0 ? void 0 : props.className;
+    if (!Array.isArray(className)) {
         return;
     }
-    if (!('className' in props)) {
-        return;
-    }
-    const languageClass = props.className.find((name) => name.startsWith('language-'));
+    const languageClass = className.find((name) => name.startsWith('language-'));
     if (!languageClass) {
         return;
     }

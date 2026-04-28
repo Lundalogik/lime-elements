@@ -43,8 +43,8 @@
 
 ### Used by
 
- - [limel-example-table](examples)
  - [limel-example-table-activate-row](examples)
+ - [limel-example-table-basic](examples)
  - [limel-example-table-custom-components](examples)
  - [limel-example-table-default-sorted](examples)
  - [limel-example-table-header-menu](examples)
@@ -73,8 +73,8 @@ graph TD;
   limel-checkbox --> limel-dynamic-label
   limel-checkbox --> limel-helper-line
   limel-dynamic-label --> limel-icon
-  limel-example-table --> limel-table
   limel-example-table-activate-row --> limel-table
+  limel-example-table-basic --> limel-table
   limel-example-table-custom-components --> limel-table
   limel-example-table-default-sorted --> limel-table
   limel-example-table-header-menu --> limel-table

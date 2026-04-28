@@ -42,26 +42,28 @@ But there is an important difference between the two! Please read our guidelines
 ### Used by
 
  - [limel-example-button-composite](../button/examples)
- - [limel-example-button-group](../button-group/examples)
+ - [limel-example-button-group-basic](../button-group/examples)
  - [limel-example-button-group-icons](../button-group/examples)
  - [limel-example-button-group-mix](../button-group/examples)
+ - [limel-example-card-3d-effect](../card/examples)
  - [limel-example-card-selected](../card/examples)
  - [limel-example-chart-axis-labels](../chart/examples)
- - [limel-example-checkbox](../checkbox/examples)
+ - [limel-example-checkbox-basic](../checkbox/examples)
  - [limel-example-checkbox-readonly](../checkbox/examples)
  - [limel-example-chip-button](../chip/examples)
  - [limel-example-chip-loading](../chip/examples)
- - [limel-example-chip-set](../chip-set/examples)
+ - [limel-example-chip-set-basic](../chip-set/examples)
  - [limel-example-chip-set-choice](../chip-set/examples)
  - [limel-example-chip-set-filter](../chip-set/examples)
  - [limel-example-chip-set-filter-badge](../chip-set/examples)
  - [limel-example-chip-set-input](../chip-set/examples)
+ - [limel-example-code-diff-line-wrap](../code-diff/examples)
  - [limel-example-code-editor-composite](../code-editor/examples)
  - [limel-example-code-editor-copy](../code-editor/examples)
  - [limel-example-dialog-nested-close-events](../dialog/examples)
- - [limel-example-dynamic-label](../dynamic-label/examples)
+ - [limel-example-dynamic-label-basic](../dynamic-label/examples)
  - [limel-example-dynamic-label-readonly-boolean](../dynamic-label/examples)
- - [limel-example-file](../file/examples)
+ - [limel-example-file-basic](../file/examples)
  - [limel-example-form-span-fields](../form/examples)
  - [limel-example-icon-button-composite](../icon-button/examples)
  - [limel-example-info-tile-loading](../info-tile/examples)
@@ -78,21 +80,22 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-list-item-primary-component](../list-item/examples)
  - [limel-example-list-pictures](../list/examples)
  - [limel-example-list-radio-button-icons](../list/examples)
+ - [limel-example-masonry-layout-ordered](../masonry-layout/examples)
  - [limel-example-profile-picture-composite](../profile-picture/examples)
  - [limel-example-profile-picture-loading](../profile-picture/examples)
  - [limel-example-progress-flow-basic](../progress-flow/examples)
  - [limel-example-radio-button-group-basic](../radio-button-group/examples)
  - [limel-example-radio-button-group-deselect-selected](../radio-button-group/examples)
  - [limel-example-readonly-props](../../design-guidelines/boolean/examples)
- - [limel-example-select](../select/examples)
+ - [limel-example-select-basic](../select/examples)
  - [limel-example-select-multiple](../select/examples)
  - [limel-example-select-with-empty-option](../select/examples)
  - [limel-example-slider-basic](../slider/examples)
  - [limel-example-slider-multiplier-percentage-colors](../slider/examples)
  - [limel-example-snackbar-persistent-non-dismissible](../snackbar/examples)
- - [limel-example-spinner](../spinner/examples)
+ - [limel-example-spinner-basic](../spinner/examples)
  - [limel-example-spinner-color](../spinner/examples)
- - [limel-example-switch](examples)
+ - [limel-example-switch-basic](examples)
  - [limel-example-switch-helper-text](examples)
  - [limel-example-switch-readonly](examples)
  - [limel-example-switch-vs-checkbox](../../design-guidelines/boolean/examples)
@@ -104,36 +107,38 @@ But there is an important difference between the two! Please read our guidelines
 
 ### Depends on
 
-- [limel-helper-line](../helper-line)
 - [limel-dynamic-label](../dynamic-label)
+- [limel-helper-line](../helper-line)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-switch --> limel-helper-line
   limel-switch --> limel-dynamic-label
+  limel-switch --> limel-helper-line
   limel-dynamic-label --> limel-icon
   limel-example-button-composite --> limel-switch
-  limel-example-button-group --> limel-switch
+  limel-example-button-group-basic --> limel-switch
   limel-example-button-group-icons --> limel-switch
   limel-example-button-group-mix --> limel-switch
+  limel-example-card-3d-effect --> limel-switch
   limel-example-card-selected --> limel-switch
   limel-example-chart-axis-labels --> limel-switch
-  limel-example-checkbox --> limel-switch
+  limel-example-checkbox-basic --> limel-switch
   limel-example-checkbox-readonly --> limel-switch
   limel-example-chip-button --> limel-switch
   limel-example-chip-loading --> limel-switch
-  limel-example-chip-set --> limel-switch
+  limel-example-chip-set-basic --> limel-switch
   limel-example-chip-set-choice --> limel-switch
   limel-example-chip-set-filter --> limel-switch
   limel-example-chip-set-filter-badge --> limel-switch
   limel-example-chip-set-input --> limel-switch
+  limel-example-code-diff-line-wrap --> limel-switch
   limel-example-code-editor-composite --> limel-switch
   limel-example-code-editor-copy --> limel-switch
   limel-example-dialog-nested-close-events --> limel-switch
-  limel-example-dynamic-label --> limel-switch
+  limel-example-dynamic-label-basic --> limel-switch
   limel-example-dynamic-label-readonly-boolean --> limel-switch
-  limel-example-file --> limel-switch
+  limel-example-file-basic --> limel-switch
   limel-example-form-span-fields --> limel-switch
   limel-example-icon-button-composite --> limel-switch
   limel-example-info-tile-loading --> limel-switch
@@ -150,21 +155,22 @@ graph TD;
   limel-example-list-item-primary-component --> limel-switch
   limel-example-list-pictures --> limel-switch
   limel-example-list-radio-button-icons --> limel-switch
+  limel-example-masonry-layout-ordered --> limel-switch
   limel-example-profile-picture-composite --> limel-switch
   limel-example-profile-picture-loading --> limel-switch
   limel-example-progress-flow-basic --> limel-switch
   limel-example-radio-button-group-basic --> limel-switch
   limel-example-radio-button-group-deselect-selected --> limel-switch
   limel-example-readonly-props --> limel-switch
-  limel-example-select --> limel-switch
+  limel-example-select-basic --> limel-switch
   limel-example-select-multiple --> limel-switch
   limel-example-select-with-empty-option --> limel-switch
   limel-example-slider-basic --> limel-switch
   limel-example-slider-multiplier-percentage-colors --> limel-switch
   limel-example-snackbar-persistent-non-dismissible --> limel-switch
-  limel-example-spinner --> limel-switch
+  limel-example-spinner-basic --> limel-switch
   limel-example-spinner-color --> limel-switch
-  limel-example-switch --> limel-switch
+  limel-example-switch-basic --> limel-switch
   limel-example-switch-helper-text --> limel-switch
   limel-example-switch-readonly --> limel-switch
   limel-example-switch-vs-checkbox --> limel-switch

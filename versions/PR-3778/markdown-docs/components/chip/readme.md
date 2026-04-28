@@ -84,11 +84,13 @@ or navigating to a page with more information about the item in the shopping lis
  - [limel-example-chip-readonly-border](examples)
  - [limel-example-chip-removable](examples)
  - [limel-example-chip-size](examples)
- - [limel-example-file-dropzone](../file-dropzone/examples)
+ - [limel-example-file-dropzone-basic](../file-dropzone/examples)
  - [limel-example-file-dropzone-type-filtering](../file-dropzone/examples)
- - [limel-example-file-input](../file-input/examples)
+ - [limel-example-file-input-basic](../file-input/examples)
  - [limel-example-file-input-type-filtering](../file-input/examples)
+ - [limel-example-menu-keep-open](../menu/examples)
  - [limel-example-menu-searchable](../menu/examples)
+ - [limel-example-menu-searchable-hotkeys](../menu/examples)
  - [limel-example-popover-trigger-interaction](../popover/examples)
  - [limel-showcase-card](../../examples/whats-new)
 
@@ -117,6 +119,7 @@ graph TD;
   limel-breadcrumbs --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-input-field --> limel-helper-line
   limel-input-field --> limel-icon
   limel-input-field --> limel-portal
@@ -137,11 +140,13 @@ graph TD;
   limel-example-chip-readonly-border --> limel-chip
   limel-example-chip-removable --> limel-chip
   limel-example-chip-size --> limel-chip
-  limel-example-file-dropzone --> limel-chip
+  limel-example-file-dropzone-basic --> limel-chip
   limel-example-file-dropzone-type-filtering --> limel-chip
-  limel-example-file-input --> limel-chip
+  limel-example-file-input-basic --> limel-chip
   limel-example-file-input-type-filtering --> limel-chip
+  limel-example-menu-keep-open --> limel-chip
   limel-example-menu-searchable --> limel-chip
+  limel-example-menu-searchable-hotkeys --> limel-chip
   limel-example-popover-trigger-interaction --> limel-chip
   limel-showcase-card --> limel-chip
   style limel-chip fill:#f9f,stroke:#333,stroke-width:4px

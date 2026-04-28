@@ -58,8 +58,8 @@ and similar phrases...
 
 ### Used by
 
- - [limel-example-file](examples)
  - [limel-example-file-accepted-types](examples)
+ - [limel-example-file-basic](examples)
  - [limel-example-file-composite](examples)
  - [limel-example-file-custom-icon](examples)
  - [limel-example-file-menu-items](examples)
@@ -97,14 +97,15 @@ graph TD;
   limel-breadcrumbs --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-input-field --> limel-helper-line
   limel-input-field --> limel-icon
   limel-input-field --> limel-portal
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
-  limel-example-file --> limel-file
   limel-example-file-accepted-types --> limel-file
+  limel-example-file-basic --> limel-file
   limel-example-file-composite --> limel-file
   limel-example-file-custom-icon --> limel-file
   limel-example-file-menu-items --> limel-file

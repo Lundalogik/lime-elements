@@ -23,8 +23,8 @@ graph TD;
   limel-checkbox --> limel-dynamic-label
   limel-checkbox --> limel-helper-line
   limel-dynamic-label --> limel-icon
-  limel-switch --> limel-helper-line
   limel-switch --> limel-dynamic-label
+  limel-switch --> limel-helper-line
   limel-button --> limel-icon
   limel-button --> limel-spinner
   style limel-example-switch-vs-checkbox fill:#f9f,stroke:#333,stroke-width:4px

@@ -52,8 +52,8 @@ inherits its width from its content.
 
 ### Used by
 
- - [limel-example-button-group](examples)
  - [limel-example-button-group-badges](examples)
+ - [limel-example-button-group-basic](examples)
  - [limel-example-button-group-composite](examples)
  - [limel-example-button-group-icons](examples)
  - [limel-example-button-group-mix](examples)
@@ -73,8 +73,9 @@ graph TD;
   limel-button-group --> limel-badge
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
-  limel-example-button-group --> limel-button-group
+  limel-tooltip-content --> limel-hotkey
   limel-example-button-group-badges --> limel-button-group
+  limel-example-button-group-basic --> limel-button-group
   limel-example-button-group-composite --> limel-button-group
   limel-example-button-group-icons --> limel-button-group
   limel-example-button-group-mix --> limel-button-group

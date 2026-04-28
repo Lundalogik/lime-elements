@@ -16,7 +16,7 @@
 
  - [limel-button](../button)
  - [limel-chart](../chart)
- - [limel-example-spinner](examples)
+ - [limel-example-spinner-basic](examples)
  - [limel-example-spinner-color](examples)
  - [limel-example-spinner-size](examples)
  - [limel-example-tab-panel-content](../tab-panel/examples)
@@ -31,7 +31,7 @@
 graph TD;
   limel-button --> limel-spinner
   limel-chart --> limel-spinner
-  limel-example-spinner --> limel-spinner
+  limel-example-spinner-basic --> limel-spinner
   limel-example-spinner-color --> limel-spinner
   limel-example-spinner-size --> limel-spinner
   limel-example-tab-panel-content --> limel-spinner

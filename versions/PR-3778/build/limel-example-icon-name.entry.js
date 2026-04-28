@@ -1,1 +1,1 @@
-import{r as e,h as r}from"./index-DBTJNfo7.js";const a=class{constructor(r){e(this,r)}render(){return r("limel-icon",{key:"d7a3734651c2ea18070098393147511ec14dbc63",name:"happy"})}};export{a as limel_example_icon_name}
+import{r as e,h as r}from"./index-DBTJNfo7.js";const a=class{constructor(r){e(this,r)}render(){return r("limel-icon",{key:"9f0b23101b2be1fd28d278497d3a20daef7fd247",name:"happy"})}};export{a as limel_example_icon_name}

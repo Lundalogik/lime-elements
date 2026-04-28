@@ -51,8 +51,8 @@ from Lime Web Components to open dialogs in Lime CRM.
 
 ### Used by
 
- - [limel-example-dialog](examples)
  - [limel-example-dialog-action-buttons](examples)
+ - [limel-example-dialog-basic](examples)
  - [limel-example-dialog-closing-actions](examples)
  - [limel-example-dialog-form](examples)
  - [limel-example-dialog-fullscreen](examples)
@@ -71,8 +71,8 @@ from Lime Web Components to open dialogs in Lime CRM.
 graph TD;
   limel-dialog --> limel-header
   limel-header --> limel-icon
-  limel-example-dialog --> limel-dialog
   limel-example-dialog-action-buttons --> limel-dialog
+  limel-example-dialog-basic --> limel-dialog
   limel-example-dialog-closing-actions --> limel-dialog
   limel-example-dialog-form --> limel-dialog
   limel-example-dialog-fullscreen --> limel-dialog

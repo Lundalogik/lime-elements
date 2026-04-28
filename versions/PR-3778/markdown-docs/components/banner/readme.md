@@ -44,7 +44,7 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [limel-example-banner](examples)
+ - [limel-example-banner-basic](examples)
 
 ### Depends on
 
@@ -54,7 +54,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   limel-banner --> limel-icon
-  limel-example-banner --> limel-banner
+  limel-example-banner-basic --> limel-banner
   style limel-banner fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

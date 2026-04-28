@@ -23,8 +23,8 @@ for example percentage of completion of a task.
 
  - [limel-chip](../chip)
  - [limel-example-colors-in-components](../../design-guidelines/color-system/examples)
- - [limel-example-linear-progress](examples)
  - [limel-example-linear-progress-accessible-label](examples)
+ - [limel-example-linear-progress-basic](examples)
  - [limel-example-linear-progress-color](examples)
  - [limel-example-linear-progress-indeterminate](examples)
  - [limel-info-tile](../info-tile)
@@ -34,8 +34,8 @@ for example percentage of completion of a task.
 graph TD;
   limel-chip --> limel-linear-progress
   limel-example-colors-in-components --> limel-linear-progress
-  limel-example-linear-progress --> limel-linear-progress
   limel-example-linear-progress-accessible-label --> limel-linear-progress
+  limel-example-linear-progress-basic --> limel-linear-progress
   limel-example-linear-progress-color --> limel-linear-progress
   limel-example-linear-progress-indeterminate --> limel-linear-progress
   limel-info-tile --> limel-linear-progress

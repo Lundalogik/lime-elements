@@ -32,8 +32,8 @@ using the `link` property.
 
 ### Used by
 
- - [limel-example-info-tile](examples)
  - [limel-example-info-tile-badge](examples)
+ - [limel-example-info-tile-basic](examples)
  - [limel-example-info-tile-loading](examples)
  - [limel-example-info-tile-primary-slot](examples)
  - [limel-example-info-tile-progress](examples)
@@ -55,8 +55,8 @@ graph TD;
   limel-info-tile --> limel-badge
   limel-info-tile --> limel-linear-progress
   limel-info-tile --> limel-3d-hover-effect-glow
-  limel-example-info-tile --> limel-info-tile
   limel-example-info-tile-badge --> limel-info-tile
+  limel-example-info-tile-basic --> limel-info-tile
   limel-example-info-tile-loading --> limel-info-tile
   limel-example-info-tile-primary-slot --> limel-info-tile
   limel-example-info-tile-progress --> limel-info-tile

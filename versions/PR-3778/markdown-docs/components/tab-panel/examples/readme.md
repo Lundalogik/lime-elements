@@ -20,7 +20,7 @@
 
 ### Used by
 
- - [limel-example-tab-panel](.)
+ - [limel-example-tab-panel-basic](.)
 
 ### Depends on
 
@@ -36,7 +36,7 @@ graph TD;
   limel-example-tab-panel-content --> limel-button
   limel-button --> limel-icon
   limel-button --> limel-spinner
-  limel-example-tab-panel --> limel-example-tab-panel-content
+  limel-example-tab-panel-basic --> limel-example-tab-panel-content
   style limel-example-tab-panel-content fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

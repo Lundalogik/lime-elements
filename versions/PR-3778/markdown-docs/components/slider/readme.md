@@ -39,6 +39,7 @@
  - [limel-example-slider-composite](examples)
  - [limel-example-slider-multiplier](examples)
  - [limel-example-slider-multiplier-percentage-colors](examples)
+ - [limel-example-slider-unit](examples)
  - [limel-whats-new-example-slider](../../examples/whats-new/examples)
 
 ### Depends on
@@ -58,6 +59,7 @@ graph TD;
   limel-example-slider-composite --> limel-slider
   limel-example-slider-multiplier --> limel-slider
   limel-example-slider-multiplier-percentage-colors --> limel-slider
+  limel-example-slider-unit --> limel-slider
   limel-whats-new-example-slider --> limel-slider
   style limel-slider fill:#f9f,stroke:#333,stroke-width:4px
 ```

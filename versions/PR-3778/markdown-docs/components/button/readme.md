@@ -2,6 +2,21 @@
 <!-- Auto Generated Below -->
 
 
+## Overview
+
+Buttons allow users to take actions with a single tap or click.
+They are intentionally designed to look and feel clickable,
+and should clearly communicate the action that will happen
+when the user interacts with them.
+
+The component offers three visual variants — **default**, **primary**,
+and **outlined** — that together establish a hierarchy of actions.
+See the examples below for guidance on when to use each variant.
+
+For more guidance on how to arrange buttons and choose between
+primary and secondary actions, see our
+[Action buttons design guidelines](#/DesignGuidelines/action-buttons.md/).
+
 ## Properties
 
 | Property        | Attribute        | Description                                                                                               | Type             | Default     |
@@ -28,9 +43,10 @@
  - [limel-example-action-buttons-primary-secondary-reversed](../../design-guidelines/action-buttons/examples)
  - [limel-example-action-buttons-primary-secondary-reversed-colors](../../design-guidelines/action-buttons/examples)
  - [limel-example-action-buttons-third-alternative](../../design-guidelines/action-buttons/examples)
- - [limel-example-banner](../banner/examples)
+ - [limel-example-banner-basic](../banner/examples)
  - [limel-example-builtin-field-types-form](../form/examples)
  - [limel-example-button-basic](examples)
+ - [limel-example-button-button-hierarchy](examples)
  - [limel-example-button-click-fail](examples)
  - [limel-example-button-click-success](examples)
  - [limel-example-button-colors](examples)
@@ -47,8 +63,8 @@
  - [limel-example-colors-in-components](../../design-guidelines/color-system/examples)
  - [limel-example-custom-error-message](../form/examples)
  - [limel-example-date-picker-programmatic-change](../date-picker/examples)
- - [limel-example-dialog](../dialog/examples)
  - [limel-example-dialog-action-buttons](../dialog/examples)
+ - [limel-example-dialog-basic](../dialog/examples)
  - [limel-example-dialog-closing-actions](../dialog/examples)
  - [limel-example-dialog-form](../dialog/examples)
  - [limel-example-dialog-fullscreen](../dialog/examples)
@@ -56,7 +72,7 @@
  - [limel-example-dialog-heading-actions](../dialog/examples)
  - [limel-example-dialog-nested-close-events](../dialog/examples)
  - [limel-example-dialog-size](../dialog/examples)
- - [limel-example-file-input](../file-input/examples)
+ - [limel-example-file-input-basic](../file-input/examples)
  - [limel-example-file-input-type-filtering](../file-input/examples)
  - [limel-example-form](../form/examples)
  - [limel-example-form-layout](../form/examples)
@@ -68,7 +84,6 @@
  - [limel-example-menu-composite](../menu/examples)
  - [limel-example-menu-disabled](../menu/examples)
  - [limel-example-menu-grid](../menu/examples)
- - [limel-example-menu-hotkeys](../menu/examples)
  - [limel-example-menu-icons](../menu/examples)
  - [limel-example-menu-open-direction](../menu/examples)
  - [limel-example-menu-open-sub-menu-programmatically](../menu/examples)
@@ -83,19 +98,22 @@
  - [limel-example-portal-basic](../portal/examples)
  - [limel-example-select-change-options](../select/examples)
  - [limel-example-select-dialog](../select/examples)
- - [limel-example-snackbar](../snackbar/examples)
+ - [limel-example-snackbar-basic](../snackbar/examples)
  - [limel-example-snackbar-dismissible](../snackbar/examples)
  - [limel-example-snackbar-persistent](../snackbar/examples)
  - [limel-example-snackbar-persistent-non-dismissible](../snackbar/examples)
  - [limel-example-snackbar-with-action](../snackbar/examples)
  - [limel-example-snackbar-with-changing-messages](../snackbar/examples)
+ - [limel-example-snackbar-with-markdown](../snackbar/examples)
  - [limel-example-switch-vs-checkbox](../../design-guidelines/boolean/examples)
  - [limel-example-tab-panel-content](../tab-panel/examples)
  - [limel-example-table-selectable-rows](../table/examples)
  - [limel-example-text-editor-as-form-component](../text-editor/examples)
+ - [limel-example-tooltip-accessibility](../tooltip/examples)
  - [limel-example-tooltip-basic](../tooltip/examples)
  - [limel-example-tooltip-composite](../tooltip/examples)
  - [limel-example-tooltip-declutter](../../design-guidelines/declutter/examples)
+ - [limel-example-tooltip-hotkey](../tooltip/examples)
  - [limel-snackbar](../snackbar)
  - [limel-split-button](../split-button)
  - [limel-text-editor-link-menu](../text-editor/link-menu)
@@ -119,9 +137,10 @@ graph TD;
   limel-example-action-buttons-primary-secondary-reversed --> limel-button
   limel-example-action-buttons-primary-secondary-reversed-colors --> limel-button
   limel-example-action-buttons-third-alternative --> limel-button
-  limel-example-banner --> limel-button
+  limel-example-banner-basic --> limel-button
   limel-example-builtin-field-types-form --> limel-button
   limel-example-button-basic --> limel-button
+  limel-example-button-button-hierarchy --> limel-button
   limel-example-button-click-fail --> limel-button
   limel-example-button-click-success --> limel-button
   limel-example-button-colors --> limel-button
@@ -138,8 +157,8 @@ graph TD;
   limel-example-colors-in-components --> limel-button
   limel-example-custom-error-message --> limel-button
   limel-example-date-picker-programmatic-change --> limel-button
-  limel-example-dialog --> limel-button
   limel-example-dialog-action-buttons --> limel-button
+  limel-example-dialog-basic --> limel-button
   limel-example-dialog-closing-actions --> limel-button
   limel-example-dialog-form --> limel-button
   limel-example-dialog-fullscreen --> limel-button
@@ -147,7 +166,7 @@ graph TD;
   limel-example-dialog-heading-actions --> limel-button
   limel-example-dialog-nested-close-events --> limel-button
   limel-example-dialog-size --> limel-button
-  limel-example-file-input --> limel-button
+  limel-example-file-input-basic --> limel-button
   limel-example-file-input-type-filtering --> limel-button
   limel-example-form --> limel-button
   limel-example-form-layout --> limel-button
@@ -159,7 +178,6 @@ graph TD;
   limel-example-menu-composite --> limel-button
   limel-example-menu-disabled --> limel-button
   limel-example-menu-grid --> limel-button
-  limel-example-menu-hotkeys --> limel-button
   limel-example-menu-icons --> limel-button
   limel-example-menu-open-direction --> limel-button
   limel-example-menu-open-sub-menu-programmatically --> limel-button
@@ -174,19 +192,22 @@ graph TD;
   limel-example-portal-basic --> limel-button
   limel-example-select-change-options --> limel-button
   limel-example-select-dialog --> limel-button
-  limel-example-snackbar --> limel-button
+  limel-example-snackbar-basic --> limel-button
   limel-example-snackbar-dismissible --> limel-button
   limel-example-snackbar-persistent --> limel-button
   limel-example-snackbar-persistent-non-dismissible --> limel-button
   limel-example-snackbar-with-action --> limel-button
   limel-example-snackbar-with-changing-messages --> limel-button
+  limel-example-snackbar-with-markdown --> limel-button
   limel-example-switch-vs-checkbox --> limel-button
   limel-example-tab-panel-content --> limel-button
   limel-example-table-selectable-rows --> limel-button
   limel-example-text-editor-as-form-component --> limel-button
+  limel-example-tooltip-accessibility --> limel-button
   limel-example-tooltip-basic --> limel-button
   limel-example-tooltip-composite --> limel-button
   limel-example-tooltip-declutter --> limel-button
+  limel-example-tooltip-hotkey --> limel-button
   limel-snackbar --> limel-button
   limel-split-button --> limel-button
   limel-text-editor-link-menu --> limel-button

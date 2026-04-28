@@ -37,13 +37,11 @@ graph TD;
   limel-prosemirror-adapter --> limel-text-editor-link-menu
   limel-action-bar --> limel-action-bar-item
   limel-action-bar --> limel-action-bar-overflow-menu
-  limel-action-bar --> limel-icon
-  limel-action-bar --> limel-tooltip
   limel-action-bar-item --> limel-icon
   limel-action-bar-item --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
-  limel-action-bar-overflow-menu --> limel-icon
+  limel-tooltip-content --> limel-hotkey
   limel-action-bar-overflow-menu --> limel-menu
   limel-menu --> limel-spinner
   limel-menu --> limel-breadcrumbs
@@ -64,8 +62,8 @@ graph TD;
   limel-text-editor-link-menu --> limel-button
   limel-button --> limel-icon
   limel-button --> limel-spinner
-  limel-switch --> limel-helper-line
   limel-switch --> limel-dynamic-label
+  limel-switch --> limel-helper-line
   limel-dynamic-label --> limel-icon
   style limel-example-text-editor-with-tables fill:#f9f,stroke:#333,stroke-width:4px
 ```

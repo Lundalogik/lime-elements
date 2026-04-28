@@ -23,7 +23,7 @@ optionally with a number or a text label.
  - [limel-chip](../chip)
  - [limel-dock-button](../dock/dock-button)
  - [limel-email-viewer](../email-viewer)
- - [limel-example-badge](examples)
+ - [limel-example-badge-basic](examples)
  - [limel-example-badge-number](examples)
  - [limel-example-badge-string](examples)
  - [limel-info-tile](../info-tile)
@@ -41,7 +41,7 @@ graph TD;
   limel-chip --> limel-badge
   limel-dock-button --> limel-badge
   limel-email-viewer --> limel-badge
-  limel-example-badge --> limel-badge
+  limel-example-badge-basic --> limel-badge
   limel-example-badge-number --> limel-badge
   limel-example-badge-string --> limel-badge
   limel-info-tile --> limel-badge

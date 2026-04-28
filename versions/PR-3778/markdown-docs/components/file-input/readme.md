@@ -36,7 +36,7 @@ each representing a file dropped into the dropzone.
 
 ### Used by
 
- - [limel-example-file-input](examples)
+ - [limel-example-file-input-basic](examples)
  - [limel-example-file-input-type-filtering](examples)
  - [limel-file](../file)
  - [limel-profile-picture](../profile-picture)
@@ -44,7 +44,7 @@ each representing a file dropped into the dropzone.
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-file-input --> limel-file-input
+  limel-example-file-input-basic --> limel-file-input
   limel-example-file-input-type-filtering --> limel-file-input
   limel-file --> limel-file-input
   limel-profile-picture --> limel-file-input
