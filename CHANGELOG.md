@@ -1,3 +1,10 @@
+## [39.18.0](https://github.com/Lundalogik/lime-elements/compare/v39.17.3...v39.18.0) (2026-04-28)
+
+### Features
+
+
+* **icons:** allow 3rd party packages to provide icon names for auto completion ([396dc20](https://github.com/Lundalogik/lime-elements/commit/396dc2066da450c7dc971d931573971237e004e0)), closes [Lundalogik/crm-client#622](https://github.com/Lundalogik/crm-client/issues/622)
+
 ## [39.17.3](https://github.com/Lundalogik/lime-elements/compare/v39.17.2...v39.17.3) (2026-04-27)
 
 ### Bug Fixes
