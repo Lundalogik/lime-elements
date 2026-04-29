@@ -294,28 +294,63 @@ describe('RowDragManager', () => {
         });
     });
 
-    describe('post-drop click gate', () => {
+    describe('armPostDropClickGuard', () => {
+        let target: {
+            addEventListener: ReturnType<typeof vi.fn>;
+            removeEventListener: ReturnType<typeof vi.fn>;
+        };
+
         beforeEach(() => {
             vi.useFakeTimers();
+            target = {
+                addEventListener: vi.fn(),
+                removeEventListener: vi.fn(),
+            };
         });
 
         afterEach(() => {
             vi.useRealTimers();
         });
 
-        it('is false before any drag has ended', () => {
-            expect(manager.wasDragJustEnded()).toBe(false);
+        function getInstalledListener(): (event: Event) => void {
+            return target.addEventListener.mock.calls[0][1];
+        }
+
+        it('registers a one-shot capture-phase click listener', () => {
+            manager.armPostDropClickGuard(target as unknown as EventTarget);
+
+            expect(target.addEventListener).toHaveBeenCalledWith(
+                'click',
+                expect.any(Function),
+                { once: true, capture: true }
+            );
         });
 
-        it('is true immediately after markDragEnd', () => {
-            manager.markDragEnd();
-            expect(manager.wasDragJustEnded()).toBe(true);
+        it('swallows the click via stopImmediatePropagation + preventDefault', () => {
+            manager.armPostDropClickGuard(target as unknown as EventTarget);
+            const listener = getInstalledListener();
+            const event = {
+                stopImmediatePropagation: vi.fn(),
+                preventDefault: vi.fn(),
+            };
+
+            listener(event as unknown as Event);
+
+            expect(event.stopImmediatePropagation).toHaveBeenCalled();
+            expect(event.preventDefault).toHaveBeenCalled();
         });
 
-        it('returns to false after the suppression window elapses', () => {
-            manager.markDragEnd();
-            vi.advanceTimersByTime(500);
-            expect(manager.wasDragJustEnded()).toBe(false);
+        it('removes the listener on the next macrotask if no click fires', () => {
+            manager.armPostDropClickGuard(target as unknown as EventTarget);
+            const listener = getInstalledListener();
+
+            vi.advanceTimersByTime(0);
+
+            expect(target.removeEventListener).toHaveBeenCalledWith(
+                'click',
+                listener,
+                true
+            );
         });
     });
 });

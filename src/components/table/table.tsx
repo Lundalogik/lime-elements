@@ -641,9 +641,11 @@ export class Table {
         tabulator.on('renderComplete', this.handleRenderComplete);
 
         if (this.rowDragManager) {
+            const armClickGuard = () =>
+                this.rowDragManager.armPostDropClickGuard(table);
             tabulator.on('rowMoved', this.rowDragManager.handleRowMoved);
-            tabulator.on('rowMoved', this.rowDragManager.markDragEnd);
-            tabulator.on('rowMoveCancelled', this.rowDragManager.markDragEnd);
+            tabulator.on('rowMoved', armClickGuard);
+            tabulator.on('rowMoveCancelled', armClickGuard);
         }
 
         tabulator.on('tableBuilt', () => {
@@ -914,10 +916,6 @@ export class Table {
         }
 
         if (event.defaultPrevented) {
-            return;
-        }
-
-        if (this.rowDragManager?.wasDragJustEnded()) {
             return;
         }
 
