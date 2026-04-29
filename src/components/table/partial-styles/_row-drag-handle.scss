@@ -9,6 +9,7 @@
     // Stack above the row-selector so pointer events reach the drag handle
     // even when `selectable` is enabled and the selector cell visually overlaps.
     z-index: calc(var(--limel-table-row-selector-z-index) + 1) !important;
+    background-color: transparent !important;
 
     .has-rowselector & {
         background-image: none !important;
