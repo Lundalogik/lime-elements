@@ -1,5 +1,9 @@
 import { Component, h, Host, State } from '@stencil/core';
-import { Column, RowReorderEvent } from '@limetech/lime-elements';
+import {
+    Column,
+    LimelTableCustomEvent,
+    RowReorderEvent,
+} from '@limetech/lime-elements';
 import { data, Bird } from './birds';
 import { capitalize } from 'lodash-es';
 
@@ -42,7 +46,7 @@ export class TableExampleMovableRows {
     ];
 
     private readonly handleReorder = (
-        event: CustomEvent<RowReorderEvent<Bird>>
+        event: LimelTableCustomEvent<RowReorderEvent<Bird>>
     ) => {
         const { fromRow, toRow, above } = event.detail;
         const items = [...this.tableData];
