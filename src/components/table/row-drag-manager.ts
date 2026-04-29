@@ -1,5 +1,8 @@
 import { EventEmitter } from '@stencil/core';
-import { RowComponent as TabulatorRowComponent } from 'tabulator-tables';
+import {
+    ColumnDefinition as TabulatorColumnDefinition,
+    RowComponent as TabulatorRowComponent,
+} from 'tabulator-tables';
 import { setElementProperties } from './columns';
 import { ElementPool } from './element-pool';
 import { RowReorderEvent } from './table.types';
@@ -16,7 +19,7 @@ export class RowDragManager {
 
     constructor(
         private readonly pool: ElementPool,
-        private readonly reorderEvent: EventEmitter<RowReorderEvent<any>>,
+        private readonly reorderEvent: EventEmitter<RowReorderEvent<unknown>>,
         private readonly getLanguage: () => Languages
     ) {
         this.handleRowMoved = this.handleRowMoved.bind(this);
@@ -57,7 +60,7 @@ export class RowDragManager {
      * Returns the Tabulator rowHeader config that renders
      * a limel-drag-handle and restricts dragging to that cell
      */
-    public getRowHeaderDefinition(): object {
+    public getRowHeaderDefinition(): Partial<TabulatorColumnDefinition> {
         return {
             headerSort: false,
             resizable: false,

@@ -3460,7 +3460,7 @@ export namespace JSX {
         "onChangeColumns"?: (event: LimelTableCustomEvent<Column[]>) => void;
         "onChangePage"?: (event: LimelTableCustomEvent<number>) => void;
         "onLoad"?: (event: LimelTableCustomEvent<TableParams>) => void;
-        "onReorder"?: (event: LimelTableCustomEvent<RowReorderEvent<any>>) => void;
+        "onReorder"?: (event: LimelTableCustomEvent<RowReorderEvent<unknown>>) => void;
         "onSelect"?: (event: LimelTableCustomEvent<object[]>) => void;
         "onSelectAll"?: (event: LimelTableCustomEvent<boolean>) => void;
         "onSort"?: (event: LimelTableCustomEvent<ColumnSorter[]>) => void;

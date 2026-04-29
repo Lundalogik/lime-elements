@@ -235,7 +235,7 @@ export class Table {
      * position.
      */
     @Event()
-    public reorder: EventEmitter<RowReorderEvent<any>>;
+    public reorder: EventEmitter<RowReorderEvent<unknown>>;
 
     /**
      * Emitted when the row selection has been changed
@@ -1014,14 +1014,18 @@ export class Table {
         };
     };
 
-    private readonly getRowDragOptions = (): object => {
+    private readonly getRowDragOptions = (): Partial<TabulatorOptions> => {
         if (!this.rowDragManager) {
             return {};
         }
 
         return {
             movableRows: true,
-            rowHeader: this.rowDragManager.getRowHeaderDefinition(),
+            // Tabulator's `rowHeader` inline type narrows `formatter` to a
+            // string, but the runtime accepts a function (as `ColumnDefinition`
+            // does). Cast bridges the incomplete upstream type.
+            rowHeader:
+                this.rowDragManager.getRowHeaderDefinition() as TabulatorOptions['rowHeader'],
         };
     };
 
