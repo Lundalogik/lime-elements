@@ -6,7 +6,6 @@ import { RowReorderEvent } from './table.types';
 import { Languages } from '../date-picker/date.types';
 
 const LIMEL_DRAG_HANDLE = 'limel-drag-handle';
-const POST_DROP_CLICK_WINDOW_MS = 250;
 
 /**
  * Provides row drag-and-drop reordering configuration for Tabulator
@@ -14,7 +13,6 @@ const POST_DROP_CLICK_WINDOW_MS = 250;
  */
 export class RowDragManager {
     private mutationObserver: MutationObserver | null = null;
-    private dragEndTimestamp = 0;
 
     constructor(
         private readonly pool: ElementPool,
@@ -96,23 +94,31 @@ export class RowDragManager {
     }
 
     /**
-     * Tabulator fires `rowMoved` (and `rowMoveCancelled`) from its `mouseup`
-     * handler. The browser may then dispatch a `click` on the drop target,
-     * which would bubble to Tabulator's own click handling and trigger a
-     * spurious row activation. Call this from both events so
-     * {@link wasDragJustEnded} can gate the click.
+     * Tabulator fires `rowMoved` / `rowMoveCancelled` from its `mouseup`
+     * handler. The browser may then dispatch a synthetic `click` on the drop
+     * target which would bubble to Tabulator's row-click handling and trigger
+     * a spurious row activation. Call this from both events: it installs a
+     * one-shot capture-phase click listener that swallows that single click
+     * before Tabulator can see it. If no click arrives (rare, but possible),
+     * the listener is removed on the next macrotask so it can never swallow a
+     * later, intentional click.
+     *
+     * @param target - Element that should swallow the post-drop click
+     * (typically the table host).
      */
-    public readonly markDragEnd = (): void => {
-        this.dragEndTimestamp = Date.now();
+    public readonly armPostDropClickGuard = (target: EventTarget): void => {
+        const swallow = (event: Event): void => {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+        };
+        target.addEventListener('click', swallow, {
+            once: true,
+            capture: true,
+        });
+        setTimeout(() => {
+            target.removeEventListener('click', swallow, true);
+        }, 0);
     };
-
-    /**
-     * True if a drag just finished within the post-drop window. Used by the
-     * host to ignore the click that the browser fires after `mouseup`.
-     */
-    public wasDragJustEnded(): boolean {
-        return Date.now() - this.dragEndTimestamp < POST_DROP_CLICK_WINDOW_MS;
-    }
 
     private readonly handleCellClick = (ev: Event): void => {
         ev.stopPropagation();
