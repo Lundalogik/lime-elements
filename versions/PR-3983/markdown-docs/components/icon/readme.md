@@ -24,9 +24,7 @@ standard sizes defined that can be used with the `size` property.
 
 ### Used by
 
- - [limel-action-bar](../action-bar)
  - [limel-action-bar-item](../action-bar/action-bar-item)
- - [limel-action-bar-overflow-menu](../action-bar/action-bar-item)
  - [limel-banner](../banner)
  - [limel-breadcrumbs](../breadcrumbs)
  - [limel-button](../button)
@@ -50,6 +48,7 @@ standard sizes defined that can be used with the `size` property.
  - [limel-example-shadows-bad-usage](../../design-guidelines/shadows/examples)
  - [limel-example-tab-panel-content](../tab-panel/examples)
  - [limel-example-table-food](../table/examples)
+ - [limel-example-tooltip-accessibility](../tooltip/examples)
  - [limel-file-dropzone](../file-dropzone)
  - [limel-file-viewer](../file-viewer)
  - [limel-header](../header)
@@ -66,9 +65,7 @@ standard sizes defined that can be used with the `size` property.
 ### Graph
 ```mermaid
 graph TD;
-  limel-action-bar --> limel-icon
   limel-action-bar-item --> limel-icon
-  limel-action-bar-overflow-menu --> limel-icon
   limel-banner --> limel-icon
   limel-breadcrumbs --> limel-icon
   limel-button --> limel-icon
@@ -92,6 +89,7 @@ graph TD;
   limel-example-shadows-bad-usage --> limel-icon
   limel-example-tab-panel-content --> limel-icon
   limel-example-table-food --> limel-icon
+  limel-example-tooltip-accessibility --> limel-icon
   limel-file-dropzone --> limel-icon
   limel-file-viewer --> limel-icon
   limel-header --> limel-icon
