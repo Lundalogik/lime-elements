@@ -1,3 +1,10 @@
+## [39.19.0](https://github.com/Lundalogik/lime-elements/compare/v39.18.0...v39.19.0) (2026-04-29)
+
+### Features
+
+
+* **list:** add a custom CSS prop for controlling images' object fit ([dcc58d9](https://github.com/Lundalogik/lime-elements/commit/dcc58d9d9abd9c450f314c4d97688958689185b8))
+
 ## [39.18.0](https://github.com/Lundalogik/lime-elements/compare/v39.17.3...v39.18.0) (2026-04-28)
 
 ### Features
