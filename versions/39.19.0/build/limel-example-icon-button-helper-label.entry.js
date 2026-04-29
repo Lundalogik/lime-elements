@@ -1,0 +1,1 @@
+import{r as e,h as l}from"./index-DBTJNfo7.js";const t=class{constructor(l){e(this,l)}render(){return l("limel-icon-button",{key:"8d0c64ab8d3d0dae9eb1fe0b72ea465282c55cd5",label:"Add favourite",helperLabel:"alt + F",icon:"heart_outlined"})}};export{t as limel_example_icon_button_helper_label}
