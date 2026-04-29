@@ -14,6 +14,7 @@
 * @prop --list-background-color-of-even-interactive-items:  Background color of even list items, when `has-striped-rows` class is applied to the component. Defaults to `transparent`.
 * @prop --list-margin: Space around the list. Defaults to `0.25rem`, which visualizes keyboard-focused items in a better way, as it adds some space for the outline effect.
 * @prop --list-item-image-border-radius: Defines the border radius of the list item image. Defaults to `50%`.
+* @prop --list-item-image-object-fit: Defines the object-fit property of the list item image. Defaults to `cover`.
 */
 
 :host(limel-list) {
