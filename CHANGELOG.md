@@ -1,3 +1,19 @@
+## [39.20.0](https://github.com/Lundalogik/lime-elements/compare/v39.19.0...v39.20.0) (2026-04-29)
+
+### Features
+
+
+* **table:** drag and drop for table rows ([30541bf](https://github.com/Lundalogik/lime-elements/commit/30541bf87f25f862cf7e5f8aedd036acc5623daf))
+### Bug Fixes
+
+
+* **table:** ability to mouseover on movable column ([b294369](https://github.com/Lundalogik/lime-elements/commit/b2943699f0dd5b085941737acfa7facc990a5809))
+* **table:** further improve styling of drag handles ([80f7382](https://github.com/Lundalogik/lime-elements/commit/80f7382a7e8bdf2d6d782fccbb7e4281fa86d580))
+* **table:** improve styling of drag handles ([b354ddd](https://github.com/Lundalogik/lime-elements/commit/b354ddd92e3699c990fd14db53cc0408ecf46e04))
+* **table:** make post-drop click suppression deterministic ([d53f731](https://github.com/Lundalogik/lime-elements/commit/d53f73150351603650ff2f6c633d4f98b30801eb))
+* **table:** movable rows can be combined with selectable ([46c203b](https://github.com/Lundalogik/lime-elements/commit/46c203be0c645b220e6f17830b7893c413dfbeb6))
+* **table:** movable rows work with language prop change ([f25cff6](https://github.com/Lundalogik/lime-elements/commit/f25cff607051cdf6f9a2357669708f58c6fe5261))
+
 ## [39.19.0](https://github.com/Lundalogik/lime-elements/compare/v39.18.0...v39.19.0) (2026-04-29)
 
 ### Features
