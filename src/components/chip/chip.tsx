@@ -8,6 +8,7 @@ import {
     Prop,
 } from '@stencil/core';
 import { Icon, IconName } from '../../global/shared-types/icon.types';
+import { ImageTemplate } from '../../util/image.template';
 import { Languages } from '../date-picker/date.types';
 import { Link } from '../../global/shared-types/link.types';
 import { getRel } from '../../util/link-helper';
@@ -295,9 +296,7 @@ export class Chip implements ChipInterface {
         }
 
         if (!isEmpty(this.image)) {
-            return (
-                <img src={this.image.src} alt={this.image.alt} loading="lazy" />
-            );
+            return <ImageTemplate image={this.image} />;
         }
 
         return (

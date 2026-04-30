@@ -9,6 +9,7 @@ import {
     State,
 } from '@stencil/core';
 import { Image } from '../../global/shared-types/image.types';
+import { ImageTemplate } from '../../util/image.template';
 import { Icon, IconName } from '../../global/shared-types/icon.types';
 import { isItem } from '../action-bar/is-item';
 import { getIconName } from '../icon/get-icon-props';
@@ -243,7 +244,7 @@ export class Card {
 
         return (
             <div class="image-wrapper">
-                <img src={this.image.src} alt={this.image.alt} loading="lazy" />
+                <ImageTemplate image={this.image} />
             </div>
         );
     }
