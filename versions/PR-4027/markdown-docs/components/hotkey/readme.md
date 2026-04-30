@@ -27,6 +27,7 @@ Keyboard event handling is the responsibility of the parent component
  - [limel-example-hotkey-basic](examples)
  - [limel-example-hotkey-disabled](examples)
  - [limel-menu-item-meta](../list-item/menu-item-meta)
+ - [limel-tooltip-content](../tooltip)
 
 ### Graph
 ```mermaid
@@ -34,6 +35,7 @@ graph TD;
   limel-example-hotkey-basic --> limel-hotkey
   limel-example-hotkey-disabled --> limel-hotkey
   limel-menu-item-meta --> limel-hotkey
+  limel-tooltip-content --> limel-hotkey
   style limel-hotkey fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

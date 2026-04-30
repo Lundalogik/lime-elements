@@ -54,6 +54,7 @@ graph TD;
   limel-icon-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-input-field --> limel-helper-line
   limel-input-field --> limel-icon
   limel-input-field --> limel-portal
@@ -62,11 +63,8 @@ graph TD;
   limel-input-field --> limel-notched-outline
   limel-action-bar --> limel-action-bar-item
   limel-action-bar --> limel-action-bar-overflow-menu
-  limel-action-bar --> limel-icon
-  limel-action-bar --> limel-tooltip
   limel-action-bar-item --> limel-icon
   limel-action-bar-item --> limel-tooltip
-  limel-action-bar-overflow-menu --> limel-icon
   limel-action-bar-overflow-menu --> limel-menu
   limel-menu --> limel-spinner
   limel-menu --> limel-breadcrumbs

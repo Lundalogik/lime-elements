@@ -109,6 +109,7 @@ The component automatically formats different value types:
  - [limel-example-picker-icons](../components/picker/examples)
  - [limel-example-picker-multiple](../components/picker/examples)
  - [limel-example-picker-pictures](../components/picker/examples)
+ - [limel-example-picker-sections](../components/picker/examples)
  - [limel-example-picker-static-actions](../components/picker/examples)
  - [limel-example-picker-value-as-object](../components/picker/examples)
  - [limel-example-picker-value-as-object-with-actions](../components/picker/examples)
@@ -152,6 +153,7 @@ The component automatically formats different value types:
  - [limel-example-table-activate-row](../components/table/examples)
  - [limel-example-table-local](../components/table/examples)
  - [limel-example-table-movable-columns](../components/table/examples)
+ - [limel-example-table-movable-rows](../components/table/examples)
  - [limel-example-table-selectable-rows](../components/table/examples)
  - [limel-example-text-editor-allow-resize](../components/text-editor/examples)
  - [limel-example-text-editor-as-form-component](../components/text-editor/examples)
@@ -236,6 +238,7 @@ graph TD;
   limel-example-picker-icons --> limel-example-value
   limel-example-picker-multiple --> limel-example-value
   limel-example-picker-pictures --> limel-example-value
+  limel-example-picker-sections --> limel-example-value
   limel-example-picker-static-actions --> limel-example-value
   limel-example-picker-value-as-object --> limel-example-value
   limel-example-picker-value-as-object-with-actions --> limel-example-value
@@ -279,6 +282,7 @@ graph TD;
   limel-example-table-activate-row --> limel-example-value
   limel-example-table-local --> limel-example-value
   limel-example-table-movable-columns --> limel-example-value
+  limel-example-table-movable-rows --> limel-example-value
   limel-example-table-selectable-rows --> limel-example-value
   limel-example-text-editor-allow-resize --> limel-example-value
   limel-example-text-editor-as-form-component --> limel-example-value

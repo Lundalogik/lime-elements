@@ -29,6 +29,7 @@ graph TD;
   limel-icon-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-slider --> limel-helper-line
   limel-slider --> limel-notched-outline
   style limel-example-collapsible-section-with-slider fill:#f9f,stroke:#333,stroke-width:4px
