@@ -9,6 +9,7 @@ import { ListSeparator } from '../../global/shared-types/separator.types';
 import { CheckboxTemplate } from '../checkbox/checkbox.template';
 import translate from '../../global/translations';
 import { Languages } from '../date-picker/date.types';
+import { ImageTemplate } from '../../util/image.template';
 
 /**
  * This components displays the list item.
@@ -253,7 +254,7 @@ export class ListItemComponent implements ListItem {
             return;
         }
 
-        return <img src={this.image.src} alt={this.image.alt} loading="lazy" />;
+        return <ImageTemplate image={this.image} />;
     };
 
     private renderActionMenu = (actions: Array<MenuItem | ListSeparator>) => {

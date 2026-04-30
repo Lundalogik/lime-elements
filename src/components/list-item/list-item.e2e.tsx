@@ -108,5 +108,41 @@ describe('limel-list-item', () => {
 
         const imgEl = root.querySelector('img');
         expect(imgEl).not.toBeNull();
+        expect(imgEl?.hasAttribute('referrerpolicy')).toBe(false);
+        expect(imgEl?.getAttribute('loading')).toEqual('lazy');
+    });
+
+    it('forwards referrerpolicy to the rendered image when set', async () => {
+        const imgSrc =
+            'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+        const { root, waitForChanges } = await render(
+            <limel-list-item
+                text="Pic"
+                image={{
+                    src: imgSrc,
+                    alt: 'a',
+                    referrerpolicy: 'no-referrer',
+                }}
+            ></limel-list-item>
+        );
+        await waitForChanges();
+
+        const imgEl = root.querySelector('img');
+        expect(imgEl?.getAttribute('referrerpolicy')).toEqual('no-referrer');
+    });
+
+    it('applies the image loading strategy when set', async () => {
+        const imgSrc =
+            'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+        const { root, waitForChanges } = await render(
+            <limel-list-item
+                text="Pic"
+                image={{ src: imgSrc, alt: 'a', loading: 'eager' }}
+            ></limel-list-item>
+        );
+        await waitForChanges();
+
+        const imgEl = root.querySelector('img');
+        expect(imgEl?.getAttribute('loading')).toEqual('eager');
     });
 });
