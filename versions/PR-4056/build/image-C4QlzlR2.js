@@ -1,0 +1,1 @@
+import{h as r}from"./index-DBTJNfo7.js";function e(e){return r("img",Object.assign({src:e.src,alt:e.alt,loading:"lazy"},e.referrerpolicy?{referrerpolicy:e.referrerpolicy}:{}))}export{e as r}
