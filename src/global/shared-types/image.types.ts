@@ -20,4 +20,13 @@ export interface Image {
      * - `eager` means that the image will be loaded as soon as possible.
      */
     loading?: 'lazy' | 'eager';
+
+    /**
+     * The `referrerpolicy` attribute of the image. Set to `'no-referrer'`
+     * when `src` points to a third-party service that should not receive
+     * the originating page URL in the `Referer` header (e.g. external
+     * favicon or avatar services). When omitted, the attribute is not
+     * emitted and the browser's default referrer policy applies.
+     */
+    referrerpolicy?: ReferrerPolicy;
 }
