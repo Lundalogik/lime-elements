@@ -38,6 +38,7 @@
  - [limel-example-chart-type-dot](../chart/examples)
  - [limel-example-chart-type-gantt](../chart/examples)
  - [limel-example-chart-type-line](../chart/examples)
+ - [limel-example-chip-set-invalid-chips](../chip-set/examples)
  - [limel-example-chip-size](../chip/examples)
  - [limel-example-code-diff-line-wrap](../code-diff/examples)
  - [limel-example-dialog-heading](../dialog/examples)
@@ -95,6 +96,7 @@ graph TD;
   limel-example-chart-type-dot --> limel-select
   limel-example-chart-type-gantt --> limel-select
   limel-example-chart-type-line --> limel-select
+  limel-example-chip-set-invalid-chips --> limel-select
   limel-example-chip-size --> limel-select
   limel-example-code-diff-line-wrap --> limel-select
   limel-example-dialog-heading --> limel-select

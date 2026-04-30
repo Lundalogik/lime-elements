@@ -22,12 +22,16 @@ icon.
 ### Depends on
 
 - [limel-chip-set](..)
+- [limel-example-controls](../../../examples)
+- [limel-select](../../select)
 - [limel-example-value](../../../examples)
 
 ### Graph
 ```mermaid
 graph TD;
   limel-example-chip-set-invalid-chips --> limel-chip-set
+  limel-example-chip-set-invalid-chips --> limel-example-controls
+  limel-example-chip-set-invalid-chips --> limel-select
   limel-example-chip-set-invalid-chips --> limel-example-value
   limel-chip-set --> limel-helper-line
   limel-chip-set --> limel-notched-outline
@@ -55,6 +59,12 @@ graph TD;
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
+  limel-select --> limel-notched-outline
+  limel-select --> limel-icon
+  limel-select --> limel-helper-line
+  limel-select --> limel-portal
+  limel-select --> limel-menu-surface
+  limel-select --> limel-list
   style limel-example-chip-set-invalid-chips fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
