@@ -1255,6 +1255,7 @@ export type IconSize = 'x-small' | 'small' | 'medium' | 'large';
 interface Image_2 {
     alt: string;
     loading?: 'lazy' | 'eager';
+    referrerpolicy?: ReferrerPolicy;
     src: string;
 }
 export { Image_2 as Image }
