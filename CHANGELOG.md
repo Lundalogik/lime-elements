@@ -1,3 +1,10 @@
+## [39.21.0](https://github.com/Lundalogik/lime-elements/compare/v39.20.0...v39.21.0) (2026-05-04)
+
+### Features
+
+
+* **form:** update [@rjsf](https://github.com/rjsf) packages to version 6.5.2 ([30d44ec](https://github.com/Lundalogik/lime-elements/commit/30d44ecb25a55dc17ff8dfefc1505369162da360))
+
 ## [39.20.0](https://github.com/Lundalogik/lime-elements/compare/v39.19.0...v39.20.0) (2026-04-29)
 
 ### Features
