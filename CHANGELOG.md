@@ -1,3 +1,10 @@
+## [39.22.0](https://github.com/Lundalogik/lime-elements/compare/v39.21.0...v39.22.0) (2026-05-04)
+
+### Features
+
+
+* **chip-set:** forward per-chip invalid state to rendered chip ([499179a](https://github.com/Lundalogik/lime-elements/commit/499179a1ed21a8f475ce6b50a6e5527bc8f1bd08)), closes [#4026](https://github.com/Lundalogik/lime-elements/issues/4026)
+
 ## [39.21.0](https://github.com/Lundalogik/lime-elements/compare/v39.20.0...v39.21.0) (2026-05-04)
 
 ### Features
