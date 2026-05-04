@@ -17,6 +17,15 @@ In this example, each entry is checked with a simple email regex when
 added. Invalid entries are rendered with `invalid: true` and an error
 icon.
 
+:::note
+Marking individual chips as `invalid` does **not** automatically set
+the invalid state of the chip-set as a whole. The consumer is
+responsible for deciding whether the field itself should be
+considered invalid, and for setting the chip-set-level `invalid` prop
+accordingly. This gives the consumer full control over the
+validity of the field.
+:::
+
 ## Dependencies
 
 ### Depends on
