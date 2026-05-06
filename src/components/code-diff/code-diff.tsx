@@ -12,7 +12,13 @@ import {
 import { ActionBarItem } from '../action-bar/action-bar.types';
 import { buildSplitLines, computeDiff, normalizeForDiff } from './diff-engine';
 import { tokenize, SyntaxToken } from './syntax-highlighter';
-import { buildSearchRegex, navigateMatchIndex } from './search-utils';
+import {
+    buildSearchRegex,
+    navigateMatchIndex,
+    pickDefaultScope,
+    lineMatchesScope,
+    SearchScope,
+} from './search-utils';
 import {
     extractRemovedContent,
     extractRemovedContentFromSplit,
@@ -139,6 +145,9 @@ export class CodeDiff {
 
     @State()
     private currentMatchIndex: number = 0;
+
+    @State()
+    private searchScope: SearchScope = 'removed';
 
     private focusedRowIndex: number = -1;
     private normalizedOldText: string = '';
@@ -457,9 +466,12 @@ export class CodeDiff {
 
     private toggleSearch() {
         this.searchVisible = !this.searchVisible;
-        if (!this.searchVisible) {
+        if (this.searchVisible) {
+            this.searchScope = pickDefaultScope(this.diffResult);
+        } else {
             this.searchTerm = '';
             this.currentMatchIndex = 0;
+            this.searchScope = 'removed';
         }
     }
 
