@@ -561,8 +561,11 @@ export class CodeDiff {
     }
 
     private onScopeChange(button: Button) {
-        this.searchScope = button.id as SearchScope;
-        this.currentMatchIndex = 0;
+        const id = button.id;
+        if (id === 'removed' || id === 'added' || id === 'changed') {
+            this.searchScope = id;
+            this.currentMatchIndex = 0;
+        }
     }
 
     private onSearchAction(event: CustomEvent<ActionBarItem>) {
