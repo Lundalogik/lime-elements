@@ -1,6 +1,7 @@
 import { ListSeparator } from '../../global/shared-types/separator.types';
 import { Icon, IconName } from '../../global/shared-types/icon.types';
 import { Color } from '../../global/shared-types/color.types';
+import { ListComponent } from '../list-item/list-item.types';
 
 /**
  * The direction in which the menu should open.
@@ -120,6 +121,16 @@ export interface MenuItem<T = any> {
      * If specified, will display a notification badge on the buttons in the dock.
      */
     badge?: number | string;
+
+    /**
+     * Component used to render additional content in the menu item.
+     *
+     * When the menu item is disabled, the `disabled` prop is automatically
+     * propagated to the primary component.
+     *
+     * See `limel-example-menu-primary-component` for usage.
+     */
+    primaryComponent?: ListComponent;
 
     /**
      * Value of the menu item.

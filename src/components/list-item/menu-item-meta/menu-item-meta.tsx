@@ -1,5 +1,6 @@
 import { Component, Host, Prop, h } from '@stencil/core';
 import { normalizeHotkeyString } from '../../../util/hotkeys';
+import { ListComponent } from '../list-item.types';
 
 /**
  * Meta content for menu list items
@@ -47,9 +48,16 @@ export class MenuItemMeta {
     @Prop()
     public showChevron = false;
 
+    /**
+     * Optional primary component to render before other meta content
+     */
+    @Prop()
+    public primaryComponent?: ListComponent;
+
     public render() {
         return (
             <Host>
+                {this.renderPrimaryComponent()}
                 {this.renderCommandText()}
                 {this.renderBadge()}
                 {this.renderChevron()}
@@ -78,6 +86,18 @@ export class MenuItemMeta {
         }
 
         return <limel-badge label={String(this.badge)} />;
+    }
+
+    private renderPrimaryComponent() {
+        const primary = this.primaryComponent;
+        if (!primary?.name) {
+            return;
+        }
+
+        const PrimaryComponent: any = primary.name;
+        const props = primary.props || {};
+
+        return <PrimaryComponent {...props} disabled={this.disabled} />;
     }
 
     private renderChevron() {

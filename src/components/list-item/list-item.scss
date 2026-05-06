@@ -68,7 +68,8 @@ limel-list-item[disabled]:not([disabled='false']) {
     .text,
     limel-icon,
     img,
-    .boolean-input {
+    .boolean-input,
+    limel-menu-item-meta {
         opacity: 0.4;
     }
 }

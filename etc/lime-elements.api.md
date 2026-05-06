@@ -650,6 +650,7 @@ export namespace Components {
         "commandText"?: string;
         "disabled": boolean;
         "hotkey"?: string;
+        "primaryComponent"?: ListComponent;
         "showChevron": boolean;
     }
     // @internal (undocumented)
@@ -2886,6 +2887,7 @@ export namespace JSX {
         "commandText"?: string;
         "disabled"?: boolean;
         "hotkey"?: string;
+        "primaryComponent"?: ListComponent;
         "showChevron"?: boolean;
     }
 
@@ -4233,6 +4235,7 @@ interface MenuItem<T = any> {
     items?: Array<MenuItem<T> | ListSeparator> | MenuLoader;
     // @internal
     parentItem?: MenuItem;
+    primaryComponent?: ListComponent;
     secondaryText?: string;
     selected?: boolean;
     text: string;
