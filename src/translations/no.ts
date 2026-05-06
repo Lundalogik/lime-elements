@@ -90,7 +90,7 @@ Du kan fortsette å blokkere bilder (e-posten kan se ufullstendig ut), eller las
     'code-diff.search': 'Søk',
     'code-diff.search-scope': 'Søkeområde',
     'code-diff.search-scope-removed': 'Fjernede linjer',
-    'code-diff.search-scope-added': 'Lagt til linjer',
+    'code-diff.search-scope-added': 'Tillagte linjer',
     'code-diff.search-scope-changed': 'Endrede linjer',
     'code-diff.previous-match': 'Forrige treff',
     'code-diff.next-match': 'Neste treff',
