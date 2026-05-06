@@ -165,10 +165,11 @@ export class CodeDiff {
     private totalSearchMatches: number = 0;
 
     /**
-     * Whether the current render is inside a removed line,
-     * so search highlighting knows when to activate.
+     * Whether the current line being rendered participates in the
+     * active search scope, so search highlighting knows when to
+     * activate.
      */
-    private isRenderingRemovedLine: boolean = false;
+    private isRenderingSearchableLine: boolean = false;
 
     /**
      * Cached search regex for the current render pass.
@@ -781,8 +782,9 @@ export class CodeDiff {
     }
 
     private renderContent(line: DiffLine) {
-        this.isRenderingRemovedLine =
-            line.type === 'removed' && this.searchTerm.length > 0;
+        this.isRenderingSearchableLine =
+            this.searchTerm.length > 0 &&
+            lineMatchesScope(line.type, this.searchScope);
 
         if (!line.segments || line.segments.length === 0) {
             return this.renderSyntaxTokens(line.content);
@@ -827,7 +829,7 @@ export class CodeDiff {
     }
 
     private renderSearchableText(text: string): any {
-        if (!this.isRenderingRemovedLine || !this.activeSearchRegex) {
+        if (!this.isRenderingSearchableLine || !this.activeSearchRegex) {
             return text;
         }
 
