@@ -83,9 +83,7 @@ describe('pickDefaultScope', () => {
     });
 
     it('returns "added" when only additions exist', () => {
-        expect(pickDefaultScope({ additions: 4, deletions: 0 })).toBe(
-            'added'
-        );
+        expect(pickDefaultScope({ additions: 4, deletions: 0 })).toBe('added');
     });
 });
 

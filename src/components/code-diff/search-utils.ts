@@ -58,9 +58,13 @@ export function navigateMatchIndex(
 
 /**
  * Pick the default `SearchScope` to use when the search panel opens.
- *
  * Falls back to `'added'` when there are no removed lines, so the
  * panel never opens with a scope that has zero matches.
+ *
+ * @param stats - the current diff statistics
+ * @param stats.additions - number of added lines in the diff
+ * @param stats.deletions - number of removed lines in the diff
+ * @returns the scope that should be active when the panel opens
  */
 export function pickDefaultScope(stats: {
     additions: number;
@@ -76,6 +80,10 @@ export function pickDefaultScope(stats: {
 /**
  * Whether a line of the given type participates in the active
  * `SearchScope`. Context lines are never included.
+ *
+ * @param lineType - the type of the diff line being considered
+ * @param scope - the active search scope
+ * @returns true when the line participates in the scope, false otherwise
  */
 export function lineMatchesScope(
     lineType: DiffLine['type'],
