@@ -6,6 +6,7 @@ import { ImageIntersectionObserver } from './image-intersection-observer';
 import { hydrateCustomElements } from './hydrate-custom-elements';
 import { morphChildren } from './morph-dom';
 import { DEFAULT_MARKDOWN_WHITELIST } from './default-whitelist';
+import { adaptColorContrast } from './adapt-color-contrast';
 
 /**
  * The Markdown component receives markdown syntax
@@ -126,6 +127,8 @@ export class Markdown {
             // rehype-sanitize can't inspect values inside JSON strings.
             hydrateCustomElements(this.rootElement, combinedWhitelist);
 
+            adaptColorContrast(this.rootElement);
+
             this.setupImageIntersectionObserver();
         } catch (error) {
             console.error(error);
@@ -146,13 +149,22 @@ export class Markdown {
     private imageIntersectionObserver: ImageIntersectionObserver | null = null;
     private cachedConsumerWhitelist?: CustomElementDefinition[];
     private cachedCombinedWhitelist?: CustomElementDefinition[];
+    private prefersDarkMediaQuery?: MediaQueryList;
+    private themeMutationObserver?: MutationObserver;
+    private readonly handleThemeChange = () => {
+        if (this.rootElement) {
+            adaptColorContrast(this.rootElement);
+        }
+    };
 
     public async componentDidLoad() {
         this.textChanged();
+        this.setupThemeChangeListeners();
     }
 
     public disconnectedCallback() {
         this.cleanupImageIntersectionObserver();
+        this.teardownThemeChangeListeners();
     }
 
     public render() {
@@ -179,6 +191,43 @@ export class Markdown {
             this.imageIntersectionObserver.disconnect();
             this.imageIntersectionObserver = null;
         }
+    }
+
+    private setupThemeChangeListeners() {
+        if (globalThis.window === undefined) {
+            return;
+        }
+        if (typeof globalThis.matchMedia === 'function') {
+            this.prefersDarkMediaQuery = globalThis.matchMedia(
+                '(prefers-color-scheme: dark)'
+            );
+            this.prefersDarkMediaQuery.addEventListener(
+                'change',
+                this.handleThemeChange
+            );
+        }
+        if (
+            typeof globalThis.MutationObserver === 'function' &&
+            document.documentElement
+        ) {
+            this.themeMutationObserver = new globalThis.MutationObserver(
+                this.handleThemeChange
+            );
+            this.themeMutationObserver.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['data-theme'],
+            });
+        }
+    }
+
+    private teardownThemeChangeListeners() {
+        this.prefersDarkMediaQuery?.removeEventListener(
+            'change',
+            this.handleThemeChange
+        );
+        this.prefersDarkMediaQuery = undefined;
+        this.themeMutationObserver?.disconnect();
+        this.themeMutationObserver = undefined;
     }
 }
 
