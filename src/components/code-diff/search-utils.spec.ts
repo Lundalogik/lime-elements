@@ -3,6 +3,7 @@ import {
     escapeRegex,
     buildSearchRegex,
     navigateMatchIndex,
+    pickDefaultScope,
 } from './search-utils';
 
 describe('escapeRegex', () => {
@@ -64,5 +65,25 @@ describe('navigateMatchIndex', () => {
 
     it('wraps backward from first to last', () => {
         expect(navigateMatchIndex(0, -1, 5)).toBe(4);
+    });
+});
+
+describe('pickDefaultScope', () => {
+    it('returns "removed" when there are deletions', () => {
+        expect(pickDefaultScope({ additions: 0, deletions: 3 })).toBe(
+            'removed'
+        );
+    });
+
+    it('returns "removed" when both additions and deletions exist', () => {
+        expect(pickDefaultScope({ additions: 5, deletions: 2 })).toBe(
+            'removed'
+        );
+    });
+
+    it('returns "added" when only additions exist', () => {
+        expect(pickDefaultScope({ additions: 4, deletions: 0 })).toBe(
+            'added'
+        );
     });
 });

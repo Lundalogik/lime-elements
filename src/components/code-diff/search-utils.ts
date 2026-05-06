@@ -3,6 +3,11 @@
  */
 
 /**
+ * The line types that the in-diff search operates on.
+ */
+export type SearchScope = 'removed' | 'added' | 'changed';
+
+/**
  * Escape special regex characters in a search term so it can
  * be used as a literal pattern in a RegExp constructor.
  *
@@ -47,4 +52,21 @@ export function navigateMatchIndex(
     }
 
     return (currentIndex + direction + total) % total;
+}
+
+/**
+ * Pick the default `SearchScope` to use when the search panel opens.
+ *
+ * Falls back to `'added'` when there are no removed lines, so the
+ * panel never opens with a scope that has zero matches.
+ */
+export function pickDefaultScope(stats: {
+    additions: number;
+    deletions: number;
+}): SearchScope {
+    if (stats.deletions > 0) {
+        return 'removed';
+    }
+
+    return 'added';
 }
