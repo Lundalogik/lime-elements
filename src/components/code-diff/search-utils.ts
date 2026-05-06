@@ -70,3 +70,22 @@ export function pickDefaultScope(stats: {
 
     return 'added';
 }
+
+/**
+ * Whether a line of the given type participates in the active
+ * `SearchScope`. Context lines are never included.
+ */
+export function lineMatchesScope(
+    lineType: 'added' | 'removed' | 'context',
+    scope: SearchScope
+): boolean {
+    if (lineType === 'context') {
+        return false;
+    }
+
+    if (scope === 'changed') {
+        return true;
+    }
+
+    return lineType === scope;
+}
