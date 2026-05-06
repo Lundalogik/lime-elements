@@ -90,7 +90,7 @@ describe('pickDefaultScope', () => {
 });
 
 describe('lineMatchesScope', () => {
-    describe('scope "removed"', () => {
+    describe('scope: removed', () => {
         it('matches removed lines', () => {
             expect(lineMatchesScope('removed', 'removed')).toBe(true);
         });
@@ -104,7 +104,7 @@ describe('lineMatchesScope', () => {
         });
     });
 
-    describe('scope "added"', () => {
+    describe('scope: added', () => {
         it('matches added lines', () => {
             expect(lineMatchesScope('added', 'added')).toBe(true);
         });
@@ -118,7 +118,7 @@ describe('lineMatchesScope', () => {
         });
     });
 
-    describe('scope "changed"', () => {
+    describe('scope: changed', () => {
         it('matches removed lines', () => {
             expect(lineMatchesScope('removed', 'changed')).toBe(true);
         });

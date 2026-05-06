@@ -2,6 +2,8 @@
  * Pure utility functions for search-within-diff functionality.
  */
 
+import type { DiffLine } from './types';
+
 /**
  * The line types that the in-diff search operates on.
  */
@@ -76,7 +78,7 @@ export function pickDefaultScope(stats: {
  * `SearchScope`. Context lines are never included.
  */
 export function lineMatchesScope(
-    lineType: 'added' | 'removed' | 'context',
+    lineType: DiffLine['type'],
     scope: SearchScope
 ): boolean {
     if (lineType === 'context') {
