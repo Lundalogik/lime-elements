@@ -154,7 +154,7 @@ export class CodeDiff {
 
     /**
      * Render-time counter that increments for each search match
-     * found while rendering removed lines. Used to determine which
+     * found while rendering in-scope lines. Used to determine which
      * match is the "current" one for navigation highlighting.
      */
     private searchMatchCounter: number = 0;
