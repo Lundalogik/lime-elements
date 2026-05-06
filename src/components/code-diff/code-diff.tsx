@@ -10,6 +10,7 @@ import {
     SplitDiffLine,
 } from './types';
 import { ActionBarItem } from '../action-bar/action-bar.types';
+import { Button } from '../button/button.types';
 import { buildSplitLines, computeDiff, normalizeForDiff } from './diff-engine';
 import { tokenize, SyntaxToken } from './syntax-highlighter';
 import {
@@ -386,7 +387,7 @@ export class CodeDiff {
                         )}
                     </div>
                     {hasDiff && this.renderCopyButton()}
-                    {deletions > 0 && this.renderSearchToggle()}
+                    {hasDiff && this.renderSearchToggle()}
                 </div>
             </div>
         );
@@ -447,6 +448,14 @@ export class CodeDiff {
 
         return (
             <div class="search-bar">
+                <limel-button-group
+                    class="search-bar__scope"
+                    aria-label={this.getTranslation('code-diff.search-scope')}
+                    value={this.getScopeButtons()}
+                    onChange={(e: CustomEvent<Button>) =>
+                        this.onScopeChange(e.detail)
+                    }
+                />
                 <limel-input-field
                     class="search-bar__input"
                     type="search"
@@ -526,6 +535,34 @@ export class CodeDiff {
                 value: 'close',
             },
         ];
+    }
+
+    private getScopeButtons(): Button[] {
+        return [
+            {
+                id: 'removed',
+                title: this.getTranslation('code-diff.search-scope-removed'),
+                icon: 'minus',
+                selected: this.searchScope === 'removed',
+            },
+            {
+                id: 'added',
+                title: this.getTranslation('code-diff.search-scope-added'),
+                icon: 'plus_math',
+                selected: this.searchScope === 'added',
+            },
+            {
+                id: 'changed',
+                title: this.getTranslation('code-diff.search-scope-changed'),
+                icon: 'compare_arrows',
+                selected: this.searchScope === 'changed',
+            },
+        ];
+    }
+
+    private onScopeChange(button: Button) {
+        this.searchScope = button.id as SearchScope;
+        this.currentMatchIndex = 0;
     }
 
     private onSearchAction(event: CustomEvent<ActionBarItem>) {
