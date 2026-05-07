@@ -20,7 +20,6 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-    padding-bottom: 0.5rem;
     box-shadow: var(--shadow-depth-8);
 }
 
@@ -93,7 +92,7 @@
 .attachments {
     flex-shrink: 0;
     padding: 0.5rem;
-    border-bottom: 1px dashed rga(var(--contrast-700));
+    border-bottom: 1px dashed rgba(var(--contrast-700));
 
     span {
         padding-left: 0.25rem;
@@ -106,47 +105,23 @@
         }
     }
 
-    ul {
-        all: unset;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
-        gap: 0.5rem;
-
+    .attachment-list {
+        margin: 0;
         padding: 0.5rem 0;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
     }
 
     li {
-        all: unset;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-
-        font-size: 0.6875rem;
-        line-height: normal;
-
-        padding: 0.5rem 0.5rem 1rem 0.5rem;
-        border-radius: 0.5rem;
-        border: 1px solid rgba(var(--contrast-600));
-        background-color: rgba(var(--contrast-400));
+        display: inline-flex;
+        max-width: 100%;
     }
 
-    .attachment-filename {
-        font-weight: 500;
-    }
-
-    .attachment-mime-type {
-        opacity: 0.7;
-    }
-
-    limel-badge {
-        --badge-max-width: auto;
-        --badge-background-color: rgb(var(--contrast-1000), 0.7);
-        --badge-text-color: rgb(var(--color-white));
-        position: absolute;
-        bottom: 0.125rem;
-        right: 0.125rem;
-        box-shadow: var(--shadow-brighten-edges-outside);
+    limel-chip {
+        --chip-max-width: 18rem;
+        --badge-max-width: 3rem;
     }
 }
 
