@@ -55,6 +55,12 @@ Dit kan aan de afzender onthullen dat je het bericht hebt geopend, wanneer je he
 
 Je kunt afbeeldingen geblokkeerd houden (de e-mail kan er onvolledig uitzien) of ze laden als je de afzender vertrouwt.`,
     'file-viewer.email.remote-images.load': 'Afbeeldingen laden',
+    'file-viewer.email.surface.toggle': 'Moeilijk te lezen?',
+    'file-viewer.email.surface.toggle.tooltip.label':
+        'Klik voor hoger contrast',
+    'file-viewer.email.surface.toggle.tooltip.helper': `Sommige e-mails bevatten hun eigen vaste tekstkleuren – soms zeer licht, soms zeer donker.
+Afhankelijk van of de app in lichte of donkere modus staat, kan die tekst moeilijk leesbaar zijn.
+Klik hier om de achtergrond van de e-mail naar de tegenovergestelde tint om te schakelen en het contrast te verbeteren.`,
     'editor-menu.bold': 'Vet',
     'editor-menu.italic': 'Cursief',
     'editor-menu.strikethrough': 'Doorhalen',

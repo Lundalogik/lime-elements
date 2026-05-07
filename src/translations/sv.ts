@@ -56,6 +56,12 @@ Det kan avslöja för avsändaren att du öppnade meddelandet, när du öppnade 
 
 Du kan fortsätta blockera bilder (e-posten kan se ofullständig ut) eller ladda dem om du litar på avsändaren.`,
     'file-viewer.email.remote-images.load': 'Ladda bilder',
+    'file-viewer.email.surface.toggle': 'Svår att läsa?',
+    'file-viewer.email.surface.toggle.tooltip.label':
+        'Klicka för högre kontrast',
+    'file-viewer.email.surface.toggle.tooltip.helper': `Vissa e-postmeddelanden har egna fasta textfärger – ibland mycket ljusa, ibland mycket mörka.
+Beroende på om appen är i ljust eller mörkt läge kan texten bli svår att läsa.
+Klicka här för att vända e-postens bakgrund till motsatt ton och förbättra kontrasten.`,
     'editor-menu.bold': 'Fet',
     'editor-menu.italic': 'Kursiv',
     'editor-menu.strikethrough': 'Genomstruken',

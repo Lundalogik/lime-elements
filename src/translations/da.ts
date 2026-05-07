@@ -56,6 +56,12 @@ Det kan afsløre for afsenderen, at du har åbnet beskeden, hvornår du åbnede 
 
 Du kan fortsætte med at blokere billeder (e-mailen kan se ufuldstændig ud) eller indlæse dem, hvis du stoler på afsenderen.`,
     'file-viewer.email.remote-images.load': 'Indlæs billeder',
+    'file-viewer.email.surface.toggle': 'Svært at læse?',
+    'file-viewer.email.surface.toggle.tooltip.label':
+        'Klik for højere kontrast',
+    'file-viewer.email.surface.toggle.tooltip.helper': `Nogle e-mails har deres egne hårdkodede tekstfarver – nogle gange meget lyse, nogle gange meget mørke.
+Afhængigt af om appen er i lys eller mørk tilstand kan teksten være svær at læse.
+Klik her for at vende e-mailens baggrund til den modsatte tone og forbedre kontrasten.`,
     'editor-menu.bold': 'Fed',
     'editor-menu.italic': 'Kursiv',
     'editor-menu.strikethrough': 'Gennemstreget',

@@ -56,6 +56,12 @@ Cela peut révéler à l'expéditeur que vous avez ouvert le message, quand vous
 
 Vous pouvez laisser les images bloquées (l'e-mail peut sembler incomplet) ou les charger si vous faites confiance à l'expéditeur.`,
     'file-viewer.email.remote-images.load': 'Charger les images',
+    'file-viewer.email.surface.toggle': 'Difficile à lire ?',
+    'file-viewer.email.surface.toggle.tooltip.label':
+        'Cliquez pour augmenter le contraste',
+    'file-viewer.email.surface.toggle.tooltip.helper': `Certains e-mails contiennent des couleurs de texte codées en dur – parfois très claires, parfois très sombres.
+Selon que l'application est en mode clair ou sombre, ce texte peut devenir difficile à lire.
+Cliquez ici pour inverser le fond de l'e-mail et améliorer le contraste.`,
     'editor-menu.bold': 'Gras',
     'editor-menu.italic': 'Italique',
     'editor-menu.strikethrough': 'Barré',

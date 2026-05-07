@@ -14,6 +14,7 @@ import { Email, EmailAttachment, EmailHeaderType } from './email-viewer.types';
 import { applyRemoteImagesPolicy, containsRemoteImages } from './remote-images';
 import { splitEmailAddressList } from './split-email-address-list';
 import { formatBytes } from '../../util/format-bytes';
+import { createRandomString } from '../../util/random-string';
 
 /**
  * This is a private component, used to render `.eml` files inside
@@ -70,6 +71,11 @@ export class EmailViewer {
     @State()
     private allowRemoteImagesState = false;
 
+    @State()
+    private surfaceBackgroundState = false;
+
+    private toggleButtonId = createRandomString();
+
     /**
      * Emitted when the user requests remote images to be loaded.
      *
@@ -79,7 +85,11 @@ export class EmailViewer {
     public allowRemoteImagesChange: EventEmitter<boolean>;
 
     @Watch('email')
-    protected resetAllowRemoteImages(newEmail?: Email, oldEmail?: Email) {
+    protected handleEmailChange(newEmail?: Email, oldEmail?: Email) {
+        // Surface preference is per-email-view: a new message always opens
+        // with the default light background.
+        this.surfaceBackgroundState = false;
+
         if (!newEmail) {
             this.allowRemoteImagesState = false;
             return;
@@ -98,6 +108,7 @@ export class EmailViewer {
                     {this.renderRemoteImageBanner()}
                     <section>
                         {this.renderAttachments()}
+                        {this.renderSurfaceToggle()}
                         {this.renderBody()}
                     </section>
                 </div>
@@ -146,7 +157,13 @@ export class EmailViewer {
             this.getAllowRemoteImages()
         );
 
-        return <div class="body" innerHTML={innerHtml} part="email-body" />;
+        return (
+            <div
+                class={this.getBodyClassNames()}
+                innerHTML={innerHtml}
+                part="email-body"
+            />
+        );
     }
 
     private renderBodyText() {
@@ -156,11 +173,58 @@ export class EmailViewer {
         }
 
         return (
-            <pre class="body plain-text" part="email-body">
+            <pre
+                class={`${this.getBodyClassNames()} plain-text`}
+                part="email-body"
+            >
                 {bodyText}
             </pre>
         );
     }
+
+    private getBodyClassNames(): string {
+        return this.surfaceBackgroundState
+            ? 'body toggled-surface-background'
+            : 'body';
+    }
+
+    private renderSurfaceToggle() {
+        const hasBody = Boolean(this.email?.bodyHtml || this.email?.bodyText);
+        if (!hasBody) {
+            return;
+        }
+
+        const label = this.getTranslation('file-viewer.email.surface.toggle');
+        const tooltipLabel = this.getTranslation(
+            'file-viewer.email.surface.toggle.tooltip.label'
+        );
+        const tooltipHelper = this.getTranslation(
+            'file-viewer.email.surface.toggle.tooltip.helper'
+        );
+
+        return (
+            <div class="toggle-dark-light">
+                <button
+                    id={this.toggleButtonId}
+                    type="button"
+                    aria-pressed={String(this.surfaceBackgroundState)}
+                    onClick={this.toggleSurfaceBackground}
+                >
+                    <limel-icon name="-lime-dark-light-mode" />
+                    {label}
+                </button>
+                <limel-tooltip
+                    elementId={this.toggleButtonId}
+                    label={tooltipLabel}
+                    helperLabel={tooltipHelper}
+                />
+            </div>
+        );
+    }
+
+    private toggleSurfaceBackground = () => {
+        this.surfaceBackgroundState = !this.surfaceBackgroundState;
+    };
 
     private renderFallbackUrl() {
         if (!this.fallbackUrl) {

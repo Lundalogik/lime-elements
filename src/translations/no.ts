@@ -55,6 +55,12 @@ Dette kan avsløre for avsenderen at du åpnet meldingen, når du åpnet den, og
 
 Du kan fortsette å blokkere bilder (e-posten kan se ufullstendig ut), eller laste dem inn hvis du stoler på avsenderen.`,
     'file-viewer.email.remote-images.load': 'Last inn bilder',
+    'file-viewer.email.surface.toggle': 'Vanskelig å lese?',
+    'file-viewer.email.surface.toggle.tooltip.label':
+        'Klikk for høyere kontrast',
+    'file-viewer.email.surface.toggle.tooltip.helper': `Noen e-poster har sine egne hardkodede tekstfarger – noen ganger svært lyse, noen ganger svært mørke.
+Avhengig av om appen er i lyst eller mørkt modus, kan teksten bli vanskelig å lese.
+Klikk her for å bytte e-postens bakgrunn til motsatt tone og forbedre kontrasten.`,
     'editor-menu.bold': 'Fet',
     'editor-menu.italic': 'Kursiv',
     'editor-menu.strikethrough': 'Gjennomstreking',

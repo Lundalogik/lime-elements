@@ -56,6 +56,12 @@ Dadurch kann der Absender erfahren, dass Sie die Nachricht geöffnet haben, wann
 
 Sie können Bilder weiterhin blockieren (die E-Mail kann unvollständig aussehen) oder sie laden, wenn Sie dem Absender vertrauen.`,
     'file-viewer.email.remote-images.load': 'Bilder laden',
+    'file-viewer.email.surface.toggle': 'Schwer lesbar?',
+    'file-viewer.email.surface.toggle.tooltip.label':
+        'Für mehr Kontrast klicken',
+    'file-viewer.email.surface.toggle.tooltip.helper': `Manche E-Mails enthalten fest einprogrammierte Textfarben – manchmal sehr hell, manchmal sehr dunkel.
+Je nachdem, ob die App im hellen oder dunklen Modus ist, kann der Text schwer lesbar werden.
+Klicken Sie hier, um den Hintergrund der E-Mail in den gegenteiligen Ton umzuschalten und den Kontrast zu verbessern.`,
     'editor-menu.bold': 'Fett',
     'editor-menu.italic': 'Kursiv',
     'editor-menu.strikethrough': 'Durchgestrichen',

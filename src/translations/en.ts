@@ -55,6 +55,12 @@ This may reveal to the sender that you opened the message, when you opened it, a
 
 You can keep images blocked (the email may look incomplete), or load them if you trust the sender.`,
     'file-viewer.email.remote-images.load': 'Load images',
+    'file-viewer.email.surface.toggle': 'Hard to read?',
+    'file-viewer.email.surface.toggle.tooltip.label':
+        'Click to get higher contrast',
+    'file-viewer.email.surface.toggle.tooltip.helper': `Some emails arrive with hardcoded text colors — sometimes very light, sometimes very dark.
+Depending on whether the app is in light or dark mode, that text can be hard to read.
+Click here to flip the email's background to the opposite tone and improve contrast.`,
     'editor-menu.bold': 'Bold',
     'editor-menu.italic': 'Italic',
     'editor-menu.strikethrough': 'Strikethrough',

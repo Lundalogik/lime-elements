@@ -56,6 +56,12 @@ Tämä voi paljastaa lähettäjälle, että avasit viestin, milloin avasit sen, 
 
 Voit pitää kuvat estettyinä (sähköposti voi näyttää puutteelliselta) tai ladata ne, jos luotat lähettäjään.`,
     'file-viewer.email.remote-images.load': 'Lataa kuvat',
+    'file-viewer.email.surface.toggle': 'Vaikea lukea?',
+    'file-viewer.email.surface.toggle.tooltip.label':
+        'Klikkaa parantaaksesi kontrastia',
+    'file-viewer.email.surface.toggle.tooltip.helper': `Joissakin sähköposteissa on omat kovakoodatut tekstivärit – joskus erittäin vaaleat, joskus erittäin tummat.
+Sen mukaan, onko sovellus vaaleassa vai tummassa tilassa, teksti voi olla vaikealukuista.
+Klikkaa tästä vaihtaaksesi sähköpostin taustan vastakkaiseen sävyyn ja parantaaksesi kontrastia.`,
     'editor-menu.bold': 'Lihavoitu',
     'editor-menu.italic': 'Kursivoitu',
     'editor-menu.strikethrough': 'Yliviivaus',
