@@ -629,27 +629,25 @@ describe('sanitizeHTML', () => {
     describe('style attribute sanitization', () => {
         it('should allow safe CSS properties', async () => {
             const result = await sanitizeHTML(
-                '<p style="color: red; font-weight: bold;">Text</p>'
+                '<p style="font-style: italic; font-weight: bold;">Text</p>'
             );
             expect(result).toEqualHtml(
-                '<p style="color: red; font-weight: bold">Text</p>'
+                '<p style="font-style: italic; font-weight: bold">Text</p>'
             );
         });
 
         it('should strip dangerous CSS properties', async () => {
             const result = await sanitizeHTML(
-                '<p style="color: red; position: absolute; z-index: 9999;">Text</p>'
+                '<p style="font-weight: bold; position: absolute; z-index: 9999;">Text</p>'
             );
-            expect(result).toEqualHtml('<p style="color: red">Text</p>');
+            expect(result).toEqualHtml('<p style="font-weight: bold">Text</p>');
         });
 
-        it('should normalize background to background-color', async () => {
+        it('should strip color and background-color', async () => {
             const result = await sanitizeHTML(
-                '<p style="background: blue;">Text</p>'
+                '<p style="color: red; background-color: blue; font-weight: bold;">Text</p>'
             );
-            expect(result).toEqualHtml(
-                '<p style="background-color: blue">Text</p>'
-            );
+            expect(result).toEqualHtml('<p style="font-weight: bold">Text</p>');
         });
     });
 

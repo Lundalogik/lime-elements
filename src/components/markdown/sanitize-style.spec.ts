@@ -10,11 +10,11 @@ describe('sanitizeStyle', () => {
         const node = {
             tagName: 'div',
             properties: {
-                style: 'color: red; position: absolute;',
+                style: 'font-weight: bold; position: absolute;',
             },
         };
         sanitizeStyle(node);
-        expect(node.properties.style).toContain('color: red');
+        expect(node.properties.style).toContain('font-weight: bold');
         expect(node.properties.style).not.toContain('position: absolute');
     });
 
@@ -40,7 +40,7 @@ describe('sanitizeStyle', () => {
     it('does nothing to a text node (node without `tagName`)', () => {
         const node = {
             properties: {
-                style: 'color: red; position: absolute;',
+                style: 'font-weight: bold; position: absolute;',
             },
         };
         const originalProperties = { ...node.properties };
@@ -52,13 +52,13 @@ describe('sanitizeStyle', () => {
         const node = {
             tagName: 'div',
             properties: {
-                style: 'color: red; animation: slidein 3s;',
+                style: 'font-weight: bold; animation: slidein 3s;',
                 id: 'test-node',
             },
         };
-        // 'color' is allowed, but 'animation' is not. Also checks that 'id' remains unchanged.
+        // 'font-weight' is allowed, but 'animation' is not. Also checks that 'id' remains unchanged.
         sanitizeStyle(node);
-        expect(node.properties.style).toContain('color: red');
+        expect(node.properties.style).toContain('font-weight: bold');
         expect(node.properties.style).not.toContain('animation: slidein 3s');
         expect(node.properties.id).toBe('test-node');
     });
@@ -67,27 +67,29 @@ describe('sanitizeStyle', () => {
 describe('sanitizeStyleValue', () => {
     describe('with valid CSS', () => {
         it('retains allowed CSS properties', () => {
-            const style = 'color: blue; text-decoration: underline;';
+            const style = 'font-weight: bold; text-decoration: underline;';
             const sanitized = sanitizeStyleValue(style);
-            // 'color' and 'text-decoration' are in the allowedCssProperties list
-            expect(sanitized).toContain('color: blue');
+            // 'font-weight' and 'text-decoration' are in the allowedCssProperties list
+            expect(sanitized).toContain('font-weight: bold');
             expect(sanitized).toContain('text-decoration: underline');
         });
 
         it('removes disallowed CSS properties', () => {
-            const style = 'color: blue; margin: 10px;';
+            const style = 'font-weight: bold; margin: 10px;';
             const sanitized = sanitizeStyleValue(style);
             // 'margin' is not in the allowedCssProperties list
-            expect(sanitized).toContain('color: blue');
+            expect(sanitized).toContain('font-weight: bold');
             expect(sanitized).not.toContain('margin: 10px');
         });
 
-        it('converts background to background-color if valid and allowed', () => {
-            const style = 'background: red;';
+        it('strips color and background-color', () => {
+            // Inline colors from email content can collide with the host
+            // theme (e.g. white text on a light surface), so they are not
+            // preserved by the markdown sanitizer.
+            const style =
+                'color: blue; background-color: red; font-weight: bold;';
             const sanitized = sanitizeStyleValue(style);
-            // 'background-color' is allowed and should replace 'background'
-            expect(sanitized).toContain('background-color: red');
-            expect(sanitized).not.toContain('background: red');
+            expect(sanitized).toBe('font-weight: bold');
         });
     });
 
@@ -100,12 +102,12 @@ describe('sanitizeStyleValue', () => {
             vi.restoreAllMocks();
         });
         it('returns an empty string for invalid CSS syntax', () => {
-            const style = 'color blue'; // Missing colon
+            const style = 'font-weight bold'; // Missing colon
             const sanitized = sanitizeStyleValue(style);
             expect(sanitized).toBe('');
         });
         it('logs an error to the console for invalid CSS syntax', () => {
-            const style = 'color blue'; // Missing colon
+            const style = 'font-weight bold'; // Missing colon
             sanitizeStyleValue(style);
             expect(console.error).toHaveBeenCalledTimes(1);
         });
@@ -113,26 +115,26 @@ describe('sanitizeStyleValue', () => {
 
     describe('special cases', () => {
         it('handles CSS with semi-colon at the end correctly', () => {
-            const style = 'color: blue;';
+            const style = 'font-weight: bold;';
             const sanitized = sanitizeStyleValue(style);
             // Ensure proper handling of trailing semi-colons
-            expect(sanitized).toBe('color: blue');
+            expect(sanitized).toBe('font-weight: bold');
         });
 
         it('handles CSS without semi-colon at the end correctly', () => {
-            const style = 'color: blue';
+            const style = 'font-weight: bold';
             const sanitized = sanitizeStyleValue(style);
-            expect(sanitized).toBe('color: blue');
+            expect(sanitized).toBe('font-weight: bold');
         });
     });
 
     describe('integration with allowedCssProperties list', () => {
         it('only retains properties specified in allowedCssProperties', () => {
             const style =
-                'color: blue; animation: slidein 3s; font-weight: bold;';
+                'font-style: italic; animation: slidein 3s; font-weight: bold;';
             const sanitized = sanitizeStyleValue(style);
-            // 'animation' is not allowed, 'color' and 'font-weight' are allowed
-            expect(sanitized).toContain('color: blue');
+            // 'animation' is not allowed, 'font-style' and 'font-weight' are allowed
+            expect(sanitized).toContain('font-style: italic');
             expect(sanitized).toContain('font-weight: bold');
             expect(sanitized).not.toContain('animation: slidein 3s');
         });
