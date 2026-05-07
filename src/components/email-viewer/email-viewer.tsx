@@ -15,6 +15,9 @@ import { applyRemoteImagesPolicy, containsRemoteImages } from './remote-images';
 import { splitEmailAddressList } from './split-email-address-list';
 import { formatBytes } from '../../util/format-bytes';
 import { adaptColorContrast } from '../../util/adapt-color-contrast';
+import { getIconForFile } from '../file/icons';
+import { getIconFillColorForFile } from '../file/icon-fill-colors';
+import { getIconBackgroundColorForFile } from '../file/icon-background-colors';
 
 /**
  * This is a private component, used to render `.eml` files inside
@@ -229,8 +232,8 @@ export class EmailViewer {
 
         return (
             <div class="attachments">
-                <span>{label}</span>
-                <ul>
+                <span id="attachments-label">{label}</span>
+                <ul class="attachment-list" aria-labelledby="attachments-label">
                     {attachments.map((attachment, index) =>
                         this.renderAttachment(attachment, index)
                     )}
@@ -244,21 +247,30 @@ export class EmailViewer {
             attachment.filename?.trim() ||
             this.getTranslation('file-viewer.email.attachment.unnamed');
         const mimeType = attachment.mimeType?.trim() || '';
+        const dotIndex = filename.lastIndexOf('.');
+        const extension = dotIndex > 0 ? filename.slice(dotIndex + 1) : '';
+        const tooltip = mimeType ? `${filename}\n${mimeType}` : filename;
+        const fileSize =
+            typeof attachment.size === 'number'
+                ? formatBytes(attachment.size)
+                : undefined;
+
         return (
             <li key={`attachment-${index}`}>
-                <span class="attachment-filename">{filename}</span>
-                <span class="attachment-mime-type"> {mimeType}</span>
-                {this.renderSizeBadge(attachment.size)}
+                <limel-chip
+                    title={tooltip}
+                    text={filename}
+                    icon={{
+                        name: getIconForFile(extension),
+                        color: getIconFillColorForFile(extension),
+                        backgroundColor:
+                            getIconBackgroundColorForFile(extension),
+                    }}
+                    badge={fileSize}
+                    readonly={true}
+                    language={this.language}
+                />
             </li>
-        );
-    };
-
-    private renderSizeBadge = (size?: number) => {
-        if (typeof size !== 'number') {
-            return;
-        }
-        return (
-            <limel-badge class="attachment-size" label={formatBytes(size)} />
         );
     };
 
