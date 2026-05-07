@@ -23,11 +23,29 @@ describe('limel-file-viewer', () => {
                         '\r\n' +
                         'Hello from EML!\r\n';
 
-                    globalThis.fetch = vi.fn().mockResolvedValue({
-                        ok: true,
-                        arrayBuffer: async () =>
-                            new TextEncoder().encode(eml).buffer,
-                    } as any);
+                    // Route the email URL to its EML payload, and return a
+                    // benign empty response for any other fetches the email
+                    // viewer's render tree may trigger (e.g. icon SVGs from
+                    // <limel-icon>, which calls `response.text()`).
+                    globalThis.fetch = vi
+                        .fn()
+                        .mockImplementation(async (input: any) => {
+                            const url =
+                                typeof input === 'string' ? input : input.url;
+                            if (url === testCase.url) {
+                                return {
+                                    ok: true,
+                                    arrayBuffer: async () =>
+                                        new TextEncoder().encode(eml).buffer,
+                                } as any;
+                            }
+
+                            return {
+                                ok: true,
+                                text: async () => '',
+                                arrayBuffer: async () => new ArrayBuffer(0),
+                            } as any;
+                        });
                 }
 
                 const { root, waitForChanges } = await render(
