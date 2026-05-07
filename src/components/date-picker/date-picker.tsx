@@ -186,7 +186,7 @@ export class DatePicker {
     }
 
     public disconnectedCallback() {
-        this.hideCalendar();
+        this.removeDocumentListeners();
     }
 
     public render() {
@@ -322,16 +322,21 @@ export class DatePicker {
         setTimeout(() => {
             this.showPortal = false;
         });
+
+        this.removeDocumentListeners();
+
+        if (!this.pickerIsAutoClosing()) {
+            this.fixFlatpickrFocusBug();
+        }
+    }
+
+    private removeDocumentListeners() {
         document.removeEventListener('mousedown', this.documentClickListener);
         document.removeEventListener(
             'blur',
             this.preventBlurFromCalendarContainer,
             { capture: true }
         );
-
-        if (!this.pickerIsAutoClosing()) {
-            this.fixFlatpickrFocusBug();
-        }
     }
 
     private fixFlatpickrFocusBug() {
