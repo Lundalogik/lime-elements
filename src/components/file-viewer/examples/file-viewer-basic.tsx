@@ -15,8 +15,8 @@ export class FileViewerExample {
     private files = [
         {
             title: 'Image',
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/TEIDE.JPG/2880px-TEIDE.JPG',
-            alt: 'A synthetic-aperture radar image acquired by the SIR-C/X-SAR radar on board the Space Shuttle Endeavour shows the Teide volcano.',
+            url: 'https://picsum.photos/id/1018/2880/1920.jpg',
+            alt: 'A scenic mountain landscape from Picsum Photos.',
         },
         {
             title: 'Vector graphic',
