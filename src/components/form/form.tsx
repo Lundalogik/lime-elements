@@ -170,7 +170,7 @@ export class Form {
             React.createElement(
                 JSONSchemaForm,
                 {
-                    schema: this.schema,
+                    schema: this.prepareSchema(this.schema),
                     formData: this.value,
                     onChange: this.handleChange,
                     widgets: widgets,
@@ -209,9 +209,40 @@ export class Form {
     private validateFormData() {
         const { errors } = rjsfValidator.validateFormData(
             this.value ?? {},
-            this.schema
+            this.prepareSchema(this.schema)
         );
         this.emitValidationStatus(errors);
+    }
+
+    /**
+     * Returns a copy of the schema with `$id` replaced by a content-based
+     * value, so the validator never confuses two schemas that share the
+     * same `$id` but differ in content — e.g. a server schema reused with
+     * a different subset of properties at runtime.
+     *
+     * The new `$id` is built from a short numeric fingerprint of the
+     * stringified content. A fingerprint (rather than the content itself)
+     * keeps the value short and URI-safe — `$id` is parsed as a URI by
+     * the validator and must not contain JSON-shaped characters.
+     *
+     * @param schema - the schema to prepare
+     */
+    private prepareSchema(schema: FormSchema): FormSchema {
+        const { $id, ...rest } = schema;
+        const json = JSON.stringify(rest);
+
+        let fingerprint = 5381;
+        for (let i = 0; i < json.length; i++) {
+            fingerprint =
+                ((fingerprint << 5) + fingerprint + json.codePointAt(i)) &
+                0xff_ff_ff_ff;
+        }
+        const contentId = (fingerprint >>> 0).toString(36);
+
+        return {
+            ...schema,
+            $id: $id ? `${$id}-${contentId}` : contentId,
+        };
     }
 
     private hasExtraErrors(): boolean {
