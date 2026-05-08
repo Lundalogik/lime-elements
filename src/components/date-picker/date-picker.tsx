@@ -186,7 +186,7 @@ export class DatePicker {
     }
 
     public disconnectedCallback() {
-        this.hideCalendar();
+        this.removeDocumentListeners();
     }
 
     public render() {
@@ -322,24 +322,32 @@ export class DatePicker {
         setTimeout(() => {
             this.showPortal = false;
         });
-        document.removeEventListener('mousedown', this.documentClickListener);
-        document.removeEventListener(
-            'blur',
-            this.preventBlurFromCalendarContainer,
-            { capture: true }
-        );
+
+        this.removeDocumentListeners();
 
         if (!this.pickerIsAutoClosing()) {
             this.fixFlatpickrFocusBug();
         }
     }
 
+    private removeDocumentListeners() {
+        document.removeEventListener('mousedown', this.documentClickListener);
+        document.removeEventListener(
+            'blur',
+            this.preventBlurFromCalendarContainer,
+            { capture: true }
+        );
+    }
+
     private fixFlatpickrFocusBug() {
         // Flatpickr removes the focus from the input field
         // but the 'visual focus' is still there
-        const mdcTextField = new MDCTextField(
-            this.textField.shadowRoot.querySelector('.mdc-text-field')
-        );
+        const root =
+            this.textField?.shadowRoot?.querySelector('.mdc-text-field');
+        if (!root) {
+            return;
+        }
+        const mdcTextField = new MDCTextField(root);
         mdcTextField.getDefaultFoundation().deactivateFocus();
         mdcTextField.valid = !this.invalid;
     }

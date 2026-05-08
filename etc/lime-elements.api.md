@@ -4269,6 +4269,7 @@ interface Option_2<T extends string = string> {
     icon?: IconName | Icon;
     // @deprecated
     iconColor?: Color;
+    primaryComponent?: ListComponent;
     secondaryText?: string;
     text: string;
     value: T;
