@@ -1,3 +1,10 @@
+## [39.23.1](https://github.com/Lundalogik/lime-elements/compare/v39.23.0...v39.23.1) (2026-05-08)
+
+### Bug Fixes
+
+
+* **form:** namespace schema $id by content to avoid stale validator ([a788042](https://github.com/Lundalogik/lime-elements/commit/a788042ff8e793ff0bb896d5b95efe4c1ebe0cdb))
+
 ## [39.23.0](https://github.com/Lundalogik/lime-elements/compare/v39.22.1...v39.23.0) (2026-05-08)
 
 ### Features
