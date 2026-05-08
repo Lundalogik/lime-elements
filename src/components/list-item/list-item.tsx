@@ -2,6 +2,7 @@ import { Component, Host, Prop, h } from '@stencil/core';
 import { getIconName } from '../icon/get-icon-props';
 import type { IconSize } from '../icon/icon.types';
 import { createRandomString } from '../../util/random-string';
+import { renderListComponent } from '../../util/render-list-component';
 import { ListItem } from './list-item.types';
 import { MenuItem } from '../menu/menu.types';
 import { ListSeparator } from '../../global/shared-types/separator.types';
@@ -244,24 +245,7 @@ export class ListItemComponent implements ListItem {
     };
 
     private renderPrimaryComponent = () => {
-        const primary = this.primaryComponent;
-        if (!primary?.name) {
-            return;
-        }
-
-        // Defense-in-depth: only render valid custom-element names
-        // (must contain a hyphen per the HTML spec). This blocks the
-        // slot from being used to instantiate built-in tags like
-        // `iframe`, `script`, or `a` with arbitrary attributes if a
-        // consumer ever pipes untrusted data into `primaryComponent`.
-        if (!primary.name.includes('-')) {
-            return;
-        }
-
-        const PrimaryComponent: any = primary.name;
-        const props = primary.props || {};
-
-        return <PrimaryComponent {...props} />;
+        return renderListComponent(this.primaryComponent);
     };
 
     private renderImage = () => {
