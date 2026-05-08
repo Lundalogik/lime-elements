@@ -1,5 +1,6 @@
 import { Color } from '../../global/shared-types/color.types';
 import { Icon, IconName } from '../../global/shared-types/icon.types';
+import { ListComponent } from '../list-item/list-item.types';
 /**
  * Describes an option for limel-select.
  * @public
@@ -53,4 +54,14 @@ export interface Option<T extends string = string> {
      * ```
      */
     iconColor?: Color;
+
+    /**
+     * Component used to render along with the icon and the option's text,
+     * both in the dropdown list and in the trigger area when the option is selected.
+     *
+     * Note: the primary component does not become automatically disabled
+     * when the option is disabled — clicks and interactions still register.
+     * The consumer should handle the disabled state of the component accordingly.
+     */
+    primaryComponent?: ListComponent;
 }

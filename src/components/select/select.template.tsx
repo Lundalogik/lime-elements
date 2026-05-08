@@ -2,6 +2,7 @@ import { ListItem, ListSeparator } from '../list-item/list-item.types';
 import { Option } from '../select/option.types';
 import { FunctionalComponent, h, VNode } from '@stencil/core';
 import { isMultiple } from '../../util/multiple';
+import { renderListComponent } from '../../util/render-list-component';
 import { getIconColor, getIconName } from '../icon/get-icon-props';
 interface SelectTemplateProps {
     disabled?: boolean;
@@ -126,6 +127,7 @@ const SelectValue: FunctionalComponent<
         >
             <span class="mdc-select__selected-text-container limel-select__selected-option">
                 {getSelectedIcon(props.value)}
+                {getSelectedPrimaryComponent(props.value)}
                 <span
                     id="s-selected-text"
                     class="mdc-select__selected-text limel-select__selected-option__text"
@@ -287,7 +289,7 @@ function createMenuItems(
         }
 
         const selected = isSelected(option, value);
-        const { text, secondaryText, disabled } = option;
+        const { text, secondaryText, disabled, primaryComponent } = option;
         const name = getIconName(option.icon);
 
         const color = getIconColor(option.icon, option.iconColor);
@@ -299,6 +301,7 @@ function createMenuItems(
                 selected: selected,
                 disabled: disabled,
                 value: option,
+                primaryComponent: primaryComponent,
             };
         }
 
@@ -312,6 +315,7 @@ function createMenuItems(
                 name: name,
                 color: color,
             },
+            primaryComponent: primaryComponent,
         };
     });
 }
@@ -358,8 +362,10 @@ function getSelectedText(value: Option | Option[]): string | VNode[] {
 
 function renderOptionWithIcon(option: Option) {
     const name = getIconName(option.icon);
+    const primary = renderPrimaryComponent(option);
+
     if (!name) {
-        return option.text;
+        return [primary, option.text];
     }
 
     const color = getIconColor(option.icon, option.iconColor);
@@ -375,6 +381,7 @@ function renderOptionWithIcon(option: Option) {
             size="small"
             style={style}
         />,
+        primary,
         option.text,
     ];
 }
@@ -403,6 +410,22 @@ function getSelectedIcon(value: Option | Option[]) {
             size="medium"
             style={style}
         />
+    );
+}
+
+function getSelectedPrimaryComponent(value: Option | Option[]) {
+    // For multiple selections, primary components are rendered inline with text
+    if (isMultiple(value)) {
+        return;
+    }
+
+    return renderPrimaryComponent(value);
+}
+
+function renderPrimaryComponent(option: Option | undefined) {
+    return renderListComponent(
+        option?.primaryComponent,
+        'limel-select__selected-option__primary-component'
     );
 }
 

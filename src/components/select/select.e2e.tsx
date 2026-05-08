@@ -421,4 +421,83 @@ describe('limel-select (menu)', () => {
             );
         });
     });
+
+    describe('with a primary component', () => {
+        const optionsWithPrimary: Option[] = [
+            {
+                text: 'Option A',
+                value: 'a',
+                primaryComponent: {
+                    name: 'limel-spinner',
+                    props: { size: 'mini' },
+                },
+            },
+            { text: 'Option B', value: 'b' },
+        ];
+
+        it('renders the primary component in the trigger for the selected option', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-select
+                    label="Test"
+                    options={optionsWithPrimary}
+                    value={optionsWithPrimary[0]}
+                ></limel-select>
+            );
+            await waitForChanges();
+
+            const primary = root.shadowRoot.querySelector(
+                '.limel-select__selected-option__primary-component'
+            );
+            expect(primary).not.toBeNull();
+            expect(primary.tagName.toLowerCase()).toBe('limel-spinner');
+        });
+
+        it('does not render a primary component when the selected option has none', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-select
+                    label="Test"
+                    options={optionsWithPrimary}
+                    value={optionsWithPrimary[1]}
+                ></limel-select>
+            );
+            await waitForChanges();
+
+            const wrapper = root.shadowRoot.querySelector(
+                '.limel-select__selected-option__primary-component'
+            );
+            expect(wrapper).toBeNull();
+        });
+
+        it('falls back to the menu dropdown on mobile when an option has a primary component', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-select
+                    data-native
+                    label="Test"
+                    options={optionsWithPrimary}
+                ></limel-select>
+            );
+            await waitForChanges();
+
+            const nativeSelect = root.shadowRoot.querySelector('select');
+            expect(nativeSelect).toBeNull();
+        });
+
+        it('uses the native dropdown on mobile when no option has a primary component', async () => {
+            const optionsWithoutPrimary: Option[] = [
+                { text: 'Option A', value: 'a' },
+                { text: 'Option B', value: 'b' },
+            ];
+            const { root, waitForChanges } = await render(
+                <limel-select
+                    data-native
+                    label="Test"
+                    options={optionsWithoutPrimary}
+                ></limel-select>
+            );
+            await waitForChanges();
+
+            const nativeSelect = root.shadowRoot.querySelector('select');
+            expect(nativeSelect).not.toBeNull();
+        });
+    });
 });
