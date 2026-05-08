@@ -1,3 +1,14 @@
+## [39.23.0](https://github.com/Lundalogik/lime-elements/compare/v39.22.1...v39.23.0) (2026-05-08)
+
+### Features
+
+
+* **select:** enable showing a custom component along with options ([7e0b5b2](https://github.com/Lundalogik/lime-elements/commit/7e0b5b2ba5d86161159e4e5dcfe77e74311100a1))
+### Bug Fixes
+
+
+* **list-item:** reject non-custom-element names in primaryComponent ([b419302](https://github.com/Lundalogik/lime-elements/commit/b419302d34d412753f0ca380ece18a9e8dad4db5))
+
 ## [39.22.1](https://github.com/Lundalogik/lime-elements/compare/v39.22.0...v39.22.1) (2026-05-08)
 
 ### Bug Fixes
