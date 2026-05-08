@@ -1,1 +1,0 @@
-import{h as o}from"./index-DBTJNfo7.js";function r(r){if((null==r?void 0:r.name)&&r.name.includes("-"))return o(r.name,Object.assign({},r.props||{}))}export{r}
