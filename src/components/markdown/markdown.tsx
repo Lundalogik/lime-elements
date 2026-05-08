@@ -6,6 +6,7 @@ import { ImageIntersectionObserver } from './image-intersection-observer';
 import { hydrateCustomElements } from './hydrate-custom-elements';
 import { morphChildren } from './morph-dom';
 import { DEFAULT_MARKDOWN_WHITELIST } from './default-whitelist';
+import { adaptColorContrast } from '../../util/adapt-color-contrast';
 
 /**
  * The Markdown component receives markdown syntax
@@ -36,6 +37,7 @@ import { DEFAULT_MARKDOWN_WHITELIST } from './default-whitelist';
  * @exampleComponent limel-example-markdown-custom-component
  * @exampleComponent limel-example-markdown-custom-component-with-json-props
  * @exampleComponent limel-example-markdown-remove-empty-paragraphs
+ * @exampleComponent limel-example-markdown-adapt-color-contrast
  * @exampleComponent limel-example-markdown-composite
  */
 @Component({
@@ -91,6 +93,22 @@ export class Markdown {
     @Prop({ reflect: true })
     public removeEmptyParagraphs = true;
 
+    /**
+     * Adapt rendered inline `color:` declarations to the surrounding
+     * surface. After each markdown re-render the component walks the
+     * rendered DOM and removes any inline `color` whose contrast against
+     * the resolved background falls below WCAG 3:1, letting the surface's
+     * themed text color inherit through. Brand colors that already meet
+     * contrast are left alone.
+     *
+     * Default `false` so the component remains a neutral renderer; turn
+     * this on for surfaces that render externally-authored content
+     * (e.g. imported email bodies) where the host application's theme
+     * drives the surrounding text color.
+     */
+    @Prop({ reflect: true })
+    public adaptColorContrast = false;
+
     @Watch('value')
     public async textChanged() {
         try {
@@ -126,6 +144,10 @@ export class Markdown {
             // rehype-sanitize can't inspect values inside JSON strings.
             hydrateCustomElements(this.rootElement, combinedWhitelist);
 
+            if (this.adaptColorContrast) {
+                adaptColorContrast(this.rootElement);
+            }
+
             this.setupImageIntersectionObserver();
         } catch (error) {
             console.error(error);
@@ -139,6 +161,11 @@ export class Markdown {
 
     @Watch('removeEmptyParagraphs')
     public handleRemoveEmptyParagraphsChange() {
+        return this.textChanged();
+    }
+
+    @Watch('adaptColorContrast')
+    public handleAdaptColorContrastChange() {
         return this.textChanged();
     }
 

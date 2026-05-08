@@ -617,6 +617,7 @@ export namespace Components {
         "value"?: any;
     }
     export interface LimelMarkdown {
+        "adaptColorContrast": boolean;
         "lazyLoadImages": boolean;
         "removeEmptyParagraphs": boolean;
         "value": string;
@@ -2811,6 +2812,7 @@ export namespace JSX {
     }
 
     export interface LimelMarkdown {
+        "adaptColorContrast"?: boolean;
         "lazyLoadImages"?: boolean;
         "removeEmptyParagraphs"?: boolean;
         "value"?: string;
@@ -2820,6 +2822,8 @@ export namespace JSX {
 
     // (undocumented)
     export interface LimelMarkdownAttributes {
+        // (undocumented)
+        "adaptColorContrast": boolean;
         // (undocumented)
         "lazyLoadImages": boolean;
         // (undocumented)
