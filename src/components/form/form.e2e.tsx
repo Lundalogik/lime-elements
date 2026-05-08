@@ -181,6 +181,50 @@ test('validates against new schema after schema changes at runtime', async () =>
     expect(detail.errors[0].name).toBe('required');
 });
 
+test('validates against new content when schema changes but $id stays the same', async () => {
+    // Two schemas sharing an $id but differing in content must be treated
+    // as distinct by the validator — otherwise a cached validator from
+    // the first schema would reject the second schema's properties as
+    // additional.
+    const emptySchema = {
+        $id: 'shared-id',
+        type: 'object',
+        properties: {},
+        required: [],
+        additionalProperties: false,
+    };
+    const schemaWithName = {
+        $id: 'shared-id',
+        type: 'object',
+        properties: { name: { type: 'string', title: 'Name' } },
+        required: ['name'],
+        additionalProperties: false,
+    };
+
+    const onValidate = vi.fn();
+    const { root, waitForChanges, setProps } = await renderForm({
+        schema: emptySchema,
+        value: {},
+        onValidate,
+    });
+
+    // Swap to a schema that requires a property the value doesn't yet have.
+    await setProps({ schema: schemaWithName, value: {} });
+    await waitForReactRender(root, waitForChanges);
+
+    const invalidDetail = onValidate.mock.lastCall[0].detail;
+    expect(invalidDetail.valid).toBe(false);
+    expect(invalidDetail.errors[0].name).toBe('required');
+
+    // Provide the required value — should now validate.
+    await setProps({ schema: schemaWithName, value: { name: 'hello' } });
+    await waitForReactRender(root, waitForChanges);
+
+    const validDetail = onValidate.mock.lastCall[0].detail;
+    expect(validDetail.valid).toBe(true);
+    expect(validDetail.errors).toEqual([]);
+});
+
 test('renders disabled fields when disabled prop is set', async () => {
     const { formContent } = await renderForm({
         schema: stringSchema,
