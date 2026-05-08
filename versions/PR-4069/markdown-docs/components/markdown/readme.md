@@ -35,6 +35,7 @@ removed (with a console warning) to prevent script injection.
  - [limel-card](../card)
  - [limel-email-viewer](../email-viewer)
  - [limel-example-do-do-not](../../examples)
+ - [limel-example-markdown-adapt-color-contrast](examples)
  - [limel-example-markdown-blockquotes](examples)
  - [limel-example-markdown-code](examples)
  - [limel-example-markdown-composite](examples)
@@ -64,6 +65,7 @@ graph TD;
   limel-card --> limel-markdown
   limel-email-viewer --> limel-markdown
   limel-example-do-do-not --> limel-markdown
+  limel-example-markdown-adapt-color-contrast --> limel-markdown
   limel-example-markdown-blockquotes --> limel-markdown
   limel-example-markdown-code --> limel-markdown
   limel-example-markdown-composite --> limel-markdown
