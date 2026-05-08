@@ -62,6 +62,7 @@
  - [limel-example-select-preselected](examples)
  - [limel-example-select-with-empty-option](examples)
  - [limel-example-select-with-icons](examples)
+ - [limel-example-select-with-primary-component](examples)
  - [limel-example-select-with-secondary-text](examples)
  - [limel-example-select-with-separators](examples)
  - [limel-example-table-pagination](../table/examples)
@@ -120,6 +121,7 @@ graph TD;
   limel-example-select-preselected --> limel-select
   limel-example-select-with-empty-option --> limel-select
   limel-example-select-with-icons --> limel-select
+  limel-example-select-with-primary-component --> limel-select
   limel-example-select-with-secondary-text --> limel-select
   limel-example-select-with-separators --> limel-select
   limel-example-table-pagination --> limel-select
