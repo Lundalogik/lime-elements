@@ -1,3 +1,11 @@
+## [39.22.1](https://github.com/Lundalogik/lime-elements/compare/v39.22.0...v39.22.1) (2026-05-08)
+
+### Bug Fixes
+
+
+* **date-picker:** avoid running focus fix during disconnect ([505f18d](https://github.com/Lundalogik/lime-elements/commit/505f18d65b34cabb8fbf03a588a33b2630097e9a))
+* **date-picker:** null-guard MDCTextField root lookup ([66c961b](https://github.com/Lundalogik/lime-elements/commit/66c961b249d803ab8cb0a6473d2556c2a189f5cd))
+
 ## [39.22.0](https://github.com/Lundalogik/lime-elements/compare/v39.21.0...v39.22.0) (2026-05-04)
 
 ### Features
