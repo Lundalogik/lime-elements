@@ -14,6 +14,7 @@ import { Email, EmailAttachment, EmailHeaderType } from './email-viewer.types';
 import { applyRemoteImagesPolicy, containsRemoteImages } from './remote-images';
 import { splitEmailAddressList } from './split-email-address-list';
 import { formatBytes } from '../../util/format-bytes';
+import { adaptColorContrast } from '../../util/adapt-color-contrast';
 
 /**
  * This is a private component, used to render `.eml` files inside
@@ -90,6 +91,14 @@ export class EmailViewer {
         }
     }
 
+    private bodyElement?: HTMLDivElement;
+
+    public componentDidRender() {
+        if (this.bodyElement?.isConnected) {
+            adaptColorContrast(this.bodyElement);
+        }
+    }
+
     public render() {
         return (
             <Host>
@@ -146,7 +155,14 @@ export class EmailViewer {
             this.getAllowRemoteImages()
         );
 
-        return <div class="body" innerHTML={innerHtml} part="email-body" />;
+        return (
+            <div
+                class="body"
+                innerHTML={innerHtml}
+                part="email-body"
+                ref={(el) => (this.bodyElement = el as HTMLDivElement)}
+            />
+        );
     }
 
     private renderBodyText() {
