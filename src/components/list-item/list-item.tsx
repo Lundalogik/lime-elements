@@ -249,6 +249,15 @@ export class ListItemComponent implements ListItem {
             return;
         }
 
+        // Defense-in-depth: only render valid custom-element names
+        // (must contain a hyphen per the HTML spec). This blocks the
+        // slot from being used to instantiate built-in tags like
+        // `iframe`, `script`, or `a` with arbitrary attributes if a
+        // consumer ever pipes untrusted data into `primaryComponent`.
+        if (!primary.name.includes('-')) {
+            return;
+        }
+
         const PrimaryComponent: any = primary.name;
         const props = primary.props || {};
 
