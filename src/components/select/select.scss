@@ -66,6 +66,13 @@ limel-notched-outline:not([invalid]:not([invalid='false'])) {
     flex-shrink: 0;
 }
 
+.limel-select__selected-option__primary-component {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 0.25rem;
+    flex-shrink: 0;
+}
+
 .multiple-selected-options {
     display: inline-flex;
     align-items: center;

@@ -25,6 +25,7 @@ import { SelectTemplate, triggerIconColorWarning } from './select.template';
  * @exampleComponent limel-example-select-with-secondary-text
  * @exampleComponent limel-example-select-multiple
  * @exampleComponent limel-example-select-multiple-icons
+ * @exampleComponent limel-example-select-with-primary-component
  * @exampleComponent limel-example-select-with-empty-option
  * @exampleComponent limel-example-select-preselected
  * @exampleComponent limel-example-select-change-options
@@ -113,10 +114,17 @@ export class Select {
 
     private hasChanged: boolean = false;
 
+    private hasPrimaryComponentMemo: boolean = false;
+
     @Watch('value')
     @Watch('options')
     protected resetHasChanged() {
         this.hasChanged = false;
+    }
+
+    @Watch('options')
+    protected updateHasPrimaryComponent() {
+        this.hasPrimaryComponentMemo = this.computeHasPrimaryComponent();
     }
 
     private checkValid: boolean = false;
@@ -150,6 +158,8 @@ export class Select {
         if (Object.hasOwn(this.host.dataset, 'native')) {
             this.isMobileDevice = true;
         }
+
+        this.hasPrimaryComponentMemo = this.computeHasPrimaryComponent();
     }
 
     public componentDidLoad() {
@@ -215,7 +225,7 @@ export class Select {
                 open={this.openMenu}
                 close={this.closeMenu}
                 checkValid={this.checkValid}
-                native={this.isMobileDevice && !this.multiple}
+                native={this.shouldRenderNative()}
                 dropdownZIndex={dropdownZIndex}
                 anchor={this.getAnchorElement()}
             />
@@ -450,6 +460,20 @@ export class Select {
     private getOptionsExcludingSeparators(): Option[] {
         return this.options.filter(
             (option): option is Option => !('separator' in option)
+        );
+    }
+
+    private shouldRenderNative(): boolean {
+        return (
+            this.isMobileDevice &&
+            !this.multiple &&
+            !this.hasPrimaryComponentMemo
+        );
+    }
+
+    private computeHasPrimaryComponent(): boolean {
+        return this.getOptionsExcludingSeparators().some(
+            (option) => !!option.primaryComponent?.name
         );
     }
 }
