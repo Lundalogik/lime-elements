@@ -138,6 +138,7 @@ The component automatically formats different value types:
  - [limel-example-select-preselected](../components/select/examples)
  - [limel-example-select-with-empty-option](../components/select/examples)
  - [limel-example-select-with-icons](../components/select/examples)
+ - [limel-example-select-with-primary-component](../components/select/examples)
  - [limel-example-select-with-secondary-text](../components/select/examples)
  - [limel-example-select-with-separators](../components/select/examples)
  - [limel-example-slider-basic](../components/slider/examples)
@@ -267,6 +268,7 @@ graph TD;
   limel-example-select-preselected --> limel-example-value
   limel-example-select-with-empty-option --> limel-example-value
   limel-example-select-with-icons --> limel-example-value
+  limel-example-select-with-primary-component --> limel-example-value
   limel-example-select-with-secondary-text --> limel-example-value
   limel-example-select-with-separators --> limel-example-value
   limel-example-slider-basic --> limel-example-value
