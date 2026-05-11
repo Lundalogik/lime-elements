@@ -50,6 +50,7 @@ The component automatically formats different value types:
  - [limel-example-chip-removable](../components/chip/examples)
  - [limel-example-chip-set-input](../components/chip-set/examples)
  - [limel-example-chip-set-input-type-with-menu-items](../components/chip-set/examples)
+ - [limel-example-chip-set-invalid-chips](../components/chip-set/examples)
  - [limel-example-code-editor-composite](../components/code-editor/examples)
  - [limel-example-code-editor-form](../components/form/examples)
  - [limel-example-custom-component-form](../components/form/examples)
@@ -137,6 +138,7 @@ The component automatically formats different value types:
  - [limel-example-select-preselected](../components/select/examples)
  - [limel-example-select-with-empty-option](../components/select/examples)
  - [limel-example-select-with-icons](../components/select/examples)
+ - [limel-example-select-with-primary-component](../components/select/examples)
  - [limel-example-select-with-secondary-text](../components/select/examples)
  - [limel-example-select-with-separators](../components/select/examples)
  - [limel-example-slider-basic](../components/slider/examples)
@@ -178,6 +180,7 @@ graph TD;
   limel-example-chip-removable --> limel-example-value
   limel-example-chip-set-input --> limel-example-value
   limel-example-chip-set-input-type-with-menu-items --> limel-example-value
+  limel-example-chip-set-invalid-chips --> limel-example-value
   limel-example-code-editor-composite --> limel-example-value
   limel-example-code-editor-form --> limel-example-value
   limel-example-custom-component-form --> limel-example-value
@@ -265,6 +268,7 @@ graph TD;
   limel-example-select-preselected --> limel-example-value
   limel-example-select-with-empty-option --> limel-example-value
   limel-example-select-with-icons --> limel-example-value
+  limel-example-select-with-primary-component --> limel-example-value
   limel-example-select-with-secondary-text --> limel-example-value
   limel-example-select-with-separators --> limel-example-value
   limel-example-slider-basic --> limel-example-value

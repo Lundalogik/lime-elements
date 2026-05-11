@@ -4,19 +4,26 @@
 
 ## Overview
 
-Input chip set, containing items with menus
-While chips inside a chip set of `type="input"` can be clicked on, resulting in
-an action, they can also have an ellipsis menu which will provide the end users with
-additional actions.
+Per-chip invalid state
 
-When a menu item is selected from the ellipsis menu, the `onMenuItemSelected` event
-will be emitted, reflecting the `value` of the selected item.
+Set `invalid: true` on any chip in the `value` array to mark that
+specific chip as invalid. This is independent of the chip-set-level
+`invalid` prop, which is intended for signalling that the whole field
+is invalid. Per-chip `invalid` lets the consumer flag individual
+entries, for example an address that fails validation in a list of
+recipients.
+
+In this example, each entry is checked with a simple email regex when
+added. Invalid entries are rendered with `invalid: true` and an error
+icon.
 
 :::note
-When a chip has `removable={true}` and when there are menu items, the "remove button" on the
-chip will be automatically added as the last item in the ellipsis menu.
-
-Clicking the remove button will emit the same `onRemove` event.
+Marking individual chips as `invalid` does **not** automatically set
+the invalid state of the chip-set as a whole. The consumer is
+responsible for deciding whether the field itself should be
+considered invalid, and for setting the chip-set-level `invalid` prop
+accordingly. This gives the consumer full control over the
+validity of the field.
 :::
 
 ## Dependencies
@@ -24,13 +31,17 @@ Clicking the remove button will emit the same `onRemove` event.
 ### Depends on
 
 - [limel-chip-set](..)
+- [limel-example-controls](../../../examples)
+- [limel-select](../../select)
 - [limel-example-value](../../../examples)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-chip-set-input-type-with-menu-items --> limel-chip-set
-  limel-example-chip-set-input-type-with-menu-items --> limel-example-value
+  limel-example-chip-set-invalid-chips --> limel-chip-set
+  limel-example-chip-set-invalid-chips --> limel-example-controls
+  limel-example-chip-set-invalid-chips --> limel-select
+  limel-example-chip-set-invalid-chips --> limel-example-value
   limel-chip-set --> limel-helper-line
   limel-chip-set --> limel-notched-outline
   limel-chip-set --> limel-chip
@@ -57,7 +68,13 @@ graph TD;
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
-  style limel-example-chip-set-input-type-with-menu-items fill:#f9f,stroke:#333,stroke-width:4px
+  limel-select --> limel-notched-outline
+  limel-select --> limel-icon
+  limel-select --> limel-helper-line
+  limel-select --> limel-portal
+  limel-select --> limel-menu-surface
+  limel-select --> limel-list
+  style limel-example-chip-set-invalid-chips fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

@@ -38,6 +38,7 @@
  - [limel-example-chart-type-dot](../chart/examples)
  - [limel-example-chart-type-gantt](../chart/examples)
  - [limel-example-chart-type-line](../chart/examples)
+ - [limel-example-chip-set-invalid-chips](../chip-set/examples)
  - [limel-example-chip-size](../chip/examples)
  - [limel-example-code-diff-line-wrap](../code-diff/examples)
  - [limel-example-dialog-heading](../dialog/examples)
@@ -61,6 +62,7 @@
  - [limel-example-select-preselected](examples)
  - [limel-example-select-with-empty-option](examples)
  - [limel-example-select-with-icons](examples)
+ - [limel-example-select-with-primary-component](examples)
  - [limel-example-select-with-secondary-text](examples)
  - [limel-example-select-with-separators](examples)
  - [limel-example-table-pagination](../table/examples)
@@ -95,6 +97,7 @@ graph TD;
   limel-example-chart-type-dot --> limel-select
   limel-example-chart-type-gantt --> limel-select
   limel-example-chart-type-line --> limel-select
+  limel-example-chip-set-invalid-chips --> limel-select
   limel-example-chip-size --> limel-select
   limel-example-code-diff-line-wrap --> limel-select
   limel-example-dialog-heading --> limel-select
@@ -118,6 +121,7 @@ graph TD;
   limel-example-select-preselected --> limel-select
   limel-example-select-with-empty-option --> limel-select
   limel-example-select-with-icons --> limel-select
+  limel-example-select-with-primary-component --> limel-select
   limel-example-select-with-secondary-text --> limel-select
   limel-example-select-with-separators --> limel-select
   limel-example-table-pagination --> limel-select

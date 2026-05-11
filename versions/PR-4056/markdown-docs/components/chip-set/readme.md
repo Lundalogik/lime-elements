@@ -123,6 +123,7 @@ does not return anything, but methods have to be async
  - [limel-example-chip-set-input-type-search](examples)
  - [limel-example-chip-set-input-type-text](examples)
  - [limel-example-chip-set-input-type-with-menu-items](examples)
+ - [limel-example-chip-set-invalid-chips](examples)
  - [limel-file](../file)
  - [limel-picker](../picker)
 
@@ -173,6 +174,7 @@ graph TD;
   limel-example-chip-set-input-type-search --> limel-chip-set
   limel-example-chip-set-input-type-text --> limel-chip-set
   limel-example-chip-set-input-type-with-menu-items --> limel-chip-set
+  limel-example-chip-set-invalid-chips --> limel-chip-set
   limel-file --> limel-chip-set
   limel-picker --> limel-chip-set
   style limel-chip-set fill:#f9f,stroke:#333,stroke-width:4px
