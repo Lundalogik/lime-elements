@@ -1,6 +1,7 @@
 import {
     Component,
     Element,
+    Fragment,
     h,
     Prop,
     State,
@@ -17,6 +18,7 @@ import { FileType, OfficeViewer } from './file-viewer.types';
 import { LimelMenuCustomEvent } from '../../components';
 import { Email } from '../email-viewer/email-viewer.types';
 import { loadEmail } from '../email-viewer/email-loader';
+import { ImageTemplate } from '../../util/image.template';
 
 /**
  * This is a smart component that automatically detects
@@ -236,14 +238,17 @@ export class FileViewer {
     };
 
     private renderImage = () => {
-        return [
-            this.renderButtons(),
-            <img
-                src={this.sanitizeUrl(this.fileUrl)}
-                alt={this.alt}
-                loading="lazy"
-            />,
-        ];
+        return (
+            <Fragment>
+                {this.renderButtons()}
+                <ImageTemplate
+                    image={{
+                        src: this.sanitizeUrl(this.fileUrl),
+                        alt: this.alt ?? '',
+                    }}
+                />
+            </Fragment>
+        );
     };
 
     private renderVideo = () => {
