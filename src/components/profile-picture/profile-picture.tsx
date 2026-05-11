@@ -254,6 +254,7 @@ export class ProfilePicture {
                     }}
                     loading="lazy"
                     onError={this.onImageError}
+                    referrerPolicy="no-referrer"
                 />
             );
         }
