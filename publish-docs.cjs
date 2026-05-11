@@ -65,7 +65,7 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>]
 } else if (fromArtifact) {
     // Publish from a pre-built artifact
     if (runSetup) {
-        cloneDocsRepo();
+        setupDocsWorktree();
     }
 
     if (runSetup) {
@@ -88,7 +88,7 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>]
 } else if (removeSpecific || pruneDev) {
     let commitMessage;
     if (runSetup) {
-        cloneDocsRepo();
+        setupDocsWorktree();
     }
 
     if (pruneDev) {
@@ -114,7 +114,7 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>]
     }
 } else {
     if (runSetup) {
-        cloneDocsRepo();
+        setupDocsWorktree();
     }
 
     if (runBuild) {
@@ -146,20 +146,48 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>]
     }
 }
 
-function cloneDocsRepo() {
+function setupDocsWorktree() {
     if (!shell.which('git')) {
         shell.echo('Sorry, this script requires git');
         shell.exit(1);
     }
 
-    // Silence output to avoid exposing GH_TOKEN in logs
-    const cloneResult = shell.exec(
-        'git clone --single-branch --branch gh-pages https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git docsDist',
-        { silent: true }
-    );
+    // Self-heal from a crashed prior run that left orphan worktree
+    // metadata in `.git/worktrees/`. Without this, the next
+    // `git worktree add docsDist` may fail with "already registered".
+    shell.exec('git worktree prune');
 
-    if (cloneResult.code !== 0) {
-        shell.echo('git clone failed!');
+    // Some workflows run `actions/checkout` with
+    // `persist-credentials: false`, so `origin` carries no extraheader
+    // and an unauthenticated fetch hits 401/403 on a private repo. In
+    // that case, inject an authenticating extraheader for this single
+    // command. When the workflow's checkout already set an extraheader
+    // (the usual `persist-credentials: true` default), we must NOT add
+    // a second one — git/curl would send two `Authorization` headers
+    // and GitHub returns HTTP 400 ("Duplicate header: Authorization").
+    // The literal `$GH_TOKEN` is expanded by /bin/sh at exec time, so
+    // shelljs never echoes the secret.
+    const hasExtraheader =
+        shell.exec(
+            'git config --get-all http.https://github.com/.extraheader',
+            { silent: true }
+        ).code === 0;
+    const fetchAuth =
+        !hasExtraheader && process.env.GH_TOKEN
+            ? '-c http.https://github.com/.extraheader="AUTHORIZATION: bearer $GH_TOKEN"'
+            : '';
+
+    if (shell.exec(`git ${fetchAuth} fetch origin gh-pages`).code !== 0) {
+        shell.echo('git fetch origin gh-pages failed!');
+        teardown();
+        shell.exit(1);
+    }
+
+    if (
+        shell.exec('git worktree add --detach docsDist origin/gh-pages')
+            .code !== 0
+    ) {
+        shell.echo('git worktree add failed!');
         teardown();
         shell.exit(1);
     }
@@ -167,7 +195,7 @@ function cloneDocsRepo() {
 
 function pullAndRebase() {
     shell.cd('docsDist');
-    if (shell.exec('git pull --rebase').code !== 0) {
+    if (shell.exec('git pull --rebase origin gh-pages').code !== 0) {
         shell.echo('git pull failed!');
         shell.cd('..');
         teardown();
@@ -568,14 +596,28 @@ function push() {
         shell.echo('Using `git push --force`!');
     }
 
+    // gh-pages is a protected branch. In GitHub Actions we push with a
+    // bypass-privileged token supplied via `$GH_TOKEN`. We also need
+    // to clear the `http.<github>.extraheader` that `actions/checkout`
+    // configures on the parent repo (and which the worktree inherits via
+    // the shared `.git/config`); otherwise that extraheader's default
+    // token wins over our URL userinfo and the push gets a 403. Locally
+    // we just push to `origin` so the user's normal SSH/HTTPS credentials
+    // are used.
+    const inCI = process.env.GITHUB_ACTIONS === 'true';
+    const remote = inCI
+        ? 'https://$GH_TOKEN@github.com/$GITHUB_REPOSITORY.git'
+        : 'origin';
+    const clearExtraHeader = inCI
+        ? '-c http.https://github.com/.extraheader='
+        : '';
+
     if (dryRun) {
         shell.exec('git log -1');
         shell.echo('Dry-run, so skipping push.');
     } else if (
         shell.exec(
-            `git push ${
-                forcePush ? '--force' : ''
-            } https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git HEAD:gh-pages`
+            `git ${clearExtraHeader} push ${forcePush ? '--force' : ''} ${remote} HEAD:gh-pages`
         ).code !== 0
     ) {
         shell.echo('git push failed!');
@@ -590,7 +632,17 @@ function push() {
 function teardown(finished) {
     if (finished || cleanOnFail) {
         shell.exec('git checkout src/index.html stencil.config.docs.ts');
-        shell.echo('Removing docs repo clone in docsDist.');
-        shell.rm('-rf', 'docsDist');
+        shell.echo('Removing docsDist worktree.');
+        if (shell.exec('git worktree remove --force docsDist').code !== 0) {
+            // Fall back for a stale `docsDist/` left by a pre-worktree
+            // version of this script (a plain clone), which `git worktree
+            // remove` cannot handle because the path isn't a registered
+            // worktree.
+            shell.echo(
+                '[WARNING] `git worktree remove` failed; falling back to `rm -rf docsDist` + `git worktree prune`.'
+            );
+            shell.rm('-rf', 'docsDist');
+            shell.exec('git worktree prune');
+        }
     }
 }
