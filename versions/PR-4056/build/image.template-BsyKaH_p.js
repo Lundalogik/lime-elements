@@ -1,1 +1,0 @@
-import{h as r}from"./index-DBTJNfo7.js";const e=({image:e})=>{var o;return r("img",Object.assign({src:e.src,alt:e.alt,loading:null!==(o=e.loading)&&void 0!==o?o:"lazy"},e.referrerpolicy?{referrerpolicy:e.referrerpolicy}:{}))};export{e as I}

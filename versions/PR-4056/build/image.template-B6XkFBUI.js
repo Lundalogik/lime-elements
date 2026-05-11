@@ -1,0 +1,1 @@
+import{h as r}from"./index-vrRk2vYw.js";const e=({image:e})=>{var i;return r("img",Object.assign({src:e.src,alt:e.alt,loading:null!==(i=e.loading)&&void 0!==i?i:"lazy"},e.referrerpolicy?{referrerpolicy:e.referrerpolicy}:{}))};export{e as I}
