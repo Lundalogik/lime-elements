@@ -143,14 +143,8 @@
     white-space: nowrap;
 
     &--old {
-        background: var(--diff-removed-bg);
+        // Divider matches the split divider between the diff columns below.
         border-right: 1px solid var(--diff-split-divider-color);
-        color: var(--diff-indicator-removed-color);
-    }
-
-    &--new {
-        background: var(--diff-added-bg);
-        color: var(--diff-indicator-added-color);
     }
 }
 
