@@ -370,13 +370,16 @@ export class CodeDiff {
 
         const { additions, deletions } = this.diffResult;
         const hasDiff = additions > 0 || deletions > 0;
+        const isSplit = this.layout === 'split';
 
-        return (
+        return [
             <div class="diff-header">
-                <div class="diff-header__labels">
-                    <span class="diff-header__old">{oldHeading}</span>
-                    <span class="diff-header__new">{newHeading}</span>
-                </div>
+                {!isSplit && (
+                    <div class="diff-header__labels">
+                        <span class="diff-header__old">{oldHeading}</span>
+                        <span class="diff-header__new">{newHeading}</span>
+                    </div>
+                )}
                 <div class="diff-header__actions">
                     <div class="diff-header__stats">
                         {additions > 0 && (
@@ -389,8 +392,23 @@ export class CodeDiff {
                     {hasDiff && this.renderCopyButton()}
                     {hasDiff && this.renderSearchToggle()}
                 </div>
-            </div>
-        );
+            </div>,
+            isSplit && (
+                // In split mode the labels live in their own row below the
+                // actions toolbar, mirroring the 4-cell layout of `.diff-line--split`
+                // so each label sits above the column it describes.
+                <div class="diff-header__column-labels" role="row">
+                    <span class="diff-header__column-gutter" />
+                    <span class="diff-header__column-label diff-header__column-label--old">
+                        {oldHeading}
+                    </span>
+                    <span class="diff-header__column-gutter" />
+                    <span class="diff-header__column-label diff-header__column-label--new">
+                        {newHeading}
+                    </span>
+                </div>
+            ),
+        ];
     }
 
     private renderCopyButton() {
