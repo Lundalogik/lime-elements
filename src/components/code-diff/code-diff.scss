@@ -110,6 +110,9 @@
     display: flex;
     align-items: center;
     gap: 0.25rem;
+    // Pushes the toolbar to the right edge regardless of whether the labels
+    // block is rendered (it isn't in split mode).
+    margin-left: auto;
 }
 
 // ─── Split-mode column labels ────────────────────────────────────────
@@ -121,7 +124,7 @@
     align-items: stretch;
     border-bottom: 1px solid var(--diff-border-color);
     @include mixins.font-family(sans-serif);
-    font-size: 0.75rem;
+    font-size: 0.875rem;
 }
 
 .diff-header__column-gutter {
