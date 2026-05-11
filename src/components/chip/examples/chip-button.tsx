@@ -54,7 +54,7 @@ export class ChipButtonExample {
                     value={this.invalid}
                 />
                 <limel-switch
-                    label="Invalid"
+                    label="Selected"
                     onChange={this.setSelected}
                     value={this.selected}
                 />
