@@ -1,3 +1,12 @@
+## [39.24.0](https://github.com/Lundalogik/lime-elements/compare/v39.23.1...v39.24.0) (2026-05-12)
+
+### Features
+
+
+* **email-viewer:** adapt color contrast in rendered body ([b934900](https://github.com/Lundalogik/lime-elements/commit/b93490060cb74777c841cd11a0bb8e487826c1f5))
+* **markdown:** add opt-in adaptColorContrast prop ([d40849a](https://github.com/Lundalogik/lime-elements/commit/d40849a40e9fbee4cfed9e86da8100e1e229d5fe))
+* **util:** add adaptColorContrast utility ([c926802](https://github.com/Lundalogik/lime-elements/commit/c926802454348ce6fc3f6564ec5be57b7b178817))
+
 ## [39.23.1](https://github.com/Lundalogik/lime-elements/compare/v39.23.0...v39.23.1) (2026-05-08)
 
 ### Bug Fixes
