@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
-        token: ${{ secrets.CREATE_RELEASE }}
+        persist-credentials: false
     - uses: ./.github/actions/set-up-node
     - run: npm ci
     - run: git config --global user.email "93315277+lime-opensource@users.noreply.github.com"
