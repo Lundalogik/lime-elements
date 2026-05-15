@@ -259,6 +259,40 @@ describe('limel-chip-set', () => {
             });
         });
 
+        it('emits startEdit event when input receives focus', async () => {
+            const { root, waitForChanges, spyOnEvent } = await render(
+                <limel-chip-set
+                    type="input"
+                    value={getValue()}
+                ></limel-chip-set>
+            );
+            const startEditSpy = spyOnEvent('startEdit');
+            await waitForChanges();
+
+            const input = root.shadowRoot!.querySelector('input');
+            input!.focus();
+            await waitForChanges();
+
+            expect(startEditSpy).toHaveReceivedEventTimes(1);
+        });
+
+        it('does not emit startEdit event when a chip is clicked', async () => {
+            const { root, waitForChanges, spyOnEvent } = await render(
+                <limel-chip-set
+                    type="input"
+                    value={getValue()}
+                ></limel-chip-set>
+            );
+            const startEditSpy = spyOnEvent('startEdit');
+            await waitForChanges();
+
+            const chips = root.shadowRoot!.querySelectorAll('limel-chip');
+            (chips[0] as HTMLElement).click();
+            await waitForChanges();
+
+            expect(startEditSpy).toHaveReceivedEventTimes(0);
+        });
+
         describe('when disabled', () => {
             it('hides the remove button on removable chips', async () => {
                 const { root, waitForChanges } = await render(

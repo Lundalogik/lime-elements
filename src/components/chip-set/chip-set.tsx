@@ -21,6 +21,14 @@ import { LimelChipCustomEvent } from '../../components';
 import { createRandomString } from '../../util/random-string';
 import { IconName } from '../../global/shared-types/icon.types';
 
+type ChipAnnotatedEvent = Event & { Lime: { chip: Chip } };
+
+function isChipAnnotatedEvent(
+    event: Event | undefined
+): event is ChipAnnotatedEvent {
+    return !!(event as ChipAnnotatedEvent | undefined)?.Lime?.chip;
+}
+
 /**
  * :::note
  * **Regarding `click` and `interact` events:**
@@ -500,13 +508,22 @@ export class ChipSet {
 
     /**
      * Enter edit mode when the text field receives focus. When editMode is true, the input element will be visible
+     * @param event - The originating click or focus event, if any. When a
+     * click originates from a chip body (marked by
+     * {@link catchInputChipClicks} as `event.Lime.chip`), edit mode is
+     * not entered: the chip's `interact` event is the consumer's signal
+     * and the input should not steal focus alongside it.
      */
-    private handleTextFieldFocus() {
+    private handleTextFieldFocus(event?: Event) {
         if (this.disabled || this.readonly) {
             return;
         }
 
         if (this.editMode) {
+            return;
+        }
+
+        if (isChipAnnotatedEvent(event)) {
             return;
         }
 
