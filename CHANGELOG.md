@@ -1,3 +1,10 @@
+## [39.24.1](https://github.com/Lundalogik/lime-elements/compare/v39.24.0...v39.24.1) (2026-05-18)
+
+### Bug Fixes
+
+
+* **chip-set:** don't enter edit mode on chip click ([c1229be](https://github.com/Lundalogik/lime-elements/commit/c1229bec3b71941aa8718e5929b52f6baf4e168c))
+
 ## [39.24.0](https://github.com/Lundalogik/lime-elements/compare/v39.23.1...v39.24.0) (2026-05-12)
 
 ### Features
