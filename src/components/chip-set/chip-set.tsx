@@ -752,6 +752,11 @@ export class ChipSet {
             return;
         }
 
+        if (!this.value.some((chip) => chip.removable !== false)) {
+            // Nothing to clear if every chip is locked.
+            return;
+        }
+
         return (
             <a
                 href=""
@@ -771,7 +776,10 @@ export class ChipSet {
 
     private handleDeleteAllIconClick(event: Event) {
         event.preventDefault();
-        this.change.emit([]);
+        const lockedChips = this.value.filter(
+            (chip) => chip.removable === false
+        );
+        this.change.emit(lockedChips);
     }
 
     private renderDelimiter() {
