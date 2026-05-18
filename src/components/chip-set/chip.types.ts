@@ -75,6 +75,15 @@ export interface Chip<T = any> {
 
     /**
      * Whether the chip should be removable. Not valid for `choice`.
+     *
+     * For chip-sets of `type="input"`, chips are removable by default.
+     * Set this to `false` to "lock" an individual chip so that it cannot
+     * be removed by the user — neither via the remove button, nor with
+     * Backspace/Delete, nor by the "Clear all" button. Locked chips
+     * remain fully interactive (clicks still emit `interact` events).
+     *
+     * If the entire chip-set is `disabled` or `readonly`, the remove
+     * button is hidden on all chips regardless of this flag.
      */
     removable?: boolean;
 
