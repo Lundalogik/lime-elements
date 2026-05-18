@@ -631,7 +631,7 @@ export class ChipSet {
 
     private getChipProps(chip: Chip, chipType: ChipType) {
         const removable =
-            this.type === 'input' && chip.removable && !this.readonly;
+            this.type === 'input' && chip.removable !== false && !this.readonly;
         const readonly = this.readonly && this.type !== 'input';
 
         return {
