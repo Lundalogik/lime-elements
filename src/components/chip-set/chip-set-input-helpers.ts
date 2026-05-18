@@ -119,8 +119,15 @@ function handleBackspace(host, event) {
 }
 
 function removeChip(host) {
-    if (host.inputChipIndexSelected !== null) {
-        host.removeChip(host.value[host.inputChipIndexSelected].id);
-        host.inputChipIndexSelected = null;
+    if (host.inputChipIndexSelected === null) {
+        return;
     }
+
+    const chip = host.value[host.inputChipIndexSelected];
+    if (chip.removable === false) {
+        return;
+    }
+
+    host.removeChip(chip.id);
+    host.inputChipIndexSelected = null;
 }
