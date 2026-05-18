@@ -69,6 +69,7 @@ function isChipAnnotatedEvent(
  * @exampleComponent limel-example-chip-set-input-type-with-menu-items
  * @exampleComponent limel-example-chip-set-input-type-text
  * @exampleComponent limel-example-chip-set-input-type-search
+ * @exampleComponent limel-example-chip-set-input-non-removable
  * @exampleComponent limel-example-chip-icon-color
  * @exampleComponent limel-example-chip-set-image
  * @exampleComponent limel-example-chip-set-composite
