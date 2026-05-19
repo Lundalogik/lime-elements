@@ -5,7 +5,8 @@ export default [
         name: 'Home',
         children: [
             'src/updates.md',
-            'src/contributing.md',
+            'src/commits-and-prs.md',
+            'src/authoring-docs.md',
             'src/events.md',
             'src/theming.md',
             'src/style-utilities.md',
