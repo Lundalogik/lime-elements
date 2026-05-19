@@ -45,7 +45,12 @@ try {
     shell.echo();
 
     shell.echo('Copying guide documentation...');
-    const guides = ['src/contributing.md', 'src/events.md', 'src/theming.md'];
+    const guides = [
+        'src/commits-and-prs.md',
+        'src/authoring-docs.md',
+        'src/events.md',
+        'src/theming.md',
+    ];
     for (const guide of guides) {
         if (fs.existsSync(guide)) {
             const basename = path.basename(guide);
@@ -200,7 +205,8 @@ npm install @limetech/lime-elements
 
 ## Guides
 
-- [Contributing](guides/contributing.md) - How to contribute to Lime Elements
+- [Commits & Pull Requests](guides/commits-and-prs.md) - How we shape commits and pull requests
+- [Authoring docs](guides/authoring-docs.md) - How to write documentation pages for Lime Elements
 - [Events](guides/events.md) - Working with component events
 - [Theming](guides/theming.md) - Customizing component styles
 
