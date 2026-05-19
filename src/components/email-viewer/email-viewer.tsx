@@ -233,11 +233,19 @@ export class EmailViewer {
         return (
             <div class="attachments">
                 <span id="attachments-label">{label}</span>
-                <ul class="attachment-list" aria-labelledby="attachments-label">
+                {/* NOSONAR: <ul> can only contain <li> children per the HTML
+                    spec, but our list items are <limel-chip> custom elements.
+                    Using role="list" on a <div> avoids invalid markup while
+                    preserving list semantics for assistive technologies. */}
+                <div
+                    class="attachment-list"
+                    role="list"
+                    aria-labelledby="attachments-label"
+                >
                     {attachments.map((attachment, index) =>
                         this.renderAttachment(attachment, index)
                     )}
-                </ul>
+                </div>
             </div>
         );
     }
@@ -256,21 +264,20 @@ export class EmailViewer {
                 : undefined;
 
         return (
-            <li key={`attachment-${index}`}>
-                <limel-chip
-                    title={tooltip}
-                    text={filename}
-                    icon={{
-                        name: getIconForFile(extension),
-                        color: getIconFillColorForFile(extension),
-                        backgroundColor:
-                            getIconBackgroundColorForFile(extension),
-                    }}
-                    badge={fileSize}
-                    readonly={true}
-                    language={this.language}
-                />
-            </li>
+            <limel-chip
+                key={`attachment-${index}`}
+                role="listitem"
+                title={tooltip}
+                text={filename}
+                icon={{
+                    name: getIconForFile(extension),
+                    color: getIconFillColorForFile(extension),
+                    backgroundColor: getIconBackgroundColorForFile(extension),
+                }}
+                badge={fileSize}
+                readonly={true}
+                language={this.language}
+            />
         );
     };
 

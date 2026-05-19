@@ -106,17 +106,11 @@
     }
 
     .attachment-list {
-        margin: 0;
-        padding: 0.5rem 0;
-        list-style: none;
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;
-    }
 
-    li {
-        display: inline-flex;
-        max-width: 100%;
+        padding: 0.5rem 0;
     }
 
     limel-chip {
