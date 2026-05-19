@@ -1,3 +1,10 @@
+## [39.24.2](https://github.com/Lundalogik/lime-elements/compare/v39.24.1...v39.24.2) (2026-05-19)
+
+### Bug Fixes
+
+
+* **email-viewer:** render attachments as readonly chips ([ba5cb2b](https://github.com/Lundalogik/lime-elements/commit/ba5cb2b70683501f719b186283e049952091cf9d))
+
 ## [39.24.1](https://github.com/Lundalogik/lime-elements/compare/v39.24.0...v39.24.1) (2026-05-18)
 
 ### Bug Fixes
