@@ -40,6 +40,15 @@ export const requiredFieldSchema: FormSchema = {
     required: ['name'],
 };
 
+export const twoRequiredFieldsSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        name: { type: 'string', title: 'Name' },
+        nickname: { type: 'string', title: 'Nickname' },
+    },
+    required: ['name', 'nickname'],
+};
+
 export const emailFormatSchema: FormSchema = {
     type: 'object',
     properties: {

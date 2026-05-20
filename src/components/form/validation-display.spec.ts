@@ -34,6 +34,7 @@ it.each([
         modified: true,
         hasValue: false,
         required: true,
+        revealErrors: false,
         expected: true,
     },
     {
@@ -41,6 +42,7 @@ it.each([
         modified: false,
         hasValue: true,
         required: true,
+        revealErrors: false,
         expected: true,
     },
     {
@@ -48,6 +50,7 @@ it.each([
         modified: false,
         hasValue: false,
         required: false,
+        revealErrors: false,
         expected: true,
     },
     {
@@ -55,6 +58,7 @@ it.each([
         modified: true,
         hasValue: true,
         required: false,
+        revealErrors: false,
         expected: false,
     },
     {
@@ -62,13 +66,39 @@ it.each([
         modified: false,
         hasValue: false,
         required: true,
+        revealErrors: false,
+        expected: false,
+    },
+    {
+        // Untouched required-empty field becomes invalid when the form
+        // is asked to reveal all errors (e.g. on a save attempt).
+        hasErrors: true,
+        modified: false,
+        hasValue: false,
+        required: true,
+        revealErrors: true,
+        expected: true,
+    },
+    {
+        // `revealErrors` never flags fields that have no errors.
+        hasErrors: false,
+        modified: false,
+        hasValue: false,
+        required: true,
+        revealErrors: true,
         expected: false,
     },
 ])(
-    'isFieldInvalid returns $expected when hasErrors=$hasErrors, modified=$modified, hasValue=$hasValue, required=$required',
-    ({ hasErrors, modified, hasValue, required, expected }) => {
+    'isFieldInvalid returns $expected when hasErrors=$hasErrors, modified=$modified, hasValue=$hasValue, required=$required, revealErrors=$revealErrors',
+    ({ hasErrors, modified, hasValue, required, revealErrors, expected }) => {
         expect(
-            isFieldInvalid({ hasErrors, modified, hasValue, required })
+            isFieldInvalid({
+                hasErrors,
+                modified,
+                hasValue,
+                required,
+                revealErrors,
+            })
         ).toBe(expected);
     }
 );

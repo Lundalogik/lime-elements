@@ -31,16 +31,13 @@ export function hasValue(value: unknown): boolean {
 /**
  * Determine whether a field should be displayed as invalid.
  *
- * A field with errors is shown as invalid only when the user has
- * interacted with it, it already contains a value, or it is optional.
- * This avoids showing errors on untouched required fields before the
- * user has had a chance to fill them in.
- *
  * @param field - the current field state
  * @param field.hasErrors - whether the field currently has validation errors
  * @param field.modified - whether the user has interacted with the field
  * @param field.hasValue - whether the field holds a non-empty value
  * @param field.required - whether the field is required
+ * @param field.revealErrors - whether the form has been asked to reveal
+ *   all errors at once (typically on a save attempt)
  * @returns `true` when the field should render in an invalid state
  */
 export function isFieldInvalid(field: {
@@ -48,9 +45,14 @@ export function isFieldInvalid(field: {
     modified: boolean;
     hasValue: boolean;
     required: boolean;
+    revealErrors?: boolean;
 }): boolean {
     return (
-        field.hasErrors && (field.modified || field.hasValue || !field.required)
+        field.hasErrors &&
+        (field.modified ||
+            field.hasValue ||
+            !field.required ||
+            !!field.revealErrors)
     );
 }
 

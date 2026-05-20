@@ -6,6 +6,7 @@ import {
     booleanSchema,
     enumSchema,
     requiredFieldSchema,
+    twoRequiredFieldsSchema,
     emailFormatSchema,
     arraySchema,
     nestedObjectSchema,
@@ -162,6 +163,54 @@ test('does not emit validate on mount when value is already valid', async () => 
         (call) => call[0].detail.valid === true
     );
     expect(validCalls).toEqual([]);
+});
+
+test('does not flag untouched required-empty fields by default', async () => {
+    const { formContent } = await renderForm({
+        schema: twoRequiredFieldsSchema,
+        value: {},
+    });
+
+    const inputs = formContent.querySelectorAll('limel-input-field');
+    expect([...inputs].every((el: any) => el.invalid === false)).toBe(true);
+});
+
+test('flags untouched required-empty siblings when `revealErrors` is set to true', async () => {
+    const { formContent, change, root, waitForChanges, setProps } =
+        await renderForm({
+            schema: twoRequiredFieldsSchema,
+            value: {},
+        });
+
+    // A change first, so RJSF has propagated its per-field error state.
+    await change('Name', 'Alice');
+    await setProps({ revealErrors: true });
+    await waitForReactRender(root, waitForChanges);
+
+    const nickname = [
+        ...formContent.querySelectorAll('limel-input-field'),
+    ].find((el) => el.getAttribute('label') === 'Nickname') as any;
+
+    expect(nickname.invalid).toBe(true);
+});
+
+test('unflags untouched required-empty siblings when `revealErrors` is reset', async () => {
+    const { formContent, change, root, waitForChanges, setProps } =
+        await renderForm({
+            schema: twoRequiredFieldsSchema,
+            value: {},
+            revealErrors: true,
+        });
+
+    await change('Name', 'Alice');
+    await setProps({ revealErrors: false, value: {} });
+    await waitForReactRender(root, waitForChanges);
+
+    const nickname = [
+        ...formContent.querySelectorAll('limel-input-field'),
+    ].find((el) => el.getAttribute('label') === 'Nickname') as any;
+
+    expect(nickname.invalid).toBe(false);
 });
 
 test('validates against new schema after schema changes at runtime', async () => {

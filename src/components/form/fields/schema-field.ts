@@ -120,13 +120,14 @@ export class SchemaField extends React.Component<FieldProps> {
 
     private isInvalid() {
         const { modified } = this.state;
-        const { errorSchema, required, schema } = this.props;
+        const { errorSchema, required, schema, registry } = this.props;
 
         return isFieldInvalid({
             hasErrors: !isEmpty(errorSchema),
             modified: modified,
             hasValue: hasValue(this.props.formData),
             required: isFieldRequired({ required, minItems: schema.minItems }),
+            revealErrors: registry.formContext?.revealErrors === true,
         });
     }
 
