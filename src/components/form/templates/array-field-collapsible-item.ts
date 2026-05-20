@@ -1,7 +1,7 @@
 import { Action } from '../../collapsible-section/action';
 import React, { PropsWithChildren, ReactNode } from 'react';
-import { findTitle } from './common';
-import { ArrayFieldItemButtonsTemplateProps } from '@rjsf/utils';
+import { findTitle, hasNestedErrors } from './common';
+import { ArrayFieldItemButtonsTemplateProps, ErrorSchema } from '@rjsf/utils';
 import { Runnable } from './types';
 import { isEmpty } from 'lodash-es';
 import { JSONSchema7 } from 'json-schema';
@@ -38,6 +38,20 @@ export interface CollapsibleItemProps {
      * Whether this particular item can be reordered.
      */
     allowItemReorder: boolean;
+
+    /**
+     * Validation errors for this item, as an RJSF `errorSchema` subtree.
+     * Used to flag the item's header when it contains invalid fields,
+     * even while the item is collapsed and its fields are not rendered.
+     */
+    errorSchema?: ErrorSchema;
+
+    /**
+     * Whether the form has been asked to reveal all validation errors
+     * (typically on a save attempt). The header only reflects nested
+     * errors when this is `true`, keeping a freshly loaded form silent.
+     */
+    revealErrors?: boolean;
 }
 
 export class CollapsibleItemTemplate extends React.Component<
@@ -78,7 +92,8 @@ export class CollapsibleItemTemplate extends React.Component<
     }
 
     public render() {
-        const { data, schema, formSchema } = this.props;
+        const { data, schema, formSchema, errorSchema, revealErrors } =
+            this.props;
         let children: ReactNode;
         if (this.state.isOpen) {
             children = this.props.children;
@@ -90,6 +105,8 @@ export class CollapsibleItemTemplate extends React.Component<
                   class: 'drag-handle',
               })
             : null;
+
+        const invalid = revealErrors === true && hasNestedErrors(errorSchema);
 
         return React.createElement(
             'limel-collapsible-section',
@@ -104,6 +121,7 @@ export class CollapsibleItemTemplate extends React.Component<
                 'data-reorderable': this.props.allowItemReorder
                     ? 'true'
                     : 'false',
+                invalid: invalid,
             },
             dragHandle,
             children

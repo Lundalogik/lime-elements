@@ -4,10 +4,11 @@ import { isObjectType } from '../schema';
 import { FormSchema } from '../form.types';
 import { CollapsibleItemTemplate } from './array-field-collapsible-item';
 import { SimpleItemTemplate } from './array-field-simple-item';
-import { ArrayFieldContext } from './array-context';
+import { ArrayFieldContext, ArrayItemErrorsContext } from './array-context';
 
 export const ArrayFieldItemTemplate = (props: ArrayFieldItemTemplateProps) => {
     const arrayContext = useContext(ArrayFieldContext);
+    const itemErrors = useContext(ArrayItemErrorsContext);
     const schema = arrayContext?.arraySchema;
     const formData = arrayContext?.formData;
     const formContext = props.registry.formContext;
@@ -30,6 +31,8 @@ export const ArrayFieldItemTemplate = (props: ArrayFieldItemTemplateProps) => {
                 formSchema: formContext?.schema,
                 allowItemRemoval: allowItemRemoval,
                 allowItemReorder: allowItemReorder,
+                errorSchema: itemErrors?.[props.index],
+                revealErrors: formContext?.revealErrors === true,
             },
             props.children
         );

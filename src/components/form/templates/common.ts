@@ -3,6 +3,7 @@ import React from 'react';
 import { isArrayType, isObjectType } from '../schema';
 import { FormSchema } from '../form.types';
 import { JSONSchema7 } from 'json-schema';
+import { ErrorSchema } from '@rjsf/utils';
 
 /**
  *
@@ -159,4 +160,29 @@ function findSchemaTitle(value: any, schema: JSONSchema7) {
     }
 
     return value;
+}
+
+/**
+ * Recursively check whether an RJSF `errorSchema` subtree contains any
+ * field with validation errors.
+ *
+ * Used to reflect the validity of nested fields onto a containing
+ * collapsible section's header, so a collapsed section with invalid
+ * contents is still flagged in the UI.
+ *
+ * @param errorSchema - the RJSF error schema subtree to inspect
+ * @returns `true` when any nested field has one or more errors
+ */
+export function hasNestedErrors(errorSchema?: ErrorSchema): boolean {
+    if (!errorSchema) {
+        return false;
+    }
+
+    return Object.entries(errorSchema).some(([key, value]) => {
+        if (key === '__errors') {
+            return Array.isArray(value) && value.length > 0;
+        }
+
+        return hasNestedErrors(value as ErrorSchema);
+    });
 }

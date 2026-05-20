@@ -5,7 +5,7 @@ import {
     FormLayoutOptions,
     FormSchema,
 } from '../form.types';
-import { renderDescription, renderTitle } from './common';
+import { hasNestedErrors, renderDescription, renderTitle } from './common';
 import { GridLayout } from './grid-layout';
 import { RowLayout } from './row-layout';
 import { LimeObjectFieldTemplateProps, ObjectFieldProperty } from './types';
@@ -62,6 +62,8 @@ function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
     const helpElement = getHelpComponent(props.schema as FormSchema, {
         slot: 'header',
     });
+    const revealErrors = props.registry.formContext?.revealErrors === true;
+    const invalid = revealErrors && hasNestedErrors(props.errorSchema);
 
     return React.createElement(
         'limel-collapsible-section',
@@ -72,6 +74,7 @@ function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
                 props.fieldPathId
             ),
             'is-open': defaultOpen,
+            invalid: invalid,
         },
         helpElement,
         renderDescription(props.description as string),

@@ -11,11 +11,13 @@ import {
     arraySchema,
     nestedObjectSchema,
     arrayOfObjectsSchema,
+    arrayOfObjectsSchemaWithRequired,
     dynamicSchema,
     dynamicSchemaUpdated,
     helpSchema,
     gridLayoutSchema,
     collapsibleSchema,
+    collapsibleSchemaWithRequired,
     dateSchema,
     integerSchema,
     serverErrorsSchema,
@@ -370,6 +372,74 @@ test('renders collapsible section when schema has lime.collapsible', async () =>
     const collapsible = formContent.querySelector('limel-collapsible-section');
     expect(collapsible).toBeTruthy();
     expect(collapsible.getAttribute('header')).toEqual('Details');
+});
+
+test('does not mark collapsible section as invalid when all nested fields are valid', async () => {
+    const { formContent } = await renderForm({
+        schema: collapsibleSchema,
+        value: { details: { info: 'ok' } },
+        revealErrors: true,
+    });
+
+    const collapsible = formContent.querySelector('limel-collapsible-section');
+    expect(collapsible.invalid).toBe(false);
+});
+
+test('keeps collapsible section silent until `revealErrors` is true, even with server errors', async () => {
+    const { formContent, root, waitForChanges, setProps } = await renderForm({
+        schema: collapsibleSchema,
+        value: { details: { info: 'value' } },
+        errors: { details: { info: ['Something is wrong'] } },
+    });
+
+    const collapsible = formContent.querySelector('limel-collapsible-section');
+    expect(collapsible.invalid).toBe(false);
+
+    await setProps({ revealErrors: true });
+    await waitForReactRender(root, waitForChanges);
+
+    expect(collapsible.invalid).toBe(true);
+});
+
+test('marks collapsible section as invalid when a nested field fails schema validation and `revealErrors` is true', async () => {
+    const { formContent, change, root, waitForChanges, setProps } =
+        await renderForm({
+            schema: collapsibleSchemaWithRequired,
+            value: { details: { info: 'something' } },
+        });
+
+    await change('Info', '');
+    await setProps({ revealErrors: true });
+    await waitForReactRender(root, waitForChanges);
+
+    const collapsible = formContent.querySelector('limel-collapsible-section');
+    expect(collapsible.invalid).toBe(true);
+});
+
+test('marks a collapsed array-of-objects item as invalid when it contains errors and `revealErrors` is true', async () => {
+    // Both items stay collapsed because their data is non-empty, so the
+    // invalid field inside the second item is never rendered. The header
+    // must still surface the problem, which it can only do by reading the
+    // `errorSchema` rather than walking its (unrendered) children.
+    const { formContent, root, waitForChanges, setProps } = await renderForm({
+        schema: arrayOfObjectsSchemaWithRequired,
+        value: { heroes: [{ name: 'Batman' }, { name: 'Robin' }] },
+        errors: { heroes: { 1: { name: ['This hero is already taken'] } } },
+    });
+
+    const items = formContent.querySelectorAll('limel-collapsible-section');
+    expect(items.length).toBe(2);
+
+    // Silent until errors are revealed, even though item 2 has an error.
+    expect((items[1] as any).invalid).toBe(false);
+
+    await setProps({ revealErrors: true });
+    await waitForReactRender(root, waitForChanges);
+
+    // The invalid item reflects the error on its still-collapsed header,
+    // while the valid item stays silent.
+    expect((items[0] as any).invalid).toBe(false);
+    expect((items[1] as any).invalid).toBe(true);
 });
 
 test('renders custom component when schema has lime.component', async () => {

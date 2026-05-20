@@ -99,6 +99,24 @@ export const arrayOfObjectsSchema: FormSchema = {
     },
 };
 
+export const arrayOfObjectsSchemaWithRequired: FormSchema = {
+    type: 'object',
+    properties: {
+        heroes: {
+            type: 'array',
+            title: 'Heroes',
+            items: {
+                type: 'object',
+                title: 'Hero',
+                properties: {
+                    name: { type: 'string', title: 'Name', minLength: 1 },
+                },
+                required: ['name'],
+            },
+        },
+    },
+};
+
 export const dynamicSchema: FormSchema = {
     type: 'object',
     properties: {
@@ -152,6 +170,23 @@ export const collapsibleSchema: FormSchema = {
             properties: {
                 info: { type: 'string', title: 'Info' },
             },
+            lime: {
+                collapsible: true,
+            },
+        },
+    },
+};
+
+export const collapsibleSchemaWithRequired: FormSchema = {
+    type: 'object',
+    properties: {
+        details: {
+            type: 'object',
+            title: 'Details',
+            properties: {
+                info: { type: 'string', title: 'Info' },
+            },
+            required: ['info'],
             lime: {
                 collapsible: true,
             },
