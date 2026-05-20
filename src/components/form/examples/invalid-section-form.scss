@@ -1,0 +1,16 @@
+:host(limel-example-form-invalid-section) {
+    --example-controls-column-layout: auto-fit;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+footer {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+limel-button.save-has-errors {
+    --lime-primary-color: var(--limel-theme-error-color);
+}
