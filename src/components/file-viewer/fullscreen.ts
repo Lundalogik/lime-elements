@@ -1,5 +1,5 @@
 export class Fullscreen {
-    private enter: () => void;
+    private enter: (() => void) | undefined;
     private exit: () => void;
 
     constructor(element: any) {
@@ -8,7 +8,9 @@ export class Fullscreen {
             element.msRequestFullscreen ||
             element.mozRequestFullScreen ||
             element.webkitRequestFullscreen;
-        this.enter = this.enter.bind(element);
+        if (this.enter) {
+            this.enter = this.enter.bind(element);
+        }
         const doc: any = window.document;
         this.exit =
             doc.exitFullscreen ||
@@ -45,6 +47,6 @@ export class Fullscreen {
     };
 
     public isSupported(): boolean {
-        return !!this.requestFullscreen;
+        return !!this.enter;
     }
 }
