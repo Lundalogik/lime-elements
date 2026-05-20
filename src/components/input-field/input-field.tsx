@@ -291,6 +291,11 @@ export class InputField {
     public componentDidUpdate() {
         if (this.invalid) {
             this.mdcTextField.valid = false;
+        } else if (!this.wasInvalid) {
+            // Reset MDC's internal validity once the consumer no longer
+            // considers the field invalid and our own check hasn't
+            // flagged it either.
+            this.mdcTextField.valid = true;
         }
 
         this.mdcTextField.disabled = this.disabled || this.readonly;
