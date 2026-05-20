@@ -1,3 +1,14 @@
+## [39.25.0](https://github.com/Lundalogik/lime-elements/compare/v39.24.2...v39.25.0) (2026-05-20)
+
+### Features
+
+
+* **chip-set:** default input chips to removable ([32369c2](https://github.com/Lundalogik/lime-elements/commit/32369c2f9a9975556206c9d9397240d290daa579))
+### Bug Fixes
+
+
+* **chip-set:** make `removable: false` actually lock the chip ([a6884ba](https://github.com/Lundalogik/lime-elements/commit/a6884ba94e01a3972328b6cd33dad9888afe8206))
+
 ## [39.24.2](https://github.com/Lundalogik/lime-elements/compare/v39.24.1...v39.24.2) (2026-05-19)
 
 ### Bug Fixes
