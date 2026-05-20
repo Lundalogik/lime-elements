@@ -56,7 +56,7 @@ graph TD;
   limel-file-viewer --> limel-tooltip
   limel-file-viewer --> limel-menu
   limel-file-viewer --> limel-spinner
-  limel-email-viewer --> limel-badge
+  limel-email-viewer --> limel-chip
   limel-email-viewer --> limel-collapsible-section
   limel-email-viewer --> limel-markdown
   limel-collapsible-section --> limel-icon
