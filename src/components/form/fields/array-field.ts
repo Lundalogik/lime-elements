@@ -4,6 +4,7 @@ import { FieldProps, FieldPathList } from '@rjsf/utils';
 import { cloneDeep, isPlainObject, set } from 'lodash-es';
 import { resetDependentFields, schemaAllowsNull } from './field-helpers';
 import { ARRAY_REORDER_EVENT } from '../templates/array-field';
+import { ArrayItemErrorsContext } from '../templates/array-context';
 import { FormSchema } from '../form.types';
 
 const { fields: defaultFields } = getDefaultRegistry();
@@ -210,10 +211,18 @@ export class ArrayField extends React.Component<FieldProps> {
             onChange: this.handleChange,
         };
 
+        // Share the array's `errorSchema` (keyed by item index) with the
+        // item templates rendered below. RJSF does not forward it to a
+        // non-fixed array's `ArrayFieldItemTemplate`, so a collapsed item
+        // would otherwise have no way to tell it contains invalid fields.
         return React.createElement(
             'div',
             { ref: this.setWrapper },
-            React.createElement(BaseArrayField as any, arrayProps)
+            React.createElement(
+                ArrayItemErrorsContext.Provider,
+                { value: this.props.errorSchema ?? null },
+                React.createElement(BaseArrayField as any, arrayProps)
+            )
         );
     }
 }
