@@ -502,6 +502,7 @@ export namespace Components {
         "disabled": boolean;
         "errors": ValidationError;
         "propsFactory"?: (schema: FormSchema) => Record<string, any>;
+        "revealErrors": boolean;
         "schema": FormSchema;
         "transformErrors"?: (errors: FormError[]) => FormError[];
         "value": object;
@@ -2496,6 +2497,7 @@ export namespace JSX {
         "onChange"?: (event: LimelFormCustomEvent<object>) => void;
         "onValidate"?: (event: LimelFormCustomEvent<ValidationStatus>) => void;
         "propsFactory"?: (schema: FormSchema) => Record<string, any>;
+        "revealErrors"?: boolean;
         "schema"?: FormSchema;
         "transformErrors"?: (errors: FormError[]) => FormError[];
         "value"?: object;
@@ -2505,6 +2507,8 @@ export namespace JSX {
     export interface LimelFormAttributes {
         // (undocumented)
         "disabled": boolean;
+        // (undocumented)
+        "revealErrors": boolean;
     }
 
     // @internal @deprecated

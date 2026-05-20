@@ -96,6 +96,15 @@ export class Form {
     public errors: ValidationError;
 
     /**
+     * Set to `true` to render every field with a validation error as
+     * invalid, even untouched ones, and to reflect that on each
+     * containing collapsible section's header. Defaults to `false`,
+     * which keeps untouched required-empty fields silent.
+     */
+    @Prop()
+    public revealErrors: boolean = false;
+
+    /**
      * Emitted when a change is made within the form
      */
     @Event()
@@ -190,6 +199,7 @@ export class Form {
                         schema: this.schema,
                         rootValue: this.value,
                         propsFactory: this.propsFactory,
+                        revealErrors: this.revealErrors,
                     },
                     fields: {
                         SchemaField: CustomSchemaField,

@@ -61,13 +61,15 @@ export class LimeElementsWidgetAdapter extends React.Component<WidgetAdapterProp
 
     private isInvalid() {
         const { modified } = this.state;
-        const { rawErrors, required, schema } = this.props.widgetProps;
+        const { rawErrors, required, schema, registry } =
+            this.props.widgetProps;
 
         return isFieldInvalid({
             hasErrors: !!rawErrors,
             modified: modified,
             hasValue: hasValue(this.getValue()),
             required: isFieldRequired({ required, minItems: schema.minItems }),
+            revealErrors: registry?.formContext?.revealErrors === true,
         });
     }
 
