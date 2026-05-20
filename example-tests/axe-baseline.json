@@ -531,6 +531,12 @@
         "color-contrast",
         "label"
     ],
+    "limel-example-form-invalid-section": [
+        "aria-hidden-focus",
+        "button-name",
+        "color-contrast",
+        "label"
+    ],
     "limel-example-form-layout": [
         "aria-hidden-focus"
     ],
