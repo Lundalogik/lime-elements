@@ -7,6 +7,9 @@ module.exports = {
         'header-max-length': [ERROR, 'always', 100],
         'scope-case': [IGNORE, 'always', 'lower-case'],
         'subject-case': [IGNORE, 'always', 'lower-case'],
+        // Each type is documented (with its meaning for our changelog) in
+        // src/commits-and-prs.md, and listed without descriptions in
+        // CONTRIBUTING.md. Keep all three in sync when adding or removing one.
         'type-enum': [
             ERROR,
             'always',
@@ -14,7 +17,6 @@ module.exports = {
                 'feat',
                 'fix',
                 'docs',
-                'switched',
                 'style',
                 'refactor',
                 'perf',
