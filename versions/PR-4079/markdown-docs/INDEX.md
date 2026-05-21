@@ -1,6 +1,6 @@
 # Lime Elements Documentation
 
-**Version 39.24.2**
+**Version 39.25.0**
 
 A comprehensive design system and component library built with Stencil.
 
@@ -59,7 +59,7 @@ npm install @limetech/lime-elements
 
 ## Guides
 
-- [Contributing](guides/contributing.md) - How to contribute to Lime Elements
+- [Authoring docs](guides/authoring-docs.md) - How to write documentation pages for Lime Elements
 - [Events](guides/events.md) - Working with component events
 - [Theming](guides/theming.md) - Customizing component styles
 

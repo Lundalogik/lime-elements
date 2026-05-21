@@ -120,6 +120,7 @@ does not return anything, but methods have to be async
  - [limel-example-chip-set-filter-badge](examples)
  - [limel-example-chip-set-image](examples)
  - [limel-example-chip-set-input](examples)
+ - [limel-example-chip-set-input-non-removable](examples)
  - [limel-example-chip-set-input-type-search](examples)
  - [limel-example-chip-set-input-type-text](examples)
  - [limel-example-chip-set-input-type-with-menu-items](examples)
@@ -171,6 +172,7 @@ graph TD;
   limel-example-chip-set-filter-badge --> limel-chip-set
   limel-example-chip-set-image --> limel-chip-set
   limel-example-chip-set-input --> limel-chip-set
+  limel-example-chip-set-input-non-removable --> limel-chip-set
   limel-example-chip-set-input-type-search --> limel-chip-set
   limel-example-chip-set-input-type-text --> limel-chip-set
   limel-example-chip-set-input-type-with-menu-items --> limel-chip-set

@@ -49,6 +49,7 @@ The component automatically formats different value types:
  - [limel-example-chip-menu](../components/chip/examples)
  - [limel-example-chip-removable](../components/chip/examples)
  - [limel-example-chip-set-input](../components/chip-set/examples)
+ - [limel-example-chip-set-input-non-removable](../components/chip-set/examples)
  - [limel-example-chip-set-input-type-with-menu-items](../components/chip-set/examples)
  - [limel-example-chip-set-invalid-chips](../components/chip-set/examples)
  - [limel-example-code-editor-composite](../components/code-editor/examples)
@@ -179,6 +180,7 @@ graph TD;
   limel-example-chip-menu --> limel-example-value
   limel-example-chip-removable --> limel-example-value
   limel-example-chip-set-input --> limel-example-value
+  limel-example-chip-set-input-non-removable --> limel-example-value
   limel-example-chip-set-input-type-with-menu-items --> limel-example-value
   limel-example-chip-set-invalid-chips --> limel-example-value
   limel-example-code-editor-composite --> limel-example-value
