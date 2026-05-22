@@ -135,6 +135,7 @@ After the properties, we have the component's functions. To keep some consistenc
 
 ### Commit Message Guidelines
 
+<!-- Anchors preserved so external links to the previous content sections still resolve. -->
 <a id="atomic-commits"></a>
 <a id="commit-message-format"></a>
 <a id="revert"></a>
