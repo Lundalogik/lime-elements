@@ -49,6 +49,7 @@ export * from './components/dynamic-label/label.types';
 export * from './components/list/list.types';
 export * from './components/menu/menu.types';
 export * from './components/picker/actions.types';
+export * from './components/picker/picker-item.types';
 export * from './components/picker/searcher.types';
 export * from './components/picker/value.types';
 export * from './components/progress-flow/progress-flow.types';

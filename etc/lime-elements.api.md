@@ -681,7 +681,7 @@ export namespace Components {
         "actionPosition": ActionPosition;
         "actions": Array<ListItem<Action>>;
         "actionScrollBehavior": ActionScrollBehavior;
-        "allItems"?: Array<ListItem<PickerValue>>;
+        "allItems"?: PickerItem[];
         "badgeIcons": boolean;
         "delimiter": string;
         "disabled": boolean;
@@ -695,7 +695,7 @@ export namespace Components {
         "required": boolean;
         "searcher"?: Searcher;
         "searchLabel": string;
-        "value": ListItem<PickerValue> | Array<ListItem<PickerValue>>;
+        "value": PickerItem | PickerItem[];
     }
     export interface LimelPopover {
         "open": boolean;
@@ -2977,7 +2977,7 @@ export namespace JSX {
         "actionPosition"?: ActionPosition;
         "actions"?: Array<ListItem<Action>>;
         "actionScrollBehavior"?: ActionScrollBehavior;
-        "allItems"?: Array<ListItem<PickerValue>>;
+        "allItems"?: PickerItem[];
         "badgeIcons"?: boolean;
         "delimiter"?: string;
         "disabled"?: boolean;
@@ -2988,13 +2988,13 @@ export namespace JSX {
         "leadingIcon"?: IconName;
         "multiple"?: boolean;
         "onAction"?: (event: LimelPickerCustomEvent<Action>) => void;
-        "onChange"?: (event: LimelPickerCustomEvent<ListItem<PickerValue> | Array<ListItem<PickerValue>>>) => void;
-        "onInteract"?: (event: LimelPickerCustomEvent<ListItem<PickerValue>>) => void;
+        "onChange"?: (event: LimelPickerCustomEvent<PickerItem | PickerItem[]>) => void;
+        "onInteract"?: (event: LimelPickerCustomEvent<PickerItem>) => void;
         "readonly"?: boolean;
         "required"?: boolean;
         "searcher"?: Searcher;
         "searchLabel"?: string;
-        "value"?: ListItem<PickerValue> | Array<ListItem<PickerValue>>;
+        "value"?: PickerItem | PickerItem[];
     }
 
     // (undocumented)
@@ -4281,6 +4281,11 @@ interface Option_2<T extends string = string> {
 export { Option_2 as Option }
 
 // @public
+export interface PickerItem<T = PickerValue> extends ListItem<T> {
+    removable?: boolean;
+}
+
+// @public
 export type PickerValue = number | string | {
     id: string | number;
     [key: string]: any;
@@ -4330,7 +4335,7 @@ export interface RowReorderEvent<T> {
 }
 
 // @public
-export type Searcher = (query: string) => Promise<Array<ListItem | ListSeparator>>;
+export type Searcher = (query: string) => Promise<Array<PickerItem | ListSeparator>>;
 
 // @public
 export type SpinnerSize = 'mini' | 'x-small' | 'small' | 'medium' | 'large';
