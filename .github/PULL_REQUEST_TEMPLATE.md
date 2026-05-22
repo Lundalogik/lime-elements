@@ -5,7 +5,7 @@
 <!-- End of CodeRabbit summary -->
 
 ## Review:
-- [ ] Commits are [atomic](https://seesparkbox.com/foundry/atomic_commits_with_git)
+- [ ] Commits are [atomic](https://lundalogik.github.io/lime-elements/versions/latest/#/Home/commits-and-prs.md/)
 - [ ] Commits have the correct *type* for the changes made
 - [ ] Commits with *breaking changes* are marked as such
 
