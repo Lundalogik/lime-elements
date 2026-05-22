@@ -59,8 +59,8 @@ npm install @limetech/lime-elements
 
 ## Guides
 
-- [Authoring docs](guides/authoring-docs.md) - How to write documentation pages for Lime Elements
 - [Commits & Pull Requests](guides/commits-and-prs.md) - How we shape commits and pull requests
+- [Authoring docs](guides/authoring-docs.md) - How to write documentation pages for Lime Elements
 - [Events](guides/events.md) - Working with component events
 - [Theming](guides/theming.md) - Customizing component styles
 

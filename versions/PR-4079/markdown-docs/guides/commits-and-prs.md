@@ -48,7 +48,7 @@ When in doubt, **make more, smaller commits**. Splitting commits later is harder
 ```
 
 - The **header** (first line) is mandatory. Keep it under **100 characters** — commitlint enforces this.
-- The **scope** is optional but recommended — it is usually the name of the component or area affected (e.g. `chip-set`, `email-viewer`, `docs`).
+- The **scope** is optional but recommended — it is usually the name of the component or area affected (e.g. `chip-set`, `email-viewer`, `picker`).
 - The **subject** is a succinct description of the change. By convention (not lint-enforced):
     - imperative, present tense: "add", not "added" or "adds"
     - no capital first letter
@@ -243,6 +243,6 @@ Push the fixup as-is — don't squash it into the original before pushing. The p
 
 If the change is a new concern of its own, prefer a fresh Conventional Commit over a fixup.
 
-CI runs a **Block Autosquash Commits** check that fails the PR while `fixup!` commits exist. That's intentional: it forces an interactive autosquash (`git rebase -i --autosquash main`) before the PR can merge, so the history that lands on `main` is the intentional one — not the back-and-forth of the review.
+CI runs a **Block Autosquash Commits** check that fails the PR while `fixup!` commits exist. That's intentional: it forces an interactive autosquash (`git rebase -i --autosquash upstream/main`) before the PR can merge, so the history that lands on `main` is the intentional one — not the back-and-forth of the review.
 
 For the mechanics (forking, branches, opening the PR), see the repository's [`CONTRIBUTING.md`](https://github.com/Lundalogik/lime-elements/blob/main/CONTRIBUTING.md).

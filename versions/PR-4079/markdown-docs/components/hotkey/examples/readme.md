@@ -4,11 +4,37 @@
 
 ## Overview
 
-The `disabled` prop
+Basic example
 
-When set to `true`, the hotkey is rendered in a visually disabled state.
-This is useful when the action associated with the hotkey is temporarily
-unavailable (e.g. a disabled menu item).
+The value is passed as a string, indicating which hotkey to display.
+
+The component will automatically detect the operating system, and
+render the hotkey accordingly, using standard glyphs to save space.
+
+For example, the "meta" key will be rendered as <kbd>⌘</kbd> on macOS,
+and as <kbd>⊞ Win</kbd> on Windows/Linux. Or the "alt" key will be rendered
+as <kbd>⌥</kbd> on macOS, and as <kbd>Alt</kbd> on Windows.
+
+:::note
+`meta` always means the actual Meta key.
+
+This component will render `meta` using platform conventions:
+- macOS/iOS/iPadOS: <kbd>⌘</kbd>
+- Windows/Linux: <kbd>⊞ Win</kbd>
+
+If you want a hotkey that differs between operating systems (for example
+⌘+C on macOS and Ctrl+C on Windows/Linux), detect the OS in your application
+and pass the appropriate hotkey string.
+
+- `ctrl` means "Control specifically" on all platforms.
+- `cmd` or `command` always render as <kbd>⌘</kbd> (even on Windows/Linux).
+:::
+
+:::important
+This component is **display-only**. It does not listen for or handle
+any keyboard events. Keyboard event handling is the responsibility
+of the parent component (e.g. `limel-menu` or `limel-select`).
+:::
 
 ## Dependencies
 
@@ -19,8 +45,8 @@ unavailable (e.g. a disabled menu item).
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-hotkey-disabled --> limel-hotkey
-  style limel-example-hotkey-disabled fill:#f9f,stroke:#333,stroke-width:4px
+  limel-example-hotkey-basic --> limel-hotkey
+  style limel-example-hotkey-basic fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

@@ -4,14 +4,21 @@
 
 ## Overview
 
-Email with remote image policy
+Plain text email
 
-Example showing an HTML email body where remote images are represented as
-`data-remote-src`, which triggers the remote-images warning banner.
+Example showing a plain text email body with all header fields set,
+including multiple recipients.
 
-This mirrors the shape produced by `loadEmail`, where remote image URLs are
-rewritten to `data-remote-src` and only restored when the user allows remote
-images.
+:::note
+If multiple recipients are provided as `to` or `cc`,
+they should be separated by commas.
+When rendering, this component splits the list on commas that are
+outside quoted strings (that indicate the name) and outside
+angle-bracketed address parts.
+
+If a display name contains a comma, it should be quoted, e.g.
+`"Doe, Jane" <jane.doe@example.com>`.
+:::
 
 ## Dependencies
 
@@ -22,7 +29,7 @@ images.
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-email-viewer-remote-image-policy --> limel-email-viewer
+  limel-example-email-viewer-plain-text --> limel-email-viewer
   limel-email-viewer --> limel-chip
   limel-email-viewer --> limel-collapsible-section
   limel-email-viewer --> limel-markdown
@@ -52,7 +59,7 @@ graph TD;
   limel-collapsible-section --> limel-icon-button
   limel-icon-button --> limel-icon
   limel-icon-button --> limel-tooltip
-  style limel-example-email-viewer-remote-image-policy fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-email-viewer-plain-text fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

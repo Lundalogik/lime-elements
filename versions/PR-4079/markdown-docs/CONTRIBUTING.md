@@ -34,7 +34,7 @@ Help us keep **lime-elements** open and inclusive. Please read and follow our [C
 
 As a **lime-elements** user, you are the perfect candidate to help us improve our documentation: typo corrections, clarifications, more examples, etc. Take a look at the [documentation issues that need help](https://github.com/Lundalogik/lime-elements/issues?q=is%3Aopen+is%3Aissue+label%3Adocs+label%3A%22help+wanted%22).
 
-Please follow the [Documentation guidelines](#documentation).
+Please follow the [Authoring docs](https://lundalogik.github.io/lime-elements/versions/latest/#/Home/authoring-docs.md/) guide.
 
 ### Give feedback on issues
 
@@ -134,6 +134,16 @@ After the properties, we have the component's functions. To keep some consistenc
 6. Other private methods. Typically somewhat in the order calls to them appear in the code above.
 
 ### Commit Message Guidelines
+
+<a id="atomic-commits"></a>
+<a id="commit-message-format"></a>
+<a id="revert"></a>
+<a id="type"></a>
+<a id="scope"></a>
+<a id="subject"></a>
+<a id="body"></a>
+<a id="footer"></a>
+<a id="examples"></a>
 
 See the [Commits & Pull Requests](https://lundalogik.github.io/lime-elements/versions/latest/#/Home/commits-and-prs.md/) page in the published docs for our commit-message rules — atomic commits, Conventional Commits format, type semantics, breaking changes, and the fixup workflow for review feedback.
 

@@ -4,23 +4,39 @@
 
 ## Overview
 
-Split (side-by-side) view
+Line wrapping
 
-Set `layout` to `split` for a side-by-side comparison.
-The old version is shown on the left, the new version on the right.
-Paired changes are aligned on the same row, making it easy
-to see exactly what changed.
+Set `lineWrapping` to `true` to wrap long lines instead of scrolling
+horizontally. This is useful for config files, prose, or any content
+with long values.
+
+Toggle the split view to see how wrapping behaves in each mode.
 
 ## Dependencies
 
 ### Depends on
 
+- [limel-example-controls](../../../examples)
+- [limel-switch](../../switch)
+- [limel-select](../../select)
 - [limel-code-diff](..)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-code-diff-split --> limel-code-diff
+  limel-example-code-diff-line-wrap --> limel-example-controls
+  limel-example-code-diff-line-wrap --> limel-switch
+  limel-example-code-diff-line-wrap --> limel-select
+  limel-example-code-diff-line-wrap --> limel-code-diff
+  limel-switch --> limel-dynamic-label
+  limel-switch --> limel-helper-line
+  limel-dynamic-label --> limel-icon
+  limel-select --> limel-notched-outline
+  limel-select --> limel-icon
+  limel-select --> limel-helper-line
+  limel-select --> limel-portal
+  limel-select --> limel-menu-surface
+  limel-select --> limel-list
   limel-code-diff --> limel-icon-button
   limel-code-diff --> limel-input-field
   limel-code-diff --> limel-action-bar
@@ -49,7 +65,7 @@ graph TD;
   limel-menu --> limel-menu-surface
   limel-breadcrumbs --> limel-icon
   limel-breadcrumbs --> limel-tooltip
-  style limel-example-code-diff-split fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-code-diff-line-wrap fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
