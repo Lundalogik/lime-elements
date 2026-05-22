@@ -56,4 +56,4 @@ will generate the following
 
 ## Sending the changes our way
 
-Once your documentation change is ready, head over to [Commits & Pull Requests](#/Home/commits-and-prs.md/) to learn how we like commits to be shaped and how to open a PR.
+Once your documentation change is ready, head over to [Commits & Pull Requests](#/Home/commits-and-prs.md/) to learn how we like commits to be shaped and how to open a PR. In short: every change to a markdown doc or an `examples/*.tsx` file — including adding new ones — is a `docs` commit, scoped to the component the change is about (e.g. `docs(button)`).

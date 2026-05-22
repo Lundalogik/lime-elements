@@ -145,7 +145,15 @@ After the properties, we have the component's functions. To keep some consistenc
 <a id="footer"></a>
 <a id="examples"></a>
 
-See the [Commits & Pull Requests](https://lundalogik.github.io/lime-elements/versions/latest/#/Home/commits-and-prs.md/) page in the published docs for our commit-message rules — atomic commits, Conventional Commits format, type semantics, breaking changes, and the fixup workflow for review feedback.
+We use [atomic commits](https://en.wikipedia.org/wiki/Atomic_commit) in the [Conventional Commits](https://www.conventionalcommits.org/) format:
+
+```text
+<type>(<scope>): <subject>
+```
+
+Allowed types are `feat`, `fix`, `perf`, `refactor`, `docs`, `test`, `style`, `build`, `ci`, `chore`, and `revert`. The header is limited to 100 characters. Both are enforced by [commitlint](https://commitlint.js.org/) in CI.
+
+For the full guidance — what `feat` and `fix` mean for a component library, scoping `@private` components, breaking changes, the `docs` rule for `examples/*.tsx`, and the fixup workflow for review feedback — see the [Commits & Pull Requests](https://lundalogik.github.io/lime-elements/versions/latest/#/Home/commits-and-prs.md/) page in the published docs.
 
 ## Working with the code
 

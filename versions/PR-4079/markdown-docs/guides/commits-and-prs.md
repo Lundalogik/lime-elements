@@ -11,7 +11,7 @@ In short:
 The commit messages drive our automated changelog and version bumps via [semantic-release](https://github.com/semantic-release/semantic-release), so getting them right matters.
 
 :::tip
-The rules below are a documentation-friendly version of what is already enforced by [commitlint](https://commitlint.js.org/) in CI. If your commit message is invalid, the lint step will tell you.
+The `type` and the 100-character header length are enforced by [commitlint](https://commitlint.js.org/) in CI — an invalid one of those will fail the lint step. Everything else below is convention; reviewers will flag departures.
 :::
 
 ---
@@ -93,7 +93,7 @@ The allowed types are:
 
 ## `feat` and `fix` in Lime Elements
 
-`feat` and `fix` are the two types that show up in our changelog and that drive version bumps, so they deserve extra attention.
+`feat` and `fix` drive most of our changelog entries and version bumps, so they deserve extra attention.
 
 :::important
 Because Lime Elements is a **component library consumed by other developers** (and by other libraries built on top of it), the audience for our changelog is **the consumer of the library**, not the end user of the app the consumer is building.
