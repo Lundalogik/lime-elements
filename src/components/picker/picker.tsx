@@ -2,6 +2,7 @@ import { Action } from '../collapsible-section/action';
 import { ActionPosition, ActionScrollBehavior } from '../picker/actions.types';
 import { Chip } from '../chip-set/chip.types';
 import { ListItem } from '../list-item/list-item.types';
+import { PickerItem } from '../picker/picker-item.types';
 import { Searcher } from '../picker/searcher.types';
 import {
     Component,
@@ -32,6 +33,7 @@ const DEFAULT_SEARCHER_MAX_RESULTS = 20;
 /**
  * @exampleComponent limel-example-picker-basic
  * @exampleComponent limel-example-picker-multiple
+ * @exampleComponent limel-example-picker-non-removable
  * @exampleComponent limel-example-picker-icons
  * @exampleComponent limel-example-picker-pictures
  * @exampleComponent limel-example-picker-value-as-object
@@ -108,7 +110,7 @@ export class Picker {
      * Currently selected value or values. Where the value can be an object.
      */
     @Prop()
-    public value: ListItem<PickerValue> | Array<ListItem<PickerValue>>;
+    public value: PickerItem | PickerItem[];
 
     /**
      * A search function that takes a search-string as an argument,
@@ -132,7 +134,7 @@ export class Picker {
      * found by typing more characters in the search field.
      */
     @Prop()
-    public allItems?: Array<ListItem<PickerValue>> = [];
+    public allItems?: PickerItem[] = [];
 
     /**
      * True if multiple values are allowed
@@ -179,15 +181,13 @@ export class Picker {
      * Fired when a new value has been selected from the picker
      */
     @Event()
-    private change: EventEmitter<
-        ListItem<PickerValue> | Array<ListItem<PickerValue>>
-    >;
+    private change: EventEmitter<PickerItem | PickerItem[]>;
 
     /**
      * Fired when clicking on a selected value
      */
     @Event()
-    private interact: EventEmitter<ListItem<PickerValue>>;
+    private interact: EventEmitter<PickerItem>;
 
     /**
      * Emitted when the user selects an action.
@@ -196,7 +196,7 @@ export class Picker {
     private action: EventEmitter<Action>;
 
     @State()
-    private items: Array<ListItem<number | string>>;
+    private items: PickerItem[];
 
     @State()
     private textValue: string = '';
@@ -328,23 +328,23 @@ export class Picker {
         return value;
     };
 
-    private createChips = (value: ListItem | ListItem[]): Chip[] => {
+    private createChips = (value: PickerItem | PickerItem[]): Chip[] => {
         if (!value) {
             return [];
         }
 
         if (this.multiple) {
-            const listItems: ListItem[] = value as ListItem[];
+            const listItems: PickerItem[] = value as PickerItem[];
 
             return listItems.map(this.createChip);
         }
 
-        const listItem: ListItem = value as ListItem;
+        const listItem: PickerItem = value as PickerItem;
 
         return [this.createChip(listItem)];
     };
 
-    private createChip = (listItem: ListItem): Chip => {
+    private createChip = (listItem: PickerItem): Chip => {
         const name = getIconName(listItem.icon);
 
         const color = getIconFillColor(listItem.icon, listItem.iconColor);
@@ -353,7 +353,7 @@ export class Picker {
         return {
             id: `${valueId}`,
             text: listItem.text,
-            removable: true,
+            removable: listItem.removable !== false,
             icon: name ? { name: name, color: color } : undefined,
             image: listItem.image,
             value: listItem,
@@ -575,9 +575,7 @@ export class Picker {
             this.loading = true;
         });
         const searcher = this.searcher || this.defaultSearcher;
-        const result = (await searcher(this.textValue)) as Array<
-            ListItem<PickerValue>
-        >;
+        const result = (await searcher(this.textValue)) as PickerItem[];
 
         // If the search function resolves immediately,
         // the loading spinner will not be shown.
@@ -588,7 +586,7 @@ export class Picker {
 
     private defaultSearcher: Searcher = async (
         query: string
-    ): Promise<ListItem[]> => {
+    ): Promise<PickerItem[]> => {
         if (query === '') {
             return this.allItems.slice(0, DEFAULT_SEARCHER_MAX_RESULTS);
         }
@@ -616,13 +614,10 @@ export class Picker {
     ) {
         event.stopPropagation();
         if (!this.value || this.value !== event.detail) {
-            let newValue: ListItem<PickerValue> | Array<ListItem<PickerValue>> =
-                event.detail;
+            let newValue: PickerItem | PickerItem[] = event.detail;
             if (this.multiple) {
-                newValue = [
-                    ...(this.value as Array<ListItem<PickerValue>>),
-                    event.detail,
-                ];
+                const currentValue = (this.value as PickerItem[]) ?? [];
+                newValue = [...currentValue, event.detail];
             }
 
             this.change.emit(newValue);
@@ -669,7 +664,7 @@ export class Picker {
         if (this.multiple) {
             const chips = event.detail as Chip[];
             newValue = chips.map((chip) => {
-                return (this.value as ListItem[]).find((item) => {
+                return (this.value as PickerItem[]).find((item) => {
                     const valueId = this.getValueId(item);
 
                     return `${valueId}` === chip.id;
@@ -677,7 +672,7 @@ export class Picker {
             });
         }
 
-        this.change.emit(newValue);
+        this.change.emit(newValue as PickerItem | PickerItem[]);
     }
 
     private handleInteract(event: LimelChipSetCustomEvent<Chip>) {
@@ -754,11 +749,11 @@ export class Picker {
         }
     }
 
-    private handleSearchResult(query: string, result: ListItem[]) {
+    private handleSearchResult(query: string, result: PickerItem[]) {
         if (query === this.textValue) {
             this.items = result;
             if (this.multiple) {
-                const values = this.value as ListItem[];
+                const values = (this.value as PickerItem[]) ?? [];
                 this.items = result.filter((item) => {
                     return !values.includes(item);
                 });
