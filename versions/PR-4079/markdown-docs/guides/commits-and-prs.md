@@ -234,7 +234,7 @@ instead.
 
 A good PR is a thin wrapper around a good commit (or a small series of good commits).
 
-We use **rebase and merge**, so your commits land on `main` exactly as you wrote them. Commit history is meant to be intentional, not accidental — there's no squash step to clean it up.
+Commit history should be intentional, not accidental, which is why we use **rebase** and require a linear history. This makes it easy to rewrite the history before merging.
 
 - **One PR = one concern.** If you find yourself writing "and also…" in the description, consider splitting.
 - **The PR title** describes the change for humans browsing the PR list. It doesn't need to follow Conventional Commits — that's the commits' job.
