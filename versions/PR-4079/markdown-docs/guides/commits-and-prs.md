@@ -128,11 +128,11 @@ A `fix` is a change that **removes a problem**. The problem does not need to be 
 
 Examples of `fix`:
 
-- A functional **bug** — a component throwing, a prop being ignored, an event firing twice.
-- A **UX problem** — a confusing interaction, an action that requires too many clicks, a tooltip that disappears too quickly.
-- A **UI problem** — wrong spacing, wrong color contrast, a misaligned element, a flicker.
-- An **accessibility (a11y) issue** — missing ARIA attributes, broken keyboard navigation, poor screen-reader output, insufficient contrast.
-- A **performance regression** that has user-visible impact (`perf` is reserved for proactive optimizations without behavior change).
+- Fixes a **functional bug** — a component throwing, a prop being ignored, an event firing twice.
+- Fixes a **UX problem** — a confusing interaction, an action that requires too many clicks, a tooltip that disappears too quickly.
+- Fixes a **UI problem** — wrong spacing, wrong color contrast, a misaligned element, a flicker.
+- Fixes an **accessibility (a11y) issue** — missing ARIA attributes, broken keyboard navigation, poor screen-reader output, insufficient contrast.
+- A **performance fix** is _usually_ a `perf`, but if the performance was previously so bad it could be considered a bug, and that's been fixed, `fix` is a good fit.
 
 A `fix` does _not_ add a new way for the consumer to do something. If your change both fixes a problem **and** introduces a new API to opt into the fix, that is usually a `feat` (or two commits: one `fix`, one `feat`).
 
@@ -143,6 +143,10 @@ AI assistants very often want to classify every change as either a `feat` or a `
 - Adding a private helper function is not a `feat`. It adds nothing for the consumer; it's a `chore` or a `refactor`.
 - Fixing a problem in the release workflow is not a `fix`. The consumer never sees the workflow; it's `ci`.
 
+:::tip
+Useful question: _"Does the consumer benefit from a release containing **only this change**?"_ If yes → `feat`, `fix`, or `perf`. If no → probably `refactor`, `docs`, `test`, `style`, `build`, `ci`, or `chore`.
+:::
+
 ### Any change to an example is `docs`
 
 The `examples/*.tsx` files that show up in our documentation are **part of the docs**, not part of the library's public API. **Every** change to them is a `docs` commit — including adding entirely new examples — regardless of how it looks:
@@ -152,7 +156,7 @@ The `examples/*.tsx` files that show up in our documentation are **part of the d
 - Fixing a typo in example code, labels, or comments → `docs`
 - Improving an example's clarity, layout, or copy → `docs`
 
-In other words: a new example does **not** count as a `feat`, even though something new now exists. A `feat` is something a _consumer_ of the library gains; an example is something a _reader of the docs_ gains.
+In other words: a new example does **not** count as a `feat`, even though something new now exists. A `feat` reaches the consumer when they upgrade the library; an example reaches the reader through the docs site.
 
 Use a scope that points at the component the example demonstrates, e.g. `docs(button)`, `docs(chip-set)`, `docs(file-viewer)`.
 
@@ -164,13 +168,13 @@ The scope is the area of the codebase the commit affects. For component changes 
 - `fix(email-viewer): …`
 - `docs(file-viewer): …`
 
-For changes that span multiple components or are not component-specific, use a higher-level scope like `docs`, `build`, `ci`, or simply omit the scope.
+For changes that span multiple components or are not component-specific, use a higher-level scope like `docs`, `build`, `ci`, or simply omit the scope. (Also, consider if such a commit is really an atomic commit.)
 
 ### Internal (`@private`) components
 
 Some components in our codebase are marked `@private` in their TSDoc. These are **implementation details of other components** — their consumers are other Lime Elements components, not external developers. External consumers do not know they exist, and we do not promise anything about their API.
 
-When you change a `@private` component, **the scope must be the public component that consumes it**, never the private one's own name. The changelog reader does not know what the private component is, so a scope they do not recognize is just noise.
+When you change a `@private` component, **the scope must be the public component that consumes it**, never the private one's own name. A reader of the changelog does not know what the private component is, so a scope they do not recognize is just noise.
 
 Example: `limel-list-item` is `@private` and is consumed by `limel-list`. A fix in `list-item.tsx` should be:
 
@@ -179,13 +183,19 @@ Example: `limel-list-item` is `@private` and is consumed by `limel-list`. A fix 
 
 If the private component is consumed by several public components, scope the commit to whichever public component is most affected — or omit the scope and explain in the body.
 
+## Subject
+
+For `feat`, `fix`, and `perf` commits, the **subject** should focus on the change for the consumer. Any technical details should be in the body. Remember, the commit message's **subject** is what becomes the changelog entry. It should tell the consumer what to expect when they upgrade.
+
+Other commit types are internal anyway, so the expected audience is the other developers. Still, please be thoughtful about the subject line, don't hide the most important information in the body, include it in the subject line!
+
 ## Examples
 
 ```text
-feat(text-editor): expose `readonly` prop
+feat(text-editor): support read-only mode
 
-Allow consumers to render the editor in a read-only state without disabling
-keyboard navigation or selection.
+Render the editor in a read-only state via the new `readonly` prop, without
+disabling keyboard navigation or selection.
 ```
 
 ```text
@@ -203,10 +213,10 @@ No change to behavior or public API.
 ```
 
 ```text
-perf(list): memoize item key computation
+perf(list): skip re-renders when items are unchanged
 
-Reduces re-renders when the list updates with the same items in the same
-order. No change to the rendered output.
+Memoize the per-item key computation so identical updates no longer trigger
+child re-renders. No change to rendered output.
 ```
 
 ```text
@@ -214,7 +224,7 @@ docs(commits-and-prs): clarify the meaning of `feat`
 ```
 
 ```text
-feat(picker): replace `value` with `values` to support multi-select
+feat(picker): support selecting multiple items
 
 BREAKING CHANGE: The `value` prop has been removed. Use `values: string[]`
 instead.
