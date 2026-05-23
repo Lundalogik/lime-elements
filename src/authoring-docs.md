@@ -40,19 +40,15 @@ export class MyComponent {}
 
 Any component can be included in the markdown document
 
-The following file
+The following code:
 
 ```markdown
-# Hello world
-
-This is my example file
-
-<limel-example-button-group-basic/>
+<limel-example-button-group-basic></limel-example-button-group-basic>
 ```
 
-will generate the following
+Will generate the following component:
 
-<limel-example-button-group-basic />
+<limel-example-button-group-basic></limel-example-button-group-basic>
 
 ## Sending the changes our way
 
