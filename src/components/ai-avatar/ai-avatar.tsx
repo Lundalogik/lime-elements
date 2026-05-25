@@ -91,6 +91,7 @@ const colors = {
  * @exampleComponent limel-example-ai-avatar-variant
  * @exampleComponent limel-example-ai-avatar-mode
  * @exampleComponent limel-example-ai-avatar-branded
+ * @exampleComponent limel-example-ai-avatar-export
  */
 @Component({
     tag: 'limel-ai-avatar',
