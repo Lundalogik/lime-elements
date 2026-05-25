@@ -4,55 +4,55 @@
 
 ## Overview
 
-The Radio Button component provides a convenient way to create a group of radio buttons
-from an array of options. Radio buttons allow users to select a single option from
-multiple choices, making them ideal for exclusive selections.
+This is a low-level private component that renders individual radio button elements.
+It's used internally by the list-item component to render radio buttons when
+`type="radio"` is specified.
 
-:::note
-A single radio button is never useful in a UI. Radio buttons should always come in groups
-of at least 2 options where only one can be selected at a time.
-:::
+## Usage in the Library
+
+This template is primarily used by:
+- `limel-list` component when `type="radio"`
+- `limel-radio-button-group` component (which wraps `limel-list`)
+
+## Why This Exists
+
+While we have `limel-radio-button-group` for most use cases, this template provides
+the actual radio button HTML structure with proper MDC classes and accessibility
+attributes. It ensures consistent styling and behavior across all radio button
+implementations in the library.
+
+## Design Philosophy
+
+This follows the principle that individual radio buttons should not be standalone
+components, as a single radio button is never useful in a UI. Instead, this template
+is used to build groups of radio buttons through higher-level components.
+
+However, since this is a private component, consumers who need to use a radio button
+outside of the context of a list or group, can still use the `limel-radio-button`
+component directly according to in their UI needs.
 
 ## Properties
 
-| Property                | Attribute                  | Description                                                                                                                                                                                                                                                           | Type                                 | Default     |
-| ----------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ----------- |
-| `badgeIcons`            | `badge-icons`              | Set to `true` if the radio button group should display larger icons with a background                                                                                                                                                                                 | `boolean`                            | `undefined` |
-| `disabled`              | `disabled`                 | Disables all radio buttons when `true`                                                                                                                                                                                                                                | `boolean`                            | `false`     |
-| `items`                 | --                         | Array of radio button options to display                                                                                                                                                                                                                              | `(ListSeparator \| ListItem<any>)[]` | `undefined` |
-| `maxLinesSecondaryText` | `max-lines-secondary-text` | By default, lists will display 3 lines of text, and then truncate the rest. Consumers can increase or decrease this number by specifying `maxLinesSecondaryText`. If consumer enters zero or negative numbers we default to 1; and if they type decimals we round up. | `number`                             | `3`         |
-| `selectedItem`          | --                         | The currently selected item in the radio button group. This is a ListItem object that contains the value and other properties of the selected item. If no item is selected, this will be `undefined`.                                                                 | `ListItem<string \| number>`         | `undefined` |
-
-
-## Events
-
-| Event    | Description                                                       | Type                                      |
-| -------- | ----------------------------------------------------------------- | ----------------------------------------- |
-| `change` | Emitted when the selection changes with the full ListItem payload | `CustomEvent<ListItem<string \| number>>` |
+| Property          | Attribute  | Description                                               | Type                     | Default     |
+| ----------------- | ---------- | --------------------------------------------------------- | ------------------------ | ----------- |
+| `checked`         | `checked`  | Indicates whether the radio button is checked.            | `boolean`                | `undefined` |
+| `disabled`        | `disabled` | Disables the radio button when set to `true`.             | `boolean`                | `undefined` |
+| `id` _(required)_ | `id`       | Associates the internal input with an external label.     | `string`                 | `undefined` |
+| `label`           | `label`    | Visual label shown next to the radio button.              | `string`                 | `undefined` |
+| `onChange`        | --         | Change handler forwarded to the underlying input element. | `(event: Event) => void` | `undefined` |
 
 
 ## Dependencies
 
 ### Used by
 
- - [limel-example-radio-button-group-basic](examples)
- - [limel-example-radio-button-group-deselect-selected](examples)
- - [limel-example-radio-button-group-icons](examples)
- - [limel-example-radio-button-group-multiple-lines](examples)
-
-### Depends on
-
-- [limel-list](../list)
+ - [limel-list-item](../list-item)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-radio-button-group --> limel-list
-  limel-example-radio-button-group-basic --> limel-radio-button-group
-  limel-example-radio-button-group-deselect-selected --> limel-radio-button-group
-  limel-example-radio-button-group-icons --> limel-radio-button-group
-  limel-example-radio-button-group-multiple-lines --> limel-radio-button-group
-  style limel-radio-button-group fill:#f9f,stroke:#333,stroke-width:4px
+  limel-list-item --> limel-radio-button
+  style limel-radio-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
