@@ -8,7 +8,7 @@ Variants
 
 The `variant` property selects the avatar's visual style.
 - The `detailed` variant is the fully detailed orb with reflections and shines;
-- The `minimalistic` variant is a simplified design with a single gradient orb,
+- The `minimal` variant is a simplified design with a single gradient orb,
   a stroked outline, and a soft halo.
 - The `solid` variant is a flat symbolic representation of the avatar (a
   filled disc and outer ring in `currentColor`), useful for compact or
@@ -22,8 +22,8 @@ look-around, etc.) — are shared across variants, so switching `variant`
 changes the body but not the personality.
 
 :::tip
-Per Lime's branding guidelines, the `minimalistic` variant should be used in most cases.
-The `minimalistic` variant suits some scenarios where the surrounding context
+Per Lime's branding guidelines, the `minimal` variant should be used in most cases.
+The `minimal` variant suits some scenarios where the surrounding context
 provides a realistic or detailed visual style, such as a 3D environment or
 a video in real world footage.
 The `solid` and `outlined` variants are ideal for compact spaces, such as
