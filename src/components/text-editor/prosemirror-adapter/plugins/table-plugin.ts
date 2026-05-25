@@ -1,9 +1,10 @@
 import { tableNodes, tableEditing } from 'prosemirror-tables';
 import { Plugin } from 'prosemirror-state';
+import { createTablePastePlugin } from './table-paste-plugin';
 
 export const getTableEditingPlugins = (tablesEnabled: boolean): Plugin[] => {
     if (tablesEnabled) {
-        return [tableEditing()];
+        return [createTablePastePlugin(), tableEditing()];
     }
 
     return [];
