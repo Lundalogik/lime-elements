@@ -1,7 +1,0 @@
-@forward './ai-avatar-basic';
-
-limel-ai-avatar {
-    --ai-avatar-core-blend-mode: hard-light;
-    --ai-avatar-rings-blend-mode: darken;
-    background-color: rgb(var(--color-white));
-}
