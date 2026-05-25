@@ -30,6 +30,7 @@ of the component across all our apps.
 
  - [limel-example-ai-avatar-basic](examples)
  - [limel-example-ai-avatar-branded](examples)
+ - [limel-example-ai-avatar-export](examples)
  - [limel-example-ai-avatar-mode](examples)
  - [limel-example-ai-avatar-variant](examples)
 
@@ -38,6 +39,7 @@ of the component across all our apps.
 graph TD;
   limel-example-ai-avatar-basic --> limel-ai-avatar
   limel-example-ai-avatar-branded --> limel-ai-avatar
+  limel-example-ai-avatar-export --> limel-ai-avatar
   limel-example-ai-avatar-mode --> limel-ai-avatar
   limel-example-ai-avatar-variant --> limel-ai-avatar
   style limel-ai-avatar fill:#f9f,stroke:#333,stroke-width:4px
