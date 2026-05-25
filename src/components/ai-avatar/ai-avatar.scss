@@ -1,125 +1,445 @@
 /**
-* @prop --ai-avatar-animation-play-state: Set it to `running` to start the animation.
-* @prop --ai-avatar-core-blend-mode: Controls the blend mode for the core and orbitals. Defaults to `plus-lighter`.
-* @prop --ai-avatar-rings-blend-mode: Controls the blend mode for the SVG circles. Defaults to `screen`.
-* @prop --ai-avatar-color-one: Controls the color of the first ring. Defaults to `var(--color-red-default)`.
-* @prop --ai-avatar-color-two: Controls the color of the second ring. Defaults to `var(--color-green-default)`.
-* @prop --ai-avatar-color-three: Controls the color of the third ring. Defaults to `var(--color-blue-default)`.
-* @prop --ai-avatar-color-four: Controls the color of the fourth ring. Defaults to `var(--color-orange-default)`.
-*/
-
+ * @prop --ai-avatar-primary-color: Dominant color of the avatar — the body of the orb and the bulk of most gradients. Highest visual impact.
+ * @prop --ai-avatar-accent-color: Secondary color used throughout the outline ring, internal reflections, and as the endpoints of the hover ring.
+ * @prop --ai-avatar-orb-edge-color: Deep tint applied at the orb's outer edge, used to suggest depth where the body falls off.
+ * @prop --ai-avatar-orb-inner-highlight-color: Color of the bright spot inside the orb. This spot rotates around the orb's interior during `thinking` mode.
+ * @prop --ai-avatar-hover-ring-accent-color: Bright stop within the hover ring's gradient — the warm highlight that appears in the middle of the ring on hover.
+ * @prop --ai-avatar-hover-glow-color: Color of the soft halo that fades in around the avatar on hover.
+ * @prop --ai-avatar-stars-eyes-mouth-color: Color of the avatar's facial features (the two star-shaped eyes and the mouth). For the `minimal` variant, these default to `--contrast-100` when the color is defined (in Lime's apps, which are using Lime Elements). For the `outlined` variant they default to `currentColor`. Otherwise they fall back to white.
+ */
+$eye-left-default-transform: translate(0) scale(0.96);
+$eye-right-default-transform: translate(156px, -20px) scale(0.8);
 :host(limel-ai-avatar) {
-    display: flex;
+    display: inline-flex;
     justify-content: center;
-    align-self: center;
+    align-items: center;
     position: relative;
 
     aspect-ratio: 1;
-    max-width: 10rem;
-    max-height: 8rem;
+    max-width: 20rem;
+    max-height: 20rem;
     min-width: 1.75rem;
     min-height: 1.75rem;
 
-    border-radius: 0.5rem;
+    // Pause rendering (and its many infinite animations) while the avatar
+    // is offscreen. Matters in chat-history UIs that render one avatar per
+    // message.
+    content-visibility: auto;
+    contain-intrinsic-size: auto 5rem;
 }
 
 * {
     box-sizing: border-box;
 }
 
-:host(limel-ai-avatar[is-thinking]:not([is-thinking='false'])) {
-    --ai-avatar-animation-play-state: running;
-    --ai-avatar-orbitals-opacity: 0.6;
-    --ai-avatar-orbitals-animation-play-state: running;
+svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
 }
 
-.core,
-.orbitals {
-    position: absolute;
-    inset: 0;
-    margin: auto;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    aspect-ratio: 1;
-
-    border-radius: 50%;
+svg.variant-minimal {
+    --limel-ai-avatar-stars-eyes-mouth-color: rgb(var(--contrast-100));
 }
 
-.core {
-    opacity: 0.3;
-    width: 70%;
-    animation: breathe 3s ease infinite
-        var(--ai-avatar-animation-play-state, paused);
-
-    background-color: rgb(var(--color-glaucous-darker), 0.6);
-    mix-blend-mode: var(--ai-avatar-core-blend-mode, plus-lighter);
+svg.variant-outlined {
+    --limel-ai-avatar-stars-eyes-mouth-color: currentColor;
 }
 
-.orbitals {
-    mix-blend-mode: var(--ai-avatar-core-blend-mode, plus-lighter);
-    width: clamp(0.375rem, 20%, 3.5rem);
-
-    animation: rotate 5s linear infinite
-        var(--ai-avatar-orbitals-animation-play-state, paused);
-
-    transition: opacity 0.2s ease;
-    opacity: var(--ai-avatar-orbitals-opacity, 0);
-
-    &:after,
-    &:before {
-        content: '';
-        display: block;
-        position: absolute;
-        inset: 0;
-        margin: auto;
-
-        width: clamp(0.125rem, 50%, 0.75rem);
-        aspect-ratio: 1;
-        border-radius: 50%;
-        background-color: rgb(var(--color-glaucous-lighter));
-    }
-    &:before {
-        animation: orbit 1s linear infinite
-            var(--ai-avatar-orbitals-animation-play-state, paused);
-
-        opacity: 0.6;
-        transform-origin: -220% 0;
-        margin-right: -70%;
-    }
-    &:after {
-        animation: orbit 2s linear infinite
-            var(--ai-avatar-orbitals-animation-play-state, paused);
-
+svg.variant-detailed {
+    .dark-ball,
+    .light-ball {
         opacity: 0.8;
-        scale: 0.7;
-        transform-origin: 0% -250%;
-        margin-bottom: -70%;
     }
 }
 
-@keyframes orbit {
-    0% {
-        transform: rotateZ(0deg) translate3d(0, 0, 0);
-    }
-    100% {
-        transform: rotateZ(360deg) translate3d(0, 0, 0);
+// =============================================================================
+// Variants — hide whichever body group is not selected. Each variant carries
+// its own SVG content under its own `*-body` group; shared face / hover-ring
+// / hover-glow elements live outside both and stay rendered in both.
+// =============================================================================
+.variant-detailed {
+    .variant-minimal-body,
+    .variant-solid-body {
+        display: none;
     }
 }
 
-@keyframes breathe {
-    1%,
-    100% {
+.variant-minimal {
+    .ring-group {
+        display: none;
+    }
+    .variant-detailed-body,
+    .variant-solid-body {
+        display: none;
+    }
+}
+
+// The `solid` and `outlined` variants share the same SVG group
+// (`.variant-solid-body`). Their visual difference lives entirely in how the
+// two paths inside it are filled/stroked.
+.variant-solid,
+.variant-outlined {
+    .ring-group {
+        display: none;
+    }
+    .variant-detailed-body,
+    .variant-minimal-body {
+        display: none;
+    }
+    .outer-ring {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 31;
+    }
+    .typing-ellipsis .circle {
+        fill: currentColor;
+        // Suppress the accent-color flash inside the typing keyframe — dots
+        // stay solidly in `currentColor` for the whole bob cycle.
+        --limel-ai-avatar-typing-dot-flash-color: currentColor;
+    }
+}
+
+.variant-solid {
+    .dark-ball {
+        fill: currentColor;
+    }
+}
+
+.variant-outlined {
+    .dark-ball {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 15;
+    }
+}
+
+.variant-minimal {
+    .glow-minimal {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    .light-ball {
+        opacity: 0;
+    }
+}
+
+// =============================================================================
+// The two eye paths share the same canonical star (centered at ~298,360 in
+// the 740x740 viewBox). Each instance is positioned per-eye and per-mode by
+// writing the `transform` property directly.
+// =============================================================================
+.eye {
+    transform-origin: 298px 360px;
+    transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform, rotate;
+}
+
+// Mouth lives only in active modes. Default = hidden + scaled-down.
+.mouth {
+    transform-origin: 379px 457px;
+    opacity: 0;
+    transform: scale(0.2);
+    transition:
+        transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        opacity 300ms ease;
+    will-change: transform, opacity;
+}
+
+// =============================================================================
+// Default = idle. Eyes sit in their decorative star positions: a larger star
+// on the left/lower area, a smaller one on the upper right. Mouth is hidden.
+// =============================================================================
+.eye-left {
+    transform: translate(48px, 34px) scale(1.48);
+}
+.eye-right {
+    transform: translate(152px, -74px) scale(0.66);
+}
+
+// The light ball is the bright highlight inside the orb.
+.glow-minimal,
+.light-ball {
+    transition:
+        transform 1s ease,
+        opacity 300ms ease;
+    will-change: transform, opacity;
+
+    transform-origin: 370px 370px;
+    transform-box: view-box;
+}
+
+.outer-ring,
+.ring,
+.glow,
+.glow-minimal {
+    transform-origin: 370px 370px;
+    transform-box: view-box;
+}
+
+.outer-ring {
+    transform: scale(0.9);
+    opacity: 0;
+    transition:
+        opacity 600ms ease,
+        transform 700ms cubic-bezier(0.55, 0.3, 0.22, 1.54);
+}
+
+.ring,
+.glow {
+    scale: 0.95;
+    opacity: 0;
+    transition: opacity 600ms ease;
+}
+
+svg:hover {
+    .outer-ring {
+        opacity: 0.9;
         transform: scale(1);
     }
-    50% {
-        transform: scale(0.86);
+
+    .ring,
+    .glow {
+        opacity: 0.5;
     }
 }
 
-@keyframes rotate {
+// =============================================================================
+// All active modes share the same "face" layout: two eye-sized stars centered
+// horizontally on the face, with the mouth visible.
+// =============================================================================
+.mode-active,
+.mode-thinking,
+.mode-typing,
+.mode-waiting {
+    .eye-left {
+        transform: $eye-left-default-transform;
+    }
+    .eye-right {
+        transform: $eye-right-default-transform;
+    }
+    .mouth {
+        opacity: 1;
+        transform: scale(1);
+    }
+    &.variant-minimal {
+        .light-ball {
+            opacity: 0.16;
+        }
+    }
+}
+
+// .mode-typing , // intentionally left out
+// .mode-working , // intentionally left out — stars are decorative, not eyes
+.mode-active,
+.mode-thinking,
+.mode-waiting {
+    .eye {
+        animation: ai-avatar-blink 4.5s ease-in-out infinite;
+    }
+}
+
+// ======================
+// Mode: Thinking
+// ======================
+.mode-thinking {
+    .eye-left {
+        animation:
+            ai-avatar-blink 4.5s ease-in-out infinite,
+            ai-avatar-look-around-left-eye 9s ease-in-out infinite;
+    }
+    .eye-right {
+        animation:
+            ai-avatar-blink 4.5s ease-in-out infinite,
+            ai-avatar-look-around-right-eye 9s ease-in-out infinite;
+    }
+    .mouth {
+        animation: ai-avatar-mouth-look-around 9s ease-in-out infinite;
+    }
+
+    .light-ball {
+        animation: ai-avatar-light-ball-swirl 3s linear infinite;
+    }
+
+    .glow-minimal {
+        opacity: 0.3;
+        animation: ai-avatar-breathing 5s ease-in-out infinite;
+    }
+}
+
+// ======================
+// Mode: Waiting
+// ======================
+.mode-waiting {
+    .glow,
+    .glow-minimal {
+        animation: ai-avatar-breathing 5s ease-in-out infinite;
+    }
+
+    .glow-minimal {
+        opacity: 0.3;
+    }
+
+    .outer-ring {
+        animation: ai-avatar-mode-active-ring 2s ease-out infinite;
+    }
+
+    &.variant-minimal,
+    &.variant-solid,
+    &.variant-outlined {
+        .outer-ring {
+            scale: 1.1;
+        }
+    }
+}
+
+// ======================
+// Mode: Active
+// ======================
+.mode-active {
+    .glow-minimal {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+}
+
+// ======================
+// Mode: Typing
+// ======================
+.mode-typing {
+    .eye-left {
+        animation: ai-avatar-typing-left-eye 2.5s ease-in-out infinite;
+    }
+    .eye-right {
+        animation: ai-avatar-typing-right-eye 2.5s ease-in-out infinite;
+    }
+    .mouth {
+        animation: ai-avatar-typing-mouth 2.5s ease-in-out infinite;
+    }
+
+    .typing-ellipsis {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .typing-ellipsis .circle {
+        animation: ai-avatar-typing-dot 1.2s infinite;
+
+        &:nth-of-type(2) {
+            animation-delay: 0.2s;
+        }
+        &:nth-of-type(3) {
+            animation-delay: 0.4s;
+        }
+    }
+
+    &.variant-minimal {
+        .light-ball {
+            animation: ai-avatar-breathing 5s ease-in-out infinite;
+        }
+    }
+}
+
+// ======================
+// Mode: Working
+// ======================
+.mode-working {
+    .eye-left {
+        animation: ai-avatar-working-left-star 12s steps(50, end) infinite;
+    }
+    .eye-right {
+        animation: ai-avatar-working-right-star 4s steps(30, end) infinite
+            reverse;
+    }
+
+    .light-ball {
+        animation: ai-avatar-light-ball-swirl 6s linear infinite;
+    }
+
+    .outer-ring {
+        opacity: 0.8;
+        animation: ai-avatar-breathing 5s ease-in-out infinite;
+    }
+
+    &.variant-minimal,
+    &.variant-solid,
+    &.variant-outlined {
+        .outer-ring {
+            scale: 1.1;
+        }
+    }
+
+    &.variant-minimal {
+        .light-ball {
+            opacity: 0.16;
+        }
+    }
+}
+
+// ======================
+// Typing indicator
+// ======================
+.typing-ellipsis {
+    opacity: 0;
+    transform-origin: 370px 620px;
+    transform-box: view-box;
+    scale: 2.2;
+    transition:
+        opacity 300ms ease,
+        transform 300ms ease;
+
+    .circle {
+        // Dot color follows the avatar's brand props so the indicator reads as
+        // part of the avatar's identity rather than as neutral chrome.
+        fill: var(
+            --ai-avatar-primary-color,
+            rgb(var(--lime-brand-color-ocean-teal, 111, 205, 182))
+        );
+    }
+}
+
+@keyframes ai-avatar-typing-dot {
+    0% {
+        transform: translateY(0);
+    }
+    6.25% {
+        transform: translateY(-3px);
+    }
+    12.5% {
+        transform: translateY(0);
+        // Routed through an internal var so `solid` and `outlined` variants
+        // can keep the dot in `currentColor` for the whole cycle instead of
+        // flashing to the accent color.
+        fill: var(
+            --limel-ai-avatar-typing-dot-flash-color,
+            var(
+                --ai-avatar-accent-color,
+                rgb(var(--lime-brand-color-aqua, 166, 239, 255))
+            )
+        );
+    }
+    18.75% {
+        transform: translateY(3px);
+    }
+    25% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes ai-avatar-blink {
+    0%,
+    93%,
+    99%,
+    100% {
+        rotate: x 0deg;
+    }
+    96% {
+        rotate: x 85deg;
+    }
+}
+
+@keyframes ai-avatar-light-ball-swirl {
     0% {
         transform: rotate(0deg);
     }
@@ -128,91 +448,145 @@
     }
 }
 
-svg {
-    position: absolute;
-    margin: auto;
-    mix-blend-mode: var(--ai-avatar-rings-blend-mode, screen);
-
-    animation-iteration-count: infinite;
-    animation-play-state: var(--ai-avatar-animation-play-state, paused);
-}
-
-.red {
-    rotate: 20deg;
-    color: var(--ai-avatar-color-one, rgb(var(--color-red-default)));
-    animation-name: rotate, scale-circle-one;
-    animation-duration: 5s;
-}
-
-.green {
-    rotate: 36deg;
-    color: var(--ai-avatar-color-two, rgb(var(--color-green-default)));
-    animation-name: rotate, scale-circle-two;
-    animation-duration: 5.5s;
-}
-
-.blue {
-    rotate: 100deg;
-    color: var(--ai-avatar-color-three, rgb(var(--color-blue-default)));
-    animation-name: rotate, scale-circle-three;
-    animation-duration: 4.5s;
-}
-
-.orange {
-    rotate: 165deg;
-    color: var(--ai-avatar-color-four, rgb(var(--color-orange-default)));
-    animation-name: rotate, scale-circle-four;
-    animation-duration: 6.5s;
-}
-
-@keyframes scale-circle-one {
+@keyframes ai-avatar-look-around-left-eye {
     0%,
+    15%,
+    95%,
     100% {
-        transform: scaleX(1) scaleY(0.8);
+        transform: $eye-left-default-transform;
     }
     25%,
-    75% {
-        transform: scaleX(0.8) scaleY(0.9);
+    40% {
+        // gaze up-right
+        transform: translate(65px, -40px) scale(1.004) rotate(-13deg);
     }
-    50% {
-        transform: scaleX(1) scaleY(0.7);
+    55%,
+    70% {
+        // gaze up-left
+        transform: translate(-67px, -91px) scale(0.72) rotate(29deg);
     }
 }
 
-@keyframes scale-circle-two {
+@keyframes ai-avatar-look-around-right-eye {
     0%,
+    15%,
+    95%,
     100% {
-        transform: scaleX(0.8) scaleY(1);
+        transform: $eye-right-default-transform;
     }
     25%,
-    75% {
-        transform: scaleX(0.9) scaleY(0.75);
+    40% {
+        // gaze up-right
+        transform: translate(203px, -92px) scale(0.76) rotate(-24deg);
     }
-    50% {
-        transform: scaleX(0.72) scaleY(1);
-    }
-}
-
-@keyframes scale-circle-three {
-    0%,
-    100% {
-        transform: scaleX(0.9) scaleY(0.8);
-    }
-    50% {
-        transform: scaleX(0.75) scaleY(0.9);
+    55%,
+    70% {
+        // gaze up-left
+        transform: translate(80px, -45px) scale(1) rotate(12deg);
     }
 }
 
-@keyframes scale-circle-four {
+@keyframes ai-avatar-mouth-look-around {
     0%,
+    15%,
+    95%,
     100% {
-        transform: scaleX(0.8) scaleY(0.95);
+        transform: scale(1);
     }
     25%,
-    75% {
-        transform: scaleX(0.95) scaleY(0.75);
+    40% {
+        // gaze up-right
+        transform: translate(75px, -40px) scale(1.004) rotate(-9deg);
     }
-    50% {
-        transform: scaleX(0.75) scaleY(0.95);
+    55%,
+    70% {
+        // gaze up-left
+        transform: translate(-99px, -45px) scale(1) rotate(9deg);
+    }
+}
+
+@keyframes ai-avatar-typing-left-eye {
+    0%,
+    100% {
+        transform: translate(0, 80px) scale(0.94);
+    }
+    25% {
+        transform: translate(12px, 80px) scale(0.94) rotate(-4deg);
+    }
+    75% {
+        transform: translate(-12px, 80px) scale(0.94) rotate(4deg);
+    }
+}
+
+@keyframes ai-avatar-typing-right-eye {
+    0%,
+    100% {
+        transform: translate(156px, 60px) scale(0.78);
+    }
+    25% {
+        transform: translate(168px, 60px) scale(0.78) rotate(-5deg);
+    }
+    75% {
+        transform: translate(144px, 60px) scale(0.78) rotate(5deg);
+    }
+}
+
+@keyframes ai-avatar-typing-mouth {
+    0%,
+    100% {
+        transform: translate(0, 70px) scale(1);
+    }
+    25% {
+        transform: translate(6px, 70px) scale(1);
+    }
+    75% {
+        transform: translate(-6px, 70px) scale(1);
+    }
+}
+
+// Stars spin around their own centers (rotation is composed BEFORE the
+// translate/scale that places each star at its decorative position, so the
+// star pivots in place rather than orbiting around the orb).
+@keyframes ai-avatar-working-left-star {
+    0% {
+        transform: translate(48px, 34px) scale(1.48) rotate(0deg);
+    }
+    100% {
+        transform: translate(48px, 34px) scale(1.48) rotate(360deg);
+    }
+}
+
+@keyframes ai-avatar-working-right-star {
+    0% {
+        transform: translate(152px, -74px) scale(0.66) rotate(0deg);
+    }
+    100% {
+        transform: translate(152px, -74px) scale(0.66) rotate(360deg);
+    }
+}
+
+@keyframes ai-avatar-mode-active-ring {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    30% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+@keyframes ai-avatar-breathing {
+    0%,
+    60%,
+    100% {
+        transform: scale(0.9);
+    }
+    25% {
+        transform: scale(1);
     }
 }

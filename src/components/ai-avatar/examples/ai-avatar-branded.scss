@@ -1,0 +1,36 @@
+@forward './ai-avatar-basic';
+
+// Override the avatar's brand-color props with Lime Technology's brand
+// colors. These props are reused across many gradients, so changing them
+// ripples through the whole artwork — pick one or two to try first.
+
+.lime-pink {
+    --ai-avatar-primary-color: rgb(var(--lime-brand-color-bubble-gum));
+    --ai-avatar-accent-color: rgb(var(--lime-brand-color-lime-green));
+    --ai-avatar-orb-edge-color: rgb(var(--lime-brand-color-sunny-orange));
+    --ai-avatar-orb-inner-highlight-color: rgb(var(--lime-brand-color-aqua));
+    --ai-avatar-hover-ring-accent-color: rgb(
+        var(--lime-brand-color-ocean-teal)
+    );
+    --ai-avatar-hover-glow-color: rgb(var(--lime-brand-color-aqua));
+}
+
+.lime-orange {
+    --ai-avatar-primary-color: rgb(var(--lime-brand-color-lime-green));
+    --ai-avatar-accent-color: rgb(var(--lime-brand-color-sunny-orange));
+    --ai-avatar-orb-edge-color: rgb(var(--lime-brand-color-bubble-gum));
+    --ai-avatar-orb-inner-highlight-color: rgb(var(--lime-brand-color-aqua));
+    --ai-avatar-hover-ring-accent-color: rgb(
+        var(--lime-brand-color-ocean-teal)
+    );
+    --ai-avatar-hover-glow-color: rgb(var(--lime-brand-color-bubble-gum));
+}
+
+.lime-connect {
+    --ai-avatar-primary-color: #7b5efa;
+    --ai-avatar-accent-color: #65e1fe;
+    --ai-avatar-orb-edge-color: #c63da2;
+    --ai-avatar-orb-inner-highlight-color: #c9f5ff;
+    --ai-avatar-hover-ring-accent-color: #d13dd9;
+    --ai-avatar-hover-glow-color: #a6efff;
+}

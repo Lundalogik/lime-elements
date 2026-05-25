@@ -42,6 +42,12 @@ export type ActionPosition = 'top' | 'bottom';
 export type ActionScrollBehavior = 'sticky' | 'scroll';
 
 // @public
+export type AiAvatarMode = 'idle' | 'active' | 'thinking' | 'typing' | 'working' | 'waiting';
+
+// @public
+export type AiAvatarVariant = 'detailed' | 'minimal' | 'solid' | 'outlined';
+
+// @public
 export interface BreadcrumbsItem {
     icon?: string | Omit<Icon, 'backgroundColor'>;
     link?: Omit<Link, 'target' | 'text'>;
@@ -179,8 +185,11 @@ export namespace Components {
     }
     // @internal
     export interface LimelAiAvatar {
+        // @deprecated (undocumented)
         "isThinking": boolean;
         "language": Languages;
+        "mode": AiAvatarMode;
+        "variant": AiAvatarVariant;
     }
     export interface LimelBadge {
         "label"?: number | string;
@@ -1593,8 +1602,11 @@ export namespace JSX {
 
     // @internal
     export interface LimelAiAvatar {
+        // @deprecated (undocumented)
         "isThinking"?: boolean;
         "language"?: Languages;
+        "mode"?: AiAvatarMode;
+        "variant"?: AiAvatarVariant;
     }
 
     // (undocumented)
@@ -1603,6 +1615,10 @@ export namespace JSX {
         "isThinking": boolean;
         // (undocumented)
         "language": Languages;
+        // (undocumented)
+        "mode": AiAvatarMode;
+        // (undocumented)
+        "variant": AiAvatarVariant;
     }
 
     export interface LimelBadge {
