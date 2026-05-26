@@ -702,6 +702,15 @@ export class Picker {
             !event.shiftKey;
         const isUp = event.key === ARROW_UP;
         const isDown = event.key === ARROW_DOWN;
+        const isEscape = event.key === ESCAPE;
+
+        if (isEscape) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.clearInputField();
+
+            return;
+        }
 
         if (!isForwardTab && !isUp && !isDown) {
             return;
