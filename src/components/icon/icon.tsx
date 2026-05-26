@@ -14,6 +14,7 @@ import { IconSize } from './icon.types';
  * @exampleComponent limel-example-icon-name
  * @exampleComponent limel-example-icon-size
  * @exampleComponent limel-example-icon-color
+ * @exampleComponent limel-example-icon-svg-class
  */
 @Component({
     tag: 'limel-icon',
@@ -39,6 +40,21 @@ export class Icon {
      */
     @Prop({ reflect: true })
     public badge: boolean;
+
+    /**
+     * Sets the `class` attribute on the inner `<svg>` element rendered by
+     * this component, replacing whatever class the source SVG shipped with.
+     *
+     * This is meant for icons whose SVG file contains internal `<style>`
+     * blocks with rules that respond to classes — a single file that ships
+     * with multiple visual states selectable via class names. Setting
+     * `svgClass` is how a consumer reaches across the shadow boundary to
+     * pick which of those states is active.
+     *
+     * For typical stateless icons, this prop has no visible effect.
+     */
+    @Prop({ reflect: true })
+    public svgClass?: string;
 
     @Element()
     private host: HTMLLimelIconElement;
@@ -81,6 +97,25 @@ export class Icon {
         const container = this.host.shadowRoot.querySelector('div.container');
         if (container) {
             container.innerHTML = svgData;
+            // On initial render, only override the SVG's class if the
+            // consumer set `svgClass`. Otherwise leave the SVG's baked-in
+            // class alone — that's the default state stateless icons rely on.
+            if (this.svgClass !== undefined) {
+                this.applySvgClass(this.svgClass);
+            }
+        }
+    }
+
+    @Watch('svgClass')
+    protected applySvgClass(value: string | undefined) {
+        const svg = this.host.shadowRoot?.querySelector('svg');
+        if (!svg) {
+            return;
+        }
+        if (value === undefined) {
+            svg.removeAttribute('class');
+        } else {
+            svg.setAttribute('class', value);
         }
     }
 }
