@@ -537,6 +537,7 @@ export namespace Components {
         "badge": boolean;
         "name": string;
         "size": IconSize;
+        "svgClass"?: string;
     }
     // (undocumented)
     export interface LimelIconButton {
@@ -2587,6 +2588,7 @@ export namespace JSX {
         "badge"?: boolean;
         "name"?: string;
         "size"?: IconSize;
+        "svgClass"?: string;
     }
 
     // (undocumented)
@@ -2597,6 +2599,8 @@ export namespace JSX {
         "name": string;
         // (undocumented)
         "size": IconSize;
+        // (undocumented)
+        "svgClass": string;
     }
 
     // (undocumented)

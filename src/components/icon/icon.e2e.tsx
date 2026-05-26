@@ -22,4 +22,13 @@ describe('limel-icon', () => {
 
         expect(root.hasAttribute('badge')).toBe(true);
     });
+
+    it('reflects svgClass to the host as the `svg-class` attribute', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-icon name="x" svgClass="foo"></limel-icon>
+        );
+        await waitForChanges();
+
+        expect(root.getAttribute('svg-class')).toBe('foo');
+    });
 });
