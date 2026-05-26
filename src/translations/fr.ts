@@ -118,4 +118,5 @@ Vous pouvez laisser les images bloquées (l'e-mail peut sembler incomplet) ou le
         "Format d'image non pris en charge",
     'profile-picture.unsupported-preview.description':
         "Nous ne pouvons pas afficher l'image sélectionnée dans ce navigateur. Veuillez sélectionner un autre fichier image.",
+    'picker.results-matching': 'Résultats correspondant à « { query } »',
 };

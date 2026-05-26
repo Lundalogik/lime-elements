@@ -1,9 +1,12 @@
 import { Action } from '../collapsible-section/action';
 import { ActionPosition, ActionScrollBehavior } from '../picker/actions.types';
 import { Chip } from '../chip-set/chip.types';
+import { Languages } from '../date-picker/date.types';
 import { ListItem } from '../list-item/list-item.types';
+import { ListSeparator } from '../../global/shared-types/separator.types';
 import { PickerItem } from '../picker/picker-item.types';
 import { Searcher } from '../picker/searcher.types';
+import translate from '../../global/translations';
 import {
     Component,
     Element,
@@ -91,6 +94,14 @@ export class Picker {
      */
     @Prop()
     public emptyResultMessage: string;
+
+    /**
+     * Defines the language for translations. Affects the labels
+     * rendered by the picker itself, such as the "Results matching"
+     * header shown above the suggestion list while the user is typing.
+     */
+    @Prop()
+    public language: Languages = 'en';
 
     /**
      * True if the control requires a value
@@ -195,7 +206,7 @@ export class Picker {
     private action: EventEmitter<Action>;
 
     @State()
-    private items: PickerItem[];
+    private items: Array<PickerItem | ListSeparator>;
 
     @State()
     private textValue: string = '';
@@ -291,6 +302,7 @@ export class Picker {
                 readonly={this.readonly}
                 required={this.required}
                 searchLabel={this.searchLabel}
+                language={this.language}
                 onInput={this.handleTextInput}
                 onKeyDown={this.handleInputKeyDown}
                 onChange={this.handleChange}
@@ -575,7 +587,7 @@ export class Picker {
             this.loading = true;
         });
         const searcher = this.searcher || this.defaultSearcher;
-        const result = (await searcher(this.textValue)) as PickerItem[];
+        const result = await searcher(this.textValue);
 
         // If the search function resolves immediately,
         // the loading spinner will not be shown.
@@ -620,9 +632,10 @@ export class Picker {
 
             this.change.emit(newValue);
             if (this.multiple) {
-                this.items = this.items.filter(
+                const remaining = this.items.filter(
                     (item) => item !== event.detail
                 );
+                this.items = this.hasPickableItems(remaining) ? remaining : [];
             } else {
                 // Single-pick: the search session ends with the pick, so
                 // wipe the input. (In multi-pick we deliberately keep the
@@ -766,18 +779,49 @@ export class Picker {
         }
     }
 
-    private handleSearchResult(query: string, result: PickerItem[]) {
+    private handleSearchResult(
+        query: string,
+        result: Array<PickerItem | ListSeparator>
+    ) {
         if (query === this.textValue) {
-            this.items = result;
+            let nextItems = result;
             if (this.multiple) {
                 const values = (this.value as PickerItem[]) ?? [];
-                this.items = result.filter((item) => {
+                nextItems = result.filter((item) => {
+                    if ('separator' in item) {
+                        return true;
+                    }
+
                     return !values.includes(item);
                 });
             }
 
+            this.items = this.prependSearchHeader(query, nextItems);
             this.loading = false;
         }
+    }
+
+    private hasPickableItems(
+        items: Array<PickerItem | ListSeparator>
+    ): boolean {
+        return items.some((item) => !('separator' in item));
+    }
+
+    private prependSearchHeader(
+        query: string,
+        items: Array<PickerItem | ListSeparator>
+    ): Array<PickerItem | ListSeparator> {
+        if (query === '') {
+            return items;
+        }
+        if (!this.hasPickableItems(items)) {
+            return items;
+        }
+        const text = translate.get('picker.results-matching', this.language, {
+            query: query,
+        });
+
+        return [{ separator: true, text: text }, ...items];
     }
 
     private handleCloseMenu() {

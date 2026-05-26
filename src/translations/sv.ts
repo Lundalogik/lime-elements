@@ -114,4 +114,5 @@ Du kan fortsätta blockera bilder (e-posten kan se ofullständig ut) eller ladda
     'profile-picture.unsupported-preview.title': 'Formatet stöds inte',
     'profile-picture.unsupported-preview.description':
         'Vi kan inte visa den valda bilden i den här webbläsaren. Välj en annan bildfil.',
+    'picker.results-matching': 'Resultat som matchar "{ query }"',
 };
