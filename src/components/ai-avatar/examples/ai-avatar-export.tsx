@@ -69,6 +69,15 @@ import { AiAvatarMode, AiAvatarVariant } from '../ai-avatar.types';
  * so you can switch to any other state by changing the class, even after
  * downloading.
  * :::
+ *
+ * ### Update `@lundalogik/lime-icons8`
+ * Use the dedicated *Download SVG for updating `@lundalogik/lime-icons8`*
+ * button when refreshing the avatar in the icons8 package. It downloads
+ * the file as `-lime-ai-avatar.svg` with `style="scale: 1.5"` baked onto
+ * the root `<svg>` — the scale cancels out the transparent padding
+ * around the visual motif (there to keep the `detailed` variant's blurry
+ * glow from being clipped), so the avatar reads at the same visual
+ * weight as other icons8 icons.
  */
 @Component({
     tag: 'limel-example-ai-avatar-export',
@@ -136,6 +145,11 @@ export class AiAvatarExportExample {
                         onClick={this.handleDownload}
                         icon="download_2"
                     />
+                    <limel-button
+                        label="Download SVG for updating `@lundalogik/lime-icons8`"
+                        onClick={this.handleDownloadForIcons8}
+                        icon="download_2"
+                    />
                 </limel-example-controls>
             </Host>
         );
@@ -167,30 +181,60 @@ export class AiAvatarExportExample {
     };
 
     private readonly handleDownload = () => {
+        this.downloadSvg(`ai-avatar-${this.variant}-${this.mode}.svg`);
+    };
+
+    private readonly handleDownloadForIcons8 = () => {
+        this.downloadSvg('-lime-ai-avatar.svg', { forIcons8: true });
+    };
+
+    private downloadSvg(filename: string, options: BuildOptions = {}) {
         if (!this.avatarRef) {
             return;
         }
-        const svgString = buildStandaloneSvg(this.avatarRef);
+        const svgString = buildStandaloneSvg(this.avatarRef, options);
+        if (!svgString) {
+            console.warn(
+                'limel-example-ai-avatar-export: avatar shadow DOM had no SVG to export.'
+            );
+
+            return;
+        }
         const blob = new Blob([svgString], {
             type: 'image/svg+xml;charset=utf-8',
         });
         const url = URL.createObjectURL(blob);
         const anchor = document.createElement('a');
         anchor.href = url;
-        anchor.download = `ai-avatar-${this.variant}-${this.mode}.svg`;
+        anchor.download = filename;
         document.body.append(anchor);
         anchor.click();
         anchor.remove();
         URL.revokeObjectURL(url);
-    };
+    }
+}
+
+interface BuildOptions {
+    /**
+     * Adds `style="scale: 1.5"` to the root `<svg>` so it visually fills
+     * its bounding box at icon sizes. The avatar's `viewBox` includes
+     * transparent padding around the visual motif to keep the `detailed`
+     * variant's blurry glow from being clipped — fine inside the
+     * component, but makes the avatar read as smaller than its peers
+     * when used as an icon. Set this when exporting for
+     * `@lundalogik/lime-icons8`.
+     */
+    forIcons8?: boolean;
 }
 
 // Build a fully self-contained SVG string from a live `limel-ai-avatar`.
 // The result carries: every CSS rule for every variant + mode, all
-// `@keyframes`, and a `svg { --lime-brand-color-…: … }` block resolving
-// the externally-themed variables. Adding a class to the root `<svg>`
-// switches state.
-const buildStandaloneSvg = (avatar: HTMLLimelAiAvatarElement): string => {
+// `@keyframes`, and the component's own styles. Adding a class to the
+// root `<svg>` switches state.
+const buildStandaloneSvg = (
+    avatar: HTMLLimelAiAvatarElement,
+    options: BuildOptions = {}
+): string => {
     const sourceSvg = avatar.shadowRoot
         ?.querySelector('svg')
         ?.cloneNode(true) as SVGSVGElement | undefined;
@@ -199,14 +243,13 @@ const buildStandaloneSvg = (avatar: HTMLLimelAiAvatarElement): string => {
     }
 
     const componentCss = collectShadowCss(avatar);
-    const externalVarsBlock = resolveExternalVars(componentCss, avatar);
     const cleanedCss = stripHostRules(componentCss);
 
     const styleEl = document.createElementNS(
         'http://www.w3.org/2000/svg',
         'style'
     );
-    styleEl.textContent = `${externalVarsBlock}\n\n${cleanedCss}`;
+    styleEl.textContent = cleanedCss;
     sourceSvg.insertBefore(styleEl, sourceSvg.firstChild);
 
     sourceSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
@@ -220,6 +263,10 @@ const buildStandaloneSvg = (avatar: HTMLLimelAiAvatarElement): string => {
     const accessibleName = avatar.getAttribute('aria-label');
     if (accessibleName) {
         sourceSvg.setAttribute('aria-label', accessibleName);
+    }
+
+    if (options.forIcons8) {
+        sourceSvg.style.scale = '1.5';
     }
 
     return new XMLSerializer().serializeToString(sourceSvg);
@@ -272,32 +319,6 @@ const collectShadowCss = (avatar: HTMLLimelAiAvatarElement): string => {
         })
         .map((rule) => rule.cssText)
         .join('\n');
-};
-
-const resolveExternalVars = (
-    css: string,
-    avatar: HTMLLimelAiAvatarElement
-): string => {
-    const matches = [...css.matchAll(/var\(\s*(--[\w-]+)/g)];
-    const names = [...new Set(matches.map((m) => m[1]))];
-    const external = names.filter(
-        (name) =>
-            !name.startsWith('--ai-avatar-') &&
-            !name.startsWith('--limel-ai-avatar-')
-    );
-    const computed = getComputedStyle(avatar);
-
-    const lines = external
-        .map((name) => {
-            const value = computed.getPropertyValue(name).trim();
-            return value ? `    ${name}: ${value};` : null;
-        })
-        .filter((line): line is string => line !== null);
-
-    if (lines.length === 0) {
-        return '';
-    }
-    return `svg {\n${lines.join('\n')}\n}`;
 };
 
 // `:host(...)` and `:host` rules size the wrapper element, which doesn't
