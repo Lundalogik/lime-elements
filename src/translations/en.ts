@@ -113,4 +113,5 @@ You can keep images blocked (the email may look incomplete), or load them if you
     'profile-picture.unsupported-preview.title': 'Unsupported image format',
     'profile-picture.unsupported-preview.description':
         'We cannot display the selected image in this browser. Please select a different image file.',
+    'picker.results-matching': 'Results matching "{ query }"',
 };

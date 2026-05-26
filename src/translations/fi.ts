@@ -114,4 +114,5 @@ Voit pitää kuvat estettyinä (sähköposti voi näyttää puutteelliselta) tai
     'profile-picture.unsupported-preview.title': 'Tiedostomuoto ei ole tuettu',
     'profile-picture.unsupported-preview.description':
         'Emme voi näyttää valittua kuvaa tässä selaimessa. Valitse jokin toinen kuvatiedosto.',
+    'picker.results-matching': 'Hakua "{ query }" vastaavat tulokset',
 };

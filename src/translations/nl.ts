@@ -116,4 +116,5 @@ Je kunt afbeeldingen geblokkeerd houden (de e-mail kan er onvolledig uitzien) of
         'Niet-ondersteund afbeeldingsformaat',
     'profile-picture.unsupported-preview.description':
         'We kunnen de geselecteerde afbeelding niet weergeven in deze browser. Selecteer een ander afbeeldingsbestand.',
+    'picker.results-matching': 'Resultaten die overeenkomen met "{ query }"',
 };
