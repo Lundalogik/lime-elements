@@ -451,7 +451,15 @@ export class Picker {
         }
 
         if (!this.items?.length) {
-            return this.renderEmptyMessage();
+            // Only show "no matching results" when the user actually has
+            // a query in flight. Without this guard, the message would
+            // also render right after Esc clears the input, leaving the
+            // dropdown stuck in an "empty result" state.
+            if (this.textValue !== '') {
+                return this.renderEmptyMessage();
+            }
+
+            return;
         }
 
         return this.renderListResult();
@@ -512,10 +520,10 @@ export class Picker {
     private onListKeyDown(event: KeyboardEvent) {
         if (event.key === ESCAPE) {
             // Stop bubble; otherwise menu-surface also emits `dismiss`
-            // and triggers a duplicate clearInputField via handleCloseMenu.
+            // and triggers a duplicate clear via handleCloseMenu.
             event.preventDefault();
             event.stopPropagation();
-            this.clearInputField();
+            this.handleEscape();
             this.chipSet.setFocus();
 
             return;
@@ -728,7 +736,7 @@ export class Picker {
         if (isEscape) {
             event.preventDefault();
             event.stopPropagation();
-            this.clearInputField();
+            this.handleEscape();
 
             return;
         }
@@ -821,10 +829,41 @@ export class Picker {
         this.clearInputField();
     }
 
-    private clearInputField() {
+    /**
+     * Shared prelude for any flow that ends the current search session:
+     * wipe the chip-set's visible text, reset the picker's `textValue`,
+     * and cancel any in-flight debounced search.
+     *
+     * Used by `clearInputField` (which then drops the dropdown
+     * entirely) and `resetSearchToDefault` (which re-runs the searcher
+     * with an empty query to repopulate the dropdown with defaults).
+     */
+    private clearTextValue() {
         this.chipSet.emptyInput();
         this.textValue = '';
-        this.handleSearchResult('', []);
         this.debouncedSearch.cancel();
+    }
+
+    private clearInputField() {
+        this.clearTextValue();
+        this.handleSearchResult('', []);
+    }
+
+    private resetSearchToDefault() {
+        this.clearTextValue();
+        this.search('');
+    }
+
+    /**
+     * Two-stage Esc: first press clears the typed query but keeps the
+     * dropdown open showing the default suggestions; a second press
+     * (with the query already empty) closes the dropdown.
+     */
+    private handleEscape() {
+        if (this.textValue === '') {
+            this.clearInputField();
+        } else {
+            this.resetSearchToDefault();
+        }
     }
 }
