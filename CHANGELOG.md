@@ -1,3 +1,10 @@
+## [39.28.1](https://github.com/Lundalogik/lime-elements/compare/v39.28.0...v39.28.1) (2026-05-27)
+
+### Bug Fixes
+
+
+* **list-item:** use theme-primary color ([34a0334](https://github.com/Lundalogik/lime-elements/commit/34a0334015cdf777255b7c5590937092dae3ca85))
+
 ## [39.28.0](https://github.com/Lundalogik/lime-elements/compare/v39.27.0...v39.28.0) (2026-05-27)
 
 ### Features
