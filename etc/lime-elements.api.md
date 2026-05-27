@@ -288,6 +288,7 @@ export namespace Components {
         "disabled": boolean;
         "emptyInput": () => Promise<void>;
         "emptyInputOnBlur": boolean;
+        "emptyInputOnChange": boolean;
         "getEditMode": () => Promise<boolean>;
         "helperText": string;
         "inputType": 'search' | 'text';
@@ -1886,6 +1887,7 @@ export namespace JSX {
         "delimiter"?: string;
         "disabled"?: boolean;
         "emptyInputOnBlur"?: boolean;
+        "emptyInputOnChange"?: boolean;
         "helperText"?: string;
         "inputType"?: 'search' | 'text';
         "invalid"?: boolean;
@@ -1917,6 +1919,8 @@ export namespace JSX {
         "disabled": boolean;
         // (undocumented)
         "emptyInputOnBlur": boolean;
+        // (undocumented)
+        "emptyInputOnChange": boolean;
         // (undocumented)
         "helperText": string;
         // (undocumented)

@@ -170,6 +170,24 @@ export class ChipSet {
     public emptyInputOnBlur: boolean = true;
 
     /**
+     * Whether the input field should be emptied when the set of chips
+     * changes (i.e. when the `value` prop is updated — a chip is added,
+     * removed, or the array is replaced).
+     *
+     * Defaults to `true`, which is the right behavior for a standalone
+     * input chip-set where the typed text *becomes* the next chip on
+     * <kbd>Enter</kbd>. The input is then cleared to make room for the
+     * next chip, and help user type a new keyword from scratch.
+     *
+     * Set to `false` when the input represents a search query over an
+     * external suggestion list (as in `limel-picker`), so the typed keyword
+     * survives while chips are added or removed (when user selects items from
+     * the search results list, while it is open).
+     */
+    @Prop({ reflect: true })
+    public emptyInputOnChange: boolean = true;
+
+    /**
      * Whether the "Clear all" buttons should be shown
      */
     @Prop()
@@ -434,7 +452,9 @@ export class ChipSet {
             return;
         }
 
-        this.syncEmptyInput();
+        if (this.emptyInputOnChange) {
+            this.syncEmptyInput();
+        }
         this.initialize();
     }
 
