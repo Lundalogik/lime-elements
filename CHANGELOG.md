@@ -1,3 +1,10 @@
+## [39.28.0](https://github.com/Lundalogik/lime-elements/compare/v39.27.0...v39.28.0) (2026-05-27)
+
+### Features
+
+
+* **icon:** add `svgClass` prop to set a class on the inner SVG ([f056d93](https://github.com/Lundalogik/lime-elements/commit/f056d9301473275e49f4cb3c1d2dcf92885e689f))
+
 ## [39.27.0](https://github.com/Lundalogik/lime-elements/compare/v39.26.0...v39.27.0) (2026-05-27)
 
 ### Features
