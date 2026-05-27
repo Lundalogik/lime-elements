@@ -1,3 +1,19 @@
+## [39.27.0](https://github.com/Lundalogik/lime-elements/compare/v39.26.0...v39.27.0) (2026-05-27)
+
+### Features
+
+
+* **chip-set:** add `emptyInputOnChange` prop ([75d4725](https://github.com/Lundalogik/lime-elements/commit/75d4725d7401db980ddb4eb6c4bf1cf78c07f1a4))
+* **picker:** show "Results matching" header in the suggestion list ([27527b3](https://github.com/Lundalogik/lime-elements/commit/27527b3df5a2892055ddac06d0016a1eec2c3fdf))
+* **picker:** show a translated default when no results match ([c78ed68](https://github.com/Lundalogik/lime-elements/commit/c78ed6818dc2385cce06f489b01b69f6f926d537))
+### Bug Fixes
+
+
+* **picker:** close dropdown when Esc is pressed in the search input ([6967850](https://github.com/Lundalogik/lime-elements/commit/6967850e6a8bb6fa3e028b98c01262d0ff0a1798))
+* **picker:** preserve typed query when picking from a multi-pick list ([53d6c95](https://github.com/Lundalogik/lime-elements/commit/53d6c951e55419355caf3b3817793890cfe1b37a))
+* **picker:** two-stage Esc — clear typed query first, close on second press ([8ba8aaa](https://github.com/Lundalogik/lime-elements/commit/8ba8aaa184b8e6bdef0021d6f734181bb20760b0))
+* **picker:** use correct font size for the empty results message ([d70038b](https://github.com/Lundalogik/lime-elements/commit/d70038b50bce9186fa81144d8d447ac6082543ef))
+
 ## [39.26.0](https://github.com/Lundalogik/lime-elements/compare/v39.25.0...v39.26.0) (2026-05-27)
 
 ### Features
