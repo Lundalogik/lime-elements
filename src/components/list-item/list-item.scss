@@ -92,7 +92,7 @@ limel-list-item[type='option'] {
     &[selected]:not([selected='false']) {
         &:before {
             transition: background-color 0.2s ease;
-            background-color: var(--limel-theme-primary-color);
+            background-color: var(--mdc-theme-primary);
         }
     }
 }
