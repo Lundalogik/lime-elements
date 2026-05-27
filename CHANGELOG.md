@@ -1,3 +1,10 @@
+## [39.26.0](https://github.com/Lundalogik/lime-elements/compare/v39.25.0...v39.26.0) (2026-05-27)
+
+### Features
+
+
+* **picker:** support per-item removable flag on selected chips ([098e199](https://github.com/Lundalogik/lime-elements/commit/098e199049aa46980ae1e9a79aa6ae8d7c91dce0))
+
 ## [39.25.0](https://github.com/Lundalogik/lime-elements/compare/v39.24.2...v39.25.0) (2026-05-20)
 
 ### Features
