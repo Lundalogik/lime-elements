@@ -231,7 +231,6 @@ export class Picker {
     constructor() {
         this.handleTextInput = this.handleTextInput.bind(this);
         this.handleInputKeyDown = this.handleInputKeyDown.bind(this);
-        this.handleDropdownKeyDown = this.handleDropdownKeyDown.bind(this);
         this.handleInputFieldFocus = this.handleInputFieldFocus.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleInteract = this.handleInteract.bind(this);
@@ -761,21 +760,6 @@ export class Picker {
 
             event.preventDefault();
             listElement.focus();
-        }
-    }
-
-    /**
-     * Key handler for the dropdown
-     *
-     * @param event - event
-     */
-    private handleDropdownKeyDown(event: KeyboardEvent) {
-        const isEscape = event.key === ESCAPE;
-
-        if (isEscape) {
-            event.preventDefault();
-            this.textValue = '';
-            this.chipSet.setFocus(true);
         }
     }
 
