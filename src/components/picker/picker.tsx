@@ -510,8 +510,17 @@ export class Picker {
     }
 
     private onListKeyDown(event: KeyboardEvent) {
-        const keyFound = [TAB, ESCAPE, ENTER].includes(event.key);
-        if (keyFound) {
+        if (event.key === ESCAPE) {
+            // Stop bubble; otherwise menu-surface also emits `dismiss`
+            // and triggers a duplicate clearInputField via handleCloseMenu.
+            event.preventDefault();
+            event.stopPropagation();
+            this.clearInputField();
+            this.chipSet.setFocus();
+
+            return;
+        }
+        if ([TAB, ENTER].includes(event.key)) {
             this.chipSet.setFocus();
         }
     }
