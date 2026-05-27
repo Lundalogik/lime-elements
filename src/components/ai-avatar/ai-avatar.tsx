@@ -79,7 +79,7 @@ const colors = {
  * This component displays an avatar, representing Lime AI assistants.
  *
  * :::warning
- * This is a private component used internally in the Lime's various applications,
+ * This is a private component used internally in Lime's various applications,
  * which is the reason for having it in Lime Elements —to ease the distribution
  * of the component across all our apps.
  *
