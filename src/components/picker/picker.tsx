@@ -508,7 +508,8 @@ export class Picker {
 
         const style = {
             color: 'rgb(var(--contrast-1100))',
-            'text-align': 'center',
+            textAlign: 'center',
+            fontSize: 'var(--limel-theme-default-font-size)',
             margin: '0.5rem 1rem',
         };
 
