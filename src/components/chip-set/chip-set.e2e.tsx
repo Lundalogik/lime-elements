@@ -330,5 +330,55 @@ describe('limel-chip-set', () => {
                 expect(removeButton).toBeNull();
             });
         });
+
+        describe('emptyInputOnChange', () => {
+            async function typeIntoInput(
+                root: HTMLLimelChipSetElement,
+                text: string,
+                waitForChanges: () => Promise<void>
+            ) {
+                const input = root.shadowRoot!.querySelector('input')!;
+                input.value = text;
+                input.dispatchEvent(
+                    new Event('input', { bubbles: true, composed: true })
+                );
+                await waitForChanges();
+            }
+
+            it('clears the input when chips change (default)', async () => {
+                const { root, waitForChanges } = await render(
+                    <limel-chip-set
+                        type="input"
+                        value={getValue()}
+                    ></limel-chip-set>
+                );
+                await waitForChanges();
+
+                await typeIntoInput(root, 'pending', waitForChanges);
+                root.value = [...getValue(), { id: '3', text: 'Cherry' }];
+                await waitForChanges();
+
+                const input = root.shadowRoot!.querySelector('input')!;
+                expect(input.value).toEqual('');
+            });
+
+            it('preserves the input when chips change and emptyInputOnChange is false', async () => {
+                const { root, waitForChanges } = await render(
+                    <limel-chip-set
+                        type="input"
+                        value={getValue()}
+                        emptyInputOnChange={false}
+                    ></limel-chip-set>
+                );
+                await waitForChanges();
+
+                await typeIntoInput(root, 'pending', waitForChanges);
+                root.value = [...getValue(), { id: '3', text: 'Cherry' }];
+                await waitForChanges();
+
+                const input = root.shadowRoot!.querySelector('input')!;
+                expect(input.value).toEqual('pending');
+            });
+        });
     });
 });
