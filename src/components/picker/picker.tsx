@@ -41,6 +41,7 @@ const DEFAULT_SEARCHER_MAX_RESULTS = 20;
  * @exampleComponent limel-example-picker-value-as-object
  * @exampleComponent limel-example-picker-value-as-object-with-actions
  * @exampleComponent limel-example-picker-empty-suggestions
+ * @exampleComponent limel-example-picker-empty-result-message
  * @exampleComponent limel-example-picker-leading-icon
  * @exampleComponent limel-example-picker-static-actions
  * @exampleComponent limel-example-picker-sections
@@ -90,7 +91,14 @@ export class Picker {
     public leadingIcon: IconName;
 
     /**
-     * A message to display when the search returned an empty result
+     * A message to display when the search returned an empty result.
+     *
+     * If unset (or set to an empty string), the picker shows a
+     * default translated message (`No results matching "X"` in
+     * English, where `X` is the current query) chosen by the
+     * `language` prop. Set this to override the default with custom
+     * text — for example, when the picker's domain calls for more
+     * specific wording like "No matching participants found".
      */
     @Prop()
     public emptyResultMessage: string;
@@ -492,9 +500,11 @@ export class Picker {
     }
 
     private renderEmptyMessage() {
-        if (!this.emptyResultMessage) {
-            return;
-        }
+        const text =
+            this.emptyResultMessage ||
+            translate.get('picker.no-matching-results', this.language, {
+                query: this.textValue,
+            });
 
         const style = {
             color: 'rgb(var(--contrast-1100))',
@@ -502,7 +512,7 @@ export class Picker {
             margin: '0.5rem 1rem',
         };
 
-        return <p style={style}>{this.emptyResultMessage}</p>;
+        return <p style={style}>{text}</p>;
     }
 
     private renderListResult() {

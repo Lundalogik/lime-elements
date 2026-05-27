@@ -71,7 +71,6 @@ export class PickerValueAsObjectWithActionsExample {
                     label="Favorite authors"
                     value={this.selectedItems}
                     searchLabel={'Find your favorite authors'}
-                    emptyResultMessage="No matching authors found"
                     multiple={true}
                     allItems={this.allItems}
                     onChange={this.onChange}

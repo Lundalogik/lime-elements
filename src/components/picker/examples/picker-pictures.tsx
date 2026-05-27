@@ -68,7 +68,6 @@ export class PickerPicturesExample {
                 searchLabel={'Search your awesomenaut'}
                 multiple={true}
                 allItems={this.allItems}
-                emptyResultMessage="No matching awesomenauts found"
                 onChange={this.onChange}
                 onInteract={this.onInteract}
             />,

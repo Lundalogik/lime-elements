@@ -43,7 +43,6 @@ export class PickerSectionsExample {
                     label="Pick an awesomenaut"
                     value={this.selectedItem}
                     searcher={this.search}
-                    emptyResultMessage="No matching awesomenauts"
                     onChange={this.onChange}
                 />
                 <limel-example-value value={this.selectedItem} />
