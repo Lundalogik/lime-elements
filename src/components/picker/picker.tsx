@@ -57,14 +57,14 @@ export class Picker {
      * True if the picker should be disabled
      */
     @Prop()
-    public disabled: boolean = false;
+    public disabled = false;
 
     /**
      * Set to `true` to disable adding and removing items,
      * but allow interaction with existing items.
      */
     @Prop({ reflect: true })
-    public readonly: boolean = false;
+    public readonly = false;
 
     /**
      * Text to display for the input field of the picker
@@ -115,7 +115,7 @@ export class Picker {
      * True if the control requires a value
      */
     @Prop()
-    public required: boolean = false;
+    public required = false;
 
     /**
      * Set to `true` to indicate that the current value of the input field is
@@ -158,7 +158,7 @@ export class Picker {
      * True if multiple values are allowed
      */
     @Prop()
-    public multiple: boolean = false;
+    public multiple = false;
 
     /**
      * Sets delimiters between chips. Works only when `multiple` is `true`.
@@ -193,7 +193,7 @@ export class Picker {
      * Whether badge icons should be used in the result list or not
      */
     @Prop({ reflect: true })
-    public badgeIcons: boolean = false;
+    public badgeIcons = false;
 
     /**
      * Fired when a new value has been selected from the picker
