@@ -22,7 +22,6 @@ import {
     LimelListCustomEvent,
 } from '../../components';
 import { getIconFillColor, getIconName } from '../icon/get-icon-props';
-import { PickerValue } from './value.types';
 import { DebouncedFunc, debounce } from 'lodash-es';
 import { IconName } from '../../global/shared-types/icon.types';
 
@@ -299,6 +298,7 @@ export class Picker {
                 onStartEdit={this.handleInputFieldFocus}
                 onStopEdit={this.handleStopEditAndBlur}
                 emptyInputOnBlur={false}
+                emptyInputOnChange={false}
                 clearAllButton={this.multiple && !this.chipSetEditMode}
                 {...props}
             />,
@@ -609,9 +609,7 @@ export class Picker {
      *
      * @param event - event
      */
-    private handleListChange(
-        event: LimelListCustomEvent<ListItem<PickerValue>>
-    ) {
+    private handleListChange(event: LimelListCustomEvent<PickerItem>) {
         event.stopPropagation();
         if (!this.value || this.value !== event.detail) {
             let newValue: PickerItem | PickerItem[] = event.detail;
@@ -621,12 +619,22 @@ export class Picker {
             }
 
             this.change.emit(newValue);
-            this.items = [];
+            if (this.multiple) {
+                this.items = this.items.filter(
+                    (item) => item !== event.detail
+                );
+            } else {
+                // Single-pick: the search session ends with the pick, so
+                // wipe the input. (In multi-pick we deliberately keep the
+                // typed query so the user can keep adding matches.)
+                this.items = [];
+                this.textValue = '';
+                this.chipSet?.emptyInput();
+            }
         }
 
         if (this.multiple) {
-            this.textValue = '';
-            this.chipSet?.setFocus(true);
+            this.chipSet?.setFocus();
         }
     }
 
@@ -764,10 +772,6 @@ export class Picker {
     }
 
     private handleCloseMenu() {
-        if (this.items.length > 0) {
-            return;
-        }
-
         this.clearInputField();
     }
 
