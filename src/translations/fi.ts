@@ -115,4 +115,5 @@ Voit pitää kuvat estettyinä (sähköposti voi näyttää puutteelliselta) tai
     'profile-picture.unsupported-preview.description':
         'Emme voi näyttää valittua kuvaa tässä selaimessa. Valitse jokin toinen kuvatiedosto.',
     'picker.results-matching': 'Hakua "{ query }" vastaavat tulokset',
+    'picker.no-matching-results': 'Ei hakua "{ query }" vastaavia tuloksia',
 };

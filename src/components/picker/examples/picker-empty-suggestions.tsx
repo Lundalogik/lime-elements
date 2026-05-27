@@ -46,7 +46,6 @@ export class PickerExample {
                 label="Favorite awesomenaut"
                 value={this.selectedItem}
                 searcher={this.search}
-                emptyResultMessage="No results"
                 onChange={this.onChange}
                 onInteract={this.onInteract}
             />,

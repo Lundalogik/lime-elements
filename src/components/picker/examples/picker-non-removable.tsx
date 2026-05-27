@@ -66,7 +66,6 @@ export class PickerNonRemovableExample {
                     value={this.selectedItems}
                     multiple={true}
                     allItems={this.availableItems}
-                    emptyResultMessage="No matching participants found"
                     onChange={this.onChange}
                     onInteract={this.onInteract}
                 />

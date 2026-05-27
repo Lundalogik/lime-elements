@@ -117,4 +117,5 @@ Sie können Bilder weiterhin blockieren (die E-Mail kann unvollständig aussehen
     'profile-picture.unsupported-preview.description':
         'Wir können das ausgewählte Bild in diesem Browser nicht anzeigen. Bitte wählen Sie eine andere Bilddatei.',
     'picker.results-matching': 'Ergebnisse passend zu "{ query }"',
+    'picker.no-matching-results': 'Keine Ergebnisse passend zu "{ query }"',
 };

@@ -45,7 +45,6 @@ export class PickerBasicExample {
                 label="Favorite awesomenaut"
                 value={this.selectedItem}
                 allItems={this.allItems}
-                emptyResultMessage="No matching awesomenauts found"
                 onChange={this.onChange}
                 onInteract={this.onInteract}
             />,

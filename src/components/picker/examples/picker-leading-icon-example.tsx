@@ -35,7 +35,6 @@ export class PickerLeadingIconExample {
                 leadingIcon="search"
                 value={this.selectedItem}
                 allItems={this.allItems}
-                emptyResultMessage="No results"
                 onChange={this.onChange}
                 onInteract={this.onInteract}
             />,

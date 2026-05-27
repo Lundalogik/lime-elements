@@ -39,7 +39,6 @@ export class PickerMultipleExample {
                 value={this.selectedItems}
                 multiple={true}
                 allItems={this.availableItems}
-                emptyResultMessage="No matching awesomenauts found"
                 onChange={this.onChange}
                 onInteract={this.onInteract}
             />,

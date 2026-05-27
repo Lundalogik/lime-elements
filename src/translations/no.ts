@@ -115,4 +115,5 @@ Du kan fortsette å blokkere bilder (e-posten kan se ufullstendig ut), eller las
     'profile-picture.unsupported-preview.description':
         'Vi kan ikke vise det valgte bildet i denne nettleseren. Vennligst velg en annen bildefil.',
     'picker.results-matching': 'Resultater som matcher "{ query }"',
+    'picker.no-matching-results': 'Ingen resultater som matcher "{ query }"',
 };
