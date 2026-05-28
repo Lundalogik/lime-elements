@@ -1,1 +1,0 @@
-import{r as t,h as e}from"./index-DBTJNfo7.js";import{c as r}from"./chart-items-stack-BdUh9la4.js";const i=class{constructor(e){t(this,e)}render(){return e("limel-chart",{key:"c00bcd3e4545e85080cc9dab6e9cbdb8d80b0f9d",style:{width:"0.5rem",height:"15rem"},items:r,orientation:"portrait"})}};export{i as limel_example_chart_orientation}
