@@ -19,6 +19,7 @@ import { getRel } from '../../util/link-helper';
  * @exampleComponent limel-example-info-tile-loading
  * @exampleComponent limel-example-info-tile-primary-slot
  * @exampleComponent limel-example-info-tile-styling
+ * @exampleComponent limel-example-info-tile-reduced-presence
  */
 @Component({
     tag: 'limel-info-tile',
@@ -62,6 +63,13 @@ export class InfoTile {
      */
     @Prop({ reflect: true })
     public disabled? = false;
+
+    /**
+     * Set to `true` to render the tile with a reduced visual presence —
+     * lower saturation and opacity, so the tile draws less attention.
+     */
+    @Prop({ reflect: true })
+    public reducedPresence? = false;
 
     /**
      * If supplied, the info tile will display a notification badge.

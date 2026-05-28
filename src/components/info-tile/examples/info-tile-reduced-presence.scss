@@ -1,0 +1,42 @@
+:host {
+    --example-controls-column-layout: auto-fit;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 1rem;
+}
+
+limel-info-tile {
+    height: 7rem;
+    --info-tile-icon-color: rgb(var(--color-white));
+    --info-tile-text-color: rgb(var(--color-white));
+
+    &.open-bugs {
+        --info-tile-background-color: rgb(var(--color-red-default));
+    }
+
+    &.active-tickets {
+        --info-tile-background-color: rgb(var(--color-amber-default));
+    }
+
+    &.failed-automations {
+        --info-tile-background-color: rgb(var(--color-pink-default));
+    }
+
+    &.overdue-todos {
+        --info-tile-background-color: rgb(var(--color-sky-default));
+    }
+
+    &.next-customer-meeting {
+        --info-tile-background-color: rgb(var(--color-green-default));
+    }
+
+    &.critical-alerts {
+        --info-tile-background-color: rgb(var(--color-orange-default));
+    }
+}
