@@ -106,9 +106,11 @@ The component automatically formats different value types:
  - [limel-example-nested-form](../components/form/examples)
  - [limel-example-notched-outline-basic](../components/notched-outline/examples)
  - [limel-example-picker-basic](../components/picker/examples)
+ - [limel-example-picker-empty-result-message](../components/picker/examples)
  - [limel-example-picker-empty-suggestions](../components/picker/examples)
  - [limel-example-picker-icons](../components/picker/examples)
  - [limel-example-picker-multiple](../components/picker/examples)
+ - [limel-example-picker-non-removable](../components/picker/examples)
  - [limel-example-picker-pictures](../components/picker/examples)
  - [limel-example-picker-sections](../components/picker/examples)
  - [limel-example-picker-static-actions](../components/picker/examples)
@@ -237,9 +239,11 @@ graph TD;
   limel-example-nested-form --> limel-example-value
   limel-example-notched-outline-basic --> limel-example-value
   limel-example-picker-basic --> limel-example-value
+  limel-example-picker-empty-result-message --> limel-example-value
   limel-example-picker-empty-suggestions --> limel-example-value
   limel-example-picker-icons --> limel-example-value
   limel-example-picker-multiple --> limel-example-value
+  limel-example-picker-non-removable --> limel-example-value
   limel-example-picker-pictures --> limel-example-value
   limel-example-picker-sections --> limel-example-value
   limel-example-picker-static-actions --> limel-example-value

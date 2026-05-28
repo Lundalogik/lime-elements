@@ -43,6 +43,7 @@ primary and secondary actions, see our
  - [limel-example-action-buttons-primary-secondary-reversed](../../design-guidelines/action-buttons/examples)
  - [limel-example-action-buttons-primary-secondary-reversed-colors](../../design-guidelines/action-buttons/examples)
  - [limel-example-action-buttons-third-alternative](../../design-guidelines/action-buttons/examples)
+ - [limel-example-ai-avatar-export](../ai-avatar/examples)
  - [limel-example-banner-basic](../banner/examples)
  - [limel-example-builtin-field-types-form](../form/examples)
  - [limel-example-button-basic](examples)
@@ -137,6 +138,7 @@ graph TD;
   limel-example-action-buttons-primary-secondary-reversed --> limel-button
   limel-example-action-buttons-primary-secondary-reversed-colors --> limel-button
   limel-example-action-buttons-third-alternative --> limel-button
+  limel-example-ai-avatar-export --> limel-button
   limel-example-banner-basic --> limel-button
   limel-example-builtin-field-types-form --> limel-button
   limel-example-button-basic --> limel-button
