@@ -565,6 +565,7 @@ export namespace Components {
         "loading"?: boolean;
         "prefix"?: string;
         "progress"?: InfoTileProgress;
+        "reducedPresence"?: boolean;
         "suffix"?: string;
         "value": number | string;
     }
@@ -2651,6 +2652,7 @@ export namespace JSX {
         "loading"?: boolean;
         "prefix"?: string;
         "progress"?: InfoTileProgress;
+        "reducedPresence"?: boolean;
         "suffix"?: string;
         "value"?: number | string;
     }
@@ -2669,6 +2671,8 @@ export namespace JSX {
         "loading": boolean;
         // (undocumented)
         "prefix": string;
+        // (undocumented)
+        "reducedPresence": boolean;
         // (undocumented)
         "suffix": string;
         // (undocumented)

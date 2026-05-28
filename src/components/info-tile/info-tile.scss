@@ -60,14 +60,29 @@
     width: 100%;
     height: 100%;
 
+    transition:
+        filter 0.4s ease,
+        opacity 0.25s ease;
+
     * {
         box-sizing: border-box;
     }
 }
 
+:host(limel-info-tile[reduced-presence]) {
+    filter: saturate(0.1);
+    opacity: 0.4;
+}
+
+:host(limel-info-tile[reduced-presence]:hover),
+:host(limel-info-tile[reduced-presence]:focus-within) {
+    filter: none;
+    opacity: 1;
+}
+
 :host(limel-info-tile[disabled]) {
     a {
-        opacity: 0.5;
+        opacity: 0.4;
         cursor: not-allowed;
     }
 }
