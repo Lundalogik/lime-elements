@@ -157,28 +157,33 @@ function setupDocsWorktree() {
     // `git worktree add docsDist` may fail with "already registered".
     shell.exec('git worktree prune');
 
-    // Some workflows run `actions/checkout` with
-    // `persist-credentials: false`, so `origin` carries no extraheader
-    // and an unauthenticated fetch hits 401/403 on a private repo. In
-    // that case, inject an authenticating extraheader for this single
-    // command. When the workflow's checkout already set an extraheader
-    // (the usual `persist-credentials: true` default), we must NOT add
-    // a second one — git/curl would send two `Authorization` headers
-    // and GitHub returns HTTP 400 ("Duplicate header: Authorization").
-    // The literal `$GH_TOKEN` is expanded by /bin/sh at exec time, so
+    // In CI, fetch via URL userinfo so auth doesn't depend on whether
+    // `actions/checkout` happened to persist an extraheader on `origin`
+    // (it doesn't for `cleanup.yml`, which uses
+    // `persist-credentials: false`; on a private repo that would mean
+    // an unauthenticated fetch via `origin` hits "could not read
+    // Username" when git falls back to interactive credential prompts).
+    // Clearing any inherited `http.<github>.extraheader` for this
+    // single command avoids git sending two `Authorization` headers —
+    // GitHub rejects those with HTTP 400 "Duplicate header:
+    // Authorization". Locally we just use `origin` so the user's
+    // normal SSH/HTTPS credentials apply. The literal `$GH_TOKEN` and
+    // `$GITHUB_REPOSITORY` are expanded by /bin/sh at exec time, so
     // shelljs never echoes the secret.
-    const hasExtraheader =
-        shell.exec(
-            'git config --get-all http.https://github.com/.extraheader',
-            { silent: true }
-        ).code === 0;
-    const fetchAuth =
-        !hasExtraheader && process.env.GH_TOKEN
-            ? '-c http.https://github.com/.extraheader="AUTHORIZATION: bearer $GH_TOKEN"'
-            : '';
+    const inCI = process.env.GITHUB_ACTIONS === 'true';
+    const fetchUrl = inCI
+        ? 'https://$GH_TOKEN@github.com/$GITHUB_REPOSITORY.git'
+        : 'origin';
+    const clearExtraHeader = inCI
+        ? '-c http.https://github.com/.extraheader='
+        : '';
+    const refspec = '+refs/heads/gh-pages:refs/remotes/origin/gh-pages';
 
-    if (shell.exec(`git ${fetchAuth} fetch origin gh-pages`).code !== 0) {
-        shell.echo('git fetch origin gh-pages failed!');
+    if (
+        shell.exec(`git ${clearExtraHeader} fetch ${fetchUrl} ${refspec}`)
+            .code !== 0
+    ) {
+        shell.echo('git fetch gh-pages failed!');
         teardown();
         shell.exit(1);
     }
