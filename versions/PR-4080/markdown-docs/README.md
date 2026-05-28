@@ -155,7 +155,7 @@ Remember: All components can change, but `@beta` components change more often an
 
 We welcome contributions from the community! Here's how you can help:
 
-- 🔍 **Found an issue?** Feel free to fix it and submit a PR
+- 🔍 **Found an issue?** Feel free to fix it and [submit a PR](https://lundalogik.github.io/lime-elements/versions/latest/#/Home/commits-and-prs.md/)
 - 📝 **Improve docs?** Documentation improvements are always appreciated
 - 🎨 **Design feedback?** Share your UX insights
 - 🧪 **Testing?** Help us test new features and report bugs
