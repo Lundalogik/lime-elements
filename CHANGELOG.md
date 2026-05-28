@@ -1,3 +1,10 @@
+## [39.29.0](https://github.com/Lundalogik/lime-elements/compare/v39.28.2...v39.29.0) (2026-05-28)
+
+### Features
+
+
+* **info-tile:** add reducedPresence prop for de-emphasized tiles ([f6ccd4c](https://github.com/Lundalogik/lime-elements/commit/f6ccd4ceeadf921bef1d40e71f171a3600c96fa1))
+
 ## [39.28.2](https://github.com/Lundalogik/lime-elements/compare/v39.28.1...v39.28.2) (2026-05-28)
 
 ### Bug Fixes
