@@ -1,3 +1,10 @@
+## [39.28.2](https://github.com/Lundalogik/lime-elements/compare/v39.28.1...v39.28.2) (2026-05-28)
+
+### Bug Fixes
+
+
+* **file-viewer:** guard Fullscreen against missing browser API ([189dcc8](https://github.com/Lundalogik/lime-elements/commit/189dcc8955ac6bbc320601d1627d90b1bdbb63e0))
+
 ## [39.28.1](https://github.com/Lundalogik/lime-elements/compare/v39.28.0...v39.28.1) (2026-05-27)
 
 ### Bug Fixes
