@@ -67,7 +67,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-form-span-fields](../form/examples)
  - [limel-example-icon-button-composite](../icon-button/examples)
  - [limel-example-info-tile-loading](../info-tile/examples)
- - [limel-example-info-tile-reduce-presence](../info-tile/examples)
+ - [limel-example-info-tile-reduced-presence](../info-tile/examples)
  - [limel-example-input-field-autocomplete](../input-field/examples)
  - [limel-example-input-field-number](../input-field/examples)
  - [limel-example-input-field-showlink](../input-field/examples)
@@ -144,7 +144,7 @@ graph TD;
   limel-example-form-span-fields --> limel-switch
   limel-example-icon-button-composite --> limel-switch
   limel-example-info-tile-loading --> limel-switch
-  limel-example-info-tile-reduce-presence --> limel-switch
+  limel-example-info-tile-reduced-presence --> limel-switch
   limel-example-input-field-autocomplete --> limel-switch
   limel-example-input-field-number --> limel-switch
   limel-example-input-field-showlink --> limel-switch
