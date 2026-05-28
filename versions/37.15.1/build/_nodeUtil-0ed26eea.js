@@ -1,2 +1,0 @@
-import{f as r}from"./_baseGetTag-49d0259e.js";function t(r){return function(t){return r(t)}}var e=typeof exports=="object"&&exports&&!exports.nodeType&&exports;var o=e&&typeof module=="object"&&module&&!module.nodeType&&module;var u=o&&o.exports===e;var a=u&&r.process;var n=function(){try{var r=o&&o.require&&o.require("util").types;if(r){return r}return a&&a.binding&&a.binding("util")}catch(r){}}();export{t as b,n};
-//# sourceMappingURL=_nodeUtil-0ed26eea.js.map

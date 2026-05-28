@@ -1,2 +1,0 @@
-import{r as t}from"./index-2626b3b7.js";import{c as i}from"./config-f7362aeb.js";const o=class{constructor(i){t(this,i);this.config=undefined}componentDidLoad(){this.setGlobalConfig()}componentDidUpdate(){this.setGlobalConfig()}setGlobalConfig(){if(!this.config){return}Object.keys(this.config).forEach((t=>{i[t]=this.config[t]}))}render(){return null}};export{o as limel_config};
-//# sourceMappingURL=limel-config.entry.js.map

@@ -1,2 +1,0 @@
-function t(t){const n=t?String(t.trim()):"";if(u(n)){return n}return r(n)}function n(n){const r=t(n);if(e(r)){return"_self"}return"_blank"}function r(t){if(!t){return t}return"https://"+t}function u(t){return f(t)||e(t)||i(t)}function f(t){const n=["ftp","ftps","https","http","file","m-files"];return n.some((n=>t.startsWith(n+"://")))}function e(t){if(i(t)){return false}return t.startsWith("/")||t.startsWith("#")}function i(t){return t.startsWith("//")}export{n as a,t as g,f as h,r as p};
-//# sourceMappingURL=link-helper-f4f22810.js.map
