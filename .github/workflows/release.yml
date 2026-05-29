@@ -83,4 +83,5 @@ jobs:
       version: "${{ needs.semantic-release.outputs.new_release_version }}"
       ref: "${{ needs.semantic-release.outputs.new_release_git_tag }}"
       forcePush: true
-    secrets: inherit
+    secrets:
+      PUBLISH_DOCS: ${{ secrets.PUBLISH_DOCS }}
