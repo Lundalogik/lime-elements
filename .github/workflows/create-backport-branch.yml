@@ -36,6 +36,44 @@ jobs:
   create_branch:
     runs-on: ubuntu-latest
     steps:
+      - name: Validate version inputs
+        # These inputs are split into version parts and flow into git
+        # ref/branch names (`git fetch`/`checkout`/`push`). Enforce a strict
+        # version/tag shape so a crafted value can't inject git arguments or
+        # produce an unexpected branch name, especially on manual dispatch.
+        env:
+          LAST_RELEASE_VERSION: ${{ inputs.last_release_version }}
+          NEW_RELEASE_VERSION: ${{ inputs.new_release_version }}
+          LAST_RELEASE_GIT_TAG: ${{ inputs.last_release_git_tag }}
+        run: |
+          # Strict SemVer (https://semver.org): major/minor/patch are numeric
+          # identifiers with no leading zeros, an optional pre-release of
+          # dot-separated identifiers (numeric ones also without leading
+          # zeros), and optional build metadata. `tag_re` additionally allows
+          # an optional `v` prefix.
+          #
+          # The major/minor/patch numerics are capped at 9 digits. Two
+          # downstream concerns drive the numeric rules: a leading zero (e.g.
+          # `08.2.3`) reaches the `[ "$NEW_MAJOR" -gt "$LAST_MAJOR" ]`
+          # comparison below as an invalid octal literal, and an absurdly
+          # long value would overflow bash's 64-bit integer comparison. A
+          # 9-digit cap stays well inside that range while far exceeding any
+          # real version number.
+          semver_core='(0|[1-9][0-9]{0,8})\.(0|[1-9][0-9]{0,8})\.(0|[1-9][0-9]{0,8})(-(0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(\.(0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?'
+          version_re="^${semver_core}$"
+          tag_re="^v?${semver_core}$"
+          if [[ ! "$LAST_RELEASE_VERSION" =~ $version_re ]]; then
+            echo "::error::Invalid last_release_version '$LAST_RELEASE_VERSION'. Expected e.g. 1.2.3."
+            exit 1
+          fi
+          if [[ ! "$NEW_RELEASE_VERSION" =~ $version_re ]]; then
+            echo "::error::Invalid new_release_version '$NEW_RELEASE_VERSION'. Expected e.g. 1.3.0."
+            exit 1
+          fi
+          if [[ -n "$LAST_RELEASE_GIT_TAG" && ! "$LAST_RELEASE_GIT_TAG" =~ $tag_re ]]; then
+            echo "::error::Invalid last_release_git_tag '$LAST_RELEASE_GIT_TAG'. Expected e.g. v1.2.3."
+            exit 1
+          fi
       - name: Extract Last Release Major and Minor Versions
         id: extract_last_versions
         env:

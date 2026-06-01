@@ -3,8 +3,24 @@ const shell = require('shelljs');
 const fs = require('node:fs');
 const replace = require('replace-in-file');
 const argv = require('yargs').argv;
+const { assertValidDocsVersion } = require('./validate-version-inputs.cjs');
 
 const version = argv.v || '0.0.0-dev';
+
+// Validate `version` here, at the shared chokepoint, so every caller is
+// guarded — including the fork-PR publish path, which does not pre-validate
+// in its workflow. `version` is used below as a directory name
+// (`shell.rm('-rf', version)`, `shell.cp` targets) and interpolated into
+// published paths, so a value like '.' or '../x' must never reach those
+// sinks. The default '0.0.0-dev' and the `-h` help output are exempt.
+if (argv.h === undefined) {
+    try {
+        assertValidDocsVersion(version);
+    } catch (error) {
+        shell.echo(error.message);
+        shell.exit(1);
+    }
+}
 
 const pruneDev = argv.pruneDev !== undefined;
 const removeSpecific = !!argv.remove;

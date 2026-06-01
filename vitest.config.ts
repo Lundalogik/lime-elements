@@ -15,6 +15,16 @@ export default defineVitestConfig({
                 },
             },
             {
+                // Plain Node tests for the repo's build/CI scripts (no
+                // Stencil component environment, no browser).
+                test: {
+                    name: 'scripts',
+                    globals: true,
+                    include: ['*.spec.cjs'],
+                    environment: 'node',
+                },
+            },
+            {
                 test: {
                     name: 'e2e',
                     globals: true,
