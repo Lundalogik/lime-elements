@@ -46,6 +46,24 @@ jobs:
     name: Build Docs
     runs-on: ubuntu-latest
     steps:
+    - name: Validate version input
+      # `version` is used as the published docs directory name. Reject
+      # anything outside a safe charset to prevent path traversal and other
+      # surprises, especially for manually dispatched runs. This is a
+      # fail-fast guard; `publish-docs.cjs` enforces the same rule via
+      # `validate-version-inputs.cjs` for every caller. Require a leading
+      # alphanumeric (no leading '-' that could read as a flag, no bare
+      # '.'/'-'), ban any '..', and reject the reserved 'latest'/'next'
+      # symlink names that the publish script manages itself.
+      env:
+        DOCS_VERSION: ${{ inputs.version || github.event.inputs.version }}
+      run: |
+        if [[ ! "$DOCS_VERSION" =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]] ||
+           [[ "$DOCS_VERSION" == *..* ]] ||
+           [[ "$DOCS_VERSION" == latest || "$DOCS_VERSION" == next ]]; then
+          echo "::error::Invalid version '$DOCS_VERSION'. Must start with a letter or digit; allowed: letters, digits, '.', '_', '-'; no '..'; 'latest' and 'next' are reserved."
+          exit 1
+        fi
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         ref: ${{ inputs.ref }}
