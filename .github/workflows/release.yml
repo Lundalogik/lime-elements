@@ -37,6 +37,10 @@ jobs:
     needs: [sonarcloud]
     if: ${{ always() && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
+    # Run in the `s3-release` environment, which holds the scoped S3 upload
+    # role and restricts which branches may use it. Its deployment branch
+    # policy mirrors this workflow's trigger branches.
+    environment: s3-release
     outputs:
       new_release_published: ${{ steps.semantic.outputs.new_release_published }}
       new_release_version: ${{ steps.semantic.outputs.new_release_version }}
@@ -69,7 +73,7 @@ jobs:
       if: steps.semantic.outputs.new_release_published == 'true'
       uses: ./.github/actions/upload-frontend-build-output-to-s3
       with:
-        aws-role: ${{ secrets.AWS_SHARED_LIMECLOUD_WRITE_STATIC_FILES_ROLE }}
+        aws-role: ${{ secrets.AWS_LIMECLOUD_WRITE_STATIC_FILES_ROLE }}
         frontend-path: ./
         package-version: ${{ steps.semantic.outputs.new_release_version }}
 
