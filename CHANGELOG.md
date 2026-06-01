@@ -1,3 +1,10 @@
+## [39.29.2](https://github.com/Lundalogik/lime-elements/compare/v39.29.1...v39.29.2) (2026-06-01)
+
+### Bug Fixes
+
+
+* **table:** refresh remote paginator when totalRows or pageSize change ([2339e80](https://github.com/Lundalogik/lime-elements/commit/2339e80b901d73143cdaa3e7a3c8b76a85863d71))
+
 ## [39.29.1](https://github.com/Lundalogik/lime-elements/compare/v39.29.0...v39.29.1) (2026-06-01)
 
 ### Bug Fixes
