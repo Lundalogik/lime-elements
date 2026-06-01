@@ -318,11 +318,13 @@ export class Table {
     @Watch('totalRows')
     protected totalRowsChanged() {
         this.updateMaxPage();
+        this.refreshRemotePaginator();
     }
 
     @Watch('pageSize')
     protected pageSizeChanged() {
         this.updateMaxPage();
+        this.refreshRemotePaginator();
     }
 
     @Watch('page')
@@ -701,6 +703,56 @@ export class Table {
 
     private updateMaxPage() {
         this.tabulator?.setMaxPage(this.calculatePageCount());
+    }
+
+    /**
+     * In remote mode the visible paginator buttons are rendered from the
+     * `last_page` value returned by `ajaxRequestFunc`, not from
+     * `setMaxPage`. When `totalRows` or `pageSize` change after init, force
+     * Tabulator to re-invoke the ajax callback so the paginator UI picks up
+     * the new page count.
+     *
+     * `replaceData` rather than `setData` because the latter calls
+     * `rowManager.resetScroll()` (visible as the table snapping to
+     * top-left every refresh). `replaceData` still wipes and rebuilds
+     * the row elements as a side-effect of going through the data
+     * pipeline (causing a brief flicker), so save and restore the scroll
+     * position explicitly: Tabulator's `renderInPosition` path doesn't
+     * fully preserve vertical scroll across the row rebuild.
+     */
+    private async refreshRemotePaginator() {
+        if (!this.isRemoteMode() || !this.tabulator || !this.initialized) {
+            return;
+        }
+
+        const scrollContainer = this.getRowScrollContainer();
+        const scrollTop = scrollContainer?.scrollTop ?? 0;
+        const scrollLeft = scrollContainer?.scrollLeft ?? 0;
+
+        // `replaceData` resolves through `requestData`, which rejects when the
+        // component is destroyed, and Tabulator's ajax pipeline can reject too.
+        // Since the watchers call this without awaiting, swallow rejections here
+        // to avoid an unhandled promise rejection.
+        try {
+            await this.tabulator.replaceData();
+        } catch {
+            return;
+        }
+
+        if (scrollContainer) {
+            scrollContainer.scrollTop = scrollTop;
+            scrollContainer.scrollLeft = scrollLeft;
+        }
+    }
+
+    /**
+     * Tabulator's scrollable row container, inside `<limel-table>`'s
+     * shadow DOM. The user's vertical/horizontal scroll position within
+     * the table lives on this element's `scrollTop` / `scrollLeft`.
+     */
+    private getRowScrollContainer(): HTMLElement | null {
+        return (this.host.shadowRoot?.querySelector('.tabulator-tableholder') ??
+            null) as HTMLElement | null;
     }
 
     private getOptions(): TabulatorOptions {
