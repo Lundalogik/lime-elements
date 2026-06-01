@@ -1,3 +1,10 @@
+## [39.29.1](https://github.com/Lundalogik/lime-elements/compare/v39.29.0...v39.29.1) (2026-06-01)
+
+### Bug Fixes
+
+
+* **color-picker:** better render swatches in small containers ([1afad20](https://github.com/Lundalogik/lime-elements/commit/1afad206b1bd2ffff932124f0a4cd787e3202629))
+
 ## [39.29.0](https://github.com/Lundalogik/lime-elements/compare/v39.28.2...v39.29.0) (2026-05-28)
 
 ### Features
