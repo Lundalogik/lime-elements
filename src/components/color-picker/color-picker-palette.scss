@@ -29,7 +29,7 @@
             var(--color-picker-column-count),
             var(--limel-color-palette-max-column-count)
         ),
-        1fr
+        minmax(0.5rem, 3rem)
     );
     width: 100%;
     max-width: 58rem;
@@ -83,23 +83,9 @@ button.swatch {
     justify-content: center;
     align-items: center;
 
+    width: 100%;
     max-width: 3rem;
-    min-width: max(
-        2rem,
-        100% /
-            min(
-                var(--color-picker-column-count),
-                var(--limel-color-palette-max-column-count)
-            ) -
-            (
-                min(
-                        var(--color-picker-column-count),
-                        var(--limel-color-palette-max-column-count)
-                    ) -
-                    1
-            ) *
-            var(--limel-color-palette-gap)
-    );
+    min-width: 0;
     aspect-ratio: 1;
     border-radius: 0.1875rem;
 
