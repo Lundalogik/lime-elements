@@ -105,7 +105,8 @@ jobs:
       # For same-repo PRs, publish directly. For fork PRs, build only (publishing handled by publish-pr-docs workflow).
       # For Dependabot PRs, build only (no need to publish docs for dependency updates).
       buildOnly: ${{ github.event.pull_request.head.repo.fork || github.actor == 'dependabot[bot]' }}
-    secrets: inherit
+    secrets:
+      PUBLISH_DOCS: ${{ secrets.PUBLISH_DOCS }}
 
   automerge:
     needs: [lint, build, test, autosquash, docs]

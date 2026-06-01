@@ -24,6 +24,10 @@ on:
         description: 'Git ref (branch, tag, or SHA) to checkout. If not specified, uses the default ref for the triggering event.'
         required: false
         type: string
+    secrets:
+      PUBLISH_DOCS:
+        description: 'Token used to push the built docs to the gh-pages branch. Only needed when publishing (buildOnly == false).'
+        required: false
   workflow_dispatch:
     inputs:
       version:
