@@ -1,3 +1,10 @@
+## [39.29.1-dev.1](https://github.com/Lundalogik/lime-elements/compare/v39.29.0...v39.29.1-dev.1) (2026-06-01)
+
+### Bug Fixes
+
+
+* trigger release ([7357a77](https://github.com/Lundalogik/lime-elements/commit/7357a77881cacac7d35a5d9b33e9fe52d1699460))
+
 ## [39.29.0](https://github.com/Lundalogik/lime-elements/compare/v39.28.2...v39.29.0) (2026-05-28)
 
 ### Features
