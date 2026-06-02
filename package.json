@@ -70,6 +70,7 @@
     "codemirror": "^5.65.9",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.13",
+    "diff": "^8.0.3",
     "eslint": "^9.34.0",
     "flatpickr": "^4.6.13",
     "glob": "^13.0.1",
@@ -133,9 +134,5 @@
     "url": "https://github.com/Lundalogik/lime-elements/issues"
   },
   "homepage": "https://github.com/Lundalogik/lime-elements#readme",
-  "packageManager": "npm@>=10.9",
-  "dependencies": {
-    "diff": "^8.0.3",
-    "sortablejs": "^1.15.6"
-  }
+  "packageManager": "npm@>=10.9"
 }
