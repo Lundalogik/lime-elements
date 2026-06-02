@@ -56,6 +56,42 @@ jobs:
       run: npx playwright install chromium --with-deps
     - run: npm test
 
+  runtime-tests:
+    name: Runtime Tests
+    runs-on: ubuntu-22.04
+    # Backstop: one worker runs the examples serially, so a mass failure (each
+    # test retried once at 30s) could otherwise pin the runner for a long time.
+    timeout-minutes: 30
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - uses: ./.github/actions/set-up-node
+    - run: npm ci
+    - name: Cache Playwright browsers
+      id: playwright-cache
+      uses: actions/cache@v5
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+        restore-keys: playwright-${{ runner.os }}-
+    - name: Install Playwright browsers
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
+      run: npx playwright install chromium --with-deps
+    # Build the docs the example tests run against. We build here rather than
+    # reuse the `docs` job's artifact: that artifact only exists for fork and
+    # Dependabot PRs and has its asset paths rewritten for a nested publish URL.
+    - name: Build docs
+      run: npm run docs:build
+    - run: npm run test:examples:runtime
+    # Retained on failure (`trace: 'retain-on-failure'`); upload so the trace
+    # viewer (DOM snapshots, console, network) is reachable from the run.
+    - name: Upload Playwright traces
+      if: failure()
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: runtime-tests-traces
+        path: test-results/
+        retention-days: 7
+
   commitlint:
     name: Commitlint
     runs-on: ubuntu-latest
