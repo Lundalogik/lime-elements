@@ -46,7 +46,7 @@ jobs:
     - run: npm ci
     - name: Cache Playwright browsers
       id: playwright-cache
-      uses: actions/cache@v5
+      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
       with:
         path: ~/.cache/ms-playwright
         key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
@@ -56,19 +56,48 @@ jobs:
       run: npx playwright install chromium --with-deps
     - run: npm test
 
-  runtime-tests:
-    name: Runtime Tests
+  build-example-docs:
+    name: Build Example Docs
     runs-on: ubuntu-22.04
-    # Backstop: one worker runs the examples serially, so a mass failure (each
-    # test retried once at 30s) could otherwise pin the runner for a long time.
+    # Only needs to read the repo; artifact up/download use the runtime token.
+    permissions:
+      contents: read
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - uses: ./.github/actions/set-up-node
+    - run: npm ci
+    # The example tests run against these docs. We build them once here and share
+    # the result via an artifact so each (sharded) test job doesn't rebuild. We
+    # build our own rather than reuse the `docs` job's artifact: that one only
+    # exists for fork and Dependabot PRs and has its asset paths rewritten for a
+    # nested publish URL.
+    - run: npm run docs:build
+    - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: example-docs
+        path: www
+        retention-days: 1
+
+  runtime-tests:
+    name: Runtime Tests (shard ${{ matrix.shard }})
+    needs: build-example-docs
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    # Backstop: a mass failure (each test retried once at 30s) could otherwise
+    # pin the runner for a long time.
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
     - uses: ./.github/actions/set-up-node
     - run: npm ci
     - name: Cache Playwright browsers
       id: playwright-cache
-      uses: actions/cache@v5
+      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
       with:
         path: ~/.cache/ms-playwright
         key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
@@ -76,35 +105,42 @@ jobs:
     - name: Install Playwright browsers
       if: steps.playwright-cache.outputs.cache-hit != 'true'
       run: npx playwright install chromium --with-deps
-    # Build the docs the example tests run against. We build here rather than
-    # reuse the `docs` job's artifact: that artifact only exists for fork and
-    # Dependabot PRs and has its asset paths rewritten for a nested publish URL.
-    - name: Build docs
-      run: npm run docs:build
-    - run: npm run test:examples:runtime
+    - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      with:
+        name: example-docs
+        path: www
+    - run: npm run test:examples:runtime -- --shard=${{ matrix.shard }}/2
     # Retained on failure (`trace: 'retain-on-failure'`); upload so the trace
-    # viewer (DOM snapshots, console, network) is reachable from the run.
+    # viewer (DOM snapshots, console, network) is reachable from the run. Named
+    # per shard because upload-artifact rejects duplicate names within a run.
     - name: Upload Playwright traces
       if: failure()
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
-        name: runtime-tests-traces
+        name: runtime-tests-traces-shard-${{ matrix.shard }}
         path: test-results/
         retention-days: 7
 
   accessibility-tests:
-    name: Accessibility Tests
+    name: Accessibility Tests (shard ${{ matrix.shard }})
+    needs: build-example-docs
     runs-on: ubuntu-22.04
-    # Backstop, as on `runtime-tests` — same ~440-test/retry profile, plus a
-    # slower per-test axe scan, so a little more headroom.
+    permissions:
+      contents: read
+    # Backstop, as on `runtime-tests` — plus a slower per-test axe scan, so a
+    # little more headroom.
     timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
     - uses: ./.github/actions/set-up-node
     - run: npm ci
     - name: Cache Playwright browsers
       id: playwright-cache
-      uses: actions/cache@v5
+      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
       with:
         path: ~/.cache/ms-playwright
         key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
@@ -112,19 +148,19 @@ jobs:
     - name: Install Playwright browsers
       if: steps.playwright-cache.outputs.cache-hit != 'true'
       run: npx playwright install chromium --with-deps
-    # Build the docs the example tests run against. We build here rather than
-    # reuse the `docs` job's artifact: that artifact only exists for fork and
-    # Dependabot PRs and has its asset paths rewritten for a nested publish URL.
-    - name: Build docs
-      run: npm run docs:build
-    - run: npm run test:examples:accessibility
+    - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      with:
+        name: example-docs
+        path: www
+    - run: npm run test:examples:accessibility -- --shard=${{ matrix.shard }}/4
     # Retained on failure (`trace: 'retain-on-failure'`); upload so the trace
-    # viewer (DOM snapshots, console, network) is reachable from the run.
+    # viewer (DOM snapshots, console, network) is reachable from the run. Named
+    # per shard because upload-artifact rejects duplicate names within a run.
     - name: Upload Playwright traces
       if: failure()
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
-        name: accessibility-tests-traces
+        name: accessibility-tests-traces-shard-${{ matrix.shard }}
         path: test-results/
         retention-days: 7
 
