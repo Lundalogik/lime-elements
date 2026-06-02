@@ -29,6 +29,17 @@ if (
 // Load Stencil components (built by stencil-test before Vitest runs)
 await import('./dist/lime-elements/lime-elements.esm.js');
 
+// The mock-doc environment (used by the `spec` project) sets
+// `globalThis.HTMLElement` to a stub that the elements returned by
+// `document.createElement()` are NOT instances of, so `node instanceof
+// HTMLElement` — and Vitest's `expect.any(HTMLElement)` — always fail.
+// Align the global with mock-doc's real element constructor to restore
+// browser-like semantics.
+if (!(document.createElement('div') instanceof globalThis.HTMLElement)) {
+    globalThis.HTMLElement = document.createElement('div')
+        .constructor as typeof HTMLElement;
+}
+
 // Set default language for translation lookups in components
 if (document?.documentElement && !document.documentElement.lang) {
     document.documentElement.lang = 'en';
@@ -89,6 +100,32 @@ if (!global.IntersectionObserver) {
             return [];
         }
     } as any;
+}
+
+// mock-doc's elements have no `validity` property, but Material's text field
+// (rendered by limel-input-field) reads `nativeInput.validity.valid` during
+// initialization. Provide a permissive ValidityState on the element prototype.
+{
+    const inputElement = document.createElement('input');
+    if ((inputElement as any).validity === undefined) {
+        const validityState: ValidityState = {
+            badInput: false,
+            customError: false,
+            patternMismatch: false,
+            rangeOverflow: false,
+            rangeUnderflow: false,
+            stepMismatch: false,
+            tooLong: false,
+            tooShort: false,
+            typeMismatch: false,
+            valid: true,
+            valueMissing: false,
+        };
+        Object.defineProperty(Object.getPrototypeOf(inputElement), 'validity', {
+            configurable: true,
+            get: () => validityState,
+        });
+    }
 }
 
 // Mock fetch for icon/asset requests (mock-doc has no real network)
@@ -162,4 +199,27 @@ if (!global.ResizeObserver) {
             // Mock implementation
         }
     };
+}
+
+// Mock MutationObserver for tests. The mock-doc environment does not provide
+// one (a real browser does), and Material's text field — rendered by
+// limel-input-field — constructs one during initialization.
+if (!global.MutationObserver) {
+    global.MutationObserver = class MutationObserver {
+        constructor(_callback: MutationCallback) {
+            // Mock implementation - just store the callback
+        }
+
+        observe(_target: Node, _options?: MutationObserverInit): void {
+            // Mock implementation
+        }
+
+        disconnect(): void {
+            // Mock implementation
+        }
+
+        takeRecords(): MutationRecord[] {
+            return [];
+        }
+    } as any;
 }
