@@ -267,8 +267,9 @@ export interface FormLayoutOptions<
  * Layout options for a grid layout
  * @public
  */
-export interface GridLayoutOptions
-    extends FormLayoutOptions<FormLayoutType | `${FormLayoutType}`> {
+export interface GridLayoutOptions extends FormLayoutOptions<
+    FormLayoutType | `${FormLayoutType}`
+> {
     /**
      * When specified on a component within the grid, the component will take
      * up the the specified number of columns in the form
@@ -300,8 +301,9 @@ export interface GridLayoutOptions
  * Layout options for a row layout
  * @public
  */
-export interface RowLayoutOptions
-    extends FormLayoutOptions<FormLayoutType | `${FormLayoutType}`> {
+export interface RowLayoutOptions extends FormLayoutOptions<
+    FormLayoutType | `${FormLayoutType}`
+> {
     /**
      * When specified on a field, the chosen icon will be displayed
      * on the left side of the row, beside the title.
@@ -338,8 +340,9 @@ export enum FormLayoutType {
  * Represents the JSON schema with Lime specific options
  * @public
  */
-export interface FormSchema<T extends Record<string, any> = any>
-    extends JSONSchema7 {
+export interface FormSchema<
+    T extends Record<string, any> = any,
+> extends JSONSchema7 {
     /**
      * The value of "items" MUST be either a valid JSON Schema or an array
      * of valid JSON Schemas.
