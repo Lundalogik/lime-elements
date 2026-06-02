@@ -41,6 +41,5 @@ globalThis.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
 // Load Stencil components for browser e2e tests.
 // The dist/ directory is built by `stencil-test` before Vitest runs,
 // so this path is guaranteed to exist at test time.
-export const _components = await import(
-    './dist/lime-elements/lime-elements.esm.js'
-);
+export const _components =
+    await import('./dist/lime-elements/lime-elements.esm.js');
