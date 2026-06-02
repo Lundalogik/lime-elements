@@ -12,6 +12,32 @@ window.addEventListener('unhandledrejection', (event) => {
     }
 });
 
+// The browser test server does not serve the repo's test assets, and
+// limel-file-viewer's PDF loader fetches its `url`. Intercept requests for
+// PDF test assets and return a successful response so the viewer renders;
+// everything else (icons, etc.) passes through to the real fetch.
+const resolveUrl = (input: RequestInfo | URL): string => {
+    if (typeof input === 'string') {
+        return input;
+    }
+    if (input instanceof Request) {
+        return input.url;
+    }
+    return input.toString();
+};
+const originalFetch = globalThis.fetch.bind(globalThis);
+globalThis.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
+    const url = resolveUrl(input);
+    if (url.includes('/assets/') && url.endsWith('.pdf')) {
+        return new Response(
+            new Blob(['%PDF-1.4'], { type: 'application/pdf' }),
+            { status: 200, headers: { 'Content-Type': 'application/pdf' } }
+        );
+    }
+
+    return originalFetch(input, init);
+};
+
 // Load Stencil components for browser e2e tests.
 // The dist/ directory is built by `stencil-test` before Vitest runs,
 // so this path is guaranteed to exist at test time.
