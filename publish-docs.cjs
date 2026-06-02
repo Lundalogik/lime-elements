@@ -1,7 +1,7 @@
 /* eslint-env node */
 const shell = require('shelljs');
 const fs = require('node:fs');
-const replace = require('replace-in-file');
+const { replaceInFileSync } = require('replace-in-file');
 const argv = require('yargs').argv;
 const { assertValidDocsVersion } = require('./validate-version-inputs.cjs');
 
@@ -247,14 +247,14 @@ function build() {
                 `${BASE_URL}versions/${version}/kompendium.json`,
             ],
         };
-        replace.sync(options);
+        replaceInFileSync(options);
 
         options = {
             files: ['stencil.config.docs.ts'],
             from: /baseUrl: '\/'/g,
             to: `baseUrl: '${BASE_URL}versions/${version}/'`,
         };
-        replace.sync(options);
+        replaceInFileSync(options);
 
         shell.exec('git diff --name-status');
     } catch (error) {
