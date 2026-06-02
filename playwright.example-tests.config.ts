@@ -7,12 +7,24 @@ import { defineConfig, devices } from '@playwright/test';
 // `page.goto`, which the in-browser Vitest runner does not provide.
 const PORT = Number(process.env.EXAMPLE_TESTS_PORT ?? 3333);
 
+// Generating the accessibility baseline accumulates results in one process, so
+// it must run single-threaded; otherwise use the regular parallelism.
+const resolveWorkers = (): number | string | undefined => {
+    if (process.env.UPDATE_AXE_BASELINE) {
+        return 1;
+    }
+    if (process.env.CI) {
+        return '50%';
+    }
+    return undefined;
+};
+
 export default defineConfig({
     testDir: './example-tests',
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 1 : 0,
-    workers: process.env.CI ? '50%' : undefined,
+    workers: resolveWorkers(),
     reporter: process.env.CI ? [['github'], ['list']] : 'list',
     timeout: 30_000,
     use: {
