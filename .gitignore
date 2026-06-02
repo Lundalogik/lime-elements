@@ -41,3 +41,5 @@ venv/
 /chrome-headless-shell/
 __screenshots__/
 .vitest-attachments/
+/test-results/
+/playwright-report/
