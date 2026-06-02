@@ -40,3 +40,4 @@ venv/
 
 /chrome-headless-shell/
 __screenshots__/
+.vitest-attachments/
