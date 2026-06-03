@@ -1113,6 +1113,9 @@ export class Table {
                     'has-low-density': this.layout === 'lowDensity',
                     'has-pagination-on-top': this.paginationLocation === 'top',
                 }}
+                data-bwignore="true"
+                data-1p-ignore="true"
+                data-lpignore="true"
             >
                 <div
                     id="tabulator-container"
