@@ -525,6 +525,9 @@ export class InputField {
                 onWheel={this.handleWheel}
                 onKeyDown={this.onKeyDown}
                 placeholder={this.placeholder}
+                data-bwignore="true"
+                data-1p-ignore="true"
+                data-lpignore="true"
             />
         );
     };
@@ -541,6 +544,9 @@ export class InputField {
                 <textarea
                     {...properties}
                     placeholder={this.placeholder}
+                    data-bwignore="true"
+                    data-1p-ignore="true"
+                    data-lpignore="true"
                 ></textarea>
             </span>
         );
