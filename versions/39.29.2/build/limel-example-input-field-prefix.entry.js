@@ -1,1 +1,0 @@
-import{r as e,h as i}from"./index-DBTJNfo7.js";const t=class{constructor(i){e(this,i),this.value="10000",this.handleChange=e=>{this.value=e.detail+""}}render(){return i("limel-input-field",{key:"7b893dc2917c16891914ed29bfd9f6112de75af9",label:"Price per unit",prefix:"$",value:this.value,type:"number",onChange:this.handleChange})}};export{t as limel_example_input_field_prefix}
