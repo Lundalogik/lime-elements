@@ -81,6 +81,9 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
                     props.helperText ? props.helperTextId : undefined
                 }
                 aria-describedby={props.helperTextId}
+                data-bwignore="true"
+                data-1p-ignore="true"
+                data-lpignore="true"
                 {...inputProps}
             />
             <div class="box">
