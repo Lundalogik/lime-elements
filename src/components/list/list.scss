@@ -47,7 +47,15 @@ ul {
     align-items: center;
     gap: 0.75rem;
     height: auto;
-    padding: 0 0.5rem;
+    padding: 0 0.25rem;
+
+    margin-bottom: 0.5rem;
+    &:not(:first-child) {
+        margin-top: 0.75rem;
+    }
+    :host(.has-striped-rows) & {
+        margin-top: 0.5rem;
+    }
 }
 
 .limel-list-divider-line {
