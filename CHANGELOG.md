@@ -1,3 +1,10 @@
+## [39.29.3](https://github.com/Lundalogik/lime-elements/compare/v39.29.2...v39.29.3) (2026-06-03)
+
+### Bug Fixes
+
+
+* **list:** ensure dividers are visually separating items more ([7878db4](https://github.com/Lundalogik/lime-elements/commit/7878db47d96381b8248dfd0f91cc52756d9a4e39))
+
 ## [39.29.2](https://github.com/Lundalogik/lime-elements/compare/v39.29.1...v39.29.2) (2026-06-01)
 
 ### Bug Fixes
