@@ -13,6 +13,10 @@
         --action-bar-item-text-color,
         rgb(var(--contrast-1100))
     );
+    --limel-action-bar-background-color: var(
+        --action-bar-background-color,
+        rgb(var(--contrast-100))
+    );
 
     box-sizing: border-box;
 
@@ -22,10 +26,7 @@
     max-width: 100%;
     border-radius: var(--action-bar-border-radius);
 
-    background-color: var(
-        --action-bar-background-color,
-        rgb(var(--contrast-100))
-    );
+    background-color: var(--limel-action-bar-background-color);
 }
 
 :host(limel-action-bar),

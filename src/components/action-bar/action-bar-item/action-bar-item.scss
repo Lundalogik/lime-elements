@@ -20,9 +20,13 @@ button {
         @include mixins.is-flat-inset-clickable(
             $color: var(--limel-action-bar-item-text-color),
             $color--hovered: var(--limel-action-bar-item-text-color),
-            $background-color: var(--action-bar-background-color),
-            $background-color--hovered: var(--action-bar-background-color),
-            $background-color--inset: var(--action-bar-background-color)
+            $background-color: var(--limel-action-bar-background-color),
+            $background-color--hovered: color-mix(
+                    in srgb,
+                    var(--limel-action-bar-background-color),
+                    white 20%
+                ),
+            $background-color--inset: var(--limel-action-bar-background-color)
         );
         @include mixins.visualize-keyboard-focus;
     }
