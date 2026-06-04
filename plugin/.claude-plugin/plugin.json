@@ -1,0 +1,15 @@
+{
+  "name": "lime-elements-toolkit",
+  "description": "Build UIs with lime-elements — design system knowledge, component guidance, design reviews, and accessibility audits for the @limetech/lime-elements web component library.",
+  "author": "Lime Technologies",
+  "keywords": [
+    "lime-elements",
+    "web-components",
+    "stencil",
+    "design-system",
+    "ui",
+    "components",
+    "accessibility"
+  ],
+  "version": "0.1.0-alpha"
+}
