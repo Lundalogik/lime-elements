@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormLayoutOptions, GridLayoutOptions } from '../form.types';
+import { toSchemaPath } from './object-field';
 
 const MAX_COLUMNS = 5;
 const MAX_COLUMN_WIDTH = 15;
@@ -76,6 +77,7 @@ export class GridLayout extends React.Component<LayoutProps, LayoutState> {
             'div',
             {
                 className: classes.join(' '),
+                'data-schema-path': toSchemaPath(this.props.schemaPath ?? []),
                 ref: this.elementRef,
             },
             this.props.children
@@ -97,6 +99,7 @@ export class GridLayout extends React.Component<LayoutProps, LayoutState> {
 
 interface LayoutProps {
     options: FormLayoutOptions;
+    schemaPath?: string[];
     children?: any;
 }
 

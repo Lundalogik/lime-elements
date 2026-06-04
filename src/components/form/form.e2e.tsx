@@ -36,6 +36,8 @@ import {
     nestedStringCustomComponentSchema,
     arrayItemWithDependenciesSchema,
     arrayItemWithDependenciesAndCustomConfigSchema,
+    nestedSchemaPathSchema,
+    nestedLayoutSchemaPathSchema,
 } from './form.test-schemas';
 
 const fieldTypeTests = [
@@ -362,6 +364,42 @@ test('renders grid layout when schema has lime.layout.type grid', async () => {
 
     const inputFields = grid.querySelectorAll('limel-input-field');
     expect(inputFields.length).toBe(2);
+});
+
+test('emits data-schema-path on each layout wrapper', async () => {
+    const { formContent } = await renderForm({
+        schema: nestedSchemaPathSchema,
+    });
+
+    const paths = [
+        ...formContent.querySelectorAll(
+            '.limel-form-layout--default[data-schema-path]'
+        ),
+    ].map((el) => el.dataset.schemaPath);
+
+    expect(paths).toEqual([
+        '/',
+        '/section',
+        '/section/details',
+        '/section/details/contact',
+    ]);
+});
+
+test('emits data-schema-path on grid and row layout wrappers', async () => {
+    const { formContent } = await renderForm({
+        schema: nestedLayoutSchemaPathSchema,
+    });
+
+    expect(
+        formContent
+            .querySelector('.limel-form-layout--grid')
+            ?.getAttribute('data-schema-path')
+    ).toBe('/grid');
+    expect(
+        formContent
+            .querySelector('.limel-form-row--layout')
+            ?.getAttribute('data-schema-path')
+    ).toBe('/row');
 });
 
 test('renders collapsible section when schema has lime.collapsible', async () => {
