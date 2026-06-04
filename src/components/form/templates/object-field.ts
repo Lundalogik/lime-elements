@@ -22,7 +22,11 @@ export const ObjectFieldTemplate = (props: LimeObjectFieldTemplateProps) => {
         return React.createElement(
             ArrayFieldContext.Provider,
             { value: null },
-            renderProperties(props.properties, props.schema)
+            renderProperties(
+                props.properties,
+                props.schema,
+                props.fieldPathId.path.map(String)
+            )
         );
     }
 
@@ -39,7 +43,11 @@ function renderFieldWithTitle(props: LimeObjectFieldTemplateProps) {
         {},
         renderSectionHeader(props),
         renderDescription(props.description as string),
-        renderProperties(props.properties, props.schema)
+        renderProperties(
+            props.properties,
+            props.schema,
+            props.fieldPathId.path.map(String)
+        )
     );
 }
 
@@ -78,7 +86,11 @@ function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
         },
         helpElement,
         renderDescription(props.description as string),
-        renderProperties(props.properties, props.schema)
+        renderProperties(
+            props.properties,
+            props.schema,
+            props.fieldPathId.path.map(String)
+        )
     );
 }
 
@@ -101,16 +113,18 @@ function getSchemaObjectPropertyPath(
 
 function renderProperties(
     properties: ObjectFieldProperty[],
-    schema: JSONSchema7
+    schema: JSONSchema7,
+    schemaPath: string[]
 ) {
     const layout = schema.lime?.layout;
 
-    return renderLayout(properties, layout);
+    return renderLayout(properties, layout, schemaPath);
 }
 
 function renderLayout(
     properties: ObjectFieldProperty[],
-    layout: Partial<LimeLayoutOptions>
+    layout: Partial<LimeLayoutOptions>,
+    schemaPath: string[]
 ) {
     const type = layout?.type || 'default';
     const layouts: Record<FormLayoutType, Function> = {
@@ -119,36 +133,59 @@ function renderLayout(
         row: renderRowLayout,
     };
 
-    return layouts[type](properties, layout);
+    return layouts[type](properties, layout, schemaPath);
 }
 
-function renderDefaultLayout(properties: ObjectFieldProperty[]) {
+function renderDefaultLayout(
+    properties: ObjectFieldProperty[],
+    _layout: FormLayoutOptions | undefined,
+    schemaPath: string[]
+) {
     return React.createElement(
         'div',
         {
             className: 'limel-form-layout--default',
+            'data-schema-path': toSchemaPath(schemaPath),
         },
         properties.map((element) => element.content)
     );
 }
 
+/**
+ * Render a schema path as a leading-slash string. Root → `/`,
+ * `['rules']` → `/rules`, `['rules', 'details']` → `/rules/details`.
+ *
+ * @param path the schema-path segments (typically `fieldPathId.path`).
+ */
+export function toSchemaPath(path: string[]): string {
+    return path.length === 0 ? '/' : `/${path.join('/')}`;
+}
+
 function renderGridLayout(
     properties: ObjectFieldProperty[],
-    layout: FormLayoutOptions
+    layout: FormLayoutOptions,
+    schemaPath: string[]
 ) {
     return React.createElement(
         GridLayout,
         {
             options: layout,
+            schemaPath: schemaPath,
         },
         properties.map((element) => element.content)
     );
 }
 
-function renderRowLayout(properties: ObjectFieldProperty[]) {
+function renderRowLayout(
+    properties: ObjectFieldProperty[],
+    _layout: FormLayoutOptions | undefined,
+    schemaPath: string[]
+) {
     return React.createElement(
         RowLayout,
-        {},
+        {
+            schemaPath: schemaPath,
+        },
         properties.map((element) => element.content)
     );
 }

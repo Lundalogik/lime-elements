@@ -501,3 +501,52 @@ export const nestedStringCustomComponentSchema: FormSchema = {
         },
     },
 };
+
+export const nestedSchemaPathSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        section: {
+            type: 'object',
+            title: 'Section',
+            properties: {
+                details: {
+                    type: 'object',
+                    title: 'Details',
+                    properties: {
+                        contact: {
+                            type: 'object',
+                            title: 'Contact',
+                            properties: {
+                                name: { type: 'string', title: 'Name' },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    },
+};
+
+export const nestedLayoutSchemaPathSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        grid: {
+            type: 'object',
+            title: 'Grid',
+            properties: {
+                first: { type: 'string', title: 'First' },
+                second: { type: 'string', title: 'Second' },
+            },
+            lime: { layout: { type: 'grid', columns: 2 } },
+        },
+        row: {
+            type: 'object',
+            title: 'Row',
+            properties: {
+                third: { type: 'string', title: 'Third' },
+                fourth: { type: 'string', title: 'Fourth' },
+            },
+            lime: { layout: { type: 'row' } },
+        },
+    },
+};

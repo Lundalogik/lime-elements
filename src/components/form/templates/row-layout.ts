@@ -1,22 +1,27 @@
 import React from 'react';
 import { Row } from '../row/row';
+import { toSchemaPath } from './object-field';
 import { RowProps } from './types';
-export class RowLayout extends React.Component<RowProps> {
+
+interface RowLayoutProps extends RowProps {
+    schemaPath?: string[];
+}
+
+export class RowLayout extends React.Component<RowLayoutProps> {
     private elementRef: React.RefObject<HTMLElement>;
 
-    constructor(public props: RowProps) {
+    constructor(public props: RowLayoutProps) {
         super(props);
 
         this.elementRef = React.createRef();
     }
 
     public render() {
-        const classes = ['limel-form-row--layout'];
-
         return React.createElement(
             'div',
             {
-                className: classes.join(' '),
+                className: 'limel-form-row--layout',
+                'data-schema-path': toSchemaPath(this.props.schemaPath ?? []),
                 ref: this.elementRef,
             },
             this.props.children.map((child, index) => {
