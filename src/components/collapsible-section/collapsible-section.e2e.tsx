@@ -113,6 +113,36 @@ describe('limel-collapsible-section', () => {
                     body.getAttribute('id')
                 );
             });
+
+            it('marks the body as `inert` when collapsed', () => {
+                const body = root.shadowRoot.querySelector('.body');
+                expect(body.hasAttribute('inert')).toBe(true);
+            });
+
+            it('removes `inert` from the body when open', async () => {
+                await setProps({ isOpen: true });
+                await waitForChanges();
+
+                const body = root.shadowRoot.querySelector('.body');
+                expect(body.hasAttribute('inert')).toBe(false);
+            });
+
+            it('keeps slotted content out of the tab order when collapsed', () => {
+                const button = root.querySelector('button') as HTMLElement;
+                button.focus();
+
+                expect(document.activeElement).not.toBe(button);
+            });
+
+            it('lets slotted content receive focus when open', async () => {
+                await setProps({ isOpen: true });
+                await waitForChanges();
+
+                const button = root.querySelector('button') as HTMLElement;
+                button.focus();
+
+                expect(document.activeElement).toBe(button);
+            });
         });
 
         describe('when setting `isOpen` to `true`', () => {

@@ -152,6 +152,7 @@ export class CollapsibleSection {
                 </header>
                 <div
                     class="body"
+                    inert={!this.isOpen}
                     aria-hidden={String(!this.isOpen)}
                     id={this.bodyId}
                     role="region"

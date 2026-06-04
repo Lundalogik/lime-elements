@@ -20,7 +20,7 @@
     "nested-interactive"
   ],
   "limel-code-diff": ["aria-required-children", "color-contrast"],
-  "limel-collapsible-section": ["aria-hidden-focus", "color-contrast"],
+  "limel-collapsible-section": ["color-contrast"],
   "limel-dock": ["button-name"],
   "limel-email-viewer": ["color-contrast", "image-alt"],
   "limel-example-file-viewer-basic": ["heading-order"],
