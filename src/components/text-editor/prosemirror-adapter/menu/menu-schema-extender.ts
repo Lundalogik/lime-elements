@@ -11,3 +11,37 @@ export const strikethrough: MarkSpec = {
         return ['s', 0];
     },
 };
+
+export const highlight: MarkSpec = {
+    attrs: {
+        color: { default: 'rgb(var(--color-yellow-light))' },
+    },
+    parseDOM: [
+        {
+            tag: 'mark',
+            getAttrs: (dom) => ({
+                color:
+                    (dom as HTMLElement).style.backgroundColor ||
+                    'rgb(var(--color-yellow-light))',
+            }),
+        },
+        {
+            tag: 'span[style*="background-color"]',
+            getAttrs: (dom) => ({
+                color:
+                    (dom as HTMLElement).style.backgroundColor ||
+                    'rgb(var(--color-yellow-light))',
+            }),
+        },
+    ],
+    toDOM: (node) => {
+        return [
+            'mark',
+            {
+                class: 'lime-text-highlight',
+                style: `background-color: ${node.attrs.color}`,
+            },
+            0,
+        ];
+    },
+};

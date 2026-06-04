@@ -8,7 +8,8 @@ import { getLinkAttributes } from '../plugins/link/utils';
 type CommandFunction = (
     schema: Schema,
     mark: EditorMenuTypes,
-    link?: EditorTextLink
+    link?: EditorTextLink,
+    color?: string
 ) => CommandWithActive;
 
 interface CommandMapping {
@@ -110,7 +111,8 @@ const createInsertLinkCommand: CommandFunction = (
 const createToggleMarkCommand = (
     schema: Schema,
     markName: string,
-    link?: EditorTextLink
+    link?: EditorTextLink,
+    _color?: string
 ): CommandWithActive => {
     const markType: MarkType | undefined = schema.marks[markName];
     if (!markType) {
@@ -118,6 +120,25 @@ const createToggleMarkCommand = (
     }
 
     const attrs = getAttributes(markName, link);
+
+    const command: CommandWithActive = toggleMark(markType, attrs);
+    setActiveMethodForMark(command, markType);
+
+    return command;
+};
+
+const createToggleHighlightCommand = (
+    schema: Schema,
+    markName: string,
+    _link?: EditorTextLink,
+    color?: string
+): CommandWithActive => {
+    const markType: MarkType | undefined = schema.marks[markName];
+    if (!markType) {
+        throw new Error(`Mark "${markName}" not found in schema`);
+    }
+
+    const attrs = color ? { color } : {};
 
     const command: CommandWithActive = toggleMark(markType, attrs);
     setActiveMethodForMark(command, markType);
@@ -301,6 +322,7 @@ const commandMapping: CommandMapping = {
     underline: createToggleMarkCommand,
     strikethrough: createToggleMarkCommand,
     code: createToggleMarkCommand,
+    highlight: createToggleHighlightCommand,
     link: createInsertLinkCommand,
     headerlevel1: (schema) =>
         createSetNodeTypeCommand(
@@ -338,10 +360,23 @@ export class MenuCommandFactory {
         this.schema = schema;
     }
 
-    public getCommand(mark: EditorMenuTypes, link?: EditorTextLink) {
+    public getCommand(
+        mark: EditorMenuTypes,
+        link?: EditorTextLink,
+        color?: string
+    ) {
         const commandFunc = commandMapping[mark];
         if (!commandFunc) {
             throw new Error(`The Mark "${mark}" is not supported`);
+        }
+
+        if (mark === EditorMenuTypes.Highlight && color) {
+            return createToggleHighlightCommand(
+                this.schema,
+                mark,
+                undefined,
+                color
+            );
         }
 
         return commandFunc(this.schema, mark, link);
@@ -355,6 +390,7 @@ export class MenuCommandFactory {
             'Mod-Shift-2': this.getCommand(EditorMenuTypes.HeaderLevel2),
             'Mod-Shift-3': this.getCommand(EditorMenuTypes.HeaderLevel3),
             'Mod-Shift-X': this.getCommand(EditorMenuTypes.Strikethrough),
+            'Mod-Shift-H': this.getCommand(EditorMenuTypes.Highlight),
             'Mod-`': this.getCommand(EditorMenuTypes.Code),
             'Mod-Shift-C': this.getCommand(EditorMenuTypes.CodeBlock),
         };

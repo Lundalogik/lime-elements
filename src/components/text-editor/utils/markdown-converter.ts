@@ -62,6 +62,12 @@ const buildMarkdownSerializer = (
             mixable: true,
             expelEnclosingWhitespace: true,
         },
+        highlight: {
+            open: '==',
+            close: '==',
+            mixable: true,
+            expelEnclosingWhitespace: true,
+        },
     };
 
     return new MarkdownSerializer(nodes, marks);
