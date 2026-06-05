@@ -23,21 +23,42 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    # SonarCloud intermittently rejects requests from GitHub-hosted runners
-    # with HTTP 403 (AWS IP reputation blocking, confirmed by SonarSource:
-    # https://community.sonarsource.com/t/-/138939). Don't let that block
-    # releases — the quality gate still guards every PR via pr-checks.yml;
-    # this scan only refreshes the analysis baseline on main.
-    continue-on-error: true
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
       - name: SonarCloud Scan
+        id: scan
+        # SonarCloud intermittently rejects requests from GitHub-hosted
+        # runners with HTTP 403 (AWS IP reputation blocking, confirmed by
+        # SonarSource: https://community.sonarsource.com/t/-/138939). Don't
+        # fail the job outright on scanner errors — the step below asks
+        # SonarCloud for the actual quality gate status and only blocks the
+        # release on a genuine gate failure.
+        continue-on-error: true
         uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995 # v8.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Check quality gate status
+        if: steps.scan.outcome == 'failure'
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        # The scan step failed. Distinguish a real quality gate failure
+        # (scanner exits non-zero because of sonar.qualitygate.wait=true)
+        # from transient SonarCloud infrastructure errors. Only a gate
+        # reported as ERROR by SonarCloud itself blocks the release; if
+        # SonarCloud is unreachable, warn and let the release proceed.
+        run: |
+          status=$(curl -sf -u "${SONAR_TOKEN}:" \
+            "https://sonarcloud.io/api/qualitygates/project_status?projectKey=Lundalogik_lime-elements&branch=main" \
+            | jq -r '.projectStatus.status') || status=UNREACHABLE
+          echo "Quality gate status: ${status}"
+          if [ "${status}" = "ERROR" ]; then
+            echo "::error::SonarCloud quality gate is failing on main; blocking release"
+            exit 1
+          fi
+          echo "::warning::SonarCloud scan failed, but the quality gate is not failing (status: ${status}). Treating it as a transient SonarCloud error and proceeding with the release."
   semantic-release:
     name: Run Semantic Release
     needs: [sonarcloud]
