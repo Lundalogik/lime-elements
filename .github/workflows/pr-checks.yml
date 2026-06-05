@@ -109,7 +109,7 @@ jobs:
       with:
         name: example-docs
         path: www
-    - run: npm run test:examples:runtime -- --shard=${{ matrix.shard }}/2
+    - run: npm run test:examples:runtime:ci -- --shard=${{ matrix.shard }}/2
     # Retained on failure (`trace: 'retain-on-failure'`); upload so the trace
     # viewer (DOM snapshots, console, network) is reachable from the run. Named
     # per shard because upload-artifact rejects duplicate names within a run.
@@ -152,7 +152,7 @@ jobs:
       with:
         name: example-docs
         path: www
-    - run: npm run test:examples:accessibility -- --shard=${{ matrix.shard }}/4
+    - run: npm run test:examples:accessibility:ci -- --shard=${{ matrix.shard }}/4
     # Retained on failure (`trace: 'retain-on-failure'`); upload so the trace
     # viewer (DOM snapshots, console, network) is reachable from the run. Named
     # per shard because upload-artifact rejects duplicate names within a run.
