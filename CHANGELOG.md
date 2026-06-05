@@ -1,3 +1,15 @@
+## [39.30.0](https://github.com/Lundalogik/lime-elements/compare/v39.29.3...v39.30.0) (2026-06-05)
+
+### Features
+
+
+* **form:** add revealErrors prop to opt into showing all validation errors ([97b6535](https://github.com/Lundalogik/lime-elements/commit/97b65353de5e834037e5995afa73a1f0e82d4e22))
+* **form:** mark collapsible sections and array items as invalid when revealErrors is true ([3be191b](https://github.com/Lundalogik/lime-elements/commit/3be191b5a2be04da03e774d258d5c462fdd5aec9))
+### Bug Fixes
+
+
+* **input-field:** reset MDC's internal validity when the consumer clears the invalid prop ([a6810d8](https://github.com/Lundalogik/lime-elements/commit/a6810d8712aa38ce2f59b1b128549cfabb2ad7aa))
+
 ## [39.29.3](https://github.com/Lundalogik/lime-elements/compare/v39.29.2...v39.29.3) (2026-06-03)
 
 ### Bug Fixes
