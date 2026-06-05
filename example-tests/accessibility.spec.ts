@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
+import { format, resolveConfig } from 'prettier';
 
 // We run axe by injecting its source and calling `axe.run` ourselves rather
 // than via `@axe-core/playwright`, because we need to scope the scan to a set of
@@ -92,7 +93,7 @@ test.beforeAll(() => {
     }
 });
 
-test.afterAll(() => {
+test.afterAll(async () => {
     if (!UPDATE_BASELINE) {
         return;
     }
@@ -120,7 +121,14 @@ test.afterAll(() => {
             result[key] = kept;
         }
     }
-    writeFileSync(BASELINE_PATH, `${JSON.stringify(result, null, 4)}\n`);
+    // Write in the repo's Prettier style so a format-on-save in an editor is
+    // a no-op. The file is excluded from ESLint but not from Prettier, so
+    // editors WILL format it — emitting any other style just causes churn.
+    const formatted = await format(JSON.stringify(result), {
+        ...(await resolveConfig(BASELINE_PATH)),
+        filepath: BASELINE_PATH,
+    });
+    writeFileSync(BASELINE_PATH, formatted);
 });
 
 test('the docs expose the expected number of examples', () => {
