@@ -1,195 +1,97 @@
 {
-    "limel-action-bar": [
-        "aria-required-children"
-    ],
-    "limel-action-bar-item": [
-        "aria-required-parent"
-    ],
-    "limel-badge": [
-        "color-contrast"
-    ],
-    "limel-breadcrumbs": [
-        "aria-allowed-role",
-        "aria-required-parent",
-        "button-name",
-        "color-contrast",
-        "listitem"
-    ],
-    "limel-button": [
-        "button-name",
-        "color-contrast",
-        "nested-interactive"
-    ],
-    "limel-button-group": [
-        "color-contrast"
-    ],
-    "limel-callout": [
-        "color-contrast"
-    ],
-    "limel-card": [
-        "aria-allowed-role",
-        "nested-interactive"
-    ],
-    "limel-checkbox": [
-        "aria-valid-attr-value"
-    ],
-    "limel-chip": [
-        "aria-required-children",
-        "aria-required-parent",
-        "nested-interactive"
-    ],
-    "limel-code-diff": [
-        "aria-required-children",
-        "color-contrast"
-    ],
-    "limel-collapsible-section": [
-        "aria-hidden-focus",
-        "color-contrast"
-    ],
-    "limel-dock": [
-        "button-name"
-    ],
-    "limel-email-viewer": [
-        "color-contrast",
-        "image-alt"
-    ],
-    "limel-example-action-bar-as-primary-component": [
-        "heading-order"
-    ],
-    "limel-example-chart-axis-increment": [
-        "heading-order"
-    ],
-    "limel-example-chart-multi-axis": [
-        "heading-order"
-    ],
-    "limel-example-chart-multi-axis-area-with-negative-start-values": [
-        "heading-order"
-    ],
-    "limel-example-chart-multi-axis-with-negative-start-values": [
-        "heading-order"
-    ],
-    "limel-example-chart-styling": [
-        "heading-order"
-    ],
-    "limel-example-chart-type-area": [
-        "heading-order"
-    ],
-    "limel-example-chart-type-bar": [
-        "heading-order"
-    ],
-    "limel-example-chart-type-dot": [
-        "heading-order"
-    ],
-    "limel-example-chart-type-gantt": [
-        "heading-order"
-    ],
-    "limel-example-chart-type-line": [
-        "heading-order"
-    ],
-    "limel-example-chart-type-nps": [
-        "heading-order"
-    ],
-    "limel-example-drag-handle-horizontal": [
-        "heading-order"
-    ],
-    "limel-example-file-viewer-basic": [
-        "heading-order"
-    ],
-    "limel-example-file-viewer-eml": [
-        "heading-order"
-    ],
-    "limel-example-list-item-actions": [
-        "list"
-    ],
-    "limel-example-markdown-adapt-color-contrast": [
-        "heading-order"
-    ],
-    "limel-example-markdown-composite": [
-        "color-contrast"
-    ],
-    "limel-example-placement": [
-        "heading-order"
-    ],
-    "limel-example-select-with-empty-option": [
-        "heading-order"
-    ],
-    "limel-file-input": [
-        "button-name"
-    ],
-    "limel-file-viewer": [
-        "frame-title",
-        "image-alt",
-        "object-alt"
-    ],
-    "limel-form": [
-        "frame-title"
-    ],
-    "limel-header": [
-        "color-contrast",
-        "empty-heading"
-    ],
-    "limel-icon": [
-        "aria-command-name",
-        "aria-prohibited-attr"
-    ],
-    "limel-icon-button": [
-        "button-name",
-        "nested-interactive"
-    ],
-    "limel-list": [
-        "aria-input-field-name",
-        "aria-required-children",
-        "color-contrast"
-    ],
-    "limel-list-item": [
-        "aria-allowed-attr",
-        "aria-required-parent",
-        "aria-toggle-field-name",
-        "nested-interactive"
-    ],
-    "limel-markdown": [
-        "color-contrast",
-        "heading-order",
-        "link-in-text-block",
-        "scrollable-region-focusable"
-    ],
-    "limel-masonry-layout": [
-        "heading-order"
-    ],
-    "limel-notched-outline": [
-        "aria-allowed-attr",
-        "aria-command-name",
-        "aria-valid-attr-value",
-        "button-name",
-        "color-contrast",
-        "label",
-        "label-title-only",
-        "link-name",
-        "scrollable-region-focusable"
-    ],
-    "limel-popover": [
-        "button-name",
-        "nested-interactive"
-    ],
-    "limel-profile-picture": [
-        "button-name"
-    ],
-    "limel-progress-flow-item": [
-        "color-contrast"
-    ],
-    "limel-prosemirror-adapter": [
-        "aria-valid-attr-value"
-    ],
-    "limel-shortcut": [
-        "aria-prohibited-attr"
-    ],
-    "limel-switch": [
-        "button-name"
-    ],
-    "limel-table": [
-        "aria-required-children",
-        "aria-required-parent",
-        "color-contrast",
-        "empty-table-header"
-    ]
+  "limel-action-bar": ["aria-required-children"],
+  "limel-action-bar-item": ["aria-required-parent"],
+  "limel-badge": ["color-contrast"],
+  "limel-breadcrumbs": [
+    "aria-allowed-role",
+    "aria-required-parent",
+    "button-name",
+    "color-contrast",
+    "listitem"
+  ],
+  "limel-button": ["button-name", "color-contrast", "nested-interactive"],
+  "limel-button-group": ["color-contrast"],
+  "limel-callout": ["color-contrast"],
+  "limel-card": ["aria-allowed-role", "nested-interactive"],
+  "limel-checkbox": ["aria-valid-attr-value"],
+  "limel-chip": [
+    "aria-required-children",
+    "aria-required-parent",
+    "nested-interactive"
+  ],
+  "limel-code-diff": ["aria-required-children", "color-contrast"],
+  "limel-collapsible-section": ["aria-hidden-focus", "color-contrast"],
+  "limel-dock": ["button-name"],
+  "limel-email-viewer": ["color-contrast", "image-alt"],
+  "limel-example-action-bar-as-primary-component": ["heading-order"],
+  "limel-example-chart-axis-increment": ["heading-order"],
+  "limel-example-chart-multi-axis": ["heading-order"],
+  "limel-example-chart-multi-axis-area-with-negative-start-values": [
+    "heading-order"
+  ],
+  "limel-example-chart-multi-axis-with-negative-start-values": [
+    "heading-order"
+  ],
+  "limel-example-chart-styling": ["heading-order"],
+  "limel-example-chart-type-area": ["heading-order"],
+  "limel-example-chart-type-bar": ["heading-order"],
+  "limel-example-chart-type-dot": ["heading-order"],
+  "limel-example-chart-type-gantt": ["heading-order"],
+  "limel-example-chart-type-line": ["heading-order"],
+  "limel-example-chart-type-nps": ["heading-order"],
+  "limel-example-drag-handle-horizontal": ["heading-order"],
+  "limel-example-file-viewer-basic": ["heading-order"],
+  "limel-example-file-viewer-eml": ["heading-order"],
+  "limel-example-list-item-actions": ["list"],
+  "limel-example-markdown-adapt-color-contrast": ["heading-order"],
+  "limel-example-markdown-composite": ["color-contrast"],
+  "limel-example-placement": ["heading-order"],
+  "limel-example-select-with-empty-option": ["heading-order"],
+  "limel-file-input": ["button-name"],
+  "limel-file-viewer": ["frame-title", "image-alt", "object-alt"],
+  "limel-form": ["frame-title"],
+  "limel-header": ["color-contrast", "empty-heading"],
+  "limel-icon": ["aria-command-name", "aria-prohibited-attr"],
+  "limel-icon-button": ["button-name", "nested-interactive"],
+  "limel-list": [
+    "aria-input-field-name",
+    "aria-required-children",
+    "color-contrast"
+  ],
+  "limel-list-item": [
+    "aria-allowed-attr",
+    "aria-required-parent",
+    "aria-toggle-field-name",
+    "nested-interactive"
+  ],
+  "limel-markdown": [
+    "color-contrast",
+    "heading-order",
+    "link-in-text-block",
+    "scrollable-region-focusable"
+  ],
+  "limel-masonry-layout": ["heading-order"],
+  "limel-notched-outline": [
+    "aria-allowed-attr",
+    "aria-command-name",
+    "aria-valid-attr-value",
+    "button-name",
+    "color-contrast",
+    "label",
+    "label-title-only",
+    "link-name",
+    "scrollable-region-focusable"
+  ],
+  "limel-popover": ["button-name", "nested-interactive"],
+  "limel-profile-picture": ["button-name"],
+  "limel-progress-flow-item": ["color-contrast"],
+  "limel-prosemirror-adapter": ["aria-valid-attr-value"],
+  "limel-shortcut": ["aria-prohibited-attr"],
+  "limel-switch": ["button-name"],
+  "limel-table": [
+    "aria-required-children",
+    "aria-required-parent",
+    "color-contrast",
+    "empty-table-header"
+  ]
 }
