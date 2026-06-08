@@ -68,6 +68,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-file-input-basic](../file-input/examples)
  - [limel-example-file-input-type-filtering](../file-input/examples)
  - [limel-example-form-array-item-controls](../form/examples)
+ - [limel-example-form-invalid-section](../form/examples)
  - [limel-example-helper-line-animation](../helper-line/examples)
  - [limel-example-input-field-text-decluttering-guidelines](../../design-guidelines/declutter/examples)
  - [limel-example-list-item-checkbox](../list-item/examples)
@@ -116,6 +117,7 @@ graph TD;
   limel-example-file-input-basic --> limel-checkbox
   limel-example-file-input-type-filtering --> limel-checkbox
   limel-example-form-array-item-controls --> limel-checkbox
+  limel-example-form-invalid-section --> limel-checkbox
   limel-example-helper-line-animation --> limel-checkbox
   limel-example-input-field-text-decluttering-guidelines --> limel-checkbox
   limel-example-list-item-checkbox --> limel-checkbox
