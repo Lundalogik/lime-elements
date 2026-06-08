@@ -1,16 +1,14 @@
 @use '../../../style/mixins';
 @use '../../../style/functions';
 
-#tabulator-container {
-    &:not(.has-pagination) {
-        // When there is no pagination, Tabulator still displays the pagination bar,
-        // but with only 1 page in it. This is why we may want to hide it visually.
-        // @private
-        // We use this in the CRM for very particular use cases, such as small
-        // explorer widgets with single-page tables on the start pages.
-        .tabulator-paginator {
-            display: var(--limel-table-single-page-paginator-display, grid);
-        }
+// When there is no pagination, Tabulator still displays the pagination bar,
+// but with only 1 page in it. This is why we may want to hide it visually.
+// @private
+// We use this in the CRM for very particular use cases, such as small
+// explorer widgets with single-page tables on the start pages.
+:host(:not(.has-pagination)) #tabulator-container {
+    .tabulator-paginator {
+        display: var(--limel-table-single-page-paginator-display, grid);
     }
 }
 
