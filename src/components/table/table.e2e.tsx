@@ -311,4 +311,40 @@ describe('limel-table', () => {
             expect(root.classList.contains('has-pagination')).toBe(false);
         });
     });
+
+    describe('selection state', () => {
+        // `has-selection` is exposed on the host so consumers can react to an
+        // active row selection without piercing the shadow DOM.
+        it('marks the host with `has-selection` when rows are selected', async () => {
+            const columns = [{ field: 'name', title: 'Name' }];
+            const data = [
+                { id: 1, name: 'A' },
+                { id: 2, name: 'B' },
+            ];
+            const { root, setProps, waitForChanges } = await renderTable({
+                columns,
+                data,
+                selectable: true,
+            });
+
+            setProps({ selection: [data[0]] });
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await waitForChanges();
+
+            expect(root.classList.contains('has-selection')).toBe(true);
+        });
+
+        it('does not mark the host without a selection', async () => {
+            const columns = [{ field: 'name', title: 'Name' }];
+            const data = [{ id: 1, name: 'A' }];
+            const { root } = await renderTable({
+                columns,
+                data,
+                selectable: true,
+            });
+
+            expect(root.classList.contains('has-selection')).toBe(false);
+        });
+    });
 });
