@@ -76,6 +76,7 @@ primary and secondary actions, see our
  - [limel-example-file-input-basic](../file-input/examples)
  - [limel-example-file-input-type-filtering](../file-input/examples)
  - [limel-example-form](../form/examples)
+ - [limel-example-form-invalid-section](../form/examples)
  - [limel-example-form-layout](../form/examples)
  - [limel-example-form-span-fields](../form/examples)
  - [limel-example-input-field-focus](../input-field/examples)
@@ -171,6 +172,7 @@ graph TD;
   limel-example-file-input-basic --> limel-button
   limel-example-file-input-type-filtering --> limel-button
   limel-example-form --> limel-button
+  limel-example-form-invalid-section --> limel-button
   limel-example-form-layout --> limel-button
   limel-example-form-span-fields --> limel-button
   limel-example-input-field-focus --> limel-button
