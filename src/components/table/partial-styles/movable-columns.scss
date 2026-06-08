@@ -9,7 +9,7 @@
     }
 }
 
-.has-movable-columns {
+:host([movable-columns]:not([movable-columns='false'])) {
     .tabulator-header {
         overflow-y: visible;
 

@@ -16,7 +16,7 @@
     left: 0.375rem;
     top: 0.1875rem;
 
-    .has-movable-rows & {
+    :host([movable-rows]:not([movable-rows='false'])) & {
         left: calc(var(--limel-table-drag-handle-width) + 0.375rem);
     }
 }
@@ -24,7 +24,7 @@
 .limel-table--row-selector {
     left: 0;
 
-    .has-movable-rows & {
+    :host([movable-rows]:not([movable-rows='false'])) & {
         left: var(--limel-table-drag-handle-width);
     }
 
@@ -83,7 +83,7 @@
     }
 }
 
-.has-movable-columns .tabulator-header {
+:host([movable-columns]:not([movable-columns='false'])) .tabulator-header {
     .tabulator-col.limel-table--row-selector,
     .tabulator-col.limel-table-drag-handle {
         border: none;
@@ -99,7 +99,12 @@
     }
 }
 
-.has-movable-columns.has-movable-rows .tabulator-header {
+:host(
+        [movable-columns]:not([movable-columns='false'])[movable-rows]:not(
+                [movable-rows='false']
+            )
+    )
+    .tabulator-header {
     .tabulator-col.limel-table--row-selector {
         left: var(--limel-table-drag-handle-width);
     }
