@@ -1112,13 +1112,13 @@ export class Table {
                 class={{
                     'has-low-density': this.layout === 'lowDensity',
                     'has-pagination-on-top': this.paginationLocation === 'top',
+                    'has-aggregation': this.hasAggregation(this.columns),
                 }}
             >
                 <div
                     id="tabulator-container"
                     class={{
                         'has-pagination': totalRows > this.pageSize,
-                        'has-aggregation': this.hasAggregation(this.columns),
                         'has-selection': this.tableSelection?.hasSelection,
                     }}
                 >
