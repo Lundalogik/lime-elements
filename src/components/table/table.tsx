@@ -1119,7 +1119,6 @@ export class Table {
                     class={{
                         'has-pagination': totalRows > this.pageSize,
                         'has-aggregation': this.hasAggregation(this.columns),
-                        'has-rowselector': this.selectable,
                         'has-selection': this.tableSelection?.hasSelection,
                     }}
                 >
