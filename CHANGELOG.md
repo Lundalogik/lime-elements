@@ -1,3 +1,11 @@
+## [39.31.1](https://github.com/Lundalogik/lime-elements/compare/v39.31.0...v39.31.1) (2026-06-08)
+
+### Bug Fixes
+
+
+* **action-bar:** lighten item background on hover ([2e04263](https://github.com/Lundalogik/lime-elements/commit/2e0426398005eb58c8213d4b3ead7a705ed86ebd))
+* **action-bar:** replace sharp borders with a softer inset shadow when floating ([b031e43](https://github.com/Lundalogik/lime-elements/commit/b031e43a2fde4eafb584e75c3355dc232b64a020))
+
 ## [39.31.0](https://github.com/Lundalogik/lime-elements/compare/v39.30.0...v39.31.0) (2026-06-08)
 
 ### Features
