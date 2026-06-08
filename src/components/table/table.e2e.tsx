@@ -262,4 +262,30 @@ describe('limel-table', () => {
             );
         });
     });
+
+    describe('aggregation row', () => {
+        // The `has-aggregation` class is exposed on the host so consumers and
+        // ancestor components can react to the totals row without piercing the
+        // shadow DOM — e.g. a floating action bar that must sit clear of it.
+        it('marks the host with `has-aggregation` when a column has an aggregator', async () => {
+            const columns = [
+                { field: 'amount', title: 'Amount', aggregator: () => 30 },
+            ];
+            const data = [
+                { id: 1, amount: 10 },
+                { id: 2, amount: 20 },
+            ];
+            const { root } = await renderTable({ data, columns });
+
+            expect(root.classList.contains('has-aggregation')).toBe(true);
+        });
+
+        it('does not mark the host without an aggregating column', async () => {
+            const columns = [{ field: 'amount', title: 'Amount' }];
+            const data = [{ id: 1, amount: 10 }];
+            const { root } = await renderTable({ data, columns });
+
+            expect(root.classList.contains('has-aggregation')).toBe(false);
+        });
+    });
 });
