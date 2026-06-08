@@ -36,6 +36,7 @@ const DEFAULT_SEARCHER_MAX_RESULTS = 20;
  * @exampleComponent limel-example-picker-basic
  * @exampleComponent limel-example-picker-multiple
  * @exampleComponent limel-example-picker-non-removable
+ * @exampleComponent limel-example-picker-with-badges
  * @exampleComponent limel-example-picker-icons
  * @exampleComponent limel-example-picker-pictures
  * @exampleComponent limel-example-picker-value-as-object
@@ -377,6 +378,7 @@ export class Picker {
             image: listItem.image,
             value: listItem,
             menuItems: listItem.actions,
+            badge: listItem.badge,
         };
     };
 
