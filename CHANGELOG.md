@@ -1,3 +1,10 @@
+## [39.31.0](https://github.com/Lundalogik/lime-elements/compare/v39.30.0...v39.31.0) (2026-06-08)
+
+### Features
+
+
+* **form:** emit data-schema-path on layout wrappers ([cd5fb31](https://github.com/Lundalogik/lime-elements/commit/cd5fb3144cff526f71e669cb23bc73fa6f82f358))
+
 ## [39.30.0](https://github.com/Lundalogik/lime-elements/compare/v39.29.3...v39.30.0) (2026-06-05)
 
 ### Features
