@@ -87,7 +87,10 @@ export class ChipSetFilterBadgeExample {
     private setAllBadgeValue() {
         let badgeValue = 0;
         for (const chip of this.chips) {
-            if (chip.id !== CHIP_SELECET_ALL_ID) {
+            if (
+                chip.id !== CHIP_SELECET_ALL_ID &&
+                typeof chip.badge === 'number'
+            ) {
                 badgeValue += chip.badge;
             }
         }
