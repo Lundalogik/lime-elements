@@ -1114,14 +1114,10 @@ export class Table {
                     'has-pagination-on-top': this.paginationLocation === 'top',
                     'has-aggregation': this.hasAggregation(this.columns),
                     'has-pagination': totalRows > this.pageSize,
+                    'has-selection': this.tableSelection?.hasSelection,
                 }}
             >
-                <div
-                    id="tabulator-container"
-                    class={{
-                        'has-selection': this.tableSelection?.hasSelection,
-                    }}
-                >
+                <div id="tabulator-container">
                     {/* Toggle style instead of removing the loader
                     because removing the element will cause a rerender, breaking the
                     tabulator table */}
