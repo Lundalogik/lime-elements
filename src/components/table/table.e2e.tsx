@@ -288,4 +288,27 @@ describe('limel-table', () => {
             expect(root.classList.contains('has-aggregation')).toBe(false);
         });
     });
+
+    describe('pagination state', () => {
+        // `has-pagination` is exposed on the host so consumers can react to a
+        // multi-page table without piercing the shadow DOM.
+        it('marks the host with `has-pagination` when there is more than one page', async () => {
+            const columns = [{ field: 'name', title: 'Name' }];
+            const data = [
+                { id: 1, name: 'A' },
+                { id: 2, name: 'B' },
+            ];
+            const { root } = await renderTable({ columns, data, pageSize: 1 });
+
+            expect(root.classList.contains('has-pagination')).toBe(true);
+        });
+
+        it('does not mark the host for a single-page table', async () => {
+            const columns = [{ field: 'name', title: 'Name' }];
+            const data = [{ id: 1, name: 'A' }];
+            const { root } = await renderTable({ columns, data, pageSize: 10 });
+
+            expect(root.classList.contains('has-pagination')).toBe(false);
+        });
+    });
 });
