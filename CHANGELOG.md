@@ -1,3 +1,12 @@
+## [39.32.0](https://github.com/Lundalogik/lime-elements/compare/v39.31.1...v39.32.0) (2026-06-08)
+
+### Features
+
+
+* **table:** expose `has-aggregation` on the host element ([4c16a04](https://github.com/Lundalogik/lime-elements/commit/4c16a046c803bf67593ff8e6905c687ef120cae5)), closes [#4116](https://github.com/Lundalogik/lime-elements/issues/4116)
+* **table:** expose `has-pagination` on the host element ([768745b](https://github.com/Lundalogik/lime-elements/commit/768745bbaee58cff010a4ad112bfd4e50e109cc9)), closes [#4116](https://github.com/Lundalogik/lime-elements/issues/4116)
+* **table:** expose `has-selection` on the host element ([2ac14d2](https://github.com/Lundalogik/lime-elements/commit/2ac14d2b028813ab09e91c521d689bce21d9470d)), closes [#4116](https://github.com/Lundalogik/lime-elements/issues/4116)
+
 ## [39.31.1](https://github.com/Lundalogik/lime-elements/compare/v39.31.0...v39.31.1) (2026-06-08)
 
 ### Bug Fixes
