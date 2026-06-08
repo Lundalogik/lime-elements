@@ -4318,6 +4318,7 @@ export { Option_2 as Option }
 
 // @public
 export interface PickerItem<T = PickerValue> extends ListItem<T> {
+    badge?: number | string;
     removable?: boolean;
 }
 
