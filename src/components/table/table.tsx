@@ -1119,8 +1119,6 @@ export class Table {
                     class={{
                         'has-pagination': totalRows > this.pageSize,
                         'has-aggregation': this.hasAggregation(this.columns),
-                        'has-movable-columns': this.movableColumns,
-                        'has-movable-rows': !!this.rowDragManager,
                         'has-rowselector': this.selectable,
                         'has-selection': this.tableSelection?.hasSelection,
                     }}
