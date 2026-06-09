@@ -1052,8 +1052,29 @@ export class Table {
         return Math.ceil(total / this.pageSize);
     }
 
+    /**
+     * Whether any of `columns` shows an aggregation — either because the column
+     * carries its own `aggregator`, or because its field has a matching entry in
+     * `aggregates`.
+     *
+     * Deriving from `aggregates` (the source of truth) rather than only from the
+     * `aggregator` that `addColumnAggregator` mutates onto the column keeps this
+     * correct even when the table is re-fed equivalent columns and aggregates
+     * without that mutation being re-applied — e.g. when only the aggregate
+     * values change, `updateAggregates` recalculates without re-running
+     * `getColumnDefinitions`.
+     *
+     * @param columns - the column definitions to inspect.
+     * @returns whether at least one column shows an aggregation.
+     */
     private hasAggregation(columns: Column[]): boolean {
-        return columns.some((column) => has(column, 'aggregator'));
+        return columns.some(
+            (column) =>
+                has(column, 'aggregator') ||
+                (this.aggregates ?? []).some(
+                    (aggregate) => aggregate.field === column.field
+                )
+        );
     }
 
     private readonly getColumnOptions = (): TabulatorOptionsColumns => {
