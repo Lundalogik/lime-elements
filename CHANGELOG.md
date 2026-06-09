@@ -1,3 +1,10 @@
+## [39.29.4](https://github.com/Lundalogik/lime-elements/compare/v39.29.3...v39.29.4) (2026-06-09)
+
+### Bug Fixes
+
+
+* **form:** keep optional oneOf enums clearable ([c95aed3](https://github.com/Lundalogik/lime-elements/commit/c95aed38c48e9ef75ee83b6f1b83604c1350dd46))
+
 ## [39.29.3](https://github.com/Lundalogik/lime-elements/compare/v39.29.2...v39.29.3) (2026-06-03)
 
 ### Bug Fixes
