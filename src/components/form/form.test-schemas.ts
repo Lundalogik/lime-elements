@@ -32,6 +32,26 @@ export const enumSchema: FormSchema = {
     },
 };
 
+export const optionalOneOfSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        name: { type: 'string', title: 'Name' },
+        choice: {
+            type: 'string',
+            title: 'Choice',
+            oneOf: [
+                { type: 'string', const: 'a', title: 'A' },
+                { type: 'string', const: 'b', title: 'B' },
+            ],
+        },
+        withDefault: {
+            type: 'string',
+            title: 'With default',
+            default: 'preset',
+        },
+    },
+};
+
 export const requiredFieldSchema: FormSchema = {
     type: 'object',
     properties: {

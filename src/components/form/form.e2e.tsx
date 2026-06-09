@@ -8,6 +8,7 @@ import {
     requiredFieldSchema,
     twoRequiredFieldsSchema,
     emailFormatSchema,
+    optionalOneOfSchema,
     arraySchema,
     nestedObjectSchema,
     arrayOfObjectsSchema,
@@ -100,6 +101,23 @@ test('emits change event with updated form data', async () => {
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange.mock.calls[0][0].detail).toEqual({ name: 'Alice' });
+});
+
+test('does not auto-select a const from an optional oneOf, but keeps real defaults', async () => {
+    const onChange = vi.fn();
+    const { change } = await renderForm({
+        schema: optionalOneOfSchema,
+        onChange,
+    });
+
+    await change('Name', 'Alice');
+
+    // `choice` is an optional oneOf and must stay empty (the user can leave it
+    // blank), while `withDefault` still gets its declared default applied.
+    expect(onChange.mock.lastCall[0].detail).toEqual({
+        name: 'Alice',
+        withDefault: 'preset',
+    });
 });
 
 const validationTests = [
