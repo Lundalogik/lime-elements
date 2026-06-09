@@ -176,6 +176,15 @@ export class Form {
                     widgets: widgets,
                     validator: rjsfValidator,
                     liveValidate: 'onChange',
+                    // `@rjsf/core` v6 treats a `const` inside `oneOf`/`anyOf`
+                    // as a default and auto-selects the first option, so an
+                    // optional enum can never be left empty (clearing it just
+                    // gets repopulated on the next render). `skipOneOf` keeps
+                    // this off for enums while still applying genuine
+                    // `default` values, matching the pre-v6 behavior.
+                    experimental_defaultFormStateBehavior: {
+                        constAsDefaults: 'skipOneOf',
+                    },
                     showErrorList: false,
                     extraErrors: this.getExtraErrors(this.errors),
                     templates: {
