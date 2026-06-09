@@ -301,3 +301,38 @@ describe('limel-table aggregate updates', () => {
         expect(tabulator.recalc).not.toHaveBeenCalled();
     });
 });
+
+describe('limel-table has-aggregation detection', () => {
+    let component: Table;
+
+    beforeEach(() => {
+        component = new Table();
+    });
+
+    it('detects an aggregation from the aggregates prop when no column carries an aggregator', () => {
+        (component as any).aggregates = [{ field: 'amount', value: 100 }];
+
+        expect(
+            (component as any).hasAggregation([
+                { field: 'name' },
+                { field: 'amount' },
+            ])
+        ).toBe(true);
+    });
+
+    it('does not detect an aggregation when no column field matches an aggregate', () => {
+        (component as any).aggregates = [{ field: 'amount', value: 100 }];
+
+        expect((component as any).hasAggregation([{ field: 'name' }])).toBe(
+            false
+        );
+    });
+
+    it("detects an aggregation from a column's own aggregator", () => {
+        expect(
+            (component as any).hasAggregation([
+                { field: 'amount', aggregator: () => 0 },
+            ])
+        ).toBe(true);
+    });
+});
