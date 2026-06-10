@@ -98,9 +98,10 @@ export interface Chip<T = any> {
     value?: T;
 
     /**
-     * The value of the badge.
+     * The value of the badge. Accepts either a number (for counter-style
+     * badges) or a short string (e.g. a status label like "Inactive").
      */
-    badge?: number;
+    badge?: number | string;
 
     /**
      * If supplied, the chip will render a link, using the supplied href.

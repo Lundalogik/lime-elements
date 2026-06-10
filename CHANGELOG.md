@@ -1,3 +1,11 @@
+## [39.33.0](https://github.com/Lundalogik/lime-elements/compare/v39.32.1...v39.33.0) (2026-06-10)
+
+### Features
+
+
+* **chip-set:** widen Chip.badge to accept string | number ([1ad132f](https://github.com/Lundalogik/lime-elements/commit/1ad132f8a16ec9452631fbc0f0ca64508ec8d9aa))
+* **picker:** forward PickerItem.badge to its chip ([abfc24d](https://github.com/Lundalogik/lime-elements/commit/abfc24d49aada375abb919c84006661b8cc5274c))
+
 ## [39.32.1](https://github.com/Lundalogik/lime-elements/compare/v39.32.0...v39.32.1) (2026-06-09)
 
 ### Bug Fixes

@@ -78,7 +78,7 @@ export interface ChartItem<T extends number | [number, number] = number | [numbe
 
 // @public (undocumented)
 export interface Chip<T = any> {
-    badge?: number;
+    badge?: number | string;
     href?: string;
     icon?: IconName | Icon;
     // @deprecated
@@ -4318,6 +4318,7 @@ export { Option_2 as Option }
 
 // @public
 export interface PickerItem<T = PickerValue> extends ListItem<T> {
+    badge?: number | string;
     removable?: boolean;
 }
 

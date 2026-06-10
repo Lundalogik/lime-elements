@@ -25,4 +25,11 @@ export interface PickerItem<T = PickerValue> extends ListItem<T> {
      * button is hidden on all chips regardless of this flag.
      */
     removable?: boolean;
+
+    /**
+     * Optional badge to display on the chip when the item is picked.
+     * Useful for marking selected items with a status indicator
+     * (e.g. "Inactive", "Beta", or a numeric counter).
+     */
+    badge?: number | string;
 }
