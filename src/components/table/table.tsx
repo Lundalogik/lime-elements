@@ -1076,10 +1076,28 @@ export class Table {
             // Tabulator's `rowHeader` inline type narrows `formatter` to a
             // string, but the runtime accepts a function (as `ColumnDefinition`
             // does). Cast bridges the incomplete upstream type.
-            rowHeader:
-                this.rowDragManager.getRowHeaderDefinition() as TabulatorOptions['rowHeader'],
+            rowHeader: this.rowDragManager.getRowHeaderDefinition(
+                this.getDragHandleWidth()
+            ) as TabulatorOptions['rowHeader'],
         };
     };
+
+    /**
+     * Resolves `--limel-table-drag-handle-width` to pixels by measuring a
+     * probe element, since the custom property may be declared in any unit.
+     */
+    private getDragHandleWidth(): number {
+        const FALLBACK_WIDTH = 32;
+        const probe = document.createElement('div');
+        probe.style.cssText =
+            'position: absolute; visibility: hidden;' +
+            'width: var(--limel-table-drag-handle-width);';
+        this.host.shadowRoot.append(probe);
+        const width = probe.getBoundingClientRect().width;
+        probe.remove();
+
+        return width || FALLBACK_WIDTH;
+    }
 
     private readonly handleMoveColumn = (
         _,
