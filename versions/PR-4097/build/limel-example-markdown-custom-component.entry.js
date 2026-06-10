@@ -1,1 +1,0 @@
-import{r as e,h as t}from"./index-DBTJNfo7.js";const r=class{constructor(t){e(this,t)}render(){return t("limel-markdown",{key:"48f7dbb9fb4422776897c3abedb15e7207d0a996",value:'This is 20% <meter value="0.2"></meter> and this is 100% <meter value="1" />',whitelist:[{tagName:"meter",attributes:["value"]}]})}};export{r as limel_example_markdown_custom_component}
