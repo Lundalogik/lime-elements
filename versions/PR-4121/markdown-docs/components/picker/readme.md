@@ -54,6 +54,7 @@
  - [limel-example-picker-static-actions](examples)
  - [limel-example-picker-value-as-object](examples)
  - [limel-example-picker-value-as-object-with-actions](examples)
+ - [limel-example-picker-with-badges](examples)
  - [limel-example-props-factory-picker](../form/examples)
 
 ### Depends on
@@ -112,6 +113,7 @@ graph TD;
   limel-example-picker-static-actions --> limel-picker
   limel-example-picker-value-as-object --> limel-picker
   limel-example-picker-value-as-object-with-actions --> limel-picker
+  limel-example-picker-with-badges --> limel-picker
   limel-example-props-factory-picker --> limel-picker
   style limel-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```

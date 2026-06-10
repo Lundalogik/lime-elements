@@ -4,19 +4,22 @@
 
 ## Overview
 
-Picker with `value` as an object, containing items with menus
-While chips inside the picker can be clicked on, resulting in
-an action, they can also have an ellipsis menu which will provide the end users with
-additional actions.
+Picker with badges on picked chips
 
-When a menu item is selected from the ellipsis menu, the `onMenuItemSelected` event
-will be emitted, reflecting the `value` of the selected item.
+Set `badge` on a `PickerItem` to stamp the resulting chip with a
+short status label or counter. The badge accepts a string
+(e.g. `"Inactive"`, `"Beta"`) or a number (e.g. `12`).
+
+Use it to surface metadata about the picked value at a glance
+without forcing the consumer to read the chip text or open a
+tooltip — for example, marking deactivated users in a group
+picker, or flagging items that have unread notifications.
 
 :::note
-When a chip has `removable={true}` and when there are menu items, the "remove button" on the
-chip will be automatically added as the last item in the ellipsis menu.
-
-Clicking the remove button will emit the same `onRemove` event.
+For long string labels you may need to override the
+`--badge-max-width` CSS custom property on the host element of
+the consuming component, since the default is tuned for short
+numeric counters.
 :::
 
 ## Dependencies
@@ -29,8 +32,8 @@ Clicking the remove button will emit the same `onRemove` event.
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-picker-value-as-object-with-actions --> limel-picker
-  limel-example-picker-value-as-object-with-actions --> limel-example-value
+  limel-example-picker-with-badges --> limel-picker
+  limel-example-picker-with-badges --> limel-example-value
   limel-picker --> limel-chip-set
   limel-picker --> limel-list
   limel-picker --> limel-spinner
@@ -62,7 +65,7 @@ graph TD;
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
-  style limel-example-picker-value-as-object-with-actions fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-picker-with-badges fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
