@@ -1,3 +1,10 @@
+## [39.33.1](https://github.com/Lundalogik/lime-elements/compare/v39.33.0...v39.33.1) (2026-06-10)
+
+### Bug Fixes
+
+
+* **table:** derive `has-aggregation` from `aggregates`, not only a column mutation ([8982855](https://github.com/Lundalogik/lime-elements/commit/89828554c22f7c520f5a4dc97c08590b1a6ebfbb)), closes [#4118](https://github.com/Lundalogik/lime-elements/issues/4118) [Lundalogik/crm-client#1093](https://github.com/Lundalogik/crm-client/issues/1093)
+
 ## [39.33.0](https://github.com/Lundalogik/lime-elements/compare/v39.32.1...v39.33.0) (2026-06-10)
 
 ### Features
