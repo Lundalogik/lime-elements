@@ -1,3 +1,10 @@
+## [39.34.0](https://github.com/Lundalogik/lime-elements/compare/v39.33.2...v39.34.0) (2026-06-11)
+
+### Features
+
+
+* **text-editor:** add change flushing and fix pending value writes ([dead5dc](https://github.com/Lundalogik/lime-elements/commit/dead5dc95595df33212543045f0244814d628bbc))
+
 ## [39.33.2](https://github.com/Lundalogik/lime-elements/compare/v39.33.1...v39.33.2) (2026-06-11)
 
 ### Bug Fixes
