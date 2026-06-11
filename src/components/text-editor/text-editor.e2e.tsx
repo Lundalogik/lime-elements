@@ -1,4 +1,5 @@
 import { render, h } from '@stencil/vitest';
+import { vi } from 'vitest';
 
 describe('limel-text-editor', () => {
     async function createComponent(props: any = {}) {
@@ -154,5 +155,129 @@ describe('limel-text-editor', () => {
         const labelId = notchedOutline.labelId;
         expect(labelId).toBeTruthy();
         expect(adapter.getAttribute('id')).toBe(labelId);
+    });
+
+    describe('change event handling', () => {
+        // Comfortably longer than the editor's 300 ms change debounce.
+        const DEBOUNCE_WAIT = 500;
+
+        const sleep = (ms: number) =>
+            new Promise((resolve) => setTimeout(resolve, ms));
+
+        async function createEditor(props: any = {}) {
+            const { root, waitForChanges, setProps } = await render(
+                <limel-text-editor value={props.value} />
+            );
+            await waitForChanges();
+
+            const editor = await vi.waitFor(() => {
+                const contentEditable = getAdapter(
+                    root
+                )?.shadowRoot?.querySelector('.ProseMirror') as HTMLElement;
+                expect(contentEditable).toBeTruthy();
+
+                return contentEditable;
+            });
+
+            const changes: string[] = [];
+            root.addEventListener('change', (event: CustomEvent<string>) => {
+                changes.push(event.detail);
+            });
+
+            const typeText = (text: string) => {
+                editor.focus();
+                document.execCommand('insertText', false, text);
+            };
+
+            return {
+                root: root as HTMLLimelTextEditorElement,
+                waitForChanges,
+                setProps,
+                editor,
+                typeText,
+                changes,
+            };
+        }
+
+        test('typing emits a single change event after the debounce delay', async () => {
+            const { typeText, changes } = await createEditor();
+
+            typeText('hello');
+            expect(changes).toHaveLength(0);
+
+            await sleep(DEBOUNCE_WAIT);
+            expect(changes).toHaveLength(1);
+            expect(changes[0].trim()).toBe('hello');
+        });
+
+        test('flushPendingChanges emits a pending change immediately, without a duplicate later', async () => {
+            const { root, typeText, changes } = await createEditor();
+
+            typeText('hello');
+            expect(changes).toHaveLength(0);
+
+            await root.flushPendingChanges();
+            expect(changes).toHaveLength(1);
+            expect(changes[0].trim()).toBe('hello');
+
+            await sleep(DEBOUNCE_WAIT);
+            expect(changes).toHaveLength(1);
+        });
+
+        test('flushPendingChanges emits nothing when no change is pending', async () => {
+            const { root, changes } = await createEditor({ value: 'hello' });
+
+            await root.flushPendingChanges();
+            await sleep(DEBOUNCE_WAIT);
+            expect(changes).toHaveLength(0);
+        });
+
+        test('an echoed value during a pending change is ignored', async () => {
+            const { root, setProps, editor, typeText, changes } =
+                await createEditor();
+
+            typeText('first');
+            await root.flushPendingChanges();
+            expect(changes).toHaveLength(1);
+
+            typeText(' second');
+            // Echo the previously emitted value back, like a controlled
+            // parent component catching up late.
+            await setProps({ value: changes[0] });
+
+            await root.flushPendingChanges();
+            expect(changes).toHaveLength(2);
+            expect(changes[1].trim()).toBe('first second');
+            expect(editor.textContent).toBe('first second');
+        });
+
+        test('a differing value during a pending change replaces the content and discards the pending change', async () => {
+            const { root, setProps, editor, typeText, changes } =
+                await createEditor();
+
+            typeText('first');
+            await root.flushPendingChanges();
+            expect(changes).toHaveLength(1);
+
+            typeText(' second');
+            // Intentionally clear the editor while the change is pending,
+            // like a chat composer being reset after sending.
+            await setProps({ value: '' });
+
+            await vi.waitFor(() => {
+                expect(editor.textContent).toBe('');
+            });
+
+            await sleep(DEBOUNCE_WAIT);
+            expect(changes).toHaveLength(1);
+
+            // Recreating the discarded content must emit a change; the
+            // baseline is the externally set value, not the content from
+            // before the external update.
+            typeText('first second');
+            await root.flushPendingChanges();
+            expect(changes).toHaveLength(2);
+            expect(changes[1].trim()).toBe('first second');
+        });
     });
 });

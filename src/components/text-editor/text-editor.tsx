@@ -1,4 +1,12 @@
-import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
+import {
+    Component,
+    Event,
+    EventEmitter,
+    Host,
+    Method,
+    Prop,
+    h,
+} from '@stencil/core';
 import { FormComponent } from '../form/form.types';
 import { Languages } from '../date-picker/date.types';
 import { createRandomString } from '../../util/random-string';
@@ -234,10 +242,25 @@ export class TextEditor implements FormComponent<string> {
 
     private readonly helperTextId: string;
     private readonly editorId: string;
+    private adapterElement?: HTMLLimelProsemirrorAdapterElement;
 
     public constructor() {
         this.helperTextId = createRandomString();
         this.editorId = createRandomString();
+    }
+
+    /**
+     * Emits any pending `change` event immediately, instead of waiting
+     * for the debounce delay to elapse. Does nothing if no change is
+     * pending.
+     *
+     * Useful when the current content is needed right away, for example
+     * when the user activates a "send" or "save" action right after
+     * typing.
+     */
+    @Method()
+    public async flushPendingChanges(): Promise<void> {
+        await this.adapterElement?.flushPendingChanges();
     }
 
     public render() {
@@ -277,6 +300,7 @@ export class TextEditor implements FormComponent<string> {
 
         return (
             <limel-prosemirror-adapter
+                ref={(el) => (this.adapterElement = el)}
                 slot="content"
                 aria-placeholder={this.placeholder}
                 contentType={this.contentType}
