@@ -43,7 +43,6 @@
   "limel-example-file-viewer-basic": ["heading-order"],
   "limel-example-file-viewer-eml": ["heading-order"],
   "limel-example-markdown-adapt-color-contrast": ["heading-order"],
-  "limel-example-markdown-composite": ["color-contrast"],
   "limel-example-placement": ["heading-order"],
   "limel-example-select-with-empty-option": ["heading-order"],
   "limel-file-input": ["button-name"],
