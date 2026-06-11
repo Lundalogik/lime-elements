@@ -1,3 +1,10 @@
+## [39.33.2](https://github.com/Lundalogik/lime-elements/compare/v39.33.1...v39.33.2) (2026-06-11)
+
+### Bug Fixes
+
+
+* **text-editor:** emit change when a programmatically set value is cleared ([5a3ca2a](https://github.com/Lundalogik/lime-elements/commit/5a3ca2a9bc92e90903e8c795f4f93cf6cb04380e))
+
 ## [39.33.1](https://github.com/Lundalogik/lime-elements/compare/v39.33.0...v39.33.1) (2026-06-10)
 
 ### Bug Fixes
