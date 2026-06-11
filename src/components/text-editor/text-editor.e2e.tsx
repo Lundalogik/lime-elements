@@ -107,6 +107,41 @@ describe('limel-text-editor', () => {
         expect(adapter.hasAttribute('aria-disabled')).toBe(false);
     });
 
+    test('emits a change event when a programmatically seeded value is cleared by the user', async () => {
+        // Regression: seeding `value` AFTER the editor has initialised (e.g.
+        // "AI Assist" placing a prompt into an already-open chat) goes through
+        // the `watchValue`/`updateView` path. That path must keep the
+        // change-dedup baseline in sync, otherwise clearing the seeded text
+        // back to the (stale) empty baseline is wrongly suppressed and the
+        // consumer never learns the field is empty.
+        const changes: string[] = [];
+        const { root, waitForChanges } = await createComponent();
+        root.addEventListener('change', (event: Event) => {
+            changes.push((event as CustomEvent<string>).detail);
+        });
+
+        // Seed a value programmatically, post-init.
+        (root as any).value = 'hello';
+        await waitForChanges();
+        await new Promise((resolve) => setTimeout(resolve, 50));
+
+        // The user clears the editor.
+        const adapter = getAdapter(root);
+        const editable = adapter.shadowRoot.querySelector(
+            '.ProseMirror'
+        ) as HTMLElement;
+        editable.focus();
+        const doc = editable.ownerDocument;
+        doc.execCommand('selectAll');
+        doc.execCommand('delete');
+
+        // `change` is debounced; wait it out so the emission lands.
+        await new Promise((resolve) => setTimeout(resolve, 350));
+        await waitForChanges();
+
+        expect(changes).toContain('');
+    });
+
     test('label-to-editor id linkage is correct', async () => {
         const { root } = await createComponent();
 
