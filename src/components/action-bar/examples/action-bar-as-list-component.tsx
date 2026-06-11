@@ -1,5 +1,5 @@
 import { ListItem } from '@limetech/lime-elements';
-import { Component, h } from '@stencil/core';
+import { Component, h, Host } from '@stencil/core';
 
 /**
  * Creative usage
@@ -64,9 +64,11 @@ export class ActionBarAsListComponent {
     ];
 
     public render() {
-        return [
-            <h3>To-dos</h3>,
-            <limel-list items={this.items} class="has-striped-rows" />,
-        ];
+        return (
+            <Host>
+                <h3>To-dos</h3>
+                <limel-list items={this.items} class="has-striped-rows" />
+            </Host>
+        );
     }
 }

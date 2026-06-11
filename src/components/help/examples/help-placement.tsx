@@ -1,4 +1,4 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, Host } from '@stencil/core';
 
 const helpAutoUpdates =
     'Automatically download and install updates, when the phone is connected to a Wi-Fi, is charging and is locked.';
@@ -27,36 +27,38 @@ const helpBetaUpdates =
 })
 export class HelpPlacementExample {
     public render() {
-        return [
-            <h4>Better layout</h4>,
-            <ul>
-                <li>
-                    <limel-help value={helpAutoUpdates} class="pull-left" />
-                    <limel-checkbox label="Automatic updates" />
-                </li>
-                <li>
-                    <limel-help value={helpBetaUpdates} class="pull-left" />
-                    <limel-checkbox label="Beta updates" />
-                </li>
-                <li>
-                    <limel-checkbox label="Notify after update" />
-                </li>
-            </ul>,
-            <hr />,
-            <h4>Worse layout</h4>,
-            <ul>
-                <li>
-                    <limel-checkbox label="Automatic updates" />
-                    <limel-help value={helpAutoUpdates} />
-                </li>
-                <li>
-                    <limel-checkbox label="Beta updates" />
-                    <limel-help value={helpBetaUpdates} />
-                </li>
-                <li>
-                    <limel-checkbox label="Notify after update" />
-                </li>
-            </ul>,
-        ];
+        return (
+            <Host>
+                <h4>Better layout</h4>
+                <ul>
+                    <li>
+                        <limel-help value={helpAutoUpdates} class="pull-left" />
+                        <limel-checkbox label="Automatic updates" />
+                    </li>
+                    <li>
+                        <limel-help value={helpBetaUpdates} class="pull-left" />
+                        <limel-checkbox label="Beta updates" />
+                    </li>
+                    <li>
+                        <limel-checkbox label="Notify after update" />
+                    </li>
+                </ul>
+                <hr />
+                <h4>Worse layout</h4>
+                <ul>
+                    <li>
+                        <limel-checkbox label="Automatic updates" />
+                        <limel-help value={helpAutoUpdates} />
+                    </li>
+                    <li>
+                        <limel-checkbox label="Beta updates" />
+                        <limel-help value={helpBetaUpdates} />
+                    </li>
+                    <li>
+                        <limel-checkbox label="Notify after update" />
+                    </li>
+                </ul>
+            </Host>
+        );
     }
 }

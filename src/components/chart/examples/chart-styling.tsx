@@ -1,4 +1,4 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, Host } from '@stencil/core';
 import { chartItems } from './chart-items-ring';
 
 /**
@@ -14,12 +14,14 @@ import { chartItems } from './chart-items-ring';
 })
 export class ChartStackedBarExample {
     public render() {
-        return [
-            <h4>Stacked-bar Chart</h4>,
-            <limel-chart items={chartItems} type="stacked-bar" />,
-            <div role="separator" />,
-            <h4>Bar Chart</h4>,
-            <limel-chart items={chartItems} axisIncrement={1} type="bar" />,
-        ];
+        return (
+            <Host>
+                <h4>Stacked-bar Chart</h4>
+                <limel-chart items={chartItems} type="stacked-bar" />
+                <div role="separator" />
+                <h4>Bar Chart</h4>
+                <limel-chart items={chartItems} axisIncrement={1} type="bar" />
+            </Host>
+        );
     }
 }
