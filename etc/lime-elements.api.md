@@ -768,6 +768,7 @@ export namespace Components {
         // @alpha
         "customElements": CustomElementDefinition[];
         "disabled"?: boolean;
+        "flushPendingChanges": () => Promise<void>;
         "language": Languages;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
@@ -899,6 +900,7 @@ export namespace Components {
         // @alpha
         "customElements": CustomElementDefinition[];
         "disabled"?: boolean;
+        "flushPendingChanges": () => Promise<void>;
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;

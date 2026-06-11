@@ -110,6 +110,20 @@ describe('limel-text-editor', () => {
         });
     });
 
+    describe('flushPendingChanges', () => {
+        test('it resolves when no change is pending', async () => {
+            const { root } = await createComponent();
+
+            await expect(root.flushPendingChanges()).resolves.toBeUndefined();
+        });
+
+        test('it resolves in readonly mode, where no adapter is rendered', async () => {
+            const { root } = await createComponent({ readonly: true });
+
+            await expect(root.flushPendingChanges()).resolves.toBeUndefined();
+        });
+    });
+
     describe('label', () => {
         test('it renders the label', async () => {
             const { root } = await createComponent({ label: 'my label' });

@@ -4,6 +4,7 @@ import {
     Event,
     EventEmitter,
     Host,
+    Method,
     Prop,
     State,
     Watch,
@@ -155,6 +156,16 @@ export class ProsemirrorAdapter {
     private contentConverter: ContentTypeConverter;
     private actionBarElement: HTMLElement;
     private lastEmittedValue: string;
+
+    /**
+     * The value most recently delivered to the consumer via the `change`
+     * event. Unlike `lastEmittedValue`, which is updated already when a
+     * change is queued for the debounced emit, this is only updated when
+     * the event is actually dispatched. It is used to tell a consumer's
+     * echo of an emitted value apart from an intentional external update.
+     * `undefined` until the first `change` event is dispatched.
+     */
+    private lastDispatchedValue: string;
     private changeWaiting = false;
     private transactionFired = false;
     private lastClickedPos: number | null = null;
@@ -202,6 +213,15 @@ export class ProsemirrorAdapter {
         this.portalId = createRandomString();
     }
 
+    /**
+     * Emits any pending debounced `change` event immediately.
+     * Does nothing if no change is pending.
+     */
+    @Method()
+    public async flushPendingChanges(): Promise<void> {
+        this.changeEmitter.flush();
+    }
+
     @Watch('value')
     protected watchValue(newValue: string) {
         if (!this.view) {
@@ -209,8 +229,17 @@ export class ProsemirrorAdapter {
         }
 
         if (this.changeWaiting) {
-            // A change is pending; do not update the editor's content
-            return;
+            if (newValue === this.lastDispatchedValue) {
+                // The consumer is echoing back a value we emitted, while a
+                // newer change is still pending. Ignore the echo so it does
+                // not clobber the newer content in the editor.
+                return;
+            }
+
+            // The consumer is intentionally setting a different value.
+            // Discard the pending change and apply the new value.
+            this.changeEmitter.cancel();
+            this.changeWaiting = false;
         }
 
         const currentContent = this.contentConverter.serialize(
@@ -630,6 +659,9 @@ export class ProsemirrorAdapter {
     };
 
     private changeEmitter = debounce((value: string) => {
+        // Record the dispatched value before emitting, so that a consumer
+        // that synchronously echoes the value back is correctly ignored.
+        this.lastDispatchedValue = value;
         this.change.emit(value);
         this.changeWaiting = false;
     }, DEBOUNCE_TIMEOUT);
