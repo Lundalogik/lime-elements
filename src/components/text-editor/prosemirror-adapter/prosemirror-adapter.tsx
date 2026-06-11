@@ -479,6 +479,16 @@ export class ProsemirrorAdapter {
         tr.replaceWith(0, tr.doc.content.size, prosemirrorDoc.content);
         this.view.dispatch(tr);
 
+        // Keep the change-dedup baseline in sync with programmatically-set
+        // content. Without this, `lastEmittedValue` would still reflect the
+        // pre-update content, so a later user edit back to that old value
+        // (e.g. clearing a seeded value) would be wrongly suppressed and no
+        // `change` event would be emitted.
+        this.lastEmittedValue = this.contentConverter.serialize(
+            this.view,
+            this.schema
+        );
+
         const metadata = getMetadataFromDoc(this.view.state.doc);
         this.metadataEmitter(metadata);
 
