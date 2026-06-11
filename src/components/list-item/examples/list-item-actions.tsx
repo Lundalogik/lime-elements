@@ -46,7 +46,13 @@ export class ListItemActionsExample {
     public render() {
         return (
             <Host>
-                <ul onClick={this.onClick} onKeyDown={this.onKeyDown}>
+                <ul
+                    role="listbox"
+                    aria-label="Board games"
+                    aria-orientation="vertical"
+                    onClick={this.onClick}
+                    onKeyDown={this.onKeyDown}
+                >
                     <limel-list-item
                         tabIndex={0}
                         data-value={1}
