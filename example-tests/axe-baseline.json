@@ -23,28 +23,7 @@
   "limel-collapsible-section": ["aria-hidden-focus", "color-contrast"],
   "limel-dock": ["button-name"],
   "limel-email-viewer": ["color-contrast", "image-alt"],
-  "limel-example-action-bar-as-primary-component": ["heading-order"],
-  "limel-example-chart-axis-increment": ["heading-order"],
-  "limel-example-chart-multi-axis": ["heading-order"],
-  "limel-example-chart-multi-axis-area-with-negative-start-values": [
-    "heading-order"
-  ],
-  "limel-example-chart-multi-axis-with-negative-start-values": [
-    "heading-order"
-  ],
-  "limel-example-chart-styling": ["heading-order"],
-  "limel-example-chart-type-area": ["heading-order"],
-  "limel-example-chart-type-bar": ["heading-order"],
-  "limel-example-chart-type-dot": ["heading-order"],
-  "limel-example-chart-type-gantt": ["heading-order"],
-  "limel-example-chart-type-line": ["heading-order"],
-  "limel-example-chart-type-nps": ["heading-order"],
-  "limel-example-drag-handle-horizontal": ["heading-order"],
   "limel-example-file-viewer-basic": ["heading-order"],
-  "limel-example-file-viewer-eml": ["heading-order"],
-  "limel-example-markdown-adapt-color-contrast": ["heading-order"],
-  "limel-example-placement": ["heading-order"],
-  "limel-example-select-with-empty-option": ["heading-order"],
   "limel-file-input": ["button-name"],
   "limel-file-viewer": ["frame-title", "image-alt", "object-alt"],
   "limel-form": ["frame-title"],
@@ -64,11 +43,9 @@
   ],
   "limel-markdown": [
     "color-contrast",
-    "heading-order",
     "link-in-text-block",
     "scrollable-region-focusable"
   ],
-  "limel-masonry-layout": ["heading-order"],
   "limel-notched-outline": [
     "aria-allowed-attr",
     "aria-command-name",
