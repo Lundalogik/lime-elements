@@ -95,7 +95,11 @@ Vous pouvez laisser les images bloquées (l'e-mail peut sembler incomplet) ou le
     'code-diff.copied-to-clipboard': 'Copié dans le presse-papiers',
     'code-diff.copy-change':
         'Copier l\u2019ancienne version de cette modification',
-    'code-diff.search': 'Rechercher dans les lignes supprimées',
+    'code-diff.search': 'Rechercher',
+    'code-diff.search-scope': 'Portée de la recherche',
+    'code-diff.search-scope-removed': 'Lignes supprimées',
+    'code-diff.search-scope-added': 'Lignes ajoutées',
+    'code-diff.search-scope-changed': 'Lignes modifiées',
     'code-diff.previous-match': 'Correspondance précédente',
     'code-diff.next-match': 'Correspondance suivante',
     'code-diff.close-search': 'Fermer la recherche',

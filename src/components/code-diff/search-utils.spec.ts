@@ -3,6 +3,8 @@ import {
     escapeRegex,
     buildSearchRegex,
     navigateMatchIndex,
+    pickDefaultScope,
+    lineMatchesScope,
 } from './search-utils';
 
 describe('escapeRegex', () => {
@@ -64,5 +66,67 @@ describe('navigateMatchIndex', () => {
 
     it('wraps backward from first to last', () => {
         expect(navigateMatchIndex(0, -1, 5)).toBe(4);
+    });
+});
+
+describe('pickDefaultScope', () => {
+    it('returns "removed" when there are deletions', () => {
+        expect(pickDefaultScope({ additions: 0, deletions: 3 })).toBe(
+            'removed'
+        );
+    });
+
+    it('returns "removed" when both additions and deletions exist', () => {
+        expect(pickDefaultScope({ additions: 5, deletions: 2 })).toBe(
+            'removed'
+        );
+    });
+
+    it('returns "added" when only additions exist', () => {
+        expect(pickDefaultScope({ additions: 4, deletions: 0 })).toBe('added');
+    });
+});
+
+describe('lineMatchesScope', () => {
+    describe('scope: removed', () => {
+        it('matches removed lines', () => {
+            expect(lineMatchesScope('removed', 'removed')).toBe(true);
+        });
+
+        it('does not match added lines', () => {
+            expect(lineMatchesScope('added', 'removed')).toBe(false);
+        });
+
+        it('does not match context lines', () => {
+            expect(lineMatchesScope('context', 'removed')).toBe(false);
+        });
+    });
+
+    describe('scope: added', () => {
+        it('matches added lines', () => {
+            expect(lineMatchesScope('added', 'added')).toBe(true);
+        });
+
+        it('does not match removed lines', () => {
+            expect(lineMatchesScope('removed', 'added')).toBe(false);
+        });
+
+        it('does not match context lines', () => {
+            expect(lineMatchesScope('context', 'added')).toBe(false);
+        });
+    });
+
+    describe('scope: changed', () => {
+        it('matches removed lines', () => {
+            expect(lineMatchesScope('removed', 'changed')).toBe(true);
+        });
+
+        it('matches added lines', () => {
+            expect(lineMatchesScope('added', 'changed')).toBe(true);
+        });
+
+        it('does not match context lines', () => {
+            expect(lineMatchesScope('context', 'changed')).toBe(false);
+        });
     });
 });
