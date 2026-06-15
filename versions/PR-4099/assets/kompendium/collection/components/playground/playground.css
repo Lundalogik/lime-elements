@@ -147,6 +147,9 @@ section.example .code {
 }
 .show-case_description {
   padding: 0.75rem;
+  --kompendium-markdown-h3-font-size: 1.125rem;
+  --kompendium-markdown-h3-line-height: 1.125rem;
+  --kompendium-markdown-h3-margin-top: 0.75rem;
 }
 
 .show-case_component {

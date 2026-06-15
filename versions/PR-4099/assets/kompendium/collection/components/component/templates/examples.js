@@ -4,7 +4,7 @@ export function ExampleList({ examples, id, schema, propsFactory, }) {
         return;
     }
     return [
-        h("h3", { class: "docs-layout-section-heading", id: id }, "Examples"),
+        h("h2", { class: "docs-layout-section-heading", id: id }, "Examples"),
         examples.map(renderExample(schema, propsFactory)),
     ];
 }
