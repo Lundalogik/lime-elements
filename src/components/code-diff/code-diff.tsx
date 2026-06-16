@@ -34,6 +34,7 @@ import {
  * @exampleComponent limel-example-code-diff-split
  * @exampleComponent limel-example-code-diff-line-wrap
  * @exampleComponent limel-example-code-diff-expand
+ * @exampleComponent limel-example-code-diff-interactive
  */
 @Component({
     tag: 'limel-code-diff',

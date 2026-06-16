@@ -1,0 +1,19 @@
+:host {
+    --code-editor-max-height: 16rem;
+}
+
+.editors {
+    display: flex;
+    gap: 1rem;
+
+    limel-code-editor {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 40rem) {
+    .editors {
+        flex-direction: column;
+    }
+}
