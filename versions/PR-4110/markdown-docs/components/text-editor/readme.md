@@ -45,6 +45,25 @@ to toggle bold text, <kbd>Ctrl</kbd> + <kbd>I</kbd> to toggle italic text, and s
 | `triggerStop`    | Dispatched if a trigger session is ended. That is if the selection goes outside the trigger input or if something is inserted using the supplied `TextEditor` insert function.                                                                  | `CustomEvent<TriggerEventDetail>` |
 
 
+## Methods
+
+### `flushPendingChanges() => Promise<void>`
+
+Emits any pending `change` event immediately, instead of waiting
+for the debounce delay to elapse. Does nothing if no change is
+pending.
+
+Useful when the current content is needed right away, for example
+when the user activates a "send" or "save" action right after
+typing.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Used by

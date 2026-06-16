@@ -658,3 +658,9 @@ blockquote {
   color: rgb(var(--kompendium-contrast-1100));
   padding-left: 1rem;
 }
+
+h3 {
+  font-size: var(--kompendium-markdown-h3-font-size, 1.375rem);
+  line-height: var(--kompendium-markdown-h3-line-height, 1.5rem);
+  margin-top: var(--kompendium-markdown-h3-margin-top, 1rem);
+}

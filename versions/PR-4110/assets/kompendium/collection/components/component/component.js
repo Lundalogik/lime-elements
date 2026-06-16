@@ -7,6 +7,7 @@ import { StyleList } from "./templates/style";
 import { ExampleList } from "./templates/examples";
 import negate from "lodash/negate";
 import { getRoute, scrollToElement } from "../anchor-scroll";
+import { getComponentTitle } from "../component-title";
 export class KompendiumComponent {
     constructor() {
         this.scrollToOnNextUpdate = null;
@@ -35,11 +36,10 @@ export class KompendiumComponent {
     render() {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
-        return (h("article", { key: 'e36149fd654bbc9851c25d6e4b9bb5a34b84f0a7', class: "component" }, h("section", { key: '844f6154fa86b4f84e6eb2a73d7e7ff13491f594', class: "docs" }, this.renderDocs(tag, component))));
+        return (h("article", { key: '073cbc79fc02638eaae6e83f81a245d167e28668', class: "component" }, h("section", { key: '2ebeac246746ef80d1e5cbd7ed13e5a077a15d2e', class: "docs" }, this.renderDocs(tag, component))));
     }
     renderDocs(tag, component) {
-        let title = tag.split('-').slice(1).join(' ');
-        title = title[0].toLocaleUpperCase() + title.slice(1);
+        const title = getComponentTitle(tag);
         const examples = findExamples(component, this.docs);
         const tags = component.docsTags
             .filter(negate(isTag('slot')))
