@@ -4,6 +4,7 @@ export * from './components/button/button.types';
 export * from './components/callout/callout.types';
 export * from './components/chip-set/chip.types';
 export * from './components/circular-progress/circular-progress.types';
+export * from './components/code-diff/code-diff.types';
 export * from './components/code-editor/code-editor.types';
 export * from './components/collapsible-section/action';
 export * from './components/chart/chart.types';
