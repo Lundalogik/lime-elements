@@ -1,3 +1,10 @@
+## [39.34.1](https://github.com/Lundalogik/lime-elements/compare/v39.34.0...v39.34.1) (2026-06-16)
+
+### Bug Fixes
+
+
+* **collapsible-section:** keep collapsed content out of the tab order ([f58a454](https://github.com/Lundalogik/lime-elements/commit/f58a454bb78545958a4b1914ebecf5df320d463e))
+
 ## [39.34.0](https://github.com/Lundalogik/lime-elements/compare/v39.33.2...v39.34.0) (2026-06-11)
 
 ### Features
