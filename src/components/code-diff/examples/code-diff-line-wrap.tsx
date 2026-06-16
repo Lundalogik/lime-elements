@@ -1,4 +1,8 @@
-import { LimelSelectCustomEvent, Option } from '@limetech/lime-elements';
+import {
+    CodeDiffLayout,
+    LimelSelectCustomEvent,
+    Option,
+} from '@limetech/lime-elements';
 import { Component, Host, State, h } from '@stencil/core';
 
 const OLD_VALUE = `{
@@ -24,7 +28,7 @@ const NEW_VALUE = `{
     }
 }`;
 
-const LAYOUT_OPTIONS: Array<Option<'unified' | 'split'>> = [
+const LAYOUT_OPTIONS: Array<Option<CodeDiffLayout>> = [
     { text: 'unified', value: 'unified' },
     { text: 'split', value: 'split' },
 ];
@@ -48,7 +52,7 @@ export class CodeDiffLineWrappingExample {
     private lineWrapping = false;
 
     @State()
-    private layout: Option<'unified' | 'split'> = LAYOUT_OPTIONS[0];
+    private layout: Option<CodeDiffLayout> = LAYOUT_OPTIONS[0];
 
     public render() {
         return (
@@ -86,7 +90,7 @@ export class CodeDiffLineWrappingExample {
     };
 
     private readonly handleLayoutChange = (
-        event: LimelSelectCustomEvent<Option<'unified' | 'split'>>
+        event: LimelSelectCustomEvent<Option<CodeDiffLayout>>
     ) => {
         event.stopPropagation();
         this.layout = event.detail;

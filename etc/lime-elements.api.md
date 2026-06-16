@@ -112,6 +112,9 @@ export interface ClosingActions {
     scrimClick: boolean;
 }
 
+// @public
+export type CodeDiffLayout = 'unified' | 'split';
+
 // Warning: (ae-incompatible-release-tags) The symbol "Color" is marked as @public, but its signature references "_Internal" which is marked as @internal
 //
 // @public
@@ -325,7 +328,7 @@ export namespace Components {
     export interface LimelCodeDiff {
         "contextLines": number;
         "language"?: string;
-        "layout": 'unified' | 'split';
+        "layout": CodeDiffLayout;
         "lineWrapping": boolean;
         "newHeading"?: string;
         "newValue": string | object;
@@ -1999,7 +2002,7 @@ export namespace JSX {
     export interface LimelCodeDiff {
         "contextLines"?: number;
         "language"?: string;
-        "layout"?: 'unified' | 'split';
+        "layout"?: CodeDiffLayout;
         "lineWrapping"?: boolean;
         "newHeading"?: string;
         "newValue"?: string | object;
@@ -2016,7 +2019,7 @@ export namespace JSX {
         // (undocumented)
         "language": string;
         // (undocumented)
-        "layout": 'unified' | 'split';
+        "layout": CodeDiffLayout;
         // (undocumented)
         "lineWrapping": boolean;
         // (undocumented)

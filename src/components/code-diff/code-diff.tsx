@@ -1,6 +1,7 @@
 import { Component, Element, h, Prop, State, Watch, Host } from '@stencil/core';
 
 import { Languages } from '../date-picker/date.types';
+import { CodeDiffLayout } from './code-diff.types';
 import translate from '../../global/translations';
 import {
     DiffHunk,
@@ -74,7 +75,7 @@ export class CodeDiff {
      * - `split` — side-by-side comparison with old on left, new on right
      */
     @Prop({ reflect: true })
-    public layout: 'unified' | 'split' = 'unified';
+    public layout: CodeDiffLayout = 'unified';
 
     /**
      * Number of unchanged context lines to display around each change.
