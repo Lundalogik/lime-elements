@@ -82,6 +82,7 @@ export class List {
     private config: ListRendererConfig;
     private listRenderer = new ListRenderer();
     private mdcList: MDCList;
+    private listElement: HTMLElement;
     private multiple: boolean;
     private selectable: boolean;
 
@@ -195,8 +196,53 @@ export class List {
             return;
         }
 
+        this.listElement = element as HTMLElement;
+        this.listElement.removeEventListener(
+            'mousedown',
+            this.handleItemMouseDown
+        );
+        this.listElement.addEventListener(
+            'mousedown',
+            this.handleItemMouseDown
+        );
+
         this.mdcList = new MDCList(element);
         this.mdcList.hasTypeahead = true;
+    };
+
+    /**
+     * Focus the pressed list item directly, without scrolling.
+     *
+     * Since the list uses `delegatesFocus`, pressing a non-focusable part of
+     * a list item (e.g. its text) would otherwise delegate focus to the first
+     * focusable row, scrolling it into view. In a scrolled list that moves the
+     * pressed row out from under the pointer before the click completes, so the
+     * click lands on empty space and no item gets selected.
+     *
+     * Bound to `mousedown` only (not `pointerdown`) so a touch-drag to scroll
+     * that starts on a row is not blocked by `preventDefault`.
+     *
+     * @param event - the mousedown event
+     */
+    private handleItemMouseDown = (event: MouseEvent) => {
+        const target = event.target as HTMLElement;
+        const itemElement = target?.closest?.(
+            '.mdc-deprecated-list-item'
+        ) as HTMLElement | null;
+        if (!itemElement) {
+            return;
+        }
+
+        // Suppress the default focus delegation (and its scroll) for any row,
+        // but only move focus to interactive (non-disabled) rows.
+        event.preventDefault();
+        if (
+            !itemElement.classList.contains(
+                'mdc-deprecated-list-item--disabled'
+            )
+        ) {
+            itemElement.focus({ preventScroll: true });
+        }
     };
 
     private setupListeners = () => {
@@ -220,6 +266,10 @@ export class List {
     };
 
     private teardown = () => {
+        this.listElement?.removeEventListener(
+            'mousedown',
+            this.handleItemMouseDown
+        );
         this.mdcList?.unlisten(ACTION_EVENT, this.handleAction);
         this.mdcList?.destroy();
     };
