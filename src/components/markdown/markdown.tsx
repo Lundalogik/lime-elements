@@ -34,6 +34,7 @@ import { adaptColorContrast } from '../../util/adapt-color-contrast';
  * @exampleComponent limel-example-markdown-keys
  * @exampleComponent limel-example-markdown-blockquotes
  * @exampleComponent limel-example-markdown-horizontal-rule
+ * @exampleComponent limel-example-markdown-built-in-component
  * @exampleComponent limel-example-markdown-custom-component
  * @exampleComponent limel-example-markdown-custom-component-with-json-props
  * @exampleComponent limel-example-markdown-remove-empty-paragraphs

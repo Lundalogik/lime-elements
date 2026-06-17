@@ -1,4 +1,5 @@
 import { markdownToHTML, sanitizeHTML } from './markdown-parser';
+import { DEFAULT_MARKDOWN_WHITELIST } from './default-whitelist';
 
 /**
  * Normalize HTML for comparison: collapse whitespace between tags,
@@ -431,6 +432,83 @@ describe('markdownToHTML', () => {
             expect(result).toEqualHtml(
                 '<p><my-component allowed="ok">Content</my-component></p>'
             );
+        });
+    });
+
+    describe('clobberPrefix (DOM-clobbering prefix)', () => {
+        it('should keep name attributes on whitelisted custom elements unprefixed', async () => {
+            // Regression test for #4135. `limel-icon` uses the `name`
+            // attribute to select which icon to render. `name` is a
+            // DOM-clobber attribute, so the sanitizer's default prefix
+            // rewrote `name="globe"` to `name="user-content-globe"`, and the
+            // icon then looked up an icon that does not exist.
+            const result = await markdownToHTML(
+                '<limel-icon size="small" name="globe"></limel-icon>',
+                {
+                    whitelist: [
+                        { tagName: 'limel-icon', attributes: ['name', 'size'] },
+                    ],
+                }
+            );
+
+            expect(result).not.toContain('user-content-');
+            expect(result).toEqualHtml(
+                '<p><limel-icon size="small" name="globe"></limel-icon></p>'
+            );
+        });
+
+        it('should render limel-icon from the default whitelist with its name intact', async () => {
+            // Complements the test above by exercising the real
+            // DEFAULT_MARKDOWN_WHITELIST rather than an inline whitelist, so
+            // that dropping `name` from `limel-icon` in default-whitelist.ts
+            // would re-break #4135 and be caught here.
+            const result = await markdownToHTML(
+                '<limel-icon size="small" name="globe"></limel-icon>',
+                { whitelist: DEFAULT_MARKDOWN_WHITELIST }
+            );
+
+            expect(result).not.toContain('user-content-');
+            expect(result).toEqualHtml(
+                '<p><limel-icon size="small" name="globe"></limel-icon></p>'
+            );
+        });
+
+        it('should keep id attributes unprefixed', async () => {
+            // By default rehype-sanitize prepends `user-content-` to `id`
+            // attributes to guard against DOM clobbering. We disable that so
+            // ids stay as authored.
+            const result = await markdownToHTML('<div id="my-section">x</div>');
+            expect(result).toEqualHtml('<div id="my-section">x</div>');
+        });
+
+        it('should keep name/fragment links in sync', async () => {
+            // The `name` anchor and the `#fragment` link must keep matching
+            // values, otherwise in-page navigation breaks.
+            const result = await markdownToHTML(
+                '<a name="anchor">target</a> <a href="#anchor">go</a>'
+            );
+            expect(result).toEqualHtml(
+                '<p><a name="anchor">target</a> <a href="#anchor">go</a></p>'
+            );
+        });
+
+        it('should not double-prefix footnote ids and references', async () => {
+            // remark-rehype already namespaces footnote ids/links with
+            // `user-content-`. Without disabling the sanitizer's own prefix,
+            // the id would become `user-content-user-content-fn-1` and no
+            // longer match the `#user-content-fn-1` link.
+            const result = await markdownToHTML(
+                'Here is a footnote[^1].\n\n[^1]: My reference.'
+            );
+
+            expect(result).not.toContain('user-content-user-content-');
+
+            // The reference link must be an anchor pointing at the footnote
+            // item, and the footnote item must be an `<li>` carrying the
+            // matching id — asserting the values sit on the expected nodes,
+            // not merely that the strings appear somewhere in the output.
+            expect(result).toMatch(/<a[^>]*\bhref="#user-content-fn-1"[^>]*>/);
+            expect(result).toMatch(/<li[^>]*\bid="user-content-fn-1"[^>]*>/);
         });
     });
 
