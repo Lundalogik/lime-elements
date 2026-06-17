@@ -1,3 +1,10 @@
+## [39.34.3](https://github.com/Lundalogik/lime-elements/compare/v39.34.2...v39.34.3) (2026-06-17)
+
+### Bug Fixes
+
+
+* **list:** focus pressed row on mousedown to keep clicks on target ([b3bdf28](https://github.com/Lundalogik/lime-elements/commit/b3bdf28fad451cf1b4273a382e792b892c4a0ea6)), closes [Lundalogik/crm-client#795](https://github.com/Lundalogik/crm-client/issues/795)
+
 ## [39.34.2](https://github.com/Lundalogik/lime-elements/compare/v39.34.1...v39.34.2) (2026-06-17)
 
 ### Bug Fixes
