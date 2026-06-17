@@ -1,3 +1,10 @@
+## [39.34.2](https://github.com/Lundalogik/lime-elements/compare/v39.34.1...v39.34.2) (2026-06-17)
+
+### Bug Fixes
+
+
+* **markdown:** keep id/name attributes unprefixed in sanitizer ([14a062a](https://github.com/Lundalogik/lime-elements/commit/14a062a12b4a6f21bcd4fd88c25ad5faacae6c84)), closes [#4135](https://github.com/Lundalogik/lime-elements/issues/4135)
+
 ## [39.34.1](https://github.com/Lundalogik/lime-elements/compare/v39.34.0...v39.34.1) (2026-06-16)
 
 ### Bug Fixes
