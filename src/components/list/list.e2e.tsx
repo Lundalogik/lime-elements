@@ -207,6 +207,89 @@ describe('limel-list', () => {
                     selected: true,
                 });
             });
+
+            it('focuses the pressed item, not the first one', async () => {
+                const items = [
+                    { text: 'item 1' },
+                    { text: 'item 2' },
+                    { text: 'item 3' },
+                ];
+                const { root, waitForChanges } = await render(
+                    <limel-list type="selectable" items={items}></limel-list>
+                );
+                await waitForChanges();
+
+                const itemEls =
+                    root.shadowRoot.querySelectorAll('limel-list-item');
+                const pressed = itemEls[2] as HTMLElement;
+                pressed.dispatchEvent(
+                    new MouseEvent('mousedown', {
+                        bubbles: true,
+                        composed: true,
+                        cancelable: true,
+                    })
+                );
+                await waitForChanges();
+
+                expect(root.shadowRoot.activeElement).toBe(pressed);
+            });
+        });
+
+        describe('is set as `radio`', () => {
+            it('emits change when a radio item is pressed', async () => {
+                const items = [{ text: 'item 1' }, { text: 'item 2' }];
+                const { root, waitForChanges, spyOnEvent } = await render(
+                    <limel-list type="radio" items={items}></limel-list>
+                );
+                const changeSpy = spyOnEvent('change');
+                await waitForChanges();
+
+                const itemEls =
+                    root.shadowRoot.querySelectorAll('limel-list-item');
+                const target = itemEls[1] as HTMLElement;
+                target.dispatchEvent(
+                    new MouseEvent('mousedown', {
+                        bubbles: true,
+                        composed: true,
+                        cancelable: true,
+                    })
+                );
+                target.click();
+                await waitForChanges();
+
+                expect(changeSpy).toHaveReceivedEventDetail({
+                    ...items[1],
+                    selected: true,
+                });
+            });
+        });
+
+        describe('is set as `checkbox`', () => {
+            it('emits change when a checkbox item is pressed', async () => {
+                const items = [{ text: 'item 1' }, { text: 'item 2' }];
+                const { root, waitForChanges, spyOnEvent } = await render(
+                    <limel-list type="checkbox" items={items}></limel-list>
+                );
+                const changeSpy = spyOnEvent('change');
+                await waitForChanges();
+
+                const itemEls =
+                    root.shadowRoot.querySelectorAll('limel-list-item');
+                const target = itemEls[1] as HTMLElement;
+                target.dispatchEvent(
+                    new MouseEvent('mousedown', {
+                        bubbles: true,
+                        composed: true,
+                        cancelable: true,
+                    })
+                );
+                target.click();
+                await waitForChanges();
+
+                expect(changeSpy).toHaveReceivedEventDetail([
+                    { ...items[1], selected: true },
+                ]);
+            });
         });
     });
 });
