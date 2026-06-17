@@ -43,9 +43,7 @@ export async function markdownToHTML(
         .use(remarkRehype, { allowDangerousHtml: true })
         .use(rehypeRaw)
         .use(createLinksPlugin())
-        .use(rehypeSanitize, {
-            ...getWhiteList(options?.whitelist ?? []),
-        })
+        .use(rehypeSanitize, getWhiteList(options?.whitelist ?? []))
         .use(() => {
             return (tree: Node) => {
                 // Run the sanitizeStyle function on all elements, to sanitize
@@ -74,9 +72,7 @@ export async function sanitizeHTML(
 ): Promise<string> {
     const file = await unified()
         .use(rehypeParse)
-        .use(rehypeSanitize, {
-            ...getWhiteList(whitelist ?? []),
-        })
+        .use(rehypeSanitize, getWhiteList(whitelist ?? []))
         .use(() => {
             return (tree: Node) => {
                 // Run the sanitizeStyle function on all elements, to sanitize
@@ -99,6 +95,32 @@ function getWhiteList(allowedComponents: CustomElementDefinition[]): Schema {
 
     const whitelist: Schema = {
         ...defaultSchema,
+        // Disable rehype-sanitize's default `user-content-` prefix, which it
+        // otherwise prepends to the DOM-clobber attributes (`id`, `name`,
+        // `aria-describedby`, `aria-labelledby`).
+        //
+        // Without this, whitelisted custom elements break: e.g.
+        // `<limel-icon name="globe">` becomes `name="user-content-globe"` and
+        // the icon no longer resolves. It also keeps GFM footnote ids
+        // consistent with the links that reference them — remark-rehype already
+        // namespaces those with `user-content-`, and a second prefix here would
+        // desync the id (`user-content-user-content-fn-1`) from its link
+        // (`#user-content-fn-1`).
+        //
+        // Set here, in the shared schema, so that both `markdownToHTML` and
+        // `sanitizeHTML` behave identically — the same content must not be
+        // prefixed on one path and left unprefixed on the other.
+        //
+        // Safe to disable here because every current consumer renders this
+        // output inside a shadow root (`limel-markdown` and `limel-text-editor`
+        // are both `shadow: true`). Unprefixed `id`/`name` attributes inside a
+        // shadow root cannot clobber document-level globals
+        // (`document.getElementById`, `window.<name>`, `document.forms`), which
+        // is what the prefix guards against. If a future consumer renders this
+        // output into the light DOM — or these functions become public exports
+        // — reinstate the prefix or scope its removal to whitelisted custom
+        // elements only.
+        clobberPrefix: '',
         strip: [...(defaultSchema.strip ?? []), 'style'],
         tagNames: [
             ...(defaultSchema.tagNames || []),
