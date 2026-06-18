@@ -1,2 +1,0 @@
-import{r as n,h as t}from"./index-2714248e.js";const e=`\n~~~\nconst s = "JavaScript no syntax highlighting";\nalert(s);\n~~~\n\n~~~javascript\nconst a = "JavaScript no syntax highlighting";\nalert(a);\n~~~\n\nEven if the language is indicated, we can only render\nthe <code>code</code> blocks without syntax highlighting.\n`;const a=class{constructor(t){n(this,t)}render(){return t("limel-markdown",{value:e})}};export{a as limel_example_markdown_code};
-//# sourceMappingURL=limel-example-markdown-code.entry.js.map

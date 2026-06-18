@@ -1,2 +1,0 @@
-import{r as e,h as i}from"./index-2714248e.js";const o=class{constructor(i){e(this,i)}render(){return[i("limel-icon-button",{label:"Add favourite",icon:"heart_outlined",disabled:true,onClick:this.onClick})]}onClick(){console.log("This should never happen, since the button is disabled.")}};export{o as limel_example_icon_button_disabled};
-//# sourceMappingURL=limel-example-icon-button-disabled.entry.js.map

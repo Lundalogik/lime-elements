@@ -1,2 +1,0 @@
-import{r as e,h as t}from"./index-2714248e.js";const s=class{constructor(t){e(this,t);this.items=[{text:"Copy"},{text:"Cut"},{separator:true},{text:"Paste"}];this.handleSelect=e=>{console.error("This should never happen, since the menu is disabled.",e)}}render(){return t("limel-menu",{items:this.items,disabled:true,onSelect:this.handleSelect},t("limel-button",{label:"Menu",slot:"trigger"}))}};export{s as limel_example_menu_disabled};
-//# sourceMappingURL=limel-example-menu-disabled.entry.js.map

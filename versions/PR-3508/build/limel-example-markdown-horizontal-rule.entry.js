@@ -1,2 +1,0 @@
-import{r as n,h as r}from"./index-2714248e.js";const e=`\nThree or more of…\n\n---\n\nHyphens,\n\n***\n\nAsterisks,\n\n___\n\nOr Underscores\n`;const o=class{constructor(r){n(this,r)}render(){return r("limel-markdown",{value:e})}};export{o as limel_example_markdown_horizontal_rule};
-//# sourceMappingURL=limel-example-markdown-horizontal-rule.entry.js.map

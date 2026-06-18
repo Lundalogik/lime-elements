@@ -1,2 +1,0 @@
-import{r as e,h as s}from"./index-2714248e.js";const i=".spinner-sizes{display:flex;align-items:center;justify-content:space-between;gap:1rem}";const n=class{constructor(s){e(this,s)}render(){return[s("div",{class:"spinner-sizes"},s("limel-spinner",null),s("limel-spinner",{size:"mini"}),s("limel-spinner",{size:"x-small"}),s("limel-spinner",{size:"small"}),s("limel-spinner",{size:"medium"}),s("limel-spinner",{size:"large"}))]}};n.style=i;export{n as limel_example_spinner_size};
-//# sourceMappingURL=limel-example-spinner-size.entry.js.map
