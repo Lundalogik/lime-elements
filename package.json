@@ -41,6 +41,8 @@
     "test:examples:accessibility": "npm run docs:rebuild && npm run test:examples:accessibility:ci --",
     "test:examples:accessibility:ci": "npx playwright install chromium && playwright test --config playwright.example-tests.config.ts accessibility",
     "test:examples:accessibility:update": "npm run docs:rebuild && npx playwright install chromium && cross-env UPDATE_AXE_BASELINE=1 playwright test --config playwright.example-tests.config.ts accessibility",
+    "test:examples:components": "npx playwright install chromium && npm run docs:rebuild && npm run test:examples:components:ci --",
+    "test:examples:components:ci": "playwright test --config playwright.example-tests.config.ts components",
     "test:watch": "npx playwright install chromium && stencil-test --watch",
     "test:watch:spec": "stencil-test --watch --project spec",
     "test:watch:e2e": "npx playwright install chromium && stencil-test --watch --project e2e",
