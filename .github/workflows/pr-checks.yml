@@ -11,7 +11,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
     - uses: ./.github/actions/set-up-node
     - run: npm ci
     - run: npm run lint
@@ -20,7 +20,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
     - uses: ./.github/actions/set-up-node
     - run: npm ci
     - name: Ensure installed React and React-DOM versions match
@@ -41,7 +41,7 @@ jobs:
     name: Test
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
     - uses: ./.github/actions/set-up-node
     - run: npm ci
     - name: Cache Playwright browsers
@@ -63,7 +63,7 @@ jobs:
     permissions:
       contents: read
     steps:
-    - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
     - uses: ./.github/actions/set-up-node
     - run: npm ci
     # The example tests run against these docs. We build them once here and share
@@ -92,7 +92,7 @@ jobs:
       matrix:
         shard: [1, 2]
     steps:
-    - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
     - uses: ./.github/actions/set-up-node
     - run: npm ci
     - name: Cache Playwright browsers
@@ -135,7 +135,7 @@ jobs:
       matrix:
         shard: [1, 2, 3, 4]
     steps:
-    - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
     - uses: ./.github/actions/set-up-node
     - run: npm ci
     - name: Cache Playwright browsers
@@ -168,7 +168,7 @@ jobs:
     name: Commitlint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
       - uses: wagoid/commitlint-github-action@b948419dd99f3fd78a6548d48f94e3df7f6bf3ed # v6.2.1
         if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
@@ -182,7 +182,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
       - name: SonarCloud Scan
