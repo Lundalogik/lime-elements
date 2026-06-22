@@ -16,6 +16,7 @@ import translate from '../../global/translations';
 import { Languages } from '../date-picker/date.types';
 import { createRandomString } from '../../util/random-string';
 import { resizeImage, ResizeOptions } from '../../util/image-resize';
+import { ImageTemplate } from '../../util/image.template';
 
 /**
  * This component displays a profile picture, while allowing the user
@@ -246,15 +247,12 @@ export class ProfilePicture {
 
         if (src) {
             return (
-                <img
-                    src={src}
-                    alt=""
+                <ImageTemplate
+                    image={{ src, alt: '', referrerpolicy: 'no-referrer' }}
                     style={{
                         '--limel-profile-picture-object-fit': this.imageFit,
                     }}
-                    loading="lazy"
                     onError={this.onImageError}
-                    referrerPolicy="no-referrer"
                 />
             );
         }
