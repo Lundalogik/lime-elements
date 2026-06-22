@@ -245,6 +245,7 @@ export class FileViewer {
                     image={{
                         src: this.sanitizeUrl(this.fileUrl),
                         alt: this.alt ?? '',
+                        referrerpolicy: 'no-referrer',
                     }}
                 />
             </Fragment>
