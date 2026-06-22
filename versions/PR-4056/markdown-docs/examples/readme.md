@@ -49,6 +49,7 @@ The component automatically formats different value types:
  - [limel-example-chip-menu](../components/chip/examples)
  - [limel-example-chip-removable](../components/chip/examples)
  - [limel-example-chip-set-input](../components/chip-set/examples)
+ - [limel-example-chip-set-input-non-removable](../components/chip-set/examples)
  - [limel-example-chip-set-input-type-with-menu-items](../components/chip-set/examples)
  - [limel-example-chip-set-invalid-chips](../components/chip-set/examples)
  - [limel-example-code-editor-composite](../components/code-editor/examples)
@@ -105,14 +106,17 @@ The component automatically formats different value types:
  - [limel-example-nested-form](../components/form/examples)
  - [limel-example-notched-outline-basic](../components/notched-outline/examples)
  - [limel-example-picker-basic](../components/picker/examples)
+ - [limel-example-picker-empty-result-message](../components/picker/examples)
  - [limel-example-picker-empty-suggestions](../components/picker/examples)
  - [limel-example-picker-icons](../components/picker/examples)
  - [limel-example-picker-multiple](../components/picker/examples)
+ - [limel-example-picker-non-removable](../components/picker/examples)
  - [limel-example-picker-pictures](../components/picker/examples)
  - [limel-example-picker-sections](../components/picker/examples)
  - [limel-example-picker-static-actions](../components/picker/examples)
  - [limel-example-picker-value-as-object](../components/picker/examples)
  - [limel-example-picker-value-as-object-with-actions](../components/picker/examples)
+ - [limel-example-picker-with-badges](../components/picker/examples)
  - [limel-example-profile-picture-basic](../components/profile-picture/examples)
  - [limel-example-profile-picture-helper-text](../components/profile-picture/examples)
  - [limel-example-profile-picture-icon](../components/profile-picture/examples)
@@ -179,6 +183,7 @@ graph TD;
   limel-example-chip-menu --> limel-example-value
   limel-example-chip-removable --> limel-example-value
   limel-example-chip-set-input --> limel-example-value
+  limel-example-chip-set-input-non-removable --> limel-example-value
   limel-example-chip-set-input-type-with-menu-items --> limel-example-value
   limel-example-chip-set-invalid-chips --> limel-example-value
   limel-example-code-editor-composite --> limel-example-value
@@ -235,14 +240,17 @@ graph TD;
   limel-example-nested-form --> limel-example-value
   limel-example-notched-outline-basic --> limel-example-value
   limel-example-picker-basic --> limel-example-value
+  limel-example-picker-empty-result-message --> limel-example-value
   limel-example-picker-empty-suggestions --> limel-example-value
   limel-example-picker-icons --> limel-example-value
   limel-example-picker-multiple --> limel-example-value
+  limel-example-picker-non-removable --> limel-example-value
   limel-example-picker-pictures --> limel-example-value
   limel-example-picker-sections --> limel-example-value
   limel-example-picker-static-actions --> limel-example-value
   limel-example-picker-value-as-object --> limel-example-value
   limel-example-picker-value-as-object-with-actions --> limel-example-value
+  limel-example-picker-with-badges --> limel-example-value
   limel-example-profile-picture-basic --> limel-example-value
   limel-example-profile-picture-helper-text --> limel-example-value
   limel-example-profile-picture-icon --> limel-example-value

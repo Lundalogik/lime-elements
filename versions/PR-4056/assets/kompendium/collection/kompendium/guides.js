@@ -27,4 +27,3 @@ export const createGuide = async ({ menupath: path, filepath, }) => {
         content: content,
     };
 };
-//# sourceMappingURL=guides.js.map

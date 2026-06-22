@@ -22,4 +22,3 @@ function renderMember(member) {
     ];
     return (h("div", null, h("h4", null, member.name), h("kompendium-markdown", { text: member.docs }), h("kompendium-taglist", { tags: member.docsTags }), h("kompendium-proplist", { items: items })));
 }
-//# sourceMappingURL=enum.js.map

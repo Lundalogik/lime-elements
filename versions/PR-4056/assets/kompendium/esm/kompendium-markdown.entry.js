@@ -1,7 +1,7 @@
-import { r as registerInstance, h as h$1, a as getElement } from './index-9UrzenzW.js';
+import { r as registerInstance, h as h$1, a as getElement } from './index-26EzvxF0.js';
 import { g as getDefaultExportFromCjs } from './_commonjsHelpers-BFTU3MAI.js';
-import { g as getTypes } from './markdown-types-Ajsawr_9.js';
-import { a as scrollToAnchor } from './anchor-scroll-BAGXN2n6.js';
+import { g as getTypes, b as getComponents } from './markdown-types-BhKycKQ2.js';
+import { s as scrollToAnchor } from './anchor-scroll-BTPKChJv.js';
 
 /**
  * Throw a given error.
@@ -41675,6 +41675,8 @@ class Alias extends NodeBase {
      * instance of the `source` anchor before this node.
      */
     resolve(doc, ctx) {
+        if (ctx?.maxAliasCount === 0)
+            throw new ReferenceError('Alias resolution is disabled');
         let nodes;
         if (ctx?.aliasResolveCache) {
             nodes = ctx.aliasResolveCache;
@@ -42805,18 +42807,18 @@ const isMergeKey = (ctx, key) => (merge.identify(key) ||
         merge.identify(key.value))) &&
     ctx?.doc.schema.tags.some(tag => tag.tag === merge.tag && tag.default);
 function addMergeToJSMap(ctx, map, value) {
-    value = ctx && isAlias(value) ? value.resolve(ctx.doc) : value;
-    if (isSeq(value))
-        for (const it of value.items)
+    const source = resolveAliasValue(ctx, value);
+    if (isSeq(source))
+        for (const it of source.items)
             mergeValue(ctx, map, it);
-    else if (Array.isArray(value))
-        for (const it of value)
+    else if (Array.isArray(source))
+        for (const it of source)
             mergeValue(ctx, map, it);
     else
-        mergeValue(ctx, map, value);
+        mergeValue(ctx, map, source);
 }
 function mergeValue(ctx, map, value) {
-    const source = ctx && isAlias(value) ? value.resolve(ctx.doc) : value;
+    const source = resolveAliasValue(ctx, value);
     if (!isMap(source))
         throw new Error('Merge sources must be maps or map aliases');
     const srcMap = source.toJSON(null, ctx, Map);
@@ -42838,6 +42840,9 @@ function mergeValue(ctx, map, value) {
         }
     }
     return map;
+}
+function resolveAliasValue(ctx, value) {
+    return ctx && isAlias(value) ? value.resolve(ctx.doc, ctx) : value;
 }
 
 function addPairToJSMap(ctx, map, { key, value }) {
@@ -43390,7 +43395,8 @@ function stringifyNumber({ format, minFractionDigits, tag, value }) {
     if (!format &&
         minFractionDigits &&
         (!tag || tag === 'tag:yaml.org,2002:float') &&
-        /^\d/.test(n)) {
+        /^-?\d/.test(n) &&
+        !n.includes('e')) {
         let i = n.indexOf('.');
         if (i < 0) {
             i = n.length;
@@ -45649,7 +45655,7 @@ function doubleQuotedValue(source, onError) {
                     next = source[++i + 1];
             }
             else if (next === 'x' || next === 'u' || next === 'U') {
-                const length = { x: 2, u: 4, U: 8 }[next];
+                const length = next === 'x' ? 2 : next === 'u' ? 4 : 8;
                 res += parseCharCode(source, i + 1, length, onError);
                 i += length;
             }
@@ -45719,12 +45725,14 @@ function parseCharCode(source, offset, length, onError) {
     const cc = source.substr(offset, length);
     const ok = cc.length === length && /^[0-9a-fA-F]+$/.test(cc);
     const code = ok ? parseInt(cc, 16) : NaN;
-    if (isNaN(code)) {
+    try {
+        return String.fromCodePoint(code);
+    }
+    catch {
         const raw = source.substr(offset - 2, length + 2);
         onError(offset - 2, 'BAD_DQ_ESCAPE', `Invalid escape sequence ${raw}`);
         return raw;
     }
-    return String.fromCodePoint(code);
 }
 
 function composeScalar(ctx, token, tagToken, onError) {
@@ -46059,8 +46067,10 @@ class Composer {
             }
         }
         if (afterDoc) {
-            Array.prototype.push.apply(doc.errors, this.errors);
-            Array.prototype.push.apply(doc.warnings, this.warnings);
+            for (let i = 0; i < this.errors.length; ++i)
+                doc.errors.push(this.errors[i]);
+            for (let i = 0; i < this.warnings.length; ++i)
+                doc.warnings.push(this.warnings[i]);
         }
         else {
             doc.errors = this.errors;
@@ -46963,7 +46973,7 @@ class Lexer {
             const n = (yield* this.pushCount(1)) + (yield* this.pushSpaces(true));
             this.indentNext = this.indentValue + 1;
             this.indentValue += n;
-            return yield* this.parseBlockStart();
+            return 'block-start';
         }
         return 'doc';
     }
@@ -47284,32 +47294,36 @@ class Lexer {
         return 0;
     }
     *pushIndicators() {
-        switch (this.charAt(0)) {
-            case '!':
-                return ((yield* this.pushTag()) +
-                    (yield* this.pushSpaces(true)) +
-                    (yield* this.pushIndicators()));
-            case '&':
-                return ((yield* this.pushUntil(isNotAnchorChar)) +
-                    (yield* this.pushSpaces(true)) +
-                    (yield* this.pushIndicators()));
-            case '-': // this is an error
-            case '?': // this is an error outside flow collections
-            case ':': {
-                const inFlow = this.flowLevel > 0;
-                const ch1 = this.charAt(1);
-                if (isEmpty(ch1) || (inFlow && flowIndicatorChars.has(ch1))) {
-                    if (!inFlow)
-                        this.indentNext = this.indentValue + 1;
-                    else if (this.flowKey)
-                        this.flowKey = false;
-                    return ((yield* this.pushCount(1)) +
-                        (yield* this.pushSpaces(true)) +
-                        (yield* this.pushIndicators()));
+        let n = 0;
+        loop: while (true) {
+            switch (this.charAt(0)) {
+                case '!':
+                    n += yield* this.pushTag();
+                    n += yield* this.pushSpaces(true);
+                    continue loop;
+                case '&':
+                    n += yield* this.pushUntil(isNotAnchorChar);
+                    n += yield* this.pushSpaces(true);
+                    continue loop;
+                case '-': // this is an error
+                case '?': // this is an error outside flow collections
+                case ':': {
+                    const inFlow = this.flowLevel > 0;
+                    const ch1 = this.charAt(1);
+                    if (isEmpty(ch1) || (inFlow && flowIndicatorChars.has(ch1))) {
+                        if (!inFlow)
+                            this.indentNext = this.indentValue + 1;
+                        else if (this.flowKey)
+                            this.flowKey = false;
+                        n += yield* this.pushCount(1);
+                        n += yield* this.pushSpaces(true);
+                        continue loop;
+                    }
                 }
             }
+            break loop;
         }
-        return 0;
+        return n;
     }
     *pushTag() {
         if (this.charAt(1) === '<') {
@@ -47471,6 +47485,14 @@ function getFirstKeyStartProps(prev) {
     }
     return prev.splice(i, prev.length);
 }
+function arrayPushArray(target, source) {
+    // May exhaust call stack with large `source` array
+    if (source.length < 1e5)
+        Array.prototype.push.apply(target, source);
+    else
+        for (let i = 0; i < source.length; ++i)
+            target.push(source[i]);
+}
 function fixFlowSeqItems(fc) {
     if (fc.start.type === 'flow-seq-start') {
         for (const it of fc.items) {
@@ -47483,12 +47505,12 @@ function fixFlowSeqItems(fc) {
                 delete it.key;
                 if (isFlowToken(it.value)) {
                     if (it.value.end)
-                        Array.prototype.push.apply(it.value.end, it.sep);
+                        arrayPushArray(it.value.end, it.sep);
                     else
                         it.value.end = it.sep;
                 }
                 else
-                    Array.prototype.push.apply(it.start, it.sep);
+                    arrayPushArray(it.start, it.sep);
                 delete it.sep;
             }
         }
@@ -47906,7 +47928,7 @@ class Parser {
                         const prev = map.items[map.items.length - 2];
                         const end = prev?.value?.end;
                         if (Array.isArray(end)) {
-                            Array.prototype.push.apply(end, it.start);
+                            arrayPushArray(end, it.start);
                             end.push(this.sourceToken);
                             map.items.pop();
                             return;
@@ -48121,7 +48143,7 @@ class Parser {
                         const prev = seq.items[seq.items.length - 2];
                         const end = prev?.value?.end;
                         if (Array.isArray(end)) {
-                            Array.prototype.push.apply(end, it.start);
+                            arrayPushArray(end, it.start);
                             end.push(this.sourceToken);
                             seq.items.pop();
                             return;
@@ -48744,30 +48766,46 @@ const transformer = (types = []) => (tree) => {
     if (types.length === 0) {
         return tree;
     }
-    const preCodeElements = collectPreCodeElements(tree);
-    return flatMap(tree, mapCodeNode(types, preCodeElements));
+    const skipCodeElements = collectSkippableCodeElements(tree);
+    return flatMap(tree, mapCodeNode(types, skipCodeElements));
 };
-function collectPreCodeElements(node) {
+function collectSkippableCodeElements(node) {
     const set = new Set();
-    collectPreCode(node, set);
+    collectSkippableCode(node, set, false);
     return set;
 }
-function collectPreCode(node, set) {
+function collectSkippableCode(node, set, insideAnchor) {
     if (!isParent(node)) {
         return;
     }
-    if (isElement(node) && node.tagName === 'pre') {
-        for (const child of node.children) {
-            if (isElement(child) && child.tagName === 'code') {
-                set.add(child);
-            }
-        }
+    const tagName = isElement(node) ? node.tagName : '';
+    // Skip `<code>` nested inside an `<a>`: the inline-link pass (`inlineLinks`
+    // in markdown-inline-links.ts) emits exactly this `link > inlineCode` shape
+    // for a resolved bare `{@link}` reference. Re-linking that code here would
+    // wrap an anchor in another anchor, so this pass yields to the earlier one.
+    // This guard is intentionally broader than that contract: it suppresses
+    // re-linking for *any* `<code>` inside *any* `<a>`, regardless of origin,
+    // since a nested anchor is never wanted no matter how the `<code>` got
+    // there.
+    if (tagName === 'code' && insideAnchor) {
+        set.add(node);
     }
+    if (tagName === 'pre') {
+        addPreCodeChildren(node, set);
+    }
+    const nextInsideAnchor = insideAnchor || tagName === 'a';
     for (const child of node.children) {
-        collectPreCode(child, set);
+        collectSkippableCode(child, set, nextInsideAnchor);
     }
 }
-const mapCodeNode = (types = [], preCodeElements) => (node, _, parent) => {
+function addPreCodeChildren(node, set) {
+    for (const child of node.children) {
+        if (isElement(child) && child.tagName === 'code') {
+            set.add(child);
+        }
+    }
+}
+const mapCodeNode = (types = [], skipCodeElements) => (node, _, parent) => {
     if (!isTextNode(node)) {
         return [node];
     }
@@ -48777,7 +48815,7 @@ const mapCodeNode = (types = [], preCodeElements) => (node, _, parent) => {
     if (parent.tagName !== 'code') {
         return [node];
     }
-    if (preCodeElements.has(parent)) {
+    if (skipCodeElements.has(parent)) {
         return [node];
     }
     return wrapText(node, types);
@@ -48851,8 +48889,149 @@ function flatMap(ast, fn) {
     return result[0];
 }
 
-async function markdownToHtml(text, types = []) {
-    const normalized = normalizeLegacyAdmonitions(text);
+// The target group `([^\s}|]+)` and the trailing tail `([^}\n]{0,1000})` are
+// separated by a zero-width lookahead `(?=[\s}|])`. This is the crux of the
+// ReDoS resistance: the two greedy classes overlap (`[^\s}|]` is a subset of
+// `[^}\n]`), so without the lookahead the engine would try every partition of
+// a long unbroken run between them when the mandatory closing `}` is missing —
+// O(n²) catastrophic backtracking. The lookahead pins the target's right edge
+// to a delimiter (whitespace, `|`, or `}`), so the target can't grow into the
+// tail's territory and the match fails promptly on an unterminated `{@link X…`.
+//
+// The tail class is additionally bounded — it excludes newlines and is capped
+// at 1000 chars — as belt-and-suspenders against a second, milder super-linear
+// shape: a terminator-free span packed with many `{@link` near-misses. Without
+// a bound each `exec` start would scan its tail to end-of-string, making a
+// multi-start scan O(n²) even though the per-start lookahead is O(1). Stopping
+// the tail at a newline (an inline `{@link}` never spans lines) and capping its
+// length keeps every start's scan bounded, so the whole pass stays linear. No
+// real reference has a label anywhere near 1000 chars or crosses a line.
+//
+// The raw tail is split into separator/label by `splitLabel` below, keeping
+// both patterns in lockstep through one shared parser.
+const URL_LINK_PATTERN = /\{@link\s+(https?:\/\/[^\s}|]+)(?=[\s}|])([^}\n]{0,1000})\}/g;
+const INLINE_LINK_PATTERN = /\{@link\s+([^\s}|]+)(?=[\s}|])([^}\n]{0,1000})\}/g;
+// Parses the raw tail captured after the target (everything up to `}`) into an
+// optional display label. Handles `| label`, ` label`, and the bare (empty)
+// form. Doing this in code rather than in the regex avoids the backtracking
+// that an in-pattern label alternation would reintroduce.
+function splitLabel(rest) {
+    const pipeIndex = rest.indexOf('|');
+    if (pipeIndex !== -1) {
+        const pipeLabel = rest.slice(pipeIndex + 1).trim();
+        if (pipeLabel.length > 0) {
+            return { label: pipeLabel, explicit: true };
+        }
+        return { label: null, explicit: false };
+    }
+    const trimmed = rest.trim();
+    if (trimmed.length > 0) {
+        return { label: trimmed, explicit: true };
+    }
+    return { label: null, explicit: false };
+}
+// URL-targeted references are pre-converted to normal markdown links because
+// remark-gfm's autolink extension would otherwise tear them apart at parse
+// time, before the mdast plugin can see them.
+function normalizeInlineLinkUrls(text) {
+    return text.replace(URL_LINK_PATTERN, (_match, url, rest) => {
+        const { label } = splitLabel(rest);
+        return `[${(label !== null && label !== void 0 ? label : url).trim()}](${url})`;
+    });
+}
+// Turns inline TSDoc/JSDoc link references in prose into mdast link nodes.
+// The resolver maps a target identifier to a URL; targets it returns null
+// for are rendered as plain text so unresolved references never leave
+// dangling links in the output.
+function inlineLinks(options = {}) {
+    var _a;
+    const resolve = (_a = options.resolve) !== null && _a !== void 0 ? _a : (() => null);
+    return (tree) => {
+        visit$2(tree, 'text', (node, index, parent) => {
+            if (!parent || index === null) {
+                return;
+            }
+            if (parent.type === 'link') {
+                return;
+            }
+            if (!node.value.includes('{@link')) {
+                return;
+            }
+            const replacements = transformTextNode(node.value, resolve);
+            if (!replacements) {
+                return;
+            }
+            parent.children.splice(index, 1, ...replacements);
+            return [SKIP$2, index + replacements.length];
+        });
+    };
+}
+function transformTextNode(value, resolve) {
+    INLINE_LINK_PATTERN.lastIndex = 0;
+    const result = [];
+    let cursor = 0;
+    let match;
+    let matched = false;
+    while ((match = INLINE_LINK_PATTERN.exec(value)) !== null) {
+        matched = true;
+        const [whole, target, rest] = match;
+        const start = match.index;
+        if (start > cursor) {
+            result.push(textNode(value.slice(cursor, start)));
+        }
+        const { label, explicit } = splitLabel(rest);
+        const display = (label !== null && label !== void 0 ? label : target).trim();
+        const url = resolveTarget(target, resolve);
+        // A bare identifier reference (no explicit label) is rendered as
+        // inline code so it visually matches how Kompendium styles type
+        // names elsewhere. Free-form labels stay plain prose.
+        let labelNode;
+        if (!explicit) {
+            labelNode = inlineCodeNode(display);
+        }
+        else {
+            labelNode = textNode(display);
+        }
+        if (url) {
+            result.push(linkNode(url, labelNode));
+        }
+        else {
+            result.push(labelNode);
+        }
+        cursor = start + whole.length;
+    }
+    if (!matched) {
+        return null;
+    }
+    if (cursor < value.length) {
+        result.push(textNode(value.slice(cursor)));
+    }
+    return result;
+}
+function resolveTarget(target, resolve) {
+    if (/^https?:\/\//i.test(target) || target.startsWith('#/')) {
+        return target;
+    }
+    return resolve(target);
+}
+function textNode(value) {
+    return { type: 'text', value: value };
+}
+function inlineCodeNode(value) {
+    return { type: 'inlineCode', value: value };
+}
+function linkNode(url, child) {
+    return {
+        type: 'link',
+        url: url,
+        title: null,
+        children: [child],
+    };
+}
+
+async function markdownToHtml(text, types = [], components = []) {
+    const normalized = normalizeInlineLinkUrls(normalizeLegacyAdmonitions(text));
+    const resolve = createLinkResolver(types, components);
     const file = await unified()
         .use(remarkParse)
         .use(remarkGfm)
@@ -48860,6 +49039,7 @@ async function markdownToHtml(text, types = []) {
         .use(saveFrontmatter)
         .use(remarkDirective)
         .use(admonitions)
+        .use(inlineLinks, { resolve: resolve })
         .use(remarkRehype, { allowDangerousHtml: true })
         .use(rehypeRaw)
         .use(rehypeSlug)
@@ -48872,8 +49052,21 @@ async function markdownToHtml(text, types = []) {
         toString: () => file.toString(),
     };
 }
+function createLinkResolver(types, components) {
+    const typeSet = new Set(types);
+    const componentSet = new Set(components);
+    return (target) => {
+        if (typeSet.has(target)) {
+            return `#/type/${target}`;
+        }
+        if (componentSet.has(target)) {
+            return `#/component/${target}/`;
+        }
+        return null;
+    };
+}
 
-const markdownCss = "*,*::before,*::after{box-sizing:border-box}ul[class],ol[class]{padding:0}body,h1,h2,h3,h4,p,ul[class],ol[class],li,figure,figcaption,blockquote,dl,dd{margin:0}ul[class],ol[class]{list-style:none}a:not([class]){text-decoration-skip-ink:auto}img{max-width:100%}input,button,textarea,select{font:inherit}@media (prefers-reduced-motion: reduce){*{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}}p,a,li{font-size:0.9375rem}h1,h2,h3,h4,h5,h6{margin-bottom:0.5rem;font-weight:normal;font-weight:500}h1{font-size:2rem;line-height:2.25rem;margin-top:1.5rem;letter-spacing:-0.0625rem;font-weight:400}h2{font-size:1.625rem;line-height:1.25rem;margin-top:1.25rem;margin-bottom:1rem}h3{font-size:1.375rem;line-height:1.5rem;margin-top:1rem}h4{font-size:1.25rem;line-height:1.25rem;margin-top:1rem}h5{font-size:1.125rem;line-height:1.125rem;margin-top:0.75rem}h6{font-size:1rem;font-variant:all-small-caps;letter-spacing:0.0625rem}p,blockquote{margin-top:0;margin-bottom:0.5rem}p:only-child,blockquote:only-child{margin-bottom:0}a{transition:color 0.2s ease;color:rgb(var(--kompendium-color-blue-default));text-decoration:none;border-radius:0.125rem}a:hover{color:rgb(var(--kompendium-color-blue-light))}a:focus{outline:none}a:focus-visible{outline:none;box-shadow:var(--kompendium-shadow-depth-8-focused)}ul{list-style:none}ul li{position:relative;margin-left:0.75rem}ul li:before{content:\"\";position:absolute;left:-0.5rem;top:0.625rem;width:0.25rem;height:0.25rem;border-radius:50%;background-color:rgb(var(--kompendium-contrast-700));display:block}ol{list-style:decimal inside}ol,ul{padding-left:0;margin-top:0}ul ul,ul ol,ol ol,ol ul{margin:0.9375rem 0 0.9375rem 1.875rem;font-size:90%}li{margin-bottom:0.625rem}th,td{padding:0.75rem 1rem;text-align:left;border-bottom:1px solid rgb(var(--kompendium-contrast-600))}th:first-child,td:first-child{padding-left:0}th:last-child,td:last-child{padding-right:0}hr{margin:1.75rem 0 2rem 0;border-width:0;border-top:1px solid rgb(var(--kompendium-contrast-600))}kbd{font-family:var(--kompendium-font-code);font-size:0.875rem;font-weight:600;color:rgb(var(--kompendium-contrast-1000));background-color:rgb(var(--kompendium-contrast-200));white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:normal;padding:0.125rem 0.5rem;margin:0 0.25rem;box-shadow:var(--kompendium-button-shadow-normal), 0 0.03125rem 0.21875rem 0 rgba(var(--kompendium-contrast-100), 0.5) inset;border-radius:0.25rem;border-style:solid;border-color:rgba(var(--kompendium-contrast-600), 0.8);border-width:0 1px 0.125rem 1px}@media (prefers-color-scheme: dark){kbd:not([data-theme=force-light]){background-color:rgb(var(--kompendium-contrast-200));color:rgb(var(--kompendium-contrast-1100));border-color:rgba(var(--kompendium-contrast-500), 0.8)}}kbd[data-theme=force-dark]{background-color:rgb(var(--kompendium-contrast-200));color:rgb(var(--kompendium-contrast-1100));border-color:rgba(var(--kompendium-contrast-500), 0.8)}@media (prefers-color-scheme: dark){:host(:not([data-theme=force-light])) kbd{background-color:rgb(var(--kompendium-contrast-200));color:rgb(var(--kompendium-contrast-1100));border-color:rgba(var(--kompendium-contrast-500), 0.8)}}:host([data-theme=force-dark]) kbd{background-color:rgb(var(--kompendium-contrast-200));color:rgb(var(--kompendium-contrast-1100));border-color:rgba(var(--kompendium-contrast-500), 0.8)}:host{display:block}pre,code{font-family:var(--kompendium-font-code);border-radius:0.25rem;font-size:0.6875rem}pre a,code a{font-size:0.6875rem}code{background:rgba(var(--kompendium-contrast-1100), 0.05);border:1px solid rgba(var(--kompendium-contrast-1100), 0.1);padding:0.125rem 0.3125rem;margin:0 0.125rem;white-space:pre-wrap;color:rgb(var(--kompendium-contrast-1100))}pre>code{display:block;padding:0.625rem 0.6375rem;white-space:pre-wrap}.value--false code{color:rgb(var(--kompendium-color-code-magenta));border-color:rgba(var(--kompendium-color-code-magenta), 0.2);background-color:rgba(var(--kompendium-color-code-magenta), 0.1)}.value--true code{color:rgb(var(--kompendium-color-code-green-dark));border-color:rgba(var(--kompendium-color-code-green-dark), 0.2);background-color:rgba(var(--kompendium-color-code-green-dark), 0.1)}dl{display:grid;grid-template-columns:1fr 2fr;grid-template-rows:1fr;margin-bottom:2rem;border:1px solid rgb(var(--kompendium-contrast-500));border-radius:0.375rem;background-color:rgb(var(--kompendium-contrast-300))}dl dt,dl dd{padding:0.375rem 0.5rem;font-size:0.875rem}dl dt:nth-of-type(even),dl dd:nth-of-type(even){background-color:rgb(var(--kompendium-contrast-400))}dl dt:first-child{border-top-left-radius:0.375rem}dl dt:last-child{border-bottom-left-radius:0.375rem}dl dd:first-child{border-top-right-radius:0.375rem}dl dd:last-child{border-bottom-right-radius:0.375rem}dl,dt,dd{transition:background-color 0.3s ease 0.05s, border-color 0.3s ease 0.05s}:root[data-theme=system-default]{color-scheme:dark light}:root[data-theme=force-light]{color-scheme:light}:root[data-theme=force-dark]{color-scheme:dark}:root{--kompendium-color-primary:33, 150, 243;--kompendium-color-error:229, 115, 115;--kompendium-color-white:255, 255, 255;--kompendium-color-black:0, 0, 0;--kompendium-contrast-100:255, 255, 255;--kompendium-contrast-200:250, 250, 251;--kompendium-contrast-300:246, 246, 247;--kompendium-contrast-400:241, 241, 243;--kompendium-contrast-500:237, 237, 238;--kompendium-contrast-600:232, 232, 234;--kompendium-contrast-700:209, 209, 213;--kompendium-contrast-800:186, 186, 192;--kompendium-contrast-900:140, 140, 150;--kompendium-contrast-1000:117, 117, 128;--kompendium-contrast-1100:94, 94, 108;--kompendium-contrast-1200:71, 71, 86;--kompendium-contrast-1300:48, 48, 66;--kompendium-contrast-1400:39, 39, 57;--kompendium-contrast-1500:35, 35, 53;--kompendium-contrast-1600:25, 25, 44;--kompendium-contrast-1700:20, 20, 37;--kompendium-color-red-light:229, 115, 115;--kompendium-color-red-default:244, 67, 54;--kompendium-color-blue-light:100, 181, 246;--kompendium-color-blue-default:33, 150, 243;--kompendium-color-green-light:129, 199, 132;--kompendium-color-green-default:76, 175, 80;--kompendium-color-amber-light:255, 213, 79;--kompendium-color-amber-default:255, 193, 7;--kompendium-color-orange-light:255, 183, 77;--kompendium-color-orange-default:255, 152, 0}@media (prefers-color-scheme: dark){:root:not([data-theme=force-light]){--kompendium-color-primary:30, 136, 229;--kompendium-color-error:229, 57, 53;--kompendium-contrast-100:20, 20, 37;--kompendium-contrast-200:25, 25, 44;--kompendium-contrast-300:35, 35, 53;--kompendium-contrast-400:39, 39, 57;--kompendium-contrast-500:48, 48, 66;--kompendium-contrast-600:71, 71, 86;--kompendium-contrast-700:94, 94, 108;--kompendium-contrast-800:117, 117, 128;--kompendium-contrast-900:140, 140, 150;--kompendium-contrast-1000:186, 186, 192;--kompendium-contrast-1100:209, 209, 213;--kompendium-contrast-1200:232, 232, 234;--kompendium-contrast-1300:237, 237, 238;--kompendium-contrast-1400:241, 241, 243;--kompendium-contrast-1500:246, 246, 247;--kompendium-contrast-1600:250, 250, 251;--kompendium-contrast-1700:255, 255, 255;--kompendium-color-red-light:240, 87, 80;--kompendium-color-red-default:229, 57, 53;--kompendium-color-blue-light:66, 165, 245;--kompendium-color-blue-default:30, 136, 229;--kompendium-color-green-light:102, 187, 106;--kompendium-color-green-default:67, 160, 71;--kompendium-color-amber-light:255, 207, 61;--kompendium-color-amber-default:255, 176, 59;--kompendium-color-orange-light:255, 167, 38;--kompendium-color-orange-default:251, 140, 0}}:root[data-theme=force-dark]{--kompendium-color-primary:30, 136, 229;--kompendium-color-error:229, 57, 53;--kompendium-contrast-100:20, 20, 37;--kompendium-contrast-200:25, 25, 44;--kompendium-contrast-300:35, 35, 53;--kompendium-contrast-400:39, 39, 57;--kompendium-contrast-500:48, 48, 66;--kompendium-contrast-600:71, 71, 86;--kompendium-contrast-700:94, 94, 108;--kompendium-contrast-800:117, 117, 128;--kompendium-contrast-900:140, 140, 150;--kompendium-contrast-1000:186, 186, 192;--kompendium-contrast-1100:209, 209, 213;--kompendium-contrast-1200:232, 232, 234;--kompendium-contrast-1300:237, 237, 238;--kompendium-contrast-1400:241, 241, 243;--kompendium-contrast-1500:246, 246, 247;--kompendium-contrast-1600:250, 250, 251;--kompendium-contrast-1700:255, 255, 255;--kompendium-color-red-light:240, 87, 80;--kompendium-color-red-default:229, 57, 53;--kompendium-color-blue-light:66, 165, 245;--kompendium-color-blue-default:30, 136, 229;--kompendium-color-green-light:102, 187, 106;--kompendium-color-green-default:67, 160, 71;--kompendium-color-amber-light:255, 207, 61;--kompendium-color-amber-default:255, 176, 59;--kompendium-color-orange-light:255, 167, 38;--kompendium-color-orange-default:251, 140, 0}@media (prefers-color-scheme: dark){:host(:not([data-theme=force-light])) :root{--kompendium-color-primary:30, 136, 229;--kompendium-color-error:229, 57, 53;--kompendium-contrast-100:20, 20, 37;--kompendium-contrast-200:25, 25, 44;--kompendium-contrast-300:35, 35, 53;--kompendium-contrast-400:39, 39, 57;--kompendium-contrast-500:48, 48, 66;--kompendium-contrast-600:71, 71, 86;--kompendium-contrast-700:94, 94, 108;--kompendium-contrast-800:117, 117, 128;--kompendium-contrast-900:140, 140, 150;--kompendium-contrast-1000:186, 186, 192;--kompendium-contrast-1100:209, 209, 213;--kompendium-contrast-1200:232, 232, 234;--kompendium-contrast-1300:237, 237, 238;--kompendium-contrast-1400:241, 241, 243;--kompendium-contrast-1500:246, 246, 247;--kompendium-contrast-1600:250, 250, 251;--kompendium-contrast-1700:255, 255, 255;--kompendium-color-red-light:240, 87, 80;--kompendium-color-red-default:229, 57, 53;--kompendium-color-blue-light:66, 165, 245;--kompendium-color-blue-default:30, 136, 229;--kompendium-color-green-light:102, 187, 106;--kompendium-color-green-default:67, 160, 71;--kompendium-color-amber-light:255, 207, 61;--kompendium-color-amber-default:255, 176, 59;--kompendium-color-orange-light:255, 167, 38;--kompendium-color-orange-default:251, 140, 0}}:host([data-theme=force-dark]) :root{--kompendium-color-primary:30, 136, 229;--kompendium-color-error:229, 57, 53;--kompendium-contrast-100:20, 20, 37;--kompendium-contrast-200:25, 25, 44;--kompendium-contrast-300:35, 35, 53;--kompendium-contrast-400:39, 39, 57;--kompendium-contrast-500:48, 48, 66;--kompendium-contrast-600:71, 71, 86;--kompendium-contrast-700:94, 94, 108;--kompendium-contrast-800:117, 117, 128;--kompendium-contrast-900:140, 140, 150;--kompendium-contrast-1000:186, 186, 192;--kompendium-contrast-1100:209, 209, 213;--kompendium-contrast-1200:232, 232, 234;--kompendium-contrast-1300:237, 237, 238;--kompendium-contrast-1400:241, 241, 243;--kompendium-contrast-1500:246, 246, 247;--kompendium-contrast-1600:250, 250, 251;--kompendium-contrast-1700:255, 255, 255;--kompendium-color-red-light:240, 87, 80;--kompendium-color-red-default:229, 57, 53;--kompendium-color-blue-light:66, 165, 245;--kompendium-color-blue-default:30, 136, 229;--kompendium-color-green-light:102, 187, 106;--kompendium-color-green-default:67, 160, 71;--kompendium-color-amber-light:255, 207, 61;--kompendium-color-amber-default:255, 176, 59;--kompendium-color-orange-light:255, 167, 38;--kompendium-color-orange-default:251, 140, 0}:root{--kompendium-color-code-pink:216, 27, 96;--kompendium-color-code-magenta:156, 22, 87;--kompendium-color-code-blue:33, 150, 243;--kompendium-color-code-orange:245, 124, 0;--kompendium-color-code-yellow:255, 87, 34;--kompendium-color-code-purple:149, 117, 205;--kompendium-color-code-green-light:53, 196, 84;--kompendium-color-code-green-dark:85, 139, 47;--kompendium-color-code-turquoise:0, 151, 167;--kompendium-color-code-gray-lighter:71, 71, 86;--kompendium-color-code-gray-light:var(--kompendium-contrast-1100);--kompendium-color-code-gray-dark:var(--kompendium-contrast-1200);--kompendium-color-code-background:var(--kompendium-contrast-200)}@media (prefers-color-scheme: dark){:root:not([data-theme=force-light]){--kompendium-color-code-pink:226, 119, 122;--kompendium-color-code-magenta:232, 62, 140;--kompendium-color-code-blue:97, 150, 204;--kompendium-color-code-orange:255, 152, 0;--kompendium-color-code-yellow:255, 213, 79;--kompendium-color-code-purple:206, 147, 216;--kompendium-color-code-green-light:174, 213, 129;--kompendium-color-code-green-dark:53, 196, 84;--kompendium-color-code-turquoise:103, 205, 204;--kompendium-color-code-gray-lighter:117, 117, 128}}:root[data-theme=force-dark]{--kompendium-color-code-pink:226, 119, 122;--kompendium-color-code-magenta:232, 62, 140;--kompendium-color-code-blue:97, 150, 204;--kompendium-color-code-orange:255, 152, 0;--kompendium-color-code-yellow:255, 213, 79;--kompendium-color-code-purple:206, 147, 216;--kompendium-color-code-green-light:174, 213, 129;--kompendium-color-code-green-dark:53, 196, 84;--kompendium-color-code-turquoise:103, 205, 204;--kompendium-color-code-gray-lighter:117, 117, 128}@media (prefers-color-scheme: dark){:host(:not([data-theme=force-light])) :root{--kompendium-color-code-pink:226, 119, 122;--kompendium-color-code-magenta:232, 62, 140;--kompendium-color-code-blue:97, 150, 204;--kompendium-color-code-orange:255, 152, 0;--kompendium-color-code-yellow:255, 213, 79;--kompendium-color-code-purple:206, 147, 216;--kompendium-color-code-green-light:174, 213, 129;--kompendium-color-code-green-dark:53, 196, 84;--kompendium-color-code-turquoise:103, 205, 204;--kompendium-color-code-gray-lighter:117, 117, 128}}:host([data-theme=force-dark]) :root{--kompendium-color-code-pink:226, 119, 122;--kompendium-color-code-magenta:232, 62, 140;--kompendium-color-code-blue:97, 150, 204;--kompendium-color-code-orange:255, 152, 0;--kompendium-color-code-yellow:255, 213, 79;--kompendium-color-code-purple:206, 147, 216;--kompendium-color-code-green-light:174, 213, 129;--kompendium-color-code-green-dark:53, 196, 84;--kompendium-color-code-turquoise:103, 205, 204;--kompendium-color-code-gray-lighter:117, 117, 128}.admonition{--size-of-admonition-icon:2.5rem;--border-radius-of-admonition-icon:0.5rem;border-radius:var(--border-radius-of-admonition-icon);background-color:rgb(var(--kompendium-contrast-400));margin:0.75rem 0 1rem 0;padding:0.5rem 0.5rem 0.75rem 0.5rem;position:relative}.admonition:before{content:\"\";width:var(--size-of-admonition-icon);position:absolute;left:0;top:0;bottom:0;display:block;border-radius:var(--border-radius-of-admonition-icon) 0 0 var(--border-radius-of-admonition-icon);background-position:top center;background-repeat:no-repeat;background-size:contain;background-color:#eaeaea}.admonition-tip:before{background-image:url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"1.5\" clip-rule=\"evenodd\" viewBox=\"0 0 400 400\"><defs/><path fill=\"none\" d=\"M0 0h400v400H0z\"/><circle cx=\"200\" cy=\"200\" r=\"140.5\" fill=\"%23ffd54f\" fill-opacity=\".2\"/><circle cx=\"200\" cy=\"200\" r=\"119.072\" fill=\"%23ffd54f\" fill-opacity=\".3\"/><circle cx=\"200\" cy=\"200\" r=\"99.5\" fill=\"%23ffd54f\"/><path fill=\"%23fff\" fill-rule=\"nonzero\" d=\"M265.384 201.1c0-38.426-33.52-69.494-72.764-64.589-28.615 3.27-52.325 26.163-57.231 54.778-3.27 21.257 4.088 41.696 17.17 55.595 9.81 9.811 14.716 22.892 14.716 36.791h65.406c0-13.081 4.906-26.98 13.899-35.973 11.446-13.082 18.804-28.616 18.804-46.602z\"/><path fill=\"none\" stroke=\"%23ffd54f\" stroke-width=\"8\" d=\"M213.2 194.58C224 188 238 196 231.751 204.881c-9.583 13.619-57.987 11.566-63.709-1.805-3.689-8.622 8.958-14.076 19.439-8.496C196.151 199.196 200.5 207 200.5 224v4\"/><path fill=\"%23446c80\" fill-rule=\"nonzero\" d=\"M232.681 283.675h-65.406c0 18.532 14.171 32.703 32.703 32.703 18.532 0 32.703-14.171 32.703-32.703z\"/></svg>');background-color:rgba(var(--kompendium-color-code-yellow), 0.2)}.admonition-note:before{background-image:url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" stroke-linejoin=\"round\" stroke-miterlimit=\"2\" clip-rule=\"evenodd\" viewBox=\"0 0 400 400\"><defs/><path fill=\"none\" d=\"M0 0h400v400H0z\"/><circle cx=\"200\" cy=\"200\" r=\"119.072\" fill=\"%2381c784\" fill-opacity=\".3\"/><circle cx=\"200\" cy=\"200\" r=\"99.5\" fill=\"%2381c784\"/><path fill=\"%23fff\" d=\"M200.011 145.221c-5.042 0-9.129 4.136-9.129 9.102v54.834a9.094 9.094 0 009.129 9.103c5.043 0 9.13-4.136 9.13-9.103v-54.834a9.093 9.093 0 00-9.13-9.102zm0 109.558a9.13 9.13 0 009.13-9.13 9.129 9.129 0 00-9.13-9.129 9.129 9.129 0 00-9.129 9.129 9.129 9.129 0 009.129 9.13z\"/></svg>');background-color:rgba(var(--kompendium-color-code-green-dark), 0.1)}.admonition-warning:before{background-image:url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" stroke-linejoin=\"round\" stroke-miterlimit=\"2\" clip-rule=\"evenodd\" viewBox=\"0 0 400 400\"><defs/><path fill=\"none\" d=\"M0 0h400v400H0z\"/><path fill=\"%23f44336\" d=\"M187.167 113.32c7.091-11.474 18.606-11.446 25.681 0l87.906 142.221c9.467 15.317 2.571 27.734-15.394 27.734H114.655c-17.97 0-24.892-12.367-15.395-27.734l87.907-142.221z\"/><path fill=\"%23fff\" d=\"M200.011 155.052c-5.042 0-9.129 4.136-9.129 9.103v54.833a9.094 9.094 0 009.129 9.103c5.043 0 9.13-4.136 9.13-9.103v-54.833a9.093 9.093 0 00-9.13-9.103zm0 109.558a9.13 9.13 0 009.13-9.13 9.129 9.129 0 00-9.13-9.129 9.129 9.129 0 00-9.129 9.129 9.129 9.129 0 009.129 9.13z\"/></svg>');background-color:rgba(var(--kompendium-color-code-pink), 0.2)}.admonition-danger:before{background-image:url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" stroke-linejoin=\"round\" stroke-miterlimit=\"2\" clip-rule=\"evenodd\" viewBox=\"0 0 400 400\"><defs/><path fill=\"none\" d=\"M0 0h400v400H0z\"/><path fill=\"%23446c80\" d=\"M100.7 233.141c-5.6-12.935-8.7-27.173-8.7-42.122C92 131.954 140.393 84 200 84s108 47.954 108 107.019c0 14.949-3.1 29.187-8.7 42.122-4.582 26.722-21.33 48.534-43.425 57.687v12.728c0 10.357-8.485 18.764-18.935 18.764-9.066 0-16.653-6.327-18.504-14.765-1.962 8.291-9.477 14.47-18.436 14.47-9.012 0-16.562-6.251-18.47-14.615-1.909 8.364-9.459 14.615-18.47 14.615-10.45 0-18.935-8.407-18.935-18.764v-12.433c-22.096-9.154-38.844-30.967-43.425-57.687z\"/><path fill=\"%23fff\" fill-opacity=\".2\" d=\"M213.322 264.164c-3.328 3.135-23.317 3.135-26.644 0-3.332-3.136-3.332-4.928 0-11.199 2.328-4.703 9.832-17.022 13.322-17.022 3.489 0 10.993 12.319 13.322 17.022 3.331 6.271 3.331 8.063 0 11.199z\"/><path fill=\"%23fff\" d=\"M150.179 213.14c12.03 0 21.797 9.678 21.797 21.599s-9.767 21.599-21.797 21.599c-12.03 0-21.797-9.678-21.797-21.599s9.767-21.599 21.797-21.599zm100.844 12.114l8.678-8.598c2.635-2.612 6.896-2.624 9.557.014 2.644 2.619 2.618 6.891.015 9.47l-8.678 8.599 8.678 8.599a6.637 6.637 0 01-.015 9.47c-2.643 2.619-6.954 2.594-9.557.014l-8.678-8.598-8.677 8.598c-2.635 2.612-6.896 2.624-9.558-.014-2.643-2.619-2.617-6.89-.014-9.47l8.678-8.599-8.678-8.599a6.638 6.638 0 01.014-9.47c2.644-2.619 6.954-2.594 9.558-.014l8.677 8.598z\"/></svg>');background-color:rgba(var(--kompendium-color-code-gray-dark), 0.1)}.admonition-info:before{background-image:url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" stroke-linejoin=\"round\" stroke-miterlimit=\"2\" clip-rule=\"evenodd\" viewBox=\"0 0 400 400\"><defs/><path fill=\"none\" d=\"M0 0h400v400H0z\"/><path fill=\"%232196f3\" fill-rule=\"nonzero\" d=\"M229.238 275.304c-.075.025-6.987 2.325-12.987 2.325-3.312 0-4.65-.687-5.075-.987-2.1-1.463-6-4.2.675-17.5l12.5-24.924c7.412-14.8 8.512-29.112 3.062-40.312-4.45-9.162-12.987-15.449-23.999-17.699a59.668 59.668 0 00-11.975-1.213c-23.112 0-38.674 13.5-39.324 14.075a6.262 6.262 0 00-1.275 7.825 6.244 6.244 0 007.438 2.775c.062-.025 6.987-2.338 12.987-2.338 3.287 0 4.612.688 5.025.975 2.112 1.475 6.024 4.25-.638 17.525l-12.499 24.937c-7.425 14.812-8.513 29.124-3.063 40.311 4.45 9.162 12.975 15.449 24.012 17.699 3.925.788 7.95 1.213 11.925 1.213 23.124 0 38.698-13.5 39.348-14.075 2.238-1.962 2.763-5.25 1.275-7.825-1.5-2.562-4.612-3.712-7.412-2.787zm-10.487-175.295c17.247 0 31.249 14.002 31.249 31.249s-14.002 31.249-31.249 31.249-31.249-14.002-31.249-31.249 14.002-31.249 31.249-31.249z\"/></svg>');background-color:rgba(var(--kompendium-color-code-turquoise), 0.2)}.admonition-important:before{background-image:url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" stroke-linejoin=\"round\" stroke-miterlimit=\"2\" clip-rule=\"evenodd\" viewBox=\"0 0 400 400\"><defs/><path fill=\"none\" d=\"M0 0h400v400H0z\"/><path fill=\"%23ffd54f\" fill-rule=\"nonzero\" d=\"M254.158 293c-2.499 0-4.941-.558-7.205-1.628a9.33 9.33 0 01-1.16-.569l-45.807-26.132-45.806 26.143c-.39.223-.781.413-1.182.591-5.443 2.543-12.101 1.941-16.964-1.595-5.231-3.792-7.819-10.406-6.536-16.83l10.674-51.773c-4.172-3.793-10.73-9.76-17.868-16.251l-21.135-19.239a8.364 8.364 0 01-.87-.915c-4.183-4.416-5.677-10.818-3.792-16.64 1.929-5.845 6.915-10.172 12.937-11.254.38-.089.748-.156 1.138-.201l52.431-5.811 21.705-48.07a7.66 7.66 0 01.669-1.227A16.72 16.72 0 01199.986 93c6.057 0 11.644 3.324 14.6 8.588.234.402.457.814.669 1.249l21.727 48.093 52.431 5.811c.379.033.759.1 1.16.189 6.012 1.116 10.997 5.421 12.916 11.287 1.896 5.811.39 12.247-3.793 16.663-.267.29-.568.603-.87.87l-39.014 35.512 10.674 51.662c1.26 6.547-1.316 13.139-6.58 16.942a16.602 16.602 0 01-9.748 3.134z\"/><circle cx=\"255.5\" cy=\"127.5\" r=\"14.5\" fill=\"%23ffd54f\" fill-opacity=\".5\"/><circle cx=\"144.5\" cy=\"127.5\" r=\"14.5\" fill=\"%23ffd54f\" fill-opacity=\".5\"/><circle cx=\"287.5\" cy=\"229.5\" r=\"14.5\" fill=\"%23ffd54f\" fill-opacity=\".5\"/><circle cx=\"113.5\" cy=\"229.5\" r=\"14.5\" fill=\"%23ffd54f\" fill-opacity=\".5\"/><circle cx=\"200\" cy=\"297.5\" r=\"14.5\" fill=\"%23ffd54f\" fill-opacity=\".5\"/></svg>');background-color:rgba(var(--kompendium-color-code-gray-dark), 0.4)}.admonition-heading{margin-bottom:0.375rem}.admonition-heading h5{color:rgb(var(--kompendium-contrast-1100));margin:0;font-size:0.9375rem;padding:0.125rem 0 0 var(--size-of-admonition-icon)}.admonition-heading h5::first-letter{text-transform:capitalize}.admonition-content{padding-left:var(--size-of-admonition-icon)}.admonition-content p:first-child{margin-top:0}.admonition-content p:only-child{margin-bottom:0}@media (max-width: 600px){.admonition{--size-of-admonition-icon:2rem}}blockquote{border-left-color:rgb(var(--kompendium-contrast-700));border-left-style:solid;border-left-width:0.25rem;color:rgb(var(--kompendium-contrast-1100));padding-left:1rem}";
+const markdownCss = () => `*,*::before,*::after{box-sizing:border-box}ul[class],ol[class]{padding:0}body,h1,h2,h3,h4,p,ul[class],ol[class],li,figure,figcaption,blockquote,dl,dd{margin:0}ul[class],ol[class]{list-style:none}a:not([class]){text-decoration-skip-ink:auto}img{max-width:100%}input,button,textarea,select{font:inherit}@media (prefers-reduced-motion: reduce){*{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}}p,a,li{font-size:0.9375rem}h1,h2,h3,h4,h5,h6{margin-bottom:0.5rem;font-weight:normal;font-weight:500}h1{font-size:2rem;line-height:2.25rem;margin-top:1.5rem;letter-spacing:-0.0625rem;font-weight:400}h2{font-size:1.625rem;line-height:1.25rem;margin-top:1.25rem;margin-bottom:1rem}h3{font-size:1.375rem;line-height:1.5rem;margin-top:1rem}h4{font-size:1.25rem;line-height:1.25rem;margin-top:1rem}h5{font-size:1.125rem;line-height:1.125rem;margin-top:0.75rem}h6{font-size:1rem;font-variant:all-small-caps;letter-spacing:0.0625rem}p,blockquote{margin-top:0;margin-bottom:0.5rem}p:only-child,blockquote:only-child{margin-bottom:0}a{transition:color 0.2s ease;color:rgb(var(--kompendium-color-blue-default));text-decoration:none;border-radius:0.125rem}a:hover{color:rgb(var(--kompendium-color-blue-light))}a:focus{outline:none}a:focus-visible{outline:none;box-shadow:var(--kompendium-shadow-depth-8-focused)}ul{list-style:none}ul li{position:relative;margin-left:0.75rem}ul li:before{content:"";position:absolute;left:-0.5rem;top:0.625rem;width:0.25rem;height:0.25rem;border-radius:50%;background-color:rgb(var(--kompendium-contrast-700));display:block}ol{list-style:decimal inside}ol,ul{padding-left:0;margin-top:0}ul ul,ul ol,ol ol,ol ul{margin:0.9375rem 0 0.9375rem 1.875rem;font-size:90%}li{margin-bottom:0.625rem}th,td{padding:0.75rem 1rem;text-align:left;border-bottom:1px solid rgb(var(--kompendium-contrast-600))}th:first-child,td:first-child{padding-left:0}th:last-child,td:last-child{padding-right:0}hr{margin:1.75rem 0 2rem 0;border-width:0;border-top:1px solid rgb(var(--kompendium-contrast-600))}kbd{font-family:var(--kompendium-font-code);font-size:0.875rem;font-weight:600;color:rgb(var(--kompendium-contrast-1000));background-color:rgb(var(--kompendium-contrast-200));white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:normal;padding:0.125rem 0.5rem;margin:0 0.25rem;box-shadow:var(--kompendium-button-shadow-normal), 0 0.03125rem 0.21875rem 0 rgba(var(--kompendium-contrast-100), 0.5) inset;border-radius:0.25rem;border-style:solid;border-color:rgba(var(--kompendium-contrast-600), 0.8);border-width:0 1px 0.125rem 1px}@media (prefers-color-scheme: dark){kbd:not([data-theme=force-light]){background-color:rgb(var(--kompendium-contrast-200));color:rgb(var(--kompendium-contrast-1100));border-color:rgba(var(--kompendium-contrast-500), 0.8)}}kbd[data-theme=force-dark]{background-color:rgb(var(--kompendium-contrast-200));color:rgb(var(--kompendium-contrast-1100));border-color:rgba(var(--kompendium-contrast-500), 0.8)}@media (prefers-color-scheme: dark){:host(:not([data-theme=force-light])) kbd{background-color:rgb(var(--kompendium-contrast-200));color:rgb(var(--kompendium-contrast-1100));border-color:rgba(var(--kompendium-contrast-500), 0.8)}}:host([data-theme=force-dark]) kbd{background-color:rgb(var(--kompendium-contrast-200));color:rgb(var(--kompendium-contrast-1100));border-color:rgba(var(--kompendium-contrast-500), 0.8)}:host{display:block}pre,code{font-family:var(--kompendium-font-code);border-radius:0.25rem;font-size:0.6875rem}pre a,code a{font-size:0.6875rem}code{background:rgba(var(--kompendium-contrast-1100), 0.05);border:1px solid rgba(var(--kompendium-contrast-1100), 0.1);padding:0.125rem 0.3125rem;margin:0 0.125rem;white-space:pre-wrap;color:rgb(var(--kompendium-contrast-1100))}pre>code{display:block;padding:0.625rem 0.6375rem;white-space:pre-wrap}.value--false code{color:rgb(var(--kompendium-color-code-magenta));border-color:rgba(var(--kompendium-color-code-magenta), 0.2);background-color:rgba(var(--kompendium-color-code-magenta), 0.1)}.value--true code{color:rgb(var(--kompendium-color-code-green-dark));border-color:rgba(var(--kompendium-color-code-green-dark), 0.2);background-color:rgba(var(--kompendium-color-code-green-dark), 0.1)}dl{display:grid;grid-template-columns:1fr 2fr;grid-template-rows:1fr;margin-bottom:2rem;border:1px solid rgb(var(--kompendium-contrast-500));border-radius:0.375rem;background-color:rgb(var(--kompendium-contrast-300))}dl dt,dl dd{padding:0.375rem 0.5rem;font-size:0.875rem}dl dt:nth-of-type(even),dl dd:nth-of-type(even){background-color:rgb(var(--kompendium-contrast-400))}dl dt:first-child{border-top-left-radius:0.375rem}dl dt:last-child{border-bottom-left-radius:0.375rem}dl dd:first-child{border-top-right-radius:0.375rem}dl dd:last-child{border-bottom-right-radius:0.375rem}dl,dt,dd{transition:background-color 0.3s ease 0.05s, border-color 0.3s ease 0.05s}:root[data-theme=system-default]{color-scheme:dark light}:root[data-theme=force-light]{color-scheme:light}:root[data-theme=force-dark]{color-scheme:dark}:root{--kompendium-color-primary:33, 150, 243;--kompendium-color-error:229, 115, 115;--kompendium-color-white:255, 255, 255;--kompendium-color-black:0, 0, 0;--kompendium-contrast-100:255, 255, 255;--kompendium-contrast-200:250, 250, 251;--kompendium-contrast-300:246, 246, 247;--kompendium-contrast-400:241, 241, 243;--kompendium-contrast-500:237, 237, 238;--kompendium-contrast-600:232, 232, 234;--kompendium-contrast-700:209, 209, 213;--kompendium-contrast-800:186, 186, 192;--kompendium-contrast-900:140, 140, 150;--kompendium-contrast-1000:117, 117, 128;--kompendium-contrast-1100:94, 94, 108;--kompendium-contrast-1200:71, 71, 86;--kompendium-contrast-1300:48, 48, 66;--kompendium-contrast-1400:39, 39, 57;--kompendium-contrast-1500:35, 35, 53;--kompendium-contrast-1600:25, 25, 44;--kompendium-contrast-1700:20, 20, 37;--kompendium-color-red-light:229, 115, 115;--kompendium-color-red-default:244, 67, 54;--kompendium-color-blue-light:100, 181, 246;--kompendium-color-blue-default:33, 150, 243;--kompendium-color-green-light:129, 199, 132;--kompendium-color-green-default:76, 175, 80;--kompendium-color-amber-light:255, 213, 79;--kompendium-color-amber-default:255, 193, 7;--kompendium-color-orange-light:255, 183, 77;--kompendium-color-orange-default:255, 152, 0}@media (prefers-color-scheme: dark){:root:not([data-theme=force-light]){--kompendium-color-primary:30, 136, 229;--kompendium-color-error:229, 57, 53;--kompendium-contrast-100:20, 20, 37;--kompendium-contrast-200:25, 25, 44;--kompendium-contrast-300:35, 35, 53;--kompendium-contrast-400:39, 39, 57;--kompendium-contrast-500:48, 48, 66;--kompendium-contrast-600:71, 71, 86;--kompendium-contrast-700:94, 94, 108;--kompendium-contrast-800:117, 117, 128;--kompendium-contrast-900:140, 140, 150;--kompendium-contrast-1000:186, 186, 192;--kompendium-contrast-1100:209, 209, 213;--kompendium-contrast-1200:232, 232, 234;--kompendium-contrast-1300:237, 237, 238;--kompendium-contrast-1400:241, 241, 243;--kompendium-contrast-1500:246, 246, 247;--kompendium-contrast-1600:250, 250, 251;--kompendium-contrast-1700:255, 255, 255;--kompendium-color-red-light:240, 87, 80;--kompendium-color-red-default:229, 57, 53;--kompendium-color-blue-light:66, 165, 245;--kompendium-color-blue-default:30, 136, 229;--kompendium-color-green-light:102, 187, 106;--kompendium-color-green-default:67, 160, 71;--kompendium-color-amber-light:255, 207, 61;--kompendium-color-amber-default:255, 176, 59;--kompendium-color-orange-light:255, 167, 38;--kompendium-color-orange-default:251, 140, 0}}:root[data-theme=force-dark]{--kompendium-color-primary:30, 136, 229;--kompendium-color-error:229, 57, 53;--kompendium-contrast-100:20, 20, 37;--kompendium-contrast-200:25, 25, 44;--kompendium-contrast-300:35, 35, 53;--kompendium-contrast-400:39, 39, 57;--kompendium-contrast-500:48, 48, 66;--kompendium-contrast-600:71, 71, 86;--kompendium-contrast-700:94, 94, 108;--kompendium-contrast-800:117, 117, 128;--kompendium-contrast-900:140, 140, 150;--kompendium-contrast-1000:186, 186, 192;--kompendium-contrast-1100:209, 209, 213;--kompendium-contrast-1200:232, 232, 234;--kompendium-contrast-1300:237, 237, 238;--kompendium-contrast-1400:241, 241, 243;--kompendium-contrast-1500:246, 246, 247;--kompendium-contrast-1600:250, 250, 251;--kompendium-contrast-1700:255, 255, 255;--kompendium-color-red-light:240, 87, 80;--kompendium-color-red-default:229, 57, 53;--kompendium-color-blue-light:66, 165, 245;--kompendium-color-blue-default:30, 136, 229;--kompendium-color-green-light:102, 187, 106;--kompendium-color-green-default:67, 160, 71;--kompendium-color-amber-light:255, 207, 61;--kompendium-color-amber-default:255, 176, 59;--kompendium-color-orange-light:255, 167, 38;--kompendium-color-orange-default:251, 140, 0}@media (prefers-color-scheme: dark){:host(:not([data-theme=force-light])) :root{--kompendium-color-primary:30, 136, 229;--kompendium-color-error:229, 57, 53;--kompendium-contrast-100:20, 20, 37;--kompendium-contrast-200:25, 25, 44;--kompendium-contrast-300:35, 35, 53;--kompendium-contrast-400:39, 39, 57;--kompendium-contrast-500:48, 48, 66;--kompendium-contrast-600:71, 71, 86;--kompendium-contrast-700:94, 94, 108;--kompendium-contrast-800:117, 117, 128;--kompendium-contrast-900:140, 140, 150;--kompendium-contrast-1000:186, 186, 192;--kompendium-contrast-1100:209, 209, 213;--kompendium-contrast-1200:232, 232, 234;--kompendium-contrast-1300:237, 237, 238;--kompendium-contrast-1400:241, 241, 243;--kompendium-contrast-1500:246, 246, 247;--kompendium-contrast-1600:250, 250, 251;--kompendium-contrast-1700:255, 255, 255;--kompendium-color-red-light:240, 87, 80;--kompendium-color-red-default:229, 57, 53;--kompendium-color-blue-light:66, 165, 245;--kompendium-color-blue-default:30, 136, 229;--kompendium-color-green-light:102, 187, 106;--kompendium-color-green-default:67, 160, 71;--kompendium-color-amber-light:255, 207, 61;--kompendium-color-amber-default:255, 176, 59;--kompendium-color-orange-light:255, 167, 38;--kompendium-color-orange-default:251, 140, 0}}:host([data-theme=force-dark]) :root{--kompendium-color-primary:30, 136, 229;--kompendium-color-error:229, 57, 53;--kompendium-contrast-100:20, 20, 37;--kompendium-contrast-200:25, 25, 44;--kompendium-contrast-300:35, 35, 53;--kompendium-contrast-400:39, 39, 57;--kompendium-contrast-500:48, 48, 66;--kompendium-contrast-600:71, 71, 86;--kompendium-contrast-700:94, 94, 108;--kompendium-contrast-800:117, 117, 128;--kompendium-contrast-900:140, 140, 150;--kompendium-contrast-1000:186, 186, 192;--kompendium-contrast-1100:209, 209, 213;--kompendium-contrast-1200:232, 232, 234;--kompendium-contrast-1300:237, 237, 238;--kompendium-contrast-1400:241, 241, 243;--kompendium-contrast-1500:246, 246, 247;--kompendium-contrast-1600:250, 250, 251;--kompendium-contrast-1700:255, 255, 255;--kompendium-color-red-light:240, 87, 80;--kompendium-color-red-default:229, 57, 53;--kompendium-color-blue-light:66, 165, 245;--kompendium-color-blue-default:30, 136, 229;--kompendium-color-green-light:102, 187, 106;--kompendium-color-green-default:67, 160, 71;--kompendium-color-amber-light:255, 207, 61;--kompendium-color-amber-default:255, 176, 59;--kompendium-color-orange-light:255, 167, 38;--kompendium-color-orange-default:251, 140, 0}:root{--kompendium-color-code-pink:216, 27, 96;--kompendium-color-code-magenta:156, 22, 87;--kompendium-color-code-blue:33, 150, 243;--kompendium-color-code-orange:245, 124, 0;--kompendium-color-code-yellow:255, 87, 34;--kompendium-color-code-purple:149, 117, 205;--kompendium-color-code-green-light:53, 196, 84;--kompendium-color-code-green-dark:85, 139, 47;--kompendium-color-code-turquoise:0, 151, 167;--kompendium-color-code-gray-lighter:71, 71, 86;--kompendium-color-code-gray-light:var(--kompendium-contrast-1100);--kompendium-color-code-gray-dark:var(--kompendium-contrast-1200);--kompendium-color-code-background:var(--kompendium-contrast-200)}@media (prefers-color-scheme: dark){:root:not([data-theme=force-light]){--kompendium-color-code-pink:226, 119, 122;--kompendium-color-code-magenta:232, 62, 140;--kompendium-color-code-blue:97, 150, 204;--kompendium-color-code-orange:255, 152, 0;--kompendium-color-code-yellow:255, 213, 79;--kompendium-color-code-purple:206, 147, 216;--kompendium-color-code-green-light:174, 213, 129;--kompendium-color-code-green-dark:53, 196, 84;--kompendium-color-code-turquoise:103, 205, 204;--kompendium-color-code-gray-lighter:117, 117, 128}}:root[data-theme=force-dark]{--kompendium-color-code-pink:226, 119, 122;--kompendium-color-code-magenta:232, 62, 140;--kompendium-color-code-blue:97, 150, 204;--kompendium-color-code-orange:255, 152, 0;--kompendium-color-code-yellow:255, 213, 79;--kompendium-color-code-purple:206, 147, 216;--kompendium-color-code-green-light:174, 213, 129;--kompendium-color-code-green-dark:53, 196, 84;--kompendium-color-code-turquoise:103, 205, 204;--kompendium-color-code-gray-lighter:117, 117, 128}@media (prefers-color-scheme: dark){:host(:not([data-theme=force-light])) :root{--kompendium-color-code-pink:226, 119, 122;--kompendium-color-code-magenta:232, 62, 140;--kompendium-color-code-blue:97, 150, 204;--kompendium-color-code-orange:255, 152, 0;--kompendium-color-code-yellow:255, 213, 79;--kompendium-color-code-purple:206, 147, 216;--kompendium-color-code-green-light:174, 213, 129;--kompendium-color-code-green-dark:53, 196, 84;--kompendium-color-code-turquoise:103, 205, 204;--kompendium-color-code-gray-lighter:117, 117, 128}}:host([data-theme=force-dark]) :root{--kompendium-color-code-pink:226, 119, 122;--kompendium-color-code-magenta:232, 62, 140;--kompendium-color-code-blue:97, 150, 204;--kompendium-color-code-orange:255, 152, 0;--kompendium-color-code-yellow:255, 213, 79;--kompendium-color-code-purple:206, 147, 216;--kompendium-color-code-green-light:174, 213, 129;--kompendium-color-code-green-dark:53, 196, 84;--kompendium-color-code-turquoise:103, 205, 204;--kompendium-color-code-gray-lighter:117, 117, 128}.admonition{--size-of-admonition-icon:2.5rem;--border-radius-of-admonition-icon:0.5rem;border-radius:var(--border-radius-of-admonition-icon);background-color:rgb(var(--kompendium-contrast-400));margin:0.75rem 0 1rem 0;padding:0.5rem 0.5rem 0.75rem 0.5rem;position:relative}.admonition:before{content:"";width:var(--size-of-admonition-icon);position:absolute;left:0;top:0;bottom:0;display:block;border-radius:var(--border-radius-of-admonition-icon) 0 0 var(--border-radius-of-admonition-icon);background-position:top center;background-repeat:no-repeat;background-size:contain;background-color:#eaeaea}.admonition-tip:before{background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5" clip-rule="evenodd" viewBox="0 0 400 400"><defs/><path fill="none" d="M0 0h400v400H0z"/><circle cx="200" cy="200" r="140.5" fill="%23ffd54f" fill-opacity=".2"/><circle cx="200" cy="200" r="119.072" fill="%23ffd54f" fill-opacity=".3"/><circle cx="200" cy="200" r="99.5" fill="%23ffd54f"/><path fill="%23fff" fill-rule="nonzero" d="M265.384 201.1c0-38.426-33.52-69.494-72.764-64.589-28.615 3.27-52.325 26.163-57.231 54.778-3.27 21.257 4.088 41.696 17.17 55.595 9.81 9.811 14.716 22.892 14.716 36.791h65.406c0-13.081 4.906-26.98 13.899-35.973 11.446-13.082 18.804-28.616 18.804-46.602z"/><path fill="none" stroke="%23ffd54f" stroke-width="8" d="M213.2 194.58C224 188 238 196 231.751 204.881c-9.583 13.619-57.987 11.566-63.709-1.805-3.689-8.622 8.958-14.076 19.439-8.496C196.151 199.196 200.5 207 200.5 224v4"/><path fill="%23446c80" fill-rule="nonzero" d="M232.681 283.675h-65.406c0 18.532 14.171 32.703 32.703 32.703 18.532 0 32.703-14.171 32.703-32.703z"/></svg>');background-color:rgba(var(--kompendium-color-code-yellow), 0.2)}.admonition-note:before{background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 400 400"><defs/><path fill="none" d="M0 0h400v400H0z"/><circle cx="200" cy="200" r="119.072" fill="%2381c784" fill-opacity=".3"/><circle cx="200" cy="200" r="99.5" fill="%2381c784"/><path fill="%23fff" d="M200.011 145.221c-5.042 0-9.129 4.136-9.129 9.102v54.834a9.094 9.094 0 009.129 9.103c5.043 0 9.13-4.136 9.13-9.103v-54.834a9.093 9.093 0 00-9.13-9.102zm0 109.558a9.13 9.13 0 009.13-9.13 9.129 9.129 0 00-9.13-9.129 9.129 9.129 0 00-9.129 9.129 9.129 9.129 0 009.129 9.13z"/></svg>');background-color:rgba(var(--kompendium-color-code-green-dark), 0.1)}.admonition-warning:before{background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 400 400"><defs/><path fill="none" d="M0 0h400v400H0z"/><path fill="%23f44336" d="M187.167 113.32c7.091-11.474 18.606-11.446 25.681 0l87.906 142.221c9.467 15.317 2.571 27.734-15.394 27.734H114.655c-17.97 0-24.892-12.367-15.395-27.734l87.907-142.221z"/><path fill="%23fff" d="M200.011 155.052c-5.042 0-9.129 4.136-9.129 9.103v54.833a9.094 9.094 0 009.129 9.103c5.043 0 9.13-4.136 9.13-9.103v-54.833a9.093 9.093 0 00-9.13-9.103zm0 109.558a9.13 9.13 0 009.13-9.13 9.129 9.129 0 00-9.13-9.129 9.129 9.129 0 00-9.129 9.129 9.129 9.129 0 009.129 9.13z"/></svg>');background-color:rgba(var(--kompendium-color-code-pink), 0.2)}.admonition-danger:before{background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 400 400"><defs/><path fill="none" d="M0 0h400v400H0z"/><path fill="%23446c80" d="M100.7 233.141c-5.6-12.935-8.7-27.173-8.7-42.122C92 131.954 140.393 84 200 84s108 47.954 108 107.019c0 14.949-3.1 29.187-8.7 42.122-4.582 26.722-21.33 48.534-43.425 57.687v12.728c0 10.357-8.485 18.764-18.935 18.764-9.066 0-16.653-6.327-18.504-14.765-1.962 8.291-9.477 14.47-18.436 14.47-9.012 0-16.562-6.251-18.47-14.615-1.909 8.364-9.459 14.615-18.47 14.615-10.45 0-18.935-8.407-18.935-18.764v-12.433c-22.096-9.154-38.844-30.967-43.425-57.687z"/><path fill="%23fff" fill-opacity=".2" d="M213.322 264.164c-3.328 3.135-23.317 3.135-26.644 0-3.332-3.136-3.332-4.928 0-11.199 2.328-4.703 9.832-17.022 13.322-17.022 3.489 0 10.993 12.319 13.322 17.022 3.331 6.271 3.331 8.063 0 11.199z"/><path fill="%23fff" d="M150.179 213.14c12.03 0 21.797 9.678 21.797 21.599s-9.767 21.599-21.797 21.599c-12.03 0-21.797-9.678-21.797-21.599s9.767-21.599 21.797-21.599zm100.844 12.114l8.678-8.598c2.635-2.612 6.896-2.624 9.557.014 2.644 2.619 2.618 6.891.015 9.47l-8.678 8.599 8.678 8.599a6.637 6.637 0 01-.015 9.47c-2.643 2.619-6.954 2.594-9.557.014l-8.678-8.598-8.677 8.598c-2.635 2.612-6.896 2.624-9.558-.014-2.643-2.619-2.617-6.89-.014-9.47l8.678-8.599-8.678-8.599a6.638 6.638 0 01.014-9.47c2.644-2.619 6.954-2.594 9.558-.014l8.677 8.598z"/></svg>');background-color:rgba(var(--kompendium-color-code-gray-dark), 0.1)}.admonition-info:before{background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 400 400"><defs/><path fill="none" d="M0 0h400v400H0z"/><path fill="%232196f3" fill-rule="nonzero" d="M229.238 275.304c-.075.025-6.987 2.325-12.987 2.325-3.312 0-4.65-.687-5.075-.987-2.1-1.463-6-4.2.675-17.5l12.5-24.924c7.412-14.8 8.512-29.112 3.062-40.312-4.45-9.162-12.987-15.449-23.999-17.699a59.668 59.668 0 00-11.975-1.213c-23.112 0-38.674 13.5-39.324 14.075a6.262 6.262 0 00-1.275 7.825 6.244 6.244 0 007.438 2.775c.062-.025 6.987-2.338 12.987-2.338 3.287 0 4.612.688 5.025.975 2.112 1.475 6.024 4.25-.638 17.525l-12.499 24.937c-7.425 14.812-8.513 29.124-3.063 40.311 4.45 9.162 12.975 15.449 24.012 17.699 3.925.788 7.95 1.213 11.925 1.213 23.124 0 38.698-13.5 39.348-14.075 2.238-1.962 2.763-5.25 1.275-7.825-1.5-2.562-4.612-3.712-7.412-2.787zm-10.487-175.295c17.247 0 31.249 14.002 31.249 31.249s-14.002 31.249-31.249 31.249-31.249-14.002-31.249-31.249 14.002-31.249 31.249-31.249z"/></svg>');background-color:rgba(var(--kompendium-color-code-turquoise), 0.2)}.admonition-important:before{background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 400 400"><defs/><path fill="none" d="M0 0h400v400H0z"/><path fill="%23ffd54f" fill-rule="nonzero" d="M254.158 293c-2.499 0-4.941-.558-7.205-1.628a9.33 9.33 0 01-1.16-.569l-45.807-26.132-45.806 26.143c-.39.223-.781.413-1.182.591-5.443 2.543-12.101 1.941-16.964-1.595-5.231-3.792-7.819-10.406-6.536-16.83l10.674-51.773c-4.172-3.793-10.73-9.76-17.868-16.251l-21.135-19.239a8.364 8.364 0 01-.87-.915c-4.183-4.416-5.677-10.818-3.792-16.64 1.929-5.845 6.915-10.172 12.937-11.254.38-.089.748-.156 1.138-.201l52.431-5.811 21.705-48.07a7.66 7.66 0 01.669-1.227A16.72 16.72 0 01199.986 93c6.057 0 11.644 3.324 14.6 8.588.234.402.457.814.669 1.249l21.727 48.093 52.431 5.811c.379.033.759.1 1.16.189 6.012 1.116 10.997 5.421 12.916 11.287 1.896 5.811.39 12.247-3.793 16.663-.267.29-.568.603-.87.87l-39.014 35.512 10.674 51.662c1.26 6.547-1.316 13.139-6.58 16.942a16.602 16.602 0 01-9.748 3.134z"/><circle cx="255.5" cy="127.5" r="14.5" fill="%23ffd54f" fill-opacity=".5"/><circle cx="144.5" cy="127.5" r="14.5" fill="%23ffd54f" fill-opacity=".5"/><circle cx="287.5" cy="229.5" r="14.5" fill="%23ffd54f" fill-opacity=".5"/><circle cx="113.5" cy="229.5" r="14.5" fill="%23ffd54f" fill-opacity=".5"/><circle cx="200" cy="297.5" r="14.5" fill="%23ffd54f" fill-opacity=".5"/></svg>');background-color:rgba(var(--kompendium-color-code-gray-dark), 0.4)}.admonition-heading{margin-bottom:0.375rem}.admonition-heading h5{color:rgb(var(--kompendium-contrast-1100));margin:0;font-size:0.9375rem;padding:0.125rem 0 0 var(--size-of-admonition-icon)}.admonition-heading h5::first-letter{text-transform:capitalize}.admonition-content{padding-left:var(--size-of-admonition-icon)}.admonition-content p:first-child{margin-top:0}.admonition-content p:only-child{margin-bottom:0}@media (max-width: 600px){.admonition{--size-of-admonition-icon:2rem}}blockquote{border-left-color:rgb(var(--kompendium-contrast-700));border-left-style:solid;border-left-width:0.25rem;color:rgb(var(--kompendium-contrast-1100));padding-left:1rem}h3{font-size:var(--kompendium-markdown-h3-font-size, 1.375rem);line-height:var(--kompendium-markdown-h3-line-height, 1.5rem);margin-top:var(--kompendium-markdown-h3-margin-top, 1rem)}`;
 
 const Markdown = class {
     constructor(hostRef) {
@@ -48900,7 +49093,8 @@ const Markdown = class {
         const renderSeq = ++this.renderSeq;
         const currentText = this.text;
         const types = getTypes();
-        const file = await markdownToHtml(currentText, types);
+        const components = getComponents();
+        const file = await markdownToHtml(currentText, types, components);
         // Abort if a newer render has started or text has changed
         if (renderSeq !== this.renderSeq || currentText !== this.text) {
             return;
@@ -48911,11 +49105,10 @@ const Markdown = class {
         scrollToAnchor(this.host.shadowRoot);
     }
     render() {
-        return h$1("div", { key: 'a234f58eaafe3daab181a26ec522739b62109f1a', id: "root" });
+        return h$1("div", { key: '1701e4aaf2b24e5a5ba6d9e4dd38cfb422b4c519', id: "root" });
     }
     get host() { return getElement(this); }
 };
-Markdown.style = markdownCss;
+Markdown.style = markdownCss();
 
 export { Markdown as kompendium_markdown };
-//# sourceMappingURL=kompendium-markdown.entry.js.map

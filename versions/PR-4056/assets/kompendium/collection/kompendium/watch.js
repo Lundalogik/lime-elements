@@ -6,4 +6,3 @@ export function createWatcher(path, type, callback) {
         await watcher.close();
     });
 }
-//# sourceMappingURL=watch.js.map

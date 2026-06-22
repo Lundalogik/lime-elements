@@ -11,8 +11,10 @@ import { saveFrontmatter } from "./markdown-frontmatter";
 import { admonitions, normalizeLegacyAdmonitions, } from "./markdown-admonitions";
 import { kompendiumCode } from "./markdown-code";
 import { typeLinks } from "./markdown-typelinks";
-export async function markdownToHtml(text, types = []) {
-    const normalized = normalizeLegacyAdmonitions(text);
+import { inlineLinks, normalizeInlineLinkUrls, } from "./markdown-inline-links";
+export async function markdownToHtml(text, types = [], components = []) {
+    const normalized = normalizeInlineLinkUrls(normalizeLegacyAdmonitions(text));
+    const resolve = createLinkResolver(types, components);
     const file = await unified()
         .use(remarkParse)
         .use(remarkGfm)
@@ -20,6 +22,7 @@ export async function markdownToHtml(text, types = []) {
         .use(saveFrontmatter)
         .use(remarkDirective)
         .use(admonitions)
+        .use(inlineLinks, { resolve: resolve })
         .use(remarkRehype, { allowDangerousHtml: true })
         .use(rehypeRaw)
         .use(rehypeSlug)
@@ -32,4 +35,16 @@ export async function markdownToHtml(text, types = []) {
         toString: () => file.toString(),
     };
 }
-//# sourceMappingURL=markdown.js.map
+function createLinkResolver(types, components) {
+    const typeSet = new Set(types);
+    const componentSet = new Set(components);
+    return (target) => {
+        if (typeSet.has(target)) {
+            return `#/type/${target}`;
+        }
+        if (componentSet.has(target)) {
+            return `#/component/${target}/`;
+        }
+        return null;
+    };
+}

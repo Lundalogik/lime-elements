@@ -30,6 +30,20 @@ The ProseMirror adapter offers a rich text editing experience with markdown supp
 | `metadataChange` | Dispatched when the metadata of the editor changes (images and links) | `CustomEvent<EditorMetadata>` |
 
 
+## Methods
+
+### `flushPendingChanges() => Promise<void>`
+
+Emits any pending debounced `change` event immediately.
+Does nothing if no change is pending.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Used by

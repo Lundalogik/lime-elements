@@ -267,6 +267,8 @@ kompendium-playground {
   padding-top: 2.5rem;
   margin: 2.5rem 0 1.25rem 0;
   border-top: 1px solid rgb(var(--kompendium-contrast-500));
+  font-size: 1.375rem;
+  line-height: 1.5rem;
 }
 .docs-layout-section-heading:before {
   content: "";
@@ -380,4 +382,20 @@ kompendium-playground {
   display: block;
   width: 100%;
   max-width: 60rem;
+}
+
+.section-anchor {
+  display: block;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.docs-layout-section-heading:hover,
+.props-events-layout h4:hover,
+.methods-title:hover,
+.styles-title:hover,
+.docs h4:hover {
+  --kompendium-anchor-opacity: 1;
 }

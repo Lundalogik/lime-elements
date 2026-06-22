@@ -141,4 +141,3 @@ function createPropDocument(prop) {
 function createTagDocument(tag) {
     return [tag.name, tag.text].join(' ');
 }
-//# sourceMappingURL=search.js.map
