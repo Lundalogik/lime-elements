@@ -1,3 +1,15 @@
+## [39.35.0](https://github.com/Lundalogik/lime-elements/compare/v39.34.3...v39.35.0) (2026-06-23)
+
+### Features
+
+
+* **image:** add `referrerpolicy` to the `Image` interface ([64b70a3](https://github.com/Lundalogik/lime-elements/commit/64b70a3fe3be2ccfef40759a10ed788417d9bb2c))
+### Bug Fixes
+
+
+* **file-viewer:** suppress referrer on rendered `<img>` ([146b0cd](https://github.com/Lundalogik/lime-elements/commit/146b0cd55d3c2e5eac7c290c4f74056100104b5d))
+* **profile-picture:** suppress referrer on rendered `<img>` ([f130f49](https://github.com/Lundalogik/lime-elements/commit/f130f49a1560af9ad014cebe377365b2f3e94d81))
+
 ## [39.34.3](https://github.com/Lundalogik/lime-elements/compare/v39.34.2...v39.34.3) (2026-06-17)
 
 ### Bug Fixes
