@@ -279,5 +279,72 @@ describe('limel-text-editor', () => {
             expect(changes).toHaveLength(2);
             expect(changes[1].trim()).toBe('first second');
         });
+
+        test('clear empties content when re-assigning value="" cannot', async () => {
+            const { root, waitForChanges, setProps, editor, typeText } =
+                await createEditor({ value: '' });
+
+            typeText('hello');
+            await vi.waitFor(() => {
+                expect(editor.textContent).toBe('hello');
+            });
+
+            // '' -> '' is skipped by change detection, so the value watch
+            // never fires and the prop path cannot clear. Closing that gap
+            // is the whole reason clear() exists.
+            await setProps({ value: '' });
+            await waitForChanges();
+            expect(editor.textContent).toBe('hello');
+
+            await root.clear();
+            await vi.waitFor(() => {
+                expect(editor.textContent).toBe('');
+            });
+        });
+
+        test('clear empties content the value prop never caught up to', async () => {
+            const { root, editor, typeText } = await createEditor({
+                value: '',
+            });
+
+            // Type without letting the debounce emit, so the `value` prop
+            // (still '') never reflects the typed text — the scenario that
+            // defeats a prop-based clear.
+            typeText('hello');
+
+            await root.clear();
+
+            await vi.waitFor(() => {
+                expect(editor.textContent).toBe('');
+            });
+        });
+
+        test('clear discards the pending change so no stale change is emitted', async () => {
+            const { root, editor, typeText, changes } = await createEditor({
+                value: '',
+            });
+
+            typeText('hello');
+
+            await root.clear();
+
+            await vi.waitFor(() => {
+                expect(editor.textContent).toBe('');
+            });
+
+            await sleep(DEBOUNCE_WAIT);
+            expect(changes.some((change) => change.includes('hello'))).toBe(
+                false
+            );
+        });
+
+        test('clear does not emit a change event', async () => {
+            const { root, changes } = await createEditor({ value: 'hello' });
+
+            await root.clear();
+            await sleep(DEBOUNCE_WAIT);
+
+            expect(changes).toHaveLength(0);
+        });
     });
 });

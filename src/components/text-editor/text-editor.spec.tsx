@@ -124,6 +124,20 @@ describe('limel-text-editor', () => {
         });
     });
 
+    describe('clear', () => {
+        test('it resolves', async () => {
+            const { root } = await createComponent();
+
+            await expect(root.clear()).resolves.toBeUndefined();
+        });
+
+        test('it resolves in readonly mode, where no adapter is rendered', async () => {
+            const { root } = await createComponent({ readonly: true });
+
+            await expect(root.clear()).resolves.toBeUndefined();
+        });
+    });
+
     describe('label', () => {
         test('it renders the label', async () => {
             const { root } = await createComponent({ label: 'my label' });
