@@ -32,10 +32,17 @@ The ProseMirror adapter offers a rich text editing experience with markdown supp
 
 ## Methods
 
-### `flushPendingChanges() => Promise<void>`
+### `clear() => Promise<void>`
 
-Emits any pending debounced `change` event immediately.
-Does nothing if no change is pending.
+Clear the editor's content imperatively.
+
+Assigning an empty `value` prop only clears the editor when the value
+changes. The editor debounces its `change` event, so a consumer's
+bound value can lag the live document; assigning `''` when the prop was
+already `''` is skipped by change detection and would leave the typed
+content untouched — for example, clearing the editor right after a
+send. Use this to empty the editor regardless of the prop's change
+detection. Does not emit a `change` event.
 
 #### Returns
 
@@ -43,24 +50,10 @@ Type: `Promise<void>`
 
 
 
-### `setValue(value: string) => Promise<void>`
+### `flushPendingChanges() => Promise<void>`
 
-Set the editor's content imperatively.
-
-Unlike assigning the `value` prop, this reconciles the document to
-`value` even when `value` is unchanged from the previous assignment.
-The editor debounces its `change` event, so a consumer's bound value
-can lag the live document; an assignment that happens to equal the
-previous prop value is skipped by change detection and would leave the
-document untouched — for example, clearing the editor right after a
-send. Use this when the content must be set regardless of the prop's
-change detection. Does not emit a `change` event.
-
-#### Parameters
-
-| Name    | Type     | Description          |
-| ------- | -------- | -------------------- |
-| `value` | `string` | - the content to set |
+Emits any pending debounced `change` event immediately.
+Does nothing if no change is pending.
 
 #### Returns
 

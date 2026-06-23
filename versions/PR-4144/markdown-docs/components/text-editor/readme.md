@@ -47,6 +47,25 @@ to toggle bold text, <kbd>Ctrl</kbd> + <kbd>I</kbd> to toggle italic text, and s
 
 ## Methods
 
+### `clear() => Promise<void>`
+
+Clear the editor's content imperatively, bypassing the `value` prop's
+change detection.
+
+Assigning an empty `value` prop only clears the editor when the value
+changes. Because the editor debounces its `change` event, a consumer's
+bound value can lag the live content, so assigning `''` when the prop
+was already `''` is skipped and the content is left untouched — for
+example, clearing the editor immediately after a send. Use this to
+empty the editor regardless of the prop's change detection. Does not
+emit a `change` event.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `flushPendingChanges() => Promise<void>`
 
 Emits any pending `change` event immediately, instead of waiting
@@ -56,31 +75,6 @@ pending.
 Useful when the current content is needed right away, for example
 when the user activates a "send" or "save" action right after
 typing.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `setValue(value: string) => Promise<void>`
-
-Set the editor's content imperatively, bypassing the `value` prop's
-change detection.
-
-Assigning the `value` prop only updates the editor when the value
-changes. Because the editor debounces its `change` event, a consumer's
-bound value can lag the live content, so an assignment that equals the
-previous value is skipped and the content is left untouched — for
-example, clearing the editor immediately after a send. Use this to set
-the content regardless of the prop's change detection. Does not emit a
-`change` event.
-
-#### Parameters
-
-| Name    | Type     | Description          |
-| ------- | -------- | -------------------- |
-| `value` | `string` | - the content to set |
 
 #### Returns
 
