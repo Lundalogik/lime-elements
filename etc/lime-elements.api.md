@@ -762,6 +762,7 @@ export namespace Components {
     //
     // @beta
     export interface LimelProsemirrorAdapter {
+        "clear": () => Promise<void>;
         "contentType": 'markdown' | 'html';
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
@@ -894,6 +895,7 @@ export namespace Components {
     // @beta
     export interface LimelTextEditor {
         "allowResize": boolean;
+        "clear": () => Promise<void>;
         "contentType": 'markdown' | 'html';
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //

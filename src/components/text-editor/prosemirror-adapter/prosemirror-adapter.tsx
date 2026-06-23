@@ -222,6 +222,45 @@ export class ProsemirrorAdapter {
         this.changeEmitter.flush();
     }
 
+    /**
+     * Clear the editor's content imperatively.
+     *
+     * Assigning an empty `value` prop only clears the editor when the value
+     * changes. The editor debounces its `change` event, so a consumer's
+     * bound value can lag the live document; assigning `''` when the prop was
+     * already `''` is skipped by change detection and would leave the typed
+     * content untouched — for example, clearing the editor right after a
+     * send. Use this to empty the editor regardless of the prop's change
+     * detection.
+     *
+     * Does not emit a `change` event. Consumers that mirror the editor
+     * content on `change` (drafts, validation, dirty state) should reset
+     * their own copy when calling this.
+     */
+    @Method()
+    public async clear(): Promise<void> {
+        if (!this.view) {
+            return;
+        }
+
+        // Drop any pending debounced change so it cannot fire after this
+        // clear and resurrect the old content.
+        if (this.changeWaiting) {
+            this.changeEmitter.cancel();
+            this.changeWaiting = false;
+        }
+
+        const currentContent = this.contentConverter.serialize(
+            this.view,
+            this.schema
+        );
+        if (currentContent === '') {
+            return;
+        }
+
+        await this.updateView('');
+    }
+
     @Watch('value')
     protected watchValue(newValue: string) {
         if (!this.view) {
