@@ -57,8 +57,12 @@ changes. Because the editor debounces its `change` event, a consumer's
 bound value can lag the live content, so assigning `''` when the prop
 was already `''` is skipped and the content is left untouched — for
 example, clearing the editor immediately after a send. Use this to
-empty the editor regardless of the prop's change detection. Does not
-emit a `change` event.
+empty the editor regardless of the prop's change detection.
+
+Does not emit a `change` event. If you mirror the editor content on
+`change` (drafts, validation, dirty state), reset your own copy when
+calling this. In readonly mode no editor is rendered, so this is a
+silent no-op.
 
 #### Returns
 

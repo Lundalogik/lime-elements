@@ -42,7 +42,11 @@ bound value can lag the live document; assigning `''` when the prop was
 already `''` is skipped by change detection and would leave the typed
 content untouched — for example, clearing the editor right after a
 send. Use this to empty the editor regardless of the prop's change
-detection. Does not emit a `change` event.
+detection.
+
+Does not emit a `change` event. Consumers that mirror the editor
+content on `change` (drafts, validation, dirty state) should reset
+their own copy when calling this.
 
 #### Returns
 
