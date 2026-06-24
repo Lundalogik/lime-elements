@@ -532,35 +532,40 @@ export class ProsemirrorAdapter {
     };
 
     private async updateView(content: string) {
+        // Reset in a `finally` so a rejection from `parseAsHTML` (or any
+        // failure below) cannot leave the flag stuck `true`, which would
+        // silently suppress every future `change` event for this instance.
         this.suppressChangeEvent = true;
-        const html = await this.contentConverter.parseAsHTML(
-            content,
-            this.schema
-        );
-        const prosemirrorDOMparser = DOMParser.fromSchema(
-            this.view.state.schema
-        );
-        const domParser = new window.DOMParser();
-        const doc = domParser.parseFromString(html, 'text/html');
-        const prosemirrorDoc = prosemirrorDOMparser.parse(doc.body);
-        const tr = this.view.state.tr;
-        tr.replaceWith(0, tr.doc.content.size, prosemirrorDoc.content);
-        this.view.dispatch(tr);
+        try {
+            const html = await this.contentConverter.parseAsHTML(
+                content,
+                this.schema
+            );
+            const prosemirrorDOMparser = DOMParser.fromSchema(
+                this.view.state.schema
+            );
+            const domParser = new window.DOMParser();
+            const doc = domParser.parseFromString(html, 'text/html');
+            const prosemirrorDoc = prosemirrorDOMparser.parse(doc.body);
+            const tr = this.view.state.tr;
+            tr.replaceWith(0, tr.doc.content.size, prosemirrorDoc.content);
+            this.view.dispatch(tr);
 
-        // Keep the change-dedup baseline in sync with programmatically-set
-        // content. Without this, `lastEmittedValue` would still reflect the
-        // pre-update content, so a later user edit back to that old value
-        // (e.g. clearing a seeded value) would be wrongly suppressed and no
-        // `change` event would be emitted.
-        this.lastEmittedValue = this.contentConverter.serialize(
-            this.view,
-            this.schema
-        );
+            // Keep the change-dedup baseline in sync with programmatically-set
+            // content. Without this, `lastEmittedValue` would still reflect
+            // the pre-update content, so a later user edit back to that old
+            // value (e.g. clearing a seeded value) would be wrongly suppressed
+            // and no `change` event would be emitted.
+            this.lastEmittedValue = this.contentConverter.serialize(
+                this.view,
+                this.schema
+            );
 
-        const metadata = getMetadataFromDoc(this.view.state.doc);
-        this.metadataEmitter(metadata);
-
-        this.suppressChangeEvent = false;
+            const metadata = getMetadataFromDoc(this.view.state.doc);
+            this.metadataEmitter(metadata);
+        } finally {
+            this.suppressChangeEvent = false;
+        }
     }
 
     private handleTransaction = (transaction: Transaction) => {
