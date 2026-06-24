@@ -7,4 +7,3 @@ export function getComponentTitle(tag) {
     const title = tag.split('-').slice(1).join(' ');
     return title[0].toLocaleUpperCase() + title.slice(1);
 }
-//# sourceMappingURL=component-title.js.map

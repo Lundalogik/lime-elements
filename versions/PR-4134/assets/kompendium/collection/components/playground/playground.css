@@ -152,6 +152,16 @@ section.example .code {
   --kompendium-markdown-h3-margin-top: 0.75rem;
 }
 
+.example-heading {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.125rem;
+  line-height: 1.125rem;
+  font-weight: 500;
+}
+.example-heading:hover {
+  --kompendium-anchor-opacity: 1;
+}
+
 .show-case_component {
   font-family: var(--kompendium-example-font-family, inherit);
   font-size: var(--kompendium-example-font-size, inherit);

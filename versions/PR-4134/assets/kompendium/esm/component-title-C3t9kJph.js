@@ -9,6 +9,3 @@ function getComponentTitle(tag) {
 }
 
 export { getComponentTitle as g };
-//# sourceMappingURL=component-title-C3t9kJph.js.map
-
-//# sourceMappingURL=component-title-C3t9kJph.js.map

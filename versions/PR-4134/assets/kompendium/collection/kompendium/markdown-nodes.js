@@ -7,4 +7,3 @@ export function isTextNode(node) {
 export function isElement(node) {
     return node.type === 'element' && 'tagName' in node;
 }
-//# sourceMappingURL=markdown-nodes.js.map

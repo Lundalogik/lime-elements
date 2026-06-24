@@ -1,6 +1,6 @@
 'use strict';
 
-var index = require('./index-DYiJ6dQL.js');
+var index = require('./index-B_xYBJw_.js');
 
 const Guide = class {
     constructor(hostRef) {
@@ -19,7 +19,7 @@ const Guide = class {
     }
     render() {
         this.findGuide();
-        return index.h("kompendium-markdown", { key: '8df12c70deaae9f377a9e0674b7f274bc62076df', text: this.text });
+        return index.h("kompendium-markdown", { key: '134a1e05112b69474df22dbcbd198aaad6d16fbf', text: this.text });
     }
     findGuide() {
         const guide = this.data.guides.find((g) => g.data.path + '/' === this.route);
@@ -30,4 +30,3 @@ const Guide = class {
 };
 
 exports.kompendium_guide = Guide;
-//# sourceMappingURL=kompendium-guide.entry.cjs.js.map

@@ -1,4 +1,4 @@
-import type { Node } from 'unist';
+import type { Node, Parent } from 'unist';
 import { isElement, isParent, isTextNode } from './markdown-nodes';
 
 type MapFn = (node: Node, index: number, parent: Node | null) => Node[];
@@ -16,38 +16,61 @@ const transformer =
             return tree;
         }
 
-        const preCodeElements = collectPreCodeElements(tree);
+        const skipCodeElements = collectSkippableCodeElements(tree);
 
-        return flatMap(tree, mapCodeNode(types, preCodeElements));
+        return flatMap(tree, mapCodeNode(types, skipCodeElements));
     };
 
-function collectPreCodeElements(node: Node): Set<Node> {
+function collectSkippableCodeElements(node: Node): Set<Node> {
     const set = new Set<Node>();
-    collectPreCode(node, set);
+    collectSkippableCode(node, set, false);
 
     return set;
 }
 
-function collectPreCode(node: Node, set: Set<Node>) {
+function collectSkippableCode(
+    node: Node,
+    set: Set<Node>,
+    insideAnchor: boolean,
+) {
     if (!isParent(node)) {
         return;
     }
 
-    if (isElement(node) && node.tagName === 'pre') {
-        for (const child of node.children) {
-            if (isElement(child) && child.tagName === 'code') {
-                set.add(child);
-            }
-        }
+    const tagName = isElement(node) ? node.tagName : '';
+
+    // Skip `<code>` nested inside an `<a>`: the inline-link pass (`inlineLinks`
+    // in markdown-inline-links.ts) emits exactly this `link > inlineCode` shape
+    // for a resolved bare `{@link}` reference. Re-linking that code here would
+    // wrap an anchor in another anchor, so this pass yields to the earlier one.
+    // This guard is intentionally broader than that contract: it suppresses
+    // re-linking for *any* `<code>` inside *any* `<a>`, regardless of origin,
+    // since a nested anchor is never wanted no matter how the `<code>` got
+    // there.
+    if (tagName === 'code' && insideAnchor) {
+        set.add(node);
     }
 
+    if (tagName === 'pre') {
+        addPreCodeChildren(node, set);
+    }
+
+    const nextInsideAnchor = insideAnchor || tagName === 'a';
     for (const child of node.children) {
-        collectPreCode(child, set);
+        collectSkippableCode(child, set, nextInsideAnchor);
+    }
+}
+
+function addPreCodeChildren(node: Parent, set: Set<Node>) {
+    for (const child of node.children) {
+        if (isElement(child) && child.tagName === 'code') {
+            set.add(child);
+        }
     }
 }
 
 const mapCodeNode =
-    (types: string[] = [], preCodeElements: Set<Node>) =>
+    (types: string[] = [], skipCodeElements: Set<Node>) =>
     (node: Node, _: number, parent: Node | null) => {
         if (!isTextNode(node)) {
             return [node];
@@ -61,7 +84,7 @@ const mapCodeNode =
             return [node];
         }
 
-        if (preCodeElements.has(parent)) {
+        if (skipCodeElements.has(parent)) {
             return [node];
         }
 

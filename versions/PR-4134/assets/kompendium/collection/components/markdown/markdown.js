@@ -1,10 +1,11 @@
 import { h } from "@stencil/core";
 import { markdownToHtml } from "../../kompendium/markdown";
-import { getTypes } from "./markdown-types";
+import { getComponents, getTypes } from "./markdown-types";
 import { scrollToAnchor } from "../anchor-scroll";
 /**
  * This component renders markdown
  * @exampleComponent kompendium-example-markdown
+ * @exampleComponent kompendium-example-inline-links
  */
 export class Markdown {
     constructor() {
@@ -30,7 +31,8 @@ export class Markdown {
         const renderSeq = ++this.renderSeq;
         const currentText = this.text;
         const types = getTypes();
-        const file = await markdownToHtml(currentText, types);
+        const components = getComponents();
+        const file = await markdownToHtml(currentText, types, components);
         // Abort if a newer render has started or text has changed
         if (renderSeq !== this.renderSeq || currentText !== this.text) {
             return;
@@ -41,7 +43,7 @@ export class Markdown {
         scrollToAnchor(this.host.shadowRoot);
     }
     render() {
-        return h("div", { key: 'a234f58eaafe3daab181a26ec522739b62109f1a', id: "root" });
+        return h("div", { key: '1701e4aaf2b24e5a5ba6d9e4dd38cfb422b4c519', id: "root" });
     }
     static get is() { return "kompendium-markdown"; }
     static get encapsulation() { return "shadow"; }
@@ -80,4 +82,3 @@ export class Markdown {
     }
     static get elementRef() { return "host"; }
 }
-//# sourceMappingURL=markdown.js.map

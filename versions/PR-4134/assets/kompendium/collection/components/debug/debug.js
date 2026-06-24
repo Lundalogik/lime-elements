@@ -11,7 +11,7 @@ export class KompendiumDebug {
     render() {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
-        return (h("article", { key: '8b5d377dbd6cfab7baf0f003c8cefef5e6e26b06', class: "component" }, h("section", { key: '91ca7f808a73325d1d08248f9fd44f4092e19ba2', class: "docs debug" }, this.renderComponent(component))));
+        return (h("article", { key: 'fbad346439a20f0cee130fb23e3e117e68edc2dd', class: "component" }, h("section", { key: '25e41ce4d1ba532fd045068373c9bf8c5382f691', class: "docs debug" }, this.renderComponent(component))));
     }
     renderComponent(component) {
         const ExampleComponent = component.tag;
@@ -64,7 +64,8 @@ export class KompendiumDebug {
                         "JsonDocs": {
                             "location": "import",
                             "path": "@stencil/core/internal",
-                            "id": "node_modules::JsonDocs"
+                            "id": "node_modules::JsonDocs",
+                            "referenceLocation": "JsonDocs"
                         }
                     }
                 },
@@ -113,7 +114,8 @@ export class KompendiumDebug {
                         "MatchResults": {
                             "location": "import",
                             "path": "@limetech/stencil-router",
-                            "id": "node_modules::MatchResults"
+                            "id": "node_modules::MatchResults",
+                            "referenceLocation": "MatchResults"
                         }
                     }
                 },
@@ -136,7 +138,8 @@ export class KompendiumDebug {
                         "PropsFactory": {
                             "location": "import",
                             "path": "../playground/playground.types",
-                            "id": "src/components/playground/playground.types.ts::PropsFactory"
+                            "id": "src/components/playground/playground.types.ts::PropsFactory",
+                            "referenceLocation": "PropsFactory"
                         }
                     }
                 },
@@ -170,4 +173,3 @@ const isTag = (name) => (tag) => {
 const hasText = (name) => (tag) => {
     return tag.text === name;
 };
-//# sourceMappingURL=debug.js.map

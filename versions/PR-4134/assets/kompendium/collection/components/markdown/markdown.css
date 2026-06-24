@@ -346,8 +346,10 @@ dd {
 }
 
 :root {
-  --kompendium-color-primary: 33, 150, 243;
-  --kompendium-color-error: 229, 115, 115;
+  --kompendium-color-primary:
+      33, 150, 243;
+  --kompendium-color-error:
+      229, 115, 115;
   --kompendium-color-white: 255, 255, 255;
   --kompendium-color-black: 0, 0, 0;
   --kompendium-contrast-100: 255, 255, 255;
@@ -380,8 +382,10 @@ dd {
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme=force-light]) {
-    --kompendium-color-primary: 30, 136, 229;
-    --kompendium-color-error: 229, 57, 53;
+    --kompendium-color-primary:
+        30, 136, 229;
+    --kompendium-color-error:
+        229, 57, 53;
     --kompendium-contrast-100: 20, 20, 37;
     --kompendium-contrast-200: 25, 25, 44;
     --kompendium-contrast-300: 35, 35, 53;
@@ -412,8 +416,10 @@ dd {
   }
 }
 :root[data-theme=force-dark] {
-  --kompendium-color-primary: 30, 136, 229;
-  --kompendium-color-error: 229, 57, 53;
+  --kompendium-color-primary:
+      30, 136, 229;
+  --kompendium-color-error:
+      229, 57, 53;
   --kompendium-contrast-100: 20, 20, 37;
   --kompendium-contrast-200: 25, 25, 44;
   --kompendium-contrast-300: 35, 35, 53;
@@ -444,8 +450,10 @@ dd {
 }
 @media (prefers-color-scheme: dark) {
   :host(:not([data-theme=force-light])) :root {
-    --kompendium-color-primary: 30, 136, 229;
-    --kompendium-color-error: 229, 57, 53;
+    --kompendium-color-primary:
+        30, 136, 229;
+    --kompendium-color-error:
+        229, 57, 53;
     --kompendium-contrast-100: 20, 20, 37;
     --kompendium-contrast-200: 25, 25, 44;
     --kompendium-contrast-300: 35, 35, 53;
@@ -476,8 +484,10 @@ dd {
   }
 }
 :host([data-theme=force-dark]) :root {
-  --kompendium-color-primary: 30, 136, 229;
-  --kompendium-color-error: 229, 57, 53;
+  --kompendium-color-primary:
+      30, 136, 229;
+  --kompendium-color-error:
+      229, 57, 53;
   --kompendium-contrast-100: 20, 20, 37;
   --kompendium-contrast-200: 25, 25, 44;
   --kompendium-contrast-300: 35, 35, 53;

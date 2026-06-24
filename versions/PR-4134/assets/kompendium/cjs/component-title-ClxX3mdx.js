@@ -11,6 +11,3 @@ function getComponentTitle(tag) {
 }
 
 exports.getComponentTitle = getComponentTitle;
-//# sourceMappingURL=component-title-ClxX3mdx.js.map
-
-//# sourceMappingURL=component-title-ClxX3mdx.js.map

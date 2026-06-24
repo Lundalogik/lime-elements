@@ -1,5 +1,6 @@
 import { h, Host } from "@stencil/core";
 import { THEME_EVENT_NAME } from "../darkmode-switch/types";
+import { splitDocs } from "./split-docs";
 export class Playground {
     constructor() {
         /**
@@ -45,13 +46,14 @@ export class Playground {
     }
     renderResult() {
         const ExampleComponent = this.component.tag;
-        const text = '### ' + this.component.docs;
         const factory = this.propsFactory;
         const props = {
             schema: this.schema,
             ...factory(ExampleComponent),
         };
-        return (h("div", { class: "show-case" }, h("div", { class: "show-case_description" }, h("kompendium-markdown", { text: text })), h("div", { class: "show-case_component" }, this.renderDebugButton(this.component.tag), h(ExampleComponent, { ...props }))));
+        const { title, body } = splitDocs(this.component.docs);
+        const heading = title || this.component.tag;
+        return (h("div", { class: "show-case" }, h("div", { class: "show-case_description" }, h("h3", { class: "example-heading" }, heading, this.anchorSlug ? (h("kompendium-anchor", { slug: this.anchorSlug, label: heading })) : null), body ? h("kompendium-markdown", { text: body }) : null), h("div", { class: "show-case_component" }, this.renderDebugButton(this.component.tag), h(ExampleComponent, { ...props }))));
     }
     renderItem(source, index) {
         const classList = {
@@ -100,7 +102,8 @@ export class Playground {
                         "JsonDocsComponent": {
                             "location": "import",
                             "path": "@stencil/core/internal",
-                            "id": "node_modules::JsonDocsComponent"
+                            "id": "node_modules::JsonDocsComponent",
+                            "referenceLocation": "JsonDocsComponent"
                         }
                     }
                 },
@@ -118,7 +121,7 @@ export class Playground {
                 "mutable": false,
                 "complexType": {
                     "original": "Record<string, any>",
-                    "resolved": "{ [x: string]: any; }",
+                    "resolved": "any | string",
                     "references": {
                         "Record": {
                             "location": "global",
@@ -145,7 +148,8 @@ export class Playground {
                         "PropsFactory": {
                             "location": "import",
                             "path": "./playground.types",
-                            "id": "src/components/playground/playground.types.ts::PropsFactory"
+                            "id": "src/components/playground/playground.types.ts::PropsFactory",
+                            "referenceLocation": "PropsFactory"
                         }
                     }
                 },
@@ -161,6 +165,25 @@ export class Playground {
                 "getter": false,
                 "setter": false,
                 "defaultValue": "() => ({})"
+            },
+            "anchorSlug": {
+                "type": "string",
+                "mutable": false,
+                "complexType": {
+                    "original": "string",
+                    "resolved": "string",
+                    "references": {}
+                },
+                "required": false,
+                "optional": true,
+                "docs": {
+                    "tags": [],
+                    "text": "Slug used as the URL anchor for linking to this example."
+                },
+                "getter": false,
+                "setter": false,
+                "reflect": false,
+                "attribute": "anchor-slug"
             }
         };
     }
@@ -171,4 +194,3 @@ export class Playground {
         };
     }
 }
-//# sourceMappingURL=playground.js.map

@@ -1,5 +1,6 @@
 {
   "entries": [
+    "components/anchor/anchor.js",
     "components/app/app.js",
     "components/code/code.js",
     "components/code/examples/code.js",
@@ -10,16 +11,19 @@
     "components/debug/debug.js",
     "components/guide/guide.js",
     "components/markdown/markdown.js",
+    "components/markdown/examples/inline-links.js",
     "components/markdown/examples/markdown.js",
     "components/navigation/navigation.js",
     "components/search/search.js",
     "components/taglist/taglist.js",
+    "components/toc/toc.js",
     "components/type/type.js"
   ],
+  "mixins": [],
   "compiler": {
     "name": "@stencil/core",
-    "version": "4.38.0",
-    "typescriptVersion": "5.5.4"
+    "version": "4.43.5",
+    "typescriptVersion": "5.8.3"
   },
   "collections": [
     {

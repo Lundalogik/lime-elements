@@ -1,9 +1,9 @@
 'use strict';
 
-var index = require('./index-DYiJ6dQL.js');
+var index = require('./index-B_xYBJw_.js');
 var componentTitle = require('./component-title-ClxX3mdx.js');
 
-const debugCss = ".context-heading{margin:0;font-weight:500;color:rgb(var(--kompendium-contrast-900))}h2.context-heading{font-size:0.875rem;line-height:1.25rem}h3.context-heading{font-size:0.75rem;line-height:1rem;margin-bottom:0.5rem}";
+const debugCss = () => `.context-heading{margin:0;font-weight:500;color:rgb(var(--kompendium-contrast-900))}h2.context-heading{font-size:0.875rem;line-height:1.25rem}h3.context-heading{font-size:0.75rem;line-height:1rem;margin-bottom:0.5rem}`;
 
 const KompendiumDebug = class {
     constructor(hostRef) {
@@ -17,7 +17,7 @@ const KompendiumDebug = class {
     render() {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
-        return (index.h("article", { key: '8b5d377dbd6cfab7baf0f003c8cefef5e6e26b06', class: "component" }, index.h("section", { key: '91ca7f808a73325d1d08248f9fd44f4092e19ba2', class: "docs debug" }, this.renderComponent(component))));
+        return (index.h("article", { key: 'fbad346439a20f0cee130fb23e3e117e68edc2dd', class: "component" }, index.h("section", { key: '25e41ce4d1ba532fd045068373c9bf8c5382f691', class: "docs debug" }, this.renderComponent(component))));
     }
     renderComponent(component) {
         const ExampleComponent = component.tag;
@@ -61,7 +61,6 @@ const isTag = (name) => (tag) => {
 const hasText = (name) => (tag) => {
     return tag.text === name;
 };
-KompendiumDebug.style = debugCss;
+KompendiumDebug.style = debugCss();
 
 exports.kompendium_debug = KompendiumDebug;
-//# sourceMappingURL=kompendium-debug.entry.cjs.js.map
