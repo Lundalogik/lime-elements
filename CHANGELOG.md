@@ -1,3 +1,14 @@
+## [39.36.0](https://github.com/Lundalogik/lime-elements/compare/v39.35.0...v39.36.0) (2026-06-24)
+
+### Features
+
+
+* **text-editor:** add clear method to clear content imperatively ([01ca649](https://github.com/Lundalogik/lime-elements/commit/01ca649d7a8fae6bea7789c4c685effeb254e202))
+### Bug Fixes
+
+
+* **text-editor:** always reset suppressChangeEvent after updateView ([e6c0100](https://github.com/Lundalogik/lime-elements/commit/e6c0100256ce08a899facb1399cdf786fa89f066))
+
 ## [39.35.0](https://github.com/Lundalogik/lime-elements/compare/v39.34.3...v39.35.0) (2026-06-23)
 
 ### Features
