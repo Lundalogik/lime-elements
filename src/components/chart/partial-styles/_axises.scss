@@ -35,7 +35,9 @@
     }
 }
 
-:host(limel-chart[orientation='landscape']) {
+// Single-axis charts draw one set of lines whose direction follows the
+// orientation. Scatter (two axes) is excluded; it sets direction by class below.
+:host(limel-chart[orientation='landscape']:not([type='scatter'])) {
     .axises {
         flex-direction: column-reverse;
     }
@@ -51,10 +53,41 @@
     }
 }
 
-:host(limel-chart[orientation='portrait']) {
+:host(limel-chart[orientation='portrait']:not([type='scatter'])) {
     .axises {
         flex-direction: row;
     }
+    .axis-line {
+        border-left: 1px solid;
+        transform: translateX(-50%);
+
+        limel-badge {
+            bottom: -1rem;
+            right: -1rem;
+        }
+    }
+}
+
+// Scatter's full grid sets each set's direction by class, not orientation:
+// `.horizontal-lines` (badges left), `.vertical-lines` (badges below).
+.axises.horizontal-lines {
+    flex-direction: column-reverse;
+
+    .axis-line {
+        border-bottom: 1px solid;
+        transform: translateY(50%);
+
+        limel-badge {
+            bottom: 0;
+            left: -2rem;
+            transform: translateY(50%);
+        }
+    }
+}
+
+.axises.vertical-lines {
+    flex-direction: row;
+
     .axis-line {
         border-left: 1px solid;
         transform: translateX(-50%);
