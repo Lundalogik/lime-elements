@@ -1,5 +1,6 @@
 @use '../../../style/mixins';
 
+:host(limel-chart[display-item-text][type='scatter']),
 :host(limel-chart[display-item-text][type='line']),
 :host(limel-chart[display-item-text][type='area']),
 :host(limel-chart[display-item-text][type='dot']),
@@ -16,6 +17,7 @@
     }
 }
 
+:host(limel-chart[display-item-value][type='scatter']),
 :host(limel-chart[display-item-value][type='line']),
 :host(limel-chart[display-item-value][type='area']),
 :host(limel-chart[display-item-value][type='dot']),
@@ -137,6 +139,25 @@
         td.value {
             transform: rotateY(180deg) translateX(-100%);
         }
+    }
+}
+
+// Scatter charts
+// A scatter `.item` *is* the dot (not a full-height column), so the labels hug
+// the point: text just above, value just below. Same in both orientations.
+:host(limel-chart[display-item-text][type='scatter']) {
+    td.text {
+        bottom: calc(100% + 0.25rem);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+:host(limel-chart[display-item-value][type='scatter']) {
+    td.value {
+        top: calc(100% + 0.25rem);
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 
