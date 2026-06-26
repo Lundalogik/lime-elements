@@ -27,6 +27,7 @@ interface AxisRange {
  * @exampleComponent limel-example-chart-type-dot
  * @exampleComponent limel-example-chart-type-area
  * @exampleComponent limel-example-chart-type-line
+ * @exampleComponent limel-example-chart-type-scatter
  * @exampleComponent limel-example-chart-type-pie
  * @exampleComponent limel-example-chart-type-doughnut
  * @exampleComponent limel-example-chart-type-ring
@@ -35,6 +36,7 @@ interface AxisRange {
  * @exampleComponent limel-example-chart-multi-axis
  * @exampleComponent limel-example-chart-multi-axis-with-negative-start-values
  * @exampleComponent limel-example-chart-multi-axis-area-with-negative-start-values
+ * @exampleComponent limel-example-chart-type-scatter-negative
  * @exampleComponent limel-example-chart-axis-increment
  * @exampleComponent limel-example-chart-clickable-items
  * @exampleComponent limel-example-chart-accessibility
