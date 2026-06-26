@@ -7,6 +7,12 @@ import { ChartItem } from './chart.types';
 const PERCENT = 100;
 const DEFAULT_INCREMENT_SIZE = 10;
 
+interface AxisRange {
+    minValue: number;
+    maxValue: number;
+    totalRange: number;
+}
+
 /**
  * A chart is a graphical representation of data, in which
  * visual symbols such as such bars, dots, lines, or slices, represent
@@ -147,11 +153,7 @@ export class Chart {
     @Prop({ reflect: true })
     public loading: boolean = false;
 
-    private range: {
-        minValue: number;
-        maxValue: number;
-        totalRange: number;
-    };
+    private range: AxisRange;
 
     /**
      * Fired when a chart item with `clickable` set to `true` is clicked
