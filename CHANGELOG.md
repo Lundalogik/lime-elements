@@ -1,3 +1,10 @@
+## [39.37.0](https://github.com/Lundalogik/lime-elements/compare/v39.36.0...v39.37.0) (2026-06-28)
+
+### Features
+
+
+* **code-diff:** export CodeDiffLayout type for the layout prop ([fb5465b](https://github.com/Lundalogik/lime-elements/commit/fb5465b7bbdac36f82324a4f72b0363f5ddd925c))
+
 ## [39.36.0](https://github.com/Lundalogik/lime-elements/compare/v39.35.0...v39.36.0) (2026-06-24)
 
 ### Features
