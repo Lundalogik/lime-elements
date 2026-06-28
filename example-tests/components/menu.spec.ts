@@ -71,4 +71,24 @@ test.describe('limel-menu', () => {
 
         await expect(page.locator('limel-menu-surface')).toBeVisible();
     });
+
+    test('open menu matches the visual baseline', async ({ page }) => {
+        // Pixel comparison only runs in the pinned Playwright Docker image
+        // (locally via scripts/visual-tests-docker.sh, in CI via container:),
+        // because macOS and Linux render fonts/anti-aliasing differently. On a
+        // bare host this test is skipped rather than failing on a pixel mismatch.
+        test.skip(
+            !process.env.RUN_VISUAL_SNAPSHOTS,
+            'visual snapshots only run in the pinned Docker/CI environment'
+        );
+
+        await openMenuByClick(page);
+
+        // Capture the whole component — the trigger button and the menu surface
+        // together — so the baseline verifies the menu's position relative to the
+        // button, not just the surface in isolation. The surface is a body portal
+        // (rendered outside the example's subtree), so a full-viewport capture is
+        // what spans both; scoping to the surface alone would drop the positioning.
+        await expect(page).toHaveScreenshot('menu-open.png');
+    });
 });

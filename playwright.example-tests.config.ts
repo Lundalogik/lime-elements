@@ -21,6 +21,25 @@ const resolveWorkers = (): number | string | undefined => {
 
 export default defineConfig({
     testDir: './example-tests',
+    // One Linux-only baseline set: baselines are only ever generated inside the
+    // pinned Playwright Docker image, so the default per-OS/-project filename
+    // suffix is dropped. Lives under example-tests/components/<spec>-snapshots/
+    // (a tracked dir — NOT __screenshots__/, which is gitignored).
+    // Path resolution: {snapshotDir} defaults to testDir (./example-tests) and
+    // {testFileDir} is relative to testDir (e.g. components), so the two compose
+    // to example-tests/components/...; do not set snapshotDir explicitly without
+    // re-checking this, or the baseline location shifts silently.
+    snapshotPathTemplate:
+        '{snapshotDir}/{testFileDir}/{testFileName}-snapshots/{arg}{ext}',
+    expect: {
+        toHaveScreenshot: {
+            // Freeze CSS transitions/animations at their end state so the menu
+            // open transition can't produce a mid-flight, flaky capture.
+            animations: 'disabled',
+            // A blinking text caret (e.g. a focused field) would otherwise flake.
+            caret: 'hide',
+        },
+    },
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 1 : 0,
