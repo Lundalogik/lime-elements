@@ -34,6 +34,7 @@ and collapsible unchanged context sections.
  - [limel-example-code-diff-basic](examples)
  - [limel-example-code-diff-expand](examples)
  - [limel-example-code-diff-headings](examples)
+ - [limel-example-code-diff-interactive](examples)
  - [limel-example-code-diff-json](examples)
  - [limel-example-code-diff-line-wrap](examples)
  - [limel-example-code-diff-split](examples)
@@ -78,6 +79,7 @@ graph TD;
   limel-example-code-diff-basic --> limel-code-diff
   limel-example-code-diff-expand --> limel-code-diff
   limel-example-code-diff-headings --> limel-code-diff
+  limel-example-code-diff-interactive --> limel-code-diff
   limel-example-code-diff-json --> limel-code-diff
   limel-example-code-diff-line-wrap --> limel-code-diff
   limel-example-code-diff-split --> limel-code-diff
