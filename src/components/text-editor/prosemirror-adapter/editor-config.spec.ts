@@ -19,13 +19,9 @@ import { pluginKey as imageInserterPluginKey } from './plugins/image/inserter';
 import { linkPluginKey } from './plugins/link/link-plugin';
 
 /**
- * Integration proof for the text editor's real stack.
- *
- * It builds the production schema and the production *ordered* plugin list via
- * the exported `buildEditorSchema` / `buildEditorPlugins`, and exercises them
- * with the official `prosemirror-test-builder` only. It imports nothing from
- * any bespoke test-setup helpers — the point is to show the real editor brain
- * is testable as-is.
+ * Integration tests for the text editor's real stack: the production schema
+ * and the production *ordered* plugin list from `buildEditorSchema` /
+ * `buildEditorPlugins`.
  *
  * Transactions are applied at the state level (`state.apply`) rather than
  * through an `EditorView`: state application runs every plugin's
@@ -33,11 +29,6 @@ import { linkPluginKey } from './plugins/link/link-plugin';
  * without needing a real DOM selection, which the spec environment lacks.
  * View-driven behaviour (real key/paste events, scrolling, focus) is the
  * domain of the e2e tests.
- *
- * Coverage maps to the editor's regression risks:
- *  - commands produce the expected transaction (A, B);
- *  - one plugin does not silently shadow another on a shared event (C);
- *  - a sequence of transactions keeps the document valid (D).
  */
 describe('editor-config (real-stack integration)', () => {
     const schema = buildEditorSchema({
@@ -74,7 +65,7 @@ describe('editor-config (real-stack integration)', () => {
     const p = builder.p as NodeBuilder;
     const strong = builder.strong as MarkBuilder;
 
-    describe('A — the real stack instantiates', () => {
+    describe('the real stack instantiates', () => {
         it('builds the production schema (nodes + marks the editor uses)', () => {
             expect(schema.nodes.image).toBeDefined();
             expect(schema.nodes.table).toBeDefined();
@@ -92,7 +83,7 @@ describe('editor-config (real-stack integration)', () => {
         });
     });
 
-    describe('B — commands work against the real schema', () => {
+    describe('commands work against the real schema', () => {
         it('the Bold command applies the strong mark to the selection', () => {
             const startDoc = doc(p('<a>hello<b>'));
             let state = EditorState.create({
@@ -114,7 +105,7 @@ describe('editor-config (real-stack integration)', () => {
         });
     });
 
-    describe('C — no plugin shadows another on a shared event', () => {
+    describe('shared-event (paste) handler order', () => {
         const linkPlugin = plugins.find(
             (plugin) => plugin.spec.key === linkPluginKey
         );
@@ -129,8 +120,8 @@ describe('editor-config (real-stack integration)', () => {
             expect(typeof imagePlugin.props.handlePaste).toBe('function');
 
             // ProseMirror resolves handlePaste first-truthy-wins in plugin
-            // order, so the link plugin coming first is the contract that
-            // decides who handles a paste that both could claim.
+            // order, so the relative order of these two decides which claims a
+            // paste both could handle.
             expect(plugins.indexOf(linkPlugin)).toBeLessThan(
                 plugins.indexOf(imagePlugin)
             );
@@ -154,7 +145,7 @@ describe('editor-config (real-stack integration)', () => {
         });
     });
 
-    describe('D — transactions stay consistent across the plugin set', () => {
+    describe('transactions stay consistent across the plugin set', () => {
         it('keeps the document valid across a sequence of transactions', () => {
             const startDoc = doc(p('<a>Hello<b>'));
             let state = EditorState.create({
@@ -178,8 +169,6 @@ describe('editor-config (real-stack integration)', () => {
                 );
                 state = state.apply(state.tr.insertText(' world'));
 
-                // Throws if any step produced an invalid document or a
-                // mis-mapped position.
                 state.doc.check();
             }).not.toThrow();
 
