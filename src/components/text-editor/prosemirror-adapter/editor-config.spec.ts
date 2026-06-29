@@ -36,7 +36,7 @@ import { linkPluginKey } from './plugins/link/link-plugin';
  *
  * Coverage maps to the editor's regression risks:
  *  - commands produce the expected transaction (A, B);
- *  - one plugin does not silently shadow another on a shared event (C);
+ *  - shared-event (paste) handlers and their resolution order are observable (C);
  *  - a sequence of transactions keeps the document valid (D).
  */
 describe('editor-config (real-stack integration)', () => {
@@ -114,7 +114,7 @@ describe('editor-config (real-stack integration)', () => {
         });
     });
 
-    describe('C — no plugin shadows another on a shared event', () => {
+    describe('C — shared-event (paste) handler order', () => {
         const linkPlugin = plugins.find(
             (plugin) => plugin.spec.key === linkPluginKey
         );
@@ -129,8 +129,11 @@ describe('editor-config (real-stack integration)', () => {
             expect(typeof imagePlugin.props.handlePaste).toBe('function');
 
             // ProseMirror resolves handlePaste first-truthy-wins in plugin
-            // order, so the link plugin coming first is the contract that
-            // decides who handles a paste that both could claim.
+            // order, so the relative order of these two decides which claims a
+            // paste both could handle. This asserts the current order (link
+            // before image); it does not assert that order is the right
+            // outcome for a mixed image+link paste — that is a separate design
+            // concern.
             expect(plugins.indexOf(linkPlugin)).toBeLessThan(
                 plugins.indexOf(imagePlugin)
             );
