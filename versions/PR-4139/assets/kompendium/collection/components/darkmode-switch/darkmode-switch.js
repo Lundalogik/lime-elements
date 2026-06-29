@@ -66,7 +66,7 @@ export class DarkmodeSwitch {
             checked: this.theme === DARK ||
                 (this.theme === DEFAULT && this.systemSettingIsDark),
         };
-        return (h("div", { key: '72bb10f37127840f1e310943a35a6f653bd3859d', class: "mode-toggle" }, h("input", { key: '5869df8eadeb50a5e6c7fe41e0ec6f7dfe8be233', type: "checkbox", onChange: this.handleThemeChange, ref: this.getSelectRef, ...props }), h("div", { key: '4ca3d61f92b73c9239820eadf411fbb9f4eaab7f', class: "mode-visualization" }, h("div", { key: 'e4d99bd1a90298a2a6c634cd2d3cb859c3bbd1bc', class: "circle" }), h("div", { key: '4a7e9b0d7d5bfc4c85db8cd50e6200899d81a6fb', class: "ray one" }), h("div", { key: 'c489f612cabd963e3ebae26996dd7a71f242e0de', class: "ray two" }), h("div", { key: '83288239cf2c67c0ad314728c6c65ffee67f9c1e', class: "ray three" }), h("div", { key: '013b3c4c16e8f49d396a7a3e903108304ad17dfe', class: "ray four" }))));
+        return (h("div", { key: 'b98a56a2891f00eeafec12b07bb62bab656c648c', class: "mode-toggle" }, h("input", { key: 'b4a36d6c2ea06d86d6e17565914e5aa2bd0e63ce', type: "checkbox", onChange: this.handleThemeChange, ref: this.getSelectRef, ...props }), h("div", { key: '216d6c2a317904d26d5f534eacecabe8ff0da266', class: "mode-visualization" }, h("div", { key: '918e2891556bf40477c7ea7e787481e29edee5de', class: "circle" }), h("div", { key: 'a6406616e04afc792af316c28094cd1e1e68ab81', class: "ray one" }), h("div", { key: 'a18504838fe0f18c08cbacc728f957ab2f4bbdf5', class: "ray two" }), h("div", { key: '7a688bdf87865b0d054d33799fb40610f7fdf0d2', class: "ray three" }), h("div", { key: '53a646d5e27d1c18104d779a1326f5dbc89c4323', class: "ray four" }))));
     }
     static get is() { return "kompendium-darkmode-switch"; }
     static get encapsulation() { return "shadow"; }
@@ -87,4 +87,3 @@ export class DarkmodeSwitch {
         };
     }
 }
-//# sourceMappingURL=darkmode-switch.js.map

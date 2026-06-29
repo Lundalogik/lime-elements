@@ -1,9 +1,16 @@
 import { JsonDocs, Config, Logger } from '@stencil/core/internal';
 import { defaultConfig } from './config';
 import { addSources } from './source';
-import lnk from 'lnk';
 import { createMenu } from './menu';
-import { copyFile, mkdir, readFile, stat, writeFile } from 'fs/promises';
+import {
+    copyFile,
+    mkdir,
+    readFile,
+    stat,
+    symlink,
+    writeFile,
+} from 'fs/promises';
+import { resolve } from 'path';
 import { exists } from './filesystem';
 import { createWatcher } from './watch';
 import { findGuides } from './guides';
@@ -89,7 +96,14 @@ async function createSymlink(config: Partial<KompendiumConfig>) {
         return;
     }
 
-    lnk([source], config.publicPath);
+    try {
+        // Use an absolute source path: a relative symlink target is resolved
+        // relative to the link's own directory (publicPath), not the cwd, so a
+        // relative source produces a broken link (e.g. `www/.kompendium/...`).
+        await symlink(resolve(source), target);
+    } catch (error) {
+        logger.warn(`Failed to create kompendium.json symlink: ${error}`);
+    }
 }
 
 async function getProjectTitle(

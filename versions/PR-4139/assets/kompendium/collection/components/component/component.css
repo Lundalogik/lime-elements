@@ -383,3 +383,19 @@ kompendium-playground {
   width: 100%;
   max-width: 60rem;
 }
+
+.section-anchor {
+  display: block;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.docs-layout-section-heading:hover,
+.props-events-layout h4:hover,
+.methods-title:hover,
+.styles-title:hover,
+.docs h4:hover {
+  --kompendium-anchor-opacity: 1;
+}

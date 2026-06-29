@@ -10,4 +10,3 @@ export function Interface({ type, }) {
         h(MethodList, { methods: type.methods }),
     ];
 }
-//# sourceMappingURL=interface.js.map

@@ -164,4 +164,3 @@ const isReferenceUsed = (data) => (name) => {
 function isClass(type) {
     return type.type === 'class';
 }
-//# sourceMappingURL=schema.js.map

@@ -5,6 +5,3 @@ function getDefaultExportFromCjs (x) {
 }
 
 export { commonjsGlobal as c, getDefaultExportFromCjs as g };
-//# sourceMappingURL=_commonjsHelpers-BFTU3MAI.js.map
-
-//# sourceMappingURL=_commonjsHelpers-BFTU3MAI.js.map

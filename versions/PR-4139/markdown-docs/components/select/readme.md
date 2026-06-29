@@ -40,6 +40,7 @@
  - [limel-example-chart-type-line](../chart/examples)
  - [limel-example-chip-set-invalid-chips](../chip-set/examples)
  - [limel-example-chip-size](../chip/examples)
+ - [limel-example-code-diff-interactive](../code-diff/examples)
  - [limel-example-code-diff-line-wrap](../code-diff/examples)
  - [limel-example-dialog-heading](../dialog/examples)
  - [limel-example-file-viewer-office](../file-viewer/examples)
@@ -99,6 +100,7 @@ graph TD;
   limel-example-chart-type-line --> limel-select
   limel-example-chip-set-invalid-chips --> limel-select
   limel-example-chip-size --> limel-select
+  limel-example-code-diff-interactive --> limel-select
   limel-example-code-diff-line-wrap --> limel-select
   limel-example-dialog-heading --> limel-select
   limel-example-file-viewer-office --> limel-select
