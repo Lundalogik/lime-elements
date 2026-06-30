@@ -337,10 +337,12 @@ export class FileViewer {
     /**
      * @param withDownloadButton whether to render a download button as a
      * recovery option. Should be `false` when the message is shown as
-     * fallback content alongside the buttons bar, which already renders its
-     * own download button, to avoid showing two download buttons.
+     * fallback content alongside the buttons bar, which already renders the
+     * download button when enabled, to avoid showing two download buttons.
      */
-    private renderNoFileSupportMessage = (withDownloadButton = true) => {
+    private readonly renderNoFileSupportMessage = (
+        withDownloadButton = true
+    ) => {
         return (
             <div class="no-support" role="alert">
                 <h1>⚠️</h1>
