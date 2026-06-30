@@ -17,6 +17,7 @@ import {
     ImageInserter,
     EditorImage,
     EditorMetadata,
+    InlineImages,
 } from './text-editor.types';
 import { EditorUiType } from './types';
 
@@ -34,8 +35,8 @@ import { EditorUiType } from './types';
  * @exampleComponent limel-example-text-editor-with-markdown
  * @exampleComponent limel-example-text-editor-with-html
  * @exampleComponent limel-example-text-editor-with-tables
- * @exampleComponent limel-example-text-editor-with-inline-images-file-storage
  * @exampleComponent limel-example-text-editor-with-inline-images-base64
+ * @exampleComponent limel-example-text-editor-with-inline-images-custom-tag
  * @exampleComponent limel-example-text-editor-allow-resize
  * @exampleComponent limel-example-text-editor-size
  * @exampleComponent limel-example-text-editor-ui
@@ -128,6 +129,16 @@ export class TextEditor implements FormComponent<string> {
      */
     @Prop()
     public customElements: CustomElementDefinition[] = [];
+
+    /**
+     * Configures inline image support: the editor owns the paste lifecycle and
+     * resize, the consumer owns upload, storage format, and URL resolution.
+     *
+     * @private
+     * @alpha
+     */
+    @Prop()
+    public inlineImages?: InlineImages;
 
     /**
      * A set of trigger characters
@@ -330,6 +341,7 @@ export class TextEditor implements FormComponent<string> {
                 onImageRemoved={this.handleImageRemoved}
                 onMetadataChange={this.handleMetadataChange}
                 customElements={this.customElements}
+                inlineImages={this.inlineImages}
                 value={this.value}
                 aria-controls={this.helperText ? this.helperTextId : undefined}
                 id={this.editorId}

@@ -50,6 +50,7 @@ import {
     EditorImage,
     EditorMetadata,
     EditorLink,
+    InlineImages,
 } from '../text-editor.types';
 import { getTableNodes, getTableEditingPlugins } from './plugins/table-plugin';
 import { getImageNode, imageCache } from './plugins/image/node';
@@ -113,6 +114,18 @@ export class ProsemirrorAdapter {
      */
     @Prop()
     customElements: CustomElementDefinition[] = [];
+
+    /**
+     * Configures inline image support. When set, the editor owns the paste +
+     * upload lifecycle and persists images either as the configured tag
+     * carrying only a file id (`InlineImageTag`), or as a plain `<img src>`
+     * (`InlineImageSrc`).
+     *
+     * @private
+     * @alpha
+     */
+    @Prop()
+    public inlineImages?: InlineImages;
 
     /**
      * set to private to avoid usage while under development
@@ -387,10 +400,14 @@ export class ProsemirrorAdapter {
         if (this.contentType === 'markdown') {
             this.contentConverter = new MarkdownConverter(
                 this.customElements,
-                this.language
+                this.language,
+                this.inlineImages
             );
         } else if (this.contentType === 'html') {
-            this.contentConverter = new HTMLConverter(this.customElements);
+            this.contentConverter = new HTMLConverter(
+                this.customElements,
+                this.inlineImages
+            );
         } else {
             throw new Error(
                 `Unsupported content type: ${this.contentType}. Only 'markdown' and 'html' are supported.`
@@ -459,7 +476,7 @@ export class ProsemirrorAdapter {
             nodes = nodes.append(getTableNodes());
         }
 
-        nodes = nodes.append(getImageNode(this.language));
+        nodes = nodes.append(getImageNode(this.language, this.inlineImages));
 
         return new Schema({
             nodes: nodes,
@@ -497,7 +514,10 @@ export class ProsemirrorAdapter {
                     this.contentConverter
                 ),
                 createLinkPlugin(this.handleNewLinkSelection),
-                createImageInserterPlugin(this.imagePasted.emit),
+                createImageInserterPlugin(
+                    this.imagePasted.emit,
+                    this.inlineImages
+                ),
                 createImageViewPlugin(this.language),
                 createMenuStateTrackingPlugin(
                     editorMenuTypesArray,

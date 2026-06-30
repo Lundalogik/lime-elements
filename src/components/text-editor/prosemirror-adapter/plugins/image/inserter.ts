@@ -2,7 +2,12 @@ import { Plugin, PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { createFileInfo } from '../../../../../util/files';
 import { FileInfo } from '../../../../../global/shared-types/file.types';
-import { ImageInserter, EditorImageState } from '../../../text-editor.types';
+import {
+    ImageInserter,
+    EditorImageState,
+    InlineImages,
+    isInlineImageTag,
+} from '../../../text-editor.types';
 import { Node, Slice, Fragment } from 'prosemirror-model';
 import { ImageNodeAttrs } from './node';
 
@@ -11,13 +16,14 @@ export const pluginKey = new PluginKey('imageInserterPlugin');
 type ImagePastedCallback = (data: ImageInserter) => CustomEvent<ImageInserter>;
 
 export const createImageInserterPlugin = (
-    imagePastedCallback: ImagePastedCallback
+    imagePastedCallback: ImagePastedCallback,
+    inlineImages?: InlineImages
 ) => {
     return new Plugin({
         key: pluginKey,
         props: {
             handlePaste: (view, event, slice) => {
-                return processPasteEvent(view, event, slice);
+                return processPasteEvent(view, event, slice, inlineImages);
             },
             handleDOMEvents: {
                 imagePasted: (_, event) => {
@@ -26,6 +32,78 @@ export const createImageInserterPlugin = (
             },
         },
     });
+};
+
+/**
+ * Runs the inline-image upload lifecycle: show a thumbnail, run the upload,
+ * then replace it with the resizable image (carrying the file id) or a failed
+ * state.
+ * @param view
+ * @param file
+ * @param base64Data
+ * @param fileInfo
+ * @param inlineImages
+ */
+const runInlineImageUpload = async (
+    view: EditorView,
+    file: File,
+    base64Data: string,
+    fileInfo: FileInfo,
+    inlineImages: InlineImages
+): Promise<void> => {
+    const upload = inlineImages.upload;
+    if (!upload) {
+        return;
+    }
+
+    const inserter = imageInserterFactory(view, base64Data, fileInfo);
+    inserter.insertThumbnail();
+
+    try {
+        const uploadResult = await upload(file);
+        replaceThumbnailWithInlineImage(
+            view,
+            fileInfo,
+            uploadResult,
+            inlineImages
+        );
+    } catch (error) {
+        console.error('Inline image upload failed', error);
+        inserter.insertFailedThumbnail();
+    }
+};
+
+const replaceThumbnailWithInlineImage = (
+    view: EditorView,
+    fileInfo: FileInfo,
+    uploadResult: string,
+    inlineImages: InlineImages
+): void => {
+    const { state, dispatch } = view;
+    const { schema } = state;
+
+    // Tag shape: the upload result is a stored id resolved to a src and
+    // persisted as the id microformat. Src shape: the result is the src itself.
+    const tag = isInlineImageTag(inlineImages) ? inlineImages : undefined;
+
+    const tr = state.tr;
+    state.doc.descendants((node, pos) => {
+        if (node.attrs.fileInfoId === fileInfo.id) {
+            const imageNode = schema.nodes.image.create({
+                src: tag ? tag.getUrl(uploadResult) : uploadResult,
+                alt: fileInfo.filename ?? 'file',
+                imageId: tag ? uploadResult : '',
+                fileInfoId: fileInfo.id,
+                state: 'success',
+                maxWidth: '100%',
+            });
+            tr.replaceWith(pos, pos + node.nodeSize, imageNode);
+
+            return false;
+        }
+    });
+
+    dispatch(tr);
 };
 
 export const imageInserterFactory = (
@@ -186,19 +264,25 @@ const filterImageNodes = (fragment: Fragment): Fragment => {
  * @param view - The ProseMirror editor view.
  * @param event - The paste event.
  * @param slice
+ * @param inlineImages
  * @returns A boolean; True if an image file was pasted to prevent default paste behavior, otherwise false.
  */
 const processPasteEvent = (
     view: EditorView,
     event: ClipboardEvent,
-    slice: Slice
+    slice: Slice,
+    inlineImages?: InlineImages
 ): boolean => {
     const clipboardData = event.clipboardData;
     if (!clipboardData) {
         return false;
     }
 
-    const isImageFilePasted = handlePastedImages(view, clipboardData);
+    const isImageFilePasted = handlePastedImages(
+        view,
+        clipboardData,
+        inlineImages
+    );
 
     const filteredSlice = new Slice(
         filterImageNodes(slice.content),
@@ -222,11 +306,13 @@ const processPasteEvent = (
  *
  * @param view - The ProseMirror editor view
  * @param clipboardData - The clipboard data transfer object containing potential image files
+ * @param inlineImages
  * @returns True if at least one valid image file was found and processed, false otherwise
  */
 function handlePastedImages(
     view: EditorView,
-    clipboardData: DataTransfer
+    clipboardData: DataTransfer,
+    inlineImages?: InlineImages
 ): boolean {
     let isImageFilePasted = false;
     const files = [...(clipboardData.files || [])];
@@ -237,12 +323,32 @@ function handlePastedImages(
 
             const reader = new FileReader();
             reader.onloadend = () => {
+                const base64Data = reader.result as string;
+                const fileInfo = createFileInfo(file);
+
+                if (inlineImages) {
+                    // Once inline images are configured they own the paste
+                    // lifecycle; never fall back to the legacy imagePasted
+                    // event. Without an upload handler the paste is a no-op.
+                    if (inlineImages.upload) {
+                        runInlineImageUpload(
+                            view,
+                            file,
+                            base64Data,
+                            fileInfo,
+                            inlineImages
+                        );
+                    }
+
+                    return;
+                }
+
                 view.dom.dispatchEvent(
                     new CustomEvent('imagePasted', {
                         detail: imageInserterFactory(
                             view,
-                            reader.result as string,
-                            createFileInfo(file)
+                            base64Data,
+                            fileInfo
                         ),
                     })
                 );
