@@ -50,6 +50,8 @@ import {
     EditorImage,
     EditorMetadata,
     EditorLink,
+    InlineImages,
+    isInlineImageTag,
 } from '../text-editor.types';
 import { getTableNodes, getTableEditingPlugins } from './plugins/table-plugin';
 import { getImageNode, imageCache } from './plugins/image/node';
@@ -115,6 +117,18 @@ export class ProsemirrorAdapter {
     customElements: CustomElementDefinition[] = [];
 
     /**
+     * Configures inline image support. When set, the editor owns the paste +
+     * upload lifecycle and persists images either as the configured tag
+     * carrying only a file id (`InlineImageTag`), or as a plain `<img src>`
+     * (`InlineImageSrc`).
+     *
+     * @private
+     * @alpha
+     */
+    @Prop()
+    public inlineImages?: InlineImages;
+
+    /**
      * set to private to avoid usage while under development
      *
      * @private
@@ -154,6 +168,7 @@ export class ProsemirrorAdapter {
     private menuCommandFactory: MenuCommandFactory;
     private schema: Schema;
     private contentConverter: ContentTypeConverter;
+    private validatedInlineImages?: InlineImages;
     private actionBarElement: HTMLElement;
     private lastEmittedValue: string;
 
@@ -297,6 +312,7 @@ export class ProsemirrorAdapter {
 
     public componentWillLoad() {
         this.getActionBarItems();
+        this.validatedInlineImages = this.validateInlineImages();
         this.setupContentConverter();
     }
 
@@ -383,14 +399,42 @@ export class ProsemirrorAdapter {
         );
     }
 
+    private validateInlineImages(): InlineImages | undefined {
+        const config = this.inlineImages;
+
+        // Require a hyphen: the tag name becomes a sanitizer whitelist key, so a
+        // built-in like `img` would hijack its rules and strip `src` from every
+        // real image. Custom element names always have a hyphen; built-ins never.
+        const isValidTagName = (name: string) =>
+            /^[a-z][a-z0-9._-]*$/.test(name) && name.includes('-');
+
+        if (
+            config &&
+            isInlineImageTag(config) &&
+            !isValidTagName(config.tagName)
+        ) {
+            console.error(
+                `inlineImages.tagName "${config.tagName}" is not a valid custom element name; ignoring inlineImages config.`
+            );
+
+            return undefined;
+        }
+
+        return config;
+    }
+
     private setupContentConverter() {
         if (this.contentType === 'markdown') {
             this.contentConverter = new MarkdownConverter(
                 this.customElements,
-                this.language
+                this.language,
+                this.validatedInlineImages
             );
         } else if (this.contentType === 'html') {
-            this.contentConverter = new HTMLConverter(this.customElements);
+            this.contentConverter = new HTMLConverter(
+                this.customElements,
+                this.validatedInlineImages
+            );
         } else {
             throw new Error(
                 `Unsupported content type: ${this.contentType}. Only 'markdown' and 'html' are supported.`
@@ -459,7 +503,9 @@ export class ProsemirrorAdapter {
             nodes = nodes.append(getTableNodes());
         }
 
-        nodes = nodes.append(getImageNode(this.language));
+        nodes = nodes.append(
+            getImageNode(this.language, this.validatedInlineImages)
+        );
 
         return new Schema({
             nodes: nodes,
@@ -497,7 +543,10 @@ export class ProsemirrorAdapter {
                     this.contentConverter
                 ),
                 createLinkPlugin(this.handleNewLinkSelection),
-                createImageInserterPlugin(this.imagePasted.emit),
+                createImageInserterPlugin(
+                    this.imagePasted.emit,
+                    this.validatedInlineImages
+                ),
                 createImageViewPlugin(this.language),
                 createMenuStateTrackingPlugin(
                     editorMenuTypesArray,

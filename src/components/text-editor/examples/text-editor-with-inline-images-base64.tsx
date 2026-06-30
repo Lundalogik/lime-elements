@@ -1,25 +1,21 @@
 import { Component, h, State } from '@stencil/core';
 import {
-    ImageInserter,
+    InlineImages,
     LimelTextEditorCustomEvent,
 } from '@limetech/lime-elements';
+
 /**
- * Handling inline images (with base64 encoded data)
+ * Inline images stored as an image source
  *
- * To allow users to paste images directly into the text editor, you can
- * listen to the `imagePasted` event, which is triggered when an image file
- * is pasted into the editor.
+ * Enable inline images by passing an `inlineImages` config. The editor owns the
+ * whole paste lifecycle — it shows a thumbnail, calls your `upload`, then swaps
+ * in a resizable image — so all you provide is `upload`, resolving to a `src`
+ * that the editor stores as `<img src="…">`.
  *
- * The `imagePasted` event contains an `ImageInserter` object, which you can
- * use to insert a thumbnail of the pasted image into the editor.
- * After the thumbnail is inserted, you can immediately insert the image
- * as base64 encoded data using the `insertImage` method.
- *
- * :::note
- * This example demonstrates the simplest approach using base64 encoding.
- * However, for production use, it is recommended to upload images to
- * external file storage and insert the src URL of the uploaded image
- * instead, as shown in the file-storage example.
+ * Here `upload` returns a base64 data URI, so no backend is needed. The same
+ * shape also covers external storage — just have `upload` return the uploaded
+ * URL instead of a data URI. To store an opaque id rather than a URL, use the
+ * custom-tag example instead.
  */
 @Component({
     tag: 'limel-example-text-editor-with-inline-images-base64',
@@ -29,12 +25,16 @@ export class TextEditorWithInlineImagesExample {
     @State()
     private value = 'Copy an image file and paste it here.';
 
+    private readonly inlineImages: InlineImages = {
+        upload: (file) => this.toBase64(file),
+    };
+
     public render() {
         return (
             <limel-text-editor
                 value={this.value}
                 onChange={this.handleChange}
-                onImagePasted={this.handleImagePasted}
+                inlineImages={this.inlineImages}
                 contentType="html"
             />
         );
@@ -44,12 +44,14 @@ export class TextEditorWithInlineImagesExample {
         this.value = event.detail;
     };
 
-    private handleImagePasted = async (
-        event: LimelTextEditorCustomEvent<ImageInserter>
-    ) => {
-        const imageInserter = event.detail;
-
-        imageInserter.insertThumbnail();
-        imageInserter.insertImage();
+    private readonly toBase64 = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.addEventListener('loadend', () =>
+                resolve(reader.result as string)
+            );
+            reader.addEventListener('error', () => reject(reader.error));
+            reader.readAsDataURL(file);
+        });
     };
 }

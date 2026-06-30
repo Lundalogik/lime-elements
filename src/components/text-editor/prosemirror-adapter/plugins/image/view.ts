@@ -48,7 +48,12 @@ class ImageView implements NodeView {
         applyImageStyles(this.img, node);
 
         this.img.addEventListener('load', () => {
-            this.persistDimensions();
+            // Only measure a freshly inserted image. Re-measuring one that
+            // already has a width would rewrite it against the current
+            // container size and emit a spurious change event on every load.
+            if (!this.node.attrs.width) {
+                this.persistDimensions();
+            }
         });
 
         this.dom.append(this.img);
