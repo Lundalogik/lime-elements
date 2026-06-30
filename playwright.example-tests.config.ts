@@ -44,7 +44,17 @@ export default defineConfig({
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 1 : 0,
     workers: resolveWorkers(),
-    reporter: process.env.CI ? [['github'], ['list']] : 'list',
+    // In CI also emit a machine-readable report so the failure-reporter step
+    // (.github/scripts/report-component-test-failures.js) can name the failed
+    // tests in the PR comment / job summary. Written after the run, so it
+    // survives the outputDir clean and rides along in the uploaded artifact.
+    reporter: process.env.CI
+        ? [
+              ['github'],
+              ['list'],
+              ['json', { outputFile: 'test-results/results.json' }],
+          ]
+        : 'list',
     timeout: 30_000,
     use: {
         baseURL: `http://localhost:${PORT}`,
