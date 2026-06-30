@@ -178,6 +178,10 @@ jobs:
       image: mcr.microsoft.com/playwright@sha256:e1529a04087193966ea15d4a1617345bdaa0791690a24ab2c42b65f9ce5b2cdc
     permissions:
       contents: read
+      # The report-failures step posts/updates a single PR comment pointing at
+      # the screenshots. Read-only on fork PRs, so that comment is best-effort
+      # there (the job summary still renders for everyone).
+      pull-requests: write
     timeout-minutes: 20
     env:
       RUN_VISUAL_SNAPSHOTS: '1'
@@ -208,7 +212,9 @@ jobs:
         name: example-docs
         path: www
     # Browsers are preinstalled in the container, so no `playwright install`.
-    - run: npm run test:examples:components:ci
+    - name: Run component tests
+      id: tests
+      run: npm run test:examples:components:ci
     - name: Upload Playwright results
       if: failure()
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -216,6 +222,19 @@ jobs:
         name: component-tests-results
         path: test-results/
         retention-days: 7
+    # Surface why the suite failed without anyone hunting for the artifact zip:
+    # write a plain-language job summary and post/update one PR comment that
+    # names the failed test(s) and links the screenshots. Runs on success too,
+    # to clear a stale failure comment once a fix lands. Never fails the job.
+    - name: Report results to the PR
+      if: always()
+      env:
+        TEST_OUTCOME: ${{ steps.tests.outcome }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+      run: node .github/scripts/report-component-test-failures.js
 
   commitlint:
     name: Commitlint
