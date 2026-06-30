@@ -2,7 +2,12 @@ import { Plugin, PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { createFileInfo } from '../../../../../util/files';
 import { FileInfo } from '../../../../../global/shared-types/file.types';
-import { ImageInserter, EditorImageState } from '../../../text-editor.types';
+import {
+    ImageInserter,
+    EditorImageState,
+    InlineImages,
+    isInlineImageTag,
+} from '../../../text-editor.types';
 import { Node, Slice, Fragment } from 'prosemirror-model';
 import { ImageNodeAttrs } from './node';
 
@@ -11,13 +16,14 @@ export const pluginKey = new PluginKey('imageInserterPlugin');
 type ImagePastedCallback = (data: ImageInserter) => CustomEvent<ImageInserter>;
 
 export const createImageInserterPlugin = (
-    imagePastedCallback: ImagePastedCallback
+    imagePastedCallback: ImagePastedCallback,
+    inlineImages?: InlineImages
 ) => {
     return new Plugin({
         key: pluginKey,
         props: {
             handlePaste: (view, event, slice) => {
-                return processPasteEvent(view, event, slice);
+                return processPasteEvent(view, event, slice, inlineImages);
             },
             handleDOMEvents: {
                 imagePasted: (_, event) => {
@@ -26,6 +32,116 @@ export const createImageInserterPlugin = (
             },
         },
     });
+};
+
+/**
+ * Runs the inline-image upload lifecycle: show a thumbnail, run the upload,
+ * then replace it with the resizable image (carrying the file id) or a failed
+ * state.
+ * @param view
+ * @param file
+ * @param base64Data
+ * @param fileInfo
+ * @param inlineImages
+ */
+const runInlineImageUpload = async (
+    view: EditorView,
+    file: File,
+    base64Data: string,
+    fileInfo: FileInfo,
+    inlineImages: InlineImages
+): Promise<void> => {
+    const upload = inlineImages.upload;
+    if (!upload) {
+        return;
+    }
+
+    const inserter = imageInserterFactory(view, base64Data, fileInfo);
+    inserter.insertThumbnail();
+
+    try {
+        const uploadResult = await upload(file);
+        replaceThumbnailWithInlineImage(
+            view,
+            fileInfo,
+            uploadResult,
+            inlineImages
+        );
+    } catch (error) {
+        console.error('Inline image upload failed', fileInfo.filename, error);
+        inserter.insertFailedThumbnail();
+    }
+};
+
+/**
+ * Walks the document for the image node correlated with `fileInfoId`, replaces
+ * it with a freshly built node, and dispatches the change. The transaction is
+ * only dispatched when a match is found.
+ * @param view
+ * @param fileInfoId
+ * @param buildNode - builds the replacement node from the matched node.
+ * @returns whether a matching node was found and replaced.
+ */
+const replaceImageNodeByFileInfoId = (
+    view: EditorView,
+    fileInfoId: string | number,
+    buildNode: (matched: Node) => Node
+): boolean => {
+    const { state, dispatch } = view;
+    const tr = state.tr;
+    let found = false;
+
+    state.doc.descendants((node, pos) => {
+        if (found) {
+            return false;
+        }
+        if (node.attrs.fileInfoId === fileInfoId) {
+            tr.replaceWith(pos, pos + node.nodeSize, buildNode(node));
+            found = true;
+
+            return false;
+        }
+    });
+
+    if (found) {
+        dispatch(tr);
+    }
+
+    return found;
+};
+
+const replaceThumbnailWithInlineImage = (
+    view: EditorView,
+    fileInfo: FileInfo,
+    uploadResult: string,
+    inlineImages: InlineImages
+): void => {
+    const { schema } = view.state;
+
+    // Tag shape: the upload result is a stored id resolved to a src and
+    // persisted as the id microformat. Src shape: the result is the src itself.
+    const tag = isInlineImageTag(inlineImages) ? inlineImages : undefined;
+
+    const replaced = replaceImageNodeByFileInfoId(view, fileInfo.id, () =>
+        schema.nodes.image.create({
+            src: tag ? tag.getUrl(uploadResult) : uploadResult,
+            alt: fileInfo.filename ?? 'file',
+            imageId: tag ? uploadResult : '',
+            fileInfoId: fileInfo.id,
+            state: 'success',
+            maxWidth: '100%',
+        })
+    );
+
+    if (!replaced) {
+        // The thumbnail was removed (undo/delete) while the upload was in
+        // flight, so the successfully stored file now has nowhere to land and
+        // is orphaned in the backend.
+        console.warn(
+            'Inline image uploaded but its thumbnail is gone; the stored file is now orphaned',
+            { uploadResult, filename: fileInfo.filename }
+        );
+    }
 };
 
 export const imageInserterFactory = (
@@ -60,51 +176,28 @@ const createThumbnailInserter =
 
 const createImageInserter =
     (view: EditorView, fileInfo: FileInfo) => (src?: string) => {
-        const { state, dispatch } = view;
-        const { schema } = state;
+        const { schema } = view.state;
 
-        const tr = state.tr;
-        state.doc.descendants((node, pos) => {
-            if (node.attrs.fileInfoId === fileInfo.id) {
-                const imageNodeAttrs = createImageNodeAttrs(
-                    src ?? node.attrs.src,
+        replaceImageNodeByFileInfoId(view, fileInfo.id, (matched) =>
+            schema.nodes.image.create(
+                createImageNodeAttrs(
+                    src ?? matched.attrs.src,
                     fileInfo,
                     'success'
-                );
-                const imageNode = schema.nodes.image.create(imageNodeAttrs);
-
-                tr.replaceWith(pos, pos + node.nodeSize, imageNode);
-
-                return false;
-            }
-        });
-
-        dispatch(tr);
+                )
+            )
+        );
     };
 
 const createFailedThumbnailInserter =
     (view: EditorView, fileInfo: FileInfo) => () => {
-        const { state, dispatch } = view;
-        const { schema } = state;
+        const { schema } = view.state;
 
-        const tr = state.tr;
-        state.doc.descendants((node, pos) => {
-            if (node.attrs.fileInfoId === fileInfo.id) {
-                const imageNodeAttrs = createImageNodeAttrs(
-                    node.attrs.src,
-                    fileInfo,
-                    'failed'
-                );
-                const errorPlaceholderNode =
-                    schema.nodes.image.create(imageNodeAttrs);
-
-                tr.replaceWith(pos, pos + node.nodeSize, errorPlaceholderNode);
-
-                return false;
-            }
-        });
-
-        dispatch(tr);
+        replaceImageNodeByFileInfoId(view, fileInfo.id, (matched) =>
+            schema.nodes.image.create(
+                createImageNodeAttrs(matched.attrs.src, fileInfo, 'failed')
+            )
+        );
     };
 
 function createImageNodeAttrs(
@@ -186,19 +279,25 @@ const filterImageNodes = (fragment: Fragment): Fragment => {
  * @param view - The ProseMirror editor view.
  * @param event - The paste event.
  * @param slice
+ * @param inlineImages
  * @returns A boolean; True if an image file was pasted to prevent default paste behavior, otherwise false.
  */
 const processPasteEvent = (
     view: EditorView,
     event: ClipboardEvent,
-    slice: Slice
+    slice: Slice,
+    inlineImages?: InlineImages
 ): boolean => {
     const clipboardData = event.clipboardData;
     if (!clipboardData) {
         return false;
     }
 
-    const isImageFilePasted = handlePastedImages(view, clipboardData);
+    const isImageFilePasted = handlePastedImages(
+        view,
+        clipboardData,
+        inlineImages
+    );
 
     const filteredSlice = new Slice(
         filterImageNodes(slice.content),
@@ -222,11 +321,13 @@ const processPasteEvent = (
  *
  * @param view - The ProseMirror editor view
  * @param clipboardData - The clipboard data transfer object containing potential image files
+ * @param inlineImages
  * @returns True if at least one valid image file was found and processed, false otherwise
  */
 function handlePastedImages(
     view: EditorView,
-    clipboardData: DataTransfer
+    clipboardData: DataTransfer,
+    inlineImages?: InlineImages
 ): boolean {
     let isImageFilePasted = false;
     const files = [...(clipboardData.files || [])];
@@ -237,12 +338,32 @@ function handlePastedImages(
 
             const reader = new FileReader();
             reader.onloadend = () => {
+                const base64Data = reader.result as string;
+                const fileInfo = createFileInfo(file);
+
+                if (inlineImages) {
+                    // Once inline images are configured they own the paste
+                    // lifecycle; never fall back to the legacy imagePasted
+                    // event. Without an upload handler the paste is a no-op.
+                    if (inlineImages.upload) {
+                        runInlineImageUpload(
+                            view,
+                            file,
+                            base64Data,
+                            fileInfo,
+                            inlineImages
+                        );
+                    }
+
+                    return;
+                }
+
                 view.dom.dispatchEvent(
                     new CustomEvent('imagePasted', {
                         detail: imageInserterFactory(
                             view,
-                            reader.result as string,
-                            createFileInfo(file)
+                            base64Data,
+                            fileInfo
                         ),
                     })
                 );

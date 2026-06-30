@@ -1,5 +1,8 @@
 import { EditorView } from 'prosemirror-view';
 import { Schema } from 'prosemirror-model';
+import { CustomElementDefinition } from '../../../global/shared-types/custom-element.types';
+import { InlineImages, isInlineImageTag } from '../text-editor.types';
+import { INLINE_IMAGE_ATTRIBUTES } from '../prosemirror-adapter/plugins/image/node';
 
 /**
  * Abstract class implementing a generic parser/serialiser
@@ -12,4 +15,38 @@ import { Schema } from 'prosemirror-model';
 export interface ContentTypeConverter {
     parseAsHTML: (text: string, schema: Schema) => Promise<string>;
     serialize: (view: EditorView, schema: Schema) => string;
+}
+
+/**
+ * Build the sanitization whitelist for editor content: the consumer's custom
+ * elements, plus (when inline images are configured) the inline-image tag so it
+ * survives parsing into an image node. Shared by all content converters.
+ *
+ * @param customNodes
+ * @param inlineImages
+ * @private
+ */
+export function buildContentWhitelist(
+    customNodes: CustomElementDefinition[],
+    inlineImages?: InlineImages
+): CustomElementDefinition[] {
+    if (!inlineImages || !isInlineImageTag(inlineImages)) {
+        return customNodes;
+    }
+
+    // Guard the boundary independently of the upstream `validateInlineImages`
+    // check: the tag name becomes a sanitizer whitelist key, so a built-in like
+    // `img` (no hyphen) would hijack its rules and strip `src` from every real
+    // image. Custom element names always contain a hyphen; built-ins never do.
+    if (!inlineImages.tagName.includes('-')) {
+        return customNodes;
+    }
+
+    return [
+        ...customNodes,
+        {
+            tagName: inlineImages.tagName,
+            attributes: [...INLINE_IMAGE_ATTRIBUTES],
+        },
+    ];
 }
