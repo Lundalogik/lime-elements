@@ -63,8 +63,10 @@ and similar phrases...
  - [limel-example-file-basic](examples)
  - [limel-example-file-composite](examples)
  - [limel-example-file-custom-icon](examples)
+ - [limel-example-file-invalid](examples)
  - [limel-example-file-loading](examples)
  - [limel-example-file-menu-items](examples)
+ - [limel-example-file-per-file-loading](examples)
  - [limel-example-file-progress](examples)
  - [limel-example-file-size-badge](examples)
  - [limel-example-file-viewer-with-picker](../file-viewer/examples)
@@ -114,8 +116,10 @@ graph TD;
   limel-example-file-basic --> limel-file
   limel-example-file-composite --> limel-file
   limel-example-file-custom-icon --> limel-file
+  limel-example-file-invalid --> limel-file
   limel-example-file-loading --> limel-file
   limel-example-file-menu-items --> limel-file
+  limel-example-file-per-file-loading --> limel-file
   limel-example-file-progress --> limel-file
   limel-example-file-size-badge --> limel-file
   limel-example-file-viewer-with-picker --> limel-file

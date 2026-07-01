@@ -4,27 +4,13 @@
 
 ## Overview
 
-Per-chip invalid state
+Progress on a chip
 
-Set `invalid: true` on any chip in the `value` array to mark that
-specific chip as invalid. This is independent of the chip-set-level
-`invalid` prop, which is intended for signalling that the whole field
-is invalid. Per-chip `invalid` lets the consumer flag individual
-entries, for example an address that fails validation in a list of
-recipients.
+A chip in the set can show a determinate progress bar by setting `progress`
+— a number between `0` and `100` — on the chip. This is useful for
+reflecting an ongoing process on a specific chip, such as an upload.
 
-In this example, each entry is checked with a simple email regex when
-added. Invalid entries are rendered with `invalid: true` and an error
-icon.
-
-:::note
-Marking individual chips as `invalid` does **not** automatically set
-the invalid state of the chip-set as a whole. The consumer is
-responsible for deciding whether the field itself should be
-considered invalid, and for setting the chip-set-level `invalid` prop
-accordingly. This gives the consumer full control over the
-validity of the field.
-:::
+For an indeterminate indicator, set `loading` on the chip instead.
 
 ## Dependencies
 
@@ -32,16 +18,14 @@ validity of the field.
 
 - [limel-chip-set](..)
 - [limel-example-controls](../../../examples)
-- [limel-select](../../select)
-- [limel-example-value](../../../examples)
+- [limel-slider](../../slider)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-chip-set-invalid-chips --> limel-chip-set
-  limel-example-chip-set-invalid-chips --> limel-example-controls
-  limel-example-chip-set-invalid-chips --> limel-select
-  limel-example-chip-set-invalid-chips --> limel-example-value
+  limel-example-chip-set-progress --> limel-chip-set
+  limel-example-chip-set-progress --> limel-example-controls
+  limel-example-chip-set-progress --> limel-slider
   limel-chip-set --> limel-helper-line
   limel-chip-set --> limel-notched-outline
   limel-chip-set --> limel-chip
@@ -68,13 +52,9 @@ graph TD;
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
-  limel-select --> limel-notched-outline
-  limel-select --> limel-icon
-  limel-select --> limel-helper-line
-  limel-select --> limel-portal
-  limel-select --> limel-menu-surface
-  limel-select --> limel-list
-  style limel-example-chip-set-invalid-chips fill:#f9f,stroke:#333,stroke-width:4px
+  limel-slider --> limel-helper-line
+  limel-slider --> limel-notched-outline
+  style limel-example-chip-set-progress fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
