@@ -41,7 +41,7 @@ hr {
     // added fixed heights to images that appear in the activity feed.
     #markdown {
         img {
-            height: auto;
+            height: auto !important;
         }
     }
 }
