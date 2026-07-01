@@ -125,6 +125,15 @@ jobs:
     name: Accessibility Tests (shard ${{ matrix.shard }})
     needs: build-example-docs
     runs-on: ubuntu-22.04
+    # Run inside the pinned Playwright image (browsers + system deps
+    # preinstalled) so there's no per-run browser download or `playwright install
+    # --with-deps` apt step — that host-side install was this job's only real
+    # failure source (a slow Ubuntu apt mirror), for ~30s of pure overhead.
+    # Digest-pinned for supply-chain integrity; keep it in lockstep with
+    # @playwright/test in package.json (same image as the component-tests job).
+    container:
+      # v1.60.0-jammy
+      image: mcr.microsoft.com/playwright@sha256:e1529a04087193966ea15d4a1617345bdaa0791690a24ab2c42b65f9ce5b2cdc
     permissions:
       contents: read
     # Backstop, as on `runtime-tests` — plus a slower per-test axe scan, so a
@@ -136,18 +145,27 @@ jobs:
         shard: [1, 2, 3, 4]
     steps:
     - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-    - uses: ./.github/actions/set-up-node
-    - run: npm ci
-    - name: Cache Playwright browsers
-      id: playwright-cache
-      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
-        path: ~/.cache/ms-playwright
-        key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-        restore-keys: playwright-${{ runner.os }}-
-    - name: Install Playwright browsers
-      if: steps.playwright-cache.outputs.cache-hit != 'true'
-      run: npx playwright install chromium --with-deps
+        # This job only runs tests; it never pushes. Don't leave the job token
+        # in .git/config for the npm ci / Playwright steps.
+        persist-credentials: false
+    # No set-up-node: the image already bundles a Node that shares its major with
+    # .nvmrc, so the default set-up-node step would only re-download an equivalent
+    # toolchain every run. We run npm ci under the bundled Node instead. The guard
+    # below keeps that "matches .nvmrc" assumption honest: the image's Node and
+    # .nvmrc are otherwise decoupled, so a future bump to either (a new image
+    # digest, or a new major in .nvmrc) could silently split them.
+    - name: Assert container Node major matches .nvmrc
+      run: |
+        nvmrc_major=$(sed 's/^v//' .nvmrc | cut -d. -f1)
+        node_major=$(node -p 'process.versions.node.split(".")[0]')
+        if [ "$nvmrc_major" != "$node_major" ]; then
+          echo "::error::Playwright image ships Node $node_major but .nvmrc wants v$nvmrc_major. Bump the image digest/tag or .nvmrc so they share a major."
+          exit 1
+        fi
+        echo "Node major $node_major matches .nvmrc (image: $(node -v))"
+    - run: npm ci
+    # Browsers are preinstalled in the container, so no cache + `playwright install`.
     - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
       with:
         name: example-docs
