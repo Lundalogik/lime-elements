@@ -46,3 +46,10 @@
         @include mixins.truncate-text-on-line(2);
     }
 }
+
+limel-spinner {
+    pointer-events: none;
+    position: absolute;
+    inset: 0 0.375rem 0 auto;
+    margin: auto;
+}
