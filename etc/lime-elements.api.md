@@ -1115,6 +1115,7 @@ export interface FileInfo {
     iconColor?: Color;
     id: number | string;
     lastModified?: Date;
+    loading?: boolean;
     menuItems?: Array<MenuItem | ListSeparator>;
     size?: number;
 }

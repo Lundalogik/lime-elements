@@ -15,6 +15,9 @@ import { Component, h, Host, State } from '@stencil/core';
  * Setting `loading` does _not_ disable the interactivity of the component. If
  * it should be disabled meanwhile, set `disabled` separately.
  * :::
+ *
+ * To reflect a busy state on an individual file instead, set `loading` on that
+ * file — see the per-file loading example.
  */
 @Component({
     tag: 'limel-example-file-loading',
