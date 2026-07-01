@@ -63,6 +63,7 @@ and similar phrases...
  - [limel-example-file-composite](examples)
  - [limel-example-file-custom-icon](examples)
  - [limel-example-file-menu-items](examples)
+ - [limel-example-file-size-badge](examples)
  - [limel-example-file-viewer-with-picker](../file-viewer/examples)
 
 ### Depends on
@@ -109,6 +110,7 @@ graph TD;
   limel-example-file-composite --> limel-file
   limel-example-file-custom-icon --> limel-file
   limel-example-file-menu-items --> limel-file
+  limel-example-file-size-badge --> limel-file
   limel-example-file-viewer-with-picker --> limel-file
   style limel-file fill:#f9f,stroke:#333,stroke-width:4px
 ```
