@@ -92,6 +92,7 @@ export interface Chip<T = any> {
     invalid?: boolean;
     loading?: boolean;
     menuItems?: Array<MenuItem | ListSeparator>;
+    progress?: number;
     removable?: boolean;
     selected?: boolean;
     text: string;
