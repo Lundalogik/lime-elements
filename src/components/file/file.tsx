@@ -51,6 +51,7 @@ const DEFAULT_FILE_CHIP: Chip = {
  * @exampleComponent limel-example-file-size-badge
  * @exampleComponent limel-example-file-loading
  * @exampleComponent limel-example-file-per-file-loading
+ * @exampleComponent limel-example-file-progress
  * @exampleComponent limel-example-file-menu-items
  * @exampleComponent limel-example-file-accepted-types
  * @exampleComponent limel-example-file-composite
@@ -215,6 +216,7 @@ export class File {
                 href: this.value.href,
                 menuItems: this.value.menuItems,
                 loading: this.value.loading,
+                progress: this.value.progress,
             },
         ];
     }

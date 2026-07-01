@@ -1118,6 +1118,7 @@ export interface FileInfo {
     lastModified?: Date;
     loading?: boolean;
     menuItems?: Array<MenuItem | ListSeparator>;
+    progress?: number;
     size?: number;
 }
 

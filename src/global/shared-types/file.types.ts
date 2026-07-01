@@ -95,4 +95,10 @@ export interface FileInfo {
      * component into its loading state.
      */
     loading?: boolean;
+
+    /**
+     * Reflects the progress of an ongoing process on the file, such as an
+     * upload, as a percentage. Must be a number between `0` and `100`.
+     */
+    progress?: number;
 }
