@@ -49,6 +49,7 @@ const DEFAULT_FILE_CHIP: Chip = {
  * @exampleComponent limel-example-file-basic
  * @exampleComponent limel-example-file-custom-icon
  * @exampleComponent limel-example-file-size-badge
+ * @exampleComponent limel-example-file-loading
  * @exampleComponent limel-example-file-menu-items
  * @exampleComponent limel-example-file-accepted-types
  * @exampleComponent limel-example-file-composite
@@ -105,6 +106,14 @@ export class File {
     public invalid = false;
 
     /**
+     * Set to `true` to put the component in the `loading` state, and render an
+     * indeterminate progress indicator. This does _not_ disable the
+     * interactivity of the component!
+     */
+    @Prop({ reflect: true })
+    public loading = false;
+
+    /**
      * The [accepted file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers)
      */
     @Prop({ reflect: true })
@@ -130,7 +139,7 @@ export class File {
 
     public render() {
         return (
-            <Host>
+            <Host aria-busy={this.loading ? 'true' : 'false'}>
                 <limel-file-dropzone
                     disabled={this.disabled || this.readonly || !!this.value}
                     accept={this.accept}
@@ -139,12 +148,21 @@ export class File {
                     {this.renderChipset()}
                 </limel-file-dropzone>
                 {this.renderDragAndDropTip()}
+                {this.renderSpinner()}
             </Host>
         );
     }
 
+    private renderSpinner() {
+        if (!this.loading) {
+            return;
+        }
+
+        return <limel-spinner />;
+    }
+
     private renderDragAndDropTip() {
-        if (this.value || this.disabled || this.readonly) {
+        if (this.value || this.disabled || this.readonly || this.loading) {
             return;
         }
 

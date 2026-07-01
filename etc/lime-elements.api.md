@@ -454,6 +454,7 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "language": Languages;
+        "loading": boolean;
         "readonly": boolean;
         "required": boolean;
         "value": FileInfo;
@@ -2356,6 +2357,7 @@ export namespace JSX {
         "invalid"?: boolean;
         "label"?: string;
         "language"?: Languages;
+        "loading"?: boolean;
         "onChange"?: (event: LimelFileCustomEvent<FileInfo>) => void;
         "onInteract"?: (event: LimelFileCustomEvent<number | string>) => void;
         "readonly"?: boolean;
@@ -2377,6 +2379,8 @@ export namespace JSX {
         "label": string;
         // (undocumented)
         "language": Languages;
+        // (undocumented)
+        "loading": boolean;
         // (undocumented)
         "readonly": boolean;
         // (undocumented)
