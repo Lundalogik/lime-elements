@@ -1,0 +1,1 @@
+function t(t,r=1){if(null==t||Number.isNaN(t))return"";if(t<0)return"";if(0===t)return"0 B";const a=["B","KB","MB","GB","TB","PB","EB","ZB","YB"],B=Math.max(0,Math.min(a.length-1,Math.floor(Math.log(t)/Math.log(1024)))),M=t/Math.pow(1024,B),h=Number.isFinite(r)?Math.trunc(r):0,u=M<10?Math.min(100,Math.max(0,h)):0;return`${Number.parseFloat(M.toFixed(u))} ${a[B]}`}export{t as f}
