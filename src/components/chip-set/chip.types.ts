@@ -120,6 +120,13 @@ export interface Chip<T = any> {
     loading?: boolean;
 
     /**
+     * Reflects the current value of a progress bar on the chip,
+     * visualizing the percentage of an ongoing process.
+     * Must be a number between `0` and `100`.
+     */
+    progress?: number;
+
+    /**
      * Set to `true` to visualize the chip in an "invalid" or "error" state.
      */
     invalid?: boolean;
