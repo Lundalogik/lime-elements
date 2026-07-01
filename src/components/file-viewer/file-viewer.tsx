@@ -269,7 +269,7 @@ export class FileViewer {
     };
 
     private renderText = () => {
-        const fallbackContent = [this.renderNoFileSupportMessage()];
+        const fallbackContent = [this.renderNoFileSupportMessage(false)];
 
         return [
             this.renderButtons(),
@@ -291,7 +291,9 @@ export class FileViewer {
                 fallbackUrl={this.sanitizeUrl(this.fileUrl)}
                 language={this.language}
             >
-                <div slot="fallback">{this.renderNoFileSupportMessage()}</div>
+                <div slot="fallback">
+                    {this.renderNoFileSupportMessage(false)}
+                </div>
             </limel-email-viewer>,
         ];
     };
@@ -332,7 +334,15 @@ export class FileViewer {
         return officeViewers[this.officeViewer];
     };
 
-    private renderNoFileSupportMessage = () => {
+    /**
+     * @param withDownloadButton whether to render a download button as a
+     * recovery option. Should be `false` when the message is shown as
+     * fallback content alongside the buttons bar, which already renders the
+     * download button when enabled, to avoid showing two download buttons.
+     */
+    private readonly renderNoFileSupportMessage = (
+        withDownloadButton = true
+    ) => {
         return (
             <div class="no-support" role="alert">
                 <h1>⚠️</h1>
@@ -346,7 +356,7 @@ export class FileViewer {
                         'file-viewer.message.try-other-options'
                     )}
                 </p>
-                {this.renderDownloadButton()}
+                {withDownloadButton && this.renderDownloadButton()}
             </div>
         );
     };
