@@ -51,6 +51,7 @@ const DEFAULT_FILE_CHIP: Chip = {
  * @exampleComponent limel-example-file-size-badge
  * @exampleComponent limel-example-file-loading
  * @exampleComponent limel-example-file-per-file-loading
+ * @exampleComponent limel-example-file-per-file-progress
  * @exampleComponent limel-example-file-menu-items
  * @exampleComponent limel-example-file-accepted-types
  * @exampleComponent limel-example-file-composite
@@ -139,7 +140,7 @@ export class File {
 
     public render() {
         return (
-            <Host aria-busy={this.isLoading ? 'true' : 'false'}>
+            <Host aria-busy={this.isBusy ? 'true' : 'false'}>
                 <limel-file-dropzone
                     disabled={this.disabled || this.readonly || !!this.value}
                     accept={this.accept}
@@ -153,12 +154,22 @@ export class File {
         );
     }
 
-    private get isLoading(): boolean {
-        return this.loading || Boolean(this.value?.loading);
+    /**
+     * The component is busy for any reason: its own `loading`, or a file that
+     * is `loading` or has `progress` (including `0`). Completion is signalled
+     * by the consumer clearing these — not by `progress` reaching `100`, since
+     * a file at `100%` may still be finalizing (e.g. awaiting the server).
+     */
+    private get isBusy(): boolean {
+        return (
+            this.loading ||
+            Boolean(this.value?.loading) ||
+            this.value?.progress !== undefined
+        );
     }
 
     private renderSpinner() {
-        if (!this.isLoading) {
+        if (!this.isBusy) {
             return;
         }
 
@@ -166,7 +177,7 @@ export class File {
     }
 
     private renderDragAndDropTip() {
-        if (this.value || this.disabled || this.readonly || this.isLoading) {
+        if (this.value || this.disabled || this.readonly || this.isBusy) {
             return;
         }
 
@@ -214,6 +225,7 @@ export class File {
                 href: this.value.href,
                 menuItems: this.value.menuItems,
                 loading: this.value.loading,
+                progress: this.value.progress,
             },
         ];
     }
