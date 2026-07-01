@@ -4,22 +4,31 @@
 
 ## Overview
 
-Custom menu items
+File size badge
+When the size of the selected file is known, `limel-file` displays it as a
+badge on the chip, giving end-users a quick sense of how large the file is.
 
-By providing custom menu items, you can add additional actions.
+The size is picked up automatically when a user chooses a file from their
+device. When a file is provided programmatically, for example when loaded
+from a server, the badge is only shown if the `size` property (in bytes) is
+set on the `FileInfo` object. Toggle the switch below to see the difference.
 
 ## Dependencies
 
 ### Depends on
 
 - [limel-file](..)
+- [limel-example-controls](../../../examples)
+- [limel-switch](../../switch)
 - [limel-example-value](../../../examples)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-file-menu-items --> limel-file
-  limel-example-file-menu-items --> limel-example-value
+  limel-example-file-size-badge --> limel-file
+  limel-example-file-size-badge --> limel-example-controls
+  limel-example-file-size-badge --> limel-switch
+  limel-example-file-size-badge --> limel-example-value
   limel-file --> limel-file-dropzone
   limel-file --> limel-chip-set
   limel-file --> limel-file-input
@@ -50,7 +59,10 @@ graph TD;
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
-  style limel-example-file-menu-items fill:#f9f,stroke:#333,stroke-width:4px
+  limel-switch --> limel-dynamic-label
+  limel-switch --> limel-helper-line
+  limel-dynamic-label --> limel-icon
+  style limel-example-file-size-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
