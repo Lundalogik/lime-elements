@@ -1,3 +1,10 @@
+## [39.38.0](https://github.com/Lundalogik/lime-elements/compare/v39.37.0...v39.38.0) (2026-07-01)
+
+### Features
+
+
+* **file:** show the selected file's size as a badge on the chip ([21d162c](https://github.com/Lundalogik/lime-elements/commit/21d162ccaaf3c07bd3a8ae50b77ab86a0aaf6dd3))
+
 ## [39.37.0](https://github.com/Lundalogik/lime-elements/compare/v39.36.0...v39.37.0) (2026-06-28)
 
 ### Features
