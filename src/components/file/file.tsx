@@ -9,6 +9,7 @@ import {
     getFileIcon,
 } from '../../util/file-metadata';
 import { FileInfo } from '../../global/shared-types/file.types';
+import { formatBytes } from '../../util/format-bytes';
 
 const DEFAULT_FILE_CHIP: Chip = {
     id: null,
@@ -163,6 +164,11 @@ export class File {
             return [];
         }
 
+        const badge =
+            typeof this.value.size === 'number'
+                ? formatBytes(this.value.size)
+                : undefined;
+
         return [
             {
                 ...DEFAULT_FILE_CHIP,
@@ -174,6 +180,7 @@ export class File {
                     color: getFileColor(this.value),
                     backgroundColor: getFileBackgroundColor(this.value),
                 },
+                badge: badge,
                 href: this.value.href,
                 menuItems: this.value.menuItems,
             },
