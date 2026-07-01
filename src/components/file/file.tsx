@@ -48,6 +48,7 @@ const DEFAULT_FILE_CHIP: Chip = {
  *
  * @exampleComponent limel-example-file-basic
  * @exampleComponent limel-example-file-custom-icon
+ * @exampleComponent limel-example-file-size-badge
  * @exampleComponent limel-example-file-menu-items
  * @exampleComponent limel-example-file-accepted-types
  * @exampleComponent limel-example-file-composite
