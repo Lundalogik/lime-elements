@@ -88,4 +88,11 @@ export interface FileInfo {
      * Custom menu items for the file.
      */
     menuItems?: Array<MenuItem | ListSeparator>;
+
+    /**
+     * Set to `true` to put the file in a `loading` state, rendering an
+     * indeterminate progress indicator on it. This also puts the parent
+     * component into its loading state.
+     */
+    loading?: boolean;
 }

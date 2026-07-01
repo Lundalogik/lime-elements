@@ -50,6 +50,7 @@ const DEFAULT_FILE_CHIP: Chip = {
  * @exampleComponent limel-example-file-custom-icon
  * @exampleComponent limel-example-file-size-badge
  * @exampleComponent limel-example-file-loading
+ * @exampleComponent limel-example-file-per-file-loading
  * @exampleComponent limel-example-file-menu-items
  * @exampleComponent limel-example-file-accepted-types
  * @exampleComponent limel-example-file-composite
@@ -139,7 +140,7 @@ export class File {
 
     public render() {
         return (
-            <Host aria-busy={this.loading ? 'true' : 'false'}>
+            <Host aria-busy={this.isLoading ? 'true' : 'false'}>
                 <limel-file-dropzone
                     disabled={this.disabled || this.readonly || !!this.value}
                     accept={this.accept}
@@ -153,8 +154,12 @@ export class File {
         );
     }
 
+    private get isLoading(): boolean {
+        return this.loading || Boolean(this.value?.loading);
+    }
+
     private renderSpinner() {
-        if (!this.loading) {
+        if (!this.isLoading) {
             return;
         }
 
@@ -162,7 +167,7 @@ export class File {
     }
 
     private renderDragAndDropTip() {
-        if (this.value || this.disabled || this.readonly || this.loading) {
+        if (this.value || this.disabled || this.readonly || this.isLoading) {
             return;
         }
 
@@ -209,6 +214,7 @@ export class File {
                 badge: badge,
                 href: this.value.href,
                 menuItems: this.value.menuItems,
+                loading: this.value.loading,
             },
         ];
     }

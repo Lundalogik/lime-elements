@@ -36,7 +36,11 @@ export class FileSizeBadgeExample {
                     onChange={this.handleChange}
                     value={value}
                 />
-                <limel-example-controls>
+                <limel-example-controls
+                    style={{
+                        '--example-controls-column-layout': 'auto-fit',
+                    }}
+                >
                     <limel-switch
                         value={this.includeSize}
                         label="Include file size"
