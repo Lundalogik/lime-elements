@@ -101,4 +101,10 @@ export interface FileInfo {
      * upload, as a percentage. Must be a number between `0` and `100`.
      */
     progress?: number;
+
+    /**
+     * Set to `true` to mark the file as invalid, rendering it in an error
+     * state. This is independent of the component's own `invalid` state.
+     */
+    invalid?: boolean;
 }

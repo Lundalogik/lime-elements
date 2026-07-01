@@ -1115,6 +1115,7 @@ export interface FileInfo {
     // @deprecated
     iconColor?: Color;
     id: number | string;
+    invalid?: boolean;
     lastModified?: Date;
     loading?: boolean;
     menuItems?: Array<MenuItem | ListSeparator>;
