@@ -92,6 +92,60 @@ export interface ImageInserter {
 }
 
 /**
+ * Configures inline image support in the editor. The editor owns the paste
+ * lifecycle (thumbnail → upload → resizable image or failed state). Choose how
+ * images are persisted with one of two shapes: `InlineImageTag` (a custom
+ * id-carrying element) or `InlineImageSrc` (a plain `<img>`).
+ *
+ * @alpha
+ */
+export type InlineImages = InlineImageTag | InlineImageSrc;
+
+/**
+ * Persists images as `<tagName image-id="…">`, carrying only an id; the editor
+ * resolves it to a displayable src via `getUrl`. Portable — no URL is baked
+ * into the stored content.
+ *
+ * @alpha
+ */
+export interface InlineImageTag {
+    /** Custom element the image is persisted as, e.g. `my-image`. Not `img`. */
+    tagName: string;
+
+    /** Resolves a stored id to a displayable src URL. */
+    getUrl: (id: string) => string;
+
+    /**
+     * Uploads a pasted image, resolving to the stored id. Omit to render and
+     * round-trip existing images without allowing new pastes.
+     */
+    upload?: (file: File) => Promise<string>;
+}
+
+/**
+ * Persists images as a plain `<img src="…">`.
+ *
+ * @alpha
+ */
+export interface InlineImageSrc {
+    /** Uploads a pasted image, resolving to its src — a URL or a data URI. */
+    upload: (file: File) => Promise<string>;
+}
+
+/**
+ * Narrows `InlineImages` to its tag shape, exposing `tagName`/`getUrl`.
+ *
+ * @param config - the inline-images configuration to test
+ * @returns whether images are persisted as a custom id-carrying element
+ * @alpha
+ */
+export function isInlineImageTag(
+    config: InlineImages
+): config is InlineImageTag {
+    return 'tagName' in config;
+}
+
+/**
  * @alpha
  */
 export type EditorImageState = 'loading' | 'failed' | 'success';

@@ -1,4 +1,7 @@
-import { ContentTypeConverter } from './content-type-converter';
+import {
+    ContentTypeConverter,
+    buildContentWhitelist,
+} from './content-type-converter';
 import { EditorView } from 'prosemirror-view';
 import { Node as ProseMirrorNode } from 'prosemirror-model';
 import {
@@ -14,6 +17,7 @@ import {
 } from '../prosemirror-adapter/plugins/image/node';
 import { hasCustomElementNode } from './has-custom-element-node';
 import { Languages } from '../../date-picker/date.types';
+import { InlineImages } from '../text-editor.types';
 
 type MarkdownSerializerFunction = (
     state: MarkdownSerializerState,
@@ -40,7 +44,8 @@ const createMarkdownSerializerFunction = (
 
 const buildMarkdownSerializer = (
     plugins: CustomElementDefinition[],
-    language: Languages
+    language: Languages,
+    inlineImages?: InlineImages
 ): MarkdownSerializer => {
     const customNodes = {};
 
@@ -50,7 +55,7 @@ const buildMarkdownSerializer = (
 
     const nodes = {
         ...defaultMarkdownSerializer.nodes,
-        ...getImageNodeMarkdownSerializer(language),
+        ...getImageNodeMarkdownSerializer(language, inlineImages),
         ...customNodes,
     };
 
@@ -73,13 +78,28 @@ const buildMarkdownSerializer = (
 export class MarkdownConverter implements ContentTypeConverter {
     private markdownSerializer: MarkdownSerializer;
     private customNodes: CustomElementDefinition[];
+    private readonly inlineImages?: InlineImages;
 
-    constructor(plugins: CustomElementDefinition[], language: Languages) {
-        this.markdownSerializer = buildMarkdownSerializer(plugins, language);
+    constructor(
+        plugins: CustomElementDefinition[],
+        language: Languages,
+        inlineImages?: InlineImages
+    ) {
+        this.markdownSerializer = buildMarkdownSerializer(
+            plugins,
+            language,
+            inlineImages
+        );
         this.customNodes = plugins;
+        this.inlineImages = inlineImages;
     }
     public parseAsHTML = (text: string): Promise<string> => {
-        return markdownToHTML(text, { whitelist: this.customNodes });
+        return markdownToHTML(text, {
+            whitelist: buildContentWhitelist(
+                this.customNodes,
+                this.inlineImages
+            ),
+        });
     };
 
     public serialize = (view: EditorView): string => {

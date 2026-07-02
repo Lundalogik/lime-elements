@@ -773,6 +773,10 @@ export namespace Components {
         "customElements": CustomElementDefinition[];
         "disabled"?: boolean;
         "flushPendingChanges": () => Promise<void>;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
+        // @alpha
+        "inlineImages"?: InlineImages;
         "language": Languages;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
@@ -907,6 +911,10 @@ export namespace Components {
         "disabled"?: boolean;
         "flushPendingChanges": () => Promise<void>;
         "helperText"?: string;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
+        // @alpha
+        "inlineImages"?: InlineImages;
         "invalid"?: boolean;
         "label"?: string;
         "language": Languages;
@@ -1283,6 +1291,21 @@ export interface InfoTileProgress {
     value: number;
 }
 
+// @alpha
+export type InlineImages = InlineImageTag | InlineImageSrc;
+
+// @alpha
+export interface InlineImageSrc {
+    upload: (file: File) => Promise<string>;
+}
+
+// @alpha
+export interface InlineImageTag {
+    getUrl: (id: string) => string;
+    tagName: string;
+    upload?: (file: File) => Promise<string>;
+}
+
 // @public (undocumented)
 export type InputType = 'date' | 'datetime-local' | 'email' | 'month' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'textarea' | 'time' | 'url' | 'urlAsText' | 'week';
 
@@ -1307,6 +1330,9 @@ export namespace _Internal {
     // (undocumented)
     export type WhiteColor = '--color-white';
 }
+
+// @alpha
+export function isInlineImageTag(config: InlineImages): config is InlineImageTag;
 
 // Warning: (ae-missing-release-tag) "LocalJSX" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -3209,6 +3235,10 @@ export namespace JSX {
         // @alpha
         "customElements"?: CustomElementDefinition[];
         "disabled"?: boolean;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
+        // @alpha
+        "inlineImages"?: InlineImages;
         "language"?: Languages;
         "onChange"?: (event: LimelProsemirrorAdapterCustomEvent<string>) => void;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
@@ -3568,6 +3598,10 @@ export namespace JSX {
         "customElements"?: CustomElementDefinition[];
         "disabled"?: boolean;
         "helperText"?: string;
+        // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+        //
+        // @alpha
+        "inlineImages"?: InlineImages;
         "invalid"?: boolean;
         "label"?: string;
         "language"?: Languages;

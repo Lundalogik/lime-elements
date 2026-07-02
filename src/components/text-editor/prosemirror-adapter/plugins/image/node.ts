@@ -1,5 +1,9 @@
-import { NodeSpec, Node, DOMOutputSpec } from 'prosemirror-model';
-import { EditorImageState } from '../../../text-editor.types';
+import { NodeSpec, Node, DOMOutputSpec, TagParseRule } from 'prosemirror-model';
+import {
+    EditorImageState,
+    InlineImages,
+    isInlineImageTag,
+} from '../../../text-editor.types';
 import { MarkdownSerializerState } from 'prosemirror-markdown';
 import { Languages } from '../../../../date-picker/date.types';
 import translate from '../../../../../global/translations';
@@ -11,26 +15,58 @@ type MarkdownSerializerFunction = (
     node: Node
 ) => void;
 
-/**
- *
- * @param language
- */
-export function getImageNode(language: Languages): Record<string, NodeSpec> {
-    return { image: createImageNodeSpec(language) };
+const IMAGE_ID_ATTRIBUTE = 'image-id';
+
+export interface ImageNodeAttrs {
+    src: string;
+    alt: string;
+    state: EditorImageState;
+    /**
+     * Transient, per-session key used to correlate an async upload with its
+     * thumbnail node and to key the image cache. Not persisted; regenerated
+     * when content is parsed.
+     */
+    fileInfoId: string | number;
+    /**
+     * Opaque id of the stored image, set when inline images are configured and
+     * persisted on the tag.
+     */
+    imageId?: string;
+    height?: string;
+    width?: string;
+    minHeight?: string;
+    minWidth?: string;
+    maxWidth?: string;
 }
 
 /**
- *
+ * Builds the `image` NodeSpec, wired for inline-image parsing/serialization
+ * when `inlineImages` is configured.
  * @param language
+ * @param inlineImages
+ */
+export function getImageNode(
+    language: Languages,
+    inlineImages?: InlineImages
+): Record<string, NodeSpec> {
+    return { image: createImageNodeSpec(language, inlineImages) };
+}
+
+/**
+ * Builds the markdown serializer for the `image` node, emitting the inline-image
+ * tag when `inlineImages` is configured and a `<img>` otherwise.
+ * @param language
+ * @param inlineImages
  */
 export function getImageNodeMarkdownSerializer(
-    language: Languages
+    language: Languages,
+    inlineImages?: InlineImages
 ): Record<string, MarkdownSerializerFunction> {
-    return { image: createImageNodeMarkdownSerializer(language) };
+    return { image: createImageNodeMarkdownSerializer(language, inlineImages) };
 }
 
 /**
- *
+ * Applies the node's stored dimensions to a rendered `<img>` element.
  * @param img
  * @param node
  */
@@ -43,8 +79,8 @@ export function applyImageStyles(img: HTMLImageElement, node: Node) {
 }
 
 /**
- * Recursively checks if a ProseMirror node or
- * any of its child nodes is an image node.
+ * Recursively checks if a ProseMirror node or any of its descendants is an
+ * image node.
  * @param node
  */
 export function hasImageNode(node: Node): boolean {
@@ -63,7 +99,8 @@ export function hasImageNode(node: Node): boolean {
 }
 
 function createImageNodeMarkdownSerializer(
-    language: Languages
+    language: Languages,
+    inlineImages?: InlineImages
 ): MarkdownSerializerFunction {
     return (markdownSerializerState: MarkdownSerializerState, node: Node) => {
         const state = node.attrs.state;
@@ -72,7 +109,15 @@ function createImageNodeMarkdownSerializer(
         }
 
         if (state === 'success') {
-            const imageHTML = getImageHTML(node.attrs as ImageNodeAttrs);
+            const attrs = node.attrs as ImageNodeAttrs;
+            const tag =
+                inlineImages && isInlineImageTag(inlineImages)
+                    ? inlineImages
+                    : undefined;
+            const imageHTML =
+                tag && attrs.imageId
+                    ? getInlineImageHTML(attrs, tag.tagName)
+                    : getImageHTML(attrs);
             markdownSerializerState.write(imageHTML);
 
             return;
@@ -81,6 +126,44 @@ function createImageNodeMarkdownSerializer(
         const statusHTML = getStatusHTML(state, node.attrs.alt, language);
         markdownSerializerState.write(statusHTML);
     };
+}
+
+function escapeAttributeValue(value: string): string {
+    return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('"', '&quot;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;');
+}
+
+function getInlineImageHTML(attrs: ImageNodeAttrs, tag: string): string {
+    const attributes = [
+        `${IMAGE_ID_ATTRIBUTE}="${escapeAttributeValue(attrs.imageId ?? '')}"`,
+        attrs.width ? `width="${escapeAttributeValue(attrs.width)}"` : '',
+        attrs.height ? `height="${escapeAttributeValue(attrs.height)}"` : '',
+        attrs.alt ? `alt="${escapeAttributeValue(attrs.alt)}"` : '',
+    ].filter(Boolean);
+
+    return `<${tag} ${attributes.join(' ')}></${tag}>`;
+}
+
+function buildInlineImageDOMAttrs(
+    attrs: ImageNodeAttrs
+): Record<string, string> {
+    const result: Record<string, string> = {
+        [IMAGE_ID_ATTRIBUTE]: attrs.imageId ?? '',
+    };
+    if (attrs.alt) {
+        result.alt = attrs.alt;
+    }
+    if (attrs.width) {
+        result.width = attrs.width;
+    }
+    if (attrs.height) {
+        result.height = attrs.height;
+    }
+
+    return result;
 }
 
 function getStatusHTML(
@@ -97,46 +180,30 @@ function getStatusHTML(
 }
 
 function getImageHTML(attrs: ImageNodeAttrs): string {
-    const style = [];
+    const dimensions: Array<[string, string | undefined]> = [
+        ['height', attrs.height],
+        ['width', attrs.width],
+        ['min-height', attrs.minHeight],
+        ['min-width', attrs.minWidth],
+        ['max-width', attrs.maxWidth],
+    ];
 
-    if (attrs.height) {
-        style.push(`height: ${attrs.height};`);
-    }
+    const style = dimensions
+        .filter(([, value]) => value)
+        .map(([property, value]) => `${property}: ${value};`)
+        .join('');
 
-    if (attrs.width) {
-        style.push(`width: ${attrs.width};`);
-    }
+    const styleAttribute = style
+        ? ` style="${escapeAttributeValue(style)}"`
+        : '';
 
-    if (attrs.minHeight) {
-        style.push(`min-height: ${attrs.minHeight};`);
-    }
-
-    if (attrs.minWidth) {
-        style.push(`min-width: ${attrs.minWidth};`);
-    }
-
-    if (attrs.maxWidth) {
-        style.push(`max-width: ${attrs.maxWidth};`);
-    }
-
-    const styleAttribute = style.length > 0 ? ` style="${style.join('')}"` : '';
-
-    return `<img src="${attrs.src}" alt="${attrs.alt}"${styleAttribute} />`;
+    return `<img src="${escapeAttributeValue(attrs.src)}" alt="${escapeAttributeValue(attrs.alt)}"${styleAttribute} />`;
 }
 
-export interface ImageNodeAttrs {
-    src: string;
-    alt: string;
-    state: EditorImageState;
-    fileInfoId: string | number;
-    height?: string;
-    width?: string;
-    minHeight?: string;
-    minWidth?: string;
-    maxWidth?: string;
-}
-
-function createImageNodeSpec(language: Languages): NodeSpec {
+function createImageNodeSpec(
+    language: Languages,
+    inlineImages?: InlineImages
+): NodeSpec {
     return {
         group: 'inline',
         inline: true,
@@ -144,6 +211,7 @@ function createImageNodeSpec(language: Languages): NodeSpec {
             src: { default: '' },
             alt: { default: '' },
             fileInfoId: { default: '' },
+            imageId: { default: '' },
             height: { default: '' },
             width: { default: '' },
             minHeight: { default: '' },
@@ -151,34 +219,93 @@ function createImageNodeSpec(language: Languages): NodeSpec {
             maxWidth: { default: '100%' },
             state: { default: 'success' },
         },
-        toDOM: (node): DOMOutputSpec => {
-            if (!isEditorImageState(node.attrs.state)) {
-                return;
-            }
-
-            if (node.attrs.state === 'success') {
-                return getOrCreateImageElement(node.attrs.fileInfoId, node);
-            }
-
-            return createStatusSpanForState(node.attrs.state, node, language);
-        },
-        parseDOM: [
-            {
-                tag: 'img',
-                getAttrs: (dom: HTMLElement): ImageNodeAttrs => {
-                    return {
-                        src: dom.getAttribute('src') || '',
-                        alt: dom.getAttribute('alt') || 'file',
-                        width: dom.style.width || '',
-                        height: dom.style.height || '',
-                        maxWidth: '100%',
-                        state: 'success',
-                        fileInfoId: crypto.randomUUID(),
-                    };
-                },
-            },
-        ],
+        toDOM: createImageToDOM(language, inlineImages),
+        parseDOM: createImageParseDOM(inlineImages),
     };
+}
+
+function createImageToDOM(
+    language: Languages,
+    inlineImages?: InlineImages
+): (node: Node) => DOMOutputSpec {
+    return (node: Node): DOMOutputSpec => {
+        if (!isEditorImageState(node.attrs.state)) {
+            return;
+        }
+
+        if (node.attrs.state !== 'success') {
+            return createStatusSpanForState(node.attrs.state, node, language);
+        }
+
+        // Emit the inline-image tag for HTML serialization and clipboard;
+        // on-screen rendering comes from the NodeView, not this.
+        const tag =
+            inlineImages && isInlineImageTag(inlineImages)
+                ? inlineImages
+                : undefined;
+        if (tag && node.attrs.imageId) {
+            return [
+                tag.tagName,
+                buildInlineImageDOMAttrs(node.attrs as ImageNodeAttrs),
+            ];
+        }
+
+        return getOrCreateImageElement(node.attrs.fileInfoId, node);
+    };
+}
+
+function createImageParseDOM(inlineImages?: InlineImages): TagParseRule[] {
+    const rules: TagParseRule[] = [];
+
+    const tag =
+        inlineImages && isInlineImageTag(inlineImages)
+            ? inlineImages
+            : undefined;
+    if (tag) {
+        rules.push({
+            tag: tag.tagName,
+            getAttrs: (dom: HTMLElement): ImageNodeAttrs | false => {
+                const imageId = dom.getAttribute(IMAGE_ID_ATTRIBUTE);
+
+                // Skip malformed tags without an id; parsing them would
+                // produce a broken image from an empty getUrl('').
+                if (!imageId) {
+                    return false;
+                }
+
+                return {
+                    src: tag.getUrl(imageId),
+                    // Preserve an absent alt as empty so an id-only tag
+                    // serializes back to the same markup instead of gaining
+                    // a synthetic alt, keeping the round-trip stable.
+                    alt: dom.getAttribute('alt') || '',
+                    imageId: imageId,
+                    width: dom.getAttribute('width') || '',
+                    height: dom.getAttribute('height') || '',
+                    maxWidth: '100%',
+                    state: 'success',
+                    fileInfoId: crypto.randomUUID(),
+                };
+            },
+        });
+    }
+
+    rules.push({
+        tag: 'img',
+        getAttrs: (dom: HTMLElement): ImageNodeAttrs => {
+            return {
+                src: dom.getAttribute('src') || '',
+                alt: dom.getAttribute('alt') || 'file',
+                width: dom.style.width || '',
+                height: dom.style.height || '',
+                maxWidth: '100%',
+                state: 'success',
+                fileInfoId: crypto.randomUUID(),
+            };
+        },
+    });
+
+    return rules;
 }
 
 function isEditorImageState(state: unknown): state is EditorImageState {
