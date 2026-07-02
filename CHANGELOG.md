@@ -1,3 +1,10 @@
+## [39.38.1](https://github.com/Lundalogik/lime-elements/compare/v39.38.0...v39.38.1) (2026-07-02)
+
+### Bug Fixes
+
+
+* **markdown:** reset image height correctly ([2396ca3](https://github.com/Lundalogik/lime-elements/commit/2396ca3af6de1bd0abb0781fd3d8074b5bfed2c8))
+
 ## [39.38.0](https://github.com/Lundalogik/lime-elements/compare/v39.37.0...v39.38.0) (2026-07-01)
 
 ### Features
