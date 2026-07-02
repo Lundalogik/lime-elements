@@ -53,6 +53,7 @@ const DEFAULT_FILE_CHIP: Chip = {
  * @exampleComponent limel-example-file-per-file-loading
  * @exampleComponent limel-example-file-per-file-progress
  * @exampleComponent limel-example-file-per-file-invalid
+ * @exampleComponent limel-example-file-per-file-status
  * @exampleComponent limel-example-file-menu-items
  * @exampleComponent limel-example-file-accepted-types
  * @exampleComponent limel-example-file-composite
@@ -155,6 +156,10 @@ export class File {
         );
     }
 
+    private get statusText(): string {
+        return this.value?.statusText?.trim() ?? '';
+    }
+
     /**
      * The component is busy for any reason: its own `loading`, or a file that
      * is `loading` or has `progress` (including `0`). Completion is signalled
@@ -206,11 +211,6 @@ export class File {
             return [];
         }
 
-        const badge =
-            typeof this.value.size === 'number'
-                ? formatBytes(this.value.size)
-                : undefined;
-
         return [
             {
                 ...DEFAULT_FILE_CHIP,
@@ -222,7 +222,7 @@ export class File {
                     color: getFileColor(this.value),
                     backgroundColor: getFileBackgroundColor(this.value),
                 },
-                badge: badge,
+                badge: this.getBadge(),
                 href: this.value.href,
                 menuItems: this.value.menuItems,
                 loading: this.value.loading,
@@ -230,6 +230,18 @@ export class File {
                 invalid: this.value.invalid,
             },
         ];
+    }
+
+    private getBadge(): string | undefined {
+        if (this.statusText) {
+            return this.statusText;
+        }
+
+        if (typeof this.value.size === 'number') {
+            return formatBytes(this.value.size);
+        }
+
+        return undefined;
     }
 
     private renderChipset() {
