@@ -19,10 +19,10 @@ import { Component, h, Host, State } from '@stencil/core';
  * :::
  */
 @Component({
-    tag: 'limel-example-file-progress',
+    tag: 'limel-example-file-per-file-progress',
     shadow: true,
 })
-export class FileProgressExample {
+export class FilePerFileProgressExample {
     @State()
     private file?: FileInfo = {
         filename: 'annual-report.pdf',
