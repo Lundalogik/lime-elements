@@ -1,1 +1,0 @@
-import{r as o,h as e}from"./p-26EzvxF0.js";const r=class{constructor(e){o(this,e)}render(){return e("kompendium-code",{key:"503b97b84d0003cd4feaba3657ef13b3085ad2e7",language:"ts"},"\nimport foo from 'foo';\n\nfoo();\n")}};export{r as kompendium_example_code}
