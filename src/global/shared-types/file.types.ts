@@ -103,6 +103,17 @@ export interface FileInfo {
     progress?: number;
 
     /**
+     * A short label describing the file's current state, such as
+     * `Uploading…`, `Scanning for viruses…` or `Failed`. When set, it replaces
+     * the file size badge on the chip, and is read by assistive technologies as
+     * part of the chip's accessible name.
+     *
+     * Prefer `progress` for a measurable value like a percentage, so it is
+     * shown as a progress bar instead of rapidly-changing text.
+     */
+    statusText?: string;
+
+    /**
      * Set to `true` to mark the file as invalid, rendering it in an error
      * state. This is independent of the component's own `invalid` state.
      */

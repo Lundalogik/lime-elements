@@ -1121,6 +1121,7 @@ export interface FileInfo {
     menuItems?: Array<MenuItem | ListSeparator>;
     progress?: number;
     size?: number;
+    statusText?: string;
 }
 
 // @public (undocumented)
