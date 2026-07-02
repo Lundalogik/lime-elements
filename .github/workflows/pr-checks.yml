@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
     - uses: ./.github/actions/set-up-node
-    - run: npm ci
+    - uses: ./.github/actions/install-dependencies
     - run: npm run lint
 
   build:
@@ -22,7 +22,7 @@ jobs:
     steps:
     - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
     - uses: ./.github/actions/set-up-node
-    - run: npm ci
+    - uses: ./.github/actions/install-dependencies
     - name: Ensure installed React and React-DOM versions match
       run: |
         REACT_VERSION=$(npm ls react --depth=0 --json | jq -r '.dependencies.react.version')
@@ -83,7 +83,7 @@ jobs:
     steps:
     - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
     - uses: ./.github/actions/set-up-node
-    - run: npm ci
+    - uses: ./.github/actions/install-dependencies
     # The example tests run against these docs. We build them once here and share
     # the result via an artifact so each (sharded) test job doesn't rebuild. We
     # build our own rather than reuse the `docs` job's artifact: that one only
