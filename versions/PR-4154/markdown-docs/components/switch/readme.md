@@ -65,8 +65,8 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-dynamic-label-basic](../dynamic-label/examples)
  - [limel-example-dynamic-label-readonly-boolean](../dynamic-label/examples)
  - [limel-example-file-basic](../file/examples)
- - [limel-example-file-invalid](../file/examples)
  - [limel-example-file-loading](../file/examples)
+ - [limel-example-file-per-file-invalid](../file/examples)
  - [limel-example-file-per-file-loading](../file/examples)
  - [limel-example-file-size-badge](../file/examples)
  - [limel-example-form-span-fields](../form/examples)
@@ -147,8 +147,8 @@ graph TD;
   limel-example-dynamic-label-basic --> limel-switch
   limel-example-dynamic-label-readonly-boolean --> limel-switch
   limel-example-file-basic --> limel-switch
-  limel-example-file-invalid --> limel-switch
   limel-example-file-loading --> limel-switch
+  limel-example-file-per-file-invalid --> limel-switch
   limel-example-file-per-file-loading --> limel-switch
   limel-example-file-size-badge --> limel-switch
   limel-example-form-span-fields --> limel-switch
