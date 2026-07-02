@@ -450,6 +450,7 @@ export namespace Components {
     export interface LimelFile {
         "accept": string;
         "disabled": boolean;
+        "helperText": string;
         "invalid": boolean;
         "label": string;
         "language": Languages;
@@ -2351,6 +2352,7 @@ export namespace JSX {
     export interface LimelFile {
         "accept"?: string;
         "disabled"?: boolean;
+        "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
         "language"?: Languages;
@@ -2367,6 +2369,8 @@ export namespace JSX {
         "accept": string;
         // (undocumented)
         "disabled": boolean;
+        // (undocumented)
+        "helperText": string;
         // (undocumented)
         "invalid": boolean;
         // (undocumented)

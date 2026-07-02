@@ -72,6 +72,13 @@ export class File {
     public label: string;
 
     /**
+     * Optional helper text to display below the component. When the component
+     * is `invalid`, it is rendered as an error message.
+     */
+    @Prop({ reflect: true })
+    public helperText: string;
+
+    /**
      * Set to `true` to indicate that the field is required.
      */
     @Prop({ reflect: true })
@@ -195,6 +202,7 @@ export class File {
                 readonly={this.readonly}
                 invalid={this.invalid}
                 label={this.label}
+                helperText={this.helperText}
                 leadingIcon="upload_to_cloud"
                 language={this.language}
                 onChange={this.handleChipSetChange}
