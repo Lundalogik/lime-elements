@@ -1,3 +1,15 @@
+## [39.39.0](https://github.com/Lundalogik/lime-elements/compare/v39.38.1...v39.39.0) (2026-07-02)
+
+### Features
+
+
+* **chip-set:** forward the progress property to the chip ([fdbdc67](https://github.com/Lundalogik/lime-elements/commit/fdbdc673ac84c066739ac510a002fa4a4170c5dd))
+* **file:** add a helperText prop ([bd1d686](https://github.com/Lundalogik/lime-elements/commit/bd1d68628ca56c66a843c468a92f124241237890))
+* **file:** add a loading prop ([de45123](https://github.com/Lundalogik/lime-elements/commit/de45123f63dd6fc9a5539114392bf198c76b2947))
+* **file:** support a per-file invalid state ([83812c2](https://github.com/Lundalogik/lime-elements/commit/83812c2a0aac6610e88c7b9e40ac8d37eeb7d0b3))
+* **file:** support a per-file loading state ([9f3c83d](https://github.com/Lundalogik/lime-elements/commit/9f3c83d2a1b995a76e9600ffcf6cd0f83e797de0))
+* **file:** support a per-file progress state ([b870156](https://github.com/Lundalogik/lime-elements/commit/b8701567d2293ba4648fb1d9b7d1ae1e9f5e4dcb))
+
 ## [39.38.1](https://github.com/Lundalogik/lime-elements/compare/v39.38.0...v39.38.1) (2026-07-02)
 
 ### Bug Fixes
