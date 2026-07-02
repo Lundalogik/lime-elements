@@ -1,0 +1,60 @@
+name: 'Install npm dependencies'
+description: >-
+  Runs `npm ci` wrapped in a split cache strategy (actions/cache/restore and
+  actions/cache/save as separate steps). Compared to setup-node's built-in
+  `cache: npm`, this (1) saves the cache as soon as the install has succeeded,
+  so it survives a later job step failing — setup-node only saves in a
+  post-job step gated on `post-if: success()` — and (2) uses restore-keys, so
+  a package-lock.json change gets a partial restore instead of a full registry
+  download (npm's cache is content-addressed, so a stale cache still serves
+  every package the change didn't touch). Also usable in container jobs that
+  have no setup-node at all (the Playwright-image test jobs).
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Resolve npm cache location
+      id: npm-cache-dir
+      shell: bash
+      # npm keeps its cache under $HOME, which differs between host runners
+      # (/home/runner) and the Playwright container jobs (/github/home).
+      # actions/cache archives ~/.npm with absolute paths, so a cache saved by a
+      # host job restores into a directory the container's npm never reads (and
+      # vice versa) — silently defeating the container-caching win. Cache the
+      # resolved directory and fold $HOME into the key so host and container
+      # each keep their own effective cache.
+      run: |
+        dir="$(npm config get cache)"
+        home_tag="${HOME//\//_}"
+        # Echo to the step log too — this step exists to disambiguate the
+        # host/container home split, so make a wrong home visible right here.
+        echo "npm cache dir=$dir home-tag=$home_tag"
+        echo "dir=$dir" >> "$GITHUB_OUTPUT"
+        echo "home-tag=$home_tag" >> "$GITHUB_OUTPUT"
+    - name: Restore npm cache
+      id: npm-cache
+      uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: ${{ steps.npm-cache-dir.outputs.dir }}
+        key: npm-cache-${{ runner.os }}-${{ runner.arch }}-${{ steps.npm-cache-dir.outputs.home-tag }}-${{ hashFiles('package-lock.json') }}
+        restore-keys: |
+          npm-cache-${{ runner.os }}-${{ runner.arch }}-${{ steps.npm-cache-dir.outputs.home-tag }}-
+    - name: Install dependencies
+      shell: bash
+      run: npm ci
+    - name: Save npm cache
+      # Save right here — after a successful install but before the job's real
+      # work — so the cache lands even if a later step fails. Skipped on an
+      # exact key hit (a saved cache is immutable, re-saving is a no-op). On a
+      # restore-keys (partial) hit, cache-hit is 'false' and the topped-up
+      # cache is saved under the new key. When several jobs miss on the same
+      # key at once, they race to save it: the winner uploads, the losers log
+      # an "Unable to reserve cache" warning and move on — harmless.
+      # continue-on-error keeps any other save failure (tar/upload error) from
+      # failing an otherwise-green job — a cache save should never break a check.
+      if: steps.npm-cache.outputs.cache-hit != 'true'
+      continue-on-error: true
+      uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: ${{ steps.npm-cache-dir.outputs.dir }}
+        key: ${{ steps.npm-cache.outputs.cache-primary-key }}
