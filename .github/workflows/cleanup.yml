@@ -15,7 +15,7 @@ jobs:
       with:
         persist-credentials: false
     - uses: ./.github/actions/set-up-node
-    - run: npm ci
+    - uses: ./.github/actions/install-dependencies
     - run: git config --global user.email "93315277+lime-opensource@users.noreply.github.com"
     - run: git config --global user.name "Lime Technologies OSS"
     - name: Remove PR docs

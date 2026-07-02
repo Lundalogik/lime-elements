@@ -71,7 +71,7 @@ jobs:
     - uses: ./.github/actions/set-up-node
       if: steps.download.outcome == 'success' && steps.metadata.outputs.skip != 'true'
 
-    - run: npm ci
+    - uses: ./.github/actions/install-dependencies
       if: steps.download.outcome == 'success' && steps.metadata.outputs.skip != 'true'
 
     - name: Configure git
