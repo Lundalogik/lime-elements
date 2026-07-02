@@ -1,0 +1,40 @@
+name: Verify Playwright container image
+description: >-
+  Fail fast when the pinned mcr.microsoft.com/playwright image has drifted from
+  the project. Two cheap checks:
+  (1) the container's Node major matches .nvmrc — the image's Node and .nvmrc are
+  otherwise decoupled, so a bump to either could silently split them;
+  (2) the Chromium build shipped in the image matches the one @playwright/test
+  expects — on a mismatch the test scripts' own `playwright install chromium`
+  would silently re-download the browser at test time (slow, and without
+  --with-deps), quietly undoing the reason we run inside this image.
+  Run this AFTER `npm ci`: the Chromium check reads playwright-core from
+  node_modules. Assumes the browsers live under /ms-playwright (they do in the
+  official image).
+runs:
+  using: composite
+  steps:
+    - name: Assert container Node major matches .nvmrc
+      shell: bash
+      run: |
+        nvmrc_major=$(sed 's/^v//' .nvmrc | cut -d. -f1)
+        node_major=$(node -p 'process.versions.node.split(".")[0]')
+        if [ "$nvmrc_major" != "$node_major" ]; then
+          echo "::error::Playwright image ships Node $node_major but .nvmrc wants v$nvmrc_major. Bump the image digest/tag or .nvmrc so they share a major."
+          exit 1
+        fi
+        echo "Node major $node_major matches .nvmrc (image: $(node -v))"
+    - name: Assert image Chromium build matches @playwright/test
+      shell: bash
+      run: |
+        # playwright-core pins the exact Chromium build it needs in browsers.json;
+        # the image installs that build at /ms-playwright/chromium-<build>. Reading
+        # browsers.json via the package dir avoids playwright-core's export map,
+        # which blocks a direct `require('playwright-core/browsers.json')`.
+        want=$(node -e "const p=require('path'),fs=require('fs');const root=p.dirname(require.resolve('playwright-core/package.json'));console.log(JSON.parse(fs.readFileSync(p.join(root,'browsers.json'))).browsers.find(b=>b.name==='chromium').revision)")
+        have=$(ls -d /ms-playwright/chromium-* 2>/dev/null | head -1 | sed 's|.*/chromium-||')
+        if [ "$want" != "$have" ]; then
+          echo "::error::@playwright/test expects Chromium build $want but the pinned image ships chromium-${have:-<none>}. Bump the image digest/tag and @playwright/test together."
+          exit 1
+        fi
+        echo "Chromium build $have matches @playwright/test."
