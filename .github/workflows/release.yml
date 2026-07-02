@@ -27,6 +27,22 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
+      # Cache the Sonar downloads (scanner CLI in the runner tool cache, JRE +
+      # analyzers in ~/.sonar/cache). Same key as the PR-checks sonarcloud job,
+      # so releases and PR runs share one cache; a save from main is readable
+      # by every PR. The hashFiles list must stay identical to the one in
+      # pr-checks.yml, or the shared cache silently splits. See pr-checks.yml
+      # for the full rationale.
+      - name: Restore Sonar caches
+        id: sonar-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.sonar/cache
+            ${{ runner.tool_cache }}/sonar-scanner-cli
+          key: sonar-cache-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.github/workflows/pr-checks.yml', '.github/workflows/release.yml') }}
+          restore-keys: |
+            sonar-cache-${{ runner.os }}-${{ runner.arch }}-
       - name: SonarCloud Scan
         id: scan
         # SonarCloud intermittently rejects requests from GitHub-hosted
@@ -40,6 +56,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      # Split save so the downloads are kept even when the scan or the quality
+      # gate fails. Best-effort: never block a release over a cache save.
+      - name: Save Sonar caches
+        if: ${{ !cancelled() && steps.sonar-cache.outputs.cache-hit != 'true' }}
+        continue-on-error: true
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.sonar/cache
+            ${{ runner.tool_cache }}/sonar-scanner-cli
+          key: ${{ steps.sonar-cache.outputs.cache-primary-key }}
       - name: Check quality gate status
         if: steps.scan.outcome == 'failure'
         env:

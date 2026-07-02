@@ -292,11 +292,50 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
+      # Cache the Sonar downloads: the scan action installs the scanner CLI
+      # into the runner tool cache, and the scanner fills ~/.sonar/cache with
+      # the JRE and analyzers at scan time. Both downloads have been flaky in
+      # the past (scanner binaries served from IPs on GitHub's blocklist), so
+      # a cache hit also removes a failure source, not just ~30s of overhead.
+      # The key hashes both workflow files, so it rotates whenever either file
+      # changes (including a scan-action bump, which changes the scanner CLI
+      # version); between rotations the restore-keys prefix serves the newest
+      # saved cache. The hashFiles list must stay identical to the one in
+      # release.yml, or the shared cache silently splits in two.
+      # These caches hold executable content (scanner CLI, JRE, analyzer JARs)
+      # restored without integrity checks; that is safe only because this job's
+      # `head.repo.full_name == github.repository` guard keeps forks — i.e.
+      # untrusted actors — off the write side.
+      - name: Restore Sonar caches
+        id: sonar-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.sonar/cache
+            ${{ runner.tool_cache }}/sonar-scanner-cli
+          key: sonar-cache-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.github/workflows/pr-checks.yml', '.github/workflows/release.yml') }}
+          restore-keys: |
+            sonar-cache-${{ runner.os }}-${{ runner.arch }}-
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@713881670b6b3676cda39549040e2d88c70d582e # v8.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      # Split save (rather than plain actions/cache, whose post-job save is
+      # gated on job success) so the downloads are kept even when the scan
+      # fails — scan failures (quality gate, SonarCloud 403 flakes) say
+      # nothing about the cached files. Best-effort: never fail the job over
+      # a cache save (e.g. paths missing because the scan died before
+      # downloading anything).
+      - name: Save Sonar caches
+        if: ${{ !cancelled() && steps.sonar-cache.outputs.cache-hit != 'true' }}
+        continue-on-error: true
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.sonar/cache
+            ${{ runner.tool_cache }}/sonar-scanner-cli
+          key: ${{ steps.sonar-cache.outputs.cache-primary-key }}
   autosquash:
     name: Block Autosquash Commits
     runs-on: ubuntu-latest
