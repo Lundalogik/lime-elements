@@ -1,3 +1,11 @@
+## [39.39.1](https://github.com/Lundalogik/lime-elements/compare/v39.39.0...v39.39.1) (2026-07-02)
+
+### Bug Fixes
+
+
+* **file-viewer:** avoid rendering two download buttons ([00bd5b5](https://github.com/Lundalogik/lime-elements/commit/00bd5b533d7bd6bdbea8f4d14e8f621f822e962b))
+* **ui-controls:** avoid overlapping buttons ([537fe83](https://github.com/Lundalogik/lime-elements/commit/537fe8360563745dbe528142cb272a42c5054ce6))
+
 ## [39.39.0](https://github.com/Lundalogik/lime-elements/compare/v39.38.1...v39.39.0) (2026-07-02)
 
 ### Features
