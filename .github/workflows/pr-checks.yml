@@ -67,7 +67,7 @@ jobs:
         persist-credentials: false
     # No set-up-node: the image bundles a Node whose major is asserted against
     # .nvmrc by verify-playwright-container (below), so npm ci runs under it.
-    - run: npm ci
+    - uses: ./.github/actions/install-dependencies
     # Fail fast if the pinned image has drifted from the project (Node major vs
     # .nvmrc, and the image's Chromium build vs @playwright/test). See the action.
     - uses: ./.github/actions/verify-playwright-container
@@ -129,7 +129,7 @@ jobs:
         persist-credentials: false
     # No set-up-node: the image bundles a Node whose major is asserted against
     # .nvmrc by verify-playwright-container (below), so npm ci runs under it.
-    - run: npm ci
+    - uses: ./.github/actions/install-dependencies
     # Fail fast if the pinned image has drifted from the project (Node major vs
     # .nvmrc, and the image's Chromium build vs @playwright/test). See the action.
     - uses: ./.github/actions/verify-playwright-container
@@ -184,7 +184,7 @@ jobs:
         persist-credentials: false
     # No set-up-node: the image bundles a Node whose major is asserted against
     # .nvmrc by verify-playwright-container (below), so npm ci runs under it.
-    - run: npm ci
+    - uses: ./.github/actions/install-dependencies
     # Fail fast if the pinned image has drifted from the project (Node major vs
     # .nvmrc, and the image's Chromium build vs @playwright/test). See the action.
     - uses: ./.github/actions/verify-playwright-container
@@ -238,7 +238,7 @@ jobs:
         persist-credentials: false
     # No set-up-node: the image bundles a Node whose major is asserted against
     # .nvmrc by verify-playwright-container (below), so npm ci runs under it.
-    - run: npm ci
+    - uses: ./.github/actions/install-dependencies
     # Fail fast if the pinned image has drifted from the project (Node major vs
     # .nvmrc, and the image's Chromium build vs @playwright/test). See the action.
     - uses: ./.github/actions/verify-playwright-container
