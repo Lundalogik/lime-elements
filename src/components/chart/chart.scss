@@ -7,6 +7,7 @@
 @forward './partial-styles/ring';
 @forward './partial-styles/stacked-bar';
 @forward './partial-styles/nps';
+@forward './partial-styles/scatter';
 @forward './partial-styles/axises';
 @use '../../style/mixins';
 
@@ -16,6 +17,7 @@
 * @prop --chart-item-divider-color: Defines the color that visually separates items in some charts, such as `stacked-bar` chart items. Defaults to `rgb(var(--color-white), 0.6)`.
 * @prop --chart-axis-line-color: Defines color of the axis lines. Defaults to `--contrast-900`. Note that lines have opacity as well, and get opaque on hover.
 * @prop --chart-item-border-radius: Defines the roundness of corners of items in a chart. Defaults to different values depending on the chart type. Does not have any effect on `pie` and `doughnut` types.
+* @prop --chart-scatter-item-size: Defines the diameter of the dots in a `scatter` chart. Defaults to `0.5rem`.
 */
 
 :host(limel-chart) {

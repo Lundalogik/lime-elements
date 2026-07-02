@@ -14,6 +14,10 @@ export interface ChartItem<
 
     /**
      * Value of the item.
+     *
+     * A `[number, number]` tuple is interpreted according to the chart `type`:
+     * for most types it is a value range `[start, end]` (such as a Gantt-style
+     * bar), while for the `scatter` type it is an `[x, y]` coordinate pair.
      */
     value: T;
 

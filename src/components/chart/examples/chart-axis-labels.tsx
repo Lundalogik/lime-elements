@@ -1,19 +1,20 @@
 import { Component, h, Host, State } from '@stencil/core';
 import { LimelSelectCustomEvent, Option } from '@limetech/lime-elements';
 import { chartItems } from './chart-items-with-negative-values';
+import { chartItems as scatterItems } from './chart-items-scatter-negative';
 
 /**
  * Displaying labels
  *
  * The `displayAxisLabels` prop controls the visibility of axis labels
- * for chart types that have X and Y axes (area, bar, line, and dot charts).
+ * for chart types that have X and Y axes (area, bar, line, dot, and scatter charts).
  * When set to `true`, the accessible labels `accessibleValuesLabel` and
  * `accessibleItemsLabel` (or their default translated fallbacks) are displayed to help
  * users understand the scale and values of the data.
  *
  * The `displayItemText` and `displayItemValue` props control the visibility of
  * item texts and values respectively for chart types that have X and Y axes
- * (area, bar, line, and dot charts).
+ * (area, bar, line, dot, and scatter charts).
  * When set to `true`, the texts and values of all chart items are constantly visible.
  *
  * :::note
@@ -39,7 +40,7 @@ export class ChartAxisLabelsExample {
     private displayItemValue = false;
 
     @State()
-    private chartType: 'bar' | 'area' | 'line' | 'dot' = 'bar';
+    private chartType: 'bar' | 'area' | 'line' | 'dot' | 'scatter' = 'bar';
 
     @State()
     private orientation: 'landscape' | 'portrait' = 'landscape';
@@ -49,6 +50,7 @@ export class ChartAxisLabelsExample {
         { text: 'area', value: 'area' },
         { text: 'line', value: 'line' },
         { text: 'dot', value: 'dot' },
+        { text: 'scatter', value: 'scatter' },
     ];
 
     private orientations: Option[] = [
@@ -57,16 +59,24 @@ export class ChartAxisLabelsExample {
     ];
 
     public render() {
+        const isScatter = this.chartType === 'scatter';
+
         return (
             <Host class="large">
                 <limel-chart
                     type={this.chartType}
-                    items={chartItems}
+                    items={isScatter ? scatterItems : chartItems}
                     displayAxisLabels={this.displayAxisLabels}
                     displayItemText={this.displayItemText}
                     displayItemValue={this.displayItemValue}
-                    accessibleValuesLabel="Temperature in Celsius"
-                    accessibleItemsLabel="City"
+                    accessibleValuesLabel={
+                        isScatter
+                            ? 'Profit change (%)'
+                            : 'Temperature in Celsius'
+                    }
+                    accessibleItemsLabel={
+                        isScatter ? 'Revenue change (%)' : 'City'
+                    }
                     orientation={this.orientation}
                 />
                 <limel-example-controls
@@ -127,7 +137,12 @@ export class ChartAxisLabelsExample {
     private handleChartTypeChange = (
         event: LimelSelectCustomEvent<Option<string>>
     ) => {
-        this.chartType = event.detail.value as 'bar' | 'area' | 'line' | 'dot';
+        this.chartType = event.detail.value as
+            | 'bar'
+            | 'area'
+            | 'line'
+            | 'dot'
+            | 'scatter';
     };
 
     private handleDisplayAxisLabelsChange = (event: CustomEvent<boolean>) => {

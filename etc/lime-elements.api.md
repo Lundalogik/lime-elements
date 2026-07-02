@@ -261,6 +261,7 @@ export namespace Components {
         | 'pie'
         | 'ring'
         | 'dot'
+        | 'scatter'
         | 'stacked-bar';
     }
     export interface LimelCheckbox {
@@ -1783,6 +1784,7 @@ export namespace JSX {
         | 'pie'
         | 'ring'
         | 'dot'
+        | 'scatter'
         | 'stacked-bar';
     }
 
@@ -1819,6 +1821,7 @@ export namespace JSX {
         | 'pie'
         | 'ring'
         | 'dot'
+        | 'scatter'
         | 'stacked-bar';
     }
 
