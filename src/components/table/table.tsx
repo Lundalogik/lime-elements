@@ -267,6 +267,26 @@ export class Table {
     private shouldSort = false;
     private hasWarnedOnConflictingMovableAndSortable = false;
 
+    /**
+     * Depth of in-flight `refreshRemotePaginator` round-trips. While
+     * `isRefreshingPaginator` is true, `requestData`/`handleDataSorting` must
+     * not emit `changePage`/`load`, since the round-trip is not a user-initiated
+     * page change and the consumer's page state is authoritative. A counter
+     * rather than a boolean so overlapping refreshes (e.g. `totalRows` and
+     * `pageSize` changing in the same tick) don't clear the guard early.
+     */
+    private paginatorRefreshDepth = 0;
+
+    private get isRefreshingPaginator(): boolean {
+        return this.paginatorRefreshDepth > 0;
+    }
+
+    /**
+     * Page count reflected by the paginator UI at the last refresh. Used to skip
+     * the (row-rebuilding) refresh round-trip when the count hasn't changed.
+     */
+    private lastPaginatorPageCount: number | undefined;
+
     constructor() {
         this.handleDataSorting = this.handleDataSorting.bind(this);
         this.handlePageLoaded = this.handlePageLoaded.bind(this);
@@ -364,7 +384,10 @@ export class Table {
 
             if (shouldReplace) {
                 this.pool.releaseAll();
-                this.tabulator.replaceData(newData);
+                const restoreScroll = this.preserveScroll();
+                this.tabulator
+                    .replaceData(newData)
+                    .then(restoreScroll, () => {});
                 this.setSelection();
 
                 return;
@@ -725,23 +748,33 @@ export class Table {
             return;
         }
 
-        const scrollContainer = this.getRowScrollContainer();
-        const scrollTop = scrollContainer?.scrollTop ?? 0;
-        const scrollLeft = scrollContainer?.scrollLeft ?? 0;
+        const maxPage = this.calculatePageCount();
 
-        // `replaceData` resolves through `requestData`, which rejects when the
-        // component is destroyed, and Tabulator's ajax pipeline can reject too.
-        // Since the watchers call this without awaiting, swallow rejections here
-        // to avoid an unhandled promise rejection.
-        try {
-            await this.tabulator.replaceData();
-        } catch {
+        if (maxPage === this.lastPaginatorPageCount) {
             return;
         }
 
-        if (scrollContainer) {
-            scrollContainer.scrollTop = scrollTop;
-            scrollContainer.scrollLeft = scrollLeft;
+        const restoreScroll = this.preserveScroll();
+
+        const targetPage = Math.min(this.page, Math.max(maxPage, FIRST_PAGE));
+
+        this.paginatorRefreshDepth++;
+        try {
+            await this.tabulator.replaceData();
+            if (this.tabulator.getPage?.() !== targetPage) {
+                await this.tabulator.setPage(targetPage);
+            }
+        } catch {
+            return;
+        } finally {
+            this.paginatorRefreshDepth--;
+        }
+
+        this.lastPaginatorPageCount = maxPage;
+        restoreScroll();
+
+        if (targetPage !== this.page) {
+            this.changePage.emit(targetPage);
         }
     }
 
@@ -751,8 +784,28 @@ export class Table {
      * the table lives on this element's `scrollTop` / `scrollLeft`.
      */
     private getRowScrollContainer(): HTMLElement | null {
-        return (this.host.shadowRoot?.querySelector('.tabulator-tableholder') ??
-            null) as HTMLElement | null;
+        return (this.host?.shadowRoot?.querySelector(
+            '.tabulator-tableholder'
+        ) ?? null) as HTMLElement | null;
+    }
+
+    /**
+     * Snapshot the current scroll position and return a callback that restores
+     * it. Tabulator resets the row container to top-left whenever it rebuilds
+     * all row elements (e.g. `replaceData`), so wrap such operations with this
+     * and invoke the returned callback once the rebuild has settled.
+     */
+    private preserveScroll(): () => void {
+        const scrollContainer = this.getRowScrollContainer();
+        const scrollTop = scrollContainer?.scrollTop ?? 0;
+        const scrollLeft = scrollContainer?.scrollLeft ?? 0;
+
+        return () => {
+            if (scrollContainer) {
+                scrollContainer.scrollTop = scrollTop;
+                scrollContainer.scrollLeft = scrollLeft;
+            }
+        };
     }
 
     private getOptions(): TabulatorOptions {
@@ -877,9 +930,9 @@ export class Table {
         }
 
         const sorters = params.sorters ?? [];
-        const currentPage = params.page ?? FIRST_PAGE;
+        const currentPage = params.page ?? this.page ?? FIRST_PAGE;
 
-        if (this.page !== currentPage) {
+        if (!this.isRefreshingPaginator && this.page !== currentPage) {
             this.changePage.emit(currentPage);
         }
 
@@ -905,7 +958,7 @@ export class Table {
               })
             : Promise.resolve(this.data);
 
-        if (!isEqual(this.currentLoad, load)) {
+        if (!this.isRefreshingPaginator && !isEqual(this.currentLoad, load)) {
             this.currentSorting = columnSorters;
             this.currentLoad = load;
             this.load.emit(load);
@@ -930,7 +983,10 @@ export class Table {
                 sorters: columnSorters,
             };
 
-            if (!isEqual(this.currentLoad, load)) {
+            if (
+                !this.isRefreshingPaginator &&
+                !isEqual(this.currentLoad, load)
+            ) {
                 this.currentSorting = columnSorters;
                 this.currentLoad = load;
                 this.load.emit(load);
