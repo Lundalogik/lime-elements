@@ -49,6 +49,10 @@ const DEFAULT_FILE_CHIP: Chip = {
  * @exampleComponent limel-example-file-basic
  * @exampleComponent limel-example-file-custom-icon
  * @exampleComponent limel-example-file-size-badge
+ * @exampleComponent limel-example-file-loading
+ * @exampleComponent limel-example-file-per-file-loading
+ * @exampleComponent limel-example-file-per-file-progress
+ * @exampleComponent limel-example-file-invalid
  * @exampleComponent limel-example-file-menu-items
  * @exampleComponent limel-example-file-accepted-types
  * @exampleComponent limel-example-file-composite
@@ -70,6 +74,13 @@ export class File {
      */
     @Prop({ reflect: true })
     public label: string;
+
+    /**
+     * Optional helper text to display below the component. When the component
+     * is `invalid`, it is rendered as an error message.
+     */
+    @Prop({ reflect: true })
+    public helperText: string;
 
     /**
      * Set to `true` to indicate that the field is required.
@@ -98,6 +109,14 @@ export class File {
     public invalid = false;
 
     /**
+     * Set to `true` to put the component in the `loading` state, and render an
+     * indeterminate progress indicator. This does _not_ disable the
+     * interactivity of the component!
+     */
+    @Prop({ reflect: true })
+    public loading = false;
+
+    /**
      * The [accepted file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers)
      */
     @Prop({ reflect: true })
@@ -123,7 +142,7 @@ export class File {
 
     public render() {
         return (
-            <Host>
+            <Host aria-busy={this.isLoading ? 'true' : 'false'}>
                 <limel-file-dropzone
                     disabled={this.disabled || this.readonly || !!this.value}
                     accept={this.accept}
@@ -132,12 +151,25 @@ export class File {
                     {this.renderChipset()}
                 </limel-file-dropzone>
                 {this.renderDragAndDropTip()}
+                {this.renderSpinner()}
             </Host>
         );
     }
 
+    private get isLoading(): boolean {
+        return this.loading || Boolean(this.value?.loading);
+    }
+
+    private renderSpinner() {
+        if (!this.isLoading) {
+            return;
+        }
+
+        return <limel-spinner />;
+    }
+
     private renderDragAndDropTip() {
-        if (this.value || this.disabled || this.readonly) {
+        if (this.value || this.disabled || this.readonly || this.isLoading) {
             return;
         }
 
@@ -184,6 +216,9 @@ export class File {
                 badge: badge,
                 href: this.value.href,
                 menuItems: this.value.menuItems,
+                loading: this.value.loading,
+                progress: this.value.progress,
+                invalid: this.value.invalid,
             },
         ];
     }
@@ -195,6 +230,7 @@ export class File {
                 readonly={this.readonly}
                 invalid={this.invalid}
                 label={this.label}
+                helperText={this.helperText}
                 leadingIcon="upload_to_cloud"
                 language={this.language}
                 onChange={this.handleChipSetChange}

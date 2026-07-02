@@ -66,6 +66,7 @@ function isChipAnnotatedEvent(
  * @exampleComponent limel-example-chip-set-filter-badge
  * @exampleComponent limel-example-chip-set-input
  * @exampleComponent limel-example-chip-set-invalid-chips
+ * @exampleComponent limel-example-chip-set-progress
  * @exampleComponent limel-example-chip-set-input-type-with-menu-items
  * @exampleComponent limel-example-chip-set-input-type-text
  * @exampleComponent limel-example-chip-set-input-type-search
@@ -665,6 +666,7 @@ export class ChipSet {
             selected: chip.selected,
             disabled: this.disabled,
             loading: chip.loading,
+            progress: chip.progress,
             invalid: chip.invalid,
             readonly: readonly,
             type: chipType,

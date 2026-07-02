@@ -92,6 +92,7 @@ export interface Chip<T = any> {
     invalid?: boolean;
     loading?: boolean;
     menuItems?: Array<MenuItem | ListSeparator>;
+    progress?: number;
     removable?: boolean;
     selected?: boolean;
     text: string;
@@ -450,9 +451,11 @@ export namespace Components {
     export interface LimelFile {
         "accept": string;
         "disabled": boolean;
+        "helperText": string;
         "invalid": boolean;
         "label": string;
         "language": Languages;
+        "loading": boolean;
         "readonly": boolean;
         "required": boolean;
         "value": FileInfo;
@@ -1112,8 +1115,11 @@ export interface FileInfo {
     // @deprecated
     iconColor?: Color;
     id: number | string;
+    invalid?: boolean;
     lastModified?: Date;
+    loading?: boolean;
     menuItems?: Array<MenuItem | ListSeparator>;
+    progress?: number;
     size?: number;
 }
 
@@ -2351,9 +2357,11 @@ export namespace JSX {
     export interface LimelFile {
         "accept"?: string;
         "disabled"?: boolean;
+        "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
         "language"?: Languages;
+        "loading"?: boolean;
         "onChange"?: (event: LimelFileCustomEvent<FileInfo>) => void;
         "onInteract"?: (event: LimelFileCustomEvent<number | string>) => void;
         "readonly"?: boolean;
@@ -2368,11 +2376,15 @@ export namespace JSX {
         // (undocumented)
         "disabled": boolean;
         // (undocumented)
+        "helperText": string;
+        // (undocumented)
         "invalid": boolean;
         // (undocumented)
         "label": string;
         // (undocumented)
         "language": Languages;
+        // (undocumented)
+        "loading": boolean;
         // (undocumented)
         "readonly": boolean;
         // (undocumented)

@@ -88,4 +88,23 @@ export interface FileInfo {
      * Custom menu items for the file.
      */
     menuItems?: Array<MenuItem | ListSeparator>;
+
+    /**
+     * Set to `true` to put the file in a `loading` state, rendering an
+     * indeterminate progress indicator on it. This also puts the parent
+     * component into its loading state.
+     */
+    loading?: boolean;
+
+    /**
+     * Reflects the progress of an ongoing process on the file, such as an
+     * upload, as a percentage. Must be a number between `0` and `100`.
+     */
+    progress?: number;
+
+    /**
+     * Set to `true` to mark the file as invalid, rendering it in an error
+     * state. This is independent of the component's own `invalid` state.
+     */
+    invalid?: boolean;
 }
