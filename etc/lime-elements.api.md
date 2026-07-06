@@ -458,6 +458,8 @@ export namespace Components {
         "loading": boolean;
         "readonly": boolean;
         "required": boolean;
+        // @beta
+        "resizeImage"?: ResizeOptions;
         "value": FileInfo;
     }
     // @internal
@@ -2393,6 +2395,8 @@ export namespace JSX {
         "onInteract"?: (event: LimelFileCustomEvent<number | string>) => void;
         "readonly"?: boolean;
         "required"?: boolean;
+        // @beta
+        "resizeImage"?: ResizeOptions;
         "value"?: FileInfo;
     }
 
