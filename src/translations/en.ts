@@ -30,6 +30,7 @@ export default {
     'snackbar.dismiss': 'Dismiss',
     'file.drag-and-drop-tips':
         'Drag & drop your file here, or click to browse.',
+    'file.optimizing': 'Optimizing…',
     'file-viewer.message.unsupported-filetype':
         'Cannot display a preview for this file type.',
     'file-viewer.message.try-other-options':

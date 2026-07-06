@@ -31,6 +31,7 @@ export default {
     'snackbar.dismiss': 'Sulje',
     'file.drag-and-drop-tips':
         'Vedä & pudota tiedostosi tähän, tai napsauta selataksesi.',
+    'file.optimizing': 'Optimoidaan…',
     'file-viewer.message.unsupported-filetype':
         'Esikatselua ei voi näyttää tälle tiedostotyypille.',
     'file-viewer.message.try-other-options':

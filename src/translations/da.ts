@@ -31,6 +31,7 @@ export default {
     'snackbar.dismiss': 'Luk',
     'file.drag-and-drop-tips':
         'Træk & slip filen her, eller klik for at gennemse.',
+    'file.optimizing': 'Optimerer…',
     'file-viewer.message.unsupported-filetype':
         'Kan ikke vise en forhåndsvisning af denne filtype.',
     'file-viewer.message.try-other-options':
