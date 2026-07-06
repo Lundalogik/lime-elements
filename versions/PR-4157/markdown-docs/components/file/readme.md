@@ -69,6 +69,7 @@ and similar phrases...
  - [limel-example-file-per-file-invalid](examples)
  - [limel-example-file-per-file-loading](examples)
  - [limel-example-file-per-file-progress](examples)
+ - [limel-example-file-per-file-status](examples)
  - [limel-example-file-size-badge](examples)
  - [limel-example-file-viewer-with-picker](../file-viewer/examples)
 
@@ -122,6 +123,7 @@ graph TD;
   limel-example-file-per-file-invalid --> limel-file
   limel-example-file-per-file-loading --> limel-file
   limel-example-file-per-file-progress --> limel-file
+  limel-example-file-per-file-status --> limel-file
   limel-example-file-size-badge --> limel-file
   limel-example-file-viewer-with-picker --> limel-file
   style limel-file fill:#f9f,stroke:#333,stroke-width:4px
