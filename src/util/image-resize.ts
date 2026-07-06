@@ -110,10 +110,18 @@
  * @beta
  */
 export type ResizeOptions = {
-    /** Target width in CSS pixels. */
-    width: number;
-    /** Target height in CSS pixels. */
-    height: number;
+    /**
+     * Target width in CSS pixels. Omit to derive it from `height` while
+     * preserving the source aspect ratio; omit both `width` and `height` to
+     * keep the source dimensions and only re-encode.
+     */
+    width?: number;
+    /**
+     * Target height in CSS pixels. Omit to derive it from `width` while
+     * preserving the source aspect ratio; omit both `width` and `height` to
+     * keep the source dimensions and only re-encode.
+     */
+    height?: number;
     /** Fit strategy; defaults to 'cover'. */
     fit?: 'cover' | 'contain';
     /** Output MIME type; 'image/jpeg' by default. */
@@ -144,8 +152,6 @@ export async function resizeImage(
     options: ResizeOptions
 ): Promise<File> {
     const {
-        width,
-        height,
         fit = 'cover',
         type = 'image/jpeg',
         quality = 0.85,
@@ -153,9 +159,18 @@ export async function resizeImage(
     } = options;
 
     const source = await loadSource(file);
+    const sourceWidth = source.width;
+    const sourceHeight = source.height;
+    const { width, height } = resolveTargetSize(
+        sourceWidth,
+        sourceHeight,
+        options.width,
+        options.height
+    );
+
     const { sx, sy, sw, sh, dx, dy, dw, dh } = computeRects(
-        source.width as number,
-        source.height as number,
+        sourceWidth,
+        sourceHeight,
         width,
         height,
         fit
@@ -169,6 +184,53 @@ export async function resizeImage(
     const blob = await canvasToBlob(canvas, type, quality);
     const name = rename(file.name);
     return new File([blob], name, { type });
+}
+
+/**
+ * Resolve the target dimensions from the requested options, falling back to the
+ * source. A missing dimension is derived from the given one to preserve the
+ * source aspect ratio; when both are missing the source size is kept, so the
+ * image is only re-encoded. Non-positive requests are treated as missing.
+ *
+ * @param sourceWidth - Decoded source width
+ * @param sourceHeight - Decoded source height
+ * @param width - Requested target width, if any
+ * @param height - Requested target height, if any
+ */
+function resolveTargetSize(
+    sourceWidth: number,
+    sourceHeight: number,
+    width?: number,
+    height?: number
+): { width: number; height: number } {
+    // A dimension counts as "requested" only when it's a positive number;
+    // `undefined`, `0`, negatives and `NaN` are all treated as missing.
+    const hasWidth = typeof width === 'number' && width > 0;
+    const hasHeight = typeof height === 'number' && height > 0;
+
+    // Both requested: use them as-is.
+    if (hasWidth && hasHeight) {
+        return { width, height };
+    }
+
+    // Only width requested: derive the height to keep the aspect ratio.
+    if (hasWidth) {
+        return {
+            width,
+            height: Math.round(width * (sourceHeight / sourceWidth)),
+        };
+    }
+
+    // Only height requested: derive the width to keep the aspect ratio.
+    if (hasHeight) {
+        return {
+            width: Math.round(height * (sourceWidth / sourceHeight)),
+            height,
+        };
+    }
+
+    // Neither requested: keep the source size and only re-encode.
+    return { width: sourceWidth, height: sourceHeight };
 }
 
 /** Whether OffscreenCanvas is available in the current environment. */

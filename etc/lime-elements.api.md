@@ -4401,8 +4401,8 @@ export function resizeImage(file: File, options: ResizeOptions): Promise<File>;
 
 // @beta
 export type ResizeOptions = {
-    width: number;
-    height: number;
+    width?: number;
+    height?: number;
     fit?: 'cover' | 'contain';
     type?: 'image/jpeg' | 'image/png';
     quality?: number;
