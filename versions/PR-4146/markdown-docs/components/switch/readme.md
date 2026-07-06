@@ -57,6 +57,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-chip-set-filter](../chip-set/examples)
  - [limel-example-chip-set-filter-badge](../chip-set/examples)
  - [limel-example-chip-set-input](../chip-set/examples)
+ - [limel-example-code-diff-interactive](../code-diff/examples)
  - [limel-example-code-diff-line-wrap](../code-diff/examples)
  - [limel-example-code-editor-composite](../code-editor/examples)
  - [limel-example-code-editor-copy](../code-editor/examples)
@@ -64,6 +65,10 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-dynamic-label-basic](../dynamic-label/examples)
  - [limel-example-dynamic-label-readonly-boolean](../dynamic-label/examples)
  - [limel-example-file-basic](../file/examples)
+ - [limel-example-file-loading](../file/examples)
+ - [limel-example-file-per-file-invalid](../file/examples)
+ - [limel-example-file-per-file-loading](../file/examples)
+ - [limel-example-file-size-badge](../file/examples)
  - [limel-example-form-span-fields](../form/examples)
  - [limel-example-icon-button-composite](../icon-button/examples)
  - [limel-example-info-tile-loading](../info-tile/examples)
@@ -134,6 +139,7 @@ graph TD;
   limel-example-chip-set-filter --> limel-switch
   limel-example-chip-set-filter-badge --> limel-switch
   limel-example-chip-set-input --> limel-switch
+  limel-example-code-diff-interactive --> limel-switch
   limel-example-code-diff-line-wrap --> limel-switch
   limel-example-code-editor-composite --> limel-switch
   limel-example-code-editor-copy --> limel-switch
@@ -141,6 +147,10 @@ graph TD;
   limel-example-dynamic-label-basic --> limel-switch
   limel-example-dynamic-label-readonly-boolean --> limel-switch
   limel-example-file-basic --> limel-switch
+  limel-example-file-loading --> limel-switch
+  limel-example-file-per-file-invalid --> limel-switch
+  limel-example-file-per-file-loading --> limel-switch
+  limel-example-file-size-badge --> limel-switch
   limel-example-form-span-fields --> limel-switch
   limel-example-icon-button-composite --> limel-switch
   limel-example-info-tile-loading --> limel-switch
