@@ -1,3 +1,10 @@
+## [39.40.0](https://github.com/Lundalogik/lime-elements/compare/v39.39.1...v39.40.0) (2026-07-06)
+
+### Features
+
+
+* **file:** add per-file statusText with accessible live region ([7b1b305](https://github.com/Lundalogik/lime-elements/commit/7b1b30527bef921ff9164908b6c37c18685ce348))
+
 ## [39.39.1](https://github.com/Lundalogik/lime-elements/compare/v39.39.0...v39.39.1) (2026-07-02)
 
 ### Bug Fixes
