@@ -10,6 +10,10 @@ import {
 } from '../../util/file-metadata';
 import { FileInfo } from '../../global/shared-types/file.types';
 import { formatBytes } from '../../util/format-bytes';
+import {
+    resizeImage as resizeImageFile,
+    ResizeOptions,
+} from '../../util/image-resize';
 
 const DEFAULT_FILE_CHIP: Chip = {
     id: null,
@@ -56,6 +60,8 @@ const DEFAULT_FILE_CHIP: Chip = {
  * @exampleComponent limel-example-file-per-file-status
  * @exampleComponent limel-example-file-menu-items
  * @exampleComponent limel-example-file-accepted-types
+ * @exampleComponent limel-example-file-resize-image
+ * @exampleComponent limel-example-file-resize-mixed
  * @exampleComponent limel-example-file-composite
  */
 @Component({
@@ -121,6 +127,16 @@ export class File {
      */
     @Prop({ reflect: true })
     public accept: string = '*';
+
+    /**
+     * Optional client-side image resize, applied before the `change` event is
+     * emitted: a selected image is downscaled and re-encoded on the user's
+     * device. Only decodable raster images are resized; all other files pass
+     * through unchanged. See the examples for details and caveats.
+     * @beta
+     */
+    @Prop()
+    public resizeImage?: ResizeOptions;
 
     /**
      * Defines the localisation for translations.
@@ -201,10 +217,49 @@ export class File {
         return this.getTranslation('file.drag-and-drop-tips');
     };
 
-    private handleNewFiles = (event: CustomEvent<FileInfo[]>) => {
+    private handleNewFiles = async (event: CustomEvent<FileInfo[]>) => {
         this.preventAndStop(event);
-        this.change.emit(event.detail[0]);
+
+        const file = event.detail[0];
+        let out = file;
+        const content = file?.fileContent;
+
+        // `instanceof Blob` (not `File`) guards against a value with no real
+        // binary and narrows to the DOM file type; `File` here is the class.
+        if (
+            this.resizeImage &&
+            content instanceof Blob &&
+            this.isResizableImage(content)
+        ) {
+            try {
+                const processed = await resizeImageFile(
+                    content,
+                    this.resizeImage
+                );
+                out = {
+                    ...file,
+                    filename: processed.name,
+                    size: processed.size,
+                    contentType: processed.type,
+                    fileContent: processed,
+                };
+            } catch {
+                // Best-effort: on any decode or encode failure emit the
+                // original file unchanged.
+            }
+        }
+
+        this.change.emit(out);
     };
+
+    // Cheap pre-filter; the decode inside `resizeImage` is the authoritative
+    // check and throws (caught above) for anything that does not decode.
+    private isResizableImage(file: Blob): boolean {
+        return (
+            Boolean(file.type?.startsWith('image/')) &&
+            file.type !== 'image/svg+xml'
+        );
+    }
 
     private getChipArray(): Chip[] {
         if (!this.value) {

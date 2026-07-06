@@ -1,0 +1,33 @@
+@use '../../../style/mixins';
+
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+limel-example-controls {
+    --example-controls-max-columns-width: 10rem;
+    gap: 1rem;
+    padding-top: 0.5rem;
+    margin-top: 0;
+}
+
+h4 {
+    font-weight: 600;
+    margin: 0;
+}
+
+.preview {
+    min-height: 10rem;
+    border-radius: 0.5rem;
+    padding: 1rem;
+
+    text-align: center;
+    @include mixins.add-chessboard-background();
+
+    img {
+        box-shadow: var(--shadow-depth-16), var(--shadow-depth-64);
+        max-width: 100%;
+    }
+}
