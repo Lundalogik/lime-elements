@@ -34,7 +34,10 @@
 
  - [limel-example-card-nested-component](../card/examples)
  - [limel-example-chip-progress](../chip/examples)
+ - [limel-example-chip-set-progress](../chip-set/examples)
  - [limel-example-collapsible-section-with-slider](../collapsible-section/examples)
+ - [limel-example-file-per-file-progress](../file/examples)
+ - [limel-example-file-per-file-status](../file/examples)
  - [limel-example-slider-basic](examples)
  - [limel-example-slider-composite](examples)
  - [limel-example-slider-multiplier](examples)
@@ -54,7 +57,10 @@ graph TD;
   limel-slider --> limel-notched-outline
   limel-example-card-nested-component --> limel-slider
   limel-example-chip-progress --> limel-slider
+  limel-example-chip-set-progress --> limel-slider
   limel-example-collapsible-section-with-slider --> limel-slider
+  limel-example-file-per-file-progress --> limel-slider
+  limel-example-file-per-file-status --> limel-slider
   limel-example-slider-basic --> limel-slider
   limel-example-slider-composite --> limel-slider
   limel-example-slider-multiplier --> limel-slider
