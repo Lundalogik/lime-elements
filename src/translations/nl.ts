@@ -30,6 +30,7 @@ export default {
     'snackbar.dismiss': 'Sluiten',
     'file.drag-and-drop-tips':
         'Sleep een bestand hierheen of klik om te bladeren.',
+    'file.optimizing': 'Optimaliseren…',
     'file-viewer.message.unsupported-filetype':
         'Kan geen voorbeeld weergeven voor dit bestandstype.',
     'file-viewer.message.try-other-options':

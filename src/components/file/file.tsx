@@ -1,7 +1,16 @@
 import translate from '../../global/translations';
 import { Chip } from '../chip-set/chip.types';
 import { Languages } from '../date-picker/date.types';
-import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
+import {
+    Component,
+    Event,
+    EventEmitter,
+    h,
+    Host,
+    Prop,
+    State,
+    Watch,
+} from '@stencil/core';
 import {
     getFileBackgroundColor,
     getFileColor,
@@ -156,11 +165,33 @@ export class File {
     @Event()
     private interact: EventEmitter<number | string>;
 
+    /**
+     * The selected file held while it is being resized, shown as a chip with a
+     * loading badge so the field is not idle during the resize.
+     */
+    @State()
+    private resizingFile?: FileInfo;
+
+    /** The committed `value`, or the file currently being resized. */
+    private get displayedFile(): FileInfo | undefined {
+        return this.value ?? this.resizingFile;
+    }
+
+    // Clear the transient file once `value` reflects the selection, keeping the
+    // same chip mounted across the hand-off (see file.spec.tsx) so only its
+    // badge changes instead of the field flashing empty.
+    @Watch('value')
+    protected handleValueChange() {
+        this.resizingFile = undefined;
+    }
+
     public render() {
         return (
             <Host aria-busy={this.isBusy ? 'true' : 'false'}>
                 <limel-file-dropzone
-                    disabled={this.disabled || this.readonly || !!this.value}
+                    disabled={
+                        this.disabled || this.readonly || !!this.displayedFile
+                    }
                     accept={this.accept}
                     onFilesSelected={this.handleNewFiles}
                 >
@@ -173,7 +204,7 @@ export class File {
     }
 
     private get statusText(): string {
-        return this.value?.statusText?.trim() ?? '';
+        return this.displayedFile?.statusText?.trim() ?? '';
     }
 
     /**
@@ -185,8 +216,8 @@ export class File {
     private get isBusy(): boolean {
         return (
             this.loading ||
-            Boolean(this.value?.loading) ||
-            this.value?.progress !== undefined
+            Boolean(this.displayedFile?.loading) ||
+            this.displayedFile?.progress !== undefined
         );
     }
 
@@ -199,7 +230,12 @@ export class File {
     }
 
     private renderDragAndDropTip() {
-        if (this.value || this.disabled || this.readonly || this.isBusy) {
+        if (
+            this.displayedFile ||
+            this.disabled ||
+            this.readonly ||
+            this.isBusy
+        ) {
             return;
         }
 
@@ -231,6 +267,17 @@ export class File {
             content instanceof Blob &&
             this.isResizableImage(content)
         ) {
+            // Show the selected file with a loading badge while it resizes.
+            // This object doubles as the in-flight token: if it is cleared or
+            // replaced during the await (e.g. the file is removed), the resize
+            // result is stale and must be dropped.
+            const pending: FileInfo = {
+                ...file,
+                loading: true,
+                statusText: this.getTranslation('file.optimizing'),
+            };
+            this.resizingFile = pending;
+
             try {
                 const processed = await resizeImageFile(
                     content,
@@ -247,6 +294,15 @@ export class File {
                 // Best-effort: on any decode or encode failure emit the
                 // original file unchanged.
             }
+
+            // Bail if the selection changed while we were resizing, so a
+            // removed or superseded file is neither re-shown nor re-emitted.
+            if (this.resizingFile !== pending) {
+                return;
+            }
+
+            // Keep the result on the same chip until `value` catches up.
+            this.resizingFile = out;
         }
 
         this.change.emit(out);
@@ -262,27 +318,28 @@ export class File {
     }
 
     private getChipArray(): Chip[] {
-        if (!this.value) {
+        const file = this.displayedFile;
+        if (!file) {
             return [];
         }
 
         return [
             {
                 ...DEFAULT_FILE_CHIP,
-                text: this.value.filename,
-                id: this.value.id,
+                text: file.filename,
+                id: file.id,
                 icon: {
-                    name: getFileIcon(this.value),
-                    title: getFileExtensionTitle(this.value),
-                    color: getFileColor(this.value),
-                    backgroundColor: getFileBackgroundColor(this.value),
+                    name: getFileIcon(file),
+                    title: getFileExtensionTitle(file),
+                    color: getFileColor(file),
+                    backgroundColor: getFileBackgroundColor(file),
                 },
                 badge: this.getBadge(),
-                href: this.value.href,
-                menuItems: this.value.menuItems,
-                loading: this.value.loading,
-                progress: this.value.progress,
-                invalid: this.value.invalid,
+                href: file.href,
+                menuItems: file.menuItems,
+                loading: file.loading,
+                progress: file.progress,
+                invalid: file.invalid,
             },
         ];
     }
@@ -292,8 +349,8 @@ export class File {
             return this.statusText;
         }
 
-        if (typeof this.value.size === 'number') {
-            return formatBytes(this.value.size);
+        if (typeof this.displayedFile?.size === 'number') {
+            return formatBytes(this.displayedFile.size);
         }
 
         return undefined;
@@ -335,6 +392,13 @@ export class File {
         event.stopPropagation();
         const file = event.detail.length === 0 ? event.detail[0] : null;
         if (!file) {
+            // Removing the chip cancels any in-flight resize: drop the
+            // transient so the chip disappears immediately, and the token
+            // guard in `handleNewFiles` discards the resize result instead of
+            // re-emitting the removed file once it finishes. Without this, a
+            // removal during resize is swallowed, because `value` is already
+            // `undefined` so the `@Watch('value')` clear never fires.
+            this.resizingFile = undefined;
             this.change.emit(file);
         }
     };

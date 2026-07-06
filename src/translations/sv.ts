@@ -31,6 +31,7 @@ export default {
     'snackbar.dismiss': 'Stäng',
     'file.drag-and-drop-tips':
         'Dra & släpp filen här eller klicka om du vill bläddra.',
+    'file.optimizing': 'Optimerar…',
     'file-viewer.message.unsupported-filetype':
         'Kan inte visa en förhandsvisning för denna filtyp.',
     'file-viewer.message.try-other-options':

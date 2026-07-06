@@ -31,6 +31,7 @@ export default {
     'snackbar.dismiss': 'Schließen',
     'file.drag-and-drop-tips':
         'Ziehen Sie Ihre Datei hierher oder klicken Sie, um zu durchsuchen.',
+    'file.optimizing': 'Optimieren…',
     'file-viewer.message.unsupported-filetype':
         'Für diesen Dateityp kann keine Vorschau angezeigt werden.',
     'file-viewer.message.try-other-options':
