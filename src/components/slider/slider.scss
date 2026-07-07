@@ -174,24 +174,20 @@ input[type='range'] {
     }
 }
 
-.slider.is-empty {
-    // When the slider is unset, the thumb rests in the middle of the track (like
-    // a native range input with no value), but it must not read as a real
-    // selection. So we suppress the active fill, center the thumb, and mute the
-    // knob and value indicator, whose `?` (see the TSX) replaces the number.
+:host(.is-unset) {
+    // When the slider is unset, the thumb is centered and the track shows no
+    // fill, so it doesn't read as a real selection (the `?` indicator — see the
+    // TSX — replaces the number). The native input's value still rests at the
+    // step-aligned midpoint (see `getRestingDisplayValue`) so both arrow-key
+    // directions are live; the thumb is centered here with `left: 50%` because a
+    // midpoint that isn't a whole step (e.g. a 4-stop range) would otherwise sit
+    // slightly off-center.
+    .track .active {
+        width: 0;
+    }
 
     .thumb {
         left: 50%;
-    }
-
-    .knob {
-        &:before {
-            // Without opacity, the arrow pointing left which is
-            // displayed when knob is hovered won't show up.
-            // It's needed when the value is not 0, or when
-            // the knob is centered, and there is no value.
-            opacity: 1;
-        }
     }
 }
 

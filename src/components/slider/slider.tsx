@@ -147,15 +147,16 @@ export class Slider {
 
     /**
      * `true` while the slider has no value set. Kept separate from the `value`
-     * prop so that the empty state survives the brief window during dragging
+     * prop so that the unset state survives the brief window during dragging
      * where the value has not yet been emitted back to the consumer.
      */
     @State()
-    private isEmpty: boolean;
+    private isUnset: boolean;
 
     private labelId: string;
     private helperTextId: string;
-    private clearButtonId: string;
+    private readonly clearButtonId: string;
+    private inputElement?: HTMLInputElement;
 
     public constructor() {
         this.labelId = createRandomString();
@@ -190,12 +191,12 @@ export class Slider {
                     invalid={this.invalid}
                     disabled={this.disabled}
                     readonly={this.readonly}
-                    hasValue={!this.isEmpty}
+                    hasValue={!this.isUnset}
                     hasFloatingLabel={true}
                 >
                     <div slot="content">
                         <div
-                            class={{ slider: true, 'is-empty': this.isEmpty }}
+                            class="slider"
                             style={{ '--slider-fraction': `${fraction}` }}
                         >
                             <input
@@ -210,13 +211,16 @@ export class Slider {
                                         : undefined
                                 }
                                 aria-valuetext={
-                                    this.isEmpty
+                                    this.isUnset
                                         ? translate.get(
                                               'value-not-set',
                                               this.language
                                           )
                                         : undefined
                                 }
+                                ref={(el?: HTMLInputElement) => {
+                                    this.inputElement = el;
+                                }}
                                 onInput={this.handleInput}
                                 onChange={this.handleChange}
                                 {...inputProps}
@@ -228,7 +232,9 @@ export class Slider {
                             <div class="thumb">
                                 <div class="knob" />
                                 <div class="indicator" aria-hidden="true">
-                                    {this.isEmpty ? '?' : this.displayValue}
+                                    {this.isUnset
+                                        ? '\u2194\uFE0E'
+                                        : this.displayValue}
                                 </div>
                             </div>
                         </div>
@@ -255,10 +261,22 @@ export class Slider {
         this.syncStateFromValue();
     }
 
-    private syncStateFromValue = () => {
-        this.isEmpty = this.isUnset();
-        this.displayValue = this.multiplyByFactor(this.getValue());
+    private readonly syncStateFromValue = () => {
+        if (!Number.isFinite(this.value)) {
+            this.enterUnsetState();
+
+            return;
+        }
+
+        this.isUnset = false;
+        this.displayValue = this.multiplyByFactor(this.value);
         this.setPercentageClass(this.getValue());
+    };
+
+    private readonly enterUnsetState = () => {
+        this.isUnset = true;
+        this.displayValue = this.getRestingDisplayValue();
+        this.percentageClass = undefined;
     };
 
     private renderStepDots = (min: number, max: number) => {
@@ -289,7 +307,7 @@ export class Slider {
         );
     };
 
-    private renderClearButton = () => {
+    private readonly renderClearButton = () => {
         // A required slider must hold a value, so it offers no way to clear it.
         if (this.readonly || this.required) {
             return;
@@ -308,7 +326,7 @@ export class Slider {
                 class="clear-button"
                 aria-label={label}
                 onClick={this.handleClear}
-                disabled={this.isEmpty || this.disabled}
+                disabled={this.isUnset || this.disabled}
             >
                 <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
                     <path d="M7.219 5.781L5.78 7.22 14.563 16 5.78 24.781 7.22 26.22 16 17.437l8.781 8.782 1.438-1.438L17.437 16l8.782-8.781L24.78 5.78 16 14.563z" />
@@ -322,7 +340,7 @@ export class Slider {
         event.stopPropagation();
         const input = event.target as HTMLInputElement;
         const value = Number(input.value);
-        this.isEmpty = false;
+        this.isUnset = false;
         this.displayValue = value;
         this.setPercentageClass(value / this.factor);
     };
@@ -340,15 +358,25 @@ export class Slider {
         this.change.emit(value / this.factor);
     };
 
-    private handleClear = (event: MouseEvent) => {
+    private readonly handleClear = (event: MouseEvent) => {
         event.stopPropagation();
-        this.isEmpty = true;
-        this.displayValue = this.multiplyByFactor(this.valuemin);
-        this.percentageClass = undefined;
+        this.enterUnsetState();
         this.change.emit(Number.NaN);
+
+        // Move focus to the slider itself so keyboard users can immediately
+        // set a new value, and so assistive tech announces the now-unset state
+        // instead of focus falling to the body when the button self-disables.
+        this.inputElement?.focus();
     };
 
     private getContainerClassList = () => {
+        return {
+            'is-unset': this.isUnset,
+            ...this.getPercentageClassList(),
+        };
+    };
+
+    private readonly getPercentageClassList = () => {
         if (!this.percentageClass) {
             return {};
         }
@@ -371,8 +399,19 @@ export class Slider {
         return value;
     };
 
-    private isUnset = (): boolean => {
-        return !Number.isFinite(this.value);
+    /**
+     * The display value the thumb rests at while unset: the midpoint of the
+     * range, so both arrow-key directions are live (unlike anchoring at the
+     * minimum). Aligned to the step — native range inputs default to a step of
+     * 1 — so it matches a real input value and the first key press doesn't jump.
+     */
+    private readonly getRestingDisplayValue = (): number => {
+        const min = this.multiplyByFactor(this.valuemin);
+        const max = this.multiplyByFactor(this.valuemax);
+        const midpoint = (min + max) / 2;
+        const step = this.step ? this.multiplyByFactor(this.step) : 1;
+
+        return min + Math.round((midpoint - min) / step) * step;
     };
 
     private getFraction = (): number => {
@@ -390,7 +429,7 @@ export class Slider {
     };
 
     private setPercentageClass = (value: number) => {
-        if (this.isEmpty) {
+        if (this.isUnset) {
             this.percentageClass = undefined;
 
             return;
