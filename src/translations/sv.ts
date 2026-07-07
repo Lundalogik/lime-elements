@@ -1,4 +1,7 @@
 export default {
+    'clear-value': 'Rensa värde',
+    'clear-value-of': 'Rensa värdet för { label }',
+    'value-not-set': 'Värde inte angivet',
     remove: 'Ta bort',
     save: 'Spara',
     cancel: 'Avbryt',

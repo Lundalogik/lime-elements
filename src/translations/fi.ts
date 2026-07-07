@@ -1,4 +1,7 @@
 export default {
+    'clear-value': 'Tyhjennä arvo',
+    'clear-value-of': 'Tyhjennä kentän { label } arvo',
+    'value-not-set': 'Arvoa ei asetettu',
     remove: 'Poista',
     save: 'Tallenna',
     cancel: 'Peruuta',
