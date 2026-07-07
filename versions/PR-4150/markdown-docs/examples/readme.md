@@ -75,6 +75,7 @@ The component automatically formats different value types:
  - [limel-example-file-input-basic](../components/file-input/examples)
  - [limel-example-file-input-type-filtering](../components/file-input/examples)
  - [limel-example-file-menu-items](../components/file/examples)
+ - [limel-example-file-size-badge](../components/file/examples)
  - [limel-example-form](../components/form/examples)
  - [limel-example-form-array-item-controls](../components/form/examples)
  - [limel-example-form-with-help](../components/form/examples)
@@ -209,6 +210,7 @@ graph TD;
   limel-example-file-input-basic --> limel-example-value
   limel-example-file-input-type-filtering --> limel-example-value
   limel-example-file-menu-items --> limel-example-value
+  limel-example-file-size-badge --> limel-example-value
   limel-example-form --> limel-example-value
   limel-example-form-array-item-controls --> limel-example-value
   limel-example-form-with-help --> limel-example-value
