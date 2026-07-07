@@ -86,8 +86,10 @@
     border-radius: 1.25rem;
     padding: 0 0.375rem;
     height: 1.25rem;
+    min-width: 1.25rem;
     display: flex;
     align-items: center;
+    justify-content: center;
     white-space: nowrap;
 
     color: rgb(var(--color-white));
