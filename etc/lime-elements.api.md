@@ -833,6 +833,7 @@ export namespace Components {
         "helperText": string;
         "invalid": boolean;
         "label": string;
+        "language": Languages;
         "readonly": boolean;
         "required": boolean;
         "step": number;
@@ -3401,6 +3402,7 @@ export namespace JSX {
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
+        "language"?: Languages;
         "onChange"?: (event: LimelSliderCustomEvent<number>) => void;
         "readonly"?: boolean;
         "required"?: boolean;
@@ -3425,6 +3427,8 @@ export namespace JSX {
         "invalid": boolean;
         // (undocumented)
         "label": string;
+        // (undocumented)
+        "language": Languages;
         // (undocumented)
         "readonly": boolean;
         // (undocumented)

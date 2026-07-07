@@ -4,6 +4,8 @@
 @forward './partial-styles/thumb';
 @use '../../style/internal/shared_input-select-picker';
 
+$size-of-clear-value-button: 1rem;
+$gap-of-clear-value-button: 0.25rem;
 $color-of-track: rgba(var(--contrast-700), 0.6);
 
 *,
@@ -155,6 +157,95 @@ input[type='range'] {
             --limel-notched-outline-label-color,
             rgb(var(--contrast-1200))
         );
+    }
+}
+
+:host(
+    limel-slider:not([readonly]):not([readonly='true']):not([required]):not(
+            [required='true']
+        )
+) {
+    // When readonly or required, the clear button is hidden,
+    // so we don't need to make room for it.
+    div[slot='content'] {
+        padding-right: calc(
+            #{$size-of-clear-value-button} + #{$gap-of-clear-value-button}
+        );
+    }
+}
+
+.slider.is-empty {
+    // When the slider is unset, the thumb rests in the middle of the track (like
+    // a native range input with no value), but it must not read as a real
+    // selection. So we suppress the active fill, center the thumb, and mute the
+    // knob and value indicator, whose `?` (see the TSX) replaces the number.
+
+    .thumb {
+        left: 50%;
+    }
+
+    .knob {
+        &:before {
+            // Without opacity, the arrow pointing left which is
+            // displayed when knob is hovered won't show up.
+            // It's needed when the value is not 0, or when
+            // the knob is centered, and there is no value.
+            opacity: 1;
+        }
+    }
+}
+
+button.clear-button {
+    @include mixins.reset-button-user-agent-styles;
+    @include mixins.visualize-keyboard-focus;
+
+    &:not([disabled]) {
+        @include mixins.is-flat-clickable(
+            $color: rgb(var(--contrast-1100)),
+            $color--hovered: rgb(var(--contrast-100)),
+            $background-color: $color-of-track,
+            $background-color--hovered: rgb(var(--contrast-1000))
+        );
+
+        &:focus-visible {
+            background-color: rgb(var(--contrast-1000));
+        }
+    }
+
+    position: absolute;
+    // Since helper text can change the height of the component
+    // we need to be specific about `inset` `top`
+    inset: 0.75rem 0 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: $size-of-clear-value-button;
+    width: $size-of-clear-value-button;
+    border-radius: 50%;
+    color: rgb(var(--contrast-100));
+
+    svg {
+        width: calc(#{$size-of-clear-value-button} - 0.25rem);
+        height: calc(#{$size-of-clear-value-button} - 0.25rem);
+        fill: currentColor;
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        inset: 0 auto 0 0;
+        margin: auto;
+        height: 0.125rem;
+        width: $gap-of-clear-value-button;
+        background-color: $color-of-track;
+        transform: translate(-100%, 0);
+    }
+
+    &[disabled] {
+        background-color: rgb(var(--contrast-600));
+        cursor: not-allowed;
     }
 }
 

@@ -10,6 +10,8 @@ import {
 } from '@stencil/core';
 import { getPercentageClass } from './get-percentage-class';
 import { createRandomString } from '../../util/random-string';
+import translate from '../../global/translations';
+import { Languages } from '../date-picker/date.types';
 
 const DEFAULT_FACTOR = 1;
 const DEFAULT_MAX_VALUE = 100;
@@ -18,6 +20,7 @@ const MAX_VISIBLE_STEP_DOTS = 20;
 
 /**
  * @exampleComponent limel-example-slider-basic
+ * @exampleComponent limel-example-slider-unset
  * @exampleComponent limel-example-slider-multiplier
  * @exampleComponent limel-example-slider-multiplier-percentage-colors
  * @exampleComponent limel-example-slider-unit
@@ -69,6 +72,9 @@ export class Slider {
 
     /**
      * Set to `true` to indicate that the slider is required.
+     * A required slider does not offer the clear button, since a required
+     * value cannot be unset. It can still be initialized unset (with a
+     * non-finite `value`) to prompt the user to make a choice.
      */
     @Prop({ reflect: true })
     public required = false;
@@ -94,7 +100,16 @@ export class Slider {
     public unit: string = '';
 
     /**
-     * The value of the input
+     * Defines the language for translations of the accessible labels.
+     */
+    @Prop({ reflect: true })
+    public language: Languages = 'en';
+
+    /**
+     * The value of the input. When the value is `NaN` or otherwise not a
+     * finite number, the slider is considered unset. At runtime `null` and
+     * `undefined` also trigger the unset state, but `NaN` is the type-safe
+     * way to unset the slider programmatically.
      */
     @Prop({ reflect: true })
     public value: number;
@@ -118,28 +133,38 @@ export class Slider {
     public step: number;
 
     /**
-     * Emitted when the value has been changed
+     * Emitted when the value has been changed.
+     * Emits `NaN` when the value has been cleared and the slider becomes unset.
      */
     @Event()
     private change: EventEmitter<number>;
 
     @State()
-    private percentageClass: string;
+    private percentageClass: string | undefined;
 
     @State()
     private displayValue: number;
 
+    /**
+     * `true` while the slider has no value set. Kept separate from the `value`
+     * prop so that the empty state survives the brief window during dragging
+     * where the value has not yet been emitted back to the consumer.
+     */
+    @State()
+    private isEmpty: boolean;
+
     private labelId: string;
     private helperTextId: string;
+    private clearButtonId: string;
 
     public constructor() {
         this.labelId = createRandomString();
         this.helperTextId = createRandomString();
+        this.clearButtonId = createRandomString();
     }
 
     public componentWillLoad() {
-        this.displayValue = this.multiplyByFactor(this.getValue());
-        this.setPercentageClass(this.getValue());
+        this.syncStateFromValue();
     }
 
     public render() {
@@ -165,12 +190,12 @@ export class Slider {
                     invalid={this.invalid}
                     disabled={this.disabled}
                     readonly={this.readonly}
-                    hasValue={!!this.value}
+                    hasValue={!this.isEmpty}
                     hasFloatingLabel={true}
                 >
                     <div slot="content">
                         <div
-                            class="slider"
+                            class={{ slider: true, 'is-empty': this.isEmpty }}
                             style={{ '--slider-fraction': `${fraction}` }}
                         >
                             <input
@@ -184,6 +209,14 @@ export class Slider {
                                         ? this.helperTextId
                                         : undefined
                                 }
+                                aria-valuetext={
+                                    this.isEmpty
+                                        ? translate.get(
+                                              'value-not-set',
+                                              this.language
+                                          )
+                                        : undefined
+                                }
                                 onInput={this.handleInput}
                                 onChange={this.handleChange}
                                 {...inputProps}
@@ -195,7 +228,7 @@ export class Slider {
                             <div class="thumb">
                                 <div class="knob" />
                                 <div class="indicator" aria-hidden="true">
-                                    {this.displayValue}
+                                    {this.isEmpty ? '?' : this.displayValue}
                                 </div>
                             </div>
                         </div>
@@ -211,6 +244,7 @@ export class Slider {
                         </div>
                     </div>
                 </limel-notched-outline>
+                {this.renderClearButton()}
                 {this.renderHelperLine()}
             </Host>
         );
@@ -218,9 +252,14 @@ export class Slider {
 
     @Watch('value')
     protected watchValue() {
+        this.syncStateFromValue();
+    }
+
+    private syncStateFromValue = () => {
+        this.isEmpty = this.isUnset();
         this.displayValue = this.multiplyByFactor(this.getValue());
         this.setPercentageClass(this.getValue());
-    }
+    };
 
     private renderStepDots = (min: number, max: number) => {
         if (!this.step) {
@@ -250,10 +289,40 @@ export class Slider {
         );
     };
 
+    private renderClearButton = () => {
+        // A required slider must hold a value, so it offers no way to clear it.
+        if (this.readonly || this.required) {
+            return;
+        }
+
+        const label = this.label
+            ? translate.get('clear-value-of', this.language, {
+                  label: this.label,
+              })
+            : translate.get('clear-value', this.language);
+
+        return (
+            <button
+                type="button"
+                id={this.clearButtonId}
+                class="clear-button"
+                aria-label={label}
+                onClick={this.handleClear}
+                disabled={this.isEmpty || this.disabled}
+            >
+                <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+                    <path d="M7.219 5.781L5.78 7.22 14.563 16 5.78 24.781 7.22 26.22 16 17.437l8.781 8.782 1.438-1.438L17.437 16l8.782-8.781L24.78 5.78 16 14.563z" />
+                </svg>
+                <limel-tooltip elementId={this.clearButtonId} label={label} />
+            </button>
+        );
+    };
+
     private handleInput = (event: Event) => {
         event.stopPropagation();
         const input = event.target as HTMLInputElement;
         const value = Number(input.value);
+        this.isEmpty = false;
         this.displayValue = value;
         this.setPercentageClass(value / this.factor);
     };
@@ -269,6 +338,14 @@ export class Slider {
         }
 
         this.change.emit(value / this.factor);
+    };
+
+    private handleClear = (event: MouseEvent) => {
+        event.stopPropagation();
+        this.isEmpty = true;
+        this.displayValue = this.multiplyByFactor(this.valuemin);
+        this.percentageClass = undefined;
+        this.change.emit(Number.NaN);
     };
 
     private getContainerClassList = () => {
@@ -294,6 +371,10 @@ export class Slider {
         return value;
     };
 
+    private isUnset = (): boolean => {
+        return !Number.isFinite(this.value);
+    };
+
     private getFraction = (): number => {
         const min = this.multiplyByFactor(this.valuemin);
         const max = this.multiplyByFactor(this.valuemax);
@@ -309,6 +390,12 @@ export class Slider {
     };
 
     private setPercentageClass = (value: number) => {
+        if (this.isEmpty) {
+            this.percentageClass = undefined;
+
+            return;
+        }
+
         this.percentageClass = getPercentageClass(
             (value - this.valuemin) / (this.valuemax - this.valuemin)
         );

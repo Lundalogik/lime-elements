@@ -15,6 +15,9 @@ export class SliderBasicExample {
     private readonly = false;
 
     @State()
+    private required = false;
+
+    @State()
     private value = 25;
 
     private minValue = 15;
@@ -30,6 +33,7 @@ export class SliderBasicExample {
                 valuemin={this.minValue}
                 disabled={this.disabled}
                 readonly={this.readonly}
+                required={this.required}
                 onChange={this.handleChange}
             />,
             <limel-example-controls>
@@ -42,6 +46,11 @@ export class SliderBasicExample {
                     value={this.readonly}
                     label="Readonly"
                     onChange={this.setReadonly}
+                />
+                <limel-switch
+                    value={this.required}
+                    label="Required"
+                    onChange={this.setRequired}
                 />
             </limel-example-controls>,
             <limel-example-value value={this.value} />,
@@ -60,5 +69,10 @@ export class SliderBasicExample {
     private setReadonly = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.readonly = event.detail;
+    };
+
+    private readonly setRequired = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.required = event.detail;
     };
 }
