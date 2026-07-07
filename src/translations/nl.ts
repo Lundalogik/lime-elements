@@ -1,4 +1,7 @@
 export default {
+    'clear-value': 'Waarde wissen',
+    'clear-value-of': 'Waarde van { label } wissen',
+    'value-not-set': 'Waarde niet ingesteld',
     remove: 'Verwijder',
     save: 'Opslaan',
     cancel: 'Annuleren',

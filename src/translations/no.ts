@@ -1,4 +1,7 @@
 export default {
+    'clear-value': 'Tøm verdi',
+    'clear-value-of': 'Tøm verdien for { label }',
+    'value-not-set': 'Verdi ikke angitt',
     remove: 'Fjerne',
     save: 'Lagre',
     cancel: 'Avbryt',

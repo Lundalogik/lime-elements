@@ -1,4 +1,7 @@
 export default {
+    'clear-value': 'Wert löschen',
+    'clear-value-of': 'Wert von { label } löschen',
+    'value-not-set': 'Wert nicht festgelegt',
     remove: 'Entfernen',
     save: 'Speichern',
     cancel: 'Abbrechen',
