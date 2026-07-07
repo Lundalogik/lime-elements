@@ -1,4 +1,7 @@
 export default {
+    'clear-value': 'Ryd værdi',
+    'clear-value-of': 'Ryd værdien for { label }',
+    'value-not-set': 'Værdi ikke angivet',
     remove: 'Fjern',
     save: 'Gem',
     cancel: 'Annullér',
