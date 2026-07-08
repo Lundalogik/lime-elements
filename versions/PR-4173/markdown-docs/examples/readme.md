@@ -75,6 +75,8 @@ The component automatically formats different value types:
  - [limel-example-file-input-basic](../components/file-input/examples)
  - [limel-example-file-input-type-filtering](../components/file-input/examples)
  - [limel-example-file-menu-items](../components/file/examples)
+ - [limel-example-file-resize-image](../components/file/examples)
+ - [limel-example-file-resize-mixed](../components/file/examples)
  - [limel-example-file-size-badge](../components/file/examples)
  - [limel-example-form](../components/form/examples)
  - [limel-example-form-array-item-controls](../components/form/examples)
@@ -170,7 +172,7 @@ The component automatically formats different value types:
  - [limel-example-text-editor-triggers](../components/text-editor/examples)
  - [limel-example-text-editor-ui](../components/text-editor/examples)
  - [limel-example-text-editor-with-html](../components/text-editor/examples)
- - [limel-example-text-editor-with-inline-images-file-storage](../components/text-editor/examples)
+ - [limel-example-text-editor-with-inline-images-custom-tag](../components/text-editor/examples)
  - [limel-example-text-editor-with-markdown](../components/text-editor/examples)
  - [limel-example-text-editor-with-tables](../components/text-editor/examples)
 
@@ -211,6 +213,8 @@ graph TD;
   limel-example-file-input-basic --> limel-example-value
   limel-example-file-input-type-filtering --> limel-example-value
   limel-example-file-menu-items --> limel-example-value
+  limel-example-file-resize-image --> limel-example-value
+  limel-example-file-resize-mixed --> limel-example-value
   limel-example-file-size-badge --> limel-example-value
   limel-example-form --> limel-example-value
   limel-example-form-array-item-controls --> limel-example-value
@@ -306,7 +310,7 @@ graph TD;
   limel-example-text-editor-triggers --> limel-example-value
   limel-example-text-editor-ui --> limel-example-value
   limel-example-text-editor-with-html --> limel-example-value
-  limel-example-text-editor-with-inline-images-file-storage --> limel-example-value
+  limel-example-text-editor-with-inline-images-custom-tag --> limel-example-value
   limel-example-text-editor-with-markdown --> limel-example-value
   limel-example-text-editor-with-tables --> limel-example-value
   style limel-example-value fill:#f9f,stroke:#333,stroke-width:4px
