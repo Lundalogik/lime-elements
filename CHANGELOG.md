@@ -1,3 +1,10 @@
+## [39.41.0](https://github.com/Lundalogik/lime-elements/compare/v39.40.0...v39.41.0) (2026-07-08)
+
+### Features
+
+
+* **text-editor:** add inlineImages config for inline image handling ([7f8930b](https://github.com/Lundalogik/lime-elements/commit/7f8930b68bda1647960d102f638a75f8079433b1))
+
 ## [39.40.0](https://github.com/Lundalogik/lime-elements/compare/v39.39.1...v39.40.0) (2026-07-06)
 
 ### Features
