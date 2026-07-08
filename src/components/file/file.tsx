@@ -362,6 +362,7 @@ export class File {
                 disabled={this.disabled}
                 readonly={this.readonly}
                 invalid={this.invalid}
+                clearAllButton={false}
                 label={this.label}
                 helperText={this.helperText}
                 leadingIcon="upload_to_cloud"
