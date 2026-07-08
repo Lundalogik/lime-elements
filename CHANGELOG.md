@@ -1,3 +1,16 @@
+## [39.42.0](https://github.com/Lundalogik/lime-elements/compare/v39.41.0...v39.42.0) (2026-07-08)
+
+### Features
+
+
+* **file:** add resizeImage prop for client-side image resize ([abfe11b](https://github.com/Lundalogik/lime-elements/commit/abfe11b99ce4c7ebeabe2b807f9c5b074046c8f9))
+* **image-resize:** allow omitting width and height ([793a4cf](https://github.com/Lundalogik/lime-elements/commit/793a4cfa26da8d27c652e8ba75631f67448beb5f))
+### Bug Fixes
+
+
+* **file:** hide the redundant clear-all button ([2ed7f00](https://github.com/Lundalogik/lime-elements/commit/2ed7f000995f108db8380f81d45a9565545ed425))
+* **file:** show an optimizing badge while an image is resizing ([e4a0454](https://github.com/Lundalogik/lime-elements/commit/e4a04541fb7ff6df4d3be6b22877a2235038b5e1))
+
 ## [39.41.0](https://github.com/Lundalogik/lime-elements/compare/v39.40.0...v39.41.0) (2026-07-08)
 
 ### Features
