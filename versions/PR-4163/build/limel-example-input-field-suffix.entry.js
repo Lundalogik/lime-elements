@@ -1,0 +1,1 @@
+import{r as e,h as i}from"./index-BGxJfR2f.js";const t=class{constructor(i){e(this,i),this.value="50",this.handleChange=e=>{this.value=e.detail}}render(){return i("limel-input-field",{key:"37bbcc1c523574ac1cc27c0e0a1e904b0beeafbe",label:"Quantity",suffix:"pcs",value:this.value,type:"number",onChange:this.handleChange})}};export{t as limel_example_input_field_suffix}
