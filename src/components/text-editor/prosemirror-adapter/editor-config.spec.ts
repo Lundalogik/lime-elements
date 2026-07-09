@@ -45,8 +45,8 @@ describe('editor-config (real-stack integration)', () => {
         parseAsHTML: async () => '',
         serialize: () => '',
     };
-    const noopImagePasted = (() =>
-        undefined) as unknown as EditorPluginsOptions['onImagePasted'];
+    const noopImagePasted: EditorPluginsOptions['onImagePasted'] = (data) =>
+        new CustomEvent('imagePasted', { detail: data });
 
     const plugins = buildEditorPlugins({
         schema: schema,
