@@ -134,6 +134,8 @@ export class ProfilePicture {
     /**
      * Optional client-side resize before emitting the file.
      * If provided, the selected image will be resized on the client device.
+     * Omitted options fall back to avatar defaults: `image/jpeg`, `quality`
+     * `0.85`, and the component's `imageFit`.
      * :::note
      * HEIC may not decode in all browsers; when decoding fails, the original
      * file will be emitted. See the examples for more info.
