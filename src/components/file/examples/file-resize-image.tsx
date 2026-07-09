@@ -22,8 +22,10 @@ import { Component, h, Host, State } from '@stencil/core';
  *   both to keep the source dimensions and only re-encode.
  * - `fit`: only matters when both `width` and `height` are set. `cover` fills
  *   the box and center-crops the overflow; `contain` fits the whole image
- *   inside the box, letterboxing it. Omit it for the default (`cover`).
- * - `type`: the output format. Omit it for the default (`image/jpeg`).
+ *   inside the box, letterboxing it. Omit it to scale the whole image to fit
+ *   without cropping.
+ * - `type`: the output format. Omit it to keep the source format when the
+ *   canvas can encode it (PNG stays PNG; everything else becomes JPEG).
  * - `quality`: JPEG compression, `0`–`1`. Ignored for `image/png`, which is
  *   lossless. The control below is disabled when PNG is selected.
  *
@@ -64,9 +66,12 @@ export class FileResizeImageExample {
     private previewUrl = '';
 
     @State()
-    // Every field is optional. When omitted, `fit` defaults to `cover`, `type`
-    // to `image/jpeg` and `quality` to `0.85`; `width`/`height` fall back to the
-    // source dimensions (a missing one preserves the aspect ratio).
+    // Every field is optional, and the util imposes no defaults of its own:
+    // when omitted, `type` keeps the source format when the canvas can encode
+    // it (PNG stays PNG, otherwise JPEG); `fit` scales the whole image to fit
+    // without cropping; `quality` (JPEG only) uses the browser's native
+    // quality; `width`/`height` fall back to the source dimensions (a missing
+    // one preserves the aspect ratio).
     private options: ResizeOptions = {
         width: 800,
         height: 600,

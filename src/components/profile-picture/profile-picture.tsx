@@ -19,6 +19,14 @@ import { resizeImage, ResizeOptions } from '../../util/image-resize';
 import { ImageTemplate } from '../../util/image.template';
 
 /**
+ * Avatar output defaults. These live in the component rather than in the shared
+ * `resizeImage` util (which is deliberately unopinionated): avatars are stored
+ * as a compact JPEG at a fixed quality. Callers can override them via `resize`.
+ */
+const AVATAR_OUTPUT_TYPE = 'image/jpeg' as const;
+const AVATAR_JPEG_QUALITY = 0.85;
+
+/**
  * This component displays a profile picture, while allowing the user
  * to change it via a file input or drag-and-drop.
  *
@@ -412,6 +420,8 @@ export class ProfilePicture {
                 const processed = await resizeImage(file.fileContent, {
                     ...this.resize,
                     fit: this.resize.fit ?? this.imageFit,
+                    type: this.resize.type ?? AVATAR_OUTPUT_TYPE,
+                    quality: this.resize.quality ?? AVATAR_JPEG_QUALITY,
                 });
                 out = {
                     ...file,
