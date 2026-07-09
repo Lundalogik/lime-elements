@@ -68,11 +68,11 @@
     }
 }
 
-// Scatter's full grid sets each set's direction by class, not orientation:
-// `.horizontal-lines` (badges left), `.vertical-lines` (badges below).
+// Scatter's full grid: `.horizontal-lines` draws the vertical axis (badges
+// left), `.vertical-lines` the horizontal one (badges below). The plot rotates
+// with orientation like the points, so the vertical axis runs max-at-top in
+// landscape but max-at-bottom in portrait — its stacking flips accordingly.
 .axises.horizontal-lines {
-    flex-direction: column-reverse;
-
     .axis-line {
         border-bottom: 1px solid;
         transform: translateY(50%);
@@ -83,6 +83,14 @@
             transform: translateY(50%);
         }
     }
+}
+
+:host(limel-chart[orientation='landscape']) .axises.horizontal-lines {
+    flex-direction: column-reverse;
+}
+
+:host(limel-chart[orientation='portrait']) .axises.horizontal-lines {
+    flex-direction: column;
 }
 
 .axises.vertical-lines {
