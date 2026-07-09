@@ -16,11 +16,13 @@
  * - No server-side transformation required for common cases
  *
  * Fit strategies
- * - `cover` (default): The image is scaled to cover the target rectangle, and
- *   the excess parts are center-cropped. Good for avatars.
+ * - `cover`: The image is scaled to cover the target rectangle, and the excess
+ *   parts are center-cropped. Good for avatars.
  * - `contain`: The image is scaled to fit entirely within the target rectangle
  *   without cropping, letterboxing if needed. Good when you must preserve the
  *   entire image.
+ * - omitted: scales the whole image to fit without cropping (no pixels are
+ *   discarded).
  *
  * Decoding & EXIF orientation
  * EXIF orientation is a piece of metadata stored inside image files
@@ -46,9 +48,11 @@
  *   library or WASM module; this utility intentionally avoids extra dependencies.
  *
  * Output type & quality
- * - Default output is `image/jpeg` with `quality=0.85`, which is typically
- *   appropriate for avatars. You can switch to `image/png` to preserve
- *   transparency.
+ * - When `type` is omitted the source format is kept if the canvas can encode
+ *   it: a PNG stays a PNG (preserving transparency) and everything else is
+ *   encoded as `image/jpeg`. Set `type` explicitly to force a format.
+ * - JPEG `quality` is optional; when omitted the browser's native encoding
+ *   quality is used rather than an imposed value.
  * - The output filename extension is adjusted to match the chosen MIME type by
  *   default (e.g., `.jpg` or `.png`). You can override naming via the `rename`
  *   option.
@@ -73,9 +77,9 @@
  * const processed = await resizeImage(file, {
  *   width: 400,
  *   height: 400,
- *   fit: 'cover',         // default; center-crops
- *   type: 'image/jpeg',   // default
- *   quality: 0.85,        // default
+ *   fit: 'cover',         // center-crops; omit to fit without cropping
+ *   type: 'image/jpeg',   // omit to keep the source format
+ *   quality: 0.85,        // omit to use the browser's native quality
  * });
  * // Upload `processed` instead of the original file
  * ```
@@ -122,11 +126,24 @@ export type ResizeOptions = {
      * keep the source dimensions and only re-encode.
      */
     height?: number;
-    /** Fit strategy; defaults to 'cover'. */
+    /**
+     * How the image is fitted into the target box when its aspect ratio
+     * differs. `cover` scales to fill and center-crops the overflow; `contain`
+     * scales to fit the whole image inside the box. Omit to scale the whole
+     * image to fit without cropping (no pixels are discarded). Only relevant
+     * when both `width` and `height` are set.
+     */
     fit?: 'cover' | 'contain';
-    /** Output MIME type; 'image/jpeg' by default. */
+    /**
+     * Output MIME type. Omit to keep the source file's format when the canvas
+     * can encode it: a PNG stays a PNG (preserving transparency), otherwise
+     * the output is JPEG. Set explicitly to force a format.
+     */
     type?: 'image/jpeg' | 'image/png';
-    /** JPEG quality (0..1); used only for 'image/jpeg'. Defaults to 0.85. */
+    /**
+     * JPEG quality (0..1); used only for 'image/jpeg'. Omit to let the browser
+     * use its native encoding quality rather than imposing a value.
+     */
     quality?: number;
     /** Optional renaming function. Defaults to changing extension to match MIME. */
     rename?: (originalName: string) => string;
@@ -151,12 +168,17 @@ export async function resizeImage(
     file: File,
     options: ResizeOptions
 ): Promise<File> {
-    const {
-        fit = 'cover',
-        type = 'image/jpeg',
-        quality = 0.85,
-        rename = (name: string) => renameWithType(name, type),
-    } = options;
+    // This shared utility carries no opinionated defaults: an omitted option
+    // preserves the source file's own property rather than imposing a value.
+    // Consumers that want a specific default (e.g. limel-profile-picture) apply
+    // it themselves. See the `ResizeOptions` doc for the per-option behavior.
+    const { fit, quality } = options;
+    // When no output type is requested, keep the source file's format if the
+    // canvas can encode it (PNG stays PNG, preserving transparency); anything
+    // else falls back to JPEG.
+    const type = resolveOutputType(file.type, options.type);
+    const rename =
+        options.rename ?? ((name: string) => renameWithType(name, type));
 
     const source = await loadSource(file);
     const sourceWidth = source.width;
@@ -278,12 +300,12 @@ function get2dContext(canvas: HTMLCanvasElement | OffscreenCanvas) {
  * Convert the canvas content to a Blob, supporting both canvas types.
  * @param canvas - The source canvas
  * @param type - Output MIME type
- * @param quality - JPEG quality (0..1)
+ * @param quality - JPEG quality (0..1); omit to use the browser default
  */
 function canvasToBlob(
     canvas: HTMLCanvasElement | OffscreenCanvas,
     type: string,
-    quality: number
+    quality?: number
 ): Promise<Blob> {
     if ('convertToBlob' in canvas) {
         return (canvas as OffscreenCanvas).convertToBlob({ type, quality });
@@ -383,14 +405,15 @@ async function loadImageElement(file: File): Promise<HTMLImageElement> {
  * @param sh - Source height
  * @param tw - Target width
  * @param th - Target height
- * @param fit - Fit mode (cover/contain)
+ * @param fit - Fit mode; `cover` center-crops, anything else (including
+ * omitted) scales the whole image to fit without cropping
  */
 function computeRects(
     sw: number,
     sh: number,
     tw: number,
     th: number,
-    fit: 'cover' | 'contain'
+    fit?: 'cover' | 'contain'
 ) {
     const sRatio = sw / sh;
     const tRatio = tw / th;
@@ -427,6 +450,26 @@ function computeRects(
     const dy = (th - drawH) / 2;
 
     return { sx: 0, sy: 0, sw, sh, dx, dy, dw: drawW, dh: drawH };
+}
+
+/**
+ * Resolve the output MIME type. An explicit request wins; otherwise the source
+ * file's format is kept when the canvas can encode it. The canvas can only
+ * reliably encode PNG and JPEG, so PNG is preserved (keeping transparency) and
+ * every other input (JPEG, WebP, HEIC, …) is encoded as JPEG.
+ *
+ * @param sourceType - MIME type of the input file
+ * @param requested - Explicitly requested output type, if any
+ */
+function resolveOutputType(
+    sourceType: string,
+    requested?: 'image/jpeg' | 'image/png'
+): 'image/jpeg' | 'image/png' {
+    if (requested) {
+        return requested;
+    }
+
+    return sourceType === 'image/png' ? 'image/png' : 'image/jpeg';
 }
 
 /**

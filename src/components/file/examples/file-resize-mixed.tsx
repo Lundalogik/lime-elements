@@ -36,9 +36,11 @@ export class FileResizeMixedExample {
     @State()
     private notResized = false;
 
-    // Every field is optional. When omitted, `fit` defaults to `cover`, `type`
-    // to `image/jpeg` and `quality` to `0.85`; `width`/`height` fall back to the
-    // source dimensions (a missing one preserves the aspect ratio).
+    // This example pins every field. In particular it forces `type:
+    // 'image/jpeg'` so the "Uploaded as-is" detection below can tell a resized
+    // image (always re-encoded to `.jpg`) from one that was passed through
+    // untouched. For what each option does when omitted, see the
+    // `file-resize-image` example, which exposes controls for them.
     private options: ResizeOptions = {
         width: 1024,
         height: 1024,
