@@ -1,3 +1,10 @@
+## [39.42.1](https://github.com/Lundalogik/lime-elements/compare/v39.42.0...v39.42.1) (2026-07-09)
+
+### Bug Fixes
+
+
+* **file:** remove baked-in defaults from the image-resize util ([7a5d29d](https://github.com/Lundalogik/lime-elements/commit/7a5d29d21a9a1ff4cf8e0946993cc7e2a4f22258))
+
 ## [39.42.0](https://github.com/Lundalogik/lime-elements/compare/v39.41.0...v39.42.0) (2026-07-08)
 
 ### Features
