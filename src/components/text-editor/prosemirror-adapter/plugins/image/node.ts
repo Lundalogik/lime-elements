@@ -84,11 +84,15 @@ export function getImageNodeMarkdownSerializer(
  * @param node
  */
 export function applyImageStyles(img: HTMLImageElement, node: Node) {
-    img.style.height = node.attrs.height;
-    img.style.width = node.attrs.width;
+    img.style.height = toCssLength(node.attrs.height);
+    img.style.width = toCssLength(node.attrs.width);
     img.style.minHeight = node.attrs.minHeight;
     img.style.minWidth = node.attrs.minWidth;
     img.style.maxWidth = node.attrs.maxWidth;
+}
+
+function toCssLength(value: string): string {
+    return /^\d+$/.test(value) ? `${value}px` : value;
 }
 
 /**
@@ -149,11 +153,6 @@ function escapeAttributeValue(value: string): string {
         .replaceAll('>', '&gt;');
 }
 
-// Dimensions are emitted as CSS-unit strings (e.g. `width="300px"`), matching
-// what `applyImageStyles` reads back when the tag is re-parsed inside the
-// editor. The external renderer of this microformat (the `limebb-inline-image`
-// building block) must therefore treat `width`/`height` as CSS lengths, not as
-// bare HTML pixel counts.
 function getInlineImageHTML(attrs: ImageNodeAttrs, tag: string): string {
     const attributes = [
         `${IMAGE_ID_ATTRIBUTE}="${escapeAttributeValue(attrs.imageId ?? '')}"`,
