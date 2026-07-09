@@ -105,6 +105,7 @@ Type: `Promise<number>`
  - [limel-example-dialog-heading](../dialog/examples)
  - [limel-example-file-dropzone-type-filtering](../file-dropzone/examples)
  - [limel-example-file-per-file-status](../file/examples)
+ - [limel-example-file-resize-image](../file/examples)
  - [limel-example-info-tile-progress](../info-tile/examples)
  - [limel-example-input-field-autocomplete](examples)
  - [limel-example-input-field-error-icon](examples)
@@ -170,6 +171,7 @@ graph TD;
   limel-example-dialog-heading --> limel-input-field
   limel-example-file-dropzone-type-filtering --> limel-input-field
   limel-example-file-per-file-status --> limel-input-field
+  limel-example-file-resize-image --> limel-input-field
   limel-example-info-tile-progress --> limel-input-field
   limel-example-input-field-autocomplete --> limel-input-field
   limel-example-input-field-error-icon --> limel-input-field
