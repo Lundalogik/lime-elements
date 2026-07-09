@@ -12,7 +12,7 @@
  *
  * Why resize client-side?
  * - Faster perceived uploads and lower bandwidth usage
- * - Consistent avatar sizes and formats (e.g., JPEG 400x400)
+ * - Consistent output sizes and formats (e.g., a 400x400 thumbnail)
  * - No server-side transformation required for common cases
  *
  * Fit strategies
