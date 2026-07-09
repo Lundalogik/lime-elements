@@ -1,6 +1,7 @@
 import { NodeSpec, TagParseRule } from 'prosemirror-model';
 import { MarkdownSerializerState } from 'prosemirror-markdown';
 import {
+    applyImageStyles,
     getImageNode,
     getImageNodeMarkdownSerializer,
     ImageNodeAttrs,
@@ -191,5 +192,29 @@ describe('inline-image node', () => {
                 height: '200px',
             });
         });
+    });
+});
+
+describe('applyImageStyles', () => {
+    it('adds a px unit to bare pixel dimensions', () => {
+        const img = document.createElement('img');
+
+        applyImageStyles(img, {
+            attrs: { width: '166', height: '63' },
+        } as any);
+
+        expect(img.style.width).toBe('166px');
+        expect(img.style.height).toBe('63px');
+    });
+
+    it('leaves dimensions that already carry a unit untouched', () => {
+        const img = document.createElement('img');
+
+        applyImageStyles(img, {
+            attrs: { width: '50%', height: '300px' },
+        } as any);
+
+        expect(img.style.width).toBe('50%');
+        expect(img.style.height).toBe('300px');
     });
 });
