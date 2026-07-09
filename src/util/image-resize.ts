@@ -110,6 +110,21 @@
 // (Removed exported ResizeFit to avoid forcing a public symbol.)
 
 /**
+ * The image formats the canvas can reliably encode, mapped to their filename
+ * extension. Single source of truth for what this util can output: both the
+ * output-type resolution and the output filename extension derive from it. The
+ * `ResizeOptions.type` union below mirrors these keys — keep the two in sync
+ * when adding a format.
+ */
+const ENCODABLE_TYPES = {
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+} as const;
+
+/** An image MIME type the canvas can encode (a key of `ENCODABLE_TYPES`). */
+type EncodableImageType = keyof typeof ENCODABLE_TYPES;
+
+/**
  * Options for client-side image resizing.
  * @beta
  */
@@ -454,22 +469,28 @@ function computeRects(
 
 /**
  * Resolve the output MIME type. An explicit request wins; otherwise the source
- * file's format is kept when the canvas can encode it. The canvas can only
- * reliably encode PNG and JPEG, so PNG is preserved (keeping transparency) and
- * every other input (JPEG, WebP, HEIC, …) is encoded as JPEG.
+ * file's format is kept when the canvas can encode it (see `ENCODABLE_TYPES`),
+ * so a PNG stays a PNG (preserving transparency) while every other input
+ * (WebP, HEIC, …) falls back to JPEG.
  *
  * @param sourceType - MIME type of the input file
  * @param requested - Explicitly requested output type, if any
  */
 function resolveOutputType(
     sourceType: string,
-    requested?: 'image/jpeg' | 'image/png'
-): 'image/jpeg' | 'image/png' {
+    requested?: EncodableImageType
+): EncodableImageType {
     if (requested) {
         return requested;
     }
 
-    return sourceType === 'image/png' ? 'image/png' : 'image/jpeg';
+    // Keep the source format when the canvas can encode it; otherwise JPEG.
+    const canEncodeSource = Object.prototype.hasOwnProperty.call(
+        ENCODABLE_TYPES,
+        sourceType
+    );
+
+    return canEncodeSource ? (sourceType as EncodableImageType) : 'image/jpeg';
 }
 
 /**
@@ -477,8 +498,8 @@ function resolveOutputType(
  * @param name - Original filename
  * @param type - Output MIME type
  */
-function renameWithType(name: string, type: string): string {
-    const ext = type === 'image/png' ? 'png' : 'jpg';
+function renameWithType(name: string, type: EncodableImageType): string {
+    const ext = ENCODABLE_TYPES[type];
     const idx = name.lastIndexOf('.');
     const base = idx > 0 ? name.slice(0, idx) : name;
     return `${base}.${ext}`;
