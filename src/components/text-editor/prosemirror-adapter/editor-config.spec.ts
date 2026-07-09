@@ -128,6 +128,9 @@ describe('editor-config (real-stack integration)', () => {
         });
 
         it('neither plugin claims a plain paste, so others still run', () => {
+            expect(linkPlugin).toBeDefined();
+            expect(imagePlugin).toBeDefined();
+
             const view = {} as unknown as EditorView;
             const plainPaste = {
                 clipboardData: {
@@ -137,10 +140,10 @@ describe('editor-config (real-stack integration)', () => {
             } as unknown as ClipboardEvent;
 
             expect(
-                linkPlugin.props.handlePaste(view, plainPaste, Slice.empty)
+                linkPlugin!.props.handlePaste(view, plainPaste, Slice.empty)
             ).toBeFalsy();
             expect(
-                imagePlugin.props.handlePaste(view, plainPaste, Slice.empty)
+                imagePlugin!.props.handlePaste(view, plainPaste, Slice.empty)
             ).toBeFalsy();
         });
     });
