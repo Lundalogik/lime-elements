@@ -45,6 +45,7 @@
  - [limel-example-code-diff-interactive](../code-diff/examples)
  - [limel-example-code-diff-line-wrap](../code-diff/examples)
  - [limel-example-dialog-heading](../dialog/examples)
+ - [limel-example-file-resize-image](../file/examples)
  - [limel-example-file-viewer-office](../file-viewer/examples)
  - [limel-example-header-slot-actions](../header/examples)
  - [limel-example-input-field-number](../input-field/examples)
@@ -107,6 +108,7 @@ graph TD;
   limel-example-code-diff-interactive --> limel-select
   limel-example-code-diff-line-wrap --> limel-select
   limel-example-dialog-heading --> limel-select
+  limel-example-file-resize-image --> limel-select
   limel-example-file-viewer-office --> limel-select
   limel-example-header-slot-actions --> limel-select
   limel-example-input-field-number --> limel-select
