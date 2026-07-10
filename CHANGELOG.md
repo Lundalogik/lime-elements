@@ -1,3 +1,10 @@
+## [39.42.2](https://github.com/Lundalogik/lime-elements/compare/v39.42.1...v39.42.2) (2026-07-10)
+
+### Bug Fixes
+
+
+* **text-editor:** size inline images given bare-pixel dimensions ([713ae95](https://github.com/Lundalogik/lime-elements/commit/713ae9565897961ed3572ebe912b3f6012f616df))
+
 ## [39.42.1](https://github.com/Lundalogik/lime-elements/compare/v39.42.0...v39.42.1) (2026-07-09)
 
 ### Bug Fixes
