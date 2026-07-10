@@ -1,3 +1,14 @@
+## [39.43.0](https://github.com/Lundalogik/lime-elements/compare/v39.42.2...v39.43.0) (2026-07-10)
+
+### Features
+
+
+* **chart:** add a scatter chart type ([849c0d4](https://github.com/Lundalogik/lime-elements/commit/849c0d48d6fb0be429c9a84f6697fb928b5111f4))
+### Bug Fixes
+
+
+* **chart:** rotate scatter value-axis labels with orientation ([00aa0cf](https://github.com/Lundalogik/lime-elements/commit/00aa0cf90ac7403f6d0372a99bc873173c0293cf))
+
 ## [39.42.2](https://github.com/Lundalogik/lime-elements/compare/v39.42.1...v39.42.2) (2026-07-10)
 
 ### Bug Fixes
