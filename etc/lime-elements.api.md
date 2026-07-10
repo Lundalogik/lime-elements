@@ -1025,7 +1025,7 @@ export interface DockMenu {
     };
 }
 
-// @alpha (undocumented)
+// @alpha @deprecated (undocumented)
 export interface EditorImage {
     fileInfoId: string;
     src: string;
@@ -1066,7 +1066,7 @@ export type EditorMenuTypes = (typeof EditorMenuTypes)[keyof typeof EditorMenuTy
 // @public (undocumented)
 export const editorMenuTypesArray: EditorMenuTypes[];
 
-// @alpha
+// @alpha @deprecated
 export interface EditorMetadata {
     images: EditorImage[];
     links: EditorLink[];
@@ -1283,7 +1283,7 @@ interface Image_2 {
 }
 export { Image_2 as Image }
 
-// @alpha (undocumented)
+// @alpha @deprecated (undocumented)
 export interface ImageInserter {
     // (undocumented)
     fileInfo: FileInfo;
@@ -3628,7 +3628,7 @@ export namespace JSX {
         "onChange"?: (event: LimelTextEditorCustomEvent<string>) => void;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
-        // @alpha
+        // @alpha @deprecated
         "onImagePasted"?: (event: LimelTextEditorCustomEvent<ImageInserter>) => void;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
@@ -3636,7 +3636,7 @@ export namespace JSX {
         "onImageRemoved"?: (event: LimelTextEditorCustomEvent<EditorImage>) => void;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
-        // @alpha
+        // @alpha @deprecated
         "onMetadataChange"?: (event: LimelTextEditorCustomEvent<EditorMetadata>) => void;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
