@@ -648,6 +648,9 @@ export class ProsemirrorAdapter {
         }
     }
 
+    // When the deprecated metadata events are removed, this cache eviction
+    // must be kept: re-derive the removed fileInfoIds from the node attrs so
+    // pasted images still get evicted from `imageCache` when deleted.
     private removeImagesFromCache(
         oldMetadata: EditorMetadata,
         newMetadata: EditorMetadata

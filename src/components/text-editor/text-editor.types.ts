@@ -65,6 +65,8 @@ export type TextEditorNode = {
 
 /**
  * @alpha
+ * @deprecated Superseded by the `InlineImages` config, which lets the editor
+ * own the whole paste lifecycle. Will be removed in a future version.
  */
 export interface ImageInserter {
     fileInfo: FileInfo;
@@ -160,6 +162,8 @@ export type EditorImageState = 'loading' | 'failed' | 'success';
 
 /**
  * @alpha
+ * @deprecated Superseded by the `InlineImages` config. Will be removed in a
+ * future version.
  */
 export interface EditorImage {
     /**
@@ -231,10 +235,12 @@ export interface TriggerEventDetail {
 }
 
 /**
+ * Interface representing metadata extracted from the editor document
  *
  * @alpha
- *
- * Interface representing metadata extracted from the editor document
+ * @deprecated Unused alpha API. Image handling now lives in the `InlineImages`
+ * config; link metadata has no direct replacement yet. Will be removed in a
+ * future version.
  */
 export interface EditorMetadata {
     /**
