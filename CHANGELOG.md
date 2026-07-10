@@ -1,3 +1,10 @@
+## [39.44.0](https://github.com/Lundalogik/lime-elements/compare/v39.43.0...v39.44.0) (2026-07-10)
+
+### Features
+
+
+* **text-editor:** deprecate legacy image handling in favor of inlineImages ([ee61edd](https://github.com/Lundalogik/lime-elements/commit/ee61edd259d78db98ff0347e86539825c1ff4f54))
+
 ## [39.43.0](https://github.com/Lundalogik/lime-elements/compare/v39.42.2...v39.43.0) (2026-07-10)
 
 ### Features
