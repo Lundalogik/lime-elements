@@ -52,9 +52,11 @@ export function isTypeAccepted(file: FileInfo, accept?: string): boolean {
         }
 
         if (acceptedType.startsWith('.')) {
-            const fileType = acceptedType.split('.')[1];
-
-            return file.contentType.endsWith(`/${fileType}`);
+            // An extension specifier matches by file name (like the native
+            // `accept` attribute), not by MIME type.
+            return file.filename
+                .toLowerCase()
+                .endsWith(acceptedType.toLowerCase());
         }
     });
 }

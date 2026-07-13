@@ -61,30 +61,93 @@ describe('isTypeAccepted', () => {
         (accept: string, expected: boolean[]) => {
             it(`${expected[0] ? 'accepts' : 'does not accept'} image/png`, () => {
                 expect(
-                    isTypeAccepted({ contentType: 'image/png' } as any, accept)
+                    isTypeAccepted(
+                        {
+                            contentType: 'image/png',
+                            filename: 'photo.png',
+                        } as any,
+                        accept
+                    )
                 ).toEqual(expected[0]);
             });
 
             it(`${expected[1] ? 'accepts' : 'does not accept'} image/jpg`, () => {
                 expect(
-                    isTypeAccepted({ contentType: 'image/jpg' } as any, accept)
+                    isTypeAccepted(
+                        {
+                            contentType: 'image/jpg',
+                            filename: 'photo.jpg',
+                        } as any,
+                        accept
+                    )
                 ).toEqual(expected[1]);
             });
 
             it(`${expected[2] ? 'accepts' : 'does not accept'} video/webp`, () => {
                 expect(
-                    isTypeAccepted({ contentType: 'video/webp' } as any, accept)
+                    isTypeAccepted(
+                        {
+                            contentType: 'video/webp',
+                            filename: 'clip.webp',
+                        } as any,
+                        accept
+                    )
                 ).toEqual(expected[2]);
             });
 
             it(`${expected[3] ? 'accepts' : 'does not accept'} document/pdf`, () => {
                 expect(
                     isTypeAccepted(
-                        { contentType: 'document/pdf' } as any,
+                        {
+                            contentType: 'document/pdf',
+                            filename: 'doc.pdf',
+                        } as any,
                         accept
                     )
                 ).toEqual(expected[3]);
             });
         }
     );
+});
+
+describe('isTypeAccepted matches extension specifiers by filename', () => {
+    const asFile = (filename: string, contentType = ''): any => ({
+        filename,
+        contentType,
+    });
+
+    it('accepts an extension whose MIME subtype differs (e.g. .docx)', () => {
+        // Regression: this previously matched `contentType.endsWith('/docx')`,
+        // which fails for the real docx MIME type.
+        const docx =
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+
+        expect(isTypeAccepted(asFile('report.docx', docx), '.docx')).toBe(true);
+    });
+
+    it('rejects a file whose extension does not match', () => {
+        expect(isTypeAccepted(asFile('report.pdf'), '.docx')).toBe(false);
+    });
+
+    it('matches multi-part extensions', () => {
+        expect(isTypeAccepted(asFile('archive.tar.gz'), '.tar.gz')).toBe(true);
+        expect(isTypeAccepted(asFile('archive.zip'), '.tar.gz')).toBe(false);
+    });
+
+    it('matches case-insensitively', () => {
+        expect(isTypeAccepted(asFile('REPORT.PDF'), '.pdf')).toBe(true);
+        expect(isTypeAccepted(asFile('report.pdf'), '.PDF')).toBe(true);
+    });
+
+    it('matches by filename even when the content type is unhelpful', () => {
+        expect(
+            isTypeAccepted(asFile('data.7z', 'application/octet-stream'), '.7z')
+        ).toBe(true);
+    });
+
+    it('matches within a comma-separated list', () => {
+        expect(isTypeAccepted(asFile('sheet.xlsx'), '.pdf,.docx,.xlsx')).toBe(
+            true
+        );
+    });
 });
