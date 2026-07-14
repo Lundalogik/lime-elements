@@ -1,3 +1,10 @@
+## [39.44.1](https://github.com/Lundalogik/lime-elements/compare/v39.44.0...v39.44.1) (2026-07-14)
+
+### Bug Fixes
+
+
+* **file:** match extension accept specifiers by filename ([b59f4ec](https://github.com/Lundalogik/lime-elements/commit/b59f4ec5dc77430c621d6a7aa94270b5dff406fa)), closes [#4183](https://github.com/Lundalogik/lime-elements/issues/4183)
+
 ## [39.44.0](https://github.com/Lundalogik/lime-elements/compare/v39.43.0...v39.44.0) (2026-07-10)
 
 ### Features
