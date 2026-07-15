@@ -37,7 +37,11 @@ import {
     isInlineImageTag,
 } from '../text-editor.types';
 import { imageCache } from './plugins/image/node';
-import { buildEditorSchema, buildEditorPlugins } from './editor-config';
+import {
+    buildEditorSchema,
+    buildEditorPlugins,
+    ContentType,
+} from './editor-config';
 import { EditorUiType } from '../types';
 import {
     getMetadataFromDoc,
@@ -67,7 +71,7 @@ export class ProsemirrorAdapter {
      * Assumed to be set only once, so not reactive to changes
      */
     @Prop()
-    public contentType: 'markdown' | 'html' = 'markdown';
+    public contentType: ContentType = 'markdown';
 
     /**
      * The value of the editor, expected to be markdown
