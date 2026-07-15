@@ -22,6 +22,11 @@ import { CustomElementDefinition } from '../../../global/shared-types/custom-ele
 import { Languages } from '../../date-picker/date.types';
 import { TriggerCharacter, InlineImages } from '../text-editor.types';
 
+/**
+ * Content format the text editor reads and emits.
+ *
+ * @beta
+ */
 export type ContentType = 'markdown' | 'html';
 
 export interface EditorSchemaOptions {
