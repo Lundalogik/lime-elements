@@ -97,6 +97,7 @@ Type: `Promise<number>`
  - [limel-example-chart-type-line](../chart/examples)
  - [limel-example-chart-type-pie](../chart/examples)
  - [limel-example-chart-type-ring](../chart/examples)
+ - [limel-example-chart-type-scatter](../chart/examples)
  - [limel-example-chip-set-input](../chip-set/examples)
  - [limel-example-circular-progress-basic](../circular-progress/examples)
  - [limel-example-circular-progress-percentage-colors](../circular-progress/examples)
@@ -163,6 +164,7 @@ graph TD;
   limel-example-chart-type-line --> limel-input-field
   limel-example-chart-type-pie --> limel-input-field
   limel-example-chart-type-ring --> limel-input-field
+  limel-example-chart-type-scatter --> limel-input-field
   limel-example-chip-set-input --> limel-input-field
   limel-example-circular-progress-basic --> limel-input-field
   limel-example-circular-progress-percentage-colors --> limel-input-field
