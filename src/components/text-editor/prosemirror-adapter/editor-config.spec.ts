@@ -116,8 +116,8 @@ describe('editor-config (real-stack integration)', () => {
         it('both the link and image plugins register handlePaste, link first', () => {
             expect(linkPlugin).toBeDefined();
             expect(imagePlugin).toBeDefined();
-            expect(typeof linkPlugin.props.handlePaste).toBe('function');
-            expect(typeof imagePlugin.props.handlePaste).toBe('function');
+            expect(typeof linkPlugin?.props.handlePaste).toBe('function');
+            expect(typeof imagePlugin?.props.handlePaste).toBe('function');
 
             // ProseMirror resolves handlePaste first-truthy-wins in plugin
             // order, so the relative order of these two decides which claims a
@@ -140,10 +140,10 @@ describe('editor-config (real-stack integration)', () => {
             } as unknown as ClipboardEvent;
 
             expect(
-                linkPlugin!.props.handlePaste(view, plainPaste, Slice.empty)
+                linkPlugin?.props.handlePaste?.(view, plainPaste, Slice.empty)
             ).toBeFalsy();
             expect(
-                imagePlugin!.props.handlePaste(view, plainPaste, Slice.empty)
+                imagePlugin?.props.handlePaste?.(view, plainPaste, Slice.empty)
             ).toBeFalsy();
         });
     });
