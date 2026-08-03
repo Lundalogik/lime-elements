@@ -1,0 +1,1 @@
+const e=()=>{if("undefined"==typeof window)return;const e=new UIEvent("resize",{view:window,detail:0});window.dispatchEvent(e)},n=()=>{e()};export{e as d,n as r}
