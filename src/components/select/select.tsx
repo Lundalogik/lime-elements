@@ -13,12 +13,34 @@ import {
     Watch,
 } from '@stencil/core';
 import { isMobileDevice } from '../../util/device';
-import { ENTER, SPACE } from '../../util/keycodes';
+import { ENTER, SPACEBAR } from '../../util/keycodes';
 import { isMultiple } from '../../util/multiple';
 import { createRandomString } from '../../util/random-string';
-import { SelectTemplate, triggerIconColorWarning } from './select.template';
+import {
+    findTypeaheadMatch,
+    isTypeaheadKey,
+    NO_TYPEAHEAD_MATCH,
+    TypeaheadBuffer,
+    TypeaheadCandidate,
+} from '../../util/typeahead';
+import {
+    createMenuItems,
+    SelectTemplate,
+    triggerIconColorWarning,
+} from './select.template';
 
 /**
+ * ## Keyboard
+ *
+ * Typing characters jumps to the option whose text starts with them, the way
+ * a native `<select>` does. Characters accumulate for a short while, so typing
+ * `n`, `e` finds "Netherlands" rather than the next option starting with `n`.
+ * Pressing the same character repeatedly cycles through all options starting
+ * with it. This works both while the dropdown is open, and while the closed
+ * component has focus — in which case the dropdown opens with the match
+ * highlighted. Typing only moves the highlight; the value is not changed until
+ * the option is picked with `Enter` or a click.
+ *
  * @exampleComponent limel-example-select-basic
  * @exampleComponent limel-example-select-with-icons
  * @exampleComponent limel-example-select-with-separators
@@ -127,6 +149,18 @@ export class Select {
         this.hasPrimaryComponentMemo = this.computeHasPrimaryComponent();
     }
 
+    /**
+     * `options` and `required` are the inputs that decide which rows the
+     * dropdown renders, and therefore which row an index refers to. When
+     * either changes, a buffered typeahead match no longer points at what the
+     * user was aiming for.
+     */
+    @Watch('options')
+    @Watch('required')
+    protected resetTypeaheadOnItemsChange() {
+        this.resetTypeahead();
+    }
+
     private checkValid: boolean = false;
     private mdcSelectHelperText: MDCSelectHelperText;
     private mdcFloatingLabel: MDCFloatingLabel;
@@ -135,11 +169,20 @@ export class Select {
     private focusObserver: IntersectionObserver;
     private focusTimeoutId: ReturnType<typeof setTimeout>;
 
+    private readonly typeaheadBuffer = new TypeaheadBuffer();
+
+    /**
+     * The row a typeahead match wants to focus, when it could not be focused
+     * right away — because the dropdown had not opened or rendered yet. It is
+     * consumed by `setMenuFocus`, once focus is about to land in the menu.
+     */
+    private pendingTypeaheadIndex: number | undefined;
+
+    private list: HTMLLimelListElement;
+
     constructor() {
         this.handleMenuChange = this.handleMenuChange.bind(this);
         this.handleNativeChange = this.handleNativeChange.bind(this);
-        this.handleMenuTriggerKeyPress =
-            this.handleMenuTriggerKeyPress.bind(this);
         this.openMenu = this.openMenu.bind(this);
         this.closeMenu = this.closeMenu.bind(this);
 
@@ -185,6 +228,7 @@ export class Select {
 
     public disconnectedCallback() {
         this.cancelPendingFocus();
+        this.resetTypeahead();
 
         if (this.mdcFloatingLabel) {
             this.mdcFloatingLabel.destroy();
@@ -219,7 +263,8 @@ export class Select {
                 options={this.options}
                 onMenuChange={this.handleMenuChange}
                 onNativeChange={this.handleNativeChange}
-                onTriggerPress={this.handleMenuTriggerKeyPress}
+                onTriggerKeyDown={this.handleMenuTriggerKeyDown}
+                listRef={this.setListElement}
                 multiple={this.multiple}
                 isOpen={this.menuOpen}
                 open={this.openMenu}
@@ -279,7 +324,17 @@ export class Select {
                     return;
                 }
 
-                this.focusFirstMenuItem(list);
+                // Consumed on read, so that a later, unrelated re-render
+                // cannot resurrect a stale index and yank focus.
+                const typeaheadIndex = this.pendingTypeaheadIndex;
+                this.pendingTypeaheadIndex = undefined;
+
+                if (
+                    typeaheadIndex === undefined ||
+                    !this.focusMenuItemAtIndex(list, typeaheadIndex)
+                ) {
+                    this.focusFirstMenuItem(list);
+                }
             });
             this.focusObserver.observe(list);
         }, 0);
@@ -304,6 +359,35 @@ export class Select {
         if (firstItem) {
             firstItem.focus({ preventScroll: true });
         }
+    }
+
+    /**
+     * Focus the row at a given index in the dropdown.
+     *
+     * The rows only become focusable once `limel-list` has set up `MDCList`,
+     * which is what gives them a `tabindex`. Callers use the return value to
+     * fall back to `pendingTypeaheadIndex` when that has not happened yet.
+     *
+     * @param list - the `limel-list` of the dropdown
+     * @param index - the index of the row, as rendered in its `data-index`
+     * @returns whether the row could be focused
+     */
+    private focusMenuItemAtIndex(list: HTMLElement, index: number): boolean {
+        const item: HTMLElement = list?.shadowRoot?.querySelector(
+            `[data-index="${index}"]`
+        );
+
+        if (!item) {
+            return false;
+        }
+
+        // Scrolled explicitly, and only within the dropdown: letting `focus()`
+        // scroll would scroll the page, since the dropdown is rendered into a
+        // portal that is absolutely positioned on the `body`.
+        item.focus({ preventScroll: true });
+        item.scrollIntoView({ block: 'nearest' });
+
+        return list.shadowRoot.activeElement === item;
     }
 
     private setTriggerFocus() {
@@ -374,6 +458,7 @@ export class Select {
         this.change.emit(option);
         this.menuOpen = false;
         this.cancelPendingFocus();
+        this.resetTypeahead();
         this.setTriggerFocus();
     }
 
@@ -417,18 +502,188 @@ export class Select {
     private closeMenu() {
         this.menuOpen = false;
         this.cancelPendingFocus();
+        this.resetTypeahead();
         this.setTriggerFocus();
     }
 
-    private handleMenuTriggerKeyPress(event: KeyboardEvent) {
+    private readonly handleMenuTriggerKeyDown = (
+        event: KeyboardEvent
+    ): void => {
+        // Typeahead runs first, so that a space extends an ongoing typeahead
+        // instead of just opening the dropdown. A *bare* space is declined by
+        // `handleTypeaheadKey`, and keeps its usual meaning below.
+        if (this.handleTypeaheadKey(event, NO_TYPEAHEAD_MATCH)) {
+            return;
+        }
+
         const isEnter = event.key === ENTER;
-        const isSpace = event.key === SPACE;
+        const isSpace = event.key === SPACEBAR;
 
         if (!this.menuOpen && (isSpace || isEnter)) {
             event.stopPropagation();
             event.preventDefault();
-            this.menuOpen = true;
+
+            // `preventDefault` cancels the activation click that the trigger
+            // `button` would otherwise synthesize, so the menu has to be
+            // opened here rather than through the click handler.
+            this.openMenu();
         }
+    };
+
+    private readonly setListElement = (
+        element: HTMLLimelListElement | null
+    ): void => {
+        if (this.list === element) {
+            return;
+        }
+
+        this.list?.removeEventListener(
+            'keydown',
+            this.handleListKeyDownCapture,
+            true
+        );
+
+        this.list = element;
+
+        this.list?.addEventListener(
+            'keydown',
+            this.handleListKeyDownCapture,
+            true
+        );
+    };
+
+    /**
+     * Key handler for the dropdown, in the capture phase.
+     *
+     * `MDCList` listens for `keydown` on the `ul` inside `limel-list`'s shadow
+     * root, so capturing on the `limel-list` element itself is the only place
+     * a typed character can be stopped before MDC sees it. It has to be
+     * stopped: MDC would add it to its own typeahead buffer, which suppresses
+     * selection with `Enter` for as long as that buffer lives, and it treats
+     * the space bar as a selection.
+     *
+     * @param event - the key that was pressed
+     */
+    private readonly handleListKeyDownCapture = (
+        event: KeyboardEvent
+    ): void => {
+        this.handleTypeaheadKey(event, this.getFocusedMenuItemIndex());
+    };
+
+    /**
+     * Move the highlight to the option matching the characters typed so far,
+     * the way a native `<select>` does. Never changes the value — the option
+     * still has to be picked with `Enter` or a click.
+     *
+     * @param event - the key that was pressed
+     * @param focusedIndex - the row that currently has focus, if any
+     * @returns whether the key was handled as typeahead
+     */
+    private handleTypeaheadKey(
+        event: KeyboardEvent,
+        focusedIndex: number
+    ): boolean {
+        // The native dropdown on mobile devices does its own typeahead. Note
+        // that `setMenuFocus` bails out on mobile too, so a pending index
+        // would never be consumed there.
+        if (this.isMobileDevice || !isTypeaheadKey(event)) {
+            return false;
+        }
+
+        // A space only continues an ongoing typeahead. On its own it keeps its
+        // usual meaning of opening the dropdown, or selecting the focused
+        // option.
+        if (event.key === SPACEBAR && this.typeaheadBuffer.isEmpty) {
+            return false;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        // Derived per key press rather than cached, so that the indices always
+        // refer to the rows the dropdown renders right now.
+        const items = createMenuItems(this.options, this.value, this.required);
+        const candidates: Array<TypeaheadCandidate | null> = items.map(
+            (item) => ('separator' in item ? null : item)
+        );
+
+        const buffer = this.typeaheadBuffer.append(event.key);
+        const currentIndex = this.resolveTypeaheadIndex(items, focusedIndex);
+        const index = findTypeaheadMatch(candidates, buffer, currentIndex);
+
+        if (index !== NO_TYPEAHEAD_MATCH) {
+            this.focusTypeaheadMatch(index);
+        }
+
+        return true;
+    }
+
+    /**
+     * @param items - the items of the dropdown
+     * @param focusedIndex - the row that currently has focus, if any
+     * @returns the index a typeahead search should start from
+     */
+    private resolveTypeaheadIndex(
+        items: Array<ListItem<Option> | ListSeparator>,
+        focusedIndex: number
+    ): number {
+        if (focusedIndex !== NO_TYPEAHEAD_MATCH) {
+            return focusedIndex;
+        }
+
+        // Typed again before focus had time to land in the dropdown.
+        if (this.pendingTypeaheadIndex !== undefined) {
+            return this.pendingTypeaheadIndex;
+        }
+
+        // Falls back to the selected option, so that typing continues from
+        // wherever the highlight already is. `findIndex` returning `-1` for a
+        // select without a value is exactly the "no current row" that
+        // `findTypeaheadMatch` expects.
+        return items.findIndex(
+            (item) => !('separator' in item) && item.selected
+        );
+    }
+
+    private focusTypeaheadMatch(index: number): void {
+        // Recorded even when the row can be focused right away. Opening the
+        // dropdown queues a `setMenuFocus` that waits for it to become
+        // visible, and someone typing quickly gets the next character in
+        // before that resolves. Leaving the earlier index in place would let
+        // the queued focus apply it on top of this newer match.
+        this.pendingTypeaheadIndex = index;
+
+        if (this.menuOpen && this.focusMenuItemAtIndex(this.list, index)) {
+            return;
+        }
+
+        if (this.menuOpen) {
+            // Already open, so no re-render is coming that would trigger
+            // `componentDidUpdate`. Schedule the focus explicitly.
+            this.setMenuFocus();
+        } else {
+            this.openMenu();
+        }
+    }
+
+    /**
+     * @returns the index of the focused row of the dropdown, or
+     * `NO_TYPEAHEAD_MATCH` when no row has focus
+     */
+    private getFocusedMenuItemIndex(): number {
+        // Deliberately not `event.target`: a listener on the `limel-list`
+        // element sees events from inside its shadow root retargeted to the
+        // element itself, never to the row that was actually focused.
+        const focused = this.list?.shadowRoot?.activeElement;
+        const row = focused?.closest<HTMLElement>('[data-index]');
+        const index = Number.parseInt(row?.dataset.index ?? '', 10);
+
+        return Number.isNaN(index) ? NO_TYPEAHEAD_MATCH : index;
+    }
+
+    private resetTypeahead(): void {
+        this.typeaheadBuffer.clear();
+        this.pendingTypeaheadIndex = undefined;
     }
 
     private handleNativeChange(event: Event) {
