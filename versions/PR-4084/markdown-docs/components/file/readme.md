@@ -34,16 +34,19 @@ and similar phrases...
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                                                                 | Type                                                                   | Default     |
-| ---------- | ---------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------- |
-| `accept`   | `accept`   | The [accepted file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers) | `string`                                                               | `'*'`       |
-| `disabled` | `disabled` | True if the input should be disabled                                                                                        | `boolean`                                                              | `false`     |
-| `invalid`  | `invalid`  | Set to `true` to indicate that the current value of the chosen file is invalid.                                             | `boolean`                                                              | `false`     |
-| `label`    | `label`    | The input label.                                                                                                            | `string`                                                               | `undefined` |
-| `language` | `language` | Defines the localisation for translations.                                                                                  | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`      |
-| `readonly` | `readonly` | Set to `true` to disable adding and removing files, but allow interaction with any already existing file.                   | `boolean`                                                              | `false`     |
-| `required` | `required` | Set to `true` to indicate that the field is required.                                                                       | `boolean`                                                              | `false`     |
-| `value`    | --         | The selected file.                                                                                                          | `FileInfo`                                                             | `undefined` |
+| Property      | Attribute     | Description                                                                                                                                                                                                                                                                      | Type                                                                                                                                                                | Default     |
+| ------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `accept`      | `accept`      | The [accepted file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers)                                                                                                                                                      | `string`                                                                                                                                                            | `'*'`       |
+| `disabled`    | `disabled`    | True if the input should be disabled                                                                                                                                                                                                                                             | `boolean`                                                                                                                                                           | `false`     |
+| `helperText`  | `helper-text` | Optional helper text to display below the component.                                                                                                                                                                                                                             | `string`                                                                                                                                                            | `undefined` |
+| `invalid`     | `invalid`     | Set to `true` to indicate that the current value of the chosen file is invalid.                                                                                                                                                                                                  | `boolean`                                                                                                                                                           | `false`     |
+| `label`       | `label`       | The input label.                                                                                                                                                                                                                                                                 | `string`                                                                                                                                                            | `undefined` |
+| `language`    | `language`    | Defines the localisation for translations.                                                                                                                                                                                                                                       | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"`                                                                                              | `'en'`      |
+| `loading`     | `loading`     | Set to `true` to put the component in the `loading` state, and render an indeterminate progress indicator. This does _not_ disable the interactivity of the component!                                                                                                           | `boolean`                                                                                                                                                           | `false`     |
+| `readonly`    | `readonly`    | Set to `true` to disable adding and removing files, but allow interaction with any already existing file.                                                                                                                                                                        | `boolean`                                                                                                                                                           | `false`     |
+| `required`    | `required`    | Set to `true` to indicate that the field is required.                                                                                                                                                                                                                            | `boolean`                                                                                                                                                           | `false`     |
+| `resizeImage` | --            | Optional client-side image resize, applied before the `change` event is emitted: a selected image is downscaled and re-encoded on the user's device. Only decodable raster images are resized; all other files pass through unchanged. See the examples for details and caveats. | `{ width?: number; height?: number; fit?: "cover" \| "contain"; type?: "image/jpeg" \| "image/png"; quality?: number; rename?: (originalName: string) => string; }` | `undefined` |
+| `value`       | --            | The selected file.                                                                                                                                                                                                                                                               | `FileInfo`                                                                                                                                                          | `undefined` |
 
 
 ## Events
@@ -62,12 +65,21 @@ and similar phrases...
  - [limel-example-file-basic](examples)
  - [limel-example-file-composite](examples)
  - [limel-example-file-custom-icon](examples)
+ - [limel-example-file-loading](examples)
  - [limel-example-file-menu-items](examples)
+ - [limel-example-file-per-file-invalid](examples)
+ - [limel-example-file-per-file-loading](examples)
+ - [limel-example-file-per-file-progress](examples)
+ - [limel-example-file-per-file-status](examples)
+ - [limel-example-file-resize-image](examples)
+ - [limel-example-file-resize-mixed](examples)
+ - [limel-example-file-size-badge](examples)
  - [limel-example-file-viewer-with-picker](../file-viewer/examples)
 
 ### Depends on
 
 - [limel-file-dropzone](../file-dropzone)
+- [limel-spinner](../spinner)
 - [limel-chip-set](../chip-set)
 - [limel-file-input](../file-input)
 
@@ -75,6 +87,7 @@ and similar phrases...
 ```mermaid
 graph TD;
   limel-file --> limel-file-dropzone
+  limel-file --> limel-spinner
   limel-file --> limel-chip-set
   limel-file --> limel-file-input
   limel-file-dropzone --> limel-icon
@@ -108,7 +121,15 @@ graph TD;
   limel-example-file-basic --> limel-file
   limel-example-file-composite --> limel-file
   limel-example-file-custom-icon --> limel-file
+  limel-example-file-loading --> limel-file
   limel-example-file-menu-items --> limel-file
+  limel-example-file-per-file-invalid --> limel-file
+  limel-example-file-per-file-loading --> limel-file
+  limel-example-file-per-file-progress --> limel-file
+  limel-example-file-per-file-status --> limel-file
+  limel-example-file-resize-image --> limel-file
+  limel-example-file-resize-mixed --> limel-file
+  limel-example-file-size-badge --> limel-file
   limel-example-file-viewer-with-picker --> limel-file
   style limel-file fill:#f9f,stroke:#333,stroke-width:4px
 ```

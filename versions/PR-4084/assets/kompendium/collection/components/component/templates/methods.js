@@ -1,22 +1,25 @@
 import { h } from "@stencil/core";
-export function MethodList({ methods, id, }) {
+import { entrySlug } from "../anchors";
+export function MethodList({ methods, id, slugId, }) {
     if (!methods.length) {
         return;
     }
     return [
-        h("h3", { class: "docs-layout-section-heading", id: id }, "Methods"),
-        ...methods.map(renderMethod),
+        slugId ? (h("span", { class: "section-anchor", id: slugId, "aria-hidden": "true" })) : null,
+        h("h3", { class: "docs-layout-section-heading", id: id }, "Methods", slugId ? (h("kompendium-anchor", { slug: slugId, label: "Methods" })) : null),
+        ...methods.map(renderMethod(slugId)),
     ];
 }
-function renderMethod(method) {
+const renderMethod = (sectionSlug) => (method) => {
     const items = [
         {
             key: 'Signature',
             value: method.signature,
         },
     ].filter((item) => item.value !== undefined);
-    return (h("div", { class: "methods-layout" }, h("h4", { class: "methods-title" }, method.name), h("div", { class: "methods-content" }, h("div", null, h("kompendium-markdown", { text: method.docs })), h("div", null, h("kompendium-taglist", { tags: method.docsTags }), h("kompendium-proplist", { items: items }), h(ParamList, { params: method.parameters }))), h("div", { class: "methods-returns" }, h(Returns, { value: method.returns }))));
-}
+    const slug = sectionSlug ? entrySlug(sectionSlug, method.name) : null;
+    return (h("div", { class: "methods-layout" }, h("h4", { class: "methods-title", id: slug }, method.name, slug ? (h("kompendium-anchor", { slug: slug, label: method.name })) : null), h("div", { class: "methods-content" }, h("div", null, h("kompendium-markdown", { text: method.docs })), h("div", null, h("kompendium-taglist", { tags: method.docsTags }), h("kompendium-proplist", { items: items }), h(ParamList, { params: method.parameters }))), h("div", { class: "methods-returns" }, h(Returns, { value: method.returns }))));
+};
 function ParamList({ params }) {
     if (!params.length) {
         return;
@@ -51,4 +54,3 @@ function Returns({ value }) {
         h("kompendium-markdown", { text: type }),
     ];
 }
-//# sourceMappingURL=methods.js.map

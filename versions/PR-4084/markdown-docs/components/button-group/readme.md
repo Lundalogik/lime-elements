@@ -52,6 +52,9 @@ inherits its width from its content.
 
 ### Used by
 
+ - [limel-example-ai-avatar-branded](../ai-avatar/examples)
+ - [limel-example-ai-avatar-export](../ai-avatar/examples)
+ - [limel-example-ai-avatar-mode](../ai-avatar/examples)
  - [limel-example-button-group-badges](examples)
  - [limel-example-button-group-basic](examples)
  - [limel-example-button-group-composite](examples)
@@ -74,6 +77,9 @@ graph TD;
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-tooltip-content --> limel-hotkey
+  limel-example-ai-avatar-branded --> limel-button-group
+  limel-example-ai-avatar-export --> limel-button-group
+  limel-example-ai-avatar-mode --> limel-button-group
   limel-example-button-group-badges --> limel-button-group
   limel-example-button-group-basic --> limel-button-group
   limel-example-button-group-composite --> limel-button-group

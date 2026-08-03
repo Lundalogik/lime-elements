@@ -58,4 +58,3 @@ export function scrollToElement(shadowRoot, id, behavior = 'auto') {
         element.scrollIntoView({ behavior: behavior });
     }
 }
-//# sourceMappingURL=anchor-scroll.js.map

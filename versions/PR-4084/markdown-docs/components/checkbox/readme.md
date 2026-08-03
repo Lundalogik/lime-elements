@@ -51,10 +51,6 @@ But there is an important difference between the two! Please read our guidelines
 ### Used by
 
  - [limel-example-action-bar-icon-title](../action-bar/examples)
- - [limel-example-ai-avatar-basic](../ai-avatar/examples)
- - [limel-example-ai-avatar-color-props](../ai-avatar/examples)
- - [limel-example-ai-avatar-colors](../ai-avatar/examples)
- - [limel-example-ai-avatar-white-background](../ai-avatar/examples)
  - [limel-example-audition-form](../../design-guidelines/boolean/examples)
  - [limel-example-audition-form-readonly](../../design-guidelines/boolean/examples)
  - [limel-example-boolean-checkboxes](../../design-guidelines/boolean/examples)
@@ -72,6 +68,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-file-input-basic](../file-input/examples)
  - [limel-example-file-input-type-filtering](../file-input/examples)
  - [limel-example-form-array-item-controls](../form/examples)
+ - [limel-example-form-invalid-section](../form/examples)
  - [limel-example-helper-line-animation](../helper-line/examples)
  - [limel-example-input-field-text-decluttering-guidelines](../../design-guidelines/declutter/examples)
  - [limel-example-list-item-checkbox](../list-item/examples)
@@ -87,7 +84,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-snackbar-dismissible](../snackbar/examples)
  - [limel-example-switch-vs-checkbox](../../design-guidelines/boolean/examples)
  - [limel-example-table-sorting-disabled](../table/examples)
- - [limel-example-text-editor-with-inline-images-file-storage](../text-editor/examples)
+ - [limel-example-text-editor-with-inline-images-custom-tag](../text-editor/examples)
  - [limel-table](../table)
  - [limel-whats-new-example-slider](../../examples/whats-new/examples)
 
@@ -103,10 +100,6 @@ graph TD;
   limel-checkbox --> limel-helper-line
   limel-dynamic-label --> limel-icon
   limel-example-action-bar-icon-title --> limel-checkbox
-  limel-example-ai-avatar-basic --> limel-checkbox
-  limel-example-ai-avatar-color-props --> limel-checkbox
-  limel-example-ai-avatar-colors --> limel-checkbox
-  limel-example-ai-avatar-white-background --> limel-checkbox
   limel-example-audition-form --> limel-checkbox
   limel-example-audition-form-readonly --> limel-checkbox
   limel-example-boolean-checkboxes --> limel-checkbox
@@ -124,6 +117,7 @@ graph TD;
   limel-example-file-input-basic --> limel-checkbox
   limel-example-file-input-type-filtering --> limel-checkbox
   limel-example-form-array-item-controls --> limel-checkbox
+  limel-example-form-invalid-section --> limel-checkbox
   limel-example-helper-line-animation --> limel-checkbox
   limel-example-input-field-text-decluttering-guidelines --> limel-checkbox
   limel-example-list-item-checkbox --> limel-checkbox
@@ -139,7 +133,7 @@ graph TD;
   limel-example-snackbar-dismissible --> limel-checkbox
   limel-example-switch-vs-checkbox --> limel-checkbox
   limel-example-table-sorting-disabled --> limel-checkbox
-  limel-example-text-editor-with-inline-images-file-storage --> limel-checkbox
+  limel-example-text-editor-with-inline-images-custom-tag --> limel-checkbox
   limel-table --> limel-checkbox
   limel-whats-new-example-slider --> limel-checkbox
   style limel-checkbox fill:#f9f,stroke:#333,stroke-width:4px

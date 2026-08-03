@@ -79,4 +79,3 @@ function extractText(node) {
     }
     return node.children.map(extractText).join('');
 }
-//# sourceMappingURL=markdown-admonitions.js.map

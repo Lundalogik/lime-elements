@@ -14,6 +14,10 @@ export declare class Playground {
      * @returns {Record<string, unknown>} props
      */
     propsFactory?: PropsFactory;
+    /**
+     * Slug used as the URL anchor for linking to this example.
+     */
+    anchorSlug?: string;
     private activeTab;
     private theme;
     constructor();

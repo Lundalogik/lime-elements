@@ -1,1 +1,0 @@
-{"version":3,"file":"playground.types.js","sourceRoot":"","sources":["../../../src/components/playground/playground.types.ts"],"names":[],"mappings":"","sourcesContent":["export type PropsFactory = (name: string) => Record<string, unknown>;\n"]}

@@ -75,6 +75,9 @@ The component automatically formats different value types:
  - [limel-example-file-input-basic](../components/file-input/examples)
  - [limel-example-file-input-type-filtering](../components/file-input/examples)
  - [limel-example-file-menu-items](../components/file/examples)
+ - [limel-example-file-resize-image](../components/file/examples)
+ - [limel-example-file-resize-mixed](../components/file/examples)
+ - [limel-example-file-size-badge](../components/file/examples)
  - [limel-example-form](../components/form/examples)
  - [limel-example-form-array-item-controls](../components/form/examples)
  - [limel-example-form-with-help](../components/form/examples)
@@ -106,14 +109,17 @@ The component automatically formats different value types:
  - [limel-example-nested-form](../components/form/examples)
  - [limel-example-notched-outline-basic](../components/notched-outline/examples)
  - [limel-example-picker-basic](../components/picker/examples)
+ - [limel-example-picker-empty-result-message](../components/picker/examples)
  - [limel-example-picker-empty-suggestions](../components/picker/examples)
  - [limel-example-picker-icons](../components/picker/examples)
  - [limel-example-picker-multiple](../components/picker/examples)
+ - [limel-example-picker-non-removable](../components/picker/examples)
  - [limel-example-picker-pictures](../components/picker/examples)
  - [limel-example-picker-sections](../components/picker/examples)
  - [limel-example-picker-static-actions](../components/picker/examples)
  - [limel-example-picker-value-as-object](../components/picker/examples)
  - [limel-example-picker-value-as-object-with-actions](../components/picker/examples)
+ - [limel-example-picker-with-badges](../components/picker/examples)
  - [limel-example-profile-picture-basic](../components/profile-picture/examples)
  - [limel-example-profile-picture-helper-text](../components/profile-picture/examples)
  - [limel-example-profile-picture-icon](../components/profile-picture/examples)
@@ -165,7 +171,7 @@ The component automatically formats different value types:
  - [limel-example-text-editor-triggers](../components/text-editor/examples)
  - [limel-example-text-editor-ui](../components/text-editor/examples)
  - [limel-example-text-editor-with-html](../components/text-editor/examples)
- - [limel-example-text-editor-with-inline-images-file-storage](../components/text-editor/examples)
+ - [limel-example-text-editor-with-inline-images-custom-tag](../components/text-editor/examples)
  - [limel-example-text-editor-with-markdown](../components/text-editor/examples)
  - [limel-example-text-editor-with-tables](../components/text-editor/examples)
 
@@ -206,6 +212,9 @@ graph TD;
   limel-example-file-input-basic --> limel-example-value
   limel-example-file-input-type-filtering --> limel-example-value
   limel-example-file-menu-items --> limel-example-value
+  limel-example-file-resize-image --> limel-example-value
+  limel-example-file-resize-mixed --> limel-example-value
+  limel-example-file-size-badge --> limel-example-value
   limel-example-form --> limel-example-value
   limel-example-form-array-item-controls --> limel-example-value
   limel-example-form-with-help --> limel-example-value
@@ -237,14 +246,17 @@ graph TD;
   limel-example-nested-form --> limel-example-value
   limel-example-notched-outline-basic --> limel-example-value
   limel-example-picker-basic --> limel-example-value
+  limel-example-picker-empty-result-message --> limel-example-value
   limel-example-picker-empty-suggestions --> limel-example-value
   limel-example-picker-icons --> limel-example-value
   limel-example-picker-multiple --> limel-example-value
+  limel-example-picker-non-removable --> limel-example-value
   limel-example-picker-pictures --> limel-example-value
   limel-example-picker-sections --> limel-example-value
   limel-example-picker-static-actions --> limel-example-value
   limel-example-picker-value-as-object --> limel-example-value
   limel-example-picker-value-as-object-with-actions --> limel-example-value
+  limel-example-picker-with-badges --> limel-example-value
   limel-example-profile-picture-basic --> limel-example-value
   limel-example-profile-picture-helper-text --> limel-example-value
   limel-example-profile-picture-icon --> limel-example-value
@@ -296,7 +308,7 @@ graph TD;
   limel-example-text-editor-triggers --> limel-example-value
   limel-example-text-editor-ui --> limel-example-value
   limel-example-text-editor-with-html --> limel-example-value
-  limel-example-text-editor-with-inline-images-file-storage --> limel-example-value
+  limel-example-text-editor-with-inline-images-custom-tag --> limel-example-value
   limel-example-text-editor-with-markdown --> limel-example-value
   limel-example-text-editor-with-tables --> limel-example-value
   style limel-example-value fill:#f9f,stroke:#333,stroke-width:4px

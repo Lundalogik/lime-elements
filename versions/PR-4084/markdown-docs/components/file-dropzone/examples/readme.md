@@ -4,43 +4,27 @@
 
 ## Overview
 
-File type filtering
-The component allows you to specify the types of files that the dropzone will accept.
-By default, it accepts all file types (`*`).
-
-For media files, it is possible to specify any format, using:
-`audio/*`, `video/*`, `image/*`.
-
-Additionally, you can use unique file type specifiers, such as:
-`.jpg`, or `.pdf`; or use a comma-separated list of file extensions or MIME types,
-for instance: `image/png, image/jpeg` or `.png, .jpg, .jpeg`.
-
-Read more about
-[HTML attribute: accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept)
+Basic example
 
 ## Dependencies
 
 ### Depends on
 
 - [limel-file-dropzone](..)
-- [limel-input-field](../../input-field)
 - [limel-chip](../../chip)
+- [limel-example-controls](../../../examples)
+- [limel-checkbox](../../checkbox)
 - [limel-example-value](../../../examples)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-file-dropzone-type-filtering --> limel-file-dropzone
-  limel-example-file-dropzone-type-filtering --> limel-input-field
-  limel-example-file-dropzone-type-filtering --> limel-chip
-  limel-example-file-dropzone-type-filtering --> limel-example-value
+  limel-example-file-dropzone-basic --> limel-file-dropzone
+  limel-example-file-dropzone-basic --> limel-chip
+  limel-example-file-dropzone-basic --> limel-example-controls
+  limel-example-file-dropzone-basic --> limel-checkbox
+  limel-example-file-dropzone-basic --> limel-example-value
   limel-file-dropzone --> limel-icon
-  limel-input-field --> limel-helper-line
-  limel-input-field --> limel-icon
-  limel-input-field --> limel-portal
-  limel-input-field --> limel-menu-surface
-  limel-input-field --> limel-list
-  limel-input-field --> limel-notched-outline
   limel-chip --> limel-icon
   limel-chip --> limel-badge
   limel-chip --> limel-menu
@@ -57,7 +41,16 @@ graph TD;
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-tooltip-content --> limel-hotkey
-  style limel-example-file-dropzone-type-filtering fill:#f9f,stroke:#333,stroke-width:4px
+  limel-input-field --> limel-helper-line
+  limel-input-field --> limel-icon
+  limel-input-field --> limel-portal
+  limel-input-field --> limel-menu-surface
+  limel-input-field --> limel-list
+  limel-input-field --> limel-notched-outline
+  limel-checkbox --> limel-dynamic-label
+  limel-checkbox --> limel-helper-line
+  limel-dynamic-label --> limel-icon
+  style limel-example-file-dropzone-basic fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

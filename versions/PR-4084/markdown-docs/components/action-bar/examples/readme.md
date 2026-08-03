@@ -4,16 +4,13 @@
 
 ## Overview
 
-Styling
+Overflow menu
+When the action bar items don't fit in the available space,
+an overflow button is automatically added as the last item on the action bar.
 
-Using provided custom CSS properties,
-it is possible to style the action bar.
-
-:::note
-The `--action-bar-item-icon-color` affects all icons.
-However, the `color` specified for `icon` for individual items
-will override that.
-:::
+The menu indicates the quantity of the actions which are currently invisible for the users.
+Clicking on the overflow button opens a menu with the remaining actions that didn't fit
+in the available space.
 
 ## Dependencies
 
@@ -24,7 +21,7 @@ will override that.
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-action-bar-styling --> limel-action-bar
+  limel-example-action-bar-overflow-menu --> limel-action-bar
   limel-action-bar --> limel-action-bar-item
   limel-action-bar --> limel-action-bar-overflow-menu
   limel-action-bar-item --> limel-icon
@@ -48,7 +45,7 @@ graph TD;
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
-  style limel-example-action-bar-styling fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-action-bar-overflow-menu fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

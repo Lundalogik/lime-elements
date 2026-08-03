@@ -37,6 +37,7 @@ removed (with a console warning) to prevent script injection.
  - [limel-example-do-do-not](../../examples)
  - [limel-example-markdown-adapt-color-contrast](examples)
  - [limel-example-markdown-blockquotes](examples)
+ - [limel-example-markdown-built-in-component](examples)
  - [limel-example-markdown-code](examples)
  - [limel-example-markdown-composite](examples)
  - [limel-example-markdown-custom-component](examples)
@@ -67,6 +68,7 @@ graph TD;
   limel-example-do-do-not --> limel-markdown
   limel-example-markdown-adapt-color-contrast --> limel-markdown
   limel-example-markdown-blockquotes --> limel-markdown
+  limel-example-markdown-built-in-component --> limel-markdown
   limel-example-markdown-code --> limel-markdown
   limel-example-markdown-composite --> limel-markdown
   limel-example-markdown-custom-component --> limel-markdown

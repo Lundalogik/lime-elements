@@ -4,40 +4,43 @@
 
 ## Overview
 
-Light Background
+Variants
 
-The avatar renders decently on darker colors, since its visual details use a
-`mix-blend-mode` to blend in both with the background and with each other,
-yet render some visible contrast.
+The `variant` property selects the avatar's visual style.
+- The `detailed` variant is the fully detailed orb with reflections and shines;
+- The `minimal` variant is a simplified design with a single gradient orb,
+  a stroked outline, and a soft halo.
+- The `solid` variant is a flat symbolic representation of the avatar (a
+  filled disc and outer ring in `currentColor`), useful for compact or
+  iconographic contexts.
+- The `outlined` variant shares the `solid` variant's shape but renders the
+  inner disc as a thin stroke too, so the avatar reads as two concentric
+  rings. Its facial features default to `currentColor` as well.
 
-However, when the AI avatar is placed on a white or light background,
-the default blend modes (`plus-lighter` and `screen`) can make
-the avatar nearly invisible.
+Eye and mouth shapes — and all the animations driving them (blink,
+look-around, etc.) — are shared across variants, so switching `variant`
+changes the body but not the personality.
 
-This example demonstrates how to override the blend modes using
-custom CSS properties to ensure proper visibility:
-
-- `--ai-avatar-core-blend-mode: hard-light`
-- `--ai-avatar-rings-blend-mode: darken`
+:::tip
+Per Lime's branding guidelines, the `minimal` variant should be used in most cases.
+The `minimal` variant suits some scenarios where the surrounding context
+provides a realistic or detailed visual style, such as a 3D environment or
+a video in real world footage.
+The `solid` and `outlined` variants are ideal for compact spaces, such as
+an app's user interface.
+:::
 
 ## Dependencies
 
 ### Depends on
 
 - [limel-ai-avatar](..)
-- [limel-example-controls](../../../examples)
-- [limel-checkbox](../../checkbox)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-ai-avatar-white-background --> limel-ai-avatar
-  limel-example-ai-avatar-white-background --> limel-example-controls
-  limel-example-ai-avatar-white-background --> limel-checkbox
-  limel-checkbox --> limel-dynamic-label
-  limel-checkbox --> limel-helper-line
-  limel-dynamic-label --> limel-icon
-  style limel-example-ai-avatar-white-background fill:#f9f,stroke:#333,stroke-width:4px
+  limel-example-ai-avatar-variant --> limel-ai-avatar
+  style limel-example-ai-avatar-variant fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
