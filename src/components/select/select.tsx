@@ -330,11 +330,21 @@ export class Select {
                 this.pendingTypeaheadIndex = undefined;
 
                 if (
-                    typeaheadIndex === undefined ||
-                    !this.focusMenuItemAtIndex(list, typeaheadIndex)
+                    typeaheadIndex !== undefined &&
+                    this.focusMenuItemAtIndex(list, typeaheadIndex)
                 ) {
-                    this.focusFirstMenuItem(list);
+                    return;
                 }
+
+                // Picking an option while `multiple` re-renders the dropdown
+                // without closing it, which brings us back here with a row
+                // already focused. Moving to the first option then would lose
+                // the user's place in the list after every pick.
+                if (this.getFocusedMenuItemIndex() !== NO_TYPEAHEAD_MATCH) {
+                    return;
+                }
+
+                this.focusFirstMenuItem(list);
             });
             this.focusObserver.observe(list);
         }, 0);
@@ -646,14 +656,25 @@ export class Select {
     }
 
     private focusTypeaheadMatch(index: number): void {
-        // Recorded even when the row can be focused right away. Opening the
-        // dropdown queues a `setMenuFocus` that waits for it to become
-        // visible, and someone typing quickly gets the next character in
-        // before that resolves. Leaving the earlier index in place would let
-        // the queued focus apply it on top of this newer match.
+        // Overwrites any index still pending from an earlier character, even
+        // when this one can be focused right away. Opening the dropdown queues
+        // a `setMenuFocus` that waits for it to become visible, and someone
+        // typing quickly gets the next character in before that resolves;
+        // leaving the earlier index in place would let the queued focus apply
+        // it on top of this newer match.
         this.pendingTypeaheadIndex = index;
 
         if (this.menuOpen && this.focusMenuItemAtIndex(this.list, index)) {
+            // Focus landed synchronously, so this index has already done its
+            // job. Clearing it — rather than leaving it for `setMenuFocus` to
+            // consume later — stops it from being replayed by some unrelated
+            // future re-render, such as picking an option in a `multiple`
+            // select, after the user has since moved focus elsewhere with the
+            // arrow keys. A `setMenuFocus` still queued from opening the
+            // dropdown a moment ago is unaffected: it finds this row already
+            // focused and leaves it alone, below.
+            this.pendingTypeaheadIndex = undefined;
+
             return;
         }
 

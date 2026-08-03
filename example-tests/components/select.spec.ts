@@ -1,14 +1,14 @@
 import { test, expect, type Page } from '@playwright/test';
+import { TYPEAHEAD_BUFFER_TIMEOUT } from '../../src/util/typeahead';
 
 // Per-component example test for limel-select. Unlike the generic runtime/
 // accessibility suites (which iterate every documented example), interaction
 // tests must know the component, so they live in their own file under
 // example-tests/components/.
 //
-// This file covers the typeahead: typing characters moves the highlight to the
-// option starting with them, without changing the value. That behavior needs
-// real key events and real focus, which is why it is tested here rather than in
-// select.e2e.tsx.
+// This file covers keyboard navigation of the dropdown — the typeahead, and
+// where focus lands after picking an option. Both need real key events and real
+// focus, which is why they are tested here rather than in select.e2e.tsx.
 //
 // Coupling (intentional, fails loudly if broken — never silently):
 //   1. drives the docs examples `limel-example-select-basic` (heroes Luke
@@ -63,7 +63,7 @@ const focusedOption = (page: Page) =>
         return row?.querySelector('.label')?.textContent ?? null;
     });
 
-test.describe('limel-select typeahead', () => {
+test.describe('limel-select keyboard navigation', () => {
     test.describe('with a plain list of options', () => {
         test.beforeEach(async ({ page }) => {
             await page.goto('/#/debug/limel-example-select-basic');
@@ -183,6 +183,71 @@ test.describe('limel-select typeahead', () => {
             await expect(page.locator('limel-example-value')).toContainText(
                 'luke'
             );
+        });
+
+        test('keeps the picked option focused, so the next one is a key away', async ({
+            page,
+        }) => {
+            await openByClick(page);
+            await expect.poll(() => focusedOption(page)).toBe('Luke Skywalker');
+
+            await page.keyboard.press('ArrowDown');
+            await page.keyboard.press('ArrowDown');
+            await expect.poll(() => focusedOption(page)).toBe('Obi-Wan Kenobi');
+
+            await page.keyboard.press(' ');
+            await expect(page.locator('limel-example-value')).toContainText(
+                'Obi-Wan'
+            );
+
+            // Asserted after the value has landed, so the re-render that
+            // picking triggers has already happened. Focus must survive it:
+            // picking several options in a row is the point of a multiple
+            // select, and starting over from the top after each one makes that
+            // unusable.
+            await expect.poll(() => focusedOption(page)).toBe('Obi-Wan Kenobi');
+
+            // Navigation continues from where it left off.
+            await page.keyboard.press('ArrowDown');
+            await expect.poll(() => focusedOption(page)).toBe('Yoda');
+
+            await page.keyboard.press(' ');
+            await expect(page.locator('limel-example-value')).toContainText(
+                'Yoda'
+            );
+        });
+
+        test('keeps the picked option focused even after typing earlier in the same session', async ({
+            page,
+        }) => {
+            await openByClick(page);
+            await expect.poll(() => focusedOption(page)).toBe('Luke Skywalker');
+
+            // Jumps to "Yoda" by typing, then moves away from it with the
+            // arrow keys before picking a different row. The typed match must
+            // not resurface once it no longer reflects where the user is.
+            await page.keyboard.press('y');
+            await expect.poll(() => focusedOption(page)).toBe('Yoda');
+
+            // Waited out deliberately, so that the typeahead buffer has
+            // expired and the space bar below is unambiguously a pick rather
+            // than a continuation of "y" — that collision is a separate,
+            // documented trade-off, not what this test is isolating.
+            await page.waitForTimeout(TYPEAHEAD_BUFFER_TIMEOUT + 100);
+
+            await page.keyboard.press('ArrowDown');
+            await expect.poll(() => focusedOption(page)).toBe('Rey');
+
+            await page.keyboard.press(' ');
+            await expect(page.locator('limel-example-value')).toContainText(
+                'Rey'
+            );
+
+            // Asserted after the value has landed, so the re-render that
+            // picking triggers has already happened. If the typed match were
+            // still remembered, this re-render would apply it and pull focus
+            // back to "Yoda".
+            await expect.poll(() => focusedOption(page)).toBe('Rey');
         });
     });
 });
