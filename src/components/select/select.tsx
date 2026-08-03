@@ -330,11 +330,21 @@ export class Select {
                 this.pendingTypeaheadIndex = undefined;
 
                 if (
-                    typeaheadIndex === undefined ||
-                    !this.focusMenuItemAtIndex(list, typeaheadIndex)
+                    typeaheadIndex !== undefined &&
+                    this.focusMenuItemAtIndex(list, typeaheadIndex)
                 ) {
-                    this.focusFirstMenuItem(list);
+                    return;
                 }
+
+                // Picking an option while `multiple` re-renders the dropdown
+                // without closing it, which brings us back here with a row
+                // already focused. Moving to the first option then would lose
+                // the user's place in the list after every pick.
+                if (this.getFocusedMenuItemIndex() !== NO_TYPEAHEAD_MATCH) {
+                    return;
+                }
+
+                this.focusFirstMenuItem(list);
             });
             this.focusObserver.observe(list);
         }, 0);
