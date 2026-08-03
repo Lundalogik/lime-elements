@@ -807,7 +807,6 @@ export namespace Components {
         "maxLinesSecondaryText": number;
         "selectedItem"?: ListItem<string | number>;
     }
-    // (undocumented)
     export interface LimelSelect {
         "disabled": boolean;
         "helperText": string;
@@ -3338,7 +3337,6 @@ export namespace JSX {
         "maxLinesSecondaryText": number;
     }
 
-    // (undocumented)
     export interface LimelSelect {
         "disabled"?: boolean;
         "helperText"?: string;

@@ -20,7 +20,8 @@ interface SelectTemplateProps {
 
     id: string;
     onMenuChange: (event: CustomEvent<ListItem | ListItem[]>) => void;
-    onTriggerPress: (event: KeyboardEvent) => void;
+    onTriggerKeyDown: (event: KeyboardEvent) => void;
+    listRef: (element: HTMLLimelListElement) => void;
     isOpen: boolean;
     open: () => void;
     close: () => void;
@@ -117,7 +118,7 @@ const SelectValue: FunctionalComponent<
             slot="content"
             class={anchorClassList}
             onClick={props.open}
-            onKeyPress={props.onTriggerPress}
+            onKeyDown={props.onTriggerKeyDown}
             aria-haspopup="listbox"
             aria-expanded={props.isOpen}
             aria-controls={props.id}
@@ -213,6 +214,7 @@ const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
                 }}
             >
                 <limel-list
+                    ref={props.listRef}
                     items={items}
                     type={props.multiple ? 'checkbox' : 'selectable'}
                     onChange={props.onMenuChange}
@@ -273,7 +275,21 @@ function isSelected(option: Option, value: Option | Option[]): boolean {
     return option.value === value.value;
 }
 
-function createMenuItems(
+/**
+ * Create the items for the dropdown.
+ *
+ * The returned array is index-aligned with the `data-index` attribute that
+ * `limel-list` renders on each row. Separators are included, and occupy an
+ * index. Anything that needs to address a row by index — such as the
+ * typeahead in `select.tsx` — must derive its indices from this same array.
+ *
+ * @param options - the options of the select
+ * @param value - the currently selected option or options
+ * @param selectIsRequired - whether the select requires a value, in which
+ * case the "empty" option is left out
+ * @returns the items to render in the dropdown
+ */
+export function createMenuItems(
     options: Array<Option | ListSeparator>,
     value: Option | Option[],
     selectIsRequired = false

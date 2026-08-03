@@ -3,7 +3,10 @@
 export const TAB = 'Tab';
 export const ENTER = 'Enter';
 export const ESCAPE = 'Escape';
+/** `KeyboardEvent.code` for the space bar. NOT a `KeyboardEvent.key`. */
 export const SPACE = 'Space';
+/** `KeyboardEvent.key` for the space bar. */
+export const SPACEBAR = ' ';
 export const BACKSPACE = 'Backspace';
 export const DELETE = 'Delete';
 export const ARROW_UP = 'ArrowUp';

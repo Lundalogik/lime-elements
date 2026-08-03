@@ -500,4 +500,163 @@ describe('limel-select (menu)', () => {
             expect(nativeSelect).not.toBeNull();
         });
     });
+
+    describe('typeahead', () => {
+        const doctors: Option[] = [
+            { text: 'Jodie Whittaker', value: '13' },
+            { text: 'Peter Capaldi', value: '12' },
+            { text: 'Matt Smith', value: '11' },
+            { text: 'David Tennant', value: '10' },
+        ];
+
+        const pressKey = (
+            root: any,
+            key: string,
+            modifiers: KeyboardEventInit = {}
+        ) => {
+            const trigger = root.shadowRoot.querySelector(
+                '.limel-select-trigger'
+            );
+
+            trigger.dispatchEvent(
+                new KeyboardEvent('keydown', {
+                    key: key,
+                    bubbles: true,
+                    composed: true,
+                    ...modifiers,
+                })
+            );
+        };
+
+        // Read from the class rather than `aria-expanded`, which the trigger
+        // renders as a boolean attribute — empty when open, absent when
+        // closed — and so cannot be told apart from a missing attribute.
+        const isOpen = (root: any) =>
+            root.shadowRoot
+                .querySelector('.limel-select-trigger')
+                .classList.contains('limel-select--focused');
+
+        // Note that there is no test for `disabled`. A disabled trigger never
+        // receives key events in a browser, but a dispatched event still
+        // reaches the listener, so such a test would only assert the test
+        // setup rather than the component.
+
+        it('opens the dropdown when a matching character is typed', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-select label="Doctor" options={doctors}></limel-select>
+            );
+            await waitForChanges();
+
+            pressKey(root, 'm');
+            await waitForChanges();
+
+            expect(isOpen(root)).toBe(true);
+        });
+
+        it('does not change the value while typing', async () => {
+            const { root, waitForChanges, spyOnEvent } = await render(
+                <limel-select label="Doctor" options={doctors}></limel-select>
+            );
+            const changeSpy = spyOnEvent('change');
+            await waitForChanges();
+
+            pressKey(root, 'm');
+            await waitForChanges();
+            pressKey(root, 'a');
+            await waitForChanges();
+
+            expect(changeSpy).not.toHaveReceivedEvent();
+        });
+
+        it('leaves the dropdown closed when nothing matches', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-select label="Doctor" options={doctors}></limel-select>
+            );
+            await waitForChanges();
+
+            pressKey(root, 'z');
+            await waitForChanges();
+
+            expect(isOpen(root)).toBe(false);
+        });
+
+        it('ignores characters typed with a modifier', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-select label="Doctor" options={doctors}></limel-select>
+            );
+            await waitForChanges();
+
+            pressKey(root, 'm', { ctrlKey: true });
+            await waitForChanges();
+
+            expect(isOpen(root)).toBe(false);
+        });
+
+        it('leaves typeahead to the native dropdown on mobile', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-select
+                    data-native
+                    label="Doctor"
+                    options={doctors}
+                ></limel-select>
+            );
+            await waitForChanges();
+
+            pressKey(root, 'm');
+            await waitForChanges();
+
+            expect(isOpen(root)).toBe(false);
+        });
+
+        it('highlights the matching option', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-select label="Doctor" options={doctors}></limel-select>
+            );
+            await waitForChanges();
+
+            pressKey(root, 'm');
+            await waitForChanges();
+
+            await vi.waitFor(() => {
+                const list = document.querySelector(
+                    'limel-menu-surface limel-list'
+                );
+                const focused = list?.shadowRoot?.activeElement as HTMLElement;
+
+                expect(focused?.dataset.index).toBe('2');
+            });
+        });
+
+        describe('still opens the dropdown', () => {
+            it('with Enter', async () => {
+                const { root, waitForChanges } = await render(
+                    <limel-select
+                        label="Doctor"
+                        options={doctors}
+                    ></limel-select>
+                );
+                await waitForChanges();
+
+                pressKey(root, 'Enter');
+                await waitForChanges();
+
+                expect(isOpen(root)).toBe(true);
+            });
+
+            it('with the space bar', async () => {
+                const { root, waitForChanges } = await render(
+                    <limel-select
+                        label="Doctor"
+                        options={doctors}
+                    ></limel-select>
+                );
+                await waitForChanges();
+
+                pressKey(root, ' ');
+                await waitForChanges();
+
+                expect(isOpen(root)).toBe(true);
+            });
+        });
+    });
 });
