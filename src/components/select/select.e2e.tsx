@@ -509,23 +509,27 @@ describe('limel-select (menu)', () => {
             { text: 'David Tennant', value: '10' },
         ];
 
+        // `cancelable` matches what a browser dispatches, and is what makes
+        // `preventDefault` observable through the returned event.
         const pressKey = (
             root: any,
             key: string,
             modifiers: KeyboardEventInit = {}
-        ) => {
+        ): KeyboardEvent => {
             const trigger = root.shadowRoot.querySelector(
                 '.limel-select-trigger'
             );
 
-            trigger.dispatchEvent(
-                new KeyboardEvent('keydown', {
-                    key: key,
-                    bubbles: true,
-                    composed: true,
-                    ...modifiers,
-                })
-            );
+            const event = new KeyboardEvent('keydown', {
+                key: key,
+                bubbles: true,
+                cancelable: true,
+                composed: true,
+                ...modifiers,
+            });
+            trigger.dispatchEvent(event);
+
+            return event;
         };
 
         // Read from the class rather than `aria-expanded`, which the trigger
@@ -551,6 +555,26 @@ describe('limel-select (menu)', () => {
             await waitForChanges();
 
             expect(isOpen(root)).toBe(true);
+        });
+
+        it('suppresses the default action of a consumed character', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-select label="Doctor" options={doctors}></limel-select>
+            );
+            await waitForChanges();
+
+            // Characters must not reach `MDCList`, which would treat them as
+            // its own typeahead and swallow the next `Enter`.
+            expect(pressKey(root, 'm').defaultPrevented).toBe(true);
+        });
+
+        it('leaves a key it does not consume alone', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-select label="Doctor" options={doctors}></limel-select>
+            );
+            await waitForChanges();
+
+            expect(pressKey(root, 'ArrowDown').defaultPrevented).toBe(false);
         });
 
         it('does not change the value while typing', async () => {
