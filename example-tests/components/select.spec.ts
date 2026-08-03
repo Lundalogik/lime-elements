@@ -25,12 +25,18 @@ const trigger = (page: Page) =>
 
 const surface = (page: Page) => page.locator('limel-menu-surface');
 
-// Uses `press` on the trigger rather than `page.keyboard`, so that Playwright
-// waits for the trigger to be actionable and focuses it before typing. Pressing
-// through the keyboard directly races the focus, and the key is then lost.
-const openByTyping = async (page: Page, character: string) => {
+// Types on the trigger rather than through `page.keyboard`, so that Playwright
+// waits for the trigger to be actionable and focuses it first. Pressing through
+// the keyboard directly races the focus, and the key is then lost.
+//
+// The whole sequence goes through a single `pressSequentially`, without an
+// `await` between the characters. Anything awaited mid-sequence — a visibility
+// assertion, a poll — is a round trip to the browser, and enough of them would
+// outlast `TYPEAHEAD_BUFFER_TIMEOUT` on a loaded runner, so the characters would
+// no longer be treated as one word.
+const openByTyping = async (page: Page, characters: string) => {
     await expect(trigger(page)).toBeVisible();
-    await trigger(page).press(character);
+    await trigger(page).pressSequentially(characters);
     await expect(surface(page)).toBeVisible();
 };
 
@@ -81,6 +87,10 @@ test.describe('limel-select typeahead', () => {
             await openByTyping(page, 'l');
             await expect.poll(() => focusedOption(page)).toBe('Luke Skywalker');
 
+            // Deliberately pressed after the assertion above, so the buffer may
+            // well have been discarded by now. A lone character has to keep
+            // cycling from the highlighted row either way — a user pausing
+            // between presses expects to keep moving, not to start over.
             await page.keyboard.press('l');
 
             // Skips the disabled "Han Solo", which also starts with an "L"
@@ -91,8 +101,7 @@ test.describe('limel-select typeahead', () => {
         test('matches all the typed characters, not just the first', async ({
             page,
         }) => {
-            await openByTyping(page, 'l');
-            await page.keyboard.press('e');
+            await openByTyping(page, 'le');
 
             await expect.poll(() => focusedOption(page)).toBe('Leia Organo');
         });
@@ -100,8 +109,7 @@ test.describe('limel-select typeahead', () => {
         test('still selects the highlighted option with Enter', async ({
             page,
         }) => {
-            await openByTyping(page, 'l');
-            await page.keyboard.press('e');
+            await openByTyping(page, 'le');
             await expect.poll(() => focusedOption(page)).toBe('Leia Organo');
 
             await page.keyboard.press('Enter');
@@ -115,16 +123,17 @@ test.describe('limel-select typeahead', () => {
         test('starts over after the dropdown is dismissed', async ({
             page,
         }) => {
-            await openByTyping(page, 'l');
-            await page.keyboard.press('l');
+            await openByTyping(page, 'le');
             await expect.poll(() => focusedOption(page)).toBe('Leia Organo');
 
             await page.keyboard.press('Escape');
             await expect(surface(page)).toBeHidden();
 
-            await page.keyboard.press('l');
+            // A discarded buffer is the only way this can match: "l" appended
+            // to the previous "le" would be "lel", which matches no option, so
+            // the dropdown would not even reopen.
+            await openByTyping(page, 'l');
 
-            // Back to the first match, rather than continuing the cycle.
             await expect.poll(() => focusedOption(page)).toBe('Luke Skywalker');
         });
     });
@@ -150,10 +159,7 @@ test.describe('limel-select typeahead', () => {
             // There are four states starting with "New", so getting to
             // "New York" is only possible if the space is matched rather than
             // treated as a selection.
-            await openByTyping(page, 'n');
-            for (const character of ['e', 'w', ' ', 'y']) {
-                await page.keyboard.press(character);
-            }
+            await openByTyping(page, 'new y');
 
             await expect.poll(() => focusedOption(page)).toBe('New York');
         });

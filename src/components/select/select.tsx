@@ -644,11 +644,16 @@ export class Select {
     }
 
     private focusTypeaheadMatch(index: number): void {
+        // Recorded even when the row can be focused right away. Opening the
+        // dropdown queues a `setMenuFocus` that waits for it to become
+        // visible, and someone typing quickly gets the next character in
+        // before that resolves. Leaving the earlier index in place would let
+        // the queued focus apply it on top of this newer match.
+        this.pendingTypeaheadIndex = index;
+
         if (this.menuOpen && this.focusMenuItemAtIndex(this.list, index)) {
             return;
         }
-
-        this.pendingTypeaheadIndex = index;
 
         if (this.menuOpen) {
             // Already open, so no re-render is coming that would trigger
