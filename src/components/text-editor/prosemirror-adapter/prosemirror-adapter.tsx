@@ -682,11 +682,22 @@ export class ProsemirrorAdapter {
             //
             // To detect this, we wait one tick after focus. If no transaction has fired by then,
             // we assume the selection is unresolved and manually move the cursor to the last clicked position.
+            //
+            // The clicked position is only meaningful for the focus event that the
+            // click itself triggered, so it is consumed here and cleared on blur.
+            // Focus regained without a click (e.g. switching back to the window)
+            // must leave the selection untouched.
             this.transactionFired = false;
             setTimeout(() => {
-                if (!this.transactionFired && this.lastClickedPos) {
+                const clickedPos = this.lastClickedPos;
+                this.lastClickedPos = null;
+                if (
+                    !this.transactionFired &&
+                    clickedPos !== null &&
+                    clickedPos <= this.view.state.doc.content.size
+                ) {
                     const { doc, tr } = this.view.state;
-                    const resolvedPos = doc.resolve(this.lastClickedPos);
+                    const resolvedPos = doc.resolve(clickedPos);
                     const selection = Selection.near(resolvedPos);
                     tr.setMeta('pointer', true);
                     this.view.dispatch(tr.setSelection(selection));
@@ -722,6 +733,7 @@ export class ProsemirrorAdapter {
     }, DEBOUNCE_TIMEOUT);
 
     private handleBlur = () => {
+        this.lastClickedPos = null;
         this.changeEmitter.flush();
     };
 }
