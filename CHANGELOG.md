@@ -1,3 +1,11 @@
+## [39.44.2](https://github.com/Lundalogik/lime-elements/compare/v39.44.1...v39.44.2) (2026-08-06)
+
+### Bug Fixes
+
+
+* **text-editor:** cancel pending caret restore when the editor is disconnected ([99db91e](https://github.com/Lundalogik/lime-elements/commit/99db91e50139330bc5e4b7076d89a0a5bef672ec))
+* **text-editor:** keep caret position when focus is regained without a click ([2ba040a](https://github.com/Lundalogik/lime-elements/commit/2ba040ae7324c6e2071fd35994b9dbd6d5082987))
+
 ## [39.44.1](https://github.com/Lundalogik/lime-elements/compare/v39.44.0...v39.44.1) (2026-07-14)
 
 ### Bug Fixes
