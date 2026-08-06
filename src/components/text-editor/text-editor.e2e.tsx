@@ -243,6 +243,11 @@ describe('limel-text-editor', () => {
             const { editable, mouseDownAtTextOffset, typeText } =
                 await createEditor('hello');
 
+            editable.focus();
+            await sleep(FOCUS_SETTLE_WAIT);
+            editable.blur();
+            await sleep(FOCUS_SETTLE_WAIT);
+
             mouseDownAtTextOffset('hello'.length - 1, 'after');
             editable.focus();
             await sleep(FOCUS_SETTLE_WAIT);
