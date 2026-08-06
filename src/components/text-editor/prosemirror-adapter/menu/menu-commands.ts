@@ -4,11 +4,15 @@ import { findWrapping, liftTarget } from 'prosemirror-transform';
 import { Command, EditorState, TextSelection } from 'prosemirror-state';
 import { EditorMenuTypes, EditorTextLink, LevelMapping } from './types';
 import { getLinkAttributes } from '../plugins/link/utils';
+import { canonicalizeColor } from '../plugins/highlight/highlight-mark';
+import { getStoredHighlightColor } from '../plugins/highlight/highlight-color-storage';
+import { getSelectionHighlightColor } from '../plugins/highlight/highlight-plugin';
 
 type CommandFunction = (
     schema: Schema,
     mark: EditorMenuTypes,
-    link?: EditorTextLink
+    link?: EditorTextLink,
+    color?: string
 ) => CommandWithActive;
 
 interface CommandMapping {
@@ -120,6 +124,60 @@ const createToggleMarkCommand = (
     const attrs = getAttributes(markName, link);
 
     const command: CommandWithActive = toggleMark(markType, attrs);
+    setActiveMethodForMark(command, markType);
+
+    return command;
+};
+
+const createToggleHighlightCommand = (
+    schema: Schema,
+    markName: string,
+    _link?: EditorTextLink,
+    color?: string
+): CommandWithActive => {
+    const markType: MarkType | undefined = schema.marks[markName];
+    if (!markType) {
+        throw new Error(`Mark "${markName}" not found in schema`);
+    }
+
+    // Re-applying the color the selection already has toggles the highlight
+    // off; any other color replaces the current highlight instead of
+    // removing it.
+    const command: CommandWithActive = (state, dispatch) => {
+        // Without an explicit color, the user's persisted color is read at
+        // execution time, so a color picked after the keymap was built still
+        // affects the keyboard shortcut. The color can come from free-typed
+        // input in the color picker, so an unparseable value must not reach
+        // the mark (its attr is written into serialized markup verbatim).
+        const targetColor = canonicalizeColor(
+            color || getStoredHighlightColor()
+        );
+        if (targetColor === null) {
+            return false;
+        }
+
+        if (getSelectionHighlightColor(state) === targetColor) {
+            return toggleMark(markType)(state, dispatch);
+        }
+
+        if (!toggleMark(markType)(state)) {
+            return false;
+        }
+
+        const { empty, from, to } = state.selection;
+        const mark = markType.create({ color: targetColor });
+
+        if (dispatch) {
+            if (empty) {
+                dispatch(state.tr.addStoredMark(mark));
+            } else {
+                dispatch(state.tr.addMark(from, to, mark));
+            }
+        }
+
+        return true;
+    };
+
     setActiveMethodForMark(command, markType);
 
     return command;
@@ -301,6 +359,7 @@ const commandMapping: CommandMapping = {
     underline: createToggleMarkCommand,
     strikethrough: createToggleMarkCommand,
     code: createToggleMarkCommand,
+    highlight: createToggleHighlightCommand,
     link: createInsertLinkCommand,
     headerlevel1: (schema) =>
         createSetNodeTypeCommand(
@@ -338,13 +397,17 @@ export class MenuCommandFactory {
         this.schema = schema;
     }
 
-    public getCommand(mark: EditorMenuTypes, link?: EditorTextLink) {
+    public getCommand(
+        mark: EditorMenuTypes,
+        link?: EditorTextLink,
+        color?: string
+    ) {
         const commandFunc = commandMapping[mark];
         if (!commandFunc) {
             throw new Error(`The Mark "${mark}" is not supported`);
         }
 
-        return commandFunc(this.schema, mark, link);
+        return commandFunc(this.schema, mark, link, color);
     }
 
     buildKeymap() {
@@ -355,6 +418,7 @@ export class MenuCommandFactory {
             'Mod-Shift-2': this.getCommand(EditorMenuTypes.HeaderLevel2),
             'Mod-Shift-3': this.getCommand(EditorMenuTypes.HeaderLevel3),
             'Mod-Shift-X': this.getCommand(EditorMenuTypes.Strikethrough),
+            'Mod-Shift-H': this.getCommand(EditorMenuTypes.Highlight),
             'Mod-`': this.getCommand(EditorMenuTypes.Code),
             'Mod-Shift-C': this.getCommand(EditorMenuTypes.CodeBlock),
         };
