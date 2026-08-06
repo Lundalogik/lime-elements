@@ -50,7 +50,6 @@ graph TD;
   limel-button --> limel-icon
   limel-button --> limel-spinner
   limel-text-editor-highlight-color-menu --> limel-color-picker
-  limel-text-editor-highlight-color-menu --> limel-button
   limel-color-picker --> limel-tooltip
   limel-color-picker --> limel-popover
   limel-color-picker --> limel-color-picker-palette

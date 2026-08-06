@@ -4,12 +4,14 @@
 
 ## Overview
 
-The highlight color menu lets the user pick a color, and emits `save` or
-`cancel` when done. The text editor listens to these events and applies
-the picked color as a highlight mark on the current selection.
+The highlight color menu lets the user pick a color. Picking a color
+applies it immediately: the menu emits `colorChange` followed by `save`,
+and the text editor applies the picked color as a highlight mark on the
+current selection and closes the menu. Pressing Escape emits `cancel`,
+which just closes the menu.
 
-This example shows the open, pick, save and cancel flow, and previews the
-saved color the way the editor renders a highlight.
+This example shows the open, pick-to-apply and close flow, and previews
+the applied color the way the editor renders a highlight.
 
 ## Dependencies
 
@@ -26,7 +28,6 @@ graph TD;
   limel-button --> limel-icon
   limel-button --> limel-spinner
   limel-text-editor-highlight-color-menu --> limel-color-picker
-  limel-text-editor-highlight-color-menu --> limel-button
   limel-color-picker --> limel-tooltip
   limel-color-picker --> limel-popover
   limel-color-picker --> limel-color-picker-palette

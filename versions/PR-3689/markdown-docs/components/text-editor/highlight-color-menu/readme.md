@@ -18,11 +18,11 @@ It allows the user to choose a color for text highlighting.
 
 ## Events
 
-| Event         | Description                                                                                                                       | Type                  |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| `cancel`      | Emitted when the menu is closed from inside the component. (*Not* emitted when the consumer sets the `open`-property to `false`.) | `CustomEvent<void>`   |
-| `colorChange` | Emitted when the user selects a new color                                                                                         | `CustomEvent<string>` |
-| `save`        | Emitted when the menu is saved from inside the component.                                                                         | `CustomEvent<void>`   |
+| Event         | Description                                                                                                                                | Type                  |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------------------- |
+| `cancel`      | Emitted when the menu is closed from inside the component. (*Not* emitted when the consumer sets the `open`-property to `false`.)          | `CustomEvent<void>`   |
+| `colorChange` | Emitted when the user selects a new color                                                                                                  | `CustomEvent<string>` |
+| `save`        | Emitted when a color is applied from inside the component. Picking a color applies it immediately, so this always follows a `colorChange`. | `CustomEvent<void>`   |
 
 
 ## Dependencies
@@ -35,13 +35,11 @@ It allows the user to choose a color for text highlighting.
 ### Depends on
 
 - [limel-color-picker](../../color-picker)
-- [limel-button](../../button)
 
 ### Graph
 ```mermaid
 graph TD;
   limel-text-editor-highlight-color-menu --> limel-color-picker
-  limel-text-editor-highlight-color-menu --> limel-button
   limel-color-picker --> limel-tooltip
   limel-color-picker --> limel-popover
   limel-color-picker --> limel-color-picker-palette
@@ -58,8 +56,6 @@ graph TD;
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
-  limel-button --> limel-icon
-  limel-button --> limel-spinner
   limel-example-highlight-color-menu --> limel-text-editor-highlight-color-menu
   limel-prosemirror-adapter --> limel-text-editor-highlight-color-menu
   style limel-text-editor-highlight-color-menu fill:#f9f,stroke:#333,stroke-width:4px

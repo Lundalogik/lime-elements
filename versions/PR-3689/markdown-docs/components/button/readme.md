@@ -119,7 +119,6 @@ primary and secondary actions, see our
  - [limel-example-tooltip-hotkey](../tooltip/examples)
  - [limel-snackbar](../snackbar)
  - [limel-split-button](../split-button)
- - [limel-text-editor-highlight-color-menu](../text-editor/highlight-color-menu)
  - [limel-text-editor-link-menu](../text-editor/link-menu)
 
 ### Depends on
@@ -217,7 +216,6 @@ graph TD;
   limel-example-tooltip-hotkey --> limel-button
   limel-snackbar --> limel-button
   limel-split-button --> limel-button
-  limel-text-editor-highlight-color-menu --> limel-button
   limel-text-editor-link-menu --> limel-button
   style limel-button fill:#f9f,stroke:#333,stroke-width:4px
 ```

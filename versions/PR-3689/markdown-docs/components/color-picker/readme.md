@@ -4,17 +4,18 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                                      | Type                              | Default     |
-| ------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ----------- |
-| `columnCount` | `column-count` | Defines the number of columns in the color swatch grid. If not provided, it will default to the number of colors in the palette. | `number`                          | `undefined` |
-| `helperText`  | `helper-text`  | Helper text of the input field                                                                                                   | `string`                          | `undefined` |
-| `invalid`     | `invalid`      | Set to `true` to indicate that the current value of the input field is invalid.                                                  | `boolean`                         | `false`     |
-| `label`       | `label`        | Label of the input field                                                                                                         | `string`                          | `undefined` |
-| `manualInput` | `manual-input` | Set to `false` to disallow custom color values to be typed into the input field.                                                 | `boolean`                         | `true`      |
-| `palette`     | --             | Custom color palette to use instead of Lime palette. Internal prop passed from parent.                                           | `(string \| CustomColorSwatch)[]` | `undefined` |
-| `placeholder` | `placeholder`  | The placeholder text shown inside the input field, when the field is focused and empty.                                          | `string`                          | `undefined` |
-| `required`    | `required`     | Set to `true` if a value is required                                                                                             | `boolean`                         | `undefined` |
-| `value`       | `value`        | Color value that is manually typed by the user                                                                                   | `string`                          | `undefined` |
+| Property            | Attribute             | Description                                                                                                                      | Type                              | Default     |
+| ------------------- | --------------------- | -------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ----------- |
+| `columnCount`       | `column-count`        | Defines the number of columns in the color swatch grid. If not provided, it will default to the number of colors in the palette. | `number`                          | `undefined` |
+| `helperText`        | `helper-text`         | Helper text of the input field                                                                                                   | `string`                          | `undefined` |
+| `invalid`           | `invalid`             | Set to `true` to indicate that the current value of the input field is invalid.                                                  | `boolean`                         | `false`     |
+| `label`             | `label`               | Label of the input field                                                                                                         | `string`                          | `undefined` |
+| `manualInput`       | `manual-input`        | Set to `false` to disallow custom color values to be typed into the input field.                                                 | `boolean`                         | `true`      |
+| `manualInputCommit` | `manual-input-commit` | Controls when manually typed input emits the `change` event. See the documentation on `limel-color-picker`.                      | `"change" \| "enter"`             | `'change'`  |
+| `palette`           | --                    | Custom color palette to use instead of Lime palette. Internal prop passed from parent.                                           | `(string \| CustomColorSwatch)[]` | `undefined` |
+| `placeholder`       | `placeholder`         | The placeholder text shown inside the input field, when the field is focused and empty.                                          | `string`                          | `undefined` |
+| `required`          | `required`            | Set to `true` if a value is required                                                                                             | `boolean`                         | `undefined` |
+| `value`             | `value`               | Color value that is manually typed by the user                                                                                   | `string`                          | `undefined` |
 
 
 ## Events
