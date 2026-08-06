@@ -46,6 +46,15 @@ const textEditorMenuItems: Array<
         selected: false,
     },
     {
+        value: EditorMenuTypes.Highlight,
+        text: 'Highlight',
+        secondaryText: 'Choose your highlight color',
+        commandText: `${mod} ${shift} H`,
+        icon: 'marker_pen',
+        iconOnly: true,
+        selected: false,
+    },
+    {
         value: EditorMenuTypes.Link,
         text: 'Link',
         icon: '-lime-text-link',
@@ -135,7 +144,12 @@ export const menuTranslationIDs = {
     link: 'editor-menu.link',
     strikethrough: 'editor-menu.strikethrough',
     code: 'editor-menu.code',
+    highlight: 'editor-menu.highlight',
 };
 
 export type menuTranslationIDs =
     (typeof menuTranslationIDs)[keyof typeof menuTranslationIDs];
+
+export const menuSecondaryTextTranslationIDs = {
+    highlight: 'editor-menu.highlight-color-tooltip',
+};

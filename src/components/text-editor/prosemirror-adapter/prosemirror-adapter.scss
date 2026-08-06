@@ -169,3 +169,10 @@ img.ProseMirror-separator {
 limel-portal {
     width: 25rem;
 }
+
+.lime-text-highlight {
+    // The background-color comes from the mark's inline style; this class
+    // only carries the non-color affordances.
+    padding: 0.125em 0.25em;
+    border-radius: 0.25em;
+}

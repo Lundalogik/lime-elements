@@ -16,7 +16,11 @@ import { Schema, DOMParser } from 'prosemirror-model';
 import { ActionBarItem } from '../../../components/action-bar/action-bar.types';
 import { ListSeparator } from '../../../components/list-item/list-item.types';
 import { MenuCommandFactory } from './menu/menu-commands';
-import { menuTranslationIDs, getTextEditorMenuItems } from './menu/menu-items';
+import {
+    menuTranslationIDs,
+    menuSecondaryTextTranslationIDs,
+    getTextEditorMenuItems,
+} from './menu/menu-items';
 import { ContentTypeConverter } from '../utils/content-type-converter';
 import { MarkdownConverter } from '../utils/markdown-converter';
 import { HTMLConverter } from '../utils/html-converter';
@@ -37,6 +41,10 @@ import {
     isInlineImageTag,
 } from '../text-editor.types';
 import { imageCache } from './plugins/image/node';
+import {
+    getStoredHighlightColor,
+    storeHighlightColor,
+} from './plugins/highlight/highlight-color-storage';
 import {
     buildEditorSchema,
     buildEditorPlugins,
@@ -151,6 +159,12 @@ export class ProsemirrorAdapter {
      */
     @State()
     public isLinkMenuOpen: boolean = false;
+
+    @State()
+    private isHighlightColorMenuOpen = false;
+
+    @State()
+    private highlightColor = getStoredHighlightColor();
 
     private menuCommandFactory: MenuCommandFactory;
     private schema: Schema;
@@ -350,6 +364,7 @@ export class ProsemirrorAdapter {
                 <div id="editor" />
                 {this.renderToolbar()}
                 {this.renderLinkMenu()}
+                {this.renderHighlightColorMenu()}
             </Host>
         );
     }
@@ -390,6 +405,31 @@ export class ProsemirrorAdapter {
                     onLinkChange={this.handleLinkChange}
                     onCancel={this.handleCancelLinkMenu}
                     onSave={this.handleSaveLinkMenu}
+                />
+            </limel-portal>
+        );
+    }
+
+    renderHighlightColorMenu() {
+        if (!this.isHighlightColorMenuOpen) {
+            return;
+        }
+
+        return (
+            <limel-portal
+                containerId={this.portalId}
+                visible={this.isHighlightColorMenuOpen}
+                openDirection="top"
+                inheritParentWidth={true}
+                anchor={this.actionBarElement}
+            >
+                <limel-text-editor-highlight-color-menu
+                    color={this.highlightColor}
+                    language={this.language}
+                    isOpen={this.isHighlightColorMenuOpen}
+                    onColorChange={this.handleHighlightColorChange}
+                    onCancel={this.handleCancelHighlightColorMenu}
+                    onSave={this.handleSaveHighlightColorMenu}
                 />
             </limel-portal>
         );
@@ -452,6 +492,16 @@ export class ProsemirrorAdapter {
 
             if (translationId) {
                 newItem.text = translate.get(translationId, this.language);
+            }
+
+            const secondaryTextTranslationId =
+                menuSecondaryTextTranslationIDs[item.value];
+
+            if (secondaryTextTranslationId) {
+                newItem.secondaryText = translate.get(
+                    secondaryTextTranslationId,
+                    this.language
+                );
             }
         }
 
@@ -521,6 +571,7 @@ export class ProsemirrorAdapter {
                 triggerCharacters: this.triggerCharacters,
                 inlineImages: this.validatedInlineImages,
                 onNewLinkSelection: this.handleNewLinkSelection,
+                onHighlightSelection: this.handleNewHighlightSelection,
                 onImagePasted: this.imagePasted.emit,
                 onActiveItemsChange: this.updateActiveActionBarItems,
             }),
@@ -649,6 +700,12 @@ export class ProsemirrorAdapter {
             return;
         }
 
+        if (value === EditorMenuTypes.Highlight) {
+            this.isHighlightColorMenuOpen = true;
+
+            return;
+        }
+
         const actionBarEvent = new CustomEvent('actionBarItemClick', {
             detail: event.detail,
         });
@@ -679,6 +736,34 @@ export class ProsemirrorAdapter {
 
     private handleLinkChange = (event: CustomEvent<EditorTextLink>) => {
         this.link = event.detail;
+    };
+
+    private handleCancelHighlightColorMenu = (event: CustomEvent<void>) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.isHighlightColorMenuOpen = false;
+    };
+
+    private handleSaveHighlightColorMenu = () => {
+        this.isHighlightColorMenuOpen = false;
+
+        // Dispatching the command re-enters `handleNewHighlightSelection`,
+        // which may reassign `highlightColor`; the color is captured first so
+        // that exactly the applied color is persisted.
+        const color = this.highlightColor;
+        const saveHighlightEvent = new CustomEvent('saveHighlightMenu', {
+            detail: {
+                type: EditorMenuTypes.Highlight,
+                color: color,
+            },
+        });
+        this.view.dom.dispatchEvent(saveHighlightEvent);
+        storeHighlightColor(color);
+    };
+
+    private handleHighlightColorChange = (event: CustomEvent<string>) => {
+        this.highlightColor = event.detail;
     };
 
     private handleFocus = () => {
@@ -718,6 +803,18 @@ export class ProsemirrorAdapter {
     private handleNewLinkSelection = (text: string, href: string) => {
         this.link.text = text;
         this.link.href = href || 'https://';
+    };
+
+    private handleNewHighlightSelection = (color: string | null) => {
+        // While the menu is open, the user's in-progress pick must not be
+        // clobbered by selection updates.
+        if (this.isHighlightColorMenuOpen) {
+            return;
+        }
+
+        // Pre-filling from the selection is display-only; only an actual
+        // apply persists a color to storage.
+        this.highlightColor = color ?? getStoredHighlightColor();
     };
 
     private handleOpenLinkMenu = (event: CustomEvent<EditorLink>) => {
