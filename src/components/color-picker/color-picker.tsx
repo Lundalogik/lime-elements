@@ -8,7 +8,12 @@ import {
     Host,
 } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
-import type { CustomColorSwatch } from './color-picker.types';
+import { ENTER } from '../../util/keycodes';
+import { getLiveInputValue } from './get-live-input-value';
+import type {
+    CustomColorSwatch,
+    ManualInputCommit,
+} from './color-picker.types';
 
 /**
  * This component enables you to select a swatch from out color palette, simply
@@ -102,6 +107,19 @@ export class ColorPicker implements FormComponent {
     public manualInput = true;
 
     /**
+     * Controls when manually typed input emits the `change` event.
+     * - `'change'` (default): every change to the typed value emits `change`,
+     * as it is typed.
+     * - `'enter'`: typed input only updates the displayed value; `change` is
+     * emitted when the user presses Enter in the input field.
+     *
+     * Clicking a swatch always emits `change` immediately, regardless of
+     * mode.
+     */
+    @Prop({ reflect: true })
+    public manualInputCommit: ManualInputCommit = 'change';
+
+    /**
      * An array of either color value strings, or objects with a `name` and a `value`,
      * which replaces the default palette. Any valid CSS color format is accepted as value
      * (HEX, RGB/A, HSL, HWB, color-mix(), named colors, etc.).
@@ -126,6 +144,13 @@ export class ColorPicker implements FormComponent {
     @State()
     private isOpen = false;
 
+    /**
+     * The typed-but-not-yet-committed input value in `'enter'` commit mode.
+     * `null` when there is no pending edit.
+     */
+    @State()
+    private pendingValue: string | null = null;
+
     public disconnectedCallback() {
         this.isOpen = false;
     }
@@ -149,8 +174,9 @@ export class ColorPicker implements FormComponent {
                 <limel-input-field
                     label={this.label}
                     helperText={this.helperText}
-                    value={this.value}
-                    onChange={this.handleChange}
+                    value={this.pendingValue ?? this.value}
+                    onChange={this.handleInputChange}
+                    onKeyDown={this.handleInputKeyDown}
                     required={this.required}
                     readonly={this.readonly}
                     disabled={this.disabled || !this.manualInput}
@@ -190,11 +216,12 @@ export class ColorPicker implements FormComponent {
                     helperText={this.helperText}
                     placeholder={this.placeholder}
                     invalid={this.invalid}
-                    onChange={this.handleChange}
+                    onChange={this.handlePaletteChange}
                     required={this.required}
                     palette={this.palette as any}
                     columnCount={this.paletteColumnCount}
                     manualInput={this.manualInput}
+                    manualInputCommit={this.manualInputCommit}
                 />
             </limel-popover>
         );
@@ -233,8 +260,38 @@ export class ColorPicker implements FormComponent {
         this.isOpen = false;
     };
 
-    private handleChange = (event: CustomEvent<string>) => {
+    private handleInputChange = (event: CustomEvent<string>) => {
         event.stopPropagation();
+
+        if (this.manualInputCommit === 'enter') {
+            this.pendingValue = event.detail;
+
+            return;
+        }
+
+        this.change.emit(event.detail);
+    };
+
+    private handleInputKeyDown = (event: KeyboardEvent) => {
+        if (this.manualInputCommit !== 'enter' || event.key !== ENTER) {
+            return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        // The input field debounces its change event, so the live DOM value
+        // is preferred over the last received change; otherwise a fast typist
+        // pressing Enter would commit a stale value.
+        const value =
+            getLiveInputValue(event) ?? this.pendingValue ?? this.value;
+        this.pendingValue = null;
+        this.change.emit(value);
+    };
+
+    private handlePaletteChange = (event: CustomEvent<string>) => {
+        event.stopPropagation();
+        this.pendingValue = null;
         this.change.emit(event.detail);
     };
 }

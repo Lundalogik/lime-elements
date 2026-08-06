@@ -1,7 +1,13 @@
-import { Component, h, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, h, Prop, State, Event, EventEmitter } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
+import { ENTER } from '../../util/keycodes';
 import { brightnesses, colors, createSwatch, Swatch } from './swatches';
-import type { CustomPalette, CustomColorSwatch } from './color-picker.types';
+import { getLiveInputValue } from './get-live-input-value';
+import type {
+    CustomPalette,
+    CustomColorSwatch,
+    ManualInputCommit,
+} from './color-picker.types';
 
 /**
  * @private
@@ -57,6 +63,13 @@ export class Palette implements FormComponent {
     public manualInput = true;
 
     /**
+     * Controls when manually typed input emits the `change` event.
+     * See the documentation on `limel-color-picker`.
+     */
+    @Prop({ reflect: true })
+    public manualInputCommit: ManualInputCommit = 'change';
+
+    /**
      * Defines the number of columns in the color swatch grid.
      * If not provided, it will default to the number of colors in the palette.
      */
@@ -75,6 +88,13 @@ export class Palette implements FormComponent {
     @Event()
     public change: EventEmitter<string>;
 
+    /**
+     * The typed-but-not-yet-committed input value in `'enter'` commit mode.
+     * `null` when there is no pending edit.
+     */
+    @State()
+    private pendingValue: string | null = null;
+
     public render() {
         const background = this.value ? { '--background': this.value } : {};
 
@@ -91,8 +111,9 @@ export class Palette implements FormComponent {
                 <limel-input-field
                     label={this.label}
                     helperText={this.helperText}
-                    value={this.value}
+                    value={this.pendingValue ?? this.value}
                     onChange={this.handleChange}
+                    onKeyDown={this.handleInputKeyDown}
                     required={this.required}
                     invalid={this.invalid}
                     placeholder={this.placeholder}
@@ -154,12 +175,37 @@ export class Palette implements FormComponent {
 
     private handleChange = (event: CustomEvent<string>) => {
         event.stopPropagation();
+
+        if (this.manualInputCommit === 'enter') {
+            this.pendingValue = event.detail;
+
+            return;
+        }
+
         this.change.emit(event.detail);
+    };
+
+    private handleInputKeyDown = (event: KeyboardEvent) => {
+        if (this.manualInputCommit !== 'enter' || event.key !== ENTER) {
+            return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        // The input field debounces its change event, so the live DOM value
+        // is preferred over the last received change; otherwise a fast typist
+        // pressing Enter would commit a stale value.
+        const value =
+            getLiveInputValue(event) ?? this.pendingValue ?? this.value;
+        this.pendingValue = null;
+        this.change.emit(value);
     };
 
     private handleSwatchClick = (value: string) => (event: MouseEvent) => {
         event.stopPropagation();
         const newValue = this.value === value ? '' : value;
+        this.pendingValue = null;
         this.change.emit(newValue);
     };
 

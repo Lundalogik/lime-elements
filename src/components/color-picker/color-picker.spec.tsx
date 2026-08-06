@@ -246,6 +246,122 @@ describe('limel-color-picker-palette', () => {
         });
     });
 
+    describe('manual input commit mode', () => {
+        const dispatchInputChange = (
+            input: Element,
+            value: string
+        ): CustomEvent<string> => {
+            const event = new CustomEvent('change', { detail: value });
+            input.dispatchEvent(event);
+
+            return event;
+        };
+
+        const dispatchEnter = (input: Element) => {
+            // Stencil maps JSX `onKeyDown` to the native `keydown` event in
+            // a browser, but registers a literal `keyDown` listener in
+            // mock-doc. Only one of the two listeners exists, so dispatching
+            // both fires the handler exactly once in either environment.
+            input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+            input.dispatchEvent(new KeyboardEvent('keyDown', { key: 'Enter' }));
+        };
+
+        it('emits change for every input change by default', async () => {
+            const handleChange = vi.fn();
+            const { root, waitForChanges } = await render(
+                <limel-color-picker-palette
+                    label="Colors"
+                    onChange={handleChange}
+                ></limel-color-picker-palette>
+            );
+            await waitForChanges();
+
+            const input = root.shadowRoot.querySelector('limel-input-field');
+            dispatchInputChange(input, '#123456');
+
+            expect(handleChange).toHaveBeenCalledTimes(1);
+            expect(handleChange.mock.calls[0][0].detail).toEqual('#123456');
+        });
+
+        it('holds input changes until Enter in enter mode', async () => {
+            const handleChange = vi.fn();
+            const { root, waitForChanges } = await render(
+                <limel-color-picker-palette
+                    label="Colors"
+                    manualInputCommit="enter"
+                    onChange={handleChange}
+                ></limel-color-picker-palette>
+            );
+            await waitForChanges();
+
+            const input = root.shadowRoot.querySelector('limel-input-field');
+            dispatchInputChange(input, '#12');
+            dispatchInputChange(input, '#123456');
+
+            expect(handleChange).not.toHaveBeenCalled();
+
+            dispatchEnter(input);
+
+            expect(handleChange).toHaveBeenCalledTimes(1);
+            expect(handleChange.mock.calls[0][0].detail).toEqual('#123456');
+        });
+
+        it('displays the typed value while it is uncommitted in enter mode', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-color-picker-palette
+                    label="Colors"
+                    manualInputCommit="enter"
+                    value="#000000"
+                ></limel-color-picker-palette>
+            );
+            await waitForChanges();
+
+            const input = root.shadowRoot.querySelector('limel-input-field');
+            dispatchInputChange(input, '#123456');
+            await waitForChanges();
+
+            expect(input.value).toEqual('#123456');
+        });
+
+        it('still emits immediately for swatch clicks in enter mode', async () => {
+            const handleChange = vi.fn();
+            const { root, waitForChanges } = await render(
+                <limel-color-picker-palette
+                    label="Colors"
+                    manualInputCommit="enter"
+                    onChange={handleChange}
+                ></limel-color-picker-palette>
+            );
+            await waitForChanges();
+
+            const swatch = root.shadowRoot.querySelector(
+                'button.swatch'
+            ) as HTMLButtonElement;
+            swatch.click();
+
+            expect(handleChange).toHaveBeenCalledTimes(1);
+        });
+
+        it('commits the displayed value when Enter is pressed without a pending edit', async () => {
+            const handleChange = vi.fn();
+            const { root, waitForChanges } = await render(
+                <limel-color-picker-palette
+                    label="Colors"
+                    manualInputCommit="enter"
+                    value="#000000"
+                    onChange={handleChange}
+                ></limel-color-picker-palette>
+            );
+            await waitForChanges();
+
+            const input = root.shadowRoot.querySelector('limel-input-field');
+            dispatchEnter(input);
+
+            expect(handleChange).toHaveBeenCalledTimes(1);
+            expect(handleChange.mock.calls[0][0].detail).toEqual('#000000');
+        });
+    });
+
     describe('manual input', () => {
         it('renders an input field inside the palette', async () => {
             const { root, waitForChanges } = await render(
@@ -270,6 +386,54 @@ describe('limel-color-picker-palette', () => {
                 '.chosen-color-preview'
             );
             expect(preview).toBeTruthy();
+        });
+    });
+});
+
+describe('limel-color-picker', () => {
+    describe('manual input commit mode', () => {
+        it('emits change for every input change by default', async () => {
+            const handleChange = vi.fn();
+            const { root, waitForChanges } = await render(
+                <limel-color-picker
+                    label="Colors"
+                    onChange={handleChange}
+                ></limel-color-picker>
+            );
+            await waitForChanges();
+
+            const input = root.shadowRoot.querySelector('limel-input-field');
+            input.dispatchEvent(
+                new CustomEvent('change', { detail: '#123456' })
+            );
+
+            expect(handleChange).toHaveBeenCalledTimes(1);
+            expect(handleChange.mock.calls[0][0].detail).toEqual('#123456');
+        });
+
+        it('holds input changes until Enter in enter mode', async () => {
+            const handleChange = vi.fn();
+            const { root, waitForChanges } = await render(
+                <limel-color-picker
+                    label="Colors"
+                    manualInputCommit="enter"
+                    onChange={handleChange}
+                ></limel-color-picker>
+            );
+            await waitForChanges();
+
+            const input = root.shadowRoot.querySelector('limel-input-field');
+            input.dispatchEvent(
+                new CustomEvent('change', { detail: '#123456' })
+            );
+
+            expect(handleChange).not.toHaveBeenCalled();
+
+            input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+            input.dispatchEvent(new KeyboardEvent('keyDown', { key: 'Enter' }));
+
+            expect(handleChange).toHaveBeenCalledTimes(1);
+            expect(handleChange.mock.calls[0][0].detail).toEqual('#123456');
         });
     });
 });
