@@ -9,6 +9,8 @@ import { editorMenuTypesArray } from './menu/types';
 import { strikethrough } from './menu/menu-schema-extender';
 import { linkMarkSpec } from './plugins/link/link-mark';
 import { createLinkPlugin } from './plugins/link/link-plugin';
+import { highlightMarkSpec } from './plugins/highlight/highlight-mark';
+import { createHighlightPlugin } from './plugins/highlight/highlight-plugin';
 import { createImageInserterPlugin } from './plugins/image/inserter';
 import { createImageViewPlugin } from './plugins/image/view';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
@@ -70,6 +72,7 @@ export function buildEditorSchema(options: EditorSchemaOptions): Schema {
         marks: basicSchema.spec.marks.append({
             strikethrough: strikethrough,
             link: linkMarkSpec,
+            highlight: highlightMarkSpec,
         }),
     });
 }
@@ -83,6 +86,7 @@ export interface EditorPluginsOptions {
     triggerCharacters: TriggerCharacter[];
     inlineImages?: InlineImages;
     onNewLinkSelection: Parameters<typeof createLinkPlugin>[0];
+    onHighlightSelection: Parameters<typeof createHighlightPlugin>[0];
     onImagePasted: Parameters<typeof createImageInserterPlugin>[0];
     onActiveItemsChange: Parameters<typeof createMenuStateTrackingPlugin>[2];
 }
@@ -110,6 +114,7 @@ export function buildEditorPlugins(options: EditorPluginsOptions): Plugin[] {
         triggerCharacters,
         inlineImages,
         onNewLinkSelection,
+        onHighlightSelection,
         onImagePasted,
         onActiveItemsChange,
     } = options;
@@ -119,6 +124,7 @@ export function buildEditorPlugins(options: EditorPluginsOptions): Plugin[] {
         keymap(menuCommandFactory.buildKeymap()),
         createTriggerPlugin(triggerCharacters, contentConverter),
         createLinkPlugin(onNewLinkSelection),
+        createHighlightPlugin(onHighlightSelection),
         createImageInserterPlugin(onImagePasted, inlineImages),
         createImageViewPlugin(language),
         createMenuStateTrackingPlugin(
