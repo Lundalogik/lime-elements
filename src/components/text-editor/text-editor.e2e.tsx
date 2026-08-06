@@ -207,6 +207,7 @@ describe('limel-text-editor', () => {
             };
 
             return {
+                root: root as HTMLLimelTextEditorElement,
                 setProps,
                 editable,
                 mouseDownAtTextOffset,
@@ -248,6 +249,32 @@ describe('limel-text-editor', () => {
 
             typeText('!');
             expect(editable.textContent).toBe('hello!');
+        });
+
+        test('unmounting the editor right after a click-to-focus does not touch the destroyed view', async () => {
+            const { root, editable, mouseDownAtTextOffset } =
+                await createEditor('hello');
+
+            const errors: string[] = [];
+            const onError = (event: ErrorEvent) => {
+                errors.push(event.message);
+            };
+            window.addEventListener('error', onError);
+
+            try {
+                // Click to focus, then remove the editor in the same tick —
+                // like a popover closing on the click that focused it. The
+                // pending focus restoration must not run against the
+                // destroyed editor view.
+                mouseDownAtTextOffset(0);
+                editable.focus();
+                root.remove();
+                await sleep(FOCUS_SETTLE_WAIT);
+
+                expect(errors).toEqual([]);
+            } finally {
+                window.removeEventListener('error', onError);
+            }
         });
 
         test('a click position beyond a shrunken document is ignored on focus', async () => {
