@@ -778,3 +778,34 @@ describe('sanitizeHTML', () => {
         });
     });
 });
+
+describe('highlight <mark> support', () => {
+    it('keeps <mark> with its background color through markdownToHTML', async () => {
+        const result = await markdownToHTML(
+            '<mark style="background-color: #fff176">glow</mark>'
+        );
+
+        expect(result).toContain('<mark');
+        expect(result).toContain('background-color: #fff176');
+    });
+
+    it('strips event handlers and non-whitelisted styles from <mark>', async () => {
+        const result = await markdownToHTML(
+            '<mark onclick="alert(1)" style="background-color: red; background-image: url(x)">x</mark>'
+        );
+
+        expect(result).toContain('<mark');
+        expect(result).not.toContain('onclick');
+        expect(result).not.toContain('background-image');
+        expect(result).toContain('background-color: red');
+    });
+
+    it('keeps <mark> with its background color through sanitizeHTML', async () => {
+        const result = await sanitizeHTML(
+            '<p><mark style="background-color: #fff176">glow</mark></p>'
+        );
+
+        expect(result).toContain('<mark');
+        expect(result).toContain('background-color: #fff176');
+    });
+});

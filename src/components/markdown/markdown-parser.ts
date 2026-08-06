@@ -124,6 +124,7 @@ function getWhiteList(allowedComponents: CustomElementDefinition[]): Schema {
         strip: [...(defaultSchema.strip ?? []), 'style'],
         tagNames: [
             ...(defaultSchema.tagNames || []),
+            'mark',
             ...allowedComponents.map((component) => component.tagName),
         ],
         attributes: {
