@@ -171,6 +171,7 @@ export class ProsemirrorAdapter {
     private changeWaiting = false;
     private transactionFired = false;
     private lastClickedPos: number | null = null;
+    private focusRestoreTimeout: ReturnType<typeof setTimeout> | null = null;
     private metadata: EditorMetadata = { images: [], links: [] };
 
     /**
@@ -324,6 +325,14 @@ export class ProsemirrorAdapter {
     }
 
     public disconnectedCallback() {
+        // The pending caret restoration must not run against a destroyed
+        // editor view. Chromium clears the click position via `blur` when a
+        // focused editor is removed, but that is not guaranteed in every
+        // browser.
+        clearTimeout(this.focusRestoreTimeout);
+        this.focusRestoreTimeout = null;
+        this.lastClickedPos = null;
+
         imageCache.clear();
 
         this.host.removeEventListener(
@@ -688,7 +697,7 @@ export class ProsemirrorAdapter {
             // Focus regained without a click (e.g. switching back to the window)
             // must leave the selection untouched.
             this.transactionFired = false;
-            setTimeout(() => {
+            this.focusRestoreTimeout = setTimeout(() => {
                 const clickedPos = this.lastClickedPos;
                 this.lastClickedPos = null;
                 if (
