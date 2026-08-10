@@ -62,7 +62,7 @@
     "@rjsf/validator-ajv8": "^6.6.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@stencil/core": "^4.43.5",
-    "@stencil/sass": "^3.2.3",
+    "@stencil/sass": "^3.3.3",
     "@stencil/vitest": "^1.12.1",
     "@types/codemirror": "^5.60.17",
     "@types/html-escaper": "^3.0.4",
