@@ -55,7 +55,7 @@
     "@commitlint/config-conventional": "^21.2.0",
     "@limetech/eslint-config": "^4.0.0",
     "@microsoft/api-extractor": "^7.58.7",
-    "@playwright/test": "1.60.0",
+    "@playwright/test": "1.62.1",
     "@popperjs/core": "^2.11.8",
     "@rjsf/core": "^6.6.1",
     "@rjsf/utils": "^6.6.1",
