@@ -3,8 +3,8 @@ import {
     createEditorTestState,
     runCommand,
     textSelection,
-} from './editor-test-harness';
-import './editor-doc-matcher';
+} from './test/editor-test-harness';
+import './test/editor-doc-matcher';
 import { EditorMenuTypes } from './menu/types';
 
 const harness = createEditorTestHarness();

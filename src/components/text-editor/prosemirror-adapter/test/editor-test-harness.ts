@@ -1,10 +1,12 @@
-import { Node } from 'prosemirror-model';
+import { DOMParser, Mark, Node, Schema } from 'prosemirror-model';
 import {
     Command,
     EditorState,
     Plugin,
+    PluginKey,
     Selection,
     TextSelection,
+    Transaction,
 } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { builders } from 'prosemirror-test-builder';
@@ -13,9 +15,9 @@ import {
     buildEditorPlugins,
     EditorPluginsOptions,
     EditorSchemaOptions,
-} from './editor-config';
-import { MenuCommandFactory } from './menu/menu-commands';
-import { ContentTypeConverter } from '../utils/content-type-converter';
+} from '../editor-config';
+import { MenuCommandFactory } from '../menu/menu-commands';
+import { ContentTypeConverter } from '../../utils/content-type-converter';
 
 type EditorTestHarnessOverrides = Partial<
     Pick<EditorSchemaOptions, 'customElements' | 'contentType'> &
@@ -78,6 +80,31 @@ export function createEditorTestHarness(
     const b = builders(schema, { p: { nodeType: 'paragraph' } });
 
     return { schema: schema, plugins: plugins, factory: factory, builders: b };
+}
+
+/**
+ * Finds the plugin registered under the given key in a harness's plugin
+ * list. Throws when the plugin is missing, so a lookup failure surfaces
+ * inside the test that needs the plugin rather than as a module load error.
+ *
+ * @param harness - the harness whose plugin list is searched
+ * @param key - the plugin key to look for
+ * @returns the matching plugin
+ */
+export function findPluginByKey(
+    harness: EditorTestHarness,
+    key: PluginKey
+): Plugin {
+    const plugin = harness.plugins.find(
+        (candidate) => candidate.spec.key === key
+    );
+    if (!plugin) {
+        throw new Error(
+            'the requested plugin is missing from the production plugin list'
+        );
+    }
+
+    return plugin;
 }
 
 /**
@@ -212,6 +239,65 @@ export function runCommand(
     });
 
     return { state: next, handled: handled };
+}
+
+/**
+ * A stand-in for an `EditorView` that applies every dispatched transaction
+ * to an internal state, for exercising plugin props state-side without
+ * mounting a real view.
+ */
+export interface FakeViewHolder {
+    view: EditorView;
+    current: () => EditorState;
+    dom: HTMLElement;
+}
+
+/**
+ * Creates a fake view over an initial state. Dispatched transactions are
+ * applied to the held state, mirroring a real view's dispatch contract.
+ *
+ * @param initial - the state the fake view starts from
+ * @returns the fake view, a `current` accessor for the latest state, and
+ * the detached element exposed as the view's `dom`
+ */
+export function createFakeView(initial: EditorState): FakeViewHolder {
+    let state = initial;
+    const dom = document.createElement('div');
+    const view = {
+        get state() {
+            return state;
+        },
+        dispatch: (tr: Transaction) => {
+            state = state.apply(tr);
+        },
+        dom: dom,
+    } as unknown as EditorView;
+
+    return { view: view, current: () => state, dom: dom };
+}
+
+/**
+ * Parses an HTML string into a document node using a schema's DOM parser.
+ *
+ * @param schema - the schema the document is parsed against
+ * @param html - the HTML to parse
+ * @returns the parsed document node
+ */
+export function parseHTML(schema: Schema, html: string): Node {
+    const container = document.createElement('div');
+    container.innerHTML = html;
+
+    return DOMParser.fromSchema(schema).parse(container);
+}
+
+/**
+ * Picks the link mark off a node, when one is present.
+ *
+ * @param node - the node whose marks are searched
+ * @returns the link mark, or `undefined` when the node has none
+ */
+export function getLinkMark(node: Node): Mark | undefined {
+    return node.marks.find((mark) => mark.type.name === 'link');
 }
 
 /**

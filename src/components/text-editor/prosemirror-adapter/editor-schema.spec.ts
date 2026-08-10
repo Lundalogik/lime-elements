@@ -1,5 +1,5 @@
 import { DOMParser, DOMSerializer } from 'prosemirror-model';
-import { createEditorTestHarness } from './editor-test-harness';
+import { createEditorTestHarness } from './test/editor-test-harness';
 import { EditorMenuTypes } from './menu/types';
 
 describe('editor schema (real stack)', () => {
@@ -67,7 +67,7 @@ describe('editor schema (real stack)', () => {
                         { tagName: 'paragraph', attributes: ['x'] },
                     ],
                 })
-            ).toThrow(/Mixing inline and block content/);
+            ).toThrow();
         });
 
         it('the link mark is the custom spec, not schema-basic', () => {

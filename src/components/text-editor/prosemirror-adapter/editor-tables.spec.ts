@@ -1,10 +1,11 @@
-import { DOMParser, DOMSerializer, Node } from 'prosemirror-model';
+import { DOMSerializer, Node } from 'prosemirror-model';
 import { tableEditingKey } from 'prosemirror-tables';
 import {
     createEditorTestHarness,
     createEditorTestState,
+    parseHTML,
     textSelection,
-} from './editor-test-harness';
+} from './test/editor-test-harness';
 import { getTableEditingPlugins } from './plugins/table-plugin';
 import { editorMenuTypesArray } from './menu/types';
 
@@ -16,13 +17,6 @@ const p = b.p;
 const table = b.table;
 const row = b.table_row;
 const cell = b.table_cell;
-
-function parseHTML(schema, html: string): Node {
-    const container = document.createElement('div');
-    container.innerHTML = html;
-
-    return DOMParser.fromSchema(schema).parse(container);
-}
 
 describe('table plugin wiring', () => {
     it('provides exactly one editing plugin when enabled and none when disabled', () => {

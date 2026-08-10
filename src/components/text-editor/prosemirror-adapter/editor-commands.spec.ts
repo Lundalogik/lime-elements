@@ -1,11 +1,11 @@
-import { Mark, Node } from 'prosemirror-model';
 import {
     createEditorTestHarness,
     createEditorTestState,
+    getLinkMark,
     runCommand,
     textSelection,
-} from './editor-test-harness';
-import './editor-doc-matcher';
+} from './test/editor-test-harness';
+import './test/editor-doc-matcher';
 import { EditorMenuTypes, editorMenuTypesArray } from './menu/types';
 import { CommandWithActive } from './menu/menu-commands';
 
@@ -20,10 +20,6 @@ const orderedList = b.ordered_list;
 const listItem = b.list_item;
 const heading = b.heading;
 const strong = b.strong;
-
-function getLinkMark(node: Node): Mark | undefined {
-    return node.marks.find((mark) => mark.type.name === 'link');
-}
 
 describe('menu commands against the real schema', () => {
     describe('mark commands', () => {

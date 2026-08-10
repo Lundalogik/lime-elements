@@ -1,43 +1,20 @@
-import { DOMParser, Mark, Node } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import { Node } from 'prosemirror-model';
 import {
     createEditorTestHarness,
     createEditorTestState,
+    createFakeView,
+    FakeViewHolder,
+    findPluginByKey,
+    getLinkMark,
+    parseHTML,
     textSelection,
-} from './editor-test-harness';
+} from './test/editor-test-harness';
 import { linkPluginKey } from './plugins/link/link-plugin';
 
 const harness = createEditorTestHarness();
 const b = harness.builders as Record<string, any>;
 const doc = b.doc;
 const p = b.p;
-
-const linkPlugin = harness.plugins.find(
-    (plugin) => plugin.spec.key === linkPluginKey
-);
-if (!linkPlugin) {
-    throw new Error('link plugin is missing from the production plugin list');
-}
-
-interface FakeViewHolder {
-    view: EditorView;
-    current: () => EditorState;
-}
-
-function createFakeView(initial: EditorState): FakeViewHolder {
-    let state = initial;
-    const view = {
-        get state() {
-            return state;
-        },
-        dispatch: (tr) => {
-            state = state.apply(tr);
-        },
-    } as unknown as EditorView;
-
-    return { view: view, current: () => state };
-}
 
 function createPasteEvent(text: string): ClipboardEvent {
     return {
@@ -49,26 +26,18 @@ function createPasteEvent(text: string): ClipboardEvent {
 }
 
 function paste(holder: FakeViewHolder, text: string): boolean {
+    const linkPlugin = findPluginByKey(harness, linkPluginKey);
+
     return (linkPlugin.props.handlePaste as any)(
         holder.view,
         createPasteEvent(text)
     );
 }
 
-function getLinkMark(node: Node): Mark | undefined {
-    return node.marks.find((mark) => mark.type.name === 'link');
-}
-
-function parseHTML(html: string): Node {
-    const container = document.createElement('div');
-    container.innerHTML = html;
-
-    return DOMParser.fromSchema(harness.schema).parse(container);
-}
-
 describe('link mark parsing', () => {
     it('reads all five attributes from a full anchor tag', () => {
         const parsed = parseHTML(
+            harness.schema,
             '<p><a href="/x" title="t" target="_blank" rel="r" referrerpolicy="q">y</a></p>'
         );
         const mark = getLinkMark(parsed.firstChild.firstChild);
@@ -83,7 +52,7 @@ describe('link mark parsing', () => {
     });
 
     it('defaults optional attributes to null', () => {
-        const parsed = parseHTML('<p><a href="/x">y</a></p>');
+        const parsed = parseHTML(harness.schema, '<p><a href="/x">y</a></p>');
         const mark = getLinkMark(parsed.firstChild.firstChild);
 
         expect(mark.attrs.title).toBeNull();
@@ -229,53 +198,68 @@ describe('link plugin paste handling', () => {
 
 describe('link plugin selection callback', () => {
     function updateWith(
-        state: EditorState,
-        callback: (text: string, href: string) => void
+        callback: (text: string, href: string) => void,
+        buildDoc: (builders: Record<string, any>) => Node,
+        from: number,
+        to?: number
     ): void {
-        const harnessWithSpy = createEditorTestHarness({
+        const spyHarness = createEditorTestHarness({
             onNewLinkSelection: callback,
         });
-        const plugin = harnessWithSpy.plugins.find(
-            (candidate) => candidate.spec.key === linkPluginKey
+        const start = buildDoc(spyHarness.builders as Record<string, any>);
+        const plugin = findPluginByKey(spyHarness, linkPluginKey);
+        const holder = createFakeView(
+            createEditorTestState(
+                spyHarness,
+                start,
+                textSelection(start, from, to)
+            )
         );
-        const holder = createFakeView(state);
         const pluginView = (plugin.spec.view as any)(holder.view);
         pluginView.update(holder.view);
     }
 
     it('reports empty text and href at a plain-text cursor', () => {
-        const start = doc(p('hello'));
         const callback = vi.fn();
         updateWith(
-            createEditorTestState(harness, start, textSelection(start, 2)),
-            callback
+            callback,
+            (builders) => builders.doc(builders.p('hello')),
+            2
         );
 
         expect(callback).toHaveBeenCalledWith('', '');
     });
 
     it('reports the selected text and its link href', () => {
-        const start = doc(p(b.link({ href: 'https://a.example/' }, 'ab')));
         const callback = vi.fn();
         updateWith(
-            createEditorTestState(harness, start, textSelection(start, 1, 3)),
-            callback
+            callback,
+            (builders) =>
+                builders.doc(
+                    builders.p(
+                        builders.link({ href: 'https://a.example/' }, 'ab')
+                    )
+                ),
+            1,
+            3
         );
 
         expect(callback).toHaveBeenCalledWith('ab', 'https://a.example/');
     });
 
     it('reports the last href when the selection spans two links', () => {
-        const start = doc(
-            p(
-                b.link({ href: 'https://a.example/' }, 'ab'),
-                b.link({ href: 'https://b.example/' }, 'cd')
-            )
-        );
         const callback = vi.fn();
         updateWith(
-            createEditorTestState(harness, start, textSelection(start, 1, 5)),
-            callback
+            callback,
+            (builders) =>
+                builders.doc(
+                    builders.p(
+                        builders.link({ href: 'https://a.example/' }, 'ab'),
+                        builders.link({ href: 'https://b.example/' }, 'cd')
+                    )
+                ),
+            1,
+            5
         );
 
         expect(callback).toHaveBeenCalledWith('abcd', 'https://b.example/');
