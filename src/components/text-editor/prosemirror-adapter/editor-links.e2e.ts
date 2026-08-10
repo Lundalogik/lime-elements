@@ -4,7 +4,7 @@ import {
     createEditorTestState,
     mountView,
     textSelection,
-} from './editor-test-harness';
+} from './test/editor-test-harness';
 import { EditorLink } from '../text-editor.types';
 
 const HREF_A = 'https://a.example/';

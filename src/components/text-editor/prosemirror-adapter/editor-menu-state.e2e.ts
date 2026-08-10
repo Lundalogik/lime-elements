@@ -4,8 +4,8 @@ import {
     createEditorTestState,
     mountView,
     textSelection,
-} from './editor-test-harness';
-import './editor-doc-matcher';
+} from './test/editor-test-harness';
+import './test/editor-doc-matcher';
 import { EditorMenuTypes, editorMenuTypesArray } from './menu/types';
 
 describe('menu state tracking on a mounted view', () => {

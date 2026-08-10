@@ -4,7 +4,7 @@ import {
     mountView,
     textSelection,
     typeText,
-} from './editor-test-harness';
+} from './test/editor-test-harness';
 import { TriggerEventDetail } from '../text-editor.types';
 import { ContentTypeConverter } from '../utils/content-type-converter';
 

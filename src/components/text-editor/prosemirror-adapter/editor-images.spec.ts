@@ -1,17 +1,13 @@
-import {
-    DOMParser,
-    DOMSerializer,
-    Fragment,
-    Node,
-    Slice,
-} from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import { DOMSerializer, Fragment, Node, Slice } from 'prosemirror-model';
+import { Plugin } from 'prosemirror-state';
 import {
     createEditorTestHarness,
     createEditorTestState,
+    createFakeView,
+    findPluginByKey,
+    parseHTML,
     textSelection,
-} from './editor-test-harness';
+} from './test/editor-test-harness';
 import {
     imageInserterFactory,
     pluginKey as imageInserterPluginKey,
@@ -24,13 +20,8 @@ const b = harness.builders as Record<string, any>;
 const doc = b.doc;
 const p = b.p;
 
-const imagePlugin = harness.plugins.find(
-    (plugin) => plugin.spec.key === imageInserterPluginKey
-);
-if (!imagePlugin) {
-    throw new Error(
-        'image inserter plugin is missing from the production plugin list'
-    );
+function imagePlugin(): Plugin {
+    return findPluginByKey(harness, imageInserterPluginKey);
 }
 
 const fileInfo: FileInfo = {
@@ -46,26 +37,6 @@ class StubFileReader {
         this.result = 'data:image/png;base64,AAAA';
         queueMicrotask(() => this.onloadend?.());
     }
-}
-
-function createFakeView(initial: EditorState): {
-    view: EditorView;
-    current: () => EditorState;
-    dom: HTMLElement;
-} {
-    let state = initial;
-    const dom = document.createElement('div');
-    const view = {
-        get state() {
-            return state;
-        },
-        dispatch: (tr) => {
-            state = state.apply(tr);
-        },
-        dom: dom,
-    } as unknown as EditorView;
-
-    return { view: view, current: () => state, dom: dom };
 }
 
 function createPasteEvent(files: File[], html: string = ''): ClipboardEvent {
@@ -89,13 +60,6 @@ function findImage(node: Node): { node: Node; pos: number } | undefined {
     return found;
 }
 
-function parseHTML(html: string): Node {
-    const container = document.createElement('div');
-    container.innerHTML = html;
-
-    return DOMParser.fromSchema(harness.schema).parse(container);
-}
-
 beforeEach(() => {
     imageCache.clear();
     vi.stubGlobal('FileReader', StubFileReader);
@@ -108,6 +72,7 @@ afterEach(() => {
 describe('image node spec', () => {
     it('parses dimensions from inline style and forces success state', () => {
         const parsed = parseHTML(
+            harness.schema,
             '<p><img src="s" alt="a" style="width: 10px; height: 20px"></p>'
         );
         const image = findImage(parsed).node;
@@ -122,14 +87,18 @@ describe('image node spec', () => {
     });
 
     it('defaults a missing alt to "file"', () => {
-        const parsed = parseHTML('<p><img src="s"></p>');
+        const parsed = parseHTML(harness.schema, '<p><img src="s"></p>');
 
         expect(findImage(parsed).node.attrs.alt).toBe('file');
     });
 
     it('mints a fresh fileInfoId on every parse', () => {
-        const first = findImage(parseHTML('<p><img src="s"></p>')).node;
-        const second = findImage(parseHTML('<p><img src="s"></p>')).node;
+        const first = findImage(
+            parseHTML(harness.schema, '<p><img src="s"></p>')
+        ).node;
+        const second = findImage(
+            parseHTML(harness.schema, '<p><img src="s"></p>')
+        ).node;
 
         expect(first.attrs.fileInfoId).not.toBe(second.attrs.fileInfoId);
     });
@@ -200,7 +169,7 @@ describe('image paste detection', () => {
         });
 
         const file = new File([''], 'photo.png', { type: 'image/png' });
-        const handled = (imagePlugin.props.handlePaste as any)(
+        const handled = (imagePlugin().props.handlePaste as any)(
             holder.view,
             createPasteEvent([file]),
             Slice.empty
@@ -221,7 +190,7 @@ describe('image paste detection', () => {
             createEditorTestState(harness, start, textSelection(start, 1))
         );
         const file = new File([''], 'photo.png', { type: 'image/png' });
-        const handled = (imagePlugin.props.handlePaste as any)(
+        const handled = (imagePlugin().props.handlePaste as any)(
             holder.view,
             createPasteEvent([file], '<table><tr><td>x</td></tr></table>'),
             Slice.empty
@@ -236,7 +205,7 @@ describe('image paste detection', () => {
             createEditorTestState(harness, start, textSelection(start, 1))
         );
         const file = new File([''], 'photo.png', { type: 'image/png' });
-        const handled = (imagePlugin.props.handlePaste as any)(
+        const handled = (imagePlugin().props.handlePaste as any)(
             holder.view,
             createPasteEvent(
                 [file],
@@ -254,7 +223,7 @@ describe('image paste detection', () => {
             createEditorTestState(harness, start, textSelection(start, 1))
         );
         const file = new File([''], 'doc.pdf', { type: 'application/pdf' });
-        const handled = (imagePlugin.props.handlePaste as any)(
+        const handled = (imagePlugin().props.handlePaste as any)(
             holder.view,
             createPasteEvent([file]),
             Slice.empty
@@ -279,7 +248,7 @@ describe('image paste detection', () => {
                 Fragment.from([harness.schema.text('x '), image])
             ),
         ]);
-        const handled = (imagePlugin.props.handlePaste as any)(
+        const handled = (imagePlugin().props.handlePaste as any)(
             holder.view,
             createPasteEvent([]),
             new Slice(pastedContent, 0, 0)

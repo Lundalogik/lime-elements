@@ -3,7 +3,7 @@ import {
     createEditorTestHarness,
     createEditorTestState,
     mountView,
-} from './editor-test-harness';
+} from './test/editor-test-harness';
 import { imageCache } from './plugins/image/node';
 
 const harness = createEditorTestHarness();

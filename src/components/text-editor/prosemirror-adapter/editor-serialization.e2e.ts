@@ -4,7 +4,7 @@ import {
     createEditorTestState,
     mountView,
     EditorTestHarness,
-} from './editor-test-harness';
+} from './test/editor-test-harness';
 import { MarkdownConverter } from '../utils/markdown-converter';
 import { HTMLConverter } from '../utils/html-converter';
 import { ContentTypeConverter } from '../utils/content-type-converter';
@@ -48,10 +48,11 @@ function serialize(
     const { view, cleanup } = mountView(
         createEditorTestState(harness, docNode)
     );
-    const output = converter.serialize(view, harness.schema);
-    cleanup();
-
-    return output;
+    try {
+        return converter.serialize(view, harness.schema);
+    } finally {
+        cleanup();
+    }
 }
 
 async function roundTrip(value: string): Promise<string> {

@@ -6,8 +6,8 @@ import {
     mountView,
     pressKey,
     textSelection,
-} from './editor-test-harness';
-import './editor-doc-matcher';
+} from './test/editor-test-harness';
+import './test/editor-doc-matcher';
 
 const harness = createEditorTestHarness();
 const b = harness.builders as Record<string, any>;
