@@ -84,7 +84,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-snackbar-dismissible](../snackbar/examples)
  - [limel-example-switch-vs-checkbox](../../design-guidelines/boolean/examples)
  - [limel-example-table-sorting-disabled](../table/examples)
- - [limel-example-text-editor-with-inline-images-file-storage](../text-editor/examples)
+ - [limel-example-text-editor-with-inline-images-custom-tag](../text-editor/examples)
  - [limel-table](../table)
  - [limel-whats-new-example-slider](../../examples/whats-new/examples)
 
@@ -133,7 +133,7 @@ graph TD;
   limel-example-snackbar-dismissible --> limel-checkbox
   limel-example-switch-vs-checkbox --> limel-checkbox
   limel-example-table-sorting-disabled --> limel-checkbox
-  limel-example-text-editor-with-inline-images-file-storage --> limel-checkbox
+  limel-example-text-editor-with-inline-images-custom-tag --> limel-checkbox
   limel-table --> limel-checkbox
   limel-whats-new-example-slider --> limel-checkbox
   style limel-checkbox fill:#f9f,stroke:#333,stroke-width:4px
