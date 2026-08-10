@@ -22,6 +22,7 @@ graph TD;
   limel-example-file-viewer-with-picker --> limel-file
   limel-example-file-viewer-with-picker --> limel-file-viewer
   limel-file --> limel-file-dropzone
+  limel-file --> limel-spinner
   limel-file --> limel-chip-set
   limel-file --> limel-file-input
   limel-file-dropzone --> limel-icon
@@ -56,7 +57,7 @@ graph TD;
   limel-file-viewer --> limel-tooltip
   limel-file-viewer --> limel-menu
   limel-file-viewer --> limel-spinner
-  limel-email-viewer --> limel-badge
+  limel-email-viewer --> limel-chip
   limel-email-viewer --> limel-collapsible-section
   limel-email-viewer --> limel-markdown
   limel-collapsible-section --> limel-icon

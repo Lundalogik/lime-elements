@@ -9,4 +9,3 @@ function transformer(tree, file) {
 const storeData = (file) => (item) => {
     file.data.frontmatter = item.value ? YAML.parse(item.value) : undefined;
 };
-//# sourceMappingURL=markdown-frontmatter.js.map

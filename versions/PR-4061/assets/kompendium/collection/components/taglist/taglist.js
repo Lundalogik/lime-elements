@@ -43,7 +43,8 @@ export class Taglist {
                         "JsonDocsTag": {
                             "location": "import",
                             "path": "@stencil/core/internal",
-                            "id": "node_modules::JsonDocsTag"
+                            "id": "node_modules::JsonDocsTag",
+                            "referenceLocation": "JsonDocsTag"
                         }
                     }
                 },
@@ -79,4 +80,3 @@ export class Taglist {
         };
     }
 }
-//# sourceMappingURL=taglist.js.map

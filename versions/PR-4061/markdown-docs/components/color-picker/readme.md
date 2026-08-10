@@ -29,7 +29,6 @@
 ### Used by
 
  - [limel-color-picker](.)
- - [limel-example-ai-avatar-colors](../ai-avatar/examples)
 
 ### Depends on
 
@@ -46,7 +45,6 @@ graph TD;
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
   limel-color-picker --> limel-color-picker-palette
-  limel-example-ai-avatar-colors --> limel-color-picker-palette
   style limel-color-picker-palette fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

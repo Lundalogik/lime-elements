@@ -78,4 +78,3 @@ const getLink = (component) => async (tag) => {
         source: source,
     };
 };
-//# sourceMappingURL=source.js.map

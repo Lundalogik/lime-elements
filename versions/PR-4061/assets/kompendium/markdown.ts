@@ -14,6 +14,11 @@ import {
 } from './markdown-admonitions';
 import { kompendiumCode } from './markdown-code';
 import { typeLinks } from './markdown-typelinks';
+import {
+    inlineLinks,
+    LinkResolver,
+    normalizeInlineLinkUrls,
+} from './markdown-inline-links';
 
 export interface File {
     data: {
@@ -24,8 +29,15 @@ export interface File {
     toString(): string;
 }
 
-export async function markdownToHtml(text: string, types = []): Promise<File> {
-    const normalized = normalizeLegacyAdmonitions(text);
+export async function markdownToHtml(
+    text: string,
+    types: string[] = [],
+    components: string[] = [],
+): Promise<File> {
+    const normalized = normalizeInlineLinkUrls(
+        normalizeLegacyAdmonitions(text),
+    );
+    const resolve = createLinkResolver(types, components);
 
     const file = await unified()
         .use(remarkParse)
@@ -34,6 +46,7 @@ export async function markdownToHtml(text: string, types = []): Promise<File> {
         .use(saveFrontmatter)
         .use(remarkDirective)
         .use(admonitions)
+        .use(inlineLinks, { resolve: resolve })
         .use(remarkRehype, { allowDangerousHtml: true })
         .use(rehypeRaw)
         .use(rehypeSlug)
@@ -45,5 +58,25 @@ export async function markdownToHtml(text: string, types = []): Promise<File> {
     return {
         data: file.data as File['data'],
         toString: () => file.toString(),
+    };
+}
+
+function createLinkResolver(
+    types: string[],
+    components: string[],
+): LinkResolver {
+    const typeSet = new Set(types);
+    const componentSet = new Set(components);
+
+    return (target: string) => {
+        if (typeSet.has(target)) {
+            return `#/type/${target}`;
+        }
+
+        if (componentSet.has(target)) {
+            return `#/component/${target}/`;
+        }
+
+        return null;
     };
 }

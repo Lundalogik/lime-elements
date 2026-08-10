@@ -13,11 +13,12 @@ standard sizes defined that can be used with the `size` property.
 
 ## Properties
 
-| Property | Attribute | Description                                                                                                            | Type                                          | Default     |
-| -------- | --------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ----------- |
-| `badge`  | `badge`   | Set to `true` to give the icon a round background with some padding. Only works when the `size` attribute is also set. | `boolean`                                     | `undefined` |
-| `name`   | `name`    | Name of the icon                                                                                                       | `string`                                      | `undefined` |
-| `size`   | `size`    | Size of the icon                                                                                                       | `"large" \| "medium" \| "small" \| "x-small"` | `undefined` |
+| Property   | Attribute   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Type                                          | Default     |
+| ---------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ----------- |
+| `badge`    | `badge`     | Set to `true` to give the icon a round background with some padding. Only works when the `size` attribute is also set.                                                                                                                                                                                                                                                                                                                                                                                                     | `boolean`                                     | `undefined` |
+| `name`     | `name`      | Name of the icon                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | `string`                                      | `undefined` |
+| `size`     | `size`      | Size of the icon                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | `"large" \| "medium" \| "small" \| "x-small"` | `undefined` |
+| `svgClass` | `svg-class` | Sets the `class` attribute on the inner `<svg>` element rendered by this component, replacing whatever class the source SVG shipped with.  This is meant for icons whose SVG file contains internal `<style>` blocks with rules that respond to classes — a single file that ships with multiple visual states selectable via class names. Setting `svgClass` is how a consumer reaches across the shadow boundary to pick which of those states is active.  For typical stateless icons, this prop has no visible effect. | `string`                                      | `undefined` |
 
 
 ## Dependencies
@@ -44,6 +45,7 @@ standard sizes defined that can be used with the `size` property.
  - [limel-example-icon-color](examples)
  - [limel-example-icon-name](examples)
  - [limel-example-icon-size](examples)
+ - [limel-example-icon-svg-class](examples)
  - [limel-example-select-dialog](../select/examples)
  - [limel-example-shadows-bad-usage](../../design-guidelines/shadows/examples)
  - [limel-example-tab-panel-content](../tab-panel/examples)
@@ -85,6 +87,7 @@ graph TD;
   limel-example-icon-color --> limel-icon
   limel-example-icon-name --> limel-icon
   limel-example-icon-size --> limel-icon
+  limel-example-icon-svg-class --> limel-icon
   limel-example-select-dialog --> limel-icon
   limel-example-shadows-bad-usage --> limel-icon
   limel-example-tab-panel-content --> limel-icon

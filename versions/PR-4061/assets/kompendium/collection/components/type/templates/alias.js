@@ -8,4 +8,3 @@ export function Alias({ type }) {
         h("kompendium-markdown", { text: alias }),
     ];
 }
-//# sourceMappingURL=alias.js.map

@@ -5,4 +5,4 @@ export interface File {
     };
     toString(): string;
 }
-export declare function markdownToHtml(text: string, types?: any[]): Promise<File>;
+export declare function markdownToHtml(text: string, types?: string[], components?: string[]): Promise<File>;

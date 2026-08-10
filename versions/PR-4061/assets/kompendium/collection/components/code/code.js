@@ -26,7 +26,7 @@ export class Code {
     render() {
         const classList = {};
         classList[`language-${this.language}`] = true;
-        return (h("div", { key: '95723df383f836be24b3190b74dc5ee555da29d7', class: "root" }, h("slot", { key: '5fd9fc3b9d1499fd4f81d2ffda23e42318e33e66' }), h("pre", { key: 'a5e18f68729a29bc9b1d154e2d15b9a14ed4c7ef', class: classList }, h("code", { key: 'bc2cb099497051902f8a616e7a5a70330c5c9579' }, this.code))));
+        return (h("div", { key: '1223bdf557f84830f7dfbf991b155a4fa0519244', class: "root" }, h("slot", { key: 'bea1a859be69faeb324818a729eb12559bafe96d' }), h("pre", { key: '9757a854f31ae6bc736e0c829ea664fe4705d7bc', class: classList }, h("code", { key: '7d0ec3bd83d8a99c0e6d66abc172941497df8951' }, this.code))));
     }
     findCode() {
         const slot = this.host.shadowRoot.querySelector('slot');
@@ -79,4 +79,3 @@ export class Code {
     }
     static get elementRef() { return "host"; }
 }
-//# sourceMappingURL=code.js.map

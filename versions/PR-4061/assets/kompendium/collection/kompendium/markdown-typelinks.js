@@ -6,30 +6,46 @@ const transformer = (types = []) => (tree) => {
     if (types.length === 0) {
         return tree;
     }
-    const preCodeElements = collectPreCodeElements(tree);
-    return flatMap(tree, mapCodeNode(types, preCodeElements));
+    const skipCodeElements = collectSkippableCodeElements(tree);
+    return flatMap(tree, mapCodeNode(types, skipCodeElements));
 };
-function collectPreCodeElements(node) {
+function collectSkippableCodeElements(node) {
     const set = new Set();
-    collectPreCode(node, set);
+    collectSkippableCode(node, set, false);
     return set;
 }
-function collectPreCode(node, set) {
+function collectSkippableCode(node, set, insideAnchor) {
     if (!isParent(node)) {
         return;
     }
-    if (isElement(node) && node.tagName === 'pre') {
-        for (const child of node.children) {
-            if (isElement(child) && child.tagName === 'code') {
-                set.add(child);
-            }
-        }
+    const tagName = isElement(node) ? node.tagName : '';
+    // Skip `<code>` nested inside an `<a>`: the inline-link pass (`inlineLinks`
+    // in markdown-inline-links.ts) emits exactly this `link > inlineCode` shape
+    // for a resolved bare `{@link}` reference. Re-linking that code here would
+    // wrap an anchor in another anchor, so this pass yields to the earlier one.
+    // This guard is intentionally broader than that contract: it suppresses
+    // re-linking for *any* `<code>` inside *any* `<a>`, regardless of origin,
+    // since a nested anchor is never wanted no matter how the `<code>` got
+    // there.
+    if (tagName === 'code' && insideAnchor) {
+        set.add(node);
     }
+    if (tagName === 'pre') {
+        addPreCodeChildren(node, set);
+    }
+    const nextInsideAnchor = insideAnchor || tagName === 'a';
     for (const child of node.children) {
-        collectPreCode(child, set);
+        collectSkippableCode(child, set, nextInsideAnchor);
     }
 }
-const mapCodeNode = (types = [], preCodeElements) => (node, _, parent) => {
+function addPreCodeChildren(node, set) {
+    for (const child of node.children) {
+        if (isElement(child) && child.tagName === 'code') {
+            set.add(child);
+        }
+    }
+}
+const mapCodeNode = (types = [], skipCodeElements) => (node, _, parent) => {
     if (!isTextNode(node)) {
         return [node];
     }
@@ -39,7 +55,7 @@ const mapCodeNode = (types = [], preCodeElements) => (node, _, parent) => {
     if (parent.tagName !== 'code') {
         return [node];
     }
-    if (preCodeElements.has(parent)) {
+    if (skipCodeElements.has(parent)) {
         return [node];
     }
     return wrapText(node, types);
@@ -112,4 +128,3 @@ function flatMap(ast, fn) {
     }
     return result[0];
 }
-//# sourceMappingURL=markdown-typelinks.js.map

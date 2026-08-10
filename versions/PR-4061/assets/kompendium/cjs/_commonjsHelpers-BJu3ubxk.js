@@ -8,6 +8,3 @@ function getDefaultExportFromCjs (x) {
 
 exports.commonjsGlobal = commonjsGlobal;
 exports.getDefaultExportFromCjs = getDefaultExportFromCjs;
-//# sourceMappingURL=_commonjsHelpers-BJu3ubxk.js.map
-
-//# sourceMappingURL=_commonjsHelpers-BJu3ubxk.js.map

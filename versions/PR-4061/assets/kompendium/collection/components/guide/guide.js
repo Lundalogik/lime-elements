@@ -15,7 +15,7 @@ export class Guide {
     }
     render() {
         this.findGuide();
-        return h("kompendium-markdown", { key: '8df12c70deaae9f377a9e0674b7f274bc62076df', text: this.text });
+        return h("kompendium-markdown", { key: '134a1e05112b69474df22dbcbd198aaad6d16fbf', text: this.text });
     }
     findGuide() {
         const guide = this.data.guides.find((g) => g.data.path + '/' === this.route);
@@ -37,7 +37,8 @@ export class Guide {
                         "KompendiumData": {
                             "location": "import",
                             "path": "../../types",
-                            "id": "src/types.ts::KompendiumData"
+                            "id": "src/types.ts::KompendiumData",
+                            "referenceLocation": "KompendiumData"
                         }
                     }
                 },
@@ -58,4 +59,3 @@ export class Guide {
         };
     }
 }
-//# sourceMappingURL=guide.js.map

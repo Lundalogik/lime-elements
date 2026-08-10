@@ -26,6 +26,7 @@ export declare class KompendiumComponent {
     protected componentDidLoad(): void;
     protected componentDidUpdate(): void;
     private handleRouteChange;
+    private getScrollTargetId;
     render(): HTMLElement;
     private renderDocs;
     private getId;

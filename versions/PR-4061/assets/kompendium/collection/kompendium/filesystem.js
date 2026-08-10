@@ -6,4 +6,3 @@ export function exists(path) {
         });
     });
 }
-//# sourceMappingURL=filesystem.js.map

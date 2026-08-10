@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './index-9UrzenzW.js';
+import { r as registerInstance, h } from './index-26EzvxF0.js';
 
 const code = `
 import foo from 'foo';
@@ -10,9 +10,8 @@ const CodeExample = class {
         registerInstance(this, hostRef);
     }
     render() {
-        return h("kompendium-code", { key: '03405a3a1ab839b1b9caa99cf938230a1ff61c18', language: "ts" }, code);
+        return h("kompendium-code", { key: '503b97b84d0003cd4feaba3657ef13b3085ad2e7', language: "ts" }, code);
     }
 };
 
 export { CodeExample as kompendium_example_code };
-//# sourceMappingURL=kompendium-example-code.entry.js.map

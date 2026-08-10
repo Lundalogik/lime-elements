@@ -37,4 +37,3 @@ function getLanguage(props) {
     }
     return languageClass.replace('language-', '');
 }
-//# sourceMappingURL=markdown-code.js.map

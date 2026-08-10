@@ -17,15 +17,6 @@ As a contributor, here are the guidelines we would like you to follow:
 - [Coding rules](#coding-rules)
   * [Source code](#source-code)
   * [Commit Message Guidelines](#commit-message-guidelines)
-    + [Atomic commits](#atomic-commits)
-    + [Commit Message Format](#commit-message-format)
-    + [Revert](#revert)
-    + [Type](#type)
-    + [Scope](#scope)
-    + [Subject](#subject)
-    + [Body](#body)
-    + [Footer](#footer)
-    + [Examples](#examples)
 - [Working with the code](#working-with-the-code)
   * [Set up the workspace](#set-up-the-workspace)
   * [Lint](#lint)
@@ -43,7 +34,7 @@ Help us keep **lime-elements** open and inclusive. Please read and follow our [C
 
 As a **lime-elements** user, you are the perfect candidate to help us improve our documentation: typo corrections, clarifications, more examples, etc. Take a look at the [documentation issues that need help](https://github.com/Lundalogik/lime-elements/issues?q=is%3Aopen+is%3Aissue+label%3Adocs+label%3A%22help+wanted%22).
 
-Please follow the [Documentation guidelines](#documentation).
+Please follow the [Authoring docs](https://lundalogik.github.io/lime-elements/versions/latest/#/Home/authoring-docs.md/) guide.
 
 ### Give feedback on issues
 
@@ -144,98 +135,26 @@ After the properties, we have the component's functions. To keep some consistenc
 
 ### Commit Message Guidelines
 
-#### Atomic commits
+<!-- Anchors preserved so external links to the previous content sections still resolve. -->
+<a id="atomic-commits"></a>
+<a id="commit-message-format"></a>
+<a id="revert"></a>
+<a id="type"></a>
+<a id="scope"></a>
+<a id="subject"></a>
+<a id="body"></a>
+<a id="footer"></a>
+<a id="examples"></a>
 
-If possible, make [atomic commits](https://en.wikipedia.org/wiki/Atomic_commit), which means:
-- a commit should contain exactly one self-contained functional change
-- a functional change should be contained in exactly one commit
-- a commit should not create an inconsistent state (such as test errors, linting errors, partial fix, feature with documentation etc...)
+We use [atomic commits](https://en.wikipedia.org/wiki/Atomic_commit) in the [Conventional Commits](https://www.conventionalcommits.org/) format:
 
-A complex feature can be broken down into multiple commits as long as each one maintains a consistent state and consists of a self-contained change.
-
-**Please note**:
-Git makes it relatively easy to split and join commits later, and we'll be happy to help format your commits into one or more commits before accepting the pull request. However, it's usually a little easier to join several small commits than to split a large one, so when in doubt, make more and smaller commits.
-
-#### Commit Message Format
-Each commit message consists of a **header**, a **body** and a **footer**. The header has a special
-format that includes a **type**, a **scope** and a **subject**:
-
-```
+```text
 <type>(<scope>): <subject>
-<BLANK LINE>
-<body>
-<BLANK LINE>
-<footer>
 ```
 
-The **header** is mandatory and the **scope** of the header is optional.
+Allowed types are `feat`, `fix`, `perf`, `refactor`, `docs`, `test`, `style`, `build`, `ci`, `chore`, and `revert`. The header is limited to 100 characters. Both are enforced by [commitlint](https://commitlint.js.org/) in CI.
 
-Any line of the commit message cannot be longer 100 characters! This allows the message to be easier
-to read on GitHub as well as in various git tools.
-
-The **footer** can contain a [closing reference to an issue](https://help.github.com/articles/closing-issues-via-commit-messages/).
-
-**Please note**:
-It's perfectly fine to have temporary commits not following these rules when working on a pull request branch. It's better to make several smaller commits while developing, than to make a single commit that includes more than one change. If necessary, we'll be happy to help you formulate the final commit messages before accepting your pull request. *However*, please make sure to write *some* description of the changes in each commit.
-
-#### Revert
-If the commit reverts a previous commit, it should begin with `revert: `, followed by the header of the reverted commit. In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted. This is what git does automatically when using `git revert <hash>`.
-
-#### Type
-Must be one of the following:
-
-* **build**: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
-* **ci**: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
-* **docs**: Documentation only changes
-* **feat**: A new feature
-* **fix**: A bug fix
-* **perf**: A code change that improves performance
-* **refactor**: A change to the code's internal structure, with no change to its external behavior
-* **revert**: Reverts a previous commit
-* **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-* **test**: Adding missing tests or correcting existing tests
-* **chore**: Other changes that don't modify src or test files
-
-#### Scope
-The scope should be the name of the component affected (as perceived by the person reading the changelog generated from commit messages).
-
-#### Subject
-The subject contains a succinct description of the change:
-
-* use the imperative, present tense: "change" not "changed" nor "changes"
-* don't capitalize the first letter
-* no dot (.) at the end
-
-#### Body
-Just as in the **subject**, use the imperative, present tense: "change" not "changed" nor "changes".
-The body should include the motivation for the change and contrast this with previous behavior.
-
-#### Footer
-The footer should contain any information about **Breaking Changes** and is also the place to reference GitHub issues that this commit **Closes**.
-
-**Breaking Changes** should start with the word `BREAKING CHANGE:` with a space or two newlines. The rest of the commit message is then used for this.
-
-A detailed explanation can be found in this [document](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y).
-
-#### Examples
-
-```commit
-fix(pencil): stop graphite breaking when too much pressure applied
-```
-
-```commit
-feat(pencil): add 'graphiteWidth' option
-
-Fix #42
-```
-
-```commit
-perf(pencil): remove graphiteWidth option
-
-BREAKING CHANGE: The graphiteWidth option has been removed.
-
-The default graphite width of 10mm is always used for performance reasons.
-```
+For the full guidance — what `feat` and `fix` mean for a component library, scoping `@private` components, breaking changes, the `docs` rule for `examples/*.tsx`, and the fixup workflow for review feedback — see the [Commits & Pull Requests](https://lundalogik.github.io/lime-elements/versions/latest/#/Home/commits-and-prs.md/) page in the published docs.
 
 ## Working with the code
 

@@ -22,7 +22,6 @@ optionally with a number or a text label.
  - [limel-chart](../chart)
  - [limel-chip](../chip)
  - [limel-dock-button](../dock/dock-button)
- - [limel-email-viewer](../email-viewer)
  - [limel-example-badge-basic](examples)
  - [limel-example-badge-number](examples)
  - [limel-example-badge-string](examples)
@@ -40,7 +39,6 @@ graph TD;
   limel-chart --> limel-badge
   limel-chip --> limel-badge
   limel-dock-button --> limel-badge
-  limel-email-viewer --> limel-badge
   limel-example-badge-basic --> limel-badge
   limel-example-badge-number --> limel-badge
   limel-example-badge-string --> limel-badge
