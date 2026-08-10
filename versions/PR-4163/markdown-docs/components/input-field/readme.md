@@ -97,6 +97,7 @@ Type: `Promise<number>`
  - [limel-example-chart-type-line](../chart/examples)
  - [limel-example-chart-type-pie](../chart/examples)
  - [limel-example-chart-type-ring](../chart/examples)
+ - [limel-example-chart-type-scatter](../chart/examples)
  - [limel-example-chip-set-input](../chip-set/examples)
  - [limel-example-circular-progress-basic](../circular-progress/examples)
  - [limel-example-circular-progress-percentage-colors](../circular-progress/examples)
@@ -105,6 +106,7 @@ Type: `Promise<number>`
  - [limel-example-dialog-heading](../dialog/examples)
  - [limel-example-file-dropzone-type-filtering](../file-dropzone/examples)
  - [limel-example-file-per-file-status](../file/examples)
+ - [limel-example-file-resize-image](../file/examples)
  - [limel-example-info-tile-progress](../info-tile/examples)
  - [limel-example-input-field-autocomplete](examples)
  - [limel-example-input-field-error-icon](examples)
@@ -162,6 +164,7 @@ graph TD;
   limel-example-chart-type-line --> limel-input-field
   limel-example-chart-type-pie --> limel-input-field
   limel-example-chart-type-ring --> limel-input-field
+  limel-example-chart-type-scatter --> limel-input-field
   limel-example-chip-set-input --> limel-input-field
   limel-example-circular-progress-basic --> limel-input-field
   limel-example-circular-progress-percentage-colors --> limel-input-field
@@ -170,6 +173,7 @@ graph TD;
   limel-example-dialog-heading --> limel-input-field
   limel-example-file-dropzone-type-filtering --> limel-input-field
   limel-example-file-per-file-status --> limel-input-field
+  limel-example-file-resize-image --> limel-input-field
   limel-example-info-tile-progress --> limel-input-field
   limel-example-input-field-autocomplete --> limel-input-field
   limel-example-input-field-error-icon --> limel-input-field

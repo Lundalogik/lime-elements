@@ -4,23 +4,14 @@
 
 ## Overview
 
-Ring chart
-A ring chart is similar to a doughnut chart but used in concentric layers,
-ideal for comparison of hierarchical data.
+Scatter chart with negative values
+Because a scatter chart has two value axes, either of them can carry negative
+values — unlike single-axis charts, where only the value axis can. When the
+data spans negative and positive on both axes, the chart draws a zero line on
+each axis and places points in the correct quadrant relative to the origin.
 
-It's good for:
-- Comparing multiple parts of a whole in a layered visual layout.
-- Displaying hierarchical data or showing nested relationships.
-
-:::tip
-**Use:**
-- When you need to show multiple data series in a single, visually appealing chart.
-- For data with a clear hierarchy or grouping.
-
-**Avoid:**
-- With too many rings, as it can become visually overwhelming.
-- For data that needs precise comparison across series.
-:::
+Switching the `orientation` still transposes the whole plot, zero lines and
+negative ranges included.
 
 ## Dependencies
 
@@ -28,27 +19,27 @@ It's good for:
 
 - [limel-chart](..)
 - [limel-example-controls](../../../examples)
-- [limel-input-field](../../input-field)
+- [limel-select](../../select)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-chart-type-ring --> limel-chart
-  limel-example-chart-type-ring --> limel-example-controls
-  limel-example-chart-type-ring --> limel-input-field
+  limel-example-chart-type-scatter-negative --> limel-chart
+  limel-example-chart-type-scatter-negative --> limel-example-controls
+  limel-example-chart-type-scatter-negative --> limel-select
   limel-chart --> limel-spinner
   limel-chart --> limel-badge
   limel-chart --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-tooltip-content --> limel-hotkey
-  limel-input-field --> limel-helper-line
-  limel-input-field --> limel-icon
-  limel-input-field --> limel-portal
-  limel-input-field --> limel-menu-surface
-  limel-input-field --> limel-list
-  limel-input-field --> limel-notched-outline
-  style limel-example-chart-type-ring fill:#f9f,stroke:#333,stroke-width:4px
+  limel-select --> limel-notched-outline
+  limel-select --> limel-icon
+  limel-select --> limel-helper-line
+  limel-select --> limel-portal
+  limel-select --> limel-menu-surface
+  limel-select --> limel-list
+  style limel-example-chart-type-scatter-negative fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
