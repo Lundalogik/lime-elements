@@ -9,7 +9,7 @@ import { ResolvedPos, NodeType } from 'prosemirror-model';
  */
 export const findAncestorDepthOfType = (
     $pos: ResolvedPos,
-    type: NodeType,
+    type: NodeType
 ): number | null => {
     for (let depth = $pos.depth; depth > 0; depth--) {
         if ($pos.node(depth).type === type) {

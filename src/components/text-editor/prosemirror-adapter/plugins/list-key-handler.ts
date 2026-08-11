@@ -11,6 +11,7 @@ export const listKeyHandlerPluginKey = new PluginKey('listKeyHandlerPlugin');
 
 /**
  * Checks if the current cursor position is within a list item
+ * @param state
  */
 export function isInListItem(state) {
     const { $from } = state.selection;
@@ -31,6 +32,7 @@ export function isInListItem(state) {
 
 /**
  * Checks if the current list item is empty (contains only an empty paragraph)
+ * @param state
  */
 export function isEmptyListItem(state) {
     const { $from } = state.selection;
@@ -56,6 +58,7 @@ export function isEmptyListItem(state) {
 
 /**
  * Checks if the cursor is at the start of a list item
+ * @param state
  */
 export function isAtStartOfListItem(state) {
     const { $from, empty } = state.selection;
@@ -110,7 +113,7 @@ export function createListKeyHandlerPlugin(schema: Schema) {
 
                         return sinkListItem(schema.nodes.list_item)(
                             state,
-                            view.dispatch,
+                            view.dispatch
                         );
                     }
 
@@ -120,7 +123,7 @@ export function createListKeyHandlerPlugin(schema: Schema) {
 
                         return liftListItem(schema.nodes.list_item)(
                             state,
-                            view.dispatch,
+                            view.dispatch
                         );
                     }
                 }
@@ -139,14 +142,14 @@ export function createListKeyHandlerPlugin(schema: Schema) {
                     if (isEmptyListItem(state)) {
                         return liftListItem(schema.nodes.list_item)(
                             state,
-                            view.dispatch,
+                            view.dispatch
                         );
                     }
 
                     // Otherwise split the list item
                     return splitListItem(schema.nodes.list_item)(
                         state,
-                        view.dispatch,
+                        view.dispatch
                     );
                 }
 
@@ -156,19 +159,17 @@ export function createListKeyHandlerPlugin(schema: Schema) {
                     !event.shiftKey &&
                     !event.ctrlKey &&
                     !event.altKey &&
-                    !event.metaKey
+                    !event.metaKey && // Only handle backspace at the start of a list item
+                    isAtStartOfListItem(state)
                 ) {
-                    // Only handle backspace at the start of a list item
-                    if (isAtStartOfListItem(state)) {
-                        event.preventDefault();
+                    event.preventDefault();
 
-                        // Try joinBackward first (join with previous list item)
-                        // If that fails, try to lift the list item out
-                        return chainCommands(
-                            joinBackward,
-                            liftListItem(schema.nodes.list_item),
-                        )(state, view.dispatch);
-                    }
+                    // Try joinBackward first (join with previous list item)
+                    // If that fails, try to lift the list item out
+                    return chainCommands(
+                        joinBackward,
+                        liftListItem(schema.nodes.list_item)
+                    )(state, view.dispatch);
                 }
 
                 return false;

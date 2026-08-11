@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { EditorState, Transaction } from 'prosemirror-state';
 import { NodeType, Fragment, Schema } from 'prosemirror-model';
 import { EditorMenuTypes } from '../types';
@@ -11,7 +10,7 @@ export const LIST_TYPES = [
 
 export const isInListOfType = (
     state: EditorState,
-    listType: NodeType,
+    listType: NodeType
 ): boolean => {
     const { $from } = state.selection;
     for (let depth = $from.depth; depth > 0; depth--) {
@@ -32,7 +31,7 @@ export const isInListOfType = (
  */
 export const getOtherListType = (
     schema: Schema,
-    currentType: string,
+    currentType: string
 ): NodeType => {
     if (!LIST_TYPES.includes(currentType as any)) {
         console.error(`Invalid list type: ${currentType}`);
@@ -52,7 +51,7 @@ export const removeListNodes = (
     state: EditorState,
     targetType: NodeType,
     schema: Schema,
-    dispatch: Dispatch,
+    dispatch: Dispatch
 ) => {
     let tr = state.tr;
     let changed = false;
@@ -66,7 +65,7 @@ export const removeListNodes = (
                 const end = pos + node.nodeSize;
 
                 let frag = Fragment.empty;
-                node.forEach((child) => {
+                for (const child of node) {
                     if (
                         child.childCount > 0 &&
                         child.firstChild.type === schema.nodes.paragraph
@@ -76,11 +75,11 @@ export const removeListNodes = (
                         const para = schema.nodes.paragraph.create(
                             null,
                             child.content,
-                            child.marks,
+                            child.marks
                         );
                         frag = frag.append(Fragment.from(para));
                     }
-                });
+                }
 
                 tr = tr.replaceWith(start, end, frag);
                 changed = true;
@@ -89,7 +88,7 @@ export const removeListNodes = (
             }
 
             return true;
-        },
+        }
     );
 
     if (changed && dispatch) {
@@ -116,7 +115,7 @@ const fromBulletToOrderedList = (fromType: NodeType, toType: NodeType) => {
 const convertListAttributes = (
     fromType: NodeType,
     toType: NodeType,
-    attrs: Record<string, any>,
+    attrs: Record<string, any>
 ) => {
     const newAttrs = { ...attrs };
     if (fromOrderedToBulletList(fromType, toType)) {
@@ -134,7 +133,7 @@ export const convertAllListNodes = (
     state: EditorState,
     fromType: NodeType,
     toType: NodeType,
-    dispatch: Dispatch,
+    dispatch: Dispatch
 ) => {
     let converted = false;
     let tr = state.tr;
@@ -147,12 +146,12 @@ export const convertAllListNodes = (
                 const newAttrs = convertListAttributes(
                     fromType,
                     toType,
-                    node.attrs,
+                    node.attrs
                 );
                 const newNode = toType.create(
                     newAttrs,
                     node.content,
-                    node.marks,
+                    node.marks
                 );
                 tr = tr.replaceWith(pos, pos + node.nodeSize, newNode);
                 converted = true;
@@ -161,7 +160,7 @@ export const convertAllListNodes = (
             }
 
             return true;
-        },
+        }
     );
 
     if (converted && dispatch) {
@@ -207,12 +206,16 @@ export const toggleList = (listType: NodeType) => {
 
 /**
  * Converts a single list node from one type to another.
+ * @param state
+ * @param fromType
+ * @param toType
+ * @param dispatch
  */
 export const convertSingleListNode = (
     state: EditorState,
     fromType: NodeType,
     toType: NodeType,
-    dispatch: Dispatch,
+    dispatch: Dispatch
 ): boolean => {
     const { $from } = state.selection;
     const tr = state.tr;
@@ -225,13 +228,13 @@ export const convertSingleListNode = (
             const newNode = toType.create(
                 convertListAttributes(fromType, toType, node.attrs),
                 node.content,
-                node.marks,
+                node.marks
             );
             if (dispatch) {
                 dispatch(
                     tr
                         .replaceWith(pos, pos + node.nodeSize, newNode)
-                        .scrollIntoView(),
+                        .scrollIntoView()
                 );
             }
 

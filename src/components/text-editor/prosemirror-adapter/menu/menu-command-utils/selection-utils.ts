@@ -11,7 +11,7 @@ export const adjustSelectionToFullBlocks = (state: EditorState) => {
 export const createBlockSelection = (
     state: EditorState,
     from: number,
-    to: number,
+    to: number
 ) => {
     return new TextSelection(state.doc.resolve(from), state.doc.resolve(to));
 };

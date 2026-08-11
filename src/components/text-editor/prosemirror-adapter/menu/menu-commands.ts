@@ -1,5 +1,3 @@
-/* eslint-disable multiline-ternary */
-
 import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
 import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
 import { wrapInList, sinkListItem } from 'prosemirror-schema-list';
@@ -24,7 +22,7 @@ import { findAncestorDepthOfType } from './menu-command-utils/node-utils';
 type CommandFunction = (
     schema: Schema,
     mark: EditorMenuTypes,
-    link?: EditorTextLink,
+    link?: EditorTextLink
 ) => CommandWithActive;
 
 interface CommandMapping {
@@ -70,7 +68,7 @@ const createInsertLinkCommand: CommandFunction = (
 const createToggleMarkCommand = (
     schema: Schema,
     markName: string,
-    link?: EditorTextLink,
+    link?: EditorTextLink
 ): CommandWithActive => {
     const markType: MarkType | undefined = schema.marks[markName];
     if (!markType) {
@@ -87,7 +85,7 @@ const createToggleMarkCommand = (
 
 const getAttributes = (
     markName: string,
-    link: EditorTextLink,
+    link: EditorTextLink
 ): Attrs | null => {
     if (markName === EditorMenuTypes.Link && link.href) {
         return {
@@ -118,7 +116,7 @@ const toggleNodeType = (
     schema: Schema,
     type: string,
     attrs: Attrs = {},
-    shouldWrap: boolean = false,
+    shouldWrap: boolean = false
 ): Command => {
     const nodeType = schema.nodes[type];
     const paragraphType = schema.nodes.paragraph;
@@ -137,11 +135,7 @@ const toggleNodeType = (
             if ($from.parent.type === nodeType) {
                 if (dispatch) {
                     dispatch(
-                        state.tr.setBlockType(
-                            $from.pos,
-                            $to.pos,
-                            paragraphType,
-                        ),
+                        state.tr.setBlockType($from.pos, $to.pos, paragraphType)
                     );
                 }
 
@@ -166,7 +160,7 @@ const toggleNodeType = (
 const createSetNodeTypeCommand = (
     schema: Schema,
     nodeType: string,
-    level?: number,
+    level?: number
 ): CommandWithActive => {
     const type: NodeType | undefined = schema.nodes[nodeType];
     if (!type) {
@@ -191,7 +185,7 @@ const createSetNodeTypeCommand = (
 
 const createWrapInCommand = (
     schema: Schema,
-    nodeType: string,
+    nodeType: string
 ): CommandWithActive => {
     const type: NodeType | undefined = schema.nodes[nodeType];
     if (!type) {
@@ -218,6 +212,10 @@ const createWrapInCommand = (
  * @param NodeType - type - The type of list to toggle.
  * @param Schema - schema - The ProseMirror schema.
  * @param Function - dispatch - The dispatch function.
+ * @param state
+ * @param type
+ * @param schema
+ * @param dispatch
  * @returns boolean - True if the command was executed.
  */
 const handleListNoSelection = (state, type, schema, dispatch) => {
@@ -225,7 +223,7 @@ const handleListNoSelection = (state, type, schema, dispatch) => {
     // Find the nearest list_item ancestor.
     const listItemDepth = findAncestorDepthOfType(
         $from,
-        schema.nodes.list_item,
+        schema.nodes.list_item
     );
 
     if (listItemDepth === null) {
@@ -241,8 +239,8 @@ const handleListNoSelection = (state, type, schema, dispatch) => {
     const tr = state.tr.setSelection(
         new TextSelection(
             state.doc.resolve(listItemStart),
-            state.doc.resolve(listItemEnd),
-        ),
+            state.doc.resolve(listItemEnd)
+        )
     );
     const newState = state.apply(tr);
 
@@ -264,7 +262,7 @@ const handleListWithSelection = (
     type: NodeType,
     schema: Schema,
     otherType: NodeType,
-    dispatch: Dispatch,
+    dispatch: Dispatch
 ) => {
     const { $from, $to } = state.selection;
     const listItemType = schema.nodes.list_item;
@@ -298,7 +296,7 @@ const handleListWithSelection = (
  */
 export const createListCommand = (
     schema: Schema,
-    listTypeName: string,
+    listTypeName: string
 ): CommandWithActive => {
     const type = schema.nodes[listTypeName];
     if (!type) {
@@ -331,7 +329,7 @@ export const createListCommand = (
                 }
 
                 return true;
-            },
+            }
         );
 
         return isActive;
@@ -351,30 +349,29 @@ const commandMapping: CommandMapping = {
         createSetNodeTypeCommand(
             schema,
             LevelMapping.Heading,
-            LevelMapping.one,
+            LevelMapping.one
         ),
     headerlevel2: (schema) =>
         createSetNodeTypeCommand(
             schema,
             LevelMapping.Heading,
-            LevelMapping.two,
+            LevelMapping.two
         ),
     headerlevel3: (schema) =>
         createSetNodeTypeCommand(
             schema,
             LevelMapping.Heading,
-            LevelMapping.three,
+            LevelMapping.three
         ),
     blockquote: (schema) =>
         createWrapInCommand(schema, EditorMenuTypes.Blockquote),
-    /* eslint-disable camelcase */
+
     code_block: (schema) =>
         createSetNodeTypeCommand(schema, EditorMenuTypes.CodeBlock),
     ordered_list: (schema) =>
         createListCommand(schema, EditorMenuTypes.OrderedList),
     bullet_list: (schema) =>
         createListCommand(schema, EditorMenuTypes.BulletList),
-    /* eslint-enable camelcase */
 };
 
 export class MenuCommandFactory {

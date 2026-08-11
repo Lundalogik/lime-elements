@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { Schema } from 'prosemirror-model';
 import { EditorState, TextSelection } from 'prosemirror-state';
 import { createListCommand } from './menu-commands';
@@ -15,14 +14,14 @@ describe('List Commands', () => {
 
     const createParagraphs = (texts: string[]) => {
         let tr = state.tr;
-        texts.forEach((text, i) => {
+        for (const [i, text] of texts.entries()) {
             const paragraph = createParagraph(text);
             if (i === 0) {
                 tr = tr.replaceWith(0, state.doc.content.size, paragraph);
             } else {
                 tr = tr.insert(tr.doc.content.size, paragraph);
             }
-        });
+        }
 
         return tr;
     };
@@ -32,7 +31,7 @@ describe('List Commands', () => {
         const $to = state.doc.resolve(state.doc.content.size - 1); // End before doc node
 
         const selTr = state.tr.setSelection(
-            TextSelection.create(state.doc, $from.pos, $to.pos),
+            TextSelection.create(state.doc, $from.pos, $to.pos)
         );
 
         state = state.apply(selTr);
@@ -41,7 +40,7 @@ describe('List Commands', () => {
     const verifyListStructure = (
         listType: string,
         expectedItems: string[],
-        expectedCount: number = expectedItems.length,
+        expectedCount: number = expectedItems.length
     ) => {
         expect(state.doc.firstChild.type.name).toBe(listType);
         expect(state.doc.firstChild.childCount).toBe(expectedCount);
@@ -122,46 +121,46 @@ describe('List Commands', () => {
         it('toggles between bullet and ordered list with single paragraph', () => {
             const bulletCommand = createListCommand(
                 schema,
-                EditorMenuTypes.BulletList,
+                EditorMenuTypes.BulletList
             );
             const orderedCommand = createListCommand(
                 schema,
-                EditorMenuTypes.OrderedList,
+                EditorMenuTypes.OrderedList
             );
 
             // Create initial paragraph
             const paragraph = schema.nodes.paragraph.create(
                 null,
-                schema.text('Test text'),
+                schema.text('Test text')
             );
             const tr = state.tr.replaceWith(
                 0,
                 state.doc.content.size,
-                paragraph,
+                paragraph
             );
             state = state.apply(tr);
 
             // Convert to bullet list
             bulletCommand(state, dispatch);
             expect(state.doc.firstChild.type.name).toBe(
-                EditorMenuTypes.BulletList,
+                EditorMenuTypes.BulletList
             );
 
             // Convert to ordered list
             orderedCommand(state, dispatch);
             expect(state.doc.firstChild.type.name).toBe(
-                EditorMenuTypes.OrderedList,
+                EditorMenuTypes.OrderedList
             );
         });
 
         it('toggles between bullet and ordered list with multiple paragraphs', () => {
             const bulletCommand = createListCommand(
                 schema,
-                EditorMenuTypes.BulletList,
+                EditorMenuTypes.BulletList
             );
             const orderedCommand = createListCommand(
                 schema,
-                EditorMenuTypes.OrderedList,
+                EditorMenuTypes.OrderedList
             );
 
             // Create multiple paragraphs
@@ -173,21 +172,21 @@ describe('List Commands', () => {
 
             // Create a document with multiple paragraphs
             let tr = state.tr;
-            paragraphs.forEach((p, i) => {
+            for (const [i, p] of paragraphs.entries()) {
                 if (i === 0) {
                     tr = tr.replaceWith(0, state.doc.content.size, p);
                 } else {
                     tr = tr.insert(tr.doc.content.size, p);
                 }
-            });
+            }
             state = state.apply(tr);
 
             const selTr = state.tr.setSelection(
                 TextSelection.create(
                     state.doc,
                     state.doc.resolve(1).pos,
-                    state.doc.resolve(state.doc.content.size - 1).pos,
-                ),
+                    state.doc.resolve(state.doc.content.size - 1).pos
+                )
             );
 
             state = state.apply(selTr);
@@ -197,7 +196,7 @@ describe('List Commands', () => {
 
             // Verify bullet list structure
             expect(state.doc.firstChild.type.name).toBe(
-                EditorMenuTypes.BulletList,
+                EditorMenuTypes.BulletList
             );
             expect(state.doc.firstChild.childCount).toBe(3);
 
@@ -209,7 +208,7 @@ describe('List Commands', () => {
                 const item = bulletList.child(i);
                 expect(item.type.name).toBe('list_item');
                 expect(item.firstChild.textContent).toBe(
-                    `${expectedItems[i]} item`,
+                    `${expectedItems[i]} item`
                 );
             }
 
@@ -218,7 +217,7 @@ describe('List Commands', () => {
 
             // Verify ordered list structure
             expect(state.doc.firstChild.type.name).toBe(
-                EditorMenuTypes.OrderedList,
+                EditorMenuTypes.OrderedList
             );
             expect(state.doc.firstChild.childCount).toBe(3);
 
@@ -227,7 +226,7 @@ describe('List Commands', () => {
                 const item = orderedList.child(i);
                 expect(item.type.name).toBe('list_item');
                 expect(item.firstChild.textContent).toBe(
-                    `${expectedItems[i]} item`,
+                    `${expectedItems[i]} item`
                 );
             }
         });
@@ -236,25 +235,25 @@ describe('List Commands', () => {
             // Create bullet list
             const command = createListCommand(
                 schema,
-                EditorMenuTypes.BulletList,
+                EditorMenuTypes.BulletList
             );
 
             // Create initial paragraph
             const paragraph = schema.nodes.paragraph.create(
                 null,
-                schema.text('Test text'),
+                schema.text('Test text')
             );
             const tr = state.tr.replaceWith(
                 0,
                 state.doc.content.size,
-                paragraph,
+                paragraph
             );
             state = state.apply(tr);
 
             // Convert to bullet list
             command(state, dispatch);
             expect(state.doc.firstChild.type.name).toBe(
-                EditorMenuTypes.BulletList,
+                EditorMenuTypes.BulletList
             );
 
             // Toggle it off
@@ -276,7 +275,7 @@ describe('List Commands', () => {
         it('converts multiple paragraphs to list items', () => {
             const command = createListCommand(
                 schema,
-                EditorMenuTypes.BulletList,
+                EditorMenuTypes.BulletList
             );
 
             // Setup multiple paragraphs
@@ -302,11 +301,11 @@ describe('List Commands', () => {
         it('preserves existing list items when converting mixed selection', () => {
             const bulletCommand = createListCommand(
                 schema,
-                EditorMenuTypes.BulletList,
+                EditorMenuTypes.BulletList
             );
             const orderedCommand = createListCommand(
                 schema,
-                EditorMenuTypes.OrderedList,
+                EditorMenuTypes.OrderedList
             );
 
             // Setup multiple paragraphs
@@ -343,7 +342,7 @@ describe('List Commands', () => {
         it('allows creating nested lists', () => {
             const command = createListCommand(
                 schema,
-                EditorMenuTypes.BulletList,
+                EditorMenuTypes.BulletList
             );
 
             // Create initial content as separate paragraphs.
@@ -374,7 +373,7 @@ describe('List Commands', () => {
             const selFrom = childPos + 1;
             const selTo = childPos + 4;
             const tr = state.tr.setSelection(
-                TextSelection.create(state.doc, selFrom, selTo),
+                TextSelection.create(state.doc, selFrom, selTo)
             );
             state = state.apply(tr);
 
@@ -410,7 +409,7 @@ describe('List Commands', () => {
         it('reports active state for bullet list', () => {
             const command = createListCommand(
                 schema,
-                EditorMenuTypes.BulletList,
+                EditorMenuTypes.BulletList
             );
             const tr = state.tr.insertText('Test text');
             state = state.apply(tr);
@@ -422,11 +421,11 @@ describe('List Commands', () => {
         it('reports inactive state for different list type', () => {
             const bulletCommand = createListCommand(
                 schema,
-                EditorMenuTypes.BulletList,
+                EditorMenuTypes.BulletList
             );
             const orderedCommand = createListCommand(
                 schema,
-                EditorMenuTypes.OrderedList,
+                EditorMenuTypes.OrderedList
             );
 
             const tr = state.tr.insertText('Test text');
@@ -440,7 +439,7 @@ describe('List Commands', () => {
         it('reports active state for partial selection in list', () => {
             const command = createListCommand(
                 schema,
-                EditorMenuTypes.BulletList,
+                EditorMenuTypes.BulletList
             );
             let tr = state.tr.insertText('First\nSecond\nThird');
             state = state.apply(tr);
@@ -451,8 +450,8 @@ describe('List Commands', () => {
                 TextSelection.create(
                     state.doc,
                     state.doc.content.firstChild.nodeSize / 2,
-                    state.doc.content.firstChild.nodeSize / 2 + 6,
-                ),
+                    state.doc.content.firstChild.nodeSize / 2 + 6
+                )
             );
             state = state.apply(tr);
 
@@ -465,17 +464,17 @@ describe('List Commands', () => {
             it('creates empty list item when no text is selected', () => {
                 const command = createListCommand(
                     schema,
-                    EditorMenuTypes.BulletList,
+                    EditorMenuTypes.BulletList
                 );
                 const tr = state.tr.setSelection(
-                    TextSelection.create(state.doc, 1, 1),
+                    TextSelection.create(state.doc, 1, 1)
                 );
                 state = state.apply(tr);
 
                 command(state, dispatch);
 
                 expect(state.doc.firstChild.type.name).toBe(
-                    EditorMenuTypes.BulletList,
+                    EditorMenuTypes.BulletList
                 );
                 expect(state.doc.firstChild.textContent).toBe('');
             });
@@ -490,29 +489,29 @@ describe('List Commands', () => {
                         state.tr.mapping.map(state.doc.content.size),
                         schema.nodes.heading.create(
                             { level: 1 },
-                            schema.text('Heading'),
-                        ),
+                            schema.text('Heading')
+                        )
                     );
                 state = state.apply(tr);
 
                 // Select all and convert to list
                 const command = createListCommand(
                     schema,
-                    EditorMenuTypes.BulletList,
+                    EditorMenuTypes.BulletList
                 );
                 tr = state.tr.setSelection(
                     TextSelection.create(
                         state.doc,
                         state.doc.resolve(1).pos,
-                        state.doc.resolve(state.doc.content.size - 1).pos,
-                    ),
+                        state.doc.resolve(state.doc.content.size - 1).pos
+                    )
                 );
                 state = state.apply(tr);
 
                 command(state, dispatch);
 
                 expect(state.doc.firstChild.type.name).toBe(
-                    EditorMenuTypes.BulletList,
+                    EditorMenuTypes.BulletList
                 );
                 expect(state.doc.firstChild.childCount).toBe(2);
             });
@@ -520,16 +519,13 @@ describe('List Commands', () => {
             it('handles list items containing multiple block types', () => {
                 const command = createListCommand(
                     schema,
-                    EditorMenuTypes.BulletList,
+                    EditorMenuTypes.BulletList
                 );
                 const tr = state.tr
                     .insertText('Paragraph text')
                     .insert(
                         state.tr.mapping.map(state.doc.content.size),
-                        schema.nodes.blockquote.create(
-                            {},
-                            schema.text('Quote'),
-                        ),
+                        schema.nodes.blockquote.create({}, schema.text('Quote'))
                     );
                 state = state.apply(tr);
 
@@ -538,8 +534,8 @@ describe('List Commands', () => {
                     TextSelection.create(
                         state.doc,
                         state.doc.resolve(1).pos,
-                        state.doc.resolve(state.doc.content.size - 1).pos,
-                    ),
+                        state.doc.resolve(state.doc.content.size - 1).pos
+                    )
                 );
                 state = state.apply(selTr);
                 command(state, dispatch);

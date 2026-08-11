@@ -34,7 +34,7 @@ describe('List Key Handler Plugin', () => {
             // Create a state with a list item
             const state = createEditorState(
                 '<ul><li><p>List item</p></li></ul>',
-                schema,
+                schema
             );
 
             // Create a selection inside the list item
@@ -60,7 +60,7 @@ describe('List Key Handler Plugin', () => {
             // Create a state with an empty list item
             const state = createEditorState(
                 '<ul><li><p></p></li></ul>',
-                schema,
+                schema
             );
 
             // Create a selection inside the empty list item
@@ -76,7 +76,7 @@ describe('List Key Handler Plugin', () => {
             // Create a state with a non-empty list item
             const state = createEditorState(
                 '<ul><li><p>Content</p></li></ul>',
-                schema,
+                schema
             );
 
             // Create a selection inside the non-empty list item
@@ -94,7 +94,7 @@ describe('List Key Handler Plugin', () => {
             // Create a state with a list item
             const state = createEditorState(
                 '<ul><li><p>List item</p></li></ul>',
-                schema,
+                schema
             );
 
             // Get the position at the start of the paragraph inside the list item
@@ -110,7 +110,7 @@ describe('List Key Handler Plugin', () => {
             // Create a state with a list item
             const state = createEditorState(
                 '<ul><li><p>List item</p></li></ul>',
-                schema,
+                schema
             );
 
             // Create a selection inside the list item, but not at the start
@@ -126,7 +126,7 @@ describe('List Key Handler Plugin', () => {
             // Create a state with a list item
             const state = createEditorState(
                 '<ul><li><p>List item</p></li></ul>',
-                schema,
+                schema
             );
 
             // Create a non-empty selection
@@ -160,7 +160,7 @@ describe('List Key Handler Plugin', () => {
                     <li><p>Third item</p></li>
                 </ul>`,
                 schema,
-                [createListKeyHandlerPlugin(schema)],
+                [createListKeyHandlerPlugin(schema)]
             );
 
             // Create a view with the dispatch spy
@@ -229,7 +229,7 @@ describe('List Key Handler Plugin', () => {
                     <li><p>Last item</p></li>
                 </ul>`,
                 schema,
-                [createListKeyHandlerPlugin(schema)],
+                [createListKeyHandlerPlugin(schema)]
             );
 
             // Create a view with the dispatch spy
@@ -293,7 +293,7 @@ describe('List Key Handler Plugin', () => {
                     <li><p>List item text</p></li>
                 </ul>`,
                 schema,
-                [createListKeyHandlerPlugin(schema)],
+                [createListKeyHandlerPlugin(schema)]
             );
 
             // Create a view with dispatch spy
@@ -348,7 +348,7 @@ describe('List Key Handler Plugin', () => {
                     <li><p></p></li>
                 </ul>`,
                 schema,
-                [createListKeyHandlerPlugin(schema)],
+                [createListKeyHandlerPlugin(schema)]
             );
 
             // Create a view with dispatch spy
@@ -398,7 +398,7 @@ describe('List Key Handler Plugin', () => {
                     <li><p>Second item</p></li>
                 </ul>`,
                 schema,
-                [createListKeyHandlerPlugin(schema)],
+                [createListKeyHandlerPlugin(schema)]
             );
 
             // Create a view with dispatch spy
@@ -449,7 +449,7 @@ describe('List Key Handler Plugin', () => {
                     <li><p>Single item</p></li>
                 </ul>`,
                 schema,
-                [createListKeyHandlerPlugin(schema)],
+                [createListKeyHandlerPlugin(schema)]
             );
 
             // Create a view with dispatch spy
@@ -487,7 +487,7 @@ describe('List Key Handler Plugin', () => {
                     <li><p>List item</p></li>
                 </ul>`,
                 schema,
-                [createListKeyHandlerPlugin(schema)],
+                [createListKeyHandlerPlugin(schema)]
             );
 
             // Create a view with dispatch spy

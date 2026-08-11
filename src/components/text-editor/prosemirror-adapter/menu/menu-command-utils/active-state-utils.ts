@@ -4,7 +4,7 @@ import { CommandWithActive } from '../menu-commands';
 
 export const setActiveMethodForMark = (
     command: CommandWithActive,
-    markType: MarkType,
+    markType: MarkType
 ) => {
     command.active = (state) => {
         const { from, $from, to, empty } = state.selection;
@@ -19,7 +19,7 @@ export const setActiveMethodForMark = (
 export const setActiveMethodForNode = (
     command: CommandWithActive,
     nodeType: NodeType,
-    level?: number,
+    level?: number
 ) => {
     command.active = (state) => {
         const { $from } = state.selection;
@@ -39,7 +39,7 @@ export const setActiveMethodForNode = (
 
 export const setActiveMethodForWrap = (
     command: CommandWithActive,
-    nodeType: NodeType,
+    nodeType: NodeType
 ) => {
     command.active = (state) => {
         const { from, to } = state.selection;
