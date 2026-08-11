@@ -8,8 +8,7 @@ import {
     Host,
 } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
-import { ENTER } from '../../util/keycodes';
-import { getLiveInputValue } from './get-live-input-value';
+import { createManualInputCommitHandlers } from './manual-input-commit';
 import type {
     CustomColorSwatch,
     ManualInputCommit,
@@ -175,8 +174,8 @@ export class ColorPicker implements FormComponent {
                     label={this.label}
                     helperText={this.helperText}
                     value={this.pendingValue ?? this.value}
-                    onChange={this.handleInputChange}
-                    onKeyDown={this.handleInputKeyDown}
+                    onChange={this.commitHandlers.handleChange}
+                    onKeyDown={this.commitHandlers.handleKeyDown}
                     required={this.required}
                     readonly={this.readonly}
                     disabled={this.disabled || !this.manualInput}
@@ -260,34 +259,13 @@ export class ColorPicker implements FormComponent {
         this.isOpen = false;
     };
 
-    private handleInputChange = (event: CustomEvent<string>) => {
-        event.stopPropagation();
-
-        if (this.manualInputCommit === 'enter') {
-            this.pendingValue = event.detail;
-
-            return;
-        }
-
-        this.change.emit(event.detail);
-    };
-
-    private handleInputKeyDown = (event: KeyboardEvent) => {
-        if (this.manualInputCommit !== 'enter' || event.key !== ENTER) {
-            return;
-        }
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        // The input field debounces its change event, so the live DOM value
-        // is preferred over the last received change; otherwise a fast typist
-        // pressing Enter would commit a stale value.
-        const value =
-            getLiveInputValue(event) ?? this.pendingValue ?? this.value;
-        this.pendingValue = null;
-        this.change.emit(value);
-    };
+    private commitHandlers = createManualInputCommitHandlers({
+        getMode: () => this.manualInputCommit,
+        getValue: () => this.value,
+        getPendingValue: () => this.pendingValue,
+        setPendingValue: (value) => (this.pendingValue = value),
+        commit: (value) => this.change.emit(value),
+    });
 
     private handlePaletteChange = (event: CustomEvent<string>) => {
         event.stopPropagation();

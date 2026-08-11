@@ -1,6 +1,25 @@
 import { render, h } from '@stencil/vitest';
 import { brightnesses, colors, getSwatchValue } from './swatches';
 
+const dispatchInputChange = (
+    input: Element,
+    value: string
+): CustomEvent<string> => {
+    const event = new CustomEvent('change', { detail: value });
+    input.dispatchEvent(event);
+
+    return event;
+};
+
+const dispatchEnter = (input: Element) => {
+    // Stencil maps JSX `onKeyDown` to the native `keydown` event in
+    // a browser, but registers a literal `keyDown` listener in
+    // mock-doc. Only one of the two listeners exists, so dispatching
+    // both fires the handler exactly once in either environment.
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+    input.dispatchEvent(new KeyboardEvent('keyDown', { key: 'Enter' }));
+};
+
 describe('limel-color-picker-palette', () => {
     describe('default palette', () => {
         it('renders all color swatches', async () => {
@@ -247,25 +266,6 @@ describe('limel-color-picker-palette', () => {
     });
 
     describe('manual input commit mode', () => {
-        const dispatchInputChange = (
-            input: Element,
-            value: string
-        ): CustomEvent<string> => {
-            const event = new CustomEvent('change', { detail: value });
-            input.dispatchEvent(event);
-
-            return event;
-        };
-
-        const dispatchEnter = (input: Element) => {
-            // Stencil maps JSX `onKeyDown` to the native `keydown` event in
-            // a browser, but registers a literal `keyDown` listener in
-            // mock-doc. Only one of the two listeners exists, so dispatching
-            // both fires the handler exactly once in either environment.
-            input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-            input.dispatchEvent(new KeyboardEvent('keyDown', { key: 'Enter' }));
-        };
-
         it('emits change for every input change by default', async () => {
             const handleChange = vi.fn();
             const { root, waitForChanges } = await render(
@@ -403,9 +403,7 @@ describe('limel-color-picker', () => {
             await waitForChanges();
 
             const input = root.shadowRoot.querySelector('limel-input-field');
-            input.dispatchEvent(
-                new CustomEvent('change', { detail: '#123456' })
-            );
+            dispatchInputChange(input, '#123456');
 
             expect(handleChange).toHaveBeenCalledTimes(1);
             expect(handleChange.mock.calls[0][0].detail).toEqual('#123456');
@@ -423,14 +421,11 @@ describe('limel-color-picker', () => {
             await waitForChanges();
 
             const input = root.shadowRoot.querySelector('limel-input-field');
-            input.dispatchEvent(
-                new CustomEvent('change', { detail: '#123456' })
-            );
+            dispatchInputChange(input, '#123456');
 
             expect(handleChange).not.toHaveBeenCalled();
 
-            input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-            input.dispatchEvent(new KeyboardEvent('keyDown', { key: 'Enter' }));
+            dispatchEnter(input);
 
             expect(handleChange).toHaveBeenCalledTimes(1);
             expect(handleChange.mock.calls[0][0].detail).toEqual('#123456');
