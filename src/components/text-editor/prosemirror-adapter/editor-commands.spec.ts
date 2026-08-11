@@ -369,7 +369,7 @@ describe('menu commands against the real schema', () => {
             expect(next.doc).toEqualDoc(doc(p('item')));
         });
 
-        it('lifts out of a bullet list instead of converting when OrderedList is applied', () => {
+        it('converts the innermost bullet list when OrderedList is applied', () => {
             const start = doc(bulletList(listItem(p('item'))));
             const state = createEditorTestState(
                 harness,
@@ -380,10 +380,10 @@ describe('menu commands against the real schema', () => {
                 state,
                 harness.factory.getCommand(EditorMenuTypes.OrderedList)
             );
-            expect(next.doc).toEqualDoc(doc(p('item')));
+            expect(next.doc).toEqualDoc(doc(orderedList(listItem(p('item')))));
         });
 
-        it('wraps a two-paragraph selection into a single list item', () => {
+        it('wraps a two-paragraph selection as one item per paragraph', () => {
             const start = doc(p('aa'), p('bb'));
             const state = createEditorTestState(
                 harness,
@@ -395,8 +395,126 @@ describe('menu commands against the real schema', () => {
                 harness.factory.getCommand(EditorMenuTypes.BulletList)
             );
             expect(next.doc).toEqualDoc(
-                doc(bulletList(listItem(p('aa'), p('bb'))))
+                doc(bulletList(listItem(p('aa')), listItem(p('bb'))))
             );
+        });
+
+        it('toggle-off on a middle item splits the list around it', () => {
+            const start = doc(
+                bulletList(
+                    listItem(p('one')),
+                    listItem(p('two')),
+                    listItem(p('three'))
+                )
+            );
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 11)
+            );
+            const { state: next } = runCommand(
+                state,
+                harness.factory.getCommand(EditorMenuTypes.BulletList)
+            );
+            expect(next.doc).toEqualDoc(
+                doc(
+                    bulletList(listItem(p('one'))),
+                    p('two'),
+                    bulletList(listItem(p('three')))
+                )
+            );
+        });
+
+        it('toggle-off lifts every item in a range selection', () => {
+            const start = doc(
+                bulletList(
+                    listItem(p('one')),
+                    listItem(p('two')),
+                    listItem(p('three'))
+                )
+            );
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 4, 11)
+            );
+            const { state: next } = runCommand(
+                state,
+                harness.factory.getCommand(EditorMenuTypes.BulletList)
+            );
+            expect(next.doc).toEqualDoc(
+                doc(p('one'), p('two'), bulletList(listItem(p('three'))))
+            );
+        });
+
+        it('converts only the innermost list with a caret in a nested sub-list', () => {
+            const start = doc(
+                bulletList(listItem(p('a'), bulletList(listItem(p('inner')))))
+            );
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 9)
+            );
+            const { state: next } = runCommand(
+                state,
+                harness.factory.getCommand(EditorMenuTypes.OrderedList)
+            );
+            expect(next.doc).toEqualDoc(
+                doc(
+                    bulletList(
+                        listItem(p('a'), orderedList(listItem(p('inner'))))
+                    )
+                )
+            );
+        });
+
+        it('unifies a mixed selection into one list of the target type', () => {
+            const start = doc(p('x'), bulletList(listItem(p('y'))), p('z'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 1, 12)
+            );
+            const { state: next } = runCommand(
+                state,
+                harness.factory.getCommand(EditorMenuTypes.OrderedList)
+            );
+            expect(next.doc).toEqualDoc(
+                doc(
+                    orderedList(
+                        listItem(p('x')),
+                        listItem(p('y')),
+                        listItem(p('z'))
+                    )
+                )
+            );
+        });
+
+        it('allowed() is false when the selection contains a non-listable block', () => {
+            const start = doc(heading({ level: 1 }, 'h'), p('t'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 1, 5)
+            );
+            const command = harness.factory.getCommand(
+                EditorMenuTypes.BulletList
+            ) as CommandWithActive;
+            expect(command.allowed(state)).toBe(false);
+        });
+
+        it('allowed() is true for a plain paragraph selection', () => {
+            const start = doc(p('aa'), p('bb'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 2, 6)
+            );
+            const command = harness.factory.getCommand(
+                EditorMenuTypes.BulletList
+            ) as CommandWithActive;
+            expect(command.allowed(state)).toBe(true);
         });
 
         it('active() reports both list types inside a nested list', () => {

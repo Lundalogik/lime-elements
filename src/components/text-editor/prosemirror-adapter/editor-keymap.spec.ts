@@ -13,7 +13,7 @@ const doc = b.doc;
 const p = b.p;
 
 describe('editor keymap', () => {
-    it('the factory keymap has exactly the eight documented bindings', () => {
+    it('the factory keymap has exactly the ten documented bindings', () => {
         const keymap = harness.factory.buildKeymap();
         expect(Object.keys(keymap).sort()).toEqual(
             [
@@ -22,6 +22,8 @@ describe('editor keymap', () => {
                 'Mod-Shift-1',
                 'Mod-Shift-2',
                 'Mod-Shift-3',
+                'Mod-Shift-7',
+                'Mod-Shift-8',
                 'Mod-Shift-C',
                 'Mod-Shift-X',
                 'Mod-`',
@@ -39,6 +41,8 @@ describe('editor keymap', () => {
             ['Mod-Shift-X', EditorMenuTypes.Strikethrough],
             ['Mod-`', EditorMenuTypes.Code],
             ['Mod-Shift-C', EditorMenuTypes.CodeBlock],
+            ['Mod-Shift-7', EditorMenuTypes.OrderedList],
+            ['Mod-Shift-8', EditorMenuTypes.BulletList],
         ];
 
         it.each(bindings)(
