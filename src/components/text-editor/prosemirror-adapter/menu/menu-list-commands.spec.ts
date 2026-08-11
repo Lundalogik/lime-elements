@@ -1,3 +1,4 @@
+import { vi, type Mock } from 'vitest';
 import { Schema } from 'prosemirror-model';
 import { EditorState, TextSelection } from 'prosemirror-state';
 import { createListCommand } from './menu-commands';
@@ -6,7 +7,7 @@ import { EditorMenuTypes } from './types';
 describe('List Commands', () => {
     let schema: Schema;
     let state: EditorState;
-    let dispatch: jest.Mock;
+    let dispatch: Mock;
 
     // Helper functions
     const createParagraph = (text: string) =>
@@ -100,7 +101,7 @@ describe('List Commands', () => {
             schema: schema,
             doc: schema.topNodeType.createAndFill(),
         });
-        dispatch = jest.fn((tr) => {
+        dispatch = vi.fn((tr) => {
             state = state.apply(tr);
         });
     });
