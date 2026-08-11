@@ -5,10 +5,10 @@
 ## Overview
 
 The highlight color menu lets the user pick a color. Picking a color
-applies it immediately: the menu emits `colorChange` followed by `save`,
-and the text editor applies the picked color as a highlight mark on the
-current selection and closes the menu. Pressing Escape emits `cancel`,
-which just closes the menu.
+applies it immediately: the menu emits `save` with the picked color, and
+the text editor applies it as a highlight mark on the current selection
+and closes the menu. Pressing Escape emits `cancel`, which just closes
+the menu.
 
 This example shows the open, pick-to-apply and close flow, and previews
 the applied color the way the editor renders a highlight.
