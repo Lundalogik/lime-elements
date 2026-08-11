@@ -8,11 +8,15 @@ import { canonicalizeColor } from '../plugins/highlight/highlight-mark';
 import { getStoredHighlightColor } from '../plugins/highlight/highlight-color-storage';
 import { getSelectionHighlightColor } from '../plugins/highlight/highlight-plugin';
 
+export interface MenuCommandOptions {
+    link?: EditorTextLink;
+    color?: string;
+}
+
 type CommandFunction = (
     schema: Schema,
     mark: EditorMenuTypes,
-    link?: EditorTextLink,
-    color?: string
+    options?: MenuCommandOptions
 ) => CommandWithActive;
 
 interface CommandMapping {
@@ -83,8 +87,9 @@ const setActiveMethodForWrap = (
 const createInsertLinkCommand: CommandFunction = (
     schema: Schema,
     _: EditorMenuTypes,
-    link?: EditorTextLink
+    options?: MenuCommandOptions
 ): CommandWithActive => {
+    const link = options?.link;
     const command: Command = (state, dispatch) => {
         const { from, to } = state.selection;
         const linkMark = schema.marks.link.create(
@@ -114,14 +119,14 @@ const createInsertLinkCommand: CommandFunction = (
 const createToggleMarkCommand = (
     schema: Schema,
     markName: string,
-    link?: EditorTextLink
+    options?: MenuCommandOptions
 ): CommandWithActive => {
     const markType: MarkType | undefined = schema.marks[markName];
     if (!markType) {
         throw new Error(`Mark "${markName}" not found in schema`);
     }
 
-    const attrs = getAttributes(markName, link);
+    const attrs = getAttributes(markName, options?.link);
 
     const command: CommandWithActive = toggleMark(markType, attrs);
     setActiveMethodForMark(command, markType);
@@ -132,8 +137,7 @@ const createToggleMarkCommand = (
 const createToggleHighlightCommand = (
     schema: Schema,
     markName: string,
-    _link?: EditorTextLink,
-    color?: string
+    options?: MenuCommandOptions
 ): CommandWithActive => {
     const markType: MarkType | undefined = schema.marks[markName];
     if (!markType) {
@@ -150,7 +154,7 @@ const createToggleHighlightCommand = (
         // input in the color picker, so an unparseable value must not reach
         // the mark (its attr is written into serialized markup verbatim).
         const targetColor = canonicalizeColor(
-            color || getStoredHighlightColor()
+            options?.color || getStoredHighlightColor()
         );
         if (targetColor === null) {
             return false;
@@ -185,9 +189,9 @@ const createToggleHighlightCommand = (
 
 const getAttributes = (
     markName: string,
-    link: EditorTextLink
+    link?: EditorTextLink
 ): Attrs | null => {
-    if (markName === EditorMenuTypes.Link && link.href) {
+    if (markName === EditorMenuTypes.Link && link?.href) {
         return {
             href: link.href,
             target: isExternalLink(link.href) ? '_blank' : null,
@@ -397,17 +401,13 @@ export class MenuCommandFactory {
         this.schema = schema;
     }
 
-    public getCommand(
-        mark: EditorMenuTypes,
-        link?: EditorTextLink,
-        color?: string
-    ) {
+    public getCommand(mark: EditorMenuTypes, options?: MenuCommandOptions) {
         const commandFunc = commandMapping[mark];
         if (!commandFunc) {
             throw new Error(`The Mark "${mark}" is not supported`);
         }
 
-        return commandFunc(this.schema, mark, link, color);
+        return commandFunc(this.schema, mark, options);
     }
 
     buildKeymap() {

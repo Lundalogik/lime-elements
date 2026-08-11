@@ -1,5 +1,6 @@
 import { Plugin, PluginKey } from 'prosemirror-state';
-import { MenuCommandFactory } from '../menu/menu-commands';
+import { EditorView } from 'prosemirror-view';
+import { MenuCommandFactory, MenuCommandOptions } from '../menu/menu-commands';
 import { EditorMenuTypes } from '../menu/types';
 
 export const actionBarInteractionPluginKey = new PluginKey(
@@ -21,6 +22,20 @@ const dispatchMenuCommand = (command, view) => {
     view.focus();
 };
 
+const executeMenuCommand = (
+    menuCommandFactory: MenuCommandFactory,
+    view: EditorView,
+    type: EditorMenuTypes,
+    options?: MenuCommandOptions
+) => {
+    try {
+        const command = menuCommandFactory.getCommand(type, options);
+        dispatchMenuCommand(command, view);
+    } catch (error) {
+        console.error(`Error executing command: ${error}`);
+    }
+};
+
 export const createActionBarInteractionPlugin = (
     menuCommandFactory: MenuCommandFactory
 ) => {
@@ -33,12 +48,7 @@ export const createActionBarInteractionPlugin = (
                     event.stopPropagation();
                     const { value } = event.detail;
 
-                    try {
-                        const command = menuCommandFactory.getCommand(value);
-                        dispatchMenuCommand(command, view);
-                    } catch (error) {
-                        console.error(`Error executing command: ${error}`);
-                    }
+                    executeMenuCommand(menuCommandFactory, view, value);
 
                     return true;
                 },
@@ -47,17 +57,9 @@ export const createActionBarInteractionPlugin = (
                     event.stopPropagation();
                     const { type, link } = event.detail;
 
-                    if (type === EditorMenuTypes.Link) {
-                        try {
-                            const command = menuCommandFactory.getCommand(
-                                type,
-                                link
-                            );
-                            dispatchMenuCommand(command, view);
-                        } catch (error) {
-                            console.error(`Error executing command: ${error}`);
-                        }
-                    }
+                    executeMenuCommand(menuCommandFactory, view, type, {
+                        link: link,
+                    });
 
                     return true;
                 },
@@ -66,18 +68,9 @@ export const createActionBarInteractionPlugin = (
                     event.stopPropagation();
                     const { type, color } = event.detail;
 
-                    if (type === EditorMenuTypes.Highlight) {
-                        try {
-                            const command = menuCommandFactory.getCommand(
-                                type,
-                                undefined,
-                                color
-                            );
-                            dispatchMenuCommand(command, view);
-                        } catch (error) {
-                            console.error(`Error executing command: ${error}`);
-                        }
-                    }
+                    executeMenuCommand(menuCommandFactory, view, type, {
+                        color: color,
+                    });
 
                     return true;
                 },

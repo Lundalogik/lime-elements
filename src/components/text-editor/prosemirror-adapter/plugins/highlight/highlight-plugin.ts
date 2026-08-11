@@ -1,7 +1,7 @@
 import { Plugin, PluginKey, EditorState } from 'prosemirror-state';
 import { MarkType } from 'prosemirror-model';
 
-export const highlightPluginKey = new PluginKey('highlightPlugin');
+const highlightPluginKey = new PluginKey('highlightPlugin');
 
 export type UpdateHighlightCallback = (color: string | null) => void;
 
@@ -62,10 +62,17 @@ export const createHighlightPlugin = (
     return new Plugin({
         key: highlightPluginKey,
         view: () => ({
-            update: (view) => {
-                updateHighlightCallback?.(
-                    getSelectionHighlightColor(view.state)
-                );
+            update: (view, prevState) => {
+                const { state } = view;
+                const selectionUnchanged =
+                    prevState.doc.eq(state.doc) &&
+                    prevState.selection.eq(state.selection) &&
+                    prevState.storedMarks === state.storedMarks;
+                if (selectionUnchanged) {
+                    return;
+                }
+
+                updateHighlightCallback?.(getSelectionHighlightColor(state));
             },
         }),
     });

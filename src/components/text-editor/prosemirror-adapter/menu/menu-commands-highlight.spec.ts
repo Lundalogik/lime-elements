@@ -46,7 +46,7 @@ describe('highlight command', () => {
         });
 
     const getHighlightCommand = (color?: string) =>
-        factory.getCommand(EditorMenuTypes.Highlight, undefined, color);
+        factory.getCommand(EditorMenuTypes.Highlight, { color: color });
 
     const applyCommand = (
         state: EditorState,

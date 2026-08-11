@@ -1,6 +1,9 @@
 import { MarkSpec, DOMOutputSpec } from 'prosemirror-model';
 import parseCSSColor from 'parse-css-color';
-import { HighlightMarkAttrs } from './highlight-mark.types';
+
+interface HighlightMarkAttrs {
+    color: string;
+}
 
 /**
  * The palette's `--color-yellow-light` as a concrete hex value, so that

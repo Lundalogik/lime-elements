@@ -16,6 +16,7 @@ import {
     hasImageNode,
 } from '../prosemirror-adapter/plugins/image/node';
 import { hasCustomElementNode } from './has-custom-element-node';
+import { escapeHtmlAttribute } from './escape-html-attribute';
 import { Languages } from '../../date-picker/date.types';
 import { InlineImages } from '../text-editor.types';
 
@@ -23,22 +24,6 @@ type MarkdownSerializerFunction = (
     state: MarkdownSerializerState,
     node: ProseMirrorNode
 ) => void;
-
-/**
- * Escapes a value for interpolation into a double-quoted HTML attribute.
- * Mark attrs are validated where they are created, but the serializer
- * writes raw markup, so it must not trust them to be inert.
- *
- * @param value - the attribute value to escape
- * @returns the escaped value
- */
-const escapeHtmlAttribute = (value: string): string => {
-    return value
-        .replaceAll('&', '&amp;')
-        .replaceAll('"', '&quot;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;');
-};
 
 const createMarkdownSerializerFunction = (
     config: CustomElementDefinition

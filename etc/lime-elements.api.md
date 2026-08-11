@@ -941,7 +941,6 @@ export namespace Components {
     // @beta
     export interface LimelTextEditorHighlightColorMenu {
         "color": string;
-        "isOpen": boolean;
         "language": Languages;
     }
     // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
@@ -3722,19 +3721,15 @@ export namespace JSX {
     // @beta
     export interface LimelTextEditorHighlightColorMenu {
         "color"?: string;
-        "isOpen"?: boolean;
         "language"?: Languages;
         "onCancel"?: (event: LimelTextEditorHighlightColorMenuCustomEvent<void>) => void;
-        "onColorChange"?: (event: LimelTextEditorHighlightColorMenuCustomEvent<string>) => void;
-        "onSave"?: (event: LimelTextEditorHighlightColorMenuCustomEvent<void>) => void;
+        "onSave"?: (event: LimelTextEditorHighlightColorMenuCustomEvent<string>) => void;
     }
 
     // (undocumented)
     export interface LimelTextEditorHighlightColorMenuAttributes {
         // (undocumented)
         "color": string;
-        // (undocumented)
-        "isOpen": boolean;
         // (undocumented)
         "language": Languages;
     }

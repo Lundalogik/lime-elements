@@ -16,11 +16,7 @@ import { Schema, DOMParser } from 'prosemirror-model';
 import { ActionBarItem } from '../../../components/action-bar/action-bar.types';
 import { ListSeparator } from '../../../components/list-item/list-item.types';
 import { MenuCommandFactory } from './menu/menu-commands';
-import {
-    menuTranslationIDs,
-    menuSecondaryTextTranslationIDs,
-    getTextEditorMenuItems,
-} from './menu/menu-items';
+import { menuTranslationIDs, getTextEditorMenuItems } from './menu/menu-items';
 import { ContentTypeConverter } from '../utils/content-type-converter';
 import { MarkdownConverter } from '../utils/markdown-converter';
 import { HTMLConverter } from '../utils/html-converter';
@@ -28,7 +24,7 @@ import { EditorMenuTypes, EditorTextLink } from './menu/types';
 import translate from '../../../global/translations';
 import { createRandomString } from '../../../util/random-string';
 import { isItem } from '../../action-bar/is-item';
-import { cloneDeep, debounce } from 'lodash-es';
+import { debounce } from 'lodash-es';
 import { Languages } from '../../date-picker/date.types';
 import { CustomElementDefinition } from '../../../global/shared-types/custom-element.types';
 import {
@@ -57,6 +53,14 @@ import {
 } from '../utils/metadata-utils';
 
 const DEBOUNCE_TIMEOUT = 300;
+
+/**
+ * A toolbar entry, optionally extended with whether its command is currently
+ * allowed; disallowed items are filtered out of the rendered toolbar.
+ */
+type ToolbarMenuItem =
+    | (ActionBarItem<EditorMenuTypes> & { allowed?: boolean })
+    | ListSeparator;
 
 /**
  * The ProseMirror adapter offers a rich text editing experience with markdown support.
@@ -163,8 +167,18 @@ export class ProsemirrorAdapter {
     @State()
     private isHighlightColorMenuOpen = false;
 
+    /**
+     * The color the highlight color menu opens with. Computed when the menu
+     * opens, from the selection's highlight or the persisted color.
+     */
     @State()
-    private highlightColor = getStoredHighlightColor();
+    private highlightColor: string;
+
+    /**
+     * The highlight color at the current selection, or `null` when the
+     * selection carries no highlight mark.
+     */
+    private selectionHighlightColor: string | null = null;
 
     private menuCommandFactory: MenuCommandFactory;
     private schema: Schema;
@@ -426,8 +440,6 @@ export class ProsemirrorAdapter {
                 <limel-text-editor-highlight-color-menu
                     color={this.highlightColor}
                     language={this.language}
-                    isOpen={this.isHighlightColorMenuOpen}
-                    onColorChange={this.handleHighlightColorChange}
                     onCancel={this.handleCancelHighlightColorMenu}
                     onSave={this.handleSaveHighlightColorMenu}
                 />
@@ -484,28 +496,32 @@ export class ProsemirrorAdapter {
         );
     };
 
-    private getTranslatedItem = (item) => {
-        const newItem = cloneDeep(item);
+    /**
+     * Translates a menu item's texts in place. Callers must pass items from
+     * `getTextEditorMenuItems()`, which returns fresh copies of the static
+     * item definitions.
+     *
+     * @param item - the menu item (or separator) to translate
+     * @returns the same item, translated
+     */
+    private getTranslatedItem = (item: ToolbarMenuItem): ToolbarMenuItem => {
+        if (!isItem(item)) {
+            return item;
+        }
 
-        if (isItem(item)) {
-            const translationId = menuTranslationIDs[item.value];
+        const translationIDs = menuTranslationIDs[item.value];
+        if (translationIDs) {
+            item.text = translate.get(translationIDs.text, this.language);
 
-            if (translationId) {
-                newItem.text = translate.get(translationId, this.language);
-            }
-
-            const secondaryTextTranslationId =
-                menuSecondaryTextTranslationIDs[item.value];
-
-            if (secondaryTextTranslationId) {
-                newItem.secondaryText = translate.get(
-                    secondaryTextTranslationId,
+            if (translationIDs.secondaryText) {
+                item.secondaryText = translate.get(
+                    translationIDs.secondaryText,
                     this.language
                 );
             }
         }
 
-        return newItem;
+        return item;
     };
 
     private async initializeTextEditor() {
@@ -582,23 +598,17 @@ export class ProsemirrorAdapter {
         activeTypes: Record<EditorMenuTypes, boolean>,
         allowedTypes: Record<EditorMenuTypes, boolean>
     ) => {
-        const newItems = getTextEditorMenuItems()
-            .map(this.getTranslatedItem)
-            .map((item: ActionBarItem<EditorMenuTypes> | ListSeparator) => {
-                if (isItem(item)) {
-                    return {
-                        ...item,
-                        selected: activeTypes[item.value],
-                        allowed: allowedTypes[item.value],
-                    };
+        this.actionBarItems = getTextEditorMenuItems()
+            .map((item: ToolbarMenuItem) => {
+                const translated = this.getTranslatedItem(item);
+                if (isItem(translated)) {
+                    translated.selected = activeTypes[translated.value];
+                    translated.allowed = allowedTypes[translated.value];
                 }
 
-                return item;
-            });
-
-        this.actionBarItems = newItems.filter((item) =>
-            isItem(item) ? item.allowed : true
-        );
+                return translated;
+            })
+            .filter((item) => (isItem(item) ? item.allowed : true));
     };
 
     private async updateView(content: string) {
@@ -703,6 +713,10 @@ export class ProsemirrorAdapter {
         }
 
         if (value === EditorMenuTypes.Highlight) {
+            // Pre-filling from the selection is display-only; only an actual
+            // apply persists a color to storage.
+            this.highlightColor =
+                this.selectionHighlightColor ?? getStoredHighlightColor();
             this.isHighlightColorMenuOpen = true;
 
             return;
@@ -747,13 +761,10 @@ export class ProsemirrorAdapter {
         this.isHighlightColorMenuOpen = false;
     };
 
-    private handleSaveHighlightColorMenu = () => {
+    private handleSaveHighlightColorMenu = (event: CustomEvent<string>) => {
         this.isHighlightColorMenuOpen = false;
 
-        // Dispatching the command re-enters `handleNewHighlightSelection`,
-        // which may reassign `highlightColor`; the color is captured first so
-        // that exactly the applied color is persisted.
-        const color = this.highlightColor;
+        const color = event.detail;
         const saveHighlightEvent = new CustomEvent('saveHighlightMenu', {
             detail: {
                 type: EditorMenuTypes.Highlight,
@@ -762,10 +773,6 @@ export class ProsemirrorAdapter {
         });
         this.view.dom.dispatchEvent(saveHighlightEvent);
         storeHighlightColor(color);
-    };
-
-    private handleHighlightColorChange = (event: CustomEvent<string>) => {
-        this.highlightColor = event.detail;
     };
 
     private handleFocus = () => {
@@ -808,15 +815,7 @@ export class ProsemirrorAdapter {
     };
 
     private handleNewHighlightSelection = (color: string | null) => {
-        // While the menu is open, the user's in-progress pick must not be
-        // clobbered by selection updates.
-        if (this.isHighlightColorMenuOpen) {
-            return;
-        }
-
-        // Pre-filling from the selection is display-only; only an actual
-        // apply persists a color to storage.
-        this.highlightColor = color ?? getStoredHighlightColor();
+        this.selectionHighlightColor = color;
     };
 
     private handleOpenLinkMenu = (event: CustomEvent<EditorLink>) => {

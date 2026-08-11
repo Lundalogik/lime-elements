@@ -1,4 +1,4 @@
-import { Component, Prop, h, Event, EventEmitter, Watch } from '@stencil/core';
+import { Component, Prop, h, Event, EventEmitter } from '@stencil/core';
 import { Languages } from '../../date-picker/date.types';
 import translate from '../../../global/translations';
 import { ESCAPE } from '../../../util/keycodes';
@@ -31,57 +31,24 @@ export class TextEditorHighlightColorMenu {
     public language: Languages = 'en';
 
     /**
-     * Open state of the highlight-color-menu dialog
-     */
-    @Prop({ reflect: true })
-    public isOpen: boolean = false;
-
-    /**
      * Emitted when the menu is closed from inside the component.
-     * (*Not* emitted when the consumer sets the `open`-property to `false`.)
      */
     @Event()
     private cancel: EventEmitter<void>;
 
     /**
-     * Emitted when a color is applied from inside the component. Picking a
-     * color applies it immediately, so this always follows a `colorChange`.
+     * Emitted with the picked color. Picking a color applies it immediately.
      */
     @Event()
-    private save: EventEmitter<void>;
-
-    /**
-     * Emitted when the user selects a new color
-     */
-    @Event()
-    private colorChange: EventEmitter<string>;
+    private save: EventEmitter<string>;
 
     private colorPicker: HTMLLimelColorPickerElement;
 
     public connectedCallback() {
-        this.setupGlobalHandlers();
-    }
-
-    public disconnectedCallback() {
-        this.teardownGlobalHandlers();
-    }
-
-    public componentDidLoad() {
-        this.focusOnColorPicker();
-    }
-
-    @Watch('isOpen')
-    protected watchIsOpen(isOpen: boolean) {
-        if (isOpen) {
-            this.focusOnColorPicker();
-        }
-    }
-
-    private setupGlobalHandlers() {
         document.addEventListener('keydown', this.handleKeyDown);
     }
 
-    private teardownGlobalHandlers() {
+    public disconnectedCallback() {
         document.removeEventListener('keydown', this.handleKeyDown);
     }
 
@@ -90,12 +57,10 @@ export class TextEditorHighlightColorMenu {
      * renders would steal focus from the picker's manual color input,
      * which re-renders the menu on every keystroke.
      */
-    private focusOnColorPicker() {
-        if (this.isOpen && this.colorPicker) {
-            setTimeout(() => {
-                this.colorPicker?.focus();
-            }, 100);
-        }
+    public componentDidLoad() {
+        setTimeout(() => {
+            this.colorPicker?.focus();
+        }, 100);
     }
 
     public render() {
@@ -127,23 +92,14 @@ export class TextEditorHighlightColorMenu {
     };
 
     private handleKeyDown = (event: KeyboardEvent) => {
-        if (!this.isOpen) {
-            return;
-        }
-
         if (event.key === ESCAPE) {
             event.stopPropagation();
             event.preventDefault();
-            this.handleCancel();
+            this.cancel.emit();
         }
     };
 
     private handleColorChange = (event: CustomEvent<string>) => {
-        this.colorChange.emit(event.detail);
-        this.save.emit();
-    };
-
-    private handleCancel = () => {
-        this.cancel.emit();
+        this.save.emit(event.detail);
     };
 }

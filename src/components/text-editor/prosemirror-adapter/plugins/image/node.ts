@@ -7,6 +7,7 @@ import {
 import { MarkdownSerializerState } from 'prosemirror-markdown';
 import { Languages } from '../../../../date-picker/date.types';
 import translate from '../../../../../global/translations';
+import { escapeHtmlAttribute } from '../../../utils/escape-html-attribute';
 
 export const imageCache = new Map<string, HTMLImageElement>();
 
@@ -145,20 +146,12 @@ function createImageNodeMarkdownSerializer(
     };
 }
 
-function escapeAttributeValue(value: string): string {
-    return value
-        .replaceAll('&', '&amp;')
-        .replaceAll('"', '&quot;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;');
-}
-
 function getInlineImageHTML(attrs: ImageNodeAttrs, tag: string): string {
     const attributes = [
-        `${IMAGE_ID_ATTRIBUTE}="${escapeAttributeValue(attrs.imageId ?? '')}"`,
-        attrs.width ? `width="${escapeAttributeValue(attrs.width)}"` : '',
-        attrs.height ? `height="${escapeAttributeValue(attrs.height)}"` : '',
-        attrs.alt ? `alt="${escapeAttributeValue(attrs.alt)}"` : '',
+        `${IMAGE_ID_ATTRIBUTE}="${escapeHtmlAttribute(attrs.imageId ?? '')}"`,
+        attrs.width ? `width="${escapeHtmlAttribute(attrs.width)}"` : '',
+        attrs.height ? `height="${escapeHtmlAttribute(attrs.height)}"` : '',
+        attrs.alt ? `alt="${escapeHtmlAttribute(attrs.alt)}"` : '',
     ].filter(Boolean);
 
     return `<${tag} ${attributes.join(' ')}></${tag}>`;
@@ -211,10 +204,10 @@ function getImageHTML(attrs: ImageNodeAttrs): string {
         .join('');
 
     const styleAttribute = style
-        ? ` style="${escapeAttributeValue(style)}"`
+        ? ` style="${escapeHtmlAttribute(style)}"`
         : '';
 
-    return `<img src="${escapeAttributeValue(attrs.src)}" alt="${escapeAttributeValue(attrs.alt)}"${styleAttribute} />`;
+    return `<img src="${escapeHtmlAttribute(attrs.src)}" alt="${escapeHtmlAttribute(attrs.alt)}"${styleAttribute} />`;
 }
 
 function createImageNodeSpec(

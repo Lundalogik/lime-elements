@@ -3,10 +3,10 @@ import { DEFAULT_HIGHLIGHT_COLOR } from '../../prosemirror-adapter/plugins/highl
 
 /**
  * The highlight color menu lets the user pick a color. Picking a color
- * applies it immediately: the menu emits `colorChange` followed by `save`,
- * and the text editor applies the picked color as a highlight mark on the
- * current selection and closes the menu. Pressing Escape emits `cancel`,
- * which just closes the menu.
+ * applies it immediately: the menu emits `save` with the picked color, and
+ * the text editor applies it as a highlight mark on the current selection
+ * and closes the menu. Pressing Escape emits `cancel`, which just closes
+ * the menu.
  *
  * This example shows the open, pick-to-apply and close flow, and previews
  * the applied color the way the editor renders a highlight.
@@ -16,9 +16,6 @@ import { DEFAULT_HIGHLIGHT_COLOR } from '../../prosemirror-adapter/plugins/highl
     shadow: true,
 })
 export class HighlightColorMenuExample {
-    @State()
-    private color: string = DEFAULT_HIGHLIGHT_COLOR;
-
     @State()
     private appliedColor: string = DEFAULT_HIGHLIGHT_COLOR;
 
@@ -38,30 +35,34 @@ export class HighlightColorMenuExample {
                 </span>{' '}
                 using the applied color <code>{this.appliedColor}</code>.
             </p>,
+            this.renderMenu(),
+        ];
+    }
+
+    private renderMenu() {
+        if (!this.isOpen) {
+            return;
+        }
+
+        return (
             <limel-text-editor-highlight-color-menu
-                color={this.color}
-                isOpen={this.isOpen}
-                onColorChange={this.handleColorChange}
+                color={this.appliedColor}
                 onCancel={this.handleCancel}
                 onSave={this.handleSave}
-            />,
-        ];
+            />
+        );
     }
 
     private openMenu = () => {
         this.isOpen = true;
     };
 
-    private handleColorChange = (event: CustomEvent<string>) => {
-        this.color = event.detail;
-    };
-
     private handleCancel = () => {
         this.isOpen = false;
     };
 
-    private handleSave = () => {
+    private handleSave = (event: CustomEvent<string>) => {
         this.isOpen = false;
-        this.appliedColor = this.color;
+        this.appliedColor = event.detail;
     };
 }
