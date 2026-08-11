@@ -39,6 +39,7 @@ import {
     arrayItemWithDependenciesAndCustomConfigSchema,
     nestedSchemaPathSchema,
     nestedLayoutSchemaPathSchema,
+    stringWithDefaultCustomComponentSchema,
 } from './form.test-schemas';
 
 const fieldTypeTests = [
@@ -734,6 +735,35 @@ test('converts null to undefined via schema-field when top-level custom componen
     await change('Icon', undefined);
 
     expect(onChange).toHaveBeenCalled();
+    const latest = onChange.mock.lastCall[0].detail;
+    expect(latest.icon).toBeUndefined();
+});
+
+test('keeps a cleared field empty when the schema declares a default', async () => {
+    const onChange = vi.fn();
+    const { change } = await renderForm({
+        schema: stringWithDefaultCustomComponentSchema,
+        value: { icon: 'arrow', name: 'Alice' },
+        onChange,
+    });
+
+    await change('Icon', undefined);
+
+    const latest = onChange.mock.lastCall[0].detail;
+    expect(latest.icon).toBeUndefined();
+});
+
+test('keeps a cleared field empty when another field is cleared afterwards', async () => {
+    const onChange = vi.fn();
+    const { change } = await renderForm({
+        schema: stringWithDefaultCustomComponentSchema,
+        value: { icon: 'arrow', name: 'Alice' },
+        onChange,
+    });
+
+    await change('Icon', undefined);
+    await change('Name', '');
+
     const latest = onChange.mock.lastCall[0].detail;
     expect(latest.icon).toBeUndefined();
 });
