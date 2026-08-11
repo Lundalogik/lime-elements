@@ -1,3 +1,4 @@
+import { ADDITIONAL_PROPERTY_FLAG } from '@rjsf/utils';
 import { isCustomObjectSchema, resetDependentFields } from './field-helpers';
 
 describe('resetDependentFields()', () => {
@@ -234,7 +235,7 @@ describe('isCustomObjectSchema', () => {
                         },
                         bar: {
                             type: 'string',
-                            __additional_property: true,
+                            [ADDITIONAL_PROPERTY_FLAG]: true,
                         },
                     },
                 };
@@ -242,7 +243,7 @@ describe('isCustomObjectSchema', () => {
             });
         });
 
-        describe('when all schema properties have __additional_property flag', () => {
+        describe('when all schema properties have the additional property flag', () => {
             it('returns true', () => {
                 schema = {
                     type: 'object',
@@ -250,11 +251,11 @@ describe('isCustomObjectSchema', () => {
                     properties: {
                         foo: {
                             type: 'string',
-                            __additional_property: true,
+                            [ADDITIONAL_PROPERTY_FLAG]: true,
                         },
                         bar: {
                             type: 'string',
-                            __additional_property: true,
+                            [ADDITIONAL_PROPERTY_FLAG]: true,
                         },
                     },
                 };
