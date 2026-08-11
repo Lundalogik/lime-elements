@@ -105,27 +105,26 @@ export function createListKeyHandlerPlugin(schema: Schema) {
                     return false;
                 }
 
-                // Handle Tab and Shift+Tab
+                // Inside a list item, Tab and Shift+Tab are always handled
+                // so focus never leaves the editor mid-list, even when the
+                // indent or outdent itself cannot apply.
                 if (event.key === 'Tab') {
-                    // Handle indent (Tab)
-                    if (!event.shiftKey) {
-                        event.preventDefault();
+                    event.preventDefault();
 
-                        return sinkListItem(schema.nodes.list_item)(
-                            state,
-                            view.dispatch
-                        );
-                    }
-
-                    // Handle outdent (Shift+Tab)
                     if (event.shiftKey) {
-                        event.preventDefault();
-
-                        return liftListItem(schema.nodes.list_item)(
+                        liftListItem(schema.nodes.list_item)(
                             state,
                             view.dispatch
                         );
+
+                        return true;
                     }
+
+                    // Sinking fails on first items (no preceding sibling to
+                    // become the parent); Tab is still swallowed.
+                    sinkListItem(schema.nodes.list_item)(state, view.dispatch);
+
+                    return true;
                 }
 
                 // Handle Enter key
