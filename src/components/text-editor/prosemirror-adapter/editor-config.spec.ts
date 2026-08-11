@@ -56,6 +56,7 @@ describe('editor-config (real-stack integration)', () => {
         contentType: 'html',
         triggerCharacters: [],
         onNewLinkSelection: () => undefined,
+        onHighlightSelection: () => undefined,
         onImagePasted: noopImagePasted,
         onActiveItemsChange: () => undefined,
     });
@@ -72,6 +73,7 @@ describe('editor-config (real-stack integration)', () => {
             expect(schema.nodes.bullet_list).toBeDefined();
             expect(schema.marks.strikethrough).toBeDefined();
             expect(schema.marks.link).toBeDefined();
+            expect(schema.marks.highlight).toBeDefined();
         });
 
         it('assembles the full ordered plugin set', () => {

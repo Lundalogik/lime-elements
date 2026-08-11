@@ -167,13 +167,9 @@ export class ActionBarButton {
 
     private getTooltipLabel(item: ActionBarItem): string {
         const iconTitle = getIconTitle(item.icon);
-        const tooltipLabel = item.text;
+        const mainLabel = [iconTitle, item.text].filter(Boolean).join(' ');
 
-        if (iconTitle && tooltipLabel) {
-            return `${iconTitle} ${tooltipLabel}`;
-        }
-
-        return tooltipLabel;
+        return [mainLabel, item.secondaryText].filter(Boolean).join('. ');
     }
 
     private triggerIconColorWarning() {

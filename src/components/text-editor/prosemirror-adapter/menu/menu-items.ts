@@ -46,6 +46,15 @@ const textEditorMenuItems: Array<
         selected: false,
     },
     {
+        value: EditorMenuTypes.Highlight,
+        text: 'Highlight',
+        secondaryText: 'Choose your highlight color',
+        commandText: `${mod} ${shift} H`,
+        icon: 'marker_pen',
+        iconOnly: true,
+        selected: false,
+    },
+    {
         value: EditorMenuTypes.Link,
         text: 'Link',
         icon: '-lime-text-link',
@@ -120,22 +129,28 @@ const textEditorMenuItems: Array<
 
 export const getTextEditorMenuItems = () => cloneDeep(textEditorMenuItems);
 
-export const menuTranslationIDs = {
-    strong: 'editor-menu.bold',
-    em: 'editor-menu.italic',
-    headerlevel1: 'editor-menu.h1',
-    headerlevel2: 'editor-menu.h2',
-    headerlevel3: 'editor-menu.h3',
+interface MenuItemTranslationIDs {
+    text: string;
+    secondaryText?: string;
+}
 
-    bullet_list: 'editor-menu.bulleted-list',
-    ordered_list: 'editor-menu.numbered-list',
-    code_block: 'editor-menu.code-block',
+export const menuTranslationIDs: Record<string, MenuItemTranslationIDs> = {
+    strong: { text: 'editor-menu.bold' },
+    em: { text: 'editor-menu.italic' },
+    headerlevel1: { text: 'editor-menu.h1' },
+    headerlevel2: { text: 'editor-menu.h2' },
+    headerlevel3: { text: 'editor-menu.h3' },
 
-    blockquote: 'editor-menu.blockquote',
-    link: 'editor-menu.link',
-    strikethrough: 'editor-menu.strikethrough',
-    code: 'editor-menu.code',
+    bullet_list: { text: 'editor-menu.bulleted-list' },
+    ordered_list: { text: 'editor-menu.numbered-list' },
+    code_block: { text: 'editor-menu.code-block' },
+
+    blockquote: { text: 'editor-menu.blockquote' },
+    link: { text: 'editor-menu.link' },
+    strikethrough: { text: 'editor-menu.strikethrough' },
+    code: { text: 'editor-menu.code' },
+    highlight: {
+        text: 'editor-menu.highlight',
+        secondaryText: 'editor-menu.highlight-color-tooltip',
+    },
 };
-
-export type menuTranslationIDs =
-    (typeof menuTranslationIDs)[keyof typeof menuTranslationIDs];

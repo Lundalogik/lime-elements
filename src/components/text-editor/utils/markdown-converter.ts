@@ -3,7 +3,7 @@ import {
     buildContentWhitelist,
 } from './content-type-converter';
 import { EditorView } from 'prosemirror-view';
-import { Node as ProseMirrorNode } from 'prosemirror-model';
+import { Mark, Node as ProseMirrorNode } from 'prosemirror-model';
 import {
     MarkdownSerializer,
     MarkdownSerializerState,
@@ -16,6 +16,7 @@ import {
     hasImageNode,
 } from '../prosemirror-adapter/plugins/image/node';
 import { hasCustomElementNode } from './has-custom-element-node';
+import { escapeHtmlAttribute } from './escape-html-attribute';
 import { Languages } from '../../date-picker/date.types';
 import { InlineImages } from '../text-editor.types';
 
@@ -31,7 +32,10 @@ const createMarkdownSerializerFunction = (
         const tagOpen =
             `<${config.tagName}` +
             config.attributes
-                .map((attr) => ` ${attr}="${node.attrs[attr]}"`)
+                .map(
+                    (attr) =>
+                        ` ${attr}="${escapeHtmlAttribute(String(node.attrs[attr] ?? ''))}"`
+                )
                 .join('') +
             '>';
         const tagClose = `</${config.tagName}>`;
@@ -64,6 +68,19 @@ const buildMarkdownSerializer = (
         strikethrough: {
             open: '~~',
             close: '~~',
+            mixable: true,
+            expelEnclosingWhitespace: true,
+        },
+        // Highlights have no standard markdown syntax, so they are emitted
+        // as inline HTML, which round-trips through the markdown parser's
+        // raw-HTML support.
+        highlight: {
+            open: (_state: MarkdownSerializerState, mark: Mark) => {
+                const color = escapeHtmlAttribute(mark.attrs.color);
+
+                return `<mark style="background-color: ${color}">`;
+            },
+            close: '</mark>',
             mixable: true,
             expelEnclosingWhitespace: true,
         },

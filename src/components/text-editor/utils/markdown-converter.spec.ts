@@ -1,6 +1,7 @@
 import { Schema } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import { MarkdownConverter } from './markdown-converter';
+import { buildEditorSchema } from '../prosemirror-adapter/editor-config';
 
 function createSchema() {
     return new Schema({
@@ -179,5 +180,67 @@ describe('MarkdownConverter', () => {
             expect(result).toContain('hello');
             expect(result).toContain('custom-mention');
         });
+
+        it('escapes custom element attribute values', () => {
+            const view = createMockView(schema, {
+                type: 'doc',
+                content: [
+                    {
+                        type: 'paragraph',
+                        content: [
+                            {
+                                type: 'custom-mention',
+                                attrs: {
+                                    limetype: 'user',
+                                    objectid: '1" onmouseover="alert(1)',
+                                },
+                                content: [{ type: 'text', text: 'Admin' }],
+                            },
+                        ],
+                    },
+                ],
+            });
+
+            const result = converter.serialize(view);
+            expect(result).toContain('&quot;');
+            expect(result).not.toContain('" onmouseover="');
+        });
+    });
+});
+
+describe('MarkdownConverter highlight serialization', () => {
+    const editorSchema = buildEditorSchema({
+        customElements: [],
+        contentType: 'markdown',
+        language: 'en',
+    });
+    const converter = new MarkdownConverter([], 'en');
+
+    const createViewWithHighlight = (color: string, text: string) => {
+        const doc = editorSchema.node('doc', null, [
+            editorSchema.node('paragraph', null, [
+                editorSchema.text(text, [
+                    editorSchema.marks.highlight.create({ color: color }),
+                ]),
+            ]),
+        ]);
+
+        return { state: { doc: doc } } as unknown as EditorView;
+    };
+
+    it('serializes a highlight as an inline <mark> with its background color', () => {
+        const view = createViewWithHighlight('#fff176', 'glow');
+
+        expect(converter.serialize(view)).toContain(
+            '<mark style="background-color: #fff176">glow</mark>'
+        );
+    });
+
+    it('escapes the color value when writing the style attribute', () => {
+        const view = createViewWithHighlight('red" onmouseover="alert(1)', 'x');
+
+        const result = converter.serialize(view);
+        expect(result).toContain('&quot;');
+        expect(result).not.toContain('" onmouseover="');
     });
 });

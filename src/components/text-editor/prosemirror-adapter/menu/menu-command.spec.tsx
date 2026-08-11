@@ -8,6 +8,7 @@ import { EditorView } from 'prosemirror-view';
 import { MenuCommandFactory } from './menu-commands';
 import { EditorMenuTypes } from './types';
 import { strikethrough } from './menu-schema-extender';
+import { highlightMarkSpec } from '../plugins/highlight/highlight-mark';
 
 describe('MenuCommandFactory', () => {
     let mySchema: Schema;
@@ -25,6 +26,7 @@ describe('MenuCommandFactory', () => {
             ),
             marks: basicSchema.spec.marks.append({
                 strikethrough: strikethrough,
+                highlight: highlightMarkSpec,
             }),
         });
 

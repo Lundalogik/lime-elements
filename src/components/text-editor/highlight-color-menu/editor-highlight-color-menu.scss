@@ -1,0 +1,10 @@
+@use '../partial-styles/floating-menu';
+
+:host(limel-text-editor-highlight-color-menu) {
+    @include floating-menu.floating-menu;
+}
+
+.color-picker-container {
+    // Ensure the color picker has proper space
+    min-height: 3rem;
+}

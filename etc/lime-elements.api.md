@@ -371,6 +371,7 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "manualInput": boolean;
+        "manualInputCommit": ManualInputCommit;
         "palette"?: Array<string | CustomColorSwatch>;
         "paletteColumnCount"?: number;
         "placeholder": string;
@@ -386,6 +387,7 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "manualInput": boolean;
+        "manualInputCommit": ManualInputCommit;
         "palette"?: CustomPalette;
         "placeholder": string;
         "required": boolean;
@@ -937,6 +939,13 @@ export namespace Components {
     // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
     //
     // @beta
+    export interface LimelTextEditorHighlightColorMenu {
+        "color": string;
+        "language": Languages;
+    }
+    // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+    //
+    // @beta
     export interface LimelTextEditorLinkMenu {
         "isOpen": boolean;
         "language": Languages;
@@ -1058,6 +1067,7 @@ export const EditorMenuTypes: {
     Strikethrough: string;
     Code: string;
     CodeBlock: string;
+    Highlight: string;
 };
 
 // @beta
@@ -1577,6 +1587,10 @@ export namespace JSX {
         //
         // (undocumented)
         "limel-text-editor": Omit<LimelTextEditor, keyof LimelTextEditorAttributes> & { [K in keyof LimelTextEditor & keyof LimelTextEditorAttributes]?: LimelTextEditor[K] } & { [K in keyof LimelTextEditor & keyof LimelTextEditorAttributes as `attr:${K}`]?: LimelTextEditorAttributes[K] } & { [K in keyof LimelTextEditor & keyof LimelTextEditorAttributes as `prop:${K}`]?: LimelTextEditor[K] };
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-text-editor-highlight-color-menu"" is marked as @public, but its signature references "JSX" which is marked as @beta
+        //
+        // (undocumented)
+        "limel-text-editor-highlight-color-menu": Omit<LimelTextEditorHighlightColorMenu, keyof LimelTextEditorHighlightColorMenuAttributes> & { [K in keyof LimelTextEditorHighlightColorMenu & keyof LimelTextEditorHighlightColorMenuAttributes]?: LimelTextEditorHighlightColorMenu[K] } & { [K in keyof LimelTextEditorHighlightColorMenu & keyof LimelTextEditorHighlightColorMenuAttributes as `attr:${K}`]?: LimelTextEditorHighlightColorMenuAttributes[K] } & { [K in keyof LimelTextEditorHighlightColorMenu & keyof LimelTextEditorHighlightColorMenuAttributes as `prop:${K}`]?: LimelTextEditorHighlightColorMenu[K] };
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-text-editor-link-menu"" is marked as @public, but its signature references "JSX" which is marked as @beta
         //
         // (undocumented)
@@ -2163,6 +2177,7 @@ export namespace JSX {
         "invalid"?: boolean;
         "label"?: string;
         "manualInput"?: boolean;
+        "manualInputCommit"?: ManualInputCommit;
         "onChange"?: (event: LimelColorPickerCustomEvent<string>) => void;
         "palette"?: Array<string | CustomColorSwatch>;
         "paletteColumnCount"?: number;
@@ -2186,6 +2201,8 @@ export namespace JSX {
         // (undocumented)
         "manualInput": boolean;
         // (undocumented)
+        "manualInputCommit": ManualInputCommit;
+        // (undocumented)
         "paletteColumnCount": number;
         // (undocumented)
         "placeholder": string;
@@ -2206,6 +2223,7 @@ export namespace JSX {
         "invalid"?: boolean;
         "label"?: string;
         "manualInput"?: boolean;
+        "manualInputCommit"?: ManualInputCommit;
         "onChange"?: (event: LimelColorPickerPaletteCustomEvent<string>) => void;
         "palette"?: CustomPalette;
         "placeholder"?: string;
@@ -2225,6 +2243,8 @@ export namespace JSX {
         "label": string;
         // (undocumented)
         "manualInput": boolean;
+        // (undocumented)
+        "manualInputCommit": ManualInputCommit;
         // (undocumented)
         "placeholder": string;
         // (undocumented)
@@ -3699,6 +3719,24 @@ export namespace JSX {
     // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
     //
     // @beta
+    export interface LimelTextEditorHighlightColorMenu {
+        "color"?: string;
+        "language"?: Languages;
+        "onCancel"?: (event: LimelTextEditorHighlightColorMenuCustomEvent<void>) => void;
+        "onSave"?: (event: LimelTextEditorHighlightColorMenuCustomEvent<string>) => void;
+    }
+
+    // (undocumented)
+    export interface LimelTextEditorHighlightColorMenuAttributes {
+        // (undocumented)
+        "color": string;
+        // (undocumented)
+        "language": Languages;
+    }
+
+    // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
+    //
+    // @beta
     export interface LimelTextEditorLinkMenu {
         "isOpen"?: boolean;
         "language"?: Languages;
@@ -4260,6 +4298,16 @@ export interface LimelTextEditorCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelTextEditorElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelTextEditorHighlightColorMenuCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelTextEditorHighlightColorMenuCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelTextEditorHighlightColorMenuElement;
+}
+
 // Warning: (ae-missing-release-tag) "LimelTextEditorLinkMenuCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -4324,6 +4372,9 @@ export { ListSeparator as ListSeparator1 }
 
 // @public
 export type ListType = 'selectable' | 'radio' | 'checkbox';
+
+// @public
+export type ManualInputCommit = 'change' | 'enter';
 
 // @internal
 export function _mapLayout(layout: Layout): any;
