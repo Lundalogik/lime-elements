@@ -8,12 +8,12 @@ export type ListContext =
     | { kind: 'same-type' | 'other-type'; listDepth: number }
     | { kind: 'no-list' | 'mixed'; listDepth: null };
 
-const LIST_NODE_NAMES = ['bullet_list', 'ordered_list'];
+const LIST_NODE_NAMES = new Set(['bullet_list', 'ordered_list']);
 
 const innermostListDepth = (state: EditorState): number | null => {
     const { $from } = state.selection;
     for (let depth = $from.depth; depth > 0; depth--) {
-        if (LIST_NODE_NAMES.includes($from.node(depth).type.name)) {
+        if (LIST_NODE_NAMES.has($from.node(depth).type.name)) {
             return depth;
         }
     }
@@ -40,7 +40,7 @@ export const selectionHasNonListableBlock = (state: EditorState): boolean => {
         const isTopLevelBlock = parent?.type.name === 'doc';
         const listable =
             node.type.name === 'paragraph' ||
-            LIST_NODE_NAMES.includes(node.type.name) ||
+            LIST_NODE_NAMES.has(node.type.name) ||
             node.type.name === 'list_item';
         if (isTopLevelBlock && !listable) {
             found = true;
@@ -48,7 +48,7 @@ export const selectionHasNonListableBlock = (state: EditorState): boolean => {
             return false;
         }
 
-        return !isTopLevelBlock || LIST_NODE_NAMES.includes(node.type.name);
+        return !isTopLevelBlock || LIST_NODE_NAMES.has(node.type.name);
     });
 
     return found;
@@ -90,23 +90,16 @@ export const resolveListContext = (
     // plain wrap; any list in the mix means unification.
     let sawList = false;
     let sawParagraph = false;
-    state.doc.nodesBetween(
-        state.selection.from,
-        state.selection.to,
-        (node, _pos, parent) => {
-            if (parent?.type.name !== 'doc') {
-                return false;
-            }
-
-            if (LIST_NODE_NAMES.includes(node.type.name)) {
-                sawList = true;
-            } else if (node.type.name === 'paragraph') {
-                sawParagraph = true;
-            }
-
-            return false;
+    const startIndex = $from.index(0);
+    const endIndex = Math.min($to.index(0), state.doc.childCount - 1);
+    for (let i = startIndex; i <= endIndex; i++) {
+        const child = state.doc.child(i);
+        if (LIST_NODE_NAMES.has(child.type.name)) {
+            sawList = true;
+        } else if (child.type.name === 'paragraph') {
+            sawParagraph = true;
         }
-    );
+    }
 
     if (sawList && fromDepth !== null && !sawParagraph) {
         const kind =
@@ -151,7 +144,11 @@ export const convertInnermostList = (
     if (dispatch) {
         dispatch(
             state.tr
-                .setNodeMarkup(pos, targetType, listAttrsFor(targetType, node.attrs))
+                .setNodeMarkup(
+                    pos,
+                    targetType,
+                    listAttrsFor(targetType, node.attrs)
+                )
                 .scrollIntoView()
         );
     }
@@ -168,6 +165,105 @@ const listAttrsFor = (
     }
 
     return {};
+};
+
+const mapKeepBefore = (tr: Transaction, position: number): number =>
+    // ProseMirror's Mapping.map takes (pos, assoc); the unicorn rule
+    // misreads it as Array#map with a `this` argument.
+    // eslint-disable-next-line unicorn/no-array-method-this-argument
+    tr.mapping.map(position, -1);
+
+const wrapRunInList = (
+    tr: Transaction,
+    targetType: NodeType,
+    runStart: number,
+    runEnd: number
+): void => {
+    const $start = tr.doc.resolve(tr.mapping.map(runStart) + 1);
+    const $end = tr.doc.resolve(mapKeepBefore(tr, runEnd) - 1);
+    const range = new NodeRange($start, $end, 0);
+    const wrapping = findWrapping(range, targetType);
+    if (wrapping) {
+        tr.wrap(range, wrapping);
+    }
+};
+
+const convertListsAndWrapRuns = (
+    tr: Transaction,
+    state: EditorState,
+    targetType: NodeType,
+    startIndex: number,
+    endIndex: number
+): void => {
+    // Positions computed against the pre-transform doc are mapped through
+    // tr.mapping when applied.
+    const doc = state.doc;
+    let runStart: number | null = null;
+    let runEnd: number | null = null;
+    let pos = 0;
+
+    for (let i = 0; i < doc.childCount; i++) {
+        const child = doc.child(i);
+        const inRange = i >= startIndex && i <= endIndex;
+        const isList = LIST_NODE_NAMES.has(child.type.name);
+
+        if (inRange && child.type.name === 'paragraph') {
+            runStart = runStart ?? pos;
+            runEnd = pos + child.nodeSize;
+        } else if (runStart !== null && runEnd !== null) {
+            wrapRunInList(tr, targetType, runStart, runEnd);
+            runStart = null;
+            runEnd = null;
+        }
+
+        if (inRange && isList && child.type !== targetType) {
+            tr.setNodeMarkup(
+                tr.mapping.map(pos),
+                targetType,
+                listAttrsFor(targetType, child.attrs)
+            );
+        }
+
+        pos += child.nodeSize;
+    }
+
+    if (runStart !== null && runEnd !== null) {
+        wrapRunInList(tr, targetType, runStart, runEnd);
+    }
+};
+
+const joinAdjacentLists = (
+    tr: Transaction,
+    targetType: NodeType,
+    mappedFrom: number,
+    mappedTo: number
+): void => {
+    // Scan the transformed doc's top-level boundaries back to front, so
+    // earlier join positions stay valid as joins shrink the doc.
+    const boundaries: number[] = [];
+    let boundary = 0;
+    for (let i = 0; i < tr.doc.childCount; i++) {
+        boundary += tr.doc.child(i).nodeSize;
+        boundaries.push(boundary);
+    }
+
+    for (const joinPos of boundaries.reverse()) {
+        if (joinPos <= mappedFrom || joinPos > mappedTo + 1) {
+            continue;
+        }
+
+        if (joinPos >= tr.doc.content.size) {
+            continue;
+        }
+
+        const $boundary = tr.doc.resolve(joinPos);
+        if (
+            $boundary.nodeBefore?.type === targetType &&
+            $boundary.nodeAfter?.type === targetType
+        ) {
+            tr.join(joinPos);
+        }
+    }
 };
 
 /**
@@ -196,87 +292,19 @@ export const unifyToList = (
     }
 
     const tr = state.tr;
-    const doc = state.doc;
-    const startIndex = $from.index(0);
-    const endIndex = $to.index(0);
-
-    // Pass 1: convert every list in range in place, and wrap every run of
-    // consecutive paragraphs into a list of the target type. Positions
-    // computed against the pre-transform doc are mapped through tr.mapping.
-    let runStart: number | null = null;
-    let runEnd: number | null = null;
-
-    const flushRun = () => {
-        if (runStart === null || runEnd === null) {
-            return;
-        }
-
-        const $start = tr.doc.resolve(tr.mapping.map(runStart) + 1);
-        const $end = tr.doc.resolve(tr.mapping.map(runEnd, -1) - 1);
-        const range = new NodeRange($start, $end, 0);
-        const wrapping = findWrapping(range, targetType);
-        if (wrapping) {
-            tr.wrap(range, wrapping);
-        }
-
-        runStart = null;
-        runEnd = null;
-    };
-
-    let pos = 0;
-    for (let i = 0; i < doc.childCount; i++) {
-        const child = doc.child(i);
-        const inRange = i >= startIndex && i <= endIndex;
-        const isList = LIST_NODE_NAMES.includes(child.type.name);
-
-        if (inRange && child.type.name === 'paragraph') {
-            runStart = runStart ?? pos;
-            runEnd = pos + child.nodeSize;
-        } else {
-            flushRun();
-        }
-
-        if (inRange && isList && child.type !== targetType) {
-            tr.setNodeMarkup(
-                tr.mapping.map(pos),
-                targetType,
-                listAttrsFor(targetType, child.attrs)
-            );
-        }
-
-        pos += child.nodeSize;
-    }
-
-    flushRun();
-
-    // Pass 2: join adjacent same-type lists across the affected range by
-    // scanning the transformed doc's top-level boundaries back to front,
-    // so earlier join positions stay valid.
-    const mappedFrom = tr.mapping.map($from.before(1));
-    const mappedTo = tr.mapping.map($to.after(1), -1);
-    const boundaries: number[] = [];
-    let boundary = 0;
-    tr.doc.forEach((child) => {
-        boundary += child.nodeSize;
-        boundaries.push(boundary);
-    });
-    for (const joinPos of boundaries.reverse()) {
-        if (joinPos <= mappedFrom || joinPos > mappedTo + 1) {
-            continue;
-        }
-
-        if (joinPos >= tr.doc.content.size) {
-            continue;
-        }
-
-        const $boundary = tr.doc.resolve(joinPos);
-        if (
-            $boundary.nodeBefore?.type === targetType &&
-            $boundary.nodeAfter?.type === targetType
-        ) {
-            tr.join(joinPos);
-        }
-    }
+    convertListsAndWrapRuns(
+        tr,
+        state,
+        targetType,
+        $from.index(0),
+        $to.index(0)
+    );
+    joinAdjacentLists(
+        tr,
+        targetType,
+        tr.mapping.map($from.before(1)),
+        mapKeepBefore(tr, $to.after(1))
+    );
 
     dispatch(tr.scrollIntoView());
 

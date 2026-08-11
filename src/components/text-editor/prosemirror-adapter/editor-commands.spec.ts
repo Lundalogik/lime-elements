@@ -175,17 +175,17 @@ describe('menu commands against the real schema', () => {
     });
 
     describe('allowed()', () => {
-        const listTypes: EditorMenuTypes[] = [
+        const listTypes = new Set<EditorMenuTypes>([
             EditorMenuTypes.BulletList,
             EditorMenuTypes.OrderedList,
-        ];
+        ]);
 
         it('is a function on the list commands and undefined on the rest', () => {
             for (const type of editorMenuTypesArray) {
                 const command = harness.factory.getCommand(
                     type
                 ) as CommandWithActive;
-                if (listTypes.includes(type)) {
+                if (listTypes.has(type)) {
                     expect(command.allowed).toBeTypeOf('function');
                 } else {
                     expect(command.allowed).toBeUndefined();
