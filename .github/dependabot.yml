@@ -24,6 +24,11 @@ updates:
         patterns:
           - "react"
           - "react-dom"
+      # `@rjsf/core` peer-requires a matching `@rjsf/utils`, so the packages
+      # can only be updated together.
+      rjsf:
+        patterns:
+          - "@rjsf/*"
     ignore:
       - dependency-name: "material-components-web"
         update-types: ["version-update:semver-major"]
