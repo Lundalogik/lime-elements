@@ -20,7 +20,10 @@ import { MenuCommandFactory } from '../menu/menu-commands';
 import { ContentTypeConverter } from '../../utils/content-type-converter';
 
 type EditorTestHarnessOverrides = Partial<
-    Pick<EditorSchemaOptions, 'customElements' | 'contentType'> &
+    Pick<
+        EditorSchemaOptions,
+        'customElements' | 'contentType' | 'language' | 'inlineImages'
+    > &
         Pick<
             EditorPluginsOptions,
             | 'triggerCharacters'
@@ -62,15 +65,17 @@ export function createEditorTestHarness(
     const schema = buildEditorSchema({
         customElements: overrides.customElements ?? [],
         contentType: overrides.contentType ?? 'html',
-        language: 'en',
+        language: overrides.language ?? 'en',
+        inlineImages: overrides.inlineImages,
     });
     const factory = new MenuCommandFactory(schema);
     const plugins = buildEditorPlugins({
         schema: schema,
         menuCommandFactory: factory,
         contentConverter: overrides.contentConverter ?? noopConverter,
-        language: 'en',
+        language: overrides.language ?? 'en',
         contentType: overrides.contentType ?? 'html',
+        inlineImages: overrides.inlineImages,
         triggerCharacters: overrides.triggerCharacters ?? [],
         onNewLinkSelection: overrides.onNewLinkSelection ?? (() => undefined),
         onImagePasted:
