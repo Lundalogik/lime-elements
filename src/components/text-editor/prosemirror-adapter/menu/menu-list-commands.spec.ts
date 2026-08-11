@@ -46,10 +46,11 @@ describe('List Commands', () => {
         expect(state.doc.firstChild.type.name).toBe(listType);
         expect(state.doc.firstChild.childCount).toBe(expectedCount);
 
-        state.doc.firstChild.forEach((item, _offset, i) => {
+        for (let i = 0; i < state.doc.firstChild.childCount; i++) {
+            const item = state.doc.firstChild.child(i);
             expect(item.type.name).toBe('list_item');
             expect(item.firstChild.textContent).toBe(expectedItems[i]);
-        });
+        }
     };
 
     beforeEach(() => {
@@ -292,11 +293,12 @@ describe('List Commands', () => {
             expect(list.type.name).toBe(EditorMenuTypes.BulletList);
             expect(list.childCount).toBe(TEST_LINES.length);
 
-            list.forEach((item, _offset, i) => {
+            for (let i = 0; i < list.childCount; i++) {
+                const item = list.child(i);
                 expect(item.type.name).toBe('list_item');
                 expect(item.firstChild.type.name).toBe('paragraph');
                 expect(item.firstChild.textContent).toBe(TEST_LINES[i]);
-            });
+            }
         });
 
         it('preserves existing list items when converting mixed selection', () => {
@@ -331,11 +333,12 @@ describe('List Commands', () => {
             expect(orderedList.type.name).toBe(EditorMenuTypes.OrderedList);
             expect(orderedList.childCount).toBe(TEST_LINES.length);
 
-            orderedList.forEach((item, _offset, i) => {
+            for (let i = 0; i < orderedList.childCount; i++) {
+                const item = orderedList.child(i);
                 expect(item.type.name).toBe('list_item');
                 expect(item.firstChild.type.name).toBe('paragraph');
                 expect(item.firstChild.textContent).toBe(TEST_LINES[i]);
-            });
+            }
         });
     });
 

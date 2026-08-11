@@ -208,14 +208,10 @@ const createWrapInCommand = (
  * Handles list operations when there is no selection (cursor only).
  * If the cursor is within a list item, only that list item is affected.
  *
- * @param EditorState - state - The current editor state.
- * @param NodeType - type - The type of list to toggle.
- * @param Schema - schema - The ProseMirror schema.
- * @param Function - dispatch - The dispatch function.
- * @param state
- * @param type
- * @param schema
- * @param dispatch
+ * @param state - The current editor state.
+ * @param type - The type of list to toggle.
+ * @param schema - The ProseMirror schema.
+ * @param dispatch - The dispatch function.
  * @returns boolean - True if the command was executed.
  */
 const handleListNoSelection = (state, type, schema, dispatch) => {

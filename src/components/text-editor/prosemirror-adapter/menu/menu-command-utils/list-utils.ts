@@ -65,7 +65,8 @@ export const removeListNodes = (
                 const end = pos + node.nodeSize;
 
                 let frag = Fragment.empty;
-                for (const child of node) {
+                for (let i = 0; i < node.childCount; i++) {
+                    const child = node.child(i);
                     if (
                         child.childCount > 0 &&
                         child.firstChild.type === schema.nodes.paragraph
