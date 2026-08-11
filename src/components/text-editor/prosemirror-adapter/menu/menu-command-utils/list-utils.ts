@@ -1,5 +1,6 @@
 import { EditorState, Transaction } from 'prosemirror-state';
-import { NodeType } from 'prosemirror-model';
+import { NodeType, NodeRange } from 'prosemirror-model';
+import { findWrapping } from 'prosemirror-transform';
 
 export type Dispatch = (tr: Transaction) => void;
 
@@ -148,31 +149,136 @@ export const convertInnermostList = (
     }
 
     if (dispatch) {
-        const attrs =
-            targetType.name === 'ordered_list'
-                ? { ...node.attrs, order: node.attrs.order ?? 1 }
-                : {};
         dispatch(
-            state.tr.setNodeMarkup(pos, targetType, attrs).scrollIntoView()
+            state.tr
+                .setNodeMarkup(pos, targetType, listAttrsFor(targetType, node.attrs))
+                .scrollIntoView()
         );
     }
 
     return true;
 };
 
+const listAttrsFor = (
+    targetType: NodeType,
+    attrs: Record<string, unknown>
+): Record<string, unknown> => {
+    if (targetType.name === 'ordered_list') {
+        return { ...attrs, order: attrs.order ?? 1 };
+    }
+
+    return {};
+};
+
 /**
  * Turns a mixed top-level selection (paragraphs and lists) into a single
- * list of the target type.
+ * list of the target type: paragraph runs are wrapped, lists are converted
+ * in place, and adjacent same-type lists are joined. Nesting inside
+ * converted lists is preserved.
  *
- * @param _state - the current editor state
- * @param _targetType - the list type to unify into
- * @param _dispatch - the dispatch function
+ * @param state - the current editor state
+ * @param targetType - the list type to unify into
+ * @param dispatch - the dispatch function; omit for a dry-run capability check
  * @returns true when the unification applies
  */
 export const unifyToList = (
-    _state: EditorState,
-    _targetType: NodeType,
-    _dispatch?: Dispatch
+    state: EditorState,
+    targetType: NodeType,
+    dispatch?: Dispatch
 ): boolean => {
-    return false;
+    const { $from, $to } = state.selection;
+    if ($from.depth === 0 || $to.depth === 0) {
+        return false;
+    }
+
+    if (dispatch === undefined) {
+        return true;
+    }
+
+    const tr = state.tr;
+    const doc = state.doc;
+    const startIndex = $from.index(0);
+    const endIndex = $to.index(0);
+
+    // Pass 1: convert every list in range in place, and wrap every run of
+    // consecutive paragraphs into a list of the target type. Positions
+    // computed against the pre-transform doc are mapped through tr.mapping.
+    let runStart: number | null = null;
+    let runEnd: number | null = null;
+
+    const flushRun = () => {
+        if (runStart === null || runEnd === null) {
+            return;
+        }
+
+        const $start = tr.doc.resolve(tr.mapping.map(runStart) + 1);
+        const $end = tr.doc.resolve(tr.mapping.map(runEnd, -1) - 1);
+        const range = new NodeRange($start, $end, 0);
+        const wrapping = findWrapping(range, targetType);
+        if (wrapping) {
+            tr.wrap(range, wrapping);
+        }
+
+        runStart = null;
+        runEnd = null;
+    };
+
+    let pos = 0;
+    for (let i = 0; i < doc.childCount; i++) {
+        const child = doc.child(i);
+        const inRange = i >= startIndex && i <= endIndex;
+        const isList = LIST_NODE_NAMES.includes(child.type.name);
+
+        if (inRange && child.type.name === 'paragraph') {
+            runStart = runStart ?? pos;
+            runEnd = pos + child.nodeSize;
+        } else {
+            flushRun();
+        }
+
+        if (inRange && isList && child.type !== targetType) {
+            tr.setNodeMarkup(
+                tr.mapping.map(pos),
+                targetType,
+                listAttrsFor(targetType, child.attrs)
+            );
+        }
+
+        pos += child.nodeSize;
+    }
+
+    flushRun();
+
+    // Pass 2: join adjacent same-type lists across the affected range by
+    // scanning the transformed doc's top-level boundaries back to front,
+    // so earlier join positions stay valid.
+    const mappedFrom = tr.mapping.map($from.before(1));
+    const mappedTo = tr.mapping.map($to.after(1), -1);
+    const boundaries: number[] = [];
+    let boundary = 0;
+    tr.doc.forEach((child) => {
+        boundary += child.nodeSize;
+        boundaries.push(boundary);
+    });
+    for (const joinPos of boundaries.reverse()) {
+        if (joinPos <= mappedFrom || joinPos > mappedTo + 1) {
+            continue;
+        }
+
+        if (joinPos >= tr.doc.content.size) {
+            continue;
+        }
+
+        const $boundary = tr.doc.resolve(joinPos);
+        if (
+            $boundary.nodeBefore?.type === targetType &&
+            $boundary.nodeAfter?.type === targetType
+        ) {
+            tr.join(joinPos);
+        }
+    }
+
+    dispatch(tr.scrollIntoView());
+
+    return true;
 };
