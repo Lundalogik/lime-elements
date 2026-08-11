@@ -1,0 +1,14 @@
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        #lime{fill:#4db6ac}#green{fill:#81c784;}#blue{fill:#4fc3f7;}#magenta{fill:#f34197;}#yellow{fill:#ffc107;}
+        @media (prefers-color-scheme:dark){
+            #lime{fill:#26a69a}#green{fill:#66bb6a;}#blue{fill:#29b6f6;}#magenta{fill:#ff3195;}#yellow{fill:#ffb03b;}
+        }
+    </style>
+    <path fill="none" d="M0 0h300v300H0z"/>
+    <path id="lime" d="M254.811 118.684c-15.058-52.01-57.756-70.435-81.432-73.903-19.912-3.071-71.625-3.367-104.813 51.712-26.152 43.392-7.231 78.758-7.033 107.883-.198 13.275-2.179 29.224-20.606 41.608-18.326 12.284 5.944 13.275 8.42 13.374 14.96.991 38.636 3.17 65.78 1.882 23.478-1.09 64.394-.693 101.047-30.81 18.328-15.058 53.596-53.693 38.636-111.746h.001z" fill-rule="nonzero"/>
+    <circle id="green" cx="40.351" cy="68.351" r="20.649" transform="translate(-18.846 -153.843) scale(4.36967)"/>
+    <circle id="blue" cx="40.351" cy="68.351" r="20.649" transform="matrix(.87171 0 0 .87171 15.825 15.431)"/>
+    <circle id="magenta" cx="40.351" cy="68.351" r="20.649" transform="matrix(.77486 0 0 .77486 210.438 -8.364)"/>
+    <circle id="yellow" cx="40.351" cy="68.351" r="20.649" transform="translate(171.339 115.029) scale(1.40395)"/>
+</svg>
