@@ -1,3 +1,10 @@
+## [39.44.3](https://github.com/Lundalogik/lime-elements/compare/v39.44.2...v39.44.3) (2026-08-11)
+
+### Bug Fixes
+
+
+* **checkbox:** rename internal id field to avoid createElement error ([0c17b93](https://github.com/Lundalogik/lime-elements/commit/0c17b93848e48b37a92f5576001de8d802f67bd0)), closes [#4190](https://github.com/Lundalogik/lime-elements/issues/4190)
+
 ## [39.44.2](https://github.com/Lundalogik/lime-elements/compare/v39.44.1...v39.44.2) (2026-08-06)
 
 ### Bug Fixes
