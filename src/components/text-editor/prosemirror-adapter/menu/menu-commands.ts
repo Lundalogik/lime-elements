@@ -1,6 +1,6 @@
 import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
 import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
-import { wrapInList, sinkListItem } from 'prosemirror-schema-list';
+import { wrapInList, liftListItem } from 'prosemirror-schema-list';
 import { Command, EditorState, TextSelection } from 'prosemirror-state';
 import { EditorMenuTypes, EditorTextLink, LevelMapping } from './types';
 import { getLinkAttributes } from '../plugins/link/utils';
@@ -10,14 +10,11 @@ import {
     setActiveMethodForWrap,
 } from './menu-command-utils/active-state-utils';
 import {
-    isInListOfType,
-    getOtherListType,
-    removeListNodes,
-    convertAllListNodes,
-    toggleList,
-    Dispatch,
+    resolveListContext,
+    convertInnermostList,
+    selectionHasNonListableBlock,
+    unifyToList,
 } from './menu-command-utils/list-utils';
-import { findAncestorDepthOfType } from './menu-command-utils/node-utils';
 
 type CommandFunction = (
     schema: Schema,
@@ -205,85 +202,6 @@ const createWrapInCommand = (
 };
 
 /**
- * Handles list operations when there is no selection (cursor only).
- * If the cursor is within a list item, only that list item is affected.
- *
- * @param state - The current editor state.
- * @param type - The type of list to toggle.
- * @param schema - The ProseMirror schema.
- * @param dispatch - The dispatch function.
- * @returns boolean - True if the command was executed.
- */
-const handleListNoSelection = (state, type, schema, dispatch) => {
-    const { $from } = state.selection;
-    // Find the nearest list_item ancestor.
-    const listItemDepth = findAncestorDepthOfType(
-        $from,
-        schema.nodes.list_item
-    );
-
-    if (listItemDepth === null) {
-        // Not inside a list item; fallback to toggling list on the current block.
-        return toggleList(type)(state, dispatch);
-    }
-
-    // Get the content positions within the list item
-    const listItemStart = $from.start(listItemDepth);
-    const listItemEnd = $from.end(listItemDepth);
-
-    // Set selection to the current list item.
-    const tr = state.tr.setSelection(
-        new TextSelection(
-            state.doc.resolve(listItemStart),
-            state.doc.resolve(listItemEnd)
-        )
-    );
-    const newState = state.apply(tr);
-
-    return sinkListItem(schema.nodes.list_item)(newState, dispatch);
-};
-
-/**
- * Handles list operations when there is a selection.
- *
- * @param state - The current editor state.
- * @param type - The type of list to toggle.
- * @param schema - The ProseMirror schema.
- * @param otherType - The other type of list to convert to.
- * @param dispatch - The dispatch function.
- * @returns A command for handling list operations when there is a selection.
- */
-const handleListWithSelection = (
-    state: EditorState,
-    type: NodeType,
-    schema: Schema,
-    otherType: NodeType,
-    dispatch: Dispatch
-) => {
-    const { $from, $to } = state.selection;
-    const listItemType = schema.nodes.list_item;
-    const ancestorDepth = findAncestorDepthOfType($from, listItemType);
-
-    // If an ancestor of type list_item is found, attempt to sink that list_item.
-    if (ancestorDepth !== null) {
-        // If we're already in this list type, toggle it off (remove the list)
-        if (isInListOfType(state, type)) {
-            return removeListNodes(state, type, schema, dispatch);
-        }
-
-        // If we're in a different list type, convert from one to the other
-        if (otherType && isInListOfType(state, otherType)) {
-            return convertAllListNodes(state, otherType, type, dispatch);
-        }
-    }
-
-    const modifiedTr = state.tr.setSelection(new TextSelection($from, $to));
-    const updatedState = state.apply(modifiedTr);
-
-    return wrapInList(type)(updatedState, dispatch);
-};
-
-/**
  * Creates a command for toggling list types.
  *
  * @param schema - The ProseMirror schema.
@@ -299,17 +217,35 @@ export const createListCommand = (
         throw new Error(`List type "${listTypeName}" not found in schema`);
     }
 
-    const command = (state, dispatch) => {
-        const { $from, $to } = state.selection;
-        const noSelection = $from === $to;
-        // Get the other list type for the current list type
-        // This is used to convert all list items to the other list type
-        // when toggling list types
-        const otherType = getOtherListType(schema, listTypeName);
+    const command: CommandWithActive = (state, dispatch) => {
+        const context = resolveListContext(state, type);
 
-        return noSelection
-            ? handleListNoSelection(state, type, schema, dispatch)
-            : handleListWithSelection(state, type, schema, otherType, dispatch);
+        if (context.kind === 'same-type') {
+            return liftListItem(schema.nodes.list_item)(state, dispatch);
+        }
+
+        if (context.kind === 'other-type') {
+            return convertInnermostList(
+                state,
+                context.listDepth,
+                type,
+                dispatch
+            );
+        }
+
+        if (context.kind === 'no-list') {
+            return wrapInList(type)(state, dispatch);
+        }
+
+        return unifyToList(state, type, dispatch);
+    };
+
+    command.allowed = (state) => {
+        if (!(state.selection instanceof TextSelection)) {
+            return false;
+        }
+
+        return !selectionHasNonListableBlock(state);
     };
 
     command.active = (state) => {

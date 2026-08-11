@@ -342,8 +342,8 @@ describe('List Commands', () => {
         });
     });
 
-    describe('nested lists', () => {
-        it('allows creating nested lists', () => {
+    describe('toggle inside an existing list', () => {
+        it('lifts the selected item out of the list', () => {
             const command = createListCommand(
                 schema,
                 EditorMenuTypes.BulletList
@@ -381,31 +381,19 @@ describe('List Commands', () => {
             );
             state = state.apply(tr);
 
-            // Create nested list
+            // Same-type toggle on the selected item lifts it out of the list.
             command(state, dispatch);
 
-            // Verify structure
-            const outerList = state.doc.firstChild;
-            expect(outerList.type.name).toBe(EditorMenuTypes.BulletList);
-            expect(outerList.childCount).toBe(1);
+            expect(state.doc.childCount).toBe(2);
 
-            const firstItem = outerList.child(0);
-            expect(firstItem.type.name).toBe('list_item');
-            expect(firstItem.childCount).toBe(2);
+            const remainingList = state.doc.child(0);
+            expect(remainingList.type.name).toBe(EditorMenuTypes.BulletList);
+            expect(remainingList.childCount).toBe(1);
+            expect(remainingList.child(0).textContent).toBe('Parent');
 
-            // First child of the list item is the "Parent" paragraph.
-            expect(firstItem.child(0).type.name).toBe('paragraph');
-            expect(firstItem.child(0).textContent).toBe('Parent');
-
-            // Second child is the nested bullet_list.
-            const nestedList = firstItem.child(1);
-            expect(nestedList.type.name).toBe(EditorMenuTypes.BulletList);
-            expect(nestedList.childCount).toBe(1);
-
-            const nestedItem = nestedList.child(0);
-            expect(nestedItem.type.name).toBe('list_item');
-            expect(nestedItem.firstChild.type.name).toBe('paragraph');
-            expect(nestedItem.firstChild.textContent).toBe('Child');
+            const liftedParagraph = state.doc.child(1);
+            expect(liftedParagraph.type.name).toBe('paragraph');
+            expect(liftedParagraph.textContent).toBe('Child');
         });
     });
 
