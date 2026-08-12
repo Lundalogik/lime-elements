@@ -26,9 +26,10 @@ runs:
         # npm caching is handled by the install-dependencies action instead,
         # which saves the cache as soon as npm ci succeeds; setup-node's
         # built-in cache only saves when the whole job succeeds (post-if:
-        # success()) and restores on exact lock-file match only. Explicitly
-        # disabled here because package.json has a `packageManager` field,
-        # which would otherwise auto-enable the built-in cache.
+        # success()) and restores on exact lock-file match only.
+        # This input defaults to true, so keep it false as a guard: setup-node
+        # re-enables its cache if package.json regains a `packageManager` or
+        # `devEngines.packageManager` field.
         package-manager-cache: false
     - name: Verify Node.js setup
       shell: bash

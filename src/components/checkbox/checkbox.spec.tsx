@@ -71,3 +71,42 @@ describe('limel-checkbox (aria semantics)', () => {
         expect(input.getAttribute('aria-checked')).toBe('true');
     });
 });
+
+describe('limel-checkbox (host element id handling)', () => {
+    async function setup(props: Record<string, any> = {}) {
+        const { root, waitForChanges } = await render(
+            <limel-checkbox {...props}></limel-checkbox>
+        );
+        await waitForChanges();
+
+        return { root, waitForChanges };
+    }
+
+    // Regression test for the internal id token colliding with the native
+    // `HTMLElement.id` property. Previously the component held a private field
+    // named `id`, whose initializer ran in the constructor as `this.id = …`,
+    // invoking the native `id` setter and stamping an attribute onto the host.
+    // That both polluted the host's `id` and made the element non-pristine after
+    // construction, which throws `NotSupportedError: The result must not have
+    // attributes` when a framework creates it synchronously via
+    // `document.createElement()` (e.g. Vue).
+    it('does not stamp a generated id onto the host element', async () => {
+        const { root } = await setup();
+        expect(root.getAttribute('id')).toBeNull();
+    });
+
+    it('leaves a consumer-provided host id untouched', async () => {
+        const { root } = await setup({ id: 'my-checkbox' });
+        expect(root.getAttribute('id')).toBe('my-checkbox');
+    });
+
+    it('still associates the internal input with its label', async () => {
+        const { root } = await setup();
+        const input = root.shadowRoot?.querySelector(
+            'input[type="checkbox"]'
+        ) as HTMLInputElement;
+        const label = root.shadowRoot?.querySelector('label');
+        expect(input.id).toBeTruthy();
+        expect(label?.getAttribute('for')).toBe(input.id);
+    });
+});

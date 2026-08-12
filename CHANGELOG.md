@@ -1,3 +1,25 @@
+## [39.44.4](https://github.com/Lundalogik/lime-elements/compare/v39.44.3...v39.44.4) (2026-08-12)
+
+### Bug Fixes
+
+
+* **form:** allow clearing a field that has a schema default ([3fb4c0c](https://github.com/Lundalogik/lime-elements/commit/3fb4c0c16a56e4b7be2b8676a86128a21bdf9cac)), closes [#5125](https://github.com/Lundalogik/lime-elements/issues/5125)
+
+## [39.44.3](https://github.com/Lundalogik/lime-elements/compare/v39.44.2...v39.44.3) (2026-08-11)
+
+### Bug Fixes
+
+
+* **checkbox:** rename internal id field to avoid createElement error ([0c17b93](https://github.com/Lundalogik/lime-elements/commit/0c17b93848e48b37a92f5576001de8d802f67bd0)), closes [#4190](https://github.com/Lundalogik/lime-elements/issues/4190)
+
+## [39.44.2](https://github.com/Lundalogik/lime-elements/compare/v39.44.1...v39.44.2) (2026-08-06)
+
+### Bug Fixes
+
+
+* **text-editor:** cancel pending caret restore when the editor is disconnected ([99db91e](https://github.com/Lundalogik/lime-elements/commit/99db91e50139330bc5e4b7076d89a0a5bef672ec))
+* **text-editor:** keep caret position when focus is regained without a click ([2ba040a](https://github.com/Lundalogik/lime-elements/commit/2ba040ae7324c6e2071fd35994b9dbd6d5082987))
+
 ## [39.44.1](https://github.com/Lundalogik/lime-elements/compare/v39.44.0...v39.44.1) (2026-07-14)
 
 ### Bug Fixes

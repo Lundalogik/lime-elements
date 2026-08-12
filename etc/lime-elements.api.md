@@ -772,7 +772,7 @@ export namespace Components {
     // @beta
     export interface LimelProsemirrorAdapter {
         "clear": () => Promise<void>;
-        "contentType": 'markdown' | 'html';
+        "contentType": ContentType;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
         // @alpha
@@ -966,6 +966,9 @@ export type Config = {
     markdownWhitelist?: CustomElementDefinition[];
     featureSwitches?: Record<string, boolean>;
 };
+
+// @beta
+export type ContentType = 'markdown' | 'html';
 
 // @public
 export interface CustomColorSwatch {
@@ -3249,7 +3252,7 @@ export namespace JSX {
     //
     // @beta
     export interface LimelProsemirrorAdapter {
-        "contentType"?: 'markdown' | 'html';
+        "contentType"?: ContentType;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
         // @alpha
@@ -3283,8 +3286,10 @@ export namespace JSX {
 
     // (undocumented)
     export interface LimelProsemirrorAdapterAttributes {
+        // Warning: (ae-incompatible-release-tags) The symbol "contentType" is marked as @public, but its signature references "ContentType" which is marked as @beta
+        //
         // (undocumented)
-        "contentType": 'markdown' | 'html';
+        "contentType": ContentType;
         // (undocumented)
         "disabled": boolean;
         // (undocumented)

@@ -157,6 +157,163 @@ describe('limel-text-editor', () => {
         expect(adapter.getAttribute('id')).toBe(labelId);
     });
 
+    describe('caret position on focus', () => {
+        // The adapter restores a clicked position one tick after the focus
+        // event; wait comfortably longer before asserting caret behavior.
+        const FOCUS_SETTLE_WAIT = 50;
+
+        const sleep = (ms: number) =>
+            new Promise((resolve) => setTimeout(resolve, ms));
+
+        async function createEditor(value: string) {
+            const { root, waitForChanges, setProps } = await render(
+                <limel-text-editor value={value} />
+            );
+            await waitForChanges();
+
+            const editable = await vi.waitFor(() => {
+                const contentEditable = getAdapter(
+                    root
+                )?.shadowRoot?.querySelector('.ProseMirror') as HTMLElement;
+                expect(contentEditable).toBeTruthy();
+
+                return contentEditable;
+            });
+
+            const mouseDownAtTextOffset = (
+                offset: number,
+                side: 'before' | 'after' = 'before'
+            ) => {
+                const textNode = editable.querySelector('p').firstChild as Text;
+                const range = document.createRange();
+                range.setStart(textNode, offset);
+                range.setEnd(textNode, offset + 1);
+                const rect = range.getBoundingClientRect();
+                const clientX =
+                    side === 'before' ? rect.left + 1 : rect.right - 1;
+                editable.dispatchEvent(
+                    new MouseEvent('mousedown', {
+                        bubbles: true,
+                        composed: true,
+                        button: 0,
+                        clientX,
+                        clientY: rect.top + rect.height / 2,
+                    })
+                );
+            };
+
+            const typeText = (text: string) => {
+                document.execCommand('insertText', false, text);
+            };
+
+            return {
+                root: root as HTMLLimelTextEditorElement,
+                setProps,
+                editable,
+                mouseDownAtTextOffset,
+                typeText,
+            };
+        }
+
+        test('regaining focus without a click keeps the caret where typing left it', async () => {
+            const { editable, mouseDownAtTextOffset, typeText } =
+                await createEditor('hello');
+
+            // Click on the first character to focus the editor; the adapter
+            // records the clicked position.
+            mouseDownAtTextOffset(0);
+            editable.focus();
+            await sleep(FOCUS_SETTLE_WAIT);
+
+            typeText('ABC');
+            expect(editable.textContent).toBe('ABChello');
+
+            // Losing and regaining focus without a click (e.g. switching
+            // windows) must not move the caret back to the clicked position.
+            editable.blur();
+            await sleep(FOCUS_SETTLE_WAIT);
+            editable.focus();
+            await sleep(FOCUS_SETTLE_WAIT);
+
+            typeText('!');
+            expect(editable.textContent).toBe('ABC!hello');
+        });
+
+        test('clicking a blurred editor places the caret at the clicked position', async () => {
+            const { editable, mouseDownAtTextOffset, typeText } =
+                await createEditor('hello');
+
+            editable.focus();
+            await sleep(FOCUS_SETTLE_WAIT);
+            editable.blur();
+            await sleep(FOCUS_SETTLE_WAIT);
+
+            mouseDownAtTextOffset('hello'.length - 1, 'after');
+            editable.focus();
+            await sleep(FOCUS_SETTLE_WAIT);
+
+            typeText('!');
+            expect(editable.textContent).toBe('hello!');
+        });
+
+        test('unmounting the editor right after a click-to-focus does not touch the destroyed view', async () => {
+            const { root, editable, mouseDownAtTextOffset } =
+                await createEditor('hello');
+
+            const errors: string[] = [];
+            const onError = (event: ErrorEvent) => {
+                errors.push(event.message);
+            };
+            window.addEventListener('error', onError);
+
+            try {
+                // Click to focus, then remove the editor in the same tick —
+                // like a popover closing on the click that focused it. The
+                // pending focus restoration must not run against the
+                // destroyed editor view.
+                mouseDownAtTextOffset(0);
+                editable.focus();
+                root.remove();
+                await sleep(FOCUS_SETTLE_WAIT);
+
+                expect(errors).toEqual([]);
+            } finally {
+                window.removeEventListener('error', onError);
+            }
+        });
+
+        test('a click position beyond a shrunken document is ignored on focus', async () => {
+            const value = 'hello world, hello world';
+            const { setProps, editable, mouseDownAtTextOffset, typeText } =
+                await createEditor(value);
+
+            const errors: string[] = [];
+            const onError = (event: ErrorEvent) => {
+                errors.push(event.message);
+            };
+            window.addEventListener('error', onError);
+
+            try {
+                // Record a click position at the end of the text, then shrink
+                // the document below that position before focus is granted.
+                mouseDownAtTextOffset(value.length - 1, 'after');
+                await setProps({ value: '' });
+                await vi.waitFor(() => {
+                    expect(editable.textContent).toBe('');
+                });
+
+                editable.focus();
+                await sleep(FOCUS_SETTLE_WAIT);
+
+                typeText('!');
+                expect(editable.textContent).toBe('!');
+                expect(errors).toEqual([]);
+            } finally {
+                window.removeEventListener('error', onError);
+            }
+        });
+    });
+
     describe('change event handling', () => {
         // Comfortably longer than the editor's 300 ms change debounce.
         const DEBOUNCE_WAIT = 500;
