@@ -1,3 +1,10 @@
+## [39.44.5](https://github.com/Lundalogik/lime-elements/compare/v39.44.4...v39.44.5) (2026-08-12)
+
+### Bug Fixes
+
+
+* **markdown:** keep tables visible when column widths live in colgroup ([442093f](https://github.com/Lundalogik/lime-elements/commit/442093f3d469edc7761feadcf7ed3a7d105d2e03))
+
 ## [39.44.4](https://github.com/Lundalogik/lime-elements/compare/v39.44.3...v39.44.4) (2026-08-12)
 
 ### Bug Fixes
