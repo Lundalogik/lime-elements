@@ -1,3 +1,10 @@
+## [39.44.4](https://github.com/Lundalogik/lime-elements/compare/v39.44.3...v39.44.4) (2026-08-12)
+
+### Bug Fixes
+
+
+* **form:** allow clearing a field that has a schema default ([3fb4c0c](https://github.com/Lundalogik/lime-elements/commit/3fb4c0c16a56e4b7be2b8676a86128a21bdf9cac)), closes [#5125](https://github.com/Lundalogik/lime-elements/issues/5125)
+
 ## [39.44.3](https://github.com/Lundalogik/lime-elements/compare/v39.44.2...v39.44.3) (2026-08-11)
 
 ### Bug Fixes
