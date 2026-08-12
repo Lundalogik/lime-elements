@@ -63,7 +63,7 @@
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@stencil/core": "^4.43.5",
     "@stencil/sass": "^3.3.3",
-    "@stencil/vitest": "^1.12.1",
+    "@stencil/vitest": "^1.14.0",
     "@types/codemirror": "^5.60.17",
     "@types/html-escaper": "^3.0.4",
     "@types/lodash-es": "^4.17.12",
