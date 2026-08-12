@@ -113,7 +113,7 @@ export class Checkbox {
 
     @Element()
     private limelCheckbox: HTMLLimelCheckboxElement;
-    private id: string = createRandomString();
+    private inputId: string = createRandomString();
     private helperTextId: string = createRandomString();
 
     @Watch('checked')
@@ -184,7 +184,7 @@ export class Checkbox {
                 readonly={this.readonly}
                 invalid={this.isInvalid()}
                 onChange={this.onChange}
-                id={this.id}
+                id={this.inputId}
             />
         );
     }
