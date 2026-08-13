@@ -1,3 +1,11 @@
+## [39.44.6](https://github.com/Lundalogik/lime-elements/compare/v39.44.5...v39.44.6) (2026-08-13)
+
+### Bug Fixes
+
+
+* **select:** jump to the option matching typed characters ([322477f](https://github.com/Lundalogik/lime-elements/commit/322477fd25f351a16376ef2a19f0dfcaa833fae7)), closes [#4192](https://github.com/Lundalogik/lime-elements/issues/4192)
+* **select:** keep the picked option focused in a multiple select ([01ad82a](https://github.com/Lundalogik/lime-elements/commit/01ad82a6677f4443c34346a838fd4c8da705bcf4)), closes [#4194](https://github.com/Lundalogik/lime-elements/issues/4194)
+
 ## [39.44.5](https://github.com/Lundalogik/lime-elements/compare/v39.44.4...v39.44.5) (2026-08-12)
 
 ### Bug Fixes
