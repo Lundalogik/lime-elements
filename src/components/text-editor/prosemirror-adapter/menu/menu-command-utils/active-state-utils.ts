@@ -43,16 +43,15 @@ export const setActiveMethodForWrap = (
 ) => {
     command.active = (state) => {
         const { from, to } = state.selection;
-        for (let pos = from; pos <= to; pos++) {
-            const resolvedPos = state.doc.resolve(pos);
-            for (let i = resolvedPos.depth; i > 0; i--) {
-                const node = resolvedPos.node(i);
-                if (node && node.type.name === nodeType.name) {
-                    return true;
-                }
+        let found = false;
+        state.doc.nodesBetween(from, to, (node) => {
+            if (node.type === nodeType) {
+                found = true;
             }
-        }
 
-        return false;
+            return !found;
+        });
+
+        return found;
     };
 };

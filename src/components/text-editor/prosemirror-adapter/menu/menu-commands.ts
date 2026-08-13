@@ -252,24 +252,7 @@ export const createListCommand = (
         return !selectionHasNonListableBlock(state);
     };
 
-    command.active = (state) => {
-        let isActive = false;
-        state.doc.nodesBetween(
-            state.selection.from,
-            state.selection.to,
-            (node) => {
-                if (node.type === type) {
-                    isActive = true;
-
-                    return false;
-                }
-
-                return true;
-            }
-        );
-
-        return isActive;
-    };
+    setActiveMethodForWrap(command, type);
 
     return command;
 };
