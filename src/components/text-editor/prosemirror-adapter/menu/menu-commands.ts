@@ -1,7 +1,12 @@
 import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
 import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
 import { wrapInList, liftListItem } from 'prosemirror-schema-list';
-import { Command, EditorState, TextSelection } from 'prosemirror-state';
+import {
+    AllSelection,
+    Command,
+    EditorState,
+    TextSelection,
+} from 'prosemirror-state';
 import { EditorMenuTypes, EditorTextLink, LevelMapping } from './types';
 import { getLinkAttributes } from '../plugins/link/utils';
 import {
@@ -202,6 +207,30 @@ const createWrapInCommand = (
     return command;
 };
 
+// Select-all produces an AllSelection, whose endpoints resolve at the
+// document level where list commands cannot operate. Re-anchoring it as
+// a TextSelection over the same content lets the list ladder (and the
+// delegated prosemirror-schema-list commands) treat select-all like any
+// other full-content selection.
+const withTextSelection = (state: EditorState): EditorState => {
+    if (!(state.selection instanceof AllSelection)) {
+        return state;
+    }
+
+    const selection = TextSelection.between(
+        state.doc.resolve(0),
+        state.doc.resolve(state.doc.content.size)
+    );
+
+    // A plugin-free scratch state on the shared doc: only feed it
+    // commands driven by doc and selection.
+    return EditorState.create({
+        doc: state.doc,
+        selection: selection,
+        storedMarks: state.storedMarks,
+    });
+};
+
 /**
  * Creates a command for toggling list types.
  *
@@ -218,11 +247,24 @@ export const createListCommand = (
         throw new Error(`List type "${listTypeName}" not found in schema`);
     }
 
+    const itemType = schema.nodes.list_item;
+    if (!itemType) {
+        throw new Error('Node type "list_item" not found in schema');
+    }
+
+    // The keymap invokes the command directly, so the command body applies
+    // the same applicability rules as `allowed` to keep keyboard and
+    // toolbar behavior identical.
     const command: CommandWithActive = (state, dispatch) => {
+        state = withTextSelection(state);
+        if (!(state.selection instanceof TextSelection)) {
+            return false;
+        }
+
         const context = resolveListContext(state, type);
 
         if (context.kind === 'same-type') {
-            return liftListItem(schema.nodes.list_item)(state, dispatch);
+            return liftListItem(itemType)(state, dispatch);
         }
 
         if (context.kind === 'other-type') {
@@ -235,18 +277,42 @@ export const createListCommand = (
         }
 
         if (context.kind === 'no-list') {
+            // For a single block the schema decides, through the wrap
+            // command itself; multi-block selections keep the stricter
+            // gate so unify cannot half-apply.
+            if (!context.singleBlock && selectionHasNonListableBlock(state)) {
+                return false;
+            }
+
             return wrapInList(type)(
                 state,
                 joinAdjacentListsOnDispatch(state, type, dispatch)
             );
         }
 
+        if (selectionHasNonListableBlock(state)) {
+            return false;
+        }
+
         return unifyToList(state, type, dispatch);
     };
 
     command.allowed = (state) => {
+        state = withTextSelection(state);
         if (!(state.selection instanceof TextSelection)) {
             return false;
+        }
+
+        const context = resolveListContext(state, type);
+
+        // Inside a list, toggling or converting is always applicable, even
+        // when a non-listable ancestor wraps the list.
+        if (context.kind === 'same-type' || context.kind === 'other-type') {
+            return true;
+        }
+
+        if (context.kind === 'no-list' && context.singleBlock) {
+            return wrapInList(type)(state);
         }
 
         return !selectionHasNonListableBlock(state);
