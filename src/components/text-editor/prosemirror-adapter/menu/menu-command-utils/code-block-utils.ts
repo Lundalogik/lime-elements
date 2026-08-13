@@ -1,24 +1,18 @@
 import { EditorState, TextSelection, Transaction } from 'prosemirror-state';
-import { Node, NodeRange, NodeType, Schema } from 'prosemirror-model';
+import { Node, NodeRange, Schema } from 'prosemirror-model';
 
 type Dispatch = (tr: Transaction) => void;
 
-export type CodeBlockContext = 'in-code' | 'no-code' | 'mixed';
-
 /**
- * Classifies the selection for the code block command ladder: `in-code` when
- * every covered textblock is a code block, `no-code` when none is, and
- * `mixed` otherwise.
+ * Whether every textblock covered by the selection is a code block.
  *
  * @param state - the current editor state
- * @returns the ladder branch to take
+ * @returns true when the selection touches code blocks and nothing else
  */
-export const resolveCodeBlockContext = (
-    state: EditorState
-): CodeBlockContext => {
+export const selectionCoversOnlyCodeBlocks = (state: EditorState): boolean => {
     const range = coveredBlockRange(state);
     if (!range) {
-        return 'no-code';
+        return false;
     }
 
     let sawCode = false;
@@ -37,19 +31,16 @@ export const resolveCodeBlockContext = (
         return false;
     });
 
-    if (sawCode) {
-        return sawOther ? 'mixed' : 'in-code';
-    }
-
-    return 'no-code';
+    return sawCode && !sawOther;
 };
 
 /**
  * Whether the blocks covered by the selection contain content that cannot
- * move into a code block without loss. Paragraphs, headings and code blocks
- * convert cleanly, and blockquotes are transparent containers; anything else
- * intersecting the covered blocks — lists, tables, horizontal rules, images
- * and other non-text inline nodes — makes the command decline.
+ * move into a code block without loss. Any textblock converts cleanly (its
+ * text flattens to code lines), and blockquotes are transparent containers;
+ * anything else intersecting the covered blocks — lists, tables, horizontal
+ * rules, and non-text inline content such as images — makes the command
+ * decline.
  *
  * @param state - the current editor state
  * @returns true when a non-convertible node intersects the covered blocks
@@ -69,18 +60,11 @@ export const selectionHasNonCodeConvertibleBlock = (
             return false;
         }
 
-        if (node.type === schema.nodes.blockquote) {
-            return true;
-        }
-
         if (node.type === schema.nodes.code_block) {
             return false;
         }
 
-        if (
-            node.type === schema.nodes.paragraph ||
-            node.type === schema.nodes.heading
-        ) {
+        if (node.isTextblock || node.type === schema.nodes.blockquote) {
             return true;
         }
 
@@ -148,13 +132,11 @@ export const toggleOffCodeBlocks = (
  * their internal newlines as lines.
  *
  * @param state - the current editor state
- * @param codeBlockType - the code block node type
  * @param dispatch - the dispatch function; omit for a dry-run capability check
  * @returns true when the merge applies
  */
 export const unifyToCodeBlock = (
     state: EditorState,
-    codeBlockType: NodeType,
     dispatch?: Dispatch
 ): boolean => {
     const range = coveredBlockRange(state);
@@ -182,7 +164,7 @@ export const unifyToCodeBlock = (
     const tr = state.tr.replaceWith(
         range.start,
         range.end,
-        codeBlockType.create(null, content)
+        state.schema.nodes.code_block.create(null, content)
     );
     setCaretNearMappedFrom(tr, state);
     dispatch(tr.scrollIntoView());

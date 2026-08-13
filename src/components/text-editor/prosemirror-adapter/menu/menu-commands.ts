@@ -22,7 +22,7 @@ import {
     unifyToList,
 } from './menu-command-utils/list-utils';
 import {
-    resolveCodeBlockContext,
+    selectionCoversOnlyCodeBlocks,
     selectionHasNonCodeConvertibleBlock,
     toggleOffCodeBlocks,
     unifyToCodeBlock,
@@ -348,17 +348,16 @@ export const createCodeBlockCommand = (schema: Schema): CommandWithActive => {
             return false;
         }
 
-        const context = resolveCodeBlockContext(state);
-        if (context === 'in-code') {
+        if (selectionCoversOnlyCodeBlocks(state)) {
             return toggleOffCodeBlocks(state, dispatch);
         }
 
         const { $from, $to } = state.selection;
-        if (context === 'no-code' && $from.sameParent($to)) {
+        if ($from.sameParent($to)) {
             return setBlockType(type)(state, dispatch);
         }
 
-        return unifyToCodeBlock(state, type, dispatch);
+        return unifyToCodeBlock(state, dispatch);
     };
 
     command.allowed = isCodeConvertibleSelection;
@@ -400,7 +399,7 @@ const commandMapping: CommandMapping = {
     blockquote: (schema) =>
         createWrapInCommand(schema, EditorMenuTypes.Blockquote),
 
-    code_block: (schema) => createCodeBlockCommand(schema),
+    code_block: createCodeBlockCommand,
     ordered_list: (schema) =>
         createListCommand(schema, EditorMenuTypes.OrderedList),
     bullet_list: (schema) =>

@@ -1,364 +1,303 @@
-import { vi, type Mock } from 'vitest';
-import { Node, Schema } from 'prosemirror-model';
+import { AllSelection, NodeSelection } from 'prosemirror-state';
 import {
-    AllSelection,
-    EditorState,
-    NodeSelection,
-    TextSelection,
-} from 'prosemirror-state';
-import { CommandWithActive, createCodeBlockCommand } from './menu-commands';
+    createEditorTestHarness,
+    createEditorTestState,
+    runCommand,
+    textSelection,
+} from '../test/editor-test-harness';
+import '../test/editor-doc-matcher';
+import { EditorMenuTypes } from './types';
+import { CommandWithActive } from './menu-commands';
 
-describe('Code Block Command', () => {
-    let schema: Schema;
-    let state: EditorState;
-    let dispatch: Mock;
-    let command: CommandWithActive;
+const harness = createEditorTestHarness();
+const b = harness.builders as Record<string, any>;
+const doc = b.doc;
+const p = b.p;
+const heading = b.heading;
+const codeBlock = b.code_block;
+const blockquote = b.blockquote;
+const bulletList = b.bullet_list;
+const listItem = b.list_item;
+const horizontalRule = b.horizontal_rule;
 
-    const paragraph = (text: string = '') =>
-        schema.nodes.paragraph.create(
-            null,
-            text === '' ? null : schema.text(text)
-        );
+const command = () =>
+    harness.factory.getCommand(EditorMenuTypes.CodeBlock) as CommandWithActive;
 
-    const heading = (text: string) =>
-        schema.nodes.heading.create({ level: 1 }, schema.text(text));
-
-    const codeBlock = (text: string = '') =>
-        schema.nodes.code_block.create(
-            null,
-            text === '' ? null : schema.text(text)
-        );
-
-    const bulletList = (...texts: string[]) =>
-        schema.nodes.bullet_list.create(
-            null,
-            texts.map((text) =>
-                schema.nodes.list_item.create(null, paragraph(text))
-            )
-        );
-
-    const setDoc = (...nodes: Node[]) => {
-        state = EditorState.create({
-            schema: schema,
-            doc: schema.nodes.doc.create(null, nodes),
-        });
-    };
-
-    const posOfText = (text: string): number => {
-        let found: number | null = null;
-        state.doc.descendants((node, pos) => {
-            if (found === null && node.isText && node.text.includes(text)) {
-                found = pos + node.text.indexOf(text);
-
-                return false;
-            }
-
-            return true;
-        });
-        if (found === null) {
-            throw new Error(`Did not find text "${text}"`);
-        }
-
-        return found;
-    };
-
-    const placeCaretIn = (text: string) => {
-        state = state.apply(
-            state.tr.setSelection(
-                TextSelection.create(state.doc, posOfText(text) + 1)
-            )
-        );
-    };
-
-    const selectFromTo = (fromText: string, toText: string) => {
-        state = state.apply(
-            state.tr.setSelection(
-                TextSelection.create(
-                    state.doc,
-                    posOfText(fromText),
-                    posOfText(toText) + toText.length
-                )
-            )
-        );
-    };
-
-    const topLevelBlocks = (): Node[] => {
-        const nodes: Node[] = [];
-        for (let i = 0; i < state.doc.childCount; i++) {
-            nodes.push(state.doc.child(i));
-        }
-
-        return nodes;
-    };
-
-    const blockTypes = () => topLevelBlocks().map((node) => node.type.name);
-
-    const blockTexts = () => topLevelBlocks().map((node) => node.textContent);
-
-    beforeEach(() => {
-        schema = new Schema({
-            nodes: {
-                doc: {
-                    content: 'block+',
-                    toDOM: () => ['div', 0],
-                },
-                paragraph: {
-                    group: 'block',
-                    content: 'inline*',
-                    toDOM: () => ['p', 0],
-                },
-                code_block: {
-                    group: 'block',
-                    content: 'text*',
-                    marks: '',
-                    code: true,
-                    toDOM: () => ['pre', ['code', 0]],
-                },
-                heading: {
-                    group: 'block',
-                    content: 'inline*',
-                    attrs: { level: { default: 1 } },
-                    toDOM: (node) => [`h${node.attrs.level}`, 0],
-                },
-                blockquote: {
-                    group: 'block',
-                    content: 'block+',
-                    toDOM: () => ['blockquote', 0],
-                },
-                bullet_list: {
-                    group: 'block',
-                    content: 'list_item+',
-                    toDOM: () => ['ul', 0],
-                },
-                list_item: {
-                    content: 'paragraph block*',
-                    toDOM: () => ['li', 0],
-                },
-                horizontal_rule: {
-                    group: 'block',
-                    toDOM: () => ['hr'],
-                },
-                text: {
-                    group: 'inline',
-                },
-            },
-            marks: {},
-        });
-
-        state = EditorState.create({
-            schema: schema,
-            doc: schema.topNodeType.createAndFill(),
-        });
-        dispatch = vi.fn((tr) => {
-            state = state.apply(tr);
-        });
-        command = createCodeBlockCommand(schema);
-    });
-
+describe('code block command behavior matrix', () => {
     describe('toggle on', () => {
         it('converts the caret paragraph to a code block', () => {
-            setDoc(paragraph('hello'));
-            placeCaretIn('hello');
+            const start = doc(p('hello'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 2)
+            );
 
-            expect(command(state, dispatch)).toBe(true);
-            expect(blockTypes()).toEqual(['code_block']);
-            expect(blockTexts()).toEqual(['hello']);
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(true);
+            expect(next.doc).toEqualDoc(doc(codeBlock('hello')));
         });
 
         it('converts a heading to a code block', () => {
-            setDoc(heading('title'));
-            placeCaretIn('title');
+            const start = doc(heading('title'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 2)
+            );
 
-            expect(command(state, dispatch)).toBe(true);
-            expect(blockTypes()).toEqual(['code_block']);
-            expect(blockTexts()).toEqual(['title']);
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(true);
+            expect(next.doc).toEqualDoc(doc(codeBlock('title')));
         });
 
         it('merges selected paragraphs into one code block with one line per block', () => {
-            setDoc(paragraph('aa'), paragraph('bb'), paragraph('cc'));
-            selectFromTo('aa', 'cc');
+            const start = doc(p('aa'), p('bb'), p('cc'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 1, 11)
+            );
 
-            expect(command(state, dispatch)).toBe(true);
-            expect(blockTypes()).toEqual(['code_block']);
-            expect(blockTexts()).toEqual(['aa\nbb\ncc']);
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(true);
+            expect(next.doc).toEqualDoc(doc(codeBlock('aa\nbb\ncc')));
         });
 
-        it('merges a paragraph and a heading into one code block', () => {
-            setDoc(heading('title'), paragraph('body'));
-            selectFromTo('title', 'body');
+        it('merges a heading and a paragraph into one code block', () => {
+            const start = doc(heading('title'), p('body'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 1, 12)
+            );
 
-            expect(command(state, dispatch)).toBe(true);
-            expect(blockTypes()).toEqual(['code_block']);
-            expect(blockTexts()).toEqual(['title\nbody']);
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(true);
+            expect(next.doc).toEqualDoc(doc(codeBlock('title\nbody')));
         });
 
         it('converts an empty paragraph to an empty code block', () => {
-            setDoc(paragraph());
-            state = state.apply(
-                state.tr.setSelection(TextSelection.create(state.doc, 1))
+            const start = doc(p());
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 1)
             );
 
-            expect(command(state, dispatch)).toBe(true);
-            expect(blockTypes()).toEqual(['code_block']);
-            expect(blockTexts()).toEqual(['']);
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(true);
+            expect(next.doc).toEqualDoc(doc(codeBlock()));
         });
 
         it('converts a paragraph inside a blockquote in place', () => {
-            setDoc(schema.nodes.blockquote.create(null, paragraph('quoted')));
-            placeCaretIn('quoted');
-
-            expect(command.allowed(state)).toBe(true);
-            expect(command(state, dispatch)).toBe(true);
-            expect(blockTypes()).toEqual(['blockquote']);
-            expect(state.doc.firstChild.firstChild.type.name).toBe(
-                'code_block'
+            const start = doc(blockquote(p('quoted')));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 3)
             );
+
+            expect(command().allowed(state)).toBe(true);
+
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(true);
+            expect(next.doc).toEqualDoc(doc(blockquote(codeBlock('quoted'))));
         });
     });
 
     describe('toggle off', () => {
         it('splits a code block into one paragraph per line', () => {
-            setDoc(codeBlock('a\nb\nc'));
-            placeCaretIn('a');
+            const start = doc(codeBlock('a\nb\nc'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 2)
+            );
 
-            expect(command(state, dispatch)).toBe(true);
-            expect(blockTypes()).toEqual([
-                'paragraph',
-                'paragraph',
-                'paragraph',
-            ]);
-            expect(blockTexts()).toEqual(['a', 'b', 'c']);
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(true);
+            expect(next.doc).toEqualDoc(doc(p('a'), p('b'), p('c')));
         });
 
         it('keeps empty lines as empty paragraphs', () => {
-            setDoc(codeBlock('a\n\nb'));
-            placeCaretIn('a');
+            const start = doc(codeBlock('a\n\nb'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 2)
+            );
 
-            expect(command(state, dispatch)).toBe(true);
-            expect(blockTexts()).toEqual(['a', '', 'b']);
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(true);
+            expect(next.doc).toEqualDoc(doc(p('a'), p(), p('b')));
         });
 
         it('turns an empty code block into an empty paragraph', () => {
-            setDoc(codeBlock());
-            state = state.apply(
-                state.tr.setSelection(TextSelection.create(state.doc, 1))
+            const start = doc(codeBlock());
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 1)
             );
 
-            expect(command(state, dispatch)).toBe(true);
-            expect(blockTypes()).toEqual(['paragraph']);
-            expect(blockTexts()).toEqual(['']);
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(true);
+            expect(next.doc).toEqualDoc(doc(p()));
         });
 
         it('toggles off every code block covered by the selection', () => {
-            setDoc(codeBlock('a'), codeBlock('b\nc'));
-            selectFromTo('a', 'b\nc');
+            const start = doc(codeBlock('a'), codeBlock('b\nc'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 1, 7)
+            );
 
-            expect(command(state, dispatch)).toBe(true);
-            expect(blockTypes()).toEqual([
-                'paragraph',
-                'paragraph',
-                'paragraph',
-            ]);
-            expect(blockTexts()).toEqual(['a', 'b', 'c']);
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(true);
+            expect(next.doc).toEqualDoc(doc(p('a'), p('b'), p('c')));
         });
 
         it('places the caret in the converted content', () => {
-            setDoc(codeBlock('a\nb'));
-            placeCaretIn('b');
+            const start = doc(codeBlock('a\nb'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 4)
+            );
 
-            command(state, dispatch);
-
-            expect(state.selection.empty).toBe(true);
-            expect(state.selection.$from.parent.type.name).toBe('paragraph');
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(true);
+            expect(next.selection.empty).toBe(true);
+            expect(next.selection.$from.parent.type.name).toBe('paragraph');
         });
     });
 
     describe('mixed selections', () => {
         it('unifies code blocks and paragraphs into one code block', () => {
-            setDoc(codeBlock('a\nb'), paragraph('c'));
-            selectFromTo('a\nb', 'c');
+            const start = doc(codeBlock('a\nb'), p('c'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 2, 7)
+            );
 
-            expect(command(state, dispatch)).toBe(true);
-            expect(blockTypes()).toEqual(['code_block']);
-            expect(blockTexts()).toEqual(['a\nb\nc']);
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(true);
+            expect(next.doc).toEqualDoc(doc(codeBlock('a\nb\nc')));
         });
     });
 
     describe('applicability', () => {
         it('declines when the selection touches a list', () => {
-            setDoc(paragraph('before'), bulletList('item'));
-            selectFromTo('before', 'item');
+            const start = doc(p('a'), bulletList(listItem(p('b'))));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 1, 7)
+            );
 
-            expect(command.allowed(state)).toBe(false);
-            expect(command(state, dispatch)).toBe(false);
-            expect(dispatch).not.toHaveBeenCalled();
+            expect(command().allowed(state)).toBe(false);
+
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(false);
+            expect(next.doc).toEqualDoc(start);
         });
 
         it('declines with the caret inside a list item', () => {
-            setDoc(bulletList('item'));
-            placeCaretIn('item');
+            const start = doc(bulletList(listItem(p('item'))));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 3)
+            );
 
-            expect(command.allowed(state)).toBe(false);
-            expect(command(state, dispatch)).toBe(false);
-            expect(dispatch).not.toHaveBeenCalled();
+            expect(command().allowed(state)).toBe(false);
+
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(false);
+            expect(next.doc).toEqualDoc(start);
         });
 
         it('declines when the selection covers a horizontal rule', () => {
-            setDoc(
-                paragraph('above'),
-                schema.nodes.horizontal_rule.create(),
-                paragraph('below')
+            const start = doc(p('above'), horizontalRule(), p('below'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 1, 14)
             );
-            selectFromTo('above', 'below');
 
-            expect(command.allowed(state)).toBe(false);
-            expect(command(state, dispatch)).toBe(false);
-            expect(dispatch).not.toHaveBeenCalled();
+            expect(command().allowed(state)).toBe(false);
+
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(false);
+            expect(next.doc).toEqualDoc(start);
         });
 
         it('declines a node selection', () => {
-            setDoc(paragraph('text'), schema.nodes.horizontal_rule.create());
-            state = state.apply(
-                state.tr.setSelection(NodeSelection.create(state.doc, 6))
+            const start = doc(p('text'), horizontalRule());
+            const state = createEditorTestState(
+                harness,
+                start,
+                NodeSelection.create(start, 6)
             );
 
-            expect(command.allowed(state)).toBe(false);
-            expect(command(state, dispatch)).toBe(false);
-            expect(dispatch).not.toHaveBeenCalled();
+            expect(command().allowed(state)).toBe(false);
+
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(false);
+            expect(next.doc).toEqualDoc(start);
         });
 
         it('declines an all selection', () => {
-            setDoc(paragraph('text'));
-            state = state.apply(
-                state.tr.setSelection(new AllSelection(state.doc))
+            const start = doc(p('text'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                new AllSelection(start)
             );
 
-            expect(command.allowed(state)).toBe(false);
-            expect(command(state, dispatch)).toBe(false);
-            expect(dispatch).not.toHaveBeenCalled();
+            expect(command().allowed(state)).toBe(false);
+
+            const { state: next, handled } = runCommand(state, command());
+            expect(handled).toBe(false);
+            expect(next.doc).toEqualDoc(start);
         });
     });
 
     describe('active state', () => {
         it('reports active with the caret inside a code block', () => {
-            setDoc(codeBlock('code'));
-            placeCaretIn('code');
+            const start = doc(codeBlock('code'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 2)
+            );
 
-            expect(command.active(state)).toBe(true);
+            expect(command().active(state)).toBe(true);
         });
 
         it('reports inactive with the caret in a paragraph', () => {
-            setDoc(paragraph('text'));
-            placeCaretIn('text');
+            const start = doc(p('text'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 2)
+            );
 
-            expect(command.active(state)).toBe(false);
+            expect(command().active(state)).toBe(false);
         });
 
         it('reports the state of the selection start in a mixed selection', () => {
-            setDoc(codeBlock('code'), paragraph('text'));
-            selectFromTo('code', 'text');
+            const start = doc(codeBlock('code'), p('text'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                textSelection(start, 2, 9)
+            );
 
-            expect(command.active(state)).toBe(true);
+            expect(command().active(state)).toBe(true);
         });
     });
 });

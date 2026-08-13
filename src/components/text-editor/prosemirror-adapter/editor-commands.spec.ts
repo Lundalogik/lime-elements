@@ -612,53 +612,6 @@ describe('menu commands against the real schema', () => {
             expect(handled).toBe(true);
             expect(next.doc).toEqualDoc(doc(codeBlock('aa\nbb')));
         });
-
-        it('splits a multi-line code block into one paragraph per line', () => {
-            const start = doc(codeBlock('a\nb'));
-            const state = createEditorTestState(
-                harness,
-                start,
-                textSelection(start, 2)
-            );
-            const { state: next, handled } = runCommand(
-                state,
-                harness.factory.getCommand(EditorMenuTypes.CodeBlock)
-            );
-            expect(handled).toBe(true);
-            expect(next.doc).toEqualDoc(doc(p('a'), p('b')));
-        });
-
-        it('unifies a mixed selection into one code block', () => {
-            const start = doc(codeBlock('a\nb'), p('c'));
-            const state = createEditorTestState(
-                harness,
-                start,
-                textSelection(start, 2, 7)
-            );
-            const { state: next, handled } = runCommand(
-                state,
-                harness.factory.getCommand(EditorMenuTypes.CodeBlock)
-            );
-            expect(handled).toBe(true);
-            expect(next.doc).toEqualDoc(doc(codeBlock('a\nb\nc')));
-        });
-
-        it('declines and reports not allowed when the selection touches a list', () => {
-            const start = doc(p('a'), bulletList(listItem(p('b'))));
-            const state = createEditorTestState(
-                harness,
-                start,
-                textSelection(start, 1, 7)
-            );
-            const command = harness.factory.getCommand(
-                EditorMenuTypes.CodeBlock
-            ) as CommandWithActive;
-            expect(command.allowed(state)).toBe(false);
-
-            const { state: next, handled } = runCommand(state, command);
-            expect(handled).toBe(false);
-            expect(next.doc).toEqualDoc(start);
-        });
     });
 
     describe('link command', () => {
