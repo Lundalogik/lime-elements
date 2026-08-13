@@ -598,17 +598,27 @@ describe('List Commands', () => {
                 schema,
                 EditorMenuTypes.BulletList
             );
-            let tr = state.tr.insertText('First\nSecond\nThird');
-            state = state.apply(tr);
+            state = state.apply(createParagraphs(['First', 'Second', 'Third']));
+            selectAll();
             command(state, dispatch);
 
-            // Select middle line
-            tr = state.tr.setSelection(
-                TextSelection.create(
-                    state.doc,
-                    state.doc.content.firstChild.nodeSize / 2,
-                    state.doc.content.firstChild.nodeSize / 2 + 6
-                )
+            // Select part of the text inside the second list item.
+            let secondPos: number | null = null;
+            state.doc.descendants((node, pos) => {
+                if (node.isText && node.text === 'Second') {
+                    secondPos = pos;
+
+                    return false;
+                }
+
+                return true;
+            });
+            if (secondPos === null) {
+                throw new Error('Did not find text "Second"');
+            }
+
+            const tr = state.tr.setSelection(
+                TextSelection.create(state.doc, secondPos + 1, secondPos + 4)
             );
             state = state.apply(tr);
 
@@ -638,7 +648,7 @@ describe('List Commands', () => {
         });
 
         describe('mixed content handling', () => {
-            it('handles selection with mixed content types', () => {
+            it('does not apply when the selection includes a heading', () => {
                 // Setup paragraph and header
                 const tr = state.tr
                     .insertText('Regular text\n')
@@ -651,22 +661,18 @@ describe('List Commands', () => {
                     );
                 state = state.apply(tr);
 
-                // Select all and convert to list
                 const command = createListCommand(
                     schema,
                     EditorMenuTypes.BulletList
                 );
                 selectAll();
 
-                command(state, dispatch);
-
-                expect(state.doc.firstChild.type.name).toBe(
-                    EditorMenuTypes.BulletList
-                );
-                expect(state.doc.firstChild.childCount).toBe(2);
+                expect(command.allowed(state)).toBe(false);
+                expect(command(state, dispatch)).toBe(false);
+                expect(dispatch).not.toHaveBeenCalled();
             });
 
-            it('handles list items containing multiple block types', () => {
+            it('does not apply when the selection includes a blockquote', () => {
                 const command = createListCommand(
                     schema,
                     EditorMenuTypes.BulletList
@@ -679,12 +685,12 @@ describe('List Commands', () => {
                     );
                 state = state.apply(tr);
 
-                // Select all content so that both blocks are included in the conversion.
+                // Select all content so that both blocks are included.
                 selectAll();
-                command(state, dispatch);
 
-                const listItem = state.doc.firstChild.firstChild;
-                expect(listItem.content.childCount).toBe(2);
+                expect(command.allowed(state)).toBe(false);
+                expect(command(state, dispatch)).toBe(false);
+                expect(dispatch).not.toHaveBeenCalled();
             });
 
             it('wraps a blockquote paragraph holding the caret in a list', () => {
@@ -735,6 +741,38 @@ describe('List Commands', () => {
                 expect(command.allowed(state)).toBe(false);
                 expect(command(state, dispatch)).toBe(false);
                 expect(dispatch).not.toHaveBeenCalled();
+            });
+
+            it('allows toggling a list nested inside a blockquote', () => {
+                const command = createListCommand(
+                    schema,
+                    EditorMenuTypes.BulletList
+                );
+                const nested = schema.nodes.blockquote.create(
+                    {},
+                    schema.nodes.bullet_list.create({}, [
+                        schema.nodes.list_item.create({}, [
+                            schema.nodes.paragraph.create(
+                                null,
+                                schema.text('Item')
+                            ),
+                        ]),
+                    ])
+                );
+                const tr = state.tr.replaceWith(
+                    0,
+                    state.doc.content.size,
+                    nested
+                );
+                state = state.apply(tr);
+
+                // Place the caret inside the nested list item.
+                const sel = state.tr.setSelection(
+                    TextSelection.create(state.doc, 4)
+                );
+                state = state.apply(sel);
+
+                expect(command.allowed(state)).toBe(true);
             });
         });
     });

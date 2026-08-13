@@ -12,7 +12,8 @@ type Dispatch = (tr: Transaction) => void;
 
 export type ListContext =
     | { kind: 'same-type' | 'other-type'; listDepth: number }
-    | { kind: 'no-list' | 'mixed'; listDepth: null };
+    | { kind: 'no-list'; listDepth: null; singleBlock: boolean }
+    | { kind: 'mixed'; listDepth: null };
 
 const isListNode = (node: Node, schema: Schema): boolean =>
     node.type === schema.nodes.bullet_list ||
@@ -87,7 +88,7 @@ export const resolveListContext = (
     }
 
     if (fromDepth === null && sameTopLevelBlock) {
-        return { kind: 'no-list', listDepth: null };
+        return { kind: 'no-list', listDepth: null, singleBlock: true };
     }
 
     // The range spans multiple top-level blocks: uniform paragraphs mean a
@@ -116,7 +117,7 @@ export const resolveListContext = (
         return { kind: 'mixed', listDepth: null };
     }
 
-    return { kind: 'no-list', listDepth: null };
+    return { kind: 'no-list', listDepth: null, singleBlock: false };
 };
 
 const listContextAt = (
