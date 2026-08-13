@@ -15,21 +15,6 @@ export type ListContext =
     | { kind: 'no-list'; listDepth: null; singleBlock: boolean }
     | { kind: 'mixed'; listDepth: null };
 
-const isListNode = (node: Node, schema: Schema): boolean =>
-    node.type === schema.nodes.bullet_list ||
-    node.type === schema.nodes.ordered_list;
-
-const innermostListDepth = (state: EditorState): number | null => {
-    const { $from } = state.selection;
-    for (let depth = $from.depth; depth > 0; depth--) {
-        if (isListNode($from.node(depth), state.schema)) {
-            return depth;
-        }
-    }
-
-    return null;
-};
-
 /**
  * Whether the selection touches top-level blocks that cannot become list
  * items (list_item requires a leading paragraph, so headings, blockquotes,
@@ -120,15 +105,6 @@ export const resolveListContext = (
     return { kind: 'no-list', listDepth: null, singleBlock: false };
 };
 
-const listContextAt = (
-    $from: ResolvedPos,
-    listDepth: number,
-    listType: NodeType
-): ListContext => ({
-    kind: $from.node(listDepth).type === listType ? 'same-type' : 'other-type',
-    listDepth: listDepth,
-});
-
 /**
  * Converts the innermost list around the selection to the target list type.
  * bullet_list and ordered_list share the list_item+ content model, so the
@@ -168,6 +144,126 @@ export const convertInnermostList = (
     return true;
 };
 
+/**
+ * Turns a mixed top-level selection (paragraphs and lists) into a single
+ * list of the target type: paragraph runs are wrapped, lists are converted
+ * in place, and adjacent same-type lists are joined. Nesting inside
+ * converted lists is preserved.
+ *
+ * @param state - the current editor state
+ * @param targetType - the list type to unify into
+ * @param dispatch - the dispatch function; omit for a dry-run capability check
+ * @returns true when the unification applies
+ */
+export const unifyToList = (
+    state: EditorState,
+    targetType: NodeType,
+    dispatch?: Dispatch
+): boolean => {
+    const { $from, $to } = state.selection;
+    if ($from.depth === 0 || $to.depth === 0) {
+        return false;
+    }
+
+    if (dispatch === undefined) {
+        return true;
+    }
+
+    const tr = state.tr;
+    convertListsAndWrapRuns(
+        tr,
+        state,
+        targetType,
+        $from.index(0),
+        $to.index(0)
+    );
+    joinAdjacentLists(
+        tr,
+        targetType,
+        tr.mapping.map($from.before(1)),
+        mapKeepBefore(tr, $to.after(1))
+    );
+
+    dispatch(tr.scrollIntoView());
+
+    return true;
+};
+
+/**
+ * Wraps a dispatch so that after a list is wrapped around the selection,
+ * adjacent top-level lists of the same type are joined with it.
+ *
+ * @param state - the editor state the wrap command runs on
+ * @param targetType - the list type being wrapped
+ * @param dispatch - the dispatch function; omitted for a dry-run capability check
+ * @returns the wrapped dispatch, or undefined when no dispatch was given
+ */
+export const joinAdjacentListsOnDispatch = (
+    state: EditorState,
+    targetType: NodeType,
+    dispatch?: Dispatch
+): Dispatch | undefined => {
+    if (!dispatch) {
+        return undefined;
+    }
+
+    const { $from, $to } = state.selection;
+
+    return (tr) => {
+        // The new list's outer boundaries: the start maps before the
+        // inserted wrapping, the end maps after it.
+        const start = mapKeepBefore(tr, $from.before(1));
+        const end = tr.mapping.map($to.after(1));
+        // Back to front, so the earlier boundary stays valid after a join.
+        joinSameTypeBoundary(tr, targetType, end);
+        joinSameTypeBoundary(tr, targetType, start);
+
+        dispatch(tr);
+    };
+};
+
+const joinSameTypeBoundary = (
+    tr: Transaction,
+    targetType: NodeType,
+    boundary: number
+): void => {
+    if (boundary <= 0 || boundary >= tr.doc.content.size) {
+        return;
+    }
+
+    const $boundary = tr.doc.resolve(boundary);
+    if (
+        $boundary.nodeBefore?.type === targetType &&
+        $boundary.nodeAfter?.type === targetType
+    ) {
+        tr.join(boundary);
+    }
+};
+
+const isListNode = (node: Node, schema: Schema): boolean =>
+    node.type === schema.nodes.bullet_list ||
+    node.type === schema.nodes.ordered_list;
+
+const innermostListDepth = (state: EditorState): number | null => {
+    const { $from } = state.selection;
+    for (let depth = $from.depth; depth > 0; depth--) {
+        if (isListNode($from.node(depth), state.schema)) {
+            return depth;
+        }
+    }
+
+    return null;
+};
+
+const listContextAt = (
+    $from: ResolvedPos,
+    listDepth: number,
+    listType: NodeType
+): ListContext => ({
+    kind: $from.node(listDepth).type === listType ? 'same-type' : 'other-type',
+    listDepth: listDepth,
+});
+
 const listAttrsFor = (
     targetType: NodeType,
     attrs: Record<string, unknown>,
@@ -177,7 +273,9 @@ const listAttrsFor = (
         return { ...attrs, order: attrs.order ?? 1 };
     }
 
-    return {};
+    const { order, ...withoutOrder } = attrs;
+
+    return withoutOrder;
 };
 
 const mapKeepBefore = (tr: Transaction, position: number): number =>
@@ -277,107 +375,12 @@ const joinAdjacentLists = (
         boundaries.push(boundary);
     }
 
-    for (const joinPos of boundaries.reverse()) {
+    for (let i = boundaries.length - 1; i >= 0; i--) {
+        const joinPos = boundaries[i];
         if (joinPos <= mappedFrom || joinPos > mappedTo + 1) {
             continue;
         }
 
         joinSameTypeBoundary(tr, targetType, joinPos);
-    }
-};
-
-/**
- * Turns a mixed top-level selection (paragraphs and lists) into a single
- * list of the target type: paragraph runs are wrapped, lists are converted
- * in place, and adjacent same-type lists are joined. Nesting inside
- * converted lists is preserved.
- *
- * @param state - the current editor state
- * @param targetType - the list type to unify into
- * @param dispatch - the dispatch function; omit for a dry-run capability check
- * @returns true when the unification applies
- */
-export const unifyToList = (
-    state: EditorState,
-    targetType: NodeType,
-    dispatch?: Dispatch
-): boolean => {
-    const { $from, $to } = state.selection;
-    if ($from.depth === 0 || $to.depth === 0) {
-        return false;
-    }
-
-    if (dispatch === undefined) {
-        return true;
-    }
-
-    const tr = state.tr;
-    convertListsAndWrapRuns(
-        tr,
-        state,
-        targetType,
-        $from.index(0),
-        $to.index(0)
-    );
-    joinAdjacentLists(
-        tr,
-        targetType,
-        tr.mapping.map($from.before(1)),
-        mapKeepBefore(tr, $to.after(1))
-    );
-
-    dispatch(tr.scrollIntoView());
-
-    return true;
-};
-
-/**
- * Wraps a dispatch so that after a list is wrapped around the selection,
- * adjacent top-level lists of the same type are joined with it.
- *
- * @param state - the editor state the wrap command runs on
- * @param targetType - the list type being wrapped
- * @param dispatch - the dispatch function; omitted for a dry-run capability check
- * @returns the wrapped dispatch, or undefined when no dispatch was given
- */
-export const joinAdjacentListsOnDispatch = (
-    state: EditorState,
-    targetType: NodeType,
-    dispatch?: Dispatch
-): Dispatch | undefined => {
-    if (!dispatch) {
-        return undefined;
-    }
-
-    const { $from, $to } = state.selection;
-
-    return (tr) => {
-        // The new list's outer boundaries: the start maps before the
-        // inserted wrapping, the end maps after it.
-        const start = mapKeepBefore(tr, $from.before(1));
-        const end = tr.mapping.map($to.after(1));
-        // Back to front, so the earlier boundary stays valid after a join.
-        joinSameTypeBoundary(tr, targetType, end);
-        joinSameTypeBoundary(tr, targetType, start);
-
-        dispatch(tr);
-    };
-};
-
-const joinSameTypeBoundary = (
-    tr: Transaction,
-    targetType: NodeType,
-    boundary: number
-): void => {
-    if (boundary <= 0 || boundary >= tr.doc.content.size) {
-        return;
-    }
-
-    const $boundary = tr.doc.resolve(boundary);
-    if (
-        $boundary.nodeBefore?.type === targetType &&
-        $boundary.nodeAfter?.type === targetType
-    ) {
-        tr.join(boundary);
     }
 };
