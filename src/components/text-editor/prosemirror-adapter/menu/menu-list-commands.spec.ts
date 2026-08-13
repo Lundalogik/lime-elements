@@ -9,7 +9,6 @@ describe('List Commands', () => {
     let state: EditorState;
     let dispatch: Mock;
 
-    // Helper functions
     const createParagraph = (text: string) =>
         schema.nodes.paragraph.create(null, schema.text(text));
 
@@ -132,13 +131,11 @@ describe('List Commands', () => {
 
             state = state.apply(createParagraphs(['Test text']));
 
-            // Convert to bullet list
             bulletCommand(state, dispatch);
             expect(state.doc.firstChild.type.name).toBe(
                 EditorMenuTypes.BulletList
             );
 
-            // Convert to ordered list
             orderedCommand(state, dispatch);
             expect(state.doc.firstChild.type.name).toBe(
                 EditorMenuTypes.OrderedList
@@ -159,13 +156,11 @@ describe('List Commands', () => {
             state = state.apply(createParagraphs(expectedItems));
             selectAll();
 
-            // Convert to bullet list
             bulletCommand(state, dispatch);
 
             expect(state.doc.childCount).toBe(1);
             verifyListStructure(EditorMenuTypes.BulletList, expectedItems);
 
-            // Convert to ordered list
             orderedCommand(state, dispatch);
 
             expect(state.doc.childCount).toBe(1);
@@ -173,7 +168,6 @@ describe('List Commands', () => {
         });
 
         it('toggles list off back to paragraph', () => {
-            // Create bullet list
             const command = createListCommand(
                 schema,
                 EditorMenuTypes.BulletList
@@ -181,13 +175,11 @@ describe('List Commands', () => {
 
             state = state.apply(createParagraphs(['Test text']));
 
-            // Convert to bullet list
             command(state, dispatch);
             expect(state.doc.firstChild.type.name).toBe(
                 EditorMenuTypes.BulletList
             );
 
-            // Toggle it off
             command(state, dispatch);
             expect(state.doc.firstChild.type.name).toBe('paragraph');
             expect(state.doc.firstChild.textContent).toBe('Test text');
@@ -198,7 +190,6 @@ describe('List Commands', () => {
         const TEST_LINES = ['First line', 'Second line', 'Third line'];
 
         beforeEach(() => {
-            // Setup multiple paragraphs
             const tr = createParagraphs(TEST_LINES);
             state = state.apply(tr);
         });
@@ -209,7 +200,6 @@ describe('List Commands', () => {
                 EditorMenuTypes.BulletList
             );
 
-            // Select all content
             selectAll();
 
             command(state, dispatch);
@@ -228,16 +218,13 @@ describe('List Commands', () => {
                 EditorMenuTypes.OrderedList
             );
 
-            // Select all content
             selectAll();
 
-            // Convert to bullet list first
             bulletCommand(state, dispatch);
 
             expect(state.doc.childCount).toBe(1);
             verifyListStructure(EditorMenuTypes.BulletList, TEST_LINES);
 
-            // Convert to ordered list
             orderedCommand(state, dispatch);
 
             verifyListStructure(EditorMenuTypes.OrderedList, TEST_LINES);
@@ -409,18 +396,14 @@ describe('List Commands', () => {
                 EditorMenuTypes.BulletList
             );
 
-            // Create initial content as separate paragraphs.
             state = state.apply(createParagraphs(['Parent', 'Child']));
 
-            // Convert both paragraphs to a list
             selectAll();
             command(state, dispatch);
 
-            // Find the text node containing "Child" and capture its text content.
             let childPos: number | null = null;
             state.doc.descendants((node, pos) => {
                 if (node.isText && node.text.includes('Child')) {
-                    // Compute absolute position of "Child" inside this text node.
                     const index = node.text.indexOf('Child');
                     childPos = pos + index;
 
@@ -441,7 +424,6 @@ describe('List Commands', () => {
             );
             state = state.apply(tr);
 
-            // Same-type toggle on the selected item lifts it out of the list.
             command(state, dispatch);
 
             expect(state.doc.childCount).toBe(2);
@@ -649,7 +631,6 @@ describe('List Commands', () => {
 
         describe('mixed content handling', () => {
             it('does not apply when the selection includes a heading', () => {
-                // Setup paragraph and header
                 const tr = state.tr
                     .insertText('Regular text\n')
                     .insert(
@@ -685,7 +666,6 @@ describe('List Commands', () => {
                     );
                 state = state.apply(tr);
 
-                // Select all content so that both blocks are included.
                 selectAll();
 
                 expect(command.allowed(state)).toBe(false);
