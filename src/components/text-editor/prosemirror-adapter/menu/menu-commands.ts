@@ -1,9 +1,21 @@
 import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
 import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
-import { findWrapping, liftTarget } from 'prosemirror-transform';
+import { wrapInList, liftListItem } from 'prosemirror-schema-list';
 import { Command, EditorState, TextSelection } from 'prosemirror-state';
 import { EditorMenuTypes, EditorTextLink, LevelMapping } from './types';
 import { getLinkAttributes } from '../plugins/link/utils';
+import {
+    setActiveMethodForMark,
+    setActiveMethodForNode,
+    setActiveMethodForWrap,
+} from './menu-command-utils/active-state-utils';
+import {
+    resolveListContext,
+    convertInnermostList,
+    joinAdjacentListsOnDispatch,
+    selectionHasNonListableBlock,
+    unifyToList,
+} from './menu-command-utils/list-utils';
 
 type CommandFunction = (
     schema: Schema,
@@ -19,62 +31,6 @@ export interface CommandWithActive extends Command {
     active?: (state: EditorState) => boolean;
     allowed?: (state: EditorState) => boolean;
 }
-
-const setActiveMethodForMark = (
-    command: CommandWithActive,
-    markType: MarkType
-) => {
-    command.active = (state) => {
-        const { from, $from, to, empty } = state.selection;
-        if (empty) {
-            return !!markType.isInSet(state.storedMarks || $from.marks());
-        } else {
-            return state.doc.rangeHasMark(from, to, markType);
-        }
-    };
-};
-
-const setActiveMethodForNode = (
-    command: CommandWithActive,
-    nodeType: NodeType,
-    level?: number
-) => {
-    command.active = (state) => {
-        const { $from } = state.selection;
-        const node = $from.node($from.depth);
-
-        if (node && node.type.name === nodeType.name) {
-            if (nodeType.name === LevelMapping.Heading && level) {
-                return node.attrs.level === level;
-            }
-
-            return true;
-        }
-
-        return false;
-    };
-};
-
-const setActiveMethodForWrap = (
-    command: CommandWithActive,
-    nodeType: NodeType
-) => {
-    command.active = (state) => {
-        const { from, to } = state.selection;
-
-        for (let pos = from; pos <= to; pos++) {
-            const resolvedPos = state.doc.resolve(pos);
-            for (let i = resolvedPos.depth; i > 0; i--) {
-                const node = resolvedPos.node(i);
-                if (node && node.type.name === nodeType.name) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    };
-};
 
 const createInsertLinkCommand: CommandFunction = (
     schema: Schema,
@@ -246,51 +202,74 @@ const createWrapInCommand = (
     return command;
 };
 
-const toggleList = (listType) => {
-    return (state, dispatch) => {
-        const { $from, $to } = state.selection;
-        const range = $from.blockRange($to);
+/**
+ * Creates a command for toggling list types.
+ *
+ * @param schema - The ProseMirror schema.
+ * @param listTypeName - The name of the list type to toggle.
+ * @returns A command for toggling list types.
+ */
+export const createListCommand = (
+    schema: Schema,
+    listTypeName: string
+): CommandWithActive => {
+    const type = schema.nodes[listTypeName];
+    if (!type) {
+        throw new Error(`List type "${listTypeName}" not found in schema`);
+    }
 
-        if (!range) {
+    const command: CommandWithActive = (state, dispatch) => {
+        const context = resolveListContext(state, type);
+
+        if (context.kind === 'same-type') {
+            return liftListItem(schema.nodes.list_item)(state, dispatch);
+        }
+
+        if (context.kind === 'other-type') {
+            return convertInnermostList(
+                state,
+                context.listDepth,
+                type,
+                dispatch
+            );
+        }
+
+        if (context.kind === 'no-list') {
+            return wrapInList(type)(
+                state,
+                joinAdjacentListsOnDispatch(state, type, dispatch)
+            );
+        }
+
+        return unifyToList(state, type, dispatch);
+    };
+
+    command.allowed = (state) => {
+        if (!(state.selection instanceof TextSelection)) {
             return false;
         }
 
-        const wrapping = range && findWrapping(range, listType);
+        return !selectionHasNonListableBlock(state);
+    };
 
-        if (wrapping) {
-            // Wrap the selection in a list
-            if (dispatch) {
-                dispatch(state.tr.wrap(range, wrapping).scrollIntoView());
-            }
+    command.active = (state) => {
+        let isActive = false;
+        state.doc.nodesBetween(
+            state.selection.from,
+            state.selection.to,
+            (node) => {
+                if (node.type === type) {
+                    isActive = true;
 
-            return true;
-        } else {
-            // Check if we are in a list item and lift out of the list
-            const liftRange = range && liftTarget(range);
-            if (liftRange !== null) {
-                if (dispatch) {
-                    dispatch(state.tr.lift(range, liftRange).scrollIntoView());
+                    return false;
                 }
 
                 return true;
             }
+        );
 
-            return false;
-        }
+        return isActive;
     };
-};
-
-const createListCommand = (
-    schema: Schema,
-    listType: string
-): CommandWithActive => {
-    const type: NodeType | undefined = schema.nodes[listType];
-    if (!type) {
-        throw new Error(`List type "${listType}" not found in schema`);
-    }
-
-    const command: CommandWithActive = toggleList(type);
-    setActiveMethodForWrap(command, type);
 
     return command;
 };
@@ -354,6 +333,8 @@ export class MenuCommandFactory {
             'Mod-Shift-1': this.getCommand(EditorMenuTypes.HeaderLevel1),
             'Mod-Shift-2': this.getCommand(EditorMenuTypes.HeaderLevel2),
             'Mod-Shift-3': this.getCommand(EditorMenuTypes.HeaderLevel3),
+            'Mod-Shift-7': this.getCommand(EditorMenuTypes.OrderedList),
+            'Mod-Shift-8': this.getCommand(EditorMenuTypes.BulletList),
             'Mod-Shift-X': this.getCommand(EditorMenuTypes.Strikethrough),
             'Mod-`': this.getCommand(EditorMenuTypes.Code),
             'Mod-Shift-C': this.getCommand(EditorMenuTypes.CodeBlock),

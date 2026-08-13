@@ -115,7 +115,16 @@ export function buildEditorPlugins(options: EditorPluginsOptions): Plugin[] {
     } = options;
 
     return [
-        ...exampleSetup({ schema: schema, menuBar: false }),
+        // exampleSetup binds Shift-Ctrl-8/9 to a plain wrapInList. On
+        // Windows/Linux those are the same physical keys as our
+        // Mod-Shift-8/7 list commands, and exampleSetup's keymap runs
+        // first, so its bindings are suppressed to let the context-aware
+        // list commands own the shortcuts on every platform.
+        ...exampleSetup({
+            schema: schema,
+            menuBar: false,
+            mapKeys: { 'Shift-Ctrl-8': false, 'Shift-Ctrl-9': false },
+        }),
         keymap(menuCommandFactory.buildKeymap()),
         createTriggerPlugin(triggerCharacters, contentConverter),
         createLinkPlugin(onNewLinkSelection),
