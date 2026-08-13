@@ -47,6 +47,7 @@ removed (with a console warning) to prevent script injection.
  - [limel-example-markdown-headings](examples)
  - [limel-example-markdown-horizontal-rule](examples)
  - [limel-example-markdown-html](examples)
+ - [limel-example-markdown-html-tables](examples)
  - [limel-example-markdown-images](examples)
  - [limel-example-markdown-keys](examples)
  - [limel-example-markdown-links](examples)
@@ -78,6 +79,7 @@ graph TD;
   limel-example-markdown-headings --> limel-markdown
   limel-example-markdown-horizontal-rule --> limel-markdown
   limel-example-markdown-html --> limel-markdown
+  limel-example-markdown-html-tables --> limel-markdown
   limel-example-markdown-images --> limel-markdown
   limel-example-markdown-keys --> limel-markdown
   limel-example-markdown-links --> limel-markdown
