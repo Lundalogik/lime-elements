@@ -48,6 +48,79 @@ describe('sanitizeStyle', () => {
         expect(node.properties).toEqual(originalProperties);
     });
 
+    it('removes a zero width from a table element', () => {
+        const node = {
+            tagName: 'table',
+            properties: {
+                style: 'width: 0px; background-color: red;',
+            },
+        };
+        sanitizeStyle(node);
+        expect(node.properties.style).not.toContain('width');
+        expect(node.properties.style).toContain('background-color: red');
+    });
+
+    it('removes a unitless zero width from a table element', () => {
+        const node = {
+            tagName: 'table',
+            properties: {
+                style: 'width: 0;',
+            },
+        };
+        sanitizeStyle(node);
+        expect(node.properties.style).not.toContain('width');
+    });
+
+    it.each(['.0px', '00px', '-0px', '+0em', '0e0px'])(
+        'removes the zero width `%s` from a table element',
+        (zeroWidth) => {
+            const node = {
+                tagName: 'table',
+                properties: {
+                    style: `width: ${zeroWidth};`,
+                },
+            };
+            sanitizeStyle(node);
+            expect(node.properties.style).not.toContain('width');
+        }
+    );
+
+    it.each(['0.5px', '10%', 'auto', 'calc(0px)'])(
+        'keeps the non-zero or non-literal width `%s` on a table element',
+        (width) => {
+            const node = {
+                tagName: 'table',
+                properties: {
+                    style: `width: ${width};`,
+                },
+            };
+            sanitizeStyle(node);
+            expect(node.properties.style).toContain('width');
+        }
+    );
+
+    it('keeps a non-zero width on a table element', () => {
+        const node = {
+            tagName: 'table',
+            properties: {
+                style: 'width: 50%;',
+            },
+        };
+        sanitizeStyle(node);
+        expect(node.properties.style).toContain('width: 50%');
+    });
+
+    it('keeps a zero width on elements other than tables', () => {
+        const node = {
+            tagName: 'div',
+            properties: {
+                style: 'width: 0px;',
+            },
+        };
+        sanitizeStyle(node);
+        expect(node.properties.style).toContain('width: 0px');
+    });
+
     it('applies sanitization to a node with a valid `style` property and retains other properties unchanged', () => {
         const node = {
             tagName: 'div',

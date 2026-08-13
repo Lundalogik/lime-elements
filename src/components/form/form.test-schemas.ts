@@ -411,6 +411,22 @@ export const topLevelStringCustomComponentSchema: FormSchema = {
     },
 };
 
+export const stringWithDefaultCustomComponentSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        icon: {
+            type: 'string',
+            title: 'Icon',
+            default: 'decision',
+            lime: { component: { name: 'limel-input-field' } },
+        },
+        name: {
+            type: 'string',
+            title: 'Name',
+        },
+    },
+};
+
 export const arrayItemWithDependenciesSchema: FormSchema = {
     type: 'object',
     properties: {
