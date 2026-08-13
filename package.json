@@ -112,7 +112,7 @@
     "shx": "^0.4.0",
     "sirv": "^3.0.2",
     "sortablejs": "^1.15.7",
-    "style-to-object": "^1.0.14",
+    "style-to-object": "^2.0.2",
     "tabulator-tables": "^6.5.2",
     "typescript": "^4.9.5",
     "unified": "^11.0.5",
