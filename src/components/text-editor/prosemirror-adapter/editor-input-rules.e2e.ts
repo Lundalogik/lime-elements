@@ -132,5 +132,11 @@ describe('input rules through the real stack', () => {
 
         pressKey(view, { key: 'z', keyCode: 90, mod: true, shiftKey: true });
         expect(view.state.doc).toEqualDoc(doc(p('hi')));
+
+        pressKey(view, { key: 'z', keyCode: 90, mod: true, shiftKey: true });
+        expect(view.state.doc).toEqualDoc(doc(blockquote(p('hi'))));
+
+        pressKey(view, { key: 'z', keyCode: 90, mod: true, shiftKey: true });
+        expect(view.state.doc).toEqualDoc(doc(blockquote(p('hi!'))));
     });
 });

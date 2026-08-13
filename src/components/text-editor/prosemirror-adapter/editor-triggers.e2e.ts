@@ -307,8 +307,10 @@ describe('trigger event mechanics', () => {
         const { view, events } = setUp();
         typeText(view, '@a');
 
-        expect(events[0].detail.textEditor).not.toBe(
-            events[1].detail.textEditor
+        expect(events.length).toBeGreaterThanOrEqual(2);
+        const inserters = new Set(
+            events.map((event) => event.detail.textEditor)
         );
+        expect(inserters.size).toBe(events.length);
     });
 });
