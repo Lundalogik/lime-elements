@@ -531,21 +531,19 @@ export class ProsemirrorAdapter {
         activeTypes: Record<EditorMenuTypes, boolean>,
         allowedTypes: Record<EditorMenuTypes, boolean>
     ) => {
-        const newItems = getTextEditorMenuItems().map((item) => {
-            if (isItem(item)) {
-                return {
-                    ...item,
-                    selected: activeTypes[item.value],
-                    allowed: allowedTypes[item.value],
-                };
-            }
+        this.actionBarItems = getTextEditorMenuItems()
+            .map(this.getTranslatedItem)
+            .map((item) => {
+                if (isItem(item)) {
+                    return {
+                        ...item,
+                        selected: activeTypes[item.value],
+                        disabled: !allowedTypes[item.value],
+                    };
+                }
 
-            return item;
-        });
-
-        this.actionBarItems = newItems.filter((item) =>
-            isItem(item) ? item.allowed : true
-        );
+                return item;
+            });
     };
 
     private async updateView(content: string) {
