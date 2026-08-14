@@ -6,6 +6,7 @@ import {
     textSelection,
 } from './test/editor-test-harness';
 import './test/editor-doc-matcher';
+import { AllSelection } from 'prosemirror-state';
 import { EditorMenuTypes, editorMenuTypesArray } from './menu/types';
 import { CommandWithActive } from './menu/menu-commands';
 
@@ -213,6 +214,21 @@ describe('menu commands against the real schema', () => {
             expect(next.doc).toEqualDoc(
                 doc(heading({ level: level }, 'title'))
             );
+        });
+
+        it('is a no-op for a select-all spanning multiple blocks', () => {
+            const start = doc(p('one'), p('two'));
+            const state = createEditorTestState(
+                harness,
+                start,
+                new AllSelection(start)
+            );
+            const { state: next, handled } = runCommand(
+                state,
+                harness.factory.getCommand(EditorMenuTypes.HeaderLevel1)
+            );
+            expect(handled).toBe(false);
+            expect(next.doc).toEqualDoc(start);
         });
 
         it('turns a heading back into a paragraph at the same level', () => {

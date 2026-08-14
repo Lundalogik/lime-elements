@@ -127,14 +127,15 @@ const toggleNodeType = (
     return (state, dispatch) => {
         const { $from, $to } = state.selection;
 
-        const hasActiveWrap = $from.node($from.depth - 1).type === nodeType;
-
         if (
             state.selection instanceof TextSelection &&
             // Ensure selection is within the same parent block
             // We don't want toggling block types across multiple blocks
             $from.sameParent($from.doc.resolve($to.pos))
         ) {
+            // Resolved only under the TextSelection guard: an AllSelection
+            // resolves at depth 0, where there is no parent node to read.
+            const hasActiveWrap = $from.node($from.depth - 1).type === nodeType;
             if ($from.parent.type === nodeType) {
                 if (dispatch) {
                     dispatch(
