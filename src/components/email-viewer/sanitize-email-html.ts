@@ -3,17 +3,7 @@ import rehypeParse from 'rehype-parse';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
-
-const allowedMimeTypes = new Set([
-    'image/png',
-    'image/jpeg',
-    'image/jpg',
-    'image/gif',
-    'image/webp',
-    'image/bmp',
-    'image/x-icon',
-    'image/vnd.microsoft.icon',
-]);
+import { isSafeImageDataUrl } from '../markdown/safe-image-data-urls';
 
 /**
  * Sanitizes email HTML to prevent XSS and other security issues while
@@ -161,27 +151,13 @@ function sanitizeDangerousUrls(node: any) {
  * @returns A safe `src` to keep, or `undefined` to strip it.
  */
 function getSafeEmailImageSrc(src: string): string | undefined {
-    const trimmedSrc = src.trim();
-    if (!trimmedSrc) {
-        return;
-    }
-
     // Only allow embedded images. Loading remote images has privacy implications
     // (tracking pixels) and may leak network details.
-    if (!trimmedSrc.toLowerCase().startsWith('data:')) {
+    if (!isSafeImageDataUrl(src)) {
         return;
     }
 
-    const mimeType = getDataUrlMimeType(trimmedSrc);
-    if (!mimeType) {
-        return;
-    }
-
-    if (!allowedMimeTypes.has(mimeType)) {
-        return;
-    }
-
-    return trimmedSrc;
+    return src.trim();
 }
 
 /**
@@ -196,21 +172,6 @@ function getRemoteEmailImageSrc(src: string): string | undefined {
     if (lower.startsWith('http://') || lower.startsWith('https://')) {
         return trimmedSrc;
     }
-}
-
-/**
- * Extracts the MIME type from a `data:` URL.
- *
- * @param dataUrl - A `data:` URL string.
- * @returns The MIME type if present.
- */
-function getDataUrlMimeType(dataUrl: string): string | undefined {
-    // data:[<mime type>][;charset=<charset>][;base64],<data>
-    const match = /^data:([^;,]+)(?:;charset=[^;,]+)?(?:;base64)?,/i.exec(
-        dataUrl
-    );
-    const mimeType = match?.[1]?.toLowerCase();
-    return mimeType || undefined;
 }
 
 /**
