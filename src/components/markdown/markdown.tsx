@@ -25,6 +25,7 @@ import { adaptColorContrast } from '../../util/adapt-color-contrast';
  * @exampleComponent limel-example-markdown-headings
  * @exampleComponent limel-example-markdown-emphasis
  * @exampleComponent limel-example-markdown-lists
+ * @exampleComponent limel-example-markdown-nested-lists
  * @exampleComponent limel-example-markdown-links
  * @exampleComponent limel-example-markdown-images
  * @exampleComponent limel-example-markdown-code
