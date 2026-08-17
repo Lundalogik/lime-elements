@@ -1,3 +1,10 @@
+## [39.45.1](https://github.com/Lundalogik/lime-elements/compare/v39.45.0...v39.45.1) (2026-08-17)
+
+### Bug Fixes
+
+
+* **text-editor:** focus the link field when the link menu opens ([1226d6a](https://github.com/Lundalogik/lime-elements/commit/1226d6a6e3e0fdf3f85a676c1355fb891a8081f7))
+
 ## [39.45.0](https://github.com/Lundalogik/lime-elements/compare/v39.44.6...v39.45.0) (2026-08-17)
 
 ### Features
