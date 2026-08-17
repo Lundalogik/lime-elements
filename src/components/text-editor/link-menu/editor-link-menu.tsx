@@ -54,7 +54,7 @@ export class TextEditorLinkMenu {
     @Event()
     private linkChange: EventEmitter<EditorTextLink>;
 
-    private textInput: HTMLLimelInputFieldElement;
+    private linkInput: HTMLLimelInputFieldElement;
     private saveButton: HTMLLimelButtonElement;
 
     public connectedCallback() {
@@ -76,12 +76,12 @@ export class TextEditorLinkMenu {
     }
 
     public componentDidLoad() {
-        this.focusOnTextInput();
+        this.focusOnLinkInput();
     }
 
-    private focusOnTextInput() {
-        if (this.textInput) {
-            const inputField = this.textInput.shadowRoot.querySelector('input');
+    private focusOnLinkInput() {
+        if (this.linkInput) {
+            const inputField = this.linkInput.shadowRoot.querySelector('input');
             if (inputField) {
                 requestAnimationFrame(() => {
                     inputField.focus();
@@ -100,9 +100,6 @@ export class TextEditorLinkMenu {
                 leadingIcon="text_cursor"
                 onChange={this.handleLinkTitleChange}
                 onKeyDown={this.handleKeyDown}
-                ref={(el) =>
-                    (this.textInput = el as HTMLLimelInputFieldElement)
-                }
             />,
             <limel-input-field
                 label={this.getTranslation('editor-link-menu.link')}
@@ -114,6 +111,9 @@ export class TextEditorLinkMenu {
                 onChange={this.handleLinkValueChange}
                 onAction={this.handleLinkInputAction}
                 onKeyDown={this.handleKeyDown}
+                ref={(el) =>
+                    (this.linkInput = el as HTMLLimelInputFieldElement)
+                }
             />,
             <div class="actions">
                 <limel-button
