@@ -1,0 +1,1 @@
+import{g as r}from"./_getNative-DgsbF66y.js";var t=function(){try{var t=r(Object,"defineProperty");return t({},"",{}),t}catch(r){}}();export{t as d}
