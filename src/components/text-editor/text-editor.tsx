@@ -35,6 +35,7 @@ import { EditorUiType } from './types';
  * @exampleComponent limel-example-text-editor-with-markdown
  * @exampleComponent limel-example-text-editor-with-html
  * @exampleComponent limel-example-text-editor-with-tables
+ * @exampleComponent limel-example-text-editor-lists
  * @exampleComponent limel-example-text-editor-with-inline-images-base64
  * @exampleComponent limel-example-text-editor-with-inline-images-custom-tag
  * @exampleComponent limel-example-text-editor-allow-resize
