@@ -1,7 +1,10 @@
 ul {
     list-style: none;
-    li {
-        position: relative;
+
+    // Child combinator: a descendant selector would also give the
+    // custom bullet to items of an `ol` nested inside a `ul`, showing
+    // both a number and a dot on the same item.
+    > li {
         margin-left: 0.75rem;
 
         &:before {
@@ -38,5 +41,9 @@ ol ul {
 }
 
 li {
+    // Positioned regardless of list type: the text editor anchors its
+    // node-selection outline (`li.ProseMirror-selectednode:after`) to
+    // the item's box.
+    position: relative;
     margin-bottom: 0.25rem;
 }
