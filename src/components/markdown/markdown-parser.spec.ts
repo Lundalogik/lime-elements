@@ -727,14 +727,48 @@ describe('sanitizeHTML', () => {
         });
     });
 
-    describe('data URLs', () => {
-        it('should strip data URLs for security', async () => {
-            // Data URLs are stripped by the sanitizer to prevent
-            // potential XSS via data: protocol
+    describe('data URL images', () => {
+        const BASE64_PNG =
+            'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVR4nGP4DwABAQEAWk1v8QAAAABJRU5ErkJggg==';
+
+        it('keeps an embedded image on an html img', async () => {
             const result = await sanitizeHTML(
-                '<img src="data:image/png;base64,abc123">'
+                `<p><img alt="picture.png" src="${BASE64_PNG}"></p>`
             );
-            expect(result).toEqualHtml('<img>');
+
+            expect(result).toContain(BASE64_PNG);
+        });
+
+        it('keeps an embedded image written as markdown', async () => {
+            const result = await markdownToHTML(
+                `![picture.png](${BASE64_PNG})`
+            );
+
+            expect(result).toContain(BASE64_PNG);
+        });
+
+        it('strips a data URL whose MIME type is not an image', async () => {
+            const result = await sanitizeHTML(
+                '<img src="data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==">'
+            );
+
+            expect(result).not.toContain('data:');
+        });
+
+        it('strips an svg data URL, which can carry script', async () => {
+            const result = await sanitizeHTML(
+                '<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjwvc3ZnPg==">'
+            );
+
+            expect(result).not.toContain('data:');
+        });
+
+        it('strips a data URL from a link', async () => {
+            const result = await sanitizeHTML(
+                '<a href="data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==">Click</a>'
+            );
+
+            expect(result).not.toContain('data:');
         });
     });
 
