@@ -157,6 +157,44 @@ describe('limel-text-editor', () => {
         expect(adapter.getAttribute('id')).toBe(labelId);
     });
 
+    describe('toolbar translations', () => {
+        test('a menu-state update keeps the labels in the configured language', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-text-editor language="sv" value="hej" />
+            );
+            await waitForChanges();
+
+            const adapter = getAdapter(root);
+            const actionBar = await vi.waitFor(() => {
+                const bar = adapter.shadowRoot.querySelector(
+                    'limel-action-bar'
+                ) as any;
+                expect(bar).toBeTruthy();
+
+                return bar;
+            });
+
+            const bulletItem = () =>
+                actionBar.actions.find(
+                    (item: any) => item.value === 'bullet_list'
+                );
+
+            expect(bulletItem().text).toBe('Punktlista');
+
+            actionBar.dispatchEvent(
+                new CustomEvent('itemSelected', {
+                    detail: { value: 'bullet_list' },
+                })
+            );
+            await waitForChanges();
+
+            await vi.waitFor(() => {
+                expect(bulletItem().selected).toBe(true);
+            });
+            expect(bulletItem().text).toBe('Punktlista');
+        });
+    });
+
     describe('caret position on focus', () => {
         // The adapter restores a clicked position one tick after the focus
         // event; wait comfortably longer before asserting caret behavior.

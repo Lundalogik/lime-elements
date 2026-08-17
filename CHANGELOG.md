@@ -1,3 +1,17 @@
+## [39.45.0](https://github.com/Lundalogik/lime-elements/compare/v39.44.6...v39.45.0) (2026-08-17)
+
+### Features
+
+
+* **text editor:** handle tab, enter and backspace inside lists ([b10f2de](https://github.com/Lundalogik/lime-elements/commit/b10f2de2f0f6b4fcbc563e295b93f9bd1cd80282))
+* **text editor:** toggle, convert, wrap and unify lists from the menu ([6aae41c](https://github.com/Lundalogik/lime-elements/commit/6aae41c0d022f16bb5dd4c5646cde03bdd99b381))
+### Bug Fixes
+
+
+* **text editor:** align list command applicability between keymap and toolbar ([50fcdb6](https://github.com/Lundalogik/lime-elements/commit/50fcdb6816eae789283fe149cbf622eb5c1a15c0))
+* **text editor:** disable disallowed menu items instead of hiding them ([dd2b235](https://github.com/Lundalogik/lime-elements/commit/dd2b235f06ec4a1b66627de1222bfde8050978f2))
+* **text editor:** stop block toggles from crashing on select-all ([64e861f](https://github.com/Lundalogik/lime-elements/commit/64e861f4ce48a70d09b5d9834d987a08875d2ded))
+
 ## [39.44.6](https://github.com/Lundalogik/lime-elements/compare/v39.44.5...v39.44.6) (2026-08-13)
 
 ### Bug Fixes
