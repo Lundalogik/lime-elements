@@ -14,6 +14,7 @@ import { createLazyLoadImagesPlugin } from './image-markdown-plugin';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 import { createLinksPlugin } from './link-markdown-plugin';
 import { createRemoveEmptyParagraphsPlugin } from './remove-empty-paragraphs-plugin';
+import { isSafeImageDataUrl } from './safe-image-data-urls';
 
 /**
  * Takes a string as input and returns a new string
@@ -44,13 +45,7 @@ export async function markdownToHTML(
         .use(rehypeRaw)
         .use(createLinksPlugin())
         .use(rehypeSanitize, getWhiteList(options?.whitelist ?? []))
-        .use(() => {
-            return (tree: Node) => {
-                // Run the sanitizeStyle function on all elements, to sanitize
-                // the value of the `style` attribute, if there is one.
-                visit(tree, 'element', sanitizeStyle);
-            };
-        })
+        .use(createElementSanitizationPlugin())
         .use(createRemoveEmptyParagraphsPlugin(options?.removeEmptyParagraphs))
         .use(createLazyLoadImagesPlugin(options?.lazyLoadImages))
         .use(rehypeStringify)
@@ -73,17 +68,51 @@ export async function sanitizeHTML(
     const file = await unified()
         .use(rehypeParse)
         .use(rehypeSanitize, getWhiteList(whitelist ?? []))
-        .use(() => {
-            return (tree: Node) => {
-                // Run the sanitizeStyle function on all elements, to sanitize
-                // the value of the `style` attribute, if there is one.
-                visit(tree, 'element', sanitizeStyle);
-            };
-        })
+        .use(createElementSanitizationPlugin())
         .use(rehypeStringify)
         .process(html);
 
     return file.toString();
+}
+
+/**
+ * Per-element sanitization that runs after `rehype-sanitize`, shared by
+ * `markdownToHTML` and `sanitizeHTML` so the same content is never sanitized
+ * one way on one path and another way on the other.
+ */
+function createElementSanitizationPlugin() {
+    return () => {
+        return (tree: Node) => {
+            // Sanitize the value of the `style` attribute, if there is one.
+            visit(tree, 'element', sanitizeStyle);
+            visit(tree, 'element', stripUnsafeDataUrlSources);
+        };
+    };
+}
+
+/**
+ * Removes a `src` holding a `data:` URL that is not an allowed image format.
+ *
+ * The schema lets `data:` through for `src` so that embedded images survive
+ * sanitization, which is wider than the format actually needs to be — this
+ * narrows it back down to image data, the only kind we intend to keep.
+ *
+ * @param node - The element to sanitize.
+ */
+function stripUnsafeDataUrlSources(node: any) {
+    const src = node?.properties?.src;
+
+    if (typeof src !== 'string') {
+        return;
+    }
+
+    // Only `data:` sources are in scope: every other protocol is already gated
+    // by the schema's protocol list, and `isSafeImageDataUrl` rejects them all.
+    const isDataUrl = src.trim().toLowerCase().startsWith('data:');
+
+    if (isDataUrl && !isSafeImageDataUrl(src)) {
+        delete node.properties.src;
+    }
 }
 
 function getWhiteList(allowedComponents: CustomElementDefinition[]): Schema {
@@ -121,6 +150,15 @@ function getWhiteList(allowedComponents: CustomElementDefinition[]): Schema {
         // — reinstate the prefix or scope its removal to whitelisted custom
         // elements only.
         clobberPrefix: '',
+        protocols: {
+            ...defaultSchema.protocols,
+            // Keep embedded images: the editor stores pasted images as
+            // `<img src="data:image/…;base64,…">` when no upload backend is
+            // configured, and stripping the protocol here would drop the image
+            // data on the way back in. `stripUnsafeDataUrlSources` narrows this
+            // to allowed image MIME types once the schema has run.
+            src: [...(defaultSchema.protocols?.src ?? []), 'data'],
+        },
         strip: [...(defaultSchema.strip ?? []), 'style'],
         tagNames: [
             ...(defaultSchema.tagNames || []),

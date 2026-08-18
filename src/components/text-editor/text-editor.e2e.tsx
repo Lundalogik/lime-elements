@@ -542,4 +542,62 @@ describe('limel-text-editor', () => {
             expect(changes).toHaveLength(0);
         });
     });
+
+    describe('embedded base64 images', () => {
+        const BASE64_PNG =
+            'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVR4nGP4DwABAQEAWk1v8QAAAABJRU5ErkJggg==';
+
+        const STORED_VALUE = `<p><img src="${BASE64_PNG}" alt="picture.png" /></p>`;
+
+        async function createEditor(value: string) {
+            const { root, waitForChanges } = await render(
+                <limel-text-editor contentType="html" value={value} />
+            );
+            await waitForChanges();
+
+            const editor = await vi.waitFor(() => {
+                const contentEditable = getAdapter(
+                    root
+                )?.shadowRoot?.querySelector('.ProseMirror') as HTMLElement;
+                expect(contentEditable).toBeTruthy();
+
+                return contentEditable;
+            });
+
+            const changes: string[] = [];
+            root.addEventListener('change', (event: CustomEvent<string>) => {
+                changes.push(event.detail);
+            });
+
+            return {
+                root: root as HTMLLimelTextEditorElement,
+                editor,
+                changes,
+            };
+        }
+
+        test('renders a stored image from its embedded data', async () => {
+            const { editor } = await createEditor(STORED_VALUE);
+
+            const image = await vi.waitFor(() => {
+                const img = editor.querySelector('img');
+                expect(img).toBeTruthy();
+
+                return img;
+            });
+
+            expect(image.getAttribute('src')).toBe(BASE64_PNG);
+        });
+
+        test('keeps the embedded data when the user edits stored content', async () => {
+            const { root, editor, changes } = await createEditor(STORED_VALUE);
+
+            editor.focus();
+            document.execCommand('insertText', false, 'caption');
+            await root.flushPendingChanges();
+
+            expect(changes).not.toHaveLength(0);
+            expect(changes.at(-1)).toContain(BASE64_PNG);
+        });
+    });
 });
