@@ -56,7 +56,7 @@
     "@microsoft/api-extractor": "^7.58.7",
     "@playwright/test": "1.60.0",
     "@popperjs/core": "^2.11.8",
-    "@rjsf/core": "^6.7.1",
+    "@rjsf/core": "6.7.0",
     "@rjsf/utils": "^6.7.1",
     "@rjsf/validator-ajv8": "^6.7.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
