@@ -60,12 +60,20 @@ was already `''` is skipped and the content is left untouched — for
 example, clearing the editor immediately after a send. Use this to
 empty the editor regardless of the prop's change detection.
 
-Does not emit a `change` event of its own. A `change` already queued
-for an empty document is still delivered, so a consumer calling this
-right after the user emptied the editor can receive `change('')`
-shortly after. If you mirror the editor content on `change` (drafts,
-validation, dirty state), reset your own copy when calling this. In
-readonly mode no editor is rendered, so this is a silent no-op.
+Any pending debounced `change` is also discarded, so content the user
+typed just before the call is never reported. To capture the final
+content before clearing, flush first:
+
+```ts
+await editor.flushPendingChanges(); // emits the final content
+send(this.boundValue);
+await editor.clear();
+```
+
+Does not emit a `change` event. If you mirror the editor content on
+`change` (drafts, validation, dirty state), reset your own copy when
+calling this. In readonly mode no editor is rendered, so this is a
+silent no-op.
 
 #### Returns
 
