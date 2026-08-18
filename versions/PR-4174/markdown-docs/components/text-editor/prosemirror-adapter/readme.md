@@ -45,9 +45,10 @@ content untouched — for example, clearing the editor right after a
 send. Use this to empty the editor regardless of the prop's change
 detection.
 
-Does not emit a `change` event. Consumers that mirror the editor
-content on `change` (drafts, validation, dirty state) should reset
-their own copy when calling this.
+Does not emit a `change` event of its own. A `change` already queued
+for an empty document is still delivered. Consumers that mirror the
+editor content on `change` (drafts, validation, dirty state) should
+reset their own copy when calling this.
 
 #### Returns
 
