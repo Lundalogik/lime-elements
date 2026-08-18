@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Prop, Watch } from '@stencil/core';
 import { DateType, Languages } from '../../date-picker/date.types';
 import translate from '../../../global/translations';
 import { DatePicker as DateOnlyPicker } from '../pickers/date-picker';
@@ -147,6 +147,17 @@ export class DatePickerCalendar {
         if (this.formatter) {
             this.picker.formatter = this.formatter;
         }
+    }
+
+    /**
+     * `componentWillLoad` only runs once, when the calendar is first
+     * created, so the `Picker` instance's own date format would otherwise
+     * stay pinned to whatever `format` was at that point — silently
+     * ignoring any later change to this prop.
+     */
+    @Watch('format')
+    protected watchFormat() {
+        this.picker?.setDateFormat(this.format);
     }
 
     public componentDidUpdate() {
