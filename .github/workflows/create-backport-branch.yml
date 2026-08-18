@@ -3,165 +3,123 @@ name: Create Backport Branch
 on:
   workflow_dispatch:
     inputs:
-      last_release_version:
-        description: 'The version of the last release. Example: 1.2.3'
+      branch_name:
+        description: 'Maintenance branch to create. Use `MAJOR.MINOR.x` for a minor line (e.g. `46.2085.x`) or `MAJOR.x.x` for a major line (e.g. `45.x.x`).'
         required: true
         type: string
-      new_release_version:
-        description: 'The version of the new release. Example: 1.3.0'
-        required: true
-        type: string
-      last_release_git_tag:
-        description: 'The git tag of the last release. Defaults to `v{last_release_version}`. Example: v1.2.3'
-        required: false
-        default: ''
-        type: string
-  workflow_call:
-    inputs:
-      last_release_version:
-        description: 'The version of the last release. Example: 1.2.3'
-        required: true
-        type: string
-      new_release_version:
-        description: 'The version of the new release. Example: 1.3.0'
-        required: true
-        type: string
-      last_release_git_tag:
-        description: 'The git tag of the last release. Defaults to `v{last_release_version}`. Example: v1.2.3'
-        required: false
-        default: ''
-        type: string
+
+permissions:
+  contents: read
 
 jobs:
   create_branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Validate version inputs
-        # These inputs are split into version parts and flow into git
-        # ref/branch names (`git fetch`/`checkout`/`push`). Enforce a strict
-        # version/tag shape so a crafted value can't inject git arguments or
-        # produce an unexpected branch name, especially on manual dispatch.
+      - name: Validate branch name and derive release line
+        id: derive
         env:
-          LAST_RELEASE_VERSION: ${{ inputs.last_release_version }}
-          NEW_RELEASE_VERSION: ${{ inputs.new_release_version }}
-          LAST_RELEASE_GIT_TAG: ${{ inputs.last_release_git_tag }}
+          BRANCH_NAME: ${{ inputs.branch_name }}
         run: |
-          # Strict SemVer (https://semver.org): major/minor/patch are numeric
-          # identifiers with no leading zeros, an optional pre-release of
-          # dot-separated identifiers (numeric ones also without leading
-          # zeros), and optional build metadata. `tag_re` additionally allows
-          # an optional `v` prefix.
-          #
-          # The major/minor/patch numerics are capped at 9 digits. Two
-          # downstream concerns drive the numeric rules: a leading zero (e.g.
-          # `08.2.3`) reaches the `[ "$NEW_MAJOR" -gt "$LAST_MAJOR" ]`
-          # comparison below as an invalid octal literal, and an absurdly
-          # long value would overflow bash's 64-bit integer comparison. A
-          # 9-digit cap stays well inside that range while far exceeding any
-          # real version number.
-          semver_core='(0|[1-9][0-9]{0,8})\.(0|[1-9][0-9]{0,8})\.(0|[1-9][0-9]{0,8})(-(0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(\.(0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?'
-          version_re="^${semver_core}$"
-          tag_re="^v?${semver_core}$"
-          if [[ ! "$LAST_RELEASE_VERSION" =~ $version_re ]]; then
-            echo "::error::Invalid last_release_version '$LAST_RELEASE_VERSION'. Expected e.g. 1.2.3."
+          # Only accept the maintenance-branch shapes that actually auto-release.
+          # release.config.js's `branches` glob also allows a bare `MAJOR.x`, but
+          # release.yml's push trigger only fires on `MAJOR.MINOR.x` and
+          # `MAJOR.x.x`, so a `MAJOR.x` branch would never trigger a release.
+          # Restrict to the two shapes both files agree on:
+          #   MAJOR.MINOR.x         MAJOR.x.x
+          shape='^[0-9]+\.([0-9]+|x)\.x$'
+          if ! [[ "$BRANCH_NAME" =~ $shape ]]; then
+            echo "::error::Invalid branch name '$BRANCH_NAME'. Expected a maintenance branch like '46.2085.x' (minor line) or '45.x.x' (major line)."
             exit 1
           fi
-          if [[ ! "$NEW_RELEASE_VERSION" =~ $version_re ]]; then
-            echo "::error::Invalid new_release_version '$NEW_RELEASE_VERSION'. Expected e.g. 1.3.0."
-            exit 1
-          fi
-          if [[ -n "$LAST_RELEASE_GIT_TAG" && ! "$LAST_RELEASE_GIT_TAG" =~ $tag_re ]]; then
-            echo "::error::Invalid last_release_git_tag '$LAST_RELEASE_GIT_TAG'. Expected e.g. v1.2.3."
-            exit 1
-          fi
-      - name: Extract Last Release Major and Minor Versions
-        id: extract_last_versions
-        env:
-          LAST_RELEASE_VERSION: ${{ inputs.last_release_version }}
-        run: |
-          IFS='.' read -r last_major last_minor last_patch <<< "$LAST_RELEASE_VERSION"
-          echo "last_major=$last_major" >> "$GITHUB_OUTPUT"
-          echo "last_minor=$last_minor" >> "$GITHUB_OUTPUT"
-          echo "last major: $last_major"
-          echo "last minor: $last_minor"
-
-      - name: Extract New Release Major and Minor Versions
-        id: extract_new_versions
-        env:
-          NEW_RELEASE_VERSION: ${{ inputs.new_release_version }}
-        run: |
-          IFS='.' read -r new_major new_minor new_patch <<< "$NEW_RELEASE_VERSION"
-          echo "new_major=$new_major" >> "$GITHUB_OUTPUT"
-          echo "new_minor=$new_minor" >> "$GITHUB_OUTPUT"
-          echo "new major: $new_major"
-          echo "new minor: $new_minor"
-
-      - name: Determine Bump Type
-        id: determine_bump
-        env:
-          NEW_MAJOR: ${{ steps.extract_new_versions.outputs.new_major }}
-          NEW_MINOR: ${{ steps.extract_new_versions.outputs.new_minor }}
-          LAST_MAJOR: ${{ steps.extract_last_versions.outputs.last_major }}
-          LAST_MINOR: ${{ steps.extract_last_versions.outputs.last_minor }}
-        run: |
-          if [ "$NEW_MAJOR" -gt "$LAST_MAJOR" ]; then
-            echo "bump_type=major" >> "$GITHUB_OUTPUT"
-            echo 'bump type is `major`'
-          elif [ "$NEW_MAJOR" -eq "$LAST_MAJOR" ] && [ "$NEW_MINOR" -gt "$LAST_MINOR" ]; then
-            echo "bump_type=minor" >> "$GITHUB_OUTPUT"
-            echo 'bump type is `minor`'
-          else
-            echo "bump_type=patch" >> "$GITHUB_OUTPUT"
-            echo 'bump type is `patch` or other'
-          fi
-
-      - name: Determine Branch Name
-        id: determine_branch_name
-        env:
-          BUMP_TYPE: ${{ steps.determine_bump.outputs.bump_type }}
-          LAST_MAJOR: ${{ steps.extract_last_versions.outputs.last_major }}
-          LAST_MINOR: ${{ steps.extract_last_versions.outputs.last_minor }}
-        run: |
-          if [ "$BUMP_TYPE" = "major" ]; then
-            branch_name="${LAST_MAJOR}.x.x"
-          elif [ "$BUMP_TYPE" = "minor" ]; then
-            branch_name="${LAST_MAJOR}.${LAST_MINOR}.x"
-          else
-            branch_name=""
-          fi
-          echo "branch_name=$branch_name" >> "$GITHUB_OUTPUT"
-          echo "branch name: $branch_name"
-
-      - name: Set Last Release Git Tag
-        id: set_git_tag
-        if: ${{ steps.determine_branch_name.outputs.branch_name != '' }}
-        env:
-          LAST_RELEASE_GIT_TAG_INPUT: ${{ inputs.last_release_git_tag }}
-          LAST_RELEASE_VERSION_INPUT: ${{ inputs.last_release_version }}
-        run: |
-          if [ -z "$LAST_RELEASE_GIT_TAG_INPUT" ]; then
-            git_tag="v$LAST_RELEASE_VERSION_INPUT"
-          else
-            git_tag="$LAST_RELEASE_GIT_TAG_INPUT"
-          fi
-          echo "last_release_git_tag=${git_tag}" >> "$GITHUB_OUTPUT"
-          echo "last release git tag: ${git_tag}"
+          # Everything before the first `.x` is the numeric prefix of the line.
+          # e.g. 46.2085.x -> 46.2085 ; 45.x.x -> 45
+          prefix="${BRANCH_NAME%%.x*}"
+          echo "tag_glob=refs/tags/v${prefix}.*" >> "$GITHUB_OUTPUT"
+          echo "Branch '$BRANCH_NAME' maps to release tags matching 'v${prefix}.*'."
 
       - name: Checkout Code
-        if: ${{ steps.determine_branch_name.outputs.branch_name != '' }}
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           persist-credentials: true
-          token: ${{ secrets.CREATE_RELEASE }}
 
-      - name: Create Release Branch
-        if: ${{ steps.determine_branch_name.outputs.branch_name != '' }}
+      - name: Ensure branch does not already exist
         env:
-          LAST_RELEASE_GIT_TAG: ${{ steps.set_git_tag.outputs.last_release_git_tag }}
-          BRANCH_NAME: ${{ steps.determine_branch_name.outputs.branch_name }}
+          BRANCH_NAME: ${{ inputs.branch_name }}
         run: |
-          git fetch origin "refs/tags/$LAST_RELEASE_GIT_TAG:refs/tags/$LAST_RELEASE_GIT_TAG"
-          git checkout "$LAST_RELEASE_GIT_TAG"
-          git checkout -b "$BRANCH_NAME"
-          git push origin "$BRANCH_NAME"
-          echo "branch created: $BRANCH_NAME"
+          # --exit-code: 0 = branch exists, 2 = no matching ref, anything else
+          # (e.g. auth/network failure) is a real error we must not treat as
+          # "does not exist". Capture the status without letting `set -e` abort.
+          status=0
+          git ls-remote --exit-code --heads origin "$BRANCH_NAME" >/dev/null 2>&1 || status=$?
+          if [ "$status" -eq 0 ]; then
+            echo "::error::Branch '$BRANCH_NAME' already exists on origin. Nothing to do."
+            exit 1
+          elif [ "$status" -ne 2 ]; then
+            echo "::error::Could not check whether '$BRANCH_NAME' exists on origin (git ls-remote exited $status)."
+            exit 1
+          fi
+          echo "Branch '$BRANCH_NAME' does not exist yet."
+
+      - name: Determine start point
+        id: start_point
+        env:
+          TAG_GLOB: ${{ steps.derive.outputs.tag_glob }}
+        run: |
+          # The branch always starts from the latest release on its line - that
+          # is the only sensible base for a maintenance branch, and any other
+          # start point would break auto-release (branching from an older tag
+          # makes semantic-release try to republish a tag that already exists).
+          #
+          # Fetch the ref list first so a genuine `ls-remote` failure (non-zero
+          # exit, e.g. transient network/auth) gets curated guidance. A no-match
+          # is NOT a failure: `git ls-remote` exits 0 with empty output, so
+          # `tags` is empty and the `-z` guard below owns that case.
+          if ! tags="$(git ls-remote --tags --refs origin "$TAG_GLOB")"; then
+            echo "::error::Could not list release tags from origin (git ls-remote failed). This is usually transient - rerun the workflow."
+            exit 1
+          fi
+          # Latest stable release tag on this line. Prereleases (containing a
+          # hyphen, e.g. -beta.1) are excluded; `sort -V` orders by version.
+          # `|| true` keeps a no-match (grep exit 1) from aborting the step
+          # under `set -eo pipefail`, so the `-z` guard below owns the error.
+          start_point="$(printf '%s\n' "$tags" \
+            | sed 's#.*refs/tags/##' \
+            | { grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' || true; } \
+            | sort -V \
+            | tail -n1)"
+          if [ -z "$start_point" ]; then
+            echo "::error::No release found on the '$TAG_GLOB' line. A maintenance branch can only be created for a release line that already has at least one release. If you need a branch from a non-standard start point, create it manually."
+            exit 1
+          fi
+          echo "Latest release on this line: $start_point"
+          echo "start_point=$start_point" >> "$GITHUB_OUTPUT"
+
+      - name: Create branch
+        env:
+          GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
+          REPO: ${{ github.repository }}
+          BRANCH_NAME: ${{ inputs.branch_name }}
+          START_POINT: ${{ steps.start_point.outputs.start_point }}
+        run: |
+          # `--` stops the start point being parsed as an option. It is always a
+          # `vX.Y.Z` tag we resolved above (never user input), so this is purely
+          # defensive - kept so the command stays safe if that ever changes.
+          if ! git fetch --no-tags origin -- "$START_POINT"; then
+            echo "::error::Could not fetch '$START_POINT' from origin. This is usually transient - rerun the workflow."
+            exit 1
+          fi
+          sha="$(git rev-parse "FETCH_HEAD^{commit}")"
+          echo "Creating 'refs/heads/$BRANCH_NAME' at $sha (from $START_POINT)."
+          if ! gh api --method POST "repos/$REPO/git/refs" \
+              -f "ref=refs/heads/$BRANCH_NAME" \
+              -f "sha=$sha"; then
+            echo "::error::Failed to create branch '$BRANCH_NAME' via the Git Refs API. Check that the CREATE_RELEASE token can push to this repo and that repository rules allow it to create this branch."
+            exit 1
+          fi
+          echo "Created branch '$BRANCH_NAME' from '$START_POINT'."
+          {
+            echo "### Backport branch created"
+            echo ""
+            echo "- **Branch:** \`$BRANCH_NAME\`"
+            echo "- **Started from:** \`$START_POINT\`"
+          } >> "$GITHUB_STEP_SUMMARY"
