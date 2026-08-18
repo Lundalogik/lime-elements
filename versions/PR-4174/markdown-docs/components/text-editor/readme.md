@@ -62,13 +62,9 @@ empty the editor regardless of the prop's change detection.
 
 Any pending debounced `change` is also discarded, so content the user
 typed just before the call is never reported. To capture the final
-content before clearing, flush first:
-
-```ts
-await editor.flushPendingChanges(); // emits the final content
-send(this.boundValue);
-await editor.clear();
-```
+content before clearing, flush first — `await flushPendingChanges()`
+delivers the final content, then read the bound value, then
+`await clear()`.
 
 Does not emit a `change` event. If you mirror the editor content on
 `change` (drafts, validation, dirty state), reset your own copy when
