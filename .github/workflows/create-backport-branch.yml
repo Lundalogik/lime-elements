@@ -11,6 +11,10 @@ on:
 permissions:
   contents: read
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   create_branch:
     runs-on: ubuntu-latest
@@ -50,7 +54,7 @@ jobs:
           # (e.g. auth/network failure) is a real error we must not treat as
           # "does not exist". Capture the status without letting `set -e` abort.
           status=0
-          git ls-remote --exit-code --heads origin "$BRANCH_NAME" >/dev/null 2>&1 || status=$?
+          git ls-remote --exit-code --heads origin "refs/heads/$BRANCH_NAME" >/dev/null 2>&1 || status=$?
           if [ "$status" -eq 0 ]; then
             echo "::error::Branch '$BRANCH_NAME' already exists on origin. Nothing to do."
             exit 1
