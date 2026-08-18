@@ -1,0 +1,435 @@
+:root {
+    --shadow-brighten-edges-inside:
+        0 -1px 0.26rem rgb(var(--color-white), 0.06) inset,
+        0 0 0 1px rgb(var(--color-white), 0.06) inset;
+    --button-shadow-normal:
+        0 0.09375rem 0.225rem 0 rgb(var(--color-black), 0.232),
+        0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.208),
+        var(--shadow-brighten-edges-inside);
+    --button-shadow-hovered:
+        0 0.125rem 0.375rem rgb(var(--color-black), 0.25),
+        0 0.4rem 0.475rem -0.3rem rgb(var(--color-black), 0.1),
+        var(--shadow-brighten-edges-inside);
+    --button-shadow-pressed:
+        0 0.0625rem 0.1875rem 0 rgb(var(--color-black), 0.132),
+        0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.108),
+        var(--shadow-brighten-edges-inside);
+    --shadow-depth-16:
+        0 0.4rem 0.9rem 0 rgb(var(--color-black), 0.132),
+        0 0.075rem 0.225rem 0 rgb(var(--color-black), 0.108);
+    --button-shadow-focused:
+        var(--button-shadow-hovered),
+        0 0 0 0.125rem rgb(var(--color-teal-default));
+
+    --contrast-100: 255, 255, 255;
+    --contrast-200: 250, 250, 251;
+    --contrast-300: 246, 246, 247;
+    --contrast-400: 241, 241, 243;
+    --contrast-500: 237, 237, 238;
+    --contrast-600: 232, 232, 234;
+    --contrast-700: 209, 209, 213;
+    --contrast-800: 186, 186, 192;
+    --contrast-900: 140, 140, 150;
+    --contrast-1000: 117, 117, 128;
+    --contrast-1100: 94, 94, 108;
+    --contrast-1200: 71, 71, 86;
+    --contrast-1300: 48, 48, 66;
+    --contrast-1400: 39, 39, 57;
+    --contrast-1500: 35, 35, 53;
+    --contrast-1600: 25, 25, 44;
+    --contrast-1700: 20, 20, 37;
+    --color-white: 255, 255, 255;
+    --color-black: 0, 0, 0;
+
+    --color-teal-default: 0, 150, 136;
+    --color-teal-dark: 0, 121, 107;
+    --color-amber-default: 255, 193, 7;
+    --color-amber-dark: 255, 160, 0;
+    --color-sky-light: 41, 182, 246;
+    --color-sky-default: 3, 155, 229;
+
+    --lime-elevated-surface-background-color: rgb(var(--contrast-200));
+
+    --limel-clickable-transition-speed: 0.4s;
+    --limel-clickable-transform-speed: 0.4s;
+    --limel-clickable-transform-timing-function: ease;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --button-shadow-normal:
+            0 0.09375rem 0.225rem 0 rgb(var(--color-black), 0.632),
+            0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.608),
+            var(--shadow-brighten-edges-inside);
+        --button-shadow-hovered:
+            0 0.125rem 0.375rem rgb(var(--color-black), 0.55),
+            0 0.4rem 0.475rem -0.3rem rgb(var(--color-black), 0.45),
+            var(--shadow-brighten-edges-inside);
+        --button-shadow-pressed:
+            0 0.0625rem 0.1875rem 0 rgb(var(--color-black), 0.532),
+            0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.508),
+            var(--shadow-brighten-edges-inside);
+        --shadow-depth-16:
+            0 0.4rem 0.9rem 0 rgb(var(--color-black), 0.532),
+            0 0.075rem 0.225rem 0 rgb(var(--color-black), 0.508);
+
+        --contrast-100: 20, 20, 37;
+        --contrast-200: 25, 25, 44;
+        --contrast-300: 35, 35, 53;
+        --contrast-400: 39, 39, 57;
+        --contrast-500: 48, 48, 66;
+        --contrast-600: 71, 71, 86;
+        --contrast-700: 94, 94, 108;
+        --contrast-800: 117, 117, 128;
+        --contrast-900: 140, 140, 150;
+        --contrast-1000: 186, 186, 192;
+        --contrast-1100: 209, 209, 213;
+        --contrast-1200: 232, 232, 234;
+        --contrast-1300: 237, 237, 238;
+        --contrast-1400: 241, 241, 243;
+        --contrast-1500: 246, 246, 247;
+        --contrast-1600: 250, 250, 251;
+        --contrast-1700: 255, 255, 255;
+
+        --color-teal-default: 0, 137, 123;
+        --color-teal-dark: 0, 105, 92;
+        --color-amber-default: 255, 176, 59;
+        --color-amber-dark: 255, 143, 0;
+        --color-sky-default: 3, 155, 229;
+        --color-sky-dark: 2, 119, 189;
+
+        --lime-elevated-surface-background-color: rgb(var(--contrast-200));
+
+        --limel-clickable-transition-speed: 0.4s;
+        --limel-clickable-transform-speed: 0.4s;
+        --limel-clickable-transform-timing-function: ease;
+    }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+    min-height: 0;
+}
+
+a {
+    outline: none;
+    cursor: pointer;
+    color: rgb(var(--color-sky-default));
+}
+
+a:hover {
+    color: rgb(var(--color-sky-light));
+}
+
+a:focus {
+    outline: none;
+}
+
+body {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.6;
+    color: rgb(var(--contrast-1200));
+    background: rgb(var(--contrast-400));
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 75rem;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.quick-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.quick-link {
+    transition:
+        color var(--limel-clickable-transition-speed, 0.4s) ease,
+        background-color var(--limel-clickable-transition-speed, 0.4s) ease,
+        box-shadow var(--limel-clickable-transform-speed, 0.4s) ease,
+        transform var(--limel-clickable-transform-speed, 0.4s)
+            var(--limel-clickable-transform-timing-function, ease);
+
+    color: rgb(var(--contrast-1100));
+    text-decoration: none;
+
+    padding: 0.75rem 1.5rem;
+    border-radius: 1.5rem;
+
+    background: rgb(var(--contrast-100));
+    box-shadow: var(--button-shadow-normal);
+}
+
+.quick-link:hover,
+.quick-link:focus,
+.quick-link:focus-visible {
+    will-change: color, background-color, box-shadow, transform;
+}
+
+.quick-link:hover {
+    transform: translate3d(0, -0.04rem, 0);
+    box-shadow: var(--button-shadow-hovered);
+}
+
+.quick-link:active {
+    --limel-clickable-transform-timing-function: cubic-bezier(
+        0.83,
+        -0.15,
+        0.49,
+        1.16
+    );
+    transform: translate3d(0, 0.05rem, 0);
+    box-shadow: var(--button-shadow-pressed);
+}
+
+.quick-link:hover,
+.quick-link:active {
+    --limel-clickable-transition-speed: 0.2s;
+    --limel-clickable-transform-speed: 0.16s;
+}
+
+.quick-link:focus {
+    outline: none;
+}
+
+.quick-link:focus-visible {
+    outline: none;
+    box-shadow: var(--button-shadow-focused);
+}
+
+.versions-container {
+    background: var(--lime-elevated-surface-background-color);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: var(--shadow-depth-16);
+    backdrop-filter: blur(0.625rem);
+}
+
+.versions-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.versions-header h2 {
+    font-size: 2rem;
+    color: rgb(var(--contrast-1300));
+    margin-bottom: 0.5rem;
+}
+
+.versions-header p {
+    color: rgb(var(--contrast-1000));
+    font-size: 1.1rem;
+}
+
+.search-box {
+    width: 100%;
+    max-width: 25rem;
+    margin: 0 auto 2rem;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    border: 2px solid rgb(var(--contrast-600));
+    border-radius: 3rem;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: rgb(var(--color-teal-default));
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgb(var(--contrast-900));
+    font-size: 1.5rem;
+}
+
+.version-categories {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.category {
+    border: 1px solid rgb(var(--contrast-600));
+    border-radius: 0.625rem;
+    overflow: hidden;
+}
+
+.category-header {
+    background: rgb(var(--contrast-500));
+    padding: 1rem;
+    border-bottom: 1px solid rgb(var(--contrast-600));
+}
+
+.category-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgb(var(--contrast-1300));
+}
+
+.category-description {
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+    color: rgb(var(--contrast-1000));
+}
+
+.version-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(11.25rem, 1fr));
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgb(var(--contrast-400));
+}
+
+.version-link {
+    font-family:
+        ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas,
+        'DejaVu Sans Mono', monospace;
+    transition:
+        color var(--limel-clickable-transition-speed, 0.4s) ease,
+        background-color var(--limel-clickable-transition-speed, 0.4s) ease,
+        box-shadow var(--limel-clickable-transform-speed, 0.4s) ease,
+        transform var(--limel-clickable-transform-speed, 0.4s)
+            var(--limel-clickable-transform-timing-function, ease);
+    text-decoration: none;
+
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+
+    color: rgb(var(--contrast-1300));
+    font-weight: 500;
+    text-align: center;
+    background: var(--lime-elevated-surface-background-color);
+    box-shadow: var(--button-shadow-normal);
+}
+
+.version-link:hover,
+.version-link:focus,
+.version-link:focus-visible {
+    will-change: color, background-color, box-shadow, transform;
+}
+
+.version-link:hover {
+    transform: translate3d(0, -0.04rem, 0);
+    box-shadow: var(--button-shadow-hovered);
+}
+
+.version-link:active {
+    --limel-clickable-transform-timing-function: cubic-bezier(
+        0.83,
+        -0.15,
+        0.49,
+        1.16
+    );
+    transform: translate3d(0, 0.05rem, 0);
+    box-shadow: var(--button-shadow-pressed);
+}
+
+.version-link:hover,
+.version-link:active {
+    --limel-clickable-transition-speed: 0.2s;
+    --limel-clickable-transform-speed: 0.16s;
+}
+
+.version-link:focus {
+    outline: none;
+}
+
+.version-link:focus-visible {
+    outline: none;
+    box-shadow: var(--button-shadow-focused);
+}
+
+.version-link.latest {
+    background: rgb(var(--color-teal-default));
+    color: rgb(var(--contrast-100));
+    font-weight: 600;
+}
+
+.version-link.latest:hover {
+    background: rgb(var(--color-teal-dark));
+}
+
+.version-link.preview {
+    background: rgb(var(--color-amber-default));
+    color: rgb(var(--contrast-1300));
+}
+
+.version-link.preview:hover {
+    background: rgb(var(--color-amber-dark));
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .version-grid {
+        grid-template-columns: repeat(auto-fill, minmax(9.375rem, 1fr));
+    }
+
+    .quick-links {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 2rem 0;
+    border-top: 1px solid rgb(var(--contrast-400));
+}
+
+.footer a {
+    color: rgb(var(--contrast-1000));
+}
+
+.footer a:hover {
+    color: rgb(var(--contrast-1200));
+    text-decoration: underline;
+}
