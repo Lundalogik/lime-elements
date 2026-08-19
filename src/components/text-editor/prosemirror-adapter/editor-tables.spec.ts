@@ -19,8 +19,10 @@ const row = b.table_row;
 const cell = b.table_cell;
 
 describe('table plugin wiring', () => {
-    it('provides exactly one editing plugin when enabled and none when disabled', () => {
-        expect(getTableEditingPlugins(true)).toHaveLength(1);
+    it('provides the paste and editing plugins when enabled and none when disabled', () => {
+        const plugins = getTableEditingPlugins(true);
+        expect(plugins).toHaveLength(2);
+        expect(plugins.at(-1).spec.key).toBe(tableEditingKey);
         expect(getTableEditingPlugins(false)).toEqual([]);
     });
 
