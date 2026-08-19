@@ -1,4 +1,5 @@
 import { render, h } from '@stencil/vitest';
+import { InlineImages } from './text-editor.types';
 
 describe('limel-text-editor', () => {
     async function createComponent(props: Record<string, unknown> = {}) {
@@ -7,6 +8,7 @@ describe('limel-text-editor', () => {
             contentType,
             disabled,
             helperText,
+            inlineImages,
             invalid,
             label,
             placeholder,
@@ -21,6 +23,7 @@ describe('limel-text-editor', () => {
                 contentType={contentType}
                 disabled={disabled}
                 helperText={helperText}
+                inlineImages={inlineImages}
                 invalid={invalid}
                 label={label}
                 placeholder={placeholder}
@@ -147,6 +150,46 @@ describe('limel-text-editor', () => {
             );
             expect(notchedOutline).not.toBeFalsy();
             expect((notchedOutline as any).label).toEqual('my label');
+        });
+    });
+
+    describe('inlineImages tag name validation', () => {
+        const invalidTagNameError = expect.stringContaining(
+            'not a valid custom element name'
+        );
+
+        afterEach(() => {
+            vi.restoreAllMocks();
+        });
+
+        test('a built-in tag name is rejected with a console error', async () => {
+            const consoleError = vi
+                .spyOn(console, 'error')
+                .mockImplementation(() => {});
+            // The type only allows hyphenated names; the cast exercises the
+            // runtime guard that protects plain-JS consumers.
+            const inlineImages = { tagName: 'img' } as unknown as InlineImages;
+
+            const { root } = await createComponent({ inlineImages });
+
+            expect(consoleError).toHaveBeenCalledWith(invalidTagNameError);
+            expect(
+                root.shadowRoot.querySelector('limel-prosemirror-adapter')
+            ).not.toBeFalsy();
+        });
+
+        test('a custom element tag name is accepted', async () => {
+            const consoleError = vi
+                .spyOn(console, 'error')
+                .mockImplementation(() => {});
+            const inlineImages: InlineImages = {
+                tagName: 'my-image',
+                getUrl: (id) => `/files/${id}`,
+            };
+
+            await createComponent({ inlineImages });
+
+            expect(consoleError).not.toHaveBeenCalled();
         });
     });
 });
