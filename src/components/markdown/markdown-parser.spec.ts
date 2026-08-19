@@ -528,6 +528,40 @@ describe('markdownToHTML', () => {
         });
     });
 
+    describe('table column definitions', () => {
+        it('preserves colgroup and col elements in raw HTML tables', async () => {
+            const result = await markdownToHTML(
+                '<table><colgroup><col><col></colgroup><tbody><tr><td>a</td><td>b</td></tr></tbody></table>'
+            );
+            expect(result).toContain('<colgroup>');
+            expect(result).toContain('<col>');
+        });
+
+        it('preserves width and span attributes on col elements', async () => {
+            const result = await markdownToHTML(
+                '<table><colgroup><col width="59" span="2"></colgroup><tbody><tr><td>a</td><td>b</td></tr></tbody></table>'
+            );
+            expect(result).toContain('width="59"');
+            expect(result).toContain('span="2"');
+        });
+
+        it('keeps spreadsheet-style tables visible where widths live in colgroup and the table itself has zero width', async () => {
+            const spreadsheetTable =
+                '<table cellspacing="0" cellpadding="0" dir="ltr" border="1" style="table-layout:fixed;font-size:10pt;font-family:Arial;width:0px;border-collapse:collapse">' +
+                '<colgroup><col width="59"><col width="292"></colgroup>' +
+                '<tbody><tr style="height:21px">' +
+                '<td style="overflow:hidden;padding:2px 3px;vertical-align:bottom;font-size:6pt;text-align:right;border:1px solid rgb(204,204,204)">1</td>' +
+                '<td style="overflow:hidden;padding:2px 3px;vertical-align:bottom;background-color:rgb(207,226,243);font-weight:bold;border:1px solid rgb(204,204,204)">Acme Ltd</td>' +
+                '</tr></tbody></table>';
+            const result = await markdownToHTML(spreadsheetTable);
+            expect(result).toContain('<colgroup>');
+            expect(result).toContain('width="59"');
+            expect(result).toContain('width="292"');
+            expect(result).not.toContain('width: 0px');
+            expect(result).toContain('Acme Ltd');
+        });
+    });
+
     describe('edge cases', () => {
         it('should handle empty input', async () => {
             const result = await markdownToHTML('');

@@ -1,9 +1,26 @@
 import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
 import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
-import { findWrapping, liftTarget } from 'prosemirror-transform';
-import { Command, EditorState, TextSelection } from 'prosemirror-state';
+import { wrapInList, liftListItem } from 'prosemirror-schema-list';
+import {
+    AllSelection,
+    Command,
+    EditorState,
+    TextSelection,
+} from 'prosemirror-state';
 import { EditorMenuTypes, EditorTextLink, LevelMapping } from './types';
 import { getLinkAttributes } from '../plugins/link/utils';
+import {
+    setActiveMethodForMark,
+    setActiveMethodForNode,
+    setActiveMethodForWrap,
+} from './menu-command-utils/active-state-utils';
+import {
+    resolveListContext,
+    convertInnermostList,
+    joinAdjacentListsOnDispatch,
+    selectionHasNonListableBlock,
+    unifyToList,
+} from './menu-command-utils/list-utils';
 
 type CommandFunction = (
     schema: Schema,
@@ -19,62 +36,6 @@ export interface CommandWithActive extends Command {
     active?: (state: EditorState) => boolean;
     allowed?: (state: EditorState) => boolean;
 }
-
-const setActiveMethodForMark = (
-    command: CommandWithActive,
-    markType: MarkType
-) => {
-    command.active = (state) => {
-        const { from, $from, to, empty } = state.selection;
-        if (empty) {
-            return !!markType.isInSet(state.storedMarks || $from.marks());
-        } else {
-            return state.doc.rangeHasMark(from, to, markType);
-        }
-    };
-};
-
-const setActiveMethodForNode = (
-    command: CommandWithActive,
-    nodeType: NodeType,
-    level?: number
-) => {
-    command.active = (state) => {
-        const { $from } = state.selection;
-        const node = $from.node($from.depth);
-
-        if (node && node.type.name === nodeType.name) {
-            if (nodeType.name === LevelMapping.Heading && level) {
-                return node.attrs.level === level;
-            }
-
-            return true;
-        }
-
-        return false;
-    };
-};
-
-const setActiveMethodForWrap = (
-    command: CommandWithActive,
-    nodeType: NodeType
-) => {
-    command.active = (state) => {
-        const { from, to } = state.selection;
-
-        for (let pos = from; pos <= to; pos++) {
-            const resolvedPos = state.doc.resolve(pos);
-            for (let i = resolvedPos.depth; i > 0; i--) {
-                const node = resolvedPos.node(i);
-                if (node && node.type.name === nodeType.name) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    };
-};
 
 const createInsertLinkCommand: CommandFunction = (
     schema: Schema,
@@ -166,14 +127,15 @@ const toggleNodeType = (
     return (state, dispatch) => {
         const { $from, $to } = state.selection;
 
-        const hasActiveWrap = $from.node($from.depth - 1).type === nodeType;
-
         if (
             state.selection instanceof TextSelection &&
             // Ensure selection is within the same parent block
             // We don't want toggling block types across multiple blocks
             $from.sameParent($from.doc.resolve($to.pos))
         ) {
+            // Resolved only under the TextSelection guard: an AllSelection
+            // resolves at depth 0, where there is no parent node to read.
+            const hasActiveWrap = $from.node($from.depth - 1).type === nodeType;
             if ($from.parent.type === nodeType) {
                 if (dispatch) {
                     dispatch(
@@ -246,50 +208,117 @@ const createWrapInCommand = (
     return command;
 };
 
-const toggleList = (listType) => {
-    return (state, dispatch) => {
-        const { $from, $to } = state.selection;
-        const range = $from.blockRange($to);
-
-        if (!range) {
-            return false;
-        }
-
-        const wrapping = range && findWrapping(range, listType);
-
-        if (wrapping) {
-            // Wrap the selection in a list
-            if (dispatch) {
-                dispatch(state.tr.wrap(range, wrapping).scrollIntoView());
-            }
-
-            return true;
-        } else {
-            // Check if we are in a list item and lift out of the list
-            const liftRange = range && liftTarget(range);
-            if (liftRange !== null) {
-                if (dispatch) {
-                    dispatch(state.tr.lift(range, liftRange).scrollIntoView());
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-    };
-};
-
-const createListCommand = (
-    schema: Schema,
-    listType: string
-): CommandWithActive => {
-    const type: NodeType | undefined = schema.nodes[listType];
-    if (!type) {
-        throw new Error(`List type "${listType}" not found in schema`);
+// Select-all produces an AllSelection, whose endpoints resolve at the
+// document level where list commands cannot operate. Re-anchoring it as
+// a TextSelection over the same content lets the list ladder (and the
+// delegated prosemirror-schema-list commands) treat select-all like any
+// other full-content selection.
+const withTextSelection = (state: EditorState): EditorState => {
+    if (!(state.selection instanceof AllSelection)) {
+        return state;
     }
 
-    const command: CommandWithActive = toggleList(type);
+    const selection = TextSelection.between(
+        state.doc.resolve(0),
+        state.doc.resolve(state.doc.content.size)
+    );
+
+    // A plugin-free scratch state on the shared doc: only feed it
+    // commands driven by doc and selection.
+    return EditorState.create({
+        doc: state.doc,
+        selection: selection,
+        storedMarks: state.storedMarks,
+    });
+};
+
+/**
+ * Creates a command for toggling list types.
+ *
+ * @param schema - The ProseMirror schema.
+ * @param listTypeName - The name of the list type to toggle.
+ * @returns A command for toggling list types.
+ */
+export const createListCommand = (
+    schema: Schema,
+    listTypeName: string
+): CommandWithActive => {
+    const type = schema.nodes[listTypeName];
+    if (!type) {
+        throw new Error(`List type "${listTypeName}" not found in schema`);
+    }
+
+    const itemType = schema.nodes.list_item;
+    if (!itemType) {
+        throw new Error('Node type "list_item" not found in schema');
+    }
+
+    // The keymap invokes the command directly, so the command body applies
+    // the same applicability rules as `allowed` to keep keyboard and
+    // toolbar behavior identical.
+    const command: CommandWithActive = (state, dispatch) => {
+        state = withTextSelection(state);
+        if (!(state.selection instanceof TextSelection)) {
+            return false;
+        }
+
+        const context = resolveListContext(state, type);
+
+        if (context.kind === 'same-type') {
+            return liftListItem(itemType)(state, dispatch);
+        }
+
+        if (context.kind === 'other-type') {
+            return convertInnermostList(
+                state,
+                context.listDepth,
+                type,
+                dispatch
+            );
+        }
+
+        if (context.kind === 'no-list') {
+            // For a single block the schema decides, through the wrap
+            // command itself; multi-block selections keep the stricter
+            // gate so unify cannot half-apply.
+            if (!context.singleBlock && selectionHasNonListableBlock(state)) {
+                return false;
+            }
+
+            return wrapInList(type)(
+                state,
+                joinAdjacentListsOnDispatch(state, type, dispatch)
+            );
+        }
+
+        if (selectionHasNonListableBlock(state)) {
+            return false;
+        }
+
+        return unifyToList(state, type, dispatch);
+    };
+
+    command.allowed = (state) => {
+        state = withTextSelection(state);
+        if (!(state.selection instanceof TextSelection)) {
+            return false;
+        }
+
+        const context = resolveListContext(state, type);
+
+        // Inside a list, toggling or converting is always applicable, even
+        // when a non-listable ancestor wraps the list.
+        if (context.kind === 'same-type' || context.kind === 'other-type') {
+            return true;
+        }
+
+        if (context.kind === 'no-list' && context.singleBlock) {
+            return wrapInList(type)(state);
+        }
+
+        return !selectionHasNonListableBlock(state);
+    };
+
     setActiveMethodForWrap(command, type);
 
     return command;
@@ -354,6 +383,8 @@ export class MenuCommandFactory {
             'Mod-Shift-1': this.getCommand(EditorMenuTypes.HeaderLevel1),
             'Mod-Shift-2': this.getCommand(EditorMenuTypes.HeaderLevel2),
             'Mod-Shift-3': this.getCommand(EditorMenuTypes.HeaderLevel3),
+            'Mod-Shift-7': this.getCommand(EditorMenuTypes.OrderedList),
+            'Mod-Shift-8': this.getCommand(EditorMenuTypes.BulletList),
             'Mod-Shift-X': this.getCommand(EditorMenuTypes.Strikethrough),
             'Mod-`': this.getCommand(EditorMenuTypes.Code),
             'Mod-Shift-C': this.getCommand(EditorMenuTypes.CodeBlock),

@@ -11,7 +11,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - uses: ./.github/actions/set-up-node
     - uses: ./.github/actions/install-dependencies
     - run: npm run lint
@@ -20,7 +20,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - uses: ./.github/actions/set-up-node
     - uses: ./.github/actions/install-dependencies
     - name: Ensure installed React and React-DOM versions match
@@ -34,7 +34,6 @@ jobs:
           exit 1
         fi
     - run: npm run build
-    - run: npm run build # Needed to avoid incremental build quirks
     - run: npm run api:verify
 
   test:
@@ -48,8 +47,8 @@ jobs:
     # in lockstep with @playwright/test in package.json (same image as the
     # example-test jobs).
     container:
-      # v1.60.0-jammy
-      image: mcr.microsoft.com/playwright@sha256:e1529a04087193966ea15d4a1617345bdaa0791690a24ab2c42b65f9ce5b2cdc
+      # v1.62.1-jammy
+      image: mcr.microsoft.com/playwright@sha256:b3251f7ff1a9fa559a28d1c67eaa15fc1a9800f7845e82756caea7842967f615
       # Chromium can exhaust Docker's default 64MB /dev/shm and crash; an OOM
       # crash would masquerade as a flaky test. Playwright's Docker guidance
       # recommends host IPC for Chromium in CI.
@@ -60,7 +59,7 @@ jobs:
     permissions:
       contents: read
     steps:
-    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         # This job only runs tests; it never pushes. Don't leave the job token
         # in .git/config for the npm ci / test steps.
@@ -81,7 +80,7 @@ jobs:
     permissions:
       contents: read
     steps:
-    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - uses: ./.github/actions/set-up-node
     - uses: ./.github/actions/install-dependencies
     # The example tests run against these docs. We build them once here and share
@@ -106,8 +105,8 @@ jobs:
     # Digest-pinned; keep it in lockstep with @playwright/test in package.json
     # (same image as the accessibility-tests and component-tests jobs).
     container:
-      # v1.60.0-jammy
-      image: mcr.microsoft.com/playwright@sha256:e1529a04087193966ea15d4a1617345bdaa0791690a24ab2c42b65f9ce5b2cdc
+      # v1.62.1-jammy
+      image: mcr.microsoft.com/playwright@sha256:b3251f7ff1a9fa559a28d1c67eaa15fc1a9800f7845e82756caea7842967f615
       # Chromium can exhaust Docker's default 64MB /dev/shm and crash; an OOM
       # crash would masquerade as a flaky test. Playwright's Docker guidance
       # recommends host IPC for Chromium in CI.
@@ -122,7 +121,7 @@ jobs:
       matrix:
         shard: [1, 2]
     steps:
-    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         # This job only runs tests; it never pushes. Don't leave the job token
         # in .git/config for the npm ci / Playwright steps.
@@ -161,8 +160,8 @@ jobs:
     # Digest-pinned for supply-chain integrity; keep it in lockstep with
     # @playwright/test in package.json (same image as the component-tests job).
     container:
-      # v1.60.0-jammy
-      image: mcr.microsoft.com/playwright@sha256:e1529a04087193966ea15d4a1617345bdaa0791690a24ab2c42b65f9ce5b2cdc
+      # v1.62.1-jammy
+      image: mcr.microsoft.com/playwright@sha256:b3251f7ff1a9fa559a28d1c67eaa15fc1a9800f7845e82756caea7842967f615
       # Chromium can exhaust Docker's default 64MB /dev/shm and crash; an OOM
       # crash would masquerade as a flaky test. Playwright's Docker guidance
       # recommends host IPC for Chromium in CI.
@@ -177,7 +176,7 @@ jobs:
       matrix:
         shard: [1, 2, 3, 4]
     steps:
-    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         # This job only runs tests; it never pushes. Don't leave the job token
         # in .git/config for the npm ci / Playwright steps.
@@ -215,8 +214,8 @@ jobs:
     # Digest-pinned for supply-chain integrity; the tag in the comment is the
     # human-readable handle for the same image.
     container:
-      # v1.60.0-jammy
-      image: mcr.microsoft.com/playwright@sha256:e1529a04087193966ea15d4a1617345bdaa0791690a24ab2c42b65f9ce5b2cdc
+      # v1.62.1-jammy
+      image: mcr.microsoft.com/playwright@sha256:b3251f7ff1a9fa559a28d1c67eaa15fc1a9800f7845e82756caea7842967f615
       # Chromium can exhaust Docker's default 64MB /dev/shm and crash; an OOM
       # crash would masquerade as a flaky test. Playwright's Docker guidance
       # recommends host IPC for Chromium in CI.
@@ -231,7 +230,7 @@ jobs:
     env:
       RUN_VISUAL_SNAPSHOTS: '1'
     steps:
-    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         # This job only needs a working tree to run tests; it never pushes. Don't
         # leave the job token in .git/config for the npm ci / Playwright steps.
@@ -275,7 +274,7 @@ jobs:
     name: Commitlint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
       - uses: wagoid/commitlint-github-action@b948419dd99f3fd78a6548d48f94e3df7f6bf3ed # v6.2.1
         if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
@@ -291,7 +290,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
       # Cache the Sonar downloads: the scan action installs the scanner CLI
@@ -319,7 +318,7 @@ jobs:
           restore-keys: |
             sonar-cache-${{ runner.os }}-${{ runner.arch }}-
       - name: SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@713881670b6b3676cda39549040e2d88c70d582e # v8.2.0
+        uses: SonarSource/sonarqube-scan-action@22918119ff8e1ca75a623e15c8296b6ea4fbe28f # v8.2.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

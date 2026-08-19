@@ -39,6 +39,7 @@ import {
     arrayItemWithDependenciesAndCustomConfigSchema,
     nestedSchemaPathSchema,
     nestedLayoutSchemaPathSchema,
+    stringWithDefaultCustomComponentSchema,
 } from './form.test-schemas';
 
 const fieldTypeTests = [
@@ -738,6 +739,35 @@ test('converts null to undefined via schema-field when top-level custom componen
     expect(latest.icon).toBeUndefined();
 });
 
+test('keeps a cleared field empty when the schema declares a default', async () => {
+    const onChange = vi.fn();
+    const { change } = await renderForm({
+        schema: stringWithDefaultCustomComponentSchema,
+        value: { icon: 'arrow', name: 'Alice' },
+        onChange,
+    });
+
+    await change('Icon', undefined);
+
+    const latest = onChange.mock.lastCall[0].detail;
+    expect(latest.icon).toBeUndefined();
+});
+
+test('keeps a cleared field empty when another field is cleared afterwards', async () => {
+    const onChange = vi.fn();
+    const { change } = await renderForm({
+        schema: stringWithDefaultCustomComponentSchema,
+        value: { icon: 'arrow', name: 'Alice' },
+        onChange,
+    });
+
+    await change('Icon', undefined);
+    await change('Name', '');
+
+    const latest = onChange.mock.lastCall[0].detail;
+    expect(latest.icon).toBeUndefined();
+});
+
 test('resets dependent sibling in array item when trigger field changes', async () => {
     const onChange = vi.fn();
     const { change } = await renderForm({
@@ -783,6 +813,110 @@ test('converts null to undefined via array-field when nested custom component cl
 
     const latest = onChange.mock.lastCall[0].detail;
     expect(latest.views[0].icon).toBeUndefined();
+});
+
+describe('number fields, when the browser formats decimals with a comma', () => {
+    const amountSchema = {
+        type: 'object',
+        properties: { amount: { type: 'number', title: 'Amount' } },
+    };
+    const countSchema = {
+        type: 'object',
+        properties: { count: { type: 'integer', title: 'Count' } },
+    };
+    const shareSchema = {
+        type: 'object',
+        properties: {
+            share: {
+                type: 'number',
+                title: 'Share',
+                minimum: 0,
+                maximum: 1,
+                multipleOf: 0.01,
+            },
+        },
+    };
+
+    let originalLanguages: PropertyDescriptor | undefined;
+    let languagesOverridden = false;
+
+    const useLanguages = (languages: string[]) => {
+        if (!languagesOverridden) {
+            originalLanguages = Object.getOwnPropertyDescriptor(
+                navigator,
+                'languages'
+            );
+            languagesOverridden = true;
+        }
+
+        Object.defineProperty(navigator, 'languages', {
+            get: () => languages,
+            configurable: true,
+        });
+    };
+
+    afterEach(() => {
+        if (!languagesOverridden) {
+            return;
+        }
+
+        if (originalLanguages) {
+            Object.defineProperty(navigator, 'languages', originalLanguages);
+        } else {
+            delete (navigator as any).languages;
+        }
+
+        originalLanguages = undefined;
+        languagesOverridden = false;
+    });
+
+    it('gives the input field a value the native number input accepts', async () => {
+        useLanguages(['sv-SE']);
+
+        const { formContent } = await renderForm({
+            schema: amountSchema,
+            value: { amount: 1.5 },
+        });
+
+        const field: any = formContent.querySelector('limel-input-field');
+        expect(field.value).toBe('1.5');
+    });
+
+    it('leaves an integer alone', async () => {
+        useLanguages(['sv-SE']);
+
+        const { formContent } = await renderForm({
+            schema: countSchema,
+            value: { count: 7 },
+        });
+
+        const field: any = formContent.querySelector('limel-input-field');
+        expect(field.value).toBe('7');
+    });
+
+    it('gives the slider a numeric value', async () => {
+        useLanguages(['sv-SE']);
+
+        const { formContent } = await renderForm({
+            schema: shareSchema,
+            value: { share: 0.25 },
+        });
+
+        const slider: any = formContent.querySelector('limel-slider');
+        expect(slider.value).toBe(0.25);
+    });
+
+    it('leaves the value alone when decimals are formatted with a dot', async () => {
+        useLanguages(['en-US']);
+
+        const { formContent } = await renderForm({
+            schema: amountSchema,
+            value: { amount: 1.5 },
+        });
+
+        const field: any = formContent.querySelector('limel-input-field');
+        expect(field.value).toBe('1.5');
+    });
 });
 
 async function renderForm(props: Record<string, any> = {}) {

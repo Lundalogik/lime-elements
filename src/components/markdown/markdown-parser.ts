@@ -124,6 +124,11 @@ function getWhiteList(allowedComponents: CustomElementDefinition[]): Schema {
         strip: [...(defaultSchema.strip ?? []), 'style'],
         tagNames: [
             ...(defaultSchema.tagNames || []),
+            // Table column definitions carry the column widths for tables
+            // from sources like Google Sheets, where the table element
+            // itself has no usable width.
+            'colgroup',
+            'col',
             ...allowedComponents.map((component) => component.tagName),
         ],
         attributes: {

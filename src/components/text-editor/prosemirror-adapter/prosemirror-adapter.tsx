@@ -13,10 +13,6 @@ import {
 import { EditorState, Transaction, Selection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Schema, DOMParser } from 'prosemirror-model';
-import { schema } from 'prosemirror-schema-basic';
-import { addListNodes } from 'prosemirror-schema-list';
-import { exampleSetup } from 'prosemirror-example-setup';
-import { keymap } from 'prosemirror-keymap';
 import { ActionBarItem } from '../../../components/action-bar/action-bar.types';
 import { ListSeparator } from '../../../components/list-item/list-item.types';
 import { MenuCommandFactory } from './menu/menu-commands';
@@ -24,26 +20,13 @@ import { menuTranslationIDs, getTextEditorMenuItems } from './menu/menu-items';
 import { ContentTypeConverter } from '../utils/content-type-converter';
 import { MarkdownConverter } from '../utils/markdown-converter';
 import { HTMLConverter } from '../utils/html-converter';
-import {
-    EditorMenuTypes,
-    EditorTextLink,
-    editorMenuTypesArray,
-} from './menu/types';
+import { EditorMenuTypes, EditorTextLink } from './menu/types';
 import translate from '../../../global/translations';
 import { createRandomString } from '../../../util/random-string';
 import { isItem } from '../../action-bar/is-item';
 import { cloneDeep, debounce } from 'lodash-es';
 import { Languages } from '../../date-picker/date.types';
-import { strikethrough } from './menu/menu-schema-extender';
-import { createLinkPlugin } from './plugins/link/link-plugin';
-import { linkMarkSpec } from './plugins/link/link-mark';
-import { createImageInserterPlugin } from './plugins/image/inserter';
-import { createImageViewPlugin } from './plugins/image/view';
-import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
-import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
 import { CustomElementDefinition } from '../../../global/shared-types/custom-element.types';
-import { createNodeSpec } from '../utils/plugin-factory';
-import { createTriggerPlugin } from './plugins/trigger/factory';
 import {
     TriggerCharacter,
     ImageInserter,
@@ -53,8 +36,12 @@ import {
     InlineImages,
     isInlineImageTag,
 } from '../text-editor.types';
-import { getTableNodes, getTableEditingPlugins } from './plugins/table-plugin';
-import { getImageNode, imageCache } from './plugins/image/node';
+import { imageCache } from './plugins/image/node';
+import {
+    buildEditorSchema,
+    buildEditorPlugins,
+    ContentType,
+} from './editor-config';
 import { EditorUiType } from '../types';
 import {
     getMetadataFromDoc,
@@ -84,7 +71,7 @@ export class ProsemirrorAdapter {
      * Assumed to be set only once, so not reactive to changes
      */
     @Prop()
-    public contentType: 'markdown' | 'html' = 'markdown';
+    public contentType: ContentType = 'markdown';
 
     /**
      * The value of the editor, expected to be markdown
@@ -184,6 +171,7 @@ export class ProsemirrorAdapter {
     private changeWaiting = false;
     private transactionFired = false;
     private lastClickedPos: number | null = null;
+    private focusRestoreTimeout: ReturnType<typeof setTimeout> | null = null;
     private metadata: EditorMetadata = { images: [], links: [] };
 
     /**
@@ -337,6 +325,14 @@ export class ProsemirrorAdapter {
     }
 
     public disconnectedCallback() {
+        // The pending caret restoration must not run against a destroyed
+        // editor view. Chromium clears the click position via `blur` when a
+        // focused editor is removed, but that is not guaranteed in every
+        // browser.
+        clearTimeout(this.focusRestoreTimeout);
+        this.focusRestoreTimeout = null;
+        this.lastClickedPos = null;
+
         imageCache.clear();
 
         this.host.removeEventListener(
@@ -489,30 +485,11 @@ export class ProsemirrorAdapter {
     }
 
     private initializeSchema() {
-        let nodes = schema.spec.nodes;
-
-        for (const customElement of this.customElements) {
-            const newNodeSpec = createNodeSpec(customElement);
-            const nodeName = customElement.tagName;
-
-            nodes = nodes.append({ [nodeName]: newNodeSpec });
-        }
-        nodes = addListNodes(nodes, 'paragraph block*', 'block');
-
-        if (this.contentType === 'html') {
-            nodes = nodes.append(getTableNodes());
-        }
-
-        nodes = nodes.append(
-            getImageNode(this.language, this.validatedInlineImages)
-        );
-
-        return new Schema({
-            nodes: nodes,
-            marks: schema.spec.marks.append({
-                strikethrough: strikethrough,
-                link: linkMarkSpec,
-            }),
+        return buildEditorSchema({
+            customElements: this.customElements,
+            contentType: this.contentType,
+            language: this.language,
+            inlineImages: this.validatedInlineImages,
         });
     }
 
@@ -535,27 +512,18 @@ export class ProsemirrorAdapter {
     private createEditorState(initialDoc) {
         return EditorState.create({
             doc: initialDoc,
-            plugins: [
-                ...exampleSetup({ schema: this.schema, menuBar: false }),
-                keymap(this.menuCommandFactory.buildKeymap()),
-                createTriggerPlugin(
-                    this.triggerCharacters,
-                    this.contentConverter
-                ),
-                createLinkPlugin(this.handleNewLinkSelection),
-                createImageInserterPlugin(
-                    this.imagePasted.emit,
-                    this.validatedInlineImages
-                ),
-                createImageViewPlugin(this.language),
-                createMenuStateTrackingPlugin(
-                    editorMenuTypesArray,
-                    this.menuCommandFactory,
-                    this.updateActiveActionBarItems
-                ),
-                createActionBarInteractionPlugin(this.menuCommandFactory),
-                ...getTableEditingPlugins(this.contentType === 'html'),
-            ],
+            plugins: buildEditorPlugins({
+                schema: this.schema,
+                menuCommandFactory: this.menuCommandFactory,
+                contentConverter: this.contentConverter,
+                language: this.language,
+                contentType: this.contentType,
+                triggerCharacters: this.triggerCharacters,
+                inlineImages: this.validatedInlineImages,
+                onNewLinkSelection: this.handleNewLinkSelection,
+                onImagePasted: this.imagePasted.emit,
+                onActiveItemsChange: this.updateActiveActionBarItems,
+            }),
         });
     }
 
@@ -563,21 +531,19 @@ export class ProsemirrorAdapter {
         activeTypes: Record<EditorMenuTypes, boolean>,
         allowedTypes: Record<EditorMenuTypes, boolean>
     ) => {
-        const newItems = getTextEditorMenuItems().map((item) => {
-            if (isItem(item)) {
-                return {
-                    ...item,
-                    selected: activeTypes[item.value],
-                    allowed: allowedTypes[item.value],
-                };
-            }
+        this.actionBarItems = getTextEditorMenuItems()
+            .map(this.getTranslatedItem)
+            .map((item) => {
+                if (isItem(item)) {
+                    return {
+                        ...item,
+                        selected: activeTypes[item.value],
+                        disabled: !allowedTypes[item.value],
+                    };
+                }
 
-            return item;
-        });
-
-        this.actionBarItems = newItems.filter((item) =>
-            isItem(item) ? item.allowed : true
-        );
+                return item;
+            });
     };
 
     private async updateView(content: string) {
@@ -648,6 +614,9 @@ export class ProsemirrorAdapter {
         }
     }
 
+    // When the deprecated metadata events are removed, this cache eviction
+    // must be kept: re-derive the removed fileInfoIds from the node attrs so
+    // pasted images still get evicted from `imageCache` when deleted.
     private removeImagesFromCache(
         oldMetadata: EditorMetadata,
         newMetadata: EditorMetadata
@@ -720,11 +689,22 @@ export class ProsemirrorAdapter {
             //
             // To detect this, we wait one tick after focus. If no transaction has fired by then,
             // we assume the selection is unresolved and manually move the cursor to the last clicked position.
+            //
+            // The clicked position is only meaningful for the focus event that the
+            // click itself triggered, so it is consumed here and cleared on blur.
+            // Focus regained without a click (e.g. switching back to the window)
+            // must leave the selection untouched.
             this.transactionFired = false;
-            setTimeout(() => {
-                if (!this.transactionFired && this.lastClickedPos) {
+            this.focusRestoreTimeout = setTimeout(() => {
+                const clickedPos = this.lastClickedPos;
+                this.lastClickedPos = null;
+                if (
+                    !this.transactionFired &&
+                    clickedPos !== null &&
+                    clickedPos <= this.view.state.doc.content.size
+                ) {
                     const { doc, tr } = this.view.state;
-                    const resolvedPos = doc.resolve(this.lastClickedPos);
+                    const resolvedPos = doc.resolve(clickedPos);
                     const selection = Selection.near(resolvedPos);
                     tr.setMeta('pointer', true);
                     this.view.dispatch(tr.setSelection(selection));
@@ -760,6 +740,7 @@ export class ProsemirrorAdapter {
     }, DEBOUNCE_TIMEOUT);
 
     private handleBlur = () => {
+        this.lastClickedPos = null;
         this.changeEmitter.flush();
     };
 }

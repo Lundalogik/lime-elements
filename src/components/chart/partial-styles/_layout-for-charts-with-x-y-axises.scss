@@ -69,6 +69,7 @@ $padding-left-landscape: 3rem;
         #{$padding-left-landscape};
 }
 
+:host(limel-chart[display-axis-labels][type='scatter']),
 :host(limel-chart[display-axis-labels][type='line']),
 :host(limel-chart[display-axis-labels][type='dot']),
 :host(limel-chart[display-axis-labels][type='area']),

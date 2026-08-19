@@ -262,6 +262,7 @@ export namespace Components {
         | 'pie'
         | 'ring'
         | 'dot'
+        | 'scatter'
         | 'stacked-bar';
     }
     export interface LimelCheckbox {
@@ -771,7 +772,7 @@ export namespace Components {
     // @beta
     export interface LimelProsemirrorAdapter {
         "clear": () => Promise<void>;
-        "contentType": 'markdown' | 'html';
+        "contentType": ContentType;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
         // @alpha
@@ -806,7 +807,6 @@ export namespace Components {
         "maxLinesSecondaryText": number;
         "selectedItem"?: ListItem<string | number>;
     }
-    // (undocumented)
     export interface LimelSelect {
         "disabled": boolean;
         "helperText": string;
@@ -966,6 +966,9 @@ export type Config = {
     featureSwitches?: Record<string, boolean>;
 };
 
+// @beta
+export type ContentType = 'markdown' | 'html';
+
 // @public
 export interface CustomColorSwatch {
     disabled?: boolean;
@@ -1024,7 +1027,7 @@ export interface DockMenu {
     };
 }
 
-// @alpha (undocumented)
+// @alpha @deprecated (undocumented)
 export interface EditorImage {
     fileInfoId: string;
     src: string;
@@ -1065,7 +1068,7 @@ export type EditorMenuTypes = (typeof EditorMenuTypes)[keyof typeof EditorMenuTy
 // @public (undocumented)
 export const editorMenuTypesArray: EditorMenuTypes[];
 
-// @alpha
+// @alpha @deprecated
 export interface EditorMetadata {
     images: EditorImage[];
     links: EditorLink[];
@@ -1282,7 +1285,7 @@ interface Image_2 {
 }
 export { Image_2 as Image }
 
-// @alpha (undocumented)
+// @alpha @deprecated (undocumented)
 export interface ImageInserter {
     // (undocumented)
     fileInfo: FileInfo;
@@ -1818,6 +1821,7 @@ export namespace JSX {
         | 'pie'
         | 'ring'
         | 'dot'
+        | 'scatter'
         | 'stacked-bar';
     }
 
@@ -1854,6 +1858,7 @@ export namespace JSX {
         | 'pie'
         | 'ring'
         | 'dot'
+        | 'scatter'
         | 'stacked-bar';
     }
 
@@ -3246,7 +3251,7 @@ export namespace JSX {
     //
     // @beta
     export interface LimelProsemirrorAdapter {
-        "contentType"?: 'markdown' | 'html';
+        "contentType"?: ContentType;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
         // @alpha
@@ -3280,8 +3285,10 @@ export namespace JSX {
 
     // (undocumented)
     export interface LimelProsemirrorAdapterAttributes {
+        // Warning: (ae-incompatible-release-tags) The symbol "contentType" is marked as @public, but its signature references "ContentType" which is marked as @beta
+        //
         // (undocumented)
-        "contentType": 'markdown' | 'html';
+        "contentType": ContentType;
         // (undocumented)
         "disabled": boolean;
         // (undocumented)
@@ -3335,7 +3342,6 @@ export namespace JSX {
         "maxLinesSecondaryText": number;
     }
 
-    // (undocumented)
     export interface LimelSelect {
         "disabled"?: boolean;
         "helperText"?: string;
@@ -3625,7 +3631,7 @@ export namespace JSX {
         "onChange"?: (event: LimelTextEditorCustomEvent<string>) => void;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
-        // @alpha
+        // @alpha @deprecated
         "onImagePasted"?: (event: LimelTextEditorCustomEvent<ImageInserter>) => void;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
@@ -3633,7 +3639,7 @@ export namespace JSX {
         "onImageRemoved"?: (event: LimelTextEditorCustomEvent<EditorImage>) => void;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
-        // @alpha
+        // @alpha @deprecated
         "onMetadataChange"?: (event: LimelTextEditorCustomEvent<EditorMetadata>) => void;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //

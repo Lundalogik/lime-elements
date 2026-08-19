@@ -35,6 +35,7 @@ import { EditorUiType } from './types';
  * @exampleComponent limel-example-text-editor-with-markdown
  * @exampleComponent limel-example-text-editor-with-html
  * @exampleComponent limel-example-text-editor-with-tables
+ * @exampleComponent limel-example-text-editor-lists
  * @exampleComponent limel-example-text-editor-with-inline-images-base64
  * @exampleComponent limel-example-text-editor-with-inline-images-custom-tag
  * @exampleComponent limel-example-text-editor-allow-resize
@@ -198,6 +199,8 @@ export class TextEditor implements FormComponent<string> {
      *
      * @private
      * @alpha
+     * @deprecated Use the `inlineImages` prop instead, which lets the editor
+     * own the whole paste lifecycle. Will be removed in a future version.
      */
     @Event()
     private readonly imagePasted: EventEmitter<ImageInserter>;
@@ -207,8 +210,8 @@ export class TextEditor implements FormComponent<string> {
      *
      * @private
      * @alpha
-     * @deprecated - This event is deprecated and will be removed in a future version.
-     * Use the `metadataChange` event instead to track image removals.
+     * @deprecated Use the `inlineImages` prop instead. Will be removed in a
+     * future version.
      */
     @Event()
     private readonly imageRemoved: EventEmitter<EditorImage>;
@@ -218,6 +221,9 @@ export class TextEditor implements FormComponent<string> {
      *
      * @private
      * @alpha
+     * @deprecated Unused alpha event. Image handling now lives in the
+     * `inlineImages` prop; link changes have no direct replacement yet. Will
+     * be removed in a future version.
      */
     @Event()
     private readonly metadataChange: EventEmitter<EditorMetadata>;

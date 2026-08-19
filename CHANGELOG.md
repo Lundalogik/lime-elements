@@ -1,3 +1,114 @@
+## [39.45.3](https://github.com/Lundalogik/lime-elements/compare/v39.45.2...v39.45.3) (2026-08-19)
+
+### Bug Fixes
+
+
+* **form:** pin @rjsf/core to 6.7.0 to keep decimal fields visible ([124dc86](https://github.com/Lundalogik/lime-elements/commit/124dc86c555a7a1b2c941d1703f46b20b9e19df4))
+
+## [39.45.2](https://github.com/Lundalogik/lime-elements/compare/v39.45.1...v39.45.2) (2026-08-19)
+
+### Bug Fixes
+
+
+* **markdown:** keep nested ordered lists from inheriting bullet dots ([34a31ea](https://github.com/Lundalogik/lime-elements/commit/34a31eaa7c88fd9b89d4225b2c82842bd865c4fa))
+
+## [39.45.1](https://github.com/Lundalogik/lime-elements/compare/v39.45.0...v39.45.1) (2026-08-17)
+
+### Bug Fixes
+
+
+* **text-editor:** focus the link field when the link menu opens ([1226d6a](https://github.com/Lundalogik/lime-elements/commit/1226d6a6e3e0fdf3f85a676c1355fb891a8081f7))
+
+## [39.45.0](https://github.com/Lundalogik/lime-elements/compare/v39.44.6...v39.45.0) (2026-08-17)
+
+### Features
+
+
+* **text editor:** handle tab, enter and backspace inside lists ([b10f2de](https://github.com/Lundalogik/lime-elements/commit/b10f2de2f0f6b4fcbc563e295b93f9bd1cd80282))
+* **text editor:** toggle, convert, wrap and unify lists from the menu ([6aae41c](https://github.com/Lundalogik/lime-elements/commit/6aae41c0d022f16bb5dd4c5646cde03bdd99b381))
+### Bug Fixes
+
+
+* **text editor:** align list command applicability between keymap and toolbar ([50fcdb6](https://github.com/Lundalogik/lime-elements/commit/50fcdb6816eae789283fe149cbf622eb5c1a15c0))
+* **text editor:** disable disallowed menu items instead of hiding them ([dd2b235](https://github.com/Lundalogik/lime-elements/commit/dd2b235f06ec4a1b66627de1222bfde8050978f2))
+* **text editor:** stop block toggles from crashing on select-all ([64e861f](https://github.com/Lundalogik/lime-elements/commit/64e861f4ce48a70d09b5d9834d987a08875d2ded))
+
+## [39.44.6](https://github.com/Lundalogik/lime-elements/compare/v39.44.5...v39.44.6) (2026-08-13)
+
+### Bug Fixes
+
+
+* **select:** jump to the option matching typed characters ([322477f](https://github.com/Lundalogik/lime-elements/commit/322477fd25f351a16376ef2a19f0dfcaa833fae7)), closes [#4192](https://github.com/Lundalogik/lime-elements/issues/4192)
+* **select:** keep the picked option focused in a multiple select ([01ad82a](https://github.com/Lundalogik/lime-elements/commit/01ad82a6677f4443c34346a838fd4c8da705bcf4)), closes [#4194](https://github.com/Lundalogik/lime-elements/issues/4194)
+
+## [39.44.5](https://github.com/Lundalogik/lime-elements/compare/v39.44.4...v39.44.5) (2026-08-12)
+
+### Bug Fixes
+
+
+* **markdown:** keep tables visible when column widths live in colgroup ([442093f](https://github.com/Lundalogik/lime-elements/commit/442093f3d469edc7761feadcf7ed3a7d105d2e03))
+
+## [39.44.4](https://github.com/Lundalogik/lime-elements/compare/v39.44.3...v39.44.4) (2026-08-12)
+
+### Bug Fixes
+
+
+* **form:** allow clearing a field that has a schema default ([3fb4c0c](https://github.com/Lundalogik/lime-elements/commit/3fb4c0c16a56e4b7be2b8676a86128a21bdf9cac)), closes [#5125](https://github.com/Lundalogik/lime-elements/issues/5125)
+
+## [39.44.3](https://github.com/Lundalogik/lime-elements/compare/v39.44.2...v39.44.3) (2026-08-11)
+
+### Bug Fixes
+
+
+* **checkbox:** rename internal id field to avoid createElement error ([0c17b93](https://github.com/Lundalogik/lime-elements/commit/0c17b93848e48b37a92f5576001de8d802f67bd0)), closes [#4190](https://github.com/Lundalogik/lime-elements/issues/4190)
+
+## [39.44.2](https://github.com/Lundalogik/lime-elements/compare/v39.44.1...v39.44.2) (2026-08-06)
+
+### Bug Fixes
+
+
+* **text-editor:** cancel pending caret restore when the editor is disconnected ([99db91e](https://github.com/Lundalogik/lime-elements/commit/99db91e50139330bc5e4b7076d89a0a5bef672ec))
+* **text-editor:** keep caret position when focus is regained without a click ([2ba040a](https://github.com/Lundalogik/lime-elements/commit/2ba040ae7324c6e2071fd35994b9dbd6d5082987))
+
+## [39.44.1](https://github.com/Lundalogik/lime-elements/compare/v39.44.0...v39.44.1) (2026-07-14)
+
+### Bug Fixes
+
+
+* **file:** match extension accept specifiers by filename ([b59f4ec](https://github.com/Lundalogik/lime-elements/commit/b59f4ec5dc77430c621d6a7aa94270b5dff406fa)), closes [#4183](https://github.com/Lundalogik/lime-elements/issues/4183)
+
+## [39.44.0](https://github.com/Lundalogik/lime-elements/compare/v39.43.0...v39.44.0) (2026-07-10)
+
+### Features
+
+
+* **text-editor:** deprecate legacy image handling in favor of inlineImages ([ee61edd](https://github.com/Lundalogik/lime-elements/commit/ee61edd259d78db98ff0347e86539825c1ff4f54))
+
+## [39.43.0](https://github.com/Lundalogik/lime-elements/compare/v39.42.2...v39.43.0) (2026-07-10)
+
+### Features
+
+
+* **chart:** add a scatter chart type ([849c0d4](https://github.com/Lundalogik/lime-elements/commit/849c0d48d6fb0be429c9a84f6697fb928b5111f4))
+### Bug Fixes
+
+
+* **chart:** rotate scatter value-axis labels with orientation ([00aa0cf](https://github.com/Lundalogik/lime-elements/commit/00aa0cf90ac7403f6d0372a99bc873173c0293cf))
+
+## [39.42.2](https://github.com/Lundalogik/lime-elements/compare/v39.42.1...v39.42.2) (2026-07-10)
+
+### Bug Fixes
+
+
+* **text-editor:** size inline images given bare-pixel dimensions ([713ae95](https://github.com/Lundalogik/lime-elements/commit/713ae9565897961ed3572ebe912b3f6012f616df))
+
+## [39.42.1](https://github.com/Lundalogik/lime-elements/compare/v39.42.0...v39.42.1) (2026-07-09)
+
+### Bug Fixes
+
+
+* **file:** remove baked-in defaults from the image-resize util ([7a5d29d](https://github.com/Lundalogik/lime-elements/commit/7a5d29d21a9a1ff4cf8e0946993cc7e2a4f22258))
+
 ## [39.42.0](https://github.com/Lundalogik/lime-elements/compare/v39.41.0...v39.42.0) (2026-07-08)
 
 ### Features

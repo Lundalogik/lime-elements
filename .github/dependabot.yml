@@ -24,7 +24,17 @@ updates:
         patterns:
           - "react"
           - "react-dom"
+      # `@rjsf/core` peer-requires a matching `@rjsf/utils`, so the packages
+      # can only be updated together.
+      rjsf:
+        patterns:
+          - "@rjsf/*"
     ignore:
+      # `@rjsf/core` 6.7.1 blanks decimal fields wherever the browser formats
+      # decimals with a comma, so core is pinned to 6.7.0 in `package.json`.
+      # The packages can only move together, so the whole group is held back
+      # until that is fixed upstream.
+      - dependency-name: "@rjsf/*"
       - dependency-name: "material-components-web"
         update-types: ["version-update:semver-major"]
       - dependency-name: "@stencil/core"

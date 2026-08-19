@@ -24,6 +24,7 @@
   "limel-dock": ["button-name"],
   "limel-email-viewer": ["color-contrast", "image-alt"],
   "limel-example-file-viewer-basic": ["heading-order"],
+  "limel-file": ["color-contrast"],
   "limel-file-input": ["button-name"],
   "limel-file-viewer": ["frame-title", "image-alt", "object-alt"],
   "limel-form": ["frame-title"],
@@ -39,6 +40,7 @@
     "aria-allowed-attr",
     "aria-required-parent",
     "aria-toggle-field-name",
+    "color-contrast",
     "nested-interactive"
   ],
   "limel-markdown": [
@@ -46,6 +48,7 @@
     "link-in-text-block",
     "scrollable-region-focusable"
   ],
+  "limel-menu-item-meta": ["color-contrast"],
   "limel-notched-outline": [
     "aria-allowed-attr",
     "aria-command-name",

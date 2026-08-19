@@ -21,13 +21,13 @@ Per-component browser tests that drive the real docs examples at
 
 - Stored in `<spec>.ts-snapshots/` next to each spec (e.g.
   `menu.spec.ts-snapshots/menu-open.png`). Tracked in git.
-- Generated/compared ONLY in `mcr.microsoft.com/playwright:v1.60.0-jammy`
+- Generated/compared ONLY in `mcr.microsoft.com/playwright:v1.62.1-jammy`
   (= the CI runner OS). Never commit a macOS-generated baseline.
 - After an intentional visual change, regenerate with
   `npm run test:examples:visual:update` and commit the updated PNGs.
 - Keep the Docker image (digest-pinned in `scripts/visual-tests-docker.sh` and
   the `component-tests` CI job) in lockstep with `@playwright/test` in
-  `package.json`. The tag in each comment (`v1.60.0-jammy`) is the
+  `package.json`. The tag in each comment (`v1.62.1-jammy`) is the
   human-readable handle for that digest.
 
 Requires Docker for the visual commands.

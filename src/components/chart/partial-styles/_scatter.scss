@@ -1,0 +1,98 @@
+:host(limel-chart[type='scatter']) {
+    // Room for the axis badges: 2rem left, 1rem below. Both axes are gridded in
+    // either orientation, so the padding is the same for both.
+    --limel-chart-padding: 0.5rem 0.5rem 1rem 2rem;
+
+    .chart {
+        display: block;
+        background-color: var(--chart-background-color, transparent);
+    }
+
+    .item {
+        position: absolute;
+        transform-origin: center;
+
+        width: var(--chart-scatter-item-size, 0.5rem);
+        height: var(--chart-scatter-item-size, 0.5rem);
+        border-radius: 50%;
+        background-color: var(
+            --limel-chart-item-color,
+            var(--limel-chart-default-item-color)
+        );
+        // Blends overlapping dots so denser areas read as such.
+        mix-blend-mode: hard-light;
+    }
+}
+
+// `value` is a coordinate pair: offset-x (first value) and offset-y (second),
+// each a percentage of its axis (see `chart.tsx`). Orientation transposes which
+// screen axis each maps to, like the `dot` chart's value axis.
+:host(limel-chart[type='scatter'][orientation='landscape']) {
+    .item {
+        left: calc(var(--limel-chart-item-offset-x) * 1%);
+        bottom: calc(var(--limel-chart-item-offset-y) * 1%);
+
+        // Center the dot on its `bottom`-anchored point.
+        transform: translate(-50%, 50%);
+    }
+}
+
+:host(limel-chart[type='scatter'][orientation='portrait']) {
+    .item {
+        left: calc(var(--limel-chart-item-offset-y) * 1%);
+        top: calc(var(--limel-chart-item-offset-x) * 1%);
+
+        // Center the dot on its `top`-anchored point (opposite Y sign to
+        // landscape).
+        transform: translate(-50%, -50%);
+    }
+}
+
+// With axis labels on, both scatter axes carry badges *and* a label (left and
+// below, in either orientation), so reserve room on both edges — wider than the
+// generic single-axis rules — and push each label past its badges (at -2rem /
+// -1rem). Which label goes where follows the orientation.
+:host(
+    limel-chart[type='scatter'][display-axis-labels][orientation='landscape']
+),
+:host(
+    limel-chart[type='scatter'][display-axis-labels][orientation='portrait']
+) {
+    --limel-chart-padding: 0.5rem 0.5rem 2rem 3rem;
+}
+
+:host(
+    limel-chart[type='scatter'][display-axis-labels][orientation='landscape']
+) {
+    table thead {
+        // value[0] is the horizontal axis → its label sits below the plot.
+        th:first-of-type {
+            bottom: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        // value[1] is the vertical axis → its label sits to the left, rotated.
+        th:last-of-type {
+            left: -3rem;
+            writing-mode: sideways-lr;
+        }
+    }
+}
+
+:host(
+    limel-chart[type='scatter'][display-axis-labels][orientation='portrait']
+) {
+    table thead {
+        // value[0] is the vertical axis → its label sits to the left, rotated.
+        th:first-of-type {
+            left: -3rem;
+            writing-mode: sideways-lr;
+        }
+        // value[1] is the horizontal axis → its label sits below the plot.
+        th:last-of-type {
+            bottom: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+}

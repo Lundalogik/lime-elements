@@ -10,7 +10,10 @@ import { allowedCssProperties } from './allowed-css-properties';
 export function sanitizeStyle(node: any) {
     if (node.tagName && node.properties?.style) {
         // Sanitize the 'style' attribute of the node.
-        node.properties.style = sanitizeStyleValue(node.properties.style);
+        node.properties.style = sanitizeStyleValue(
+            node.properties.style,
+            node.tagName
+        );
     }
 }
 
@@ -18,21 +21,30 @@ export function sanitizeStyle(node: any) {
  * Applies a whitelist to the CSS properties in the input string.
  * Any CSS properties not in the whitelist will be removed.
  *
+ * A zero width is also removed from `table` elements. Some HTML sources
+ * (e.g. Google Sheets) set `width: 0px` on the table element and define
+ * the real column widths in `colgroup`; a zero width forces the table
+ * down to its min-content size, crushing every column to its longest
+ * word. A zero width on a table can only ever harm rendering, since
+ * auto layout already floors the table at min-content.
+ *
  * @param styleValue - a string with CSS properties and values
+ * @param tagName - tag name of the element the style belongs to
  * @returns a sanitized version of the input string
  */
-
-/**
- *
- * @param styleValue
- */
-export function sanitizeStyleValue(styleValue: string): string {
+export function sanitizeStyleValue(
+    styleValue: string,
+    tagName?: string
+): string {
     try {
         const css = parse(styleValue);
         const normalizedCss = normalizeBackgroundColor(css);
 
         return Object.entries(normalizedCss)
             .filter(([key]) => allowedCssProperties.includes(key))
+            .filter(
+                ([key, value]) => !isCollapsedTableWidth(tagName, key, value)
+            )
             .map(([key, value]) => `${key}: ${value}`)
             .join('; ');
     } catch (error) {
@@ -40,6 +52,18 @@ export function sanitizeStyleValue(styleValue: string): string {
 
         return '';
     }
+}
+
+function isCollapsedTableWidth(
+    tagName: string | undefined,
+    property: string,
+    value: string
+): boolean {
+    return tagName === 'table' && property === 'width' && isZeroLength(value);
+}
+
+function isZeroLength(value: string): boolean {
+    return Number.parseFloat(value) === 0;
 }
 
 /**
