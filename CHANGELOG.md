@@ -1,3 +1,10 @@
+## [39.44.2-beta.2](https://github.com/Lundalogik/lime-elements/compare/v39.44.2-beta.1...v39.44.2-beta.2) (2026-08-19)
+
+### Bug Fixes
+
+
+* **form:** pin @rjsf/core to 6.7.0 to keep decimal fields visible ([ab74652](https://github.com/Lundalogik/lime-elements/commit/ab74652e56cb9fa32eccad62a3a258b2811e8194))
+
 ## [39.44.2-beta.1](https://github.com/Lundalogik/lime-elements/compare/v39.44.1...v39.44.2-beta.1) (2026-08-12)
 
 ### Bug Fixes
