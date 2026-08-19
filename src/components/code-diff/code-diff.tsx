@@ -11,9 +11,18 @@ import {
     SplitDiffLine,
 } from './types';
 import { ActionBarItem } from '../action-bar/action-bar.types';
+import { Button } from '../button/button.types';
 import { buildSplitLines, computeDiff, normalizeForDiff } from './diff-engine';
 import { tokenize, SyntaxToken } from './syntax-highlighter';
-import { buildSearchRegex, navigateMatchIndex } from './search-utils';
+import {
+    buildSearchRegex,
+    navigateMatchIndex,
+    pickDefaultScope,
+    lineMatchesScope,
+    isSearchScope,
+    SearchScope,
+    SEARCH_SCOPES,
+} from './search-utils';
 import {
     extractRemovedContent,
     extractRemovedContentFromSplit,
@@ -142,12 +151,15 @@ export class CodeDiff {
     @State()
     private currentMatchIndex: number = 0;
 
+    @State()
+    private searchScope: SearchScope = 'removed';
+
     private focusedRowIndex: number = -1;
     private normalizedOldText: string = '';
 
     /**
      * Render-time counter that increments for each search match
-     * found while rendering removed lines. Used to determine which
+     * found while rendering in-scope lines. Used to determine which
      * match is the "current" one for navigation highlighting.
      */
     private searchMatchCounter: number = 0;
@@ -158,10 +170,11 @@ export class CodeDiff {
     private totalSearchMatches: number = 0;
 
     /**
-     * Whether the current render is inside a removed line,
-     * so search highlighting knows when to activate.
+     * Whether the current line being rendered participates in the
+     * active search scope, so search highlighting knows when to
+     * activate.
      */
-    private isRenderingRemovedLine: boolean = false;
+    private isRenderingSearchableLine: boolean = false;
 
     /**
      * Cached search regex for the current render pass.
@@ -378,7 +391,7 @@ export class CodeDiff {
                         )}
                     </div>
                     {hasDiff && this.renderCopyButton()}
-                    {deletions > 0 && this.renderSearchToggle()}
+                    {hasDiff && this.renderSearchToggle()}
                 </div>
             </div>
         );
@@ -439,6 +452,12 @@ export class CodeDiff {
 
         return (
             <div class="search-bar">
+                <limel-button-group
+                    class="search-bar__scope"
+                    aria-label={this.getTranslation('code-diff.search-scope')}
+                    value={this.getScopeButtons()}
+                    onChange={(e: CustomEvent<Button>) => this.onScopeChange(e)}
+                />
                 <limel-input-field
                     class="search-bar__input"
                     type="search"
@@ -459,7 +478,9 @@ export class CodeDiff {
 
     private toggleSearch() {
         this.searchVisible = !this.searchVisible;
-        if (!this.searchVisible) {
+        if (this.searchVisible) {
+            this.searchScope = pickDefaultScope(this.diffResult.deletions);
+        } else {
             this.searchTerm = '';
             this.currentMatchIndex = 0;
         }
@@ -515,6 +536,31 @@ export class CodeDiff {
                 value: 'close',
             },
         ];
+    }
+
+    private getScopeButtons(): Button[] {
+        const icons: Record<SearchScope, string> = {
+            removed: 'minus',
+            added: 'plus_math',
+            changed: 'compare',
+        };
+
+        return SEARCH_SCOPES.map((scope) => ({
+            id: scope,
+            title: this.getTranslation(`code-diff.search-scope-${scope}`),
+            icon: icons[scope],
+            selected: this.searchScope === scope,
+        }));
+    }
+
+    private onScopeChange(event: CustomEvent<Button>) {
+        // The button-group's change event is internal UI; keep it from
+        // leaking out of the shadow root as a public `change` event.
+        event.stopPropagation();
+        if (isSearchScope(event.detail.id)) {
+            this.searchScope = event.detail.id;
+            this.currentMatchIndex = 0;
+        }
     }
 
     private onSearchAction(event: CustomEvent<ActionBarItem>) {
@@ -771,8 +817,9 @@ export class CodeDiff {
     }
 
     private renderContent(line: DiffLine) {
-        this.isRenderingRemovedLine =
-            line.type === 'removed' && this.searchTerm.length > 0;
+        this.isRenderingSearchableLine =
+            this.searchTerm.length > 0 &&
+            lineMatchesScope(line.type, this.searchScope);
 
         if (!line.segments || line.segments.length === 0) {
             return this.renderSyntaxTokens(line.content);
@@ -817,7 +864,7 @@ export class CodeDiff {
     }
 
     private renderSearchableText(text: string): any {
-        if (!this.isRenderingRemovedLine || !this.activeSearchRegex) {
+        if (!this.isRenderingSearchableLine || !this.activeSearchRegex) {
             return text;
         }
 

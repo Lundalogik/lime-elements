@@ -158,6 +158,10 @@
         flex-grow: 1;
     }
 
+    limel-button-group {
+        flex-shrink: 0;
+    }
+
     &__count {
         color: var(--diff-collapsed-text-color);
         white-space: nowrap;
