@@ -226,6 +226,7 @@ export class CodeDiff {
                 {this.renderHeader()}
                 {this.renderScreenReaderSummary()}
                 {this.searchVisible && this.renderSearchBar()}
+                {this.layout === 'split' && this.renderColumnLabels()}
                 <div
                     class="diff-body"
                     role="table"
@@ -375,20 +376,18 @@ export class CodeDiff {
     }
 
     private renderHeader() {
-        const oldHeading =
-            this.oldHeading ?? this.getTranslation('code-diff.old-heading');
-        const newHeading =
-            this.newHeading ?? this.getTranslation('code-diff.new-heading');
-
+        const { oldHeading, newHeading } = this.getHeadings();
         const { additions, deletions } = this.diffResult;
         const hasDiff = additions > 0 || deletions > 0;
 
         return (
             <div class="diff-header">
-                <div class="diff-header__labels">
-                    <span class="diff-header__old">{oldHeading}</span>
-                    <span class="diff-header__new">{newHeading}</span>
-                </div>
+                {this.layout !== 'split' && (
+                    <div class="diff-header__labels">
+                        <span class="diff-header__old">{oldHeading}</span>
+                        <span class="diff-header__new">{newHeading}</span>
+                    </div>
+                )}
                 <div class="diff-header__actions">
                     <div class="diff-header__stats">
                         {additions > 0 && (
@@ -403,6 +402,28 @@ export class CodeDiff {
                 </div>
             </div>
         );
+    }
+
+    private renderColumnLabels() {
+        const { oldHeading, newHeading } = this.getHeadings();
+
+        return (
+            <div class="split-column-labels">
+                <span class="column-gutter" />
+                <span class="column-label column-label-old">{oldHeading}</span>
+                <span class="column-gutter" />
+                <span class="column-label">{newHeading}</span>
+            </div>
+        );
+    }
+
+    private getHeadings() {
+        return {
+            oldHeading:
+                this.oldHeading ?? this.getTranslation('code-diff.old-heading'),
+            newHeading:
+                this.newHeading ?? this.getTranslation('code-diff.new-heading'),
+        };
     }
 
     private renderCopyButton() {
