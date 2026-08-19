@@ -2,6 +2,19 @@
 <!-- Auto Generated Below -->
 
 
+## Overview
+
+## Keyboard
+
+Typing characters jumps to the option whose text starts with them, the way
+a native `<select>` does. Characters accumulate for a short while, so typing
+`n`, `e` finds "Netherlands" rather than the next option starting with `n`.
+Pressing the same character repeatedly cycles through all options starting
+with it. This works both while the dropdown is open, and while the closed
+component has focus — in which case the dropdown opens with the match
+highlighted. Typing only moves the highlight; the value is not changed until
+the option is picked with `Enter` or a click.
+
 ## Properties
 
 | Property     | Attribute     | Description                                                                                                                                                                                                          | Type                                  | Default     |
@@ -38,6 +51,8 @@
  - [limel-example-chart-type-dot](../chart/examples)
  - [limel-example-chart-type-gantt](../chart/examples)
  - [limel-example-chart-type-line](../chart/examples)
+ - [limel-example-chart-type-scatter](../chart/examples)
+ - [limel-example-chart-type-scatter-negative](../chart/examples)
  - [limel-example-chip-set-invalid-chips](../chip-set/examples)
  - [limel-example-chip-size](../chip/examples)
  - [limel-example-code-diff-interactive](../code-diff/examples)
@@ -99,6 +114,8 @@ graph TD;
   limel-example-chart-type-dot --> limel-select
   limel-example-chart-type-gantt --> limel-select
   limel-example-chart-type-line --> limel-select
+  limel-example-chart-type-scatter --> limel-select
+  limel-example-chart-type-scatter-negative --> limel-select
   limel-example-chip-set-invalid-chips --> limel-select
   limel-example-chip-size --> limel-select
   limel-example-code-diff-interactive --> limel-select

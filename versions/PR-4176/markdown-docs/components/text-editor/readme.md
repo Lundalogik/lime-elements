@@ -35,15 +35,15 @@ to toggle bold text, <kbd>Ctrl</kbd> + <kbd>I</kbd> to toggle italic text, and s
 
 ## Events
 
-| Event            | Description                                                                                                                                                                                                                                     | Type                              |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| `change`         | Dispatched when a change is made to the editor                                                                                                                                                                                                  | `CustomEvent<string>`             |
-| `imagePasted`    | Dispatched when a image is pasted into the editor                                                                                                                                                                                               | `CustomEvent<ImageInserter>`      |
-| `imageRemoved`   | <span style="color:red">**[DEPRECATED]**</span> - This event is deprecated and will be removed in a future version. Use the `metadataChange` event instead to track image removals.<br/><br/>Dispatched when a image is removed from the editor | `CustomEvent<EditorImage>`        |
-| `metadataChange` | Dispatched when the metadata of the editor changes                                                                                                                                                                                              | `CustomEvent<EditorMetadata>`     |
-| `triggerChange`  | Dispatched if a input is changed during an active trigger.                                                                                                                                                                                      | `CustomEvent<TriggerEventDetail>` |
-| `triggerStart`   | Dispatched if a trigger character is detected.                                                                                                                                                                                                  | `CustomEvent<TriggerEventDetail>` |
-| `triggerStop`    | Dispatched if a trigger session is ended. That is if the selection goes outside the trigger input or if something is inserted using the supplied `TextEditor` insert function.                                                                  | `CustomEvent<TriggerEventDetail>` |
+| Event            | Description                                                                                                                                                                                                                                                            | Type                              |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `change`         | Dispatched when a change is made to the editor                                                                                                                                                                                                                         | `CustomEvent<string>`             |
+| `imagePasted`    | <span style="color:red">**[DEPRECATED]**</span> Use the `inlineImages` prop instead, which lets the editor own the whole paste lifecycle. Will be removed in a future version.<br/><br/>Dispatched when a image is pasted into the editor                              | `CustomEvent<ImageInserter>`      |
+| `imageRemoved`   | <span style="color:red">**[DEPRECATED]**</span> Use the `inlineImages` prop instead. Will be removed in a future version.<br/><br/>Dispatched when a image is removed from the editor                                                                                  | `CustomEvent<EditorImage>`        |
+| `metadataChange` | <span style="color:red">**[DEPRECATED]**</span> Unused alpha event. Image handling now lives in the `inlineImages` prop; link changes have no direct replacement yet. Will be removed in a future version.<br/><br/>Dispatched when the metadata of the editor changes | `CustomEvent<EditorMetadata>`     |
+| `triggerChange`  | Dispatched if a input is changed during an active trigger.                                                                                                                                                                                                             | `CustomEvent<TriggerEventDetail>` |
+| `triggerStart`   | Dispatched if a trigger character is detected.                                                                                                                                                                                                                         | `CustomEvent<TriggerEventDetail>` |
+| `triggerStop`    | Dispatched if a trigger session is ended. That is if the selection goes outside the trigger input or if something is inserted using the supplied `TextEditor` insert function.                                                                                         | `CustomEvent<TriggerEventDetail>` |
 
 
 ## Methods
@@ -96,6 +96,7 @@ Type: `Promise<void>`
  - [limel-example-text-editor-basic](examples)
  - [limel-example-text-editor-composite](examples)
  - [limel-example-text-editor-custom-element](examples)
+ - [limel-example-text-editor-lists](examples)
  - [limel-example-text-editor-size](examples)
  - [limel-example-text-editor-triggers](examples)
  - [limel-example-text-editor-ui](examples)
@@ -153,6 +154,7 @@ graph TD;
   limel-example-text-editor-basic --> limel-text-editor
   limel-example-text-editor-composite --> limel-text-editor
   limel-example-text-editor-custom-element --> limel-text-editor
+  limel-example-text-editor-lists --> limel-text-editor
   limel-example-text-editor-size --> limel-text-editor
   limel-example-text-editor-triggers --> limel-text-editor
   limel-example-text-editor-ui --> limel-text-editor
