@@ -478,7 +478,6 @@ export class CodeDiff {
         return (
             <div class="search-bar">
                 <limel-button-group
-                    class="search-bar__scope"
                     aria-label={this.getTranslation('code-diff.search-scope')}
                     value={this.getScopeButtons()}
                     onChange={(e: CustomEvent<Button>) => this.onScopeChange(e)}
