@@ -168,6 +168,7 @@ The component automatically formats different value types:
  - [limel-example-text-editor-basic](../components/text-editor/examples)
  - [limel-example-text-editor-composite](../components/text-editor/examples)
  - [limel-example-text-editor-custom-element](../components/text-editor/examples)
+ - [limel-example-text-editor-lists](../components/text-editor/examples)
  - [limel-example-text-editor-triggers](../components/text-editor/examples)
  - [limel-example-text-editor-ui](../components/text-editor/examples)
  - [limel-example-text-editor-with-html](../components/text-editor/examples)
@@ -305,6 +306,7 @@ graph TD;
   limel-example-text-editor-basic --> limel-example-value
   limel-example-text-editor-composite --> limel-example-value
   limel-example-text-editor-custom-element --> limel-example-value
+  limel-example-text-editor-lists --> limel-example-value
   limel-example-text-editor-triggers --> limel-example-value
   limel-example-text-editor-ui --> limel-example-value
   limel-example-text-editor-with-html --> limel-example-value
