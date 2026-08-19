@@ -1,3 +1,10 @@
+## [39.45.2](https://github.com/Lundalogik/lime-elements/compare/v39.45.1...v39.45.2) (2026-08-19)
+
+### Bug Fixes
+
+
+* **markdown:** keep nested ordered lists from inheriting bullet dots ([34a31ea](https://github.com/Lundalogik/lime-elements/commit/34a31eaa7c88fd9b89d4225b2c82842bd865c4fa))
+
 ## [39.45.1](https://github.com/Lundalogik/lime-elements/compare/v39.45.0...v39.45.1) (2026-08-17)
 
 ### Bug Fixes
