@@ -115,34 +115,35 @@
 }
 
 // ─── Split-mode column labels ────────────────────────────────────────
-// Renders below the actions toolbar, mirroring the 4-cell layout of
-// `.diff-line--split` so the `oldHeading` / `newHeading` text sits
-// directly above the columns they describe.
-.diff-header__column-labels {
+// Mirrors the 4-cell layout of `.diff-line--split` so the
+// `oldHeading` / `newHeading` text sits directly above the columns
+// they describe.
+.split-column-labels {
     display: flex;
     align-items: stretch;
+    background: var(--diff-header-bg);
     border-bottom: 1px solid var(--diff-border-color);
     @include mixins.font-family(sans-serif);
     font-size: 0.875rem;
 }
 
-.diff-header__column-gutter {
+.column-gutter {
     width: var(--limel-line-number-min-width);
     flex-shrink: 0;
     background: var(--diff-gutter-bg);
 }
 
-.diff-header__column-label {
+.column-label {
     flex: 1;
     min-width: 0;
     padding: 0.375rem 0.75rem;
     font-weight: 500;
     @include mixins.truncate-text();
+}
 
-    &--old {
-        // Divider matches the split divider between the diff columns below.
-        border-right: 1px solid var(--diff-split-divider-color);
-    }
+.column-label-old {
+    // Divider matches the split divider between the diff columns below.
+    border-right: 1px solid var(--diff-split-divider-color);
 }
 
 .search-toggle--active {
