@@ -8,6 +8,7 @@ describe('limel-text-editor', () => {
             contentType,
             disabled,
             helperText,
+            inlineImages,
             invalid,
             label,
             placeholder,
@@ -22,6 +23,7 @@ describe('limel-text-editor', () => {
                 contentType={contentType}
                 disabled={disabled}
                 helperText={helperText}
+                inlineImages={inlineImages}
                 invalid={invalid}
                 label={label}
                 placeholder={placeholder}
@@ -37,6 +39,17 @@ describe('limel-text-editor', () => {
 
     function getAdapter(root: HTMLElement): Element | null {
         return root.shadowRoot.querySelector('limel-prosemirror-adapter');
+    }
+
+    function getContentEditable(root: HTMLElement): Promise<HTMLElement> {
+        return vi.waitFor(() => {
+            const contentEditable = getAdapter(root)?.shadowRoot?.querySelector(
+                '.ProseMirror'
+            ) as HTMLElement;
+            expect(contentEditable).toBeTruthy();
+
+            return contentEditable;
+        });
     }
 
     test('renders with prosemirror adapter and notched outline', async () => {
@@ -170,14 +183,7 @@ describe('limel-text-editor', () => {
             );
             await waitForChanges();
 
-            const editor = await vi.waitFor(() => {
-                const contentEditable = getAdapter(
-                    root
-                )?.shadowRoot?.querySelector('.ProseMirror') as HTMLElement;
-                expect(contentEditable).toBeTruthy();
-
-                return contentEditable;
-            });
+            const editor = await getContentEditable(root);
 
             const changes: string[] = [];
             root.addEventListener('change', (event: CustomEvent<string>) => {
@@ -345,6 +351,62 @@ describe('limel-text-editor', () => {
             await sleep(DEBOUNCE_WAIT);
 
             expect(changes).toHaveLength(0);
+        });
+    });
+
+    describe('image paste', () => {
+        async function createEditor(props: any = {}) {
+            const { root } = await createComponent(props);
+            const editable = await getContentEditable(root);
+
+            const imagePasted = vi.fn();
+            root.addEventListener('imagePasted', imagePasted);
+
+            return { editable, imagePasted };
+        }
+
+        function pasteImageFile(editable: HTMLElement) {
+            const clipboardData = new DataTransfer();
+            clipboardData.items.add(
+                new File(['png-bytes'], 'cat.png', { type: 'image/png' })
+            );
+
+            editable.dispatchEvent(
+                new ClipboardEvent('paste', {
+                    clipboardData: clipboardData,
+                    bubbles: true,
+                    cancelable: true,
+                })
+            );
+        }
+
+        test('pasting an image emits imagePasted when inline images are not configured', async () => {
+            const { editable, imagePasted } = await createEditor();
+
+            pasteImageFile(editable);
+
+            await vi.waitFor(() => {
+                expect(imagePasted).toHaveBeenCalledTimes(1);
+            });
+        });
+
+        test('pasting an image never emits imagePasted when inline images are configured', async () => {
+            const upload = vi
+                .fn()
+                .mockResolvedValue('https://example.com/cat.png');
+            const { editable, imagePasted } = await createEditor({
+                inlineImages: { upload: upload },
+            });
+
+            pasteImageFile(editable);
+
+            // The upload call and the legacy event sit on the same branch
+            // point after the file is read; once upload has run, a
+            // suppression failure would already have emitted the event.
+            await vi.waitFor(() => {
+                expect(upload).toHaveBeenCalledTimes(1);
+            });
+            expect(imagePasted).not.toHaveBeenCalled();
         });
     });
 });
