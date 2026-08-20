@@ -47,10 +47,12 @@ removed (with a console warning) to prevent script injection.
  - [limel-example-markdown-headings](examples)
  - [limel-example-markdown-horizontal-rule](examples)
  - [limel-example-markdown-html](examples)
+ - [limel-example-markdown-html-tables](examples)
  - [limel-example-markdown-images](examples)
  - [limel-example-markdown-keys](examples)
  - [limel-example-markdown-links](examples)
  - [limel-example-markdown-lists](examples)
+ - [limel-example-markdown-nested-lists](examples)
  - [limel-example-markdown-remove-empty-paragraphs](examples)
  - [limel-example-markdown-tables](examples)
  - [limel-example-popover-trigger-interaction](../popover/examples)
@@ -78,10 +80,12 @@ graph TD;
   limel-example-markdown-headings --> limel-markdown
   limel-example-markdown-horizontal-rule --> limel-markdown
   limel-example-markdown-html --> limel-markdown
+  limel-example-markdown-html-tables --> limel-markdown
   limel-example-markdown-images --> limel-markdown
   limel-example-markdown-keys --> limel-markdown
   limel-example-markdown-links --> limel-markdown
   limel-example-markdown-lists --> limel-markdown
+  limel-example-markdown-nested-lists --> limel-markdown
   limel-example-markdown-remove-empty-paragraphs --> limel-markdown
   limel-example-markdown-tables --> limel-markdown
   limel-example-popover-trigger-interaction --> limel-markdown

@@ -7,11 +7,13 @@
 Unsetting the value
 
 This slider is initialized *unset*, which means its `value` is `NaN`.
-Therefore the thumb rests in the middle, and the value indicator shows a `?`.
+Therefore the thumb rests in the middle, and the value indicator shows a
+left-right arrow (`↔`) instead of a number.
 Assistive technologies announce the value as "Value not set".
 
-As soon as the user drags the thumb (or nudges it with the arrow keys),
-the slider becomes set and the trailing **clear** button becomes active.
+As soon as the user drags the thumb, presses anywhere on the track, or
+nudges the thumb with the arrow keys, the slider becomes set and the
+trailing **clear** button becomes active.
 Pressing it unsets the slider again, emitting `NaN` on the `change` event.
 
 A `required` slider does not offer the clear button — a required value

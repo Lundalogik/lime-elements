@@ -96,6 +96,7 @@ Type: `Promise<void>`
  - [limel-example-text-editor-basic](examples)
  - [limel-example-text-editor-composite](examples)
  - [limel-example-text-editor-custom-element](examples)
+ - [limel-example-text-editor-lists](examples)
  - [limel-example-text-editor-size](examples)
  - [limel-example-text-editor-triggers](examples)
  - [limel-example-text-editor-ui](examples)
@@ -153,6 +154,7 @@ graph TD;
   limel-example-text-editor-basic --> limel-text-editor
   limel-example-text-editor-composite --> limel-text-editor
   limel-example-text-editor-custom-element --> limel-text-editor
+  limel-example-text-editor-lists --> limel-text-editor
   limel-example-text-editor-size --> limel-text-editor
   limel-example-text-editor-triggers --> limel-text-editor
   limel-example-text-editor-ui --> limel-text-editor
