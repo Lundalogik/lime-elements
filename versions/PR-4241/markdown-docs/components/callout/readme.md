@@ -21,12 +21,12 @@ something unusual or remarkable demands the user's attention.
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                                                              | Type                                                                   | Default     |
-| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- | ----------- |
-| `heading`  | `heading`  | Heading of the callout, which can be used to override the default heading which is displayed based on the chosen `type`. | `string`                                                               | `undefined` |
-| `icon`     | `icon`     | Icon of the callout, which can be used to override the default icon which is displayed based on the chosen `type`.       | `string`                                                               | `undefined` |
-| `language` | `language` | Defines the language for translations. Will translate the default headings for supported languages.                      | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`      |
-| `type`     | `type`     | Defines how the component is visualized, for example which heading, color or icon is used in its user interface.         | `"caution" \| "important" \| "note" \| "tip" \| "warning"`             | `'note'`    |
+| Property   | Attribute  | Description                                                                                                              | Type                                                                              | Default     |
+| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- | ----------- |
+| `heading`  | `heading`  | Heading of the callout, which can be used to override the default heading which is displayed based on the chosen `type`. | `string`                                                                          | `undefined` |
+| `icon`     | `icon`     | Icon of the callout, which can be used to override the default icon which is displayed based on the chosen `type`.       | `string`                                                                          | `undefined` |
+| `language` | `language` | Defines the language for translations. Will translate the default headings for supported languages.                      | `"da" \| "de" \| "en" \| "en-gb" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`      |
+| `type`     | `type`     | Defines how the component is visualized, for example which heading, color or icon is used in its user interface.         | `"caution" \| "important" \| "note" \| "tip" \| "warning"`                        | `'note'`    |
 
 
 ## Dependencies

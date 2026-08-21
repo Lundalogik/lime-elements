@@ -14,14 +14,14 @@ Using this component can help to:
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                                                                      | Type                                                                   | Default     |
-| ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------- |
-| `actions`  | --         | Actions to place to the far right inside the header                                                                              | `Action[]`                                                             | `undefined` |
-| `header`   | `header`   | Text to display in the header of the section                                                                                     | `string`                                                               | `undefined` |
-| `icon`     | `icon`     | Icon to display in the header of the section                                                                                     | `Icon \| string`                                                       | `undefined` |
-| `invalid`  | `invalid`  | `true` if the section is invalid, `false` if valid. This can be used to indicate that the content inside the section is invalid. | `boolean`                                                              | `false`     |
-| `isOpen`   | `is-open`  | `true` if the section is expanded, `false` if collapsed.                                                                         | `boolean`                                                              | `false`     |
-| `language` | `language` | Defines the language for translations. Will translate the translatable strings on the components.                                | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`      |
+| Property   | Attribute  | Description                                                                                                                      | Type                                                                              | Default     |
+| ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ----------- |
+| `actions`  | --         | Actions to place to the far right inside the header                                                                              | `Action[]`                                                                        | `undefined` |
+| `header`   | `header`   | Text to display in the header of the section                                                                                     | `string`                                                                          | `undefined` |
+| `icon`     | `icon`     | Icon to display in the header of the section                                                                                     | `Icon \| string`                                                                  | `undefined` |
+| `invalid`  | `invalid`  | `true` if the section is invalid, `false` if valid. This can be used to indicate that the content inside the section is invalid. | `boolean`                                                                         | `false`     |
+| `isOpen`   | `is-open`  | `true` if the section is expanded, `false` if collapsed.                                                                         | `boolean`                                                                         | `false`     |
+| `language` | `language` | Defines the language for translations. Will translate the translatable strings on the components.                                | `"da" \| "de" \| "en" \| "en-gb" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`      |
 
 
 ## Events

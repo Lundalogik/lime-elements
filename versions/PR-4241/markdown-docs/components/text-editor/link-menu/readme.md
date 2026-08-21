@@ -9,11 +9,11 @@ It allows the user to input the text and url for the link.
 
 ## Properties
 
-| Property   | Attribute  | Description                            | Type                                                                   | Default     |
-| ---------- | ---------- | -------------------------------------- | ---------------------------------------------------------------------- | ----------- |
-| `isOpen`   | `is-open`  | Open state of the link-menu dialog     | `boolean`                                                              | `false`     |
-| `language` | `language` | Defines the language for translations. | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`      |
-| `link`     | --         | The link                               | `{ text?: string; href: string; }`                                     | `undefined` |
+| Property   | Attribute  | Description                            | Type                                                                              | Default     |
+| ---------- | ---------- | -------------------------------------- | --------------------------------------------------------------------------------- | ----------- |
+| `isOpen`   | `is-open`  | Open state of the link-menu dialog     | `boolean`                                                                         | `false`     |
+| `language` | `language` | Defines the language for translations. | `"da" \| "de" \| "en" \| "en-gb" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`      |
+| `link`     | --         | The link                               | `{ text?: string; href: string; }`                                                | `undefined` |
 
 
 ## Events

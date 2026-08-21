@@ -1,1 +1,1 @@
-import{r as e,h as a}from"./index-BGxJfR2f.js";import{c as r}from"./chart-items-stack-BdUh9la4.js";const t=class{constructor(a){e(this,a)}render(){return a("limel-chart",{key:"959866a8664ef5966738f9355e99f1c4c4f736ff",items:r,maxValue:512})}};export{t as limel_example_chart_max_value}
+import{r as e,h as a}from"./index-BGxJfR2f.js";import{c as r}from"./chart-items-stack-BdUh9la4.js";const t=class{constructor(a){e(this,a)}render(){return a("limel-chart",{key:"0554b69d299670990b25c8a4be887ae2ce537f1f",items:r,maxValue:512})}};export{t as limel_example_chart_max_value}
