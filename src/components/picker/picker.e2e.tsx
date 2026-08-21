@@ -315,6 +315,36 @@ describe('limel-picker', () => {
         });
     });
 
+    describe('when the searcher fails', () => {
+        it('shows the empty-result message instead of a spinner', async () => {
+            const failingSearcher = async () => {
+                throw new Error('the backend is down');
+            };
+            const rejections: unknown[] = [];
+            const recordRejection = (event: PromiseRejectionEvent) => {
+                rejections.push(event.reason);
+            };
+            window.addEventListener('unhandledrejection', recordRejection);
+            const { root, waitForChanges } = await render(
+                <limel-picker
+                    label="Pick"
+                    searcher={failingSearcher}
+                ></limel-picker>
+            );
+            await waitForChanges();
+            await focusAndType(root, 'xyz', waitForChanges);
+            await waitForText('No results matching "xyz"', waitForChanges);
+            await waitOutDebounce(waitForChanges);
+            window.removeEventListener('unhandledrejection', recordRejection);
+
+            expect(document.body.textContent).toContain(
+                'No results matching "xyz"'
+            );
+            expect(document.querySelector('limel-spinner')).toBeNull();
+            expect(rejections).toEqual([]);
+        });
+    });
+
     describe('when picking an item from a multi-pick list', () => {
         describe('by default', () => {
             it('clears the typed query', async () => {
