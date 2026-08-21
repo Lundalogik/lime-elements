@@ -19,10 +19,10 @@ describe('limel-slider — unset & clear', () => {
         root.shadowRoot?.querySelector('button.clear-button');
 
     describe('unset state', () => {
-        it('treats a non-finite value as unset', async () => {
+        it('treats a null value as unset', async () => {
             const { root } = await setup({
                 label: 'Priority',
-                value: Number.NaN,
+                value: null,
                 valuemin: 1,
                 valuemax: 5,
             });
@@ -34,9 +34,18 @@ describe('limel-slider — unset & clear', () => {
             );
         });
 
+        it.each([
+            ['NaN', Number.NaN],
+            ['undefined', undefined],
+        ])('also treats %s as unset', async (_name, value) => {
+            const { root } = await setup({ value, valuemin: 1, valuemax: 5 });
+
+            expect(root.classList.contains('is-unset')).toBe(true);
+        });
+
         it('rests the thumb at the midpoint while unset, not at the minimum', async () => {
             const { root } = await setup({
-                value: Number.NaN,
+                value: null,
                 valuemin: 0,
                 valuemax: 10,
             });
@@ -58,7 +67,7 @@ describe('limel-slider — unset & clear', () => {
             expect(rangeInput(root).getAttribute('aria-valuetext')).toBeNull();
         });
 
-        it('becomes unset again when the value is reset to a non-finite number', async () => {
+        it('becomes unset again when the value is reset to null', async () => {
             const { root, waitForChanges } = await setup({
                 value: 3,
                 valuemin: 1,
@@ -66,7 +75,7 @@ describe('limel-slider — unset & clear', () => {
             });
             expect(root.classList.contains('is-unset')).toBe(false);
 
-            (root as any).value = Number.NaN;
+            (root as any).value = null;
             await waitForChanges();
 
             expect(root.classList.contains('is-unset')).toBe(true);
@@ -75,7 +84,7 @@ describe('limel-slider — unset & clear', () => {
 
         it('leaves the unset state as soon as the user changes the value', async () => {
             const { root, waitForChanges } = await setup({
-                value: Number.NaN,
+                value: null,
                 valuemin: 1,
                 valuemax: 5,
                 step: 1,
@@ -108,7 +117,7 @@ describe('limel-slider — unset & clear', () => {
         it('disables the clear button while unset, and enables it once set', async () => {
             const unset = await setup({
                 label: 'Priority',
-                value: Number.NaN,
+                value: null,
                 valuemin: 1,
                 valuemax: 5,
             });
@@ -138,10 +147,11 @@ describe('limel-slider — unset & clear', () => {
             });
             expect(clearButton(readonly.root)).toBeNull();
         });
+
     });
 
     describe('clearing', () => {
-        it('emits change with NaN and enters the unset state', async () => {
+        it('emits change with null and enters the unset state', async () => {
             const { root, waitForChanges } = await setup({
                 label: 'Priority',
                 value: 3,
@@ -149,16 +159,19 @@ describe('limel-slider — unset & clear', () => {
                 valuemax: 5,
             });
 
-            const details: number[] = [];
-            root.addEventListener('change', (event: CustomEvent<number>) => {
-                details.push(event.detail);
-            });
+            const details: Array<number | null> = [];
+            root.addEventListener(
+                'change',
+                (event: CustomEvent<number | null>) => {
+                    details.push(event.detail);
+                }
+            );
 
             clearButton(root).click();
             await waitForChanges();
 
             expect(details).toHaveLength(1);
-            expect(Number.isNaN(details[0])).toBe(true);
+            expect(details[0]).toBeNull();
             expect(root.classList.contains('is-unset')).toBe(true);
         });
 
@@ -176,6 +189,236 @@ describe('limel-slider — unset & clear', () => {
             await waitForChanges();
 
             expect(focusSpy).toHaveBeenCalled();
+        });
+    });
+
+    describe('setting a value by pressing on the track', () => {
+        // While unset the native input already rests at the midpoint, so a
+        // press that lands on that same value changes nothing and the browser
+        // fires neither `input` nor `change` — only `click`. These tests drive
+        // that sequence, since a synthetic `input` event would hide the bug.
+        async function setupUnset() {
+            const context = await setup({
+                value: null,
+                valuemin: 1,
+                valuemax: 5,
+                step: 1,
+            });
+            const details: Array<number | null> = [];
+            context.root.addEventListener(
+                'change',
+                (event: CustomEvent<number | null>) => {
+                    details.push(event.detail);
+                }
+            );
+
+            // The thumb rests at the step-aligned midpoint of 1–5.
+            expect(rangeInput(context.root).value).toBe('3');
+            expect(context.root.classList.contains('is-unset')).toBe(true);
+
+            return { ...context, details };
+        }
+
+        it('sets the value when the press lands on the resting position', async () => {
+            const { root, waitForChanges, details } = await setupUnset();
+
+            rangeInput(root).dispatchEvent(new Event('click'));
+            await waitForChanges();
+
+            expect(details).toEqual([3]);
+            expect(root.classList.contains('is-unset')).toBe(false);
+            expect(indicator(root).textContent).toBe('3');
+        });
+
+        it('sets the value when a drag returns to the resting position', async () => {
+            const { root, waitForChanges, details } = await setupUnset();
+            const input = rangeInput(root);
+
+            // Drag away from the midpoint and back before releasing. `input`
+            // fires along the way, but the released value equals the value the
+            // drag started at, so the browser fires no `change`.
+            input.value = '5';
+            input.dispatchEvent(new Event('input'));
+            input.value = '3';
+            input.dispatchEvent(new Event('input'));
+            input.dispatchEvent(new Event('click'));
+            await waitForChanges();
+
+            expect(details).toEqual([3]);
+            expect(root.classList.contains('is-unset')).toBe(false);
+        });
+
+        it('emits change only once when the press does move the value', async () => {
+            const { root, waitForChanges, details } = await setupUnset();
+            const input = rangeInput(root);
+
+            input.value = '5';
+            input.dispatchEvent(new Event('input'));
+            input.dispatchEvent(new Event('change'));
+            input.dispatchEvent(new Event('click'));
+            await waitForChanges();
+
+            expect(details).toEqual([5]);
+        });
+
+        it('does not emit when a press on an already set slider changes nothing', async () => {
+            const { root, waitForChanges } = await setup({
+                value: 3,
+                valuemin: 1,
+                valuemax: 5,
+                step: 1,
+            });
+            const details: Array<number | null> = [];
+            root.addEventListener(
+                'change',
+                (event: CustomEvent<number | null>) => {
+                    details.push(event.detail);
+                }
+            );
+
+            rangeInput(root).dispatchEvent(new Event('click'));
+            await waitForChanges();
+
+            expect(details).toEqual([]);
+        });
+
+        it('keeps the value on a step when the range does not start on one', async () => {
+            // A 1–5 range in steps of 2 stops at 1, 3 and 5. Steps count from
+            // `valuemin`, so none of those is a multiple of the step itself.
+            const { root, waitForChanges } = await setup({
+                value: null,
+                valuemin: 1,
+                valuemax: 5,
+                step: 2,
+            });
+            const details: Array<number | null> = [];
+            root.addEventListener(
+                'change',
+                (event: CustomEvent<number | null>) => {
+                    details.push(event.detail);
+                }
+            );
+
+            const input = rangeInput(root);
+            expect(input.value).toBe('3');
+
+            input.dispatchEvent(new Event('click'));
+            await waitForChanges();
+
+            expect(details).toEqual([3]);
+            expect(indicator(root).textContent).toBe('3');
+        });
+
+        it('emits the stops of an offset range unchanged', async () => {
+            const { root, waitForChanges } = await setup({
+                value: 1,
+                valuemin: 1,
+                valuemax: 5,
+                step: 2,
+            });
+            const details: Array<number | null> = [];
+            root.addEventListener(
+                'change',
+                (event: CustomEvent<number | null>) => {
+                    details.push(event.detail);
+                }
+            );
+
+            const input = rangeInput(root);
+            for (const stop of ['1', '3', '5']) {
+                input.value = stop;
+                input.dispatchEvent(new Event('input'));
+                input.dispatchEvent(new Event('change'));
+            }
+
+            await waitForChanges();
+
+            // Never rounded up past `valuemax`.
+            expect(details).toEqual([1, 3, 5]);
+        });
+
+        it('rests at the factored midpoint and emits the unfactored value', async () => {
+            // `form/widgets/slider.ts` sets factor 100 for percent schemas, so
+            // the native input works in whole percent while `change` carries
+            // the 0-1 fraction back out.
+            const { root, waitForChanges } = await setup({
+                value: null,
+                valuemin: 0,
+                valuemax: 1,
+                step: 0.1,
+                factor: 100,
+            });
+            const details: Array<number | null> = [];
+            root.addEventListener(
+                'change',
+                (event: CustomEvent<number | null>) => {
+                    details.push(event.detail);
+                }
+            );
+
+            expect(root.classList.contains('is-unset')).toBe(true);
+            expect(rangeInput(root).value).toBe('50');
+
+            rangeInput(root).dispatchEvent(new Event('click'));
+            await waitForChanges();
+
+            expect(details).toEqual([0.5]);
+            expect(indicator(root).textContent).toBe('50');
+        });
+
+        it('clears a factored slider back to null', async () => {
+            const { root, waitForChanges } = await setup({
+                label: 'Probability',
+                value: 0.3,
+                valuemin: 0,
+                valuemax: 1,
+                step: 0.1,
+                factor: 100,
+            });
+            const details: Array<number | null> = [];
+            root.addEventListener(
+                'change',
+                (event: CustomEvent<number | null>) => {
+                    details.push(event.detail);
+                }
+            );
+
+            expect(indicator(root).textContent).toBe('30');
+
+            clearButton(root).click();
+            await waitForChanges();
+
+            expect(details).toEqual([null]);
+            expect(root.classList.contains('is-unset')).toBe(true);
+            // The step-aligned midpoint of 0-100 in steps of 10.
+            expect(rangeInput(root).value).toBe('50');
+        });
+
+        it('emits again after the slider is cleared and pressed', async () => {
+            const { root, waitForChanges } = await setup({
+                label: 'Priority',
+                value: 5,
+                valuemin: 1,
+                valuemax: 5,
+                step: 1,
+            });
+            const details: Array<number | null> = [];
+            root.addEventListener(
+                'change',
+                (event: CustomEvent<number | null>) => {
+                    details.push(event.detail);
+                }
+            );
+
+            clearButton(root).click();
+            await waitForChanges();
+            rangeInput(root).dispatchEvent(new Event('click'));
+            await waitForChanges();
+
+            expect(details).toHaveLength(2);
+            expect(details[0]).toBeNull();
+            expect(details[1]).toBe(3);
+            expect(root.classList.contains('is-unset')).toBe(false);
         });
     });
 });
