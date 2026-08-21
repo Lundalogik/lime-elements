@@ -145,12 +145,9 @@ export class Picker {
      * See the docs for the type `Searcher` for type information on
      * the searcher function itself.
      *
-     * When `multiple` is `true`, the picker removes results that are
-     * already picked before showing them: any item whose value id matches
-     * an entry in `value` is dropped from the dropdown. Returning already
-     * picked items in order to render them as `selected` therefore has no
-     * effect. Items with no value at all have no id to match on, so those
-     * are always kept.
+     * When `multiple` is `true`, items that are already picked are removed
+     * from the result before it is shown, matched by value id. Returning
+     * them in order to render them as `selected` has no effect.
      */
     @Prop()
     public searcher?: Searcher;
@@ -245,6 +242,27 @@ export class Picker {
     // Should NOT be decorated with State(), since this
     // should not trigger a re-render by itself.
     private chipSetEditMode = false;
+
+    /**
+     * Suppresses the search that `handleInputFieldFocus` would start, for
+     * one focus only: after a pick the dropdown already holds the right
+     * items. Set immediately before the `setFocus()` that consumes it, and
+     * cleared once that call returns so it cannot outlive the gesture.
+     */
+    private skipSearchOnNextFocus = false;
+
+    /**
+     * The value the picker last asked the consumer for, held until `value`
+     * reflects it or the search session ends. Both the suggestion filter and
+     * the next emitted value are built on it, so a pick made before the
+     * consumer answers neither re-offers the picked item nor drops it from
+     * what is emitted next.
+     *
+     * Within a session a declined change is indistinguishable from a slow
+     * one — both leave `value` unchanged — so the picker holds this until
+     * the session ends and then defers to `value`.
+     */
+    private emittedValue: PickerItem[] = null;
 
     private debouncedSearch: DebouncedFunc<(query: string) => Promise<void>>;
     private chipSet: HTMLLimelChipSetElement;
@@ -343,6 +361,7 @@ export class Picker {
 
     @Watch('value')
     protected onChangeValue() {
+        this.emittedValue = null;
         this.chips = this.createChips(this.value);
     }
 
@@ -352,6 +371,29 @@ export class Picker {
         }
 
         return null;
+    }
+
+    /**
+     * Emits a new value and remembers it, so the suggestions can be
+     * filtered against it until `value` catches up.
+     *
+     * @param newValue - the value being asked for
+     */
+    private emitValue(newValue: PickerItem | PickerItem[]) {
+        this.emittedValue = this.multiple
+            ? (newValue as PickerItem[])
+            : [newValue as PickerItem];
+        this.change.emit(newValue);
+    }
+
+    /**
+     * The items to treat as already picked, both when filtering the
+     * suggestions and when building the next value to emit.
+     *
+     * @returns the last emitted value, or `value` when none is pending
+     */
+    private pickedItems(): PickerItem[] {
+        return this.emittedValue ?? (this.value as PickerItem[]) ?? [];
     }
 
     private createChips = (value: PickerItem | PickerItem[]): Chip[] => {
@@ -545,6 +587,9 @@ export class Picker {
 
             return;
         }
+        if (event.key === ENTER && this.multiple) {
+            return;
+        }
         if ([TAB, ENTER].includes(event.key)) {
             this.chipSet.setFocus();
         }
@@ -620,6 +665,7 @@ export class Picker {
             this.loading = true;
         });
         const searcher = this.searcher || this.defaultSearcher;
+
         const result = await searcher(this.textValue);
 
         // If the search function resolves immediately,
@@ -631,12 +677,20 @@ export class Picker {
 
     private defaultSearcher: Searcher = async (
         query: string
-    ): Promise<PickerItem[]> => {
+    ): Promise<Array<PickerItem | ListSeparator>> => {
+        const available = this.multiple
+            ? excludePickedItems(this.allItems, this.pickedItems())
+            : this.allItems;
+
         if (query === '') {
-            return this.allItems.slice(0, DEFAULT_SEARCHER_MAX_RESULTS);
+            return available.slice(0, DEFAULT_SEARCHER_MAX_RESULTS);
         }
 
-        const filteredItems = this.allItems.filter((item) => {
+        const filteredItems = available.filter((item) => {
+            if ('separator' in item) {
+                return true;
+            }
+
             let searchText = item.text.toLowerCase();
             if (item.secondaryText) {
                 searchText =
@@ -654,34 +708,38 @@ export class Picker {
      *
      * @param event - event
      */
-    private handleListChange(event: LimelListCustomEvent<PickerItem>) {
+    private async handleListChange(event: LimelListCustomEvent<PickerItem>) {
         event.stopPropagation();
         if (!this.value || this.value !== event.detail) {
             let newValue: PickerItem | PickerItem[] = event.detail;
             if (this.multiple) {
-                const currentValue = (this.value as PickerItem[]) ?? [];
-                newValue = [...currentValue, event.detail];
+                newValue = [...this.pickedItems(), event.detail];
             }
 
-            this.change.emit(newValue);
-            if (this.multiple) {
-                const remaining = this.items.filter(
-                    (item) => item !== event.detail
-                );
-                this.items = hasPickableItems(remaining) ? remaining : [];
-            } else {
-                // Single-pick: the search session ends with the pick, so
-                // wipe the input. (In multi-pick we deliberately keep the
-                // typed query so the user can keep adding matches.)
-                this.items = [];
-                this.textValue = '';
-                this.chipSet?.emptyInput();
-            }
+            this.emitValue(newValue);
+            this.updateSearchAfterPick();
         }
 
         if (this.multiple) {
-            this.chipSet?.setFocus();
+            this.skipSearchOnNextFocus = true;
+            await this.chipSet?.setFocus();
+            this.skipSearchOnNextFocus = false;
         }
+    }
+
+    /**
+     * Decides what happens to the current search session once an item
+     * has been picked from the dropdown.
+     *
+     */
+    private updateSearchAfterPick() {
+        if (!this.multiple) {
+            this.clearInputField();
+
+            return;
+        }
+
+        this.resetSearchToDefault();
     }
 
     /**
@@ -706,13 +764,18 @@ export class Picker {
      * Prevent focus if the picker has a value and does not support multiple values
      */
     private handleInputFieldFocus() {
+        if (this.skipSearchOnNextFocus) {
+            this.skipSearchOnNextFocus = false;
+
+            return;
+        }
+
         const query = this.textValue;
         this.debouncedSearch(query);
     }
 
-    private handleChange(event: LimelChipSetCustomEvent<Chip | Chip[]>) {
+    private async handleChange(event: LimelChipSetCustomEvent<Chip | Chip[]>) {
         event.stopPropagation();
-        this.textValue = '';
 
         let newValue = null;
         if (this.multiple) {
@@ -724,7 +787,15 @@ export class Picker {
             );
         }
 
-        this.change.emit(newValue as PickerItem | PickerItem[]);
+        this.emitValue(newValue as PickerItem | PickerItem[]);
+
+        const wasEditingInput = await this.chipSet?.getEditMode();
+
+        if (this.multiple && wasEditingInput) {
+            this.resetSearchToDefault();
+        } else {
+            this.clearInputField();
+        }
     }
 
     private handleInteract(event: LimelChipSetCustomEvent<Chip>) {
@@ -795,6 +866,13 @@ export class Picker {
         }
     }
 
+    /**
+     * Applies a searcher result, unless its query is no longer the one
+     * being searched for.
+     *
+     * @param query - the query the result belongs to
+     * @param result - what the searcher returned
+     */
     private handleSearchResult(
         query: string,
         result: Array<PickerItem | ListSeparator>
@@ -802,8 +880,7 @@ export class Picker {
         if (query === this.textValue) {
             let nextItems = result;
             if (this.multiple) {
-                const values = (this.value as PickerItem[]) ?? [];
-                nextItems = excludePickedItems(result, values);
+                nextItems = excludePickedItems(result, this.pickedItems());
             }
 
             this.items = this.prependSearchHeader(query, nextItems);
@@ -838,12 +915,17 @@ export class Picker {
      * search.
      */
     private clearTextValue() {
-        this.chipSet.emptyInput();
+        this.chipSet?.emptyInput();
         this.textValue = '';
         this.debouncedSearch.cancel();
     }
 
+    /**
+     * Ends the search session, leaving the dropdown with nothing to show.
+     * Goes through `handleSearchResult` so `loading` is settled too.
+     */
     private clearInputField() {
+        this.emittedValue = null;
         this.clearTextValue();
         this.handleSearchResult('', []);
     }

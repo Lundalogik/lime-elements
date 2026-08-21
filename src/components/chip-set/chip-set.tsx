@@ -180,10 +180,10 @@ export class ChipSet {
      * <kbd>Enter</kbd>. The input is then cleared to make room for the
      * next chip, and help user type a new keyword from scratch.
      *
-     * Set to `false` when the input represents a search query over an
-     * external suggestion list (as in `limel-picker`), so the typed keyword
-     * survives while chips are added or removed (when user selects items from
-     * the search results list, while it is open).
+     * Set to `false` when the input is a search query over an external
+     * suggestion list and the consumer decides when the keyword has served
+     * its purpose, clearing it itself via `emptyInput()`, as
+     * `limel-picker` does.
      */
     @Prop({ reflect: true })
     public emptyInputOnChange: boolean = true;
