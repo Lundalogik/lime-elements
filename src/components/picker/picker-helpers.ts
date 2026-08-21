@@ -45,3 +45,41 @@ export function hasPickableItems(
 ): boolean {
     return items.some((item) => !('separator' in item));
 }
+
+/**
+ * Filters out items that have already been picked.
+ *
+ * Matching is by value id, not by reference: `limel-list` emits a copy of
+ * the item that was picked, so the objects in `value` are never the ones
+ * the searcher returned.
+ *
+ * Items with no value id are always kept, and items sharing one are
+ * removed together. `ListSeparator` entries are always kept, so the
+ * result can hold nothing but headers — see `hasPickableItems`.
+ *
+ * @param items - the items to filter
+ * @param picked - the items already picked; may contain nullish holes
+ * @returns the items that have not been picked
+ */
+export function excludePickedItems(
+    items: Array<PickerItem | ListSeparator>,
+    picked: Array<PickerItem | undefined | null>
+): Array<PickerItem | ListSeparator> {
+    const pickedIds = new Set(
+        picked
+            .filter((item): item is PickerItem => !!item)
+            .map(getValueId)
+            .filter(
+                (valueId): valueId is string | number =>
+                    valueId !== undefined && valueId !== null
+            )
+    );
+
+    if (pickedIds.size === 0) {
+        return items;
+    }
+
+    return items.filter(
+        (item) => 'separator' in item || !pickedIds.has(getValueId(item))
+    );
+}
