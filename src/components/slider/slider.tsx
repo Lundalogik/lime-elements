@@ -390,10 +390,14 @@ export class Slider {
      */
     private readonly commitValue = (displayValue: number) => {
         const step = this.multiplyByFactor(this.step);
+        const min = this.multiplyByFactor(this.valuemin);
         let value = displayValue;
 
-        if (!this.isMultipleOfStep(value, step)) {
-            value = this.roundToStep(value, step);
+        // Steps are counted from `valuemin`, not from zero — a range of 1–5 in
+        // steps of 2 stops at 1, 3 and 5. Rounding against zero would push
+        // every one of those to the next even number, past `valuemax`.
+        if (!this.isMultipleOfStep(value - min, step)) {
+            value = min + this.roundToStep(value - min, step);
         }
 
         this.valueIsCommitted = true;
