@@ -758,11 +758,7 @@ export class Picker {
         let newValue = null;
         if (this.multiple) {
             const chips = event.detail as Chip[];
-            newValue = chips.map((chip) =>
-                (this.value as PickerItem[]).find(
-                    (item) => getChipId(item) === chip.id
-                )
-            );
+            newValue = chips.map((chip) => chip.value as PickerItem);
         }
 
         this.change.emit(newValue as PickerItem | PickerItem[]);
