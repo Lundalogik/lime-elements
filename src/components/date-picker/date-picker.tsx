@@ -597,6 +597,15 @@ export class DatePicker {
     }
 
     private clearValue() {
+        // Mirrors the `text === ''` branch of `handleInputElementChange`:
+        // without resetting these first, any `rawInputValue` left over
+        // from earlier typing (valid or not) would keep winning in
+        // `getDisplayValue` forever afterward — `value` turning falsy
+        // doesn't matter once that check is reached — making the field
+        // look permanently stuck on stale text no matter what's typed
+        // next.
+        this.parseError = false;
+        this.rawInputValue = undefined;
         this.change.emit(null);
     }
 
