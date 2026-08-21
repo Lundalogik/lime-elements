@@ -22,6 +22,7 @@ export type Languages =
     | 'da'
     | 'de'
     | 'en'
+    | 'en-gb'
     | 'fi'
     | 'fr'
     | 'nb'

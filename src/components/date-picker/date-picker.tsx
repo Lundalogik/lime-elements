@@ -156,6 +156,11 @@ export class DatePicker {
      * :::note
      * overrides `format` and `language`
      * :::
+     *
+     * Only while the field is at rest: `formatter` can't be inverted into
+     * a pattern to validate typed text against, so while the field has
+     * focus it's shown and validated using `format`/`language` instead,
+     * then redisplayed via `formatter` once it's blurred.
      */
     @Prop()
     public formatter?: (date: Date) => string;
@@ -195,6 +200,14 @@ export class DatePicker {
      */
     @State()
     private rawInputValue: string | undefined;
+
+    /**
+     * `true` while the input field has focus. Drives which formatter
+     * `getDisplayValue` shows the value with — see `formatter`'s doc
+     * comment for why.
+     */
+    @State()
+    private isEditing = false;
 
     private useNative: boolean;
     private nativeType: InputType;
@@ -306,7 +319,6 @@ export class DatePicker {
                     value={this.value}
                     ref={(el) => (this.datePickerCalendar = el)}
                     isOpen={this.showPortal}
-                    formatter={formatter}
                     onChange={this.handleCalendarChange}
                 />
             </limel-portal>,
@@ -315,14 +327,27 @@ export class DatePicker {
 
     /**
      * What the text field should currently show: the raw text the user is
-     * mid-typing if it doesn't yet parse, otherwise the formatted
-     * committed value.
+     * mid-typing (whether or not it currently parses) if there is any,
+     * otherwise the formatted committed value.
      * @param formatter - formats `value` for display when there's no
-     * pending invalid text to show instead
+     * typed text to show instead
      */
     private getDisplayValue(formatter: (date: Date) => string): string {
         if (this.parseError && this.rawInputValue !== undefined) {
             return this.rawInputValue;
+        }
+
+        if (this.isEditing) {
+            if (this.rawInputValue !== undefined) {
+                return this.rawInputValue;
+            }
+
+            // Focused, but nothing typed yet: show the internalFormat-based
+            // text (matches the placeholder and what typed input gets
+            // parsed against), not `formatter`'s pretty text, which might
+            // use a totally different pattern — see `formatter`'s doc
+            // comment.
+            return this.value ? this.formatValue(this.value) : '';
         }
 
         return this.value ? formatter(this.value) : '';
@@ -385,6 +410,7 @@ export class DatePicker {
 
             return;
         }
+        this.isEditing = true;
         this.showPortal = true;
         const inputElement = this.textField.shadowRoot.querySelector('input');
         // A microtask, not a `setTimeout`: on the very first focus, this is
@@ -427,6 +453,17 @@ export class DatePicker {
     }
 
     private hideCalendar() {
+        this.isEditing = false;
+
+        if (!this.parseError) {
+            // Done editing a valid value: drop the preserved raw typed
+            // text so the next focus starts from the current committed
+            // value instead of a stale partial edit. Left alone while
+            // `parseError` is true, so the invalid text stays visible to
+            // fix even after losing focus.
+            this.rawInputValue = undefined;
+        }
+
         setTimeout(() => {
             this.showPortal = false;
         });
@@ -536,7 +573,15 @@ export class DatePicker {
 
         if (date && !Number.isNaN(date.getTime())) {
             this.parseError = false;
-            this.rawInputValue = undefined;
+            // Keep showing exactly what was typed rather than the freshly
+            // committed value's canonical (e.g. zero-padded) formatting:
+            // this fires on a debounce, not just on blur, so a 2-digit
+            // year someone is still typing toward 4 digits (e.g. "20" on
+            // its way to "2026") already parses as valid shorthand and
+            // would otherwise get rewritten to "2020" out from under
+            // their next keystrokes. `hideCalendar` clears this once
+            // they're actually done editing.
+            this.rawInputValue = text;
             this.change.emit(date);
         } else {
             // Don't emit a change and don't let the next render overwrite
