@@ -838,7 +838,7 @@ export namespace Components {
         "required": boolean;
         "step": number;
         "unit": string;
-        "value": number;
+        "value": number | null;
         "valuemax": number;
         "valuemin": number;
     }
@@ -3403,12 +3403,12 @@ export namespace JSX {
         "invalid"?: boolean;
         "label"?: string;
         "language"?: Languages;
-        "onChange"?: (event: LimelSliderCustomEvent<number>) => void;
+        "onChange"?: (event: LimelSliderCustomEvent<number | null>) => void;
         "readonly"?: boolean;
         "required"?: boolean;
         "step"?: number;
         "unit"?: string;
-        "value"?: number;
+        "value"?: number | null;
         "valuemax"?: number;
         "valuemin"?: number;
     }
@@ -3438,7 +3438,7 @@ export namespace JSX {
         // (undocumented)
         "unit": string;
         // (undocumented)
-        "value": number;
+        "value": number | null;
         // (undocumented)
         "valuemax": number;
         // (undocumented)

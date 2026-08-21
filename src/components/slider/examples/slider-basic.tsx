@@ -18,7 +18,7 @@ export class SliderBasicExample {
     private required = false;
 
     @State()
-    private value = 25;
+    private value: number | null = 25;
 
     private minValue = 15;
     private maxValue = 75;
@@ -57,7 +57,7 @@ export class SliderBasicExample {
         ];
     }
 
-    private handleChange = (event: CustomEvent<number>) => {
+    private handleChange = (event: CustomEvent<number | null>) => {
         this.value = event.detail;
     };
 

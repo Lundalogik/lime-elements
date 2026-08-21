@@ -19,6 +19,18 @@ const DEFAULT_MIN_VALUE = 0;
 const MAX_VISIBLE_STEP_DOTS = 20;
 
 /**
+ * Whether the slider holds a value at all. `Number.isFinite` is typed
+ * `(number: unknown) => boolean`, so it tests the right thing but narrows
+ * nothing; this does, which lets the unset check double as proof that what
+ * remains is a number the arithmetic can use. `null`, `undefined` and `NaN`
+ * all mean unset.
+ * @param value - the slider's `value` prop, which may not be a number.
+ */
+const isSetValue = (value: unknown): value is number => {
+    return Number.isFinite(value);
+};
+
+/**
  * @exampleComponent limel-example-slider-basic
  * @exampleComponent limel-example-slider-unset
  * @exampleComponent limel-example-slider-multiplier
@@ -106,13 +118,13 @@ export class Slider {
     public language: Languages = 'en';
 
     /**
-     * The value of the input. When the value is `NaN` or otherwise not a
-     * finite number, the slider is considered unset. At runtime `null` and
-     * `undefined` also trigger the unset state, but `NaN` is the type-safe
-     * way to unset the slider programmatically.
+     * The value of the input. Set it to `null` to leave the slider unset,
+     * which is also what the `change` event emits once the value is cleared.
+     * Any other value that is not a finite number — `undefined`, or `NaN` —
+     * unsets the slider too.
      */
     @Prop({ reflect: true })
-    public value: number;
+    public value: number | null;
 
     /**
      * The maximum value allowed
@@ -134,10 +146,11 @@ export class Slider {
 
     /**
      * Emitted when the value has been changed.
-     * Emits `NaN` when the value has been cleared and the slider becomes unset.
+     * Emits `null` when the value has been cleared and the slider becomes
+     * unset, so handlers must account for a value that is not a number.
      */
     @Event()
-    private change: EventEmitter<number>;
+    private change: EventEmitter<number | null>;
 
     @State()
     private percentageClass: string | undefined;
@@ -278,7 +291,9 @@ export class Slider {
     }
 
     private readonly syncStateFromValue = () => {
-        if (!Number.isFinite(this.value)) {
+        const value = this.value;
+
+        if (!isSetValue(value)) {
             this.enterUnsetState();
 
             return;
@@ -286,8 +301,8 @@ export class Slider {
 
         this.isUnset = false;
         this.valueIsCommitted = true;
-        this.displayValue = this.multiplyByFactor(this.value);
-        this.setPercentageClass(this.getValue());
+        this.displayValue = this.multiplyByFactor(value);
+        this.setPercentageClass(value);
     };
 
     private readonly enterUnsetState = () => {
@@ -410,7 +425,7 @@ export class Slider {
     private readonly handleClear = (event: MouseEvent) => {
         event.stopPropagation();
         this.enterUnsetState();
-        this.change.emit(Number.NaN);
+        this.change.emit(null);
 
         // Move focus to the slider itself so keyboard users can immediately
         // set a new value, and so assistive tech announces the now-unset state
@@ -437,15 +452,6 @@ export class Slider {
 
     private multiplyByFactor = (value: number) => {
         return Math.round(value * this.factor);
-    };
-
-    private getValue = () => {
-        let value = this.value;
-        if (!Number.isFinite(value)) {
-            value = this.valuemin;
-        }
-
-        return value;
     };
 
     /**
