@@ -26,6 +26,7 @@ import {
     LimelListCustomEvent,
 } from '../../components';
 import { getIconFillColor, getIconName } from '../icon/get-icon-props';
+import { getChipId, hasPickableItems } from './picker-helpers';
 import { DebouncedFunc, debounce } from 'lodash-es';
 import { IconName } from '../../global/shared-types/icon.types';
 
@@ -342,15 +343,6 @@ export class Picker {
         return null;
     }
 
-    private getValueId = (item: ListItem) => {
-        const value = item.value;
-        if (!!value && typeof value === 'object') {
-            return value.id;
-        }
-
-        return value;
-    };
-
     private createChips = (value: PickerItem | PickerItem[]): Chip[] => {
         if (!value) {
             return [];
@@ -371,10 +363,8 @@ export class Picker {
         const name = getIconName(listItem.icon);
 
         const color = getIconFillColor(listItem.icon, listItem.iconColor);
-        const valueId = this.getValueId(listItem);
-
         return {
-            id: `${valueId}`,
+            id: getChipId(listItem),
             text: listItem.text,
             removable: listItem.removable !== false,
             icon: name ? { name: name, color: color } : undefined,
@@ -667,7 +657,7 @@ export class Picker {
                 const remaining = this.items.filter(
                     (item) => item !== event.detail
                 );
-                this.items = this.hasPickableItems(remaining) ? remaining : [];
+                this.items = hasPickableItems(remaining) ? remaining : [];
             } else {
                 // Single-pick: the search session ends with the pick, so
                 // wipe the input. (In multi-pick we deliberately keep the
@@ -716,13 +706,11 @@ export class Picker {
         let newValue = null;
         if (this.multiple) {
             const chips = event.detail as Chip[];
-            newValue = chips.map((chip) => {
-                return (this.value as PickerItem[]).find((item) => {
-                    const valueId = this.getValueId(item);
-
-                    return `${valueId}` === chip.id;
-                });
-            });
+            newValue = chips.map((chip) =>
+                (this.value as PickerItem[]).find(
+                    (item) => getChipId(item) === chip.id
+                )
+            );
         }
 
         this.change.emit(newValue as PickerItem | PickerItem[]);
@@ -818,12 +806,6 @@ export class Picker {
         }
     }
 
-    private hasPickableItems(
-        items: Array<PickerItem | ListSeparator>
-    ): boolean {
-        return items.some((item) => !('separator' in item));
-    }
-
     private prependSearchHeader(
         query: string,
         items: Array<PickerItem | ListSeparator>
@@ -831,7 +813,7 @@ export class Picker {
         if (query === '') {
             return items;
         }
-        if (!this.hasPickableItems(items)) {
+        if (!hasPickableItems(items)) {
             return items;
         }
         const text = translate.get('picker.results-matching', this.language, {
@@ -846,13 +828,9 @@ export class Picker {
     }
 
     /**
-     * Shared prelude for any flow that ends the current search session:
-     * wipe the chip-set's visible text, reset the picker's `textValue`,
-     * and cancel any in-flight debounced search.
-     *
-     * Used by `clearInputField` (which then drops the dropdown
-     * entirely) and `resetSearchToDefault` (which re-runs the searcher
-     * with an empty query to repopulate the dropdown with defaults).
+     * Shared prelude for ending a search session: clears the chip-set's
+     * visible text and the picker's `textValue`, and cancels any pending
+     * search.
      */
     private clearTextValue() {
         this.chipSet.emptyInput();
