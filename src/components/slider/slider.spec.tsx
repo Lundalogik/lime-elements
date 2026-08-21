@@ -148,6 +148,33 @@ describe('limel-slider — unset & clear', () => {
             expect(clearButton(readonly.root)).toBeNull();
         });
 
+        it('marks the host whenever the clear button is rendered', async () => {
+            // The stylesheet reserves room for the button off this class, so
+            // it has to track the button itself rather than the attributes.
+            const clearable = await setup({ value: 3 });
+            expect(clearButton(clearable.root)).not.toBeNull();
+            expect(clearable.root.classList.contains('has-clear-button')).toBe(
+                true
+            );
+
+            for (const props of [{ required: true }, { readonly: true }]) {
+                const { root } = await setup({ value: 3, ...props });
+                expect(clearButton(root)).toBeNull();
+                expect(root.classList.contains('has-clear-button')).toBe(false);
+            }
+        });
+
+        it('keeps the button and the reserved room in step for required="false"', async () => {
+            // Stencil parses the attribute string "false" into `false`, so the
+            // button is rendered — a stylesheet matching on `[required]` would
+            // reserve nothing for it. Vue templates emit exactly this.
+            const { root } = await render(
+                <limel-slider value={3} attr:required="false"></limel-slider>
+            );
+
+            expect(clearButton(root)).not.toBeNull();
+            expect(root.classList.contains('has-clear-button')).toBe(true);
+        });
     });
 
     describe('clearing', () => {

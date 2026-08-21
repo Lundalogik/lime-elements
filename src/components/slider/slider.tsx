@@ -340,9 +340,19 @@ export class Slider {
         );
     };
 
+    /**
+     * A required slider must hold a value, so it offers no way to clear it,
+     * and a readonly one cannot be edited at all. The styling needs the same
+     * answer to reserve room for the button, so both read it from here rather
+     * than each deriving it — the stylesheet cannot see a parsed prop, only
+     * the attribute string, and `required="false"` is a present attribute.
+     */
+    private readonly hasClearButton = (): boolean => {
+        return !this.readonly && !this.required;
+    };
+
     private readonly renderClearButton = () => {
-        // A required slider must hold a value, so it offers no way to clear it.
-        if (this.readonly || this.required) {
+        if (!this.hasClearButton()) {
             return;
         }
 
@@ -436,6 +446,7 @@ export class Slider {
     private getContainerClassList = () => {
         return {
             'is-unset': this.isUnset,
+            'has-clear-button': this.hasClearButton(),
             ...this.getPercentageClassList(),
         };
     };

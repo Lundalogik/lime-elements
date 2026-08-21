@@ -160,13 +160,7 @@ input[type='range'] {
     }
 }
 
-:host(
-    limel-slider:not([readonly]):not([readonly='true']):not([required]):not(
-            [required='true']
-        )
-) {
-    // When readonly or required, the clear button is hidden,
-    // so we don't need to make room for it.
+:host(.has-clear-button) {
     div[slot='content'] {
         padding-right: calc(
             #{$size-of-clear-value-button} + #{$gap-of-clear-value-button}
@@ -220,7 +214,6 @@ button.clear-button {
     height: $size-of-clear-value-button;
     width: $size-of-clear-value-button;
     border-radius: 50%;
-    color: rgb(var(--contrast-100));
 
     svg {
         width: calc(#{$size-of-clear-value-button} - 0.25rem);
@@ -240,6 +233,7 @@ button.clear-button {
     }
 
     &[disabled] {
+        color: rgb(var(--contrast-1000));
         background-color: rgb(var(--contrast-600));
         cursor: not-allowed;
     }
