@@ -3,6 +3,7 @@ import FlatpickrLanguages from 'flatpickr/dist/l10n';
 import { EventEmitter } from '@stencil/core';
 import 'moment/locale/da';
 import 'moment/locale/de';
+import 'moment/locale/en-gb';
 import 'moment/locale/fi';
 import 'moment/locale/fr';
 import 'moment/locale/nb';
@@ -10,11 +11,24 @@ import 'moment/locale/nl';
 import 'moment/locale/sv';
 import moment from 'moment/moment';
 import { isAndroidDevice, isIOSDevice } from '../../../util/device';
+import { parseComplete } from '../date-formatter';
 
 const ARIA_DATE_FORMAT = 'F j, Y';
 
 export abstract class Picker {
-    public formatter = (date: Date) =>
+    /**
+     * Deliberately not settable from outside — a consumer-supplied
+     * `formatter` (an arbitrary, non-invertible function) is what
+     * `limel-date-picker`'s own render logic uses for its "pretty"
+     * at-rest display, but it's not safe to also let Flatpickr use it
+     * here: this is what keeps Flatpickr's own internal sync of the
+     * bound input (e.g. right after a calendar pick) consistent with
+     * `dateFormat` — the exact pattern typed text gets validated
+     * against. A custom formatter producing different text (e.g. a
+     * different separator) would fail that re-validation immediately.
+     * @param date - the date to format
+     */
+    private formatter = (date: Date) =>
         moment(date).locale(this.getMomentLang()).format(this.dateFormat);
 
     protected dateFormat: string;
@@ -163,6 +177,14 @@ export abstract class Picker {
             return 'no';
         }
 
+        // Flatpickr ships a single English locale, with no separate
+        // British variant — its `|| FlatpickrLanguages.en` fallback would
+        // already land here anyway, but doing it explicitly keeps this in
+        // step with `getMomentLang`, which does need to distinguish them.
+        if (this.language === 'en-gb') {
+            return 'en';
+        }
+
         return this.language;
     }
 
@@ -213,20 +235,16 @@ export abstract class Picker {
      * afterwards) for the same reason `DateFormatter.parseDate` does: this
      * module's `import 'moment/locale/*'` side effects switch moment's
      * global default locale, so a localized token like `L` would otherwise
-     * get parsed against the wrong locale's pattern. Strict mode avoids
-     * moment's lenient partial-match parsing treating a not-yet-finished
-     * typed string as already a complete, committable date.
+     * get parsed against the wrong locale's pattern. Uses the same
+     * lenient-but-complete parsing as `DateFormatter.parseDate` — see its
+     * doc comment for why plain strict-mode parsing rejects too much.
      * @param dateStr - the raw text Flatpickr wants parsed as a date
      */
     private parseDate = (dateStr: string): Date | undefined => {
-        const parsed = moment(
-            dateStr,
-            this.dateFormat,
-            this.getMomentLang(),
-            true
+        return (
+            parseComplete(dateStr, this.dateFormat, this.getMomentLang()) ??
+            undefined
         );
-
-        return parsed.isValid() ? parsed.toDate() : undefined;
     };
 
     private handleOnClose() {
