@@ -158,6 +158,21 @@ export class Slider {
     private readonly clearButtonId: string;
     private inputElement?: HTMLInputElement;
 
+    /**
+     * `true` while the value on display is one the consumer has been told
+     * about — either it came from the `value` prop, or it has been emitted on
+     * `change`. It is `false` from the moment the slider becomes unset until a
+     * value is committed again.
+     *
+     * The native input always holds a value, so while unset it rests at the
+     * midpoint. A press that lands on that midpoint, or a drag that returns to
+     * it before releasing, leaves the input's value untouched and fires neither
+     * `input` nor `change`. Without this flag such an interaction is swallowed:
+     * the slider either stays unset, or shows a number the consumer never
+     * received.
+     */
+    private valueIsCommitted = false;
+
     public constructor() {
         this.labelId = createRandomString();
         this.helperTextId = createRandomString();
@@ -223,6 +238,7 @@ export class Slider {
                                 }}
                                 onInput={this.handleInput}
                                 onChange={this.handleChange}
+                                onClick={this.handleClick}
                                 {...inputProps}
                             />
                             <div class="track">
@@ -269,12 +285,14 @@ export class Slider {
         }
 
         this.isUnset = false;
+        this.valueIsCommitted = true;
         this.displayValue = this.multiplyByFactor(this.value);
         this.setPercentageClass(this.getValue());
     };
 
     private readonly enterUnsetState = () => {
         this.isUnset = true;
+        this.valueIsCommitted = false;
         this.displayValue = this.getRestingDisplayValue();
         this.percentageClass = undefined;
     };
@@ -348,13 +366,40 @@ export class Slider {
     private handleChange = (event: Event) => {
         event.stopPropagation();
         const input = event.target as HTMLInputElement;
-        let value = Number(input.value);
+        this.commitValue(Number(input.value));
+    };
+
+    private readonly handleClick = (event: MouseEvent) => {
+        if (this.valueIsCommitted) {
+            return;
+        }
+
+        // The interaction is over and the value on display still hasn't
+        // reached the consumer, so the native input never fired a `change`.
+        // Commit what it holds. The click is left to bubble, so consumers
+        // listening for clicks still see it.
+        const input = event.target as HTMLInputElement;
+        this.commitValue(Number(input.value));
+    };
+
+    /**
+     * Leaves the unset state and emits the value, keeping the rendered state
+     * and the emitted value in step so the two cannot diverge.
+     * @param displayValue - the value held by the native input, already
+     * multiplied by `factor`.
+     */
+    private readonly commitValue = (displayValue: number) => {
         const step = this.multiplyByFactor(this.step);
+        let value = displayValue;
 
         if (!this.isMultipleOfStep(value, step)) {
             value = this.roundToStep(value, step);
         }
 
+        this.valueIsCommitted = true;
+        this.isUnset = false;
+        this.displayValue = value;
+        this.setPercentageClass(value / this.factor);
         this.change.emit(value / this.factor);
     };
 
@@ -429,12 +474,6 @@ export class Slider {
     };
 
     private setPercentageClass = (value: number) => {
-        if (this.isUnset) {
-            this.percentageClass = undefined;
-
-            return;
-        }
-
         this.percentageClass = getPercentageClass(
             (value - this.valuemin) / (this.valuemax - this.valuemin)
         );

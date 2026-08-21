@@ -176,12 +176,12 @@ input[type='range'] {
 
 :host(.is-unset) {
     // When the slider is unset, the thumb is centered and the track shows no
-    // fill, so it doesn't read as a real selection (the `?` indicator — see the
-    // TSX — replaces the number). The native input's value still rests at the
-    // step-aligned midpoint (see `getRestingDisplayValue`) so both arrow-key
-    // directions are live; the thumb is centered here with `left: 50%` because a
-    // midpoint that isn't a whole step (e.g. a 4-stop range) would otherwise sit
-    // slightly off-center.
+    // fill, so it doesn't read as a real selection (the left-right arrow
+    // indicator — see the TSX — replaces the number). The native input's value
+    // still rests at the step-aligned midpoint (see `getRestingDisplayValue`)
+    // so both arrow-key directions are live; the thumb is centered here with
+    // `left: 50%` because a midpoint that isn't a whole step (e.g. a 4-stop
+    // range) would otherwise sit slightly off-center.
     .track .active {
         width: 0;
     }
