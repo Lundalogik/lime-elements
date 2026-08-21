@@ -13,6 +13,7 @@ import {
     Event,
     EventEmitter,
     h,
+    Host,
     Prop,
     State,
     Watch,
@@ -296,34 +297,36 @@ export class Picker {
             props.maxItems = 1;
         }
 
-        return [
-            <limel-chip-set
-                type="input"
-                inputType="search"
-                label={this.label}
-                helperText={this.helperText}
-                leadingIcon={this.leadingIcon}
-                value={this.chips}
-                disabled={this.disabled}
-                invalid={this.invalid}
-                delimiter={this.renderDelimiter()}
-                readonly={this.readonly}
-                required={this.required}
-                searchLabel={this.searchLabel}
-                language={this.language}
-                onInput={this.handleTextInput}
-                onKeyDown={this.handleInputKeyDown}
-                onChange={this.handleChange}
-                onInteract={this.handleInteract}
-                onStartEdit={this.handleInputFieldFocus}
-                onStopEdit={this.handleStopEditAndBlur}
-                emptyInputOnBlur={false}
-                emptyInputOnChange={false}
-                clearAllButton={this.multiple && !this.chipSetEditMode}
-                {...props}
-            />,
-            this.renderDropdown(),
-        ];
+        return (
+            <Host>
+                <limel-chip-set
+                    type="input"
+                    inputType="search"
+                    label={this.label}
+                    helperText={this.helperText}
+                    leadingIcon={this.leadingIcon}
+                    value={this.chips}
+                    disabled={this.disabled}
+                    invalid={this.invalid}
+                    delimiter={this.renderDelimiter()}
+                    readonly={this.readonly}
+                    required={this.required}
+                    searchLabel={this.searchLabel}
+                    language={this.language}
+                    onInput={this.handleTextInput}
+                    onKeyDown={this.handleInputKeyDown}
+                    onChange={this.handleChange}
+                    onInteract={this.handleInteract}
+                    onStartEdit={this.handleInputFieldFocus}
+                    onStopEdit={this.handleStopEditAndBlur}
+                    emptyInputOnBlur={false}
+                    emptyInputOnChange={false}
+                    clearAllButton={this.multiple && !this.chipSetEditMode}
+                    {...props}
+                />
+                {this.renderDropdown()}
+            </Host>
+        );
     }
 
     @Watch('value')
