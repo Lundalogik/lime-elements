@@ -556,6 +556,43 @@ describe('limel-picker', () => {
         });
     });
 
+    describe('when two items share a chip id', () => {
+        it('keeps every remaining chip exactly once', async () => {
+            const one: PickerItem = { text: 'One', value: 1 };
+            const uno: PickerItem = { text: 'Uno', value: '1' };
+            const two: PickerItem = { text: 'Two', value: 2 };
+            const { root, waitForChanges } = await render(
+                <limel-picker
+                    label="Pick"
+                    multiple={true}
+                    value={[one, uno, two]}
+                    allItems={[one, uno, two]}
+                ></limel-picker>
+            );
+            const emitted: PickerItem[][] = [];
+            root.addEventListener('change', (event: Event) => {
+                emitted.push((event as CustomEvent).detail);
+            });
+            await waitForChanges();
+
+            const chipSet = root.shadowRoot!.querySelector('limel-chip-set')!;
+            const chips = [
+                ...chipSet.shadowRoot!.querySelectorAll('limel-chip'),
+            ];
+            const removeTwo =
+                chips[2]!.shadowRoot!.querySelector<HTMLElement>(
+                    '.remove-button'
+                )!;
+            removeTwo.click();
+            await waitForChanges();
+
+            expect(emitted.at(-1)!.map((item) => item.text)).toEqual([
+                'One',
+                'Uno',
+            ]);
+        });
+    });
+
     describe('when a chip is removed while searching', () => {
         it('clears the typed query', async () => {
             const { root, waitForChanges } = await render(

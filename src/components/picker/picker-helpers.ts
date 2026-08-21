@@ -24,7 +24,8 @@ export function getValueId(item: PickerItem): string | number | undefined {
 /**
  * The id of the chip an item is rendered as. Chip ids are strings, so this
  * is where a value id becomes one — note that items sharing a value id, and
- * items having none, therefore share a chip id too.
+ * items having none, share a chip id too, which `limel-chip-set` removes as
+ * a group.
  *
  * @param item - the item the chip stands for
  * @returns the chip id
