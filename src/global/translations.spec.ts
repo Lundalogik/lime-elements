@@ -56,6 +56,18 @@ describe('translations', () => {
             ).toBe('Clear value of Priority');
         });
 
+        it('substitutes falsy merge-code values rather than dropping them', () => {
+            expect(
+                translate.get('code-diff.hidden-lines', 'en', { count: 0 })
+            ).toBe('\u00B7\u00B7\u00B7 0 hidden lines \u00B7\u00B7\u00B7');
+            expect(
+                translate.get('clear-value-of', 'en', { label: false })
+            ).toBe('Clear value of false');
+            expect(translate.get('clear-value-of', 'en', { label: '' })).toBe(
+                'Clear value of '
+            );
+        });
+
         it('leaves a merge code intact when its param is missing', () => {
             expect(translate.get('clear-value-of', 'en', {})).toBe(
                 'Clear value of { label }'

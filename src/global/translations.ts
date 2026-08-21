@@ -41,7 +41,10 @@ export class Translations {
         return translation.replaceAll(
             REGEX,
             (match: string, mergeCodeKey: string) => {
-                return params?.[mergeCodeKey] || match;
+                // Nullish, not falsy: `0` and `false` are values a caller can
+                // legitimately merge in, and `||` would leave the merge code
+                // itself in the string instead.
+                return String(params?.[mergeCodeKey] ?? match);
             }
         );
     }
