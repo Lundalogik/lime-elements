@@ -23,9 +23,10 @@ const REGEX = /\{\s*(\w+)\s*\}/g;
 
 export class Translations {
     public get(key: string, language = 'en', params?: object): string {
-        // Fall back to English when the requested language has no translations
-        // (e.g. a value that is in the `Languages` type but unmapped, such as
-        // `nb`), so a component never throws on an unsupported language.
+        // Fall back to English when the requested language has no translations.
+        // The `language` props are typed, but a custom element takes whatever
+        // string an attribute carries, so an unknown language must never make a
+        // component throw.
         const languageTranslations =
             allTranslations[language] ?? allTranslations.en;
 
@@ -40,7 +41,7 @@ export class Translations {
         return translation.replaceAll(
             REGEX,
             (match: string, mergeCodeKey: string) => {
-                return params[mergeCodeKey] || match;
+                return params?.[mergeCodeKey] || match;
             }
         );
     }
