@@ -112,7 +112,6 @@ The component automatically formats different value types:
  - [limel-example-picker-empty-result-message](../components/picker/examples)
  - [limel-example-picker-empty-suggestions](../components/picker/examples)
  - [limel-example-picker-icons](../components/picker/examples)
- - [limel-example-picker-keep-search](../components/picker/examples)
  - [limel-example-picker-multiple](../components/picker/examples)
  - [limel-example-picker-non-removable](../components/picker/examples)
  - [limel-example-picker-pictures](../components/picker/examples)
@@ -169,6 +168,7 @@ The component automatically formats different value types:
  - [limel-example-text-editor-basic](../components/text-editor/examples)
  - [limel-example-text-editor-composite](../components/text-editor/examples)
  - [limel-example-text-editor-custom-element](../components/text-editor/examples)
+ - [limel-example-text-editor-lists](../components/text-editor/examples)
  - [limel-example-text-editor-triggers](../components/text-editor/examples)
  - [limel-example-text-editor-ui](../components/text-editor/examples)
  - [limel-example-text-editor-with-html](../components/text-editor/examples)
@@ -250,7 +250,6 @@ graph TD;
   limel-example-picker-empty-result-message --> limel-example-value
   limel-example-picker-empty-suggestions --> limel-example-value
   limel-example-picker-icons --> limel-example-value
-  limel-example-picker-keep-search --> limel-example-value
   limel-example-picker-multiple --> limel-example-value
   limel-example-picker-non-removable --> limel-example-value
   limel-example-picker-pictures --> limel-example-value
@@ -307,6 +306,7 @@ graph TD;
   limel-example-text-editor-basic --> limel-example-value
   limel-example-text-editor-composite --> limel-example-value
   limel-example-text-editor-custom-element --> limel-example-value
+  limel-example-text-editor-lists --> limel-example-value
   limel-example-text-editor-triggers --> limel-example-value
   limel-example-text-editor-ui --> limel-example-value
   limel-example-text-editor-with-html --> limel-example-value
