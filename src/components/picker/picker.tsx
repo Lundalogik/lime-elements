@@ -666,11 +666,17 @@ export class Picker {
         });
         const searcher = this.searcher || this.defaultSearcher;
 
-        const result = await searcher(this.textValue);
+        let result: Array<PickerItem | ListSeparator> = [];
 
-        // If the search function resolves immediately,
-        // the loading spinner will not be shown.
-        clearTimeout(timeoutId);
+        try {
+            result = await searcher(this.textValue);
+        } catch (error) {
+            console.error('limel-picker: the searcher failed.', error);
+        } finally {
+            // If the search function resolves immediately,
+            // the loading spinner will not be shown.
+            clearTimeout(timeoutId);
+        }
 
         this.handleSearchResult(query, result);
     };
