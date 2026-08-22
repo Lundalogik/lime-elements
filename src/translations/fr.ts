@@ -1,4 +1,7 @@
 export default {
+    'clear-value': 'Effacer la valeur',
+    'clear-value-of': 'Effacer la valeur de { label }',
+    'value-not-set': 'Valeur non définie',
     remove: 'Supprimer',
     save: 'Enregistrer',
     cancel: 'Annuler',
