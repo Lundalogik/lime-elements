@@ -1,9 +1,12 @@
 import { tableNodes, tableEditing } from 'prosemirror-tables';
 import { Plugin } from 'prosemirror-state';
+import { createTablePastePlugin } from './table-paste-plugin';
 
 export const getTableEditingPlugins = (tablesEnabled: boolean): Plugin[] => {
     if (tablesEnabled) {
-        return [tableEditing()];
+        // The paste plugin must precede tableEditing(), whose own
+        // handlePaste would otherwise consume table pastes first.
+        return [createTablePastePlugin(), tableEditing()];
     }
 
     return [];
