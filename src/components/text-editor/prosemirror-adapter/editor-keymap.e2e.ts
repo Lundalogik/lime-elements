@@ -57,6 +57,51 @@ describe('editor keymap through a mounted view', () => {
         expect(view.state.doc).toEqualDoc(doc(codeBlock('hello')));
     });
 
+    it('Mod-Shift-C merges a multi-block selection into one code block', () => {
+        const start = doc(p('aa'), p('bb'));
+        ({ view, cleanup } = mountView(
+            createEditorTestState(harness, start, textSelection(start, 2, 6))
+        ));
+        const handled = pressKey(view, {
+            key: 'C',
+            keyCode: 67,
+            mod: true,
+            shiftKey: true,
+        });
+        expect(handled).toBe(true);
+        expect(view.state.doc).toEqualDoc(doc(codeBlock('aa\nbb')));
+    });
+
+    it('Mod-Shift-C splits a code block back into one paragraph per line', () => {
+        const start = doc(codeBlock('a\nb'));
+        ({ view, cleanup } = mountView(
+            createEditorTestState(harness, start, textSelection(start, 2))
+        ));
+        const handled = pressKey(view, {
+            key: 'C',
+            keyCode: 67,
+            mod: true,
+            shiftKey: true,
+        });
+        expect(handled).toBe(true);
+        expect(view.state.doc).toEqualDoc(doc(p('a'), p('b')));
+    });
+
+    it(String.raw`Shift-Ctrl-\ is not bound to a code block conversion`, () => {
+        const start = doc(p('hello'));
+        ({ view, cleanup } = mountView(
+            createEditorTestState(harness, start, textSelection(start, 2))
+        ));
+        const handled = pressKey(view, {
+            key: '\\',
+            keyCode: 220,
+            ctrlKey: true,
+            shiftKey: true,
+        });
+        expect(handled).toBe(false);
+        expect(view.state.doc).toEqualDoc(start);
+    });
+
     it('lowercase Mod-b bolds the selection via the exampleSetup keymap', () => {
         const start = doc(p('hello'));
         ({ view, cleanup } = mountView(

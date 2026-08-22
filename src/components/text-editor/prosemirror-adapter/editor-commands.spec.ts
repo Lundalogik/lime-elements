@@ -176,17 +176,18 @@ describe('menu commands against the real schema', () => {
     });
 
     describe('allowed()', () => {
-        const listTypes = new Set<EditorMenuTypes>([
+        const typesWithAllowed = new Set<EditorMenuTypes>([
             EditorMenuTypes.BulletList,
             EditorMenuTypes.OrderedList,
+            EditorMenuTypes.CodeBlock,
         ]);
 
-        it('is a function on the list commands and undefined on the rest', () => {
+        it('is a function on the list and code block commands and undefined on the rest', () => {
             for (const type of editorMenuTypesArray) {
                 const command = harness.factory.getCommand(
                     type
                 ) as CommandWithActive;
-                if (listTypes.has(type)) {
+                if (typesWithAllowed.has(type)) {
                     expect(command.allowed).toBeTypeOf('function');
                 } else {
                     expect(command.allowed).toBeUndefined();
@@ -597,7 +598,7 @@ describe('menu commands against the real schema', () => {
             expect(next.doc).toEqualDoc(doc(codeBlock('code')));
         });
 
-        it('declines a selection spanning two blocks', () => {
+        it('merges a selection spanning two paragraphs into one code block', () => {
             const start = doc(p('aa'), p('bb'));
             const state = createEditorTestState(
                 harness,
@@ -608,8 +609,8 @@ describe('menu commands against the real schema', () => {
                 state,
                 harness.factory.getCommand(EditorMenuTypes.CodeBlock)
             );
-            expect(handled).toBe(false);
-            expect(next.doc).toEqualDoc(start);
+            expect(handled).toBe(true);
+            expect(next.doc).toEqualDoc(doc(codeBlock('aa\nbb')));
         });
     });
 
