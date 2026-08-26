@@ -27,6 +27,13 @@ describe('limel-table', () => {
         return root.shadowRoot.querySelector('#tabulator-container');
     }
 
+    // Tabulator's data pipeline is async and the `updateData` watcher defers via
+    // `setTimeout`, and there is no public "settled" signal to await. Wait a
+    // bounded time for the row rebuild and any paginator round-trip to complete.
+    // Used by tests that assert the *absence* of an event, where polling on a
+    // condition is not possible.
+    const settle = () => new Promise((resolve) => setTimeout(resolve, 300));
+
     describe('column headers', () => {
         it('renders the correct column headers', async () => {
             const columns = [
@@ -346,5 +353,107 @@ describe('limel-table', () => {
 
             expect(root.classList.contains('has-selection')).toBe(false);
         });
+    });
+
+    test('stays on the current page when a row is deleted (data + totalRows shrink)', async () => {
+        const columns = [{ field: 'name', title: 'Name' }];
+        // pageSize 2, 6 rows total -> 3 pages. Start on page 3.
+        const page3Data = [
+            { id: 5, name: 'E' },
+            { id: 6, name: 'F' },
+        ];
+
+        const { waitForChanges, spyOnEvent, setProps } = await renderTable({
+            mode: 'remote',
+            data: page3Data,
+            columns,
+            totalRows: 6,
+            pageSize: 2,
+            page: 3,
+        });
+
+        const changePageSpy = spyOnEvent('changePage');
+        const loadSpy = spyOnEvent('load');
+
+        // Simulate deleting row F: page 3 now has one row, 5 total (still 3 pages).
+        setProps({ totalRows: 5, data: [{ id: 5, name: 'E' }] });
+        await waitForChanges();
+        await settle();
+        await waitForChanges();
+
+        const changePageToFirst = changePageSpy.events.filter(
+            (event: CustomEvent) => event.detail === 1
+        );
+        expect(changePageToFirst.length).toBe(0);
+
+        // The URL offset in the consumer is driven by the `load` event, not
+        // `changePage`, so a `load` for page 1 would also snap the list back.
+        const loadForFirstPage = loadSpy.events.filter(
+            (event: CustomEvent) => event.detail?.page === 1
+        );
+        expect(loadForFirstPage.length).toBe(0);
+    });
+
+    test('keeps the scroll position when totalRows changes (deferred totals) on a later page', async () => {
+        const columns = [{ field: 'name', title: 'Name' }];
+        // A full page of rows so the row container overflows and is scrollable.
+        const pageData = Array.from({ length: 50 }, (_, i) => ({
+            id: 100 + i,
+            name: `Row ${i}`,
+        }));
+
+        const { root, waitForChanges, setProps } = await renderTable({
+            mode: 'remote',
+            data: pageData,
+            columns,
+            totalRows: 150, // 3 pages
+            pageSize: 50,
+            page: 2,
+        });
+
+        const scrollContainer = root.shadowRoot.querySelector(
+            '.tabulator-tableholder'
+        ) as HTMLElement;
+        scrollContainer.scrollTop = 300;
+        await waitForChanges();
+
+        // Deferred totals arrive: totalRows is corrected, data and page unchanged.
+        setProps({ totalRows: 200 });
+        await waitForChanges();
+        await settle();
+        await waitForChanges();
+
+        expect(scrollContainer.scrollTop).toBe(300);
+    });
+
+    test('keeps the scroll position when a row is deleted (data changes) on a scrolled page', async () => {
+        const columns = [{ field: 'name', title: 'Name' }];
+        const pageData = Array.from({ length: 50 }, (_, i) => ({
+            id: 100 + i,
+            name: `Row ${i}`,
+        }));
+
+        const { root, waitForChanges, setProps } = await renderTable({
+            mode: 'remote',
+            data: pageData,
+            columns,
+            totalRows: 150,
+            pageSize: 50,
+            page: 2,
+        });
+
+        const scrollContainer = root.shadowRoot.querySelector(
+            '.tabulator-tableholder'
+        ) as HTMLElement;
+        scrollContainer.scrollTop = 300;
+        await waitForChanges();
+
+        // Delete a row: data shrinks by one, totalRows drops, page unchanged.
+        setProps({ data: pageData.slice(0, 49), totalRows: 149 });
+        await waitForChanges();
+        await settle();
+        await waitForChanges();
+
+        expect(scrollContainer.scrollTop).toBe(300);
     });
 });
