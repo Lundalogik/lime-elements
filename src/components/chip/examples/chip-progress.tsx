@@ -60,7 +60,8 @@ export class ChipProgressExample {
         ];
     }
 
-    private handleChange = (event: CustomEvent<number>) => {
-        this.progress = event.detail;
+    private handleChange = (event: CustomEvent<number | null>) => {
+        // The slider is clearable, so it emits `null` when unset.
+        this.progress = event.detail ?? 0;
     };
 }

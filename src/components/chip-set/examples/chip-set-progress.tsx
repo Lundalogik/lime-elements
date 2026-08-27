@@ -49,8 +49,9 @@ export class ChipSetProgressExample {
         );
     }
 
-    private setProgress = (event: CustomEvent<number>) => {
+    private setProgress = (event: CustomEvent<number | null>) => {
         event.stopPropagation();
-        this.progress = event.detail;
+        // The slider is clearable, so it emits `null` when unset.
+        this.progress = event.detail ?? 0;
     };
 }

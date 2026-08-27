@@ -10,6 +10,8 @@ import {
 } from '@stencil/core';
 import { getPercentageClass } from './get-percentage-class';
 import { createRandomString } from '../../util/random-string';
+import translate from '../../global/translations';
+import { Languages } from '../date-picker/date.types';
 
 const DEFAULT_FACTOR = 1;
 const DEFAULT_MAX_VALUE = 100;
@@ -17,7 +19,20 @@ const DEFAULT_MIN_VALUE = 0;
 const MAX_VISIBLE_STEP_DOTS = 20;
 
 /**
+ * Whether the slider holds a value at all. `Number.isFinite` is typed
+ * `(number: unknown) => boolean`, so it tests the right thing but narrows
+ * nothing; this does, which lets the unset check double as proof that what
+ * remains is a number the arithmetic can use. `null`, `undefined` and `NaN`
+ * all mean unset.
+ * @param value - the slider's `value` prop, which may not be a number.
+ */
+const isSetValue = (value: unknown): value is number => {
+    return Number.isFinite(value);
+};
+
+/**
  * @exampleComponent limel-example-slider-basic
+ * @exampleComponent limel-example-slider-unset
  * @exampleComponent limel-example-slider-multiplier
  * @exampleComponent limel-example-slider-multiplier-percentage-colors
  * @exampleComponent limel-example-slider-unit
@@ -69,6 +84,9 @@ export class Slider {
 
     /**
      * Set to `true` to indicate that the slider is required.
+     * A required slider does not offer the clear button, since a required
+     * value cannot be unset. It can still be initialized unset (with a
+     * non-finite `value`) to prompt the user to make a choice.
      */
     @Prop({ reflect: true })
     public required = false;
@@ -94,10 +112,19 @@ export class Slider {
     public unit: string = '';
 
     /**
-     * The value of the input
+     * Defines the language for translations of the accessible labels.
      */
     @Prop({ reflect: true })
-    public value: number;
+    public language: Languages = 'en';
+
+    /**
+     * The value of the input. Set it to `null` to leave the slider unset,
+     * which is also what the `change` event emits once the value is cleared.
+     * Any other value that is not a finite number — `undefined`, or `NaN` —
+     * unsets the slider too.
+     */
+    @Prop({ reflect: true })
+    public value: number | null;
 
     /**
      * The maximum value allowed
@@ -118,28 +145,55 @@ export class Slider {
     public step: number;
 
     /**
-     * Emitted when the value has been changed
+     * Emitted when the value has been changed.
+     * Emits `null` when the value has been cleared and the slider becomes
+     * unset, so handlers must account for a value that is not a number.
      */
     @Event()
-    private change: EventEmitter<number>;
+    private change: EventEmitter<number | null>;
 
     @State()
-    private percentageClass: string;
+    private percentageClass: string | undefined;
 
     @State()
     private displayValue: number;
 
+    /**
+     * `true` while the slider has no value set. Kept separate from the `value`
+     * prop so that the unset state survives the brief window during dragging
+     * where the value has not yet been emitted back to the consumer.
+     */
+    @State()
+    private isUnset: boolean;
+
     private labelId: string;
     private helperTextId: string;
+    private readonly clearButtonId: string;
+    private inputElement?: HTMLInputElement;
+
+    /**
+     * `true` while the value on display is one the consumer has been told
+     * about — either it came from the `value` prop, or it has been emitted on
+     * `change`. It is `false` from the moment the slider becomes unset until a
+     * value is committed again.
+     *
+     * The native input always holds a value, so while unset it rests at the
+     * midpoint. A press that lands on that midpoint, or a drag that returns to
+     * it before releasing, leaves the input's value untouched and fires neither
+     * `input` nor `change`. Without this flag such an interaction is swallowed:
+     * the slider either stays unset, or shows a number the consumer never
+     * received.
+     */
+    private valueIsCommitted = false;
 
     public constructor() {
         this.labelId = createRandomString();
         this.helperTextId = createRandomString();
+        this.clearButtonId = createRandomString();
     }
 
     public componentWillLoad() {
-        this.displayValue = this.multiplyByFactor(this.getValue());
-        this.setPercentageClass(this.getValue());
+        this.syncStateFromValue();
     }
 
     public render() {
@@ -165,7 +219,7 @@ export class Slider {
                     invalid={this.invalid}
                     disabled={this.disabled}
                     readonly={this.readonly}
-                    hasValue={!!this.value}
+                    hasValue={!this.isUnset}
                     hasFloatingLabel={true}
                 >
                     <div slot="content">
@@ -184,8 +238,20 @@ export class Slider {
                                         ? this.helperTextId
                                         : undefined
                                 }
+                                aria-valuetext={
+                                    this.isUnset
+                                        ? translate.get(
+                                              'value-not-set',
+                                              this.language
+                                          )
+                                        : undefined
+                                }
+                                ref={(el?: HTMLInputElement) => {
+                                    this.inputElement = el;
+                                }}
                                 onInput={this.handleInput}
                                 onChange={this.handleChange}
+                                onClick={this.handleClick}
                                 {...inputProps}
                             />
                             <div class="track">
@@ -195,7 +261,9 @@ export class Slider {
                             <div class="thumb">
                                 <div class="knob" />
                                 <div class="indicator" aria-hidden="true">
-                                    {this.displayValue}
+                                    {this.isUnset
+                                        ? '\u2194\uFE0E'
+                                        : this.displayValue}
                                 </div>
                             </div>
                         </div>
@@ -211,6 +279,7 @@ export class Slider {
                         </div>
                     </div>
                 </limel-notched-outline>
+                {this.renderClearButton()}
                 {this.renderHelperLine()}
             </Host>
         );
@@ -218,9 +287,30 @@ export class Slider {
 
     @Watch('value')
     protected watchValue() {
-        this.displayValue = this.multiplyByFactor(this.getValue());
-        this.setPercentageClass(this.getValue());
+        this.syncStateFromValue();
     }
+
+    private readonly syncStateFromValue = () => {
+        const value = this.value;
+
+        if (!isSetValue(value)) {
+            this.enterUnsetState();
+
+            return;
+        }
+
+        this.isUnset = false;
+        this.valueIsCommitted = true;
+        this.displayValue = this.multiplyByFactor(value);
+        this.setPercentageClass(value);
+    };
+
+    private readonly enterUnsetState = () => {
+        this.isUnset = true;
+        this.valueIsCommitted = false;
+        this.displayValue = this.getRestingDisplayValue();
+        this.percentageClass = undefined;
+    };
 
     private renderStepDots = (min: number, max: number) => {
         if (!this.step) {
@@ -250,10 +340,50 @@ export class Slider {
         );
     };
 
+    /**
+     * A required slider must hold a value, so it offers no way to clear it,
+     * and a readonly one cannot be edited at all. The styling needs the same
+     * answer to reserve room for the button, so both read it from here rather
+     * than each deriving it — the stylesheet cannot see a parsed prop, only
+     * the attribute string, and `required="false"` is a present attribute.
+     */
+    private readonly hasClearButton = (): boolean => {
+        return !this.readonly && !this.required;
+    };
+
+    private readonly renderClearButton = () => {
+        if (!this.hasClearButton()) {
+            return;
+        }
+
+        const label = this.label
+            ? translate.get('clear-value-of', this.language, {
+                  label: this.label,
+              })
+            : translate.get('clear-value', this.language);
+
+        return (
+            <button
+                type="button"
+                id={this.clearButtonId}
+                class="clear-button"
+                aria-label={label}
+                onClick={this.handleClear}
+                disabled={this.isUnset || this.disabled}
+            >
+                <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+                    <path d="M7.219 5.781L5.78 7.22 14.563 16 5.78 24.781 7.22 26.22 16 17.437l8.781 8.782 1.438-1.438L17.437 16l8.782-8.781L24.78 5.78 16 14.563z" />
+                </svg>
+                <limel-tooltip elementId={this.clearButtonId} label={label} />
+            </button>
+        );
+    };
+
     private handleInput = (event: Event) => {
         event.stopPropagation();
         const input = event.target as HTMLInputElement;
         const value = Number(input.value);
+        this.isUnset = false;
         this.displayValue = value;
         this.setPercentageClass(value / this.factor);
     };
@@ -261,17 +391,67 @@ export class Slider {
     private handleChange = (event: Event) => {
         event.stopPropagation();
         const input = event.target as HTMLInputElement;
-        let value = Number(input.value);
-        const step = this.multiplyByFactor(this.step);
+        this.commitValue(Number(input.value));
+    };
 
-        if (!this.isMultipleOfStep(value, step)) {
-            value = this.roundToStep(value, step);
+    private readonly handleClick = (event: MouseEvent) => {
+        if (this.valueIsCommitted) {
+            return;
         }
 
+        // The interaction is over and the value on display still hasn't
+        // reached the consumer, so the native input never fired a `change`.
+        // Commit what it holds. The click is left to bubble, so consumers
+        // listening for clicks still see it.
+        const input = event.target as HTMLInputElement;
+        this.commitValue(Number(input.value));
+    };
+
+    /**
+     * Leaves the unset state and emits the value, keeping the rendered state
+     * and the emitted value in step so the two cannot diverge.
+     * @param displayValue - the value held by the native input, already
+     * multiplied by `factor`.
+     */
+    private readonly commitValue = (displayValue: number) => {
+        const step = this.multiplyByFactor(this.step);
+        const min = this.multiplyByFactor(this.valuemin);
+        let value = displayValue;
+
+        // Steps are counted from `valuemin`, not from zero — a range of 1–5 in
+        // steps of 2 stops at 1, 3 and 5. Rounding against zero would push
+        // every one of those to the next even number, past `valuemax`.
+        if (!this.isMultipleOfStep(value - min, step)) {
+            value = min + this.roundToStep(value - min, step);
+        }
+
+        this.valueIsCommitted = true;
+        this.isUnset = false;
+        this.displayValue = value;
+        this.setPercentageClass(value / this.factor);
         this.change.emit(value / this.factor);
     };
 
+    private readonly handleClear = (event: MouseEvent) => {
+        event.stopPropagation();
+        this.enterUnsetState();
+        this.change.emit(null);
+
+        // Move focus to the slider itself so keyboard users can immediately
+        // set a new value, and so assistive tech announces the now-unset state
+        // instead of focus falling to the body when the button self-disables.
+        this.inputElement?.focus();
+    };
+
     private getContainerClassList = () => {
+        return {
+            'is-unset': this.isUnset,
+            'has-clear-button': this.hasClearButton(),
+            ...this.getPercentageClassList(),
+        };
+    };
+
+    private readonly getPercentageClassList = () => {
         if (!this.percentageClass) {
             return {};
         }
@@ -285,13 +465,19 @@ export class Slider {
         return Math.round(value * this.factor);
     };
 
-    private getValue = () => {
-        let value = this.value;
-        if (!Number.isFinite(value)) {
-            value = this.valuemin;
-        }
+    /**
+     * The display value the thumb rests at while unset: the midpoint of the
+     * range, so both arrow-key directions are live (unlike anchoring at the
+     * minimum). Aligned to the step — native range inputs default to a step of
+     * 1 — so it matches a real input value and the first key press doesn't jump.
+     */
+    private readonly getRestingDisplayValue = (): number => {
+        const min = this.multiplyByFactor(this.valuemin);
+        const max = this.multiplyByFactor(this.valuemax);
+        const midpoint = (min + max) / 2;
+        const step = this.step ? this.multiplyByFactor(this.step) : 1;
 
-        return value;
+        return min + Math.round((midpoint - min) / step) * step;
     };
 
     private getFraction = (): number => {

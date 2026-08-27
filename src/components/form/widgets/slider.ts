@@ -39,7 +39,7 @@ export class Slider extends React.Component {
         });
     }
 
-    private handleChange(event: CustomEvent<number>) {
+    private handleChange(event: CustomEvent<number | null>) {
         const props = this.props;
         event.stopPropagation();
 
