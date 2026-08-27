@@ -124,7 +124,11 @@ export class FileResizeImageExample {
                     />
                     <limel-slider
                         label="JPEG quality"
-                        value={Math.round((this.options.quality ?? 0) * 100)}
+                        value={
+                            this.options.quality == null
+                                ? null
+                                : Math.round(this.options.quality * 100)
+                        }
                         valuemin={1}
                         valuemax={100}
                         step={1}
@@ -193,8 +197,18 @@ export class FileResizeImageExample {
         this.updateNumericOption('height', event.detail);
     };
 
-    private handleQualityChange = (event: CustomEvent<number>) => {
+    private handleQualityChange = (event: CustomEvent<number | null>) => {
         event.stopPropagation();
+
+        // A cleared slider means "not set", like the dimension fields above:
+        // omit `quality` so the browser's native encoding quality is used
+        // rather than an imposed one.
+        if (event.detail === null) {
+            this.updateOption('quality', undefined);
+
+            return;
+        }
+
         const quality = Math.max(0, Math.min(1, event.detail / 100));
         this.updateOption('quality', quality);
     };
