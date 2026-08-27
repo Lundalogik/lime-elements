@@ -1,3 +1,25 @@
+## [40.0.0](https://github.com/Lundalogik/lime-elements/compare/v39.45.3...v40.0.0) (2026-08-27)
+
+### ⚠ BREAKING CHANGES
+
+* **slider:** `limel-slider`'s `change` event emits `null` when the
+value is cleared, widening its payload from `number` to `number | null`.
+The `value` prop accepts `number | null` for the same reason, so a
+cleared value can be handed straight back to the slider. Handlers that
+assume a number must guard for `null`; every optional, editable slider
+can now be cleared by the user.
+
+### Features
+
+
+* **slider:** allow the value to be unset ([86a33d2](https://github.com/Lundalogik/lime-elements/commit/86a33d2263ef2bc638a746c7c493d0a740908e77)), closes [#4161](https://github.com/Lundalogik/lime-elements/issues/4161)
+### Bug Fixes
+
+
+* **slider:** correctly center align the thumb's value ([82d752b](https://github.com/Lundalogik/lime-elements/commit/82d752b18bd45baa218f1597dc3f60d4e2ab3b4e))
+* **translations:** substitute falsy merge-code values ([efcee7e](https://github.com/Lundalogik/lime-elements/commit/efcee7edb9894a4fc8a0a000d9c3ef9200515bdc))
+* **translations:** support unmapped and aliased languages ([018b357](https://github.com/Lundalogik/lime-elements/commit/018b357d17e6d0fa7da012ad1258c932fb92917a)), closes [#4162](https://github.com/Lundalogik/lime-elements/issues/4162)
+
 ## [39.45.3](https://github.com/Lundalogik/lime-elements/compare/v39.45.2...v39.45.3) (2026-08-19)
 
 ### Bug Fixes
