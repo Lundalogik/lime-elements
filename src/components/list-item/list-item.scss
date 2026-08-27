@@ -4,10 +4,13 @@
  * @prop --limel-list-item-menu-order: Defines the order of the menu, within the list item's flexbox. Defaults to `3`.
  * @prop --list-item-image-border-radius: Defines the border radius of the list item image. Defaults to `50%`.
  * @prop --list-item-image-object-fit: Defines the object-fit property of the list item image. Defaults to `cover`.
+ * @prop --limel-list-item-image-size: Defines the size of the list item image. Defaults to `2rem`.
  */
 
 @use '../../style/mixins';
 @forward '../checkbox/checkbox';
+
+$image-box-shadow: 0 0 0 1px rgb(var(--contrast-800), 0.5);
 
 *,
 *:before,
@@ -16,6 +19,7 @@
 }
 
 limel-list-item {
+    --limel-list-item-image-size: 2rem;
     min-height: 2.5rem;
     @include mixins.visualize-keyboard-focus();
 
@@ -144,9 +148,9 @@ limel-list-item {
         flex-shrink: 0;
         object-fit: var(--list-item-image-object-fit, cover);
         border-radius: var(--list-item-image-border-radius, 50%);
-        width: 2rem;
-        height: 2rem;
-        box-shadow: 0 0 0 1px rgb(var(--contrast-800), 0.5);
+        width: var(--limel-list-item-image-size);
+        height: var(--limel-list-item-image-size);
+        box-shadow: $image-box-shadow;
     }
 
     limel-menu {
@@ -157,6 +161,29 @@ limel-list-item {
         // by giving it a bigger order number. Also, by making this into a variable
         // we can handle other edge-cases in consuming components.
         order: var(--limel-list-item-menu-order, 3);
+    }
+}
+
+// A list can mix items that carry an image with items that only carry an
+// icon. Icons are sized differently than images and are pulled to the left,
+// so those items would otherwise start their text somewhere else than their
+// neighbours, leaving the labels in two different columns.
+//
+// Give the lone icons the image's square instead, so that every label lines
+// up regardless of `iconSize` and regardless of whether the icons are badges.
+// `limel-icon` sizes itself with `!important` from inside its own shadow
+// root, where an outer `width` cannot reach it whether it is important or
+// not, so clamp the used size between a matching minimum and maximum.
+:has(> limel-list-item > img) > limel-list-item:not(:has(> img)) > limel-icon {
+    margin-left: 0;
+    min-width: var(--limel-list-item-image-size);
+    max-width: var(--limel-list-item-image-size);
+    min-height: var(--limel-list-item-image-size);
+    max-height: var(--limel-list-item-image-size);
+    box-shadow: $image-box-shadow;
+
+    &:not([badge]) {
+        padding: 0.25rem;
     }
 }
 
