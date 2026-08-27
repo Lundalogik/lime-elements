@@ -4,8 +4,13 @@ import { Component, h, Host, State } from '@stencil/core';
  * List item with pictures
  *
  * This example demonstrates how to use images in list items.
- * The first item shows a picture only, while the second item
- * shows both a picture and an icon together.
+ * The first item shows a picture only, the second one shows both a picture
+ * and an icon together, and the third one shows an icon but no picture.
+ *
+ * Notice how the icon of the third item is given the same footprint as the
+ * pictures above it, so that all three labels start in the same column.
+ * This happens whenever an item without a picture sits among items that
+ * have one, and applies to badge icons and plain icons alike.
  */
 @Component({
     tag: 'limel-example-list-item-pictures',
@@ -41,6 +46,16 @@ export class ListItemPicturesExample {
                         image={{
                             src: 'https://lundalogik.github.io/lime-elements/2e86c284-d190-4c41-8da2-4de50103a0cd.png',
                             alt: 'A picture of Kiarokh Moattar, Product Designer at Lime Technologies',
+                        }}
+                    />
+                    <limel-list-item
+                        text="Befkadu Degefa"
+                        secondaryText="Engineer"
+                        badgeIcon={this.badgeIcon}
+                        icon={{
+                            name: 'bowler_hat',
+                            title: 'Bowler hat icon',
+                            color: 'rgb(var(--color-sky-default))',
                         }}
                     />
                 </ul>

@@ -1,4 +1,5 @@
 import { render, h } from '@stencil/vitest';
+import { IconSize } from '../icon/icon.types';
 
 describe('limel-list', () => {
     describe('without items', () => {
@@ -36,6 +37,71 @@ describe('limel-list', () => {
             expect(itemEl.getAttribute('aria-disabled')).toEqual('false');
             expect(itemEl.getAttribute('text')).toEqual('item 1');
         });
+    });
+
+    describe('with a mix of items with images and icon-only items', () => {
+        const items = [
+            {
+                text: 'with image',
+                icon: 'coffee',
+                image: {
+                    src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCI+PHJlY3Qgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSJyZWQiLz48L3N2Zz4=',
+                    alt: 'a red square',
+                },
+            },
+            { text: 'icon only', icon: 'coffee' },
+        ];
+
+        const iconSizes: IconSize[] = ['x-small', 'small', 'medium', 'large'];
+        const variants = iconSizes.flatMap((iconSize) => [
+            { iconSize, badgeIcons: false },
+            { iconSize, badgeIcons: true },
+        ]);
+
+        const renderList = async (variant: (typeof variants)[number]) => {
+            const { root, waitForChanges } = await render(
+                <limel-list
+                    items={items}
+                    iconSize={variant.iconSize}
+                    badgeIcons={variant.badgeIcons}
+                />
+            );
+            await waitForChanges();
+
+            const [withImage, iconOnly] = [
+                ...root.shadowRoot.querySelectorAll('limel-list-item'),
+            ];
+
+            return { withImage, iconOnly };
+        };
+
+        it.each(variants)(
+            'lines up the labels when iconSize is $iconSize and badgeIcons is $badgeIcons',
+            async (variant) => {
+                const { withImage, iconOnly } = await renderList(variant);
+                const labelLeft = (item: Element) =>
+                    item.querySelector('.label').getBoundingClientRect().left;
+
+                expect(labelLeft(iconOnly)).toEqual(labelLeft(withImage));
+            }
+        );
+
+        it.each(variants)(
+            'gives the lone icon the image footprint when iconSize is $iconSize and badgeIcons is $badgeIcons',
+            async (variant) => {
+                const { withImage, iconOnly } = await renderList(variant);
+                const imageBox = withImage
+                    .querySelector('img')
+                    .getBoundingClientRect();
+                const iconBox = iconOnly
+                    .querySelector('limel-icon')
+                    .getBoundingClientRect();
+
+                expect(iconBox.width).toEqual(imageBox.width);
+                expect(iconBox.height).toEqual(imageBox.height);
+                expect(iconBox.left).toEqual(imageBox.left);
+            }
+        );
     });
 
     describe('with a disabled item', () => {
