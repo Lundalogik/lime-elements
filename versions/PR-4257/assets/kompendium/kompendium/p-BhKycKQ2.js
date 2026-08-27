@@ -1,0 +1,1 @@
+let n=[],t=[];function u(){return n}function a(t){n=t}function o(){return t}function r(n){t=n}export{r as a,o as b,u as g,a as s}
