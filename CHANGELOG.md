@@ -1,3 +1,10 @@
+## [40.0.1](https://github.com/Lundalogik/lime-elements/compare/v40.0.0...v40.0.1) (2026-08-28)
+
+### Bug Fixes
+
+
+* **list:** line up the labels when only some items have pictures ([829b778](https://github.com/Lundalogik/lime-elements/commit/829b7788ebef23bd342589144b41688cb3131322)), closes [#4256](https://github.com/Lundalogik/lime-elements/issues/4256)
+
 ## [40.0.0](https://github.com/Lundalogik/lime-elements/compare/v39.45.3...v40.0.0) (2026-08-27)
 
 ### ⚠ BREAKING CHANGES
