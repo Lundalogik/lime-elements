@@ -26,6 +26,169 @@ export type ShowcaseItem = {
 
 export const whatsNewItems: ShowcaseItem[] = [
     {
+        componentName: 'Slider',
+        heading: 'Unset the value',
+        description:
+            'A slider can now be empty. Its `value` accepts `null`, the thumb then rests in the middle showing `↔` instead of a number, and a trailing clear button lets users unset a value they have set.\n\nThe `change` event emits `null` when cleared, so handlers must accept `number | null`.',
+        releaseDate: '2026-08-27',
+        version: '40.0.0',
+        demoTag: 'limel-example-slider-unset',
+    },
+    {
+        componentName: 'Chart',
+        heading: 'Plot a scatter chart',
+        description:
+            'The new `scatter` chart type plots each item as a dot at an `[x, y]` coordinate, using both axes as value axes. This makes the shape of the cloud of points — clusters, gaps, and correlation — visible.',
+        releaseDate: '2026-07-10',
+        version: '39.43.0',
+        demoTag: 'limel-example-chart-type-scatter',
+    },
+    {
+        componentName: 'File',
+        heading: 'Resize images before upload',
+        description:
+            'With the `resizeImage` prop, a selected image is downscaled and re-encoded on the user’s device *before* the `change` event fires, reducing upload size and normalizing dimensions and format.',
+        releaseDate: '2026-07-08',
+        version: '39.42.0',
+        demoTag: 'limel-example-file-resize-image',
+    },
+    {
+        componentName: 'Text Editor',
+        heading: 'Paste images inline',
+        description:
+            'Pass an `inlineImages` config and the editor owns the whole paste lifecycle: it shows a thumbnail, calls your `upload`, then swaps in a resizable image. All you provide is the upload function.',
+        releaseDate: '2026-07-08',
+        version: '39.41.0',
+        demoTag: 'limel-example-text-editor-with-inline-images-base64',
+    },
+    {
+        componentName: 'File',
+        heading: 'Report the state of each file',
+        description:
+            'Individual files can now carry their own `loading`, `progress`, `invalid` and `statusText` state, so a file that is uploading, failing validation, or being optimized can say so on its own chip.',
+        releaseDate: '2026-07-02',
+        version: '39.39.0',
+        demoTag: 'limel-example-file-per-file-progress',
+    },
+    {
+        componentName: 'Form',
+        heading: 'Reveal all validation errors',
+        description:
+            'Setting `revealErrors` to `true` lights up every invalid field at once, instead of waiting for each one to be visited. Collapsed sections and array items are marked as invalid too, so nothing hides.',
+        releaseDate: '2026-06-05',
+        version: '39.30.0',
+        demoTag: 'limel-example-form-invalid-section',
+    },
+    {
+        componentName: 'Info Tile',
+        heading: 'Reduce visual presence',
+        description:
+            'Set `reducedPresence` to `true` on tiles whose values are not currently noteworthy. They keep their place in the grid and stay interactive, but render dimmed so the eye is drawn to the tiles that actually warrant attention.',
+        releaseDate: '2026-05-28',
+        version: '39.29.0',
+        demoTag: 'limel-example-info-tile-reduced-presence',
+    },
+    {
+        componentName: 'Picker',
+        heading: 'Say when nothing matches',
+        description:
+            'A search that returns no matches now shows a translated default message. Use the `emptyResultMessage` prop when the picker’s content has a name worth mentioning, for example “No matching participants found”.',
+        releaseDate: '2026-05-27',
+        version: '39.27.0',
+        demoTag: 'limel-example-picker-empty-result-message',
+    },
+    {
+        componentName: 'Picker',
+        heading: 'Lock individual values',
+        description:
+            'Set `removable: false` on a picked item to lock it. Its chip loses the remove button, resists `Backspace`, and survives “Clear all”, while the user can still add and remove the other items freely.',
+        releaseDate: '2026-05-27',
+        version: '39.26.0',
+        demoTag: 'limel-example-picker-non-removable',
+    },
+    {
+        componentName: 'Markdown',
+        heading: 'Adapt color contrast',
+        description:
+            'Setting `adaptColorContrast` to `true` strips inline `color` declarations whose contrast against the surface falls below WCAG 3:1. Colors that already pass are kept untouched.',
+        releaseDate: '2026-05-12',
+        version: '39.24.0',
+        demoTag: 'limel-example-markdown-adapt-color-contrast',
+    },
+    {
+        componentName: 'Select',
+        heading: 'Render a custom component per option',
+        description:
+            'Just like list items, options can now render a `primaryComponent`. It shows both in the dropdown list and in the trigger area, next to the selected value.',
+        releaseDate: '2026-05-08',
+        version: '39.23.0',
+        demoTag: 'limel-example-select-with-primary-component',
+    },
+    {
+        componentName: 'Chip Set',
+        heading: 'Flag individual chips as invalid',
+        description:
+            'Set `invalid: true` on any chip in the `value` array to mark just that chip. This is independent of the field-level `invalid` prop, so a single failing entry — an address in a list of recipients, say — can be pointed out on its own.',
+        releaseDate: '2026-05-04',
+        version: '39.22.0',
+        demoTag: 'limel-example-chip-set-invalid-chips',
+    },
+    {
+        componentName: 'Table',
+        heading: 'Reorder rows by dragging',
+        description:
+            'Set `movableRows` to `true` and users can drag rows into a new order, with each drop reported through the `rowReorder` event. It combines with selectable rows, and pairs best with `sortableColumns` turned off.',
+        releaseDate: '2026-04-29',
+        version: '39.20.0',
+        demoTag: 'limel-example-table-movable-rows',
+    },
+    {
+        componentName: 'Tooltip',
+        heading: 'Visualize a keyboard shortcut',
+        description:
+            'The new `hotkey` prop renders a keyboard shortcut inside the tooltip, with platform-aware glyphs. \n\n It is for visualization only; catching the key combination remains the consumer’s responsibility.',
+        releaseDate: '2026-04-27',
+        version: '39.17.0',
+        demoTag: 'limel-example-tooltip-hotkey',
+    },
+    {
+        componentName: 'Snackbar',
+        heading: 'Format the message with Markdown',
+        description:
+            'The `message` prop now supports Markdown syntax, so a single word can be emphasized with `**bold**` or `*italic*` and the reader can scan the feedback more quickly.',
+        releaseDate: '2026-04-22',
+        version: '39.16.0',
+        demoTag: 'limel-example-snackbar-with-markdown',
+    },
+    {
+        componentName: 'Menu',
+        heading: 'Keep the menu open after selection',
+        description:
+            'A menu item can now leave the menu open when it is picked, which suits toggles and multi-step choices where closing after every click would get in the user’s way.',
+        releaseDate: '2026-04-14',
+        version: '39.13.0',
+        demoTag: 'limel-example-menu-keep-open',
+    },
+    {
+        componentName: 'Masonry Layout',
+        heading: 'Brand new component',
+        description:
+            'A layout component that arranges content of varying heights into a Pinterest-like grid. Two custom CSS properties, `--masonry-layout-min-column-width` and `--masonry-layout-gap`, let you tune the columns and spacing.',
+        releaseDate: '2026-04-08',
+        version: '39.12.0',
+        type: 'component',
+        demoTag: 'limel-example-masonry-layout-basic',
+    },
+    {
+        componentName: 'Menu',
+        heading: 'Add hotkeys to menu items',
+        description:
+            'Use the `hotkey` prop on a menu item to bind actual keyboard interaction while the menu is open. The shortcut is rendered with platform-aware glyphs, and is not registered globally.',
+        releaseDate: '2026-03-30',
+        version: '39.10.0',
+        demoTag: 'limel-example-menu-hotkeys',
+    },
+    {
         componentName: 'Icon Button',
         heading: 'Display a helper label in tooltip',
         description:
