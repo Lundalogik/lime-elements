@@ -53,6 +53,7 @@ graph TD;
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
   limel-slider --> limel-helper-line
+  limel-slider --> limel-tooltip
   limel-slider --> limel-notched-outline
   style limel-example-chip-set-progress fill:#f9f,stroke:#333,stroke-width:4px
 ```

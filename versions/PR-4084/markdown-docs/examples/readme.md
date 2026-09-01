@@ -152,6 +152,7 @@ The component automatically formats different value types:
  - [limel-example-slider-multiplier](../components/slider/examples)
  - [limel-example-slider-multiplier-percentage-colors](../components/slider/examples)
  - [limel-example-slider-unit](../components/slider/examples)
+ - [limel-example-slider-unset](../components/slider/examples)
  - [limel-example-switch-basic](../components/switch/examples)
  - [limel-example-switch-helper-text](../components/switch/examples)
  - [limel-example-switch-readonly](../components/switch/examples)
@@ -290,6 +291,7 @@ graph TD;
   limel-example-slider-multiplier --> limel-example-value
   limel-example-slider-multiplier-percentage-colors --> limel-example-value
   limel-example-slider-unit --> limel-example-value
+  limel-example-slider-unset --> limel-example-value
   limel-example-switch-basic --> limel-example-value
   limel-example-switch-helper-text --> limel-example-value
   limel-example-switch-readonly --> limel-example-value
