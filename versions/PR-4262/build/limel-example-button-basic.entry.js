@@ -1,0 +1,1 @@
+import{r as e,h as t}from"./index-BGxJfR2f.js";const c=class{constructor(t){e(this,t)}render(){return t("limel-button",{key:"5bba6d26b5108b8258b84d00d5fdee88a606ec6c",label:"Click me!",onClick:this.onClick})}onClick(){console.log("Button clicked.")}};export{c as limel_example_button_basic}
