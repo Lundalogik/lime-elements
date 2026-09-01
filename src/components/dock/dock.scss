@@ -35,6 +35,7 @@
 
     isolation: isolate;
     position: relative;
+    box-sizing: border-box;
 
     display: inline-flex;
     flex-direction: column;
