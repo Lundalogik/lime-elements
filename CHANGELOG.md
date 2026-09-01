@@ -1,3 +1,11 @@
+## [40.0.3](https://github.com/Lundalogik/lime-elements/compare/v40.0.2...v40.0.3) (2026-09-01)
+
+### Bug Fixes
+
+
+* **dock:** include the padding custom properties in the collapsed width ([8392c75](https://github.com/Lundalogik/lime-elements/commit/8392c7521a5aa0d4235203ecc37e4881e9363921)), closes [#4260](https://github.com/Lundalogik/lime-elements/issues/4260)
+* **dock:** include the padding custom properties in the expanded width ([6a95ce2](https://github.com/Lundalogik/lime-elements/commit/6a95ce2f52fee6f07da0df1e52af5cfd22aed33d)), closes [#4260](https://github.com/Lundalogik/lime-elements/issues/4260)
+
 ## [40.0.2](https://github.com/Lundalogik/lime-elements/compare/v40.0.1...v40.0.2) (2026-09-01)
 
 ### Bug Fixes
