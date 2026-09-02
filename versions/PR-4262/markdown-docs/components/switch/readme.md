@@ -48,7 +48,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-card-3d-effect](../card/examples)
  - [limel-example-card-selected](../card/examples)
  - [limel-example-chart-axis-labels](../chart/examples)
- - [limel-example-chart-hide-item-percentage](../chart/examples)
+ - [limel-example-chart-display-item-percentage](../chart/examples)
  - [limel-example-checkbox-basic](../checkbox/examples)
  - [limel-example-checkbox-readonly](../checkbox/examples)
  - [limel-example-chip-button](../chip/examples)
@@ -131,7 +131,7 @@ graph TD;
   limel-example-card-3d-effect --> limel-switch
   limel-example-card-selected --> limel-switch
   limel-example-chart-axis-labels --> limel-switch
-  limel-example-chart-hide-item-percentage --> limel-switch
+  limel-example-chart-display-item-percentage --> limel-switch
   limel-example-checkbox-basic --> limel-switch
   limel-example-checkbox-readonly --> limel-switch
   limel-example-chip-button --> limel-switch
