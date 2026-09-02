@@ -4,23 +4,18 @@ import { chartItems } from './chart-items-stack';
 /**
  * Using the `maxValue` prop
  *
- * The `maxValue` prop defines the upper limit of the visual range for the chart.
- * It determines the maximum value represented on the axis and is used to
- * calculate the size of each item in the chart relative to this value.
+ * For `stacked-bar`, `pie`, `doughnut`, and `ring`, `maxValue` is the
+ * denominator used as the whole. An item with value `10` occupies 10% when
+ * `maxValue` is `100`. The combined item size can exceed `maxValue`, producing
+ * a total above 100%. Without `maxValue`, the chart uses the combined item
+ * values or range extents.
  *
- * For example, if `maxValue` is set to `100`, an item with a value of `10`
- * will occupy 10% of the chart, while an item with a value of `50` will occupy 50%.
- * If `maxValue` is set to `200`, an item with a value of `50` will occupy 25% of the chart.
+ * For `bar`, `dot`, `area`, and `line`, `maxValue` sets the requested upper
+ * bound. The chart can round that bound up to the next `axisIncrement`. The
+ * lower bound includes zero and negative item values, rounded down to the
+ * previous `axisIncrement`.
  *
- * If `maxValue` is not provided, the chart will calculate the maximum value based on
- * the actual data points, and the size of each item will be calculated relative to
- * the total range of the data.
- *
- * :::note
- * The `maxValue` only affects the upper limit of the chart's range.
- * The chart will always start from the smallest value present in the dataset,
- * which could be a negative number.
- * :::
+ * `maxValue` has no effect on `nps` or `scatter`.
  *
  * @sourceFile chart-items-stack.ts
  */
