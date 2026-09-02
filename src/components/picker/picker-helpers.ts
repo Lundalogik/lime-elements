@@ -22,12 +22,14 @@ export function getValueId(item: PickerItem): string | number | undefined {
 }
 
 /**
- * The id of the chip an item is rendered as. Chip ids are strings, so this
- * is where a value id becomes one — note that items sharing a value id, and
- * items having none, therefore share a chip id too.
+ * The id an item is identified by, as a string. Chip ids are strings, so
+ * this is where a value id becomes one, and the suggestion filter matches
+ * on the same thing — the two must agree, or an item can be offered again
+ * and then share a chip id with the one already picked, which
+ * `limel-chip-set` removes as a group.
  *
  * @param item - the item the chip stands for
- * @returns the chip id
+ * @returns the id as a string
  */
 export function getChipId(item: PickerItem): string {
     return `${getValueId(item)}`;
@@ -44,4 +46,39 @@ export function hasPickableItems(
     items: Array<PickerItem | ListSeparator>
 ): boolean {
     return items.some((item) => !('separator' in item));
+}
+
+/**
+ * Filters out items that have already been picked.
+ *
+ * Matching is by value id, not by reference: `limel-list` emits a copy of
+ * the item that was picked, so the objects in `value` are never the ones
+ * the searcher returned.
+ *
+ * Items with no value id are always kept, and items sharing one are
+ * removed together. `ListSeparator` entries are always kept, so the
+ * result can hold nothing but headers — see `hasPickableItems`.
+ *
+ * @param items - the items to filter
+ * @param picked - the items already picked; may contain nullish holes
+ * @returns the items that have not been picked
+ */
+export function excludePickedItems(
+    items: Array<PickerItem | ListSeparator>,
+    picked: Array<PickerItem | undefined | null>
+): Array<PickerItem | ListSeparator> {
+    const pickedIds = new Set(
+        picked
+            .filter((item): item is PickerItem => !!item)
+            .filter((item) => getValueId(item) !== undefined)
+            .map(getChipId)
+    );
+
+    if (pickedIds.size === 0) {
+        return items;
+    }
+
+    return items.filter(
+        (item) => 'separator' in item || !pickedIds.has(getChipId(item))
+    );
 }

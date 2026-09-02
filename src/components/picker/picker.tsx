@@ -26,7 +26,11 @@ import {
     LimelListCustomEvent,
 } from '../../components';
 import { getIconFillColor, getIconName } from '../icon/get-icon-props';
-import { getChipId, hasPickableItems } from './picker-helpers';
+import {
+    excludePickedItems,
+    getChipId,
+    hasPickableItems,
+} from './picker-helpers';
 import { DebouncedFunc, debounce } from 'lodash-es';
 import { IconName } from '../../global/shared-types/icon.types';
 
@@ -140,6 +144,13 @@ export class Picker {
      *
      * See the docs for the type `Searcher` for type information on
      * the searcher function itself.
+     *
+     * When `multiple` is `true`, the picker removes results that are
+     * already picked before showing them: any item whose value id matches
+     * an entry in `value` is dropped from the dropdown. Returning already
+     * picked items in order to render them as `selected` therefore has no
+     * effect. Items with no value at all have no id to match on, so those
+     * are always kept.
      */
     @Prop()
     public searcher?: Searcher;
@@ -453,7 +464,7 @@ export class Picker {
             return this.renderSpinner();
         }
 
-        if (!this.items?.length) {
+        if (!hasPickableItems(this.items ?? [])) {
             // Only show "no matching results" when the user actually has
             // a query in flight. Without this guard, the message would
             // also render right after Esc clears the input, leaving the
@@ -792,13 +803,7 @@ export class Picker {
             let nextItems = result;
             if (this.multiple) {
                 const values = (this.value as PickerItem[]) ?? [];
-                nextItems = result.filter((item) => {
-                    if ('separator' in item) {
-                        return true;
-                    }
-
-                    return !values.includes(item);
-                });
+                nextItems = excludePickedItems(result, values);
             }
 
             this.items = this.prependSearchHeader(query, nextItems);
