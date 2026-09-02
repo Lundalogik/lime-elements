@@ -8,8 +8,8 @@ const PERCENT = 100;
 const DEFAULT_INCREMENT_SIZE = 10;
 
 /**
- * Types whose items are parts of one whole. They draw no axis, and an
- * item's size is its share of `maxValue`, or of the sum of the items.
+ * Types whose items are parts of one whole. They draw no axis, and an item's
+ * value or range extent is its share of `maxValue`, or of the combined items.
  */
 const WHOLE_TYPES: ReadonlySet<string> = new Set([
     'stacked-bar',
@@ -34,6 +34,7 @@ interface AxisRange {
  * @exampleComponent limel-example-chart-stacked-bar
  * @exampleComponent limel-example-chart-orientation
  * @exampleComponent limel-example-chart-max-value
+ * @exampleComponent limel-example-chart-display-item-percentage
  * @exampleComponent limel-example-chart-type-bar
  * @exampleComponent limel-example-chart-type-dot
  * @exampleComponent limel-example-chart-type-area
@@ -120,6 +121,15 @@ export class Chart {
     public displayItemValue = false;
 
     /**
+     * Set to `false` to hide the percentage in item tooltips.
+     * The percentage is an item's value or range extent as a share of the
+     * whole. The whole is `maxValue` when set and the combined items otherwise.
+     * Applies to `stacked-bar`, `pie`, `doughnut`, and `ring` charts.
+     */
+    @Prop({ reflect: true })
+    public displayItemPercentage = true;
+
+    /**
      * List of items in the chart,
      * each representing a data point.
      */
@@ -150,17 +160,21 @@ export class Chart {
     public orientation?: 'landscape' | 'portrait' = 'landscape';
 
     /**
-     * The upper end of the range that items are drawn against.
-     * For `stacked-bar`, `pie`, `doughnut`, and `ring` charts it is the whole
-     * that each item is a share of, and defaults to the sum of the items.
-     * For the other types it defaults to the largest value among the items.
+     * Sets the value used to scale item values.
+     * For `stacked-bar`, `pie`, `doughnut`, and `ring`, it is the denominator
+     * used as the whole. It defaults to the combined item values or range
+     * extents. The combined size can exceed `maxValue` and produce a total
+     * above 100%.
+     * For `bar`, `dot`, `area`, and `line`, it is the requested upper bound.
+     * The chart can round that bound up to the next `axisIncrement`.
+     * Has no effect on `nps` or `scatter`.
      */
     @Prop({ reflect: true })
     public maxValue?: number;
 
     /**
-     * Specifies the increment for the axis lines.
-     * Has no effect on chart types without axis lines.
+     * Sets the axis increment for `bar`, `dot`, `area`, and `line` charts.
+     * Has no effect on other chart types.
      */
     @Prop({ reflect: true })
     public axisIncrement?: number;
@@ -472,7 +486,7 @@ export class Chart {
             elementId: itemId,
         };
 
-        if (this.isPartOfWhole()) {
+        if (this.displayItemPercentage && this.isPartOfWhole()) {
             tooltipProps.label = `${text} (${size.toFixed(PERCENT_DECIMAL)}%)`;
         }
 
@@ -521,9 +535,10 @@ export class Chart {
 
     /**
      * The range of a chart whose items are parts of one whole: `maxValue`
-     * when set, otherwise the sum of the items. The whole is not rounded to
-     * an axis step, since these types draw no axis and an item's size has
-     * to be its exact share.
+     * when set, otherwise the combined item values or range extents. The value
+     * is a scale, not a cap, so the combined size can exceed it. The whole is
+     * not rounded to an axis step, since these types draw no axis and an item's
+     * size has to be its exact share.
      */
     private calculateWholeRange(): AxisRange {
         const sum = this.items.reduce(

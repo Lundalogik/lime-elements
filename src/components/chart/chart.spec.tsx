@@ -7,7 +7,10 @@ const items: ChartItem[] = [
 ];
 
 type Props = Partial<
-    Pick<HTMLLimelChartElement, 'type' | 'items' | 'maxValue'>
+    Pick<
+        HTMLLimelChartElement,
+        'type' | 'items' | 'maxValue' | 'displayItemPercentage'
+    >
 >;
 
 async function setup(props: Props = {}) {
@@ -31,6 +34,7 @@ async function setup(props: Props = {}) {
 
     return {
         labels: tooltips.map((tooltip) => tooltip.label),
+        values: tooltips.map((tooltip) => tooltip.helperLabel),
         sizes,
         offsets: rows.map((row) =>
             Number(
@@ -135,6 +139,20 @@ describe('limel-chart', () => {
             const { sizes } = await setup({ items: negativeItems });
 
             expect(sizes.every((size) => size < 0)).toBe(true);
+        });
+    });
+
+    describe('displayItemPercentage', () => {
+        test('set to false, the tooltip shows the text alone', async () => {
+            const { labels } = await setup({ displayItemPercentage: false });
+
+            expect(labels).toEqual(['Applications', 'Photos']);
+        });
+
+        test('set to false, the tooltip still shows the value', async () => {
+            const { values } = await setup({ displayItemPercentage: false });
+
+            expect(values).toEqual(['25', '75']);
         });
     });
 
