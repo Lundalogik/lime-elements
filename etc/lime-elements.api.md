@@ -58,6 +58,7 @@ export interface BreadcrumbsItem {
 // @public (undocumented)
 export interface Button {
     badge?: number | string;
+    disabled?: boolean;
     icon?: string;
     id: string;
     selected?: boolean;
