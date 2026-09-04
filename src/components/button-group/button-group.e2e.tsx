@@ -39,4 +39,39 @@ describe('limel-button-group', () => {
             });
         });
     });
+
+    describe('button group with a disabled item', () => {
+        const items = [
+            { id: '1', title: 'Lime' },
+            { id: '2', title: 'Apple', disabled: true },
+        ];
+
+        it('disables only the input of the disabled item', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-button-group value={items}></limel-button-group>
+            );
+            await waitForChanges();
+
+            const inputs = root.shadowRoot.querySelectorAll<HTMLInputElement>(
+                'input[type="radio"]'
+            );
+            expect(inputs[0].disabled).toEqual(false);
+            expect(inputs[1].disabled).toEqual(true);
+        });
+
+        it('does not emit a change event when the disabled item is clicked', async () => {
+            const { root, waitForChanges, spyOnEvent } = await render(
+                <limel-button-group value={items}></limel-button-group>
+            );
+            const changeSpy = spyOnEvent('change');
+            await waitForChanges();
+
+            const labels =
+                root.shadowRoot.querySelectorAll<HTMLElement>('.button label');
+            labels[1].click();
+            await waitForChanges();
+
+            expect(changeSpy).toHaveReceivedEventTimes(0);
+        });
+    });
 });

@@ -46,6 +46,7 @@ import { createRandomString } from '../../util/random-string';
  * @exampleComponent limel-example-button-group-mix
  * @exampleComponent limel-example-button-group-badges
  * @exampleComponent limel-example-button-group-composite
+ * @exampleComponent limel-example-button-group-disabled-item
  */
 @Component({
     tag: 'limel-button-group',
@@ -96,10 +97,12 @@ export class ButtonGroup {
         // Prefix with 'b' because html IDs cannot start with a digit,
         // and we need to differentiate from the ID on the limel-icon. /Ads
         const buttonId = `b${button.id}`;
+        const isDisabled = this.disabled || button.disabled;
 
         const classes = {
             button: true,
             'button--selected': this.isButtonChecked(button),
+            'button--disabled': !this.disabled && !!button.disabled,
         };
 
         return (
@@ -108,7 +111,7 @@ export class ButtonGroup {
                     type="radio"
                     name={this.radioGroupName}
                     checked={this.isButtonChecked(button)}
-                    disabled={this.disabled}
+                    disabled={isDisabled}
                     id={buttonId}
                     onChange={this.onChange}
                 />

@@ -134,6 +134,14 @@
         }
     }
 
+    &.button--disabled {
+        @include shared_input-select-picker.looks-disabled;
+
+        label {
+            cursor: not-allowed;
+        }
+    }
+
     &.button--selected {
         background-color: var(--limel-theme-surface-background-color);
         box-shadow: var(--button-shadow-inset);
