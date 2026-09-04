@@ -45,6 +45,7 @@ import { createRandomString } from '../../util/random-string';
  * @exampleComponent limel-example-button-group-basic
  * @exampleComponent limel-example-button-group-mix
  * @exampleComponent limel-example-button-group-badges
+ * @exampleComponent limel-example-button-group-disabled-item
  * @exampleComponent limel-example-button-group-composite
  */
 @Component({
@@ -60,7 +61,10 @@ export class ButtonGroup {
     public value: Button[] = [];
 
     /**
-     * True if the button-group should be disabled
+     * True if the button-group should be disabled.
+     *
+     * Disables every button in the group, regardless of the `disabled` value
+     * of each individual button.
      */
     @Prop({ reflect: true })
     public disabled: boolean = false;
@@ -96,6 +100,7 @@ export class ButtonGroup {
         // Prefix with 'b' because html IDs cannot start with a digit,
         // and we need to differentiate from the ID on the limel-icon. /Ads
         const buttonId = `b${button.id}`;
+        const isDisabled = this.disabled || button.disabled;
 
         const classes = {
             button: true,
@@ -108,7 +113,8 @@ export class ButtonGroup {
                     type="radio"
                     name={this.radioGroupName}
                     checked={this.isButtonChecked(button)}
-                    disabled={this.disabled}
+                    disabled={isDisabled}
+                    aria-disabled={isDisabled ? 'true' : 'false'}
                     id={buttonId}
                     onChange={this.onChange}
                 />
@@ -166,10 +172,19 @@ export class ButtonGroup {
         event.stopPropagation();
         const target = event.target as HTMLInputElement;
         // The ID is prefixed with `b` in the HTML, remember? /Ads
-        this.selectedButtonId = target.id.slice(1);
+        const buttonId = target.id.slice(1);
         const button = this.value.find((item) => {
-            return item.id === this.selectedButtonId;
+            return item.id === buttonId;
         });
+
+        // The `disabled` attribute on the input already stops the browser
+        // from getting here. This makes it hold even if the attribute is
+        // removed from the DOM, or a `change` event is dispatched by hand.
+        if (!button || this.disabled || button.disabled) {
+            return;
+        }
+
+        this.selectedButtonId = buttonId;
         this.change.emit(button);
     }
 

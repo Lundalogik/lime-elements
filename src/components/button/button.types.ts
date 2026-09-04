@@ -26,4 +26,15 @@ export interface Button {
      * The label displayed in the badge
      */
     badge?: number | string;
+
+    /**
+     * True if the button should be disabled.
+     *
+     * Disabling every button in the group is not the same as disabling the
+     * group itself; set `disabled` on `limel-button-group` for that.
+     *
+     * Combining this with `selected` is not supported. Once the user picks
+     * another button, the disabled one can never be selected again.
+     */
+    disabled?: boolean;
 }
