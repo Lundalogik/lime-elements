@@ -26,4 +26,9 @@ export interface Button {
      * The label displayed in the badge
      */
     badge?: number | string;
+
+    /**
+     * True if the button should be disabled
+     */
+    disabled?: boolean;
 }
