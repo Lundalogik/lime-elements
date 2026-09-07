@@ -7,6 +7,17 @@ import { ChartItem } from './chart.types';
 const PERCENT = 100;
 const DEFAULT_INCREMENT_SIZE = 10;
 
+/**
+ * Types whose items are parts of one whole. They draw no axis, and an item's
+ * value or range extent is its share of `maxValue`, or of the combined items.
+ */
+const WHOLE_TYPES: ReadonlySet<string> = new Set([
+    'stacked-bar',
+    'pie',
+    'doughnut',
+    'ring',
+]);
+
 interface AxisRange {
     minValue: number;
     maxValue: number;
@@ -23,6 +34,7 @@ interface AxisRange {
  * @exampleComponent limel-example-chart-stacked-bar
  * @exampleComponent limel-example-chart-orientation
  * @exampleComponent limel-example-chart-max-value
+ * @exampleComponent limel-example-chart-display-item-percentage
  * @exampleComponent limel-example-chart-type-bar
  * @exampleComponent limel-example-chart-type-dot
  * @exampleComponent limel-example-chart-type-area
@@ -109,6 +121,15 @@ export class Chart {
     public displayItemValue = false;
 
     /**
+     * Set to `false` to hide the percentage in item tooltips.
+     * The percentage is an item's value or range extent as a share of the
+     * whole. The whole is `maxValue` when set and the combined items otherwise.
+     * Applies to `stacked-bar`, `pie`, `doughnut`, and `ring` charts.
+     */
+    @Prop({ reflect: true })
+    public displayItemPercentage = true;
+
+    /**
      * List of items in the chart,
      * each representing a data point.
      */
@@ -139,15 +160,21 @@ export class Chart {
     public orientation?: 'landscape' | 'portrait' = 'landscape';
 
     /**
-     * Specifies the range that items' values could be in.
-     * This is used in calculation of the size of the items in the chart.
-     * When not provided, the sum of all values in the items will be considered as the range.
+     * Sets the value used to scale item values.
+     * For `stacked-bar`, `pie`, `doughnut`, and `ring`, it is the denominator
+     * used as the whole. It defaults to the combined item values or range
+     * extents. The combined size can exceed `maxValue` and produce a total
+     * above 100%.
+     * For `bar`, `dot`, `area`, and `line`, it is the requested upper bound.
+     * The chart can round that bound up to the next `axisIncrement`.
+     * Has no effect on `nps` or `scatter`.
      */
     @Prop({ reflect: true })
     public maxValue?: number;
 
     /**
-     * Specifies the increment for the axis lines.
+     * Sets the axis increment for `bar`, `dot`, `area`, and `line` charts.
+     * Has no effect on other chart types.
      */
     @Prop({ reflect: true })
     public axisIncrement?: number;
@@ -403,6 +430,13 @@ export class Chart {
             };
         }
 
+        if (this.isPartOfWhole()) {
+            return {
+                size: (this.getValueSpan(item) / totalRange) * PERCENT,
+                offset: 0,
+            };
+        }
+
         let startValue = 0;
         if (this.isRangeItem(item)) {
             startValue = this.getMinimumValue(item);
@@ -452,12 +486,7 @@ export class Chart {
             elementId: itemId,
         };
 
-        if (
-            this.type !== 'bar' &&
-            this.type !== 'dot' &&
-            this.type !== 'nps' &&
-            this.type !== 'scatter'
-        ) {
+        if (this.displayItemPercentage && this.isPartOfWhole()) {
             tooltipProps.label = `${text} (${size.toFixed(PERCENT_DECIMAL)}%)`;
         }
 
@@ -471,25 +500,18 @@ export class Chart {
         );
     }
 
-    private calculateRange() {
+    private calculateRange(): AxisRange {
         if (this.range) {
             return this.range;
         }
 
+        if (this.isPartOfWhole()) {
+            return this.calculateWholeRange();
+        }
+
         const minRange = Math.min(0, ...this.items.map(this.getMinimumValue));
         const maxRange = Math.max(...this.items.map(this.getMaximumValue));
-        const totalSum = this.items.reduce(
-            (sum, item) => sum + this.getMaximumValue(item),
-            0
-        );
-
-        let finalMaxRange = this.maxValue ?? maxRange;
-        if (
-            (this.type === 'pie' || this.type === 'doughnut') &&
-            !this.maxValue
-        ) {
-            finalMaxRange = totalSum;
-        }
+        const finalMaxRange = this.maxValue ?? maxRange;
 
         if (!this.axisIncrement) {
             this.axisIncrement = this.calculateAxisIncrement(
@@ -509,6 +531,34 @@ export class Chart {
             totalRange: totalRange,
             increment: this.axisIncrement,
         };
+    }
+
+    /**
+     * The range of a chart whose items are parts of one whole: `maxValue`
+     * when set, otherwise the combined item values or range extents. The value
+     * is a scale, not a cap, so the combined size can exceed it. The whole is
+     * not rounded to an axis step, since these types draw no axis and an item's
+     * size has to be its exact share.
+     */
+    private calculateWholeRange(): AxisRange {
+        const sum = this.items.reduce(
+            (total, item) => total + this.getValueSpan(item),
+            0
+        );
+        const inferredWhole = sum > 0 ? sum : 1;
+        // An explicit zero also falls back to 1, so normalization stays finite.
+        const whole = (this.maxValue ?? inferredWhole) || 1;
+
+        return {
+            minValue: 0,
+            maxValue: whole,
+            totalRange: whole,
+            increment: whole,
+        };
+    }
+
+    private isPartOfWhole(): boolean {
+        return WHOLE_TYPES.has(this.type);
     }
 
     private calculateAxisIncrement(
@@ -587,6 +637,14 @@ export class Chart {
         return Array.isArray(value) ? Math.max(...value) : value;
     }
 
+    private getValueSpan(item: ChartItem): number {
+        const startValue = this.isRangeItem(item)
+            ? this.getMinimumValue(item)
+            : 0;
+
+        return this.getMaximumValue(item) - startValue;
+    }
+
     private isRangeItem(item: ChartItem): item is ChartItem<[number, number]> {
         return Array.isArray(item.value);
     }
@@ -594,6 +652,7 @@ export class Chart {
     @Watch('items')
     @Watch('axisIncrement')
     @Watch('maxValue')
+    @Watch('type')
     handleChange() {
         this.range = null;
         this.secondaryAxisRange = null;

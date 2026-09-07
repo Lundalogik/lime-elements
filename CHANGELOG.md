@@ -1,3 +1,14 @@
+## [40.1.0](https://github.com/Lundalogik/lime-elements/compare/v40.0.3...v40.1.0) (2026-09-04)
+
+### Features
+
+
+* **chart:** allow hiding the percentage in item tooltips ([2dee645](https://github.com/Lundalogik/lime-elements/commit/2dee645823b31698c1c761b612353b46e1d6ac8f)), closes [Lundalogik/crm-insights-and-intelligence#354](https://github.com/Lundalogik/crm-insights-and-intelligence/issues/354)
+### Bug Fixes
+
+
+* **chart:** size items as shares of the whole, not of the largest item ([11c9a52](https://github.com/Lundalogik/lime-elements/commit/11c9a52ba4646c404ed8e4d8c2ee6d4a68d8fa0e)), closes [Lundalogik/crm-insights-and-intelligence#354](https://github.com/Lundalogik/crm-insights-and-intelligence/issues/354)
+
 ## [40.0.3](https://github.com/Lundalogik/lime-elements/compare/v40.0.2...v40.0.3) (2026-09-01)
 
 ### Bug Fixes
