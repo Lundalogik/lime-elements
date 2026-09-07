@@ -35,10 +35,10 @@ inherits its width from its content.
 
 ## Properties
 
-| Property   | Attribute  | Description                                 | Type       | Default |
-| ---------- | ---------- | ------------------------------------------- | ---------- | ------- |
-| `disabled` | `disabled` | True if the button-group should be disabled | `boolean`  | `false` |
-| `value`    | --         | List of buttons for the group               | `Button[]` | `[]`    |
+| Property   | Attribute  | Description                                                                                                                                     | Type       | Default |
+| ---------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------- |
+| `disabled` | `disabled` | True if the button-group should be disabled.  Disables every button in the group, regardless of the `disabled` value of each individual button. | `boolean`  | `false` |
+| `value`    | --         | List of buttons for the group                                                                                                                   | `Button[]` | `[]`    |
 
 
 ## Events
