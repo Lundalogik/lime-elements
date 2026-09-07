@@ -1,3 +1,10 @@
+## [40.1.1](https://github.com/Lundalogik/lime-elements/compare/v40.1.0...v40.1.1) (2026-09-07)
+
+### Bug Fixes
+
+
+* **picker:** clear the search query when an item is picked ([7692e87](https://github.com/Lundalogik/lime-elements/commit/7692e872e9cad63120349966013cac874437ac0a))
+
 ## [40.1.0](https://github.com/Lundalogik/lime-elements/compare/v40.0.3...v40.1.0) (2026-09-04)
 
 ### Features
