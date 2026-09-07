@@ -1,0 +1,1 @@
+function t(t){return{stretchLastColumn:"fitDataStretch",stretchColumns:"fitColumns",lowDensity:"fitData"}[t]||"fitDataFill"}export{t as _}

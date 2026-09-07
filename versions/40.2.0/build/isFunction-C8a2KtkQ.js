@@ -1,0 +1,1 @@
+import{b as t}from"./_baseGetTag-Cd9mW1Ny.js";import{i as o}from"./isObject-CqTdDZkE.js";function r(r){if(!o(r))return!1;var e=t(r);return"[object Function]"==e||"[object GeneratorFunction]"==e||"[object AsyncFunction]"==e||"[object Proxy]"==e}export{r as i}
