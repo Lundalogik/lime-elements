@@ -1,7 +1,15 @@
-import { Plugin, PluginKey, Selection, TextSelection } from 'prosemirror-state';
-import { Fragment, Node, ResolvedPos, Slice } from 'prosemirror-model';
+import { Plugin, PluginKey, Selection, Transaction } from 'prosemirror-state';
+import { Fragment, ResolvedPos, Slice } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
-import { isInTable, selectionCell, TableMap } from 'prosemirror-tables';
+import {
+    __Area as CellGrid,
+    __pastedCells as pastedCells,
+    cellAround,
+    CellSelection,
+    isInTable,
+    TableMap,
+    tableNodeTypes,
+} from 'prosemirror-tables';
 
 export const createTablePastePlugin = (): Plugin => {
     return new Plugin({
@@ -14,163 +22,102 @@ export const createTablePastePlugin = (): Plugin => {
     });
 };
 
+// prosemirror-tables pastes a cell grid over the existing cells. Unless the
+// user selected cells explicitly, pasted cells become rows of the table (or
+// a new table) instead.
 const handleTablePaste = (view: EditorView, slice: Slice): boolean => {
     const { state } = view;
-
-    if (!(state.selection instanceof TextSelection)) {
+    if (state.selection instanceof CellSelection || !isInTable(state)) {
         return false;
     }
 
-    const pastedRows = sliceAsRows(slice);
-    if (!sliceContainsTable(slice) && !pastedRows) {
+    const grid = pastedCells(slice);
+    if (!grid && !containsTableAmongBlocks(slice)) {
         return false;
     }
 
-    if (!isInTable(state)) {
-        return false;
-    }
-
-    if (!selectionStaysInsideOneTable(state)) {
-        return pasteInPlace(view, slice.content, pastedRows);
-    }
-
-    if (pastedRows) {
-        return pasteRows(view, pastedRows);
-    }
-
-    return pasteAfterEnclosingTable(view, slice.content);
-};
-
-const pasteAfterEnclosingTable = (
-    view: EditorView,
-    content: Fragment
-): boolean => {
-    const { state } = view;
-    const posInOldDoc = selectionCell(state).after(-1);
     const tr = state.tr.deleteSelection();
+    const $cell = cellAround(tr.selection.$head);
+    if (grid) {
+        insertGrid(tr, $cell, grid);
+    } else {
+        insertBlocks(tr, $cell, slice.content);
+    }
 
-    const posAfterTable = tr.mapping.map(posInOldDoc);
-    tr.insert(posAfterTable, content);
-    const $endPos = tr.doc.resolve(posAfterTable + content.size);
-    tr.setSelection(Selection.near($endPos, -1)).scrollIntoView();
-
-    view.dispatch(tr);
+    view.dispatch(tr.scrollIntoView());
 
     return true;
 };
 
-const pasteRows = (view: EditorView, rows: Fragment): boolean => {
-    const { state } = view;
-    const $cell = selectionCell(state);
-    const enclosingTable = $cell.node(-1);
+const insertGrid = (
+    tr: Transaction,
+    $cell: ResolvedPos | null,
+    grid: CellGrid
+): void => {
+    const types = tableNodeTypes(tr.doc.type.schema);
+    const rows = Fragment.from(
+        grid.rows.map((cells) => types.row.create(null, cells))
+    );
 
-    // Splicing rows into a table with spanning cells can break its grid.
-    const spliceIsSafe =
-        rowWidth(rows.firstChild!) === TableMap.get(enclosingTable).width &&
-        !containsSpanningCells(enclosingTable) &&
-        !containsSpanningCells(rows);
+    if ($cell && rowsFitBelow($cell, grid.width)) {
+        insertAt(tr, $cell.after(), rows);
 
-    if (!spliceIsSafe) {
-        return pasteAfterEnclosingTable(
-            view,
-            Fragment.from(enclosingTable.type.create(null, rows))
-        );
+        return;
     }
 
-    const posAfterCaretRow = $cell.after();
-    const tr = state.tr.deleteSelection();
-    const insertPos = tr.mapping.map(posAfterCaretRow);
-    tr.insert(insertPos, rows);
-    const $endPos = tr.doc.resolve(insertPos + rows.size);
-    tr.setSelection(Selection.near($endPos, -1)).scrollIntoView();
+    insertBlocks(tr, $cell, Fragment.from(types.table.create(null, rows)));
+};
 
-    view.dispatch(tr);
+const insertBlocks = (
+    tr: Transaction,
+    $cell: ResolvedPos | null,
+    blocks: Fragment
+): void => {
+    if ($cell) {
+        insertAt(tr, $cell.after(-1), blocks);
+
+        return;
+    }
+
+    tr.replaceSelection(new Slice(blocks, 0, 0));
+};
+
+const insertAt = (tr: Transaction, pos: number, content: Fragment): void => {
+    const step = tr.steps.length;
+    tr.insert(pos, content);
+    const end = tr.mapping.slice(step).mapResult(pos, 1).pos;
+    tr.setSelection(Selection.near(tr.doc.resolve(end), -1));
+};
+
+// A new row would split any cell spanning the boundary below the caret's row.
+const rowsFitBelow = ($cell: ResolvedPos, width: number): boolean => {
+    const map = TableMap.get($cell.node(-1));
+    if (width !== map.width) {
+        return false;
+    }
+
+    const boundary = map.findCell($cell.pos - $cell.start(-1)).top + 1;
+    if (boundary >= map.height) {
+        return true;
+    }
+
+    for (let col = 0; col < map.width; col++) {
+        const above = map.map[(boundary - 1) * map.width + col];
+        const below = map.map[boundary * map.width + col];
+        if (above === below) {
+            return false;
+        }
+    }
 
     return true;
 };
 
-const pasteInPlace = (
-    view: EditorView,
-    content: Fragment,
-    rows: Fragment | null
-): boolean => {
-    if (rows) {
-        const tableType = selectionCell(view.state).node(-1).type;
-        content = Fragment.from(tableType.create(null, rows));
+const containsTableAmongBlocks = (slice: Slice): boolean => {
+    if (slice.content.childCount < 2) {
+        return false;
     }
 
-    // A closed slice keeps the pasted table a block instead of letting
-    // its cell content merge into the surrounding text.
-    const tr = view.state.tr
-        .replaceSelection(new Slice(content, 0, 0))
-        .scrollIntoView();
-    view.dispatch(tr);
-
-    return true;
-};
-
-const sliceContainsTable = (slice: Slice): boolean => {
-    for (let i = 0; i < slice.content.childCount; i++) {
-        if (slice.content.child(i).type.spec.tableRole === 'table') {
-            return true;
-        }
-    }
-
-    return false;
-};
-
-// Copying a cell selection puts bare rows on the clipboard.
-const sliceAsRows = (slice: Slice): Fragment | null => {
-    if (slice.content.childCount === 0) {
-        return null;
-    }
-    for (let i = 0; i < slice.content.childCount; i++) {
-        if (slice.content.child(i).type.spec.tableRole !== 'row') {
-            return null;
-        }
-    }
-
-    return slice.content;
-};
-
-const selectionStaysInsideOneTable = (state: {
-    selection: { $from: ResolvedPos; $to: ResolvedPos };
-}): boolean => {
-    const fromTable = enclosingTablePos(state.selection.$from);
-    const toTable = enclosingTablePos(state.selection.$to);
-
-    return fromTable !== null && fromTable === toTable;
-};
-
-const enclosingTablePos = ($pos: ResolvedPos): number | null => {
-    for (let depth = $pos.depth; depth > 0; depth--) {
-        if ($pos.node(depth).type.spec.tableRole === 'table') {
-            return $pos.before(depth);
-        }
-    }
-
-    return null;
-};
-
-const rowWidth = (rowNode: Node): number => {
-    let width = 0;
-    for (let i = 0; i < rowNode.childCount; i++) {
-        width += rowNode.child(i).attrs.colspan ?? 1;
-    }
-
-    return width;
-};
-
-const containsSpanningCells = (content: Node | Fragment): boolean => {
-    for (let i = 0; i < content.childCount; i++) {
-        const child = content.child(i);
-        if ((child.attrs.rowspan ?? 1) > 1 || (child.attrs.colspan ?? 1) > 1) {
-            return true;
-        }
-        if (containsSpanningCells(child)) {
-            return true;
-        }
-    }
-
-    return false;
+    return slice.content.content.some(
+        (block) => block.type.spec.tableRole === 'table'
+    );
 };
