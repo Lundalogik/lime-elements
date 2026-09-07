@@ -15,11 +15,12 @@ import { getRel, hasUnsafeProtocol } from '../../util/link-helper';
  * using the `link` property.
  *
  * @exampleComponent limel-example-info-tile-basic
+ * @exampleComponent limel-example-info-tile-link
+ * @exampleComponent limel-example-info-tile-clickable
  * @exampleComponent limel-example-info-tile-badge
  * @exampleComponent limel-example-info-tile-progress
  * @exampleComponent limel-example-info-tile-loading
  * @exampleComponent limel-example-info-tile-primary-slot
- * @exampleComponent limel-example-info-tile-clickable
  * @exampleComponent limel-example-info-tile-styling
  * @exampleComponent limel-example-info-tile-reduced-presence
  */
