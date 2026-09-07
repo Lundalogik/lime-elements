@@ -1,3 +1,10 @@
+## [40.2.0](https://github.com/Lundalogik/lime-elements/compare/v40.1.1...v40.2.0) (2026-09-07)
+
+### Features
+
+
+* **button-group:** support disabling individual buttons ([3fa1726](https://github.com/Lundalogik/lime-elements/commit/3fa1726c6ea8613ad53732d6fdc4ab1d786711d6))
+
 ## [40.1.1](https://github.com/Lundalogik/lime-elements/compare/v40.1.0...v40.1.1) (2026-09-07)
 
 ### Bug Fixes
