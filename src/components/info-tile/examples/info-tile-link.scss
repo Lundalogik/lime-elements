@@ -1,0 +1,30 @@
+:host(limel-example-info-tile-link) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 1rem;
+}
+
+limel-info-tile {
+    height: 8rem;
+
+    // Each tile also sets its text and icon color, not just its background.
+    // The default text color resolves to `--contrast-1100`, which turns
+    // light in dark mode and would sit at roughly 1.1:1 over a pastel.
+    &.forecast {
+        --info-tile-background-color: rgb(var(--color-glaucous-lighter));
+        --info-tile-text-color: rgb(var(--color-glaucous-darker));
+        --info-tile-icon-color: rgb(var(--color-glaucous-darker));
+    }
+
+    &.deals {
+        --info-tile-background-color: rgb(var(--color-green-lighter));
+        --info-tile-text-color: rgb(var(--color-green-darker));
+        --info-tile-icon-color: rgb(var(--color-green-darker));
+    }
+
+    &.office {
+        --info-tile-background-color: rgb(var(--color-violet-lighter));
+        --info-tile-text-color: rgb(var(--color-violet-darker));
+        --info-tile-icon-color: rgb(var(--color-violet-darker));
+    }
+}
