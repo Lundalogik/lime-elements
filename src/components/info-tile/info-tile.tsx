@@ -14,6 +14,7 @@ import { getRel } from '../../util/link-helper';
  * using the `link` property.
  *
  * @exampleComponent limel-example-info-tile-basic
+ * @exampleComponent limel-example-info-tile-link
  * @exampleComponent limel-example-info-tile-badge
  * @exampleComponent limel-example-info-tile-progress
  * @exampleComponent limel-example-info-tile-loading
