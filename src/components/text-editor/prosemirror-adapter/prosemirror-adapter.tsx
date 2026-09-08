@@ -35,6 +35,7 @@ import {
     EditorLink,
     InlineImages,
     isInlineImageTag,
+    EditorRegion,
 } from '../text-editor.types';
 import { imageCache } from './plugins/image/node';
 import {
@@ -42,6 +43,7 @@ import {
     buildEditorPlugins,
     ContentType,
 } from './editor-config';
+import { createReplaceRegionTransaction } from './plugins/regions/commands';
 import { EditorUiType } from '../types';
 import {
     getMetadataFromDoc,
@@ -114,6 +116,15 @@ export class ProsemirrorAdapter {
      */
     @Prop()
     public inlineImages?: InlineImages;
+
+    /**
+     * Named block-level regions the editor should recognise in its value.
+     *
+     * @private
+     * @alpha
+     */
+    @Prop()
+    public regions?: EditorRegion[];
 
     /**
      * set to private to avoid usage while under development
@@ -262,6 +273,34 @@ export class ProsemirrorAdapter {
         }
 
         await this.updateView('');
+    }
+
+    /**
+     * Replace the content of a named region, leaving the rest of the
+     * document untouched. When the document has no such region yet, one is
+     * appended.
+     *
+     * Emits a `change` event, so a consumer mirroring the content stays in
+     * sync. A region that was not declared on `regions` is a silent no-op.
+     *
+     * @param name - the region to replace
+     * @param html - the region's new content
+     */
+    @Method()
+    public async replaceRegion(name: string, html: string): Promise<void> {
+        const declared = this.regions?.some((region) => region.name === name);
+        if (!this.view || !this.schema.nodes.region || !declared) {
+            return;
+        }
+
+        const sanitized = await this.contentConverter.parseAsHTML(
+            html,
+            this.schema
+        );
+
+        this.view.dispatch(
+            createReplaceRegionTransaction(this.view.state, name, sanitized)
+        );
     }
 
     @Watch('value')
@@ -490,6 +529,7 @@ export class ProsemirrorAdapter {
             contentType: this.contentType,
             language: this.language,
             inlineImages: this.validatedInlineImages,
+            regions: this.regions,
         });
     }
 
@@ -520,6 +560,7 @@ export class ProsemirrorAdapter {
                 contentType: this.contentType,
                 triggerCharacters: this.triggerCharacters,
                 inlineImages: this.validatedInlineImages,
+                regions: this.regions,
                 onNewLinkSelection: this.handleNewLinkSelection,
                 onImagePasted: this.imagePasted.emit,
                 onActiveItemsChange: this.updateActiveActionBarItems,

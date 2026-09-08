@@ -133,6 +133,10 @@ function getWhiteList(allowedComponents: CustomElementDefinition[]): Schema {
         ],
         attributes: {
             ...defaultSchema.attributes,
+            // Marker for the text editor's regions. Written here as a hast
+            // property name, which is what the schema matches on:
+            // `data-lime-region`.
+            div: [...(defaultSchema.attributes.div ?? []), 'dataLimeRegion'],
             p: [
                 ...(defaultSchema.attributes.p ?? []),
                 ['className', 'MsoNormal'],
@@ -143,7 +147,13 @@ function getWhiteList(allowedComponents: CustomElementDefinition[]): Schema {
     };
 
     for (const component of allowedComponents) {
-        whitelist.attributes[component.tagName] = component.attributes;
+        // Merge rather than assign: a definition naming a built-in tag would
+        // otherwise replace that tag's own rules wholesale, e.g. stripping
+        // `src` from every image.
+        whitelist.attributes[component.tagName] = [
+            ...(whitelist.attributes[component.tagName] ?? []),
+            ...component.attributes,
+        ];
     }
 
     return whitelist;

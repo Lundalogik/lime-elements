@@ -141,6 +141,24 @@ describe('limel-text-editor', () => {
         });
     });
 
+    describe('replaceRegion', () => {
+        test('it resolves', async () => {
+            const { root } = await createComponent({ contentType: 'html' });
+
+            await expect(
+                root.replaceRegion('signature', '<p>Kind regards</p>')
+            ).resolves.toBeUndefined();
+        });
+
+        test('it resolves in readonly mode, where no adapter is rendered', async () => {
+            const { root } = await createComponent({ readonly: true });
+
+            await expect(
+                root.replaceRegion('signature', '<p>Kind regards</p>')
+            ).resolves.toBeUndefined();
+        });
+    });
+
     describe('label', () => {
         test('it renders the label', async () => {
             const { root } = await createComponent({ label: 'my label' });
