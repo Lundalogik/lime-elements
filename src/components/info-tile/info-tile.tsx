@@ -148,11 +148,12 @@ export class InfoTile {
 
         const link = this.disabled ? '#' : this.link?.href;
         const rel = getRel(this.link?.target, this.link?.rel);
+        const isClickable = !!this.link?.href && !this.disabled;
 
         return (
             <Host
-                onMouseEnter={this.handleMouseEnter}
-                onMouseLeave={this.handleMouseLeave}
+                onMouseEnter={isClickable ? this.handleMouseEnter : undefined}
+                onMouseLeave={isClickable ? this.handleMouseLeave : undefined}
                 class={{ 'has-primary-slot-content': this.hasPrimarySlot }}
             >
                 <a
@@ -160,13 +161,13 @@ export class InfoTile {
                     href={link}
                     target={this.link?.target}
                     rel={rel}
-                    tabindex="0"
+                    tabindex={isClickable ? 0 : undefined}
                     aria-label={extendedAriaLabel}
                     aria-disabled={this.disabled}
                     aria-busy={this.loading ? 'true' : 'false'}
                     aria-live="polite"
                     class={{
-                        'is-clickable': !!this.link?.href && !this.disabled,
+                        'is-clickable': isClickable,
                     }}
                 >
                     {this.renderIcon()}
@@ -184,7 +185,7 @@ export class InfoTile {
                         {this.renderSpinner()}
                     </div>
                     {this.renderLabel()}
-                    <limel-3d-hover-effect-glow />
+                    {isClickable && <limel-3d-hover-effect-glow />}
                 </a>
                 {this.renderNotification()}
             </Host>
