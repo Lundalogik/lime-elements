@@ -50,7 +50,8 @@
  * 3. **Initialize in your component**:
  *
  * Use `getMouseEventHandlers()` to attach the required mouse event listeners
- * to the "interactive element" (`the-3d-element`). For example:
+ * to the "interactive element" (`the-3d-element`), and call the `cleanup()` it
+ * returns when the component is disconnected. For example:
  *
  * ```tsx
  * @Element()
@@ -58,15 +59,29 @@
  *
  * private handleMouseEnter: () => void;
  * private handleMouseLeave: () => void;
+ * private cleanup3dHoverEffect?: () => void;
  *
  * public componentWillLoad() {
- *     const { handleMouseEnter, handleMouseLeave } = getMouseEventHandlers(
- *         this.host.querySelector('.the-3d-element'),
- *     );
+ *     const { handleMouseEnter, handleMouseLeave, cleanup } =
+ *         getMouseEventHandlers(
+ *             this.host.querySelector<HTMLElement>('.the-3d-element'),
+ *         );
  *     this.handleMouseEnter = handleMouseEnter;
  *     this.handleMouseLeave = handleMouseLeave;
+ *     this.cleanup3dHoverEffect = cleanup;
+ * }
+ *
+ * public disconnectedCallback() {
+ *     this.cleanup3dHoverEffect?.();
  * }
  * ```
+ *
+ * Call it optionally: `disconnectedCallback` can run before
+ * `componentWillLoad` has assigned the field.
+ *
+ * Skipping the `disconnectedCallback` leaks a `document` level `mousemove`
+ * listener every time the element is removed while it is being hovered, and
+ * leaves a moved element stuck at the angle it was last tilted to.
  *
  * 4. **Attach event handlers in your render method**:
  *
@@ -148,20 +163,47 @@ export const tiltFollowingTheCursor =
 export const getMouseEventHandlers = (element: HTMLElement) => {
     let tiltCallback: (e: MouseEvent) => void;
 
-    const handleMouseEnter = () => {
-        const bounds = element.getBoundingClientRect();
-        tiltCallback = tiltFollowingTheCursor(bounds, element);
-        document.addEventListener('mousemove', tiltCallback);
-    };
-
-    const handleMouseLeave = () => {
+    /**
+     * Stops following the cursor and returns the element to rest.
+     *
+     * Safe to call when tracking never started, and safe to call on an
+     * element that has already been detached.
+     */
+    const stopTracking = () => {
         document.removeEventListener('mousemove', tiltCallback);
         element.style.removeProperty('--limel-3d-hover-effect-rotate3d');
         element.style.removeProperty('--limel-3d-hover-effect-glow-position');
     };
 
+    const handleMouseEnter = () => {
+        // A second `mouseenter` without an intervening `mouseleave` would
+        // otherwise strand the previous callback on `document` with nothing
+        // left holding a reference to remove it with.
+        stopTracking();
+
+        const bounds = element.getBoundingClientRect();
+        tiltCallback = tiltFollowingTheCursor(bounds, element);
+        document.addEventListener('mousemove', tiltCallback);
+    };
+
     return {
         handleMouseEnter: handleMouseEnter,
-        handleMouseLeave: handleMouseLeave,
+        handleMouseLeave: stopTracking,
+
+        /**
+         * The same teardown as `handleMouseLeave`, for the case where no
+         * `mouseleave` is coming.
+         *
+         * `mouseleave` never fires for an element that is removed from the
+         * DOM while the pointer is still over it, which in a single page
+         * application is the ordinary case: a click routes away from the
+         * view holding the element. It does not fire when the element is
+         * merely moved within the DOM either, and a move disconnects the
+         * component just like a removal does. Call this from
+         * `disconnectedCallback` so the listener does not outlive the
+         * element it tilts, and so a moved element does not stay stuck at
+         * the angle it was last tilted to.
+         */
+        cleanup: stopTracking,
     };
 };
