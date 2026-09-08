@@ -21,11 +21,11 @@ import { Component, h, Host, State } from '@stencil/core';
  *
  * Set `reducedPresence` to `true` on the tiles whose values are not
  * currently noteworthy. This is better than hiding the individual tiles.
- * This way, the tile keeps its position in a grid layout, and also remains
- * interactive. But is rendered with reduced saturation and opacity,
- * so the eye is drawn to the tiles that actually warrant attention.
- * The dimming clears on hover and keyboard focus, so the tile is
- * still fully readable when the user looks at it.
+ * This way, the tile keeps its position in a grid layout, but is rendered
+ * with reduced saturation and opacity, so the eye is drawn to the tiles
+ * that actually warrant attention. The dimming clears while the pointer is
+ * over the tile, so it is still fully readable when the user looks at it —
+ * and on a tile that has a `link`, keyboard focus clears it too.
  *
  * The example below shows a typical operations dashboard. Four of the
  * six tiles report something unimportant; the other two report something the
