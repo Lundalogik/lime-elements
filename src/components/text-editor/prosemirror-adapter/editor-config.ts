@@ -17,11 +17,17 @@ import { createListKeyHandlerPlugin } from './plugins/list-key-handler';
 import { createTriggerPlugin } from './plugins/trigger/factory';
 import { getTableNodes, getTableEditingPlugins } from './plugins/table-plugin';
 import { getImageNode } from './plugins/image/node';
+import { getRegionNodes } from './plugins/regions/node';
+import { createRegionViewPlugin } from './plugins/regions/view';
 import { createNodeSpec } from '../utils/plugin-factory';
 import { ContentTypeConverter } from '../utils/content-type-converter';
 import { CustomElementDefinition } from '../../../global/shared-types/custom-element.types';
 import { Languages } from '../../date-picker/date.types';
-import { TriggerCharacter, InlineImages } from '../text-editor.types';
+import {
+    TriggerCharacter,
+    InlineImages,
+    EditorRegion,
+} from '../text-editor.types';
 
 /**
  * Content format the text editor reads and emits.
@@ -35,6 +41,7 @@ export interface EditorSchemaOptions {
     contentType: ContentType;
     language: Languages;
     inlineImages?: InlineImages;
+    regions?: EditorRegion[];
 }
 
 /**
@@ -48,7 +55,8 @@ export interface EditorSchemaOptions {
  * @returns the configured ProseMirror schema
  */
 export function buildEditorSchema(options: EditorSchemaOptions): Schema {
-    const { customElements, contentType, language, inlineImages } = options;
+    const { customElements, contentType, language, inlineImages, regions } =
+        options;
 
     let nodes = basicSchema.spec.nodes;
 
@@ -62,6 +70,10 @@ export function buildEditorSchema(options: EditorSchemaOptions): Schema {
 
     if (contentType === 'html') {
         nodes = nodes.append(getTableNodes());
+
+        if (regions?.length) {
+            nodes = nodes.append(getRegionNodes(regions));
+        }
     }
 
     nodes = nodes.append(getImageNode(language, inlineImages));
@@ -83,6 +95,7 @@ export interface EditorPluginsOptions {
     contentType: ContentType;
     triggerCharacters: TriggerCharacter[];
     inlineImages?: InlineImages;
+    regions?: EditorRegion[];
     onNewLinkSelection: Parameters<typeof createLinkPlugin>[0];
     onImagePasted: Parameters<typeof createImageInserterPlugin>[0];
     onActiveItemsChange: Parameters<typeof createMenuStateTrackingPlugin>[2];
@@ -110,6 +123,7 @@ export function buildEditorPlugins(options: EditorPluginsOptions): Plugin[] {
         contentType,
         triggerCharacters,
         inlineImages,
+        regions,
         onNewLinkSelection,
         onImagePasted,
         onActiveItemsChange,
@@ -138,6 +152,9 @@ export function buildEditorPlugins(options: EditorPluginsOptions): Plugin[] {
         ),
         createActionBarInteractionPlugin(menuCommandFactory),
         createListKeyHandlerPlugin(schema),
+        ...(contentType === 'html' && regions?.length
+            ? [createRegionViewPlugin(regions)]
+            : []),
         ...getTableEditingPlugins(contentType === 'html'),
     ];
 }
