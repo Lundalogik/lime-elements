@@ -127,17 +127,19 @@ export class Card {
 
     private handleMouseEnter: () => void;
     private handleMouseLeave: () => void;
+    private cleanup3dHoverEffect: () => void;
     private markdownResizeObserver?: ResizeObserver;
 
     public componentWillLoad() {
-        const { handleMouseEnter, handleMouseLeave } = getMouseEventHandlers(
-            this.host
-        );
+        const { handleMouseEnter, handleMouseLeave, cleanup } =
+            getMouseEventHandlers(this.host);
         this.handleMouseEnter = handleMouseEnter;
         this.handleMouseLeave = handleMouseLeave;
+        this.cleanup3dHoverEffect = cleanup;
     }
 
     public disconnectedCallback() {
+        this.cleanup3dHoverEffect();
         this.markdownResizeObserver?.disconnect();
         this.markdownElement?.removeEventListener(
             'scroll',
