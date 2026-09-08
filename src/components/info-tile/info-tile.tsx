@@ -123,14 +123,19 @@ export class InfoTile {
 
     private handleMouseEnter: () => void;
     private handleMouseLeave: () => void;
+    private cleanup3dHoverEffect?: () => void;
 
     public componentWillLoad() {
-        const { handleMouseEnter, handleMouseLeave } = getMouseEventHandlers(
-            this.host
-        );
+        const { handleMouseEnter, handleMouseLeave, cleanup } =
+            getMouseEventHandlers(this.host);
         this.handleMouseEnter = handleMouseEnter;
         this.handleMouseLeave = handleMouseLeave;
+        this.cleanup3dHoverEffect = cleanup;
         this.updateHasPrimarySlotContent();
+    }
+
+    public disconnectedCallback() {
+        this.cleanup3dHoverEffect?.();
     }
 
     public render() {
