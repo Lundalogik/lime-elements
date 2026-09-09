@@ -3,7 +3,7 @@
 @use '../../style/functions';
 
 /**
-* @prop --dock-expanded-max-width: The maximum width of the Dock when it is expanded. Defaults to `max-content` which means the Dock will adjust its width to the widest dock item.
+* @prop --dock-expanded-max-width: The width of the Dock when it is expanded. Defaults to `10rem`. Horizontal `--dock-padding-*` values are added on top of it, so this is the width available to dock items.
 * @prop --dock-background-color: Background color of the whole component, defaults to `--contrast-100`.
 * @prop --dock-item-background-color--selected: Background color of selected dock item, defaults to `--contrast-200`.
 * @prop --dock-item-text-color: Text of dock items, defaults to `--contrast-1100`.
@@ -35,6 +35,7 @@
 
     isolation: isolate;
     position: relative;
+    box-sizing: border-box;
 
     display: inline-flex;
     flex-direction: column;
@@ -50,14 +51,20 @@
 
 :host(limel-dock:not(.has-mobile-layout)) {
     height: 100%;
-    width: calc((var(--limel-dock-padding) * 2) + var(--dock-item-height));
+    width: calc(
+        (var(--limel-dock-padding) * 2) + var(--dock-item-height) +
+            var(--dock-padding-left, 0px) + var(--dock-padding-right, 0px)
+    );
     nav {
         padding-bottom: calc((var(--limel-dock-padding) + 0.25rem));
     }
 }
 
 :host(limel-dock.expanded) {
-    width: var(--dock-expanded-max-width, max-content);
+    width: calc(
+        var(--dock-expanded-max-width, 10rem) + var(--dock-padding-left, 0px) +
+            var(--dock-padding-right, 0px)
+    );
 }
 
 .footer-separator {

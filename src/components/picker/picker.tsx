@@ -660,24 +660,27 @@ export class Picker {
             }
 
             this.change.emit(newValue);
-            if (this.multiple) {
-                const remaining = this.items.filter(
-                    (item) => item !== event.detail
-                );
-                this.items = this.hasPickableItems(remaining) ? remaining : [];
-            } else {
-                // Single-pick: the search session ends with the pick, so
-                // wipe the input. (In multi-pick we deliberately keep the
-                // typed query so the user can keep adding matches.)
-                this.items = [];
-                this.textValue = '';
-                this.chipSet?.emptyInput();
-            }
+            this.updateSearchAfterPick();
         }
 
         if (this.multiple) {
             this.chipSet?.setFocus();
         }
+    }
+
+    /**
+     * Ends the search session a pick concludes. A single-pick picker is
+     * full, so its dropdown has nothing left to show; a multi-pick one
+     * starts over from the default suggestions.
+     */
+    private updateSearchAfterPick() {
+        if (!this.multiple) {
+            this.clearInputField();
+
+            return;
+        }
+
+        this.resetSearchAfterValueChange();
     }
 
     /**
@@ -706,9 +709,8 @@ export class Picker {
         this.debouncedSearch(query);
     }
 
-    private handleChange(event: LimelChipSetCustomEvent<Chip | Chip[]>) {
+    private async handleChange(event: LimelChipSetCustomEvent<Chip | Chip[]>) {
         event.stopPropagation();
-        this.textValue = '';
 
         let newValue = null;
         if (this.multiple) {
@@ -723,6 +725,16 @@ export class Picker {
         }
 
         this.change.emit(newValue as PickerItem | PickerItem[]);
+
+        const wasEditingInput = await this.chipSet?.getEditMode();
+        const wasShowingDropdown =
+            this.items?.length > 0 || this.textValue !== '';
+
+        if (this.multiple && wasEditingInput && wasShowingDropdown) {
+            this.resetSearchAfterValueChange();
+        } else {
+            this.clearInputField();
+        }
     }
 
     private handleInteract(event: LimelChipSetCustomEvent<Chip>) {
@@ -865,6 +877,18 @@ export class Picker {
     private resetSearchToDefault() {
         this.clearTextValue();
         this.search('');
+    }
+
+    /**
+     * Ends the search session and shows the default suggestions once the
+     * consumer has had a chance to answer the `change` event this follows.
+     * Consumers commonly drop the picked item from `allItems`, and that
+     * arrives as a prop on their next render, so searching at once would
+     * read the list from before.
+     */
+    private resetSearchAfterValueChange() {
+        this.clearTextValue();
+        this.debouncedSearch('');
     }
 
     /**

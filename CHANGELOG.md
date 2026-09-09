@@ -1,3 +1,53 @@
+## [40.2.1](https://github.com/Lundalogik/lime-elements/compare/v40.2.0...v40.2.1) (2026-09-09)
+
+### Bug Fixes
+
+
+* **card:** remove the 3d tilt listener when the card is disconnected ([cbc77bb](https://github.com/Lundalogik/lime-elements/commit/cbc77bb3872e654a3621bf60cc6485b0c0793f74)), closes [#4282](https://github.com/Lundalogik/lime-elements/issues/4282)
+* **info-tile:** remove the 3d tilt listener when the tile is disconnected ([3c984c1](https://github.com/Lundalogik/lime-elements/commit/3c984c15e55e8482ddbeab6c65fc849775b74caa)), closes [#4282](https://github.com/Lundalogik/lime-elements/issues/4282)
+* **shortcut:** remove the 3d tilt listener when the shortcut is disconnected ([8e38b88](https://github.com/Lundalogik/lime-elements/commit/8e38b88270e0bb7ca387d453af78c54e909155a5)), closes [#4282](https://github.com/Lundalogik/lime-elements/issues/4282)
+* stop the 3d tilt hover effect stranding a mousemove listener ([5165904](https://github.com/Lundalogik/lime-elements/commit/516590401e00995c8b1dec7bbe20018b4c57e1d5)), closes [#4282](https://github.com/Lundalogik/lime-elements/issues/4282)
+
+## [40.2.0](https://github.com/Lundalogik/lime-elements/compare/v40.1.1...v40.2.0) (2026-09-07)
+
+### Features
+
+
+* **button-group:** support disabling individual buttons ([3fa1726](https://github.com/Lundalogik/lime-elements/commit/3fa1726c6ea8613ad53732d6fdc4ab1d786711d6))
+
+## [40.1.1](https://github.com/Lundalogik/lime-elements/compare/v40.1.0...v40.1.1) (2026-09-07)
+
+### Bug Fixes
+
+
+* **picker:** clear the search query when an item is picked ([7692e87](https://github.com/Lundalogik/lime-elements/commit/7692e872e9cad63120349966013cac874437ac0a))
+
+## [40.1.0](https://github.com/Lundalogik/lime-elements/compare/v40.0.3...v40.1.0) (2026-09-04)
+
+### Features
+
+
+* **chart:** allow hiding the percentage in item tooltips ([2dee645](https://github.com/Lundalogik/lime-elements/commit/2dee645823b31698c1c761b612353b46e1d6ac8f)), closes [Lundalogik/crm-insights-and-intelligence#354](https://github.com/Lundalogik/crm-insights-and-intelligence/issues/354)
+### Bug Fixes
+
+
+* **chart:** size items as shares of the whole, not of the largest item ([11c9a52](https://github.com/Lundalogik/lime-elements/commit/11c9a52ba4646c404ed8e4d8c2ee6d4a68d8fa0e)), closes [Lundalogik/crm-insights-and-intelligence#354](https://github.com/Lundalogik/crm-insights-and-intelligence/issues/354)
+
+## [40.0.3](https://github.com/Lundalogik/lime-elements/compare/v40.0.2...v40.0.3) (2026-09-01)
+
+### Bug Fixes
+
+
+* **dock:** include the padding custom properties in the collapsed width ([8392c75](https://github.com/Lundalogik/lime-elements/commit/8392c7521a5aa0d4235203ecc37e4881e9363921)), closes [#4260](https://github.com/Lundalogik/lime-elements/issues/4260)
+* **dock:** include the padding custom properties in the expanded width ([6a95ce2](https://github.com/Lundalogik/lime-elements/commit/6a95ce2f52fee6f07da0df1e52af5cfd22aed33d)), closes [#4260](https://github.com/Lundalogik/lime-elements/issues/4260)
+
+## [40.0.2](https://github.com/Lundalogik/lime-elements/compare/v40.0.1...v40.0.2) (2026-09-01)
+
+### Bug Fixes
+
+
+* **dock:** allow consumers to correctly use padding-related css variables ([b48db67](https://github.com/Lundalogik/lime-elements/commit/b48db67b582b979a04c1cdafa5622c90bff99111))
+
 ## [40.0.1](https://github.com/Lundalogik/lime-elements/compare/v40.0.0...v40.0.1) (2026-08-28)
 
 ### Bug Fixes

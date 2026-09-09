@@ -58,6 +58,7 @@ export interface BreadcrumbsItem {
 // @public (undocumented)
 export interface Button {
     badge?: number | string;
+    disabled?: boolean;
     icon?: string;
     id: string;
     selected?: boolean;
@@ -247,6 +248,7 @@ export namespace Components {
         "accessibleValuesLabel"?: string;
         "axisIncrement"?: number;
         "displayAxisLabels": boolean;
+        "displayItemPercentage": boolean;
         "displayItemText": boolean;
         "displayItemValue": boolean;
         "items": ChartItem[];
@@ -1806,6 +1808,7 @@ export namespace JSX {
         "accessibleValuesLabel"?: string;
         "axisIncrement"?: number;
         "displayAxisLabels"?: boolean;
+        "displayItemPercentage"?: boolean;
         "displayItemText"?: boolean;
         "displayItemValue"?: boolean;
         "items": ChartItem[];
@@ -1838,6 +1841,8 @@ export namespace JSX {
         "axisIncrement": number;
         // (undocumented)
         "displayAxisLabels": boolean;
+        // (undocumented)
+        "displayItemPercentage": boolean;
         // (undocumented)
         "displayItemText": boolean;
         // (undocumented)

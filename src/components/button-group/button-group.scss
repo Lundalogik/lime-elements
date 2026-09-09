@@ -28,18 +28,14 @@
     flex-wrap: nowrap; // Not sure about this. It'll put items on one row, but also can look bad on action bars. Kia
 }
 
-:host([disabled]:not([disabled='false'])) {
-    @include shared_input-select-picker.looks-disabled;
-}
-
 .button {
-    @include mixins.is-flat-inset-clickable($background-color: transparent);
-    &:has(input[disabled]) {
-        &:hover {
-            box-shadow: none;
-            transform: none;
-        }
+    color: var(--limel-theme-on-surface-color);
+
+    // Not `input[disabled]`, which would outweigh `.button--selected` below.
+    &:not(:has(:disabled)) {
+        @include mixins.is-flat-inset-clickable($background-color: transparent);
     }
+
     position: relative;
     display: inline-grid;
     grid-auto-flow: column;
@@ -92,6 +88,13 @@
         }
     }
 
+    // Dims a single disabled button and a fully disabled group alike. On the
+    // `label`, not on `.button`, because `opacity` there would compound with
+    // the `:after` divider's own and dim it to an effective 0.04.
+    &:has(:disabled) label {
+        @include shared_input-select-picker.looks-disabled;
+    }
+
     input[type='radio'] {
         position: absolute;
         width: 0;
@@ -139,7 +142,7 @@
         box-shadow: var(--button-shadow-inset);
         color: var(--lime-primary-color, var(--limel-theme-primary-color));
 
-        &:active {
+        &:not(:has(:disabled)):active {
             box-shadow: var(--button-shadow-inset-pressed);
         }
     }
