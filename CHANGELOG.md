@@ -1,3 +1,13 @@
+## [40.2.1](https://github.com/Lundalogik/lime-elements/compare/v40.2.0...v40.2.1) (2026-09-09)
+
+### Bug Fixes
+
+
+* **card:** remove the 3d tilt listener when the card is disconnected ([cbc77bb](https://github.com/Lundalogik/lime-elements/commit/cbc77bb3872e654a3621bf60cc6485b0c0793f74)), closes [#4282](https://github.com/Lundalogik/lime-elements/issues/4282)
+* **info-tile:** remove the 3d tilt listener when the tile is disconnected ([3c984c1](https://github.com/Lundalogik/lime-elements/commit/3c984c15e55e8482ddbeab6c65fc849775b74caa)), closes [#4282](https://github.com/Lundalogik/lime-elements/issues/4282)
+* **shortcut:** remove the 3d tilt listener when the shortcut is disconnected ([8e38b88](https://github.com/Lundalogik/lime-elements/commit/8e38b88270e0bb7ca387d453af78c54e909155a5)), closes [#4282](https://github.com/Lundalogik/lime-elements/issues/4282)
+* stop the 3d tilt hover effect stranding a mousemove listener ([5165904](https://github.com/Lundalogik/lime-elements/commit/516590401e00995c8b1dec7bbe20018b4c57e1d5)), closes [#4282](https://github.com/Lundalogik/lime-elements/issues/4282)
+
 ## [40.2.0](https://github.com/Lundalogik/lime-elements/compare/v40.1.1...v40.2.0) (2026-09-07)
 
 ### Features
