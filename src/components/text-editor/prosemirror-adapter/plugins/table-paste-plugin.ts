@@ -1,9 +1,7 @@
 import { Plugin, PluginKey, Selection, Transaction } from 'prosemirror-state';
-import { Fragment, ResolvedPos, Slice } from 'prosemirror-model';
+import { Fragment, ResolvedPos, Schema, Slice } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import {
-    __Area as CellGrid,
-    __pastedCells as pastedCells,
     cellAround,
     CellSelection,
     isInTable,
@@ -31,15 +29,15 @@ const handleTablePaste = (view: EditorView, slice: Slice): boolean => {
         return false;
     }
 
-    const grid = pastedCells(slice);
-    if (!grid && !containsTableAmongBlocks(slice)) {
+    const rows = pastedRows(slice, state.schema);
+    if (!rows && !containsTableAmongBlocks(slice)) {
         return false;
     }
 
     const tr = state.tr.deleteSelection();
     const $cell = cellAround(tr.selection.$head);
-    if (grid) {
-        insertGrid(tr, $cell, grid);
+    if (rows) {
+        insertRows(tr, $cell, rows);
     } else {
         insertBlocks(tr, $cell, slice.content);
     }
@@ -49,23 +47,19 @@ const handleTablePaste = (view: EditorView, slice: Slice): boolean => {
     return true;
 };
 
-const insertGrid = (
+const insertRows = (
     tr: Transaction,
     $cell: ResolvedPos | null,
-    grid: CellGrid
+    rows: Fragment
 ): void => {
-    const types = tableNodeTypes(tr.doc.type.schema);
-    const rows = Fragment.from(
-        grid.rows.map((cells) => types.row.create(null, cells))
-    );
-
-    if ($cell && rowsFitBelow($cell, grid.width)) {
+    const table = tableNodeTypes(tr.doc.type.schema).table.create(null, rows);
+    if ($cell && rowsFitBelow($cell, TableMap.get(table).width)) {
         insertAt(tr, $cell.after(), rows);
 
         return;
     }
 
-    insertBlocks(tr, $cell, Fragment.from(types.table.create(null, rows)));
+    insertBlocks(tr, $cell, Fragment.from(table));
 };
 
 const insertBlocks = (
@@ -110,6 +104,32 @@ const rowsFitBelow = ($cell: ResolvedPos, width: number): boolean => {
     }
 
     return true;
+};
+
+// Reads the slice the way prosemirror-tables does: strip the wrappers a copy
+// from inside a table leaves around the content, then accept rows or cells.
+const pastedRows = (slice: Slice, schema: Schema): Fragment | null => {
+    let { content, openStart, openEnd } = slice;
+    while (
+        content.childCount === 1 &&
+        ((openStart > 0 && openEnd > 0) ||
+            content.firstChild!.type.spec.tableRole === 'table')
+    ) {
+        openStart--;
+        openEnd--;
+        content = content.firstChild!.content;
+    }
+
+    const role = content.firstChild?.type.spec.tableRole;
+    if (role === 'row') {
+        return content;
+    }
+
+    if (role === 'cell' || role === 'header_cell') {
+        return Fragment.from(tableNodeTypes(schema).row.create(null, content));
+    }
+
+    return null;
 };
 
 const containsTableAmongBlocks = (slice: Slice): boolean => {
