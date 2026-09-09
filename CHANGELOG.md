@@ -1,3 +1,14 @@
+## [40.2.2](https://github.com/Lundalogik/lime-elements/compare/v40.2.1...v40.2.2) (2026-09-09)
+
+### Bug Fixes
+
+
+* **text-editor:** detect table pastes with pastedCells and add them as rows ([9655f0f](https://github.com/Lundalogik/lime-elements/commit/9655f0fa4380613f8d870473761039747e7579de))
+* **text-editor:** extend table paste protection to row slices and cross-table selections ([ae90a00](https://github.com/Lundalogik/lime-elements/commit/ae90a009adabff0531a67eb25b275c648aa24ab4))
+* **text-editor:** give tables visible borders while editing ([bf30f3d](https://github.com/Lundalogik/lime-elements/commit/bf30f3d625c5cbb185cd5f77c2f16bf1d7ca0165))
+* **text-editor:** prevent content loss when pasting tables into cells ([29e0faf](https://github.com/Lundalogik/lime-elements/commit/29e0faf927c1557646d325dec169df3a19d6ccbc))
+* **text-editor:** read pasted table slices without prosemirror-tables internals ([6151c1c](https://github.com/Lundalogik/lime-elements/commit/6151c1c64bab2a3965062d58576b518747ca7c2f))
+
 ## [40.2.1](https://github.com/Lundalogik/lime-elements/compare/v40.2.0...v40.2.1) (2026-09-09)
 
 ### Bug Fixes
