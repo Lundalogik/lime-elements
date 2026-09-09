@@ -126,6 +126,35 @@ describe('table-paste-plugin', () => {
         );
     });
 
+    it('squares off a ragged pasted table with empty cells', () => {
+        const d = doc(
+            table(
+                row(cell(p('r1c1<a>')), cell(p('r1c2'))),
+                row(cell(p('r2c1')), cell(p('r2c2')))
+            )
+        );
+        const holder = viewAt(d, d.tag.a);
+
+        const handled = paste(
+            holder,
+            htmlToSlice(
+                '<table><tr><td>x1</td><td>y1</td></tr><tr><td>x2</td></tr></table>'
+            )
+        );
+
+        expect(handled).toBe(true);
+        expect(holder.current().doc).toEqualDoc(
+            doc(
+                table(
+                    row(cell(p('r1c1')), cell(p('r1c2'))),
+                    row(cell(p('x1')), cell(p('y1'))),
+                    row(cell(p('x2')), cell(p())),
+                    row(cell(p('r2c1')), cell(p('r2c2')))
+                )
+            )
+        );
+    });
+
     it('places the caret at the end of the pasted rows', () => {
         const d = doc(table(row(cell(p('r1c1<a>')))));
         const holder = viewAt(d, d.tag.a);
