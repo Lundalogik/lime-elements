@@ -1,5 +1,6 @@
 import { JSONSchema7 } from 'json-schema';
 import { Help } from '../help/help.types';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 import { EventEmitter } from '@stencil/core';
 
 /**
@@ -213,6 +214,29 @@ export interface LimeSchemaOptions {
      * Hide the field from the UI while preserving its value in the form data.
      */
     hidden?: boolean;
+
+    /**
+     * Displays an icon beside the text of the option, when specified on a
+     * schema inside `oneOf` or `anyOf`.
+     *
+     * The icon is shown both in the dropdown list and on the trigger, once
+     * the option is selected. Has no effect on a schema that is not one of
+     * the alternatives of a `oneOf` or `anyOf`.
+     *
+     * ```ts
+     * const schema = {
+     *     type: 'string',
+     *     oneOf: [
+     *         {
+     *             const: 'archived',
+     *             title: 'Archived',
+     *             lime: { icon: { name: 'archive', color: 'grey' } },
+     *         },
+     *     ],
+     * };
+     * ```
+     */
+    icon?: IconName | Icon;
 
     help?: string | Partial<Help>;
 

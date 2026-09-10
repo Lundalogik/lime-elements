@@ -137,21 +137,50 @@ export const schema: FormSchema<BuiltinFieldTypesFormData> = {
                     type: 'string',
                     const: 'low',
                     title: 'Low Priority',
+                    description: 'Handle it whenever there is time',
+                    lime: {
+                        icon: {
+                            name: 'dot_circle',
+                            color: 'rgb(var(--color-blue-default))',
+                        },
+                    },
                 },
                 {
                     type: 'string',
                     const: 'medium',
                     title: 'Medium Priority',
+                    description: 'Handle it within a week',
+                    lime: {
+                        icon: {
+                            name: 'in_progress',
+                            color: 'rgb(var(--color-green-default))',
+                        },
+                    },
                 },
                 {
                     type: 'string',
                     const: 'high',
                     title: 'High Priority',
+                    description: 'Handle it today',
+                    lime: {
+                        icon: {
+                            name: 'notification_alert',
+                            color: 'rgb(var(--color-yellow-darker))',
+                        },
+                    },
                 },
                 {
                     type: 'string',
                     const: 'critical',
                     title: 'Critical Priority',
+                    description: 'Can only be set by the support team',
+                    readOnly: true,
+                    lime: {
+                        icon: {
+                            name: 'error',
+                            color: 'rgb(var(--color-red-default))',
+                        },
+                    },
                 },
             ],
         },
@@ -168,21 +197,26 @@ export const schema: FormSchema<BuiltinFieldTypesFormData> = {
                         type: 'string',
                         const: 'work',
                         title: 'Work',
+                        lime: { icon: 'organization' },
                     },
                     {
                         type: 'string',
                         const: 'personal',
                         title: 'Personal',
+                        lime: { icon: 'gender_neutral_user' },
                     },
                     {
                         type: 'string',
                         const: 'urgent',
                         title: 'Urgent',
+                        description: 'Shows up at the top of every list',
+                        lime: { icon: 'notification_alert' },
                     },
                     {
                         type: 'string',
                         const: 'optional',
                         title: 'Optional',
+                        lime: { icon: 'dot_circle' },
                     },
                 ],
             },

@@ -52,6 +52,63 @@ export const optionalOneOfSchema: FormSchema = {
     },
 };
 
+export const selectWithOptionMetadataSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        choice: {
+            type: 'string',
+            title: 'Choice',
+            oneOf: [
+                {
+                    type: 'string',
+                    const: 'a',
+                    title: 'A',
+                    description: 'The first option',
+                    lime: { icon: 'check' },
+                },
+                {
+                    type: 'string',
+                    const: 'b',
+                    title: 'B',
+                    readOnly: true,
+                    lime: { icon: { name: 'lock', color: 'grey' } },
+                },
+                { type: 'string', const: 'c', title: 'C' },
+            ],
+        },
+    },
+};
+
+export const multiSelectWithOptionMetadataSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        choices: {
+            type: 'array',
+            title: 'Choices',
+            uniqueItems: true,
+            items: {
+                type: 'string',
+                anyOf: [
+                    {
+                        type: 'string',
+                        const: 'a',
+                        title: 'A',
+                        description: 'The first option',
+                        lime: { icon: 'check' },
+                    },
+                    {
+                        type: 'string',
+                        const: 'b',
+                        title: 'B',
+                        readOnly: true,
+                        lime: { icon: { name: 'lock', color: 'grey' } },
+                    },
+                ],
+            },
+        },
+    },
+};
+
 export const requiredFieldSchema: FormSchema = {
     type: 'object',
     properties: {

@@ -30,6 +30,11 @@ import {
  * - **Nested Object**: `type: 'object'` with `properties`
  * - **JSON Editor**: `type: 'object'` with `additionalProperties: true`
  *
+ * Each alternative in a `oneOf` or `anyOf` can be dressed up further: its
+ * `description` becomes the secondary text of the option, `lime.icon` gives
+ * the option an icon, and `readOnly: true` makes the option visible but
+ * impossible to pick.
+ *
  * @sourceFile builtin-field-types-schema.ts
  */
 @Component({
