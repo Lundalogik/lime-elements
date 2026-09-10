@@ -1,8 +1,8 @@
 @use '../../../style/mixins';
 @include mixins.hide-helper-line-when-not-needed(limel-select);
 
-.limel-select--focused + limel-helper-line,
-.limel-select--invalid limel-helper-line {
+limel-notched-outline:has(.limel-select--focused) + limel-helper-line,
+.limel-select--invalid + limel-helper-line {
     --limel-h-l-grid-template-rows-transition-speed: 0.46s;
     --limel-h-l-grid-template-rows: 1fr;
 }
