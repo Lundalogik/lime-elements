@@ -9,6 +9,8 @@ import {
     twoRequiredFieldsSchema,
     emailFormatSchema,
     optionalOneOfSchema,
+    selectWithOptionMetadataSchema,
+    multiSelectWithOptionMetadataSchema,
     arraySchema,
     nestedObjectSchema,
     arrayOfObjectsSchema,
@@ -118,6 +120,84 @@ test('does not auto-select a const from an optional oneOf, but keeps real defaul
     expect(onChange.mock.lastCall[0].detail).toEqual({
         name: 'Alice',
         withDefault: 'preset',
+    });
+});
+
+test('maps icon, description and readOnly of a `oneOf` onto select options', async () => {
+    const { formContent } = await renderForm({
+        schema: selectWithOptionMetadataSchema,
+    });
+
+    const select: HTMLLimelSelectElement =
+        formContent.querySelector('limel-select');
+
+    expect(select.options).toEqual([
+        {
+            text: 'A',
+            value: 'a',
+            secondaryText: 'The first option',
+            icon: 'check',
+            disabled: false,
+        },
+        {
+            text: 'B',
+            value: 'b',
+            secondaryText: undefined,
+            icon: { name: 'lock', color: 'grey' },
+            disabled: true,
+        },
+        {
+            text: 'C',
+            value: 'c',
+            secondaryText: undefined,
+            icon: undefined,
+            disabled: false,
+        },
+    ]);
+});
+
+test('maps icon, description and readOnly of an `anyOf` onto multi select options', async () => {
+    const { formContent } = await renderForm({
+        schema: multiSelectWithOptionMetadataSchema,
+    });
+
+    const select: HTMLLimelSelectElement =
+        formContent.querySelector('limel-select');
+
+    expect(select.multiple).toBe(true);
+    expect(select.options).toEqual([
+        {
+            text: 'A',
+            value: 'a',
+            secondaryText: 'The first option',
+            icon: 'check',
+            disabled: false,
+        },
+        {
+            text: 'B',
+            value: 'b',
+            secondaryText: undefined,
+            icon: { name: 'lock', color: 'grey' },
+            disabled: true,
+        },
+    ]);
+});
+
+test('keeps the icon on the selected option, so the trigger can render it', async () => {
+    const { formContent } = await renderForm({
+        schema: selectWithOptionMetadataSchema,
+        value: { choice: 'a' },
+    });
+
+    const select: HTMLLimelSelectElement =
+        formContent.querySelector('limel-select');
+
+    expect(select.value).toEqual({
+        text: 'A',
+        value: 'a',
+        secondaryText: 'The first option',
+        icon: 'check',
+        disabled: false,
     });
 });
 
