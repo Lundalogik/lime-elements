@@ -123,6 +123,7 @@ export class Portal {
         this.destroyPopper();
         if (this.observer && this.container) {
             this.observer.unobserve(this.container);
+            this.observer.unobserve(this.anchor || this.host);
         }
 
         this.container = null;
@@ -166,6 +167,13 @@ export class Portal {
                 }
             });
             this.observer.observe(this.container);
+
+            // Also observe the anchor, so that the dropdown re-positions
+            // itself while the anchor is still animating its size — for
+            // example, a helper text transitioning open at the same time as
+            // the dropdown. Without this, the dropdown's position is locked
+            // in from the anchor's pre-animation size.
+            this.observer.observe(this.anchor || this.host);
         }
     }
 
