@@ -4345,6 +4345,7 @@ export interface LimeSchemaOptions {
     // (undocumented)
     help?: string | Partial<Help>;
     hidden?: boolean;
+    icon?: IconName | Icon;
     layout?: LimeLayoutOptions;
 }
 
