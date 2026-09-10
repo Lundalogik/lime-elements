@@ -1,0 +1,1 @@
+import{b as o}from"./_baseGetTag-Cd9mW1Ny.js";import{i as t}from"./isObjectLike-oiMYqRQ0.js";function e(e){return"symbol"==typeof e||t(e)&&"[object Symbol]"==o(e)}export{e as i}
