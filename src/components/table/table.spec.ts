@@ -300,6 +300,52 @@ describe('limel-table aggregate updates', () => {
         expect(tabulator.setColumns).not.toHaveBeenCalled();
         expect(tabulator.recalc).not.toHaveBeenCalled();
     });
+
+    it('does not touch a tabulator that is not built yet', () => {
+        (component as any).initialized = false;
+        const oldAggregates: any[] = [];
+        const newAggregates = [{ field: 'amount', value: 100 }];
+
+        (component as any).updateAggregates(newAggregates, oldAggregates);
+
+        const tabulator = (component as any).tabulator;
+        expect(tabulator.setColumns).not.toHaveBeenCalled();
+        expect(tabulator.recalc).not.toHaveBeenCalled();
+        expect(tabulator.rowManager.redraw).not.toHaveBeenCalled();
+    });
+
+    it('does not set columns on a tabulator that is not built yet', () => {
+        (component as any).initialized = false;
+
+        (component as any).updateColumns(
+            [{ field: 'amount' }],
+            [{ field: 'name' }]
+        );
+        (component as any).updateSortableColumns();
+
+        expect((component as any).tabulator.setColumns).not.toHaveBeenCalled();
+    });
+
+    it('applies a skipped update once the table is built', () => {
+        (component as any).initialized = false;
+        (component as any).updateAggregates(
+            [{ field: 'amount', value: 100 }],
+            []
+        );
+
+        (component as any).initialized = true;
+        (component as any).applyPendingColumnRefresh();
+
+        const tabulator = (component as any).tabulator;
+        expect(tabulator.setColumns).toHaveBeenCalled();
+        expect(tabulator.recalc).toHaveBeenCalled();
+    });
+
+    it('does not set columns when nothing was skipped', () => {
+        (component as any).applyPendingColumnRefresh();
+
+        expect((component as any).tabulator.setColumns).not.toHaveBeenCalled();
+    });
 });
 
 describe('limel-table has-aggregation detection', () => {

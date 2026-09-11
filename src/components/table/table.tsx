@@ -259,6 +259,7 @@ export class Table {
     private pool: ElementPool;
     private columnFactory: ColumnDefinitionFactory;
     private initialized = false;
+    private pendingColumnRefresh = false;
     private destroyed = false;
     private resizeObserver: ResizeObserver;
     private currentSorting: ColumnSorter[];
@@ -298,6 +299,7 @@ export class Table {
     public disconnectedCallback() {
         this.destroyed = true;
         this.initialized = false;
+        this.pendingColumnRefresh = false;
 
         this.rowDragManager?.destroy();
         this.rowDragManager = null;
@@ -392,7 +394,9 @@ export class Table {
 
     @Watch('columns')
     protected updateColumns(newColumns: Column[], oldColumns: Column[]) {
-        if (!this.tabulator) {
+        if (!this.tabulator || !this.initialized) {
+            this.pendingColumnRefresh = true;
+
             return;
         }
 
@@ -421,7 +425,9 @@ export class Table {
         newAggregates: ColumnAggregate[],
         oldAggregates: ColumnAggregate[]
     ) {
-        if (!this.tabulator) {
+        if (!this.tabulator || !this.initialized) {
+            this.pendingColumnRefresh = true;
+
             return;
         }
 
@@ -469,7 +475,9 @@ export class Table {
     @Watch('sortableColumns')
     protected updateSortableColumns() {
         this.warnOnConflictingMovableAndSortable();
-        if (!this.tabulator) {
+        if (!this.tabulator || !this.initialized) {
+            this.pendingColumnRefresh = true;
+
             return;
         }
 
@@ -657,6 +665,7 @@ export class Table {
                 return;
             }
             this.initialized = true;
+            this.applyPendingColumnRefresh();
             if (this.data?.length) {
                 this.updateData(this.data, []);
 
@@ -669,6 +678,16 @@ export class Table {
         });
 
         return tabulator;
+    }
+
+    private applyPendingColumnRefresh() {
+        if (!this.pendingColumnRefresh || !this.tabulator) {
+            return;
+        }
+
+        this.pendingColumnRefresh = false;
+        this.tabulator.setColumns(this.getColumnDefinitions());
+        this.tabulator.recalc();
     }
 
     private initRowDragManager() {
