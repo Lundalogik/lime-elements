@@ -1,0 +1,1 @@
+function t(t){return t&&t.__esModule&&Object.prototype.hasOwnProperty.call(t,"default")?t.default:t}export{t as g}
