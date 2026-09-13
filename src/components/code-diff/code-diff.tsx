@@ -451,6 +451,7 @@ export class CodeDiff {
                 <span class="search-bar__count">{matchInfo}</span>
                 <limel-action-bar
                     actions={this.getSearchActions()}
+                    language={this.translationLanguage}
                     onItemSelected={(e) => this.onSearchAction(e)}
                 />
             </div>
