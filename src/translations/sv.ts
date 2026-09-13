@@ -74,6 +74,7 @@ Du kan fortsätta blockera bilder (e-posten kan se ofullständig ut) eller ladda
     'editor-link-menu.link': 'Länk',
     'editor-menu.code-block': 'Kodblock',
     'editor-menu.code': 'Kod',
+    'editor-menu.toolbar': 'Verktygsfält',
     'editor-image-view.loading': 'Laddar bilden: { filename }...',
     'editor-image-view.failed': 'Något gick fel med bilden: { filename }',
     'editor-image-view.success': 'Bilden: { filename } är redo',

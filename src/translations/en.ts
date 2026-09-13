@@ -73,6 +73,7 @@ You can keep images blocked (the email may look incomplete), or load them if you
     'editor-link-menu.link': 'Link',
     'editor-menu.code-block': 'Code block',
     'editor-menu.code': 'Code',
+    'editor-menu.toolbar': 'Toolbar',
     'editor-image-view.loading': 'Loading image: { filename }...',
     'editor-image-view.failed': 'Something went wrong with image: { filename }',
     'editor-image-view.success': 'Image: { filename } is ready',
