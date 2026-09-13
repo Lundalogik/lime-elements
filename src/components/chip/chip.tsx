@@ -435,7 +435,12 @@ export class Chip implements ChipInterface {
             return;
         }
 
-        return <limel-linear-progress indeterminate={true} />;
+        return (
+            <limel-linear-progress
+                indeterminate={true}
+                language={this.language}
+            />
+        );
     }
 
     private renderProgressBar() {
