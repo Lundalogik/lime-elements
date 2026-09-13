@@ -6,6 +6,7 @@ import 'moment/locale/nb';
 import 'moment/locale/nl';
 import 'moment/locale/sv';
 import moment from 'moment/moment';
+import { getPrimarySubtag } from '../../util/language';
 import { DateType } from './date.types';
 
 export class DateFormatter {
@@ -32,11 +33,12 @@ export class DateFormatter {
     }
 
     public getLanguage() {
-        if (this.language === 'no') {
+        const language = getPrimarySubtag(this.language);
+        if (language === 'no') {
             return 'nb';
         }
 
-        return this.language;
+        return language;
     }
 
     public getDateFormat(type: DateType) {
