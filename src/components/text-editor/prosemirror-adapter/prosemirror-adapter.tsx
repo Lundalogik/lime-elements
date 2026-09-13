@@ -385,6 +385,7 @@ export class ProsemirrorAdapter {
                 anchor={this.actionBarElement}
             >
                 <limel-text-editor-link-menu
+                    language={this.language}
                     link={this.link}
                     isOpen={this.isLinkMenuOpen}
                     onLinkChange={this.handleLinkChange}
