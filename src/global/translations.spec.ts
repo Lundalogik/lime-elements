@@ -1,4 +1,11 @@
 import translate from './translations';
+import da from '../translations/da';
+import de from '../translations/de';
+import en from '../translations/en';
+import fi from '../translations/fi';
+import fr from '../translations/fr';
+import nl from '../translations/nl';
+import no from '../translations/no';
 import sv from '../translations/sv';
 
 describe('translations', () => {
@@ -97,6 +104,24 @@ describe('translations', () => {
             );
             expect(translate.get('clear-value-of', 'en')).toBe(
                 'Clear value of { label }'
+            );
+        });
+    });
+
+    describe('key parity', () => {
+        // A key missing from one file falls back to English silently, so
+        // nothing but this test reports that the files have drifted apart.
+        it.each([
+            ['da', da],
+            ['de', de],
+            ['fi', fi],
+            ['fr', fr],
+            ['nl', nl],
+            ['no', no],
+            ['sv', sv],
+        ])('%s defines exactly the keys English defines', (_, translations) => {
+            expect(Object.keys(translations).sort()).toEqual(
+                Object.keys(en).sort()
             );
         });
     });
