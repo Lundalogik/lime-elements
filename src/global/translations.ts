@@ -1,3 +1,4 @@
+import { getPrimarySubtag } from '../util/language';
 import da from '../translations/da';
 import de from '../translations/de';
 import en from '../translations/en';
@@ -23,12 +24,7 @@ const REGEX = /\{\s*(\w+)\s*\}/g;
 
 export class Translations {
     public get(key: string, language = 'en', params?: object): string {
-        // Fall back to English when the requested language has no translations.
-        // The `language` props are typed, but a custom element takes whatever
-        // string an attribute carries, so an unknown language must never make a
-        // component throw.
-        const languageTranslations =
-            allTranslations[language] ?? allTranslations.en;
+        const languageTranslations = this.getTranslationsFor(language);
 
         // Fall back per key as well: a mapped language whose file is missing
         // this one key would otherwise render the key itself as UI text.
@@ -46,6 +42,16 @@ export class Translations {
                 // itself in the string instead.
                 return String(params?.[mergeCodeKey] ?? match);
             }
+        );
+    }
+
+    private getTranslationsFor(language: string) {
+        // Retry on the primary subtag, so that a full BCP 47 tag resolves.
+        // An unknown language must never make a component throw.
+        return (
+            allTranslations[language] ??
+            allTranslations[getPrimarySubtag(language)] ??
+            allTranslations.en
         );
     }
 }

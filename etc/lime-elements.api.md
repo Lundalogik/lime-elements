@@ -3787,7 +3787,7 @@ export type LabelValue = string | number | boolean | null | undefined;
 // @public (undocumented)
 export type Language = 'css' | 'html' | 'javascript' | 'jinja2' | 'json' | 'typescript';
 
-// @public (undocumented)
+// @public
 export type Languages = 'da' | 'de' | 'en' | 'fi' | 'fr' | 'nb' | 'no' | 'nl' | 'sv';
 
 // @public
