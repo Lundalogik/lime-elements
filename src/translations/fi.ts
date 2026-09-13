@@ -74,6 +74,7 @@ Voit pitää kuvat estettyinä (sähköposti voi näyttää puutteelliselta) tai
     'editor-link-menu.link': 'Linkki',
     'editor-menu.code-block': 'Koodilohko',
     'editor-menu.code': 'Koodi',
+    'editor-menu.toolbar': 'Työkalurivi',
     'editor-image-view.loading': 'Ladataan kuvaa: { filename }...',
     'editor-image-view.failed': 'Jokin meni pieleen kuvan kanssa: { filename }',
     'editor-image-view.success': 'Kuva: { filename } on valmis',

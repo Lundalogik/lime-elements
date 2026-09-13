@@ -74,6 +74,7 @@ Du kan fortsætte med at blokere billeder (e-mailen kan se ufuldstændig ud) ell
     'editor-link-menu.link': 'Link',
     'editor-menu.code-block': 'Kodeblok',
     'editor-menu.code': 'Kode',
+    'editor-menu.toolbar': 'Værktøjslinje',
     'editor-image-view.loading': 'Indlæser billede: { filename }...',
     'editor-image-view.failed': 'Noget gik galt med billede: { filename }',
     'editor-image-view.success': 'Billede: { filename } er klar',

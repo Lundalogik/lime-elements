@@ -73,6 +73,7 @@ Du kan fortsette å blokkere bilder (e-posten kan se ufullstendig ut), eller las
     'editor-link-menu.link': 'Lenke',
     'editor-menu.code-block': 'Kodeblokk',
     'editor-menu.code': 'Kode',
+    'editor-menu.toolbar': 'Verktøylinje',
     'editor-image-view.loading': 'Laster bilde: { filename }...',
     'editor-image-view.failed': 'Noe gikk galt med bildet: { filename }',
     'editor-image-view.success': 'Bilde: { filename } er klart',

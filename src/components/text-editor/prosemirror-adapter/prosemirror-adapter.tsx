@@ -363,7 +363,10 @@ export class ProsemirrorAdapter {
             <div class="toolbar">
                 <limel-action-bar
                     ref={(el) => (this.actionBarElement = el)}
-                    accessibleLabel="Toolbar"
+                    accessibleLabel={translate.get(
+                        'editor-menu.toolbar',
+                        this.language
+                    )}
                     actions={this.actionBarItems}
                     onItemSelected={this.handleActionBarItem}
                 />

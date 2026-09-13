@@ -74,6 +74,7 @@ Sie können Bilder weiterhin blockieren (die E-Mail kann unvollständig aussehen
     'editor-link-menu.link': 'Link',
     'editor-menu.code-block': 'Codeblock',
     'editor-menu.code': 'Code',
+    'editor-menu.toolbar': 'Symbolleiste',
     'editor-image-view.loading': 'Lade Bild: { filename }...',
     'editor-image-view.failed':
         'Beim Laden des Bildes ist etwas schief gelaufen: { filename }',
