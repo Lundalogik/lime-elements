@@ -467,37 +467,78 @@ describe('limel-select (menu)', () => {
             );
             expect(wrapper).toBeNull();
         });
+    });
 
-        it('falls back to the menu dropdown on mobile when an option has a primary component', async () => {
+    describe('choosing the dropdown on a mobile device', () => {
+        const renderOnMobile = async (
+            options: Option[]
+        ): Promise<HTMLSelectElement | null> => {
             const { root, waitForChanges } = await render(
                 <limel-select
                     data-native
                     label="Test"
-                    options={optionsWithPrimary}
+                    options={options}
                 ></limel-select>
             );
             await waitForChanges();
 
-            const nativeSelect = root.shadowRoot.querySelector('select');
+            return root.shadowRoot.querySelector('select');
+        };
+
+        it('uses the native dropdown when every option only has a text', async () => {
+            const nativeSelect = await renderOnMobile([
+                { text: 'Option A', value: 'a' },
+                { text: 'Option B', value: 'b' },
+            ]);
+
+            expect(nativeSelect).not.toBeNull();
+        });
+
+        it('falls back to the menu dropdown when an option has a primary component', async () => {
+            const nativeSelect = await renderOnMobile([
+                {
+                    text: 'Option A',
+                    value: 'a',
+                    primaryComponent: {
+                        name: 'limel-spinner',
+                        props: { size: 'mini' },
+                    },
+                },
+                { text: 'Option B', value: 'b' },
+            ]);
+
             expect(nativeSelect).toBeNull();
         });
 
-        it('uses the native dropdown on mobile when no option has a primary component', async () => {
-            const optionsWithoutPrimary: Option[] = [
-                { text: 'Option A', value: 'a' },
+        it('falls back to the menu dropdown when an option has a secondary text', async () => {
+            const nativeSelect = await renderOnMobile([
+                { text: 'Option A', value: 'a', secondaryText: 'Details' },
                 { text: 'Option B', value: 'b' },
-            ];
-            const { root, waitForChanges } = await render(
-                <limel-select
-                    data-native
-                    label="Test"
-                    options={optionsWithoutPrimary}
-                ></limel-select>
-            );
-            await waitForChanges();
+            ]);
 
-            const nativeSelect = root.shadowRoot.querySelector('select');
-            expect(nativeSelect).not.toBeNull();
+            expect(nativeSelect).toBeNull();
+        });
+
+        it('falls back to the menu dropdown when an option has an icon name', async () => {
+            const nativeSelect = await renderOnMobile([
+                { text: 'Option A', value: 'a', icon: 'archive' },
+                { text: 'Option B', value: 'b' },
+            ]);
+
+            expect(nativeSelect).toBeNull();
+        });
+
+        it('falls back to the menu dropdown when an option has an icon object', async () => {
+            const nativeSelect = await renderOnMobile([
+                {
+                    text: 'Option A',
+                    value: 'a',
+                    icon: { name: 'archive', color: 'grey' },
+                },
+                { text: 'Option B', value: 'b' },
+            ]);
+
+            expect(nativeSelect).toBeNull();
         });
     });
 
@@ -560,6 +601,13 @@ describe('limel-select (menu)', () => {
             { text: 'Matt Smith', value: '11' },
             { text: 'David Tennant', value: '10' },
         ];
+
+        // An icon is enough to keep a mobile device on the custom dropdown,
+        // which then has to do its own typeahead and focus handling.
+        const doctorsWithIcons: Option[] = doctors.map((doctor) => ({
+            ...doctor,
+            icon: 'user',
+        }));
 
         // `cancelable` matches what a browser dispatches, and is what makes
         // `preventDefault` observable through the returned event.
@@ -684,9 +732,48 @@ describe('limel-select (menu)', () => {
             expect(isOpen(root)).toBe(false);
         });
 
+        it('handles typeahead on mobile when the dropdown is not native', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-select
+                    data-native
+                    label="Doctor"
+                    options={doctorsWithIcons}
+                ></limel-select>
+            );
+            await waitForChanges();
+
+            pressKey(root, 'm');
+            await waitForChanges();
+
+            expect(isOpen(root)).toBe(true);
+        });
+
         it('highlights the matching option', async () => {
             const { root, waitForChanges } = await render(
                 <limel-select label="Doctor" options={doctors}></limel-select>
+            );
+            await waitForChanges();
+
+            pressKey(root, 'm');
+            await waitForChanges();
+
+            await vi.waitFor(() => {
+                const list = document.querySelector(
+                    'limel-menu-surface limel-list'
+                );
+                const focused = list?.shadowRoot?.activeElement as HTMLElement;
+
+                expect(focused?.dataset.index).toBe('2');
+            });
+        });
+
+        it('highlights the matching option on mobile too, when the dropdown is not native', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-select
+                    data-native
+                    label="Doctor"
+                    options={doctorsWithIcons}
+                ></limel-select>
             );
             await waitForChanges();
 
