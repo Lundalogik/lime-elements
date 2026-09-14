@@ -1,3 +1,10 @@
+## [40.2.3](https://github.com/Lundalogik/lime-elements/compare/v40.2.2...v40.2.3) (2026-09-14)
+
+### Bug Fixes
+
+
+* **table:** skip prop updates while the table is being rebuilt ([b8f8731](https://github.com/Lundalogik/lime-elements/commit/b8f8731fc4547052ab825978457051d96dfff018))
+
 ## [40.2.2](https://github.com/Lundalogik/lime-elements/compare/v40.2.1...v40.2.2) (2026-09-09)
 
 ### Bug Fixes
