@@ -467,37 +467,78 @@ describe('limel-select (menu)', () => {
             );
             expect(wrapper).toBeNull();
         });
+    });
 
-        it('falls back to the menu dropdown on mobile when an option has a primary component', async () => {
+    describe('choosing the dropdown on a mobile device', () => {
+        const renderOnMobile = async (
+            options: Option[]
+        ): Promise<HTMLSelectElement | null> => {
             const { root, waitForChanges } = await render(
                 <limel-select
                     data-native
                     label="Test"
-                    options={optionsWithPrimary}
+                    options={options}
                 ></limel-select>
             );
             await waitForChanges();
 
-            const nativeSelect = root.shadowRoot.querySelector('select');
+            return root.shadowRoot.querySelector('select');
+        };
+
+        it('uses the native dropdown when every option only has a text', async () => {
+            const nativeSelect = await renderOnMobile([
+                { text: 'Option A', value: 'a' },
+                { text: 'Option B', value: 'b' },
+            ]);
+
+            expect(nativeSelect).not.toBeNull();
+        });
+
+        it('falls back to the menu dropdown when an option has a primary component', async () => {
+            const nativeSelect = await renderOnMobile([
+                {
+                    text: 'Option A',
+                    value: 'a',
+                    primaryComponent: {
+                        name: 'limel-spinner',
+                        props: { size: 'mini' },
+                    },
+                },
+                { text: 'Option B', value: 'b' },
+            ]);
+
             expect(nativeSelect).toBeNull();
         });
 
-        it('uses the native dropdown on mobile when no option has a primary component', async () => {
-            const optionsWithoutPrimary: Option[] = [
-                { text: 'Option A', value: 'a' },
+        it('falls back to the menu dropdown when an option has a secondary text', async () => {
+            const nativeSelect = await renderOnMobile([
+                { text: 'Option A', value: 'a', secondaryText: 'Details' },
                 { text: 'Option B', value: 'b' },
-            ];
-            const { root, waitForChanges } = await render(
-                <limel-select
-                    data-native
-                    label="Test"
-                    options={optionsWithoutPrimary}
-                ></limel-select>
-            );
-            await waitForChanges();
+            ]);
 
-            const nativeSelect = root.shadowRoot.querySelector('select');
-            expect(nativeSelect).not.toBeNull();
+            expect(nativeSelect).toBeNull();
+        });
+
+        it('falls back to the menu dropdown when an option has an icon name', async () => {
+            const nativeSelect = await renderOnMobile([
+                { text: 'Option A', value: 'a', icon: 'archive' },
+                { text: 'Option B', value: 'b' },
+            ]);
+
+            expect(nativeSelect).toBeNull();
+        });
+
+        it('falls back to the menu dropdown when an option has an icon object', async () => {
+            const nativeSelect = await renderOnMobile([
+                {
+                    text: 'Option A',
+                    value: 'a',
+                    icon: { name: 'archive', color: 'grey' },
+                },
+                { text: 'Option B', value: 'b' },
+            ]);
+
+            expect(nativeSelect).toBeNull();
         });
     });
 
