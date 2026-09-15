@@ -88,7 +88,7 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
                     hasEmptyText={hasEmptyText}
                 />
             </limel-notched-outline>
-            <HelperText text={props.helperText} isValid={!props.invalid} />
+            <HelperText text={props.helperText} isValid={isValid} />
         </div>,
         <SelectDropdown {...props} />,
     ];
