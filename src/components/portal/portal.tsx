@@ -108,6 +108,10 @@ export class Portal {
     @Element()
     private host: HTMLLimelPortalElement;
 
+    private get anchorElement(): HTMLElement {
+        return this.anchor || this.host;
+    }
+
     private parents: WeakMap<HTMLElement, HTMLElement>;
     private container: HTMLElement;
     private popperInstance: Instance;
@@ -122,10 +126,8 @@ export class Portal {
     public disconnectedCallback() {
         this.removeContainer();
         this.destroyPopper();
-        if (this.observer && this.container) {
-            this.observer.unobserve(this.container);
-        }
 
+        this.observer = null;
         this.container = null;
     }
 
@@ -157,16 +159,6 @@ export class Portal {
         if (this.visible) {
             this.createPopper();
             this.showContainer();
-        }
-
-        if ('ResizeObserver' in window) {
-            this.observer = new ResizeObserver(() => {
-                if (this.popperInstance) {
-                    this.styleContainer();
-                    this.popperInstance.update();
-                }
-            });
-            this.observer.observe(this.container);
         }
     }
 
@@ -331,15 +323,34 @@ export class Portal {
         const config = this.createPopperConfig();
 
         this.popperInstance = createPopper(
-            this.anchor || this.host,
+            this.anchorElement,
             this.container,
             config
         );
+
+        this.observeResize();
     }
 
     private destroyPopper() {
+        this.observer?.disconnect();
         this.popperInstance?.destroy();
         this.popperInstance = null;
+    }
+
+    private observeResize() {
+        if (!('ResizeObserver' in window)) {
+            return;
+        }
+
+        this.observer ??= new ResizeObserver(() => {
+            if (this.popperInstance) {
+                this.styleContainer();
+                this.popperInstance.update();
+            }
+        });
+
+        this.observer.observe(this.container);
+        this.observer.observe(this.anchorElement);
     }
 
     private createPopperConfig(): Partial<
@@ -426,7 +437,7 @@ export class Portal {
     // Returns the parent element where the content of the portal will be moved to.
     // It needs to have styling of the portal container.
     private getParent() {
-        let element: Element | undefined = this.anchor || this.host;
+        let element: Element | undefined = this.anchorElement;
 
         while (element) {
             const parent = element.closest('.limel-portal--parent');
