@@ -1,3 +1,17 @@
+## [40.2.5](https://github.com/Lundalogik/lime-elements/compare/v40.2.4...v40.2.5) (2026-09-15)
+
+### Bug Fixes
+
+
+* **chip-set:** translate the accessible labels of the chips ([caafd17](https://github.com/Lundalogik/lime-elements/commit/caafd17f7462a589966d5ae6f81f72c7b6094b52))
+* **chip:** translate the accessible labels of the loading indicator ([c0b4ff7](https://github.com/Lundalogik/lime-elements/commit/c0b4ff7dfde1d30e7ff72a9e01362b85c8a6cc0d))
+* **code-diff:** translate the accessible label of the search toolbar ([a75d446](https://github.com/Lundalogik/lime-elements/commit/a75d4469e3d18e79b45783340700a10d4d0db34e))
+* **date-picker:** resolve a regional language tag for the calendar and dates ([e253f4c](https://github.com/Lundalogik/lime-elements/commit/e253f4c569af638865267e30e41d7f1df007e966))
+* **date-picker:** translate the "today" tooltip ([3d26199](https://github.com/Lundalogik/lime-elements/commit/3d261997e9cd8c63924f59343e95e25b81b11ccf))
+* **text-editor:** translate the labels of the link menu ([3c7c822](https://github.com/Lundalogik/lime-elements/commit/3c7c82298f7692d35a26df359c26ae7cef561ad1))
+* **text-editor:** translate the toolbar's accessible label ([2c6e920](https://github.com/Lundalogik/lime-elements/commit/2c6e9202987d4df5e6980815de7d93f7475bfd05))
+* **translations:** resolve a regional language tag to its primary subtag ([ceef6cd](https://github.com/Lundalogik/lime-elements/commit/ceef6cdeead01b9b0e99d638c78990b841b8f26e))
+
 ## [40.2.4](https://github.com/Lundalogik/lime-elements/compare/v40.2.3...v40.2.4) (2026-09-15)
 
 ### Bug Fixes
