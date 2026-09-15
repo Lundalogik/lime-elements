@@ -1,3 +1,19 @@
+## [40.2.4](https://github.com/Lundalogik/lime-elements/compare/v40.2.3...v40.2.4) (2026-09-15)
+
+### Bug Fixes
+
+
+* **select:** let the helper line reflect the select's own validity ([040f3d6](https://github.com/Lundalogik/lime-elements/commit/040f3d6eb6ed25013ba3cef67756e7ec15d9faba))
+* **select:** open the dropdown below the helper text ([fe4fe9e](https://github.com/Lundalogik/lime-elements/commit/fe4fe9e2f42ede6c6aa9d3dfe96e976d23ea6dfc))
+* **select:** release the previous dropdown position listeners when reopening ([a29573c](https://github.com/Lundalogik/lime-elements/commit/a29573c728ec37a064cf91206afd4548e89a6faa))
+* **select:** reposition the dropdown while its anchor is resizing ([677ba3b](https://github.com/Lundalogik/lime-elements/commit/677ba3b5b54eedfc6e5204d4e41952a49ababa6d))
+* **select:** show the helper text while the dropdown is open ([e5c3421](https://github.com/Lundalogik/lime-elements/commit/e5c3421ee7034102620e33fd2d76f8dcb37e6352)), closes [#4290](https://github.com/Lundalogik/lime-elements/issues/4290)
+* **select:** stop dropdown restyling from retriggering its own resize observer ([3d76b85](https://github.com/Lundalogik/lime-elements/commit/3d76b85bd547282263de58dbf139d127d8e7beb2))
+### Performance Improvements
+
+
+* **select:** read layout once when positioning dropdown content ([6b96a9b](https://github.com/Lundalogik/lime-elements/commit/6b96a9bd76fe626b35d5b46490cf48b34c04364d))
+
 ## [40.2.3](https://github.com/Lundalogik/lime-elements/compare/v40.2.2...v40.2.3) (2026-09-14)
 
 ### Bug Fixes
