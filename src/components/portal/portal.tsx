@@ -270,23 +270,24 @@ export class Portal {
     }
 
     private styleContainer() {
-        this.setContainerWidth();
-        this.setContainerHeight();
+        const hostRect = this.host.getBoundingClientRect();
+
+        this.setContainerWidth(hostRect);
+        this.setContainerHeight(hostRect);
         this.setContainerStyles();
     }
 
-    private setContainerWidth() {
-        const hostWidth = this.host.getBoundingClientRect().width;
-
-        if (this.inheritParentWidth) {
-            const containerWidth = this.getContentWidth(this.container);
-            let width = containerWidth;
-            if (hostWidth > 0) {
-                width = hostWidth;
-            }
-
-            this.container.style.width = `${width}px`;
+    private setContainerWidth(hostRect: DOMRect) {
+        if (!this.inheritParentWidth) {
+            return;
         }
+
+        const width =
+            hostRect.width > 0
+                ? hostRect.width
+                : this.getContentWidth(this.container);
+
+        this.container.style.width = `${width}px`;
     }
 
     private getContentWidth(element: HTMLElement | Element) {
@@ -385,15 +386,17 @@ export class Portal {
         return flipPlacements[direction];
     }
 
-    private setContainerHeight() {
+    private setContainerHeight(hostRect: DOMRect) {
         const viewHeight = Math.max(
             document.documentElement.clientHeight || 0,
             window.innerHeight || 0
         );
 
-        const { top, bottom } = this.host.getBoundingClientRect();
-        const spaceAboveTopOfSurface = Math.max(top, 0);
-        const spaceBelowTopOfSurface = Math.max(viewHeight - bottom, 0);
+        const spaceAboveTopOfSurface = Math.max(hostRect.top, 0);
+        const spaceBelowTopOfSurface = Math.max(
+            viewHeight - hostRect.bottom,
+            0
+        );
         const extraCosmeticSpace = 16;
         const maxHeight =
             Math.max(spaceAboveTopOfSurface, spaceBelowTopOfSurface) -
