@@ -528,6 +528,20 @@ describe('limel-select (menu)', () => {
             expect(helperLineRows(root)).toBe('0fr');
         });
 
+        // The anchor decides where the dropdown is placed, and a miss falls
+        // back to the host, which stretches to a taller flex sibling — the
+        // regression fixed in #3858. Nothing else would fail on a rename.
+        it('anchors the dropdown to the field rather than the host', async () => {
+            const { root, waitForChanges } = await renderSelect();
+            await waitForChanges();
+
+            const portal = root.shadowRoot.querySelector('limel-portal');
+            const field = root.shadowRoot.querySelector('.limel-select__field');
+
+            expect(field).not.toBeNull();
+            expect(portal.anchor).toBe(field);
+        });
+
         it('is expanded while the dropdown is open', async () => {
             const { root, waitForChanges } = await renderSelect();
             await waitForChanges();
