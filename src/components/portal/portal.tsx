@@ -113,6 +113,7 @@ export class Portal {
     private popperInstance: Instance;
     private loaded = false;
     private observer: ResizeObserver;
+    private writtenStyles: Partial<Record<'width' | 'maxHeight', string>> = {};
 
     constructor() {
         this.parents = new WeakMap();
@@ -200,6 +201,7 @@ export class Portal {
         const content =
             (slot.assignedElements && slot.assignedElements()) || [];
 
+        this.writtenStyles = {};
         this.container = document.createElement('div');
         this.container.setAttribute('id', this.containerId);
         this.container.setAttribute('class', 'limel-portal--container');
@@ -287,7 +289,7 @@ export class Portal {
                 ? hostRect.width
                 : this.getContentWidth(this.container);
 
-        this.container.style.width = `${width}px`;
+        this.setContainerStyle('width', `${width}px`);
     }
 
     private getContentWidth(element: HTMLElement | Element) {
@@ -309,6 +311,18 @@ export class Portal {
         for (const property of Object.keys(this.containerStyle)) {
             this.container.style[property] = this.containerStyle[property];
         }
+    }
+
+    // Compared against what was last written rather than against
+    // `container.style`, which serializes lengths to six significant digits
+    // and so never reads back a fractional width verbatim.
+    private setContainerStyle(property: 'width' | 'maxHeight', value: string) {
+        if (this.writtenStyles[property] === value) {
+            return;
+        }
+
+        this.writtenStyles[property] = value;
+        this.container.style[property] = value;
     }
 
     private createPopper() {
@@ -398,11 +412,15 @@ export class Portal {
             0
         );
         const extraCosmeticSpace = 16;
-        const maxHeight =
-            Math.max(spaceAboveTopOfSurface, spaceBelowTopOfSurface) -
-            extraCosmeticSpace;
+        const maxHeight = Math.max(
+            0,
+            Math.round(
+                Math.max(spaceAboveTopOfSurface, spaceBelowTopOfSurface) -
+                    extraCosmeticSpace
+            )
+        );
 
-        this.container.style.maxHeight = `${maxHeight}px`;
+        this.setContainerStyle('maxHeight', `${maxHeight}px`);
     }
 
     // Returns the parent element where the content of the portal will be moved to.
