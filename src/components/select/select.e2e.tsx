@@ -542,6 +542,58 @@ describe('limel-select (menu)', () => {
         });
     });
 
+    describe('helper text', () => {
+        const options: Option[] = [{ text: 'Option A', value: 'a' }];
+
+        // Read the custom property rather than the rendered height: the
+        // helper line animates open over 0.46s, so a height assertion would
+        // race the transition.
+        const helperLineRows = (root: any) =>
+            getComputedStyle(root.shadowRoot.querySelector('limel-helper-line'))
+                .getPropertyValue('--limel-h-l-grid-template-rows')
+                .trim();
+
+        const renderSelect = async () =>
+            render(
+                <limel-select
+                    label="Letter"
+                    helperText="Pick a letter"
+                    options={options}
+                ></limel-select>
+            );
+
+        it('is collapsed while the dropdown is closed', async () => {
+            const { root, waitForChanges } = await renderSelect();
+            await waitForChanges();
+
+            expect(helperLineRows(root)).toBe('0fr');
+        });
+
+        // The anchor decides where the dropdown is placed, and a miss falls
+        // back to the host, which stretches to a taller flex sibling — the
+        // regression fixed in #3858. Nothing else would fail on a rename.
+        it('anchors the dropdown to the field rather than the host', async () => {
+            const { root, waitForChanges } = await renderSelect();
+            await waitForChanges();
+
+            const portal = root.shadowRoot.querySelector('limel-portal');
+            const field = root.shadowRoot.querySelector('.limel-select__field');
+
+            expect(field).not.toBeNull();
+            expect(portal.anchor).toBe(field);
+        });
+
+        it('is expanded while the dropdown is open', async () => {
+            const { root, waitForChanges } = await renderSelect();
+            await waitForChanges();
+
+            root.shadowRoot.querySelector('.limel-select-trigger').click();
+            await waitForChanges();
+
+            expect(helperLineRows(root)).toBe('1fr');
+        });
+    });
+
     describe('typeahead', () => {
         const doctors: Option[] = [
             { text: 'Jodie Whittaker', value: '13' },

@@ -74,6 +74,7 @@ Vous pouvez laisser les images bloquées (l'e-mail peut sembler incomplet) ou le
     'editor-link-menu.link': 'Lien',
     'editor-menu.code-block': 'Bloc de code',
     'editor-menu.code': 'Code',
+    'editor-menu.toolbar': "Barre d'outils",
     'editor-image-view.loading': "Chargement de l'image: { filename }...",
     'editor-image-view.failed':
         "Un problème est survenu avec l'image: { filename }",

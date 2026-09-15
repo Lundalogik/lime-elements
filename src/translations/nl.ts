@@ -73,6 +73,7 @@ Je kunt afbeeldingen geblokkeerd houden (de e-mail kan er onvolledig uitzien) of
     'editor-link-menu.link': 'Link',
     'editor-menu.code-block': 'Codeblok',
     'editor-menu.code': 'Code',
+    'editor-menu.toolbar': 'Werkbalk',
     'editor-image-view.loading': 'Afbeelding wordt geladen: { filename }...',
     'editor-image-view.failed':
         'Er is iets misgegaan met de afbeelding: { filename }',

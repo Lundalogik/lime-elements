@@ -108,11 +108,16 @@ export class Portal {
     @Element()
     private host: HTMLLimelPortalElement;
 
+    private get anchorElement(): HTMLElement {
+        return this.anchor || this.host;
+    }
+
     private parents: WeakMap<HTMLElement, HTMLElement>;
     private container: HTMLElement;
     private popperInstance: Instance;
     private loaded = false;
     private observer: ResizeObserver;
+    private writtenStyles: Partial<Record<'width' | 'maxHeight', string>> = {};
 
     constructor() {
         this.parents = new WeakMap();
@@ -121,10 +126,8 @@ export class Portal {
     public disconnectedCallback() {
         this.removeContainer();
         this.destroyPopper();
-        if (this.observer && this.container) {
-            this.observer.unobserve(this.container);
-        }
 
+        this.observer = null;
         this.container = null;
     }
 
@@ -156,16 +159,6 @@ export class Portal {
         if (this.visible) {
             this.createPopper();
             this.showContainer();
-        }
-
-        if ('ResizeObserver' in window) {
-            this.observer = new ResizeObserver(() => {
-                if (this.popperInstance) {
-                    this.styleContainer();
-                    this.popperInstance.update();
-                }
-            });
-            this.observer.observe(this.container);
         }
     }
 
@@ -200,6 +193,7 @@ export class Portal {
         const content =
             (slot.assignedElements && slot.assignedElements()) || [];
 
+        this.writtenStyles = {};
         this.container = document.createElement('div');
         this.container.setAttribute('id', this.containerId);
         this.container.setAttribute('class', 'limel-portal--container');
@@ -270,23 +264,24 @@ export class Portal {
     }
 
     private styleContainer() {
-        this.setContainerWidth();
-        this.setContainerHeight();
+        const hostRect = this.host.getBoundingClientRect();
+
+        this.setContainerWidth(hostRect);
+        this.setContainerHeight(hostRect);
         this.setContainerStyles();
     }
 
-    private setContainerWidth() {
-        const hostWidth = this.host.getBoundingClientRect().width;
-
-        if (this.inheritParentWidth) {
-            const containerWidth = this.getContentWidth(this.container);
-            let width = containerWidth;
-            if (hostWidth > 0) {
-                width = hostWidth;
-            }
-
-            this.container.style.width = `${width}px`;
+    private setContainerWidth(hostRect: DOMRect) {
+        if (!this.inheritParentWidth) {
+            return;
         }
+
+        const width =
+            hostRect.width > 0
+                ? hostRect.width
+                : this.getContentWidth(this.container);
+
+        this.setContainerStyle('width', `${width}px`);
     }
 
     private getContentWidth(element: HTMLElement | Element) {
@@ -310,19 +305,52 @@ export class Portal {
         }
     }
 
+    // Compared against what was last written rather than against
+    // `container.style`, which serializes lengths to six significant digits
+    // and so never reads back a fractional width verbatim.
+    private setContainerStyle(property: 'width' | 'maxHeight', value: string) {
+        if (this.writtenStyles[property] === value) {
+            return;
+        }
+
+        this.writtenStyles[property] = value;
+        this.container.style[property] = value;
+    }
+
     private createPopper() {
+        this.destroyPopper();
+
         const config = this.createPopperConfig();
 
         this.popperInstance = createPopper(
-            this.anchor || this.host,
+            this.anchorElement,
             this.container,
             config
         );
+
+        this.observeResize();
     }
 
     private destroyPopper() {
+        this.observer?.disconnect();
         this.popperInstance?.destroy();
         this.popperInstance = null;
+    }
+
+    private observeResize() {
+        if (!('ResizeObserver' in window)) {
+            return;
+        }
+
+        this.observer ??= new ResizeObserver(() => {
+            if (this.popperInstance) {
+                this.styleContainer();
+                this.popperInstance.update();
+            }
+        });
+
+        this.observer.observe(this.container);
+        this.observer.observe(this.anchorElement);
     }
 
     private createPopperConfig(): Partial<
@@ -383,27 +411,33 @@ export class Portal {
         return flipPlacements[direction];
     }
 
-    private setContainerHeight() {
+    private setContainerHeight(hostRect: DOMRect) {
         const viewHeight = Math.max(
             document.documentElement.clientHeight || 0,
             window.innerHeight || 0
         );
 
-        const { top, bottom } = this.host.getBoundingClientRect();
-        const spaceAboveTopOfSurface = Math.max(top, 0);
-        const spaceBelowTopOfSurface = Math.max(viewHeight - bottom, 0);
+        const spaceAboveTopOfSurface = Math.max(hostRect.top, 0);
+        const spaceBelowTopOfSurface = Math.max(
+            viewHeight - hostRect.bottom,
+            0
+        );
         const extraCosmeticSpace = 16;
-        const maxHeight =
-            Math.max(spaceAboveTopOfSurface, spaceBelowTopOfSurface) -
-            extraCosmeticSpace;
+        const maxHeight = Math.max(
+            0,
+            Math.round(
+                Math.max(spaceAboveTopOfSurface, spaceBelowTopOfSurface) -
+                    extraCosmeticSpace
+            )
+        );
 
-        this.container.style.maxHeight = `${maxHeight}px`;
+        this.setContainerStyle('maxHeight', `${maxHeight}px`);
     }
 
     // Returns the parent element where the content of the portal will be moved to.
     // It needs to have styling of the portal container.
     private getParent() {
-        let element: Element | undefined = this.anchor || this.host;
+        let element: Element | undefined = this.anchorElement;
 
         while (element) {
             const parent = element.closest('.limel-portal--parent');

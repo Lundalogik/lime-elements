@@ -10,6 +10,7 @@ import 'moment/locale/nl';
 import 'moment/locale/sv';
 import moment from 'moment/moment';
 import { isAndroidDevice, isIOSDevice } from '../../../util/device';
+import { getPrimarySubtag } from '../../../util/language';
 
 const ARIA_DATE_FORMAT = 'F j, Y';
 
@@ -98,19 +99,21 @@ export abstract class Picker {
     }
 
     protected getFlatpickrLang() {
-        if (this.language === 'nb') {
+        const language = getPrimarySubtag(this.language);
+        if (language === 'nb') {
             return 'no';
         }
 
-        return this.language;
+        return language;
     }
 
     protected getMomentLang() {
-        if (this.language === 'no') {
+        const language = getPrimarySubtag(this.language);
+        if (language === 'no') {
             return 'nb';
         }
 
-        return this.language;
+        return language;
     }
 
     private getPickerDate(selectedDates) {

@@ -672,6 +672,7 @@ export class ChipSet {
             type: chipType,
             removable: removable,
             menuItems: chip.menuItems,
+            language: this.language,
             onClick: this.catchInputChipClicks(chip),
             onRemove: this.handleRemoveChip,
             ...(chip.href && {

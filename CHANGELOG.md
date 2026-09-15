@@ -1,3 +1,33 @@
+## [40.2.5](https://github.com/Lundalogik/lime-elements/compare/v40.2.4...v40.2.5) (2026-09-15)
+
+### Bug Fixes
+
+
+* **chip-set:** translate the accessible labels of the chips ([caafd17](https://github.com/Lundalogik/lime-elements/commit/caafd17f7462a589966d5ae6f81f72c7b6094b52))
+* **chip:** translate the accessible labels of the loading indicator ([c0b4ff7](https://github.com/Lundalogik/lime-elements/commit/c0b4ff7dfde1d30e7ff72a9e01362b85c8a6cc0d))
+* **code-diff:** translate the accessible label of the search toolbar ([a75d446](https://github.com/Lundalogik/lime-elements/commit/a75d4469e3d18e79b45783340700a10d4d0db34e))
+* **date-picker:** resolve a regional language tag for the calendar and dates ([e253f4c](https://github.com/Lundalogik/lime-elements/commit/e253f4c569af638865267e30e41d7f1df007e966))
+* **date-picker:** translate the "today" tooltip ([3d26199](https://github.com/Lundalogik/lime-elements/commit/3d261997e9cd8c63924f59343e95e25b81b11ccf))
+* **text-editor:** translate the labels of the link menu ([3c7c822](https://github.com/Lundalogik/lime-elements/commit/3c7c82298f7692d35a26df359c26ae7cef561ad1))
+* **text-editor:** translate the toolbar's accessible label ([2c6e920](https://github.com/Lundalogik/lime-elements/commit/2c6e9202987d4df5e6980815de7d93f7475bfd05))
+* **translations:** resolve a regional language tag to its primary subtag ([ceef6cd](https://github.com/Lundalogik/lime-elements/commit/ceef6cdeead01b9b0e99d638c78990b841b8f26e))
+
+## [40.2.4](https://github.com/Lundalogik/lime-elements/compare/v40.2.3...v40.2.4) (2026-09-15)
+
+### Bug Fixes
+
+
+* **select:** let the helper line reflect the select's own validity ([040f3d6](https://github.com/Lundalogik/lime-elements/commit/040f3d6eb6ed25013ba3cef67756e7ec15d9faba))
+* **select:** open the dropdown below the helper text ([fe4fe9e](https://github.com/Lundalogik/lime-elements/commit/fe4fe9e2f42ede6c6aa9d3dfe96e976d23ea6dfc))
+* **select:** release the previous dropdown position listeners when reopening ([a29573c](https://github.com/Lundalogik/lime-elements/commit/a29573c728ec37a064cf91206afd4548e89a6faa))
+* **select:** reposition the dropdown while its anchor is resizing ([677ba3b](https://github.com/Lundalogik/lime-elements/commit/677ba3b5b54eedfc6e5204d4e41952a49ababa6d))
+* **select:** show the helper text while the dropdown is open ([e5c3421](https://github.com/Lundalogik/lime-elements/commit/e5c3421ee7034102620e33fd2d76f8dcb37e6352)), closes [#4290](https://github.com/Lundalogik/lime-elements/issues/4290)
+* **select:** stop dropdown restyling from retriggering its own resize observer ([3d76b85](https://github.com/Lundalogik/lime-elements/commit/3d76b85bd547282263de58dbf139d127d8e7beb2))
+### Performance Improvements
+
+
+* **select:** read layout once when positioning dropdown content ([6b96a9b](https://github.com/Lundalogik/lime-elements/commit/6b96a9bd76fe626b35d5b46490cf48b34c04364d))
+
 ## [40.2.3](https://github.com/Lundalogik/lime-elements/compare/v40.2.2...v40.2.3) (2026-09-14)
 
 ### Bug Fixes

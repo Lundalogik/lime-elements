@@ -409,13 +409,13 @@ export class Select {
     }
 
     // During the first render(), the shadow DOM isn't populated yet, so
-    // querySelector('.limel-select-trigger') returns null and we fall back
+    // querySelector('.limel-select__field') returns null and we fall back
     // to this.host. componentDidLoad() calls updatePortalAnchor() to
     // imperatively refresh the anchor once the shadow DOM is available.
     private getAnchorElement(): HTMLElement {
         return (
             this.host.shadowRoot.querySelector<HTMLElement>(
-                '.limel-select-trigger'
+                '.limel-select__field'
             ) ?? this.host
         );
     }

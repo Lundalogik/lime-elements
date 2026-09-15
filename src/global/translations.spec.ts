@@ -1,4 +1,11 @@
 import translate from './translations';
+import da from '../translations/da';
+import de from '../translations/de';
+import en from '../translations/en';
+import fi from '../translations/fi';
+import fr from '../translations/fr';
+import nl from '../translations/nl';
+import no from '../translations/no';
 import sv from '../translations/sv';
 
 describe('translations', () => {
@@ -25,8 +32,31 @@ describe('translations', () => {
             );
         });
 
+        it('resolves a regional tag to its primary subtag', () => {
+            // A host commonly passes `document.documentElement.lang`, which is
+            // a full tag. Before this, both silently rendered English.
+            expect(translate.get('value-not-set', 'nb-NO')).toBe(
+                'Verdi ikke angitt'
+            );
+            expect(translate.get('value-not-set', 'SV-SE')).toBe(
+                'Värde inte angivet'
+            );
+        });
+
         it('falls back to English for a language it does not know', () => {
             expect(translate.get('clear-value', 'xx')).toBe('Clear value');
+            expect(translate.get('clear-value', 'xx-XX')).toBe('Clear value');
+        });
+
+        it('falls back to English instead of throwing on a non-string', () => {
+            // A typed prop can still be assigned anything from JavaScript, and
+            // an `Intl.Locale` is an easy thing to reach for here.
+            const cases = [new Intl.Locale('nb-NO'), null, 5, {}];
+            for (const language of cases) {
+                expect(
+                    translate.get('clear-value', language as unknown as string)
+                ).toBe('Clear value');
+            }
         });
 
         it('returns the key itself when the key is unknown', () => {
@@ -74,6 +104,24 @@ describe('translations', () => {
             );
             expect(translate.get('clear-value-of', 'en')).toBe(
                 'Clear value of { label }'
+            );
+        });
+    });
+
+    describe('key parity', () => {
+        // A key missing from one file falls back to English silently, so
+        // nothing but this test reports that the files have drifted apart.
+        it.each([
+            ['da', da],
+            ['de', de],
+            ['fi', fi],
+            ['fr', fr],
+            ['nl', nl],
+            ['no', no],
+            ['sv', sv],
+        ])('%s defines exactly the keys English defines', (_, translations) => {
+            expect(Object.keys(translations).sort()).toEqual(
+                Object.keys(en).sort()
             );
         });
     });
