@@ -1,8 +1,7 @@
 @use '../../../style/mixins';
 @include mixins.hide-helper-line-when-not-needed(limel-select);
 
-div.limel-select__field--open limel-helper-line,
-.limel-select--invalid + limel-helper-line {
+div.limel-select__field--open limel-helper-line {
     --limel-h-l-grid-template-rows-transition-speed: 0.46s;
     --limel-h-l-grid-template-rows: 1fr;
 }
