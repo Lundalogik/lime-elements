@@ -1,5 +1,6 @@
 import { JSONSchema7 } from 'json-schema';
 import { Help } from '../help/help.types';
+import { Icon, IconName } from '../../global/shared-types/icon.types';
 import { EventEmitter } from '@stencil/core';
 
 /**
@@ -213,6 +214,11 @@ export interface LimeSchemaOptions {
      * Hide the field from the UI while preserving its value in the form data.
      */
     hidden?: boolean;
+
+    /**
+     * Displays an icon.
+     */
+    icon?: IconName | Icon;
 
     help?: string | Partial<Help>;
 

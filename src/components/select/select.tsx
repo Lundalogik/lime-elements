@@ -28,6 +28,7 @@ import {
     SelectTemplate,
     triggerIconColorWarning,
 } from './select.template';
+import { getIconName } from '../icon/get-icon-props';
 
 /**
  * ## Keyboard
@@ -136,7 +137,7 @@ export class Select {
 
     private hasChanged: boolean = false;
 
-    private hasPrimaryComponentMemo: boolean = false;
+    private hasRichOptions: boolean = false;
 
     @Watch('value')
     @Watch('options')
@@ -145,8 +146,8 @@ export class Select {
     }
 
     @Watch('options')
-    protected updateHasPrimaryComponent() {
-        this.hasPrimaryComponentMemo = this.computeHasPrimaryComponent();
+    protected updateHasRichOptions() {
+        this.hasRichOptions = this.computeHasRichOptions();
     }
 
     /**
@@ -202,7 +203,7 @@ export class Select {
             this.isMobileDevice = true;
         }
 
-        this.hasPrimaryComponentMemo = this.computeHasPrimaryComponent();
+        this.hasRichOptions = this.computeHasRichOptions();
     }
 
     public componentDidLoad() {
@@ -483,7 +484,7 @@ export class Select {
     }
 
     private getFirstNativeAutoSelectOption(): Option | undefined {
-        if (this.hasChanged || !this.isMobileDevice || this.multiple) {
+        if (this.hasChanged || !this.shouldRenderNative()) {
             return undefined;
         }
 
@@ -740,16 +741,21 @@ export class Select {
     }
 
     private shouldRenderNative(): boolean {
-        return (
-            this.isMobileDevice &&
-            !this.multiple &&
-            !this.hasPrimaryComponentMemo
-        );
+        return this.isMobileDevice && !this.multiple && !this.hasRichOptions;
     }
 
-    private computeHasPrimaryComponent(): boolean {
+    /**
+     * A native `<select>` can only render an option's text. Any option that
+     * carries more than that forces the custom dropdown, even on mobile.
+     *
+     * @returns `true` when at least one option cannot be rendered natively
+     */
+    private computeHasRichOptions(): boolean {
         return this.getOptionsExcludingSeparators().some(
-            (option) => !!option.primaryComponent?.name
+            (option) =>
+                !!option.primaryComponent?.name ||
+                !!option.secondaryText ||
+                !!getIconName(option.icon)
         );
     }
 }
