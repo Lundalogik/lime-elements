@@ -63,26 +63,33 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
         'limel-select--with-helper-text': typeof props.helperText === 'string',
     };
 
+    const fieldClassList = {
+        'limel-select__field': true,
+        'limel-select__field--open': props.isOpen,
+    };
+
     return [
-        <limel-notched-outline
-            class={classList}
-            labelId="s-label"
-            label={props.label}
-            required={props.required}
-            invalid={!isValid}
-            disabled={props.disabled}
-            readonly={props.readonly}
-            hasValue={hasValue}
-            hasFloatingLabel={floatLabelAbove(props)}
-        >
-            <SelectValue
-                {...props}
+        <div class={fieldClassList}>
+            <limel-notched-outline
+                class={classList}
+                labelId="s-label"
+                label={props.label}
+                required={props.required}
+                invalid={!isValid}
+                disabled={props.disabled}
+                readonly={props.readonly}
                 hasValue={hasValue}
-                isValid={isValid}
-                hasEmptyText={hasEmptyText}
-            />
-        </limel-notched-outline>,
-        <HelperText text={props.helperText} isValid={!props.invalid} />,
+                hasFloatingLabel={floatLabelAbove(props)}
+            >
+                <SelectValue
+                    {...props}
+                    hasValue={hasValue}
+                    isValid={isValid}
+                    hasEmptyText={hasEmptyText}
+                />
+            </limel-notched-outline>
+            <HelperText text={props.helperText} isValid={!props.invalid} />
+        </div>,
         <SelectDropdown {...props} />,
     ];
 };
