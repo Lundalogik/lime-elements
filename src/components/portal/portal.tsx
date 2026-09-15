@@ -311,6 +311,8 @@ export class Portal {
     }
 
     private createPopper() {
+        this.destroyPopper();
+
         const config = this.createPopperConfig();
 
         this.popperInstance = createPopper(
