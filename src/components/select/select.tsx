@@ -484,7 +484,7 @@ export class Select {
     }
 
     private getFirstNativeAutoSelectOption(): Option | undefined {
-        if (this.hasChanged || !this.isMobileDevice || this.multiple) {
+        if (this.hasChanged || !this.shouldRenderNative()) {
             return undefined;
         }
 
