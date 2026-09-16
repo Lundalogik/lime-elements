@@ -1,9 +1,19 @@
-import { Component, h, Prop, Watch, Host } from '@stencil/core';
-import { markdownToHTML } from './markdown-parser';
+import {
+    Component,
+    Element,
+    h,
+    Method,
+    Prop,
+    Watch,
+    Host,
+} from '@stencil/core';
+import { findCustomElements, markdownToHTML } from './markdown-parser';
 import { globalConfig } from '../../global/config';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 import { ImageIntersectionObserver } from './image-intersection-observer';
 import { hydrateCustomElements } from './hydrate-custom-elements';
+import { substituteCustomElements } from './substitute-custom-elements';
+import { representElement } from './represent-element';
 import { morphChildren } from './morph-dom';
 import { DEFAULT_MARKDOWN_WHITELIST } from './default-whitelist';
 import { adaptColorContrast } from '../../util/adapt-color-contrast';
@@ -39,6 +49,7 @@ import { adaptColorContrast } from '../../util/adapt-color-contrast';
  * @exampleComponent limel-example-markdown-built-in-component
  * @exampleComponent limel-example-markdown-custom-component
  * @exampleComponent limel-example-markdown-custom-component-with-json-props
+ * @exampleComponent limel-example-markdown-to-markdown
  * @exampleComponent limel-example-markdown-remove-empty-paragraphs
  * @exampleComponent limel-example-markdown-adapt-color-contrast
  * @exampleComponent limel-example-markdown-composite
@@ -117,21 +128,7 @@ export class Markdown {
         try {
             this.cleanupImageIntersectionObserver();
 
-            // The whitelist merge and default import live here (not in
-            // markdown-parser.ts) because this component orchestrates both
-            // the parser and hydration, which both need the combined list.
-            if (
-                !this.cachedCombinedWhitelist ||
-                this.whitelist !== this.cachedConsumerWhitelist
-            ) {
-                this.cachedConsumerWhitelist = this.whitelist;
-                this.cachedCombinedWhitelist = mergeWhitelists(
-                    DEFAULT_MARKDOWN_WHITELIST,
-                    this.whitelist
-                );
-            }
-
-            const combinedWhitelist = this.cachedCombinedWhitelist;
+            const combinedWhitelist = this.getCombinedWhitelist();
 
             const html = await markdownToHTML(this.value, {
                 forceHardLineBreaks: true,
@@ -157,6 +154,50 @@ export class Markdown {
         }
     }
 
+    /**
+     * The markdown this component stands for, for a target that cannot
+     * render it — the clipboard, say.
+     *
+     * `value` is what the component was given. This is the same content
+     * with every whitelisted custom element replaced by what it reports
+     * through `MarkdownRepresentable.toMarkdown()`, asked of a copy made
+     * from the same markup. An element that does not implement the
+     * interface contributes its text when written with a closing tag,
+     * and nothing otherwise.
+     *
+     * @returns the markdown
+     * @alpha
+     */
+    @Method()
+    public async toMarkdown(): Promise<string> {
+        const value = this.value;
+        const whitelist = this.getCombinedWhitelist();
+        const host = this.host.shadowRoot ?? this.host;
+        const elements = await findCustomElements(value, whitelist);
+
+        return substituteCustomElements(value, elements, (element) =>
+            representElement(element, host, whitelist)
+        );
+    }
+
+    private getCombinedWhitelist(): CustomElementDefinition[] {
+        // The whitelist merge and default import live here (not in
+        // markdown-parser.ts) because this component orchestrates both
+        // the parser and hydration, which both need the combined list.
+        if (
+            !this.cachedCombinedWhitelist ||
+            this.whitelist !== this.cachedConsumerWhitelist
+        ) {
+            this.cachedConsumerWhitelist = this.whitelist;
+            this.cachedCombinedWhitelist = mergeWhitelists(
+                DEFAULT_MARKDOWN_WHITELIST,
+                this.whitelist
+            );
+        }
+
+        return this.cachedCombinedWhitelist;
+    }
+
     @Watch('whitelist')
     public handleWhitelistChange() {
         return this.textChanged();
@@ -171,6 +212,9 @@ export class Markdown {
     public handleAdaptColorContrastChange() {
         return this.textChanged();
     }
+
+    @Element()
+    private host: HTMLElement;
 
     private rootElement: HTMLDivElement;
     private imageIntersectionObserver: ImageIntersectionObserver | null = null;
