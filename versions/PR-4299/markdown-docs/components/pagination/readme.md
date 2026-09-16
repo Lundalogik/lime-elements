@@ -18,6 +18,12 @@ and it is yours to set, or a setting you let your users pick, next to your
 other settings.
 :::
 
+Knowing where you are matters as much as being able to move. A page number
+and a total tell people how much there is and how far into it they have got,
+and hovering a page shows exactly which items it holds. A "load more" button
+tells them none of that: there is no way to picture the set, or to know
+whether pressing it again brings ten more items or ten thousand.
+
 Page 1 and the last page are always shown, so both ends of the list are one
 click away. That is why there are no separate first and last buttons: the
 numbers already do that job, and they say where they take you. When there are
