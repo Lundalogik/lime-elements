@@ -118,6 +118,7 @@ export class Portal {
     private loaded = false;
     private observer: ResizeObserver;
     private writtenStyles: Partial<Record<'width' | 'maxHeight', string>> = {};
+    private scheduledRestyle: number = null;
 
     constructor() {
         this.parents = new WeakMap();
@@ -333,6 +334,7 @@ export class Portal {
 
     private destroyPopper() {
         this.observer?.disconnect();
+        this.cancelScheduledRestyle();
         this.popperInstance?.destroy();
         this.popperInstance = null;
     }
@@ -343,14 +345,39 @@ export class Portal {
         }
 
         this.observer ??= new ResizeObserver(() => {
-            if (this.popperInstance) {
-                this.styleContainer();
-                this.popperInstance.update();
-            }
+            this.scheduleRestyle();
         });
 
         this.observer.observe(this.container);
         this.observer.observe(this.anchorElement);
+    }
+
+    // Restyling can resize the container this observer watches, so writing from
+    // inside the callback re-enters it as a `ResizeObserver loop`.
+    private scheduleRestyle() {
+        if (this.scheduledRestyle !== null) {
+            return;
+        }
+
+        this.scheduledRestyle = requestAnimationFrame(() => {
+            this.scheduledRestyle = null;
+
+            if (!this.popperInstance) {
+                return;
+            }
+
+            this.styleContainer();
+            this.popperInstance.update();
+        });
+    }
+
+    private cancelScheduledRestyle() {
+        if (this.scheduledRestyle === null) {
+            return;
+        }
+
+        cancelAnimationFrame(this.scheduledRestyle);
+        this.scheduledRestyle = null;
     }
 
     private createPopperConfig(): Partial<
