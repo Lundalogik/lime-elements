@@ -21,6 +21,13 @@ about, so nothing jumps around and you stay on the page you were on.
 Going to another page only fetches the items. The count is still good, so the
 page numbers do not flicker.
 
+A small total is worth knowing about: when everything fits on one page, the
+component still renders, showing `1` with both arrows dead. It stays because
+disappearing would shove whatever sits underneath it upwards, at the
+unhelpful moment when a filter has just narrowed someone's results. Whether
+a pagination is worth showing at all in that case is your call, and you make
+it by not rendering one.
+
 ## Dependencies
 
 ### Depends on

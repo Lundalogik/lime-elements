@@ -24,6 +24,12 @@ and hovering a page shows exactly which items it holds. A "load more" button
 tells them none of that: there is no way to picture the set, or to know
 whether pressing it again brings ten more items or ten thousand.
 
+The component always renders, even when everything fits on one page and
+there is nowhere to go. Hiding itself would move whatever sits below it at
+the moment a filter happens to narrow the results, and the consumer could
+not prevent that. Deciding not to render a pagination at all is a decision
+only the consumer can make, so it is left to them.
+
 Page 1 and the last page are always shown, so both ends of the list are one
 click away. That is why there are no separate first and last buttons: the
 numbers already do that job, and they say where they take you. When there are
