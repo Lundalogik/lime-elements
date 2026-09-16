@@ -17,6 +17,7 @@ export * from './components/file-viewer/file-viewer.types';
 export * from './global/shared-types/file.types';
 export * from './components/flex-container/flex-container.types';
 export * from './global/shared-types/custom-element.types';
+export * from './global/shared-types/markdown-representable.types';
 export * from './global/config';
 export * from './global/shared-types/link.types';
 export {

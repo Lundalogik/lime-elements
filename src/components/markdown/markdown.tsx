@@ -1,9 +1,19 @@
-import { Component, h, Prop, Watch, Host } from '@stencil/core';
-import { markdownToHTML } from './markdown-parser';
+import {
+    Component,
+    Element,
+    h,
+    Method,
+    Prop,
+    Watch,
+    Host,
+} from '@stencil/core';
+import { markdownToHTML, SourceElement } from './markdown-parser';
 import { globalConfig } from '../../global/config';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 import { ImageIntersectionObserver } from './image-intersection-observer';
 import { hydrateCustomElements } from './hydrate-custom-elements';
+import { substituteCustomElements } from './substitute-custom-elements';
+import { representElement } from './represent-element';
 import { morphChildren } from './morph-dom';
 import { DEFAULT_MARKDOWN_WHITELIST } from './default-whitelist';
 import { adaptColorContrast } from '../../util/adapt-color-contrast';
@@ -39,6 +49,7 @@ import { adaptColorContrast } from '../../util/adapt-color-contrast';
  * @exampleComponent limel-example-markdown-built-in-component
  * @exampleComponent limel-example-markdown-custom-component
  * @exampleComponent limel-example-markdown-custom-component-with-json-props
+ * @exampleComponent limel-example-markdown-to-markdown
  * @exampleComponent limel-example-markdown-remove-empty-paragraphs
  * @exampleComponent limel-example-markdown-adapt-color-contrast
  * @exampleComponent limel-example-markdown-composite
@@ -113,7 +124,44 @@ export class Markdown {
     public adaptColorContrast = false;
 
     @Watch('value')
-    public async textChanged() {
+    public textChanged(): Promise<void> {
+        this.rendering = this.renderMarkdown();
+
+        return this.rendering;
+    }
+
+    /**
+     * The markdown this component stands for, for a target that cannot
+     * render it — the clipboard, say.
+     *
+     * `value` is what the component was given. This is the same content
+     * with every whitelisted custom element replaced by what it reports
+     * through `MarkdownRepresentable.toMarkdown()`, asked of a copy made
+     * from the same markup. An element that does not implement the
+     * interface contributes its text when written with a closing tag,
+     * and nothing otherwise.
+     *
+     * @returns the markdown, once the current value has rendered
+     * @alpha
+     */
+    @Method()
+    public async toMarkdown(): Promise<string> {
+        await this.rendering;
+
+        const whitelist = this.cachedCombinedWhitelist ?? [];
+        const host = this.host.shadowRoot ?? this.host;
+
+        return substituteCustomElements(
+            this.rendered.value,
+            this.rendered.elements,
+            (element) => representElement(element, host, whitelist)
+        );
+    }
+
+    private async renderMarkdown() {
+        const value = this.value;
+        let elements: SourceElement[] = [];
+
         try {
             this.cleanupImageIntersectionObserver();
 
@@ -133,11 +181,12 @@ export class Markdown {
 
             const combinedWhitelist = this.cachedCombinedWhitelist;
 
-            const html = await markdownToHTML(this.value, {
+            const html = await markdownToHTML(value, {
                 forceHardLineBreaks: true,
                 whitelist: combinedWhitelist,
                 lazyLoadImages: this.lazyLoadImages,
                 removeEmptyParagraphs: this.removeEmptyParagraphs,
+                collectElements: (found) => (elements = found),
             });
 
             morphChildren(this.rootElement, html);
@@ -146,6 +195,10 @@ export class Markdown {
             // into JS properties. URL sanitization happens here because
             // rehype-sanitize can't inspect values inside JSON strings.
             hydrateCustomElements(this.rootElement, combinedWhitelist);
+
+            // What the DOM now shows, kept together so `toMarkdown` reads
+            // the source and the positions the same render produced.
+            this.rendered = { value, elements };
 
             if (this.adaptColorContrast) {
                 adaptColorContrast(this.rootElement);
@@ -172,10 +225,18 @@ export class Markdown {
         return this.textChanged();
     }
 
+    @Element()
+    private host: HTMLElement;
+
     private rootElement: HTMLDivElement;
     private imageIntersectionObserver: ImageIntersectionObserver | null = null;
     private cachedConsumerWhitelist?: CustomElementDefinition[];
     private cachedCombinedWhitelist?: CustomElementDefinition[];
+    private rendering: Promise<void> = Promise.resolve();
+    private rendered: { value: string; elements: SourceElement[] } = {
+        value: '',
+        elements: [],
+    };
 
     public async componentDidLoad() {
         this.textChanged();

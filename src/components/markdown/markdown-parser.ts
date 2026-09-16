@@ -14,6 +14,10 @@ import { createLazyLoadImagesPlugin } from './image-markdown-plugin';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 import { createLinksPlugin } from './link-markdown-plugin';
 import { createRemoveEmptyParagraphsPlugin } from './remove-empty-paragraphs-plugin';
+import {
+    createCollectElementsPlugin,
+    SourceElement,
+} from './collect-elements-plugin';
 
 /**
  * Takes a string as input and returns a new string
@@ -33,10 +37,12 @@ export async function markdownToHTML(
     text: string,
     options?: MarkdownToHTMLOptions
 ): Promise<string> {
+    let toSourceOffset = (offset: number) => offset;
     if (options?.forceHardLineBreaks) {
-        text = text.replaceAll(/(?<!\\)([\n\r])/g, '  $1');
+        ({ text, toSourceOffset } = forceHardLineBreaks(text));
     }
 
+    const parsedText = text;
     const file = await unified()
         .use(remarkParse)
         .use(remarkGfm)
@@ -53,10 +59,65 @@ export async function markdownToHTML(
         })
         .use(createRemoveEmptyParagraphsPlugin(options?.removeEmptyParagraphs))
         .use(createLazyLoadImagesPlugin(options?.lazyLoadImages))
+        .use(
+            createCollectElementsPlugin({
+                tagNames: (options?.whitelist ?? []).map((component) =>
+                    component.tagName.toLowerCase()
+                ),
+                text: parsedText,
+                onCollected: (elements) =>
+                    options?.collectElements?.(
+                        elements.map((element) => ({
+                            ...element,
+                            start: toSourceOffset(element.start),
+                            end: toSourceOffset(element.end),
+                        }))
+                    ),
+            })
+        )
         .use(rehypeStringify)
         .process(text);
 
     return file.toString();
+}
+
+/**
+ * Turn every soft line break into a hard one by putting two spaces
+ * before it, and provide the way back: an offset in the result mapped
+ * to the offset in the text it came from.
+ *
+ * @param text - the text to rewrite
+ * @returns the rewritten text and the offset mapping
+ */
+function forceHardLineBreaks(text: string): {
+    text: string;
+    toSourceOffset: (offset: number) => number;
+} {
+    // Offsets in the rewritten text where a pair of spaces was inserted.
+    const insertions: number[] = [];
+    const rewritten = text.replaceAll(
+        /(?<!\\)([\n\r])/g,
+        (lineBreak: string, _: string, index: number) => {
+            insertions.push(index + insertions.length * 2);
+
+            return `  ${lineBreak}`;
+        }
+    );
+
+    const toSourceOffset = (offset: number): number => {
+        let shift = 0;
+        for (const at of insertions) {
+            if (at >= offset) {
+                break;
+            }
+
+            shift += Math.min(2, offset - at);
+        }
+
+        return offset - shift;
+    };
+
+    return { text: rewritten, toSourceOffset };
 }
 
 /**
@@ -160,4 +221,12 @@ export interface MarkdownToHTMLOptions {
     whitelist?: CustomElementDefinition[];
     lazyLoadImages?: boolean;
     removeEmptyParagraphs?: boolean;
+
+    /**
+     * Receives where each whitelisted custom element was written in
+     * `text`, in document order, once the HTML has been made.
+     */
+    collectElements?: (elements: SourceElement[]) => void;
 }
+
+export { type SourceElement } from './collect-elements-plugin';
