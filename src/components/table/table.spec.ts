@@ -25,7 +25,7 @@ describe('limel-table data updates', () => {
     beforeEach(() => {
         component = new Table();
         (component as any).tabulator = {
-            replaceData: vi.fn(),
+            replaceData: vi.fn().mockResolvedValue(undefined),
             updateData: vi.fn().mockResolvedValue(undefined),
             updateOrAddData: vi.fn(),
             getRow: vi.fn().mockReturnValue({ reformat: vi.fn() }),
@@ -169,6 +169,9 @@ describe('limel-table remote paginator refresh', () => {
         (component as any).tabulator = {
             replaceData: vi.fn().mockResolvedValue(undefined),
             setMaxPage: vi.fn(),
+            // Tabulator resets to the first page after replaceData().
+            getPage: vi.fn().mockReturnValue(1),
+            setPage: vi.fn().mockResolvedValue(undefined),
         };
         (component as any).initialized = true;
         (component as any).pageSize = 10;
@@ -237,6 +240,114 @@ describe('limel-table remote paginator refresh', () => {
             (component as any).refreshRemotePaginator()
         ).resolves.toBeUndefined();
     });
+});
+
+// The raw component class is tested as a white box, poking private members and
+// mock events, so `component` is typed loosely to avoid casting on every access.
+function setupRemotePreservationTable() {
+    const component: any = new Table();
+    const changePage = { emit: vi.fn() };
+    const load = { emit: vi.fn() };
+    component.mode = 'remote';
+    component.pageSize = 10;
+    component.page = 3;
+    component.columns = [];
+    component.changePage = changePage;
+    component.load = load;
+
+    return { component, changePage, load };
+}
+
+function setupRemoteClampingTable() {
+    const component: any = new Table();
+    const changePage = { emit: vi.fn() };
+    component.mode = 'remote';
+    component.initialized = true;
+    component.pageSize = 10;
+    component.changePage = changePage;
+    component.getRowScrollContainer = () => null;
+    component.tabulator = {
+        replaceData: vi.fn().mockResolvedValue(undefined),
+        setMaxPage: vi.fn(),
+        // Tabulator resets to the first page after replaceData().
+        getPage: vi.fn().mockReturnValue(1),
+        setPage: vi.fn().mockResolvedValue(undefined),
+    };
+
+    return { component, changePage };
+}
+
+test('does not emit changePage or load during a paginator refresh even when Tabulator requests page 1', () => {
+    const { component, changePage, load } = setupRemotePreservationTable();
+    component.paginatorRefreshDepth = 1;
+
+    component.requestData(null, null, { page: 1, sorters: [] });
+
+    expect(changePage.emit).not.toHaveBeenCalled();
+    expect(load.emit).not.toHaveBeenCalled();
+});
+
+test('emits changePage for a genuine user page change outside a refresh', () => {
+    const { component, changePage } = setupRemotePreservationTable();
+
+    component.requestData(null, null, { page: 2, sorters: [] });
+
+    expect(changePage.emit).toHaveBeenCalledWith(2);
+});
+
+test('keeps the current page when Tabulator omits the page param', () => {
+    const { component, changePage } = setupRemotePreservationTable();
+
+    component.requestData(null, null, { sorters: [] });
+
+    expect(changePage.emit).not.toHaveBeenCalled();
+});
+
+test('clamps to the last page when the current page no longer exists after rows shrink', async () => {
+    const { component, changePage } = setupRemoteClampingTable();
+    component.page = 3;
+    component.totalRows = 15; // maxPage = 2
+
+    await component.refreshRemotePaginator();
+
+    expect(changePage.emit).toHaveBeenCalledWith(2);
+});
+
+test('does not clamp when the current page is still valid', async () => {
+    const { component, changePage } = setupRemoteClampingTable();
+    component.page = 2;
+    component.totalRows = 100; // maxPage = 10
+
+    await component.refreshRemotePaginator();
+
+    expect(changePage.emit).not.toHaveBeenCalled();
+});
+
+test('restores the current page after replaceData resets it', async () => {
+    const { component, changePage } = setupRemoteClampingTable();
+    component.page = 3;
+    component.totalRows = 100; // maxPage = 10, page 3 still valid
+
+    await component.refreshRemotePaginator();
+
+    // getPage() mocked to return 1 (Tabulator's post-replaceData reset),
+    // so the page must be restored to the controlled page without emitting
+    // a spurious changePage.
+    expect(component.tabulator.setPage).toHaveBeenCalledWith(3);
+    expect(changePage.emit).not.toHaveBeenCalled();
+});
+
+test('skips the row-rebuild round-trip when the page count is unchanged', async () => {
+    const { component } = setupRemoteClampingTable();
+    component.page = 2;
+    component.totalRows = 100; // maxPage = 10
+
+    await component.refreshRemotePaginator(); // first run: count 10, does the work
+    component.tabulator.replaceData.mockClear();
+
+    await component.refreshRemotePaginator(); // same count -> skipped
+
+    expect(component.tabulator.replaceData).not.toHaveBeenCalled();
 });
 
 describe('limel-table aggregate updates', () => {
