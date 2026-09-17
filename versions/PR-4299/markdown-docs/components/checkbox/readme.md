@@ -78,6 +78,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-list-item-radio](../list-item/examples)
  - [limel-example-notched-outline-basic](../notched-outline/examples)
  - [limel-example-pagination-loading](../pagination/examples)
+ - [limel-example-pagination-single-page](../pagination/examples)
  - [limel-example-placement](../help/examples)
  - [limel-example-readonly-props](../../design-guidelines/boolean/examples)
  - [limel-example-size](../../design-guidelines/size/examples)
@@ -128,6 +129,7 @@ graph TD;
   limel-example-list-item-radio --> limel-checkbox
   limel-example-notched-outline-basic --> limel-checkbox
   limel-example-pagination-loading --> limel-checkbox
+  limel-example-pagination-single-page --> limel-checkbox
   limel-example-placement --> limel-checkbox
   limel-example-readonly-props --> limel-checkbox
   limel-example-size --> limel-checkbox

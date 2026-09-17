@@ -11,33 +11,6 @@ A page number and a total tells users how much there is in the list that they ar
 looking at, and how far into it they have got; and hovering a page shows
 exactly which items it holds.
 
-This component does not load anything on its own, and it does not move on
-its own either. You give it a page and a total. When someone picks a page it
-emits `goToPage` — with the `offset` and `limit` that page needs — and waits.
-Set `page` to the number it gave you and the control follows.
-
-:::note
-- The event fires, but the numbers do not move until you set `page`. That is
-on purpose: if the load fails, or you want to confirm something first, leave
-`page` alone and the control is still showing the page the user is looking
-at, with nothing to put back.
-
-- Pagination does not decide how many items fit on a page. That is `pageSize`,
-and it is yours to set, or a setting you let your users pick, next to your
-other settings.
-:::
-
-The component always renders, even when everything fits on one page and
-there is nowhere to go. Hiding itself would move whatever sits below it at
-the moment a filter happens to narrow the results, and the consumer could
-not prevent that. Deciding not to render a pagination at all is a decision
-only the consumer can make, so it is left to them.
-
-Page 1 and the last page are always shown, so both ends of the list are one
-click away. That is why there are no separate first and last buttons: the
-numbers already do that job, and they say where they take you. When there are
-more pages than fit, the ones left out are replaced by a `···`.
-
 ## Properties
 
 | Property     | Attribute     | Description                                                                                                                                                                               | Type                                                                   | Default |
@@ -65,6 +38,7 @@ more pages than fit, the ones left out are replaced by a `···`.
  - [limel-example-pagination-loading](examples)
  - [limel-example-pagination-page](examples)
  - [limel-example-pagination-page-size](examples)
+ - [limel-example-pagination-single-page](examples)
  - [limel-example-pagination-total-items](examples)
 
 ### Depends on
@@ -85,6 +59,7 @@ graph TD;
   limel-example-pagination-loading --> limel-pagination
   limel-example-pagination-page --> limel-pagination
   limel-example-pagination-page-size --> limel-pagination
+  limel-example-pagination-single-page --> limel-pagination
   limel-example-pagination-total-items --> limel-pagination
   style limel-pagination fill:#f9f,stroke:#333,stroke-width:4px
 ```
