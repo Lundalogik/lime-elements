@@ -127,4 +127,13 @@ Du kan fortsætte med at blokere billeder (e-mailen kan se ufuldstændig ud) ell
         'Vi kan ikke vise det valgte billede i denne browser. Vælg venligst en anden billedfil.',
     'picker.results-matching': 'Resultater der matcher "{ query }"',
     'picker.no-matching-results': 'Ingen resultater der matcher "{ query }"',
+    'pagination.label': 'Paginering',
+    'pagination.previous-page': 'Forrige side',
+    'pagination.next-page': 'Næste side',
+    'pagination.go-to-previous-page': 'Gå til forrige side',
+    'pagination.go-to-next-page': 'Gå til næste side',
+    'pagination.page': 'Side { page }',
+    'pagination.go-to-page': 'Gå til side { page }',
+    'pagination.current-page': 'Side { page }, nuværende side',
+    'pagination.items-range': '{ from }–{ to } (af { total })',
 };

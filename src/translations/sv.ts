@@ -126,4 +126,13 @@ Du kan fortsätta blockera bilder (e-posten kan se ofullständig ut) eller ladda
         'Vi kan inte visa den valda bilden i den här webbläsaren. Välj en annan bildfil.',
     'picker.results-matching': 'Resultat som matchar "{ query }"',
     'picker.no-matching-results': 'Inga resultat som matchar "{ query }"',
+    'pagination.label': 'Paginering',
+    'pagination.previous-page': 'Föregående sida',
+    'pagination.next-page': 'Nästa sida',
+    'pagination.go-to-previous-page': 'Gå till föregående sida',
+    'pagination.go-to-next-page': 'Gå till nästa sida',
+    'pagination.page': 'Sida { page }',
+    'pagination.go-to-page': 'Gå till sida { page }',
+    'pagination.current-page': 'Sida { page }, aktuell sida',
+    'pagination.items-range': '{ from }–{ to } (av { total })',
 };
