@@ -503,6 +503,12 @@ export class Table {
         newValue: ColumnSorter[],
         oldValue: ColumnSorter[]
     ) {
+        if (!this.tabulator || !this.initialized) {
+            this.shouldSort = true;
+
+            return;
+        }
+
         const newSorting = this.getColumnSorter(newValue);
         const oldSorting = this.getColumnSorter(oldValue);
         if (isEqual(newSorting, oldSorting)) {
