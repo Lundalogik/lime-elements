@@ -1,1 +1,0 @@
-import{r as e,h as r}from"./index-Bnc9lzk2.js";const t=class{constructor(r){e(this,r)}render(){return r("limel-helper-line",{key:"50fdc58e2259dfba2b66b66d4bcfabaf14f6d228",length:10,maxLength:20,helperTextId:"tf-helper-text"})}};export{t as limel_example_helper_line_character_counter}
