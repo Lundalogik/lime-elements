@@ -37,20 +37,20 @@ more pages than fit, the ones left out are replaced by a `···`.
 
 ## Properties
 
-| Property     | Attribute     | Description                                                                                       | Type                                                                   | Default |
-| ------------ | ------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------- |
-| `language`   | `language`    | The language used for the labels and the tooltips, and for the way numbers are written.           | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`  |
-| `loading`    | `loading`     | Set this to `true` while you are fetching a page.                                                 | `boolean`                                                              | `false` |
-| `page`       | `page`        | Which page to show. The first page is `1`, not `0`.                                               | `number`                                                               | `1`     |
-| `pageSize`   | `page-size`   | How many items fit on one page.                                                                   | `number`                                                               | `100`   |
-| `totalItems` | `total-items` | How many items there are in total, across every page. `null` means the count has not arrived yet. | `number`                                                               | `null`  |
+| Property     | Attribute     | Description                                                                                                                                                                               | Type                                                                   | Default |
+| ------------ | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------- |
+| `language`   | `language`    | The language used for the labels and the tooltips, and for the way numbers are written.                                                                                                   | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`  |
+| `loading`    | `loading`     | Set this to `true` while you are fetching a page.                                                                                                                                         | `boolean`                                                              | `false` |
+| `page`       | `page`        | Which page to show when the component loads. The first page is `1`, not `0`.                                                                                                              | `number`                                                               | `1`     |
+| `pageSize`   | `page-size`   | Number of items that fit on one page. Together with `totalItems`, used by the component to calculate the total number of pages.                                                           | `number`                                                               | `100`   |
+| `totalItems` | `total-items` | How many items there are in total, across every page. `null` means the count has not arrived yet. Together with `pageSize`, used by the component to calculate the total number of pages. | `number`                                                               | `null`  |
 
 
 ## Events
 
-| Event        | Description                                                                                                                                                                                                                                                   | Type                           |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| `changePage` | Emitted when the page changes, whether the user moved or the component had to move them. Clicking the page they are already on emits nothing.  Does not bubble, so that it cannot be mistaken for `limel-table`'s `changePage`, which carries a plain number. | `CustomEvent<ChangePageEvent>` |
+| Event      | Description                                                                                                                                                                                                                                                                    | Type                         |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------- |
+| `goToPage` | Asks for a page to be loaded, and says which items it holds.  Emitted when the user picks a page, and when the component has to move them off one that no longer exists. A page you set yourself is not emitted back at you, and neither is a click on the page already shown. | `CustomEvent<GoToPageEvent>` |
 
 
 ## Dependencies
