@@ -1,0 +1,1 @@
+import{r as e,h as l}from"./index-Bnc9lzk2.js";const r=class{constructor(l){e(this,l)}render(){return l("limel-helper-line",{key:"46127d0b28a52aef765eaf247bd54f1b81abb855",helperText:"This field is required!",length:0,maxLength:20,helperTextId:"tf-helper-text",invalid:!0})}};export{r as limel_example_helper_line_invalid}
