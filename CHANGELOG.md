@@ -1,3 +1,10 @@
+## [40.3.0](https://github.com/Lundalogik/lime-elements/compare/v40.2.5...v40.3.0) (2026-09-17)
+
+### Features
+
+
+* **pagination:** add new component ([521e725](https://github.com/Lundalogik/lime-elements/commit/521e725b45d4f164ae492db52b533d85118f57f0))
+
 ## [40.2.5](https://github.com/Lundalogik/lime-elements/compare/v40.2.4...v40.2.5) (2026-09-15)
 
 ### Bug Fixes
