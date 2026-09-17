@@ -6,6 +6,10 @@
 
 Pagination reports where the user is in a set of results, and allows them
 to move somewhere else in it.
+For a user, knowing where they are matters as much as being able to move.
+A page number and a total tells users how much there is in the list that they are
+looking at, and how far into it they have got; and hovering a page shows
+exactly which items it holds.
 
 This component does not load anything on its own, and it does not move on
 its own either. You give it a page and a total. When someone picks a page it
@@ -13,22 +17,15 @@ emits `goToPage` — with the `offset` and `limit` that page needs — and waits
 Set `page` to the number it gave you and the control follows.
 
 :::note
-Nothing happens until you set `page`. That is on purpose: if the load fails,
-or you want to confirm something first, you just do not set it, and the
-control is still showing the page the user is actually looking at.
-:::
+- The event fires, but the numbers do not move until you set `page`. That is
+on purpose: if the load fails, or you want to confirm something first, leave
+`page` alone and the control is still showing the page the user is looking
+at, with nothing to put back.
 
-:::note
-Pagination does not decide how many items fit on a page. That is `pageSize`,
+- Pagination does not decide how many items fit on a page. That is `pageSize`,
 and it is yours to set, or a setting you let your users pick, next to your
 other settings.
 :::
-
-Knowing where you are matters as much as being able to move. A page number
-and a total tell people how much there is and how far into it they have got,
-and hovering a page shows exactly which items it holds. A "load more" button
-tells them none of that: there is no way to picture the set, or to know
-whether pressing it again brings ten more items or ten thousand.
 
 The component always renders, even when everything fits on one page and
 there is nowhere to go. Hiding itself would move whatever sits below it at
