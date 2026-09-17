@@ -7,10 +7,16 @@
 Pagination reports where the user is in a set of results, and allows them
 to move somewhere else in it.
 
-This component does not load anything on its own.
-As a consumer, you give it a page and a total, and it emits the page
-the user asked for — together with the `offset` and `limit` that page needs —
-leaving the consumer to decide what that means.
+This component does not load anything on its own, and it does not move on
+its own either. You give it a page and a total. When someone picks a page it
+emits `goToPage` — with the `offset` and `limit` that page needs — and waits.
+Set `page` to the number it gave you and the control follows.
+
+:::note
+Nothing happens until you set `page`. That is on purpose: if the load fails,
+or you want to confirm something first, you just do not set it, and the
+control is still showing the page the user is actually looking at.
+:::
 
 :::note
 Pagination does not decide how many items fit on a page. That is `pageSize`,
@@ -41,16 +47,16 @@ more pages than fit, the ones left out are replaced by a `···`.
 | ------------ | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------- |
 | `language`   | `language`    | The language used for the labels and the tooltips, and for the way numbers are written.                                                                                                   | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`  |
 | `loading`    | `loading`     | Set this to `true` while you are fetching a page.                                                                                                                                         | `boolean`                                                              | `false` |
-| `page`       | `page`        | Which page to show. The first page is `1`, not `0`.                                                                                                                                       | `number`                                                               | `1`     |
+| `page`       | `page`        | Which page to show. The first page is `1`, not `0`. Set it to the page from `goToPage` to move the control.                                                                               | `number`                                                               | `1`     |
 | `pageSize`   | `page-size`   | Number of items that fit on one page. Together with `totalItems`, used by the component to calculate the total number of pages.                                                           | `number`                                                               | `100`   |
 | `totalItems` | `total-items` | How many items there are in total, across every page. `null` means the count has not arrived yet. Together with `pageSize`, used by the component to calculate the total number of pages. | `number`                                                               | `null`  |
 
 
 ## Events
 
-| Event      | Description                                                                                                                                                                                                                                                                    | Type                         |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------- |
-| `goToPage` | Asks for a page to be loaded, and says which items it holds.  Emitted when the user picks a page, and when the component has to move them off one that no longer exists. A page you set yourself is not emitted back at you, and neither is a click on the page already shown. | `CustomEvent<GoToPageEvent>` |
+| Event      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Type                         |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| `goToPage` | Asks for a page to be loaded, and says which items it holds.  The component does not move itself. Clicking a page emits this and nothing else; set `page` to the number it carries and the control follows. Not setting it is how you decline — useful when the load fails, or when there is unsaved work to confirm first.  The one exception is a page that does not exist, which it cannot show whatever you say. There it shows the nearest page that does and emits so you can catch up. | `CustomEvent<GoToPageEvent>` |
 
 
 ## Dependencies
