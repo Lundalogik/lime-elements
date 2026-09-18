@@ -124,7 +124,14 @@ export function buildEditorPlugins(options: EditorPluginsOptions): Plugin[] {
         ...exampleSetup({
             schema: schema,
             menuBar: false,
-            mapKeys: { 'Shift-Ctrl-8': false, 'Shift-Ctrl-9': false },
+            mapKeys: {
+                'Shift-Ctrl-8': false,
+                'Shift-Ctrl-9': false,
+                // exampleSetup's raw setBlockType binding for code blocks
+                // bypasses the code block command's applicability rules;
+                // Mod-Shift-C in the factory keymap covers the shortcut.
+                'Shift-Ctrl-\\': false,
+            },
         }),
         keymap(menuCommandFactory.buildKeymap()),
         createTriggerPlugin(triggerCharacters, contentConverter),
