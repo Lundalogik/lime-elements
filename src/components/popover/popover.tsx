@@ -228,19 +228,11 @@ export class Popover {
     };
 
     private setTriggerAttributes = (element: HTMLElement) => {
-        const attributes = {
-            'aria-haspopup': true,
-            'aria-expanded': this.open,
-            'aria-controls': this.portalId,
-            role: 'button',
-        };
-
-        for (const [key, value] of Object.entries(attributes)) {
-            if (value) {
-                element.setAttribute(key, String(value));
-            } else {
-                element.removeAttribute(key);
-            }
-        }
+        element.setAttribute('aria-haspopup', 'true');
+        // `aria-expanded` is needed even when the popover is closed. Without
+        // it, the trigger reads as an ordinary button to a screen reader.
+        element.setAttribute('aria-expanded', String(this.open));
+        element.setAttribute('aria-controls', this.portalId);
+        element.setAttribute('role', 'button');
     };
 }

@@ -38,6 +38,29 @@ describe('limel-popover', () => {
         expect((root as any).open).toBe(false);
     });
 
+    it('updates `aria-expanded` on the trigger when it opens and closes', async () => {
+        const { root, waitForChanges, setProps } = await render(
+            <limel-popover>
+                <button slot="trigger" id="trigger">
+                    Trigger
+                </button>
+                <button id="inside">Inside</button>
+            </limel-popover>
+        );
+        await waitForChanges();
+
+        const trigger = root.querySelector('button[slot="trigger"]');
+        expect(trigger.getAttribute('aria-expanded')).toBe('false');
+
+        await setProps({ open: true });
+        await waitForChanges();
+        expect(trigger.getAttribute('aria-expanded')).toBe('true');
+
+        await setProps({ open: false });
+        await waitForChanges();
+        expect(trigger.getAttribute('aria-expanded')).toBe('false');
+    });
+
     describe('the document click listener', () => {
         const clickOutside = () => {
             const outside = document.createElement('button');
