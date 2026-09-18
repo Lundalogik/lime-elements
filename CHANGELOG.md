@@ -1,3 +1,14 @@
+## [40.4.2](https://github.com/Lundalogik/lime-elements/compare/v40.4.1...v40.4.2) (2026-09-18)
+
+### Bug Fixes
+
+
+* **menu:** leave a trigger the consumer disabled alone ([561181d](https://github.com/Lundalogik/lime-elements/commit/561181d0913e05858ec76401570d4702d45aca47))
+* **menu:** say the trigger is collapsed, not just that it is open ([99639b4](https://github.com/Lundalogik/lime-elements/commit/99639b4cc5b2ae79ddd9f5ad4e7b853b721f9a20))
+* **menu:** stop arming the document listener on a detached menu ([c4ca168](https://github.com/Lundalogik/lime-elements/commit/c4ca168fadefaccb23204c57aa8ade1970f60693))
+* **popover:** say the trigger is collapsed, not just that it is open ([cb74fdd](https://github.com/Lundalogik/lime-elements/commit/cb74fddc9fb9623e72644d2cbe703ad963ab4bc2))
+* **popover:** take the document listeners down again ([72f6348](https://github.com/Lundalogik/lime-elements/commit/72f6348874c5b77f87d421dbd8cb207a39ce5842))
+
 ## [40.4.1](https://github.com/Lundalogik/lime-elements/compare/v40.4.0...v40.4.1) (2026-09-18)
 
 ### Bug Fixes
