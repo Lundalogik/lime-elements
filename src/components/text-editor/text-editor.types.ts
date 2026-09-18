@@ -253,3 +253,28 @@ export interface EditorMetadata {
      */
     links: EditorLink[];
 }
+
+/**
+ * A named block-level area of the editor's document that keeps its identity
+ * through a parse and serialize round trip. Declared by the consumer, so the
+ * editor never has to know what a region means.
+ *
+ * A region is written in the value as `<div data-lime-region="name">`, which
+ * keeps the value ordinary HTML for anything that renders it later.
+ *
+ * @alpha
+ */
+export interface EditorRegion {
+    /**
+     * The region's name, as it appears in the marker attribute. Content
+     * marked with a name that was not declared is treated as ordinary
+     * content.
+     */
+    name: string;
+
+    /**
+     * Optional label drawn above the region inside the editor, so a writer
+     * can tell it apart from the body. Never part of the value.
+     */
+    label?: string;
+}

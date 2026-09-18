@@ -413,6 +413,15 @@ describe('markdownToHTML', () => {
             );
         });
 
+        it("should not strip a built-in tag's own attributes when the whitelist names it", async () => {
+            const result = await sanitizeHTML(
+                '<img src="https://example.com/a.png" alt="a">',
+                [{ tagName: 'img', attributes: ['data-tracked'] }]
+            );
+
+            expect(result).toContain('src="https://example.com/a.png"');
+        });
+
         it('should strip non-whitelisted custom elements', async () => {
             const result = await markdownToHTML(
                 '<unknown-element>Content</unknown-element>'
