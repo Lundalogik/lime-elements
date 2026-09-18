@@ -598,6 +598,40 @@ describe('limel-menu', () => {
             );
         });
 
+        it('does not run hotkeys on a menu that was removed and then opened again', async () => {
+            const hotkeyItems = [{ text: 'Copy', hotkey: 'alt+c' }];
+
+            const { root, waitForChanges, setProps } = await render(
+                <limel-menu items={hotkeyItems}>
+                    <button slot="trigger">Menu</button>
+                </limel-menu>
+            );
+            await waitForChanges();
+
+            const handler = vi.fn();
+            root.addEventListener('select', (e: Event) =>
+                handler((e as CustomEvent).detail)
+            );
+
+            root.remove();
+            await waitForChanges();
+
+            await setProps({ open: true });
+            await waitForChanges();
+
+            document.dispatchEvent(
+                new KeyboardEvent('keydown', {
+                    key: 'c',
+                    code: 'KeyC',
+                    altKey: true,
+                    bubbles: true,
+                })
+            );
+            await waitForChanges();
+
+            expect(handler).not.toHaveBeenCalled();
+        });
+
         it('does not trigger hotkey on repeated (held-down) key events', async () => {
             const hotkeyItems = [{ text: 'Action', hotkey: 'k' }];
 
