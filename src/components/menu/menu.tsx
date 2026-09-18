@@ -850,20 +850,20 @@ export class Menu {
     };
 
     private readonly setTriggerAttributes = (element: HTMLElement) => {
-        const attributes = {
-            'aria-haspopup': true,
-            'aria-expanded': this.open,
-            'aria-controls': this.portalId,
-            disabled: this.disabled,
-            role: 'button',
-        };
+        element.setAttribute('aria-haspopup', 'true');
+        element.setAttribute('aria-controls', this.portalId);
+        element.setAttribute('role', 'button');
 
-        for (const [key, value] of Object.entries(attributes)) {
-            if (value) {
-                element.setAttribute(key, String(value));
-            } else {
-                element.removeAttribute(key);
-            }
+        // `aria-expanded` is needed even when the menu is closed. Without
+        // it, the trigger reads as an ordinary button to a screen reader.
+        element.setAttribute('aria-expanded', String(this.open));
+
+        // `disabled` is the one that has to go when it is false, because the
+        // presence of the attribute is what disables the element.
+        if (this.disabled) {
+            element.setAttribute('disabled', 'true');
+        } else {
+            element.removeAttribute('disabled');
         }
     };
 
