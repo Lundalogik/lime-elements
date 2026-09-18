@@ -1,3 +1,10 @@
+## [40.4.1](https://github.com/Lundalogik/lime-elements/compare/v40.4.0...v40.4.1) (2026-09-18)
+
+### Bug Fixes
+
+
+* **table:** defer sorting when the table is not yet created ([010f064](https://github.com/Lundalogik/lime-elements/commit/010f064da8bef84c8528beb60eb265b6c50f59b2))
+
 ## [40.4.0](https://github.com/Lundalogik/lime-elements/compare/v40.3.0...v40.4.0) (2026-09-18)
 
 ### Features
