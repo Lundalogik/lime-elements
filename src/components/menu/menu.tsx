@@ -289,41 +289,43 @@ export class Menu {
     }
 
     public connectedCallback() {
-        if (this.open) {
-            document.addEventListener(
-                'keydown',
-                this.handleDocumentKeyDown,
-                true
-            );
-        }
+        this.setupGlobalHandlers();
     }
 
     public disconnectedCallback() {
+        this.teardownGlobalHandlers();
+    }
+
+    @Watch('open')
+    protected openWatcher(newValue: boolean) {
+        this.setupGlobalHandlers();
+
+        if (newValue) {
+            this.setFocus();
+        } else {
+            this.clearSearch();
+        }
+    }
+
+    private setupGlobalHandlers() {
+        // Stencil keeps firing `@Watch` on a detached instance, so `open` can
+        // still flip after `disconnectedCallback` has run. Listening then
+        // would leave a listener behind that no disconnect takes down.
+        if (!this.open || !this.host.isConnected) {
+            this.teardownGlobalHandlers();
+
+            return;
+        }
+
+        document.addEventListener('keydown', this.handleDocumentKeyDown, true);
+    }
+
+    private teardownGlobalHandlers() {
         document.removeEventListener(
             'keydown',
             this.handleDocumentKeyDown,
             true
         );
-    }
-
-    @Watch('open')
-    protected openWatcher(newValue: boolean) {
-        const opened = newValue;
-        if (opened) {
-            document.addEventListener(
-                'keydown',
-                this.handleDocumentKeyDown,
-                true
-            );
-            this.setFocus();
-        } else {
-            document.removeEventListener(
-                'keydown',
-                this.handleDocumentKeyDown,
-                true
-            );
-            this.clearSearch();
-        }
     }
 
     private readonly handleDocumentKeyDown = (event: KeyboardEvent) => {
