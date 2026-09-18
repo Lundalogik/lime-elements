@@ -133,6 +133,62 @@ describe('limel-menu', () => {
 
                 expect((root as any).open).toBeFalsy();
             });
+
+            it('removes the `disabled` attribute it added when the menu is enabled again', async () => {
+                const { root, waitForChanges, setProps } = await render(
+                    <limel-menu items={items} disabled={true}>
+                        <button slot="trigger">My Label</button>
+                    </limel-menu>
+                );
+                await waitForChanges();
+
+                const defaultButton = root.querySelector(
+                    'button[slot="trigger"]'
+                );
+                expect(defaultButton.hasAttribute('disabled')).toBe(true);
+
+                await setProps({ disabled: false });
+                await waitForChanges();
+
+                expect(defaultButton.hasAttribute('disabled')).toBe(false);
+            });
+
+            it('leaves a `disabled` attribute the trigger set itself alone', async () => {
+                const { root, waitForChanges } = await render(
+                    <limel-menu items={items}>
+                        <button slot="trigger" disabled={true}>
+                            My Label
+                        </button>
+                    </limel-menu>
+                );
+                await waitForChanges();
+
+                const defaultButton = root.querySelector(
+                    'button[slot="trigger"]'
+                );
+                expect(defaultButton.hasAttribute('disabled')).toBe(true);
+            });
+
+            it('still leaves it alone when the menu was disabled too, and is enabled again', async () => {
+                const { root, waitForChanges, setProps } = await render(
+                    <limel-menu items={items} disabled={true}>
+                        <button slot="trigger" disabled={true}>
+                            My Label
+                        </button>
+                    </limel-menu>
+                );
+                await waitForChanges();
+
+                const defaultButton = root.querySelector(
+                    'button[slot="trigger"]'
+                );
+                expect(defaultButton.hasAttribute('disabled')).toBe(true);
+
+                await setProps({ disabled: false });
+                await waitForChanges();
+
+                expect(defaultButton.hasAttribute('disabled')).toBe(true);
+            });
         });
     });
 
