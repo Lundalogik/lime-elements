@@ -221,6 +221,7 @@ export class Menu {
     private selectedMenuItem?: MenuItem;
     private shouldRestoreFocusOnClose = false;
     private readonly normalizedHotkeyCache = new Map<string, string | null>();
+    private readonly triggersDisabledByMenu = new WeakSet<HTMLElement>();
     private cachedSubMenuSource: MenuItem | null = null;
     private cachedSubMenuItems: Array<MenuItem | ListSeparator> | null = null;
 
@@ -858,12 +859,29 @@ export class Menu {
         // it, the trigger reads as an ordinary button to a screen reader.
         element.setAttribute('aria-expanded', String(this.open));
 
-        // `disabled` is the one that has to go when it is false, because the
-        // presence of the attribute is what disables the element.
+        this.setTriggerDisabled(element);
+    };
+
+    /**
+     * `disabled` has to be removed rather than set to `false`, because the
+     * presence of the attribute is what disables the element. Only the one the
+     * menu put there may go: a consumer can disable their own trigger, and
+     * stripping that attribute would re-enable it on every render.
+     * @param element - the slotted trigger element
+     */
+    private readonly setTriggerDisabled = (element: HTMLElement) => {
         if (this.disabled) {
-            element.setAttribute('disabled', 'true');
-        } else {
+            if (!element.hasAttribute('disabled')) {
+                element.setAttribute('disabled', 'true');
+                this.triggersDisabledByMenu.add(element);
+            }
+
+            return;
+        }
+
+        if (this.triggersDisabledByMenu.has(element)) {
             element.removeAttribute('disabled');
+            this.triggersDisabledByMenu.delete(element);
         }
     };
 
