@@ -1,3 +1,11 @@
+## [40.4.0](https://github.com/Lundalogik/lime-elements/compare/v40.3.0...v40.4.0) (2026-09-18)
+
+### Features
+
+
+* **form:** let a select option carry an icon and a secondary text ([3bedb02](https://github.com/Lundalogik/lime-elements/commit/3bedb0246a7ef6e4c05152610f995b6e470fca00))
+* **select:** use the menu dropdown on mobile for options a native one cannot show ([144f82c](https://github.com/Lundalogik/lime-elements/commit/144f82c543604c4fd84fc052124486932223f944))
+
 ## [40.3.0](https://github.com/Lundalogik/lime-elements/compare/v40.2.5...v40.3.0) (2026-09-17)
 
 ### Features
