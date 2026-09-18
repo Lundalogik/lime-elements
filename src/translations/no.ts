@@ -126,4 +126,13 @@ Du kan fortsette å blokkere bilder (e-posten kan se ufullstendig ut), eller las
         'Vi kan ikke vise det valgte bildet i denne nettleseren. Vennligst velg en annen bildefil.',
     'picker.results-matching': 'Resultater som matcher "{ query }"',
     'picker.no-matching-results': 'Ingen resultater som matcher "{ query }"',
+    'pagination.label': 'Paginering',
+    'pagination.previous-page': 'Forrige side',
+    'pagination.next-page': 'Neste side',
+    'pagination.go-to-previous-page': 'Gå til forrige side',
+    'pagination.go-to-next-page': 'Gå til neste side',
+    'pagination.page': 'Side { page }',
+    'pagination.go-to-page': 'Gå til side { page }',
+    'pagination.current-page': 'Side { page }, gjeldende side',
+    'pagination.items-range': '{ from }–{ to } (av { total })',
 };

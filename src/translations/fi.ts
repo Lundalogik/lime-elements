@@ -126,4 +126,13 @@ Voit pitää kuvat estettyinä (sähköposti voi näyttää puutteelliselta) tai
         'Emme voi näyttää valittua kuvaa tässä selaimessa. Valitse jokin toinen kuvatiedosto.',
     'picker.results-matching': 'Hakua "{ query }" vastaavat tulokset',
     'picker.no-matching-results': 'Ei hakua "{ query }" vastaavia tuloksia',
+    'pagination.label': 'Sivutus',
+    'pagination.previous-page': 'Edellinen sivu',
+    'pagination.next-page': 'Seuraava sivu',
+    'pagination.go-to-previous-page': 'Siirry edelliselle sivulle',
+    'pagination.go-to-next-page': 'Siirry seuraavalle sivulle',
+    'pagination.page': 'Sivu { page }',
+    'pagination.go-to-page': 'Siirry sivulle { page }',
+    'pagination.current-page': 'Sivu { page }, nykyinen sivu',
+    'pagination.items-range': '{ from }–{ to } (yhteensä { total })',
 };

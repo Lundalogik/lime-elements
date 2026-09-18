@@ -131,4 +131,13 @@ Vous pouvez laisser les images bloquées (l'e-mail peut sembler incomplet) ou le
     'picker.results-matching': 'Résultats correspondant à « { query } »',
     'picker.no-matching-results':
         'Aucun résultat correspondant à « { query } »',
+    'pagination.label': 'Pagination',
+    'pagination.previous-page': 'Page précédente',
+    'pagination.next-page': 'Page suivante',
+    'pagination.go-to-previous-page': 'Aller à la page précédente',
+    'pagination.go-to-next-page': 'Aller à la page suivante',
+    'pagination.page': 'Page { page }',
+    'pagination.go-to-page': 'Aller à la page { page }',
+    'pagination.current-page': 'Page { page }, page actuelle',
+    'pagination.items-range': '{ from }–{ to } (sur { total })',
 };

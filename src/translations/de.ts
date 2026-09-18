@@ -128,4 +128,13 @@ Sie können Bilder weiterhin blockieren (die E-Mail kann unvollständig aussehen
         'Wir können das ausgewählte Bild in diesem Browser nicht anzeigen. Bitte wählen Sie eine andere Bilddatei.',
     'picker.results-matching': 'Ergebnisse passend zu "{ query }"',
     'picker.no-matching-results': 'Keine Ergebnisse passend zu "{ query }"',
+    'pagination.label': 'Seitennummerierung',
+    'pagination.previous-page': 'Vorherige Seite',
+    'pagination.next-page': 'Nächste Seite',
+    'pagination.go-to-previous-page': 'Zur vorherigen Seite wechseln',
+    'pagination.go-to-next-page': 'Zur nächsten Seite wechseln',
+    'pagination.page': 'Seite { page }',
+    'pagination.go-to-page': 'Zu Seite { page } wechseln',
+    'pagination.current-page': 'Seite { page }, aktuelle Seite',
+    'pagination.items-range': '{ from }–{ to } (von { total })',
 };
