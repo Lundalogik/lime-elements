@@ -49,6 +49,27 @@ describe('limel-menu', () => {
             const defaultButton = root.querySelector('button[slot="trigger"]');
             expect(defaultButton.getAttribute('aria-haspopup')).toBe('true');
             expect(defaultButton.getAttribute('role')).toEqual('button');
+            expect(defaultButton.getAttribute('aria-expanded')).toBe('false');
+        });
+
+        it('updates `aria-expanded` on the trigger when the menu opens and closes', async () => {
+            const { root, waitForChanges, setProps } = await render(
+                <limel-menu items={items}>
+                    <button slot="trigger">My Label</button>
+                </limel-menu>
+            );
+            await waitForChanges();
+
+            const defaultButton = root.querySelector('button[slot="trigger"]');
+            expect(defaultButton.getAttribute('aria-expanded')).toBe('false');
+
+            await setProps({ open: true });
+            await waitForChanges();
+            expect(defaultButton.getAttribute('aria-expanded')).toBe('true');
+
+            await setProps({ open: false });
+            await waitForChanges();
+            expect(defaultButton.getAttribute('aria-expanded')).toBe('false');
         });
 
         it('opens the menu when clicked', async () => {
