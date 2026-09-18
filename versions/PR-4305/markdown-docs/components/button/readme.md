@@ -95,6 +95,7 @@ primary and secondary actions, see our
  - [limel-example-menu-sub-menu-lazy-loading-infinite](../menu/examples)
  - [limel-example-menu-sub-menus](../menu/examples)
  - [limel-example-menu-surface-width](../menu/examples)
+ - [limel-example-pagination-total-items](../pagination/examples)
  - [limel-example-popover-basic](../popover/examples)
  - [limel-example-popover-styling](../popover/examples)
  - [limel-example-portal-basic](../portal/examples)
@@ -191,6 +192,7 @@ graph TD;
   limel-example-menu-sub-menu-lazy-loading-infinite --> limel-button
   limel-example-menu-sub-menus --> limel-button
   limel-example-menu-surface-width --> limel-button
+  limel-example-pagination-total-items --> limel-button
   limel-example-popover-basic --> limel-button
   limel-example-popover-styling --> limel-button
   limel-example-portal-basic --> limel-button
