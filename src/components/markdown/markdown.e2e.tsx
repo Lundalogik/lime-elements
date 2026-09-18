@@ -72,4 +72,66 @@ describe('limel-markdown', () => {
             );
         });
     });
+    describe('toMarkdown', () => {
+        const TAG = 'test-markdown-representable';
+        const WHITELIST = [{ tagName: TAG, attributes: ['label'] }];
+
+        beforeAll(() => {
+            if (customElements.get(TAG)) {
+                return;
+            }
+
+            customElements.define(
+                TAG,
+                class extends HTMLElement {
+                    public toMarkdown(): Promise<string> {
+                        const label = this.getAttribute('label');
+
+                        return Promise.resolve(
+                            `[${label}](https://example.com/${label})`
+                        );
+                    }
+                }
+            );
+        });
+
+        it('replaces rendered whitelisted elements with what they stand for', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-markdown
+                    value={`Hi <${TAG} label="Pelle"></${TAG}>, **welcome**`}
+                    whitelist={WHITELIST}
+                ></limel-markdown>
+            );
+            await waitForChanges();
+
+            await expect(root.toMarkdown()).resolves.toBe(
+                'Hi [Pelle](https://example.com/Pelle), **welcome**'
+            );
+        });
+
+        it('describes a new value once it has rendered', async () => {
+            const { root, waitForChanges, setProps } = await render(
+                <limel-markdown
+                    value={`<${TAG} label="Pelle"></${TAG}>`}
+                    whitelist={WHITELIST}
+                ></limel-markdown>
+            );
+            await waitForChanges();
+
+            await setProps({ value: `<${TAG} label="Kalle"></${TAG}>` });
+
+            await expect(root.toMarkdown()).resolves.toBe(
+                '[Kalle](https://example.com/Kalle)'
+            );
+        });
+
+        it('returns plain markdown untouched', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-markdown value="**Hello** world"></limel-markdown>
+            );
+            await waitForChanges();
+
+            await expect(root.toMarkdown()).resolves.toBe('**Hello** world');
+        });
+    });
 });

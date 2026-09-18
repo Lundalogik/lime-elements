@@ -1,9 +1,10 @@
-import { Component, h, Prop, Watch, Host } from '@stencil/core';
+import { Component, h, Method, Prop, Watch, Host } from '@stencil/core';
 import { markdownToHTML } from './markdown-parser';
 import { globalConfig } from '../../global/config';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 import { ImageIntersectionObserver } from './image-intersection-observer';
 import { hydrateCustomElements } from './hydrate-custom-elements';
+import { substituteCustomElements } from './substitute-custom-elements';
 import { morphChildren } from './morph-dom';
 import { DEFAULT_MARKDOWN_WHITELIST } from './default-whitelist';
 import { adaptColorContrast } from '../../util/adapt-color-contrast';
@@ -113,7 +114,37 @@ export class Markdown {
     public adaptColorContrast = false;
 
     @Watch('value')
-    public async textChanged() {
+    public textChanged(): Promise<void> {
+        this.rendering = this.renderMarkdown();
+
+        return this.rendering;
+    }
+
+    /**
+     * The markdown this component stands for, for a target that cannot
+     * render it — the clipboard, say.
+     *
+     * `value` is what the component was given. This is the same content
+     * with every whitelisted custom element replaced by what its rendered
+     * instance reports through `MarkdownRepresentable.toMarkdown()`. An
+     * element that does not implement the interface contributes its text
+     * when written with a closing tag, and nothing otherwise.
+     *
+     * @returns the markdown, once the current value has rendered
+     * @alpha
+     */
+    @Method()
+    public async toMarkdown(): Promise<string> {
+        await this.rendering;
+
+        return substituteCustomElements(
+            this.value,
+            this.rootElement,
+            this.cachedCombinedWhitelist ?? []
+        );
+    }
+
+    private async renderMarkdown() {
         try {
             this.cleanupImageIntersectionObserver();
 
@@ -176,6 +207,7 @@ export class Markdown {
     private imageIntersectionObserver: ImageIntersectionObserver | null = null;
     private cachedConsumerWhitelist?: CustomElementDefinition[];
     private cachedCombinedWhitelist?: CustomElementDefinition[];
+    private rendering: Promise<void> = Promise.resolve();
 
     public async componentDidLoad() {
         this.textChanged();
