@@ -1,0 +1,1 @@
+import{f as t}from"./_baseGetTag-Cd9mW1Ny.js";function e(t){return function(e){return t(e)}}var o="object"==typeof exports&&exports&&!exports.nodeType&&exports,r=o&&"object"==typeof module&&module&&!module.nodeType&&module,u=r&&r.exports===o&&t.process,n=function(){try{return r&&r.require&&r.require("util").types||u&&u.binding&&u.binding("util")}catch(t){}}();export{e as b,n}
