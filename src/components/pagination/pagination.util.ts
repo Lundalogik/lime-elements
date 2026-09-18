@@ -3,9 +3,7 @@
  *
  * A `gap` stands for one or more pages that the window does not have room for.
  */
-export type PageSlot =
-    | { kind: 'page'; page: number }
-    | { kind: 'gap'; from: number; to: number };
+export type PageSlot = { kind: 'page'; page: number } | { kind: 'gap' };
 
 /**
  * How many positions are rendered at once, counting both page numbers and gap
@@ -138,13 +136,6 @@ function withGaps(pages: number[]): PageSlot[] {
             return [{ kind: 'page', page: page - 1 } as PageSlot, slot];
         }
 
-        return [
-            {
-                kind: 'gap',
-                from: pages[index - 1] + 1,
-                to: page - 1,
-            } as PageSlot,
-            slot,
-        ];
+        return [{ kind: 'gap' } as PageSlot, slot];
     });
 }

@@ -103,9 +103,14 @@ describe('getPageSlots', () => {
         it('marks a gap wherever the rendered pages are not consecutive', () => {
             const slots = getPageSlots(50, 248);
 
-            expect(gaps(slots)).toEqual([
-                { kind: 'gap', from: 2, to: 48 },
-                { kind: 'gap', from: 52, to: 247 },
+            expect(slots.map((slot) => slot.kind)).toEqual([
+                'page',
+                'gap',
+                'page',
+                'page',
+                'page',
+                'gap',
+                'page',
             ]);
         });
 
@@ -115,7 +120,7 @@ describe('getPageSlots', () => {
             const slots = getPageSlots(5, 8);
 
             expect(pageNumbers(slots)).toEqual([1, 4, 5, 6, 7, 8]);
-            expect(gaps(slots)).toEqual([{ kind: 'gap', from: 2, to: 3 }]);
+            expect(gaps(slots)).toHaveLength(1);
         });
 
         it('spends no extra slot when it does so', () => {
@@ -127,7 +132,7 @@ describe('getPageSlots', () => {
         it('renders the gap in the position the skipped pages occupy', () => {
             const slots = getPageSlots(1, 248);
 
-            expect(slots.at(-2)).toEqual({ kind: 'gap', from: 6, to: 247 });
+            expect(slots.at(-2)).toEqual({ kind: 'gap' });
             expect(slots.at(-1)).toEqual({ kind: 'page', page: 248 });
         });
     });
