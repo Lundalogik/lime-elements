@@ -21,7 +21,8 @@ const NARROWED = 12;
  * With many pages, page 1 and the last page are always there, so both ends of
  * the list are one click away. That is why there are no separate first and
  * last buttons: the numbers already do that job, and they tell you where they
- * take you. The pages that do not fit are replaced by a `···`.
+ * take you. The pages that do not fit are replaced by a `···`, which is a
+ * button: it opens a field for going straight to any page in the set.
  *
  * In this example, you can try narrowing the results and watch the control
  * shrink from 492 pages to one, without moving or disappearing.

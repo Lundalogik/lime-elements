@@ -135,6 +135,7 @@ Voit pitää kuvat estettyinä (sähköposti voi näyttää puutteelliselta) tai
     'pagination.go-to-page': 'Siirry sivulle { page }',
     'pagination.current-page': 'Sivu { page }, nykyinen sivu',
     'pagination.items-range': '{ from }–{ to } (yhteensä { total })',
+    'pagination.jump-to-a-page': 'Siirry tietylle sivulle',
     'pagination.page-number': 'Sivunumero',
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Siirry',

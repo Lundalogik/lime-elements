@@ -3,17 +3,40 @@ import { vi } from 'vitest';
 import { GoToPageEvent } from './pagination.types';
 
 describe('limel-pagination', () => {
+    let rendered: { unmount: () => void } | undefined;
+
+    // Left mounted, a component holds on to whatever it registered on the
+    // document. An open popover keeps a capturing click listener there that
+    // stops propagation, so the next test's click never reaches its trigger.
+    afterEach(() => {
+        rendered?.unmount();
+        rendered = undefined;
+
+        // A portal moves its content into a container on the page and only
+        // takes it down when it is disconnected, which unmounting does not
+        // reach here. Left behind, the next test would find this one's
+        // popover instead of its own.
+        for (const container of document.querySelectorAll(
+            '.limel-portal--container'
+        )) {
+            container.remove();
+        }
+    });
+
     async function setup(props: Record<string, any> = {}) {
         // The handler is bound before the component loads, because the
         // component can emit while loading — when the page it was given does
         // not exist. A listener added after `render` would miss that.
         const pages: GoToPageEvent[] = [];
-        const { root, waitForChanges } = await render(
+        const result = await render(
             <limel-pagination
                 {...props}
                 onGoToPage={(event: CustomEvent) => pages.push(event.detail)}
             ></limel-pagination>
         );
+        rendered = result;
+
+        const { root, waitForChanges } = result;
         await waitForChanges();
 
         return { root, waitForChanges, pages };
@@ -31,7 +54,12 @@ describe('limel-pagination', () => {
         root.shadowRoot?.querySelector('.live-region')?.textContent;
     const nav = (root: Root): HTMLElement =>
         root.shadowRoot?.querySelector('nav');
-
+    const gap = (root: Root, index = 0): HTMLButtonElement =>
+        root.shadowRoot?.querySelectorAll<HTMLButtonElement>('.gap')[index];
+    const openPopover = (root: Root): HTMLLimelPopoverElement =>
+        [...(root.shadowRoot?.querySelectorAll('limel-popover') ?? [])].find(
+            (popover: HTMLLimelPopoverElement) => popover.open
+        ) as HTMLLimelPopoverElement;
     describe('the event', () => {
         it('carries everything a fetch needs', async () => {
             const { root, pages } = await setup({
@@ -772,6 +800,44 @@ describe('limel-pagination', () => {
             await waitForChanges();
 
             expect(warn).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    // What the popover does with the field it holds is covered in
+    // `pagination.e2e.tsx`, where a real browser gives it a real portal, and
+    // what a typed value asks for is covered in `pagination.util.spec.ts`.
+    describe('jumping to a page', () => {
+        const SET = { page: 50, pageSize: 20, totalItems: 9840 };
+
+        it('offers the gaps as something to press', async () => {
+            const { root } = await setup(SET);
+
+            expect(gap(root, 0).tagName).toBe('BUTTON');
+            expect(gap(root, 1).getAttribute('aria-label')).toBe(
+                'Jump to a page'
+            );
+        });
+
+        it('opens a field when a gap is pressed', async () => {
+            const { root, waitForChanges } = await setup(SET);
+
+            gap(root, 0).click();
+            await waitForChanges();
+
+            expect(openPopover(root)).toBeDefined();
+        });
+
+        it('stays shut while a page is loading', async () => {
+            const { root, waitForChanges } = await setup({
+                ...SET,
+                loading: true,
+            });
+
+            gap(root, 0).click();
+            await waitForChanges();
+
+            expect(openPopover(root)).toBeUndefined();
+            expect(gap(root, 0).getAttribute('aria-disabled')).toBe('true');
         });
     });
 });

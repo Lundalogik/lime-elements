@@ -138,6 +138,7 @@ Je kunt afbeeldingen geblokkeerd houden (de e-mail kan er onvolledig uitzien) of
     'pagination.go-to-page': 'Ga naar pagina { page }',
     'pagination.current-page': 'Pagina { page }, huidige pagina',
     'pagination.items-range': '{ from }–{ to } (van { total })',
+    'pagination.jump-to-a-page': 'Naar een pagina springen',
     'pagination.page-number': 'Paginanummer',
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Ga',
