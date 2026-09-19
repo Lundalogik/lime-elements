@@ -3,6 +3,7 @@ import {
     h,
     Prop,
     Element,
+    State,
     Watch,
     EventEmitter,
     Event,
@@ -38,6 +39,7 @@ import { TableSelection } from './table-selection';
 import { _mapLayout, Layout } from './layout';
 import { areRowsEqual } from './utils';
 import { Languages } from '../date-picker/date.types';
+import { GoToPageEvent } from '../pagination/pagination.types';
 import translate from '../../global/translations';
 
 const FIRST_PAGE = 1;
@@ -256,6 +258,15 @@ export class Table {
     @Element()
     private host: HTMLLimelTableElement;
 
+    /**
+     * The page Tabulator is showing, which is what the pagination is drawn
+     * from. Tabulator holds the page, not the `page` prop: a click reaches
+     * the control again only once Tabulator has moved, so the control never
+     * points at a page the table is not showing.
+     */
+    @State()
+    private currentPage: number = FIRST_PAGE;
+
     private currentLoad: { page: number; sorters: ColumnSorter[] };
 
     private tabulator: Tabulator;
@@ -290,6 +301,7 @@ export class Table {
     }
 
     public componentWillLoad() {
+        this.currentPage = this.page;
         this.warnOnConflictingMovableAndSortable();
         this.initRowDragManager();
         this.initTableSelection();
@@ -336,6 +348,8 @@ export class Table {
     @Watch('page')
     protected pageChanged() {
         if (!this.tabulator) {
+            this.currentPage = this.page;
+
             return;
         }
 
@@ -343,7 +357,7 @@ export class Table {
             return;
         }
 
-        this.tabulator.setPage(this.page);
+        this.goToPage(this.page);
     }
 
     @Watch('activeRow')
@@ -903,6 +917,11 @@ export class Table {
             paginationMode: this.isRemoteMode() ? 'remote' : 'local',
             paginationSize: this.pageSize,
             paginationInitialPage: this.page,
+
+            // Tabulator keeps paging the rows, but builds its own controls
+            // into a node that is never added to the document, so they are
+            // never seen. `limel-pagination` is what the user works with.
+            paginationElement: document.createElement('div'),
         };
     }
 
@@ -987,12 +1006,41 @@ export class Table {
     }
 
     private handlePageLoaded(page: number): void {
+        // Above the early return: in remote mode the table publishes the page
+        // from `requestData` instead, but the pagination still has to follow.
+        this.currentPage = page;
+
         if (this.isRemoteMode()) {
             return;
         }
 
         this.changePage.emit(page);
     }
+
+    /**
+     * Ask Tabulator for a page.
+     *
+     * `setPage` rejects a page outside `1..max` in local mode, which a
+     * consumer can arrange by setting `totalRows` higher than the rows it
+     * hands over. Nothing follows a refused page — `pageLoaded` never fires,
+     * so the control stays where it was — but the rejection still has to be
+     * caught.
+     *
+     * @param page - the page to show, 1-based
+     */
+    private goToPage(page: number): void {
+        this.tabulator?.setPage(page).catch(() => undefined);
+    }
+
+    private readonly handleGoToPage = (event: CustomEvent<GoToPageEvent>) => {
+        // `goToPage` bubbles and composes, so without this it reaches our own
+        // consumers retargeted as `limel-table`'s own event — one they can
+        // receive but cannot bind to. `changePage` stays the table's one
+        // page-change event.
+        event.stopPropagation();
+
+        this.goToPage(event.detail.page);
+    };
 
     private handleRenderComplete(): void {
         if (this.tabulator && this.shouldSort) {
@@ -1222,8 +1270,25 @@ export class Table {
                     {this.renderEmptyMessage()}
                     {this.renderSelectAll()}
                     <div id="tabulator-table" />
+                    {this.renderPagination()}
                 </div>
             </Host>
+        );
+    }
+
+    private renderPagination() {
+        if (!this.pageSize) {
+            return;
+        }
+
+        return (
+            <limel-pagination
+                page={this.currentPage}
+                pageSize={this.pageSize}
+                totalItems={this.rowCount}
+                language={this.language}
+                onGoToPage={this.handleGoToPage}
+            />
         );
     }
 
