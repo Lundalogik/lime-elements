@@ -161,6 +161,81 @@ describe('limel-table remote mode options', () => {
     });
 });
 
+describe('limel-table row and page counts', () => {
+    let component: Table;
+
+    beforeEach(() => {
+        component = new Table();
+        (component as any).pageSize = 10;
+        (component as any).data = Array.from({ length: 25 }, (_, i) => ({
+            id: i,
+        }));
+        (component as any).tabulator = { setMaxPage: vi.fn() };
+    });
+
+    it('counts the rows it was given when no total is set', () => {
+        expect((component as any).rowCount).toBe(25);
+        expect((component as any).calculatePageCount()).toBe(3);
+    });
+
+    it('takes an explicit zero as an empty set, not a missing count', () => {
+        (component as any).totalRows = 0;
+
+        expect((component as any).rowCount).toBe(0);
+        expect((component as any).calculatePageCount()).toBe(0);
+    });
+
+    it('counts the total it was given rather than the rows it holds', () => {
+        (component as any).totalRows = 100;
+
+        expect((component as any).rowCount).toBe(100);
+        expect((component as any).calculatePageCount()).toBe(10);
+    });
+
+    it('has no page count while the total is on its way', () => {
+        (component as any).totalRows = null;
+
+        expect((component as any).rowCount).toBeNull();
+        expect((component as any).calculatePageCount()).toBeNull();
+    });
+
+    it('leaves the max page alone while the total is on its way', () => {
+        (component as any).totalRows = null;
+
+        (component as any).updateMaxPage();
+
+        expect((component as any).tabulator.setMaxPage).not.toHaveBeenCalled();
+    });
+
+    it('keeps the max page in step with the total', () => {
+        (component as any).totalRows = 100;
+
+        (component as any).updateMaxPage();
+
+        expect((component as any).tabulator.setMaxPage).toHaveBeenCalledWith(
+            10
+        );
+    });
+
+    it('reports pagination while the total is on its way', () => {
+        (component as any).totalRows = null;
+
+        expect((component as any).hasPagination).toBe(true);
+    });
+
+    it('reports no pagination for a set that fits on one page', () => {
+        (component as any).totalRows = 10;
+
+        expect((component as any).hasPagination).toBe(false);
+    });
+
+    it('reports no pagination when there is no page size', () => {
+        (component as any).pageSize = undefined;
+
+        expect((component as any).hasPagination).toBe(false);
+    });
+});
+
 describe('limel-table remote paginator refresh', () => {
     let component: Table;
     let scrollContainer: HTMLElement;

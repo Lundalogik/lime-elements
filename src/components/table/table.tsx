@@ -107,10 +107,14 @@ export class Table {
     public pageSize: number;
 
     /**
-     * The number of total rows available for the data
+     * The number of total rows available for the data.
+     *
+     * Leave it unset to page through the rows in `data`. Set it to `null`
+     * while a count is on its way, and the pagination holds its shape until
+     * the count arrives instead of collapsing to a single page and back.
      */
     @Prop({ reflect: true })
-    public totalRows: number;
+    public totalRows: number | null;
 
     /**
      * The initial sorted columns
@@ -727,7 +731,13 @@ export class Table {
     }
 
     private updateMaxPage() {
-        this.tabulator?.setMaxPage(this.calculatePageCount());
+        const pageCount = this.calculatePageCount();
+
+        if (pageCount === null) {
+            return;
+        }
+
+        this.tabulator?.setMaxPage(pageCount);
     }
 
     /**
@@ -923,9 +933,14 @@ export class Table {
         // When pagination is enabled, Tabulator's pagination module unwraps
         // the `{last_page, data}` format. Without pagination, Tabulator
         // expects a plain array directly.
+        //
+        // While the count is on its way there is no page count to send, so
+        // hand back the max Tabulator already has: a smaller one would move
+        // the user off a page that is about to be confirmed.
         const resolveExistingData = this.pageSize
             ? Promise.resolve({
-                  last_page: this.calculatePageCount(),
+                  last_page:
+                      this.calculatePageCount() ?? this.tabulator?.getPageMax(),
                   data: this.data,
               })
             : Promise.resolve(this.data);
@@ -1068,13 +1083,46 @@ export class Table {
         return this.activeRow === row.getData();
     }
 
-    private calculatePageCount(): number {
-        let total = this.totalRows;
-        if (!total) {
-            total = this.data.length;
+    /**
+     * How many rows there are in total, or `null` when the consumer says the
+     * count has not arrived yet.
+     *
+     * Unset means the table pages through the rows it was handed, so `data`
+     * holds the whole set. An explicit `0` is a count like any other: the set
+     * is empty.
+     */
+    private get rowCount(): number | null {
+        if (this.totalRows === undefined) {
+            return this.data.length;
         }
 
-        return Math.ceil(total / this.pageSize);
+        return this.totalRows;
+    }
+
+    /**
+     * How many pages the rows make up, or `null` while the count has not
+     * arrived. Unknown rather than guessed from the rows we happen to hold:
+     * guessing shrinks the set under a user who is on a later page.
+     */
+    private calculatePageCount(): number | null {
+        if (this.rowCount === null) {
+            return null;
+        }
+
+        return Math.ceil(this.rowCount / this.pageSize);
+    }
+
+    /**
+     * Whether the table has more than one page. A count that has not arrived
+     * counts as more than one, so the pagination is not taken away and put
+     * back while the count is in flight.
+     */
+    private get hasPagination(): boolean {
+        if (!this.pageSize) {
+            return false;
+        }
+
+        return this.rowCount === null || this.rowCount > this.pageSize;
     }
 
     /**
@@ -1151,15 +1199,13 @@ export class Table {
     };
 
     render() {
-        const totalRows = this.totalRows ?? this.data.length;
-
         return (
             <Host
                 class={{
                     'has-low-density': this.layout === 'lowDensity',
                     'has-pagination-on-top': this.paginationLocation === 'top',
                     'has-aggregation': this.hasAggregation(this.columns),
-                    'has-pagination': totalRows > this.pageSize,
+                    'has-pagination': this.hasPagination,
                     'has-selection': this.tableSelection?.hasSelection,
                 }}
             >
