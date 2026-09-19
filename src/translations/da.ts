@@ -136,4 +136,7 @@ Du kan fortsætte med at blokere billeder (e-mailen kan se ufuldstændig ud) ell
     'pagination.go-to-page': 'Gå til side { page }',
     'pagination.current-page': 'Side { page }, nuværende side',
     'pagination.items-range': '{ from }–{ to } (af { total })',
+    'pagination.page-number': 'Sidenummer',
+    'pagination.page-range': '{ first }–{ last }',
+    'pagination.go': 'Gå',
 };

@@ -708,6 +708,14 @@ export namespace Components {
         "pageSize": number;
         "totalItems": number | null;
     }
+    // @internal
+    export interface LimelPaginationJump {
+        "language": Languages;
+        "loading": boolean;
+        "open": boolean;
+        "page": number;
+        "pageCount": number;
+    }
     // (undocumented)
     export interface LimelPicker {
         "actionPosition": ActionPosition;
@@ -1544,6 +1552,10 @@ export namespace JSX {
         //
         // (undocumented)
         "limel-pagination": Omit<LimelPagination, keyof LimelPaginationAttributes> & { [K in keyof LimelPagination & keyof LimelPaginationAttributes]?: LimelPagination[K] } & { [K in keyof LimelPagination & keyof LimelPaginationAttributes as `attr:${K}`]?: LimelPaginationAttributes[K] } & { [K in keyof LimelPagination & keyof LimelPaginationAttributes as `prop:${K}`]?: LimelPagination[K] };
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-pagination-jump"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
+        // (undocumented)
+        "limel-pagination-jump": Omit<LimelPaginationJump, keyof LimelPaginationJumpAttributes> & { [K in keyof LimelPaginationJump & keyof LimelPaginationJumpAttributes]?: LimelPaginationJump[K] } & { [K in keyof LimelPaginationJump & keyof LimelPaginationJumpAttributes as `attr:${K}`]?: LimelPaginationJumpAttributes[K] } & { [K in keyof LimelPaginationJump & keyof LimelPaginationJumpAttributes as `prop:${K}`]?: LimelPaginationJump[K] };
         // (undocumented)
         "limel-picker": Omit<LimelPicker, keyof LimelPickerAttributes> & { [K in keyof LimelPicker & keyof LimelPickerAttributes]?: LimelPicker[K] } & { [K in keyof LimelPicker & keyof LimelPickerAttributes as `attr:${K}`]?: LimelPickerAttributes[K] } & { [K in keyof LimelPicker & keyof LimelPickerAttributes as `prop:${K}`]?: LimelPicker[K] };
         // (undocumented)
@@ -3114,6 +3126,30 @@ export namespace JSX {
         "totalItems": number | null;
     }
 
+    // @internal
+    export interface LimelPaginationJump {
+        "language"?: Languages;
+        "loading"?: boolean;
+        "onJump"?: (event: LimelPaginationJumpCustomEvent<number>) => void;
+        "open"?: boolean;
+        "page"?: number;
+        "pageCount"?: number;
+    }
+
+    // (undocumented)
+    export interface LimelPaginationJumpAttributes {
+        // (undocumented)
+        "language": Languages;
+        // (undocumented)
+        "loading": boolean;
+        // (undocumented)
+        "open": boolean;
+        // (undocumented)
+        "page": number;
+        // (undocumented)
+        "pageCount": number;
+    }
+
     // (undocumented)
     export interface LimelPicker {
         "actionPosition"?: ActionPosition;
@@ -4162,6 +4198,16 @@ export interface LimelPaginationCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelPaginationElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelPaginationJumpCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelPaginationJumpCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelPaginationJumpElement;
 }
 
 // Warning: (ae-missing-release-tag) "LimelPickerCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)

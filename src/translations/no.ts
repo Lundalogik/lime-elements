@@ -135,4 +135,7 @@ Du kan fortsette å blokkere bilder (e-posten kan se ufullstendig ut), eller las
     'pagination.go-to-page': 'Gå til side { page }',
     'pagination.current-page': 'Side { page }, gjeldende side',
     'pagination.items-range': '{ from }–{ to } (av { total })',
+    'pagination.page-number': 'Sidenummer',
+    'pagination.page-range': '{ first }–{ last }',
+    'pagination.go': 'Gå',
 };

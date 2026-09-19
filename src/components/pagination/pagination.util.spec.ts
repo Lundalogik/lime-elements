@@ -1,4 +1,9 @@
-import { getPageSlots, PageSlot, VISIBLE_SLOTS } from './pagination.util';
+import {
+    getPageSlots,
+    pageFromInput,
+    PageSlot,
+    VISIBLE_SLOTS,
+} from './pagination.util';
 
 const pageNumbers = (slots: PageSlot[]): number[] =>
     slots
@@ -135,5 +140,54 @@ describe('getPageSlots', () => {
             expect(slots.at(-2)).toEqual({ kind: 'gap' });
             expect(slots.at(-1)).toEqual({ kind: 'page', page: 248 });
         });
+    });
+});
+
+describe('pageFromInput', () => {
+    it.each([
+        ['the first page', '1', 1],
+        ['a page in the middle', '300', 300],
+        ['the last page', '492', 492],
+    ])('takes %s as it is', (_, typed, expected) => {
+        expect(pageFromInput(typed as string, 492)).toBe(expected);
+    });
+
+    it.each([
+        ['past the end', '9999', 492],
+        ['before the first page', '0', 1],
+        ['a negative page', '-3', 1],
+    ])(
+        'moves a page %s to the nearest one that exists',
+        (_, typed, expected) => {
+            // Refusing it would leave the user to work out the bound themselves,
+            // when the field says what it is.
+            expect(pageFromInput(typed as string, 492)).toBe(expected);
+        }
+    );
+
+    it.each([
+        ['nothing', ''],
+        ['a word', 'abc'],
+        ['a sign on its own', '-'],
+        ['a number too large to count with', '99999999999999999990'],
+    ])('asks for no page when given %s', (_, typed) => {
+        expect(pageFromInput(typed as string, 492)).toBeNull();
+    });
+
+    it('takes the whole page a decimal falls in', () => {
+        expect(pageFromInput('3.7', 492)).toBe(3);
+    });
+
+    it('has no upper bound to apply while the count is unknown', () => {
+        expect(pageFromInput('300', null)).toBe(300);
+    });
+
+    it.each([
+        ['before the first page', '0'],
+        ['a negative page', '-3'],
+    ])('still has a lower bound with no count, given %s', (_, typed) => {
+        // Not having an upper bound is no reason to forget that a set starts
+        // at page one.
+        expect(pageFromInput(typed as string, null)).toBe(1);
     });
 });
