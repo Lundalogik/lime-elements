@@ -11,6 +11,10 @@ A page number and a total tells users how much there is in the list that they ar
 looking at, and how far into it they have got; and hovering a page shows
 exactly which items it holds.
 
+Where there are more pages than fit, the ones left out are stood for by a
+`···`. That is a button: it opens a field for going straight to any page in
+the set, so no page is more than one move away however long the set is.
+
 ## Properties
 
 | Property     | Attribute     | Description                                                                                                                                                                               | Type                                                                   | Default |

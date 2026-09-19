@@ -15,13 +15,13 @@ a component brings its own.
 
 ## Properties
 
-| Property    | Attribute    | Description                                                             | Type                                                                   | Default |
-| ----------- | ------------ | ----------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------- |
-| `language`  | `language`   | The language used for the labels and for the way numbers are written.   | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`  |
-| `loading`   | `loading`    | Set while a page is being fetched, so that another cannot be asked for. | `boolean`                                                              | `false` |
-| `open`      | `open`       | Whether the field is being shown.                                       | `boolean`                                                              | `false` |
-| `page`      | `page`       | The page to start from, which is the one the user is on.                | `number`                                                               | `1`     |
-| `pageCount` | `page-count` | How many pages there are, which is as far as a jump can go.             | `number`                                                               | `1`     |
+| Property    | Attribute    | Description                                                                                                                        | Type                                                                   | Default |
+| ----------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------- |
+| `language`  | `language`   | The language used for the labels and for the way numbers are written.                                                              | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`  |
+| `loading`   | `loading`    | Set while a page is being fetched, so that another cannot be asked for.                                                            | `boolean`                                                              | `false` |
+| `open`      | `open`       | Whether the field is being shown.                                                                                                  | `boolean`                                                              | `false` |
+| `page`      | `page`       | The page to start from, which is the one the user is on.                                                                           | `number`                                                               | `1`     |
+| `pageCount` | `page-count` | How many pages there are, which is as far as a jump can go. `null` means the count has not arrived yet, and nothing caps the jump. | `number`                                                               | `1`     |
 
 
 ## Events
