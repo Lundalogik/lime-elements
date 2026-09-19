@@ -1,3 +1,10 @@
+## [40.5.0](https://github.com/Lundalogik/lime-elements/compare/v40.4.2...v40.5.0) (2026-09-19)
+
+### Features
+
+
+* **pagination:** let the ··· open a field for jumping to any page ([40f1929](https://github.com/Lundalogik/lime-elements/commit/40f1929e4d096f05365faa50d958408e7812b58b))
+
 ## [40.4.2](https://github.com/Lundalogik/lime-elements/compare/v40.4.1...v40.4.2) (2026-09-18)
 
 ### Bug Fixes
