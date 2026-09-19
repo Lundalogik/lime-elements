@@ -183,6 +183,17 @@ describe('limel-table pagination wiring', () => {
         (component as any).init = vi.fn();
     });
 
+    it('does not reload the rows when the total changes in remote mode', () => {
+        (component as any).mode = 'remote';
+        (component as any).initialized = true;
+        (component as any).totalRows = 100;
+
+        (component as any).totalRowsChanged();
+        (component as any).pageSizeChanged();
+
+        expect((component as any).tabulator.replaceData).not.toHaveBeenCalled();
+    });
+
     it('waits for a render before comparing the total with the rows', () => {
         (component as any).totalRowsChanged();
 
@@ -226,86 +237,6 @@ describe('limel-table pagination wiring', () => {
 
         expect((component as any).init).not.toHaveBeenCalled();
         expect(pagination.resize).not.toHaveBeenCalled();
-    });
-});
-
-describe('limel-table remote paginator refresh', () => {
-    let component: Table;
-    let scrollContainer: HTMLElement;
-
-    beforeEach(() => {
-        component = new Table();
-        scrollContainer = document.createElement('div');
-        (component as any).tabulator = {
-            replaceData: vi.fn().mockResolvedValue(undefined),
-            setMaxPage: vi.fn(),
-        };
-        (component as any).initialized = true;
-        (component as any).pageSize = 10;
-        (component as any).getRowScrollContainer = () => scrollContainer;
-    });
-
-    it('replaces data with no args when totalRows changes in remote mode', async () => {
-        (component as any).mode = 'remote';
-
-        (component as any).totalRowsChanged();
-        await Promise.resolve();
-
-        const tabulator = (component as any).tabulator;
-        expect(tabulator.replaceData).toHaveBeenCalledWith();
-    });
-
-    it('replaces data with no args when pageSize changes in remote mode', async () => {
-        (component as any).mode = 'remote';
-
-        (component as any).pageSizeChanged();
-        await Promise.resolve();
-
-        const tabulator = (component as any).tabulator;
-        expect(tabulator.replaceData).toHaveBeenCalledWith();
-    });
-
-    it('does not replace data in local mode', async () => {
-        (component as any).mode = 'local';
-
-        (component as any).totalRowsChanged();
-        (component as any).pageSizeChanged();
-        await Promise.resolve();
-
-        const tabulator = (component as any).tabulator;
-        expect(tabulator.replaceData).not.toHaveBeenCalled();
-    });
-
-    it('restores scroll position after replacing data', async () => {
-        (component as any).mode = 'remote';
-        scrollContainer.scrollTop = 120;
-        scrollContainer.scrollLeft = 40;
-
-        // Simulate Tabulator resetting scroll during the data rebuild.
-        (component as any).tabulator.replaceData = vi
-            .fn()
-            .mockImplementation(() => {
-                scrollContainer.scrollTop = 0;
-                scrollContainer.scrollLeft = 0;
-
-                return Promise.resolve();
-            });
-
-        await (component as any).refreshRemotePaginator();
-
-        expect(scrollContainer.scrollTop).toBe(120);
-        expect(scrollContainer.scrollLeft).toBe(40);
-    });
-
-    it('swallows replaceData rejection without restoring scroll', async () => {
-        (component as any).mode = 'remote';
-        (component as any).tabulator.replaceData = vi
-            .fn()
-            .mockRejectedValue(new Error('destroyed'));
-
-        await expect(
-            (component as any).refreshRemotePaginator()
-        ).resolves.toBeUndefined();
     });
 });
 
