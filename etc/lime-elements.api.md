@@ -918,7 +918,7 @@ export namespace Components {
         "selection": object[];
         "sortableColumns": boolean;
         "sorting": ColumnSorter[];
-        "totalRows": number;
+        "totalRows": number | null;
     }
     export interface LimelTabPanel {
         "tabs": Tab[];
@@ -3665,7 +3665,7 @@ export namespace JSX {
         "selection"?: object[];
         "sortableColumns"?: boolean;
         "sorting"?: ColumnSorter[];
-        "totalRows"?: number;
+        "totalRows"?: number | null;
     }
 
     // (undocumented)
@@ -3695,7 +3695,7 @@ export namespace JSX {
         // (undocumented)
         "sortableColumns": boolean;
         // (undocumented)
-        "totalRows": number;
+        "totalRows": number | null;
     }
 
     export interface LimelTabPanel {

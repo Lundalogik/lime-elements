@@ -161,83 +161,96 @@ describe('limel-table remote mode options', () => {
     });
 });
 
-describe('limel-table remote paginator refresh', () => {
+describe('limel-table row and page counts', () => {
     let component: Table;
-    let scrollContainer: HTMLElement;
 
     beforeEach(() => {
         component = new Table();
-        scrollContainer = document.createElement('div');
-        (component as any).tabulator = {
-            replaceData: vi.fn().mockResolvedValue(undefined),
-            setMaxPage: vi.fn(),
-        };
-        (component as any).initialized = true;
         (component as any).pageSize = 10;
-        (component as any).getRowScrollContainer = () => scrollContainer;
+        (component as any).data = Array.from({ length: 25 }, (_, i) => ({
+            id: i,
+        }));
+        (component as any).tabulator = {
+            setMaxPage: vi.fn(),
+            replaceData: vi.fn().mockResolvedValue(undefined),
+        };
     });
 
-    it('replaces data with no args when totalRows changes in remote mode', async () => {
+    it('counts the rows it was given when no total is set', () => {
+        expect((component as any).rowCount).toBe(25);
+        expect((component as any).calculatePageCount()).toBe(3);
+    });
+
+    it('takes an explicit zero as an empty set, not a missing count', () => {
+        (component as any).totalRows = 0;
+
+        expect((component as any).rowCount).toBe(0);
+        expect((component as any).calculatePageCount()).toBe(0);
+    });
+
+    it('counts the total it was given rather than the rows it holds', () => {
+        (component as any).totalRows = 100;
+
+        expect((component as any).rowCount).toBe(100);
+        expect((component as any).calculatePageCount()).toBe(10);
+    });
+
+    it('has no page count while the total is on its way', () => {
+        (component as any).totalRows = null;
+
+        expect((component as any).rowCount).toBeNull();
+        expect((component as any).calculatePageCount()).toBeNull();
+    });
+
+    it('leaves the max page alone while the total is on its way', () => {
+        (component as any).totalRows = null;
+
+        (component as any).updateMaxPage();
+
+        expect((component as any).tabulator.setMaxPage).not.toHaveBeenCalled();
+    });
+
+    it('keeps the max page in step with the total', () => {
+        (component as any).totalRows = 100;
+
+        (component as any).updateMaxPage();
+
+        expect((component as any).tabulator.setMaxPage).toHaveBeenCalledWith(
+            10
+        );
+    });
+
+    // The pagination draws its page count from `totalItems`, so a new total
+    // is a re-render. It used to be a whole `replaceData` round trip, because
+    // Tabulator's own buttons were built from the `last_page` its ajax
+    // callback returned and nothing short of a new request could move them.
+    it('does not reload the rows when the total changes in remote mode', () => {
         (component as any).mode = 'remote';
+        (component as any).initialized = true;
+        (component as any).totalRows = 100;
 
         (component as any).totalRowsChanged();
-        await Promise.resolve();
-
-        const tabulator = (component as any).tabulator;
-        expect(tabulator.replaceData).toHaveBeenCalledWith();
-    });
-
-    it('replaces data with no args when pageSize changes in remote mode', async () => {
-        (component as any).mode = 'remote';
-
         (component as any).pageSizeChanged();
-        await Promise.resolve();
 
-        const tabulator = (component as any).tabulator;
-        expect(tabulator.replaceData).toHaveBeenCalledWith();
+        expect((component as any).tabulator.replaceData).not.toHaveBeenCalled();
     });
 
-    it('does not replace data in local mode', async () => {
-        (component as any).mode = 'local';
+    it('reports pagination while the total is on its way', () => {
+        (component as any).totalRows = null;
 
-        (component as any).totalRowsChanged();
-        (component as any).pageSizeChanged();
-        await Promise.resolve();
-
-        const tabulator = (component as any).tabulator;
-        expect(tabulator.replaceData).not.toHaveBeenCalled();
+        expect((component as any).hasPagination).toBe(true);
     });
 
-    it('restores scroll position after replacing data', async () => {
-        (component as any).mode = 'remote';
-        scrollContainer.scrollTop = 120;
-        scrollContainer.scrollLeft = 40;
+    it('reports no pagination for a set that fits on one page', () => {
+        (component as any).totalRows = 10;
 
-        // Simulate Tabulator resetting scroll during the data rebuild.
-        (component as any).tabulator.replaceData = vi
-            .fn()
-            .mockImplementation(() => {
-                scrollContainer.scrollTop = 0;
-                scrollContainer.scrollLeft = 0;
-
-                return Promise.resolve();
-            });
-
-        await (component as any).refreshRemotePaginator();
-
-        expect(scrollContainer.scrollTop).toBe(120);
-        expect(scrollContainer.scrollLeft).toBe(40);
+        expect((component as any).hasPagination).toBe(false);
     });
 
-    it('swallows replaceData rejection without restoring scroll', async () => {
-        (component as any).mode = 'remote';
-        (component as any).tabulator.replaceData = vi
-            .fn()
-            .mockRejectedValue(new Error('destroyed'));
+    it('reports no pagination when there is no page size', () => {
+        (component as any).pageSize = undefined;
 
-        await expect(
-            (component as any).refreshRemotePaginator()
-        ).resolves.toBeUndefined();
+        expect((component as any).hasPagination).toBe(false);
     });
 });
 

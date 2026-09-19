@@ -3,6 +3,7 @@ import {
     h,
     Prop,
     Element,
+    State,
     Watch,
     EventEmitter,
     Event,
@@ -38,6 +39,7 @@ import { TableSelection } from './table-selection';
 import { _mapLayout, Layout } from './layout';
 import { areRowsEqual } from './utils';
 import { Languages } from '../date-picker/date.types';
+import { GoToPageEvent } from '../pagination/pagination.types';
 import translate from '../../global/translations';
 
 const FIRST_PAGE = 1;
@@ -107,10 +109,14 @@ export class Table {
     public pageSize: number;
 
     /**
-     * The number of total rows available for the data
+     * The number of total rows available for the data.
+     *
+     * Leave it unset to page through the rows in `data`. Set it to `null`
+     * while a count is on its way, and the pagination holds its shape until
+     * the count arrives instead of collapsing to a single page and back.
      */
     @Prop({ reflect: true })
-    public totalRows: number;
+    public totalRows: number | null;
 
     /**
      * The initial sorted columns
@@ -252,6 +258,15 @@ export class Table {
     @Element()
     private host: HTMLLimelTableElement;
 
+    /**
+     * The page Tabulator is showing, which is what the pagination is drawn
+     * from. Tabulator holds the page, not the `page` prop: a click reaches
+     * the control again only once Tabulator has moved, so the control never
+     * points at a page the table is not showing.
+     */
+    @State()
+    private currentPage: number = FIRST_PAGE;
+
     private currentLoad: { page: number; sorters: ColumnSorter[] };
 
     private tabulator: Tabulator;
@@ -286,6 +301,7 @@ export class Table {
     }
 
     public componentWillLoad() {
+        this.currentPage = this.page;
         this.warnOnConflictingMovableAndSortable();
         this.initRowDragManager();
         this.initTableSelection();
@@ -320,18 +336,18 @@ export class Table {
     @Watch('totalRows')
     protected totalRowsChanged() {
         this.updateMaxPage();
-        this.refreshRemotePaginator();
     }
 
     @Watch('pageSize')
     protected pageSizeChanged() {
         this.updateMaxPage();
-        this.refreshRemotePaginator();
     }
 
     @Watch('page')
     protected pageChanged() {
         if (!this.tabulator) {
+            this.currentPage = this.page;
+
             return;
         }
 
@@ -339,7 +355,7 @@ export class Table {
             return;
         }
 
-        this.tabulator.setPage(this.page);
+        this.goToPage(this.page);
     }
 
     @Watch('activeRow')
@@ -727,57 +743,13 @@ export class Table {
     }
 
     private updateMaxPage() {
-        this.tabulator?.setMaxPage(this.calculatePageCount());
-    }
+        const pageCount = this.calculatePageCount();
 
-    /**
-     * In remote mode the visible paginator buttons are rendered from the
-     * `last_page` value returned by `ajaxRequestFunc`, not from
-     * `setMaxPage`. When `totalRows` or `pageSize` change after init, force
-     * Tabulator to re-invoke the ajax callback so the paginator UI picks up
-     * the new page count.
-     *
-     * `replaceData` rather than `setData` because the latter calls
-     * `rowManager.resetScroll()` (visible as the table snapping to
-     * top-left every refresh). `replaceData` still wipes and rebuilds
-     * the row elements as a side-effect of going through the data
-     * pipeline (causing a brief flicker), so save and restore the scroll
-     * position explicitly: Tabulator's `renderInPosition` path doesn't
-     * fully preserve vertical scroll across the row rebuild.
-     */
-    private async refreshRemotePaginator() {
-        if (!this.isRemoteMode() || !this.tabulator || !this.initialized) {
+        if (pageCount === null) {
             return;
         }
 
-        const scrollContainer = this.getRowScrollContainer();
-        const scrollTop = scrollContainer?.scrollTop ?? 0;
-        const scrollLeft = scrollContainer?.scrollLeft ?? 0;
-
-        // `replaceData` resolves through `requestData`, which rejects when the
-        // component is destroyed, and Tabulator's ajax pipeline can reject too.
-        // Since the watchers call this without awaiting, swallow rejections here
-        // to avoid an unhandled promise rejection.
-        try {
-            await this.tabulator.replaceData();
-        } catch {
-            return;
-        }
-
-        if (scrollContainer) {
-            scrollContainer.scrollTop = scrollTop;
-            scrollContainer.scrollLeft = scrollLeft;
-        }
-    }
-
-    /**
-     * Tabulator's scrollable row container, inside `<limel-table>`'s
-     * shadow DOM. The user's vertical/horizontal scroll position within
-     * the table lives on this element's `scrollTop` / `scrollLeft`.
-     */
-    private getRowScrollContainer(): HTMLElement | null {
-        return (this.host.shadowRoot?.querySelector('.tabulator-tableholder') ??
-            null) as HTMLElement | null;
+        this.tabulator?.setMaxPage(pageCount);
     }
 
     private getOptions(): TabulatorOptions {
@@ -893,6 +865,11 @@ export class Table {
             paginationMode: this.isRemoteMode() ? 'remote' : 'local',
             paginationSize: this.pageSize,
             paginationInitialPage: this.page,
+
+            // Tabulator keeps paging the rows, but builds its own controls
+            // into a node that is never added to the document, so they are
+            // never seen. `limel-pagination` is what the user works with.
+            paginationElement: document.createElement('div'),
         };
     }
 
@@ -923,9 +900,14 @@ export class Table {
         // When pagination is enabled, Tabulator's pagination module unwraps
         // the `{last_page, data}` format. Without pagination, Tabulator
         // expects a plain array directly.
+        //
+        // While the count is on its way there is no page count to send, so
+        // hand back the max Tabulator already has: a smaller one would move
+        // the user off a page that is about to be confirmed.
         const resolveExistingData = this.pageSize
             ? Promise.resolve({
-                  last_page: this.calculatePageCount(),
+                  last_page:
+                      this.calculatePageCount() ?? this.tabulator?.getPageMax(),
                   data: this.data,
               })
             : Promise.resolve(this.data);
@@ -972,12 +954,41 @@ export class Table {
     }
 
     private handlePageLoaded(page: number): void {
+        // Above the early return: in remote mode the table publishes the page
+        // from `requestData` instead, but the pagination still has to follow.
+        this.currentPage = page;
+
         if (this.isRemoteMode()) {
             return;
         }
 
         this.changePage.emit(page);
     }
+
+    /**
+     * Ask Tabulator for a page.
+     *
+     * `setPage` rejects a page outside `1..max` in local mode, which a
+     * consumer can arrange by setting `totalRows` higher than the rows it
+     * hands over. Nothing follows a refused page — `pageLoaded` never fires,
+     * so the control stays where it was — but the rejection still has to be
+     * caught.
+     *
+     * @param page - the page to show, 1-based
+     */
+    private goToPage(page: number): void {
+        this.tabulator?.setPage(page).catch(() => undefined);
+    }
+
+    private readonly handleGoToPage = (event: CustomEvent<GoToPageEvent>) => {
+        // `goToPage` bubbles and composes, so without this it reaches our own
+        // consumers retargeted as `limel-table`'s own event — one they can
+        // receive but cannot bind to. `changePage` stays the table's one
+        // page-change event.
+        event.stopPropagation();
+
+        this.goToPage(event.detail.page);
+    };
 
     private handleRenderComplete(): void {
         if (this.tabulator && this.shouldSort) {
@@ -1068,13 +1079,46 @@ export class Table {
         return this.activeRow === row.getData();
     }
 
-    private calculatePageCount(): number {
-        let total = this.totalRows;
-        if (!total) {
-            total = this.data.length;
+    /**
+     * How many rows there are in total, or `null` when the consumer says the
+     * count has not arrived yet.
+     *
+     * Unset means the table pages through the rows it was handed, so `data`
+     * holds the whole set. An explicit `0` is a count like any other: the set
+     * is empty.
+     */
+    private get rowCount(): number | null {
+        if (this.totalRows === undefined) {
+            return this.data.length;
         }
 
-        return Math.ceil(total / this.pageSize);
+        return this.totalRows;
+    }
+
+    /**
+     * How many pages the rows make up, or `null` while the count has not
+     * arrived. Unknown rather than guessed from the rows we happen to hold:
+     * guessing shrinks the set under a user who is on a later page.
+     */
+    private calculatePageCount(): number | null {
+        if (this.rowCount === null) {
+            return null;
+        }
+
+        return Math.ceil(this.rowCount / this.pageSize);
+    }
+
+    /**
+     * Whether the table has more than one page. A count that has not arrived
+     * counts as more than one, so the pagination is not taken away and put
+     * back while the count is in flight.
+     */
+    private get hasPagination(): boolean {
+        if (!this.pageSize) {
+            return false;
+        }
+
+        return this.rowCount === null || this.rowCount > this.pageSize;
     }
 
     /**
@@ -1151,15 +1195,13 @@ export class Table {
     };
 
     render() {
-        const totalRows = this.totalRows ?? this.data.length;
-
         return (
             <Host
                 class={{
                     'has-low-density': this.layout === 'lowDensity',
                     'has-pagination-on-top': this.paginationLocation === 'top',
                     'has-aggregation': this.hasAggregation(this.columns),
-                    'has-pagination': totalRows > this.pageSize,
+                    'has-pagination': this.hasPagination,
                     'has-selection': this.tableSelection?.hasSelection,
                 }}
             >
@@ -1176,8 +1218,25 @@ export class Table {
                     {this.renderEmptyMessage()}
                     {this.renderSelectAll()}
                     <div id="tabulator-table" />
+                    {this.renderPagination()}
                 </div>
             </Host>
+        );
+    }
+
+    private renderPagination() {
+        if (!this.pageSize) {
+            return;
+        }
+
+        return (
+            <limel-pagination
+                page={this.currentPage}
+                pageSize={this.pageSize}
+                totalItems={this.rowCount}
+                language={this.language}
+                onGoToPage={this.handleGoToPage}
+            />
         );
     }
 
