@@ -19,6 +19,37 @@ const SIBLINGS = 1;
 const FIRST_PAGE = 1;
 
 /**
+ * The page a typed value asks for, or `null` when it asks for nothing.
+ *
+ * Out of range is not an error. The set has a first and a last page, both
+ * written under the field, and the nearer of them is what someone typing past
+ * the end meant.
+ *
+ * @param value - what was typed into the field
+ * @param pageCount - how many pages there are, or `null` when not yet known
+ * @returns a page within the set, or `null` when there is no number to use
+ */
+export function pageFromInput(
+    value: string,
+    pageCount: number | null
+): number | null {
+    const typed = Number.parseInt(value, 10);
+
+    if (!Number.isSafeInteger(typed)) {
+        return null;
+    }
+
+    const atLeastFirst = Math.max(typed, FIRST_PAGE);
+
+    // Each bound on its own. Folding them into one `Math.min` against
+    // `pageCount ?? typed` handed the typed value back as its own upper
+    // bound, so without a count `0` stayed `0` rather than becoming page 1.
+    return pageCount === null
+        ? atLeastFirst
+        : Math.min(atLeastFirst, pageCount);
+}
+
+/**
  * Build the list of positions to render for a given page count.
  *
  * The first and the last page are always included, so both ends of the set are

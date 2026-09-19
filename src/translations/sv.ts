@@ -135,4 +135,7 @@ Du kan fortsätta blockera bilder (e-posten kan se ofullständig ut) eller ladda
     'pagination.go-to-page': 'Gå till sida { page }',
     'pagination.current-page': 'Sida { page }, aktuell sida',
     'pagination.items-range': '{ from }–{ to } (av { total })',
+    'pagination.page-number': 'Sidnummer',
+    'pagination.page-range': '{ first }–{ last }',
+    'pagination.go': 'Gå',
 };

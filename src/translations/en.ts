@@ -134,4 +134,7 @@ You can keep images blocked (the email may look incomplete), or load them if you
     'pagination.go-to-page': 'Go to page { page }',
     'pagination.current-page': 'Page { page }, current page',
     'pagination.items-range': '{ from }–{ to } (of { total })',
+    'pagination.page-number': 'Page number',
+    'pagination.page-range': '{ first }–{ last }',
+    'pagination.go': 'Go',
 };
