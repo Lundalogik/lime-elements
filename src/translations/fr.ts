@@ -140,6 +140,7 @@ Vous pouvez laisser les images bloquées (l'e-mail peut sembler incomplet) ou le
     'pagination.go-to-page': 'Aller à la page { page }',
     'pagination.current-page': 'Page { page }, page actuelle',
     'pagination.items-range': '{ from }–{ to } (sur { total })',
+    'pagination.jump-to-a-page': 'Aller à une page',
     'pagination.page-number': 'Numéro de page',
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Aller',

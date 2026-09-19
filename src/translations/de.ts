@@ -137,6 +137,7 @@ Sie können Bilder weiterhin blockieren (die E-Mail kann unvollständig aussehen
     'pagination.go-to-page': 'Zu Seite { page } wechseln',
     'pagination.current-page': 'Seite { page }, aktuelle Seite',
     'pagination.items-range': '{ from }–{ to } (von { total })',
+    'pagination.jump-to-a-page': 'Zu einer Seite springen',
     'pagination.page-number': 'Seitenzahl',
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Los',

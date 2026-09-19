@@ -1,5 +1,6 @@
 import {
     Component,
+    Element,
     Event,
     EventEmitter,
     h,
@@ -36,6 +37,7 @@ interface View {
     pageCount: number | null;
     pageSize: number;
     totalItems: number | null;
+    slots: PageSlot[];
 }
 
 /**
@@ -45,6 +47,10 @@ interface View {
  * A page number and a total tells users how much there is in the list that they are
  * looking at, and how far into it they have got; and hovering a page shows
  * exactly which items it holds.
+ *
+ * Where there are more pages than fit, the ones left out are stood for by a
+ * `···`. That is a button: it opens a field for going straight to any page in
+ * the set, so no page is more than one move away however long the set is.
  *
  * @exampleComponent limel-example-pagination-basic
  * @exampleComponent limel-example-pagination-single-page
@@ -112,6 +118,9 @@ export class Pagination {
     @Event({ cancelable: false })
     public goToPage: EventEmitter<GoToPageEvent>;
 
+    @Element()
+    private host: HTMLLimelPaginationElement;
+
     /**
      * The count from the last time we had one, so the control can hold its
      * shape while a new one is on its way. The count rather than the page count
@@ -130,12 +139,16 @@ export class Pagination {
 
     private numberFormat?: Intl.NumberFormat;
 
+    /** The language `numberFormat` settled on, which may not be the prop. */
+    private settledLanguage: Languages = FALLBACK_LANGUAGE;
+
     /** Settled once per render, and the only thing `render` reads. */
     private view: View = {
         page: FIRST_PAGE,
         pageCount: null,
         pageSize: DEFAULT_PAGE_SIZE,
         totalItems: null,
+        slots: [],
     };
 
     /** The page the previous render showed. */
@@ -149,6 +162,19 @@ export class Pagination {
 
     /** A correction the consumer has not been told about. */
     private pendingCorrection?: number;
+
+    /** Which gap has its jump field open, by slot index. */
+    @State()
+    private openGap?: number;
+
+    /** The page a jump asked for, until the control arrives there. */
+    private awaitedJump?: number;
+
+    /** The page it was asked from, which is what still waiting looks like. */
+    private jumpedFrom?: number;
+
+    /** Where a commit left the keyboard, so we can tell it has not moved. */
+    private jumpFocus?: HTMLElement;
 
     /**
      * Settling here rather than in a `@Watch` keeps the result the same
@@ -178,7 +204,10 @@ export class Pagination {
             pageCount: pageCount,
             pageSize: pageSize,
             totalItems: totalItems,
+            slots: this.slotsFor(page, pageCount),
         };
+
+        this.closeJumpWithoutAGap();
 
         this.readOut(page);
         this.reconcile(page, usable);
@@ -200,6 +229,11 @@ export class Pagination {
     }
 
     public componentDidRender() {
+        this.reportCorrection();
+        this.followJumpedPage();
+    }
+
+    private reportCorrection() {
         const page = this.pendingCorrection;
 
         if (page === undefined) {
@@ -330,9 +364,23 @@ export class Pagination {
         this.numberFormat = undefined;
     }
 
+    /**
+     * A gap is remembered by the position it sits in, and the positions are
+     * worked out afresh every render. A page set from outside can put a page
+     * number where the open gap was, taking the popover down without it ever
+     * closing — and leaving it to spring open by itself the next time a gap
+     * lands there.
+     */
+    private closeJumpWithoutAGap() {
+        const open = this.openGap;
+
+        if (open !== undefined && this.view.slots[open]?.kind !== 'gap') {
+            this.openGap = undefined;
+        }
+    }
+
     public render() {
-        const { page, pageCount } = this.view;
-        const slots = this.slotsFor(page, pageCount);
+        const { slots } = this.view;
 
         return (
             <Host>
@@ -377,11 +425,7 @@ export class Pagination {
      */
     private readonly renderSlot = (slot: PageSlot, index: number) => {
         if (slot.kind === 'gap') {
-            return (
-                <span key={`gap-${index}`} class="gap" aria-hidden="true">
-                    ···
-                </span>
-            );
+            return this.renderGap(index);
         }
 
         const isCurrent = slot.page === this.currentPage;
@@ -403,6 +447,174 @@ export class Pagination {
             </button>
         );
     };
+
+    /**
+     * A gap is a button, not a marker: the pages it stands for are still
+     * reachable, and typing one is the only way to reach any of them in a
+     * single move.
+     *
+     * Both gaps open the same field, and it accepts any page in the set.
+     * Scoping each one to the pages it happens to hide would make two
+     * identical markers behave differently, with nothing on screen to say
+     * which is which.
+     *
+     * @param index - where the gap sits in the window
+     * @returns the rendered gap
+     */
+    private renderGap(index: number) {
+        const { pageCount } = this.view;
+
+        // A gap stands for pages that were left out, which cannot have
+        // happened before the count arrived: until then `slotsFor` renders
+        // the page the user is on and nothing else.
+        if (pageCount === null) {
+            return;
+        }
+
+        return (
+            <limel-popover
+                key={`gap-${index}`}
+                open={this.openGap === index}
+                openDirection="bottom"
+                onClose={this.closeJump}
+            >
+                <button
+                    slot="trigger"
+                    class="gap"
+                    id={this.slotId(index)}
+                    aria-label={this.translate('pagination.jump-to-a-page')}
+                    aria-disabled={this.loading ? 'true' : null}
+                    data-index={index}
+                    onClick={this.openJump}
+                >
+                    ···
+                </button>
+                <limel-pagination-jump
+                    open={this.openGap === index}
+                    page={this.view.page}
+                    pageCount={pageCount}
+                    loading={this.loading}
+                    language={this.languageForNumbers}
+                    onJump={this.handleJump}
+                />
+            </limel-popover>
+        );
+    }
+
+    private readonly openJump = (event: MouseEvent) => {
+        if (this.loading) {
+            return;
+        }
+
+        const { index } = (event.currentTarget as HTMLElement).dataset;
+
+        this.openGap = Number(index);
+    };
+
+    private readonly closeJump = () => {
+        this.openGap = undefined;
+    };
+
+    /**
+     * The control is told what to show, so a jump only asks. Focus goes back
+     * to the marker the field came out of, which is still on screen and will
+     * still be somewhere sensible if the consumer declines.
+     *
+     * @param event - the page the field asks for
+     */
+    private readonly handleJump = (event: CustomEvent<number>) => {
+        event.stopPropagation();
+
+        const page = event.detail;
+
+        this.focusGap(this.openGap);
+        this.openGap = undefined;
+
+        if (this.goTo(page)) {
+            this.awaitedJump = page;
+            this.jumpedFrom = this.view.page;
+        }
+    };
+
+    private focusGap(index: number) {
+        const gap = this.host.shadowRoot?.querySelector<HTMLElement>(
+            `[id="${this.slotId(index)}"]`
+        );
+
+        gap?.focus();
+        this.jumpFocus = gap;
+    }
+
+    /**
+     * Put the keyboard on the page a jump asked for, once the consumer has
+     * shown it.
+     *
+     * Committing tears down the popover the field was in, so between asking
+     * and arriving focus is on nothing. If the user has since put it somewhere
+     * of their own, arriving is no longer ours to report.
+     */
+    private followJumpedPage() {
+        if (this.awaitedJump === undefined) {
+            return;
+        }
+
+        if (!this.ownsFocus()) {
+            this.forgetJump();
+
+            return;
+        }
+
+        if (this.view.page !== this.awaitedJump) {
+            // Still showing the page the jump was asked from is what waiting
+            // looks like. Anywhere else is an answer too — the consumer chose
+            // to show something else — and a later arrival at the page we
+            // asked for is then no longer ours to follow.
+            if (this.view.page !== this.jumpedFrom) {
+                this.forgetJump();
+            }
+
+            return;
+        }
+
+        this.forgetJump();
+        this.focusCurrentPage();
+    }
+
+    private forgetJump() {
+        this.awaitedJump = undefined;
+        this.jumpedFrom = undefined;
+    }
+
+    /**
+     * Whether the keyboard is still where the jump put it. Somewhere else
+     * inside this component means the user moved it and it is theirs.
+     *
+     * The marker itself can also go: jumping from the left gap to page 3
+     * turns that slot into a page number, and the button holding focus is
+     * taken away with it. A browser answers that by focusing the body rather
+     * than nothing, so the marker having left the page is what we look for.
+     */
+    private ownsFocus(): boolean {
+        const inside = this.host.shadowRoot?.activeElement;
+
+        if (inside === this.jumpFocus) {
+            return true;
+        }
+
+        return (
+            !this.jumpFocus?.isConnected &&
+            document.activeElement === document.body
+        );
+    }
+
+    private focusCurrentPage() {
+        const button = this.host.shadowRoot?.querySelector<HTMLElement>(
+            '[aria-current="page"]'
+        );
+
+        button?.focus();
+        this.jumpFocus = undefined;
+    }
 
     /**
      * A spinner around the page the user is heading for, while it loads.
@@ -516,23 +728,27 @@ export class Pagination {
     };
 
     private readonly selectPage = (event: MouseEvent) => {
-        if (this.loading) {
-            return;
-        }
-
         const { page } = (event.currentTarget as HTMLElement).dataset;
         this.goTo(Number(page));
     };
 
     /**
+     * The one path every move the user asks for goes through, and so the one
+     * place that refuses while a page is still being fetched.
+     *
      * @param page - the page to ask for, 1-based
+     * @returns whether it was asked for
      */
-    private goTo(page: number) {
-        if (page === this.currentPage) {
-            return;
+    private goTo(page: number): boolean {
+        this.awaitedJump = undefined;
+
+        if (this.loading || page === this.currentPage) {
+            return false;
         }
 
         this.emitGoToPage(page, 'user');
+
+        return true;
     }
 
     /** The page on screen: the one asked for, within the range that exists. */
@@ -722,6 +938,18 @@ export class Pagination {
     }
 
     /**
+     * What the jump form is given, so that the one warning about a language
+     * this browser cannot write numbers in describes both of us. A tag it
+     * accepts but does not support, `zz`, resolves to the viewer's own locale
+     * rather than throwing, so asking the formatter is the only way to know.
+     */
+    private get languageForNumbers(): Languages {
+        this.numberFormat ??= this.createNumberFormat();
+
+        return this.settledLanguage;
+    }
+
+    /**
      * `Intl.NumberFormat` throws on a language it cannot parse, and this is
      * called from `render`, so an unusable one would leave the control drawing
      * nothing at all — the single state a user cannot click their way out of.
@@ -743,6 +971,7 @@ export class Pagination {
 
             if (getPrimarySubtag(resolved) === getPrimarySubtag(language)) {
                 this.warnedAbout.delete('language');
+                this.settledLanguage = language;
 
                 return format;
             }
@@ -760,6 +989,8 @@ export class Pagination {
         // Where the translations land for the same unusable value, rather than
         // the viewer's own locale — English labels beside system digit
         // grouping would read differently on every machine.
+        this.settledLanguage = FALLBACK_LANGUAGE;
+
         return new Intl.NumberFormat(FALLBACK_LANGUAGE);
     }
 

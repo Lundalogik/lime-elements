@@ -68,17 +68,24 @@ button {
     }
 }
 
-.gap {
+limel-popover {
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
+}
 
-    height: $control-size;
+.gap {
     width: $control-size;
+    padding: 0;
 
     // Not `--contrast-900`: the marker is text, and against the page
     // background that shade fails the contrast check.
     color: rgb(var(--contrast-1100));
+
+    // `!important` because the hover and active shadows are written with a
+    // more specific selector, and an open control should not stop looking
+    // open under the pointer.
+    &[aria-expanded='true'] {
+        box-shadow: var(--button-shadow-inset-pressed) !important;
+    }
 }
 
 .arrow {
