@@ -19,6 +19,7 @@
     min-height: 0;
     border-radius: var(--popover-border-radius, functions.pxToRem(12));
     box-shadow: var(--popover-box-shadow, var(--shadow-depth-16));
+    border: 1px solid rgb(var(--contrast-1200), 0.1);
 
     backdrop-filter: blur(functions.pxToRem(5));
     -webkit-backdrop-filter: blur(functions.pxToRem(5));
