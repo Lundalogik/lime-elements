@@ -4,41 +4,43 @@
 
 ## Overview
 
-Modes
+Variants
 
-The `mode` property represents what the AI agent is currently doing. The
-avatar's eyes, mouth, and any looping animations are driven by it. Modes
-smoothly transition from one to another, so consumers can switch them at
-any time as the agent's state changes.
+The `variant` property selects the avatar's visual style.
+- The `detailed` variant is the fully detailed orb with reflections and shines;
+- The `minimal` variant is a simplified design with a single gradient orb,
+  a stroked outline, and a soft halo.
+- The `solid` variant is a flat symbolic representation of the avatar (a
+  filled disc and outer ring in `currentColor`), useful for compact or
+  iconographic contexts.
+- The `outlined` variant shares the `solid` variant's shape but renders the
+  inner disc as a thin stroke too, so the avatar reads as two concentric
+  rings. Its facial features default to `currentColor` as well.
 
-Note that `mode` replaces the deprecated `isThinking` property. Setting
-`isThinking` no longer has any visual effect; use `mode="thinking"`
-instead.
+Eye and mouth shapes — and all the animations driving them (blink,
+look-around, etc.) — are shared across variants, so switching `variant`
+changes the body but not the personality.
 
-Use the variant button-group to confirm that every mode's animations run
-in every visual style — mode and variant are independent.
+:::tip
+Per Lime's branding guidelines, the `minimal` variant should be used in most cases.
+The `minimal` variant suits some scenarios where the surrounding context
+provides a realistic or detailed visual style, such as a 3D environment or
+a video in real world footage.
+The `solid` and `outlined` variants are ideal for compact spaces, such as
+an app's user interface.
+:::
 
 ## Dependencies
 
 ### Depends on
 
 - [limel-ai-avatar](..)
-- [limel-example-controls](../../../examples)
-- [limel-button-group](../../button-group)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-ai-avatar-mode --> limel-ai-avatar
-  limel-example-ai-avatar-mode --> limel-example-controls
-  limel-example-ai-avatar-mode --> limel-button-group
-  limel-button-group --> limel-icon
-  limel-button-group --> limel-tooltip
-  limel-button-group --> limel-badge
-  limel-tooltip --> limel-portal
-  limel-tooltip --> limel-tooltip-content
-  limel-tooltip-content --> limel-hotkey
-  style limel-example-ai-avatar-mode fill:#f9f,stroke:#333,stroke-width:4px
+  limel-example-ai-avatar-variant --> limel-ai-avatar
+  style limel-example-ai-avatar-variant fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
