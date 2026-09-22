@@ -1,3 +1,5 @@
+import type { ColumnSorter } from './table.types';
+
 // Mock Stencil decorators so we can import the raw component class
 vi.mock('@stencil/core', () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -380,5 +382,60 @@ describe('limel-table has-aggregation detection', () => {
                 { field: 'amount', aggregator: () => 0 },
             ])
         ).toBe(true);
+    });
+});
+
+describe('limel-table sorting updates', () => {
+    let component: Table;
+
+    const sorting = [
+        { column: { field: 'name' }, direction: 'ASC' },
+    ] as ColumnSorter[];
+
+    beforeEach(() => {
+        component = new Table();
+    });
+
+    it('defers the sort while the table is still being created', () => {
+        (component as any).tabulator = null;
+        (component as any).initialized = false;
+
+        (component as any).updateSorting(sorting, []);
+
+        expect((component as any).shouldSort).toBe(true);
+    });
+
+    it('defers the sort while the table is created but not yet initialized', () => {
+        (component as any).tabulator = { setSort: vi.fn() };
+        (component as any).initialized = false;
+
+        (component as any).updateSorting(sorting, []);
+
+        expect((component as any).tabulator.setSort).not.toHaveBeenCalled();
+        expect((component as any).shouldSort).toBe(true);
+    });
+
+    it('applies the deferred sort once the table has rendered', () => {
+        (component as any).tabulator = { setSort: vi.fn() };
+        (component as any).sorting = sorting;
+        (component as any).shouldSort = true;
+
+        (component as any).handleRenderComplete();
+
+        expect((component as any).tabulator.setSort).toHaveBeenCalledWith([
+            { column: 'name', dir: 'asc' },
+        ]);
+        expect((component as any).shouldSort).toBe(false);
+    });
+
+    it('sorts straight away once the table is ready', () => {
+        (component as any).tabulator = { setSort: vi.fn() };
+        (component as any).initialized = true;
+
+        (component as any).updateSorting(sorting, []);
+
+        expect((component as any).tabulator.setSort).toHaveBeenCalledWith([
+            { column: 'name', dir: 'asc' },
+        ]);
     });
 });

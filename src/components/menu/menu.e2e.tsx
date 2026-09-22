@@ -49,6 +49,27 @@ describe('limel-menu', () => {
             const defaultButton = root.querySelector('button[slot="trigger"]');
             expect(defaultButton.getAttribute('aria-haspopup')).toBe('true');
             expect(defaultButton.getAttribute('role')).toEqual('button');
+            expect(defaultButton.getAttribute('aria-expanded')).toBe('false');
+        });
+
+        it('updates `aria-expanded` on the trigger when the menu opens and closes', async () => {
+            const { root, waitForChanges, setProps } = await render(
+                <limel-menu items={items}>
+                    <button slot="trigger">My Label</button>
+                </limel-menu>
+            );
+            await waitForChanges();
+
+            const defaultButton = root.querySelector('button[slot="trigger"]');
+            expect(defaultButton.getAttribute('aria-expanded')).toBe('false');
+
+            await setProps({ open: true });
+            await waitForChanges();
+            expect(defaultButton.getAttribute('aria-expanded')).toBe('true');
+
+            await setProps({ open: false });
+            await waitForChanges();
+            expect(defaultButton.getAttribute('aria-expanded')).toBe('false');
         });
 
         it('opens the menu when clicked', async () => {
@@ -111,6 +132,62 @@ describe('limel-menu', () => {
                 await waitForChanges();
 
                 expect((root as any).open).toBeFalsy();
+            });
+
+            it('removes the `disabled` attribute it added when the menu is enabled again', async () => {
+                const { root, waitForChanges, setProps } = await render(
+                    <limel-menu items={items} disabled={true}>
+                        <button slot="trigger">My Label</button>
+                    </limel-menu>
+                );
+                await waitForChanges();
+
+                const defaultButton = root.querySelector(
+                    'button[slot="trigger"]'
+                );
+                expect(defaultButton.hasAttribute('disabled')).toBe(true);
+
+                await setProps({ disabled: false });
+                await waitForChanges();
+
+                expect(defaultButton.hasAttribute('disabled')).toBe(false);
+            });
+
+            it('leaves a `disabled` attribute the trigger set itself alone', async () => {
+                const { root, waitForChanges } = await render(
+                    <limel-menu items={items}>
+                        <button slot="trigger" disabled={true}>
+                            My Label
+                        </button>
+                    </limel-menu>
+                );
+                await waitForChanges();
+
+                const defaultButton = root.querySelector(
+                    'button[slot="trigger"]'
+                );
+                expect(defaultButton.hasAttribute('disabled')).toBe(true);
+            });
+
+            it('still leaves it alone when the menu was disabled too, and is enabled again', async () => {
+                const { root, waitForChanges, setProps } = await render(
+                    <limel-menu items={items} disabled={true}>
+                        <button slot="trigger" disabled={true}>
+                            My Label
+                        </button>
+                    </limel-menu>
+                );
+                await waitForChanges();
+
+                const defaultButton = root.querySelector(
+                    'button[slot="trigger"]'
+                );
+                expect(defaultButton.hasAttribute('disabled')).toBe(true);
+
+                await setProps({ disabled: false });
+                await waitForChanges();
+
+                expect(defaultButton.hasAttribute('disabled')).toBe(true);
             });
         });
     });
@@ -519,6 +596,40 @@ describe('limel-menu', () => {
             expect(handler).toHaveBeenCalledWith(
                 expect.objectContaining({ text: 'Root action' })
             );
+        });
+
+        it('does not run hotkeys on a menu that was removed and then opened again', async () => {
+            const hotkeyItems = [{ text: 'Copy', hotkey: 'alt+c' }];
+
+            const { root, waitForChanges, setProps } = await render(
+                <limel-menu items={hotkeyItems}>
+                    <button slot="trigger">Menu</button>
+                </limel-menu>
+            );
+            await waitForChanges();
+
+            const handler = vi.fn();
+            root.addEventListener('select', (e: Event) =>
+                handler((e as CustomEvent).detail)
+            );
+
+            root.remove();
+            await waitForChanges();
+
+            await setProps({ open: true });
+            await waitForChanges();
+
+            document.dispatchEvent(
+                new KeyboardEvent('keydown', {
+                    key: 'c',
+                    code: 'KeyC',
+                    altKey: true,
+                    bubbles: true,
+                })
+            );
+            await waitForChanges();
+
+            expect(handler).not.toHaveBeenCalled();
         });
 
         it('does not trigger hotkey on repeated (held-down) key events', async () => {

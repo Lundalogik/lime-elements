@@ -1,0 +1,17 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    padding: 0.75rem;
+
+    // Wide enough that the field and its label are not cramped, while the
+    // popover still reads as a small thing hanging off one marker.
+    min-width: 12rem;
+}
+
+// While closed there is nothing to draw, and the padding above would
+// otherwise hold the popover open around it.
+:host(:not([open])) {
+    display: none;
+}

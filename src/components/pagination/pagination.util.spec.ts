@@ -1,0 +1,193 @@
+import {
+    getPageSlots,
+    pageFromInput,
+    PageSlot,
+    VISIBLE_SLOTS,
+} from './pagination.util';
+
+const pageNumbers = (slots: PageSlot[]): number[] =>
+    slots
+        .filter((slot) => slot.kind === 'page')
+        .map((slot) => (slot as { page: number }).page);
+
+const gaps = (slots: PageSlot[]) => slots.filter((slot) => slot.kind === 'gap');
+
+describe('getPageSlots', () => {
+    describe('when every page fits in the window', () => {
+        it('renders them all, with no gaps', () => {
+            const slots = getPageSlots(2, 4);
+
+            expect(pageNumbers(slots)).toEqual([1, 2, 3, 4]);
+            expect(gaps(slots)).toHaveLength(0);
+        });
+
+        it('renders a single page on its own', () => {
+            expect(pageNumbers(getPageSlots(1, 1))).toEqual([1]);
+        });
+    });
+
+    describe('when there are more pages than the window holds', () => {
+        // The point of a constant slot count is that the control keeps its
+        // width. Counting page numbers alone would miss the case this exists
+        // to stop: a gap collapsing into the single page it would have hidden,
+        // which adds a number without adding a position.
+        it.each([1, 2, 3, 4, 5, 50, 245, 246, 247, 248])(
+            'renders the same number of slots on page %i',
+            (page) => {
+                expect(getPageSlots(page, 248)).toHaveLength(VISIBLE_SLOTS);
+            }
+        );
+
+        it.each([1, 2, 50, 247, 248])(
+            'renders the first and the last page on page %i',
+            (page) => {
+                const pages = pageNumbers(getPageSlots(page, 248));
+
+                expect(pages[0]).toBe(1);
+                expect(pages.at(-1)).toBe(248);
+            }
+        );
+
+        it('keeps the current page between its neighbours', () => {
+            expect(pageNumbers(getPageSlots(50, 248))).toEqual([
+                1, 49, 50, 51, 248,
+            ]);
+        });
+
+        it('fills the room forwards at the start of the set', () => {
+            expect(pageNumbers(getPageSlots(1, 248))).toEqual([
+                1, 2, 3, 4, 5, 248,
+            ]);
+        });
+
+        it('fills the room backwards at the end of the set', () => {
+            expect(pageNumbers(getPageSlots(248, 248))).toEqual([
+                1, 244, 245, 246, 247, 248,
+            ]);
+        });
+    });
+
+    describe('input it cannot use', () => {
+        // The magnitudes here are the interesting ones: past 2^53 a counting
+        // loop stops advancing, because the gap between one number and the
+        // next is greater than one. It ran forever, during render.
+        it.each([
+            ['no pages', 0],
+            ['a negative count', -1],
+            ['a fractional count', 2.5],
+            ['not a number', Number.NaN],
+            ['no end', Infinity],
+            ['more pages than a number can count', 2 ** 53],
+            ['one past the last countable page', Number.MAX_SAFE_INTEGER + 1],
+        ])('renders nothing for %s', (_, totalPages) => {
+            expect(getPageSlots(1, totalPages as number)).toEqual([]);
+        });
+
+        it('finishes on the last page of the largest countable set', () => {
+            const last = Number.MAX_SAFE_INTEGER;
+            const slots = getPageSlots(last, last);
+
+            expect(pageNumbers(slots).at(-1)).toBe(last);
+        });
+
+        it.each([
+            ['not a number', Number.NaN],
+            ['no end', Infinity],
+            ['no beginning', -Infinity],
+            ['far past the end', 3_000_000_000],
+            ['too large to count with', 2 ** 53],
+            ['before the first page', -5],
+        ])('pulls a current page that is %s into the set', (_, page) => {
+            const slots = getPageSlots(page as number, 5);
+
+            expect(pageNumbers(slots)).toEqual([1, 2, 3, 4, 5]);
+        });
+    });
+
+    describe('gaps', () => {
+        it('marks a gap wherever the rendered pages are not consecutive', () => {
+            const slots = getPageSlots(50, 248);
+
+            expect(slots.map((slot) => slot.kind)).toEqual([
+                'page',
+                'gap',
+                'page',
+                'page',
+                'page',
+                'gap',
+                'page',
+            ]);
+        });
+
+        it('renders the page itself rather than a gap hiding one page', () => {
+            // `1 … 4 5 6 … 8` would spend a marker to hide only page 7, which
+            // is no narrower than the page and takes it away for nothing.
+            const slots = getPageSlots(5, 8);
+
+            expect(pageNumbers(slots)).toEqual([1, 4, 5, 6, 7, 8]);
+            expect(gaps(slots)).toHaveLength(1);
+        });
+
+        it('spends no extra slot when it does so', () => {
+            // One page in place of one marker, so swapping them costs nothing.
+            expect(getPageSlots(5, 8)).toHaveLength(7);
+            expect(getPageSlots(50, 248)).toHaveLength(7);
+        });
+
+        it('renders the gap in the position the skipped pages occupy', () => {
+            const slots = getPageSlots(1, 248);
+
+            expect(slots.at(-2)).toEqual({ kind: 'gap' });
+            expect(slots.at(-1)).toEqual({ kind: 'page', page: 248 });
+        });
+    });
+});
+
+describe('pageFromInput', () => {
+    it.each([
+        ['the first page', '1', 1],
+        ['a page in the middle', '300', 300],
+        ['the last page', '492', 492],
+    ])('takes %s as it is', (_, typed, expected) => {
+        expect(pageFromInput(typed as string, 492)).toBe(expected);
+    });
+
+    it.each([
+        ['past the end', '9999', 492],
+        ['before the first page', '0', 1],
+        ['a negative page', '-3', 1],
+    ])(
+        'moves a page %s to the nearest one that exists',
+        (_, typed, expected) => {
+            // Refusing it would leave the user to work out the bound themselves,
+            // when the field says what it is.
+            expect(pageFromInput(typed as string, 492)).toBe(expected);
+        }
+    );
+
+    it.each([
+        ['nothing', ''],
+        ['a word', 'abc'],
+        ['a sign on its own', '-'],
+        ['a number too large to count with', '99999999999999999990'],
+    ])('asks for no page when given %s', (_, typed) => {
+        expect(pageFromInput(typed as string, 492)).toBeNull();
+    });
+
+    it('takes the whole page a decimal falls in', () => {
+        expect(pageFromInput('3.7', 492)).toBe(3);
+    });
+
+    it('has no upper bound to apply while the count is unknown', () => {
+        expect(pageFromInput('300', null)).toBe(300);
+    });
+
+    it.each([
+        ['before the first page', '0'],
+        ['a negative page', '-3'],
+    ])('still has a lower bound with no count, given %s', (_, typed) => {
+        // Not having an upper bound is no reason to forget that a set starts
+        // at page one.
+        expect(pageFromInput(typed as string, null)).toBe(1);
+    });
+});

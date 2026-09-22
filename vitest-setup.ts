@@ -128,6 +128,25 @@ if (!global.IntersectionObserver) {
     }
 }
 
+// mock-doc does not implement the `slot` IDL attribute, so an element written
+// as `slot="trigger"` reads back `undefined`. Components that route their
+// children by `element.slot` — `limel-popover-surface` keeps a trigger out of
+// its portal that way — then behave differently here than in a browser.
+{
+    const element = document.createElement('div');
+    if ((element as any).slot === undefined) {
+        Object.defineProperty(Object.getPrototypeOf(element), 'slot', {
+            configurable: true,
+            get(this: Element) {
+                return this.getAttribute('slot') ?? '';
+            },
+            set(this: Element, value: string) {
+                this.setAttribute('slot', value);
+            },
+        });
+    }
+}
+
 // Mock fetch for icon/asset requests (mock-doc has no real network)
 const EMPTY_SVG =
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"></svg>';

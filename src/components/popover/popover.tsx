@@ -105,8 +105,12 @@ export class Popover {
         }
     }
 
-    public componentWillLoad() {
+    public connectedCallback() {
         this.setupGlobalHandlers();
+    }
+
+    public disconnectedCallback() {
+        this.teardownGlobalHandlers();
     }
 
     public componentDidRender() {
@@ -119,15 +123,32 @@ export class Popover {
     }
 
     private setupGlobalHandlers() {
-        if (this.open) {
-            document.addEventListener('click', this.globalClickListener, {
-                capture: true,
-            });
-            document.addEventListener('keydown', this.handleGlobalKeyPress);
-        } else {
-            document.removeEventListener('click', this.globalClickListener);
-            document.removeEventListener('keydown', this.handleGlobalKeyPress);
+        // Stencil keeps firing `@Watch` on a detached instance, so `open` can
+        // still flip after `disconnectedCallback` has run. Listening then
+        // would swallow every click on the page, with no disconnect left to
+        // undo it.
+        if (!this.open || !this.host.isConnected) {
+            this.teardownGlobalHandlers();
+
+            return;
         }
+
+        document.addEventListener('click', this.globalClickListener, {
+            capture: true,
+        });
+        document.addEventListener('keydown', this.handleGlobalKeyPress);
+    }
+
+    /**
+     * The capture flag has to be given again: `removeEventListener` only
+     * matches a listener registered with the same one, so leaving it out here
+     * left the click listener on `document` for good.
+     */
+    private teardownGlobalHandlers() {
+        document.removeEventListener('click', this.globalClickListener, {
+            capture: true,
+        });
+        document.removeEventListener('keydown', this.handleGlobalKeyPress);
     }
 
     public render() {
@@ -207,19 +228,11 @@ export class Popover {
     };
 
     private setTriggerAttributes = (element: HTMLElement) => {
-        const attributes = {
-            'aria-haspopup': true,
-            'aria-expanded': this.open,
-            'aria-controls': this.portalId,
-            role: 'button',
-        };
-
-        for (const [key, value] of Object.entries(attributes)) {
-            if (value) {
-                element.setAttribute(key, String(value));
-            } else {
-                element.removeAttribute(key);
-            }
-        }
+        element.setAttribute('aria-haspopup', 'true');
+        // `aria-expanded` is needed even when the popover is closed. Without
+        // it, the trigger reads as an ordinary button to a screen reader.
+        element.setAttribute('aria-expanded', String(this.open));
+        element.setAttribute('aria-controls', this.portalId);
+        element.setAttribute('role', 'button');
     };
 }

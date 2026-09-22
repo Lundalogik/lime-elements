@@ -1,0 +1,120 @@
+@use '../../style/mixins';
+
+$control-size: 1.75rem;
+$arrow-nudge: 0.1rem;
+
+:host(limel-pagination) {
+    display: block;
+    box-sizing: border-box;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+button {
+    @include mixins.reset-button-user-agent-styles;
+    @include mixins.visualize-keyboard-focus;
+
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+    height: $control-size;
+    min-width: $control-size;
+    border-radius: $control-size;
+
+    padding: 0 0.5rem;
+
+    font-variant-numeric: tabular-nums;
+
+    // The page the user is already on is not an action, so it is deliberately
+    // left out: clicking it does nothing, and it should not invite the click by
+    // lifting under the pointer.
+    &:not([aria-disabled='true']):not([aria-current='page']) {
+        @include mixins.is-flat-clickable($color: rgb(var(--contrast-1100)));
+    }
+
+    // `aria-disabled` rather than the `disabled` attribute, so that an arrow at
+    // either end of the set stays focusable and can still be found by someone
+    // navigating with a screen reader.
+    // The current page is left at full strength. It was never clickable, so
+    // dimming it says nothing new, and while loading it is the one place worth
+    // reading: it holds both the spinner and the page being loaded.
+    &[aria-disabled='true']:not([aria-current='page']) {
+        opacity: 0.4;
+    }
+
+    &[aria-disabled='true'] {
+        cursor: default;
+    }
+
+    &[aria-current='page'] {
+        background-color: var(--limel-theme-surface-background-color);
+        box-shadow: var(--button-shadow-inset);
+    }
+
+    limel-spinner {
+        position: absolute;
+        pointer-events: none;
+    }
+}
+
+limel-popover {
+    display: inline-flex;
+}
+
+.gap {
+    width: $control-size;
+    padding: 0;
+
+    // Not `--contrast-900`: the marker is text, and against the page
+    // background that shade fails the contrast check.
+    color: rgb(var(--contrast-1100));
+
+    // `!important` because the hover and active shadows are written with a
+    // more specific selector, and an open control should not stop looking
+    // open under the pointer.
+    &[aria-expanded='true'] {
+        box-shadow: var(--button-shadow-inset-pressed) !important;
+    }
+}
+
+.arrow {
+    span {
+        display: block;
+
+        border-style: solid;
+        border-color: transparent;
+        border-width: 0.25rem 0 0.25rem 0.375rem;
+        border-left-color: currentColor;
+
+        transition: transform 0.2s ease;
+    }
+
+    &.previous span {
+        transform: rotateZ(180deg);
+    }
+
+    &:not([aria-disabled='true']):hover {
+        &.next span {
+            transform: translate3d($arrow-nudge, 0, 0);
+        }
+
+        &.previous span {
+            transform: translate3d(-$arrow-nudge, 0, 0) rotateZ(180deg);
+        }
+    }
+}
+
+.live-region {
+    @include mixins.visually-hidden;
+}

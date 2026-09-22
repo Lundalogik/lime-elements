@@ -700,6 +700,22 @@ export namespace Components {
         "readonly": boolean;
         "required": boolean;
     }
+    // @beta
+    export interface LimelPagination {
+        "language": Languages;
+        "loading": boolean;
+        "page": number;
+        "pageSize": number;
+        "totalItems": number | null;
+    }
+    // @internal
+    export interface LimelPaginationJump {
+        "language": Languages;
+        "loading": boolean;
+        "open": boolean;
+        "page": number;
+        "pageCount": number;
+    }
     // (undocumented)
     export interface LimelPicker {
         "actionPosition": ActionPosition;
@@ -1245,6 +1261,17 @@ export type FormSubKeySchema<TObj> = Partial<{
 // @public (undocumented)
 export const globalConfig: Config;
 
+// @beta
+export interface GoToPageEvent {
+    offset: number;
+    page: number;
+    pageSize: number;
+    reason: GoToPageReason;
+}
+
+// @beta
+export type GoToPageReason = 'user' | 'clamped';
+
 // @public
 export interface GridLayoutOptions extends FormLayoutOptions<FormLayoutType | `${FormLayoutType}`> {
     colSpan?: 1 | 2 | 3 | 4 | 5 | 'all';
@@ -1521,6 +1548,14 @@ export namespace JSX {
         //
         // (undocumented)
         "limel-notched-outline": Omit<LimelNotchedOutline, keyof LimelNotchedOutlineAttributes> & { [K in keyof LimelNotchedOutline & keyof LimelNotchedOutlineAttributes]?: LimelNotchedOutline[K] } & { [K in keyof LimelNotchedOutline & keyof LimelNotchedOutlineAttributes as `attr:${K}`]?: LimelNotchedOutlineAttributes[K] } & { [K in keyof LimelNotchedOutline & keyof LimelNotchedOutlineAttributes as `prop:${K}`]?: LimelNotchedOutline[K] };
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-pagination"" is marked as @public, but its signature references "JSX" which is marked as @beta
+        //
+        // (undocumented)
+        "limel-pagination": Omit<LimelPagination, keyof LimelPaginationAttributes> & { [K in keyof LimelPagination & keyof LimelPaginationAttributes]?: LimelPagination[K] } & { [K in keyof LimelPagination & keyof LimelPaginationAttributes as `attr:${K}`]?: LimelPaginationAttributes[K] } & { [K in keyof LimelPagination & keyof LimelPaginationAttributes as `prop:${K}`]?: LimelPagination[K] };
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-pagination-jump"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
+        // (undocumented)
+        "limel-pagination-jump": Omit<LimelPaginationJump, keyof LimelPaginationJumpAttributes> & { [K in keyof LimelPaginationJump & keyof LimelPaginationJumpAttributes]?: LimelPaginationJump[K] } & { [K in keyof LimelPaginationJump & keyof LimelPaginationJumpAttributes as `attr:${K}`]?: LimelPaginationJumpAttributes[K] } & { [K in keyof LimelPaginationJump & keyof LimelPaginationJumpAttributes as `prop:${K}`]?: LimelPaginationJump[K] };
         // (undocumented)
         "limel-picker": Omit<LimelPicker, keyof LimelPickerAttributes> & { [K in keyof LimelPicker & keyof LimelPickerAttributes]?: LimelPicker[K] } & { [K in keyof LimelPicker & keyof LimelPickerAttributes as `attr:${K}`]?: LimelPickerAttributes[K] } & { [K in keyof LimelPicker & keyof LimelPickerAttributes as `prop:${K}`]?: LimelPicker[K] };
         // (undocumented)
@@ -3067,6 +3102,54 @@ export namespace JSX {
         "required": boolean;
     }
 
+    // @beta
+    export interface LimelPagination {
+        "language"?: Languages;
+        "loading"?: boolean;
+        "onGoToPage"?: (event: LimelPaginationCustomEvent<GoToPageEvent>) => void;
+        "page"?: number;
+        "pageSize"?: number;
+        "totalItems"?: number | null;
+    }
+
+    // (undocumented)
+    export interface LimelPaginationAttributes {
+        // (undocumented)
+        "language": Languages;
+        // (undocumented)
+        "loading": boolean;
+        // (undocumented)
+        "page": number;
+        // (undocumented)
+        "pageSize": number;
+        // (undocumented)
+        "totalItems": number | null;
+    }
+
+    // @internal
+    export interface LimelPaginationJump {
+        "language"?: Languages;
+        "loading"?: boolean;
+        "onJump"?: (event: LimelPaginationJumpCustomEvent<number>) => void;
+        "open"?: boolean;
+        "page"?: number;
+        "pageCount"?: number;
+    }
+
+    // (undocumented)
+    export interface LimelPaginationJumpAttributes {
+        // (undocumented)
+        "language": Languages;
+        // (undocumented)
+        "loading": boolean;
+        // (undocumented)
+        "open": boolean;
+        // (undocumented)
+        "page": number;
+        // (undocumented)
+        "pageCount": number;
+    }
+
     // (undocumented)
     export interface LimelPicker {
         "actionPosition"?: ActionPosition;
@@ -4107,6 +4190,26 @@ export interface LimelMenuSurfaceCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelMenuSurfaceElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelPaginationCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelPaginationCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelPaginationElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelPaginationJumpCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelPaginationJumpCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelPaginationJumpElement;
+}
+
 // Warning: (ae-missing-release-tag) "LimelPickerCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -4288,6 +4391,7 @@ export interface LimeSchemaOptions {
     // (undocumented)
     help?: string | Partial<Help>;
     hidden?: boolean;
+    icon?: IconName | Icon;
     layout?: LimeLayoutOptions;
 }
 

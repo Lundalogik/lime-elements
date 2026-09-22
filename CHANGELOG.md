@@ -1,3 +1,43 @@
+## [40.5.0](https://github.com/Lundalogik/lime-elements/compare/v40.4.2...v40.5.0) (2026-09-19)
+
+### Features
+
+
+* **pagination:** let the ··· open a field for jumping to any page ([40f1929](https://github.com/Lundalogik/lime-elements/commit/40f1929e4d096f05365faa50d958408e7812b58b))
+
+## [40.4.2](https://github.com/Lundalogik/lime-elements/compare/v40.4.1...v40.4.2) (2026-09-18)
+
+### Bug Fixes
+
+
+* **menu:** leave a trigger the consumer disabled alone ([561181d](https://github.com/Lundalogik/lime-elements/commit/561181d0913e05858ec76401570d4702d45aca47))
+* **menu:** say the trigger is collapsed, not just that it is open ([99639b4](https://github.com/Lundalogik/lime-elements/commit/99639b4cc5b2ae79ddd9f5ad4e7b853b721f9a20))
+* **menu:** stop arming the document listener on a detached menu ([c4ca168](https://github.com/Lundalogik/lime-elements/commit/c4ca168fadefaccb23204c57aa8ade1970f60693))
+* **popover:** say the trigger is collapsed, not just that it is open ([cb74fdd](https://github.com/Lundalogik/lime-elements/commit/cb74fddc9fb9623e72644d2cbe703ad963ab4bc2))
+* **popover:** take the document listeners down again ([72f6348](https://github.com/Lundalogik/lime-elements/commit/72f6348874c5b77f87d421dbd8cb207a39ce5842))
+
+## [40.4.1](https://github.com/Lundalogik/lime-elements/compare/v40.4.0...v40.4.1) (2026-09-18)
+
+### Bug Fixes
+
+
+* **table:** defer sorting when the table is not yet created ([010f064](https://github.com/Lundalogik/lime-elements/commit/010f064da8bef84c8528beb60eb265b6c50f59b2))
+
+## [40.4.0](https://github.com/Lundalogik/lime-elements/compare/v40.3.0...v40.4.0) (2026-09-18)
+
+### Features
+
+
+* **form:** let a select option carry an icon and a secondary text ([3bedb02](https://github.com/Lundalogik/lime-elements/commit/3bedb0246a7ef6e4c05152610f995b6e470fca00))
+* **select:** use the menu dropdown on mobile for options a native one cannot show ([144f82c](https://github.com/Lundalogik/lime-elements/commit/144f82c543604c4fd84fc052124486932223f944))
+
+## [40.3.0](https://github.com/Lundalogik/lime-elements/compare/v40.2.5...v40.3.0) (2026-09-17)
+
+### Features
+
+
+* **pagination:** add new component ([521e725](https://github.com/Lundalogik/lime-elements/commit/521e725b45d4f164ae492db52b533d85118f57f0))
+
 ## [40.2.5](https://github.com/Lundalogik/lime-elements/compare/v40.2.4...v40.2.5) (2026-09-15)
 
 ### Bug Fixes

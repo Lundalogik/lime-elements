@@ -221,6 +221,7 @@ export class Menu {
     private selectedMenuItem?: MenuItem;
     private shouldRestoreFocusOnClose = false;
     private readonly normalizedHotkeyCache = new Map<string, string | null>();
+    private readonly triggersDisabledByMenu = new WeakSet<HTMLElement>();
     private cachedSubMenuSource: MenuItem | null = null;
     private cachedSubMenuItems: Array<MenuItem | ListSeparator> | null = null;
 
@@ -288,41 +289,43 @@ export class Menu {
     }
 
     public connectedCallback() {
-        if (this.open) {
-            document.addEventListener(
-                'keydown',
-                this.handleDocumentKeyDown,
-                true
-            );
-        }
+        this.setupGlobalHandlers();
     }
 
     public disconnectedCallback() {
+        this.teardownGlobalHandlers();
+    }
+
+    @Watch('open')
+    protected openWatcher(newValue: boolean) {
+        this.setupGlobalHandlers();
+
+        if (newValue) {
+            this.setFocus();
+        } else {
+            this.clearSearch();
+        }
+    }
+
+    private setupGlobalHandlers() {
+        // Stencil keeps firing `@Watch` on a detached instance, so `open` can
+        // still flip after `disconnectedCallback` has run. Listening then
+        // would leave a listener behind that no disconnect takes down.
+        if (!this.open || !this.host.isConnected) {
+            this.teardownGlobalHandlers();
+
+            return;
+        }
+
+        document.addEventListener('keydown', this.handleDocumentKeyDown, true);
+    }
+
+    private teardownGlobalHandlers() {
         document.removeEventListener(
             'keydown',
             this.handleDocumentKeyDown,
             true
         );
-    }
-
-    @Watch('open')
-    protected openWatcher(newValue: boolean) {
-        const opened = newValue;
-        if (opened) {
-            document.addEventListener(
-                'keydown',
-                this.handleDocumentKeyDown,
-                true
-            );
-            this.setFocus();
-        } else {
-            document.removeEventListener(
-                'keydown',
-                this.handleDocumentKeyDown,
-                true
-            );
-            this.clearSearch();
-        }
     }
 
     private readonly handleDocumentKeyDown = (event: KeyboardEvent) => {
@@ -850,20 +853,37 @@ export class Menu {
     };
 
     private readonly setTriggerAttributes = (element: HTMLElement) => {
-        const attributes = {
-            'aria-haspopup': true,
-            'aria-expanded': this.open,
-            'aria-controls': this.portalId,
-            disabled: this.disabled,
-            role: 'button',
-        };
+        element.setAttribute('aria-haspopup', 'true');
+        element.setAttribute('aria-controls', this.portalId);
+        element.setAttribute('role', 'button');
 
-        for (const [key, value] of Object.entries(attributes)) {
-            if (value) {
-                element.setAttribute(key, String(value));
-            } else {
-                element.removeAttribute(key);
+        // `aria-expanded` is needed even when the menu is closed. Without
+        // it, the trigger reads as an ordinary button to a screen reader.
+        element.setAttribute('aria-expanded', String(this.open));
+
+        this.setTriggerDisabled(element);
+    };
+
+    /**
+     * `disabled` has to be removed rather than set to `false`, because the
+     * presence of the attribute is what disables the element. Only the one the
+     * menu put there may go: a consumer can disable their own trigger, and
+     * stripping that attribute would re-enable it on every render.
+     * @param element - the slotted trigger element
+     */
+    private readonly setTriggerDisabled = (element: HTMLElement) => {
+        if (this.disabled) {
+            if (!element.hasAttribute('disabled')) {
+                element.setAttribute('disabled', 'true');
+                this.triggersDisabledByMenu.add(element);
             }
+
+            return;
+        }
+
+        if (this.triggersDisabledByMenu.has(element)) {
+            element.removeAttribute('disabled');
+            this.triggersDisabledByMenu.delete(element);
         }
     };
 
