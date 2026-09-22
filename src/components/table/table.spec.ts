@@ -161,6 +161,74 @@ describe('limel-table remote mode options', () => {
     });
 });
 
+describe('limel-table pagination wiring', () => {
+    let component: Table;
+    let pagination: any;
+
+    beforeEach(() => {
+        component = new Table();
+        (component as any).pageSize = 10;
+        (component as any).data = Array.from({ length: 25 }, (_, i) => ({
+            id: i,
+        }));
+        pagination = {
+            resize: vi.fn(),
+            updateMaxPage: vi.fn(),
+            warnOnIgnoredTotalRows: vi.fn(),
+        };
+        (component as any).pagination = pagination;
+        (component as any).tabulator = {
+            replaceData: vi.fn().mockResolvedValue(undefined),
+        };
+        (component as any).init = vi.fn();
+    });
+
+    // Stencil runs a watcher as its own prop is assigned, so comparing the
+    // total with the rows from inside one of them reads the other's stale
+    // value — and the warning latches, so a false alarm would be permanent.
+    it('waits for a render before comparing the total with the rows', () => {
+        (component as any).totalRowsChanged();
+
+        expect(pagination.warnOnIgnoredTotalRows).not.toHaveBeenCalled();
+
+        (component as any).componentWillRender();
+
+        expect(pagination.warnOnIgnoredTotalRows).toHaveBeenCalled();
+    });
+
+    // Tabulator goes on slicing by the size it was built with until it is
+    // told otherwise, so the control would count pages the rows are not cut
+    // into and the last of them could not be reached.
+    it('tells the pagination about a new size rather than rebuilding', () => {
+        (component as any).pageSizeChanged(20, 10);
+
+        expect(pagination.resize).toHaveBeenCalledWith(20);
+        expect((component as any).init).not.toHaveBeenCalled();
+    });
+
+    // Whether there is pagination at all is settled when Tabulator is
+    // created, and `setPageSize` does nothing on a table without it.
+    it('rebuilds when pagination starts', () => {
+        (component as any).pageSizeChanged(10, undefined);
+
+        expect((component as any).init).toHaveBeenCalled();
+        expect(pagination.resize).not.toHaveBeenCalled();
+    });
+
+    it('rebuilds when pagination stops', () => {
+        (component as any).pageSizeChanged(undefined, 10);
+
+        expect((component as any).init).toHaveBeenCalled();
+    });
+
+    it('asks for no size at all when there is none to ask for', () => {
+        (component as any).pageSizeChanged(undefined, undefined);
+
+        expect((component as any).init).not.toHaveBeenCalled();
+        expect(pagination.resize).not.toHaveBeenCalled();
+    });
+});
+
 describe('limel-table remote paginator refresh', () => {
     let component: Table;
     let scrollContainer: HTMLElement;

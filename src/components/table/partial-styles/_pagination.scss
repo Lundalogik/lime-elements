@@ -1,0 +1,36 @@
+limel-pagination {
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: var(--limel-table-pagination-height);
+
+    padding: 0 0.25rem;
+}
+
+// `paginationLocation` sets `has-pagination-on-top` on the host, but consumers
+// that predate the prop set the class themselves. Following the class rather
+// than the order the element is rendered in keeps both working.
+:host(.has-pagination-on-top) {
+    limel-pagination {
+        order: -1;
+    }
+
+    // The select-all box is absolutely positioned against the container, so it
+    // has to step over the pagination to reach the header row.
+    #tabulator-container:has(limel-pagination) .select-all {
+        top: calc(var(--limel-table-pagination-height) + 0.1875rem);
+    }
+}
+
+// `limel-pagination` renders a single page just as it renders any other, and
+// some surfaces would rather show nothing at all there.
+// @private
+// We use this in the CRM for very particular use cases, such as small
+// explorer widgets with single-page tables on the start pages.
+:host(:not(.has-pagination)) #tabulator-container {
+    limel-pagination {
+        display: var(--limel-table-single-page-paginator-display, flex);
+    }
+}

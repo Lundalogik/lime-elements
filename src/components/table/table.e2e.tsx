@@ -289,6 +289,343 @@ describe('limel-table', () => {
         });
     });
 
+    describe('pagination', () => {
+        const columns = [{ field: 'name', title: 'Name' }];
+        const data = Array.from({ length: 25 }, (_, index) => ({
+            id: index + 1,
+            name: `Row ${index + 1}`,
+        }));
+
+        function getPagination(root: HTMLElement) {
+            return root.shadowRoot.querySelector('limel-pagination');
+        }
+
+        function getPageButtons(root: HTMLElement) {
+            return [
+                ...getPagination(root).shadowRoot.querySelectorAll<HTMLElement>(
+                    'button.page'
+                ),
+            ];
+        }
+
+        function getPage(root: HTMLElement, page: number) {
+            return getPageButtons(root).find(
+                (button) => button.dataset.page === String(page)
+            );
+        }
+
+        function getRowNames(root: HTMLElement) {
+            return [
+                ...getContainer(root).querySelectorAll(
+                    '.tabulator-table .tabulator-row'
+                ),
+            ].map((row) => row.querySelector('[role="gridcell"]').textContent);
+        }
+
+        it('renders one page button per page of rows', async () => {
+            const { root } = await renderTable({ columns, data, pageSize: 10 });
+
+            expect(
+                getPageButtons(root).map((button) => button.dataset.page)
+            ).toEqual(['1', '2', '3']);
+        });
+
+        it('derives the pages from `totalRows` rather than the rows it holds', async () => {
+            const { root } = await renderTable({
+                columns,
+                data: data.slice(0, 10),
+                mode: 'remote',
+                totalRows: 25,
+                pageSize: 10,
+            });
+
+            expect(
+                getPageButtons(root).map((button) => button.dataset.page)
+            ).toEqual(['1', '2', '3']);
+        });
+
+        it('leaves the paginator Tabulator builds out of the document', async () => {
+            const { root } = await renderTable({ columns, data, pageSize: 10 });
+
+            expect(
+                root.shadowRoot.querySelector('.tabulator-paginator')
+            ).toBeNull();
+        });
+
+        it('renders nothing to page with when there is no page size', async () => {
+            const { root } = await renderTable({ columns, data });
+
+            expect(getPagination(root)).toBeNull();
+        });
+
+        it('shows the picked page, and marks it as the current one', async () => {
+            const { root, waitForChanges } = await renderTable({
+                columns,
+                data,
+                pageSize: 10,
+            });
+
+            getPage(root, 2).click();
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await waitForChanges();
+
+            expect(getRowNames(root)[0]).toEqual('Row 11');
+            expect(getPage(root, 2).getAttribute('aria-current')).toEqual(
+                'page'
+            );
+        });
+
+        it('emits `changePage` for the picked page', async () => {
+            const { root, waitForChanges, spyOnEvent } = await renderTable({
+                columns,
+                data,
+                pageSize: 10,
+            });
+            const changePage = spyOnEvent('changePage');
+
+            getPage(root, 3).click();
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+
+            expect(changePage.events.at(-1).detail).toEqual(3);
+        });
+
+        // `goToPage` bubbles and composes, so without being stopped it would
+        // reach our consumers retargeted as an event of `limel-table`'s own —
+        // one they can receive but cannot bind to.
+        it('keeps `goToPage` inside the table', async () => {
+            const { root, waitForChanges } = await renderTable({
+                columns,
+                data,
+                pageSize: 10,
+            });
+            const escaped: Event[] = [];
+            root.addEventListener('goToPage', (event) => escaped.push(event));
+
+            getPage(root, 2).click();
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+
+            expect(escaped).toEqual([]);
+        });
+
+        it('follows the `page` prop', async () => {
+            const { root, waitForChanges, setProps } = await renderTable({
+                columns,
+                data,
+                pageSize: 10,
+            });
+
+            setProps({ page: 3 });
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await waitForChanges();
+
+            expect(getPage(root, 3).getAttribute('aria-current')).toEqual(
+                'page'
+            );
+            expect(getRowNames(root)[0]).toEqual('Row 21');
+        });
+
+        it('stays put when asked for a page the table does not have', async () => {
+            const { root, waitForChanges, setProps } = await renderTable({
+                columns,
+                data,
+                pageSize: 10,
+            });
+
+            setProps({ page: 9 });
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await waitForChanges();
+
+            expect(getPage(root, 1).getAttribute('aria-current')).toEqual(
+                'page'
+            );
+        });
+
+        it('follows the page in remote mode too, where nothing is paged locally', async () => {
+            const { root, waitForChanges, spyOnEvent } = await renderTable({
+                columns,
+                data: data.slice(0, 10),
+                mode: 'remote',
+                totalRows: 25,
+                pageSize: 10,
+            });
+            const load = spyOnEvent('load');
+            const changePage = spyOnEvent('changePage');
+
+            getPage(root, 2).click();
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 200));
+            await waitForChanges();
+
+            expect(load.events.at(-1).detail.page).toEqual(2);
+            expect(changePage.events.at(-1).detail).toEqual(2);
+            expect(getPage(root, 2).getAttribute('aria-current')).toEqual(
+                'page'
+            );
+        });
+
+        // Tabulator's remote path answers a set that shrank under the user by
+        // logging that the server returned a last page below the current one,
+        // and leaving them on a page that no longer exists.
+        it('moves the user to the last page there is when the set shrinks', async () => {
+            const { root, waitForChanges, setProps, spyOnEvent } =
+                await renderTable({
+                    columns,
+                    data: data.slice(20),
+                    mode: 'remote',
+                    totalRows: 25,
+                    pageSize: 10,
+                    page: 3,
+                });
+            const load = spyOnEvent('load');
+
+            setProps({ totalRows: 10, data: data.slice(0, 10) });
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 200));
+            await waitForChanges();
+
+            expect(getPage(root, 1).getAttribute('aria-current')).toEqual(
+                'page'
+            );
+            expect(load.events.at(-1).detail.page).toEqual(1);
+        });
+
+        // Toggling `selectable` or `movableRows` rebuilds Tabulator at
+        // `paginationInitialPage`, and a fresh local-mode Tabulator never
+        // fires `pageLoaded` — so nothing would put the control back in step
+        // with the rows it is meant to be describing.
+        it('follows the rows back when rebuilding the table resets the page', async () => {
+            const { root, waitForChanges, setProps } = await renderTable({
+                columns,
+                data,
+                pageSize: 10,
+            });
+
+            getPage(root, 2).click();
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await waitForChanges();
+            expect(getPage(root, 2).getAttribute('aria-current')).toEqual(
+                'page'
+            );
+
+            setProps({ selectable: true });
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 300));
+            await waitForChanges();
+
+            const shown = [
+                ...getContainer(root).querySelectorAll(
+                    '.tabulator-table .tabulator-row'
+                ),
+            ].map((row) => row.textContent);
+            // `includes('Row 1')` alone would pass on page 2, where every
+            // row is "Row 11" through "Row 20".
+            expect(shown.some((text) => text.includes('Row 1'))).toBe(true);
+            expect(shown.some((text) => text.includes('Row 11'))).toBe(false);
+            expect(getPage(root, 1).getAttribute('aria-current')).toEqual(
+                'page'
+            );
+        });
+
+        // Tabulator is told whether it paginates when it is created, so a
+        // table built without a page size has to be built again. Until it
+        // is, the control renders over rows that are all still on screen and
+        // its clicks move nothing.
+        it('starts paging when a page size arrives late', async () => {
+            const { root, waitForChanges, setProps } = await renderTable({
+                columns,
+                data,
+            });
+
+            expect(getPagination(root)).toBeNull();
+
+            setProps({ pageSize: 10 });
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 300));
+            await waitForChanges();
+
+            expect(
+                getPageButtons(root).map((button) => button.dataset.page)
+            ).toEqual(['1', '2', '3']);
+
+            getPage(root, 2).click();
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 200));
+            await waitForChanges();
+
+            expect(getRowNames(root)[0]).toEqual('Row 11');
+        });
+
+        // Tabulator slices by the size it was built with until it is told
+        // otherwise, so a grown page size used to leave the control counting
+        // two pages over rows still cut into ten — and rows 21 to 25 behind
+        // a page that no longer existed.
+        it('reaches the last rows after the page size grows', async () => {
+            const { root, waitForChanges, setProps } = await renderTable({
+                columns,
+                data,
+                pageSize: 10,
+            });
+
+            setProps({ pageSize: 20 });
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 300));
+            await waitForChanges();
+
+            expect(
+                getPageButtons(root).map((button) => button.dataset.page)
+            ).toEqual(['1', '2']);
+
+            getPage(root, 2).click();
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 200));
+            await waitForChanges();
+
+            expect(getRowNames(root)).toContain('Row 21');
+        });
+
+        it('collapses to one page when a remote set is emptied', async () => {
+            const { root, waitForChanges, setProps } = await renderTable({
+                columns,
+                data: data.slice(20),
+                mode: 'remote',
+                totalRows: 25,
+                pageSize: 10,
+                page: 3,
+            });
+
+            setProps({ totalRows: 0, data: [] });
+            await waitForChanges();
+            await new Promise((resolve) => setTimeout(resolve, 200));
+            await waitForChanges();
+
+            expect(
+                getPageButtons(root).map((button) => button.dataset.page)
+            ).toEqual(['1']);
+        });
+
+        // A remote table holds one page, so until it is told a total there is
+        // nothing to count from. Showing the page it is on says that; showing
+        // "1 of 1" would be a claim it cannot make.
+        it('shows the page on its own until a remote table is given a total', async () => {
+            const { root } = await renderTable({
+                columns,
+                data: data.slice(0, 10),
+                mode: 'remote',
+                pageSize: 10,
+            });
+
+            expect(
+                getPageButtons(root).map((button) => button.dataset.page)
+            ).toEqual(['1']);
+        });
+    });
+
     describe('pagination state', () => {
         // `has-pagination` is exposed on the host so consumers can react to a
         // multi-page table without piercing the shadow DOM.
