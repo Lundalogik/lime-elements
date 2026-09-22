@@ -114,6 +114,23 @@ describe('limel-pagination, jumping to a page', () => {
         expect(openPopovers(root)).toHaveLength(0);
     });
 
+    test('keeps the popover close inside the control', async () => {
+        // `limel-dialog` closes on a `close` it receives, so a composed one
+        // from the field's popover would take down a dialog the pagination
+        // sits in.
+        const { root, waitForChanges } = await open();
+        const escaped: Event[] = [];
+        root.addEventListener('close', (event: Event) => escaped.push(event));
+
+        openPopovers(root)[0].dispatchEvent(
+            new CustomEvent('close', { bubbles: true, composed: true })
+        );
+        await waitForChanges();
+
+        expect(escaped).toHaveLength(0);
+        expect(openPopovers(root)).toHaveLength(0);
+    });
+
     test('shows which gap is holding the open field', async () => {
         // What the pressed look hangs off, so that one of two identical
         // markers can be seen to be the one that is open.
