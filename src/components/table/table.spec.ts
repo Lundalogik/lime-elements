@@ -161,6 +161,74 @@ describe('limel-table remote mode options', () => {
     });
 });
 
+describe('limel-table pagination wiring', () => {
+    let component: Table;
+    let pagination: any;
+
+    beforeEach(() => {
+        component = new Table();
+        (component as any).pageSize = 10;
+        (component as any).data = Array.from({ length: 25 }, (_, i) => ({
+            id: i,
+        }));
+        pagination = {
+            resize: vi.fn(),
+            updateMaxPage: vi.fn(),
+            warnOnIgnoredTotalRows: vi.fn(),
+        };
+        (component as any).pagination = pagination;
+        (component as any).tabulator = {
+            replaceData: vi.fn().mockResolvedValue(undefined),
+        };
+        (component as any).init = vi.fn();
+    });
+
+    it('waits for a render before comparing the total with the rows', () => {
+        (component as any).totalRowsChanged();
+
+        expect(pagination.warnOnIgnoredTotalRows).not.toHaveBeenCalled();
+
+        (component as any).componentWillRender();
+
+        expect(pagination.warnOnIgnoredTotalRows).toHaveBeenCalled();
+    });
+
+    it('tells the pagination about a new size rather than rebuilding', () => {
+        (component as any).pageSizeChanged(20, 10);
+
+        expect(pagination.resize).toHaveBeenCalledWith(20, 1);
+        expect((component as any).init).not.toHaveBeenCalled();
+    });
+
+    it('hands the page it should land on over with the size', () => {
+        component.page = 3;
+
+        (component as any).pageSizeChanged(20, 10);
+
+        expect(pagination.resize).toHaveBeenCalledWith(20, 3);
+    });
+
+    it('rebuilds when pagination starts', () => {
+        (component as any).pageSizeChanged(10, undefined);
+
+        expect((component as any).init).toHaveBeenCalled();
+        expect(pagination.resize).not.toHaveBeenCalled();
+    });
+
+    it('rebuilds when pagination stops', () => {
+        (component as any).pageSizeChanged(undefined, 10);
+
+        expect((component as any).init).toHaveBeenCalled();
+    });
+
+    it('asks for no size at all when there is none to ask for', () => {
+        (component as any).pageSizeChanged(undefined, undefined);
+
+        expect((component as any).init).not.toHaveBeenCalled();
+        expect(pagination.resize).not.toHaveBeenCalled();
+    });
+});
+
 describe('limel-table remote paginator refresh', () => {
     let component: Table;
     let scrollContainer: HTMLElement;
@@ -416,7 +484,10 @@ describe('limel-table sorting updates', () => {
     });
 
     it('applies the deferred sort once the table has rendered', () => {
-        (component as any).tabulator = { setSort: vi.fn() };
+        (component as any).tabulator = {
+            setSort: vi.fn(),
+            getPage: () => false,
+        };
         (component as any).sorting = sorting;
         (component as any).shouldSort = true;
 

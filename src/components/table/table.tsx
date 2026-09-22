@@ -3,6 +3,7 @@ import {
     h,
     Prop,
     Element,
+    State,
     Watch,
     EventEmitter,
     Event,
@@ -19,7 +20,6 @@ import {
     ColumnDefinition as TabulatorColumnDefinition,
     RowComponent as TabulatorRowComponent,
     OptionsData as TabulatorOptionsData,
-    OptionsPagination as TabulatorOptionsPagination,
     OptionsColumns as TabulatorOptionsColumns,
 } from 'tabulator-tables';
 import {
@@ -35,12 +35,18 @@ import { isEqual, has } from 'lodash-es';
 import { ElementPool } from './element-pool';
 import { RowDragManager } from './row-drag-manager';
 import { TableSelection } from './table-selection';
+import { TablePagination } from './table-pagination';
 import { _mapLayout, Layout } from './layout';
 import { areRowsEqual } from './utils';
 import { Languages } from '../date-picker/date.types';
+import { GoToPageEvent } from '../pagination/pagination.types';
 import translate from '../../global/translations';
 
 const FIRST_PAGE = 1;
+
+function togglesPagination(newPageSize: number, oldPageSize: number): boolean {
+    return Boolean(newPageSize) !== Boolean(oldPageSize);
+}
 
 /**
  * @exampleComponent limel-example-table-basic
@@ -102,12 +108,27 @@ export class Table {
 
     /**
      * Number of rows per page
+     *
+     * Starting or stopping pagination — moving between unset and set —
+     * rebuilds the table, because Tabulator is told whether it paginates
+     * only when it is created: scroll position, column widths and moved
+     * columns do not survive it, and a remote table loads again. Changing
+     * between two sizes keeps all of that, and lands on the page `page`
+     * asks for.
      */
     @Prop({ reflect: true })
     public pageSize: number;
 
     /**
-     * The number of total rows available for the data
+     * The number of total rows available for the data.
+     *
+     * Only used in `remote` mode, where the table holds one page and cannot
+     * see how many rows there are. Leave it unset while the count is on its
+     * way and the pagination keeps its shape until it arrives, instead of
+     * collapsing to a single page and back.
+     *
+     * In `local` mode the table pages the rows in `data`, so a total is
+     * ignored there.
      */
     @Prop({ reflect: true })
     public totalRows: number;
@@ -252,6 +273,12 @@ export class Table {
     @Element()
     private host: HTMLLimelTableElement;
 
+    /**
+     * The page Tabulator is showing, as opposed to what the `page` prop says
+     */
+    @State()
+    private currentPage: number = FIRST_PAGE;
+
     private currentLoad: { page: number; sorters: ColumnSorter[] };
 
     private tabulator: Tabulator;
@@ -267,17 +294,16 @@ export class Table {
     private tableSelection: TableSelection;
     private shouldSort = false;
     private hasWarnedOnConflictingMovableAndSortable = false;
+    private pagination: TablePagination;
 
     constructor() {
         this.handleDataSorting = this.handleDataSorting.bind(this);
-        this.handlePageLoaded = this.handlePageLoaded.bind(this);
         this.handleRenderComplete = this.handleRenderComplete.bind(this);
         this.handleAjaxRequesting = this.handleAjaxRequesting.bind(this);
         this.requestData = this.requestData.bind(this);
         this.onClickRow = this.onClickRow.bind(this);
         this.formatRow = this.formatRow.bind(this);
         this.formatRows = this.formatRows.bind(this);
-        this.updateMaxPage = this.updateMaxPage.bind(this);
         this.initTabulatorComponent = this.initTabulatorComponent.bind(this);
         this.setSelection = this.setSelection.bind(this);
         this.addColumnAggregator = this.addColumnAggregator.bind(this);
@@ -286,9 +312,33 @@ export class Table {
     }
 
     public componentWillLoad() {
+        this.currentPage = this.page;
+        this.initPagination();
         this.warnOnConflictingMovableAndSortable();
         this.initRowDragManager();
         this.initTableSelection();
+    }
+
+    public componentWillRender() {
+        this.pagination?.warnOnIgnoredTotalRows();
+    }
+
+    private initPagination() {
+        this.pagination = new TablePagination(
+            () => this.tabulator,
+            () => ({
+                remote: this.isRemoteMode(),
+                rows: this.data.length,
+                totalRows: this.totalRows,
+                pageSize: this.pageSize,
+                page: this.page,
+            }),
+            this.changePage,
+            (page: number) => {
+                this.currentPage = page;
+            },
+            () => this.currentPage
+        );
     }
 
     public componentDidLoad() {
@@ -319,23 +369,30 @@ export class Table {
 
     @Watch('totalRows')
     protected totalRowsChanged() {
-        this.updateMaxPage();
+        this.pagination?.updateMaxPage();
         this.refreshRemotePaginator();
     }
 
     @Watch('pageSize')
-    protected pageSizeChanged() {
-        this.updateMaxPage();
+    protected pageSizeChanged(newValue: number, oldValue: number) {
+        if (this.tabulator && togglesPagination(newValue, oldValue)) {
+            this.init();
+
+            return;
+        }
+
+        if (newValue) {
+            this.pagination?.resize(newValue, this.page);
+        } else {
+            this.pagination?.updateMaxPage();
+        }
+
         this.refreshRemotePaginator();
     }
 
     @Watch('page')
     protected pageChanged() {
-        if (!this.tabulator || this.tabulator.getPage() === this.page) {
-            return;
-        }
-
-        this.tabulator.setPage(this.page);
+        this.pagination?.showPage(this.page);
     }
 
     @Watch('activeRow')
@@ -603,8 +660,11 @@ export class Table {
         if (this.tabulator) {
             this.pool.releaseAll();
             this.tabulator.destroy();
+            this.tabulator = null;
             this.initialized = false;
         }
+
+        this.currentPage = this.page;
 
         const table: HTMLElement =
             this.host.shadowRoot.querySelector('#tabulator-table');
@@ -652,7 +712,9 @@ export class Table {
         const tabulator = new TabulatorFull(table, this.getOptions());
         tabulator.on('rowClick', this.onClickRow);
         tabulator.on('dataSorting', this.handleDataSorting);
-        tabulator.on('pageLoaded', this.handlePageLoaded);
+        tabulator.on('pageLoaded', (page: number) =>
+            this.pagination.handlePageLoaded(page)
+        );
         tabulator.on('columnMoved', this.handleMoveColumn);
         tabulator.on('renderComplete', this.handleRenderComplete);
 
@@ -676,7 +738,7 @@ export class Table {
                 this.updateData(this.data, []);
 
                 if (this.isRemoteMode()) {
-                    this.updateMaxPage();
+                    this.pagination.updateMaxPage();
                 }
             } else if (this.isRemoteMode()) {
                 this.tabulator.setData();
@@ -726,10 +788,6 @@ export class Table {
         }
 
         this.tableSelection.setSelection(this.selection);
-    }
-
-    private updateMaxPage() {
-        this.tabulator?.setMaxPage(this.calculatePageCount());
     }
 
     /**
@@ -786,7 +844,7 @@ export class Table {
 
     private getOptions(): TabulatorOptions {
         const ajaxOptions = this.getAjaxOptions();
-        const paginationOptions = this.getPaginationOptions();
+        const paginationOptions = this.pagination.getOptions();
         const columnOptions = this.getColumnOptions();
         const rowDragOptions = this.getRowDragOptions();
 
@@ -887,19 +945,6 @@ export class Table {
         return !this.destroyed;
     }
 
-    private getPaginationOptions(): TabulatorOptionsPagination {
-        if (!this.pageSize) {
-            return {};
-        }
-
-        return {
-            pagination: true,
-            paginationMode: this.isRemoteMode() ? 'remote' : 'local',
-            paginationSize: this.pageSize,
-            paginationInitialPage: this.page,
-        };
-    }
-
     private requestData(_, __, params: any): Promise<object> {
         if (this.destroyed) {
             return Promise.reject();
@@ -929,7 +974,7 @@ export class Table {
         // expects a plain array directly.
         const resolveExistingData = this.pageSize
             ? Promise.resolve({
-                  last_page: this.calculatePageCount(),
+                  last_page: this.pagination.lastPage(),
                   data: this.data,
               })
             : Promise.resolve(this.data);
@@ -975,21 +1020,34 @@ export class Table {
         this.sort.emit(columnSorters);
     }
 
-    private handlePageLoaded(page: number): void {
-        if (this.isRemoteMode()) {
-            return;
-        }
+    private readonly handleGoToPage = (event: CustomEvent<GoToPageEvent>) => {
+        event.stopPropagation();
 
-        this.changePage.emit(page);
-    }
+        this.pagination.goToPage(event.detail.page);
+    };
 
     private handleRenderComplete(): void {
+        this.applyDeferredSort();
+        this.followTabulatorPage();
+    }
+
+    private applyDeferredSort(): void {
         if (!(this.tabulator && this.shouldSort)) {
             return;
         }
 
         this.shouldSort = false;
         this.tabulator.setSort(this.getInitialSorting());
+    }
+
+    private followTabulatorPage(): void {
+        const page = this.tabulator?.getPage();
+
+        if (typeof page !== 'number') {
+            return;
+        }
+
+        this.pagination?.handlePageLoaded(page);
     }
 
     private onClickRow(event: PointerEvent, row: TabulatorRowComponent): void {
@@ -1077,15 +1135,6 @@ export class Table {
         return this.activeRow === row.getData();
     }
 
-    private calculatePageCount(): number {
-        let total = this.totalRows;
-        if (!total) {
-            total = this.data.length;
-        }
-
-        return Math.ceil(total / this.pageSize);
-    }
-
     /**
      * Whether any of `columns` shows an aggregation — either because the column
      * carries its own `aggregator`, or because its field has a matching entry in
@@ -1160,15 +1209,13 @@ export class Table {
     };
 
     render() {
-        const totalRows = this.totalRows ?? this.data.length;
-
         return (
             <Host
                 class={{
                     'has-low-density': this.layout === 'lowDensity',
                     'has-pagination-on-top': this.paginationLocation === 'top',
                     'has-aggregation': this.hasAggregation(this.columns),
-                    'has-pagination': totalRows > this.pageSize,
+                    'has-pagination': this.pagination?.hasPagination,
                     'has-selection': this.tableSelection?.hasSelection,
                 }}
             >
@@ -1185,8 +1232,25 @@ export class Table {
                     {this.renderEmptyMessage()}
                     {this.renderSelectAll()}
                     <div id="tabulator-table" />
+                    {this.renderPagination()}
                 </div>
             </Host>
+        );
+    }
+
+    private renderPagination() {
+        if (!this.pageSize) {
+            return;
+        }
+
+        return (
+            <limel-pagination
+                page={this.currentPage}
+                pageSize={this.pageSize}
+                totalItems={this.pagination.rowCount}
+                language={this.language}
+                onGoToPage={this.handleGoToPage}
+            />
         );
     }
 
