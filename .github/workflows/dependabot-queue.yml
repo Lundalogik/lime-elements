@@ -1,0 +1,420 @@
+name: Dependabot queue
+# Rebases the front out-of-date Dependabot PR onto the base branch, one at a
+# time, so a strict "require branches up to date" rule doesn't leave green,
+# approved, auto-merge-enabled Dependabot PRs stuck BEHIND main forever.
+#
+# Why this exists: Dependabot's own `@dependabot rebase` only re-runs when the
+# *dependency resolution* would change; it does nothing for a branch that is
+# merely behind main (it replies "The base commit for this pull request has not
+# changed"). This workflow does the reliable "update branch" instead -- a
+# server-side REBASE (linear history, no merge commit) via the app token.
+#
+# Serialized to ONE action per run (the oldest eligible PR): under the
+# require-up-to-date rule, keeping only a single PR "hot" (up to date + checks
+# running) at a time makes the cost linear in the number of PRs instead of the
+# ~N^2/2 that batch-rebasing would incur.
+#
+# A PR whose head CONFLICTS with the base (DIRTY) cannot be rebased server-side;
+# only Dependabot can regenerate it. It normally does so on its next scheduled
+# run even under `rebase-strategy: disabled`, or sooner when a user with push
+# access asks -- it rejects commands from GitHub Apps (dependabot-core #9147).
+# The queue drops a conflicting PR (auto-merge off), comments on it, and moves
+# on to the next candidate in the same run: GitHub creates no pull_request
+# workflow run for a PR with a merge conflict, so the auto_merge_disabled event
+# of a dropped conflicting PR never re-dispatches the queue.
+#
+# Trust: the queue rebases a head under the app identity, which then re-runs its
+# checks and lets the automerge workflow approve them. Branch rules in this repo
+# let only Dependabot and the app create or update dependabot/** branches, so a
+# head can only be Dependabot/app-produced. The app thus approves heads it
+# pushed itself; that is sound only because its single content-changing call,
+# updatePullRequestBranch, takes no payload the app could put content into. Any
+# other content-changing call under this token would break that invariant.
+#
+# Two stages, so the app token (which the rebase needs) only ever runs in main's
+# context -- required because the app secrets live in a main-only deployment
+# environment, and a pull_request run (refs/pull/*/merge context) is rejected at
+# that gate:
+#   1. `dispatch` (pull_request closed / auto_merge_disabled /
+#      auto_merge_enabled): when a Dependabot PR joins or leaves the queue, it
+#      kicks stage 2 via workflow_dispatch. A human's PR is filtered at the job
+#      level and skipped at 0 runner minutes.
+#   2. `advance` (workflow_dispatch, or workflow_run for skip-red): runs in
+#      main's context, mints the app token, and acts on the front PR.
+#
+# The branch allowlist (ALLOWED_PREFIXES in the advance step) must be the same
+# set the automerge workflow accepts, so the queue never rebases a PR that path
+# cannot finish.
+run-name: >-
+  Dependabot queue: ${{
+    inputs.reason
+    || (github.event_name == 'workflow_run'
+        && format('{0} {1} on {2}', github.event.workflow_run.name, github.event.workflow_run.conclusion, github.event.workflow_run.head_branch))
+    || (github.event_name == 'pull_request'
+        && format('PR #{0} {1}', github.event.pull_request.number, github.event.action))
+    || github.event_name }}
+on:
+  # A Dependabot PR joining or leaving the queue.
+  pull_request:
+    types: [closed, auto_merge_disabled, auto_merge_enabled]
+  # Used only to promptly skip a front PR whose checks went red.
+  # LOAD-BEARING: each name must match a workflow `name:` exactly, and the set
+  # must match REQUIRED_WORKFLOWS below and the repo's required checks.
+  workflow_run:
+    workflows: ["Pull Request Checks"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: Why the queue is being advanced (shown as the run name)
+        required: false
+        type: string
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  # Stage 1: when a Dependabot PR joins or leaves the queue, kick stage 2 in
+  # main's context. Gated on the PR *author* (not the event actor -- auto-merge
+  # merges under the app identity), so human PRs skip at 0 runner minutes. Uses
+  # only the default token with actions:write to dispatch; it touches no app
+  # secrets, so it needs no environment and is unaffected by the main-only
+  # deployment gate.
+  # Skipped when dependabot[bot] itself is the actor: such runs get a read-only
+  # GITHUB_TOKEN and the dispatch would 403. That is Dependabot closing a
+  # superseded PR (the replacement PR's auto-merge enablement kicks the queue
+  # instead) or acting on an `@dependabot close`/`ignore` comment (recovery is the
+  # next queue event or a manual dispatch).
+  # Also skipped when the automerge app enables auto-merge: dependabot-
+  # automerge.yml kicks the queue itself right after, and a second advance
+  # would only cost a runner minute to find the hot guard.
+  dispatch:
+    if: >-
+      github.event_name == 'pull_request'
+      && github.event.pull_request.user.login == 'dependabot[bot]'
+      && github.actor != 'dependabot[bot]'
+      && !(github.event.action == 'auto_merge_enabled'
+           && github.actor == 'lime-dependabot-automerge[bot]')
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: write
+    timeout-minutes: 5
+    steps:
+      - name: Kick the advance job in main's context
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          REASON: "PR #${{ github.event.pull_request.number }} ${{ github.event.action }} by ${{ github.actor }}"
+        run: |
+          set -euo pipefail
+          gh workflow run dependabot-queue.yml --repo "$REPO" --ref main -f reason="$REASON"
+          echo "Dispatched the advance job: $REASON" >> "$GITHUB_STEP_SUMMARY"
+
+  # Stage 2: the privileged rebase, in main's context. Fires on workflow_dispatch
+  # (from stage 1 or manual) or a NON-success checks run on a dependabot/* branch
+  # (skip-red). The skip-red actor gate keeps the privileged token mint out of
+  # fork-triggered runs (an outsider could name a branch dependabot/*), and must
+  # accept the automerge app too: a queue rebase re-runs checks under the app
+  # identity, not dependabot[bot], so gating on dependabot[bot] alone would stop
+  # skip-red from firing for exactly the PRs the queue just rebased. The
+  # workflow_run branch also checks `event == 'pull_request'`, coupling to the
+  # required checks being pull_request-triggered (fail-safe if broken).
+  advance:
+    if: >-
+      github.event_name == 'workflow_dispatch'
+      || (github.event_name == 'workflow_run'
+          && github.event.workflow_run.event == 'pull_request'
+          && github.event.workflow_run.conclusion != 'success'
+          && startsWith(github.event.workflow_run.head_branch, 'dependabot/')
+          && (github.event.workflow_run.actor.login == 'dependabot[bot]'
+              || github.event.workflow_run.actor.login == 'lime-dependabot-automerge[bot]'))
+    # Concurrency on the job, not the workflow: only runs whose `if:` passes claim
+    # the group. A workflow-level group is claimed by every triggering event,
+    # including skip-bound ones (a human PR-close, a human's green checks run), and
+    # GitHub keeps only the newest pending run -- so a skip-bound event could evict
+    # a pending actionable advance and then skip both jobs, losing the kick.
+    # An evicted pending advance shows up as a zero-job "cancelled" run under its
+    # own run-name; nothing was lost, the newer advance re-derives all state.
+    concurrency:
+      group: dependabot-queue
+      cancel-in-progress: false
+    runs-on: ubuntu-24.04
+    environment: dependabot-automerge
+    permissions:
+      # GITHUB_TOKEN needs actions:read to read a candidate head's workflow runs
+      # (required-check state). The privileged rebase uses the minted app token
+      # instead -- the App installation cannot grant actions:read.
+      actions: read
+    # A hung `gh` call must not hold the concurrency lock for the 6h default.
+    # A run does at most one rebase: listing, any number of cheap drops and
+    # rejected requests, then one rebase with its ~60s completion poll.
+    timeout-minutes: 10
+    steps:
+      - name: Mint app token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.AUTOMERGE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.AUTOMERGE_APP_PRIVATE_KEY }}
+          # Least-privilege: contents:write performs the rebase; pull-requests:write
+          # covers listing, the update-branch mutation, and disabling auto-merge on
+          # a PR the queue cannot move; issues:write posts the drop notice on the
+          # PR (PR comments are issue comments); workflows:write lets the rebase
+          # push commits that touch .github/workflows/, which every
+          # dependabot/github_actions/ PR does -- without it GitHub rejects the
+          # rebase of those PRs ("refusing to allow a GitHub App to create or
+          # update workflow ... without `workflows` permission").
+          permission-contents: write
+          permission-pull-requests: write
+          permission-issues: write
+          permission-workflows: write
+      - name: Advance the queue by one PR
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          # actions:read reads (required-check state) use the default token; the App
+          # installation cannot grant actions:read.
+          DEFAULT_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # REQUIRED_WORKFLOWS is matched at WORKFLOW granularity while the
+          # required checks are JOB contexts, which holds only while no
+          # non-required job in these workflows can fail independently of a
+          # required one. Non-required jobs either skip on Dependabot PRs or run
+          # only after a required job has already failed.
+          REQUIRED_WORKFLOWS='["Pull Request Checks"]'
+          # The same ecosystems dependabot-automerge.yml auto-merges (keep in sync
+          # with its `if:` allowlist), so the queue never rebases a PR that path
+          # cannot finish (it would sit approved-less and BLOCKED, holding the hot
+          # slot forever).
+          ALLOWED_PREFIXES='["dependabot/npm_and_yarn/","dependabot/pip/","dependabot/github_actions/"]'
+
+          warn() { # warn TITLE MESSAGE: annotation + step summary
+            local msg="${2//%/%25}"
+            echo "::warning title=$1::${msg//$'\n'/%0A}"
+            echo "$2" >> "$GITHUB_STEP_SUMMARY"
+          }
+          note() { echo "$1" | tee -a "$GITHUB_STEP_SUMMARY"; }
+          RUN_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          # drop_pr NUM WHY RECOVERY: take a PR the queue cannot move out of the
+          # queue (it selects on auto-merge being enabled) so it cannot wedge the
+          # head, and tell humans on the PR what, if anything, they need to do.
+          # Auto-merge is re-enabled by dependabot-automerge.yml once a new head
+          # passes its checks. Whether the caller may stop after a drop depends on
+          # the PR: disabling auto-merge fires pull_request: auto_merge_disabled,
+          # which re-dispatches the queue -- but GitHub runs no pull_request
+          # workflow for a PR with a merge conflict, so for a DIRTY PR that event
+          # is never seen and the caller has to move on to the next candidate
+          # itself.
+          # Returns non-zero if auto-merge could not be disabled: the PR is then
+          # still in the queue and no event will follow, so the caller must fail
+          # the run rather than report a drop.
+          drop_pr() {
+            local num="$1" why="$2" recovery="$3"
+            if ! gh pr merge --disable-auto --repo "$REPO" "$num"; then
+              warn "Could not drop PR #$num from the Dependabot queue" "PR #$num: $why, but disabling auto-merge failed; it stays in the queue."
+              return 1
+            fi
+            warn "Dependabot queue dropped PR #$num" "PR #$num: $why. Disabled auto-merge to drop it from the queue."
+            gh pr comment "$num" --repo "$REPO" --body "The Dependabot queue disabled auto-merge on this PR: $why (see $RUN_URL). Leaving it out of the queue lets the other Dependabot PRs proceed. $recovery Auto-merge is re-enabled automatically once the new head's checks pass." \
+              || warn "Could not comment on PR #$num" "PR #$num was dropped from the queue but posting the notice on it failed; nobody outside this run has been told."
+          }
+
+          # Open, auto-merge-enabled Dependabot PRs on allowlisted branches.
+          # `state` is checked explicitly: the search index lags, so a PR merged
+          # seconds ago can still come back from `is:open` -- and autoMergeRequest
+          # survives the merge, so nothing else would exclude it. Poll until
+          # mergeStateStatus settles: the merge-advance path fires on the very
+          # merge that invalidates siblings' state, and GitHub recomputes
+          # mergeStateStatus asynchronously -- a fresh query can return UNKNOWN and
+          # make us wrongly conclude "nothing to do". first: 100 so the FIFO front
+          # is never truncated if an open-pull-requests-limit is raised.
+          gql='
+            query($q: String!) {
+              search(query: $q, type: ISSUE, first: 100) {
+                nodes {
+                  ... on PullRequest {
+                    id
+                    number
+                    state
+                    headRefName
+                    headRefOid
+                    mergeStateStatus
+                    autoMergeRequest { enabledAt }
+                  }
+                }
+              }
+            }'
+          select_prs='[ .[]
+            | select(.state == "OPEN" and .autoMergeRequest != null)
+            | select(.headRefName as $b | $pfx | any(. as $p | $b | startswith($p)))
+            | {id, number, branch: .headRefName, mss: .mergeStateStatus, oid: .headRefOid} ]'
+          queue=""
+          attempts=0
+          while :; do
+            queue=$(gh api graphql -f q="repo:$REPO is:pr is:open author:app/dependabot" -f query="$gql" \
+              --jq '.data.search.nodes' | jq -c --argjson pfx "$ALLOWED_PREFIXES" "$select_prs")
+            unknown=$(printf '%s' "$queue" | jq '[ .[] | select(.mss == "UNKNOWN") ] | length')
+            if [ "$unknown" -eq 0 ] || [ "$attempts" -ge 5 ]; then
+              break
+            fi
+            attempts=$((attempts + 1))
+            echo "mergeStateStatus still settling ($unknown UNKNOWN); re-polling (attempt $attempts/5)."
+            sleep 5
+          done
+          # Enrich each queued PR with the REQUIRED workflows whose latest run on
+          # this head finished with a blocking conclusion (required_failed = any).
+          # Required-only, per workflow -- NOT the aggregate statusCheckRollup,
+          # which folds in optional checks whose failure would wrongly exclude a PR
+          # branch protection would still merge. Blocking = completed and not
+          # success/skipped/neutral (skipped and neutral satisfy a required
+          # check); failure, cancelled, timed_out, action_required never
+          # progress to merge -- dependabot-automerge.yml approves only `success`
+          # -- so treating them as healthy would wedge the queue behind that PR. A
+          # still-running latest attempt (null conclusion) is healthy. Latest run
+          # per workflow (the API lists newest first), so a superseded `cancelled`
+          # attempt doesn't count.
+          n=$(printf '%s' "$queue" | jq 'length')
+          enriched='[]'
+          j=0
+          while [ "$j" -lt "$n" ]; do
+            row=$(printf '%s' "$queue" | jq -c ".[$j]")
+            j=$((j + 1))
+            num=$(printf '%s' "$row" | jq -r '.number')
+            oid=$(printf '%s' "$row" | jq -r '.oid')
+            if ! runs=$(GH_TOKEN="$DEFAULT_TOKEN" gh api "repos/$REPO/actions/runs?head_sha=$oid&event=pull_request&per_page=100" --jq '.workflow_runs'); then
+              warn "Dependabot queue could not read checks for PR #$num" "Reading the workflow runs of PR #$num (head $oid) failed; this advance stops without acting. The next queue event or a manual dispatch retries."
+              exit 1
+            fi
+            blocking=$(printf '%s' "$runs" | jq -c --argjson req "$REQUIRED_WORKFLOWS" '
+              . as $runs
+              | [ $req[] as $wf
+                  | ($runs | map(select(.name == $wf)) | .[0])
+                  | select(. != null and .conclusion != null
+                           and (.conclusion | IN("success", "skipped", "neutral") | not))
+                  | .name ]')
+            enriched=$(printf '%s' "$enriched" | jq -c --argjson row "$row" --argjson blocking "$blocking" \
+              '. + [$row + {blocking: $blocking, required_failed: ($blocking | length > 0)}]')
+          done
+          {
+            echo "### Queue state"
+            echo
+            echo "| PR | Branch | mergeStateStatus | Required checks |"
+            echo "|---|---|---|---|"
+            printf '%s' "$enriched" | jq -r '.[] | "| #\(.number) | `\(.branch)` | \(.mss) | \(if .required_failed then "blocking: " + (.blocking | join(", ")) else "ok" end) |"'
+            echo
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$unknown" -gt 0 ]; then
+            warn "Dependabot queue: mergeStateStatus did not settle" "Gave up polling after ${attempts} attempts; ${unknown} queued PR(s) still UNKNOWN -- proceeding; a genuinely-BEHIND PR may be missed until the next event."
+          fi
+
+          # Hot-guard: a PR that is up-to-date and progressing to merge (not BEHIND,
+          # required checks not blocking) means the queue must wait for it -- its
+          # own merge (dispatch) or red checks (skip-red) re-triggers this advance.
+          # Rebasing the next BEHIND PR now would be premature: a later merge
+          # re-BEHINDs it, cascading back to the ~N^2/2 rebasing this queue exists
+          # to avoid. Advances fire on more than a merge (auto-merge enablement
+          # kicks the queue), so this guard, not the trigger timing, preserves
+          # single-hot.
+          hot=$(printf '%s' "$enriched" | jq -c '[ .[]
+            | select((.mss == "CLEAN" or .mss == "BLOCKED" or .mss == "UNSTABLE" or .mss == "HAS_HOOKS")
+                     and (.required_failed | not)) ]')
+          if [ "$(printf '%s' "$hot" | jq 'length')" -gt 0 ]; then
+            note "Waiting on hot PR(s): $(printf '%s' "$hot" | jq -r 'map("#\(.number) (\(.mss))") | join(", ")'); nothing to do."
+            exit 0
+          fi
+
+          # FIFO candidates: BEHIND with required checks not blocking (a rebase
+          # won't fix a real failure), or DIRTY. One rebase per run: the first
+          # candidate whose rebase lands ends the run; a rejected rebase moves on
+          # to the next candidate. Dropping a conflicting PR is a cheap API call,
+          # not the run's action, and produces no re-dispatching event (see
+          # drop_pr), so the loop continues past it; a drop after a rebase that
+          # did not land stops the run, since that PR's event does fire.
+          candidates=$(printf '%s' "$enriched" | jq -c '[ .[]
+            | select((.mss == "BEHIND" and (.required_failed | not)) or .mss == "DIRTY") ]
+            | sort_by(.number)')
+          count=$(printf '%s' "$candidates" | jq 'length')
+          dropped=0
+          drop_failed=0
+          finish() {
+            if [ "$drop_failed" -gt 0 ]; then
+              echo "::error title=Dependabot queue could not drop a PR::$drop_failed PR(s) the queue cannot move are still in the queue because disabling their auto-merge failed; see the warnings above. The next queue event or a manual dispatch retries."
+              exit 1
+            fi
+            exit 0
+          }
+          i=0
+          while [ "$i" -lt "$count" ]; do
+            num=$(printf '%s' "$candidates" | jq -r ".[$i].number")
+            id=$(printf '%s' "$candidates" | jq -r ".[$i].id")
+            oid=$(printf '%s' "$candidates" | jq -r ".[$i].oid")
+            mss=$(printf '%s' "$candidates" | jq -r ".[$i].mss")
+            i=$((i + 1))
+
+            if [ "$mss" = "DIRTY" ]; then
+              # Only Dependabot can regenerate a conflicting head (a server-side
+              # rebase cannot resolve the conflict): on its own at its next
+              # scheduled run, or on a command from a user with push access -- it
+              # never takes that command from this app.
+              if drop_pr "$num" "its head conflicts with the base branch, which only Dependabot can fix" \
+                  "Dependabot normally regenerates this PR on its next scheduled run; to hurry it, a user with push access can comment \`@dependabot recreate\` (the automerge app is not allowed to)."; then
+                dropped=$((dropped + 1))
+              else
+                drop_failed=$((drop_failed + 1))
+              fi
+              continue
+            fi
+
+            echo "Rebasing front out-of-date Dependabot PR #$num onto its base (expected head $oid)."
+            # expectedHeadOid: a push racing this is rejected (the mutation fails if
+            # the head has moved). REBASE keeps linear history. On a mutation error
+            # (head moved, deleted head ref, already up to date, permission or rate
+            # limit) skip to the next candidate rather than failing the whole run,
+            # but surface the actual error.
+            if ! err=$(gh api graphql -f query='
+              mutation($id: ID!, $oid: GitObjectID!) {
+                updatePullRequestBranch(input: { pullRequestId: $id, expectedHeadOid: $oid, updateMethod: REBASE }) {
+                  pullRequest { number }
+                }
+              }' -f id="$id" -f oid="$oid" 2>&1 >/dev/null); then
+              warn "Rebase request rejected for PR #$num" "PR #$num: rebase request rejected: ${err}. Trying the next candidate."
+              continue
+            fi
+            # The rebase is async (202-equivalent). Poll for the head to change
+            # (rebase landed) for about a minute; a failed read just costs one poll.
+            # If the head never changes, the server-side rebase failed -- drop the
+            # PR so a persistent failure can't wedge the head of the queue.
+            rebased=""
+            for _ in $(seq 1 12); do
+              sleep 5
+              new_oid=$(gh pr view "$num" --repo "$REPO" --json headRefOid --jq '.headRefOid' || true)
+              if [ -n "$new_oid" ] && [ "$new_oid" != "$oid" ]; then
+                rebased=1
+                break
+              fi
+            done
+            if [ -n "$rebased" ]; then
+              note "Rebased PR #$num onto its base (new head $new_oid)."
+              finish
+            fi
+            # Not a conflicting PR, so its auto_merge_disabled event does run the
+            # dispatch job and re-dispatches the queue.
+            if drop_pr "$num" "the server-side rebase requested by the queue did not complete within about a minute" \
+                "If the rebase landed late, nothing else is needed; otherwise the linked run shows what was requested, and a manual dispatch of the Dependabot queue workflow retries."; then
+              note "Dropped PR #$num; its auto_merge_disabled event re-dispatches the queue for the next candidate."
+              finish
+            fi
+            drop_failed=$((drop_failed + 1))
+            break
+          done
+          if [ "$drop_failed" -gt 0 ]; then
+            finish
+          elif [ "$count" -eq 0 ]; then
+            note "No eligible out-of-date or conflicting Dependabot PR; nothing to do."
+          elif [ "$dropped" -eq "$count" ]; then
+            note "Dropped $dropped conflicting PR(s); no out-of-date PR left to rebase."
+          else
+            warn "Dependabot queue: no rebase landed" "Of $count candidate(s), $dropped conflicting PR(s) were dropped and every rebase request was rejected; see the warnings above. The next queue event or a manual dispatch retries."
+          fi
