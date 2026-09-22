@@ -130,6 +130,7 @@ Type: `Promise<number>`
  - [limel-example-markdown-composite](../markdown/examples)
  - [limel-example-text-editor-composite](../text-editor/examples)
  - [limel-menu](../menu)
+ - [limel-pagination-jump](../pagination/jump)
  - [limel-text-editor-link-menu](../text-editor/link-menu)
 
 ### Depends on
@@ -197,6 +198,7 @@ graph TD;
   limel-example-markdown-composite --> limel-input-field
   limel-example-text-editor-composite --> limel-input-field
   limel-menu --> limel-input-field
+  limel-pagination-jump --> limel-input-field
   limel-text-editor-link-menu --> limel-input-field
   style limel-input-field fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -68,6 +68,8 @@ the option is picked with `Enter` or a click.
  - [limel-example-list-item-multiple-lines](../list-item/examples)
  - [limel-example-menu-open-direction](../menu/examples)
  - [limel-example-menu-surface-width](../menu/examples)
+ - [limel-example-pagination-language](../pagination/examples)
+ - [limel-example-pagination-page-size](../pagination/examples)
  - [limel-example-picker-static-actions](../picker/examples)
  - [limel-example-profile-picture-image-fit](../profile-picture/examples)
  - [limel-example-radio-button-group-multiple-lines](../radio-button-group/examples)
@@ -131,6 +133,8 @@ graph TD;
   limel-example-list-item-multiple-lines --> limel-select
   limel-example-menu-open-direction --> limel-select
   limel-example-menu-surface-width --> limel-select
+  limel-example-pagination-language --> limel-select
+  limel-example-pagination-page-size --> limel-select
   limel-example-picker-static-actions --> limel-select
   limel-example-profile-picture-image-fit --> limel-select
   limel-example-radio-button-group-multiple-lines --> limel-select
