@@ -1,3 +1,10 @@
+## [40.5.1](https://github.com/Lundalogik/lime-elements/compare/v40.5.0...v40.5.1) (2026-09-23)
+
+### Bug Fixes
+
+
+* **picker:** stop the dropdown resizing itself inside its own resize observer ([1b0b5c2](https://github.com/Lundalogik/lime-elements/commit/1b0b5c2d72c60987ce1415158c5f71b0b9b0a195))
+
 ## [40.5.0](https://github.com/Lundalogik/lime-elements/compare/v40.4.2...v40.5.0) (2026-09-19)
 
 ### Features
