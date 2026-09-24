@@ -1,18 +1,45 @@
 version: 2
 updates:
+  # All ecosystems check DAILY with generous PR limits, on purpose. Automerge
+  # drains green bot PRs within the hour, so daily runs mean updates flow into
+  # main one or two at a time. Under the require-up-to-date rule, N
+  # simultaneously open PRs cost up to ~N^2/2 check runs if every merge
+  # re-rebases the rest -- a weekly batch maximizes exactly that. The limits are
+  # high because overflow beyond a limit waits for the NEXT scheduled run, and a
+  # stuck red PR holds its slot.
+  #
+  # `rebase-strategy: disabled` on every ecosystem: Dependabot's own rebasing
+  # does nothing for a PR that is merely behind main, which under the
+  # require-up-to-date rule leaves a green, approved PR stuck for days. Keeping
+  # PRs up to date is delegated to the dependabot-queue.yml workflow. The
+  # setting also bounds Dependabot's regeneration of every open PR touching the
+  # same manifest to once per scheduled run instead of once per sibling merge.
   - package-ecosystem: "github-actions"
     directories:
       - "/"
       - "/.github/actions/*"
+    rebase-strategy: disabled
+    open-pull-requests-limit: 10
     schedule:
-      # Check for updates to GitHub Actions every week
-      interval: "weekly"
+      interval: "daily"
+    # A flat 5-day soak so a freshly released action version outlives the
+    # typical detect-and-yank window before it is proposed. Only default-days
+    # is valid here -- Dependabot rejects the semver-granular cooldown keys for
+    # github-actions.
+    cooldown:
+      default-days: 5
   - package-ecosystem: "npm"
     directory: "/"
-    open-pull-requests-limit: 4
+    rebase-strategy: disabled
+    open-pull-requests-limit: 10
     versioning-strategy: increase
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 5
+      semver-major-days: 7
+      semver-minor-days: 5
+      semver-patch-days: 3
     groups:
       lint:
         patterns:

@@ -1,0 +1,166 @@
+name: Dependabot automerge
+# Approves + enables auto-merge for green Dependabot PRs. Triggered on
+# `workflow_run` of the repo's checks workflow, so it executes in the trusted
+# base-branch context: workflow_run is not a Dependabot-restricted event, so the
+# job can read the environment secret, while Dependabot pull_request build jobs
+# get no Actions secrets and cannot reach the app key. The job never checks out
+# PR code. Auto-merge (not force-merge) so the branch's required checks are
+# enforced natively.
+#
+# The branch allowlist (dependabot/npm_and_yarn/*, dependabot/pip/*,
+# dependabot/github_actions/*) lives in the job's `if:`: GitHub expressions
+# cannot test "starts with any of" over a list, and a shell step would start a
+# runner on every skipped run. Any ecosystem outside the list fails closed
+# until it is added here. Mind the underscores:
+# Dependabot normalizes the `github-actions` ecosystem name (dependabot.yml) to
+# `github_actions` in branch names, and `npm` to `npm_and_yarn`, so the
+# mismatches are deliberate -- "fixing" them silently breaks the match and
+# auto-merge just stops firing.
+
+# A workflow_run run carries base-branch context, so without this every run
+# would be listed as "main"; name the head branch it acts on.
+run-name: "Dependabot automerge: ${{ github.event.workflow_run.head_branch }}"
+on:
+  workflow_run:
+    # LOAD-BEARING: must match the `name:` of the checks workflow exactly. If
+    # that is renamed, auto-merge silently stops firing (fail-safe).
+    workflows: ["Pull Request Checks"]
+    types: [completed]
+
+# Serialize repeat attempts for the SAME PR branch (a checks re-run firing a
+# second completion) so they don't race to approve/enable. Per branch, not
+# global: distinct Dependabot PRs are independent. cancel-in-progress: false so
+# an in-flight approve+enable is never interrupted mid-privileged-operation.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  automerge:
+    # workflow_run.conclusion aggregates ALL jobs in the checks run, including
+    # ones that skip on a Dependabot PR -- a skipped job leaves the conclusion
+    # at 'success'. If one ever failed instead, this job would never fire
+    # (fail-closed).
+    if: >-
+      github.event.workflow_run.event == 'pull_request'
+      && github.event.workflow_run.conclusion == 'success'
+      && (github.event.workflow_run.actor.login == 'dependabot[bot]'
+          || github.event.workflow_run.actor.login == 'lime-dependabot-automerge[bot]')
+      && (startsWith(github.event.workflow_run.head_branch, 'dependabot/npm_and_yarn/')
+          || startsWith(github.event.workflow_run.head_branch, 'dependabot/pip/')
+          || startsWith(github.event.workflow_run.head_branch, 'dependabot/github_actions/'))
+    runs-on: ubuntu-24.04
+    # The environment holds the app secrets behind a main-only
+    # deployment-branch rule.
+    environment: dependabot-automerge
+    permissions:
+      # For the default token to dispatch the queue in the last step. The
+      # approve/enable steps use the minted app token, not this one.
+      actions: write
+    # A hung `gh` call must not hold the per-branch concurrency lock for the 6h
+    # default. Approve+enable is seconds of work.
+    timeout-minutes: 5
+    steps:
+      - name: Mint app token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.AUTOMERGE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.AUTOMERGE_APP_PRIVATE_KEY }}
+          # Least-privilege: pull-requests:write covers `gh pr review --approve`
+          # and enabling auto-merge; contents:write is what GitHub uses to
+          # perform the eventual rebase-merge under the App's identity once
+          # required checks pass.
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Approve and enable auto-merge
+        id: approve
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          # --author filters out any fork PR with a colliding branch name
+          # (defense-in-depth behind the head-SHA guard). `// empty` so an
+          # empty list yields "" (not the literal "null").
+          pr_number=$(gh pr list --repo "$REPO" --head "$HEAD_BRANCH" --author 'app/dependabot' --state open --json number --jq '.[0].number // empty')
+          if [ -z "$pr_number" ]; then
+            echo "No open Dependabot PR for branch $HEAD_BRANCH; nothing to do." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          # Only approve the commit the checks actually ran against. On a re-run
+          # of an old check run, workflow_run.actor stays dependabot[bot] even
+          # after a human pushed a new commit, so guard against re-approving a
+          # head that has since moved (approvals are dismissed on push).
+          pr_head_sha=$(gh pr view "$pr_number" --repo "$REPO" --json headRefOid --jq '.headRefOid')
+          if [ "$pr_head_sha" != "$HEAD_SHA" ]; then
+            echo "::warning title=Dependabot automerge skipped PR #$pr_number::Checks ran at $HEAD_SHA but the head is now $pr_head_sha; approval skipped."
+            echo "PR #$pr_number head moved to $pr_head_sha (checks ran at $HEAD_SHA); skipped approval." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          # Enable auto-merge before approving. On an already-mergeable PR `gh`
+          # switches from enabling auto-merge to merging immediately, which fails
+          # ("Pull Request is not mergeable (mergePullRequest)"), and the approval
+          # is usually the last thing holding the PR back -- so enable while the
+          # missing approval still blocks it, then approve to trigger the merge.
+          # Skip enabling if it is already on: a queue-rebased PR keeps its
+          # enablement and only lost its approval.
+          if ! already=$(gh pr view "$pr_number" --repo "$REPO" --json autoMergeRequest --jq '.autoMergeRequest != null'); then
+            echo "Could not read the auto-merge state of PR #$pr_number; assuming it is not enabled."
+            already=false
+          fi
+          if [ "$already" = "true" ]; then
+            echo "Auto-merge already enabled for PR #$pr_number; only re-approval needed."
+            outcome="re-approved (auto-merge was already enabled)"
+          else
+            echo "Enabling auto-merge for PR #$pr_number"
+            gh pr merge --auto --rebase --match-head-commit "$HEAD_SHA" --repo "$REPO" "$pr_number"
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            outcome="approved and auto-merge enabled"
+          fi
+          echo "Approving PR #$pr_number ($HEAD_BRANCH) at $HEAD_SHA"
+          # Retried: after auto-merge is enabled, a failed approval leaves the PR
+          # green, unapproved and BLOCKED, which the queue reads as "hot" and waits
+          # on -- stalling every other Dependabot PR until a human re-runs this job.
+          approved=""
+          for attempt in 1 2 3; do
+            if gh pr review --approve --repo "$REPO" "$pr_number"; then
+              approved=1
+              break
+            fi
+            echo "Approval attempt $attempt failed; retrying in 10s."
+            sleep 10
+          done
+          if [ -z "$approved" ]; then
+            echo "::error title=Dependabot automerge could not approve PR #$pr_number::Approval failed three times; the PR holds the queue's hot slot until this job is re-run or it is approved by hand."
+            exit 1
+          fi
+          echo "PR #$pr_number ($HEAD_BRANCH) at $HEAD_SHA: $outcome." >> "$GITHUB_STEP_SUMMARY"
+      - name: Kick the queue to re-evaluate the front PR
+        # Enabling auto-merge is the moment a PR becomes a queue candidate. A
+        # sibling can finish its own checks and get auto-merge enabled AFTER the
+        # merge-triggered advance already ran, leaving it BEHIND with no event to
+        # advance the queue. Only on the newly-enabled path: a re-approved
+        # (queue-rebased) PR is up to date by construction.
+        if: steps.approve.outputs.enabled == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          REASON: "auto-merge enabled on ${{ github.event.workflow_run.head_branch }}"
+        run: |
+          set -euo pipefail
+          # The PR is already approved and queued at this point, so a failed
+          # dispatch is a warning, not a red run: the next queue event picks the
+          # PR up anyway.
+          if gh workflow run dependabot-queue.yml --repo "$REPO" --ref main -f reason="$REASON"; then
+            echo "Dispatched the queue: $REASON" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "::warning title=Dependabot automerge could not kick the queue::Dispatching dependabot-queue.yml failed ($REASON); the PR is approved and queued, and the next queue event or a manual dispatch picks it up."
+            echo "Could not dispatch the queue ($REASON); the next queue event picks the PR up." >> "$GITHUB_STEP_SUMMARY"
+          fi

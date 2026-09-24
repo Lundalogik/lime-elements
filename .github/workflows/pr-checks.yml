@@ -275,14 +275,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
+        if: github.actor != 'dependabot[bot]' && github.actor != 'lime-dependabot-automerge[bot]' && github.event_name != 'merge_group'
       - uses: wagoid/commitlint-github-action@b948419dd99f3fd78a6548d48f94e3df7f6bf3ed # v6.2.1
-        if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
+        if: github.actor != 'dependabot[bot]' && github.actor != 'lime-dependabot-automerge[bot]' && github.event_name != 'merge_group'
 
   sonarcloud:
     name: SonarCloud
     if: >-
       github.actor != 'dependabot[bot]' &&
+      github.actor != 'lime-dependabot-automerge[bot]' &&
       github.event_name != 'merge_group' &&
       github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
@@ -359,23 +360,6 @@ jobs:
       prNumber: ${{ github.event.pull_request.number }}
       # For same-repo PRs, publish directly. For fork PRs, build only (publishing handled by publish-pr-docs workflow).
       # For Dependabot PRs, build only (no need to publish docs for dependency updates).
-      buildOnly: ${{ github.event.pull_request.head.repo.fork || github.actor == 'dependabot[bot]' }}
+      buildOnly: ${{ github.event.pull_request.head.repo.fork || github.actor == 'dependabot[bot]' || github.actor == 'lime-dependabot-automerge[bot]' }}
     secrets:
       PUBLISH_DOCS: ${{ secrets.PUBLISH_DOCS }}
-
-  automerge:
-    needs: [lint, build, test, autosquash, docs]
-    if: github.event.pull_request.head.repo.owner.login == 'Lundalogik' && github.actor == 'dependabot[bot]' && github.event_name != 'merge_group'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Automerge
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          MERGE_TOKEN: ${{ secrets.MERGE_AUTOMATIC_PR }}
-        run: |
-          curl -L -X PUT \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer $MERGE_TOKEN" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/Lundalogik/lime-elements/pulls/$PR_NUMBER/merge \
-            -d '{"merge_method":"rebase"}'
