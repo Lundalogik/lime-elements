@@ -188,37 +188,3 @@
         }
     }
 }
-
-:host(.has-pagination-on-top) {
-    .tabulator {
-        .tabulator-header {
-            order: 2;
-        }
-
-        .tabulator-tableholder {
-            order: 3;
-        }
-
-        .tabulator-footer {
-            order: 1;
-            background-color: transparent;
-        }
-
-        .tabulator-calcs-holder {
-            position: absolute;
-            bottom: 0;
-        }
-    }
-
-    &:has(.tabulator-calcs-holder) {
-        .tabulator-tableholder {
-            // makes sure aggregations row doesn't cover the last table row,
-            // and the horizontal scroll bar which is shown on windows
-            margin-bottom: var(--limel-table-height-of-aggregations-row);
-        }
-    }
-
-    .select-all {
-        top: 2.5rem;
-    }
-}
