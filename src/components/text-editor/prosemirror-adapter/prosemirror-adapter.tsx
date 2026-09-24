@@ -236,9 +236,11 @@ export class ProsemirrorAdapter {
      * send. Use this to empty the editor regardless of the prop's change
      * detection.
      *
-     * Does not emit a `change` event. Consumers that mirror the editor
-     * content on `change` (drafts, validation, dirty state) should reset
-     * their own copy when calling this.
+     * Does not emit a `change` event, and discards any pending debounced
+     * `change` — consumers that need the final content must call
+     * `flushPendingChanges()` before clearing. Consumers that mirror the
+     * editor content on `change` (drafts, validation, dirty state) should
+     * reset their own copy when calling this.
      */
     @Method()
     public async clear(): Promise<void> {
