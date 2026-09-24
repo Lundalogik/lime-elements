@@ -86,7 +86,7 @@
     "kompendium": "npm:@limetech/kompendium@^1.3.0",
     "lodash-es": "^4.17.23",
     "material-components-web": "^13.0.0",
-    "moment": "^2.30.1",
+    "moment": "^2.31.0",
     "morphdom": "^2.7.8",
     "number-abbreviate": "^2.0.0",
     "parse-css-color": "^0.2.1",
