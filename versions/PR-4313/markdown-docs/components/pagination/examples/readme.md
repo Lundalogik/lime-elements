@@ -4,22 +4,29 @@
 
 ## Overview
 
-When there is only one page
+Total items
 
-The component always renders, even when everything fits on one page and
-there is nowhere to go. If it hid itself, everything below it would jump up
-the moment a filter happened to narrow the results, and you could not stop
-that from happening. Whether to show a pagination at all is your decision,
-so it is left to you.
+`totalItems` is how many items there are in total, across every page. It is
+the only number the component needs to know how far the set goes.
 
-With many pages, page 1 and the last page are always there, so both ends of
-the list are one click away. That is why there are no separate first and
-last buttons: the numbers already do that job, and they tell you where they
-take you. The pages that do not fit are replaced by a `···`, which is a
-button: it opens a field for going straight to any page in the set.
+Some apps fetch the items first and the total count a moment later, so that
+the list appears sooner. If that is you, set `totalItems` to `null` until the
+count turns up.
 
-In this example, you can try narrowing the results and watch the control
-shrink from 492 pages to one, without moving or disappearing.
+This example pretends to be such an app. Press the button and watch the order
+things happen in: the items come back first, and the count a moment later.
+While the count is missing the component keeps the pages it already knew
+about, so nothing jumps around and you stay on the page you were on.
+
+Going to another page only fetches the items. The count is still good, so the
+page numbers do not flicker.
+
+A small total is worth knowing about: when everything fits on one page, the
+component still renders, showing `1` with both arrows dead. It stays because
+disappearing would shove whatever sits underneath it upwards, at the
+unhelpful moment when a filter has just narrowed someone's results. Whether
+a pagination is worth showing at all in that case is your call, and you make
+it by not rendering one.
 
 ## Dependencies
 
@@ -28,15 +35,15 @@ shrink from 492 pages to one, without moving or disappearing.
 - [limel-pagination](..)
 - [limel-example-value](../../../examples)
 - [limel-example-controls](../../../examples)
-- [limel-checkbox](../../checkbox)
+- [limel-button](../../button)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-pagination-single-page --> limel-pagination
-  limel-example-pagination-single-page --> limel-example-value
-  limel-example-pagination-single-page --> limel-example-controls
-  limel-example-pagination-single-page --> limel-checkbox
+  limel-example-pagination-total-items --> limel-pagination
+  limel-example-pagination-total-items --> limel-example-value
+  limel-example-pagination-total-items --> limel-example-controls
+  limel-example-pagination-total-items --> limel-button
   limel-pagination --> limel-popover
   limel-pagination --> limel-pagination-jump
   limel-pagination --> limel-spinner
@@ -56,10 +63,7 @@ graph TD;
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-tooltip-content --> limel-hotkey
-  limel-checkbox --> limel-dynamic-label
-  limel-checkbox --> limel-helper-line
-  limel-dynamic-label --> limel-icon
-  style limel-example-pagination-single-page fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-pagination-total-items fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
