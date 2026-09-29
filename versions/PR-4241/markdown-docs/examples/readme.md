@@ -109,6 +109,14 @@ The component automatically formats different value types:
  - [limel-example-menu-sub-menus](../components/menu/examples)
  - [limel-example-nested-form](../components/form/examples)
  - [limel-example-notched-outline-basic](../components/notched-outline/examples)
+ - [limel-example-pagination-basic](../components/pagination/examples)
+ - [limel-example-pagination-jump-basic](../components/pagination/jump/examples)
+ - [limel-example-pagination-language](../components/pagination/examples)
+ - [limel-example-pagination-loading](../components/pagination/examples)
+ - [limel-example-pagination-page](../components/pagination/examples)
+ - [limel-example-pagination-page-size](../components/pagination/examples)
+ - [limel-example-pagination-single-page](../components/pagination/examples)
+ - [limel-example-pagination-total-items](../components/pagination/examples)
  - [limel-example-picker-basic](../components/picker/examples)
  - [limel-example-picker-empty-result-message](../components/picker/examples)
  - [limel-example-picker-empty-suggestions](../components/picker/examples)
@@ -153,6 +161,7 @@ The component automatically formats different value types:
  - [limel-example-slider-multiplier](../components/slider/examples)
  - [limel-example-slider-multiplier-percentage-colors](../components/slider/examples)
  - [limel-example-slider-unit](../components/slider/examples)
+ - [limel-example-slider-unset](../components/slider/examples)
  - [limel-example-switch-basic](../components/switch/examples)
  - [limel-example-switch-helper-text](../components/switch/examples)
  - [limel-example-switch-readonly](../components/switch/examples)
@@ -248,6 +257,14 @@ graph TD;
   limel-example-menu-sub-menus --> limel-example-value
   limel-example-nested-form --> limel-example-value
   limel-example-notched-outline-basic --> limel-example-value
+  limel-example-pagination-basic --> limel-example-value
+  limel-example-pagination-jump-basic --> limel-example-value
+  limel-example-pagination-language --> limel-example-value
+  limel-example-pagination-loading --> limel-example-value
+  limel-example-pagination-page --> limel-example-value
+  limel-example-pagination-page-size --> limel-example-value
+  limel-example-pagination-single-page --> limel-example-value
+  limel-example-pagination-total-items --> limel-example-value
   limel-example-picker-basic --> limel-example-value
   limel-example-picker-empty-result-message --> limel-example-value
   limel-example-picker-empty-suggestions --> limel-example-value
@@ -292,6 +309,7 @@ graph TD;
   limel-example-slider-multiplier --> limel-example-value
   limel-example-slider-multiplier-percentage-colors --> limel-example-value
   limel-example-slider-unit --> limel-example-value
+  limel-example-slider-unset --> limel-example-value
   limel-example-switch-basic --> limel-example-value
   limel-example-switch-helper-text --> limel-example-value
   limel-example-switch-readonly --> limel-example-value

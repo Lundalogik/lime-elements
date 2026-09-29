@@ -1,1 +1,0 @@
-import{h as r}from"./index-BGxJfR2f.js";function n(n,o){if(!(null==n?void 0:n.name))return;if(!n.name.includes("-"))return;const t=n.name,e=n.props||{},i=[o,e.class].filter(Boolean).join(" ")||void 0;return r(t,Object.assign({},e,{class:i}))}export{n as r}

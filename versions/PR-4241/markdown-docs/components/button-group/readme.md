@@ -35,10 +35,10 @@ inherits its width from its content.
 
 ## Properties
 
-| Property   | Attribute  | Description                                 | Type       | Default |
-| ---------- | ---------- | ------------------------------------------- | ---------- | ------- |
-| `disabled` | `disabled` | True if the button-group should be disabled | `boolean`  | `false` |
-| `value`    | --         | List of buttons for the group               | `Button[]` | `[]`    |
+| Property   | Attribute  | Description                                                                                                                                     | Type       | Default |
+| ---------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------- |
+| `disabled` | `disabled` | True if the button-group should be disabled.  Disables every button in the group, regardless of the `disabled` value of each individual button. | `boolean`  | `false` |
+| `value`    | --         | List of buttons for the group                                                                                                                   | `Button[]` | `[]`    |
 
 
 ## Events
@@ -58,6 +58,7 @@ inherits its width from its content.
  - [limel-example-button-group-badges](examples)
  - [limel-example-button-group-basic](examples)
  - [limel-example-button-group-composite](examples)
+ - [limel-example-button-group-disabled-item](examples)
  - [limel-example-button-group-icons](examples)
  - [limel-example-button-group-mix](examples)
  - [limel-example-text-editor-triggers](../text-editor/examples)
@@ -83,6 +84,7 @@ graph TD;
   limel-example-button-group-badges --> limel-button-group
   limel-example-button-group-basic --> limel-button-group
   limel-example-button-group-composite --> limel-button-group
+  limel-example-button-group-disabled-item --> limel-button-group
   limel-example-button-group-icons --> limel-button-group
   limel-example-button-group-mix --> limel-button-group
   limel-example-text-editor-triggers --> limel-button-group

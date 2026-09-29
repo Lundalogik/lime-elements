@@ -43,11 +43,13 @@ But there is an important difference between the two! Please read our guidelines
 
  - [limel-example-button-composite](../button/examples)
  - [limel-example-button-group-basic](../button-group/examples)
+ - [limel-example-button-group-disabled-item](../button-group/examples)
  - [limel-example-button-group-icons](../button-group/examples)
  - [limel-example-button-group-mix](../button-group/examples)
  - [limel-example-card-3d-effect](../card/examples)
  - [limel-example-card-selected](../card/examples)
  - [limel-example-chart-axis-labels](../chart/examples)
+ - [limel-example-chart-display-item-percentage](../chart/examples)
  - [limel-example-checkbox-basic](../checkbox/examples)
  - [limel-example-checkbox-readonly](../checkbox/examples)
  - [limel-example-chip-button](../chip/examples)
@@ -125,11 +127,13 @@ graph TD;
   limel-dynamic-label --> limel-icon
   limel-example-button-composite --> limel-switch
   limel-example-button-group-basic --> limel-switch
+  limel-example-button-group-disabled-item --> limel-switch
   limel-example-button-group-icons --> limel-switch
   limel-example-button-group-mix --> limel-switch
   limel-example-card-3d-effect --> limel-switch
   limel-example-card-selected --> limel-switch
   limel-example-chart-axis-labels --> limel-switch
+  limel-example-chart-display-item-percentage --> limel-switch
   limel-example-checkbox-basic --> limel-switch
   limel-example-checkbox-readonly --> limel-switch
   limel-example-chip-button --> limel-switch

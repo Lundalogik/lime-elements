@@ -95,6 +95,7 @@ primary and secondary actions, see our
  - [limel-example-menu-sub-menu-lazy-loading-infinite](../menu/examples)
  - [limel-example-menu-sub-menus](../menu/examples)
  - [limel-example-menu-surface-width](../menu/examples)
+ - [limel-example-pagination-total-items](../pagination/examples)
  - [limel-example-popover-basic](../popover/examples)
  - [limel-example-popover-styling](../popover/examples)
  - [limel-example-portal-basic](../portal/examples)
@@ -116,6 +117,7 @@ primary and secondary actions, see our
  - [limel-example-tooltip-composite](../tooltip/examples)
  - [limel-example-tooltip-declutter](../../design-guidelines/declutter/examples)
  - [limel-example-tooltip-hotkey](../tooltip/examples)
+ - [limel-pagination-jump](../pagination/jump)
  - [limel-snackbar](../snackbar)
  - [limel-split-button](../split-button)
  - [limel-text-editor-link-menu](../text-editor/link-menu)
@@ -191,6 +193,7 @@ graph TD;
   limel-example-menu-sub-menu-lazy-loading-infinite --> limel-button
   limel-example-menu-sub-menus --> limel-button
   limel-example-menu-surface-width --> limel-button
+  limel-example-pagination-total-items --> limel-button
   limel-example-popover-basic --> limel-button
   limel-example-popover-styling --> limel-button
   limel-example-portal-basic --> limel-button
@@ -212,6 +215,7 @@ graph TD;
   limel-example-tooltip-composite --> limel-button
   limel-example-tooltip-declutter --> limel-button
   limel-example-tooltip-hotkey --> limel-button
+  limel-pagination-jump --> limel-button
   limel-snackbar --> limel-button
   limel-split-button --> limel-button
   limel-text-editor-link-menu --> limel-button
