@@ -1,3 +1,10 @@
+## [40.5.2](https://github.com/Lundalogik/lime-elements/compare/v40.5.1...v40.5.2) (2026-09-29)
+
+### Bug Fixes
+
+
+* **popover:** make its surface a edge contrast & improve rendering in dark mode ([3554ce0](https://github.com/Lundalogik/lime-elements/commit/3554ce0ef6c05bf2132698e00f7e8a21be4dbd2d))
+
 ## [40.5.1](https://github.com/Lundalogik/lime-elements/compare/v40.5.0...v40.5.1) (2026-09-23)
 
 ### Bug Fixes
