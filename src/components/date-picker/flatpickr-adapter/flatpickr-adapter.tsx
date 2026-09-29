@@ -1,4 +1,12 @@
-import { Component, Event, EventEmitter, h, Prop, Watch } from '@stencil/core';
+import {
+    Component,
+    Event,
+    EventEmitter,
+    h,
+    Host,
+    Prop,
+    Watch,
+} from '@stencil/core';
 import { DateType, Languages } from '../../date-picker/date.types';
 import translate from '../../../global/translations';
 import { DatePicker as DateOnlyPicker } from '../pickers/date-picker';
@@ -49,7 +57,10 @@ export class DatePickerCalendar {
     public isOpen: boolean;
 
     /**
-     * The native input element to use with flatpickr.
+     * The input element the user types into. Flatpickr itself is bound to
+     * a hidden proxy input, so this element is only refocused when the
+     * calendar closes; setting it is also what triggers creating the
+     * calendar.
      */
     @Prop()
     public inputElement: HTMLElement;
@@ -65,13 +76,14 @@ export class DatePickerCalendar {
      * Emitted when the date picker value is changed.
      */
     @Event()
-    public change: EventEmitter<Date>;
+    public change: EventEmitter<Date | null>;
 
     private picker: Picker;
     private flatPickrCreated: boolean = false;
     private deferredDestroy = new DeferredDestroy();
 
     private container: HTMLElement;
+    private proxyInput: HTMLInputElement;
 
     public componentWillLoad() {
         switch (this.type) {
@@ -175,7 +187,12 @@ export class DatePickerCalendar {
             return;
         }
 
-        this.picker.init(this.inputElement, this.container, this.value);
+        this.picker.init(
+            this.proxyInput,
+            this.container,
+            this.value,
+            this.inputElement
+        );
         this.flatPickrCreated = true;
     }
 
@@ -192,16 +209,29 @@ export class DatePickerCalendar {
 
     public render() {
         return (
-            <div
-                class="container"
-                ref={(el) => (this.container = el)}
-                style={{
-                    '--today-label': `"${translate.get(
-                        'date-picker.today',
-                        this.language
-                    )}"`,
-                }}
-            />
+            <Host>
+                {/* Flatpickr parses and rewrites the text of the input it is
+                    bound to on its own. Binding it to this hidden proxy
+                    instead of the real field leaves `limel-date-picker` as
+                    the only handler of typed text. */}
+                <input
+                    type="text"
+                    tabindex={-1}
+                    aria-hidden="true"
+                    hidden={true}
+                    ref={(el) => (this.proxyInput = el)}
+                />
+                <div
+                    class="container"
+                    ref={(el) => (this.container = el)}
+                    style={{
+                        '--today-label': `"${translate.get(
+                            'date-picker.today',
+                            this.language
+                        )}"`,
+                    }}
+                />
+            </Host>
         );
     }
 }

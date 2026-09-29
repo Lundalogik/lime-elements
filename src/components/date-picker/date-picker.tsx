@@ -166,14 +166,12 @@ export class DatePicker {
     public formatter?: (date: Date) => string;
 
     /**
-     * Emitted when the date picker value is changed, whether by typing a
-     * valid date and committing it, picking a day in the calendar, choosing
-     * "Today", or clearing the field. This is the single source of truth
-     * for value changes — it always fires, regardless of which interaction
-     * caused it.
+     * Emitted once when a typed date is committed (on blur or `Enter`),
+     * when a date is picked in the calendar, or when the field is cleared
+     * (with `null`). Typed text that does not parse never emits.
      */
     @Event()
-    private change: EventEmitter<Date>;
+    private change: EventEmitter<Date | null>;
 
     @Element()
     private host: HTMLLimelDatePickerElement;
@@ -193,10 +191,9 @@ export class DatePicker {
     private parseError = false;
 
     /**
-     * Holds the user's raw, uncommitted, unparseable text so it stays
-     * visible (instead of being overwritten by the last valid `value` on
-     * re-render) until it's corrected, cleared, or overridden by picking a
-     * date from the calendar.
+     * The text the user has typed but not yet committed, valid or not. While
+     * set it is what the field shows, so a re-render never overwrites it
+     * with the formatted `value`. `undefined` once the field shows `value`.
      */
     @State()
     private rawInputValue: string | undefined;
@@ -213,6 +210,7 @@ export class DatePicker {
     private nativeType: InputType;
     private nativeFormat: string;
     private textField: HTMLElement;
+    private inputElement: HTMLInputElement;
     private datePickerCalendar: HTMLLimelFlatpickrAdapterElement;
     private portalId = `date-picker-calendar-${createRandomString()}`;
     private dateFormatter: DateFormatter;
@@ -246,15 +244,23 @@ export class DatePicker {
     }
 
     /**
-     * If the value changes from outside (e.g. the consumer resets a form,
-     * or another control updates this field programmatically), drop any
-     * stale parse-error state so the field reflects the new value instead
-     * of leftover invalid text.
+     * A new `value` — the consumer echoing a committed date back, or an
+     * external change — replaces whatever text was typed.
      */
     @Watch('value')
     protected watchValue() {
-        this.parseError = false;
-        this.rawInputValue = undefined;
+        this.resetTypedText();
+    }
+
+    /**
+     * Typed text was validated against the previous format, so it is
+     * dropped rather than shown as valid or invalid under the new one.
+     */
+    @Watch('format')
+    @Watch('type')
+    @Watch('language')
+    protected watchFormatInputs() {
+        this.resetTypedText();
     }
 
     public render() {
@@ -304,6 +310,7 @@ export class DatePicker {
                 onBlur={this.hideCalendar}
                 onClick={this.onInputClick}
                 onChange={this.handleInputElementChange}
+                onKeyDown={this.handleKeyDown}
                 ref={(el) => (this.textField = el)}
                 {...inputProps}
             />,
@@ -326,31 +333,24 @@ export class DatePicker {
     }
 
     /**
-     * What the text field should currently show: the raw text the user is
-     * mid-typing (whether or not it currently parses) if there is any,
-     * otherwise the formatted committed value.
-     * @param formatter - formats `value` for display when there's no
-     * typed text to show instead
+     * What the text field should show: the typed text if there is any,
+     * otherwise the formatted `value`.
+     * @param formatter - formats `value` for display while the field is
+     * at rest; while focused `internalFormat` is used so the text matches
+     * the placeholder and what typed input is parsed against
      */
     private getDisplayValue(formatter: (date: Date) => string): string {
-        if (this.parseError && this.rawInputValue !== undefined) {
+        if (this.rawInputValue !== undefined) {
             return this.rawInputValue;
         }
 
-        if (this.isEditing) {
-            if (this.rawInputValue !== undefined) {
-                return this.rawInputValue;
-            }
-
-            // Focused, but nothing typed yet: show the internalFormat-based
-            // text (matches the placeholder and what typed input gets
-            // parsed against), not `formatter`'s pretty text, which might
-            // use a totally different pattern — see `formatter`'s doc
-            // comment.
-            return this.value ? this.formatValue(this.value) : '';
+        if (!this.value) {
+            return '';
         }
 
-        return this.value ? formatter(this.value) : '';
+        return this.isEditing
+            ? this.formatValue(this.value)
+            : formatter(this.value);
     }
 
     private getPlaceholder(): string {
@@ -394,12 +394,17 @@ export class DatePicker {
 
     private nativeChangeHandler(event: CustomEvent<string>) {
         event.stopPropagation();
-        const date = this.dateFormatter.parseDate(
-            event.detail,
-            this.internalFormat
-        );
 
-        if (date && !Number.isNaN(date.getTime())) {
+        // An emptied native input must clear the value, like the clear
+        // icon does; `parseText` would just return `null` for it.
+        if (event.detail === '') {
+            this.clearValue();
+
+            return;
+        }
+
+        const date = this.parseText(event.detail);
+        if (date) {
             this.change.emit(date);
         }
     }
@@ -412,19 +417,11 @@ export class DatePicker {
         }
         this.isEditing = true;
         this.showPortal = true;
-        const inputElement = this.textField.shadowRoot.querySelector('input');
-        // A microtask, not a `setTimeout`: on the very first focus, this is
-        // what creates the Flatpickr instance (see
-        // `DatePickerCalendar.componentDidUpdate`), and Flatpickr's own
-        // constructor synchronously writes its computed value into the
-        // input's DOM value as part of setup. A macrotask delay left a
-        // window where that write could land after the user had already
-        // started typing, silently overwriting their first keystrokes.
-        // Microtasks always drain before the next keystroke is processed,
-        // so this closes that window while still deferring off the current
-        // call stack.
+        this.inputElement = this.textField.shadowRoot.querySelector('input');
+        // Deferred off the current call stack so the adapter has rendered;
+        // setting this is what creates the calendar on the first focus.
         queueMicrotask(() => {
-            this.datePickerCalendar.inputElement = inputElement;
+            this.datePickerCalendar.inputElement = this.inputElement;
         });
         event.stopPropagation();
 
@@ -454,15 +451,7 @@ export class DatePicker {
 
     private hideCalendar() {
         this.isEditing = false;
-
-        if (!this.parseError) {
-            // Done editing a valid value: drop the preserved raw typed
-            // text so the next focus starts from the current committed
-            // value instead of a stale partial edit. Left alone while
-            // `parseError` is true, so the invalid text stays visible to
-            // fix even after losing focus.
-            this.rawInputValue = undefined;
-        }
+        this.commitTypedText();
 
         setTimeout(() => {
             this.showPortal = false;
@@ -503,32 +492,33 @@ export class DatePicker {
         }
 
         const element = document.querySelector(`#${this.portalId}`);
-        if (!element.contains(event.target as Node)) {
-            this.hideCalendar();
-        }
-    };
-
-    private handleCalendarChange(event) {
-        const date = event.detail;
-        event.stopPropagation();
-
-        if (date === null && this.parseError) {
-            // Flatpickr independently tries to parse whatever is in the
-            // input on blur too, and clears it when that fails — racing
-            // the typed-input handling above, which (for the same blur)
-            // already correctly flagged this text as invalid and is
-            // preserving it for the user to fix. Let that stand rather
-            // than have Flatpickr's own clear silently wipe it out.
+        if (element.contains(event.target as Node)) {
             return;
         }
+
+        // `mousedown` fires before the input's `change` and `blur`, so a
+        // still-focused input is left to its imminent blur, which runs
+        // `hideCalendar` with the final typed text. This listener only has
+        // to close the calendar when focus is inside it (datetime/time).
+        if (this.textField.shadowRoot.activeElement === this.inputElement) {
+            return;
+        }
+
+        this.hideCalendar();
+    };
+
+    private handleCalendarChange(event: CustomEvent<Date | null>) {
+        event.stopPropagation();
+
+        // Reset before hiding, so the pick is not overridden by a commit
+        // of text typed earlier.
+        this.resetTypedText();
 
         if (this.pickerIsAutoClosing()) {
             this.hideCalendar();
         }
 
-        this.parseError = false;
-        this.rawInputValue = undefined;
-        this.change.emit(date);
+        this.change.emit(event.detail);
     }
 
     private onInputClick(event) {
@@ -544,52 +534,86 @@ export class DatePicker {
     }
 
     /**
-     * Handles every text-field commit: typing a date and blurring/pressing
-     * enter, or emptying the field. This is the path that previously only
-     * reacted to an emptied field — it now also parses whatever text was
-     * typed and, if it's a valid date, emits it exactly the same way a
-     * calendar pick does.
+     * Tracks the typed text and whether it parses, for live feedback only.
+     * The input field emits this on a debounce while typing, so nothing is
+     * committed here; that happens in `commitTypedText` when editing ends.
      * @param event - the input field's `change` event; `event.detail` is
-     * the current raw text
+     * the current text
      */
     private handleInputElementChange(event: CustomEvent<string>) {
+        event.stopPropagation();
+
         if (this.disabled || this.readonly) {
-            event.stopPropagation();
             return;
         }
 
-        event.stopPropagation();
-
         const text = event.detail;
+        this.rawInputValue = text;
+        this.parseError = text !== '' && !this.parseText(text);
+    }
+
+    private handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key !== 'Enter' || this.disabled || this.readonly) {
+            return;
+        }
+
+        // Blurring runs the same flush → `hideCalendar` → commit chain as
+        // tabbing away, so there is a single commit path.
+        this.inputElement?.blur();
+    };
+
+    /**
+     * Emits the typed text as a value change, once, when editing ends.
+     * Unchanged text is a no-op, empty text clears the value, and text
+     * that does not parse stays visible flagged as invalid.
+     */
+    private commitTypedText() {
+        const text = this.rawInputValue;
+        if (text === undefined) {
+            return;
+        }
+
+        const currentText = this.value ? this.formatValue(this.value) : '';
+        if (text === currentText) {
+            this.resetTypedText();
+
+            return;
+        }
 
         if (text === '') {
             this.parseError = false;
-            this.rawInputValue = undefined;
-            this.clearValue();
+            if (this.value) {
+                this.change.emit(null);
+            } else {
+                this.rawInputValue = undefined;
+            }
+
             return;
         }
 
+        const date = this.parseText(text);
+        if (!date) {
+            this.parseError = true;
+
+            return;
+        }
+
+        // `rawInputValue` is kept until the consumer echoes the new value
+        // back through `watchValue`; clearing it here would show the old
+        // value for a frame first.
+        this.parseError = false;
+        this.change.emit(date);
+    }
+
+    private parseText(text: string): Date | null {
         const date = this.dateFormatter.parseDate(text, this.internalFormat);
 
-        if (date && !Number.isNaN(date.getTime())) {
-            this.parseError = false;
-            // Keep showing exactly what was typed rather than the freshly
-            // committed value's canonical (e.g. zero-padded) formatting:
-            // this fires on a debounce, not just on blur, so a 2-digit
-            // year someone is still typing toward 4 digits (e.g. "20" on
-            // its way to "2026") already parses as valid shorthand and
-            // would otherwise get rewritten to "2020" out from under
-            // their next keystrokes. `hideCalendar` clears this once
-            // they're actually done editing.
-            this.rawInputValue = text;
-            this.change.emit(date);
-        } else {
-            // Don't emit a change and don't let the next render overwrite
-            // what the user typed with the old committed value — keep it
-            // visible, flagged as invalid, until it's fixed or replaced.
-            this.parseError = true;
-            this.rawInputValue = text;
-        }
+        return date && !Number.isNaN(date.getTime()) ? date : null;
+    }
+
+    private resetTypedText() {
+        this.parseError = false;
+        this.rawInputValue = undefined;
     }
 
     private pickerIsAutoClosing() {
@@ -597,15 +621,7 @@ export class DatePicker {
     }
 
     private clearValue() {
-        // Mirrors the `text === ''` branch of `handleInputElementChange`:
-        // without resetting these first, any `rawInputValue` left over
-        // from earlier typing (valid or not) would keep winning in
-        // `getDisplayValue` forever afterward — `value` turning falsy
-        // doesn't matter once that check is reached — making the field
-        // look permanently stuck on stale text no matter what's typed
-        // next.
-        this.parseError = false;
-        this.rawInputValue = undefined;
+        this.resetTypedText();
         this.change.emit(null);
     }
 

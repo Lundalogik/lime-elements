@@ -14,7 +14,7 @@ export class YearPicker extends Picker {
 
     public constructor(
         language: string,
-        change: EventEmitter<Date>,
+        change: EventEmitter<Date | null>,
         private translations: Translations,
         dateFormat: string = 'YYYY'
     ) {
@@ -24,8 +24,13 @@ export class YearPicker extends Picker {
         this.handleReady = this.handleReady.bind(this);
     }
 
-    public init(element: HTMLElement, container: HTMLElement, value?: Date) {
-        super.init(element, container, value);
+    public init(
+        element: HTMLElement,
+        container: HTMLElement,
+        value?: Date,
+        focusTarget?: HTMLElement
+    ) {
+        super.init(element, container, value, focusTarget);
         if (!this.nativePicker) {
             this.flatpickr.prevMonthNav.addEventListener(
                 'mousedown',
