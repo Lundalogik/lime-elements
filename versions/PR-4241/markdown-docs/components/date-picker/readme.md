@@ -23,9 +23,9 @@
 
 ## Events
 
-| Event    | Description                                                                                                                                                                                                                                                                                 | Type                |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
-| `change` | Emitted when the date picker value is changed, whether by typing a valid date and committing it, picking a day in the calendar, choosing "Today", or clearing the field. This is the single source of truth for value changes — it always fires, regardless of which interaction caused it. | `CustomEvent<Date>` |
+| Event    | Description                                                                                                                                                                                      | Type                |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------- |
+| `change` | Emitted once when a typed date is committed (on blur or `Enter`), when a date is picked in the calendar, or when the field is cleared (with `null`). Typed text that does not parse never emits. | `CustomEvent<Date>` |
 
 
 ## Dependencies
