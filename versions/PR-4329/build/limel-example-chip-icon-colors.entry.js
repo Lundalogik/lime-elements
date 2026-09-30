@@ -1,0 +1,1 @@
+import{r,h as o}from"./index-Bnc9lzk2.js";const e=class{constructor(o){r(this,o)}render(){return o("limel-chip",{key:"b98d523b5b4d7eea539976472a602a52b071b91d",text:"Golden star",icon:{name:"filled_star",color:"rgb(var(--color-yellow-default))",backgroundColor:"rgb(var(--color-blue-dark))"}})}};export{e as limel_example_chip_icon_colors}
