@@ -36,10 +36,11 @@ The markdown this component stands for, for a target that cannot
 render it — the clipboard, say.
 
 `value` is what the component was given. This is the same content
-with every whitelisted custom element replaced by what its rendered
-instance reports through `MarkdownRepresentable.toMarkdown()`. An
-element that does not implement the interface contributes its text
-when written with a closing tag, and nothing otherwise.
+with every whitelisted custom element replaced by what it reports
+through `MarkdownRepresentable.toMarkdown()`, asked of a copy made
+from the same markup. An element that does not implement the
+interface contributes its text when written with a closing tag,
+and nothing otherwise.
 
 #### Returns
 
