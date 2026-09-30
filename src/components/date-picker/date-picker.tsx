@@ -557,6 +557,14 @@ export class DatePicker {
             return;
         }
 
+        const currentText = this.inputElement?.value ?? '';
+
+        if (currentText !== '' && !this.parseText(currentText)) {
+            this.rawInputValue = currentText;
+            this.parseError = true;
+            return;
+        }
+
         // Blurring runs the same flush → `hideCalendar` → commit chain as
         // tabbing away, so there is a single commit path.
         this.inputElement?.blur();
