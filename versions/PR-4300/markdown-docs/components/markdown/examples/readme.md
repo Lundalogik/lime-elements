@@ -19,10 +19,9 @@ and nothing otherwise — the badge here becomes nothing.
 
 :::note
 Only whitelisted elements are asked, since they are the only custom
-elements that render. Elements are paired with their markup by tag
-name and order, so when a tag is written more often than it rendered —
-inside a code span, say — every occurrence of that tag is dropped
-rather than paired wrongly.
+elements that render. Where each one was written comes from the
+parser, so a tag inside a code span is text and is left as it is, and
+an element written inside another one is covered by its parent.
 :::
 
 ## Dependencies
