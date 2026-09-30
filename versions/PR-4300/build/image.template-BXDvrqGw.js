@@ -1,1 +1,0 @@
-import{h as r}from"./index-BGxJfR2f.js";const o=({image:o,style:e,onError:l})=>{var i;return r("img",{src:o.src,alt:o.alt,loading:null!==(i=o.loading)&&void 0!==i?i:"lazy",referrerPolicy:o.referrerpolicy,style:e,onError:l})};export{o as I}

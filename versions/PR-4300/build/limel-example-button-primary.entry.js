@@ -1,1 +1,1 @@
-import{r as e,h as r}from"./index-BGxJfR2f.js";const t=class{constructor(r){e(this,r)}render(){return r("limel-button",{key:"e0c5422cb5a479fac72156ba507c8dae58babef1",label:"My Button",primary:!0})}};export{t as limel_example_button_primary}
+import{r as e,h as r}from"./index-Bnc9lzk2.js";const t=class{constructor(r){e(this,r)}render(){return r("limel-button",{key:"eb9a5d5bc7958547ff5f86815611307a6ef82eb0",label:"My Button",primary:!0})}};export{t as limel_example_button_primary}
