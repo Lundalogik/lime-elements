@@ -39,6 +39,15 @@ export class DatePickerCalendar {
     public value: Date;
 
     /**
+     * A date to show as selected in the calendar ahead of `value`: text the
+     * user is typing that parses, or a date just picked that the consumer
+     * has not echoed back yet. `undefined` while the calendar should follow
+     * `value`.
+     */
+    @Prop()
+    public previewValue?: Date;
+
+    /**
      * Type of date picker.
      */
     @Prop()
@@ -165,6 +174,20 @@ export class DatePickerCalendar {
         this.picker?.setDateFormat(this.format);
     }
 
+    /**
+     * While open the calendar deliberately ignores `value` (see
+     * `componentDidUpdate`), so typed text reaches it through this prop
+     * instead. Clearing the preview falls back to `value`.
+     */
+    @Watch('previewValue')
+    protected watchPreviewValue() {
+        if (!this.isOpen) {
+            return;
+        }
+
+        this.picker.setValue(this.previewValue ?? this.value);
+    }
+
     public componentDidUpdate() {
         if (!this.flatPickrCreated) {
             this.createFlatpickr();
@@ -190,7 +213,7 @@ export class DatePickerCalendar {
         this.picker.init(
             this.proxyInput,
             this.container,
-            this.value,
+            this.previewValue ?? this.value,
             this.inputElement
         );
         this.flatPickrCreated = true;

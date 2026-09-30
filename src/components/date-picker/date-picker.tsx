@@ -199,6 +199,15 @@ export class DatePicker {
     private rawInputValue: string | undefined;
 
     /**
+     * The date the calendar shows as selected ahead of `value`: typed text
+     * that parses, or a date just picked in the calendar that the consumer
+     * has not echoed back yet. `undefined` when the calendar should follow
+     * `value`.
+     */
+    @State()
+    private previewValue: Date | undefined;
+
+    /**
      * `true` while the input field has focus. Drives which formatter
      * `getDisplayValue` shows the value with — see `formatter`'s doc
      * comment for why.
@@ -324,6 +333,7 @@ export class DatePicker {
                     language={this.language}
                     type={this.type}
                     value={this.value}
+                    previewValue={this.previewValue}
                     ref={(el) => (this.datePickerCalendar = el)}
                     isOpen={this.showPortal}
                     onChange={this.handleCalendarChange}
@@ -511,8 +521,11 @@ export class DatePicker {
         event.stopPropagation();
 
         // Reset before hiding, so the pick is not overridden by a commit
-        // of text typed earlier.
+        // of text typed earlier. The pick itself stays previewed, or the
+        // calendar would revert to the old `value` until the consumer
+        // echoes the new one back.
         this.resetTypedText();
+        this.previewValue = event.detail ?? undefined;
 
         if (this.pickerIsAutoClosing()) {
             this.hideCalendar();
@@ -534,7 +547,8 @@ export class DatePicker {
     }
 
     /**
-     * Tracks the typed text and whether it parses, for live feedback only.
+     * Tracks the typed text and whether it parses, for live feedback only:
+     * the invalid state on the field and the previewed date in the calendar.
      * The input field emits this on a debounce while typing, so nothing is
      * committed here; that happens in `commitTypedText` when editing ends.
      * @param event - the input field's `change` event; `event.detail` is
@@ -548,8 +562,10 @@ export class DatePicker {
         }
 
         const text = event.detail;
+        const date = text === '' ? null : this.parseText(text);
         this.rawInputValue = text;
-        this.parseError = text !== '' && !this.parseText(text);
+        this.parseError = text !== '' && !date;
+        this.previewValue = date ?? undefined;
     }
 
     private handleKeyDown = (event: KeyboardEvent) => {
@@ -622,6 +638,7 @@ export class DatePicker {
     private resetTypedText() {
         this.parseError = false;
         this.rawInputValue = undefined;
+        this.previewValue = undefined;
     }
 
     private pickerIsAutoClosing() {
