@@ -1,4 +1,4 @@
-import { Component, h, Prop, Watch, Host } from '@stencil/core';
+import { Component, h, Method, Prop, Watch, Host } from '@stencil/core';
 import { markdownToHTML } from './markdown-parser';
 import { globalConfig } from '../../global/config';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
@@ -41,6 +41,7 @@ import { adaptColorContrast } from '../../util/adapt-color-contrast';
  * @exampleComponent limel-example-markdown-custom-component-with-json-props
  * @exampleComponent limel-example-markdown-remove-empty-paragraphs
  * @exampleComponent limel-example-markdown-adapt-color-contrast
+ * @exampleComponent limel-example-markdown-to-markdown
  * @exampleComponent limel-example-markdown-composite
  */
 @Component({
@@ -112,8 +113,38 @@ export class Markdown {
     @Prop({ reflect: true })
     public adaptColorContrast = false;
 
+    /**
+     * Returns the content as markdown, with every whitelisted custom
+     * element replaced by the markdown it describes itself as.
+     *
+     * Use this to hand the content to a target that cannot render custom
+     * elements, such as the clipboard. An element describes itself by
+     * implementing `MarkdownDescribable`; elements that do not keep
+     * their child content, or are removed if they have none.
+     *
+     * The markdown is generated from the rendered content, so it may be
+     * formatted differently from `value`.
+     *
+     * @alpha
+     * @returns The content as markdown.
+     */
+    @Method()
+    public async toMarkdown(): Promise<string> {
+        await this.rendering;
+
+        const { exportMarkdown } = await import('./markdown-exporter');
+
+        return exportMarkdown(this.rootElement, this.cachedCombinedWhitelist);
+    }
+
     @Watch('value')
-    public async textChanged() {
+    public textChanged() {
+        this.rendering = this.renderMarkdown();
+
+        return this.rendering;
+    }
+
+    private async renderMarkdown() {
         try {
             this.cleanupImageIntersectionObserver();
 
@@ -173,6 +204,7 @@ export class Markdown {
     }
 
     private rootElement: HTMLDivElement;
+    private rendering?: Promise<void>;
     private imageIntersectionObserver: ImageIntersectionObserver | null = null;
     private cachedConsumerWhitelist?: CustomElementDefinition[];
     private cachedCombinedWhitelist?: CustomElementDefinition[];

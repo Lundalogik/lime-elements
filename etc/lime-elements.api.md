@@ -644,6 +644,8 @@ export namespace Components {
         "adaptColorContrast": boolean;
         "lazyLoadImages": boolean;
         "removeEmptyParagraphs": boolean;
+        // @alpha
+        "toMarkdown": () => Promise<string>;
         "value": string;
         // @alpha
         "whitelist"?: CustomElementDefinition[];
@@ -4438,6 +4440,11 @@ export type ListType = 'selectable' | 'radio' | 'checkbox';
 
 // @internal
 export function _mapLayout(layout: Layout): any;
+
+// @alpha
+export interface MarkdownDescribable {
+    toMarkdown(): Promise<string>;
+}
 
 // @public
 interface MenuItem<T = any> {
