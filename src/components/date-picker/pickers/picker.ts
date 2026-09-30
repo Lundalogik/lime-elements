@@ -112,13 +112,24 @@ export abstract class Picker {
             ? value?.getTime() === currentlySelected.getTime()
             : !value;
 
-        if (isUnchanged) {
+        if (!this.flatpickr || isUnchanged) {
             // This runs on every re-render while the calendar is closed;
             // skip the redraw when the selected date already matches.
             return;
         }
 
-        this.flatpickr?.setDate(value, false);
+        this.flatpickr.setDate(value, false);
+        this.redrawSelection();
+    }
+
+    /**
+     * Re-paints the selection after `setValue`. Setting the date silently
+     * (without `triggerChange`, which would emit it as a `change`) redraws
+     * Flatpickr's own day grid but fires none of its hooks, so a picker
+     * that paints its selection from those hooks must do so here.
+     */
+    protected redrawSelection(): void {
+        // The default day grid is redrawn by Flatpickr itself.
     }
 
     public redraw() {

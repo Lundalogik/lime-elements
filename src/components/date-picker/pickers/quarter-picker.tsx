@@ -80,12 +80,16 @@ export class QuarterPicker extends Picker {
 
     protected handleClose(selectedDates) {
         return super.handleClose(selectedDates).then(() => {
-            this.selectQuarter(
-                this.flatpickr.selectedDates,
-                this.flatpickr.input.value,
-                this.flatpickr
-            );
+            this.redrawSelection();
         });
+    }
+
+    protected redrawSelection() {
+        this.selectQuarter(
+            this.flatpickr.selectedDates,
+            this.flatpickr.input.value,
+            this.flatpickr
+        );
     }
 
     private handleReady(_, __, fp) {
