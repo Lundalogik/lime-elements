@@ -1,9 +1,15 @@
 import { Action } from '../../collapsible-section/action';
 import React, { PropsWithChildren, ReactNode } from 'react';
 import { findTitle, hasNestedErrors } from './common';
-import { ArrayFieldItemButtonsTemplateProps, ErrorSchema } from '@rjsf/utils';
+import {
+    ArrayFieldItemButtonsTemplateProps,
+    ErrorSchema,
+    getDefaultFormState,
+} from '@rjsf/utils';
 import { Runnable } from './types';
-import { isEmpty } from 'lodash-es';
+import { isEmpty, isEqual } from 'lodash-es';
+import { rjsfValidator } from '../validator';
+import { FormSchema } from '../form.types';
 import { JSONSchema7 } from 'json-schema';
 
 export interface CollapsibleItemProps {
@@ -64,10 +70,9 @@ export class CollapsibleItemTemplate extends React.Component<
     constructor(public props: PropsWithChildren<CollapsibleItemProps>) {
         super(props);
         this.handleAction = this.handleAction.bind(this);
-        this.isDeepEmpty = this.isDeepEmpty.bind(this);
 
         this.state = {
-            isOpen: this.isDeepEmpty(props.data),
+            isOpen: isNewItem(props),
         };
     }
 
@@ -154,16 +159,55 @@ export class CollapsibleItemTemplate extends React.Component<
             isOpen: true,
         });
     };
+}
 
-    private isDeepEmpty(data) {
-        if (typeof data !== 'object') {
-            return false;
-        }
-
-        if (isEmpty(data)) {
-            return true;
-        }
-
-        return Object.values(data).every(this.isDeepEmpty);
+/**
+ * An item counts as new while it holds nothing the user entered. Since
+ * `@rjsf/core` 6.10 fills a required property with its default as soon as the
+ * item exists, "nothing entered" means empty data *or* data equal to what the
+ * schema produces on its own.
+ *
+ * @param props - the props of the item being rendered
+ */
+function isNewItem(props: CollapsibleItemProps): boolean {
+    if (isDeepEmpty(props.data)) {
+        return true;
     }
+
+    return isEqual(props.data, getItemDefaults(props));
+}
+
+function getItemDefaults(props: CollapsibleItemProps): unknown {
+    const items = (props.schema as FormSchema)?.items;
+    const itemSchema = (
+        Array.isArray(items) ? items[props.index] : items
+    ) as FormSchema;
+
+    if (!itemSchema) {
+        return;
+    }
+
+    // Must match the `experimental_defaultFormStateBehavior` that `limel-form`
+    // passes to `@rjsf/core`. Computing defaults under different options gives
+    // data the form never writes, and the comparison above then fails.
+    return getDefaultFormState(
+        rjsfValidator,
+        itemSchema,
+        undefined,
+        (props.formSchema ?? itemSchema) as FormSchema,
+        false,
+        { constAsDefaults: 'skipOneOf', requiredBooleanDefault: 'skip' }
+    );
+}
+
+function isDeepEmpty(data: unknown): boolean {
+    if (typeof data !== 'object') {
+        return false;
+    }
+
+    if (isEmpty(data)) {
+        return true;
+    }
+
+    return Object.values(data).every(isDeepEmpty);
 }

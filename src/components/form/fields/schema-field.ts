@@ -13,6 +13,7 @@ import { FieldTemplate } from '../templates';
 import { getHelpComponent } from '../help';
 import { FormComponent, FormSchema } from '../form.types';
 import { TimePicker } from '../widgets/time-picker';
+import { isIntegerType, isNumberType } from '../schema';
 import { RowLayoutContext } from '../row/row-context';
 
 const { fields: defaultFields } = getDefaultRegistry();
@@ -259,6 +260,8 @@ export class SchemaField extends React.Component<FieldProps> {
     }
 
     render() {
+        const schema = this.props.schema as FormSchema;
+
         if (this.props.schema.lime?.hidden) {
             return null;
         }
@@ -275,6 +278,16 @@ export class SchemaField extends React.Component<FieldProps> {
         if (this.props.schema.format === 'time') {
             fieldProps.uiSchema = {
                 'ui:widget': TimePicker,
+                ...fieldProps.uiSchema,
+            };
+        }
+
+        // Our text widget renders a native `<input type="number">` for numeric
+        // schemas. `@rjsf/core` otherwise rewrites the value to the locale's
+        // decimal separator, which such an input cannot display.
+        if (isNumberType(schema) || isIntegerType(schema)) {
+            fieldProps.uiSchema = {
+                'ui:inputType': 'number',
                 ...fieldProps.uiSchema,
             };
         }
