@@ -194,6 +194,7 @@ export class Form {
                     // `default` values, matching the pre-v6 behavior.
                     experimental_defaultFormStateBehavior: {
                         constAsDefaults: 'skipOneOf',
+                        requiredBooleanDefault: 'skip',
                     },
                     showErrorList: false,
                     extraErrors: this.getExtraErrors(this.errors),
