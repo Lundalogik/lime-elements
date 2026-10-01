@@ -1,4 +1,8 @@
-import { markdownToHTML, sanitizeHTML } from './markdown-parser';
+import {
+    findCustomElements,
+    markdownToHTML,
+    sanitizeHTML,
+} from './markdown-parser';
 import { DEFAULT_MARKDOWN_WHITELIST } from './default-whitelist';
 
 /**
@@ -621,6 +625,115 @@ describe('markdownToHTML', () => {
                 <div>**Bold in div**</div>
             `);
         });
+    });
+});
+
+describe('findCustomElements', () => {
+    const whitelist = [{ tagName: 'test-record', attributes: ['id'] }];
+
+    async function collect(text: string) {
+        const elements = await findCustomElements(text, whitelist);
+
+        return elements.map((element) => ({
+            ...element,
+            written: text.slice(element.start, element.end),
+        }));
+    }
+
+    it('records where a closed element was written', async () => {
+        const [element] = await collect(
+            'Hi <test-record id="1"></test-record> there'
+        );
+
+        expect(element).toEqual({
+            tagName: 'test-record',
+            start: 3,
+            end: 37,
+            closed: true,
+            html: '<test-record id="1"></test-record>',
+            written: '<test-record id="1"></test-record>',
+        });
+    });
+
+    it('records only the start tag of an element written self-closing', async () => {
+        // A custom element cannot self-close, so the parser nests
+        // " there" inside it; that text is not the element's markup.
+        const [element] = await collect('Hi <test-record id="1"/> there');
+
+        expect(element).toMatchObject({
+            closed: false,
+            written: '<test-record id="1"/>',
+            // Serialized without the text the parser nested inside it.
+            html: '<test-record id="1"></test-record>',
+        });
+    });
+
+    it('reads past a `>` inside an attribute value', async () => {
+        const [element] = await collect('Hi <test-record id="a>b"/> there');
+
+        expect(element.written).toBe('<test-record id="a>b"/>');
+    });
+
+    it('records only the start tag when nothing follows an unclosed element', async () => {
+        const [element] = await collect('Hi <test-record id="1"/>');
+
+        expect(element.written).toBe('<test-record id="1"/>');
+    });
+
+    it('serializes a closed element with its content', async () => {
+        const [element] = await collect(
+            '<test-record id="1">Pelle <b>P</b></test-record>'
+        );
+
+        expect(element.html).toBe(
+            '<test-record id="1">Pelle <b>P</b></test-record>'
+        );
+    });
+
+    it('records elements in document order', async () => {
+        const elements = await collect(
+            '<test-record id="1"></test-record>\n\n<test-record id="2"></test-record>'
+        );
+
+        expect(elements.map((element) => element.written)).toEqual([
+            '<test-record id="1"></test-record>',
+            '<test-record id="2"></test-record>',
+        ]);
+    });
+
+    it('does not record a tag inside code, which is text to the parser', async () => {
+        const elements = await collect(
+            'Write `<test-record id="1"></test-record>` like <test-record id="2"></test-record>'
+        );
+
+        expect(elements.map((element) => element.written)).toEqual([
+            '<test-record id="2"></test-record>',
+        ]);
+    });
+
+    it('does not record elements outside the whitelist', async () => {
+        const elements = await collect(
+            '<other-thing></other-thing> <test-record id="1"></test-record>'
+        );
+
+        expect(elements.map((element) => element.tagName)).toEqual([
+            'test-record',
+        ]);
+    });
+
+    it('reports offsets in the given text across line breaks', async () => {
+        const elements = await collect(
+            'one\ntwo\nthree <test-record id="1"></test-record> four\n<test-record id="2"/>'
+        );
+
+        expect(elements.map((element) => element.written)).toEqual([
+            '<test-record id="1"></test-record>',
+            '<test-record id="2"/>',
+        ]);
+    });
+
+    it('records nothing when the text has no whitelisted elements', async () => {
+        await expect(collect('Just **text**')).resolves.toEqual([]);
     });
 });
 

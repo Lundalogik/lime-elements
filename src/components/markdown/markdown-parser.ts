@@ -14,6 +14,9 @@ import { createLazyLoadImagesPlugin } from './image-markdown-plugin';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 import { createLinksPlugin } from './link-markdown-plugin';
 import { createRemoveEmptyParagraphsPlugin } from './remove-empty-paragraphs-plugin';
+import { collectElements, SourceElement } from './collect-elements';
+
+export { type SourceElement } from './collect-elements';
 
 /**
  * Takes a string as input and returns a new string
@@ -37,26 +40,54 @@ export async function markdownToHTML(
         text = text.replaceAll(/(?<!\\)([\n\r])/g, '  $1');
     }
 
-    const file = await unified()
-        .use(remarkParse)
-        .use(remarkGfm)
-        .use(remarkRehype, { allowDangerousHtml: true })
-        .use(rehypeRaw)
-        .use(createLinksPlugin())
-        .use(rehypeSanitize, getWhiteList(options?.whitelist ?? []))
-        .use(() => {
-            return (tree: Node) => {
-                // Run the sanitizeStyle function on all elements, to sanitize
-                // the value of the `style` attribute, if there is one.
-                visit(tree, 'element', sanitizeStyle);
-            };
-        })
+    const file = await createSanitizingProcessor(options?.whitelist ?? [])
         .use(createRemoveEmptyParagraphsPlugin(options?.removeEmptyParagraphs))
         .use(createLazyLoadImagesPlugin(options?.lazyLoadImages))
         .use(rehypeStringify)
         .process(text);
 
     return file.toString();
+}
+
+/**
+ * Find where the whitelisted custom elements in some markdown were
+ * written, reading the text the same way `markdownToHTML` does: a tag
+ * inside a code span is text, and each element keeps only the
+ * attributes the sanitizer allows.
+ *
+ * @param text - the markdown to read
+ * @param whitelist - the custom elements to look for
+ * @returns the elements, in document order, with offsets into `text`
+ */
+export async function findCustomElements(
+    text: string,
+    whitelist: CustomElementDefinition[]
+): Promise<SourceElement[]> {
+    const processor = createSanitizingProcessor(whitelist);
+    const tree = await processor.run(processor.parse(text), text);
+
+    return collectElements(
+        tree,
+        text,
+        whitelist.map((component) => component.tagName.toLowerCase())
+    );
+}
+
+function createSanitizingProcessor(whitelist: CustomElementDefinition[]) {
+    return unified()
+        .use(remarkParse)
+        .use(remarkGfm)
+        .use(remarkRehype, { allowDangerousHtml: true })
+        .use(rehypeRaw)
+        .use(createLinksPlugin())
+        .use(rehypeSanitize, getWhiteList(whitelist))
+        .use(() => {
+            return (tree: Node) => {
+                // Run the sanitizeStyle function on all elements, to sanitize
+                // the value of the `style` attribute, if there is one.
+                visit(tree, 'element', sanitizeStyle);
+            };
+        });
 }
 
 /**
