@@ -42,6 +42,9 @@ import {
     nestedSchemaPathSchema,
     nestedLayoutSchemaPathSchema,
     stringWithDefaultCustomComponentSchema,
+    getConditionalCustomComponentSchema,
+    arrayItemWithEnumAndDefaultSchema,
+    requiredCheckboxSchema,
 } from './form.test-schemas';
 
 const fieldTypeTests = [
@@ -442,6 +445,62 @@ test('renders new fields when schema changes at runtime', async () => {
 
     const labels = [...inputFields].map((el) => el.getAttribute('label'));
     expect(labels).toContain('Email');
+});
+
+test('renders a field that a change adds to the schema, even when it has a default', async () => {
+    const onChange = vi.fn();
+    const { formContent, root, waitForChanges, setProps } = await renderForm({
+        schema: getConditionalCustomComponentSchema({}),
+        value: {},
+        onChange,
+    });
+
+    changeField(formContent, 'Trigger', 'show');
+    await waitForChanges();
+
+    // Answer the `change` event with the value the form emitted, and a schema
+    // built from it, the way a form with a dynamic schema does.
+    const emitted = onChange.mock.lastCall[0].detail;
+    await setProps({
+        value: emitted,
+        schema: getConditionalCustomComponentSchema(emitted),
+    });
+    await waitForReactRender(root, waitForChanges);
+
+    expect(formContent.querySelector('limel-color-picker')).toBeTruthy();
+});
+
+test('opens a newly added array item whose schema fills in defaults', async () => {
+    const { formContent, root, waitForChanges } = await renderForm({
+        schema: arrayItemWithEnumAndDefaultSchema,
+        value: {},
+    });
+
+    const addButton = formContent.querySelector(
+        'limel-button.button-add-new'
+    ) as HTMLElement;
+    addButton.click();
+    await waitForReactRender(root, waitForChanges);
+
+    const section: any = formContent.querySelector('limel-collapsible-section');
+    expect(section).toBeTruthy();
+    expect(section.isOpen).toBe(true);
+});
+
+test('keeps a required checkbox unanswered until the user ticks it', async () => {
+    const onChange = vi.fn();
+    const onValidate = vi.fn();
+    await renderForm({
+        schema: requiredCheckboxSchema,
+        value: {},
+        onChange,
+        onValidate,
+    });
+
+    // `@rjsf/core` 6.9 started filling a required boolean with `false`, which
+    // would satisfy `required` without the user answering the question.
+    expect(onChange).not.toHaveBeenCalled();
+    expect(onValidate.mock.lastCall[0].detail.valid).toBe(false);
 });
 
 test('renders help icons when schema has lime.help', async () => {
