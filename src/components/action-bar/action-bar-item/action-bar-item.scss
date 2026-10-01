@@ -20,7 +20,7 @@ button {
         @include mixins.is-flat-inset-clickable(
             $color: var(--limel-action-bar-item-text-color),
             $color--hovered: var(--limel-action-bar-item-text-color),
-            $background-color: var(--limel-action-bar-background-color),
+            $background-color: transparent,
             $background-color--hovered: color-mix(
                     in srgb,
                     var(--limel-action-bar-background-color),
