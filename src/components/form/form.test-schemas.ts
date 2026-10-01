@@ -643,3 +643,58 @@ export const nestedLayoutSchemaPathSchema: FormSchema = {
         },
     },
 };
+
+export const getConditionalCustomComponentSchema = (
+    value: Record<string, any>
+): FormSchema => ({
+    type: 'object',
+    properties: {
+        trigger: { type: 'string', title: 'Trigger' },
+        ...(value?.trigger === 'show'
+            ? {
+                  color: {
+                      type: 'string',
+                      title: 'Color',
+                      default: 'rgb(0, 0, 0)',
+                      lime: { component: { name: 'limel-color-picker' } },
+                  },
+              }
+            : {}),
+    },
+});
+
+export const arrayItemWithEnumAndDefaultSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        entries: {
+            type: 'array',
+            title: 'Entries',
+            items: {
+                type: 'object',
+                properties: {
+                    mode: {
+                        type: 'string',
+                        title: 'Mode',
+                        oneOf: [
+                            { const: 'a', title: 'A', type: 'string' },
+                            { const: 'b', title: 'B', type: 'string' },
+                        ],
+                    },
+                    plain: {
+                        type: 'string',
+                        title: 'Plain',
+                        default: 'preset',
+                    },
+                },
+            },
+        },
+    },
+};
+
+export const requiredCheckboxSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        accept: { type: 'boolean', title: 'I accept the terms' },
+    },
+    required: ['accept'],
+};
