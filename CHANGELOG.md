@@ -1,3 +1,10 @@
+## [40.5.3](https://github.com/Lundalogik/lime-elements/compare/v40.5.2...v40.5.3) (2026-10-01)
+
+### Bug Fixes
+
+
+* **action-bar:** remove background color of un-hovered buttons ([0ac4cc9](https://github.com/Lundalogik/lime-elements/commit/0ac4cc9ee29733f04759ac771686163c739b8d96))
+
 ## [40.5.2](https://github.com/Lundalogik/lime-elements/compare/v40.5.1...v40.5.2) (2026-09-29)
 
 ### Bug Fixes
