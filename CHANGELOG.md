@@ -1,3 +1,14 @@
+## [40.6.0](https://github.com/Lundalogik/lime-elements/compare/v40.5.4...v40.6.0) (2026-10-02)
+
+### Features
+
+
+* **markdown:** export content as markdown ([f1cf97f](https://github.com/Lundalogik/lime-elements/commit/f1cf97f8fdf813cb44012a624b6c8509f518e0df)), closes [#4301](https://github.com/Lundalogik/lime-elements/issues/4301)
+### Bug Fixes
+
+
+* **markdown:** keep code contents with hard line breaks ([4994ce6](https://github.com/Lundalogik/lime-elements/commit/4994ce6ebe391ef3f25cd3649b9d3e36467fc069))
+
 ## [40.5.4](https://github.com/Lundalogik/lime-elements/compare/v40.5.3...v40.5.4) (2026-10-02)
 
 ### Bug Fixes
