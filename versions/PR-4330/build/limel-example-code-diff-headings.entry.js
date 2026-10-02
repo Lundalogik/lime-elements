@@ -1,1 +1,0 @@
-import{r as e,h as o}from"./index-Bnc9lzk2.js";const d=class{constructor(o){e(this,o)}render(){return o("limel-code-diff",{key:"2f0c810fd0655e54edb3307d5c99ac0484f043e4",oldValue:"const port = 3000;",newValue:"const port = 8080;",oldHeading:"Before",newHeading:"After"})}};export{d as limel_example_code_diff_headings}
