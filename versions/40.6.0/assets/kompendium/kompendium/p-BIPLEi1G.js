@@ -1,0 +1,1 @@
+const e="kompendiumTheme";export{e as T}
