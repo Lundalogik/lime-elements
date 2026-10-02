@@ -1,1 +1,0 @@
-import{r,h as t}from"./index-Bnc9lzk2.js";const e=class{constructor(t){r(this,t)}async toMarkdown(){return`[${this.name}](${this.href})`}render(){return t("limel-chip",{key:"72b72d13143bd05bbf95a262a27b9f8ca58cda4b",text:this.name,icon:"user",link:{href:this.href,target:"_blank"}})}};export{e as limel_example_markdown_record_chip}

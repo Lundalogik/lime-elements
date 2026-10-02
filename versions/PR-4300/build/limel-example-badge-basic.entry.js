@@ -1,1 +1,0 @@
-import{r as e,h as a}from"./index-Bnc9lzk2.js";const r=class{constructor(a){e(this,a)}render(){return a("limel-badge",{key:"44a066fc350e529e2512450c18aa8a2557330aa7"})}};r.style=":host(limel-example-badge-basic){--badge-background-color:rgb(var(--color-red-default))}";export{r as limel_example_badge_basic}
