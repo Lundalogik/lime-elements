@@ -11,7 +11,8 @@ render custom elements, such as the clipboard. Each whitelisted element
 that implements `MarkdownDescribable` is replaced by the markdown it
 returns from its own `toMarkdown` method.
 
-Here, the person chip describes itself as a `mailto:` link.
+Here, the person chip describes itself as a `mailto:` link, and the
+footnotes come back as footnotes.
 
 ## Dependencies
 
