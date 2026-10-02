@@ -242,6 +242,19 @@ describe('limel-markdown', () => {
             expect(await root.toMarkdown()).toBe('line one  \nline two');
         });
 
+        it('keeps the contents of code', async () => {
+            const markdown =
+                '```bash\ncat <<EOF\nHello\nEOF\n```\n\n    a = 1\n    b = 2';
+            const { root, waitForChanges } = await render(
+                <limel-markdown value={markdown}></limel-markdown>
+            );
+            await waitForChanges();
+
+            expect(await root.toMarkdown()).toBe(
+                '```bash\ncat <<EOF\nHello\nEOF\n```\n\n```\na = 1\nb = 2\n```'
+            );
+        });
+
         it('restores footnotes', async () => {
             const markdown =
                 'A note[^1] and another[^note].\n\n[^1]: First.\n[^note]: Second.';

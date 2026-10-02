@@ -2,6 +2,7 @@ import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import remarkGfm from 'remark-gfm';
+import remarkBreaks from 'remark-breaks';
 import rehypeParse from 'rehype-parse';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
@@ -33,13 +34,10 @@ export async function markdownToHTML(
     text: string,
     options?: MarkdownToHTMLOptions
 ): Promise<string> {
-    if (options?.forceHardLineBreaks) {
-        text = text.replaceAll(/(?<!\\)([\n\r])/g, '  $1');
-    }
-
     const file = await unified()
         .use(remarkParse)
         .use(remarkGfm)
+        .use(options?.forceHardLineBreaks ? [remarkBreaks] : [])
         .use(remarkRehype, { allowDangerousHtml: true })
         .use(rehypeRaw)
         .use(createLinksPlugin())
