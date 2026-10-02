@@ -345,6 +345,23 @@ describe('markdownToHTML', () => {
                 Line 2</p>
             `);
         });
+
+        it('should keep the contents of fenced code', async () => {
+            const result = await markdownToHTML(
+                '```bash\ncat <<EOF\nHello\nEOF\n```',
+                { forceHardLineBreaks: true }
+            );
+            expect(result).toBe(
+                '<pre><code class="language-bash">cat &#x3C;&#x3C;EOF\nHello\nEOF\n</code></pre>'
+            );
+        });
+
+        it('should keep the contents of indented code', async () => {
+            const result = await markdownToHTML('    a = 1\n    b = 2', {
+                forceHardLineBreaks: true,
+            });
+            expect(result).toBe('<pre><code>a = 1\nb = 2\n</code></pre>');
+        });
     });
 
     describe('removeEmptyParagraphs option', () => {
