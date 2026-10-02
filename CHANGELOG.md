@@ -1,3 +1,10 @@
+## [40.5.4](https://github.com/Lundalogik/lime-elements/compare/v40.5.3...v40.5.4) (2026-10-02)
+
+### Bug Fixes
+
+
+* **form:** apply a schema change that adds a field with a default ([005baa1](https://github.com/Lundalogik/lime-elements/commit/005baa181d0eccb38ed3ee816636e88eb5096f1d)), closes [rjsf-team/react-jsonschema-form#5294](https://github.com/rjsf-team/react-jsonschema-form/issues/5294)
+
 ## [40.5.3](https://github.com/Lundalogik/lime-elements/compare/v40.5.2...v40.5.3) (2026-10-01)
 
 ### Bug Fixes
