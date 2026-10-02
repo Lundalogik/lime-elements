@@ -37,8 +37,8 @@ element replaced by the markdown it describes itself as.
 
 Use this to hand the content to a target that cannot render custom
 elements, such as the clipboard. An element describes itself by
-implementing `MarkdownDescribable`; elements that do not are
-replaced by their text content, or removed if they have none.
+implementing `MarkdownDescribable`; elements that do not keep
+their child content, or are removed if they have none.
 
 The markdown is generated from the rendered content, so it may be
 formatted differently from `value`.
