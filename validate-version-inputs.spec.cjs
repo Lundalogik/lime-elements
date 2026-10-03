@@ -1,4 +1,3 @@
-/* eslint-env node */
 /* eslint-disable no-undef */
 
 // Tests for the docs version/tag input validation:
