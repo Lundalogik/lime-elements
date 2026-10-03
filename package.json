@@ -52,6 +52,7 @@
     "generate": "stencil generate"
   },
   "devDependencies": {
+    "@commitlint/cli": "^21.2.3",
     "@commitlint/config-conventional": "^21.2.3",
     "@limetech/eslint-config": "^4.1.0",
     "@microsoft/api-extractor": "^7.59.2",
