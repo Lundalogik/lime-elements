@@ -164,6 +164,76 @@ describe('limel-table', () => {
         });
     });
 
+    describe('movable rows with stretchColumns layout', () => {
+        // The drag-handle column is rendered at a fixed CSS width. Tabulator
+        // must reserve exactly that width in its layout, otherwise the
+        // `fitColumns` algorithm hands the handle a full flex share and the
+        // difference shows up as a blank filler column (#4123).
+        it('stretches the columns to fill the full table width', async () => {
+            const columns = [
+                { field: 'name', title: 'Name' },
+                { field: 'role', title: 'Role' },
+                { field: 'city', title: 'City' },
+            ];
+            const data = [
+                { id: 1, name: 'Alice', role: 'Dev', city: 'Lund' },
+                { id: 2, name: 'Bob', role: 'QA', city: 'Malmö' },
+            ];
+            const { root } = await renderTable({
+                data,
+                columns,
+                movableRows: true,
+                sortableColumns: false,
+                layout: 'stretchColumns',
+            });
+
+            const container = getContainer(root);
+            const holder = container.querySelector('.tabulator-tableholder');
+            const row = container.querySelector(
+                '.tabulator-table .tabulator-row'
+            );
+
+            const holderWidth = holder.getBoundingClientRect().width;
+            const rowWidth = row.getBoundingClientRect().width;
+
+            expect(rowWidth).toBeGreaterThanOrEqual(holderWidth - 5);
+        });
+
+        it('keeps the drag-handle column at its fixed width', async () => {
+            const columns = [
+                { field: 'name', title: 'Name' },
+                { field: 'role', title: 'Role' },
+            ];
+            const data = [{ id: 1, name: 'Alice', role: 'Dev' }];
+            const { root } = await renderTable({
+                data,
+                columns,
+                movableRows: true,
+                sortableColumns: false,
+                layout: 'stretchColumns',
+            });
+
+            const container = getContainer(root);
+            const handleCell = container.querySelector(
+                '.tabulator-row .tabulator-cell.limel-table-drag-handle'
+            );
+            const handleHeader = container.querySelector(
+                '.tabulator-col.limel-table-drag-handle'
+            );
+
+            // 2rem at the default 16px root font size
+            const expectedWidth = 32;
+            expect(handleCell.getBoundingClientRect().width).toBeCloseTo(
+                expectedWidth,
+                0
+            );
+            expect(handleHeader.getBoundingClientRect().width).toBeCloseTo(
+                expectedWidth,
+                0
+            );
+        });
+    });
+
     describe('remote sorting', () => {
         it('displays data in the order returned by the server, without re-sorting locally', async () => {
             // Initial data is in reverse numeric order (unsorted).
