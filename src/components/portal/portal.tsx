@@ -157,10 +157,12 @@ export class Portal {
         this.attachContainer();
         this.styleContainer();
 
-        if (this.visible) {
-            this.createPopper();
-            this.showContainer();
+        if (!this.visible) {
+            return;
         }
+
+        this.createPopper();
+        this.showContainer();
     }
 
     public render() {
@@ -257,10 +259,12 @@ export class Portal {
             }
 
             this.container.classList.remove(IS_HIDING_CLASS);
-            if (!this.visible) {
-                this.container.classList.remove(IS_VISIBLE_CLASS);
-                this.destroyPopper();
+            if (this.visible) {
+                return;
             }
+
+            this.container.classList.remove(IS_VISIBLE_CLASS);
+            this.destroyPopper();
         }, hideAnimationDuration);
     }
 
@@ -301,8 +305,8 @@ export class Portal {
     }
 
     private setContainerStyles() {
-        for (const property of Object.keys(this.containerStyle)) {
-            this.container.style[property] = this.containerStyle[property];
+        for (const [property, value] of Object.entries(this.containerStyle)) {
+            this.container.style[property] = value;
         }
     }
 

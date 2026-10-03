@@ -317,15 +317,15 @@ export class Menu {
             return;
         }
 
-        document.addEventListener('keydown', this.handleDocumentKeyDown, true);
+        document.addEventListener('keydown', this.handleDocumentKeyDown, {
+            capture: true,
+        });
     }
 
     private teardownGlobalHandlers() {
-        document.removeEventListener(
-            'keydown',
-            this.handleDocumentKeyDown,
-            true
-        );
+        document.removeEventListener('keydown', this.handleDocumentKeyDown, {
+            capture: true,
+        });
     }
 
     private readonly handleDocumentKeyDown = (event: KeyboardEvent) => {
@@ -342,11 +342,7 @@ export class Menu {
         }
 
         const pressedHotkey = hotkeyFromKeyboardEvent(event);
-        if (!pressedHotkey) {
-            return;
-        }
-
-        if (this.isReservedMenuHotkey(pressedHotkey)) {
+        if (!pressedHotkey || this.isReservedMenuHotkey(pressedHotkey)) {
             return;
         }
 
@@ -881,10 +877,12 @@ export class Menu {
             return;
         }
 
-        if (this.triggersDisabledByMenu.has(element)) {
-            element.removeAttribute('disabled');
-            this.triggersDisabledByMenu.delete(element);
+        if (!this.triggersDisabledByMenu.has(element)) {
+            return;
         }
+
+        element.removeAttribute('disabled');
+        this.triggersDisabledByMenu.delete(element);
     };
 
     private readonly onClose = () => {
@@ -922,7 +920,8 @@ export class Menu {
             this.setFocus();
 
             return;
-        } else if (isFunction(menuItem?.items)) {
+        }
+        if (isFunction(menuItem?.items)) {
             const menuLoader = menuItem.items as MenuLoader;
             this.selectedMenuItem = menuItem;
             this.loadingSubItems = true;
@@ -1007,7 +1006,7 @@ export class Menu {
             this.list.addEventListener(
                 'keydown',
                 this.handleListKeyDownCapture,
-                true
+                { capture: true }
             );
         }
     };
@@ -1184,7 +1183,8 @@ export class Menu {
             }
 
             return `${assignedTriggers[0].clientWidth}px`;
-        } else if (this.surfaceWidth === 'inherit-from-menu') {
+        }
+        if (this.surfaceWidth === 'inherit-from-menu') {
             if (!this.host?.clientWidth) {
                 return '';
             }
@@ -1198,7 +1198,8 @@ export class Menu {
     private get visibleItems(): Array<MenuItem | ListSeparator> {
         if (Array.isArray(this.searchResults) && this.searchValue) {
             return this.searchResults;
-        } else if (Array.isArray(this.currentSubMenu?.items)) {
+        }
+        if (Array.isArray(this.currentSubMenu?.items)) {
             if (this.cachedSubMenuSource !== this.currentSubMenu) {
                 this.cachedSubMenuSource = this.currentSubMenu;
                 this.cachedSubMenuItems = this.currentSubMenu.items.map(

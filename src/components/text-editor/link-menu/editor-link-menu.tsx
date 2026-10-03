@@ -80,13 +80,15 @@ export class TextEditorLinkMenu {
     }
 
     private focusOnLinkInput() {
-        if (this.linkInput) {
-            const inputField = this.linkInput.shadowRoot.querySelector('input');
-            if (inputField) {
-                requestAnimationFrame(() => {
-                    inputField.focus();
-                });
-            }
+        if (!this.linkInput) {
+            return;
+        }
+
+        const inputField = this.linkInput.shadowRoot.querySelector('input');
+        if (inputField) {
+            requestAnimationFrame(() => {
+                inputField.focus();
+            });
         }
     }
 

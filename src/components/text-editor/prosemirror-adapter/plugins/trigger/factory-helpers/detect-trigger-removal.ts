@@ -17,34 +17,29 @@ export const detectTriggerRemoval = (
     }
 
     for (const step of transaction.steps) {
-        if (step instanceof ReplaceStep) {
-            const { from, to, slice } = step; // Access properties specific to ReplaceStep
+        if (!(step instanceof ReplaceStep)) {
+            continue;
+        }
 
-            // Check if the step affects the trigger position
-            if (
-                from <= activeTrigger.position &&
-                to >= activeTrigger.position
-            ) {
-                const text = slice.content.textBetween(
-                    0,
-                    slice.content.size,
+        const { from, to, slice } = step; // Access properties specific to ReplaceStep
+
+        // Check if the step affects the trigger position
+        if (from <= activeTrigger.position && to >= activeTrigger.position) {
+            const text = slice.content.textBetween(0, slice.content.size, '');
+
+            // Check if the trigger character has been removed
+            // `text` is the text after the step has been applied
+            if (!text.includes(activeTrigger.character)) {
+                resetActiveTrigger();
+                sendTriggerEvent(
+                    'triggerStop',
+                    view,
+                    contentConverter,
+                    activeTrigger,
                     ''
                 );
 
-                // Check if the trigger character has been removed
-                // `text` is the text after the step has been applied
-                if (!text.includes(activeTrigger.character)) {
-                    resetActiveTrigger();
-                    sendTriggerEvent(
-                        'triggerStop',
-                        view,
-                        contentConverter,
-                        activeTrigger,
-                        ''
-                    );
-
-                    return true;
-                }
+                return true;
             }
         }
     }

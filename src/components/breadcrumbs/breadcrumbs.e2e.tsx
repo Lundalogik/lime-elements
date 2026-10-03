@@ -97,7 +97,7 @@ describe('limel-breadcrumbs', () => {
         });
 
         it('emits select event when a button is clicked', async () => {
-            const button = root.shadowRoot.querySelectorAll('button.step')[0];
+            const button = root.shadowRoot.querySelector('button.step');
             (button as HTMLButtonElement).click();
             await waitForChanges();
 

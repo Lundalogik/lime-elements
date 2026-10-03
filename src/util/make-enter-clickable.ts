@@ -13,10 +13,12 @@ class EnterClickable {
     };
 
     private handleKeyUp = (event: KeyboardEvent) => {
-        if (event.key === 'Enter' && this.isActive) {
-            this.isActive = false;
-            this.hasJustReleasedEnter = true;
+        if (!(event.key === 'Enter' && this.isActive)) {
+            return;
         }
+
+        this.isActive = false;
+        this.hasJustReleasedEnter = true;
     };
 
     private handleBlur = () => {
@@ -49,11 +51,9 @@ class EnterClickable {
         this.element.addEventListener('keydown', this.callbacks.keydownHandler);
         this.element.addEventListener('keyup', this.callbacks.keyupHandler);
         this.element.addEventListener('blur', this.callbacks.blurHandler);
-        this.element.addEventListener(
-            'click',
-            this.callbacks.clickHandler,
-            true
-        );
+        this.element.addEventListener('click', this.callbacks.clickHandler, {
+            capture: true,
+        });
     }
 
     public disable() {
@@ -63,11 +63,9 @@ class EnterClickable {
         );
         this.element.removeEventListener('keyup', this.callbacks.keyupHandler);
         this.element.removeEventListener('blur', this.callbacks.blurHandler);
-        this.element.removeEventListener(
-            'click',
-            this.callbacks.clickHandler,
-            true
-        );
+        this.element.removeEventListener('click', this.callbacks.clickHandler, {
+            capture: true,
+        });
     }
 }
 
@@ -91,11 +89,13 @@ class EnterClickable {
  * @param element - The clickable element
  */
 export function makeEnterClickable(element: HTMLElement) {
-    if (!eventHandlers.has(element)) {
-        const enterClickable = new EnterClickable(element);
-        enterClickable.enable();
-        eventHandlers.set(element, enterClickable);
+    if (eventHandlers.has(element)) {
+        return;
     }
+
+    const enterClickable = new EnterClickable(element);
+    enterClickable.enable();
+    eventHandlers.set(element, enterClickable);
 }
 
 /**
@@ -107,10 +107,12 @@ export function makeEnterClickable(element: HTMLElement) {
  */
 export function removeEnterClickable(element: HTMLElement) {
     const enterClickable: EnterClickable = eventHandlers.get(element);
-    if (enterClickable) {
-        enterClickable.disable();
-        eventHandlers.delete(element);
+    if (!enterClickable) {
+        return;
     }
+
+    enterClickable.disable();
+    eventHandlers.delete(element);
 }
 
 interface CallBacks {

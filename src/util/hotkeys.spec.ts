@@ -11,7 +11,7 @@ describe('hotkeys util', () => {
         });
 
         it('returns empty array for whitespace-only string', () => {
-            expect(tokenizeHotkeyString('   ')).toEqual([]);
+            expect(tokenizeHotkeyString(' '.repeat(3))).toEqual([]);
         });
 
         it('returns empty array for null/undefined', () => {

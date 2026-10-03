@@ -52,10 +52,10 @@ const findStart = (doc, pos, href) => {
         const node = doc.nodeAt(pos - 1);
         if (
             !node?.isText ||
-            !node.marks.some(
+            node.marks.every(
                 (mark: Mark) =>
-                    mark.type.name === EditorMenuTypes.Link &&
-                    mark.attrs.href === href
+                    mark.type.name !== EditorMenuTypes.Link ||
+                    mark.attrs.href !== href
             )
         ) {
             break;
@@ -79,10 +79,10 @@ const findEnd = (doc, pos, href) => {
         const node = doc.nodeAt(pos);
         if (
             !node?.isText ||
-            !node.marks.some(
+            node.marks.every(
                 (mark) =>
-                    mark.type.name === EditorMenuTypes.Link &&
-                    mark.attrs.href === href
+                    mark.type.name !== EditorMenuTypes.Link ||
+                    mark.attrs.href !== href
             )
         ) {
             break;
@@ -443,10 +443,12 @@ export const createLinkPlugin = (updateLinkCallback?: UpdateLinkCallback) => {
 
                     // Prevent unhandled navigation and bubbling for link clicks
                     const link = event.target.closest('a');
-                    if (link) {
-                        event.preventDefault();
-                        event.stopPropagation();
+                    if (!link) {
+                        return;
                     }
+
+                    event.preventDefault();
+                    event.stopPropagation();
                 },
             },
         },

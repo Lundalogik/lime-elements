@@ -46,7 +46,7 @@ export function isTypeAccepted(file: FileInfo, accept?: string): boolean {
         }
 
         if (acceptedType.endsWith('/*')) {
-            const baseType = acceptedType.split('/')[0];
+            const baseType = acceptedType.split('/', 1)[0];
 
             return file.contentType.startsWith(`${baseType}/`);
         }

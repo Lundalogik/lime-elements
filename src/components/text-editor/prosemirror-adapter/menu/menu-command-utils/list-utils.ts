@@ -336,7 +336,7 @@ const convertListsAndWrapRuns = (
         const isList = isListNode(child, state.schema);
 
         if (inRange && child.type === state.schema.nodes.paragraph) {
-            runStart = runStart ?? pos;
+            runStart ??= pos;
             runEnd = pos + child.nodeSize;
         } else if (runStart !== null && runEnd !== null) {
             wrapRunInList(tr, targetType, runStart, runEnd);

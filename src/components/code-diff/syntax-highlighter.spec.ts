@@ -69,7 +69,7 @@ describe('tokenize (json)', () => {
         const line = '    "age": 30';
         const result = tokenize(line, 'json');
 
-        expect(result[0]).toEqual({ value: '    ', type: 'plain' });
+        expect(result[0]).toEqual({ value: ' '.repeat(4), type: 'plain' });
     });
 
     it('tokenizes a full JSON line with mixed types', () => {

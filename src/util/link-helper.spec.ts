@@ -142,7 +142,7 @@ describe('limeLinkHelper', () => {
                 description:
                     'returns undefined if explicitRel consists only of whitespace',
                 target: '_blank',
-                explicitRel: '   ',
+                explicitRel: ' '.repeat(3),
                 expected: undefined,
             },
             {

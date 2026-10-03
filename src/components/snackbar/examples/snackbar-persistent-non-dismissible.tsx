@@ -49,11 +49,7 @@ export class SnackbarPersistentNonDismissibleExample {
     };
 
     private handleChange = (event: CustomEvent<boolean>) => {
-        if (!this.isOpen) {
-            return;
-        }
-
-        if (!event.detail) {
+        if (!this.isOpen || !event.detail) {
             return;
         }
 

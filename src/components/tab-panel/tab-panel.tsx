@@ -140,7 +140,7 @@ export class TabPanel {
 
         // Content inside the newly activated tab may need to redraw once
         // visible, so we use the resize event trick. /Ads
-        setTimeout(dispatchResizeEvent);
+        setTimeout(dispatchResizeEvent, 0);
     }
 
     private getSlot(): HTMLSlotElement {

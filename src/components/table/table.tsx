@@ -331,11 +331,7 @@ export class Table {
 
     @Watch('page')
     protected pageChanged() {
-        if (!this.tabulator) {
-            return;
-        }
-
-        if (this.tabulator.getPage() === this.page) {
+        if (!this.tabulator || this.tabulator.getPage() === this.page) {
             return;
         }
 
@@ -389,7 +385,7 @@ export class Table {
             if (newData.length > 0) {
                 this.tabulator.updateOrAddData(newData);
             }
-        });
+        }, 0);
     }
 
     @Watch('columns')
@@ -490,12 +486,14 @@ export class Table {
             return;
         }
 
-        if (this.movableRows && this.sortableColumns) {
-            console.warn(
-                'limel-table: combining `movableRows` with `sortableColumns` is not recommended. Sorting reorders the rows visually, so dragging a row to a new position will not match the underlying data order. Set `sortableColumns` to `false` when using `movableRows`.'
-            );
-            this.hasWarnedOnConflictingMovableAndSortable = true;
+        if (!(this.movableRows && this.sortableColumns)) {
+            return;
         }
+
+        console.warn(
+            'limel-table: combining `movableRows` with `sortableColumns` is not recommended. Sorting reorders the rows visually, so dragging a row to a new position will not match the underlying data order. Set `sortableColumns` to `false` when using `movableRows`.'
+        );
+        this.hasWarnedOnConflictingMovableAndSortable = true;
     }
 
     @Watch('sorting')
@@ -520,11 +518,13 @@ export class Table {
 
     private reformatChangedRows(newData: RowData[], oldData: RowData[]) {
         for (const [i, newRow] of newData.entries()) {
-            if (!!newRow?.id && !isEqual(newRow, oldData[i])) {
-                const row = this.tabulator.getRow(newRow.id);
-                if (row) {
-                    row.reformat();
-                }
+            if (!newRow?.id || isEqual(newRow, oldData[i])) {
+                continue;
+            }
+
+            const row = this.tabulator.getRow(newRow.id);
+            if (row) {
+                row.reformat();
             }
         }
     }
@@ -707,15 +707,17 @@ export class Table {
     }
 
     private initTableSelection() {
-        if (this.selectable) {
-            this.tableSelection = new TableSelection(
-                () => this.tabulator,
-                this.pool,
-                this.select,
-                (key: string) => this.getTranslation(key)
-            );
-            this.tableSelection.setSelection(this.selection);
+        if (!this.selectable) {
+            return;
         }
+
+        this.tableSelection = new TableSelection(
+            () => this.tabulator,
+            this.pool,
+            this.select,
+            (key: string) => this.getTranslation(key)
+        );
+        this.tableSelection.setSelection(this.selection);
     }
 
     private setSelection() {
@@ -764,10 +766,12 @@ export class Table {
             return;
         }
 
-        if (scrollContainer) {
-            scrollContainer.scrollTop = scrollTop;
-            scrollContainer.scrollLeft = scrollLeft;
+        if (!scrollContainer) {
+            return;
         }
+
+        scrollContainer.scrollTop = scrollTop;
+        scrollContainer.scrollLeft = scrollLeft;
     }
 
     /**
@@ -980,10 +984,12 @@ export class Table {
     }
 
     private handleRenderComplete(): void {
-        if (this.tabulator && this.shouldSort) {
-            this.shouldSort = false;
-            this.tabulator.setSort(this.getInitialSorting());
+        if (!(this.tabulator && this.shouldSort)) {
+            return;
         }
+
+        this.shouldSort = false;
+        this.tabulator.setSort(this.getInitialSorting());
     }
 
     private onClickRow(event: PointerEvent, row: TabulatorRowComponent): void {

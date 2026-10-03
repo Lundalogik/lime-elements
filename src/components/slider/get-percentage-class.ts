@@ -3,53 +3,43 @@
  * @param value
  */
 export function getPercentageClass(value: number) {
-    const tenPercent = 0.1;
-    const twentyPercent = 0.2;
-    const thirtyPercent = 0.3;
-    const fortyPercent = 0.4;
-    const fiftyPercent = 0.5;
-    const sixtyPercent = 0.6;
-    const seventyPercent = 0.7;
-    const eightyPercent = 0.8;
-    const ninetyPercent = 0.9;
-
     if (value === 0) {
         return 'percent-0';
     }
 
-    if (value < tenPercent) {
+    if (value < 0.1) {
         return 'percent-0-10';
     }
 
-    if (value < twentyPercent) {
+    if (value < 0.2) {
         return 'percent-10-20';
     }
 
-    if (value < thirtyPercent) {
+    if (value < 0.3) {
         return 'percent-20-30';
     }
 
-    if (value < fortyPercent) {
+    if (value < 0.4) {
         return 'percent-30-40';
     }
 
-    if (value < fiftyPercent) {
+    if (value < 0.5) {
         return 'percent-40-50';
     }
 
-    if (value < sixtyPercent) {
+    if (value < 0.6) {
         return 'percent-50-60';
     }
 
-    if (value < seventyPercent) {
+    if (value < 0.7) {
         return 'percent-60-70';
     }
 
-    if (value < eightyPercent) {
+    if (value < 0.8) {
         return 'percent-70-80';
     }
 
-    if (value < ninetyPercent) {
+    if (value < 0.9) {
         return 'percent-80-90';
     }
 

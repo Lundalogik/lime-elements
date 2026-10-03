@@ -2,7 +2,7 @@ import { Component, h } from '@stencil/core';
 
 const markdown = `
 URLs and URLs in angle brackets will automatically get turned into links, like
-http://www.example.com or <http://www.example.com>.
+https://www.example.com or <https://www.example.com>.
 
 ***
 
@@ -21,8 +21,8 @@ Or leave it empty and use the [link text itself].
 Below, you find some text that the reference links can follow, but they will not be rendered in the body.
 
 [arbitrary case-insensitive reference text]: https://www.mozilla.org
-[1]: http://wikipedia.org
-[link text itself]: http://www.wikipedia.org
+[1]: https://wikipedia.org
+[link text itself]: https://www.wikipedia.org
 `;
 
 /**

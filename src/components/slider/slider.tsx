@@ -262,7 +262,7 @@ export class Slider {
                                 <div class="knob" />
                                 <div class="indicator" aria-hidden="true">
                                     {this.isUnset
-                                        ? '\u2194\uFE0E'
+                                        ? '\u{2194}\u{FE0E}'
                                         : this.displayValue}
                                 </div>
                             </div>

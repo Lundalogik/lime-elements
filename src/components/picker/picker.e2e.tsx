@@ -353,13 +353,10 @@ describe('limel-picker', () => {
                         .detail as PickerItem[];
                     setTimeout(() => {
                         root.value = picked;
-                        root.allItems = berries.filter(
-                            (berry) =>
-                                !picked.some(
-                                    (item) => item.value === berry.value
-                                )
+                        root.allItems = berries.filter((berry) =>
+                            picked.every((item) => item.value !== berry.value)
                         );
-                    });
+                    }, 0);
                 });
                 await waitForChanges();
                 await focusAndType(root, 'black', waitForChanges);

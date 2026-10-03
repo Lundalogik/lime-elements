@@ -95,11 +95,11 @@ Vous pouvez laisser les images bloquées (l'e-mail peut sembler incomplet) ou le
     'code-diff.no-differences': 'Aucune différence',
     'code-diff.no-differences-found': 'Aucune différence trouvée',
     'code-diff.copy-old-version':
-        'Copier l\u2019ancienne version dans le presse-papiers',
+        'Copier l\u{2019}ancienne version dans le presse-papiers',
     'code-diff.copied': 'Copié !',
     'code-diff.copied-to-clipboard': 'Copié dans le presse-papiers',
     'code-diff.copy-change':
-        'Copier l\u2019ancienne version de cette modification',
+        'Copier l\u{2019}ancienne version de cette modification',
     'code-diff.search': 'Rechercher dans les lignes supprimées',
     'code-diff.previous-match': 'Correspondance précédente',
     'code-diff.next-match': 'Correspondance suivante',
@@ -123,7 +123,7 @@ Vous pouvez laisser les images bloquées (l'e-mail peut sembler incomplet) ou le
     'code-diff.new-heading': 'Modifié',
     'code-diff.diff-summary':
         'Diff : { parts }. Utilisez les touches fléchées pour naviguer.',
-    'profile-picture.remove': 'Supprimer l\u2019image sélectionnée',
+    'profile-picture.remove': 'Supprimer l\u{2019}image sélectionnée',
     'profile-picture.unsupported-preview.title':
         "Format d'image non pris en charge",
     'profile-picture.unsupported-preview.description':

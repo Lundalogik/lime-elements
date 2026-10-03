@@ -611,11 +611,13 @@ export class ProsemirrorAdapter {
     };
 
     private metadataEmitter(metadata: EditorMetadata) {
-        if (hasMetadataChanged(this.metadata, metadata)) {
-            this.removeImagesFromCache(this.metadata, metadata);
-            this.metadata = metadata;
-            this.metadataChange.emit(metadata);
+        if (!hasMetadataChanged(this.metadata, metadata)) {
+            return;
         }
+
+        this.removeImagesFromCache(this.metadata, metadata);
+        this.metadata = metadata;
+        this.metadataChange.emit(metadata);
     }
 
     // When the deprecated metadata events are removed, this cache eviction
@@ -625,11 +627,10 @@ export class ProsemirrorAdapter {
         oldMetadata: EditorMetadata,
         newMetadata: EditorMetadata
     ) {
-        const removedImages = oldMetadata.images.filter(
-            (oldImage) =>
-                !newMetadata.images.some(
-                    (newImage) => newImage.fileInfoId === oldImage.fileInfoId
-                )
+        const removedImages = oldMetadata.images.filter((oldImage) =>
+            newMetadata.images.every(
+                (newImage) => newImage.fileInfoId !== oldImage.fileInfoId
+            )
         );
 
         for (const image of removedImages) {
@@ -684,37 +685,39 @@ export class ProsemirrorAdapter {
     };
 
     private handleFocus = () => {
-        if (!this.disabled) {
-            this.view?.focus();
-
-            // Workaround: On some focus interactions (especially clicking the first line and the last line),
-            // ProseMirror does not dispatch a transaction or update the selection. This can cause
-            // the cursor to fall back to the end of the document instead of placing it where the user clicked.
-            //
-            // To detect this, we wait one tick after focus. If no transaction has fired by then,
-            // we assume the selection is unresolved and manually move the cursor to the last clicked position.
-            //
-            // The clicked position is only meaningful for the focus event that the
-            // click itself triggered, so it is consumed here and cleared on blur.
-            // Focus regained without a click (e.g. switching back to the window)
-            // must leave the selection untouched.
-            this.transactionFired = false;
-            this.focusRestoreTimeout = setTimeout(() => {
-                const clickedPos = this.lastClickedPos;
-                this.lastClickedPos = null;
-                if (
-                    !this.transactionFired &&
-                    clickedPos !== null &&
-                    clickedPos <= this.view.state.doc.content.size
-                ) {
-                    const { doc, tr } = this.view.state;
-                    const resolvedPos = doc.resolve(clickedPos);
-                    const selection = Selection.near(resolvedPos);
-                    tr.setMeta('pointer', true);
-                    this.view.dispatch(tr.setSelection(selection));
-                }
-            }, 0);
+        if (this.disabled) {
+            return;
         }
+
+        this.view?.focus();
+
+        // Workaround: On some focus interactions (especially clicking the first line and the last line),
+        // ProseMirror does not dispatch a transaction or update the selection. This can cause
+        // the cursor to fall back to the end of the document instead of placing it where the user clicked.
+        //
+        // To detect this, we wait one tick after focus. If no transaction has fired by then,
+        // we assume the selection is unresolved and manually move the cursor to the last clicked position.
+        //
+        // The clicked position is only meaningful for the focus event that the
+        // click itself triggered, so it is consumed here and cleared on blur.
+        // Focus regained without a click (e.g. switching back to the window)
+        // must leave the selection untouched.
+        this.transactionFired = false;
+        this.focusRestoreTimeout = setTimeout(() => {
+            const clickedPos = this.lastClickedPos;
+            this.lastClickedPos = null;
+            if (
+                !this.transactionFired &&
+                clickedPos !== null &&
+                clickedPos <= this.view.state.doc.content.size
+            ) {
+                const { doc, tr } = this.view.state;
+                const resolvedPos = doc.resolve(clickedPos);
+                const selection = Selection.near(resolvedPos);
+                tr.setMeta('pointer', true);
+                this.view.dispatch(tr.setSelection(selection));
+            }
+        }, 0);
     };
 
     private handleNewLinkSelection = (text: string, href: string) => {

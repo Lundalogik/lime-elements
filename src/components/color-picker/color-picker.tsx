@@ -131,10 +131,12 @@ export class ColorPicker implements FormComponent {
     }
 
     public componentDidRender() {
-        if (this.shouldFocus && this.isOpen) {
-            this.shouldFocus = false;
-            this.contentElement?.focus();
+        if (!(this.shouldFocus && this.isOpen)) {
+            return;
         }
+
+        this.shouldFocus = false;
+        this.contentElement?.focus();
     }
 
     private contentElement?: HTMLLimelColorPickerPaletteElement;

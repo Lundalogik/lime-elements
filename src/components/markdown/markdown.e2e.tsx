@@ -99,7 +99,7 @@ describe('limel-markdown', () => {
                 'test-person',
                 class extends HTMLElement {
                     public async toMarkdown() {
-                        await new Promise((resolve) => setTimeout(resolve));
+                        await new Promise((resolve) => setTimeout(resolve, 0));
 
                         return `[${this.getAttribute('name')}](https://example.com/*)`;
                     }

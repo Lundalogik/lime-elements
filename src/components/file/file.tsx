@@ -392,16 +392,18 @@ export class File {
     private handleChipSetChange = (event: CustomEvent) => {
         event.stopPropagation();
         const file = event.detail.length === 0 ? event.detail[0] : null;
-        if (!file) {
-            // Removing the chip cancels any in-flight resize: drop the
-            // transient so the chip disappears immediately, and the token
-            // guard in `handleNewFiles` discards the resize result instead of
-            // re-emitting the removed file once it finishes. Without this, a
-            // removal during resize is swallowed, because `value` is already
-            // `undefined` so the `@Watch('value')` clear never fires.
-            this.resizingFile = undefined;
-            this.change.emit(file);
+        if (file) {
+            return;
         }
+
+        // Removing the chip cancels any in-flight resize: drop the
+        // transient so the chip disappears immediately, and the token
+        // guard in `handleNewFiles` discards the resize result instead of
+        // re-emitting the removed file once it finishes. Without this, a
+        // removal during resize is swallowed, because `value` is already
+        // `undefined` so the `@Watch('value')` clear never fires.
+        this.resizingFile = undefined;
+        this.change.emit(file);
     };
 
     private handleChipInteract = (event: CustomEvent<Chip>) => {

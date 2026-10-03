@@ -343,10 +343,12 @@ export class Card {
             return;
         }
 
-        if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            this.host.click();
+        if (!(event.key === 'Enter' || event.key === ' ')) {
+            return;
         }
+
+        event.preventDefault();
+        this.host.click();
     };
 
     private renderActionBar() {

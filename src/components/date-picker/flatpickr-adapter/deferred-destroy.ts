@@ -23,9 +23,11 @@ export class DeferredDestroy {
      * Cancel the pending destroy callback, if any.
      */
     public cancel(): void {
-        if (this.pendingDestroyTimer !== null) {
-            clearTimeout(this.pendingDestroyTimer);
-            this.pendingDestroyTimer = null;
+        if (this.pendingDestroyTimer === null) {
+            return;
         }
+
+        clearTimeout(this.pendingDestroyTimer);
+        this.pendingDestroyTimer = null;
     }
 }

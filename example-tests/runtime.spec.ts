@@ -101,8 +101,8 @@ for (const tag of TAGS) {
             expect(renderedSomething, `${tag} rendered nothing`).toBe(true);
         }).toPass({ timeout: 10_000 });
 
-        const realErrors = errors.filter(
-            (error) => !HARMLESS.some((pattern) => pattern.test(error))
+        const realErrors = errors.filter((error) =>
+            HARMLESS.every((pattern) => !pattern.test(error))
         );
         expect(realErrors, `${tag} produced console errors`).toEqual([]);
     });

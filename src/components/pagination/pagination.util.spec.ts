@@ -75,7 +75,7 @@ describe('getPageSlots', () => {
             ['no pages', 0],
             ['a negative count', -1],
             ['a fractional count', 2.5],
-            ['not a number', Number.NaN],
+            ['not a number', NaN],
             ['no end', Infinity],
             ['more pages than a number can count', 2 ** 53],
             ['one past the last countable page', Number.MAX_SAFE_INTEGER + 1],
@@ -91,7 +91,7 @@ describe('getPageSlots', () => {
         });
 
         it.each([
-            ['not a number', Number.NaN],
+            ['not a number', NaN],
             ['no end', Infinity],
             ['no beginning', -Infinity],
             ['far past the end', 3_000_000_000],

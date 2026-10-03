@@ -144,10 +144,12 @@ export class Checkbox {
     }
 
     componentDidRender() {
-        if (this.shouldReinitialize) {
-            this.initialize();
-            this.shouldReinitialize = false;
+        if (!this.shouldReinitialize) {
+            return;
         }
+
+        this.initialize();
+        this.shouldReinitialize = false;
     }
 
     public connectedCallback() {
@@ -160,10 +162,12 @@ export class Checkbox {
 
     private destroyMDCInstances = () => {
         const input = this.getCheckboxElement();
-        if (input) {
-            delete input.dataset['indeterminate'];
-            input.indeterminate = false;
+        if (!input) {
+            return;
         }
+
+        delete input.dataset['indeterminate'];
+        input.indeterminate = false;
     };
 
     public disconnectedCallback() {

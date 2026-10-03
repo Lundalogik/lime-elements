@@ -12,7 +12,7 @@ describe('limel-file-viewer', () => {
 
     for (const testCase of testCases) {
         it(`renders a ${testCase.type} viewer`, async () => {
-            const originalFetch = globalThis.fetch;
+            const originalFetch = fetch;
             try {
                 if (testCase.type === 'email') {
                     const eml =
@@ -52,7 +52,7 @@ describe('limel-file-viewer', () => {
 
 describe('limel-file-viewer email not found', () => {
     it('renders a file-not-found message when the email fails to load', async () => {
-        const originalFetch = globalThis.fetch;
+        const originalFetch = fetch;
         try {
             globalThis.fetch = vi
                 .fn()

@@ -21,17 +21,19 @@ export class ImageIntersectionObserver {
         entries: IntersectionObserverEntry[]
     ) => {
         for (const entry of entries) {
-            if (entry.isIntersecting) {
-                const img = entry.target as HTMLImageElement;
-                const dataSrc = img.dataset.src;
-
-                if (dataSrc) {
-                    img.setAttribute('src', dataSrc);
-                    delete img.dataset.src;
-                }
-
-                this.observer.unobserve(img);
+            if (!entry.isIntersecting) {
+                continue;
             }
+
+            const img = entry.target as HTMLImageElement;
+            const dataSrc = img.dataset.src;
+
+            if (dataSrc) {
+                img.setAttribute('src', dataSrc);
+                delete img.dataset.src;
+            }
+
+            this.observer.unobserve(img);
         }
     };
 }
