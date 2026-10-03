@@ -8,12 +8,7 @@
  * @public
  */
 export type AiAvatarMode =
-    | 'idle'
-    | 'active'
-    | 'thinking'
-    | 'typing'
-    | 'working'
-    | 'waiting';
+    'idle' | 'active' | 'thinking' | 'typing' | 'working' | 'waiting';
 
 /**
  * Selects the avatar's visual style. The `detailed` variant is the fully

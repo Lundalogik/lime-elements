@@ -7,13 +7,7 @@ export interface SyntaxToken {
 }
 
 export type SyntaxTokenType =
-    | 'plain'
-    | 'string'
-    | 'number'
-    | 'boolean'
-    | 'null'
-    | 'key'
-    | 'punctuation';
+    'plain' | 'string' | 'number' | 'boolean' | 'null' | 'key' | 'punctuation';
 
 /**
  * Tokenize a text fragment for syntax highlighting.

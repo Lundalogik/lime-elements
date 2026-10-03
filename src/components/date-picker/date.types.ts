@@ -2,13 +2,7 @@
  * @public
  */
 export type DateType =
-    | 'datetime'
-    | 'date'
-    | 'time'
-    | 'week'
-    | 'month'
-    | 'quarter'
-    | 'year';
+    'datetime' | 'date' | 'time' | 'week' | 'month' | 'quarter' | 'year';
 
 /**
  * The languages the components can be translated into.
@@ -19,12 +13,4 @@ export type DateType =
  * @public
  */
 export type Languages =
-    | 'da'
-    | 'de'
-    | 'en'
-    | 'fi'
-    | 'fr'
-    | 'nb'
-    | 'no'
-    | 'nl'
-    | 'sv';
+    'da' | 'de' | 'en' | 'fi' | 'fr' | 'nb' | 'no' | 'nl' | 'sv';

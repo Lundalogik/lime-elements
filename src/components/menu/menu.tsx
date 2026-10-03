@@ -1040,8 +1040,7 @@ export class Menu {
 
     private readonly focusTrigger = () => {
         const trigger = this.triggerElement?.assignedElements()?.[0] as
-            | HTMLElement
-            | undefined;
+            HTMLElement | undefined;
 
         focusTriggerElement(trigger);
     };
