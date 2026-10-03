@@ -183,12 +183,14 @@ export class CodeDiff {
 
         this.prevSearchVisible = this.searchVisible;
 
-        if (this.searchTerm && this.totalSearchMatches > 0) {
-            const current = this.host.shadowRoot?.querySelector(
-                '.search-match--current'
-            );
-            current?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        if (!(this.searchTerm && this.totalSearchMatches > 0)) {
+            return;
         }
+
+        const current = this.host.shadowRoot?.querySelector(
+            '.search-match--current'
+        );
+        current?.scrollIntoView({ block: 'center', behavior: 'smooth' });
     }
 
     public render() {
@@ -328,12 +330,14 @@ export class CodeDiff {
         }
 
         const target = rows[this.focusedRowIndex];
-        if (target) {
-            target.setAttribute('tabindex', '-1');
-            target.classList.add('diff-line--focused');
-            target.focus();
-            this.announceLine(target);
+        if (!target) {
+            return;
         }
+
+        target.setAttribute('tabindex', '-1');
+        target.classList.add('diff-line--focused');
+        target.focus();
+        this.announceLine(target);
     }
 
     private announceLine(row: HTMLElement) {
@@ -460,10 +464,12 @@ export class CodeDiff {
 
     private toggleSearch() {
         this.searchVisible = !this.searchVisible;
-        if (!this.searchVisible) {
-            this.searchTerm = '';
-            this.currentMatchIndex = 0;
+        if (this.searchVisible) {
+            return;
         }
+
+        this.searchTerm = '';
+        this.currentMatchIndex = 0;
     }
 
     private onSearchInput(event: CustomEvent<string>) {
@@ -670,13 +676,13 @@ export class CodeDiff {
         const splitRows = buildSplitLines(hunk.lines);
         const elements: any[] = [];
         let i = 0;
+        const isContextRow = (row: SplitDiffLine) =>
+            row.left?.type === 'context' && row.right?.type === 'context';
 
         while (i < splitRows.length) {
             const row = splitRows[i];
-            const isContext =
-                row.left?.type === 'context' && row.right?.type === 'context';
 
-            if (isContext) {
+            if (isContextRow(row)) {
                 elements.push(this.renderSplitRow(row));
                 i++;
                 continue;
@@ -684,15 +690,8 @@ export class CodeDiff {
 
             // Collect consecutive changed rows
             const blockRows: SplitDiffLine[] = [];
-            while (i < splitRows.length) {
-                const r = splitRows[i];
-                const rIsContext =
-                    r.left?.type === 'context' && r.right?.type === 'context';
-                if (rIsContext) {
-                    break;
-                }
-
-                blockRows.push(r);
+            while (i < splitRows.length && !isContextRow(splitRows[i])) {
+                blockRows.push(splitRows[i]);
                 i++;
             }
 

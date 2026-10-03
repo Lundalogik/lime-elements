@@ -6,10 +6,9 @@ import { afterEach, beforeEach } from 'vitest';
 // trivially false (there's no class to preserve). Override per suite so
 // every icon load resolves to an SVG that actually carries a class.
 const SVG_WITH_BAKED_IN_CLASS = '<svg class="baked-in"><path d="M0 0"/></svg>';
-let originalFetch: typeof globalThis.fetch;
+const originalFetch = fetch;
 
 beforeEach(() => {
-    originalFetch = globalThis.fetch;
     globalThis.fetch = async () =>
         new Response(SVG_WITH_BAKED_IN_CLASS, {
             headers: { 'Content-Type': 'image/svg+xml' },

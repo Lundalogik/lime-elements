@@ -27,7 +27,7 @@ const TAGS = [
             ),
         ].map((match) => match[1])
     ),
-].sort();
+].sort((a, b) => a.localeCompare(b));
 
 // The "composite" playground examples take a `schema` prop and dereference it
 // while mounting. In the docs, `kompendium-debug` injects that prop (the owner
@@ -51,7 +51,7 @@ const REQUIRES_DOCS_SCHEMA = new Set<string>([
 // Example components that legitimately log an error or warning to the console
 // when they mount (as opposed to on user interaction). Keep this list small and
 // document the reason for each entry. Populated from real test runs.
-const EXPECTED_NOISY = new Set<string>([]);
+const EXPECTED_NOISY = new Set<string>();
 
 // The icon Cache API rejects when icon URLs don't resolve in the test
 // environment; the icons still render via an in-memory fallback, so this is
@@ -139,6 +139,7 @@ describe('documentation example components', () => {
                     element.childElementCount > 0;
                 expect(renderedSomething, `${tag} rendered nothing`).toBe(true);
 
+                // eslint-disable-next-line sonarjs/no-empty-collection -- allowlist intentionally empty until an example needs it
                 if (!EXPECTED_NOISY.has(tag)) {
                     const realErrors = consoleErrors
                         .filter((args) => !isHarmlessError(args))

@@ -197,13 +197,12 @@ export class TabBar {
             this.scrollArea.removeEventListener('scroll', this.handleScroll);
         }
 
-        if (this.mdcTabBar) {
-            this.mdcTabBar.unlisten(
-                TAB_ACTIVATED_EVENT,
-                this.handleTabActivated
-            );
-            this.mdcTabBar.destroy();
+        if (!this.mdcTabBar) {
+            return;
         }
+
+        this.mdcTabBar.unlisten(TAB_ACTIVATED_EVENT, this.handleTabActivated);
+        this.mdcTabBar.destroy();
     }
 
     private setupListeners() {
@@ -217,12 +216,12 @@ export class TabBar {
         const index = event.detail.index;
         const newTabs = setActiveTab(this.tabs, index);
 
-        difference(newTabs, this.tabs)
-            .sort(this.sortByInactive)
-            // eslint-disable-next-line unicorn/no-array-for-each
-            .forEach((tab: Tab) => {
-                this.changeTab.emit(tab);
-            });
+        const changedTabs = difference(newTabs, this.tabs).sort(
+            this.sortByInactive
+        );
+        for (const tab of changedTabs) {
+            this.changeTab.emit(tab);
+        }
 
         this.tabs = newTabs;
     }

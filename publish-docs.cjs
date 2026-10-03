@@ -205,12 +205,14 @@ function setupDocsWorktree() {
 
     if (
         shell.exec('git worktree add --detach docsDist origin/gh-pages')
-            .code !== 0
+            .code === 0
     ) {
-        shell.echo('git worktree add failed!');
-        teardown();
-        shell.exit(1);
+        return;
     }
+
+    shell.echo('git worktree add failed!');
+    teardown();
+    shell.exit(1);
 }
 
 function pullAndRebase() {
@@ -570,9 +572,9 @@ function createSymlink(folder, alias) {
     shell.cd('docsDist/versions');
 
     if (
-        shell.ln('-sf', `${folder}`, alias).code !== 0 &&
+        shell.ln('-sf', String(folder), alias).code !== 0 &&
         (shell.rm(alias).code !== 0 ||
-            shell.ln('-sf', `${folder}`, alias).code !== 0)
+            shell.ln('-sf', String(folder), alias).code !== 0)
     ) {
         shell.echo(`Creating symlink '${alias}' failed!`);
         shell.cd('../..');
@@ -584,7 +586,7 @@ function createSymlink(folder, alias) {
 }
 
 function commit(message) {
-    message = message || `chore(docs): create docs ${version}`;
+    message ||= `chore(docs): create docs ${version}`;
     shell.cd('docsDist');
 
     shell.exec('git add -A --ignore-errors');
@@ -648,19 +650,23 @@ function push() {
 }
 
 function teardown(finished) {
-    if (finished || cleanOnFail) {
-        shell.exec('git checkout src/index.html stencil.config.docs.ts');
-        shell.echo('Removing docsDist worktree.');
-        if (shell.exec('git worktree remove --force docsDist').code !== 0) {
-            // Fall back for a stale `docsDist/` left by a pre-worktree
-            // version of this script (a plain clone), which `git worktree
-            // remove` cannot handle because the path isn't a registered
-            // worktree.
-            shell.echo(
-                '[WARNING] `git worktree remove` failed; falling back to `rm -rf docsDist` + `git worktree prune`.'
-            );
-            shell.rm('-rf', 'docsDist');
-            shell.exec('git worktree prune');
-        }
+    if (!(finished || cleanOnFail)) {
+        return;
     }
+
+    shell.exec('git checkout src/index.html stencil.config.docs.ts');
+    shell.echo('Removing docsDist worktree.');
+    if (shell.exec('git worktree remove --force docsDist').code === 0) {
+        return;
+    }
+
+    // Fall back for a stale `docsDist/` left by a pre-worktree
+    // version of this script (a plain clone), which `git worktree
+    // remove` cannot handle because the path isn't a registered
+    // worktree.
+    shell.echo(
+        '[WARNING] `git worktree remove` failed; falling back to `rm -rf docsDist` + `git worktree prune`.'
+    );
+    shell.rm('-rf', 'docsDist');
+    shell.exec('git worktree prune');
 }

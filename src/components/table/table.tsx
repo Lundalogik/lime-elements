@@ -331,11 +331,7 @@ export class Table {
 
     @Watch('page')
     protected pageChanged() {
-        if (!this.tabulator) {
-            return;
-        }
-
-        if (this.tabulator.getPage() === this.page) {
+        if (!this.tabulator || this.tabulator.getPage() === this.page) {
             return;
         }
 
@@ -359,7 +355,7 @@ export class Table {
             !this.areEqualIds(newIds, oldIds) ||
             !this.isSameOrder(newIds, oldIds);
 
-        setTimeout(() => {
+        setTimeout(async () => {
             if (!this.tabulator || !this.initialized) {
                 return;
             }
@@ -374,14 +370,13 @@ export class Table {
 
             if (!areRowsEqual(newData, oldData)) {
                 const patched = this.fillMissingFields(newData, oldData);
-                this.tabulator.updateData(patched).then(() => {
-                    if (!this.tabulator) {
-                        return;
-                    }
+                await this.tabulator.updateData(patched);
+                if (!this.tabulator) {
+                    return;
+                }
 
-                    this.reformatChangedRows(newData, oldData);
-                    this.setSelection();
-                });
+                this.reformatChangedRows(newData, oldData);
+                this.setSelection();
 
                 return;
             }
@@ -389,7 +384,7 @@ export class Table {
             if (newData.length > 0) {
                 this.tabulator.updateOrAddData(newData);
             }
-        });
+        }, 0);
     }
 
     @Watch('columns')
@@ -490,12 +485,14 @@ export class Table {
             return;
         }
 
-        if (this.movableRows && this.sortableColumns) {
-            console.warn(
-                'limel-table: combining `movableRows` with `sortableColumns` is not recommended. Sorting reorders the rows visually, so dragging a row to a new position will not match the underlying data order. Set `sortableColumns` to `false` when using `movableRows`.'
-            );
-            this.hasWarnedOnConflictingMovableAndSortable = true;
+        if (!(this.movableRows && this.sortableColumns)) {
+            return;
         }
+
+        console.warn(
+            'limel-table: combining `movableRows` with `sortableColumns` is not recommended. Sorting reorders the rows visually, so dragging a row to a new position will not match the underlying data order. Set `sortableColumns` to `false` when using `movableRows`.'
+        );
+        this.hasWarnedOnConflictingMovableAndSortable = true;
     }
 
     @Watch('sorting')
@@ -520,11 +517,13 @@ export class Table {
 
     private reformatChangedRows(newData: RowData[], oldData: RowData[]) {
         for (const [i, newRow] of newData.entries()) {
-            if (!!newRow?.id && !isEqual(newRow, oldData[i])) {
-                const row = this.tabulator.getRow(newRow.id);
-                if (row) {
-                    row.reformat();
-                }
+            if (!newRow?.id || isEqual(newRow, oldData[i])) {
+                continue;
+            }
+
+            const row = this.tabulator.getRow(newRow.id);
+            if (row) {
+                row.reformat();
             }
         }
     }
@@ -540,6 +539,7 @@ export class Table {
             }
 
             const missingKeys = Object.keys(oldRow).filter(
+                // eslint-disable-next-line unicorn/no-computed-property-existence-check -- `in` must also see inherited properties, e.g. getters on class instances
                 (key) => !(key in newRow)
             );
 
@@ -707,15 +707,17 @@ export class Table {
     }
 
     private initTableSelection() {
-        if (this.selectable) {
-            this.tableSelection = new TableSelection(
-                () => this.tabulator,
-                this.pool,
-                this.select,
-                (key: string) => this.getTranslation(key)
-            );
-            this.tableSelection.setSelection(this.selection);
+        if (!this.selectable) {
+            return;
         }
+
+        this.tableSelection = new TableSelection(
+            () => this.tabulator,
+            this.pool,
+            this.select,
+            (key: string) => this.getTranslation(key)
+        );
+        this.tableSelection.setSelection(this.selection);
     }
 
     private setSelection() {
@@ -764,10 +766,12 @@ export class Table {
             return;
         }
 
-        if (scrollContainer) {
-            scrollContainer.scrollTop = scrollTop;
-            scrollContainer.scrollLeft = scrollLeft;
+        if (!scrollContainer) {
+            return;
         }
+
+        scrollContainer.scrollTop = scrollTop;
+        scrollContainer.scrollLeft = scrollLeft;
     }
 
     /**
@@ -980,10 +984,12 @@ export class Table {
     }
 
     private handleRenderComplete(): void {
-        if (this.tabulator && this.shouldSort) {
-            this.shouldSort = false;
-            this.tabulator.setSort(this.getInitialSorting());
+        if (!(this.tabulator && this.shouldSort)) {
+            return;
         }
+
+        this.shouldSort = false;
+        this.tabulator.setSort(this.getInitialSorting());
     }
 
     private onClickRow(event: PointerEvent, row: TabulatorRowComponent): void {
@@ -1033,8 +1039,9 @@ export class Table {
     };
 
     private formatRows() {
-        // eslint-disable-next-line unicorn/no-array-for-each
-        this.tabulator.getRows().forEach(this.formatRow);
+        for (const row of this.tabulator.getRows()) {
+            this.formatRow(row);
+        }
     }
 
     private formatRow(row: TabulatorRowComponent) {
@@ -1047,11 +1054,13 @@ export class Table {
         const interactiveFeedbackElement = row
             .getElement()
             .querySelectorAll('.interactive-feedback');
-        if (interactiveFeedbackElement.length === 0) {
-            const element = row.getElement().ownerDocument.createElement('div');
-            element.classList.add('interactive-feedback');
-            row.getElement().prepend(element);
+        if (interactiveFeedbackElement.length > 0) {
+            return;
         }
+
+        const element = row.getElement().ownerDocument.createElement('div');
+        element.classList.add('interactive-feedback');
+        row.getElement().prepend(element);
     }
 
     private isActiveRow(row: TabulatorRowComponent) {

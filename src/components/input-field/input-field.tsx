@@ -411,11 +411,7 @@ export class InputField {
 
     @Watch('value')
     protected valueWatcher(newValue: string) {
-        if (!this.mdcTextField) {
-            return;
-        }
-
-        if (this.changeWaiting) {
+        if (!this.mdcTextField || this.changeWaiting) {
             return;
         }
 
@@ -571,10 +567,12 @@ export class InputField {
             props.step = this.step;
         }
 
+        // eslint-disable-next-line unicorn/prefer-number-is-safe-integer -- integers beyond the safe range must still be applied
         if (this.type === 'number' && Number.isInteger(this.min)) {
             props.min = this.min;
         }
 
+        // eslint-disable-next-line unicorn/prefer-number-is-safe-integer -- integers beyond the safe range must still be applied
         if (this.type === 'number' && Number.isInteger(this.max)) {
             props.max = this.max;
         }
@@ -618,12 +616,12 @@ export class InputField {
     };
 
     private renderHelperLine = () => {
-        const text: string = this.getCurrentValue() || '';
-        const length = text.length;
-
         if (!this.hasHelperLine()) {
             return;
         }
+
+        const text: string = this.getCurrentValue() || '';
+        const length = text.length;
 
         return (
             <limel-helper-line
@@ -730,7 +728,8 @@ export class InputField {
 
         if (!this.isInvalid() && this.hasLink()) {
             return this.renderLinkIcon(this.getLink(), trailingIcon);
-        } else if (trailingIcon) {
+        }
+        if (trailingIcon) {
             return this.renderTrailingIcon(trailingIcon);
         }
     };
@@ -895,12 +894,14 @@ export class InputField {
             return;
         }
 
-        if (isUp) {
-            const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:last-child'
-            );
-            listElement.focus();
+        if (!isUp) {
+            return;
         }
+
+        const listElement: HTMLElement = list.shadowRoot.querySelector(
+            '.mdc-deprecated-list-item:last-child'
+        );
+        listElement.focus();
     };
 
     private handleCompletionChange = (

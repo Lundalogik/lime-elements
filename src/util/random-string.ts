@@ -1,6 +1,7 @@
 export const createRandomString = () => {
     if (
         !('crypto' in window) ||
+        // eslint-disable-next-line unicorn/no-optional-chaining-on-undeclared-variable -- `'crypto' in window` above already requires `window`; the `?.` guards a nullish `window.crypto`
         typeof window.crypto?.randomUUID !== 'function'
     ) {
         return legacyCreateRandomString();

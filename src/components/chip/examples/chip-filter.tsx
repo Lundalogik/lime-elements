@@ -55,6 +55,7 @@ export class ChipFilterExample {
     private handleClick = (id: string) => {
         this.selected = {
             ...this.selected,
+            // eslint-disable-next-line unicorn/no-computed-property-existence-check -- toggles a boolean value, not an existence check
             [id]: !this.selected[id],
         };
     };

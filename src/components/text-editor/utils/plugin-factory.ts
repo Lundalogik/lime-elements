@@ -36,12 +36,9 @@ export const createNodeSpec: NodeSpecFactory = (
                 tag: tag,
                 getAttrs: (dom: Element): Attrs => {
                     const attributes: MutableAttrs = {};
-                    // eslint-disable-next-line unicorn/no-array-for-each
-                    config.attributes.forEach(
-                        (attribute: string) =>
-                            (attributes[attribute] =
-                                dom.getAttribute(attribute))
-                    );
+                    for (const attribute of config.attributes) {
+                        attributes[attribute] = dom.getAttribute(attribute);
+                    }
 
                     return attributes as Attrs;
                 },

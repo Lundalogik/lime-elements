@@ -650,16 +650,14 @@ export const getConditionalCustomComponentSchema = (
     type: 'object',
     properties: {
         trigger: { type: 'string', title: 'Trigger' },
-        ...(value?.trigger === 'show'
-            ? {
-                  color: {
-                      type: 'string',
-                      title: 'Color',
-                      default: 'rgb(0, 0, 0)',
-                      lime: { component: { name: 'limel-color-picker' } },
-                  },
-              }
-            : {}),
+        ...(value?.trigger === 'show' && {
+            color: {
+                type: 'string',
+                title: 'Color',
+                default: 'rgb(0, 0, 0)',
+                lime: { component: { name: 'limel-color-picker' } },
+            },
+        }),
     },
 });
 

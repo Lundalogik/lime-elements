@@ -27,12 +27,11 @@ const updateLink = (
 
         text += node.text.slice(fromInNode, toInNode);
 
-        // eslint-disable-next-line unicorn/no-array-for-each
-        node.marks.forEach((mark: Mark) => {
+        for (const mark of node.marks) {
             if (mark.type.name === 'link') {
                 href = mark.attrs.href;
             }
-        });
+        }
     });
 
     if (updateLinkCallback) {
@@ -52,10 +51,10 @@ const findStart = (doc, pos, href) => {
         const node = doc.nodeAt(pos - 1);
         if (
             !node?.isText ||
-            !node.marks.some(
+            node.marks.every(
                 (mark: Mark) =>
-                    mark.type.name === EditorMenuTypes.Link &&
-                    mark.attrs.href === href
+                    mark.type.name !== EditorMenuTypes.Link ||
+                    mark.attrs.href !== href
             )
         ) {
             break;
@@ -79,10 +78,10 @@ const findEnd = (doc, pos, href) => {
         const node = doc.nodeAt(pos);
         if (
             !node?.isText ||
-            !node.marks.some(
+            node.marks.every(
                 (mark) =>
-                    mark.type.name === EditorMenuTypes.Link &&
-                    mark.attrs.href === href
+                    mark.type.name !== EditorMenuTypes.Link ||
+                    mark.attrs.href !== href
             )
         ) {
             break;
@@ -262,15 +261,17 @@ const createNodesWithLinksAndBreaks = (
         if (line.length > 0) {
             nodes.push(...createNodesWithLinks(line, schema));
         }
-        if (index < lines.length - 1) {
-            const hb = schema.nodes.hard_break;
-            if (hb) {
-                nodes.push(hb.create());
-            } else {
-                // Fallback: if schema lacks hard_break, defer to default paste behavior
-                // (Do NOT throw; keep behavior stable across versions)
-                console.warn('hard_break node not found in schema');
-            }
+        if (index >= lines.length - 1) {
+            continue;
+        }
+
+        const hb = schema.nodes.hard_break;
+        if (hb) {
+            nodes.push(hb.create());
+        } else {
+            // Fallback: if schema lacks hard_break, defer to default paste behavior
+            // (Do NOT throw; keep behavior stable across versions)
+            console.warn('hard_break node not found in schema');
         }
     }
     return nodes;
@@ -443,10 +444,12 @@ export const createLinkPlugin = (updateLinkCallback?: UpdateLinkCallback) => {
 
                     // Prevent unhandled navigation and bubbling for link clicks
                     const link = event.target.closest('a');
-                    if (link) {
-                        event.preventDefault();
-                        event.stopPropagation();
+                    if (!link) {
+                        return;
                     }
+
+                    event.preventDefault();
+                    event.stopPropagation();
                 },
             },
         },

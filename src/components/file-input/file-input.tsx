@@ -122,11 +122,7 @@ export class FileInput {
     };
 
     private handleKeyDown(event: KeyboardEvent) {
-        if (
-            event.code === 'Tab' ||
-            event.code === 'Backspace' ||
-            event.code === 'Enter'
-        ) {
+        if (['Tab', 'Backspace', 'Enter'].includes(event.code)) {
             return;
         }
 
@@ -140,10 +136,12 @@ export class FileInput {
 
     private handleFileChange = (event: Event) => {
         const files = [...this.fileInput.files];
-        if (files.length > 0) {
-            event.stopPropagation();
-            this.filesSelected.emit(files.map(createFileInfo));
-            this.fileInput.value = '';
+        if (files.length === 0) {
+            return;
         }
+
+        event.stopPropagation();
+        this.filesSelected.emit(files.map(createFileInfo));
+        this.fileInput.value = '';
     };
 }

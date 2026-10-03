@@ -28,16 +28,18 @@ export class MonthPicker extends Picker {
 
     public init(element: HTMLElement, container: HTMLElement, value?: Date) {
         super.init(element, container, value);
-        if (!this.nativePicker) {
-            this.flatpickr.prevMonthNav.addEventListener(
-                'mousedown',
-                this.prevYear
-            );
-            this.flatpickr.nextMonthNav.addEventListener(
-                'mousedown',
-                this.nextYear
-            );
+        if (this.nativePicker) {
+            return;
         }
+
+        this.flatpickr.prevMonthNav.addEventListener(
+            'mousedown',
+            this.prevYear
+        );
+        this.flatpickr.nextMonthNav.addEventListener(
+            'mousedown',
+            this.nextYear
+        );
     }
 
     public destroy() {
@@ -72,14 +74,13 @@ export class MonthPicker extends Picker {
         this.selectMonth(selectedDates, dateString, fp);
     }
 
-    protected handleClose(selectedDates) {
-        return super.handleClose(selectedDates).then(() => {
-            this.selectMonth(
-                this.flatpickr.selectedDates,
-                this.flatpickr.input.value,
-                this.flatpickr
-            );
-        });
+    protected async handleClose(selectedDates) {
+        await super.handleClose(selectedDates);
+        this.selectMonth(
+            this.flatpickr.selectedDates,
+            this.flatpickr.input.value,
+            this.flatpickr
+        );
     }
 
     private handleReady(_, __, fp) {
@@ -88,13 +89,15 @@ export class MonthPicker extends Picker {
     }
 
     private bootstrapMonthPicker(fp) {
-        if (!this.nativePicker) {
-            fp.innerContainer.remove();
-            fp.calendarContainer
-                .querySelectorAll('.flatpickr-monthDropdown-months')[0]
-                .replaceWith(this.renderHeading());
-            fp.calendarContainer.append(this.renderMonthsPicker(fp));
+        if (this.nativePicker) {
+            return;
         }
+
+        fp.innerContainer.remove();
+        fp.calendarContainer
+            .querySelector('.flatpickr-monthDropdown-months')
+            .replaceWith(this.renderHeading());
+        fp.calendarContainer.append(this.renderMonthsPicker(fp));
     }
 
     private renderHeading(): any {
@@ -144,42 +147,46 @@ export class MonthPicker extends Picker {
     }
 
     private selectMonth(selectedDates, dateString, fp) {
-        if (!this.nativePicker) {
-            for (const month of this.months) {
-                month.classList.remove('selected');
-            }
+        if (this.nativePicker) {
+            return;
+        }
 
-            if (
-                dateString !== '' &&
-                selectedDates[0] &&
-                selectedDates[0].getFullYear() === fp.currentYear
-            ) {
-                this.months[selectedDates[0].getMonth()].classList.add(
-                    'selected'
-                );
-            }
+        for (const month of this.months) {
+            month.classList.remove('selected');
+        }
+
+        if (
+            dateString !== '' &&
+            selectedDates[0] &&
+            selectedDates[0].getFullYear() === fp.currentYear
+        ) {
+            this.months[selectedDates[0].getMonth()].classList.add('selected');
         }
     }
 
     private prevYear() {
-        if (!this.nativePicker) {
-            // Preventing default or stopping the event from propagating doesn't
-            // stop flatpickr from moving one month on its own, so we let it do
-            // that, and then move the other 11 months to make it a full year.
-            // /Ads
-            const monthsToMove = 11;
-            this.flatpickr.changeMonth(-monthsToMove);
+        if (this.nativePicker) {
+            return;
         }
+
+        // Preventing default or stopping the event from propagating doesn't
+        // stop flatpickr from moving one month on its own, so we let it do
+        // that, and then move the other 11 months to make it a full year.
+        // /Ads
+        const monthsToMove = 11;
+        this.flatpickr.changeMonth(-monthsToMove);
     }
 
     private nextYear() {
-        if (!this.nativePicker) {
-            // Preventing default or stopping the event from propagating doesn't
-            // stop flatpickr from moving one month on its own, so we let it do
-            // that, and then move the other 11 months to make it a full year.
-            // /Ads
-            const monthsToMove = 11;
-            this.flatpickr.changeMonth(monthsToMove);
+        if (this.nativePicker) {
+            return;
         }
+
+        // Preventing default or stopping the event from propagating doesn't
+        // stop flatpickr from moving one month on its own, so we let it do
+        // that, and then move the other 11 months to make it a full year.
+        // /Ads
+        const monthsToMove = 11;
+        this.flatpickr.changeMonth(monthsToMove);
     }
 }

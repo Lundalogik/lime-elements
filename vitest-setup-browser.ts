@@ -3,6 +3,7 @@
 // but in the test environment the icon URLs don't resolve, causing
 // "Failed to execute 'add' on 'Cache': Request failed" errors.
 // The icons still render (via in-memory fallback), so these are harmless.
+// eslint-disable-next-line unicorn/no-top-level-side-effects -- test setup file; global side effects are its purpose
 window.addEventListener('unhandledrejection', (event) => {
     if (
         event.reason instanceof TypeError &&
@@ -25,7 +26,7 @@ const resolveUrl = (input: RequestInfo | URL): string => {
     }
     return input.toString();
 };
-const originalFetch = globalThis.fetch.bind(globalThis);
+const originalFetch = fetch.bind(globalThis);
 globalThis.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = resolveUrl(input);
     if (url.includes('/assets/') && url.endsWith('.pdf')) {

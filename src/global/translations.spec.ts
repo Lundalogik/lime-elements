@@ -89,7 +89,7 @@ describe('translations', () => {
         it('substitutes falsy merge-code values rather than dropping them', () => {
             expect(
                 translate.get('code-diff.hidden-lines', 'en', { count: 0 })
-            ).toBe('\u00B7\u00B7\u00B7 0 hidden lines \u00B7\u00B7\u00B7');
+            ).toBe('\u{B7}\u{B7}\u{B7} 0 hidden lines \u{B7}\u{B7}\u{B7}');
             expect(
                 translate.get('clear-value-of', 'en', { label: false })
             ).toBe('Clear value of false');
@@ -120,9 +120,9 @@ describe('translations', () => {
             ['no', no],
             ['sv', sv],
         ])('%s defines exactly the keys English defines', (_, translations) => {
-            expect(Object.keys(translations).sort()).toEqual(
-                Object.keys(en).sort()
-            );
+            expect(
+                Object.keys(translations).sort((a, b) => a.localeCompare(b))
+            ).toEqual(Object.keys(en).sort((a, b) => a.localeCompare(b)));
         });
     });
 });

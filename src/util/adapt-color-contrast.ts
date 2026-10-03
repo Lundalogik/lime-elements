@@ -62,7 +62,7 @@ function evaluateAndMaybeStrip(el: HTMLElement): void {
 function isInheritKeyword(value: string): boolean {
     const v = value.trim().toLowerCase();
 
-    return v === 'inherit' || v === 'currentcolor' || v === 'unset';
+    return ['inherit', 'currentcolor', 'unset'].includes(v);
 }
 
 type BackgroundReading = RGBA | 'image' | 'transparent';
@@ -186,7 +186,7 @@ export function relativeLuminance(rgb: RGB): number {
     const channel = (c: number) => {
         const s = c / 255;
 
-        return s <= 0.039_28 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+        return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
     };
 
     return (

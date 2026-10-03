@@ -46,8 +46,8 @@ describe('menu state tracking on a mounted view', () => {
         expect(onChange).toHaveBeenCalled();
 
         const [active, allowed] = onChange.mock.calls.at(-1);
-        expect(Object.keys(active).sort()).toEqual(
-            [...editorMenuTypesArray].sort()
+        expect(Object.keys(active).sort((a, b) => a.localeCompare(b))).toEqual(
+            [...editorMenuTypesArray].sort((a, b) => a.localeCompare(b))
         );
         expect(active[EditorMenuTypes.Bold]).toBe(true);
         for (const type of editorMenuTypesArray) {

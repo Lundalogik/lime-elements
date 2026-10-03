@@ -22,12 +22,21 @@ export default defineConfig([
             'jsdoc/require-returns': 'off',
             'jsdoc/require-param-description': 'off',
             'unicorn/no-array-reverse': 'off', // Requires Typescript 5.2 or higher, and build target es2023.
+            // These require APIs newer than our TypeScript version and build target.
+            'unicorn/no-array-sort': 'off',
+            'unicorn/prefer-iterator-to-array': 'off',
+            'unicorn/prefer-promise-with-resolvers': 'off',
+            'unicorn/prefer-dom-node-html-methods': 'off',
+            // Stencil's mock-doc, which spec tests run in, lacks these APIs.
+            'unicorn/require-css-escape': 'off',
+            'unicorn/prefer-dom-node-replace-children': 'off',
         },
     },
     {
         files: ['**/*.{spec,e2e}.{ts,tsx}'],
         rules: {
             'sonarjs/no-clear-text-protocols': 'off',
+            'unicorn/prefer-https': 'off',
         },
     },
 ]);

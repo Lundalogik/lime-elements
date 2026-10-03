@@ -66,7 +66,7 @@ describe('limel-table', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             let firstRow = container.querySelector(
-                '.tabulator-table .tabulator-row'
+                ':scope .tabulator-table .tabulator-row'
             );
             let cells = firstRow?.querySelectorAll('[role="gridcell"]');
             expect(cells[0].textContent).toEqual('2');
@@ -77,7 +77,7 @@ describe('limel-table', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             firstRow = container.querySelector(
-                '.tabulator-table .tabulator-row'
+                ':scope .tabulator-table .tabulator-row'
             );
             cells = firstRow?.querySelectorAll('[role="gridcell"]');
             expect(cells[0].textContent).toEqual('1');
@@ -98,7 +98,7 @@ describe('limel-table', () => {
 
             const container = getContainer(root);
             const rows = container.querySelectorAll(
-                '.tabulator-table .tabulator-row'
+                ':scope .tabulator-table .tabulator-row'
             );
             expect(rows.length).toBe(2);
 
@@ -211,7 +211,7 @@ describe('limel-table', () => {
             await waitForChanges();
 
             const rows = container.querySelectorAll(
-                '.tabulator-table .tabulator-row'
+                ':scope .tabulator-table .tabulator-row'
             );
             const displayedValues = [...rows].map((row) => {
                 const cell = row.querySelector('[role="gridcell"]');

@@ -179,45 +179,43 @@ describe('limel-input-field', () => {
                 ).toBe(true);
             });
 
-            if (type.name !== 'textarea') {
-                it('has the correct leading icon when set', async () => {
-                    const { root, waitForChanges } = await render(
-                        <limel-input-field
-                            type={type.name}
-                            label="Test"
-                            leadingIcon="unit-test"
-                        ></limel-input-field>
-                    );
-                    await waitForChanges();
-
-                    const leadingIcon = root.shadowRoot!.querySelector(
-                        'i.mdc-text-field__icon.mdc-text-field__icon--leading>limel-icon'
-                    );
-                    expect(leadingIcon).toBeTruthy();
-                    expect(leadingIcon.getAttribute('name')).toEqual(
-                        'unit-test'
-                    );
-                });
-
-                it('has the correct trailing icon when set', async () => {
-                    const { root, waitForChanges } = await render(
-                        <limel-input-field
-                            type={type.name}
-                            label="Test"
-                            trailingIcon="unit-test"
-                        ></limel-input-field>
-                    );
-                    await waitForChanges();
-
-                    const trailingIcon = root.shadowRoot!.querySelector(
-                        'i.mdc-text-field__icon.mdc-text-field__icon--trailing>limel-icon'
-                    );
-                    expect(trailingIcon).toBeTruthy();
-                    expect(trailingIcon.getAttribute('name')).toEqual(
-                        'unit-test'
-                    );
-                });
+            if (type.name === 'textarea') {
+                return;
             }
+
+            it('has the correct leading icon when set', async () => {
+                const { root, waitForChanges } = await render(
+                    <limel-input-field
+                        type={type.name}
+                        label="Test"
+                        leadingIcon="unit-test"
+                    ></limel-input-field>
+                );
+                await waitForChanges();
+
+                const leadingIcon = root.shadowRoot!.querySelector(
+                    'i.mdc-text-field__icon.mdc-text-field__icon--leading>limel-icon'
+                );
+                expect(leadingIcon).toBeTruthy();
+                expect(leadingIcon.getAttribute('name')).toEqual('unit-test');
+            });
+
+            it('has the correct trailing icon when set', async () => {
+                const { root, waitForChanges } = await render(
+                    <limel-input-field
+                        type={type.name}
+                        label="Test"
+                        trailingIcon="unit-test"
+                    ></limel-input-field>
+                );
+                await waitForChanges();
+
+                const trailingIcon = root.shadowRoot!.querySelector(
+                    'i.mdc-text-field__icon.mdc-text-field__icon--trailing>limel-icon'
+                );
+                expect(trailingIcon).toBeTruthy();
+                expect(trailingIcon.getAttribute('name')).toEqual('unit-test');
+            });
         });
     }
 });

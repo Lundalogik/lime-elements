@@ -99,10 +99,12 @@ export class Popover {
     protected watchOpen() {
         this.setupGlobalHandlers();
 
-        if (!this.open && this.shouldRestoreFocusOnClose) {
-            this.shouldRestoreFocusOnClose = false;
-            setTimeout(this.focusTrigger, 0);
+        if (this.open || !this.shouldRestoreFocusOnClose) {
+            return;
         }
+
+        this.shouldRestoreFocusOnClose = false;
+        setTimeout(this.focusTrigger, 0);
     }
 
     public connectedCallback() {
@@ -118,8 +120,9 @@ export class Popover {
             return;
         }
 
-        // eslint-disable-next-line unicorn/no-array-for-each
-        this.triggerSlot.assignedElements().forEach(this.setTriggerAttributes);
+        for (const element of this.triggerSlot.assignedElements()) {
+            this.setTriggerAttributes(element as HTMLElement);
+        }
     }
 
     private setupGlobalHandlers() {
@@ -178,11 +181,13 @@ export class Popover {
     private globalClickListener(event: MouseEvent) {
         const element: HTMLElement = event.target as HTMLElement;
         const clickedInside = portalContains(this.host, element);
-        if (this.open && !clickedInside) {
-            event.stopPropagation();
-            event.preventDefault();
-            this.close.emit();
+        if (!this.open || clickedInside) {
+            return;
         }
+
+        event.stopPropagation();
+        event.preventDefault();
+        this.close.emit();
     }
 
     private getCssProperties() {

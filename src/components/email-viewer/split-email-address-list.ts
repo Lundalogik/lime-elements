@@ -49,19 +49,12 @@ export function splitEmailAddressList(value: string): string[] {
     };
 
     for (const character of value) {
-        if (consumeEscaped(character, state, append)) {
-            continue;
-        }
-
-        if (beginEscape(character, state, append)) {
-            continue;
-        }
-
-        if (toggleQuote(character, state, append)) {
-            continue;
-        }
-
-        if (adjustAngleDepth(character, state, append)) {
+        if (
+            consumeEscaped(character, state, append) ||
+            beginEscape(character, state, append) ||
+            toggleQuote(character, state, append) ||
+            adjustAngleDepth(character, state, append)
+        ) {
             continue;
         }
 

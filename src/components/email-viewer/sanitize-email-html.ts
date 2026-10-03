@@ -173,11 +173,7 @@ function getSafeEmailImageSrc(src: string): string | undefined {
     }
 
     const mimeType = getDataUrlMimeType(trimmedSrc);
-    if (!mimeType) {
-        return;
-    }
-
-    if (!allowedMimeTypes.has(mimeType)) {
+    if (!mimeType || !allowedMimeTypes.has(mimeType)) {
         return;
     }
 

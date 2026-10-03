@@ -12,11 +12,11 @@ describe('remove empty paragraphs plugin', () => {
     it('removes empty paragraphs with only whitespace content', () => {
         const tree = createRoot([
             createParagraph(),
-            createParagraph([createText('   ')]),
+            createParagraph([createText(' '.repeat(3))]),
             createParagraph([createText('\n')]),
-            createParagraph([createText('\u00A0')]),
+            createParagraph([createText('\u{A0}')]),
             createParagraph([createElement('span')]),
-            createParagraph([createElement('span', [createText('\u00A0')])]),
+            createParagraph([createElement('span', [createText('\u{A0}')])]),
         ]);
 
         runPlugin(tree, true);
@@ -33,7 +33,7 @@ describe('remove empty paragraphs plugin', () => {
         runPlugin(tree, true);
 
         expect(tree.children).toHaveLength(1);
-        expect(tree.children[0]).toBe(paragraph);
+        expect(tree.children.at(0)).toBe(paragraph);
     });
 
     it('removes paragraphs containing only line breaks', () => {
@@ -48,7 +48,7 @@ describe('remove empty paragraphs plugin', () => {
     });
 
     it('removes paragraphs containing only zero-width whitespace characters', () => {
-        const zeroWidthText = '\u200B\u200C\u200D\uFEFF';
+        const zeroWidthText = '\u{200B}\u{200C}\u{200D}\u{FEFF}';
         const tree = createRoot([
             createParagraph([createText(zeroWidthText)]),
             createParagraph([
@@ -68,7 +68,7 @@ describe('remove empty paragraphs plugin', () => {
         runPlugin(tree, true);
 
         expect(tree.children).toHaveLength(1);
-        expect(tree.children[0]).toBe(paragraph);
+        expect(tree.children.at(0)).toBe(paragraph);
     });
 
     it('keeps paragraphs containing custom elements with no children', () => {
@@ -80,12 +80,12 @@ describe('remove empty paragraphs plugin', () => {
         runPlugin(tree, true);
 
         expect(tree.children).toHaveLength(1);
-        expect(tree.children[0]).toBe(paragraph);
+        expect(tree.children.at(0)).toBe(paragraph);
     });
 
     it('keeps paragraphs with custom elements alongside whitespace', () => {
         const paragraph = createParagraph([
-            createText('   '),
+            createText(' '.repeat(3)),
             createElement('limel-spinner'),
             createText('\n'),
         ]);
@@ -94,7 +94,7 @@ describe('remove empty paragraphs plugin', () => {
         runPlugin(tree, true);
 
         expect(tree.children).toHaveLength(1);
-        expect(tree.children[0]).toBe(paragraph);
+        expect(tree.children.at(0)).toBe(paragraph);
     });
 
     it('keeps text content inside paragraphs', () => {
@@ -106,7 +106,7 @@ describe('remove empty paragraphs plugin', () => {
         runPlugin(tree, true);
 
         expect(tree.children).toHaveLength(1);
-        expect(tree.children[0]).toBe(paragraph);
+        expect(tree.children.at(0)).toBe(paragraph);
     });
 });
 

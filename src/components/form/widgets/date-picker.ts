@@ -39,9 +39,8 @@ export class DatePicker extends React.Component<DateWidgetProps> {
     private getValue() {
         if (typeof this.props.value === 'string') {
             return new Date(this.props.value);
-        } else {
-            return this.props.value;
         }
+        return this.props.value;
     }
 
     private handleChange(event: CustomEvent<Date>) {

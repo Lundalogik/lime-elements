@@ -40,7 +40,7 @@ export class DynamicFormExample {
     private text: string;
 
     constructor() {
-        this.text = JSON.stringify(this.schema, null, '    ');
+        this.text = JSON.stringify(this.schema, null, ' '.repeat(4));
     }
 
     public render() {

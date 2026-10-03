@@ -134,10 +134,7 @@ export class ArrayFieldTemplate extends React.Component<
             return [];
         }
 
-        const byKey = new Map<number, React.ReactElement>();
-        for (const [index, item] of items.entries()) {
-            byKey.set(index, item);
-        }
+        const byKey = new Map<number, React.ReactElement>(items.entries());
 
         const ordered: React.ReactElement[] = [];
         const used = new Set<number>();
@@ -152,7 +149,7 @@ export class ArrayFieldTemplate extends React.Component<
             used.add(index);
         }
 
-        for (const [index, entry] of byKey.entries()) {
+        for (const [index, entry] of byKey) {
             if (!used.has(index)) {
                 ordered.push(entry);
             }
@@ -358,7 +355,7 @@ export class ArrayFieldTemplate extends React.Component<
 
         const target = this.dropElevationTarget;
         this.clearDropElevationTimer();
-        this.dropElevationTimeout = globalThis.setTimeout(() => {
+        this.dropElevationTimeout = setTimeout(() => {
             target.classList.remove(DEFAULT_DROP_ELEVATION_CLASS);
             if (this.dropElevationTarget === target) {
                 this.dropElevationTarget = undefined;
@@ -368,10 +365,12 @@ export class ArrayFieldTemplate extends React.Component<
     }
 
     private clearDropElevationTimer() {
-        if (this.dropElevationTimeout !== undefined) {
-            clearTimeout(this.dropElevationTimeout);
-            this.dropElevationTimeout = undefined;
+        if (this.dropElevationTimeout === undefined) {
+            return;
         }
+
+        clearTimeout(this.dropElevationTimeout);
+        this.dropElevationTimeout = undefined;
     }
 
     private arraysEqual(a: number[], b: number[]): boolean {

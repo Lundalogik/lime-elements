@@ -95,12 +95,14 @@ const replaceImageNodeByFileInfoId = (
         if (found) {
             return false;
         }
-        if (node.attrs.fileInfoId === fileInfoId) {
-            tr.replaceWith(pos, pos + node.nodeSize, buildNode(node));
-            found = true;
-
-            return false;
+        if (node.attrs.fileInfoId !== fileInfoId) {
+            return true;
         }
+
+        tr.replaceWith(pos, pos + node.nodeSize, buildNode(node));
+        found = true;
+
+        return false;
     });
 
     if (found) {
@@ -224,25 +226,22 @@ const isImageNode = (node: Node | Fragment): boolean => {
             return true;
         }
 
-        let found = false;
-        // eslint-disable-next-line unicorn/no-array-for-each
-        node.content.forEach((child) => {
+        for (const child of node.children) {
             if (isImageNode(child)) {
-                found = true;
+                return true;
             }
-        });
+        }
 
-        return found;
-    } else if (node instanceof Fragment) {
-        let found = false;
-        // eslint-disable-next-line unicorn/no-array-for-each
-        node.forEach((child) => {
+        return false;
+    }
+    if (node instanceof Fragment) {
+        for (const child of node.content) {
             if (isImageNode(child)) {
-                found = true;
+                return true;
             }
-        });
+        }
 
-        return found;
+        return false;
     }
 
     return false;
@@ -256,8 +255,7 @@ const isImageNode = (node: Node | Fragment): boolean => {
 const filterImageNodes = (fragment: Fragment): Fragment => {
     const filteredChildren: Node[] = [];
 
-    // eslint-disable-next-line unicorn/no-array-for-each
-    fragment.forEach((child) => {
+    for (const child of fragment.content) {
         if (!isImageNode(child)) {
             if (child.content.size > 0) {
                 const filteredContent = filterImageNodes(child.content);
@@ -267,7 +265,7 @@ const filterImageNodes = (fragment: Fragment): Fragment => {
                 filteredChildren.push(child);
             }
         }
-    });
+    }
 
     return Fragment.fromArray(filteredChildren);
 };
@@ -333,44 +331,42 @@ function handlePastedImages(
     const files = [...(clipboardData.files || [])];
 
     for (const file of files) {
-        if (isImageFile(file, clipboardData)) {
-            isImageFilePasted = true;
+        if (!isImageFile(file, clipboardData)) {
+            continue;
+        }
 
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const base64Data = reader.result as string;
-                const fileInfo = createFileInfo(file);
+        isImageFilePasted = true;
 
-                if (inlineImages) {
-                    // Once inline images are configured they own the paste
-                    // lifecycle; never fall back to the legacy imagePasted
-                    // event. Without an upload handler the paste is a no-op.
-                    if (inlineImages.upload) {
-                        runInlineImageUpload(
-                            view,
-                            file,
-                            base64Data,
-                            fileInfo,
-                            inlineImages
-                        );
-                    }
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const base64Data = reader.result as string;
+            const fileInfo = createFileInfo(file);
 
-                    return;
+            if (inlineImages) {
+                // Once inline images are configured they own the paste
+                // lifecycle; never fall back to the legacy imagePasted
+                // event. Without an upload handler the paste is a no-op.
+                if (inlineImages.upload) {
+                    runInlineImageUpload(
+                        view,
+                        file,
+                        base64Data,
+                        fileInfo,
+                        inlineImages
+                    );
                 }
 
-                view.dom.dispatchEvent(
-                    new CustomEvent('imagePasted', {
-                        detail: imageInserterFactory(
-                            view,
-                            base64Data,
-                            fileInfo
-                        ),
-                    })
-                );
-            };
+                return;
+            }
 
-            reader.readAsDataURL(file);
-        }
+            view.dom.dispatchEvent(
+                new CustomEvent('imagePasted', {
+                    detail: imageInserterFactory(view, base64Data, fileInfo),
+                })
+            );
+        };
+
+        reader.readAsDataURL(file);
     }
 
     return isImageFilePasted;

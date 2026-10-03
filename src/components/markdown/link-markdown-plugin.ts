@@ -13,20 +13,22 @@ export function createLinksPlugin(): Plugin {
     return (): Transformer => {
         return (tree: Node) => {
             visit(tree, 'element', (node: any) => {
-                if (node.tagName === 'a') {
-                    const href = node.properties?.href;
-                    const title = node.properties?.title;
-
-                    if (!href) {
-                        return;
-                    }
-
-                    const attributes = getLinkAttributes(href, title);
-
-                    node.properties.target = attributes.target;
-                    node.properties.rel = attributes.rel;
-                    node.properties.referrerpolicy = attributes.referrerpolicy;
+                if (node.tagName !== 'a') {
+                    return;
                 }
+
+                const href = node.properties?.href;
+
+                if (!href) {
+                    return;
+                }
+
+                const title = node.properties?.title;
+                const attributes = getLinkAttributes(href, title);
+
+                node.properties.target = attributes.target;
+                node.properties.rel = attributes.rel;
+                node.properties.referrerpolicy = attributes.referrerpolicy;
             });
 
             return tree;

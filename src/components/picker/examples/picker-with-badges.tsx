@@ -69,8 +69,8 @@ export class PickerWithBadgesExample {
 
     private availableItems: Array<PickerItem<number>> = this.allItems.filter(
         (item) =>
-            !this.selectedItems.some(
-                (selected) => selected.value === item.value
+            this.selectedItems.every(
+                (selected) => selected.value !== item.value
             )
     );
 
@@ -99,8 +99,8 @@ export class PickerWithBadgesExample {
 
     private updateAvailableItems = () => {
         this.availableItems = this.allItems.filter((item) => {
-            return !this.selectedItems.some((selectedItem) => {
-                return item.value === selectedItem.value;
+            return this.selectedItems.every((selectedItem) => {
+                return item.value !== selectedItem.value;
             });
         });
     };

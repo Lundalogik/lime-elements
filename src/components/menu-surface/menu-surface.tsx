@@ -98,11 +98,7 @@ export class MenuSurface {
     private handleDocumentClick = (event) => {
         const elementPath = event.composedPath ? event.composedPath() : [];
 
-        if (!this.open) {
-            return;
-        }
-
-        if (isDescendant(event.target, this.host)) {
+        if (!this.open || isDescendant(event.target, this.host)) {
             return;
         }
 
@@ -160,9 +156,11 @@ export class MenuSurface {
         const isEscape = event.key === ESCAPE;
         const isTab = event.key === TAB;
 
-        if (this.open && (isEscape || isTab)) {
-            event.stopPropagation();
-            this.dismiss.emit();
+        if (!(this.open && (isEscape || isTab))) {
+            return;
         }
+
+        event.stopPropagation();
+        this.dismiss.emit();
     };
 }

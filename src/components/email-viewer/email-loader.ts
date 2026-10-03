@@ -54,7 +54,9 @@ async function fetchEmailBuffer(url: string): Promise<ArrayBuffer> {
         return await response.arrayBuffer();
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        throw new Error(`Failed to load email from ${url}: ${message}`);
+        throw new Error(`Failed to load email from ${url}: ${message}`, {
+            cause: error,
+        });
     }
 }
 
@@ -65,7 +67,9 @@ async function parseEmail(url: string, buffer: ArrayBuffer): Promise<any> {
         });
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        throw new Error(`Failed to parse email from ${url}: ${message}`);
+        throw new Error(`Failed to parse email from ${url}: ${message}`, {
+            cause: error,
+        });
     }
 }
 
@@ -84,7 +88,8 @@ function extractAttachments(email: any): {
     const attachments: Email['attachments'] = [];
     const cidUrlById = new Map<string, string>();
 
-    for (const attachment of email.attachments || []) {
+    const emailAttachments = email.attachments || [];
+    for (const attachment of emailAttachments) {
         const contentId = normalizeContentId(attachment.contentId);
         const hasContentId = Boolean(contentId);
         const isInline =
@@ -230,7 +235,7 @@ function byteArrayToBase64(bytes: Uint8Array): string {
     }
 
     // Jest/Node fallback
-    return (globalThis as any).Buffer.from(bytes).toString('base64');
+    return Buffer.from(bytes).toString('base64');
 }
 
 function resolveDataUrlMimeType(
@@ -273,11 +278,7 @@ function isTrustedDeclaredImageMimeType(
     declaredMimeType: string,
     detectedMimeType?: string
 ): boolean {
-    if (!detectedMimeType) {
-        return true;
-    }
-
-    if (declaredMimeType === detectedMimeType) {
+    if (!detectedMimeType || declaredMimeType === detectedMimeType) {
         return true;
     }
 
@@ -342,7 +343,7 @@ function detectSvgMimeType(bytes: Uint8Array): string | undefined {
         return;
     }
 
-    const utf8Prefix = new TextDecoder('utf8', { fatal: false }).decode(
+    const utf8Prefix = new TextDecoder('utf-8', { fatal: false }).decode(
         bytes.slice(0, Math.min(bytes.length, 256))
     );
     const normalizedPrefix = utf8Prefix.trimStart().toLowerCase();
@@ -468,7 +469,9 @@ function quoteDisplayNameIfNeeded(name: string): string {
         return name;
     }
 
-    const escaped = name.replaceAll('\\', '\\\\').replaceAll('"', '\\' + '"');
+    const escaped = name
+        .replaceAll('\\', '\\\\')
+        .replaceAll('"', String.raw`\"`);
     return `"${escaped}"`;
 }
 

@@ -197,7 +197,7 @@ export class DragHandleHorizontalExample {
 
         const target = this.dropElevationTarget;
         this.clearDropElevationTimer();
-        this.dropElevationTimeout = globalThis.setTimeout(() => {
+        this.dropElevationTimeout = setTimeout(() => {
             target.classList.remove(DEFAULT_DROP_ELEVATION_CLASS);
             if (this.dropElevationTarget === target) {
                 this.dropElevationTarget = undefined;
@@ -207,10 +207,12 @@ export class DragHandleHorizontalExample {
     }
 
     private clearDropElevationTimer() {
-        if (this.dropElevationTimeout !== undefined) {
-            clearTimeout(this.dropElevationTimeout);
-            this.dropElevationTimeout = undefined;
+        if (this.dropElevationTimeout === undefined) {
+            return;
         }
+
+        clearTimeout(this.dropElevationTimeout);
+        this.dropElevationTimeout = undefined;
     }
 
     private moveKitten(

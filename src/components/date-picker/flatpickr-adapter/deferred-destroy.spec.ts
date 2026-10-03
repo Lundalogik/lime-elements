@@ -5,6 +5,7 @@ let deferredDestroy: DeferredDestroy;
 
 beforeEach(() => {
     vi.useFakeTimers();
+    // eslint-disable-next-line unicorn/no-top-level-assignment-in-function -- per-test fixture reset in beforeEach
     deferredDestroy = new DeferredDestroy();
 });
 

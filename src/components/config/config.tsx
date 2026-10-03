@@ -43,8 +43,8 @@ export class ConfigComponent {
             return;
         }
 
-        for (const key of Object.keys(this.config)) {
-            globalConfig[key] = this.config[key];
+        for (const [key, value] of Object.entries(this.config)) {
+            globalConfig[key] = value;
         }
     }
 

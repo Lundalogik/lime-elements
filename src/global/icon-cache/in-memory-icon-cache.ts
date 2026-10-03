@@ -17,6 +17,7 @@ export class InMemoryIconCache {
      * @returns SVG markup
      */
     public async get(name: string, path = ''): Promise<string> {
+        // eslint-disable-next-line unicorn/no-computed-property-existence-check -- truthiness check, not existence: a falsy entry must be refetched
         if (!this.cache[name]) {
             this.cache[name] = await this.getIcon(name, path);
         }
@@ -29,6 +30,7 @@ export class InMemoryIconCache {
      */
     private getIcon(name, path) {
         return new Promise((resolve) => {
+            // eslint-disable-next-line unicorn/no-computed-property-existence-check -- truthiness check, not existence: entries are reset to `null`
             if (!this.resolveFunctions[name]) {
                 this.resolveFunctions[name] = [];
                 this.fetchData(name, path);

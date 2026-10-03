@@ -470,10 +470,12 @@ export class ProfilePicture {
     }
 
     private revokeObjectUrl() {
-        if (this.objectUrl) {
-            URL.revokeObjectURL(this.objectUrl);
-            this.objectUrl = undefined;
+        if (!this.objectUrl) {
+            return;
         }
+
+        URL.revokeObjectURL(this.objectUrl);
+        this.objectUrl = undefined;
     }
 
     private handleClear = (event: Event) => {

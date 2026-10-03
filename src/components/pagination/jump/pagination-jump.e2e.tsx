@@ -28,9 +28,9 @@ describe('limel-pagination-jump', () => {
                 page={50}
                 pageCount={492}
                 {...props}
-                onJump={(event: CustomEvent<number>) =>
-                    jumps.push(event.detail)
-                }
+                onJump={(event: CustomEvent<number>) => {
+                    jumps.push(event.detail);
+                }}
             ></limel-pagination-jump>
         );
         rendered = result;

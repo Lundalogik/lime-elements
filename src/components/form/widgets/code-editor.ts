@@ -20,7 +20,7 @@ export class CodeEditor extends React.Component<FieldProps, CodeEditorState> {
         let value: string = '{}';
 
         try {
-            value = JSON.stringify(props.formData, null, '    ');
+            value = JSON.stringify(props.formData, null, ' '.repeat(4));
         } catch {
             // N/A
         }
@@ -122,17 +122,14 @@ function findFirstError(schema: ErrorSchemaNode): string | undefined {
         }
     }
 
-    for (const key of Object.keys(schema)) {
-        if (key === '__errors') {
+    for (const [key, nested] of Object.entries(schema)) {
+        if (key === '__errors' || !nested || typeof nested !== 'object') {
             continue;
         }
 
-        const nested = schema[key];
-        if (nested && typeof nested === 'object') {
-            const found = findFirstError(nested as ErrorSchemaNode);
-            if (found) {
-                return `${key}: ${found}`;
-            }
+        const found = findFirstError(nested as ErrorSchemaNode);
+        if (found) {
+            return `${key}: ${found}`;
         }
     }
 

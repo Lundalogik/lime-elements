@@ -383,6 +383,7 @@ async function loadImageElement(file: File): Promise<HTMLImageElement> {
         const img = new Image();
         img.decoding = 'sync';
         img.src = url;
+        // eslint-disable-next-line unicorn/prefer-await -- swallows the rejection inline; a try/catch would need an empty block
         await img.decode?.().catch(() => undefined);
         if (!img.complete) {
             await new Promise<void>((resolve, reject) => {

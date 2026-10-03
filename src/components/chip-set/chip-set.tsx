@@ -513,11 +513,7 @@ export class ChipSet {
             return true;
         }
 
-        if (!this.required) {
-            return false;
-        }
-
-        if (!this.blurred) {
+        if (!this.required || !this.blurred) {
             return false;
         }
 
@@ -537,15 +533,12 @@ export class ChipSet {
      * and the input should not steal focus alongside it.
      */
     private handleTextFieldFocus(event?: Event) {
-        if (this.disabled || this.readonly) {
-            return;
-        }
-
-        if (this.editMode) {
-            return;
-        }
-
-        if (isChipAnnotatedEvent(event)) {
+        if (
+            this.disabled ||
+            this.readonly ||
+            this.editMode ||
+            isChipAnnotatedEvent(event)
+        ) {
             return;
         }
 
@@ -776,7 +769,7 @@ export class ChipSet {
             return;
         }
 
-        if (!this.value.some((chip) => chip.removable !== false)) {
+        if (this.value.every((chip) => chip.removable === false)) {
             // Nothing to clear if every chip is locked.
             return;
         }

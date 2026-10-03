@@ -163,19 +163,21 @@ export class ProgressFlow {
 
     private scrollToSelectedItem() {
         const selectedElement = this.getElementForSelectedItem();
-        if (selectedElement) {
-            const selectedItemLeftPosition =
-                selectedElement.offsetLeft - this.element.offsetLeft;
-            const selectedElementLeftPositionCentered =
-                selectedItemLeftPosition - this.element.offsetWidth / 2;
-            const selectedElementCentered =
-                selectedElementLeftPositionCentered +
-                selectedElement.offsetWidth / 2;
-            this.element.scrollTo({
-                behavior: 'smooth',
-                left: selectedElementCentered,
-            });
+        if (!selectedElement) {
+            return;
         }
+
+        const selectedItemLeftPosition =
+            selectedElement.offsetLeft - this.element.offsetLeft;
+        const selectedElementLeftPositionCentered =
+            selectedItemLeftPosition - this.element.offsetWidth / 2;
+        const selectedElementCentered =
+            selectedElementLeftPositionCentered +
+            selectedElement.offsetWidth / 2;
+        this.element.scrollTo({
+            behavior: 'smooth',
+            left: selectedElementCentered,
+        });
     }
 
     private getElementForSelectedItem(): HTMLLimelProgressFlowItemElement {

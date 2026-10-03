@@ -154,11 +154,12 @@ export class Breadcrumbs {
 
     private renderIcon = (item: BreadcrumbsItem) => {
         const name = getIconName(item.icon);
-        const color = getIconColor(item.icon);
 
         if (!name) {
             return;
         }
+
+        const color = getIconColor(item.icon);
 
         return (
             <limel-icon

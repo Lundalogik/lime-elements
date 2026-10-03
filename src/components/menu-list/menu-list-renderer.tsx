@@ -18,7 +18,7 @@ export class MenuListRenderer {
         items: Array<MenuItem | ListSeparator>,
         config: MenuListRendererConfig = {}
     ) {
-        items = items || [];
+        items ||= [];
         this.config = { ...this.defaultConfig, ...config };
 
         this.applyTabIndexToItemAtIndex =
@@ -49,11 +49,11 @@ export class MenuListRenderer {
         items: Array<MenuItem | ListSeparator>
     ) => {
         let result;
-        for (let i = 0, max = items.length; i < max; i += 1) {
-            if ('separator' in items[i]) {
+        for (const [i, entry] of items.entries()) {
+            if ('separator' in entry) {
                 // Ignore ListSeparator
             } else {
-                const item = items[i] as MenuItem<any>;
+                const item = entry as MenuItem<any>;
                 if (item.disabled) {
                     // Skip disabled items - they should never get tabindex
                     continue;
@@ -104,9 +104,9 @@ export class MenuListRenderer {
             attributes.tabindex = '0';
         }
 
-        const hasSubMenu = this.hasSubItems(item);
+        const hasSubmenu = this.hasSubItems(item);
         const hasMeta =
-            hasSubMenu ||
+            hasSubmenu ||
             item.badge !== undefined ||
             !!item.hotkey ||
             !!item.commandText;
@@ -119,7 +119,7 @@ export class MenuListRenderer {
                       hotkey: item.hotkey,
                       disabled: !!item.disabled,
                       badge: item.badge,
-                      showChevron: hasSubMenu,
+                      showChevron: hasSubmenu,
                   },
               }
             : undefined;
@@ -135,8 +135,8 @@ export class MenuListRenderer {
                 class={classNames}
                 data-index={index}
                 {...attributes}
-                aria-haspopup={hasSubMenu ? 'menu' : undefined}
-                aria-expanded={hasSubMenu ? 'false' : undefined}
+                aria-haspopup={hasSubmenu ? 'menu' : undefined}
+                aria-expanded={hasSubmenu ? 'false' : undefined}
                 type="menuitem"
                 text={item.text}
                 secondaryText={item.secondaryText}

@@ -40,12 +40,14 @@ function hydrateElement(element: Element, attributes: string[]): void {
         }
 
         const parsed = tryParseJson(value);
-        if (parsed !== undefined) {
-            const sanitized = sanitizeUrls(parsed);
-            // Set the JS property (camelCase) instead of the attribute
-            const propName = attributeToPropName(attrName);
-            (element as any)[propName] = sanitized;
+        if (parsed === undefined) {
+            continue;
         }
+
+        const sanitized = sanitizeUrls(parsed);
+        // Set the JS property (camelCase) instead of the attribute
+        const propName = attributeToPropName(attrName);
+        (element as any)[propName] = sanitized;
     }
 }
 

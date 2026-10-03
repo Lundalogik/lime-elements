@@ -269,12 +269,12 @@ export class Card {
 
     private renderIcon() {
         const icon = getIconName(this.icon);
-        const color =
-            typeof this.icon === 'string' ? undefined : this.icon?.color;
-
         if (!icon) {
             return;
         }
+
+        const color =
+            typeof this.icon === 'string' ? undefined : this.icon?.color;
 
         return (
             <limel-icon
@@ -343,10 +343,12 @@ export class Card {
             return;
         }
 
-        if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            this.host.click();
+        if (!(event.key === 'Enter' || event.key === ' ')) {
+            return;
         }
+
+        event.preventDefault();
+        this.host.click();
     };
 
     private renderActionBar() {

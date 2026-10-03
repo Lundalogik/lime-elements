@@ -15,7 +15,7 @@ export const createRemoveEmptyParagraphsPlugin = (enabled = false): Plugin => {
     };
 };
 
-const NBSP_REGEX = /\u00A0/g;
+const NBSP_REGEX = /\u{A0}/gu;
 const ZERO_WIDTH_HEX_CODES = ['200B', '200C', '200D', 'FEFF'];
 const MEANINGFUL_VOID_ELEMENTS = new Set([
     'audio',
@@ -106,11 +106,11 @@ const isNodeEffectivelyEmpty = (node: any): boolean => {
             return false;
         }
 
-        if (TREAT_AS_EMPTY_ELEMENTS.has(tagName)) {
-            return true;
-        }
-
-        if (!Array.isArray(element.children) || element.children.length === 0) {
+        if (
+            TREAT_AS_EMPTY_ELEMENTS.has(tagName) ||
+            !Array.isArray(element.children) ||
+            element.children.length === 0
+        ) {
             return true;
         }
 

@@ -260,8 +260,6 @@ export class SchemaField extends React.Component<FieldProps> {
     }
 
     render() {
-        const schema = this.props.schema as FormSchema;
-
         if (this.props.schema.lime?.hidden) {
             return null;
         }
@@ -270,6 +268,7 @@ export class SchemaField extends React.Component<FieldProps> {
             return this.renderCustomComponent(this.props);
         }
 
+        const schema = this.props.schema as FormSchema;
         const fieldProps = {
             ...this.props,
             onChange: this.handleChange,

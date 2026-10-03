@@ -326,7 +326,9 @@ function createImageParseDOM(inlineImages?: InlineImages): TagParseRule[] {
 }
 
 function isEditorImageState(state: unknown): state is EditorImageState {
-    return state === 'loading' || state === 'failed' || state === 'success';
+    const states: unknown[] = ['loading', 'failed', 'success'];
+
+    return states.includes(state);
 }
 
 function getOrCreateImageElement(

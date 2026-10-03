@@ -530,10 +530,12 @@ export class Pagination {
         this.focusGap(this.openGap);
         this.openGap = undefined;
 
-        if (this.goTo(page)) {
-            this.awaitedJump = page;
-            this.jumpedFrom = this.view.page;
+        if (!this.goTo(page)) {
+            return;
         }
+
+        this.awaitedJump = page;
+        this.jumpedFrom = this.view.page;
     };
 
     private focusGap(index: number) {

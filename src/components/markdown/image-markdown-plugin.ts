@@ -16,15 +16,19 @@ export function createLazyLoadImagesPlugin(lazyLoadImages = false): Plugin {
 
         return (tree: Node) => {
             visit(tree, 'element', (node: any) => {
-                if (node.tagName === 'img') {
-                    node.properties = node.properties || {};
-                    node.properties.loading = 'lazy';
-
-                    if (node.properties.src) {
-                        node.properties['data-src'] = node.properties.src;
-                        node.properties.src = undefined;
-                    }
+                if (node.tagName !== 'img') {
+                    return;
                 }
+
+                node.properties ||= {};
+                node.properties.loading = 'lazy';
+
+                if (!node.properties.src) {
+                    return;
+                }
+
+                node.properties['data-src'] = node.properties.src;
+                node.properties.src = undefined;
             });
 
             return tree;

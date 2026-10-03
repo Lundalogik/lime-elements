@@ -102,7 +102,7 @@ function getSchemaObjectPropertyPath(
     const matchAllForwardSlashes = /\//g;
     const rootPath =
         (schema.$ref as string)
-            ?.replace(matchAllForwardSlashes, '.')
+            ?.replaceAll(matchAllForwardSlashes, '.')
             .slice(refPrefixLength) ?? '';
     const subSchemaPath = fieldPathId.path
         .map((segment) => `.properties.${segment}`)
