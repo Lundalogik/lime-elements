@@ -226,26 +226,22 @@ const isImageNode = (node: Node | Fragment): boolean => {
             return true;
         }
 
-        let found = false;
-        // eslint-disable-next-line unicorn/no-array-for-each
-        node.content.forEach((child) => {
+        for (const child of node.children) {
             if (isImageNode(child)) {
-                found = true;
+                return true;
             }
-        });
+        }
 
-        return found;
+        return false;
     }
     if (node instanceof Fragment) {
-        let found = false;
-        // eslint-disable-next-line unicorn/no-array-for-each
-        node.forEach((child) => {
+        for (const child of node.content) {
             if (isImageNode(child)) {
-                found = true;
+                return true;
             }
-        });
+        }
 
-        return found;
+        return false;
     }
 
     return false;
@@ -259,8 +255,7 @@ const isImageNode = (node: Node | Fragment): boolean => {
 const filterImageNodes = (fragment: Fragment): Fragment => {
     const filteredChildren: Node[] = [];
 
-    // eslint-disable-next-line unicorn/no-array-for-each
-    fragment.forEach((child) => {
+    for (const child of fragment.content) {
         if (!isImageNode(child)) {
             if (child.content.size > 0) {
                 const filteredContent = filterImageNodes(child.content);
@@ -270,7 +265,7 @@ const filterImageNodes = (fragment: Fragment): Fragment => {
                 filteredChildren.push(child);
             }
         }
-    });
+    }
 
     return Fragment.fromArray(filteredChildren);
 };

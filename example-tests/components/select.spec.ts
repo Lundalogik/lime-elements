@@ -57,6 +57,7 @@ const openByClick = async (page: Page) => {
  */
 const focusedOption = (page: Page) =>
     page.evaluate(() => {
+        // eslint-disable-next-line unicorn/isolated-functions -- runs in the browser, where `document` is a global
         const list = document.querySelector('limel-menu-surface limel-list');
         const row = list?.shadowRoot?.activeElement;
 

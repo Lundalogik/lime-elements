@@ -549,14 +549,12 @@ test('emits data-schema-path on grid and row layout wrappers', async () => {
     });
 
     expect(
-        formContent
-            .querySelector('.limel-form-layout--grid')
-            ?.getAttribute('data-schema-path')
+        formContent.querySelector<HTMLElement>('.limel-form-layout--grid')
+            ?.dataset.schemaPath
     ).toBe('/grid');
     expect(
-        formContent
-            .querySelector('.limel-form-row--layout')
-            ?.getAttribute('data-schema-path')
+        formContent.querySelector<HTMLElement>('.limel-form-row--layout')
+            ?.dataset.schemaPath
     ).toBe('/row');
 });
 
@@ -668,7 +666,7 @@ test('hides drag handle and remove button when array item controls are disabled'
 
     const dragHandle = formContent.querySelector('limel-drag-handle');
     const removeButton = formContent.querySelector(
-        '.array-item limel-icon-button[icon="trash"]'
+        ':scope .array-item limel-icon-button[icon="trash"]'
     );
     expect(dragHandle).toBeNull();
     expect(removeButton).toBeNull();
@@ -858,7 +856,7 @@ test('renders nested objects inside array items without inheriting array context
     expect(labels).toContain('City');
 
     const nestedCollapsibles = formContent.querySelectorAll(
-        'limel-collapsible-section limel-collapsible-section'
+        ':scope limel-collapsible-section limel-collapsible-section'
     );
     expect(nestedCollapsibles.length).toBe(0);
 });

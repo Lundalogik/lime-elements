@@ -75,14 +75,13 @@ export class QuarterPicker extends Picker {
         this.selectQuarter(selectedDates, dateString, fp);
     }
 
-    protected handleClose(selectedDates) {
-        return super.handleClose(selectedDates).then(() => {
-            this.selectQuarter(
-                this.flatpickr.selectedDates,
-                this.flatpickr.input.value,
-                this.flatpickr
-            );
-        });
+    protected async handleClose(selectedDates) {
+        await super.handleClose(selectedDates);
+        this.selectQuarter(
+            this.flatpickr.selectedDates,
+            this.flatpickr.input.value,
+            this.flatpickr
+        );
     }
 
     private handleReady(_, __, fp) {
@@ -178,16 +177,16 @@ export class QuarterPicker extends Picker {
         }
 
         if (
-            dateString !== '' &&
-            selectedDates[0] &&
-            selectedDates[0].getFullYear() === fp.currentYear
+            dateString === '' ||
+            !selectedDates[0] ||
+            selectedDates[0].getFullYear() !== fp.currentYear
         ) {
-            const i = Math.floor(
-                selectedDates[0].getMonth() / MONTHSPERQUARTER
-            );
-            const selectedQuarter = this.quarters[i];
-            selectedQuarter.classList.add('selected');
+            return;
         }
+
+        const i = Math.floor(selectedDates[0].getMonth() / MONTHSPERQUARTER);
+        const selectedQuarter = this.quarters[i];
+        selectedQuarter.classList.add('selected');
     }
 
     private prevYear(event) {

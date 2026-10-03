@@ -23,7 +23,7 @@ const NETWORK_DELAY = 1000;
     tag: 'limel-example-menu-sub-menu-lazy-loading-infinite',
     shadow: true,
 })
-export class MenuSubMenuLazyLoadingInfiniteExample {
+export class MenuSubmenuLazyLoadingInfiniteExample {
     private items: Array<MenuItem | ListSeparator> = [];
 
     @State()

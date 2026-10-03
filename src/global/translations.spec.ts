@@ -120,9 +120,9 @@ describe('translations', () => {
             ['no', no],
             ['sv', sv],
         ])('%s defines exactly the keys English defines', (_, translations) => {
-            expect(Object.keys(translations).sort()).toEqual(
-                Object.keys(en).sort()
-            );
+            expect(
+                Object.keys(translations).sort((a, b) => a.localeCompare(b))
+            ).toEqual(Object.keys(en).sort((a, b) => a.localeCompare(b)));
         });
     });
 });

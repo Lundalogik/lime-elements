@@ -1,7 +1,7 @@
 import { portalContains } from './contains';
 
-function createElementWithShadow(tag: string) {
-    const el = document.createElement(tag);
+function createElementWithShadow() {
+    const el = document.createElement('div');
     el.attachShadow({ mode: 'open' });
 
     return el;
@@ -37,7 +37,7 @@ describe('portalContains', () => {
 
     describe('when child is a descendant in a shadowRoot', () => {
         beforeEach(() => {
-            element = createElementWithShadow('div');
+            element = createElementWithShadow();
             child = document.createElement('span');
 
             element.shadowRoot.append(child);
@@ -58,7 +58,7 @@ describe('portalContains', () => {
             // still test that the `portalContains` still works when elements
             // are inside a portal
 
-            element = createElementWithShadow('div');
+            element = createElementWithShadow();
             const portal = document.createElement('div');
             element.shadowRoot.append(portal);
 
@@ -68,7 +68,7 @@ describe('portalContains', () => {
                 portalSource: portal,
             });
 
-            const containerContent = createElementWithShadow('div');
+            const containerContent = createElementWithShadow();
             container.append(containerContent);
 
             child = document.createElement('span');

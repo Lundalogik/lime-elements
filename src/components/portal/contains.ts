@@ -13,16 +13,19 @@ export function portalContains(
     element: HTMLElement,
     child: HTMLElement
 ): boolean {
-    if (element.contains(child) || element.shadowRoot?.contains(child)) {
-        return true;
-    }
+    let current = child;
+    do {
+        if (
+            element.contains(current) ||
+            element.shadowRoot?.contains(current)
+        ) {
+            return true;
+        }
 
-    const parent = findParent(child);
-    if (!parent) {
-        return false;
-    }
+        current = findParent(current);
+    } while (current);
 
-    return portalContains(element, parent);
+    return false;
 }
 
 function findParent(element: HTMLElement) {

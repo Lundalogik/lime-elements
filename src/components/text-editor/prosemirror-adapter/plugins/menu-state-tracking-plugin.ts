@@ -12,6 +12,7 @@ export interface ActiveMenuItems {
     allowed: Record<EditorMenuTypes, boolean>;
 }
 
+// eslint-disable-next-line unicorn/consistent-compound-words -- exported name, renaming would break imports
 export type UpdateMenuItemsCallBack = (
     activeTypes: Record<EditorMenuTypes, boolean>,
     allowedTypes: Record<EditorMenuTypes, boolean>
@@ -59,17 +60,16 @@ export const createMenuStateTrackingPlugin = (
                     menuCommandFactory,
                     view
                 );
-                if (!isEqual(oldItemStates, menuItemStates)) {
-                    const tr = view.state.tr.setMeta(
-                        actionBarPluginKey,
-                        menuItemStates
-                    );
-                    view.dispatch(tr);
-                    updateCallback(
-                        menuItemStates.active,
-                        menuItemStates.allowed
-                    );
+                if (isEqual(oldItemStates, menuItemStates)) {
+                    return;
                 }
+
+                const tr = view.state.tr.setMeta(
+                    actionBarPluginKey,
+                    menuItemStates
+                );
+                view.dispatch(tr);
+                updateCallback(menuItemStates.active, menuItemStates.allowed);
             },
         }),
     });

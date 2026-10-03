@@ -355,7 +355,7 @@ export class ArrayFieldTemplate extends React.Component<
 
         const target = this.dropElevationTarget;
         this.clearDropElevationTimer();
-        this.dropElevationTimeout = globalThis.setTimeout(() => {
+        this.dropElevationTimeout = setTimeout(() => {
             target.classList.remove(DEFAULT_DROP_ELEVATION_CLASS);
             if (this.dropElevationTarget === target) {
                 this.dropElevationTarget = undefined;

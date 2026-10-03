@@ -15,7 +15,7 @@ import { LazyLoader } from './menu-sub-menu-lazy-loading-service-mock';
     tag: 'limel-example-menu-sub-menu-lazy-loading',
     shadow: true,
 })
-export class MenuSubMenuLazyLoadingExample {
+export class MenuSubmenuLazyLoadingExample {
     @State()
     private lastSelectedItem: string;
 

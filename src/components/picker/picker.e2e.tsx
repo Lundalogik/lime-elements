@@ -86,7 +86,7 @@ async function waitForSuggestions(waitForChanges: () => Promise<void>) {
 async function waitForText(text: string, waitForChanges: () => Promise<void>) {
     await pollUntil(
         `"${text}" in the dropdown`,
-        () => !!document.body.textContent?.includes(text),
+        () => document.body.textContent.includes(text),
         waitForChanges
     );
 }
@@ -194,6 +194,7 @@ async function getSuggestion(
 }
 
 async function pickSuggestion(
+    // eslint-disable-next-line unicorn/no-unnecessary-parameters -- generic helper; the tests just happen to pick the same item
     text: string,
     waitForChanges: () => Promise<void>
 ) {

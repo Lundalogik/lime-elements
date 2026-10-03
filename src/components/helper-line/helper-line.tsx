@@ -98,11 +98,11 @@ export class HelperLine {
     };
 
     private renderCharacterCounter = () => {
-        const counter = `${this.length} / ${this.maxLength}`;
-
         if (!this.maxLength) {
             return;
         }
+
+        const counter = `${this.length} / ${this.maxLength}`;
 
         return <span class="counter">{counter}</span>;
     };

@@ -56,7 +56,7 @@ export class ElementPool {
 
     private createElement(name: string) {
         const element = this.document.createElement(name);
-        if (!(name in this.pool)) {
+        if (!Object.hasOwn(this.pool, name)) {
             this.pool[name] = [];
         }
 

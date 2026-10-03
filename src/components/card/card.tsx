@@ -269,12 +269,12 @@ export class Card {
 
     private renderIcon() {
         const icon = getIconName(this.icon);
-        const color =
-            typeof this.icon === 'string' ? undefined : this.icon?.color;
-
         if (!icon) {
             return;
         }
+
+        const color =
+            typeof this.icon === 'string' ? undefined : this.icon?.color;
 
         return (
             <limel-icon

@@ -120,8 +120,9 @@ export class Popover {
             return;
         }
 
-        // eslint-disable-next-line unicorn/no-array-for-each
-        this.triggerSlot.assignedElements().forEach(this.setTriggerAttributes);
+        for (const element of this.triggerSlot.assignedElements()) {
+            this.setTriggerAttributes(element as HTMLElement);
+        }
     }
 
     private setupGlobalHandlers() {

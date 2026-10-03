@@ -54,10 +54,12 @@ function copyAndProcessFile(srcPath, destPath) {
 
     fs.writeFileSync(destPath, convertedContent, 'utf8');
 
-    if (content !== convertedContent) {
-        const relativePath = path.relative(TEMP_TYPES_DIR, destPath);
-        console.log(`Converted JSDoc to TSDoc in: ${relativePath}`);
+    if (content === convertedContent) {
+        return;
     }
+
+    const relativePath = path.relative(TEMP_TYPES_DIR, destPath);
+    console.log(`Converted JSDoc to TSDoc in: ${relativePath}`);
 }
 
 function main() {

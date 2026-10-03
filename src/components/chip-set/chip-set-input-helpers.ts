@@ -14,7 +14,7 @@ import {
  * @param event - event
  
  */
-export function handleKeyboardEvent(event: KeyboardEvent) {
+export function handleKeyboardEvent(this: any, event: KeyboardEvent) {
     if (this.textValue.length > 0) {
         // If there is any text in the input field, keyboard input should
         // navigate the text, not the chips.
@@ -26,34 +26,27 @@ export function handleKeyboardEvent(event: KeyboardEvent) {
         return;
     }
 
-    const isArrowLeft = event.key === ARROW_LEFT;
-    const isArrowRight = event.key === ARROW_RIGHT;
-    const isEnter = event.key === ENTER;
-    const isDelete = event.key === DELETE;
-    const isBackspace = event.key === BACKSPACE;
-    const isEscape = event.key === ESCAPE;
-
-    if (isArrowLeft) {
+    if (event.key === ARROW_LEFT) {
         return handleLeft(this, event);
     }
 
-    if (isArrowRight) {
+    if (event.key === ARROW_RIGHT) {
         return handleRight(this, event);
     }
 
-    if (isEnter) {
+    if (event.key === ENTER) {
         return handleEnter(this, event);
     }
 
-    if (isDelete) {
+    if (event.key === DELETE) {
         return handleDelete(this, event);
     }
 
-    if (isBackspace) {
+    if (event.key === BACKSPACE) {
         return handleBackspace(this, event);
     }
 
-    if (isEscape) {
+    if (event.key === ESCAPE) {
         return handleEscape(this, event);
     }
 }

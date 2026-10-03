@@ -15,7 +15,7 @@ export const createRemoveEmptyParagraphsPlugin = (enabled = false): Plugin => {
     };
 };
 
-const NBSP_REGEX = /\u00A0/g;
+const NBSP_REGEX = /\u{A0}/gu;
 const ZERO_WIDTH_HEX_CODES = ['200B', '200C', '200D', 'FEFF'];
 const MEANINGFUL_VOID_ELEMENTS = new Set([
     'audio',

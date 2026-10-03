@@ -125,7 +125,7 @@ function generateIndexFile() {
 
             return stat.isDirectory();
         })
-        .sort();
+        .toSorted(compareCodeUnits);
 
     // Get list of design guidelines
     const guidelinesDir = path.join(OUTPUT_DIR, 'design-guidelines');
@@ -137,7 +137,7 @@ function generateIndexFile() {
 
                   return stat.isDirectory();
               })
-              .sort()
+              .toSorted(compareCodeUnits)
         : [];
 
     let content = `# Lime Elements Documentation
@@ -243,6 +243,18 @@ function formatComponentName(name) {
         .split('-')
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
+}
+
+function compareCodeUnits(a, b) {
+    if (a < b) {
+        return -1;
+    }
+
+    if (a > b) {
+        return 1;
+    }
+
+    return 0;
 }
 
 /**

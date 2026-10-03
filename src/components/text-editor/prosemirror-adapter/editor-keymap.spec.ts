@@ -15,7 +15,7 @@ const p = b.p;
 describe('editor keymap', () => {
     it('the factory keymap has exactly the ten documented bindings', () => {
         const keymap = harness.factory.buildKeymap();
-        expect(Object.keys(keymap).sort()).toEqual(
+        expect(Object.keys(keymap).sort((a, b) => a.localeCompare(b))).toEqual(
             [
                 'Mod-B',
                 'Mod-I',
@@ -27,7 +27,7 @@ describe('editor keymap', () => {
                 'Mod-Shift-C',
                 'Mod-Shift-X',
                 'Mod-`',
-            ].sort()
+            ].sort((a, b) => a.localeCompare(b))
         );
     });
 

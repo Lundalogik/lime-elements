@@ -35,7 +35,7 @@ function normalizeHtml(html: string): string {
                     );
                 }
 
-                attrList.sort();
+                attrList.sort((a, b) => a.localeCompare(b));
 
                 return `<${tag} ${attrList.join(' ')}>`;
             })
@@ -809,14 +809,10 @@ describe('sanitizeHTML', () => {
             expect(result).toContain('Mixed');
 
             // Verify tags are balanced (parser may reorder or add tags to fix nesting)
-            const countOccurrences = (str: string, substr: string) =>
-                (str.match(new RegExp(substr, 'g')) || []).length;
-            expect(countOccurrences(result, '<p>')).toBe(
-                countOccurrences(result, '</p>')
-            );
-            expect(countOccurrences(result, '<div>')).toBe(
-                countOccurrences(result, '</div>')
-            );
+            const countOccurrences = (substr: string) =>
+                (result.match(new RegExp(substr, 'g')) || []).length;
+            expect(countOccurrences('<p>')).toBe(countOccurrences('</p>'));
+            expect(countOccurrences('<div>')).toBe(countOccurrences('</div>'));
         });
 
         it('should handle deeply nested elements', async () => {

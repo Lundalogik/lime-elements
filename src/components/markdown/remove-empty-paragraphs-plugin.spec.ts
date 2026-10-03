@@ -33,7 +33,7 @@ describe('remove empty paragraphs plugin', () => {
         runPlugin(tree, true);
 
         expect(tree.children).toHaveLength(1);
-        expect(tree.children[0]).toBe(paragraph);
+        expect(tree.children.at(0)).toBe(paragraph);
     });
 
     it('removes paragraphs containing only line breaks', () => {
@@ -68,7 +68,7 @@ describe('remove empty paragraphs plugin', () => {
         runPlugin(tree, true);
 
         expect(tree.children).toHaveLength(1);
-        expect(tree.children[0]).toBe(paragraph);
+        expect(tree.children.at(0)).toBe(paragraph);
     });
 
     it('keeps paragraphs containing custom elements with no children', () => {
@@ -80,7 +80,7 @@ describe('remove empty paragraphs plugin', () => {
         runPlugin(tree, true);
 
         expect(tree.children).toHaveLength(1);
-        expect(tree.children[0]).toBe(paragraph);
+        expect(tree.children.at(0)).toBe(paragraph);
     });
 
     it('keeps paragraphs with custom elements alongside whitespace', () => {
@@ -94,7 +94,7 @@ describe('remove empty paragraphs plugin', () => {
         runPlugin(tree, true);
 
         expect(tree.children).toHaveLength(1);
-        expect(tree.children[0]).toBe(paragraph);
+        expect(tree.children.at(0)).toBe(paragraph);
     });
 
     it('keeps text content inside paragraphs', () => {
@@ -106,7 +106,7 @@ describe('remove empty paragraphs plugin', () => {
         runPlugin(tree, true);
 
         expect(tree.children).toHaveLength(1);
-        expect(tree.children[0]).toBe(paragraph);
+        expect(tree.children.at(0)).toBe(paragraph);
     });
 });
 

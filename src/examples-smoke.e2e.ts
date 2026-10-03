@@ -27,7 +27,7 @@ const TAGS = [
             ),
         ].map((match) => match[1])
     ),
-].sort();
+].sort((a, b) => a.localeCompare(b));
 
 // The "composite" playground examples take a `schema` prop and dereference it
 // while mounting. In the docs, `kompendium-debug` injects that prop (the owner
@@ -139,6 +139,7 @@ describe('documentation example components', () => {
                     element.childElementCount > 0;
                 expect(renderedSomething, `${tag} rendered nothing`).toBe(true);
 
+                // eslint-disable-next-line sonarjs/no-empty-collection -- allowlist intentionally empty until an example needs it
                 if (!EXPECTED_NOISY.has(tag)) {
                     const realErrors = consoleErrors
                         .filter((args) => !isHarmlessError(args))

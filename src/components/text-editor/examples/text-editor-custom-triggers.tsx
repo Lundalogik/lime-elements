@@ -317,17 +317,19 @@ export class TextEditorCustomTriggersExample {
         this.value = '';
     };
 
-    private insertItem = (item: MenuItem) => {
+    private insertItem = async (item: MenuItem) => {
         this.removeAllSelections();
         this.visibleItems = this.items;
 
         if (this.insertMode === 'html') {
-            this.triggerFunction
-                .insertHtml(`<strong>${item.text}</strong>`)
-                .then(() => console.log('HTML inserted successfully'))
-                .catch((error) =>
-                    console.error('Error inserting HTML:', error)
+            try {
+                await this.triggerFunction.insertHtml(
+                    `<strong>${item.text}</strong>`
                 );
+                console.log('HTML inserted successfully');
+            } catch (error) {
+                console.error('Error inserting HTML:', error);
+            }
 
             return;
         }

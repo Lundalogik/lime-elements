@@ -114,6 +114,7 @@ export class Icon {
         if (!svg) {
             return;
         }
+        // eslint-disable-next-line unicorn/prefer-toggle-attribute -- sets a string value, not a boolean attribute
         if (value === undefined) {
             svg.removeAttribute('class');
         } else {

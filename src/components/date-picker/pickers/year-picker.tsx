@@ -102,13 +102,12 @@ export class YearPicker extends Picker {
         this.selectYear(selectedDates, dateString);
     }
 
-    protected handleClose(selectedDates) {
-        return super.handleClose(selectedDates).then(() => {
-            this.selectYear(
-                this.flatpickr.selectedDates,
-                this.flatpickr.input.value
-            );
-        });
+    protected async handleClose(selectedDates) {
+        await super.handleClose(selectedDates);
+        this.selectYear(
+            this.flatpickr.selectedDates,
+            this.flatpickr.input.value
+        );
     }
 
     private handleReady(_, __, fp) {

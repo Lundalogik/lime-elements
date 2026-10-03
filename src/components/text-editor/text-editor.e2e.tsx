@@ -213,8 +213,8 @@ describe('limel-text-editor', () => {
         // event; wait comfortably longer before asserting caret behavior.
         const FOCUS_SETTLE_WAIT = 50;
 
-        const sleep = (ms: number) =>
-            new Promise((resolve) => setTimeout(resolve, ms));
+        const waitForFocusToSettle = () =>
+            new Promise((resolve) => setTimeout(resolve, FOCUS_SETTLE_WAIT));
 
         async function createEditor(value: string) {
             const { root, waitForChanges, setProps } = await render(
@@ -274,7 +274,7 @@ describe('limel-text-editor', () => {
             // records the clicked position.
             mouseDownAtTextOffset(0);
             editable.focus();
-            await sleep(FOCUS_SETTLE_WAIT);
+            await waitForFocusToSettle();
 
             typeText('ABC');
             expect(editable.textContent).toBe('ABChello');
@@ -282,9 +282,9 @@ describe('limel-text-editor', () => {
             // Losing and regaining focus without a click (e.g. switching
             // windows) must not move the caret back to the clicked position.
             editable.blur();
-            await sleep(FOCUS_SETTLE_WAIT);
+            await waitForFocusToSettle();
             editable.focus();
-            await sleep(FOCUS_SETTLE_WAIT);
+            await waitForFocusToSettle();
 
             typeText('!');
             expect(editable.textContent).toBe('ABC!hello');
@@ -295,13 +295,13 @@ describe('limel-text-editor', () => {
                 await createEditor('hello');
 
             editable.focus();
-            await sleep(FOCUS_SETTLE_WAIT);
+            await waitForFocusToSettle();
             editable.blur();
-            await sleep(FOCUS_SETTLE_WAIT);
+            await waitForFocusToSettle();
 
             mouseDownAtTextOffset('hello'.length - 1, 'after');
             editable.focus();
-            await sleep(FOCUS_SETTLE_WAIT);
+            await waitForFocusToSettle();
 
             typeText('!');
             expect(editable.textContent).toBe('hello!');
@@ -325,7 +325,7 @@ describe('limel-text-editor', () => {
                 mouseDownAtTextOffset(0);
                 editable.focus();
                 root.remove();
-                await sleep(FOCUS_SETTLE_WAIT);
+                await waitForFocusToSettle();
 
                 expect(errors).toEqual([]);
             } finally {
@@ -354,7 +354,7 @@ describe('limel-text-editor', () => {
                 });
 
                 editable.focus();
-                await sleep(FOCUS_SETTLE_WAIT);
+                await waitForFocusToSettle();
 
                 typeText('!');
                 expect(editable.textContent).toBe('!');
@@ -369,8 +369,8 @@ describe('limel-text-editor', () => {
         // Comfortably longer than the editor's 300 ms change debounce.
         const DEBOUNCE_WAIT = 500;
 
-        const sleep = (ms: number) =>
-            new Promise((resolve) => setTimeout(resolve, ms));
+        const waitForDebounce = () =>
+            new Promise((resolve) => setTimeout(resolve, DEBOUNCE_WAIT));
 
         async function createEditor(props: any = {}) {
             const { root, waitForChanges, setProps } = await render(
@@ -406,7 +406,7 @@ describe('limel-text-editor', () => {
             typeText('hello');
             expect(changes).toHaveLength(0);
 
-            await sleep(DEBOUNCE_WAIT);
+            await waitForDebounce();
             expect(changes).toHaveLength(1);
             expect(changes[0].trim()).toBe('hello');
         });
@@ -421,7 +421,7 @@ describe('limel-text-editor', () => {
             expect(changes).toHaveLength(1);
             expect(changes[0].trim()).toBe('hello');
 
-            await sleep(DEBOUNCE_WAIT);
+            await waitForDebounce();
             expect(changes).toHaveLength(1);
         });
 
@@ -429,7 +429,7 @@ describe('limel-text-editor', () => {
             const { root, changes } = await createEditor({ value: 'hello' });
 
             await root.flushPendingChanges();
-            await sleep(DEBOUNCE_WAIT);
+            await waitForDebounce();
             expect(changes).toHaveLength(0);
         });
 
@@ -469,7 +469,7 @@ describe('limel-text-editor', () => {
                 expect(editor.textContent).toBe('');
             });
 
-            await sleep(DEBOUNCE_WAIT);
+            await waitForDebounce();
             expect(changes).toHaveLength(1);
 
             // Recreating the discarded content must emit a change; the
@@ -533,7 +533,7 @@ describe('limel-text-editor', () => {
                 expect(editor.textContent).toBe('');
             });
 
-            await sleep(DEBOUNCE_WAIT);
+            await waitForDebounce();
             expect(changes.some((change) => change.includes('hello'))).toBe(
                 false
             );
@@ -543,7 +543,7 @@ describe('limel-text-editor', () => {
             const { root, changes } = await createEditor({ value: 'hello' });
 
             await root.clear();
-            await sleep(DEBOUNCE_WAIT);
+            await waitForDebounce();
 
             expect(changes).toHaveLength(0);
         });

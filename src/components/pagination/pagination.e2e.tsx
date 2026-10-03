@@ -35,7 +35,9 @@ describe('limel-pagination, jumping to a page', () => {
                 page={50}
                 pageSize={PAGE_SIZE}
                 totalItems={TOTAL_ITEMS}
-                onGoToPage={(event: CustomEvent) => pages.push(event.detail)}
+                onGoToPage={(event: CustomEvent) => {
+                    pages.push(event.detail);
+                }}
             ></limel-pagination>
         );
         rendered = result;
