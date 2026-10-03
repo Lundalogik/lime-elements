@@ -2,12 +2,7 @@
  * @public
  */
 export type Language =
-    | 'css'
-    | 'html'
-    | 'javascript'
-    | 'jinja2'
-    | 'json'
-    | 'typescript';
+    'css' | 'html' | 'javascript' | 'jinja2' | 'json' | 'typescript';
 
 /**
  * @public

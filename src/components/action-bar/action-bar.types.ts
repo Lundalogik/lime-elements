@@ -7,8 +7,7 @@ import { MenuItem } from '../menu/menu.types';
  * @public
  */
 export type ActionBarItem<T = any> =
-    | ActionBarItemOnlyIcon<T>
-    | ActionBarItemWithLabel<T>;
+    ActionBarItemOnlyIcon<T> | ActionBarItemWithLabel<T>;
 
 /**
  * Action bar item that only displays an icon.

@@ -138,11 +138,7 @@ export class ChartAxisLabelsExample {
         event: LimelSelectCustomEvent<Option<string>>
     ) => {
         this.chartType = event.detail.value as
-            | 'bar'
-            | 'area'
-            | 'line'
-            | 'dot'
-            | 'scatter';
+            'bar' | 'area' | 'line' | 'dot' | 'scatter';
     };
 
     private handleDisplayAxisLabelsChange = (event: CustomEvent<boolean>) => {

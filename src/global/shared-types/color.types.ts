@@ -42,11 +42,7 @@ export namespace _Internal {
      * @internal
      */
     export type Brightness =
-        | 'lighter'
-        | 'light'
-        | 'default'
-        | 'dark'
-        | 'darker';
+        'lighter' | 'light' | 'default' | 'dark' | 'darker';
 
     /**
      * @internal

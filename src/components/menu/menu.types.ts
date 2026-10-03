@@ -47,9 +47,7 @@ export type OpenDirection =
  * @public
  */
 export type SurfaceWidth =
-    | 'inherit-from-items'
-    | 'inherit-from-trigger'
-    | 'inherit-from-menu';
+    'inherit-from-items' | 'inherit-from-trigger' | 'inherit-from-menu';
 
 /**
  * Menu item.
