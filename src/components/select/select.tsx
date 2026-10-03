@@ -359,10 +359,12 @@ export class Select {
             this.focusTimeoutId = undefined;
         }
 
-        if (this.focusObserver) {
-            this.focusObserver.disconnect();
-            this.focusObserver = undefined;
+        if (!this.focusObserver) {
+            return;
         }
+
+        this.focusObserver.disconnect();
+        this.focusObserver = undefined;
     }
 
     private focusFirstMenuItem(list: HTMLElement) {
@@ -452,7 +454,7 @@ export class Select {
             requestAnimationFrame(() => {
                 setTimeout(() => {
                     menuSurface.scrollTop = scrollPosition;
-                });
+                }, 0);
             });
 
             return;
@@ -532,15 +534,17 @@ export class Select {
         const isEnter = event.key === ENTER;
         const isSpace = event.key === SPACEBAR;
 
-        if (!this.menuOpen && (isSpace || isEnter)) {
-            event.stopPropagation();
-            event.preventDefault();
-
-            // `preventDefault` cancels the activation click that the trigger
-            // `button` would otherwise synthesize, so the menu has to be
-            // opened here rather than through the click handler.
-            this.openMenu();
+        if (this.menuOpen || !(isSpace || isEnter)) {
+            return;
         }
+
+        event.stopPropagation();
+        event.preventDefault();
+
+        // `preventDefault` cancels the activation click that the trigger
+        // `button` would otherwise synthesize, so the menu has to be
+        // opened here rather than through the click handler.
+        this.openMenu();
     };
 
     private readonly setListElement = (

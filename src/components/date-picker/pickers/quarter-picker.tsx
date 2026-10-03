@@ -29,16 +29,18 @@ export class QuarterPicker extends Picker {
 
     public init(element: HTMLElement, container: HTMLElement, value?: Date) {
         super.init(element, container, value);
-        if (!this.nativePicker) {
-            this.flatpickr.prevMonthNav.addEventListener(
-                'mousedown',
-                this.prevYear
-            );
-            this.flatpickr.nextMonthNav.addEventListener(
-                'mousedown',
-                this.nextYear
-            );
+        if (this.nativePicker) {
+            return;
         }
+
+        this.flatpickr.prevMonthNav.addEventListener(
+            'mousedown',
+            this.prevYear
+        );
+        this.flatpickr.nextMonthNav.addEventListener(
+            'mousedown',
+            this.nextYear
+        );
     }
 
     public destroy() {
@@ -89,13 +91,15 @@ export class QuarterPicker extends Picker {
     }
 
     private bootstrapQuarterPicker(fp) {
-        if (!this.nativePicker) {
-            fp.innerContainer.remove();
-            fp.calendarContainer
-                .querySelectorAll('.flatpickr-monthDropdown-months')[0]
-                .replaceWith(this.renderHeading());
-            fp.calendarContainer.append(this.renderQuarterPicker(fp));
+        if (this.nativePicker) {
+            return;
         }
+
+        fp.innerContainer.remove();
+        fp.calendarContainer
+            .querySelector('.flatpickr-monthDropdown-months')
+            .replaceWith(this.renderHeading());
+        fp.calendarContainer.append(this.renderQuarterPicker(fp));
     }
 
     private renderHeading(): any {
@@ -165,36 +169,42 @@ export class QuarterPicker extends Picker {
     }
 
     private selectQuarter(selectedDates, dateString, fp) {
-        if (!this.nativePicker) {
-            for (const quarter of this.quarters) {
-                quarter.classList.remove('selected');
-            }
+        if (this.nativePicker) {
+            return;
+        }
 
-            if (
-                dateString !== '' &&
-                selectedDates[0] &&
-                selectedDates[0].getFullYear() === fp.currentYear
-            ) {
-                const i = Math.floor(
-                    selectedDates[0].getMonth() / MONTHSPERQUARTER
-                );
-                const selectedQuarter = this.quarters[i];
-                selectedQuarter.classList.add('selected');
-            }
+        for (const quarter of this.quarters) {
+            quarter.classList.remove('selected');
+        }
+
+        if (
+            dateString !== '' &&
+            selectedDates[0] &&
+            selectedDates[0].getFullYear() === fp.currentYear
+        ) {
+            const i = Math.floor(
+                selectedDates[0].getMonth() / MONTHSPERQUARTER
+            );
+            const selectedQuarter = this.quarters[i];
+            selectedQuarter.classList.add('selected');
         }
     }
 
     private prevYear(event) {
-        if (!this.nativePicker) {
-            event.stopImmediatePropagation();
-            this.flatpickr.changeMonth(-NBROFMONTHS);
+        if (this.nativePicker) {
+            return;
         }
+
+        event.stopImmediatePropagation();
+        this.flatpickr.changeMonth(-NBROFMONTHS);
     }
 
     private nextYear(event) {
-        if (!this.nativePicker) {
-            event.stopImmediatePropagation();
-            this.flatpickr.changeMonth(NBROFMONTHS);
+        if (this.nativePicker) {
+            return;
         }
+
+        event.stopImmediatePropagation();
+        this.flatpickr.changeMonth(NBROFMONTHS);
     }
 }

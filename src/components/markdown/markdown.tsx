@@ -237,10 +237,12 @@ export class Markdown {
     }
 
     private cleanupImageIntersectionObserver() {
-        if (this.imageIntersectionObserver) {
-            this.imageIntersectionObserver.disconnect();
-            this.imageIntersectionObserver = null;
+        if (!this.imageIntersectionObserver) {
+            return;
         }
+
+        this.imageIntersectionObserver.disconnect();
+        this.imageIntersectionObserver = null;
     }
 }
 
@@ -274,7 +276,7 @@ function mergeWhitelists(
         }
     }
 
-    return [...merged.entries()].map(([tagName, attrs]) => ({
+    return [...merged].map(([tagName, attrs]) => ({
         tagName,
         attributes: [...attrs],
     }));

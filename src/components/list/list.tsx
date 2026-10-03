@@ -125,7 +125,7 @@ export class List {
             type: this.type,
             iconSize: this.iconSize,
         };
-        let maxLinesSecondaryText = +this.maxLinesSecondaryText?.toFixed();
+        let maxLinesSecondaryText = +this.maxLinesSecondaryText?.toFixed(0);
         if (this.maxLinesSecondaryText < 1) {
             maxLinesSecondaryText = 1;
         }

@@ -179,11 +179,7 @@ export class Dialog {
 
     @Watch('open')
     protected watchHandler(newValue: boolean, oldValue: boolean) {
-        if (oldValue === newValue) {
-            return;
-        }
-
-        if (!this.mdcDialog) {
+        if (oldValue === newValue || !this.mdcDialog) {
             return;
         }
 
@@ -247,7 +243,8 @@ export class Dialog {
                     <slot name="header-actions" slot="actions" />
                 </limel-header>
             );
-        } else if (typeof this.heading === 'string') {
+        }
+        if (typeof this.heading === 'string') {
             return (
                 <limel-header heading={this.heading}>
                     <slot name="header-actions" slot="actions" />

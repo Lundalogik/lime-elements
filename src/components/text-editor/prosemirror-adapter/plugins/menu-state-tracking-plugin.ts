@@ -27,7 +27,7 @@ export const getMenuItemStates = (
 
     for (const type of menuTypes) {
         const command: CommandWithActive = menuCommandFactory.getCommand(type);
-        activeTypes[type] = !!command?.active?.(view.state) || false;
+        activeTypes[type] = !!command?.active?.(view.state);
         allowedTypes[type] = !!(command?.allowed?.(view.state) ?? true);
     }
 

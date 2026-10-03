@@ -58,10 +58,12 @@ export class MasonryLayout {
     }
 
     public connectedCallback() {
-        if (this.hasRendered) {
-            this.setupObservers();
-            this.scheduleLayout();
+        if (!this.hasRendered) {
+            return;
         }
+
+        this.setupObservers();
+        this.scheduleLayout();
     }
 
     public disconnectedCallback() {

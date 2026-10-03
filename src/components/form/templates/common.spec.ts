@@ -54,66 +54,73 @@ const schema: FormSchema = {
     },
 };
 
-const nestedFirstSchema: FormSchema = { ...schema };
-nestedFirstSchema.properties = {
-    nested: {
-        type: 'object',
-        $ref: '#/definitions/nested',
-    },
-    data: {
-        type: 'string',
-    },
-};
-
-const nestedFirstWithTitleSchema: FormSchema = { ...schema };
-nestedFirstWithTitleSchema.properties = {
-    nested: {
-        type: 'object',
-        $ref: '#/definitions/nested',
-    },
-    data: {
-        type: 'string',
-    },
-    title: {
-        type: 'string',
-    },
-};
-
-const list1FirstSchema: FormSchema = { ...schema };
-list1FirstSchema.properties = {
-    list1: {
-        type: 'array',
-        items: {
-            type: 'string',
-            anyOf: [
-                {
-                    type: 'string',
-                    const: 'item1',
-                    title: 'Item1',
-                },
-                {
-                    type: 'string',
-                    const: 'item2',
-                    title: 'Item2',
-                },
-            ],
-        },
-    },
-};
-
-const list2FirstSchema: FormSchema = { ...schema };
-list2FirstSchema.properties = {
-    list2: {
-        type: 'array',
-        items: {
+const nestedFirstSchema: FormSchema = {
+    ...schema,
+    properties: {
+        nested: {
             type: 'object',
             $ref: '#/definitions/nested',
         },
+        data: {
+            type: 'string',
+        },
     },
 };
 
-const schemaRequiredProperty: any = { ...schema };
-schemaRequiredProperty.required = ['data'];
+const nestedFirstWithTitleSchema: FormSchema = {
+    ...schema,
+    properties: {
+        nested: {
+            type: 'object',
+            $ref: '#/definitions/nested',
+        },
+        data: {
+            type: 'string',
+        },
+        title: {
+            type: 'string',
+        },
+    },
+};
+
+const list1FirstSchema: FormSchema = {
+    ...schema,
+    properties: {
+        list1: {
+            type: 'array',
+            items: {
+                type: 'string',
+                anyOf: [
+                    {
+                        type: 'string',
+                        const: 'item1',
+                        title: 'Item1',
+                    },
+                    {
+                        type: 'string',
+                        const: 'item2',
+                        title: 'Item2',
+                    },
+                ],
+            },
+        },
+    },
+};
+
+const list2FirstSchema: FormSchema = {
+    ...schema,
+    properties: {
+        list2: {
+            type: 'array',
+            items: {
+                type: 'object',
+                $ref: '#/definitions/nested',
+            },
+        },
+    },
+};
+
+const schemaRequiredProperty: any = { ...schema, required: ['data'] };
 
 describe('findTitle()', () => {
     for (const { input, output } of [

@@ -137,13 +137,12 @@ export class ChipSetInputExample {
     };
 
     private onKeyUp = (event: KeyboardEvent) => {
-        if (event.key === ENTER && this.textValue.trim()) {
-            this.value = [
-                ...this.value,
-                this.createChip(this.textValue.trim()),
-            ];
-            this.textValue = '';
+        if (!(event.key === ENTER && this.textValue.trim())) {
+            return;
         }
+
+        this.value = [...this.value, this.createChip(this.textValue.trim())];
+        this.textValue = '';
     };
 
     private handleChange = (event: LimelChipSetCustomEvent<Chip[]>) => {

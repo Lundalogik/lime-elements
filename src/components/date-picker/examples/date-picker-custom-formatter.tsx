@@ -33,7 +33,7 @@ export class DatePickerExample {
     };
 
     private myCustomFormatter = (value: Date) => {
-        return Intl.DateTimeFormat('en-GB', {
+        return new Intl.DateTimeFormat('en-GB', {
             dateStyle: 'medium',
             timeStyle: 'short',
         }).format(value);

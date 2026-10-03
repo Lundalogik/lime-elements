@@ -98,8 +98,7 @@ for (let { func, iconPropertyName, attributeName } of [
 
         describe(`when icon is an object with a ${iconPropertyName} property`, () => {
             beforeEach(() => {
-                icon = { name: 'test-icon' };
-                icon[iconPropertyName] = 'red';
+                icon = { name: 'test-icon', [iconPropertyName]: 'red' };
             });
             describe(`and ${attributeName} is not provided`, () => {
                 it(`returns the icon.${iconPropertyName} value`, () => {

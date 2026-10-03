@@ -95,14 +95,16 @@ export class Icon {
      */
     private renderSvg(svgData: string) {
         const container = this.host.shadowRoot.querySelector('div.container');
-        if (container) {
-            container.innerHTML = svgData;
-            // On initial render, only override the SVG's class if the
-            // consumer set `svgClass`. Otherwise leave the SVG's baked-in
-            // class alone — that's the default state stateless icons rely on.
-            if (this.svgClass !== undefined) {
-                this.applySvgClass(this.svgClass);
-            }
+        if (!container) {
+            return;
+        }
+
+        container.innerHTML = svgData;
+        // On initial render, only override the SVG's class if the
+        // consumer set `svgClass`. Otherwise leave the SVG's baked-in
+        // class alone — that's the default state stateless icons rely on.
+        if (this.svgClass !== undefined) {
+            this.applySvgClass(this.svgClass);
         }
     }
 

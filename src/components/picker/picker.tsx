@@ -614,7 +614,7 @@ export class Picker {
     private search = async (query: string) => {
         const timeoutId = setTimeout(() => {
             this.loading = true;
-        });
+        }, 0);
         const searcher = this.searcher || this.defaultSearcher;
         const result = await searcher(this.textValue);
 
@@ -809,22 +809,24 @@ export class Picker {
         query: string,
         result: Array<PickerItem | ListSeparator>
     ) {
-        if (query === this.textValue) {
-            let nextItems = result;
-            if (this.multiple) {
-                const values = (this.value as PickerItem[]) ?? [];
-                nextItems = result.filter((item) => {
-                    if ('separator' in item) {
-                        return true;
-                    }
-
-                    return !values.includes(item);
-                });
-            }
-
-            this.items = this.prependSearchHeader(query, nextItems);
-            this.loading = false;
+        if (query !== this.textValue) {
+            return;
         }
+
+        let nextItems = result;
+        if (this.multiple) {
+            const values = (this.value as PickerItem[]) ?? [];
+            nextItems = result.filter((item) => {
+                if ('separator' in item) {
+                    return true;
+                }
+
+                return !values.includes(item);
+            });
+        }
+
+        this.items = this.prependSearchHeader(query, nextItems);
+        this.loading = false;
     }
 
     private hasPickableItems(

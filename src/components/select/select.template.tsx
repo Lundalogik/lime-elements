@@ -103,9 +103,8 @@ const floatLabelAbove = (props: SelectTemplateProps) => {
     if (value) {
         if (isMultiple(value)) {
             return value.length > 0;
-        } else {
-            return value.text !== '';
         }
+        return value.text !== '';
     }
 
     return false;

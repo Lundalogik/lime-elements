@@ -25,7 +25,7 @@ const resolveUrl = (input: RequestInfo | URL): string => {
     }
     return input.toString();
 };
-const originalFetch = globalThis.fetch.bind(globalThis);
+const originalFetch = fetch.bind(globalThis);
 globalThis.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = resolveUrl(input);
     if (url.includes('/assets/') && url.endsWith('.pdf')) {

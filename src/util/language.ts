@@ -21,5 +21,5 @@ export function getPrimarySubtag(language: unknown): string {
         return '';
     }
 
-    return language.toLowerCase().split('-')[0];
+    return language.toLowerCase().split('-', 1)[0];
 }

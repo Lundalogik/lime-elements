@@ -207,10 +207,12 @@ export class DragHandleHorizontalExample {
     }
 
     private clearDropElevationTimer() {
-        if (this.dropElevationTimeout !== undefined) {
-            clearTimeout(this.dropElevationTimeout);
-            this.dropElevationTimeout = undefined;
+        if (this.dropElevationTimeout === undefined) {
+            return;
         }
+
+        clearTimeout(this.dropElevationTimeout);
+        this.dropElevationTimeout = undefined;
     }
 
     private moveKitten(

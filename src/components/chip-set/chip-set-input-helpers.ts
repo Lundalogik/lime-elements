@@ -89,24 +89,30 @@ function handleRight(host, event) {
 }
 
 function handleEnter(host, event) {
-    if (host.inputChipIndexSelected !== null) {
-        event.preventDefault();
-        host.emitInteraction(host.value[host.inputChipIndexSelected]);
+    if (host.inputChipIndexSelected === null) {
+        return;
     }
+
+    event.preventDefault();
+    host.emitInteraction(host.value[host.inputChipIndexSelected]);
 }
 
 function handleEscape(host, event) {
-    if (host.inputChipIndexSelected !== null) {
-        event.preventDefault();
-        host.inputChipIndexSelected = null;
+    if (host.inputChipIndexSelected === null) {
+        return;
     }
+
+    event.preventDefault();
+    host.inputChipIndexSelected = null;
 }
 
 function handleDelete(host, event) {
-    if (host.inputChipIndexSelected !== null) {
-        event.preventDefault();
-        removeChip(host);
+    if (host.inputChipIndexSelected === null) {
+        return;
     }
+
+    event.preventDefault();
+    removeChip(host);
 }
 
 function handleBackspace(host, event) {

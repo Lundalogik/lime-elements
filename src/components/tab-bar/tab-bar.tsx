@@ -197,13 +197,12 @@ export class TabBar {
             this.scrollArea.removeEventListener('scroll', this.handleScroll);
         }
 
-        if (this.mdcTabBar) {
-            this.mdcTabBar.unlisten(
-                TAB_ACTIVATED_EVENT,
-                this.handleTabActivated
-            );
-            this.mdcTabBar.destroy();
+        if (!this.mdcTabBar) {
+            return;
         }
+
+        this.mdcTabBar.unlisten(TAB_ACTIVATED_EVENT, this.handleTabActivated);
+        this.mdcTabBar.destroy();
     }
 
     private setupListeners() {

@@ -411,11 +411,7 @@ export class InputField {
 
     @Watch('value')
     protected valueWatcher(newValue: string) {
-        if (!this.mdcTextField) {
-            return;
-        }
-
-        if (this.changeWaiting) {
+        if (!this.mdcTextField || this.changeWaiting) {
             return;
         }
 
@@ -730,7 +726,8 @@ export class InputField {
 
         if (!this.isInvalid() && this.hasLink()) {
             return this.renderLinkIcon(this.getLink(), trailingIcon);
-        } else if (trailingIcon) {
+        }
+        if (trailingIcon) {
             return this.renderTrailingIcon(trailingIcon);
         }
     };

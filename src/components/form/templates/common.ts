@@ -72,11 +72,7 @@ export function findTitle(
     data = sortDataByProperties(data, subSchema.properties);
 
     const firstEntry = findFirstEntry(data, subSchema);
-    if (!firstEntry) {
-        return null;
-    }
-
-    if (!subSchema.properties) {
+    if (!firstEntry || !subSchema.properties) {
         return null;
     }
 

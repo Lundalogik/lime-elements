@@ -26,16 +26,18 @@ export class YearPicker extends Picker {
 
     public init(element: HTMLElement, container: HTMLElement, value?: Date) {
         super.init(element, container, value);
-        if (!this.nativePicker) {
-            this.flatpickr.prevMonthNav.addEventListener(
-                'mousedown',
-                this.prevYears
-            );
-            this.flatpickr.nextMonthNav.addEventListener(
-                'mousedown',
-                this.nextYears
-            );
+        if (this.nativePicker) {
+            return;
         }
+
+        this.flatpickr.prevMonthNav.addEventListener(
+            'mousedown',
+            this.prevYears
+        );
+        this.flatpickr.nextMonthNav.addEventListener(
+            'mousedown',
+            this.nextYears
+        );
     }
 
     public destroy() {
@@ -77,11 +79,10 @@ export class YearPicker extends Picker {
 
     private setSelectedYear() {
         for (const year of this.yearElements) {
-            if (year.textContent === this.selectedYear) {
-                year.classList.add('selected');
-            } else {
-                year.classList.remove('selected');
-            }
+            year.classList.toggle(
+                'selected',
+                year.textContent === this.selectedYear
+            );
         }
     }
 
@@ -116,14 +117,16 @@ export class YearPicker extends Picker {
     }
 
     private bootstrapYearPicker(fp) {
-        if (!this.nativePicker) {
-            fp.innerContainer.remove();
-            fp.currentYearElement.parentNode.remove();
-            fp.calendarContainer
-                .querySelectorAll('.flatpickr-month')[0]
-                .replaceWith(this.renderHeading());
-            fp.calendarContainer.append(this.renderYearPicker(fp));
+        if (this.nativePicker) {
+            return;
         }
+
+        fp.innerContainer.remove();
+        fp.currentYearElement.parentNode.remove();
+        fp.calendarContainer
+            .querySelector('.flatpickr-month')
+            .replaceWith(this.renderHeading());
+        fp.calendarContainer.append(this.renderYearPicker(fp));
     }
 
     private renderHeading(): any {

@@ -28,14 +28,14 @@ describe('limel-slider — unset & clear', () => {
             });
 
             expect(root.classList.contains('is-unset')).toBe(true);
-            expect(indicator(root).textContent).toBe('\u2194\uFE0E');
+            expect(indicator(root).textContent).toBe('\u{2194}\u{FE0E}');
             expect(rangeInput(root).getAttribute('aria-valuetext')).toBe(
                 'Value not set'
             );
         });
 
         it.each([
-            ['NaN', Number.NaN],
+            ['NaN', NaN],
             ['undefined', undefined],
         ])('also treats %s as unset', async (_name, value) => {
             const { root } = await setup({ value, valuemin: 1, valuemax: 5 });
@@ -79,7 +79,7 @@ describe('limel-slider — unset & clear', () => {
             await waitForChanges();
 
             expect(root.classList.contains('is-unset')).toBe(true);
-            expect(indicator(root).textContent).toBe('\u2194\uFE0E');
+            expect(indicator(root).textContent).toBe('\u{2194}\u{FE0E}');
         });
 
         it('leaves the unset state as soon as the user changes the value', async () => {

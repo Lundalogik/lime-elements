@@ -27,7 +27,7 @@ export class CodeFoldLintAndWrapExample {
             },
         ],
         null,
-        '    '
+        ' '.repeat(4)
     );
 
     private handleChange = (event: CustomEvent<string>) => {

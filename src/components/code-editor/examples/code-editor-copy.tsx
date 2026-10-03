@@ -14,7 +14,7 @@ import { data } from '../../table/examples/birds';
 })
 export class CodeExampleCopy {
     @State()
-    private json: string = JSON.stringify(data, null, '    ');
+    private json: string = JSON.stringify(data, null, ' '.repeat(4));
 
     @State()
     private showCopyButton = true;
