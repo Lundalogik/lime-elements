@@ -38,7 +38,7 @@ function isValidDocsVersion(version) {
  * Throws if `version` is not a valid docs version.
  *
  * @param version - the candidate version string.
- * @throws when the value is not a valid docs version.
+ * @throws {Error} when the value is not a valid docs version.
  */
 function assertValidDocsVersion(version) {
     if (!isValidDocsVersion(version)) {

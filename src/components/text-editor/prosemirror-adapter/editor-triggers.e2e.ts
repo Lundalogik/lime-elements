@@ -34,7 +34,7 @@ function collectTriggerEvents(target: EventTarget): CollectedEvent[] {
     return events;
 }
 
-let cleanup: (() => void) | undefined;
+const cleanups: Array<() => void> = [];
 
 function setUp(startDoc?, selection?) {
     const harness = createEditorTestHarness({
@@ -47,7 +47,7 @@ function setUp(startDoc?, selection?) {
     const mounted = mountView(
         createEditorTestState(harness, start, start && selection?.(start))
     );
-    cleanup = mounted.cleanup;
+    cleanups.push(mounted.cleanup);
     const events = collectTriggerEvents(mounted.view.dom);
 
     return { view: mounted.view, events: events, b: b };
@@ -58,8 +58,10 @@ function ofType(events: CollectedEvent[], type: string): CollectedEvent[] {
 }
 
 afterEach(() => {
-    cleanup?.();
-    cleanup = undefined;
+    for (const cleanup of cleanups) {
+        cleanup();
+    }
+    cleanups.length = 0;
     vi.restoreAllMocks();
 });
 

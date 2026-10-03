@@ -9,10 +9,10 @@ export class LazyLoader {
     private cache: Record<string, Array<MenuItem | ListSeparator>> = {};
 
     public loadItems = async (
-        subMenu: MenuItem
+        submenu: MenuItem
     ): Promise<Array<MenuItem | ListSeparator>> => {
         // First check if the items are already in the cache.
-        const cachedItems = this.getFromCache(subMenu);
+        const cachedItems = this.getFromCache(submenu);
 
         if (cachedItems) {
             return cachedItems;
@@ -24,7 +24,7 @@ export class LazyLoader {
         // If you copy this service, you should replace this with
         // something that actually loads the items from the server.
         // :::
-        const items = await fakeServer.loadItems(subMenu);
+        const items = await fakeServer.loadItems(submenu);
 
         // If any of the items have their own sub-menu, and those items
         // are not loaded yet, we add a function for loading them.
@@ -35,13 +35,13 @@ export class LazyLoader {
         }
 
         // Remember to cache the items, so we don't have to load them again later.
-        this.setToCache(subMenu, items);
+        this.setToCache(submenu, items);
 
         return items;
     };
 
-    private getFromCache(subMenu: MenuItem): Array<MenuItem | ListSeparator> {
-        return this.cache[subMenu.value];
+    private getFromCache(submenu: MenuItem): Array<MenuItem | ListSeparator> {
+        return this.cache[submenu.value];
     }
 
     private setToCache(

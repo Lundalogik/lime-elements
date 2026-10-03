@@ -231,8 +231,9 @@ export class Menu {
 
     public componentDidRender() {
         const slotElement = this.host.shadowRoot.querySelector('slot');
-        // eslint-disable-next-line unicorn/no-array-for-each
-        slotElement.assignedElements().forEach(this.setTriggerAttributes);
+        for (const element of slotElement.assignedElements()) {
+            this.setTriggerAttributes(element as HTMLElement);
+        }
     }
 
     public render() {
@@ -367,15 +368,9 @@ export class Menu {
                 continue;
             }
 
-            if (node.isContentEditable) {
-                return true;
-            }
-
-            const tagName = node.tagName;
             if (
-                tagName === 'INPUT' ||
-                tagName === 'TEXTAREA' ||
-                tagName === 'SELECT'
+                node.isContentEditable ||
+                ['INPUT', 'TEXTAREA', 'SELECT'].includes(node.tagName)
             ) {
                 return true;
             }
@@ -411,16 +406,16 @@ export class Menu {
             return false;
         }
 
-        return (
-            key === 'arrowup' ||
-            key === 'arrowdown' ||
-            key === 'arrowleft' ||
-            key === 'arrowright' ||
-            key === 'tab' ||
-            key === 'enter' ||
-            key === 'space' ||
-            key === 'escape'
-        );
+        return [
+            'arrowup',
+            'arrowdown',
+            'arrowleft',
+            'arrowright',
+            'tab',
+            'enter',
+            'space',
+            'escape',
+        ].includes(key);
     }
 
     private findMenuItemByHotkey(pressedHotkey: string): MenuItem | null {
@@ -705,13 +700,14 @@ export class Menu {
         }
 
         // Down on last item: go to search input (if it exists)
-        if (isDown && this.isLastListItemFocused() && this.searchInput) {
-            event.stopPropagation();
-            event.preventDefault();
-            this.searchInput.focus();
+        if (!isDown || !this.isLastListItemFocused() || !this.searchInput) {
+            // If no search input, let MDC Menu handle wrap-around
+            return;
         }
 
-        // If no search input, let MDC Menu handle wrap-around
+        event.stopPropagation();
+        event.preventDefault();
+        this.searchInput.focus();
     };
 
     // Key handler for the menu list (bubble phase)
@@ -739,16 +735,18 @@ export class Menu {
             return;
         }
 
-        if (!this.gridLayout && (isLeft || isRight)) {
-            const currentItem = this.getCurrentItem();
+        if (this.gridLayout || (!isLeft && !isRight)) {
+            return;
+        }
 
-            event.stopPropagation();
-            event.preventDefault();
-            if (isRight) {
-                this.goForward(currentItem);
-            } else if (isLeft) {
-                this.goBack();
-            }
+        const currentItem = this.getCurrentItem();
+
+        event.stopPropagation();
+        event.preventDefault();
+        if (isRight) {
+            this.goForward(currentItem);
+        } else if (isLeft) {
+            this.goBack();
         }
     };
 

@@ -21,7 +21,7 @@ import { CascadingMenuItems } from './item-constants';
     shadow: true,
     styleUrl: 'menu-open-sub-menu-programmatically.scss',
 })
-export class MenuOpenSubMenuProgrammaticallyExample {
+export class MenuOpenSubmenuProgrammaticallyExample {
     private readonly rootItems: Array<MenuItem | ListSeparator> =
         CascadingMenuItems;
 

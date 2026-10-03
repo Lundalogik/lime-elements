@@ -25,13 +25,15 @@ async function openAndFindPalette(
         );
         for (const container of containers) {
             const surface = container.querySelector('limel-popover-surface');
-            if (surface?.shadowRoot) {
-                const palette = surface.shadowRoot.querySelector(
-                    'limel-color-picker-palette'
-                );
-                if (palette?.shadowRoot) {
-                    return palette;
-                }
+            if (!surface?.shadowRoot) {
+                continue;
+            }
+
+            const palette = surface.shadowRoot.querySelector(
+                'limel-color-picker-palette'
+            );
+            if (palette?.shadowRoot) {
+                return palette;
             }
         }
     }

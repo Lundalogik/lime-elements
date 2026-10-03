@@ -20,7 +20,6 @@ interface CheckboxTemplateProps {
 export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
     props
 ) => {
-    const inputProps = {};
     if (props.readonly) {
         let icon: string | Icon = 'minus';
         if (props.checked) {
@@ -47,6 +46,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
         ];
     }
 
+    const inputProps = {};
     if (props.indeterminate) {
         inputProps['data-indeterminate'] = 'true';
         inputProps['aria-checked'] = 'mixed';

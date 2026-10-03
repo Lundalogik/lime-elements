@@ -38,6 +38,7 @@ const KEY_ALIASES: Record<string, string> = {
     spacebar: 'space',
 };
 
+// eslint-disable-next-line unicorn/prefer-default-parameters -- a default parameter would not cover `null`
 export const tokenizeHotkeyString = (hotkey: string): string[] => {
     const raw = (hotkey ?? '').trim();
     if (!raw) {

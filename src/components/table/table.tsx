@@ -355,7 +355,7 @@ export class Table {
             !this.areEqualIds(newIds, oldIds) ||
             !this.isSameOrder(newIds, oldIds);
 
-        setTimeout(() => {
+        setTimeout(async () => {
             if (!this.tabulator || !this.initialized) {
                 return;
             }
@@ -370,14 +370,13 @@ export class Table {
 
             if (!areRowsEqual(newData, oldData)) {
                 const patched = this.fillMissingFields(newData, oldData);
-                this.tabulator.updateData(patched).then(() => {
-                    if (!this.tabulator) {
-                        return;
-                    }
+                await this.tabulator.updateData(patched);
+                if (!this.tabulator) {
+                    return;
+                }
 
-                    this.reformatChangedRows(newData, oldData);
-                    this.setSelection();
-                });
+                this.reformatChangedRows(newData, oldData);
+                this.setSelection();
 
                 return;
             }
@@ -540,6 +539,7 @@ export class Table {
             }
 
             const missingKeys = Object.keys(oldRow).filter(
+                // eslint-disable-next-line unicorn/no-computed-property-existence-check -- `in` must also see inherited properties, e.g. getters on class instances
                 (key) => !(key in newRow)
             );
 
@@ -1039,8 +1039,9 @@ export class Table {
     };
 
     private formatRows() {
-        // eslint-disable-next-line unicorn/no-array-for-each
-        this.tabulator.getRows().forEach(this.formatRow);
+        for (const row of this.tabulator.getRows()) {
+            this.formatRow(row);
+        }
     }
 
     private formatRow(row: TabulatorRowComponent) {
@@ -1053,11 +1054,13 @@ export class Table {
         const interactiveFeedbackElement = row
             .getElement()
             .querySelectorAll('.interactive-feedback');
-        if (interactiveFeedbackElement.length === 0) {
-            const element = row.getElement().ownerDocument.createElement('div');
-            element.classList.add('interactive-feedback');
-            row.getElement().prepend(element);
+        if (interactiveFeedbackElement.length > 0) {
+            return;
         }
+
+        const element = row.getElement().ownerDocument.createElement('div');
+        element.classList.add('interactive-feedback');
+        row.getElement().prepend(element);
     }
 
     private isActiveRow(row: TabulatorRowComponent) {

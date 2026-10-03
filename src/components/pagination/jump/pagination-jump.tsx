@@ -104,13 +104,13 @@ export class PaginationJump {
         this.shouldFocusField = true;
     }
 
-    public componentDidRender() {
+    public async componentDidRender() {
         if (!this.shouldFocusField) {
             return;
         }
 
         this.shouldFocusField = false;
-        this.focusField();
+        await this.focusField();
     }
 
     public render() {
@@ -208,16 +208,19 @@ export class PaginationJump {
      * is enough. Selecting as well, so the page the user is on is both the
      * starting value and out of the way of the first keystroke.
      */
-    private focusField() {
+    private async focusField() {
         const host = this.field;
+        if (!host) {
+            return;
+        }
 
-        host?.componentOnReady().then(() => {
-            // A frame later, so the popover has been put where it belongs
-            // before the field takes the keyboard.
-            requestAnimationFrame(() => {
-                host.focus();
-                host.shadowRoot?.querySelector('input')?.select();
-            });
+        await host.componentOnReady();
+
+        // A frame later, so the popover has been put where it belongs
+        // before the field takes the keyboard.
+        requestAnimationFrame(() => {
+            host.focus();
+            host.shadowRoot?.querySelector('input')?.select();
         });
     }
 

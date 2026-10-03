@@ -41,7 +41,7 @@ if (!(document.createElement('div') instanceof globalThis.HTMLElement)) {
 }
 
 // Set default language for translation lookups in components
-if (document?.documentElement && !document.documentElement.lang) {
+if (document.documentElement && !document.documentElement.lang) {
     document.documentElement.lang = 'en';
 }
 

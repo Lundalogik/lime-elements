@@ -132,7 +132,7 @@ export class TextEditorCustomTriggersExample {
         }
     }
 
-    private handleKeyPress = (event: KeyboardEvent) => {
+    private handleKeyPress = async (event: KeyboardEvent) => {
         const capturedKeys = [ESCAPE, ARROW_UP, ARROW_DOWN, ENTER, TAB];
         if (capturedKeys.includes(event.key)) {
             event.stopPropagation();
@@ -149,7 +149,7 @@ export class TextEditorCustomTriggersExample {
             );
 
             if (selectedItem) {
-                this.insertItem(selectedItem);
+                await this.insertItem(selectedItem);
             }
         }
 
@@ -302,10 +302,10 @@ export class TextEditorCustomTriggersExample {
         this.value = event.detail;
     };
 
-    private handleListInteraction = (
+    private handleListInteraction = async (
         event: LimelMenuListCustomEvent<MenuItem<number>>
     ) => {
-        this.insertItem(event.detail);
+        await this.insertItem(event.detail);
     };
 
     private handleInsertModeChange = (event: CustomEvent<Button>) => {
@@ -317,17 +317,19 @@ export class TextEditorCustomTriggersExample {
         this.value = '';
     };
 
-    private insertItem = (item: MenuItem) => {
+    private insertItem = async (item: MenuItem) => {
         this.removeAllSelections();
         this.visibleItems = this.items;
 
         if (this.insertMode === 'html') {
-            this.triggerFunction
-                .insertHtml(`<strong>${item.text}</strong>`)
-                .then(() => console.log('HTML inserted successfully'))
-                .catch((error) =>
-                    console.error('Error inserting HTML:', error)
+            try {
+                await this.triggerFunction.insertHtml(
+                    `<strong>${item.text}</strong>`
                 );
+                console.log('HTML inserted successfully');
+            } catch (error) {
+                console.error('Error inserting HTML:', error);
+            }
 
             return;
         }

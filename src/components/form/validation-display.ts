@@ -1,4 +1,4 @@
-import { isEmpty, capitalize } from 'lodash-es';
+import { isEmpty, isNil, capitalize } from 'lodash-es';
 
 /**
  * Check whether a form field value is non-empty.
@@ -9,7 +9,7 @@ import { isEmpty, capitalize } from 'lodash-es';
  * @returns `true` when the field holds meaningful data
  */
 export function hasValue(value: unknown): boolean {
-    if (value === null || value === undefined || value === '') {
+    if (isNil(value) || value === '') {
         return false;
     }
 

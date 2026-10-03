@@ -75,8 +75,9 @@ export class TabPanel {
 
         slot.addEventListener('slotchange', this.setSlotElements);
         this.setSlotElements();
-        // eslint-disable-next-line unicorn/no-array-for-each
-        this.tabs.forEach(this.setTabStatus);
+        for (const tab of this.tabs) {
+            this.setTabStatus(tab);
+        }
     }
 
     public disconnectedCallback() {
@@ -87,8 +88,9 @@ export class TabPanel {
     @Watch('tabs')
     public tabsChanged() {
         this.hidePanels();
-        // eslint-disable-next-line unicorn/no-array-for-each
-        this.tabs.forEach(this.setTabStatus);
+        for (const tab of this.tabs) {
+            this.setTabStatus(tab);
+        }
     }
 
     public render() {
@@ -108,8 +110,9 @@ export class TabPanel {
         const slot = this.getSlot();
         this.hidePanels();
         this.slotElements = Array.prototype.slice.call(slot.assignedElements());
-        // eslint-disable-next-line unicorn/no-array-for-each
-        this.tabs.forEach(this.setTabStatus);
+        for (const tab of this.tabs) {
+            this.setTabStatus(tab);
+        }
     }
 
     private setTabStatus(tab: Tab) {

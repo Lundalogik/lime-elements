@@ -30,11 +30,8 @@ function getImgParseRule(): TagParseRule {
     return rules.find((rule) => rule.tag === 'img');
 }
 
-function createElement(
-    tag: string,
-    attrs: Record<string, string>
-): HTMLElement {
-    const element = document.createElement(tag);
+function createMyImageElement(attrs: Record<string, string>): HTMLElement {
+    const element = document.createElement('my-image');
     for (const [name, value] of Object.entries(attrs)) {
         element.setAttribute(name, value);
     }
@@ -59,7 +56,7 @@ describe('inline-image node', () => {
     describe('parseDOM (tag rule)', () => {
         it('resolves the id to a src via getUrl', () => {
             const attrs = getTagParseRule().getAttrs(
-                createElement('my-image', {
+                createMyImageElement({
                     'image-id': 'abc',
                     width: '300px',
                     height: '200px',
@@ -79,7 +76,7 @@ describe('inline-image node', () => {
 
         it('rejects a tag with no image-id', () => {
             const result = getTagParseRule().getAttrs(
-                createElement('my-image', { alt: 'no id' })
+                createMyImageElement({ alt: 'no id' })
             );
 
             expect(result).toBe(false);
@@ -87,7 +84,7 @@ describe('inline-image node', () => {
 
         it('rejects a tag with an empty image-id', () => {
             const result = getTagParseRule().getAttrs(
-                createElement('my-image', { 'image-id': '' })
+                createMyImageElement({ 'image-id': '' })
             );
 
             expect(result).toBe(false);
@@ -95,7 +92,7 @@ describe('inline-image node', () => {
 
         it('preserves an absent alt as empty rather than synthesizing one', () => {
             const attrs = getTagParseRule().getAttrs(
-                createElement('my-image', { 'image-id': 'abc' })
+                createMyImageElement({ 'image-id': 'abc' })
             ) as ImageNodeAttrs;
 
             expect(attrs.alt).toBe('');
@@ -139,7 +136,7 @@ describe('inline-image node', () => {
 
         it('round-trips an id-only tag without gaining attributes', () => {
             const parsed = getTagParseRule().getAttrs(
-                createElement('my-image', { 'image-id': 'abc' })
+                createMyImageElement({ 'image-id': 'abc' })
             ) as ImageNodeAttrs;
 
             const html = serializeToMarkdown(parsed);
