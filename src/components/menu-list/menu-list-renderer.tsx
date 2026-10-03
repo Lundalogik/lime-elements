@@ -18,7 +18,7 @@ export class MenuListRenderer {
         items: Array<MenuItem | ListSeparator>,
         config: MenuListRendererConfig = {}
     ) {
-        items = items || [];
+        items ||= [];
         this.config = { ...this.defaultConfig, ...config };
 
         this.applyTabIndexToItemAtIndex =
@@ -49,11 +49,11 @@ export class MenuListRenderer {
         items: Array<MenuItem | ListSeparator>
     ) => {
         let result;
-        for (let i = 0, max = items.length; i < max; i += 1) {
-            if ('separator' in items[i]) {
+        for (const [i, entry] of items.entries()) {
+            if ('separator' in entry) {
                 // Ignore ListSeparator
             } else {
-                const item = items[i] as MenuItem<any>;
+                const item = entry as MenuItem<any>;
                 if (item.disabled) {
                     // Skip disabled items - they should never get tabindex
                     continue;

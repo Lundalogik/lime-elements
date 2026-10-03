@@ -62,7 +62,7 @@ describe('splitEmailAddressList', () => {
     });
 
     it('returns an empty array for whitespace-only input', () => {
-        expect(splitEmailAddressList('   ')).toEqual([]);
+        expect(splitEmailAddressList(' '.repeat(3))).toEqual([]);
     });
 
     it('trims whitespace from parts', () => {

@@ -23,11 +23,7 @@ export function renderListComponent(
     component: ListComponent | undefined,
     extraClass?: string
 ): VNode | undefined {
-    if (!component?.name) {
-        return;
-    }
-
-    if (!component.name.includes('-')) {
+    if (!component?.name?.includes('-')) {
         return;
     }
 

@@ -136,10 +136,12 @@ export class ActionBar {
     }
 
     public componentDidRender() {
-        if (this.haveItemsChanged()) {
-            this.intersectionObserver?.disconnect();
-            this.createIntersectionObserver();
+        if (!this.haveItemsChanged()) {
+            return;
         }
+
+        this.intersectionObserver?.disconnect();
+        this.createIntersectionObserver();
     }
 
     public disconnectedCallback() {

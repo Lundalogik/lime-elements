@@ -177,10 +177,12 @@ export class FileViewer {
     }
 
     public connectedCallback() {
-        if (this.revokeAnimationFrame !== undefined) {
-            cancelAnimationFrame(this.revokeAnimationFrame);
-            this.revokeAnimationFrame = undefined;
+        if (this.revokeAnimationFrame === undefined) {
+            return;
         }
+
+        cancelAnimationFrame(this.revokeAnimationFrame);
+        this.revokeAnimationFrame = undefined;
     }
 
     public async componentWillLoad() {
@@ -534,17 +536,21 @@ export class FileViewer {
     };
 
     private revokePdfBlobUrl() {
-        if (this.pdfBlobUrl) {
-            URL.revokeObjectURL(this.pdfBlobUrl);
-            this.pdfBlobUrl = undefined;
+        if (!this.pdfBlobUrl) {
+            return;
         }
+
+        URL.revokeObjectURL(this.pdfBlobUrl);
+        this.pdfBlobUrl = undefined;
     }
 
     private handleToggleFullscreen = () => {
-        if (this.fullscreen.isSupported()) {
-            this.fullscreen.toggle();
-            this.isFullscreen = !this.isFullscreen;
+        if (!this.fullscreen.isSupported()) {
+            return;
         }
+
+        this.fullscreen.toggle();
+        this.isFullscreen = !this.isFullscreen;
     };
 
     private emitOnAction = (event: LimelMenuCustomEvent<ListItem>) => {

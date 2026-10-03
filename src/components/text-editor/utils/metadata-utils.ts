@@ -146,7 +146,7 @@ function areFrequencyMapsEqual(
         return false;
     }
 
-    for (const [key, count] of map1.entries()) {
+    for (const [key, count] of map1) {
         if (map2.get(key) !== count) {
             return false;
         }

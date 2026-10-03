@@ -139,11 +139,7 @@ export class Form {
     }
 
     private initialize() {
-        if (this.initialized) {
-            return;
-        }
-
-        if (!this.host.shadowRoot.querySelector('.root')) {
+        if (this.initialized || !this.host.shadowRoot.querySelector('.root')) {
             return;
         }
 

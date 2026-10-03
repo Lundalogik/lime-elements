@@ -106,11 +106,11 @@ const isNodeEffectivelyEmpty = (node: any): boolean => {
             return false;
         }
 
-        if (TREAT_AS_EMPTY_ELEMENTS.has(tagName)) {
-            return true;
-        }
-
-        if (!Array.isArray(element.children) || element.children.length === 0) {
+        if (
+            TREAT_AS_EMPTY_ELEMENTS.has(tagName) ||
+            !Array.isArray(element.children) ||
+            element.children.length === 0
+        ) {
             return true;
         }
 

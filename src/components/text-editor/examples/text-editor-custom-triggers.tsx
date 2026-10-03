@@ -153,10 +153,12 @@ export class TextEditorCustomTriggersExample {
             }
         }
 
-        if (event.key === ESCAPE) {
-            this.isPickerOpen = false;
-            this.triggerFunction?.stopTrigger();
+        if (event.key !== ESCAPE) {
+            return;
         }
+
+        this.isPickerOpen = false;
+        this.triggerFunction?.stopTrigger();
     };
 
     private moveSelection = (

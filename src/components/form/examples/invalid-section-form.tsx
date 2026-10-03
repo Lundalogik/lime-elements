@@ -152,7 +152,7 @@ export class InvalidSectionFormExample {
             return;
         }
 
-        const json = JSON.stringify(this.formData, null, '    ');
+        const json = JSON.stringify(this.formData, null, ' '.repeat(4));
         alert(`Saving:\n\n${json}`);
         this.revealErrors = false;
     };

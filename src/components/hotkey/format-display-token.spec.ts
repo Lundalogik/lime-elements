@@ -19,7 +19,7 @@ describe('formatDisplayToken', () => {
         });
 
         it('returns empty display for whitespace-only', () => {
-            expect(formatDisplayToken('   ', false)).toEqual({
+            expect(formatDisplayToken(' '.repeat(3), false)).toEqual({
                 display: '',
                 isGlyph: false,
                 ariaName: '',

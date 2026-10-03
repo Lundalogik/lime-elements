@@ -25,16 +25,13 @@ export class ShortcutWithClickHandlerExample {
     }
 
     private handleClick = (event: PointerEvent) => {
-        if (!(
-            event.altKey ||
-            event.ctrlKey ||
-            event.metaKey ||
-            event.shiftKey
-        )) {
-            event.preventDefault();
-            alert(
-                "No modifier key pressed. Link should open in current window, but we might want to handle the navigation with our application's router, to avoid reloading the whole application (if we're in a single page app, like Lime CRM Web Client).\n\nTry holding down a modifier key, like Shift, while clicking."
-            );
+        if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
+            return;
         }
+
+        event.preventDefault();
+        alert(
+            "No modifier key pressed. Link should open in current window, but we might want to handle the navigation with our application's router, to avoid reloading the whole application (if we're in a single page app, like Lime CRM Web Client).\n\nTry holding down a modifier key, like Shift, while clicking."
+        );
     };
 }

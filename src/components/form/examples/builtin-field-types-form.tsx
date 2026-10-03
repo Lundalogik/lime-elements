@@ -95,7 +95,7 @@ export class BuiltinFieldTypesFormExample {
     };
 
     private handleSubmit = () => {
-        const json = JSON.stringify(this.formData, null, '    ');
+        const json = JSON.stringify(this.formData, null, ' '.repeat(4));
         alert(`Form data:\n\n${json}`);
     };
 }

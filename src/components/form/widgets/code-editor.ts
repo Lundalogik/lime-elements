@@ -20,7 +20,7 @@ export class CodeEditor extends React.Component<FieldProps, CodeEditorState> {
         let value: string = '{}';
 
         try {
-            value = JSON.stringify(props.formData, null, '    ');
+            value = JSON.stringify(props.formData, null, ' '.repeat(4));
         } catch {
             // N/A
         }

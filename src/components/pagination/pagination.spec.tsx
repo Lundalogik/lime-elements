@@ -621,7 +621,7 @@ describe('limel-pagination', () => {
 
             // A non-breaking space, which is what Swedish groups with. It
             // looks exactly like a plain one, hence the escape.
-            expect(pageButton(root, 9840).textContent).toBe('9\u00A0840');
+            expect(pageButton(root, 9840).textContent).toBe('9\u{A0}840');
         });
 
         it('still renders when the language cannot be used', async () => {

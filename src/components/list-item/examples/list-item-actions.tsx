@@ -156,10 +156,8 @@ export class ListItemActionsExample {
         const focused = (event.target as HTMLElement).closest(
             'limel-list-item'
         );
-        if (!focused) {
-            return;
-        }
         if (
+            !focused ||
             (event.target as HTMLElement).closest('.action-menu-trigger') ||
             (event.target as HTMLElement).closest('limel-menu') ||
             focused.hasAttribute('disabled') ||

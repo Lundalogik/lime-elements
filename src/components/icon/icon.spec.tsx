@@ -9,7 +9,7 @@ const SVG_WITH_BAKED_IN_CLASS = '<svg class="baked-in"><path d="M0 0"/></svg>';
 let originalFetch: typeof globalThis.fetch;
 
 beforeEach(() => {
-    originalFetch = globalThis.fetch;
+    originalFetch = fetch;
     globalThis.fetch = async () =>
         new Response(SVG_WITH_BAKED_IN_CLASS, {
             headers: { 'Content-Type': 'image/svg+xml' },

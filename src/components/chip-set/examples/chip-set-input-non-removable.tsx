@@ -82,18 +82,20 @@ export class ChipSetInputNonRemovableExample {
     };
 
     private onKeyUp = (event: KeyboardEvent) => {
-        if (event.key === ENTER && this.textValue.trim()) {
-            const name = this.textValue.trim();
-            this.value = [
-                ...this.value,
-                {
-                    id: name,
-                    text: name,
-                    icon: 'person_male',
-                },
-            ];
-            this.textValue = '';
+        if (!(event.key === ENTER && this.textValue.trim())) {
+            return;
         }
+
+        const name = this.textValue.trim();
+        this.value = [
+            ...this.value,
+            {
+                id: name,
+                text: name,
+                icon: 'person_male',
+            },
+        ];
+        this.textValue = '';
     };
 
     private handleChange = (event: LimelChipSetCustomEvent<Chip[]>) => {

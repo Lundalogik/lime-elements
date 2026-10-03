@@ -51,7 +51,7 @@ const REQUIRES_DOCS_SCHEMA = new Set<string>([
 // Example components that legitimately log an error or warning to the console
 // when they mount (as opposed to on user interaction). Keep this list small and
 // document the reason for each entry. Populated from real test runs.
-const EXPECTED_NOISY = new Set<string>([]);
+const EXPECTED_NOISY = new Set<string>();
 
 // The icon Cache API rejects when icon URLs don't resolve in the test
 // environment; the icons still render via an in-memory fallback, so this is

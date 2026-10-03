@@ -328,12 +328,14 @@ export class CodeDiff {
         }
 
         const target = rows[this.focusedRowIndex];
-        if (target) {
-            target.setAttribute('tabindex', '-1');
-            target.classList.add('diff-line--focused');
-            target.focus();
-            this.announceLine(target);
+        if (!target) {
+            return;
         }
+
+        target.setAttribute('tabindex', '-1');
+        target.classList.add('diff-line--focused');
+        target.focus();
+        this.announceLine(target);
     }
 
     private announceLine(row: HTMLElement) {
@@ -460,10 +462,12 @@ export class CodeDiff {
 
     private toggleSearch() {
         this.searchVisible = !this.searchVisible;
-        if (!this.searchVisible) {
-            this.searchTerm = '';
-            this.currentMatchIndex = 0;
+        if (this.searchVisible) {
+            return;
         }
+
+        this.searchTerm = '';
+        this.currentMatchIndex = 0;
     }
 
     private onSearchInput(event: CustomEvent<string>) {

@@ -230,7 +230,7 @@ function byteArrayToBase64(bytes: Uint8Array): string {
     }
 
     // Jest/Node fallback
-    return (globalThis as any).Buffer.from(bytes).toString('base64');
+    return Buffer.from(bytes).toString('base64');
 }
 
 function resolveDataUrlMimeType(
@@ -273,11 +273,7 @@ function isTrustedDeclaredImageMimeType(
     declaredMimeType: string,
     detectedMimeType?: string
 ): boolean {
-    if (!detectedMimeType) {
-        return true;
-    }
-
-    if (declaredMimeType === detectedMimeType) {
+    if (!detectedMimeType || declaredMimeType === detectedMimeType) {
         return true;
     }
 
@@ -468,7 +464,7 @@ function quoteDisplayNameIfNeeded(name: string): string {
         return name;
     }
 
-    const escaped = name.replaceAll('\\', '\\\\').replaceAll('"', '\\' + '"');
+    const escaped = name.replaceAll('\\', '\\\\').replaceAll('"', '\\"');
     return `"${escaped}"`;
 }
 

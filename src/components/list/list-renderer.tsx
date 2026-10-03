@@ -17,7 +17,7 @@ export class ListRenderer {
         items: Array<ListItem | ListSeparator>,
         config: ListRendererConfig = {}
     ) {
-        items = items || [];
+        items ||= [];
         this.config = { ...this.defaultConfig, ...config };
 
         let role;
@@ -57,9 +57,8 @@ export class ListRenderer {
     private getAriaOrientation = (role: string) => {
         if (role === 'listbox' || role === 'radiogroup') {
             return 'vertical';
-        } else {
-            return null;
         }
+        return null;
     };
 
     /**
@@ -75,11 +74,11 @@ export class ListRenderer {
         items: Array<ListItem | ListSeparator>
     ) => {
         let result;
-        for (let i = 0, max = items.length; i < max; i += 1) {
-            if ('separator' in items[i]) {
+        for (const [i, entry] of items.entries()) {
+            if ('separator' in entry) {
                 // Ignore ListSeparator
             } else {
-                const item = items[i] as ListItem<any>;
+                const item = entry as ListItem<any>;
                 if (item.disabled) {
                     // Skip disabled items - they should never get tabindex
                     continue;

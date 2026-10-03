@@ -144,17 +144,15 @@ const toggleNodeType = (
                 }
 
                 return true;
-            } else {
-                if (hasActiveWrap) {
-                    return lift(state, dispatch);
-                }
-
-                if (shouldWrap) {
-                    return wrapIn(nodeType, attrs)(state, dispatch);
-                } else {
-                    return setBlockType(nodeType, attrs)(state, dispatch);
-                }
             }
+            if (hasActiveWrap) {
+                return lift(state, dispatch);
+            }
+
+            if (shouldWrap) {
+                return wrapIn(nodeType, attrs)(state, dispatch);
+            }
+            return setBlockType(nodeType, attrs)(state, dispatch);
         }
 
         return false;

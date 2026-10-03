@@ -55,8 +55,8 @@ export class PickerMultipleExample {
 
     private updateAvailableItems = () => {
         this.availableItems = this.allItems.filter((item) => {
-            return !this.selectedItems.some((selectedItem) => {
-                return item.value === selectedItem.value;
+            return this.selectedItems.every((selectedItem) => {
+                return item.value !== selectedItem.value;
             });
         });
     };

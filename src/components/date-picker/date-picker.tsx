@@ -291,7 +291,7 @@ export class DatePicker {
         const inputElement = this.textField.shadowRoot.querySelector('input');
         setTimeout(() => {
             this.datePickerCalendar.inputElement = inputElement;
-        });
+        }, 0);
         event.stopPropagation();
 
         document.addEventListener('mousedown', this.documentClickListener, {
@@ -321,7 +321,7 @@ export class DatePicker {
     private hideCalendar() {
         setTimeout(() => {
             this.showPortal = false;
-        });
+        }, 0);
 
         this.removeDocumentListeners();
 
@@ -374,11 +374,7 @@ export class DatePicker {
     }
 
     private onInputClick(event) {
-        if (this.disabled || this.readonly) {
-            return;
-        }
-
-        if (this.showPortal) {
+        if (this.disabled || this.readonly || this.showPortal) {
             return;
         }
 

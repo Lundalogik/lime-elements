@@ -118,9 +118,8 @@ function columnElementExists(column: Column<any>) {
         const customElementExists = customElements.get(column.component.name);
 
         return isNativeElement || customElementExists;
-    } else {
-        return false;
     }
+    return false;
 }
 
 /**

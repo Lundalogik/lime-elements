@@ -21,11 +21,7 @@ export function formatBytes(
     bytes: number | undefined | null,
     decimals = 1
 ): string {
-    if (bytes == null || Number.isNaN(bytes)) {
-        return '';
-    }
-
-    if (bytes < 0) {
+    if (bytes == null || Number.isNaN(bytes) || bytes < 0) {
         return '';
     }
 

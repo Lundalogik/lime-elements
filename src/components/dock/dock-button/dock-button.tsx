@@ -81,16 +81,14 @@ export class DockButton {
 
     @Watch('isOpen')
     public openWatcher() {
-        if (!this.isOpen) {
+        if (!this.isOpen || this.intersectionObserver) {
             return;
         }
 
-        if (!this.intersectionObserver) {
-            this.intersectionObserver = new IntersectionObserver(
-                this.focusCustomComponentElement
-            );
-            this.intersectionObserver.observe(this.customComponentElement);
-        }
+        this.intersectionObserver = new IntersectionObserver(
+            this.focusCustomComponentElement
+        );
+        this.intersectionObserver.observe(this.customComponentElement);
     }
 
     public disconnectedCallback() {
@@ -211,11 +209,7 @@ export class DockButton {
         const entry = entries.find(
             (e) => e.target === this.customComponentElement
         );
-        if (!entry) {
-            return;
-        }
-
-        if (!entry.isIntersecting) {
+        if (!entry?.isIntersecting) {
             return;
         }
 

@@ -134,13 +134,15 @@ describe('table repair', () => {
 
         const widths: number[] = [];
         next.doc.descendants((node) => {
-            if (node.type.name === 'table_row') {
-                let width = 0;
-                for (let i = 0; i < node.childCount; i++) {
-                    width += node.child(i).attrs.colspan;
-                }
-                widths.push(width);
+            if (node.type.name !== 'table_row') {
+                return;
             }
+
+            let width = 0;
+            for (let i = 0; i < node.childCount; i++) {
+                width += node.child(i).attrs.colspan;
+            }
+            widths.push(width);
         });
 
         expect(widths).toHaveLength(2);

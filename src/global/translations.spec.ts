@@ -89,7 +89,7 @@ describe('translations', () => {
         it('substitutes falsy merge-code values rather than dropping them', () => {
             expect(
                 translate.get('code-diff.hidden-lines', 'en', { count: 0 })
-            ).toBe('\u00B7\u00B7\u00B7 0 hidden lines \u00B7\u00B7\u00B7');
+            ).toBe('\u{B7}\u{B7}\u{B7} 0 hidden lines \u{B7}\u{B7}\u{B7}');
             expect(
                 translate.get('clear-value-of', 'en', { label: false })
             ).toBe('Clear value of false');
