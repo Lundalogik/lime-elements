@@ -1,5 +1,3 @@
-/* eslint-env node */
-
 // Single source of truth for validating the docs `version` input.
 //
 // `publish-docs.cjs` imports `assertValidDocsVersion` so the value is

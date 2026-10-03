@@ -1,4 +1,3 @@
-/* eslint-env node */
 const ERROR = 2;
 const IGNORE = 0;
 module.exports = {

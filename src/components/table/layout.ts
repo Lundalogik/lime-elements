@@ -7,10 +7,7 @@
  * @public
  */
 export type Layout =
-    | 'default'
-    | 'stretchLastColumn'
-    | 'stretchColumns'
-    | 'lowDensity';
+    'default' | 'stretchLastColumn' | 'stretchColumns' | 'lowDensity';
 
 /**
  * Maps a layout to a Tabulator layout

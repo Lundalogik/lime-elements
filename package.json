@@ -52,6 +52,7 @@
     "generate": "stencil generate"
   },
   "devDependencies": {
+    "@commitlint/cli": "^21.2.3",
     "@commitlint/config-conventional": "^21.2.3",
     "@limetech/eslint-config": "^4.1.0",
     "@microsoft/api-extractor": "^7.59.2",
@@ -76,7 +77,7 @@
     "cross-env": "^10.1.0",
     "dayjs": "^1.11.23",
     "diff": "^9.0.0",
-    "eslint": "^9.39.4",
+    "eslint": "^10.11.0",
     "flatpickr": "^4.6.13",
     "glob": "^13.0.6",
     "globals": "^17.12.0",
@@ -94,7 +95,7 @@
     "number-abbreviate": "^2.0.0",
     "parse-css-color": "^0.2.1",
     "postal-mime": "^3.0.1",
-    "prettier": "^3.8.3",
+    "prettier": "^3.9.9",
     "prosemirror-example-setup": "^1.2.3",
     "prosemirror-markdown": "^1.13.8",
     "prosemirror-model": ">=1.25.12",
