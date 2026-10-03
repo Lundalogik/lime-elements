@@ -12,6 +12,10 @@ const allTranslations = {
     da: da,
     de: de,
     en: en,
+    // English UI text doesn't differ between regions — only the date
+    // format itself does — so this shares the "en" bundle rather than
+    // needing its own translated copy.
+    'en-gb': en,
     fi: fi,
     fr: fr,
     no: no,

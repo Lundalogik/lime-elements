@@ -14,7 +14,7 @@ export class MonthPicker extends Picker {
 
     public constructor(
         language: string,
-        change: EventEmitter<Date>,
+        change: EventEmitter<Date | null>,
         private translations: Translations,
         dateFormat: string = 'MM/YYYY'
     ) {
@@ -26,8 +26,13 @@ export class MonthPicker extends Picker {
         this.prevYear = this.prevYear.bind(this);
     }
 
-    public init(element: HTMLElement, container: HTMLElement, value?: Date) {
-        super.init(element, container, value);
+    public init(
+        element: HTMLElement,
+        container: HTMLElement,
+        value?: Date,
+        focusTarget?: HTMLElement
+    ) {
+        super.init(element, container, value, focusTarget);
         if (!this.nativePicker) {
             this.flatpickr.prevMonthNav.addEventListener(
                 'mousedown',
@@ -74,12 +79,16 @@ export class MonthPicker extends Picker {
 
     protected handleClose(selectedDates) {
         return super.handleClose(selectedDates).then(() => {
-            this.selectMonth(
-                this.flatpickr.selectedDates,
-                this.flatpickr.input.value,
-                this.flatpickr
-            );
+            this.redrawSelection();
         });
+    }
+
+    protected redrawSelection() {
+        this.selectMonth(
+            this.flatpickr.selectedDates,
+            this.flatpickr.input.value,
+            this.flatpickr
+        );
     }
 
     private handleReady(_, __, fp) {
