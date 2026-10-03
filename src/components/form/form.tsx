@@ -284,15 +284,13 @@ export class Form {
     }
 
     private mapErrors(errors: RJSFValidationError[]): FormError[] {
-        return errors.map(
-            (error): FormError => ({
-                name: error.name,
-                property: error.property,
-                message: error.message,
-                schemaPath: error.schemaPath,
-                params: error.params,
-            })
-        );
+        return errors.map((error): FormError => ({
+            name: error.name,
+            property: error.property,
+            message: error.message,
+            schemaPath: error.schemaPath,
+            params: error.params,
+        }));
     }
 
     private getExtraErrors(errors: ValidationError): ExtraError | undefined {

@@ -221,8 +221,7 @@ export class Popover {
 
     private readonly focusTrigger = () => {
         const trigger = this.triggerSlot?.assignedElements()?.[0] as
-            | HTMLElement
-            | undefined;
+            HTMLElement | undefined;
 
         focusTriggerElement(trigger);
     };
