@@ -1,4 +1,3 @@
-/* eslint-env node */
 const shell = require('shelljs');
 const fs = require('node:fs');
 const { replaceInFileSync } = require('replace-in-file');

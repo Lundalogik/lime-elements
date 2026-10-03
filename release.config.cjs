@@ -1,4 +1,3 @@
-/* eslint-env node */
 const { readFileSync } = require('node:fs');
 const path = require('node:path');
 
