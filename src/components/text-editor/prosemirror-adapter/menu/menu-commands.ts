@@ -21,6 +21,12 @@ import {
     selectionHasNonListableBlock,
     unifyToList,
 } from './menu-command-utils/list-utils';
+import {
+    selectionCoversOnlyCodeBlocks,
+    selectionHasNonCodeConvertibleBlock,
+    toggleOffCodeBlocks,
+    unifyToCodeBlock,
+} from './menu-command-utils/code-block-utils';
 
 type CommandFunction = (
     schema: Schema,
@@ -176,8 +182,6 @@ const createSetNodeTypeCommand = (
         command = toggleNodeType(schema, LevelMapping.Heading, {
             level: level,
         });
-    } else if (nodeType === EditorMenuTypes.CodeBlock) {
-        command = toggleNodeType(schema, EditorMenuTypes.CodeBlock);
     } else {
         command = setBlockType(type);
     }
@@ -324,6 +328,49 @@ export const createListCommand = (
     return command;
 };
 
+/**
+ * Creates the command for toggling code blocks.
+ *
+ * @param schema - The ProseMirror schema.
+ * @returns A command for toggling code blocks.
+ */
+export const createCodeBlockCommand = (schema: Schema): CommandWithActive => {
+    const type = schema.nodes.code_block;
+    if (!type) {
+        throw new Error('Node type "code_block" not found in schema');
+    }
+
+    // The keymap invokes the command directly, so the command body applies
+    // the same applicability rules as `allowed` to keep keyboard and
+    // toolbar behavior identical.
+    const command: CommandWithActive = (state, dispatch) => {
+        if (!isCodeConvertibleSelection(state)) {
+            return false;
+        }
+
+        if (selectionCoversOnlyCodeBlocks(state)) {
+            return toggleOffCodeBlocks(state, dispatch);
+        }
+
+        const { $from, $to } = state.selection;
+        if ($from.sameParent($to)) {
+            return setBlockType(type)(state, dispatch);
+        }
+
+        return unifyToCodeBlock(state, dispatch);
+    };
+
+    command.allowed = isCodeConvertibleSelection;
+
+    setActiveMethodForNode(command, type);
+
+    return command;
+};
+
+const isCodeConvertibleSelection = (state: EditorState): boolean =>
+    state.selection instanceof TextSelection &&
+    !selectionHasNonCodeConvertibleBlock(state);
+
 const commandMapping: CommandMapping = {
     strong: createToggleMarkCommand,
     em: createToggleMarkCommand,
@@ -352,8 +399,7 @@ const commandMapping: CommandMapping = {
     blockquote: (schema) =>
         createWrapInCommand(schema, EditorMenuTypes.Blockquote),
 
-    code_block: (schema) =>
-        createSetNodeTypeCommand(schema, EditorMenuTypes.CodeBlock),
+    code_block: createCodeBlockCommand,
     ordered_list: (schema) =>
         createListCommand(schema, EditorMenuTypes.OrderedList),
     bullet_list: (schema) =>
