@@ -20,7 +20,7 @@ export function createLazyLoadImagesPlugin(lazyLoadImages = false): Plugin {
                     return;
                 }
 
-                node.properties = node.properties || {};
+                node.properties ||= {};
                 node.properties.loading = 'lazy';
 
                 if (!node.properties.src) {

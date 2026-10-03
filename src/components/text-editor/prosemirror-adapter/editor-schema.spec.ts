@@ -73,13 +73,9 @@ describe('editor schema (real stack)', () => {
         it('the link mark is the custom spec, not schema-basic', () => {
             const link = html.schema.marks.link;
             expect(link.spec.inclusive).toBe(false);
-            expect(Object.keys(link.spec.attrs).sort()).toEqual([
-                'href',
-                'referrerpolicy',
-                'rel',
-                'target',
-                'title',
-            ]);
+            expect(
+                Object.keys(link.spec.attrs).sort((a, b) => a.localeCompare(b))
+            ).toEqual(['href', 'referrerpolicy', 'rel', 'target', 'title']);
         });
     });
 

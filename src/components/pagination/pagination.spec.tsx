@@ -31,7 +31,9 @@ describe('limel-pagination', () => {
         const result = await render(
             <limel-pagination
                 {...props}
-                onGoToPage={(event: CustomEvent) => pages.push(event.detail)}
+                onGoToPage={(event: CustomEvent) => {
+                    pages.push(event.detail);
+                }}
             ></limel-pagination>
         );
         rendered = result;
@@ -46,8 +48,8 @@ describe('limel-pagination', () => {
 
     const pageButton = (root: Root, page: number): HTMLButtonElement =>
         root.shadowRoot?.querySelector(`button.page[data-page="${page}"]`);
-    const arrow = (root: Root, direction: string): HTMLButtonElement =>
-        root.shadowRoot?.querySelector(`button.arrow.${direction}`);
+    const nextArrow = (root: Root): HTMLButtonElement =>
+        root.shadowRoot?.querySelector('button.arrow.next');
     const currentPage = (root: Root): string =>
         root.shadowRoot?.querySelector('[aria-current="page"]')?.textContent;
     const liveRegion = (root: Root): string =>
@@ -151,7 +153,7 @@ describe('limel-pagination', () => {
                 totalItems: 248,
             });
 
-            arrow(root, 'next').click();
+            nextArrow(root).click();
 
             expect(pages[0].page).toBe(5);
         });
@@ -163,7 +165,7 @@ describe('limel-pagination', () => {
                 totalItems: 248,
             });
 
-            arrow(root, 'next').click();
+            nextArrow(root).click();
 
             expect(pages).toEqual([]);
         });
@@ -270,7 +272,7 @@ describe('limel-pagination', () => {
             expect(pageButton(root, 2).getAttribute('aria-label')).toBe(
                 'Page 2, current page'
             );
-            expect(arrow(root, 'next').getAttribute('aria-label')).toBe(
+            expect(nextArrow(root).getAttribute('aria-label')).toBe(
                 'Next page'
             );
             expect(nav(root).getAttribute('aria-label')).toBe('Pagination');

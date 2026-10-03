@@ -18,12 +18,12 @@ export function createLinksPlugin(): Plugin {
                 }
 
                 const href = node.properties?.href;
-                const title = node.properties?.title;
 
                 if (!href) {
                     return;
                 }
 
+                const title = node.properties?.title;
                 const attributes = getLinkAttributes(href, title);
 
                 node.properties.target = attributes.target;

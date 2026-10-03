@@ -791,18 +791,20 @@ export class Picker {
             return;
         }
 
-        if (isUp) {
-            const listItems = list.shadowRoot.querySelectorAll<HTMLElement>(
-                '.mdc-deprecated-list-item'
-            );
-            const listElement = [...listItems].at(-1);
-            if (!listElement) {
-                return;
-            }
-
-            event.preventDefault();
-            listElement.focus();
+        if (!isUp) {
+            return;
         }
+
+        const listItems = list.shadowRoot.querySelectorAll<HTMLElement>(
+            '.mdc-deprecated-list-item'
+        );
+        const listElement = [...listItems].at(-1);
+        if (!listElement) {
+            return;
+        }
+
+        event.preventDefault();
+        listElement.focus();
     }
 
     private handleSearchResult(

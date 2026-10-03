@@ -52,33 +52,38 @@ export function findTitle(
     fieldSchema: JSONSchema7,
     formSchema: JSONSchema7
 ) {
-    if (!data) {
-        return null;
+    while (data) {
+        if (
+            Array.isArray(data) &&
+            isObjectType(fieldSchema.items as FormSchema)
+        ) {
+            data = data[0];
+            continue;
+        }
+
+        if (Array.isArray(data) || typeof data !== 'object') {
+            return findSchemaTitle(data, fieldSchema);
+        }
+
+        const subSchema = findSubSchema(
+            fieldSchema as FormSchema,
+            formSchema as FormSchema
+        );
+
+        data = sortDataByProperties(data, subSchema.properties);
+
+        const firstEntry = findFirstEntry(data, subSchema);
+        if (!firstEntry || !subSchema.properties) {
+            return null;
+        }
+
+        const [key, value] = firstEntry;
+
+        data = value;
+        fieldSchema = subSchema.properties[key];
     }
 
-    if (Array.isArray(data) && isObjectType(fieldSchema.items as FormSchema)) {
-        return findTitle(data[0], fieldSchema, formSchema);
-    }
-
-    if (Array.isArray(data) || typeof data !== 'object') {
-        return findSchemaTitle(data, fieldSchema);
-    }
-
-    const subSchema = findSubSchema(
-        fieldSchema as FormSchema,
-        formSchema as FormSchema
-    );
-
-    data = sortDataByProperties(data, subSchema.properties);
-
-    const firstEntry = findFirstEntry(data, subSchema);
-    if (!firstEntry || !subSchema.properties) {
-        return null;
-    }
-
-    const [key, value] = firstEntry;
-
-    return findTitle(value, subSchema.properties[key], formSchema);
+    return null;
 }
 
 function sortDataByProperties(data: any, properties: object) {

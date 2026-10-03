@@ -13,6 +13,5 @@ function createIconCache() {
     }
 }
 
-export default (() => {
-    return createIconCache();
-})();
+const iconCache = createIconCache();
+export default iconCache;

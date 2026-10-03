@@ -32,6 +32,7 @@ const TAGS = [
                 .map((tag) => (tag.text as string).trim())
         )
     ),
+    // eslint-disable-next-line unicorn/require-array-sort-compare -- plain strings; default code-unit order is intended
 ].sort();
 
 // Console noise from the docs shell that is unrelated to the example under
@@ -79,9 +80,9 @@ for (const tag of TAGS) {
         });
         // Prefer the stack (it leads with the name and message in V8) so a
         // failure report identifies where an example threw, not just that it did.
-        page.on('pageerror', (error) =>
-            errors.push(error.stack ?? error.message)
-        );
+        page.on('pageerror', (error) => {
+            errors.push(error.stack ?? error.message);
+        });
 
         await stubExternalIcons(page);
         await page.goto(`/#/debug/${tag}`);

@@ -334,11 +334,10 @@ describe('limel-chip-set', () => {
         describe('emptyInputOnChange', () => {
             async function typeIntoInput(
                 root: HTMLLimelChipSetElement,
-                text: string,
                 waitForChanges: () => Promise<void>
             ) {
                 const input = root.shadowRoot!.querySelector('input')!;
-                input.value = text;
+                input.value = 'pending';
                 input.dispatchEvent(
                     new Event('input', { bubbles: true, composed: true })
                 );
@@ -354,7 +353,7 @@ describe('limel-chip-set', () => {
                 );
                 await waitForChanges();
 
-                await typeIntoInput(root, 'pending', waitForChanges);
+                await typeIntoInput(root, waitForChanges);
                 root.value = [...getValue(), { id: '3', text: 'Cherry' }];
                 await waitForChanges();
 
@@ -372,7 +371,7 @@ describe('limel-chip-set', () => {
                 );
                 await waitForChanges();
 
-                await typeIntoInput(root, 'pending', waitForChanges);
+                await typeIntoInput(root, waitForChanges);
                 root.value = [...getValue(), { id: '3', text: 'Cherry' }];
                 await waitForChanges();
 

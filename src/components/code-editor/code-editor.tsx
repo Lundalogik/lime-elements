@@ -185,8 +185,8 @@ export class CodeEditor {
         this.darkMode.removeEventListener('change', this.handleChangeDarkMode);
 
         const editorElement = this.host.shadowRoot.querySelector('.editor');
-        // eslint-disable-next-line no-unsafe-optional-chaining
-        for (const child of editorElement?.childNodes) {
+        const children = editorElement?.childNodes;
+        for (const child of children) {
             child.remove();
         }
     }
@@ -303,6 +303,7 @@ export class CodeEditor {
             if (this.lint) {
                 gutters.push('CodeMirror-lint-markers');
                 if (!('jsonlint' in window)) {
+                    // eslint-disable-next-line unicorn/no-global-object-property-assignment -- CodeMirror's JSON lint addon reads the global `jsonlint`
                     window['jsonlint'] = jslint;
                 }
             }
@@ -501,24 +502,28 @@ export class CodeEditor {
             inputField.removeAttribute('aria-controls');
         }
 
+        // eslint-disable-next-line unicorn/prefer-toggle-attribute -- ARIA needs the value "true"; an empty value means false
         if (this.required) {
             inputField.setAttribute('aria-required', 'true');
         } else {
             inputField.removeAttribute('aria-required');
         }
 
+        // eslint-disable-next-line unicorn/prefer-toggle-attribute -- ARIA needs the value "true"; an empty value means false
         if (this.invalid) {
             inputField.setAttribute('aria-invalid', 'true');
         } else {
             inputField.removeAttribute('aria-invalid');
         }
 
+        // eslint-disable-next-line unicorn/prefer-toggle-attribute -- ARIA needs the value "true"; an empty value means false
         if (this.disabled) {
             inputField.setAttribute('aria-disabled', 'true');
         } else {
             inputField.removeAttribute('aria-disabled');
         }
 
+        // eslint-disable-next-line unicorn/prefer-toggle-attribute -- ARIA needs the value "true"; an empty value means false
         if (this.readonly || this.disabled) {
             inputField.setAttribute('aria-readonly', 'true');
         } else {

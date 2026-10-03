@@ -207,24 +207,26 @@ export class InfoTile {
     };
 
     private renderValue = () => {
-        const characterCount = (this.value ?? '').toString().length;
-
         if (!this.value && this.loading) {
             return <span class="value">···</span>;
         }
 
-        if (this.value) {
-            return (
-                <span
-                    class={{
-                        value: true,
-                        [`ch-${characterCount}`]: true,
-                    }}
-                >
-                    {this.value}
-                </span>
-            );
+        if (!this.value) {
+            return;
         }
+
+        const characterCount = this.value.toString().length;
+
+        return (
+            <span
+                class={{
+                    value: true,
+                    [`ch-${characterCount}`]: true,
+                }}
+            >
+                {this.value}
+            </span>
+        );
     };
 
     private renderSuffix = () => {

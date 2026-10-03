@@ -62,7 +62,7 @@ function evaluateAndMaybeStrip(el: HTMLElement): void {
 function isInheritKeyword(value: string): boolean {
     const v = value.trim().toLowerCase();
 
-    return v === 'inherit' || v === 'currentcolor' || v === 'unset';
+    return ['inherit', 'currentcolor', 'unset'].includes(v);
 }
 
 type BackgroundReading = RGBA | 'image' | 'transparent';

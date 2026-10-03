@@ -74,14 +74,13 @@ export class MonthPicker extends Picker {
         this.selectMonth(selectedDates, dateString, fp);
     }
 
-    protected handleClose(selectedDates) {
-        return super.handleClose(selectedDates).then(() => {
-            this.selectMonth(
-                this.flatpickr.selectedDates,
-                this.flatpickr.input.value,
-                this.flatpickr
-            );
-        });
+    protected async handleClose(selectedDates) {
+        await super.handleClose(selectedDates);
+        this.selectMonth(
+            this.flatpickr.selectedDates,
+            this.flatpickr.input.value,
+            this.flatpickr
+        );
     }
 
     private handleReady(_, __, fp) {

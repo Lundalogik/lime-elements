@@ -124,23 +124,25 @@ export class ActionBarButton {
             return;
         }
 
-        if ('icon' in this.item) {
-            const name = getIconName(this.item.icon);
-
-            const color = getIconColor(this.item.icon, this.item.iconColor);
-            const title = getIconTitle(this.item.icon);
-
-            return (
-                <limel-icon
-                    name={name}
-                    aria-label={title}
-                    aria-hidden={title ? null : 'true'}
-                    style={{
-                        '--action-bar-item-icon-color': `${color}`,
-                    }}
-                />
-            );
+        if (!('icon' in this.item)) {
+            return;
         }
+
+        const name = getIconName(this.item.icon);
+
+        const color = getIconColor(this.item.icon, this.item.iconColor);
+        const title = getIconTitle(this.item.icon);
+
+        return (
+            <limel-icon
+                name={name}
+                aria-label={title}
+                aria-hidden={title ? null : 'true'}
+                style={{
+                    '--action-bar-item-icon-color': `${color}`,
+                }}
+            />
+        );
     }
 
     private renderLabel() {

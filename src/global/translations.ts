@@ -57,6 +57,4 @@ export class Translations {
 }
 
 const translations = new Translations();
-export default (() => {
-    return translations;
-})();
+export default translations;

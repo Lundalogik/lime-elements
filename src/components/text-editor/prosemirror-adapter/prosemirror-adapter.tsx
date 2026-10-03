@@ -542,6 +542,7 @@ export class ProsemirrorAdapter {
                     return {
                         ...item,
                         selected: activeTypes[item.value],
+                        // eslint-disable-next-line unicorn/no-computed-property-existence-check -- reads a boolean value, not key existence
                         disabled: !allowedTypes[item.value],
                     };
                 }
@@ -707,19 +708,22 @@ export class ProsemirrorAdapter {
             const clickedPos = this.lastClickedPos;
             this.lastClickedPos = null;
             if (
-                !this.transactionFired &&
-                clickedPos !== null &&
-                clickedPos <= this.view.state.doc.content.size
+                this.transactionFired ||
+                clickedPos === null ||
+                clickedPos > this.view.state.doc.content.size
             ) {
-                const { doc, tr } = this.view.state;
-                const resolvedPos = doc.resolve(clickedPos);
-                const selection = Selection.near(resolvedPos);
-                tr.setMeta('pointer', true);
-                this.view.dispatch(tr.setSelection(selection));
+                return;
             }
+
+            const { doc, tr } = this.view.state;
+            const resolvedPos = doc.resolve(clickedPos);
+            const selection = Selection.near(resolvedPos);
+            tr.setMeta('pointer', true);
+            this.view.dispatch(tr.setSelection(selection));
         }, 0);
     };
 
+    // eslint-disable-next-line unicorn/prefer-default-parameters -- a default parameter would not cover an empty string
     private handleNewLinkSelection = (text: string, href: string) => {
         this.link.text = text;
         this.link.href = href || 'https://';

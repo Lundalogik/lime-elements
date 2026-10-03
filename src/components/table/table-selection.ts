@@ -166,8 +166,12 @@ export class TableSelection {
     };
 
     private updateRowSelectors = (changeSet: SelectionChangeSet): void => {
-        for (const row of changeSet.indexes.map(this.getRowByIndex))
-            this.updateRowSelector(row, changeSet.selected);
+        for (const index of changeSet.indexes) {
+            this.updateRowSelector(
+                this.getRowByIndex(index),
+                changeSet.selected
+            );
+        }
     };
 
     private updateRowSelector = (
@@ -178,13 +182,13 @@ export class TableSelection {
         // enabled, the drag-handle column occupies index 0 and the
         // row-selector shifts to index 1. Keep the `.limel-table--row-selector`
         // class in sync with `getRowSelectorColumnDefinition` if renamed.
-        const checkBox = row
+        const checkbox = row
             .getElement()
             .querySelector<HTMLLimelCheckboxElement>(
                 `.limel-table--row-selector ${LIMEL_CHECKBOX}`
             );
-        if (checkBox) {
-            checkBox.checked = checked;
+        if (checkbox) {
+            checkbox.checked = checked;
         }
     };
 

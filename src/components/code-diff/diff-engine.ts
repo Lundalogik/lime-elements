@@ -94,8 +94,8 @@ function collectAndPairChanges(
     const maxPairs = Math.max(removed.length, added.length);
     for (let j = 0; j < maxPairs; j++) {
         rows.push({
-            left: j < removed.length ? removed[j] : undefined,
-            right: j < added.length ? added[j] : undefined,
+            left: removed[j],
+            right: added[j],
         });
     }
 

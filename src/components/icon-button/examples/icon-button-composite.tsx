@@ -52,6 +52,7 @@ export class IconButtonCompositeExample {
             return (
                 <limel-switch
                     label={control.label}
+                    // eslint-disable-next-line unicorn/no-computed-property-existence-check -- reads a boolean value, not an existence check
                     value={!!this.props[control.property]}
                     onChange={this.handleChange(control)}
                 />

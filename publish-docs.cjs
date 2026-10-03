@@ -572,9 +572,9 @@ function createSymlink(folder, alias) {
     shell.cd('docsDist/versions');
 
     if (
-        shell.ln('-sf', `${folder}`, alias).code !== 0 &&
+        shell.ln('-sf', String(folder), alias).code !== 0 &&
         (shell.rm(alias).code !== 0 ||
-            shell.ln('-sf', `${folder}`, alias).code !== 0)
+            shell.ln('-sf', String(folder), alias).code !== 0)
     ) {
         shell.echo(`Creating symlink '${alias}' failed!`);
         shell.cd('../..');

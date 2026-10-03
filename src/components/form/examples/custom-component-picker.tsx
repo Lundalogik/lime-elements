@@ -11,7 +11,7 @@ import {
 })
 export class CustomPickerExample implements FormComponent<number> {
     /**
-     * {@inheritdoc}
+     * {@inheritdoc FormComponent.value}
      */
     @Prop({ reflect: true })
     public value: number;
@@ -41,7 +41,7 @@ export class CustomPickerExample implements FormComponent<number> {
     public disabled: boolean;
 
     /**
-     * {@inheritdoc}
+     * {@inheritdoc FormComponent.helperText}
      */
     @Prop({ reflect: true })
     public helperText?: string;

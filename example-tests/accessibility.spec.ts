@@ -40,6 +40,14 @@ const UPDATE_BASELINE = Boolean(process.env.UPDATE_AXE_BASELINE);
 
 type Baseline = Record<string, string[]>;
 
+const compareCodeUnits = (a: string, b: string): number => {
+    if (a < b) {
+        return -1;
+    }
+
+    return a > b ? 1 : 0;
+};
+
 const parseBaseline = (raw: string): Baseline => {
     try {
         return JSON.parse(raw) as Baseline;
@@ -48,7 +56,8 @@ const parseBaseline = (raw: string): Baseline => {
             `${BASELINE_PATH} is corrupt and could not be parsed ` +
                 `(${(error as Error).message}). Delete or repair the file ` +
                 `first; then, to bootstrap a fresh baseline, rerun with ` +
-                `UPDATE_AXE_BASELINE=1.`
+                `UPDATE_AXE_BASELINE=1.`,
+            { cause: error }
         );
     }
 };
@@ -78,7 +87,7 @@ const TAGS = [
                 .map((tag) => (tag.text as string).trim())
         )
     ),
-].sort();
+].sort(compareCodeUnits);
 
 // The `afterAll` writer below assumes it is the sole writer. `resolveWorkers()`
 // forces a single worker in update mode, but a `--workers` CLI override beats the
@@ -112,8 +121,8 @@ test.afterAll(async () => {
     // AND were already baselined. Fixed pairs drop out; new ones are never
     // added. With no baseline yet, bootstrap from the full observations.
     const result: Baseline = {};
-    for (const key of [...observed.keys()].sort()) {
-        const rules = [...(observed.get(key) ?? [])].sort();
+    for (const key of [...observed.keys()].sort(compareCodeUnits)) {
+        const rules = [...(observed.get(key) ?? [])].sort(compareCodeUnits);
         const kept = BASELINE_EXISTED
             ? rules.filter((rule) => (baseline[key] ?? []).includes(rule))
             : rules;
@@ -160,6 +169,7 @@ for (const tag of TAGS) {
         // this into a hard wait that would hang those examples.
         await page
             .waitForLoadState('networkidle', { timeout: 5000 })
+            // eslint-disable-next-line unicorn/prefer-await -- try/await would need an empty catch, which no-empty forbids
             .catch(() => undefined);
         await example.evaluate(
             () =>
@@ -188,7 +198,8 @@ for (const tag of TAGS) {
                     violations: Array<{ id: string; nodes: AxeNode[] }>;
                 }>;
             };
-            const axe = (window as Window & { axe: AxeRunner }).axe;
+            const axe = (globalThis as typeof globalThis & { axe: AxeRunner })
+                .axe;
 
             const root = exampleHost.shadowRoot ?? exampleHost;
             // No production component's tag starts with `limel-example-`; the
@@ -204,12 +215,13 @@ for (const tag of TAGS) {
             const include = [...root.children].filter(
                 (element) => !isScaffolding(element)
             );
-            const exclude = [...root.querySelectorAll('*')].filter(
-                isScaffolding
-            );
             if (include.length === 0) {
                 return [];
             }
+
+            const exclude = [...root.querySelectorAll('*')].filter(
+                isScaffolding
+            );
 
             // Attribute a violating node to its nearest enclosing `limel-*`
             // component, walking up through shadow roots; nodes that sit in the
@@ -229,6 +241,7 @@ for (const tag of TAGS) {
                     const rootNode: Node = element.getRootNode();
                     element =
                         element.parentElement ??
+                        // eslint-disable-next-line unicorn/isolated-functions -- runs in the browser, where ShadowRoot is a global
                         (rootNode instanceof ShadowRoot ? rootNode.host : null);
                 }
                 return null;
@@ -282,6 +295,7 @@ for (const tag of TAGS) {
                     observed.set(key, rules);
                 }
             }
+            // eslint-disable-next-line unicorn/no-top-level-assignment-in-function -- module-level counter read by afterAll
             scannedExamples++;
             return;
         }

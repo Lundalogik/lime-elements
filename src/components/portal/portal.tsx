@@ -204,11 +204,10 @@ export class Portal {
             portalSource: this.host,
         });
 
-        // eslint-disable-next-line unicorn/no-array-for-each
-        content.forEach((element: HTMLElement) => {
+        for (const element of content as HTMLElement[]) {
             this.parents.set(element, element.parentElement);
             this.container.append(element);
-        });
+        }
     }
 
     private attachContainer() {
@@ -220,15 +219,14 @@ export class Portal {
             return;
         }
 
-        // eslint-disable-next-line unicorn/no-array-for-each
-        [...this.container.children].forEach((element: HTMLElement) => {
+        for (const element of [...this.container.children] as HTMLElement[]) {
             const parent = this.parents.get(element);
             if (!parent) {
-                return;
+                continue;
             }
 
             parent.append(element);
-        });
+        }
 
         this.container.remove();
     }

@@ -448,6 +448,7 @@ describe('List Commands', () => {
                 )
             );
 
+        // eslint-disable-next-line unicorn/no-unnecessary-parameters -- caret position belongs to each test's document
         const placeCaret = (pos: number) => {
             state = state.apply(
                 state.tr.setSelection(TextSelection.create(state.doc, pos))
