@@ -511,7 +511,12 @@ export class Pagination {
         this.openGap = Number(index);
     };
 
-    private readonly closeJump = () => {
+    private readonly closeJump = (event: CustomEvent) => {
+        // `close` bubbles and composes, so without this it reaches our own
+        // consumers retargeted as `limel-pagination`'s own event — and takes
+        // down a `limel-dialog` the control sits in.
+        event.stopPropagation();
+
         this.openGap = undefined;
     };
 

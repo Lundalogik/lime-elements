@@ -1,7 +1,18 @@
-#tabulator-container,
-#tabulator-table {
+#tabulator-container {
     height: 100%;
     width: 100%;
+
+    // The table and the pagination are siblings, so the pagination sits
+    // wherever it is put rather than being reached for inside Tabulator's own
+    // footer.
+    display: flex;
+    flex-direction: column;
+}
+
+#tabulator-table {
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
 }
 
 .tabulator {
