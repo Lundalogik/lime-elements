@@ -44,8 +44,18 @@ describe('limel-pagination, jumping to a page', () => {
         await waitForChanges();
 
         gaps(root)[index]?.click();
-        await waitForChanges();
-        await waitForChanges();
+
+        // The popover moves the field out of `root`, so `waitForChanges` does
+        // not wait for it to load. Until it has, it can still reset what is
+        // typed into it, or take the keyboard from wherever a test put it.
+        // Taking the keyboard is the last thing opening does.
+        await vi.waitFor(() => {
+            const input = fieldInput();
+            expect(input).toBeTruthy();
+            expect((input.getRootNode() as ShadowRoot).activeElement).toBe(
+                input
+            );
+        });
 
         return { root, waitForChanges, pages };
     }
@@ -58,6 +68,10 @@ describe('limel-pagination, jumping to a page', () => {
         document
             .querySelector('limel-popover-surface')
             ?.shadowRoot?.querySelector('limel-pagination-jump');
+    const fieldInput = (): HTMLInputElement =>
+        jumpField()
+            ?.shadowRoot?.querySelector('limel-input-field')
+            ?.shadowRoot?.querySelector('input');
     const askFor = (page: number) => {
         jumpField()?.dispatchEvent(new CustomEvent('jump', { detail: page }));
     };
@@ -82,9 +96,7 @@ describe('limel-pagination, jumping to a page', () => {
         // another shadow root — the seam this feature actually rests on.
         const { pages, waitForChanges } = await open();
 
-        const input = jumpField()
-            ?.shadowRoot?.querySelector('limel-input-field')
-            ?.shadowRoot?.querySelector('input');
+        const input = fieldInput();
         input.value = '300';
         input.dispatchEvent(new Event('input', { bubbles: true }));
         await waitForChanges();
