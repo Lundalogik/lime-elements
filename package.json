@@ -61,7 +61,7 @@
     "@rjsf/core": "^6.11.0",
     "@rjsf/utils": "^6.11.0",
     "@rjsf/validator-ajv8": "^6.11.0",
-    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "@stencil/core": "^4.43.5",
     "@stencil/sass": "^3.3.3",
     "@stencil/vitest": "^1.15.1",
