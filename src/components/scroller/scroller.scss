@@ -1,0 +1,235 @@
+@use '../../style/mixins';
+
+/**
+ * @prop --limel-scroller-fade-color: The color, as an RGB triplet, that the edges fade into. It should match the background that the scroller is placed on. Defaults to `--contrast-100`.
+ * @prop --limel-scroller-content-padding: Padding around the content. It scrolls together with the content. Defaults to `0`.
+ */
+
+$fade-size: 4rem;
+$button-size: 1.25rem;
+$space-around-buttons: 0.25rem;
+$peek-size: 2.25rem;
+
+@mixin fade($direction) {
+    background: linear-gradient(
+        $direction,
+        rgba(var(--limel-scroller-fade-color, var(--contrast-100)), 0) 0%,
+        rgba(var(--limel-scroller-fade-color, var(--contrast-100)), 0.8) 40%,
+        rgba(var(--limel-scroller-fade-color, var(--contrast-100)), 0.8) 100%
+    );
+}
+
+:host(limel-scroller) {
+    display: block;
+}
+
+div.scroller {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+div.scroll-area {
+    display: flex;
+    height: 100%;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+div.scroll-content {
+    display: flex;
+    flex: 1 0 auto;
+    position: relative;
+    isolation: isolate;
+    padding: var(--limel-scroller-content-padding, 0);
+}
+
+::slotted(*) {
+    flex-shrink: 0;
+}
+
+div.scroll-fade,
+div.scroll-button {
+    position: absolute;
+    transition: transform 0.3s ease-out;
+}
+
+div.scroll-fade {
+    pointer-events: none;
+}
+
+div.scroll-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    div.arrow-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.25rem;
+        color: var(--limel-theme-on-surface-color);
+    }
+
+    svg.arrow {
+        width: 1rem;
+        height: 1rem;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+}
+
+div.scroller.horizontal {
+    div.scroll-area {
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    ::slotted(*) {
+        scroll-margin-inline: $peek-size;
+    }
+
+    div.scroll-fade {
+        top: 0;
+        width: $fade-size;
+        height: 100%;
+
+        &.start {
+            left: 0;
+            transform: translate3d(-$fade-size, 0, 0);
+            @include fade(270deg);
+        }
+
+        &.end {
+            right: 0;
+            transform: translate3d($fade-size, 0, 0);
+            @include fade(90deg);
+        }
+    }
+
+    div.scroll-button {
+        top: 0;
+        bottom: 0;
+
+        &.start {
+            left: $space-around-buttons;
+            transform: translate3d(-$fade-size, 0, 0);
+
+            svg.arrow {
+                transform: rotate(180deg);
+            }
+        }
+
+        &.end {
+            right: $space-around-buttons;
+            transform: translate3d($fade-size, 0, 0);
+        }
+
+        div.arrow-button {
+            width: $button-size;
+            height: calc(100% - #{$space-around-buttons * 2});
+        }
+    }
+}
+
+div.scroller.vertical {
+    div.scroll-area {
+        flex-direction: column;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    div.scroll-content {
+        flex-direction: column;
+    }
+
+    ::slotted(*) {
+        scroll-margin-block: $peek-size;
+    }
+
+    div.scroll-fade {
+        left: 0;
+        width: 100%;
+        height: $fade-size;
+
+        &.start {
+            top: 0;
+            transform: translate3d(0, -$fade-size, 0);
+            @include fade(0deg);
+        }
+
+        &.end {
+            bottom: 0;
+            transform: translate3d(0, $fade-size, 0);
+            @include fade(180deg);
+        }
+    }
+
+    div.scroll-button {
+        left: 0;
+        right: 0;
+
+        &.start {
+            top: $space-around-buttons;
+            transform: translate3d(0, -$fade-size, 0);
+
+            svg.arrow {
+                transform: rotate(-90deg);
+            }
+        }
+
+        &.end {
+            bottom: $space-around-buttons;
+            transform: translate3d(0, $fade-size, 0);
+
+            svg.arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        div.arrow-button {
+            height: $button-size;
+            width: calc(100% - #{$space-around-buttons * 2});
+        }
+    }
+}
+
+div.scroller.can-scroll-to-start {
+    div.scroll-fade.start,
+    div.scroll-button.start {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+div.scroller.can-scroll-to-end {
+    div.scroll-fade.end,
+    div.scroll-button.end {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+div.scroller.can-scroll-to-start:not(.can-scroll-to-end) div.scroll-button.end,
+div.scroller.can-scroll-to-end:not(.can-scroll-to-start)
+    div.scroll-button.start {
+    opacity: 0.5;
+    transition-delay: 0.5s;
+}
+
+// An arrow that there is nothing left to scroll to with is flat, like a
+// disabled button, and stays where the pointer is. If it slid away from under
+// the pointer, a second click would land on the item that was behind it.
+div.scroller.can-scroll-to-start div.scroll-button.start div.arrow-button,
+div.scroller.can-scroll-to-end div.scroll-button.end div.arrow-button {
+    @include mixins.is-elevated-clickable;
+}
+
+div.scroller div.scroll-button.start:hover,
+div.scroller div.scroll-button.end:hover {
+    transform: translate3d(0, 0, 0);
+}
