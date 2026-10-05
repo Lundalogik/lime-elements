@@ -28,6 +28,9 @@ export default {
     'date-picker.month.heading': 'Mois',
     'date-picker.quarter.heading': 'Trimestre',
     'date-picker.year.heading': 'Année',
+    'date-picker.invalid-format': 'Saisissez une date valide ({ example })',
+    'date-picker.invalid-time-format':
+        'Saisissez une heure valide ({ example })',
     'drag-handle.drag-handle': 'Poignée de déplacement',
     'drag-handle.drag-to-reorder': 'Glissez pour réorganiser',
     'resize-handle.resize': 'Redimensionner { region }',

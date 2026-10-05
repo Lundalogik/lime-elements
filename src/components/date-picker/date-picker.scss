@@ -1,3 +1,5 @@
+@use '../../style/mixins';
+
 // Note! The `--dropdown-z-index` property is used from `date-picker.tsx`.
 /**
  * @prop --dropdown-z-index: z-index of the dropdown menu.
@@ -10,4 +12,8 @@
 limel-input-field[disabled],
 limel-input-field[readonly] {
     pointer-events: none;
+}
+
+.error-message {
+    @include mixins.visually-hidden;
 }

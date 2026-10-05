@@ -77,6 +77,10 @@ export class QuarterPicker extends Picker {
 
     protected async handleClose(selectedDates) {
         await super.handleClose(selectedDates);
+        this.redrawSelection();
+    }
+
+    protected redrawSelection() {
         this.selectQuarter(
             this.flatpickr.selectedDates,
             this.flatpickr.input.value,
