@@ -15,7 +15,13 @@ import { getPrimarySubtag } from '../../../util/language';
 const ARIA_DATE_FORMAT = 'F j, Y';
 
 export abstract class Picker {
-    public formatter = (date: Date) =>
+    /**
+     * Formats a date the way Flatpickr displays it. Not settable from
+     * outside: a consumer's `formatter` is only for `limel-date-picker`'s
+     * at-rest display, while this must follow `dateFormat`.
+     * @param date - the date to format
+     */
+    private formatter = (date: Date) =>
         moment(date).locale(this.getMomentLang()).format(this.dateFormat);
 
     protected dateFormat: string;
@@ -24,9 +30,16 @@ export abstract class Picker {
     protected flatpickr: flatpickr.Instance;
     protected nativePicker: boolean;
 
+    /**
+     * The element to focus when the calendar closes. Flatpickr is bound to
+     * a hidden proxy input, so its own focus restore never reaches the
+     * field the user actually interacts with.
+     */
+    private focusTarget: HTMLElement;
+
     public constructor(
         language: string,
-        protected change: EventEmitter<Date>,
+        protected change: EventEmitter<Date | null>,
         dateFormat: string
     ) {
         this.language = language;
@@ -42,7 +55,32 @@ export abstract class Picker {
         this.getFlatpickrLang = this.getFlatpickrLang.bind(this);
     }
 
-    public init(element: HTMLElement, container: HTMLElement, value?: Date) {
+    /**
+     * Keeps the format Flatpickr displays dates in up to date when the
+     * `format` prop changes after the calendar has been created.
+     * @param dateFormat - the moment format string to display dates in
+     */
+    public setDateFormat(dateFormat: string) {
+        if (dateFormat) {
+            this.dateFormat = dateFormat;
+        }
+    }
+
+    /**
+     * @param element - the input Flatpickr binds to. Typed text is parsed
+     * by `limel-date-picker`, not Flatpickr, so this is a hidden proxy.
+     * @param container - where the inline calendar is rendered
+     * @param value - the initially selected date
+     * @param focusTarget - the element to focus when the calendar closes
+     */
+    public init(
+        element: HTMLElement,
+        container: HTMLElement,
+        value?: Date,
+        focusTarget?: HTMLElement
+    ) {
+        this.focusTarget = focusTarget ?? element;
+
         const config: flatpickr.Options.Options = {
             clickOpens: this.nativePicker,
             disableMobile: !this.nativePicker,
@@ -68,7 +106,29 @@ export abstract class Picker {
     }
 
     public setValue(value: Date) {
-        this.flatpickr?.setDate(value, false);
+        const currentlySelected = this.flatpickr?.selectedDates[0];
+        const isUnchanged = currentlySelected
+            ? value?.getTime() === currentlySelected.getTime()
+            : !value;
+
+        if (!this.flatpickr || isUnchanged) {
+            // This runs on every re-render while the calendar is closed;
+            // skip the redraw when the selected date already matches.
+            return;
+        }
+
+        this.flatpickr.setDate(value, false);
+        this.redrawSelection();
+    }
+
+    /**
+     * Re-paints the selection after `setValue`. Setting the date silently
+     * (without `triggerChange`, which would emit it as a `change`) redraws
+     * Flatpickr's own day grid but fires none of its hooks, so a picker
+     * that paints its selection from those hooks must do so here.
+     */
+    protected redrawSelection(): void {
+        // The default day grid is redrawn by Flatpickr itself.
     }
 
     public redraw() {
@@ -103,7 +163,6 @@ export abstract class Picker {
         if (language === 'nb') {
             return 'no';
         }
-
         return language;
     }
 
@@ -143,6 +202,6 @@ export abstract class Picker {
     }
 
     private handleOnClose() {
-        this.flatpickr?.element.focus();
+        this.focusTarget?.focus();
     }
 }

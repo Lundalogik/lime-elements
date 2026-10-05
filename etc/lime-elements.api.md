@@ -493,11 +493,10 @@ export namespace Components {
     // @internal
     export interface LimelFlatpickrAdapter {
         "format": string;
-        // (undocumented)
-        "formatter": (date: Date) => string;
         "inputElement": HTMLElement;
         "isOpen": boolean;
         "language": Languages;
+        "previewValue"?: Date;
         "type": DateType;
         "value": Date;
     }
@@ -2289,7 +2288,7 @@ export namespace JSX {
         "invalid"?: boolean;
         "label"?: string;
         "language"?: Languages;
-        "onChange"?: (event: LimelDatePickerCustomEvent<Date>) => void;
+        "onChange"?: (event: LimelDatePickerCustomEvent<Date | null>) => void;
         "placeholder"?: string;
         "readonly"?: boolean;
         "required"?: boolean;
@@ -2547,12 +2546,11 @@ export namespace JSX {
     // @internal
     export interface LimelFlatpickrAdapter {
         "format"?: string;
-        // (undocumented)
-        "formatter": (date: Date) => string;
         "inputElement"?: HTMLElement;
         "isOpen"?: boolean;
         "language"?: Languages;
-        "onChange"?: (event: LimelFlatpickrAdapterCustomEvent<Date>) => void;
+        "onChange"?: (event: LimelFlatpickrAdapterCustomEvent<Date | null>) => void;
+        "previewValue"?: Date;
         "type"?: DateType;
         "value"?: Date;
     }
