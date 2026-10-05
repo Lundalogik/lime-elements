@@ -1,7 +1,9 @@
 const shell = require('shelljs');
 const fs = require('node:fs');
 const path = require('node:path');
-const argv = require('yargs').argv;
+const yargs = require('yargs');
+const { hideBin } = require('yargs/helpers');
+const argv = yargs(hideBin(process.argv)).argv;
 
 const OUTPUT_DIR = 'www/markdown-docs';
 const GUIDES_DIR = `${OUTPUT_DIR}/guides`;

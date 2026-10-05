@@ -1,7 +1,9 @@
 const shell = require('shelljs');
 const fs = require('node:fs');
 const { replaceInFileSync } = require('replace-in-file');
-const argv = require('yargs').argv;
+const yargs = require('yargs');
+const { hideBin } = require('yargs/helpers');
+const argv = yargs(hideBin(process.argv)).argv;
 const { assertValidDocsVersion } = require('./validate-version-inputs.cjs');
 
 const version = argv.v || '0.0.0-dev';
