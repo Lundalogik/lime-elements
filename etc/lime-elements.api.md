@@ -827,6 +827,11 @@ export namespace Components {
         "maxLinesSecondaryText": number;
         "selectedItem"?: ListItem<string | number>;
     }
+    // @internal
+    export interface LimelScroller {
+        "orientation": 'horizontal' | 'vertical';
+        "reveal": (item: HTMLElement, behavior?: ScrollBehavior) => Promise<void>;
+    }
     export interface LimelSelect {
         "disabled": boolean;
         "helperText": string;
@@ -1592,6 +1597,10 @@ export namespace JSX {
         //
         // (undocumented)
         "limel-radio-button-group": Omit<LimelRadioButtonGroup, keyof LimelRadioButtonGroupAttributes> & { [K in keyof LimelRadioButtonGroup & keyof LimelRadioButtonGroupAttributes]?: LimelRadioButtonGroup[K] } & { [K in keyof LimelRadioButtonGroup & keyof LimelRadioButtonGroupAttributes as `attr:${K}`]?: LimelRadioButtonGroupAttributes[K] } & { [K in keyof LimelRadioButtonGroup & keyof LimelRadioButtonGroupAttributes as `prop:${K}`]?: LimelRadioButtonGroup[K] };
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-scroller"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
+        // (undocumented)
+        "limel-scroller": Omit<LimelScroller, keyof LimelScrollerAttributes> & { [K in keyof LimelScroller & keyof LimelScrollerAttributes]?: LimelScroller[K] } & { [K in keyof LimelScroller & keyof LimelScrollerAttributes as `attr:${K}`]?: LimelScrollerAttributes[K] } & { [K in keyof LimelScroller & keyof LimelScrollerAttributes as `prop:${K}`]?: LimelScroller[K] };
         // (undocumented)
         "limel-select": Omit<LimelSelect, keyof LimelSelectAttributes> & { [K in keyof LimelSelect & keyof LimelSelectAttributes]?: LimelSelect[K] } & { [K in keyof LimelSelect & keyof LimelSelectAttributes as `attr:${K}`]?: LimelSelectAttributes[K] } & { [K in keyof LimelSelect & keyof LimelSelectAttributes as `prop:${K}`]?: LimelSelect[K] };
         // (undocumented)
@@ -3431,6 +3440,17 @@ export namespace JSX {
         "disabled": boolean;
         // (undocumented)
         "maxLinesSecondaryText": number;
+    }
+
+    // @internal
+    export interface LimelScroller {
+        "orientation"?: 'horizontal' | 'vertical';
+    }
+
+    // (undocumented)
+    export interface LimelScrollerAttributes {
+        // (undocumented)
+        "orientation": 'horizontal' | 'vertical';
     }
 
     export interface LimelSelect {

@@ -1,0 +1,24 @@
+@use '../../../style/mixins';
+
+:host(limel-example-scroller-vertical) {
+    @include mixins.is-resizable(
+        $direction: vertical,
+        $min-width: 10rem,
+        $width: 14rem,
+        $min-height: 10rem,
+        $height: 16rem
+    );
+    display: block;
+}
+
+limel-scroller {
+    --limel-scroller-fade-color: var(--contrast-300);
+    --limel-scroller-content-padding: 0.5rem;
+
+    height: 100%;
+    background-color: rgb(var(--contrast-300));
+}
+
+limel-button {
+    margin-block-end: 0.25rem;
+}
