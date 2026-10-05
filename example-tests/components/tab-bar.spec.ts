@@ -11,7 +11,7 @@ import { test, expect, type Locator, type Page } from '@playwright/test';
 //   2. the dynamic-width and equal-width examples have three tabs (Cats, Dogs,
 //      Birds);
 //   3. the scroll buttons are hidden from assistive technology, so they are
-//      located by the icon they contain.
+//      located by where the scroller puts them.
 
 const BASIC = 'limel-example-tab-bar-basic';
 const DYNAMIC_WIDTH = 'limel-example-tab-bar-with-dynamic-tab-width';
@@ -37,20 +37,43 @@ const VIEWPORT = { width: 520, height: 480 };
 test.use({ viewport: VIEWPORT });
 
 type Span = { x: number; width: number };
-
-const SCROLL_BUTTON_ICONS = { start: 'angle_left', end: 'angle_right' };
+type Direction = 'start' | 'end';
 
 const tabBar = (page: Page) => page.locator('limel-tab-bar');
 const tabs = (page: Page) => tabBar(page).getByRole('tab');
 const tab = (page: Page, name: string) =>
     tabBar(page).getByRole('tab', { name: new RegExp(`^${name}`) });
-const scrollButton = (
-    page: Page,
-    direction: keyof typeof SCROLL_BUTTON_ICONS
-) =>
-    tabBar(page).locator(
-        `button:has(limel-icon[name="${SCROLL_BUTTON_ICONS[direction]}"])`
-    );
+const scrollButton = (page: Page, direction: Direction) =>
+    tabBar(page).locator(`div.scroll-button.${direction} div.arrow-button`);
+
+// An arrow cannot be disabled, so whether it is of any use is up to the
+// scroller, which marks the directions that there is more to scroll to.
+const canScroll = (page: Page, direction: Direction) =>
+    tabBar(page)
+        .locator('div.scroller')
+        .evaluate(
+            (element, side) =>
+                element.classList.contains(`can-scroll-to-${side}`),
+            direction
+        );
+
+const expectCanScroll = (page: Page, direction: Direction, expected: boolean) =>
+    expect
+        .poll(() => canScroll(page, direction), {
+            message: `Expected the tab bar to ${expected ? '' : 'not '}offer scrolling towards the ${direction}`,
+        })
+        .toBe(expected);
+
+// At an edge, an arrow dims and slides away after a delay. Once all of its
+// transitions are over, it is where it is going to stay.
+const settledEndArrow = (page: Page) =>
+    tabBar(page)
+        .locator('div.scroll-button.end')
+        .evaluate(async (arrow) => {
+            await Promise.all(
+                arrow.getAnimations().map((animation) => animation.finished)
+            );
+        });
 
 // Stencil flags a component as `hydrated` right before it runs
 // `componentDidLoad`, where the tab bar starts listening. A click before then
@@ -122,9 +145,9 @@ const scrollByClicking = async (page: Page, button: Locator) => {
 
 const scrollToTheEnd = async (page: Page) => {
     const next = scrollButton(page, 'end');
-    await expect(next).toBeEnabled();
+    await expectCanScroll(page, 'end', true);
 
-    while (await next.isEnabled()) {
+    while (await canScroll(page, 'end')) {
         await scrollByClicking(page, next);
     }
 };
@@ -137,6 +160,13 @@ const expectActive = async (page: Page, name: string) => {
     await expect(page.locator('limel-example-value')).toContainText(name);
 };
 
+const expectEntirelyIn = (box: Span, bar: Span, name: string) => {
+    expect(box.x, `left edge of ${name}`).toBeGreaterThanOrEqual(bar.x - 1);
+    expect(box.x + box.width, `right edge of ${name}`).toBeLessThanOrEqual(
+        bar.x + bar.width + 1
+    );
+};
+
 // Waits for the scrolling to stop, and expects the tab to be entirely in view,
 // with the neighbour that lies in the direction of travel peeking in.
 const expectRevealed = async (page: Page, index: number, neighbour: number) => {
@@ -146,10 +176,7 @@ const expectRevealed = async (page: Page, index: number, neighbour: number) => {
     const bar = await boxOf(tabBar(page));
     const box = await boxOf(current);
     const name = BASIC_TABS[index];
-    expect(box.x, `left edge of ${name}`).toBeGreaterThanOrEqual(bar.x - 1);
-    expect(box.x + box.width, `right edge of ${name}`).toBeLessThanOrEqual(
-        bar.x + bar.width + 1
-    );
+    expectEntirelyIn(box, bar, name);
 
     if (neighbour < 0 || neighbour >= BASIC_TABS.length) {
         return;
@@ -255,16 +282,17 @@ test.describe('limel-tab-bar', () => {
         test('offers to scroll only towards what is hidden', async ({
             page,
         }) => {
-            // The arrows start out disabled, so the end goes first: once it is
-            // enabled, the bar has worked out which way there is more to see.
-            await expect(scrollButton(page, 'end')).toBeEnabled();
-            await expect(scrollButton(page, 'start')).toBeDisabled();
+            // Nothing is marked before the bar has worked out which way there is
+            // more to see, so the end goes first: once it is marked, the start
+            // not being marked means something.
+            await expectCanScroll(page, 'end', true);
+            await expectCanScroll(page, 'start', false);
         });
 
         test('scrolls nearly a page, keeping the tail of the previous page in view', async ({
             page,
         }) => {
-            await expect(scrollButton(page, 'end')).toBeEnabled();
+            await expectCanScroll(page, 'end', true);
             const bar = await boxOf(tabBar(page));
             const tabsBefore = await boxesOf(tabs(page));
             const tail = tabsWithin(tabsBefore, {
@@ -336,8 +364,8 @@ test.describe('limel-tab-bar', () => {
                 overlap(last, bar),
                 'how much of the last tab is in view'
             ).toBeGreaterThan(last.width / 2);
-            await expect(scrollButton(page, 'start')).toBeEnabled();
-            await expect(scrollButton(page, 'end')).toBeDisabled();
+            await expectCanScroll(page, 'start', true);
+            await expectCanScroll(page, 'end', false);
         });
 
         test('gets back to the first tab, and from there only offers to scroll forward', async ({
@@ -345,9 +373,9 @@ test.describe('limel-tab-bar', () => {
         }) => {
             await scrollToTheEnd(page);
             const previous = scrollButton(page, 'start');
-            await expect(previous).toBeEnabled();
+            await expectCanScroll(page, 'start', true);
 
-            while (await previous.isEnabled()) {
+            while (await canScroll(page, 'start')) {
                 await scrollByClicking(page, previous);
             }
 
@@ -357,8 +385,108 @@ test.describe('limel-tab-bar', () => {
                 overlap(first, bar),
                 'how much of the first tab is in view'
             ).toBeGreaterThan(first.width / 2);
-            await expect(scrollButton(page, 'end')).toBeEnabled();
-            await expect(previous).toBeDisabled();
+            await expectCanScroll(page, 'end', true);
+            await expectCanScroll(page, 'start', false);
+        });
+
+        test('follows the size of the bar, not only of the window', async ({
+            page,
+        }) => {
+            await expectCanScroll(page, 'end', true);
+
+            await tabBar(page).evaluate((bar) => {
+                bar.style.width = '120rem';
+            });
+            await expectCanScroll(page, 'end', false);
+
+            await tabBar(page).evaluate((bar) => {
+                bar.style.width = '';
+            });
+            await expectCanScroll(page, 'end', true);
+        });
+
+        test('reveals the active tab of a bar that renders with it far away', async ({
+            page,
+        }) => {
+            await tabBar(page).evaluate((bar) => {
+                const host = bar.ownerDocument.createElement('div');
+                host.style.cssText =
+                    'position: fixed; top: 12rem; left: 1rem; width: 22rem';
+                const fresh = bar.ownerDocument.createElement('limel-tab-bar');
+                fresh.id = 'fresh';
+                (fresh as unknown as { tabs: unknown }).tabs = Array.from(
+                    { length: 10 },
+                    (_, index) => ({
+                        id: index,
+                        text: `Tab number ${index + 1}`,
+                        active: index === 8,
+                    })
+                );
+                host.append(fresh);
+                bar.ownerDocument.body.append(host);
+            });
+            const fresh = page.locator('limel-tab-bar#fresh');
+            await expect(fresh).toHaveClass(/hydrated/);
+            const active = fresh.getByRole('tab', { selected: true });
+
+            await settled(active);
+
+            expectEntirelyIn(
+                await boxOf(active),
+                await boxOf(fresh),
+                'the active tab'
+            );
+        });
+
+        test('reveals the active tab when it is set through `tabs`', async ({
+            page,
+        }) => {
+            await tabBar(page).evaluate((bar) => {
+                const element = bar as unknown as {
+                    tabs: Array<{ active?: boolean }>;
+                };
+                element.tabs = element.tabs.map((tab, index, all) => ({
+                    ...tab,
+                    active: index === all.length - 1,
+                }));
+            });
+            const last = tab(page, 'Inception');
+            await expect(last).toHaveAttribute('aria-selected', 'true');
+
+            await settled(last);
+
+            expectEntirelyIn(
+                await boxOf(last),
+                await boxOf(tabBar(page)),
+                'Inception'
+            );
+        });
+
+        test('does not activate the last tab, when the arrow that scrolled to it is clicked again', async ({
+            page,
+        }) => {
+            await expectCanScroll(page, 'end', true);
+            await settledEndArrow(page);
+            const arrow = await boxOf(scrollButton(page, 'end'));
+
+            await scrollToTheEnd(page);
+            await settledEndArrow(page);
+
+            // The pointer is still on the arrow. Where the arrow overlaps the last
+            // tab is where a click lands, if the arrow has slid away.
+            await page.mouse.click(
+                arrow.x + arrow.width / 4,
+                arrow.y + arrow.height / 2
+            );
+
+            await expect(tab(page, 'Joker')).toHaveAttribute(
+                'aria-selected',
+                'true'
+            );
+            await expect(tab(page, 'Inception')).toHaveAttribute(
+                'aria-selected',
+                'false'
+            );
         });
 
         test('scrolls by hand, with a wheel, trackpad or swipe, and the buttons follow', async ({
@@ -377,7 +505,7 @@ test.describe('limel-tab-bar', () => {
                 })
                 .toBeLessThan(before - 100);
             await settled(first);
-            await expect(scrollButton(page, 'start')).toBeEnabled();
+            await expectCanScroll(page, 'start', true);
 
             await page.mouse.wheel(-300, 0);
 
@@ -387,7 +515,7 @@ test.describe('limel-tab-bar', () => {
                         'where the first tab ended up after the wheel back',
                 })
                 .toBeCloseTo(before, 0);
-            await expect(scrollButton(page, 'start')).toBeDisabled();
+            await expectCanScroll(page, 'start', false);
         });
 
         test('keeps the active tab in view, with a glimpse of the next one', async ({
@@ -452,20 +580,56 @@ test.describe('limel-tab-bar', () => {
         });
     });
 
+    test.describe('for assistive technologies and the keyboard', () => {
+        test.beforeEach(async ({ page }) => {
+            await open(page, BASIC);
+        });
+
+        test('hides the scroll arrows from screen readers, and leaves nothing in them to focus', async ({
+            page,
+        }) => {
+            const arrows = tabBar(page).locator('div.scroll-button');
+
+            await expect(arrows).toHaveCount(2);
+            const all = await arrows.all();
+            for (const arrow of all) {
+                await expect(arrow).toHaveAttribute('aria-hidden', 'true');
+                await expect(
+                    arrow.locator(
+                        'button, a[href], input, select, textarea, [tabindex], [role]'
+                    )
+                ).toHaveCount(0);
+            }
+        });
+
+        test('keeps the focus on the active tab, when a scroll arrow is clicked', async ({
+            page,
+        }) => {
+            await tab(page, 'Harriet').click();
+            await expect(tab(page, 'Harriet')).toBeFocused();
+            await expectCanScroll(page, 'end', true);
+
+            await scrollByClicking(page, scrollButton(page, 'end'));
+
+            await expect(tab(page, 'Harriet')).toBeFocused();
+        });
+    });
+
     test.describe('when the tabs fit', () => {
         test('offers no scrolling', async ({ page }) => {
             await open(page, DYNAMIC_WIDTH);
             await expect(tab(page, 'Cats')).toBeVisible();
 
-            // The arrows start out disabled, so they look the same on a bar that
-            // has not worked them out yet. Making the tabs stop fitting, and then
-            // fit again, shows that the bar has, and that it follows the window.
+            // Nothing is marked on a bar that has not worked out what there is
+            // to scroll to, so it looks the same as a bar that fits. Making the
+            // tabs stop fitting, and then fit again, shows that the bar has, and
+            // that it follows the window.
             await page.setViewportSize({ ...VIEWPORT, width: 240 });
-            await expect(scrollButton(page, 'end')).toBeEnabled();
+            await expectCanScroll(page, 'end', true);
 
             await page.setViewportSize(VIEWPORT);
-            await expect(scrollButton(page, 'start')).toBeDisabled();
-            await expect(scrollButton(page, 'end')).toBeDisabled();
+            await expectCanScroll(page, 'start', false);
+            await expectCanScroll(page, 'end', false);
         });
     });
 
@@ -491,7 +655,7 @@ test.describe('limel-tab-bar', () => {
 
         test('overflowing, at the start', async ({ page }) => {
             await open(page, BASIC);
-            await expect(scrollButton(page, 'end')).toBeEnabled();
+            await expectCanScroll(page, 'end', true);
 
             await expect(tabBar(page)).toHaveScreenshot(
                 'tab-bar-overflowing-start.png'
@@ -521,7 +685,7 @@ test.describe('limel-tab-bar', () => {
         test('hovering a scroll button', async ({ page }) => {
             await open(page, BASIC);
             const next = scrollButton(page, 'end');
-            await expect(next).toBeEnabled();
+            await expectCanScroll(page, 'end', true);
             await next.hover();
 
             await expect(tabBar(page)).toHaveScreenshot(

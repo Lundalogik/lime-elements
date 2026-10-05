@@ -1,6 +1,4 @@
-@forward './partial-styles/tab-bar-scroller';
 @use '@material/tab-bar/mdc-tab-bar';
-@use '@material/tab-scroller/mdc-tab-scroller';
 @use '@material/tab-indicator/mdc-tab-indicator';
 @use '@material/tab/mdc-tab';
 
@@ -17,6 +15,14 @@
     isolation: isolate;
     display: block;
     position: relative;
+}
+
+limel-scroller {
+    --limel-scroller-fade-color: var(--limel-tab-background-color);
+    --limel-scroller-content-padding: 0.25rem
+        var(--limel-tab-active-outer-edge-curve-size) 0;
+
+    background-color: rgb(var(--limel-tab-background-color));
 }
 
 :host(.has-tabs-with-equal-width) {
