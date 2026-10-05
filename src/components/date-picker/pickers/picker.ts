@@ -15,7 +15,7 @@ import { getPrimarySubtag } from '../../../util/language';
 const ARIA_DATE_FORMAT = 'F j, Y';
 
 export abstract class Picker {
-    public formatter = (date: Date) =>
+    private formatter = (date: Date) =>
         moment(date).locale(this.getMomentLang()).format(this.dateFormat);
 
     protected dateFormat: string;
@@ -68,7 +68,53 @@ export abstract class Picker {
     }
 
     public setValue(value: Date) {
-        this.flatpickr?.setDate(value, false);
+        const currentlySelected = this.flatpickr?.selectedDates[0];
+        const isUnchanged = currentlySelected
+            ? value?.getTime() === currentlySelected.getTime()
+            : !value;
+
+        if (!this.flatpickr || isUnchanged) {
+            // Runs on every re-render, so skip an unchanged date.
+            return;
+        }
+
+        this.flatpickr.setDate(value, false);
+        this.redrawSelection();
+    }
+
+    /**
+     * A silent `setDate` fires no Flatpickr hooks, so a picker that marks
+     * its selection from hooks does it here instead.
+     */
+    protected redrawSelection(): void {
+        // The default day grid is redrawn by Flatpickr itself.
+    }
+
+    // Flatpickr only does this on key presses in the input it is bound to.
+    public focusDay(): boolean {
+        const day = this.getDayToFocus();
+        day?.focus();
+
+        return !!day;
+    }
+
+    // The same order Flatpickr uses.
+    private getDayToFocus(): HTMLElement | undefined {
+        const days = this.flatpickr?.daysContainer;
+        if (!days) {
+            return;
+        }
+
+        const isVisible = (day?: HTMLElement) =>
+            day?.isConnected && days.contains(day);
+
+        return [
+            this.flatpickr.selectedDateElem,
+            this.flatpickr.todayDateElem,
+            days.querySelector<HTMLElement>(
+                '.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)'
+            ),
+        ].find(isVisible);
     }
 
     public redraw() {
@@ -103,7 +149,6 @@ export abstract class Picker {
         if (language === 'nb') {
             return 'no';
         }
-
         return language;
     }
 

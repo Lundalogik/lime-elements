@@ -1,4 +1,13 @@
-import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
+import {
+    Component,
+    Event,
+    EventEmitter,
+    h,
+    Host,
+    Method,
+    Prop,
+    Watch,
+} from '@stencil/core';
 import { DateType, Languages } from '../../date-picker/date.types';
 import translate from '../../../global/translations';
 import { DatePicker as DateOnlyPicker } from '../pickers/date-picker';
@@ -31,6 +40,12 @@ export class DatePickerCalendar {
     public value: Date;
 
     /**
+     * Shown as selected instead of `value` while set.
+     */
+    @Prop()
+    public previewValue?: Date;
+
+    /**
      * Type of date picker.
      */
     @Prop()
@@ -49,7 +64,7 @@ export class DatePickerCalendar {
     public isOpen: boolean;
 
     /**
-     * The native input element to use with flatpickr.
+     * The input the user types into. Setting it creates the calendar.
      */
     @Prop()
     public inputElement: HTMLElement;
@@ -60,9 +75,6 @@ export class DatePickerCalendar {
      */
     @Prop()
     public language: Languages = 'en';
-
-    @Prop()
-    public formatter!: (date: Date) => string;
 
     /**
      * Emitted when the date picker value is changed.
@@ -75,6 +87,7 @@ export class DatePickerCalendar {
     private deferredDestroy = new DeferredDestroy();
 
     private container: HTMLElement;
+    private proxyInput: HTMLInputElement;
 
     public componentWillLoad() {
         switch (this.type) {
@@ -143,10 +156,16 @@ export class DatePickerCalendar {
                 break;
             }
         }
+    }
 
-        if (this.formatter) {
-            this.picker.formatter = this.formatter;
+    // `componentDidUpdate` ignores `value` while the calendar is open.
+    @Watch('previewValue')
+    protected watchPreviewValue() {
+        if (!this.isOpen) {
+            return;
         }
+
+        this.picker.setValue(this.previewValue ?? this.value);
     }
 
     public componentDidUpdate() {
@@ -171,8 +190,26 @@ export class DatePickerCalendar {
             return;
         }
 
-        this.picker.init(this.inputElement, this.container, this.value);
+        // Flatpickr focuses the input it is bound to on Escape, Shift+Tab
+        // and closing, but the proxy is hidden and can't take focus.
+        this.proxyInput.focus = () => this.inputElement.focus();
+
+        this.picker.init(
+            this.proxyInput,
+            this.container,
+            this.previewValue ?? this.value
+        );
         this.flatPickrCreated = true;
+    }
+
+    /**
+     * Moves focus to the selected day, else today, else the first day of
+     * the month.
+     * @returns `false` when the calendar has no day grid
+     */
+    @Method()
+    public async focusDay(): Promise<boolean> {
+        return this.picker?.focusDay() ?? false;
     }
 
     public connectedCallback() {
@@ -188,16 +225,27 @@ export class DatePickerCalendar {
 
     public render() {
         return (
-            <div
-                class="container"
-                ref={(el) => (this.container = el)}
-                style={{
-                    '--today-label': `"${translate.get(
-                        'date-picker.today',
-                        this.language
-                    )}"`,
-                }}
-            />
+            <Host>
+                {/* Flatpickr rewrites the text of the input it is bound to,
+                    so it gets this hidden one instead of the real field. */}
+                <input
+                    type="text"
+                    tabindex={-1}
+                    aria-hidden="true"
+                    hidden={true}
+                    ref={(el) => (this.proxyInput = el)}
+                />
+                <div
+                    class="container"
+                    ref={(el) => (this.container = el)}
+                    style={{
+                        '--today-label': `"${translate.get(
+                            'date-picker.today',
+                            this.language
+                        )}"`,
+                    }}
+                />
+            </Host>
         );
     }
 }

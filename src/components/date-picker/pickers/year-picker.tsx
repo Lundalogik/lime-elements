@@ -104,10 +104,38 @@ export class YearPicker extends Picker {
 
     protected async handleClose(selectedDates) {
         await super.handleClose(selectedDates);
+        this.redrawSelection();
+    }
+
+    protected redrawSelection() {
+        const selected = this.flatpickr.selectedDates[0];
+        if (selected) {
+            this.showYear(selected.getFullYear());
+        }
+
         this.selectYear(
             this.flatpickr.selectedDates,
             this.flatpickr.input.value
         );
+    }
+
+    /**
+     * Moves the year window, which only the arrows move otherwise, so that
+     * `year` has a cell to highlight.
+     * @param year
+     */
+    private showYear(year: number) {
+        const first = this.years[0]?.year();
+        const last = this.years.at(-1)?.year();
+        if (first === undefined || last === undefined) {
+            return;
+        }
+
+        if (year >= first && year <= last) {
+            return;
+        }
+
+        this.addYears(year - this.years[YEAR_INTERVAL / 2].year());
     }
 
     private handleReady(_, __, fp) {

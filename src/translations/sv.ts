@@ -28,6 +28,8 @@ export default {
     'date-picker.month.heading': 'Månad',
     'date-picker.quarter.heading': 'Kvartal',
     'date-picker.year.heading': 'År',
+    'date-picker.invalid-format': 'Ange ett giltigt datum ({ example })',
+    'date-picker.invalid-time-format': 'Ange en giltig tid ({ example })',
     'drag-handle.drag-handle': 'Draghandtag',
     'drag-handle.drag-to-reorder': 'Dra för att ändra ordning',
     'resize-handle.resize': 'Ändra storlek på { region }',
