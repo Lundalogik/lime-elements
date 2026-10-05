@@ -1,26 +1,31 @@
 import {
     Component,
     h,
-    Listen,
     Prop,
     Element,
     EventEmitter,
     Event,
-    State,
     Watch,
 } from '@stencil/core';
 import { MDCTabBar, MDCTabBarActivatedEvent } from '@material/tab-bar';
+import type { MDCTabScroller } from '@material/tab-scroller';
 import { strings } from '@material/tab-bar/constants';
 import { Tab } from './tab.types';
-import { isEqual, difference } from 'lodash-es';
+import { isEqual, difference, noop } from 'lodash-es';
 import { setActiveTab } from './tabs';
 import { getIconColor, getIconName } from '../icon/get-icon-props';
 
 const { TAB_ACTIVATED_EVENT } = strings;
-const SCROLL_DISTANCE_ON_CLICK_PX = 150;
-const HIDE_SCROLL_BUTTONS_WHEN_SCROLLED_LESS_THAN_PX = 40;
-const TOTAL_WIDTH_PERCENTAGE = 100;
-const OVERLAP_PERCENTAGE = 20;
+
+// MDC wants to scroll the tabs into view itself, and finds what to scroll by
+// looking for the `mdc-tab-scroller` class. Scrolling is up to `limel-scroller`.
+const tabScrollerForMdc = {
+    scrollTo: noop,
+    incrementScroll: noop,
+    getScrollPosition: () => 0,
+    getScrollContentWidth: () => 0,
+    destroy: noop,
+} as unknown as MDCTabScroller;
 
 /**
  * Tabs are great to organize information hierarchically in the interface and divide it into distinct categories. Using tabs, you can create groups of content that are related and at the same level in the hierarchy.
@@ -30,6 +35,7 @@ const OVERLAP_PERCENTAGE = 20;
  * :::
  * An exception for using tab bars in a high level of hierarchy is their usage in modals. This is because modals are perceived as a separate place and not a part of the current context. Therefore you can use tab bars in a modal to group and organize its content.
  * A tab bar can contain an unlimited number of tabs. However, depending on the device width and width of the tabs, the number of tabs that are visible at the same time will vary. When there is limited horizontal space, the component shows a left-arrow and/or right-arrow button, which scrolls and reveals the additional tabs. The tab bar can also be swiped left and right on a touch-device.
+ * The arrows are only a shortcut for people who use a mouse or a touch screen. Screen readers do not announce them, and the Tab key skips them. People who use a keyboard or a screen reader move between the tabs, and the tab bar keeps the selected tab in view.
  * :::tip Other things to consider
  * Never divide the content of a tab using a nested tab bar.
  * Never place two tab bars within the same screen.
@@ -63,32 +69,37 @@ export class TabBar {
     @Element()
     private host: HTMLLimelTabBarElement;
 
-    @State()
-    private canScrollLeft = false;
-
-    @State()
-    private canScrollRight = false;
-
     private mdcTabBar: MDCTabBar;
     private setupMdc = false;
-    private scrollArea: HTMLElement;
-    private scrollContent: HTMLElement;
+    private revealedTabId?: Tab['id'];
+    private hasLoaded = false;
 
     constructor() {
         this.handleTabActivated = this.handleTabActivated.bind(this);
-        this.handleScroll = this.handleScroll.bind(this);
-        this.handleLeftScrollClick = this.handleLeftScrollClick.bind(this);
-        this.handleRightScrollClick = this.handleRightScrollClick.bind(this);
         this.renderTab = this.renderTab.bind(this);
     }
 
-    public connectedCallback() {
+    public async connectedCallback() {
         this.setup();
+
+        // Connecting after the first render means that the bar was moved, which
+        // resets how far it is scrolled.
+        if (!this.hasLoaded) {
+            return;
+        }
+
+        this.revealedTabId = undefined;
+        await this.revealActiveTab('auto');
     }
 
     public componentDidLoad() {
+        this.hasLoaded = true;
         this.setup();
         this.triggerIconColorWarning();
+    }
+
+    public async componentDidRender() {
+        await this.revealActiveTab(this.hasLoaded ? undefined : 'auto');
     }
 
     public componentDidUpdate() {
@@ -107,43 +118,9 @@ export class TabBar {
     public render() {
         return (
             <div class="mdc-tab-bar" role="tablist">
-                <div
-                    class={{
-                        'mdc-tab-scroller': true,
-                        'can-scroll-left': this.canScrollLeft,
-                        'can-scroll-right': this.canScrollRight,
-                    }}
-                >
-                    <div class="mdc-tab-scroller__scroll-area lime-hide-scrollbars">
-                        <div class="mdc-tab-scroller__scroll-content">
-                            {this.tabs.map(this.renderTab)}
-                        </div>
-                    </div>
-                    <div class="scroll-fade left" />
-                    <div class="scroll-button left">
-                        <button
-                            type="button"
-                            tabindex="-1"
-                            aria-hidden="true"
-                            disabled={!this.canScrollLeft}
-                            onClick={this.handleLeftScrollClick}
-                        >
-                            <limel-icon name="angle_left" />
-                        </button>
-                    </div>
-                    <div class="scroll-fade right" />
-                    <div class="scroll-button right">
-                        <button
-                            type="button"
-                            tabindex="-1"
-                            aria-hidden="true"
-                            disabled={!this.canScrollRight}
-                            onClick={this.handleRightScrollClick}
-                        >
-                            <limel-icon name="angle_right" />
-                        </button>
-                    </div>
-                </div>
+                <limel-scroller class="mdc-tab-scroller">
+                    {this.tabs.map(this.renderTab)}
+                </limel-scroller>
             </div>
         );
     }
@@ -158,16 +135,8 @@ export class TabBar {
         }
 
         this.setupMdc = true;
+        this.revealedTabId = undefined;
         this.tearDown();
-    }
-
-    @Listen('resize', { passive: true, target: 'window' })
-    protected handleWindowResize() {
-        if (!this.scrollArea) {
-            return;
-        }
-
-        this.handleScroll();
     }
 
     private setup() {
@@ -176,27 +145,19 @@ export class TabBar {
             return;
         }
 
-        this.mdcTabBar = new MDCTabBar(element);
+        this.mdcTabBar = new MDCTabBar(
+            element,
+            undefined,
+            undefined,
+            () => tabScrollerForMdc
+        );
         this.mdcTabBar.focusOnActivate = true;
         this.mdcTabBar.useAutomaticActivation = true;
-        this.scrollArea = element.querySelector(
-            '.mdc-tab-scroller__scroll-area'
-        );
-        this.scrollContent = element.querySelector(
-            '.mdc-tab-scroller__scroll-content'
-        );
 
-        this.setupListeners();
-
-        // Use timeout to avoid Stencil warning about re-renders. /Ads
-        setTimeout(this.handleScroll, 0);
+        this.mdcTabBar.listen(TAB_ACTIVATED_EVENT, this.handleTabActivated);
     }
 
     private tearDown() {
-        if (this.scrollArea) {
-            this.scrollArea.removeEventListener('scroll', this.handleScroll);
-        }
-
         if (!this.mdcTabBar) {
             return;
         }
@@ -205,11 +166,37 @@ export class TabBar {
         this.mdcTabBar.destroy();
     }
 
-    private setupListeners() {
-        this.mdcTabBar.listen(TAB_ACTIVATED_EVENT, this.handleTabActivated);
-        this.scrollArea.addEventListener('scroll', this.handleScroll, {
-            passive: true,
-        });
+    /**
+     * A tab that is activated by the user has focus, and the scroller reveals
+     * what has focus. This is for a tab that becomes active without it.
+     *
+     * @param behavior - `auto` to jump to the tab. Leave it out to let the
+     * scroller glide there.
+     */
+    private async revealActiveTab(behavior?: ScrollBehavior) {
+        const index = this.tabs.findIndex((tab) => tab.active);
+        if (index === -1) {
+            this.revealedTabId = undefined;
+
+            return;
+        }
+
+        if (this.tabs[index].id === this.revealedTabId) {
+            return;
+        }
+
+        this.revealedTabId = this.tabs[index].id;
+        const element =
+            this.host.shadowRoot.querySelectorAll<HTMLElement>(
+                'button[role="tab"]'
+            )[index];
+        const scroller = this.host.shadowRoot.querySelector('limel-scroller');
+        if (!element || !scroller || element.matches(':focus')) {
+            return;
+        }
+
+        await scroller.componentOnReady();
+        await scroller.reveal(element, behavior);
     }
 
     private handleTabActivated(event: MDCTabBarActivatedEvent) {
@@ -228,60 +215,6 @@ export class TabBar {
 
     private sortByInactive(a: Tab, b: Tab) {
         return Number(a.active) - Number(b.active);
-    }
-
-    private handleScroll() {
-        const scrollLeft = this.scrollArea.scrollLeft;
-        const scrollRight = Math.floor(
-            this.scrollContent.getBoundingClientRect().width -
-                this.scrollArea.getBoundingClientRect().width -
-                scrollLeft
-        );
-
-        if (scrollLeft > HIDE_SCROLL_BUTTONS_WHEN_SCROLLED_LESS_THAN_PX) {
-            this.canScrollLeft = true;
-        } else {
-            this.canScrollLeft = false;
-        }
-
-        if (scrollRight > HIDE_SCROLL_BUTTONS_WHEN_SCROLLED_LESS_THAN_PX) {
-            this.canScrollRight = true;
-        } else {
-            this.canScrollRight = false;
-        }
-    }
-
-    private handleLeftScrollClick() {
-        const scrollDistance = this.getScrollDistance();
-        this.scrollArea.scroll({
-            left: this.scrollArea.scrollLeft - scrollDistance,
-            behavior: 'smooth',
-        });
-    }
-
-    private handleRightScrollClick() {
-        const scrollDistance = this.getScrollDistance();
-        this.scrollArea.scroll({
-            left: this.scrollArea.scrollLeft + scrollDistance,
-            behavior: 'smooth',
-        });
-    }
-
-    /**
-     * Calculates how far to scroll when navigation buttons are clicked.
-     * Returns the visible width minus an overlap percentage to maintain context.
-     * Falls back to the constant value if something goes wrong.
-     */
-    private getScrollDistance(): number {
-        if (!this.scrollArea) {
-            return SCROLL_DISTANCE_ON_CLICK_PX;
-        }
-
-        const containerWidth = this.scrollArea.getBoundingClientRect().width;
-        const scrollDistance =
-            containerWidth * (1 - OVERLAP_PERCENTAGE / TOTAL_WIDTH_PERCENTAGE);
-
-        return Math.max(scrollDistance, SCROLL_DISTANCE_ON_CLICK_PX);
     }
 
     private renderIcon(tab: Tab) {
