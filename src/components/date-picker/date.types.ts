@@ -13,4 +13,4 @@ export type DateType =
  * @public
  */
 export type Languages =
-    'da' | 'de' | 'en' | 'fi' | 'fr' | 'nb' | 'no' | 'nl' | 'sv';
+    'da' | 'de' | 'en' | 'en-gb' | 'fi' | 'fr' | 'nb' | 'no' | 'nl' | 'sv';

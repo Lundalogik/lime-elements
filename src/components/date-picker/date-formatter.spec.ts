@@ -13,6 +13,10 @@ describe('getLanguage', () => {
         expect(new DateFormatter('no-NO').getLanguage()).toBe('nb');
         expect(new DateFormatter('SV-SE').getLanguage()).toBe('sv');
     });
+
+    it('keeps British English distinct from plain English', () => {
+        expect(new DateFormatter('en-gb').getLanguage()).toBe('en-gb');
+    });
 });
 
 describe('parseDate', () => {
@@ -57,6 +61,14 @@ describe('parseDate', () => {
         const date = formatter.parseDate('31.01.20', 'L');
 
         expect(asLocalDateString(date)).toBe('2020-1-31');
+    });
+
+    it('parses British English as day-first, unlike plain English', () => {
+        const formatter = new DateFormatter('en-gb');
+
+        const date = formatter.parseDate('24/01/2020', 'L');
+
+        expect(asLocalDateString(date)).toBe('2020-1-24');
     });
 
     it('rejects text with a piece of the format still missing', () => {
@@ -212,6 +224,12 @@ describe('expandFormat', () => {
 
         expect(formatter.expandFormat('L')).toBe('DD.MM.YYYY');
     });
+
+    it('expands British English day-first, unlike plain English', () => {
+        const formatter = new DateFormatter('en-gb');
+
+        expect(formatter.expandFormat('L')).toBe('DD/MM/YYYY');
+    });
 });
 
 describe('getDateFormat', () => {
@@ -241,5 +259,11 @@ describe('getDateFormat', () => {
         const formatter = new DateFormatter('sv');
 
         expect(formatter.getDateFormat('year')).toBe('YYYY');
+    });
+
+    it('derives the month format for British English', () => {
+        const formatter = new DateFormatter('en-gb');
+
+        expect(formatter.getDateFormat('month')).toBe('MM/YYYY');
     });
 });

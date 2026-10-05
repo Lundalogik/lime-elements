@@ -3871,7 +3871,7 @@ export type LabelValue = string | number | boolean | null | undefined;
 export type Language = 'css' | 'html' | 'javascript' | 'jinja2' | 'json' | 'typescript';
 
 // @public
-export type Languages = 'da' | 'de' | 'en' | 'fi' | 'fr' | 'nb' | 'no' | 'nl' | 'sv';
+export type Languages = 'da' | 'de' | 'en' | 'en-gb' | 'fi' | 'fr' | 'nb' | 'no' | 'nl' | 'sv';
 
 // @public
 export type Layout = 'default' | 'stretchLastColumn' | 'stretchColumns' | 'lowDensity';

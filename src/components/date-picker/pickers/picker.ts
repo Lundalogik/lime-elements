@@ -3,6 +3,7 @@ import FlatpickrLanguages from 'flatpickr/dist/l10n';
 import { EventEmitter } from '@stencil/core';
 import 'moment/locale/da';
 import 'moment/locale/de';
+import 'moment/locale/en-gb';
 import 'moment/locale/fi';
 import 'moment/locale/fr';
 import 'moment/locale/nb';
@@ -167,6 +168,10 @@ export abstract class Picker {
     }
 
     protected getMomentLang() {
+        if (this.language === 'en-gb') {
+            return this.language;
+        }
+
         const language = getPrimarySubtag(this.language);
         if (language === 'no') {
             return 'nb';

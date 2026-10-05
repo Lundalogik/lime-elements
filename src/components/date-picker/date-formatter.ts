@@ -1,5 +1,6 @@
 import 'moment/locale/da';
 import 'moment/locale/de';
+import 'moment/locale/en-gb';
 import 'moment/locale/fi';
 import 'moment/locale/fr';
 import 'moment/locale/nb';
@@ -224,6 +225,10 @@ export class DateFormatter {
     }
 
     public getLanguage() {
+        if (this.language === 'en-gb') {
+            return this.language;
+        }
+
         const language = getPrimarySubtag(this.language);
         if (language === 'no') {
             return 'nb';
