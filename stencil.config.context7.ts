@@ -1,6 +1,6 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
+import { nodeResolve } from './stencil.node-resolve';
 
 /**
  * Stencil configuration for generating Context7-compatible markdown documentation.
@@ -17,9 +17,7 @@ export const config: Config = {
         },
     ],
     plugins: [sass()],
-    rollupPlugins: {
-        before: [nodeResolve()],
-    },
+    nodeResolve: nodeResolve,
     tsconfig: './tsconfig.docs.json',
     globalStyle: 'src/global/core-styles.scss',
 };
