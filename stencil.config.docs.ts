@@ -2,7 +2,7 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 import { kompendium } from 'kompendium';
 import guides from './guides';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
+import { nodeResolve } from './stencil.node-resolve';
 
 export const config: Config = {
     hashFileNames: false,
@@ -39,9 +39,7 @@ export const config: Config = {
             includePaths: ['node_modules'],
         }),
     ],
-    rollupPlugins: {
-        before: [nodeResolve()],
-    },
+    nodeResolve: nodeResolve,
     tsconfig: './tsconfig.docs.json',
     globalStyle: 'src/global/core-styles.scss',
 };

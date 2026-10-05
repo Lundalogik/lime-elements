@@ -1,8 +1,7 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 import { kompendium } from 'kompendium';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import type { Plugin } from 'rollup';
+import { nodeResolve } from './stencil.node-resolve';
 
 import guides from './guides';
 
@@ -10,7 +9,7 @@ import guides from './guides';
 // rebuilds on stale cache metadata. This hook runs first and tells
 // Rollup to use the cached transform for any module whose source is
 // unchanged, which is always correct during a dev watch session.
-function commonjsCacheFix(): Plugin {
+function commonjsCacheFix() {
     return {
         name: 'commonjs-cache-fix',
         shouldTransformCachedModule() {
@@ -27,8 +26,9 @@ export const config: Config = {
             includePaths: ['node_modules'],
         }),
     ],
+    nodeResolve: nodeResolve,
     rollupPlugins: {
-        before: [commonjsCacheFix(), nodeResolve()],
+        before: [commonjsCacheFix()],
     },
     outputTargets: [
         {
