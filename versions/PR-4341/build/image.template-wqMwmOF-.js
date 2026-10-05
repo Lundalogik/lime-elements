@@ -1,0 +1,1 @@
+import{h as r}from"./index-Bnc9lzk2.js";const o=({image:o,style:e,onError:l})=>{var n;return r("img",{src:o.src,alt:o.alt,loading:null!==(n=o.loading)&&void 0!==n?n:"lazy",referrerPolicy:o.referrerpolicy,style:e,onError:l})};export{o as I}
