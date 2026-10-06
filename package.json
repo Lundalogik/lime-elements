@@ -79,7 +79,7 @@
     "eslint": "^10.11.0",
     "flatpickr": "^4.6.13",
     "glob": "^13.0.6",
-    "globals": "^17.12.0",
+    "globals": "^17.13.0",
     "hast-util-from-dom": "^5.0.1",
     "hast-util-to-mdast": "^10.1.2",
     "html-escaper": "^3.0.3",
