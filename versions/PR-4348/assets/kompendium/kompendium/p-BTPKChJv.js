@@ -1,1 +1,0 @@
-function n(){return window.location.hash.substring(1)}function t(){const n=window.location.hash;if(!n)return null;const t=n.match(/#([^#]+)$/);return t?t[1]:null}function o(n,o="auto"){const a=t();a&&requestAnimationFrame((()=>{u(n,a,o)}))}function u(n,t,o="auto"){const u=n.getElementById(t);u&&u.scrollIntoView({behavior:o})}export{u as a,n as b,t as g,o as s}
