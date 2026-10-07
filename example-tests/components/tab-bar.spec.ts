@@ -256,6 +256,19 @@ test.describe('limel-tab-bar', () => {
             await expectActive(page, 'Joker');
         });
 
+        test('leaves a key that is pressed with Alt to the browser', async ({
+            page,
+        }) => {
+            await tab(page, 'Joker').focus();
+
+            // Alt and the right arrow go forward in a browser. The key that
+            // follows is there to show that the first one did not move a tab.
+            await page.keyboard.press('Alt+ArrowRight');
+            await page.keyboard.press('ArrowRight');
+
+            await expectActive(page, 'Parasite');
+        });
+
         test('keeps only the active tab in the tab order, and tabs back in to it', async ({
             page,
         }) => {
