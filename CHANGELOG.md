@@ -1,3 +1,10 @@
+## [40.6.1](https://github.com/Lundalogik/lime-elements/compare/v40.6.0...v40.6.1) (2026-10-07)
+
+### Bug Fixes
+
+
+* **tab-bar:** keep the scroll arrows current, and the focus where it was ([1a0c8d0](https://github.com/Lundalogik/lime-elements/commit/1a0c8d08954b04edeb95c2035692e0449f8ef211)), closes [#3948](https://github.com/Lundalogik/lime-elements/issues/3948)
+
 ## [40.6.0](https://github.com/Lundalogik/lime-elements/compare/v40.5.4...v40.6.0) (2026-10-02)
 
 ### Features
