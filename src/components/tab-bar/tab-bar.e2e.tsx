@@ -31,6 +31,24 @@ const showsActiveTab = (bar: HTMLLimelTabBarElement) =>
         timeout: 3000,
     });
 
+const tabButtons = (bar: HTMLLimelTabBarElement) => [
+    ...bar.shadowRoot.querySelectorAll<HTMLButtonElement>('button[role="tab"]'),
+];
+
+// Returns the event, to see whether the tab bar kept the page from acting on
+// the key press.
+const pressKey = (target: Element, init: KeyboardEventInit) => {
+    const event = new KeyboardEvent('keydown', {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+        ...init,
+    });
+    target.dispatchEvent(event);
+
+    return event;
+};
+
 describe('limel-tab-bar', () => {
     let tabs: Array<{ id: string; active?: boolean }>;
 
@@ -59,6 +77,18 @@ describe('limel-tab-bar', () => {
             const fooEvent = events.find((e: { id: string }) => e.id === 'foo');
             expect(barEvent).toEqual({ id: 'bar', active: true });
             expect(fooEvent).toEqual({ id: 'foo', active: false });
+        });
+
+        it('gives the tab focus, also in browsers that do not do that for a clicked button', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar tabs={tabs}></limel-tab-bar>
+            );
+            await waitForChanges();
+
+            tabButtons(root)[1].click();
+            await waitForChanges();
+
+            expect(root.shadowRoot.activeElement).toBe(tabButtons(root)[1]);
         });
     });
 
@@ -223,6 +253,252 @@ describe('limel-tab-bar', () => {
             await waitForChanges();
 
             expect(changeTabSpy).not.toHaveReceivedEvent();
+        });
+
+        it('gives the tab focus, also in browsers that do not do that for a clicked button', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar tabs={tabs}></limel-tab-bar>
+            );
+            await waitForChanges();
+
+            tabButtons(root)[0].click();
+            await waitForChanges();
+
+            expect(root.shadowRoot.activeElement).toBe(tabButtons(root)[0]);
+        });
+    });
+
+    // The pictures of the tab bar do not show whether the tabs have a ripple,
+    // which is the feedback of pressing a tab. MDC marks what it has given one.
+    describe('the ripple of a tab', () => {
+        const hasRipple = (tab: HTMLElement) =>
+            tab.classList.contains('mdc-ripple-upgraded');
+
+        const allHaveRipples = (bar: HTMLLimelTabBarElement) =>
+            vi.waitFor(() => {
+                expect(tabButtons(bar).every(hasRipple)).toBe(true);
+            });
+
+        it('is there for every tab', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar tabs={tabs}></limel-tab-bar>
+            );
+            await waitForChanges();
+
+            await allHaveRipples(root);
+        });
+
+        it('is there for a tab that is added later', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar tabs={tabs}></limel-tab-bar>
+            );
+            await waitForChanges();
+
+            root.tabs = [...tabs, { id: 'qux' }];
+            await waitForChanges();
+
+            expect(tabButtons(root)).toHaveLength(4);
+            await allHaveRipples(root);
+        });
+
+        it('is taken from a tab that is removed', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar tabs={tabs}></limel-tab-bar>
+            );
+            await waitForChanges();
+            await allHaveRipples(root);
+            const last = tabButtons(root)[2];
+
+            root.tabs = tabs.slice(0, 2);
+            await waitForChanges();
+
+            expect(tabButtons(root)).toHaveLength(2);
+            await vi.waitFor(() => {
+                expect(hasRipple(last)).toBe(false);
+            });
+        });
+
+        it('is taken from the tabs when the bar is removed from the page', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar tabs={tabs}></limel-tab-bar>
+            );
+            await waitForChanges();
+            await allHaveRipples(root);
+            const buttons = tabButtons(root);
+
+            root.remove();
+
+            await vi.waitFor(() => {
+                expect(buttons.some(hasRipple)).toBe(false);
+            });
+        });
+
+        it('is still there when the bar is moved to another place in the page', async () => {
+            const { root, waitForChanges } = await render(
+                <div>
+                    <limel-tab-bar tabs={tabs}></limel-tab-bar>
+                </div>
+            );
+            await waitForChanges();
+            const bar = root.querySelector('limel-tab-bar');
+            await allHaveRipples(bar);
+
+            root.append(bar);
+            await waitForChanges();
+
+            await allHaveRipples(bar);
+        });
+    });
+
+    describe('when a key is pressed on a tab', () => {
+        const renderBar = async (barTabs: typeof tabs = tabs) => {
+            const { root, waitForChanges, spyOnEvent } = await render(
+                <limel-tab-bar tabs={barTabs}></limel-tab-bar>
+            );
+            const changeTabSpy = spyOnEvent('changeTab');
+            await waitForChanges();
+
+            return { bar: root, waitForChanges, changeTabSpy };
+        };
+
+        const activatedIds = (changeTabSpy: { events: unknown[] }) =>
+            (changeTabSpy.events as CustomEvent[])
+                .map((event) => event.detail)
+                .filter((tab: { active: boolean }) => tab.active)
+                .map((tab: { id: string }) => tab.id);
+
+        describe.each([
+            ['ArrowLeft', 0],
+            ['ArrowRight', 2],
+            ['Home', 0],
+            ['End', 2],
+        ])('%s', (key, expectedIndex) => {
+            it('selects the tab it moves to, and gives it focus', async () => {
+                const { bar, waitForChanges, changeTabSpy } = await renderBar([
+                    { id: 'foo' },
+                    { id: 'bar', active: true },
+                    { id: 'baz' },
+                ]);
+
+                pressKey(tabButtons(bar)[1], { key: key });
+                await waitForChanges();
+
+                expect(activatedIds(changeTabSpy)).toEqual([
+                    ['foo', 'bar', 'baz'][expectedIndex],
+                ]);
+                expect(bar.shadowRoot.activeElement).toBe(
+                    tabButtons(bar)[expectedIndex]
+                );
+            });
+
+            it('keeps the page from scrolling', async () => {
+                const { bar } = await renderBar();
+
+                const event = pressKey(tabButtons(bar)[0], { key: key });
+
+                expect(event.defaultPrevented).toBe(true);
+            });
+        });
+
+        it('goes around to the last tab from the first one, and the other way around', async () => {
+            const { bar, waitForChanges, changeTabSpy } = await renderBar();
+
+            pressKey(tabButtons(bar)[0], { key: 'ArrowLeft' });
+            await waitForChanges();
+            pressKey(tabButtons(bar)[2], { key: 'ArrowRight' });
+            await waitForChanges();
+
+            expect(activatedIds(changeTabSpy)).toEqual(['baz', 'foo']);
+        });
+
+        it('keeps the page from scrolling, also when there is no other tab to go to', async () => {
+            const { bar, waitForChanges, changeTabSpy } = await renderBar([
+                { id: 'foo', active: true },
+            ]);
+
+            const event = pressKey(tabButtons(bar)[0], { key: 'ArrowRight' });
+            await waitForChanges();
+
+            expect(event.defaultPrevented).toBe(true);
+            expect(changeTabSpy).not.toHaveReceivedEvent();
+        });
+
+        it.each([['ArrowUp'], ['ArrowDown'], ['PageDown'], ['Enter'], ['a']])(
+            'leaves "%s" alone',
+            async (key) => {
+                const { bar, waitForChanges, changeTabSpy } = await renderBar();
+
+                const event = pressKey(tabButtons(bar)[0], { key: key });
+                await waitForChanges();
+
+                expect(event.defaultPrevented).toBe(false);
+                expect(changeTabSpy).not.toHaveReceivedEvent();
+            }
+        );
+
+        it.each([['altKey'], ['ctrlKey'], ['metaKey']])(
+            'leaves an arrow key that is pressed with %s to the browser',
+            async (modifier) => {
+                const { bar, waitForChanges, changeTabSpy } = await renderBar();
+
+                const event = pressKey(tabButtons(bar)[0], {
+                    key: 'ArrowRight',
+                    [modifier]: true,
+                });
+                await waitForChanges();
+
+                expect(event.defaultPrevented).toBe(false);
+                expect(changeTabSpy).not.toHaveReceivedEvent();
+            }
+        );
+
+        it('moves on from the tab that has focus, which is not always the selected one', async () => {
+            const { bar, waitForChanges, changeTabSpy } = await renderBar();
+            const last = tabButtons(bar)[2];
+
+            last.focus();
+            pressKey(last, { key: 'ArrowLeft' });
+            await waitForChanges();
+
+            expect(activatedIds(changeTabSpy)).toEqual(['bar']);
+        });
+
+        it.each([
+            ['ArrowLeft', 1, 0],
+            ['ArrowRight', 0, 1],
+            ['Home', 2, 0],
+            ['End', 0, 2],
+        ])(
+            'moves the focus to the selected tab, when %s leads there from another tab that has focus',
+            async (key, focusedIndex, selectedIndex) => {
+                const { bar, waitForChanges, changeTabSpy } = await renderBar(
+                    ['foo', 'bar', 'baz'].map((id, index) => ({
+                        id: id,
+                        active: index === selectedIndex,
+                    }))
+                );
+                const focused = tabButtons(bar)[focusedIndex];
+
+                focused.focus();
+                pressKey(focused, { key: key });
+                await waitForChanges();
+
+                expect(bar.shadowRoot.activeElement).toBe(
+                    tabButtons(bar)[selectedIndex]
+                );
+                expect(changeTabSpy).not.toHaveReceivedEvent();
+            }
+        );
+
+        it('moves to a tab that was added after the bar was first shown', async () => {
+            const { bar, waitForChanges, changeTabSpy } = await renderBar();
+
+            bar.tabs = [...tabs, { id: 'qux' }];
+            await waitForChanges();
+            pressKey(tabButtons(bar)[0], { key: 'End' });
+            await waitForChanges();
+
+            expect(activatedIds(changeTabSpy)).toEqual(['qux']);
         });
     });
 });
