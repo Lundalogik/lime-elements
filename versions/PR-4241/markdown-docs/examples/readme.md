@@ -96,6 +96,7 @@ The component automatically formats different value types:
  - [limel-example-list-item-radio](../components/list-item/examples)
  - [limel-example-list-radio-button-icons](../components/list/examples)
  - [limel-example-list-selectable](../components/list/examples)
+ - [limel-example-markdown-to-markdown](../components/markdown/examples)
  - [limel-example-menu-basic](../components/menu/examples)
  - [limel-example-menu-hotkeys](../components/menu/examples)
  - [limel-example-menu-keep-open](../components/menu/examples)
@@ -244,6 +245,7 @@ graph TD;
   limel-example-list-item-radio --> limel-example-value
   limel-example-list-radio-button-icons --> limel-example-value
   limel-example-list-selectable --> limel-example-value
+  limel-example-markdown-to-markdown --> limel-example-value
   limel-example-menu-basic --> limel-example-value
   limel-example-menu-hotkeys --> limel-example-value
   limel-example-menu-keep-open --> limel-example-value
