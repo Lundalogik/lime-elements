@@ -39,14 +39,16 @@ to scroll with a keyboard. The examples explain the reasoning.
 
 Scrolls an item into view, together with a glimpse of its neighbors.
 Whatever receives focus is revealed without being asked to. This is for
-an item that becomes selected without receiving focus.
+an item that becomes selected without receiving focus. If the scroller
+is hidden, in a dialog that is closed for instance, the item is revealed
+when the scroller is shown.
 
 #### Parameters
 
-| Name       | Type                              | Description                                               |
-| ---------- | --------------------------------- | --------------------------------------------------------- |
-| `item`     | `HTMLElement`                     | - one of the items of the scroller                        |
-| `behavior` | `"auto" \| "instant" \| "smooth"` | - set to `instant` to jump, instead of scrolling smoothly |
+| Name       | Type                              | Description                                                                                                              |
+| ---------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `item`     | `HTMLElement`                     | - one of the items of the scroller                                                                                       |
+| `behavior` | `"auto" \| "instant" \| "smooth"` | - `auto` jumps to the item, and `smooth` glides there. Defaults to `smooth`, unless the user has asked to reduce motion. |
 
 #### Returns
 
