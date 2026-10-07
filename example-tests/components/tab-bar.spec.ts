@@ -284,6 +284,33 @@ test.describe('limel-tab-bar', () => {
             await page.keyboard.press('Shift+Tab');
             await expect(tab(page, 'Harriet')).toBeFocused();
         });
+
+        test('puts the first tab in the tab order when no tab is selected, so that the keyboard reaches the bar', async ({
+            page,
+        }) => {
+            await addFocusableNeighbours(page, BASIC);
+            await tabBar(page).evaluate((bar) => {
+                const element = bar as unknown as {
+                    tabs: Array<{ active?: boolean }>;
+                };
+                element.tabs = element.tabs.map((tab) => ({
+                    ...tab,
+                    active: false,
+                }));
+            });
+            await expect(tab(page, 'Joker')).toHaveAttribute('tabindex', '0');
+            await expect(tab(page, 'Parasite')).toHaveAttribute(
+                'tabindex',
+                '-1'
+            );
+
+            await page.locator('#before').focus();
+            await page.keyboard.press('Tab');
+            await expect(tab(page, 'Joker')).toBeFocused();
+
+            await page.keyboard.press('ArrowRight');
+            await expectActive(page, 'Parasite');
+        });
     });
 
     test.describe('when the tabs do not fit', () => {
