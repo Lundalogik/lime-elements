@@ -8,6 +8,8 @@ updates:
     open-pull-requests-limit: 10
     schedule:
       interval: "daily"
+      time: "18:49"
+      timezone: "Europe/Stockholm"
     # Only default-days is valid here -- Dependabot rejects the semver-granular
     # cooldown keys for github-actions.
     cooldown:
@@ -19,6 +21,8 @@ updates:
     versioning-strategy: increase
     schedule:
       interval: "daily"
+      time: "18:49"
+      timezone: "Europe/Stockholm"
     cooldown:
       default-days: 5
       semver-major-days: 7
