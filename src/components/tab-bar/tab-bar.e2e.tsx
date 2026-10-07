@@ -268,6 +268,78 @@ describe('limel-tab-bar', () => {
         });
     });
 
+    describe('the tab order', () => {
+        const tabIndexes = (bar: HTMLLimelTabBarElement) =>
+            tabButtons(bar).map((tab) => tab.getAttribute('tabindex'));
+
+        it('has the selected tab in it, and no other', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar
+                    tabs={[
+                        { id: 'foo' },
+                        { id: 'bar', active: true },
+                        { id: 'baz' },
+                    ]}
+                ></limel-tab-bar>
+            );
+            await waitForChanges();
+
+            expect(tabIndexes(root)).toEqual(['-1', '0', '-1']);
+        });
+
+        it('has the first tab in it, when no tab is selected, to let the keyboard reach the bar', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar
+                    tabs={[{ id: 'foo' }, { id: 'bar' }, { id: 'baz' }]}
+                ></limel-tab-bar>
+            );
+            await waitForChanges();
+
+            expect(tabIndexes(root)).toEqual(['0', '-1', '-1']);
+        });
+
+        it('follows the selection, also when it is made or cleared from the outside', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar
+                    tabs={[{ id: 'foo' }, { id: 'bar' }, { id: 'baz' }]}
+                ></limel-tab-bar>
+            );
+            await waitForChanges();
+
+            root.tabs = [
+                { id: 'foo' },
+                { id: 'bar' },
+                { id: 'baz', active: true },
+            ];
+            await waitForChanges();
+            expect(tabIndexes(root)).toEqual(['-1', '-1', '0']);
+
+            root.tabs = [{ id: 'foo' }, { id: 'bar' }, { id: 'baz' }];
+            await waitForChanges();
+            expect(tabIndexes(root)).toEqual(['0', '-1', '-1']);
+        });
+
+        it('lets the keyboard move on from the first tab, when no tab is selected', async () => {
+            const { root, waitForChanges, spyOnEvent } = await render(
+                <limel-tab-bar
+                    tabs={[{ id: 'foo' }, { id: 'bar' }, { id: 'baz' }]}
+                ></limel-tab-bar>
+            );
+            const changeTabSpy = spyOnEvent('changeTab');
+            await waitForChanges();
+            const [first] = tabButtons(root);
+
+            first.focus();
+            pressKey(first, { key: 'ArrowRight' });
+            await waitForChanges();
+
+            expect(
+                changeTabSpy.events.map((e: CustomEvent) => e.detail)
+            ).toEqual([{ id: 'bar', active: true }]);
+            expect(tabIndexes(root)).toEqual(['-1', '0', '-1']);
+        });
+    });
+
     // The pictures of the tab bar do not show whether the tabs have a ripple,
     // which is the feedback of pressing a tab. MDC marks what it has given one.
     describe('the ripple of a tab', () => {

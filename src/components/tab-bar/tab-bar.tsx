@@ -14,6 +14,7 @@ import { setActiveTab } from './tabs';
 import { getIconColor, getIconName } from '../icon/get-icon-props';
 import {
     findNavigationTarget,
+    findTabStop,
     isNavigationKey,
     NavigationOptions,
     NO_NAVIGATION_TARGET,
@@ -33,7 +34,7 @@ const NAVIGATION: NavigationOptions<Tab> = {
  * An exception for using tab bars in a high level of hierarchy is their usage in modals. This is because modals are perceived as a separate place and not a part of the current context. Therefore you can use tab bars in a modal to group and organize its content.
  * A tab bar can contain an unlimited number of tabs. However, depending on the device width and width of the tabs, the number of tabs that are visible at the same time will vary. When there is limited horizontal space, the component shows a left-arrow and/or right-arrow button, which scrolls and reveals the additional tabs. The tab bar can also be swiped left and right on a touch-device.
  * The arrows are only a shortcut for people who use a mouse or a touch screen. Screen readers do not announce them, and the Tab key skips them. People who use a keyboard or a screen reader move between the tabs, and the tab bar keeps the selected tab in view.
- * The left and right arrow keys move to the previous and the next tab, and select it. Home and End move to the first and the last tab. Moving past the last tab continues at the first one, and the other way around. The Tab key moves on to what comes after the tab bar, and moving back with Shift and Tab lands on the selected tab.
+ * The left and right arrow keys move to the previous and the next tab, and select it. Home and End move to the first and the last tab. Moving past the last tab continues at the first one, and the other way around. The Tab key moves on to what comes after the tab bar, and moving back with Shift and Tab lands on the selected tab, or on the first tab when none is selected.
  * :::tip Other things to consider
  * Never divide the content of a tab using a nested tab bar.
  * Never place two tab bars within the same screen.
@@ -73,7 +74,6 @@ export class TabBar {
 
     constructor() {
         this.handleKeyDown = this.handleKeyDown.bind(this);
-        this.renderTab = this.renderTab.bind(this);
     }
 
     public async connectedCallback() {
@@ -103,13 +103,23 @@ export class TabBar {
     }
 
     public render() {
+        const tabStop = findTabStop(
+            this.tabs,
+            this.tabs.findIndex((tab) => tab.active),
+            NAVIGATION
+        );
+
         return (
             <div
                 class="mdc-tab-bar"
                 role="tablist"
                 onKeyDown={this.handleKeyDown}
             >
-                <limel-scroller>{this.tabs.map(this.renderTab)}</limel-scroller>
+                <limel-scroller>
+                    {this.tabs.map((tab, index) =>
+                        this.renderTab(tab, index, index === tabStop)
+                    )}
+                </limel-scroller>
             </div>
         );
     }
@@ -262,7 +272,7 @@ export class TabBar {
         );
     }
 
-    private renderTab(tab: Tab, index: number) {
+    private renderTab(tab: Tab, index: number, isTabStop: boolean) {
         return (
             <button
                 class={{
@@ -271,7 +281,7 @@ export class TabBar {
                 }}
                 role="tab"
                 aria-selected={tab.active ? 'true' : 'false'}
-                tabindex={tab.active ? 0 : -1}
+                tabindex={isTabStop ? 0 : -1}
                 onClick={() => this.activateTab(index)}
             >
                 <span class="mdc-tab__content">
