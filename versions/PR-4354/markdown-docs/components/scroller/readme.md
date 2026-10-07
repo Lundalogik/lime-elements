@@ -12,11 +12,11 @@ page, and leaves the last part of the previous page in view, as a reference
 for how far the user has scrolled. For people who have asked their system to
 reduce motion, the scroller jumps instead of gliding.
 
-When something inside the scroller receives focus, the scroller reveals it,
-together with a glimpse of whatever is next to it. An item can control how
-much of its neighbors gets revealed, by setting its `scroll-margin`. An item
-that becomes selected without receiving focus is up to the consumer to
-reveal, using the `reveal()` method.
+When something inside the scroller receives focus, the scroller reveals the
+item that holds it, together with a glimpse of whatever is next to it. An
+item can control how much of its neighbors gets revealed, by setting its
+`scroll-margin`. An item that becomes selected without receiving focus is up
+to the consumer to reveal, using the `reveal()` method.
 
 :::note Accessibility
 The arrows are only a shortcut for people who use a mouse or a touch screen.
@@ -45,7 +45,7 @@ an item that becomes selected without receiving focus.
 
 | Name       | Type                              | Description                                               |
 | ---------- | --------------------------------- | --------------------------------------------------------- |
-| `item`     | `HTMLElement`                     | - an element inside the scroller                          |
+| `item`     | `HTMLElement`                     | - one of the items of the scroller                        |
 | `behavior` | `"auto" \| "instant" \| "smooth"` | - set to `instant` to jump, instead of scrolling smoothly |
 
 #### Returns
