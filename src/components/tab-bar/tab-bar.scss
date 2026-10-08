@@ -25,12 +25,12 @@ limel-scroller {
 }
 
 :host(.has-tabs-with-equal-width) {
-    .mdc-tab {
+    button {
         flex: 1 0 auto;
     }
 }
 
-.mdc-tab {
+button {
     @include mixins.reset-button-user-agent-styles;
     position: relative;
     display: flex;
@@ -46,7 +46,7 @@ limel-scroller {
     white-space: nowrap;
     font-size: var(--limel-theme-default-font-size);
 
-    &:not(.mdc-tab--active) {
+    &:not([aria-selected='true']) {
         &:after {
             content: '';
             display: block;
@@ -68,7 +68,7 @@ limel-scroller {
         }
     }
 
-    .mdc-tab__icon {
+    limel-icon {
         transition: color 0.2s ease;
         color: rgb(
             var(--contrast-800)
@@ -83,7 +83,7 @@ limel-scroller {
     }
 }
 
-.mdc-tab--active {
+button[aria-selected='true'] {
     border-radius: var(--limel-tab-border-radius) var(--limel-tab-border-radius)
         0 0;
     background-color: var(--limel-active-tab-background-color);
@@ -111,14 +111,14 @@ limel-scroller {
         right: calc(-1 * var(--limel-tab-active-outer-edge-curve-size));
     }
 
-    .mdc-tab__icon {
+    limel-icon {
         color: var(
             --mdc-theme-primary
         ); // active tab's icon color, unless defined by tab item itself
     }
 }
 
-.mdc-tab__content {
+span.content {
     transition: box-shadow 0.2s ease;
     display: flex;
     flex-grow: 1;
@@ -136,19 +136,19 @@ limel-scroller {
     }
 }
 
-.mdc-tab {
-    .mdc-tab__text-label {
+button {
+    span.text {
         transition: color 0.2s ease;
         line-height: 1;
         color: var(--limel-theme-on-surface-color);
     }
     &:hover {
-        .mdc-tab__text-label {
+        span.text {
             color: var(--limel-theme-text-primary-on-background-color);
         }
     }
-    &.mdc-tab--active {
-        .mdc-tab__text-label {
+    &[aria-selected='true'] {
+        span.text {
             color: var(--lime-primary-color, var(--limel-theme-primary-color));
         }
     }

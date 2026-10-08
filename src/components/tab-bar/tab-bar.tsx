@@ -102,11 +102,7 @@ export class TabBar {
         );
 
         return (
-            <div
-                class="mdc-tab-bar"
-                role="tablist"
-                onKeyDown={this.handleKeyDown}
-            >
+            <div role="tablist" onKeyDown={this.handleKeyDown}>
                 <limel-scroller>
                     {this.tabs.map((tab, index) =>
                         this.renderTab(tab, index, index === tabStop)
@@ -224,7 +220,6 @@ export class TabBar {
 
         return (
             <limel-icon
-                class="mdc-tab__icon"
                 name={name}
                 style={style}
                 size="small"
@@ -236,18 +231,14 @@ export class TabBar {
     private renderTab(tab: Tab, index: number, isTabStop: boolean) {
         return (
             <button
-                class={{
-                    'mdc-tab': true,
-                    'mdc-tab--active': !!tab.active,
-                }}
                 role="tab"
                 aria-selected={tab.active ? 'true' : 'false'}
                 tabindex={isTabStop ? 0 : -1}
                 onClick={() => this.activateTab(index)}
             >
-                <span class="mdc-tab__content">
+                <span class="content">
                     {this.renderIcon(tab)}
-                    <span class="mdc-tab__text-label">{tab.text}</span>
+                    <span class="text">{tab.text}</span>
                     {tab.badge ? <limel-badge label={tab.badge} /> : ''}
                 </span>
             </button>
