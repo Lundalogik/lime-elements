@@ -1,5 +1,6 @@
 /**
 * @prop --tab-panel-background-color: Background color of the contents of the tab and the active tab of the tab bar. Defaults to `--contrast-100`.
+* @prop --tab-bar-vertical-width: The width of the column of tabs in a vertical tab panel. Defaults to `10rem`.
 */
 
 :host(limel-tab-panel) {
@@ -23,4 +24,14 @@
     -webkit-overflow-scrolling: touch;
     box-sizing: border-box;
     background-color: var(--tab-panel-background-color);
+}
+
+:host(limel-tab-panel[orientation='vertical']) {
+    div.tab-panel {
+        flex-direction: row;
+    }
+
+    div.tab-content {
+        min-width: 0;
+    }
 }
