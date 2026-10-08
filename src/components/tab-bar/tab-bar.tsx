@@ -289,14 +289,6 @@ export class TabBar {
                     <span class="mdc-tab__text-label">{tab.text}</span>
                     {tab.badge ? <limel-badge label={tab.badge} /> : ''}
                 </span>
-                <span
-                    class={{
-                        'mdc-tab-indicator': true,
-                        'mdc-tab-indicator--active': !!tab.active,
-                    }}
-                >
-                    <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline" />
-                </span>
                 <span class="mdc-tab__ripple" />
             </button>
         );
