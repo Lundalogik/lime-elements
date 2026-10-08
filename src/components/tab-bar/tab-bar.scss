@@ -8,6 +8,10 @@
         --tab-panel-background-color,
         rgb(var(--contrast-100))
     );
+    --limel-active-tab-color: var(
+        --lime-primary-color,
+        var(--limel-theme-primary-color)
+    );
     --limel-tab-active-outer-edge-curve-size: 0.75rem;
     --limel-tab-separator-width: 0.125rem;
     --limel-tab-separator-background-color: rgb(var(--contrast-600));
@@ -125,12 +129,12 @@ button[aria-selected='true'] {
 
     limel-icon {
         color: var(
-            --mdc-theme-primary
+            --limel-active-tab-color
         ); // active tab's icon color, unless defined by tab item itself
     }
 
     span.text {
-        color: var(--lime-primary-color, var(--limel-theme-primary-color));
+        color: var(--limel-active-tab-color);
     }
 }
 
