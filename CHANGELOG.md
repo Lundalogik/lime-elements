@@ -1,3 +1,11 @@
+## [40.6.2](https://github.com/Lundalogik/lime-elements/compare/v40.6.1...v40.6.2) (2026-10-08)
+
+### Bug Fixes
+
+
+* **tab-bar:** leave shortcuts that use Alt, Ctrl or Cmd to the browser ([ec9be3a](https://github.com/Lundalogik/lime-elements/commit/ec9be3a4a38cb9465cf6ee19198a157622b7079b))
+* **tab-bar:** let the keyboard reach a tab bar that has no selected tab ([3a9d594](https://github.com/Lundalogik/lime-elements/commit/3a9d5948c55ba4105f03f7f291f112fa615fac59))
+
 ## [40.6.1](https://github.com/Lundalogik/lime-elements/compare/v40.6.0...v40.6.1) (2026-10-07)
 
 ### Bug Fixes
