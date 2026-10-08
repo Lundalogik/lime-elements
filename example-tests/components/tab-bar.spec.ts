@@ -189,6 +189,17 @@ const expectRevealed = async (page: Page, index: number, neighbour: number) => {
     ).toBeGreaterThan(0);
 };
 
+// The tab that has keyboard focus gets the focus shadow, on the part that holds
+// its icon, text and badge, so that the shadow stays inside the tab's edges.
+const expectFocusShadow = (page: Page, name: string, expected: boolean) => {
+    const content = tab(page, name).locator('.mdc-tab__content');
+    if (expected) {
+        return expect(content).not.toHaveCSS('box-shadow', 'none');
+    }
+
+    return expect(content).toHaveCSS('box-shadow', 'none');
+};
+
 // Gives the tests somewhere to tab out to, and back from.
 const addFocusableNeighbours = (page: Page, example: string) =>
     page.locator(example).evaluate((host) => {
@@ -653,6 +664,58 @@ test.describe('limel-tab-bar', () => {
 
             await expect(tab(page, 'Harriet')).toBeFocused();
         });
+    });
+
+    test.describe('the focus shadow', () => {
+        test('shows which tab has keyboard focus', async ({ page }) => {
+            await open(page, BASIC);
+            await addFocusableNeighbours(page, BASIC);
+            await page.locator('#before').focus();
+            await page.keyboard.press('Tab');
+            await expect(tab(page, 'Joker')).toBeFocused();
+            await expectFocusShadow(page, 'Joker', true);
+
+            await page.keyboard.press('ArrowRight');
+            await expectActive(page, 'Parasite');
+            await expectFocusShadow(page, 'Parasite', true);
+            await expectFocusShadow(page, 'Joker', false);
+        });
+
+        test('is not shown on a tab that is clicked', async ({ page }) => {
+            await open(page, BASIC);
+            await tab(page, 'Parasite').click();
+            await expect(tab(page, 'Parasite')).toBeFocused();
+
+            await expectFocusShadow(page, 'Parasite', false);
+        });
+
+        for (const example of [DYNAMIC_WIDTH, EQUAL_WIDTH]) {
+            test(`keeps the same distance to every edge of the tab, in ${example}`, async ({
+                page,
+            }) => {
+                await open(page, example);
+                await addFocusableNeighbours(page, example);
+                await page.locator('#before').focus();
+                await page.keyboard.press('Tab');
+                await expectFocusShadow(page, 'Cats', true);
+
+                const outer = await boxOf(tab(page, 'Cats'));
+                const inner = await boxOf(
+                    tab(page, 'Cats').locator('.mdc-tab__content')
+                );
+                const gaps = [
+                    inner.x - outer.x,
+                    inner.y - outer.y,
+                    outer.x + outer.width - (inner.x + inner.width),
+                    outer.y + outer.height - (inner.y + inner.height),
+                ];
+
+                expect(gaps[0]).toBeGreaterThan(0);
+                for (const gap of gaps) {
+                    expect(gap).toBeCloseTo(gaps[0], 0);
+                }
+            });
+        }
     });
 
     test.describe('when the tabs fit', () => {

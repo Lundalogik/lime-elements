@@ -7,7 +7,6 @@ import {
     Event,
     Watch,
 } from '@stencil/core';
-import { MDCRipple } from '@material/ripple';
 import { Tab } from './tab.types';
 import { isEqual, difference } from 'lodash-es';
 import { setActiveTab } from './tabs';
@@ -68,7 +67,6 @@ export class TabBar {
     @Element()
     private host: HTMLLimelTabBarElement;
 
-    private ripples = new Map<HTMLElement, MDCRipple>();
     private revealedTabId?: Tab['id'];
     private hasLoaded = false;
 
@@ -83,7 +81,6 @@ export class TabBar {
             return;
         }
 
-        this.updateRipples();
         this.revealedTabId = undefined;
         await this.revealActiveTab('auto');
     }
@@ -94,12 +91,7 @@ export class TabBar {
     }
 
     public async componentDidRender() {
-        this.updateRipples();
         await this.revealActiveTab(this.hasLoaded ? undefined : 'auto');
-    }
-
-    public disconnectedCallback() {
-        this.destroyRipples();
     }
 
     public render() {
@@ -142,37 +134,6 @@ export class TabBar {
                 'button[role="tab"]'
             ),
         ];
-    }
-
-    /**
-     * Gives every tab MDC's ripple, which is the feedback when a tab is
-     * pressed. Tabs that are gone lose theirs.
-     */
-    private updateRipples() {
-        const tabs = this.getTabElements();
-
-        for (const [tab, ripple] of this.ripples) {
-            if (tabs.includes(tab)) {
-                continue;
-            }
-
-            ripple.destroy();
-            this.ripples.delete(tab);
-        }
-
-        for (const tab of tabs) {
-            if (!this.ripples.has(tab)) {
-                this.ripples.set(tab, new MDCRipple(tab));
-            }
-        }
-    }
-
-    private destroyRipples() {
-        for (const ripple of this.ripples.values()) {
-            ripple.destroy();
-        }
-
-        this.ripples.clear();
     }
 
     /**
@@ -289,7 +250,6 @@ export class TabBar {
                     <span class="mdc-tab__text-label">{tab.text}</span>
                     {tab.badge ? <limel-badge label={tab.badge} /> : ''}
                 </span>
-                <span class="mdc-tab__ripple" />
             </button>
         );
     }
