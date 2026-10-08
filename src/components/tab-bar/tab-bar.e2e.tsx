@@ -340,6 +340,29 @@ describe('limel-tab-bar', () => {
         });
     });
 
+    describe('a badge on a tab', () => {
+        it('lets the pointer through to the tab, so that it shows no cursor or tooltip of its own', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar
+                    tabs={[
+                        { id: 'foo', text: 'Foo', badge: 99_940, active: true },
+                    ]}
+                ></limel-tab-bar>
+            );
+            await waitForChanges();
+            const badge = root.shadowRoot.querySelector('limel-badge');
+            const { x, y, width, height } = badge.getBoundingClientRect();
+
+            const hit = root.shadowRoot.elementFromPoint(
+                x + width / 2,
+                y + height / 2
+            );
+
+            expect(hit.closest('button[role="tab"]')).not.toBeNull();
+            expect(hit.closest('limel-badge')).toBeNull();
+        });
+    });
+
     describe('when a key is pressed on a tab', () => {
         const renderBar = async (barTabs: typeof tabs = tabs) => {
             const { root, waitForChanges, spyOnEvent } = await render(
