@@ -76,6 +76,18 @@ button {
         margin-left: -0.25rem;
     }
 
+    span.text {
+        transition: color 0.2s ease;
+        line-height: 1;
+        color: var(--limel-theme-on-surface-color);
+    }
+
+    &:hover {
+        span.text {
+            color: var(--limel-theme-text-primary-on-background-color);
+        }
+    }
+
     limel-badge {
         margin-right: -0.25rem;
         box-shadow: 0 0 0 1px rgb(var(--contrast-600));
@@ -116,6 +128,10 @@ button[aria-selected='true'] {
             --mdc-theme-primary
         ); // active tab's icon color, unless defined by tab item itself
     }
+
+    span.text {
+        color: var(--lime-primary-color, var(--limel-theme-primary-color));
+    }
 }
 
 span.content {
@@ -133,23 +149,5 @@ span.content {
     button:focus-visible & {
         transition-duration: 0.3s;
         box-shadow: var(--shadow-depth-8-focused);
-    }
-}
-
-button {
-    span.text {
-        transition: color 0.2s ease;
-        line-height: 1;
-        color: var(--limel-theme-on-surface-color);
-    }
-    &:hover {
-        span.text {
-            color: var(--limel-theme-text-primary-on-background-color);
-        }
-    }
-    &[aria-selected='true'] {
-        span.text {
-            color: var(--lime-primary-color, var(--limel-theme-primary-color));
-        }
     }
 }
