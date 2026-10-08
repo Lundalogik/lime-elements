@@ -192,7 +192,7 @@ const expectRevealed = async (page: Page, index: number, neighbour: number) => {
 // The tab that has keyboard focus gets the focus shadow, on the part that holds
 // its icon, text and badge, so that the shadow stays inside the tab's edges.
 const expectFocusShadow = (page: Page, name: string, expected: boolean) => {
-    const content = tab(page, name).locator('.mdc-tab__content');
+    const content = tab(page, name).locator('span.content');
     if (expected) {
         return expect(content).not.toHaveCSS('box-shadow', 'none');
     }
@@ -701,7 +701,7 @@ test.describe('limel-tab-bar', () => {
 
                 const outer = await boxOf(tab(page, 'Cats'));
                 const inner = await boxOf(
-                    tab(page, 'Cats').locator('.mdc-tab__content')
+                    tab(page, 'Cats').locator('span.content')
                 );
                 const gaps = [
                     inner.x - outer.x,
