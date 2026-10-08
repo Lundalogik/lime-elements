@@ -1,0 +1,1 @@
+import{r as e,h as r}from"./index-BU9IJqli.js";const t=class{constructor(r){e(this,r)}async toMarkdown(){return`[${this.name.replaceAll(/[\\[\]]/g,String.raw`\$&`)}](mailto:${this.email})`}render(){return r("limel-chip",{key:"e0765e5bc377e879a69cbdfc153cc5963717247d",text:this.name,icon:"user",link:{href:`mailto:${this.email}`}})}};export{t as limel_example_markdown_person_chip}
