@@ -1,3 +1,12 @@
+## [40.6.3](https://github.com/Lundalogik/lime-elements/compare/v40.6.2...v40.6.3) (2026-10-08)
+
+### Bug Fixes
+
+
+* **tab-bar:** draw the tabs with our own styles instead of MDC's ([95f419c](https://github.com/Lundalogik/lime-elements/commit/95f419c31f2def04fa1be08a316d1441d4fc6a7b))
+* **tab-bar:** give the selected tab's icon the same accent as its text ([73eff2d](https://github.com/Lundalogik/lime-elements/commit/73eff2d09e651a5d877a9690b165cb42d47d1416))
+* **tab-bar:** show keyboard focus with the focus shadow, not a tint ([ed04bf4](https://github.com/Lundalogik/lime-elements/commit/ed04bf48e811ada396daf7aeee4de9850f825e86))
+
 ## [40.6.2](https://github.com/Lundalogik/lime-elements/compare/v40.6.1...v40.6.2) (2026-10-08)
 
 ### Bug Fixes
