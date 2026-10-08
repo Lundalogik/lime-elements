@@ -1,5 +1,4 @@
 @use '@material/tab-bar/mdc-tab-bar';
-@use '@material/tab-indicator/mdc-tab-indicator';
 @use '@material/tab/mdc-tab';
 
 :host(limel-tab-bar) {
@@ -43,12 +42,6 @@ limel-scroller {
     letter-spacing: normal;
     font-size: var(--limel-theme-default-font-size);
     text-transform: none;
-}
-
-.mdc-tab-indicator {
-    .mdc-tab-indicator__content {
-        border: none;
-    }
 }
 
 .mdc-tab__ripple {
