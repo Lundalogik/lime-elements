@@ -1,1 +1,0 @@
-import{r as a,h as r}from"./index-BU9IJqli.js";import{c as e}from"./chart-items-stack-BdUh9la4.js";const t=class{constructor(r){a(this,r)}render(){return r("limel-chart",{key:"5392d57089f82f51aa6084d8a7097d8bb974547d",items:e,maxValue:512})}};export{t as limel_example_chart_max_value}
