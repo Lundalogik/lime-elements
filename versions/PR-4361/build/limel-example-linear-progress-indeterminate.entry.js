@@ -1,0 +1,1 @@
+import{r as e,h as r}from"./index-BU9IJqli.js";const a=class{constructor(r){e(this,r)}render(){return r("limel-linear-progress",{key:"1668da94627aea070a119c674a1f7ae450304e95",indeterminate:!0})}};export{a as limel_example_linear_progress_indeterminate}
