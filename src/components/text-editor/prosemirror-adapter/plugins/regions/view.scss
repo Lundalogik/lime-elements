@@ -1,0 +1,17 @@
+.region {
+    margin-block-start: 1rem;
+    padding-block-start: 0.5rem;
+    border-block-start: 1px solid var(--contrast-300);
+}
+
+.region__label {
+    display: block;
+    margin-block-end: 0.25rem;
+
+    color: var(--contrast-700);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+
+    user-select: none;
+}

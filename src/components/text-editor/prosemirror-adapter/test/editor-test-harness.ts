@@ -22,7 +22,11 @@ import { ContentTypeConverter } from '../../utils/content-type-converter';
 type EditorTestHarnessOverrides = Partial<
     Pick<
         EditorSchemaOptions,
-        'customElements' | 'contentType' | 'language' | 'inlineImages'
+        | 'customElements'
+        | 'contentType'
+        | 'language'
+        | 'inlineImages'
+        | 'regions'
     > &
         Pick<
             EditorPluginsOptions,
@@ -67,6 +71,7 @@ export function createEditorTestHarness(
         contentType: overrides.contentType ?? 'html',
         language: overrides.language ?? 'en',
         inlineImages: overrides.inlineImages,
+        regions: overrides.regions,
     });
     const factory = new MenuCommandFactory(schema);
     const plugins = buildEditorPlugins({
@@ -76,6 +81,7 @@ export function createEditorTestHarness(
         language: overrides.language ?? 'en',
         contentType: overrides.contentType ?? 'html',
         inlineImages: overrides.inlineImages,
+        regions: overrides.regions,
         triggerCharacters: overrides.triggerCharacters ?? [],
         onNewLinkSelection: overrides.onNewLinkSelection ?? (() => undefined),
         onImagePasted:
