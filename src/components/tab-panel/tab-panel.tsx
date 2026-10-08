@@ -29,6 +29,7 @@ import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
  * @slot - Content to put inside the `limel-tab-panel`. Each slotted element
  * must have the `id` attribute equal to the id of the tab it belongs to.
  * @exampleComponent limel-example-tab-panel-basic
+ * @exampleComponent limel-example-tab-panel-vertical
  */
 @Component({
     tag: 'limel-tab-panel',
@@ -41,6 +42,13 @@ export class TabPanel {
      */
     @Prop({ mutable: true })
     public tabs: Tab[] = [];
+
+    /**
+     * Whether the tabs are laid out in a row, above the content, or in a
+     * column, to the left of it.
+     */
+    @Prop({ reflect: true })
+    public orientation: 'horizontal' | 'vertical' = 'horizontal';
 
     /**
      * Emitted when a tab has been changed
@@ -97,7 +105,10 @@ export class TabPanel {
         return (
             <Host onChangeTab={this.handleChangeTabs}>
                 <div class="tab-panel">
-                    <limel-tab-bar tabs={this.tabs} />
+                    <limel-tab-bar
+                        tabs={this.tabs}
+                        orientation={this.orientation}
+                    />
                     <div class="tab-content">
                         <slot />
                     </div>
