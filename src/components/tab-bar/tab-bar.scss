@@ -1,5 +1,4 @@
-@use '@material/tab-bar/mdc-tab-bar';
-@use '@material/tab/mdc-tab';
+@use '../../style/mixins';
 
 :host(limel-tab-bar) {
     --limel-tab-background-color: var(--contrast-300);
@@ -32,26 +31,20 @@ limel-scroller {
 }
 
 .mdc-tab {
-    // As long as this component is depended on MDC,
-    // we need to force it to be font-agnostic.
-    // When MDC-dependency is removed, this block can also be removed.
-    // However, on removal of MDC-dependency, we should also make sure to check
-    // other font-related styles that might be set by MDC,
-    // such as `letter-spacing` or `font-size`.
-    font-family: inherit;
-    font-weight: 400;
-    letter-spacing: normal;
-    font-size: var(--limel-theme-default-font-size);
-    text-transform: none;
-}
-
-.mdc-tab {
+    @include mixins.reset-button-user-agent-styles;
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
     border-radius: 0;
     padding: var(--limel-tab-content-inset);
     min-width: 2.5rem;
     background-color: transparent;
     flex: 0 0 auto;
     height: 2.5rem;
+    outline: none;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: var(--limel-theme-default-font-size);
 
     &:not(.mdc-tab--active) {
         &:after {
@@ -76,6 +69,7 @@ limel-scroller {
     }
 
     .mdc-tab__icon {
+        transition: color 0.2s ease;
         color: rgb(
             var(--contrast-800)
         ); // inactive tab's icon color, unless defined by tab item itself
@@ -85,6 +79,7 @@ limel-scroller {
     limel-badge {
         margin-right: -0.25rem;
         box-shadow: 0 0 0 1px rgb(var(--contrast-600));
+        pointer-events: none;
     }
 }
 
@@ -125,9 +120,11 @@ limel-scroller {
 
 .mdc-tab__content {
     transition: box-shadow 0.2s ease;
+    display: flex;
     flex-grow: 1;
+    align-items: center;
+    justify-content: center;
     gap: 0.375rem;
-    height: auto;
     padding: 0 0.75rem;
     border-radius: calc(
         var(--limel-tab-border-radius) - var(--limel-tab-content-inset)
@@ -142,7 +139,7 @@ limel-scroller {
 .mdc-tab {
     .mdc-tab__text-label {
         transition: color 0.2s ease;
-        padding-left: 0 !important;
+        line-height: 1;
         color: var(--limel-theme-on-surface-color);
     }
     &:hover {
