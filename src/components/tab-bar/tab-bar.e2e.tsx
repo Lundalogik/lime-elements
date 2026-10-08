@@ -363,6 +363,35 @@ describe('limel-tab-bar', () => {
         });
     });
 
+    describe('the selected tab', () => {
+        it('takes the accent of the part of the page it is in, for its icon as for its text', async () => {
+            const { root } = await render(
+                <div style={{ '--lime-primary-color': 'rgb(255, 0, 0)' }}>
+                    <limel-tab-bar
+                        tabs={[
+                            {
+                                id: 'foo',
+                                text: 'Foo',
+                                icon: 'cat',
+                                active: true,
+                            },
+                        ]}
+                    ></limel-tab-bar>
+                </div>
+            );
+            const tab = root
+                .querySelector('limel-tab-bar')
+                .shadowRoot.querySelector('button[role="tab"]');
+            const colorOf = (selector: string) =>
+                getComputedStyle(tab.querySelector(selector)).color;
+
+            await vi.waitFor(() => {
+                expect(colorOf('span.text')).toBe('rgb(255, 0, 0)');
+                expect(colorOf('limel-icon')).toBe('rgb(255, 0, 0)');
+            });
+        });
+    });
+
     describe('when a key is pressed on a tab', () => {
         const renderBar = async (barTabs: typeof tabs = tabs) => {
             const { root, waitForChanges, spyOnEvent } = await render(
