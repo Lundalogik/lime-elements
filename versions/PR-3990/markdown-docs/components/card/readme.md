@@ -64,13 +64,11 @@ graph TD;
   limel-card --> limel-action-bar
   limel-action-bar --> limel-action-bar-item
   limel-action-bar --> limel-action-bar-overflow-menu
-  limel-action-bar --> limel-icon
-  limel-action-bar --> limel-tooltip
   limel-action-bar-item --> limel-icon
   limel-action-bar-item --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
-  limel-action-bar-overflow-menu --> limel-icon
+  limel-tooltip-content --> limel-hotkey
   limel-action-bar-overflow-menu --> limel-menu
   limel-menu --> limel-spinner
   limel-menu --> limel-breadcrumbs

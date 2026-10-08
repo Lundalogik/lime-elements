@@ -1,6 +1,7 @@
 /**
  * This component renders markdown
  * @exampleComponent kompendium-example-markdown
+ * @exampleComponent kompendium-example-inline-links
  */
 export declare class Markdown {
     private renderSeq;

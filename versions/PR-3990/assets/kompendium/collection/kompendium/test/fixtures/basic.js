@@ -45,4 +45,3 @@ Zap = __decorate([
     CustomDecorator({ name: 'gg' })
 ], Zap);
 export { Zap };
-//# sourceMappingURL=basic.js.map

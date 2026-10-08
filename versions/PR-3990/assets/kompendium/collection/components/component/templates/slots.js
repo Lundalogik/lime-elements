@@ -1,14 +1,18 @@
 import { h } from "@stencil/core";
-export function SlotList({ slots, id, }) {
+import { entrySlug } from "../anchors";
+import { slotDisplayName } from "../slots";
+export function SlotList({ slots, id, slugId, }) {
     if (!slots.length) {
         return;
     }
     return [
-        h("h3", { class: "docs-layout-section-heading", id: id }, "Slots"),
-        ...slots.map(renderSlot),
+        slugId ? (h("span", { class: "section-anchor", id: slugId, "aria-hidden": "true" })) : null,
+        h("h3", { class: "docs-layout-section-heading", id: id }, "Slots", slugId ? h("kompendium-anchor", { slug: slugId, label: "Slots" }) : null),
+        ...slots.map(renderSlot(slugId)),
     ];
 }
-function renderSlot(slot) {
-    return (h("div", null, h("h4", null, slot.name), h("kompendium-markdown", { text: slot.docs })));
-}
-//# sourceMappingURL=slots.js.map
+const renderSlot = (sectionSlug) => (slot) => {
+    const name = slotDisplayName(slot.name);
+    const slug = sectionSlug ? entrySlug(sectionSlug, name) : null;
+    return (h("div", null, h("h4", { id: slug }, name, slug ? (h("kompendium-anchor", { slug: slug, label: name })) : null), h("kompendium-markdown", { text: slot.docs })));
+};

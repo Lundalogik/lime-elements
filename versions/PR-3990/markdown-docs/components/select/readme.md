@@ -2,6 +2,19 @@
 <!-- Auto Generated Below -->
 
 
+## Overview
+
+## Keyboard
+
+Typing characters jumps to the option whose text starts with them, the way
+a native `<select>` does. Characters accumulate for a short while, so typing
+`n`, `e` finds "Netherlands" rather than the next option starting with `n`.
+Pressing the same character repeatedly cycles through all options starting
+with it. This works both while the dropdown is open, and while the closed
+component has focus — in which case the dropdown opens with the match
+highlighted. Typing only moves the highlight; the value is not changed until
+the option is picked with `Enter` or a click.
+
 ## Properties
 
 | Property     | Attribute     | Description                                                                                                                                                                                                          | Type                                  | Default     |
@@ -38,9 +51,14 @@
  - [limel-example-chart-type-dot](../chart/examples)
  - [limel-example-chart-type-gantt](../chart/examples)
  - [limel-example-chart-type-line](../chart/examples)
+ - [limel-example-chart-type-scatter](../chart/examples)
+ - [limel-example-chart-type-scatter-negative](../chart/examples)
+ - [limel-example-chip-set-invalid-chips](../chip-set/examples)
  - [limel-example-chip-size](../chip/examples)
+ - [limel-example-code-diff-interactive](../code-diff/examples)
  - [limel-example-code-diff-line-wrap](../code-diff/examples)
  - [limel-example-dialog-heading](../dialog/examples)
+ - [limel-example-file-resize-image](../file/examples)
  - [limel-example-file-viewer-office](../file-viewer/examples)
  - [limel-example-header-slot-actions](../header/examples)
  - [limel-example-input-field-number](../input-field/examples)
@@ -50,6 +68,8 @@
  - [limel-example-list-item-multiple-lines](../list-item/examples)
  - [limel-example-menu-open-direction](../menu/examples)
  - [limel-example-menu-surface-width](../menu/examples)
+ - [limel-example-pagination-language](../pagination/examples)
+ - [limel-example-pagination-page-size](../pagination/examples)
  - [limel-example-picker-static-actions](../picker/examples)
  - [limel-example-profile-picture-image-fit](../profile-picture/examples)
  - [limel-example-radio-button-group-multiple-lines](../radio-button-group/examples)
@@ -62,6 +82,7 @@
  - [limel-example-select-preselected](examples)
  - [limel-example-select-with-empty-option](examples)
  - [limel-example-select-with-icons](examples)
+ - [limel-example-select-with-primary-component](examples)
  - [limel-example-select-with-secondary-text](examples)
  - [limel-example-select-with-separators](examples)
  - [limel-example-table-pagination](../table/examples)
@@ -96,9 +117,14 @@ graph TD;
   limel-example-chart-type-dot --> limel-select
   limel-example-chart-type-gantt --> limel-select
   limel-example-chart-type-line --> limel-select
+  limel-example-chart-type-scatter --> limel-select
+  limel-example-chart-type-scatter-negative --> limel-select
+  limel-example-chip-set-invalid-chips --> limel-select
   limel-example-chip-size --> limel-select
+  limel-example-code-diff-interactive --> limel-select
   limel-example-code-diff-line-wrap --> limel-select
   limel-example-dialog-heading --> limel-select
+  limel-example-file-resize-image --> limel-select
   limel-example-file-viewer-office --> limel-select
   limel-example-header-slot-actions --> limel-select
   limel-example-input-field-number --> limel-select
@@ -108,6 +134,8 @@ graph TD;
   limel-example-list-item-multiple-lines --> limel-select
   limel-example-menu-open-direction --> limel-select
   limel-example-menu-surface-width --> limel-select
+  limel-example-pagination-language --> limel-select
+  limel-example-pagination-page-size --> limel-select
   limel-example-picker-static-actions --> limel-select
   limel-example-profile-picture-image-fit --> limel-select
   limel-example-radio-button-group-multiple-lines --> limel-select
@@ -120,6 +148,7 @@ graph TD;
   limel-example-select-preselected --> limel-select
   limel-example-select-with-empty-option --> limel-select
   limel-example-select-with-icons --> limel-select
+  limel-example-select-with-primary-component --> limel-select
   limel-example-select-with-secondary-text --> limel-select
   limel-example-select-with-separators --> limel-select
   limel-example-table-pagination --> limel-select

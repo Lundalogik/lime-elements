@@ -53,6 +53,7 @@ inside the actual tab, e.g. to change the icon, color or badge.
 ```mermaid
 graph TD;
   limel-tab-panel --> limel-tab-bar
+  limel-tab-bar --> limel-scroller
   limel-tab-bar --> limel-icon
   limel-tab-bar --> limel-badge
   limel-example-tab-panel-basic --> limel-tab-panel

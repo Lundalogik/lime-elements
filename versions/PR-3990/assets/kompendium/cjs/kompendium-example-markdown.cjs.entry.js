@@ -1,6 +1,6 @@
 'use strict';
 
-var index = require('./index-DYiJ6dQL.js');
+var index = require('./index-B_xYBJw_.js');
 
 const markdownExample = `
 ## Headings
@@ -157,9 +157,8 @@ const MarkdownExample = class {
         index.registerInstance(this, hostRef);
     }
     render() {
-        return index.h("kompendium-markdown", { key: '6db38675f45e524403707a714226b9f794ea1285', text: markdownExample });
+        return index.h("kompendium-markdown", { key: '3182f8225d8f819a363ef5ca80f4bda468b78856', text: markdownExample });
     }
 };
 
 exports.kompendium_example_markdown = MarkdownExample;
-//# sourceMappingURL=kompendium-example-markdown.entry.cjs.js.map

@@ -2,6 +2,21 @@
 <!-- Auto Generated Below -->
 
 
+## Overview
+
+Buttons allow users to take actions with a single tap or click.
+They are intentionally designed to look and feel clickable,
+and should clearly communicate the action that will happen
+when the user interacts with them.
+
+The component offers three visual variants — **default**, **primary**,
+and **outlined** — that together establish a hierarchy of actions.
+See the examples below for guidance on when to use each variant.
+
+For more guidance on how to arrange buttons and choose between
+primary and secondary actions, see our
+[Action buttons design guidelines](#/DesignGuidelines/action-buttons.md/).
+
 ## Properties
 
 | Property        | Attribute        | Description                                                                                               | Type             | Default     |
@@ -28,9 +43,11 @@
  - [limel-example-action-buttons-primary-secondary-reversed](../../design-guidelines/action-buttons/examples)
  - [limel-example-action-buttons-primary-secondary-reversed-colors](../../design-guidelines/action-buttons/examples)
  - [limel-example-action-buttons-third-alternative](../../design-guidelines/action-buttons/examples)
+ - [limel-example-ai-avatar-export](../ai-avatar/examples)
  - [limel-example-banner-basic](../banner/examples)
  - [limel-example-builtin-field-types-form](../form/examples)
  - [limel-example-button-basic](examples)
+ - [limel-example-button-button-hierarchy](examples)
  - [limel-example-button-click-fail](examples)
  - [limel-example-button-click-success](examples)
  - [limel-example-button-colors](examples)
@@ -59,10 +76,12 @@
  - [limel-example-file-input-basic](../file-input/examples)
  - [limel-example-file-input-type-filtering](../file-input/examples)
  - [limel-example-form](../form/examples)
+ - [limel-example-form-invalid-section](../form/examples)
  - [limel-example-form-layout](../form/examples)
  - [limel-example-form-span-fields](../form/examples)
  - [limel-example-input-field-focus](../input-field/examples)
  - [limel-example-input-field-selection](../input-field/examples)
+ - [limel-example-markdown-to-markdown](../markdown/examples)
  - [limel-example-menu-badge-icons](../menu/examples)
  - [limel-example-menu-basic](../menu/examples)
  - [limel-example-menu-composite](../menu/examples)
@@ -77,9 +96,12 @@
  - [limel-example-menu-sub-menu-lazy-loading-infinite](../menu/examples)
  - [limel-example-menu-sub-menus](../menu/examples)
  - [limel-example-menu-surface-width](../menu/examples)
+ - [limel-example-pagination-total-items](../pagination/examples)
  - [limel-example-popover-basic](../popover/examples)
  - [limel-example-popover-styling](../popover/examples)
  - [limel-example-portal-basic](../portal/examples)
+ - [limel-example-scroller-horizontal](../scroller/examples)
+ - [limel-example-scroller-vertical](../scroller/examples)
  - [limel-example-select-change-options](../select/examples)
  - [limel-example-select-dialog](../select/examples)
  - [limel-example-snackbar-basic](../snackbar/examples)
@@ -88,13 +110,17 @@
  - [limel-example-snackbar-persistent-non-dismissible](../snackbar/examples)
  - [limel-example-snackbar-with-action](../snackbar/examples)
  - [limel-example-snackbar-with-changing-messages](../snackbar/examples)
+ - [limel-example-snackbar-with-markdown](../snackbar/examples)
  - [limel-example-switch-vs-checkbox](../../design-guidelines/boolean/examples)
  - [limel-example-tab-panel-content](../tab-panel/examples)
  - [limel-example-table-selectable-rows](../table/examples)
  - [limel-example-text-editor-as-form-component](../text-editor/examples)
+ - [limel-example-tooltip-accessibility](../tooltip/examples)
  - [limel-example-tooltip-basic](../tooltip/examples)
  - [limel-example-tooltip-composite](../tooltip/examples)
  - [limel-example-tooltip-declutter](../../design-guidelines/declutter/examples)
+ - [limel-example-tooltip-hotkey](../tooltip/examples)
+ - [limel-pagination-jump](../pagination/jump)
  - [limel-snackbar](../snackbar)
  - [limel-split-button](../split-button)
  - [limel-text-editor-link-menu](../text-editor/link-menu)
@@ -118,9 +144,11 @@ graph TD;
   limel-example-action-buttons-primary-secondary-reversed --> limel-button
   limel-example-action-buttons-primary-secondary-reversed-colors --> limel-button
   limel-example-action-buttons-third-alternative --> limel-button
+  limel-example-ai-avatar-export --> limel-button
   limel-example-banner-basic --> limel-button
   limel-example-builtin-field-types-form --> limel-button
   limel-example-button-basic --> limel-button
+  limel-example-button-button-hierarchy --> limel-button
   limel-example-button-click-fail --> limel-button
   limel-example-button-click-success --> limel-button
   limel-example-button-colors --> limel-button
@@ -149,10 +177,12 @@ graph TD;
   limel-example-file-input-basic --> limel-button
   limel-example-file-input-type-filtering --> limel-button
   limel-example-form --> limel-button
+  limel-example-form-invalid-section --> limel-button
   limel-example-form-layout --> limel-button
   limel-example-form-span-fields --> limel-button
   limel-example-input-field-focus --> limel-button
   limel-example-input-field-selection --> limel-button
+  limel-example-markdown-to-markdown --> limel-button
   limel-example-menu-badge-icons --> limel-button
   limel-example-menu-basic --> limel-button
   limel-example-menu-composite --> limel-button
@@ -167,9 +197,12 @@ graph TD;
   limel-example-menu-sub-menu-lazy-loading-infinite --> limel-button
   limel-example-menu-sub-menus --> limel-button
   limel-example-menu-surface-width --> limel-button
+  limel-example-pagination-total-items --> limel-button
   limel-example-popover-basic --> limel-button
   limel-example-popover-styling --> limel-button
   limel-example-portal-basic --> limel-button
+  limel-example-scroller-horizontal --> limel-button
+  limel-example-scroller-vertical --> limel-button
   limel-example-select-change-options --> limel-button
   limel-example-select-dialog --> limel-button
   limel-example-snackbar-basic --> limel-button
@@ -178,13 +211,17 @@ graph TD;
   limel-example-snackbar-persistent-non-dismissible --> limel-button
   limel-example-snackbar-with-action --> limel-button
   limel-example-snackbar-with-changing-messages --> limel-button
+  limel-example-snackbar-with-markdown --> limel-button
   limel-example-switch-vs-checkbox --> limel-button
   limel-example-tab-panel-content --> limel-button
   limel-example-table-selectable-rows --> limel-button
   limel-example-text-editor-as-form-component --> limel-button
+  limel-example-tooltip-accessibility --> limel-button
   limel-example-tooltip-basic --> limel-button
   limel-example-tooltip-composite --> limel-button
   limel-example-tooltip-declutter --> limel-button
+  limel-example-tooltip-hotkey --> limel-button
+  limel-pagination-jump --> limel-button
   limel-snackbar --> limel-button
   limel-split-button --> limel-button
   limel-text-editor-link-menu --> limel-button

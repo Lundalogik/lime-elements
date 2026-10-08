@@ -26,4 +26,3 @@ export class TooltipManager {
     /** Hide the current tooltip */
     hide() { }
 }
-//# sourceMappingURL=valid-types.js.map

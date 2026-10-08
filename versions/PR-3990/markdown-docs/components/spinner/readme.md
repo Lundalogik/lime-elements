@@ -20,8 +20,10 @@
  - [limel-example-spinner-color](examples)
  - [limel-example-spinner-size](examples)
  - [limel-example-tab-panel-content](../tab-panel/examples)
+ - [limel-file](../file)
  - [limel-file-viewer](../file-viewer)
  - [limel-menu](../menu)
+ - [limel-pagination](../pagination)
  - [limel-picker](../picker)
  - [limel-profile-picture](../profile-picture)
  - [limel-table](../table)
@@ -35,8 +37,10 @@ graph TD;
   limel-example-spinner-color --> limel-spinner
   limel-example-spinner-size --> limel-spinner
   limel-example-tab-panel-content --> limel-spinner
+  limel-file --> limel-spinner
   limel-file-viewer --> limel-spinner
   limel-menu --> limel-spinner
+  limel-pagination --> limel-spinner
   limel-picker --> limel-spinner
   limel-profile-picture --> limel-spinner
   limel-table --> limel-spinner

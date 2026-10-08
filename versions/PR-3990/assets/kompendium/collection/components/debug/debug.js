@@ -1,4 +1,5 @@
 import { h } from "@stencil/core";
+import { getComponentTitle } from "../component-title";
 export class KompendiumDebug {
     constructor() {
         /**
@@ -10,7 +11,7 @@ export class KompendiumDebug {
     render() {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
-        return (h("article", { key: '29c045c23cd107d1d0006467db9abad681bb7e2e', class: "component" }, h("section", { key: 'ae3e9fe451f3663a720d2113d140f1efb42a5da8', class: "docs debug" }, this.renderComponent(component))));
+        return (h("article", { key: 'fbad346439a20f0cee130fb23e3e117e68edc2dd', class: "component" }, h("section", { key: '25e41ce4d1ba532fd045068373c9bf8c5382f691', class: "docs debug" }, this.renderComponent(component))));
     }
     renderComponent(component) {
         const ExampleComponent = component.tag;
@@ -21,10 +22,36 @@ export class KompendiumDebug {
             schema: schema,
             ...factory(ExampleComponent),
         };
-        return (h("div", { class: "show-case" }, h("div", { class: "show-case_component" }, h(ExampleComponent, { ...props }))));
+        return [
+            this.renderHeadings(component, ownerComponent),
+            h("div", { class: "show-case" }, h("div", { class: "show-case_component" }, h(ExampleComponent, { ...props }))),
+        ];
+    }
+    /*
+     * Render the same heading context as the component page, so that the
+     * heading outline of an example is identical on both pages, e.g. when
+     * testing for accessibility
+     */
+    renderHeadings(component, ownerComponent) {
+        var _a;
+        const exampleTitle = (_a = component.docs) === null || _a === void 0 ? void 0 : _a.split('\n')[0];
+        return [
+            h("h2", { class: "context-heading" }, getComponentTitle(ownerComponent.tag)),
+            !!exampleTitle && h("h3", { class: "context-heading" }, exampleTitle),
+        ];
     }
     static get is() { return "kompendium-debug"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() {
+        return {
+            "$": ["debug.scss"]
+        };
+    }
+    static get styleUrls() {
+        return {
+            "$": ["debug.css"]
+        };
+    }
     static get properties() {
         return {
             "docs": {
@@ -37,7 +64,8 @@ export class KompendiumDebug {
                         "JsonDocs": {
                             "location": "import",
                             "path": "@stencil/core/internal",
-                            "id": "node_modules::JsonDocs"
+                            "id": "node_modules::JsonDocs",
+                            "referenceLocation": "JsonDocs"
                         }
                     }
                 },
@@ -86,7 +114,8 @@ export class KompendiumDebug {
                         "MatchResults": {
                             "location": "import",
                             "path": "@limetech/stencil-router",
-                            "id": "node_modules::MatchResults"
+                            "id": "node_modules::MatchResults",
+                            "referenceLocation": "MatchResults"
                         }
                     }
                 },
@@ -109,7 +138,8 @@ export class KompendiumDebug {
                         "PropsFactory": {
                             "location": "import",
                             "path": "../playground/playground.types",
-                            "id": "src/components/playground/playground.types.ts::PropsFactory"
+                            "id": "src/components/playground/playground.types.ts::PropsFactory",
+                            "referenceLocation": "PropsFactory"
                         }
                     }
                 },
@@ -143,4 +173,3 @@ const isTag = (name) => (tag) => {
 const hasText = (name) => (tag) => {
     return tag.text === name;
 };
-//# sourceMappingURL=debug.js.map

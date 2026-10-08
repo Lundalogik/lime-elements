@@ -1,5 +1,10 @@
-export declare function typeLinks(options?: any): (tree: any) => any;
-export declare function wrapText(node: any, types?: string[]): ({
+import type { Node } from 'unist';
+export declare function typeLinks(options?: {
+    types?: string[];
+}): (tree: Node) => Node;
+export declare function wrapText(node: {
+    value: string;
+}, types?: string[]): ({
     type: string;
     value: string;
 } | {

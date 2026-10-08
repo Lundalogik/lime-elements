@@ -21,4 +21,5 @@ export declare class KompendiumDebug {
     examplePropsFactory?: PropsFactory;
     render(): HTMLElement;
     private renderComponent;
+    private renderHeadings;
 }

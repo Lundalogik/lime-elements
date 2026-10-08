@@ -44,6 +44,7 @@ something unusual or remarkable demands the user's attention.
  - [limel-example-callout-tip](examples)
  - [limel-example-callout-warning](examples)
  - [limel-example-custom-type](examples)
+ - [limel-example-file-resize-mixed](../file/examples)
  - [limel-example-profile-picture-resize-fallback](../profile-picture/examples)
  - [limel-profile-picture](../profile-picture)
 
@@ -66,6 +67,7 @@ graph TD;
   limel-example-callout-tip --> limel-callout
   limel-example-callout-warning --> limel-callout
   limel-example-custom-type --> limel-callout
+  limel-example-file-resize-mixed --> limel-callout
   limel-example-profile-picture-resize-fallback --> limel-callout
   limel-profile-picture --> limel-callout
   style limel-callout fill:#f9f,stroke:#333,stroke-width:4px

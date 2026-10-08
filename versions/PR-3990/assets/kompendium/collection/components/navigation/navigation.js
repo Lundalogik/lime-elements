@@ -27,14 +27,14 @@ export class Navigation {
     }
     render() {
         return [
-            h("div", { key: '0abf57dba46d2c55f777e6b0a62756f1531b716a', class: {
+            h("div", { key: '73b5ead76c3caebf82f92f0446f1fd2d8ef34c9a', class: {
                     'nav-panel-scrim': true,
                     'display-nav-panel': this.displayNavPanel,
                 }, onClick: this.toggleMenu }),
-            h("nav", { key: '47f1e62abae92f0ee5a90a980f79b5cec0508364', class: {
+            h("nav", { key: 'de2d992290cc30bead85cd1c72f2aa978a9255d8', class: {
                     'nav-panel': true,
                     'display-nav-panel': this.displayNavPanel,
-                }, onClick: this.stopPropagationOfNavClick }, h("a", { key: '25fd2d738007fc596447cf4ac0a2bbbcf92df332', class: "nav-panel__responsive-menu", onClick: this.toggleMenu }, h("span", { key: '2b4056f7793e879a86bd0ed40ce45366d891cf5a' }), h("span", { key: 'c2174de261be61fa807e8b6dadcf6b7119bbec30' }), h("span", { key: 'd755597e3c961b057f7ed4cb042aa45c8ca336c1' }), h("span", { key: 'a3442946e847e5b870afc0dcce8baf47cc4fb03a' })), h("header", { key: '46a15de390a19d9cb9b0bd8973e82b4c33bb6d62', class: "panel-header" }, h("div", { key: '3c280f8409cef9848c3e58c6ac907a4e6ae53a8e', class: "branding-and-mode" }, h("h1", { key: 'c38675cafe5bdf1a119a3e06cdca78f5d5ad5b25' }, this.renderHeader()), h("kompendium-darkmode-switch", { key: 'ec6564ee68633fffabc3deecf34a09d431d7634a' })), h("kompendium-search", { key: '8aa459ff257cc6a1adb726ca4b6b4cdf397ccb57', index: this.index })), this.renderChapters(this.menu)),
+                }, onClick: this.stopPropagationOfNavClick }, h("a", { key: 'addfb1cfba7601a247e9d242432da428a89370d3', class: "nav-panel__responsive-menu", onClick: this.toggleMenu }, h("span", { key: '4c0b3f1813c6dfc7a2a1f519bffa4a5ed109426d' }), h("span", { key: '9292fc50998a2c94986dba97203932bf8755e700' }), h("span", { key: '9a3bdc5917f668e47c89aa479dd4aaf2c6b055af' }), h("span", { key: '2e0af12be237f471f7004c48b803df053d07bc4b' })), h("header", { key: '656146ba6ad69eda77e1fe254020265c78748194', class: "panel-header" }, h("div", { key: '3a724ddd3bb51d151ebbd1fa30266f372fe63694', class: "branding-and-mode" }, h("h1", { key: '5974a364b58d1af4bfed568063dacced9595e69f' }, this.renderHeader()), h("kompendium-darkmode-switch", { key: 'f1e37e2f65518571b3dbd9caf09b75d14ac2eb29' })), h("kompendium-search", { key: '2d9bb94fbe8f7d4d72c21ebbdf832efbd8133aa7', index: this.index })), this.renderChapters(this.menu)),
         ];
     }
     renderHeader() {
@@ -99,7 +99,8 @@ export class Navigation {
                         "MenuItem": {
                             "location": "import",
                             "path": "../../types",
-                            "id": "src/types.ts::MenuItem"
+                            "id": "src/types.ts::MenuItem",
+                            "referenceLocation": "MenuItem"
                         }
                     }
                 },
@@ -181,4 +182,3 @@ export class Navigation {
 // function hasContent(item: MenuItem) {
 //     return item.children?.length > 0;
 // }
-//# sourceMappingURL=navigation.js.map

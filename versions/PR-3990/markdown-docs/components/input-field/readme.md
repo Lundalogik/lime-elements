@@ -97,6 +97,7 @@ Type: `Promise<number>`
  - [limel-example-chart-type-line](../chart/examples)
  - [limel-example-chart-type-pie](../chart/examples)
  - [limel-example-chart-type-ring](../chart/examples)
+ - [limel-example-chart-type-scatter](../chart/examples)
  - [limel-example-chip-set-input](../chip-set/examples)
  - [limel-example-circular-progress-basic](../circular-progress/examples)
  - [limel-example-circular-progress-percentage-colors](../circular-progress/examples)
@@ -104,6 +105,8 @@ Type: `Promise<number>`
  - [limel-example-color-picker-composite](../color-picker/examples)
  - [limel-example-dialog-heading](../dialog/examples)
  - [limel-example-file-dropzone-type-filtering](../file-dropzone/examples)
+ - [limel-example-file-per-file-status](../file/examples)
+ - [limel-example-file-resize-image](../file/examples)
  - [limel-example-info-tile-progress](../info-tile/examples)
  - [limel-example-input-field-autocomplete](examples)
  - [limel-example-input-field-error-icon](examples)
@@ -127,6 +130,7 @@ Type: `Promise<number>`
  - [limel-example-markdown-composite](../markdown/examples)
  - [limel-example-text-editor-composite](../text-editor/examples)
  - [limel-menu](../menu)
+ - [limel-pagination-jump](../pagination/jump)
  - [limel-text-editor-link-menu](../text-editor/link-menu)
 
 ### Depends on
@@ -161,6 +165,7 @@ graph TD;
   limel-example-chart-type-line --> limel-input-field
   limel-example-chart-type-pie --> limel-input-field
   limel-example-chart-type-ring --> limel-input-field
+  limel-example-chart-type-scatter --> limel-input-field
   limel-example-chip-set-input --> limel-input-field
   limel-example-circular-progress-basic --> limel-input-field
   limel-example-circular-progress-percentage-colors --> limel-input-field
@@ -168,6 +173,8 @@ graph TD;
   limel-example-color-picker-composite --> limel-input-field
   limel-example-dialog-heading --> limel-input-field
   limel-example-file-dropzone-type-filtering --> limel-input-field
+  limel-example-file-per-file-status --> limel-input-field
+  limel-example-file-resize-image --> limel-input-field
   limel-example-info-tile-progress --> limel-input-field
   limel-example-input-field-autocomplete --> limel-input-field
   limel-example-input-field-error-icon --> limel-input-field
@@ -191,6 +198,7 @@ graph TD;
   limel-example-markdown-composite --> limel-input-field
   limel-example-text-editor-composite --> limel-input-field
   limel-menu --> limel-input-field
+  limel-pagination-jump --> limel-input-field
   limel-text-editor-link-menu --> limel-input-field
   style limel-input-field fill:#f9f,stroke:#333,stroke-width:4px
 ```

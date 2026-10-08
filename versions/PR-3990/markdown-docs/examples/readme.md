@@ -49,7 +49,9 @@ The component automatically formats different value types:
  - [limel-example-chip-menu](../components/chip/examples)
  - [limel-example-chip-removable](../components/chip/examples)
  - [limel-example-chip-set-input](../components/chip-set/examples)
+ - [limel-example-chip-set-input-non-removable](../components/chip-set/examples)
  - [limel-example-chip-set-input-type-with-menu-items](../components/chip-set/examples)
+ - [limel-example-chip-set-invalid-chips](../components/chip-set/examples)
  - [limel-example-code-editor-composite](../components/code-editor/examples)
  - [limel-example-code-editor-form](../components/form/examples)
  - [limel-example-custom-component-form](../components/form/examples)
@@ -73,6 +75,9 @@ The component automatically formats different value types:
  - [limel-example-file-input-basic](../components/file-input/examples)
  - [limel-example-file-input-type-filtering](../components/file-input/examples)
  - [limel-example-file-menu-items](../components/file/examples)
+ - [limel-example-file-resize-image](../components/file/examples)
+ - [limel-example-file-resize-mixed](../components/file/examples)
+ - [limel-example-file-size-badge](../components/file/examples)
  - [limel-example-form](../components/form/examples)
  - [limel-example-form-array-item-controls](../components/form/examples)
  - [limel-example-form-with-help](../components/form/examples)
@@ -90,8 +95,10 @@ The component automatically formats different value types:
  - [limel-example-list-item-radio](../components/list-item/examples)
  - [limel-example-list-radio-button-icons](../components/list/examples)
  - [limel-example-list-selectable](../components/list/examples)
+ - [limel-example-markdown-to-markdown](../components/markdown/examples)
  - [limel-example-menu-basic](../components/menu/examples)
  - [limel-example-menu-hotkeys](../components/menu/examples)
+ - [limel-example-menu-keep-open](../components/menu/examples)
  - [limel-example-menu-open-sub-menu-programmatically](../components/menu/examples)
  - [limel-example-menu-searchable](../components/menu/examples)
  - [limel-example-menu-searchable-hotkeys](../components/menu/examples)
@@ -102,14 +109,26 @@ The component automatically formats different value types:
  - [limel-example-menu-sub-menus](../components/menu/examples)
  - [limel-example-nested-form](../components/form/examples)
  - [limel-example-notched-outline-basic](../components/notched-outline/examples)
+ - [limel-example-pagination-basic](../components/pagination/examples)
+ - [limel-example-pagination-jump-basic](../components/pagination/jump/examples)
+ - [limel-example-pagination-language](../components/pagination/examples)
+ - [limel-example-pagination-loading](../components/pagination/examples)
+ - [limel-example-pagination-page](../components/pagination/examples)
+ - [limel-example-pagination-page-size](../components/pagination/examples)
+ - [limel-example-pagination-single-page](../components/pagination/examples)
+ - [limel-example-pagination-total-items](../components/pagination/examples)
  - [limel-example-picker-basic](../components/picker/examples)
+ - [limel-example-picker-empty-result-message](../components/picker/examples)
  - [limel-example-picker-empty-suggestions](../components/picker/examples)
  - [limel-example-picker-icons](../components/picker/examples)
  - [limel-example-picker-multiple](../components/picker/examples)
+ - [limel-example-picker-non-removable](../components/picker/examples)
  - [limel-example-picker-pictures](../components/picker/examples)
+ - [limel-example-picker-sections](../components/picker/examples)
  - [limel-example-picker-static-actions](../components/picker/examples)
  - [limel-example-picker-value-as-object](../components/picker/examples)
  - [limel-example-picker-value-as-object-with-actions](../components/picker/examples)
+ - [limel-example-picker-with-badges](../components/picker/examples)
  - [limel-example-profile-picture-basic](../components/profile-picture/examples)
  - [limel-example-profile-picture-helper-text](../components/profile-picture/examples)
  - [limel-example-profile-picture-icon](../components/profile-picture/examples)
@@ -136,11 +155,14 @@ The component automatically formats different value types:
  - [limel-example-select-preselected](../components/select/examples)
  - [limel-example-select-with-empty-option](../components/select/examples)
  - [limel-example-select-with-icons](../components/select/examples)
+ - [limel-example-select-with-primary-component](../components/select/examples)
  - [limel-example-select-with-secondary-text](../components/select/examples)
  - [limel-example-select-with-separators](../components/select/examples)
  - [limel-example-slider-basic](../components/slider/examples)
  - [limel-example-slider-multiplier](../components/slider/examples)
  - [limel-example-slider-multiplier-percentage-colors](../components/slider/examples)
+ - [limel-example-slider-unit](../components/slider/examples)
+ - [limel-example-slider-unset](../components/slider/examples)
  - [limel-example-switch-basic](../components/switch/examples)
  - [limel-example-switch-helper-text](../components/switch/examples)
  - [limel-example-switch-readonly](../components/switch/examples)
@@ -150,16 +172,18 @@ The component automatically formats different value types:
  - [limel-example-table-activate-row](../components/table/examples)
  - [limel-example-table-local](../components/table/examples)
  - [limel-example-table-movable-columns](../components/table/examples)
+ - [limel-example-table-movable-rows](../components/table/examples)
  - [limel-example-table-selectable-rows](../components/table/examples)
  - [limel-example-text-editor-allow-resize](../components/text-editor/examples)
  - [limel-example-text-editor-as-form-component](../components/text-editor/examples)
  - [limel-example-text-editor-basic](../components/text-editor/examples)
  - [limel-example-text-editor-composite](../components/text-editor/examples)
  - [limel-example-text-editor-custom-element](../components/text-editor/examples)
+ - [limel-example-text-editor-lists](../components/text-editor/examples)
  - [limel-example-text-editor-triggers](../components/text-editor/examples)
  - [limel-example-text-editor-ui](../components/text-editor/examples)
  - [limel-example-text-editor-with-html](../components/text-editor/examples)
- - [limel-example-text-editor-with-inline-images-file-storage](../components/text-editor/examples)
+ - [limel-example-text-editor-with-inline-images-custom-tag](../components/text-editor/examples)
  - [limel-example-text-editor-with-markdown](../components/text-editor/examples)
  - [limel-example-text-editor-with-tables](../components/text-editor/examples)
 
@@ -174,7 +198,9 @@ graph TD;
   limel-example-chip-menu --> limel-example-value
   limel-example-chip-removable --> limel-example-value
   limel-example-chip-set-input --> limel-example-value
+  limel-example-chip-set-input-non-removable --> limel-example-value
   limel-example-chip-set-input-type-with-menu-items --> limel-example-value
+  limel-example-chip-set-invalid-chips --> limel-example-value
   limel-example-code-editor-composite --> limel-example-value
   limel-example-code-editor-form --> limel-example-value
   limel-example-custom-component-form --> limel-example-value
@@ -198,6 +224,9 @@ graph TD;
   limel-example-file-input-basic --> limel-example-value
   limel-example-file-input-type-filtering --> limel-example-value
   limel-example-file-menu-items --> limel-example-value
+  limel-example-file-resize-image --> limel-example-value
+  limel-example-file-resize-mixed --> limel-example-value
+  limel-example-file-size-badge --> limel-example-value
   limel-example-form --> limel-example-value
   limel-example-form-array-item-controls --> limel-example-value
   limel-example-form-with-help --> limel-example-value
@@ -215,8 +244,10 @@ graph TD;
   limel-example-list-item-radio --> limel-example-value
   limel-example-list-radio-button-icons --> limel-example-value
   limel-example-list-selectable --> limel-example-value
+  limel-example-markdown-to-markdown --> limel-example-value
   limel-example-menu-basic --> limel-example-value
   limel-example-menu-hotkeys --> limel-example-value
+  limel-example-menu-keep-open --> limel-example-value
   limel-example-menu-open-sub-menu-programmatically --> limel-example-value
   limel-example-menu-searchable --> limel-example-value
   limel-example-menu-searchable-hotkeys --> limel-example-value
@@ -227,14 +258,26 @@ graph TD;
   limel-example-menu-sub-menus --> limel-example-value
   limel-example-nested-form --> limel-example-value
   limel-example-notched-outline-basic --> limel-example-value
+  limel-example-pagination-basic --> limel-example-value
+  limel-example-pagination-jump-basic --> limel-example-value
+  limel-example-pagination-language --> limel-example-value
+  limel-example-pagination-loading --> limel-example-value
+  limel-example-pagination-page --> limel-example-value
+  limel-example-pagination-page-size --> limel-example-value
+  limel-example-pagination-single-page --> limel-example-value
+  limel-example-pagination-total-items --> limel-example-value
   limel-example-picker-basic --> limel-example-value
+  limel-example-picker-empty-result-message --> limel-example-value
   limel-example-picker-empty-suggestions --> limel-example-value
   limel-example-picker-icons --> limel-example-value
   limel-example-picker-multiple --> limel-example-value
+  limel-example-picker-non-removable --> limel-example-value
   limel-example-picker-pictures --> limel-example-value
+  limel-example-picker-sections --> limel-example-value
   limel-example-picker-static-actions --> limel-example-value
   limel-example-picker-value-as-object --> limel-example-value
   limel-example-picker-value-as-object-with-actions --> limel-example-value
+  limel-example-picker-with-badges --> limel-example-value
   limel-example-profile-picture-basic --> limel-example-value
   limel-example-profile-picture-helper-text --> limel-example-value
   limel-example-profile-picture-icon --> limel-example-value
@@ -261,11 +304,14 @@ graph TD;
   limel-example-select-preselected --> limel-example-value
   limel-example-select-with-empty-option --> limel-example-value
   limel-example-select-with-icons --> limel-example-value
+  limel-example-select-with-primary-component --> limel-example-value
   limel-example-select-with-secondary-text --> limel-example-value
   limel-example-select-with-separators --> limel-example-value
   limel-example-slider-basic --> limel-example-value
   limel-example-slider-multiplier --> limel-example-value
   limel-example-slider-multiplier-percentage-colors --> limel-example-value
+  limel-example-slider-unit --> limel-example-value
+  limel-example-slider-unset --> limel-example-value
   limel-example-switch-basic --> limel-example-value
   limel-example-switch-helper-text --> limel-example-value
   limel-example-switch-readonly --> limel-example-value
@@ -275,16 +321,18 @@ graph TD;
   limel-example-table-activate-row --> limel-example-value
   limel-example-table-local --> limel-example-value
   limel-example-table-movable-columns --> limel-example-value
+  limel-example-table-movable-rows --> limel-example-value
   limel-example-table-selectable-rows --> limel-example-value
   limel-example-text-editor-allow-resize --> limel-example-value
   limel-example-text-editor-as-form-component --> limel-example-value
   limel-example-text-editor-basic --> limel-example-value
   limel-example-text-editor-composite --> limel-example-value
   limel-example-text-editor-custom-element --> limel-example-value
+  limel-example-text-editor-lists --> limel-example-value
   limel-example-text-editor-triggers --> limel-example-value
   limel-example-text-editor-ui --> limel-example-value
   limel-example-text-editor-with-html --> limel-example-value
-  limel-example-text-editor-with-inline-images-file-storage --> limel-example-value
+  limel-example-text-editor-with-inline-images-custom-tag --> limel-example-value
   limel-example-text-editor-with-markdown --> limel-example-value
   limel-example-text-editor-with-tables --> limel-example-value
   style limel-example-value fill:#f9f,stroke:#333,stroke-width:4px

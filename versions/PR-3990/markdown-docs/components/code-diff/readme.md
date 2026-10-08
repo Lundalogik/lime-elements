@@ -34,6 +34,7 @@ and collapsible unchanged context sections.
  - [limel-example-code-diff-basic](examples)
  - [limel-example-code-diff-expand](examples)
  - [limel-example-code-diff-headings](examples)
+ - [limel-example-code-diff-interactive](examples)
  - [limel-example-code-diff-json](examples)
  - [limel-example-code-diff-line-wrap](examples)
  - [limel-example-code-diff-split](examples)
@@ -54,6 +55,7 @@ graph TD;
   limel-icon-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-input-field --> limel-helper-line
   limel-input-field --> limel-icon
   limel-input-field --> limel-portal
@@ -62,11 +64,8 @@ graph TD;
   limel-input-field --> limel-notched-outline
   limel-action-bar --> limel-action-bar-item
   limel-action-bar --> limel-action-bar-overflow-menu
-  limel-action-bar --> limel-icon
-  limel-action-bar --> limel-tooltip
   limel-action-bar-item --> limel-icon
   limel-action-bar-item --> limel-tooltip
-  limel-action-bar-overflow-menu --> limel-icon
   limel-action-bar-overflow-menu --> limel-menu
   limel-menu --> limel-spinner
   limel-menu --> limel-breadcrumbs
@@ -80,6 +79,7 @@ graph TD;
   limel-example-code-diff-basic --> limel-code-diff
   limel-example-code-diff-expand --> limel-code-diff
   limel-example-code-diff-headings --> limel-code-diff
+  limel-example-code-diff-interactive --> limel-code-diff
   limel-example-code-diff-json --> limel-code-diff
   limel-example-code-diff-line-wrap --> limel-code-diff
   limel-example-code-diff-split --> limel-code-diff

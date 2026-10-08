@@ -71,6 +71,7 @@ graph TD;
   limel-icon-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-email-viewer --> limel-collapsible-section
   limel-example-collapsible-section-actions --> limel-collapsible-section
   limel-example-collapsible-section-basic --> limel-collapsible-section

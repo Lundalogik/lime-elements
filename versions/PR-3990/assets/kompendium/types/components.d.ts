@@ -10,12 +10,30 @@ import { JsonDocs, JsonDocsComponent, JsonDocsTag } from "./stencil-public-runti
 import { MatchResults } from "@limetech/stencil-router";
 import { KompendiumData, MenuItem, TypeDescription } from "./types";
 import { ProplistItem } from "./components/proplist/proplist";
+import { TocEntry } from "./components/toc/toc.types";
 export { PropsFactory } from "./components/playground/playground.types";
 export { JsonDocs, JsonDocsComponent, JsonDocsTag } from "./stencil-public-runtime";
 export { MatchResults } from "@limetech/stencil-router";
 export { KompendiumData, MenuItem, TypeDescription } from "./types";
 export { ProplistItem } from "./components/proplist/proplist";
+export { TocEntry } from "./components/toc/toc.types";
 export namespace Components {
+    /**
+     * Inline paragraph-link (¶) placed next to a heading. Picks up the parent
+     * heading's font-size, stays hidden until the heading is hovered, and
+     * highlights persistently when its slug matches the current URL anchor.
+     * @private 
+     */
+    interface KompendiumAnchor {
+        /**
+          * Human-readable label for the target, used for the aria-label.
+         */
+        "label": string;
+        /**
+          * Slug used as the URL anchor fragment and scroll target.
+         */
+        "slug": string;
+    }
     interface KompendiumApp {
         /**
           * Factory for creating props for example components
@@ -82,6 +100,14 @@ export namespace Components {
     interface KompendiumExampleCode {
     }
     /**
+     * Inline `@link` references
+     * Demonstrates how inline `{@link Target }` references in markdown are
+     * turned into clickable links.
+     * @sourceFile inline-links-example.ts
+     */
+    interface KompendiumExampleInlineLinks {
+    }
+    /**
      * This is a simple example of how the `kompendium-markdown` component is used
      * @sourceFile markdown-example.ts
      */
@@ -93,6 +119,7 @@ export namespace Components {
     /**
      * This component renders markdown
      * @exampleComponent kompendium-example-markdown
+     * @exampleComponent kompendium-example-inline-links
      */
     interface KompendiumMarkdown {
         /**
@@ -122,6 +149,10 @@ export namespace Components {
         "menu": MenuItem[];
     }
     interface KompendiumPlayground {
+        /**
+          * Slug used as the URL anchor for linking to this example.
+         */
+        "anchorSlug"?: string;
         /**
           * The component to display
          */
@@ -163,6 +194,20 @@ export namespace Components {
          */
         "tags": JsonDocsTag[];
     }
+    /**
+     * Floating table-of-contents menu. Clicking the button reveals an overlay
+     * listing the entries. Selecting an entry updates the URL hash with a slug
+     * anchor (e.g. `#/component/my-component#basic-example`) so the page can
+     * scroll to the target and the location can be shared.
+     * @private 
+     */
+    interface KompendiumToc {
+        /**
+          * Entries to show in the menu. A flat or nested list of links.
+          * @default []
+         */
+        "entries": TocEntry[];
+    }
     interface KompendiumType {
         /**
           * Matched route parameters
@@ -172,6 +217,18 @@ export namespace Components {
     }
 }
 declare global {
+    /**
+     * Inline paragraph-link (¶) placed next to a heading. Picks up the parent
+     * heading's font-size, stays hidden until the heading is hovered, and
+     * highlights persistently when its slug matches the current URL anchor.
+     * @private 
+     */
+    interface HTMLKompendiumAnchorElement extends Components.KompendiumAnchor, HTMLStencilElement {
+    }
+    var HTMLKompendiumAnchorElement: {
+        prototype: HTMLKompendiumAnchorElement;
+        new (): HTMLKompendiumAnchorElement;
+    };
     interface HTMLKompendiumAppElement extends Components.KompendiumApp, HTMLStencilElement {
     }
     var HTMLKompendiumAppElement: {
@@ -215,6 +272,18 @@ declare global {
         new (): HTMLKompendiumExampleCodeElement;
     };
     /**
+     * Inline `@link` references
+     * Demonstrates how inline `{@link Target }` references in markdown are
+     * turned into clickable links.
+     * @sourceFile inline-links-example.ts
+     */
+    interface HTMLKompendiumExampleInlineLinksElement extends Components.KompendiumExampleInlineLinks, HTMLStencilElement {
+    }
+    var HTMLKompendiumExampleInlineLinksElement: {
+        prototype: HTMLKompendiumExampleInlineLinksElement;
+        new (): HTMLKompendiumExampleInlineLinksElement;
+    };
+    /**
      * This is a simple example of how the `kompendium-markdown` component is used
      * @sourceFile markdown-example.ts
      */
@@ -233,6 +302,7 @@ declare global {
     /**
      * This component renders markdown
      * @exampleComponent kompendium-example-markdown
+     * @exampleComponent kompendium-example-inline-links
      */
     interface HTMLKompendiumMarkdownElement extends Components.KompendiumMarkdown, HTMLStencilElement {
     }
@@ -276,6 +346,19 @@ declare global {
         prototype: HTMLKompendiumTaglistElement;
         new (): HTMLKompendiumTaglistElement;
     };
+    /**
+     * Floating table-of-contents menu. Clicking the button reveals an overlay
+     * listing the entries. Selecting an entry updates the URL hash with a slug
+     * anchor (e.g. `#/component/my-component#basic-example`) so the page can
+     * scroll to the target and the location can be shared.
+     * @private 
+     */
+    interface HTMLKompendiumTocElement extends Components.KompendiumToc, HTMLStencilElement {
+    }
+    var HTMLKompendiumTocElement: {
+        prototype: HTMLKompendiumTocElement;
+        new (): HTMLKompendiumTocElement;
+    };
     interface HTMLKompendiumTypeElement extends Components.KompendiumType, HTMLStencilElement {
     }
     var HTMLKompendiumTypeElement: {
@@ -283,12 +366,14 @@ declare global {
         new (): HTMLKompendiumTypeElement;
     };
     interface HTMLElementTagNameMap {
+        "kompendium-anchor": HTMLKompendiumAnchorElement;
         "kompendium-app": HTMLKompendiumAppElement;
         "kompendium-code": HTMLKompendiumCodeElement;
         "kompendium-component": HTMLKompendiumComponentElement;
         "kompendium-darkmode-switch": HTMLKompendiumDarkmodeSwitchElement;
         "kompendium-debug": HTMLKompendiumDebugElement;
         "kompendium-example-code": HTMLKompendiumExampleCodeElement;
+        "kompendium-example-inline-links": HTMLKompendiumExampleInlineLinksElement;
         "kompendium-example-markdown": HTMLKompendiumExampleMarkdownElement;
         "kompendium-guide": HTMLKompendiumGuideElement;
         "kompendium-markdown": HTMLKompendiumMarkdownElement;
@@ -297,10 +382,27 @@ declare global {
         "kompendium-proplist": HTMLKompendiumProplistElement;
         "kompendium-search": HTMLKompendiumSearchElement;
         "kompendium-taglist": HTMLKompendiumTaglistElement;
+        "kompendium-toc": HTMLKompendiumTocElement;
         "kompendium-type": HTMLKompendiumTypeElement;
     }
 }
 declare namespace LocalJSX {
+    /**
+     * Inline paragraph-link (¶) placed next to a heading. Picks up the parent
+     * heading's font-size, stays hidden until the heading is hovered, and
+     * highlights persistently when its slug matches the current URL anchor.
+     * @private 
+     */
+    interface KompendiumAnchor {
+        /**
+          * Human-readable label for the target, used for the aria-label.
+         */
+        "label"?: string;
+        /**
+          * Slug used as the URL anchor fragment and scroll target.
+         */
+        "slug"?: string;
+    }
     interface KompendiumApp {
         /**
           * Factory for creating props for example components
@@ -367,6 +469,14 @@ declare namespace LocalJSX {
     interface KompendiumExampleCode {
     }
     /**
+     * Inline `@link` references
+     * Demonstrates how inline `{@link Target }` references in markdown are
+     * turned into clickable links.
+     * @sourceFile inline-links-example.ts
+     */
+    interface KompendiumExampleInlineLinks {
+    }
+    /**
      * This is a simple example of how the `kompendium-markdown` component is used
      * @sourceFile markdown-example.ts
      */
@@ -378,6 +488,7 @@ declare namespace LocalJSX {
     /**
      * This component renders markdown
      * @exampleComponent kompendium-example-markdown
+     * @exampleComponent kompendium-example-inline-links
      */
     interface KompendiumMarkdown {
         /**
@@ -407,6 +518,10 @@ declare namespace LocalJSX {
         "menu"?: MenuItem[];
     }
     interface KompendiumPlayground {
+        /**
+          * Slug used as the URL anchor for linking to this example.
+         */
+        "anchorSlug"?: string;
         /**
           * The component to display
          */
@@ -448,6 +563,20 @@ declare namespace LocalJSX {
          */
         "tags"?: JsonDocsTag[];
     }
+    /**
+     * Floating table-of-contents menu. Clicking the button reveals an overlay
+     * listing the entries. Selecting an entry updates the URL hash with a slug
+     * anchor (e.g. `#/component/my-component#basic-example`) so the page can
+     * scroll to the target and the location can be shared.
+     * @private 
+     */
+    interface KompendiumToc {
+        /**
+          * Entries to show in the menu. A flat or nested list of links.
+          * @default []
+         */
+        "entries"?: TocEntry[];
+    }
     interface KompendiumType {
         /**
           * Matched route parameters
@@ -455,21 +584,53 @@ declare namespace LocalJSX {
         "match"?: MatchResults;
         "types"?: TypeDescription[];
     }
+
+    interface KompendiumAnchorAttributes {
+        "slug": string;
+        "label": string;
+    }
+    interface KompendiumAppAttributes {
+        "path": string;
+    }
+    interface KompendiumCodeAttributes {
+        "language": string;
+    }
+    interface KompendiumMarkdownAttributes {
+        "text": string;
+    }
+    interface KompendiumNavigationAttributes {
+        "header": string;
+        "logo": string;
+        "index": string;
+    }
+    interface KompendiumPlaygroundAttributes {
+        "anchorSlug": string;
+    }
+    interface KompendiumSearchAttributes {
+        "index": string;
+    }
+    interface KompendiumTaglistAttributes {
+        "compact": boolean;
+    }
+
     interface IntrinsicElements {
-        "kompendium-app": KompendiumApp;
-        "kompendium-code": KompendiumCode;
+        "kompendium-anchor": Omit<KompendiumAnchor, keyof KompendiumAnchorAttributes> & { [K in keyof KompendiumAnchor & keyof KompendiumAnchorAttributes]?: KompendiumAnchor[K] } & { [K in keyof KompendiumAnchor & keyof KompendiumAnchorAttributes as `attr:${K}`]?: KompendiumAnchorAttributes[K] } & { [K in keyof KompendiumAnchor & keyof KompendiumAnchorAttributes as `prop:${K}`]?: KompendiumAnchor[K] };
+        "kompendium-app": Omit<KompendiumApp, keyof KompendiumAppAttributes> & { [K in keyof KompendiumApp & keyof KompendiumAppAttributes]?: KompendiumApp[K] } & { [K in keyof KompendiumApp & keyof KompendiumAppAttributes as `attr:${K}`]?: KompendiumAppAttributes[K] } & { [K in keyof KompendiumApp & keyof KompendiumAppAttributes as `prop:${K}`]?: KompendiumApp[K] };
+        "kompendium-code": Omit<KompendiumCode, keyof KompendiumCodeAttributes> & { [K in keyof KompendiumCode & keyof KompendiumCodeAttributes]?: KompendiumCode[K] } & { [K in keyof KompendiumCode & keyof KompendiumCodeAttributes as `attr:${K}`]?: KompendiumCodeAttributes[K] } & { [K in keyof KompendiumCode & keyof KompendiumCodeAttributes as `prop:${K}`]?: KompendiumCode[K] };
         "kompendium-component": KompendiumComponent;
         "kompendium-darkmode-switch": KompendiumDarkmodeSwitch;
         "kompendium-debug": KompendiumDebug;
         "kompendium-example-code": KompendiumExampleCode;
+        "kompendium-example-inline-links": KompendiumExampleInlineLinks;
         "kompendium-example-markdown": KompendiumExampleMarkdown;
         "kompendium-guide": KompendiumGuide;
-        "kompendium-markdown": KompendiumMarkdown;
-        "kompendium-navigation": KompendiumNavigation;
-        "kompendium-playground": KompendiumPlayground;
+        "kompendium-markdown": Omit<KompendiumMarkdown, keyof KompendiumMarkdownAttributes> & { [K in keyof KompendiumMarkdown & keyof KompendiumMarkdownAttributes]?: KompendiumMarkdown[K] } & { [K in keyof KompendiumMarkdown & keyof KompendiumMarkdownAttributes as `attr:${K}`]?: KompendiumMarkdownAttributes[K] } & { [K in keyof KompendiumMarkdown & keyof KompendiumMarkdownAttributes as `prop:${K}`]?: KompendiumMarkdown[K] };
+        "kompendium-navigation": Omit<KompendiumNavigation, keyof KompendiumNavigationAttributes> & { [K in keyof KompendiumNavigation & keyof KompendiumNavigationAttributes]?: KompendiumNavigation[K] } & { [K in keyof KompendiumNavigation & keyof KompendiumNavigationAttributes as `attr:${K}`]?: KompendiumNavigationAttributes[K] } & { [K in keyof KompendiumNavigation & keyof KompendiumNavigationAttributes as `prop:${K}`]?: KompendiumNavigation[K] };
+        "kompendium-playground": Omit<KompendiumPlayground, keyof KompendiumPlaygroundAttributes> & { [K in keyof KompendiumPlayground & keyof KompendiumPlaygroundAttributes]?: KompendiumPlayground[K] } & { [K in keyof KompendiumPlayground & keyof KompendiumPlaygroundAttributes as `attr:${K}`]?: KompendiumPlaygroundAttributes[K] } & { [K in keyof KompendiumPlayground & keyof KompendiumPlaygroundAttributes as `prop:${K}`]?: KompendiumPlayground[K] };
         "kompendium-proplist": KompendiumProplist;
-        "kompendium-search": KompendiumSearch;
-        "kompendium-taglist": KompendiumTaglist;
+        "kompendium-search": Omit<KompendiumSearch, keyof KompendiumSearchAttributes> & { [K in keyof KompendiumSearch & keyof KompendiumSearchAttributes]?: KompendiumSearch[K] } & { [K in keyof KompendiumSearch & keyof KompendiumSearchAttributes as `attr:${K}`]?: KompendiumSearchAttributes[K] } & { [K in keyof KompendiumSearch & keyof KompendiumSearchAttributes as `prop:${K}`]?: KompendiumSearch[K] };
+        "kompendium-taglist": Omit<KompendiumTaglist, keyof KompendiumTaglistAttributes> & { [K in keyof KompendiumTaglist & keyof KompendiumTaglistAttributes]?: KompendiumTaglist[K] } & { [K in keyof KompendiumTaglist & keyof KompendiumTaglistAttributes as `attr:${K}`]?: KompendiumTaglistAttributes[K] } & { [K in keyof KompendiumTaglist & keyof KompendiumTaglistAttributes as `prop:${K}`]?: KompendiumTaglist[K] };
+        "kompendium-toc": KompendiumToc;
         "kompendium-type": KompendiumType;
     }
 }
@@ -477,41 +638,64 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "kompendium-app": LocalJSX.KompendiumApp & JSXBase.HTMLAttributes<HTMLKompendiumAppElement>;
+            /**
+             * Inline paragraph-link (¶) placed next to a heading. Picks up the parent
+             * heading's font-size, stays hidden until the heading is hovered, and
+             * highlights persistently when its slug matches the current URL anchor.
+             * @private 
+             */
+            "kompendium-anchor": LocalJSX.IntrinsicElements["kompendium-anchor"] & JSXBase.HTMLAttributes<HTMLKompendiumAnchorElement>;
+            "kompendium-app": LocalJSX.IntrinsicElements["kompendium-app"] & JSXBase.HTMLAttributes<HTMLKompendiumAppElement>;
             /**
              * @exampleComponent kompendium-example-code
              */
-            "kompendium-code": LocalJSX.KompendiumCode & JSXBase.HTMLAttributes<HTMLKompendiumCodeElement>;
-            "kompendium-component": LocalJSX.KompendiumComponent & JSXBase.HTMLAttributes<HTMLKompendiumComponentElement>;
+            "kompendium-code": LocalJSX.IntrinsicElements["kompendium-code"] & JSXBase.HTMLAttributes<HTMLKompendiumCodeElement>;
+            "kompendium-component": LocalJSX.IntrinsicElements["kompendium-component"] & JSXBase.HTMLAttributes<HTMLKompendiumComponentElement>;
             /**
              * @private 
              */
-            "kompendium-darkmode-switch": LocalJSX.KompendiumDarkmodeSwitch & JSXBase.HTMLAttributes<HTMLKompendiumDarkmodeSwitchElement>;
-            "kompendium-debug": LocalJSX.KompendiumDebug & JSXBase.HTMLAttributes<HTMLKompendiumDebugElement>;
-            "kompendium-example-code": LocalJSX.KompendiumExampleCode & JSXBase.HTMLAttributes<HTMLKompendiumExampleCodeElement>;
+            "kompendium-darkmode-switch": LocalJSX.IntrinsicElements["kompendium-darkmode-switch"] & JSXBase.HTMLAttributes<HTMLKompendiumDarkmodeSwitchElement>;
+            "kompendium-debug": LocalJSX.IntrinsicElements["kompendium-debug"] & JSXBase.HTMLAttributes<HTMLKompendiumDebugElement>;
+            "kompendium-example-code": LocalJSX.IntrinsicElements["kompendium-example-code"] & JSXBase.HTMLAttributes<HTMLKompendiumExampleCodeElement>;
+            /**
+             * Inline `@link` references
+             * Demonstrates how inline `{@link Target }` references in markdown are
+             * turned into clickable links.
+             * @sourceFile inline-links-example.ts
+             */
+            "kompendium-example-inline-links": LocalJSX.IntrinsicElements["kompendium-example-inline-links"] & JSXBase.HTMLAttributes<HTMLKompendiumExampleInlineLinksElement>;
             /**
              * This is a simple example of how the `kompendium-markdown` component is used
              * @sourceFile markdown-example.ts
              */
-            "kompendium-example-markdown": LocalJSX.KompendiumExampleMarkdown & JSXBase.HTMLAttributes<HTMLKompendiumExampleMarkdownElement>;
-            "kompendium-guide": LocalJSX.KompendiumGuide & JSXBase.HTMLAttributes<HTMLKompendiumGuideElement>;
+            "kompendium-example-markdown": LocalJSX.IntrinsicElements["kompendium-example-markdown"] & JSXBase.HTMLAttributes<HTMLKompendiumExampleMarkdownElement>;
+            "kompendium-guide": LocalJSX.IntrinsicElements["kompendium-guide"] & JSXBase.HTMLAttributes<HTMLKompendiumGuideElement>;
             /**
              * This component renders markdown
              * @exampleComponent kompendium-example-markdown
+             * @exampleComponent kompendium-example-inline-links
              */
-            "kompendium-markdown": LocalJSX.KompendiumMarkdown & JSXBase.HTMLAttributes<HTMLKompendiumMarkdownElement>;
+            "kompendium-markdown": LocalJSX.IntrinsicElements["kompendium-markdown"] & JSXBase.HTMLAttributes<HTMLKompendiumMarkdownElement>;
             /**
              * @private 
              */
-            "kompendium-navigation": LocalJSX.KompendiumNavigation & JSXBase.HTMLAttributes<HTMLKompendiumNavigationElement>;
-            "kompendium-playground": LocalJSX.KompendiumPlayground & JSXBase.HTMLAttributes<HTMLKompendiumPlaygroundElement>;
-            "kompendium-proplist": LocalJSX.KompendiumProplist & JSXBase.HTMLAttributes<HTMLKompendiumProplistElement>;
-            "kompendium-search": LocalJSX.KompendiumSearch & JSXBase.HTMLAttributes<HTMLKompendiumSearchElement>;
+            "kompendium-navigation": LocalJSX.IntrinsicElements["kompendium-navigation"] & JSXBase.HTMLAttributes<HTMLKompendiumNavigationElement>;
+            "kompendium-playground": LocalJSX.IntrinsicElements["kompendium-playground"] & JSXBase.HTMLAttributes<HTMLKompendiumPlaygroundElement>;
+            "kompendium-proplist": LocalJSX.IntrinsicElements["kompendium-proplist"] & JSXBase.HTMLAttributes<HTMLKompendiumProplistElement>;
+            "kompendium-search": LocalJSX.IntrinsicElements["kompendium-search"] & JSXBase.HTMLAttributes<HTMLKompendiumSearchElement>;
             /**
              * asd
              */
-            "kompendium-taglist": LocalJSX.KompendiumTaglist & JSXBase.HTMLAttributes<HTMLKompendiumTaglistElement>;
-            "kompendium-type": LocalJSX.KompendiumType & JSXBase.HTMLAttributes<HTMLKompendiumTypeElement>;
+            "kompendium-taglist": LocalJSX.IntrinsicElements["kompendium-taglist"] & JSXBase.HTMLAttributes<HTMLKompendiumTaglistElement>;
+            /**
+             * Floating table-of-contents menu. Clicking the button reveals an overlay
+             * listing the entries. Selecting an entry updates the URL hash with a slug
+             * anchor (e.g. `#/component/my-component#basic-example`) so the page can
+             * scroll to the target and the location can be shared.
+             * @private 
+             */
+            "kompendium-toc": LocalJSX.IntrinsicElements["kompendium-toc"] & JSXBase.HTMLAttributes<HTMLKompendiumTocElement>;
+            "kompendium-type": LocalJSX.IntrinsicElements["kompendium-type"] & JSXBase.HTMLAttributes<HTMLKompendiumTypeElement>;
         }
     }
 }

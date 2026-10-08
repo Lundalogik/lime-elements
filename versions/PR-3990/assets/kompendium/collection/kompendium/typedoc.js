@@ -478,4 +478,3 @@ function getSources(reflection) {
     var _a;
     return ((_a = reflection.sources) === null || _a === void 0 ? void 0 : _a.map((source) => source.fileName)) || [];
 }
-//# sourceMappingURL=typedoc.js.map

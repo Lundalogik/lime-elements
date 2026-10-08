@@ -71,6 +71,7 @@ or navigating to a page with more information about the item in the shopping lis
 ### Used by
 
  - [limel-chip-set](../chip-set)
+ - [limel-email-viewer](../email-viewer)
  - [limel-example-chip-aria-role](examples)
  - [limel-example-chip-badge](examples)
  - [limel-example-chip-button](examples)
@@ -88,6 +89,8 @@ or navigating to a page with more information about the item in the shopping lis
  - [limel-example-file-dropzone-type-filtering](../file-dropzone/examples)
  - [limel-example-file-input-basic](../file-input/examples)
  - [limel-example-file-input-type-filtering](../file-input/examples)
+ - [limel-example-markdown-person-chip](../markdown/examples)
+ - [limel-example-menu-keep-open](../menu/examples)
  - [limel-example-menu-searchable](../menu/examples)
  - [limel-example-menu-searchable-hotkeys](../menu/examples)
  - [limel-example-popover-trigger-interaction](../popover/examples)
@@ -118,6 +121,7 @@ graph TD;
   limel-breadcrumbs --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-input-field --> limel-helper-line
   limel-input-field --> limel-icon
   limel-input-field --> limel-portal
@@ -125,6 +129,7 @@ graph TD;
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
   limel-chip-set --> limel-chip
+  limel-email-viewer --> limel-chip
   limel-example-chip-aria-role --> limel-chip
   limel-example-chip-badge --> limel-chip
   limel-example-chip-button --> limel-chip
@@ -142,6 +147,8 @@ graph TD;
   limel-example-file-dropzone-type-filtering --> limel-chip
   limel-example-file-input-basic --> limel-chip
   limel-example-file-input-type-filtering --> limel-chip
+  limel-example-markdown-person-chip --> limel-chip
+  limel-example-menu-keep-open --> limel-chip
   limel-example-menu-searchable --> limel-chip
   limel-example-menu-searchable-hotkeys --> limel-chip
   limel-example-popover-trigger-interaction --> limel-chip

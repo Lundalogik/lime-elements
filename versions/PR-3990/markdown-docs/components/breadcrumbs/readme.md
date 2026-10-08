@@ -61,6 +61,7 @@ graph TD;
   limel-breadcrumbs --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-example-breadcrumbs-buttons --> limel-breadcrumbs
   limel-example-breadcrumbs-divider --> limel-breadcrumbs
   limel-example-breadcrumbs-icon-color --> limel-breadcrumbs

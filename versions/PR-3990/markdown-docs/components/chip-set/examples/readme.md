@@ -4,33 +4,28 @@
 
 ## Overview
 
-Input chip set, containing items with menus
-While chips inside a chip set of `type="input"` can be clicked on, resulting in
-an action, they can also have an ellipsis menu which will provide the end users with
-additional actions.
+Progress on a chip
 
-When a menu item is selected from the ellipsis menu, the `onMenuItemSelected` event
-will be emitted, reflecting the `value` of the selected item.
+A chip in the set can show a determinate progress bar by setting `progress`
+— a number between `0` and `100` — on the chip. This is useful for
+reflecting an ongoing process on a specific chip, such as an upload.
 
-:::note
-When a chip has `removable={true}` and when there are menu items, the "remove button" on the
-chip will be automatically added as the last item in the ellipsis menu.
-
-Clicking the remove button will emit the same `onRemove` event.
-:::
+For an indeterminate indicator, set `loading` on the chip instead.
 
 ## Dependencies
 
 ### Depends on
 
 - [limel-chip-set](..)
-- [limel-example-value](../../../examples)
+- [limel-example-controls](../../../examples)
+- [limel-slider](../../slider)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-chip-set-input-type-with-menu-items --> limel-chip-set
-  limel-example-chip-set-input-type-with-menu-items --> limel-example-value
+  limel-example-chip-set-progress --> limel-chip-set
+  limel-example-chip-set-progress --> limel-example-controls
+  limel-example-chip-set-progress --> limel-slider
   limel-chip-set --> limel-helper-line
   limel-chip-set --> limel-notched-outline
   limel-chip-set --> limel-chip
@@ -50,13 +45,17 @@ graph TD;
   limel-breadcrumbs --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-input-field --> limel-helper-line
   limel-input-field --> limel-icon
   limel-input-field --> limel-portal
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
-  style limel-example-chip-set-input-type-with-menu-items fill:#f9f,stroke:#333,stroke-width:4px
+  limel-slider --> limel-helper-line
+  limel-slider --> limel-tooltip
+  limel-slider --> limel-notched-outline
+  style limel-example-chip-set-progress fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

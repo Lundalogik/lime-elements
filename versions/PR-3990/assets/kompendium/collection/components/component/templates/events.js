@@ -1,14 +1,16 @@
 import { h } from "@stencil/core";
-export function EventList({ events, id, }) {
+import { entrySlug } from "../anchors";
+export function EventList({ events, id, slugId, }) {
     if (!events.length) {
         return;
     }
     return [
-        h("h3", { class: "docs-layout-section-heading", id: id }, "Events"),
-        ...events.map(renderEvent),
+        slugId ? (h("span", { class: "section-anchor", id: slugId, "aria-hidden": "true" })) : null,
+        h("h3", { class: "docs-layout-section-heading", id: id }, "Events", slugId ? h("kompendium-anchor", { slug: slugId, label: "Events" }) : null),
+        ...events.map(renderEvent(slugId)),
     ];
 }
-function renderEvent(event) {
+const renderEvent = (sectionSlug) => (event) => {
     const items = [
         {
             key: 'Detail',
@@ -27,6 +29,6 @@ function renderEvent(event) {
             value: String(event.composed),
         },
     ];
-    return (h("div", { class: "props-events-layout" }, h("h4", null, event.event), h("kompendium-taglist", { tags: event.docsTags }), h("div", { class: "markdown-props" }, h("kompendium-markdown", { text: event.docs }), h("kompendium-proplist", { items: items }))));
-}
-//# sourceMappingURL=events.js.map
+    const slug = sectionSlug ? entrySlug(sectionSlug, event.event) : null;
+    return (h("div", { class: "props-events-layout" }, h("h4", { id: slug }, event.event, slug ? (h("kompendium-anchor", { slug: slug, label: event.event })) : null), h("kompendium-taglist", { tags: event.docsTags }), h("div", { class: "markdown-props" }, h("kompendium-markdown", { text: event.docs }), h("kompendium-proplist", { items: items }))));
+};

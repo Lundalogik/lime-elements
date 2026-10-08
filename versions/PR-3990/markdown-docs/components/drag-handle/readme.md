@@ -48,6 +48,7 @@ graph TD;
   limel-drag-handle --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-example-drag-handle-basic --> limel-drag-handle
   limel-example-drag-handle-horizontal --> limel-drag-handle
   style limel-drag-handle fill:#f9f,stroke:#333,stroke-width:4px

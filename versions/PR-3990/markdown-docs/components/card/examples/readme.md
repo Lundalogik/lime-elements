@@ -26,13 +26,11 @@ graph TD;
   limel-card --> limel-action-bar
   limel-action-bar --> limel-action-bar-item
   limel-action-bar --> limel-action-bar-overflow-menu
-  limel-action-bar --> limel-icon
-  limel-action-bar --> limel-tooltip
   limel-action-bar-item --> limel-icon
   limel-action-bar-item --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
-  limel-action-bar-overflow-menu --> limel-icon
+  limel-tooltip-content --> limel-hotkey
   limel-action-bar-overflow-menu --> limel-menu
   limel-menu --> limel-spinner
   limel-menu --> limel-breadcrumbs
@@ -52,6 +50,7 @@ graph TD;
   limel-example-card-nested-component --> limel-slider
   limel-example-card-nested-component --> limel-action-bar
   limel-slider --> limel-helper-line
+  limel-slider --> limel-tooltip
   limel-slider --> limel-notched-outline
   style limel-example-card-styling fill:#f9f,stroke:#333,stroke-width:4px
 ```

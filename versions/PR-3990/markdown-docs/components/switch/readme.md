@@ -43,11 +43,13 @@ But there is an important difference between the two! Please read our guidelines
 
  - [limel-example-button-composite](../button/examples)
  - [limel-example-button-group-basic](../button-group/examples)
+ - [limel-example-button-group-disabled-item](../button-group/examples)
  - [limel-example-button-group-icons](../button-group/examples)
  - [limel-example-button-group-mix](../button-group/examples)
  - [limel-example-card-3d-effect](../card/examples)
  - [limel-example-card-selected](../card/examples)
  - [limel-example-chart-axis-labels](../chart/examples)
+ - [limel-example-chart-display-item-percentage](../chart/examples)
  - [limel-example-checkbox-basic](../checkbox/examples)
  - [limel-example-checkbox-readonly](../checkbox/examples)
  - [limel-example-chip-button](../chip/examples)
@@ -57,6 +59,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-chip-set-filter](../chip-set/examples)
  - [limel-example-chip-set-filter-badge](../chip-set/examples)
  - [limel-example-chip-set-input](../chip-set/examples)
+ - [limel-example-code-diff-interactive](../code-diff/examples)
  - [limel-example-code-diff-line-wrap](../code-diff/examples)
  - [limel-example-code-editor-composite](../code-editor/examples)
  - [limel-example-code-editor-copy](../code-editor/examples)
@@ -64,9 +67,14 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-dynamic-label-basic](../dynamic-label/examples)
  - [limel-example-dynamic-label-readonly-boolean](../dynamic-label/examples)
  - [limel-example-file-basic](../file/examples)
+ - [limel-example-file-loading](../file/examples)
+ - [limel-example-file-per-file-invalid](../file/examples)
+ - [limel-example-file-per-file-loading](../file/examples)
+ - [limel-example-file-size-badge](../file/examples)
  - [limel-example-form-span-fields](../form/examples)
  - [limel-example-icon-button-composite](../icon-button/examples)
  - [limel-example-info-tile-loading](../info-tile/examples)
+ - [limel-example-info-tile-reduced-presence](../info-tile/examples)
  - [limel-example-input-field-autocomplete](../input-field/examples)
  - [limel-example-input-field-number](../input-field/examples)
  - [limel-example-input-field-showlink](../input-field/examples)
@@ -80,6 +88,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-list-item-primary-component](../list-item/examples)
  - [limel-example-list-pictures](../list/examples)
  - [limel-example-list-radio-button-icons](../list/examples)
+ - [limel-example-masonry-layout-ordered](../masonry-layout/examples)
  - [limel-example-profile-picture-composite](../profile-picture/examples)
  - [limel-example-profile-picture-loading](../profile-picture/examples)
  - [limel-example-progress-flow-basic](../progress-flow/examples)
@@ -98,6 +107,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-switch-helper-text](examples)
  - [limel-example-switch-readonly](examples)
  - [limel-example-switch-vs-checkbox](../../design-guidelines/boolean/examples)
+ - [limel-example-table-movable-rows](../table/examples)
  - [limel-example-text-editor-allow-resize](../text-editor/examples)
  - [limel-example-text-editor-composite](../text-editor/examples)
  - [limel-example-text-editor-with-html](../text-editor/examples)
@@ -117,11 +127,13 @@ graph TD;
   limel-dynamic-label --> limel-icon
   limel-example-button-composite --> limel-switch
   limel-example-button-group-basic --> limel-switch
+  limel-example-button-group-disabled-item --> limel-switch
   limel-example-button-group-icons --> limel-switch
   limel-example-button-group-mix --> limel-switch
   limel-example-card-3d-effect --> limel-switch
   limel-example-card-selected --> limel-switch
   limel-example-chart-axis-labels --> limel-switch
+  limel-example-chart-display-item-percentage --> limel-switch
   limel-example-checkbox-basic --> limel-switch
   limel-example-checkbox-readonly --> limel-switch
   limel-example-chip-button --> limel-switch
@@ -131,6 +143,7 @@ graph TD;
   limel-example-chip-set-filter --> limel-switch
   limel-example-chip-set-filter-badge --> limel-switch
   limel-example-chip-set-input --> limel-switch
+  limel-example-code-diff-interactive --> limel-switch
   limel-example-code-diff-line-wrap --> limel-switch
   limel-example-code-editor-composite --> limel-switch
   limel-example-code-editor-copy --> limel-switch
@@ -138,9 +151,14 @@ graph TD;
   limel-example-dynamic-label-basic --> limel-switch
   limel-example-dynamic-label-readonly-boolean --> limel-switch
   limel-example-file-basic --> limel-switch
+  limel-example-file-loading --> limel-switch
+  limel-example-file-per-file-invalid --> limel-switch
+  limel-example-file-per-file-loading --> limel-switch
+  limel-example-file-size-badge --> limel-switch
   limel-example-form-span-fields --> limel-switch
   limel-example-icon-button-composite --> limel-switch
   limel-example-info-tile-loading --> limel-switch
+  limel-example-info-tile-reduced-presence --> limel-switch
   limel-example-input-field-autocomplete --> limel-switch
   limel-example-input-field-number --> limel-switch
   limel-example-input-field-showlink --> limel-switch
@@ -154,6 +172,7 @@ graph TD;
   limel-example-list-item-primary-component --> limel-switch
   limel-example-list-pictures --> limel-switch
   limel-example-list-radio-button-icons --> limel-switch
+  limel-example-masonry-layout-ordered --> limel-switch
   limel-example-profile-picture-composite --> limel-switch
   limel-example-profile-picture-loading --> limel-switch
   limel-example-progress-flow-basic --> limel-switch
@@ -172,6 +191,7 @@ graph TD;
   limel-example-switch-helper-text --> limel-switch
   limel-example-switch-readonly --> limel-switch
   limel-example-switch-vs-checkbox --> limel-switch
+  limel-example-table-movable-rows --> limel-switch
   limel-example-text-editor-allow-resize --> limel-switch
   limel-example-text-editor-composite --> limel-switch
   limel-example-text-editor-with-html --> limel-switch

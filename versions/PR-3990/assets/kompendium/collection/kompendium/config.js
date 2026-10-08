@@ -4,4 +4,3 @@ export const defaultConfig = {
     typeRoot: './src/types.ts',
     guides: [],
 };
-//# sourceMappingURL=config.js.map

@@ -1,8 +1,14 @@
 let types = [];
+let components = [];
 export function getTypes() {
     return types;
 }
 export function setTypes(newTypes) {
     types = newTypes;
 }
-//# sourceMappingURL=markdown-types.js.map
+export function getComponents() {
+    return components;
+}
+export function setComponents(newComponents) {
+    components = newComponents;
+}

@@ -1,5 +1,5 @@
 import { h } from "@stencil/core";
-import { setTypes } from "../markdown/markdown-types";
+import { setComponents, setTypes } from "../markdown/markdown-types";
 import Fuse from "fuse.js";
 export class App {
     constructor() {
@@ -45,10 +45,13 @@ export class App {
         }
     }
     async fetchData() {
+        var _a, _b;
         const data = await fetch(this.path);
         this.data = await data.json();
         const typeNames = this.data.types.map((type) => type.name);
         setTypes(typeNames);
+        const componentTags = (_b = (_a = this.data.docs.components) === null || _a === void 0 ? void 0 : _a.map((component) => component.tag)) !== null && _b !== void 0 ? _b : [];
+        setComponents(componentTags);
     }
     render() {
         if (!this.data) {
@@ -114,7 +117,8 @@ export class App {
                         "PropsFactory": {
                             "location": "import",
                             "path": "../playground/playground.types",
-                            "id": "src/components/playground/playground.types.ts::PropsFactory"
+                            "id": "src/components/playground/playground.types.ts::PropsFactory",
+                            "referenceLocation": "PropsFactory"
                         }
                     }
                 },
@@ -146,4 +150,3 @@ function getSocketUrl(location) {
     const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
     return `${protocol}//${location.hostname}:${location.port}/`;
 }
-//# sourceMappingURL=app.js.map

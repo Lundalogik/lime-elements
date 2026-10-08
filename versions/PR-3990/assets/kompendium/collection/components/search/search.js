@@ -24,7 +24,7 @@ export class Search {
             result: true,
             'has-results': this.documents.length > 0,
         };
-        return (h("div", { key: '8085f45b0d1f5e7b50d20de0df3aa95068598fa2', class: "search-box" }, h("input", { key: 'cc001b093b727306c6ea4e8ac078a4f408a0a6c9', type: "search", autoFocus: true, placeholder: "Search", onInput: this.handleChangeInput }), h("ul", { key: '7b293d633cd2493c85db58d84f8308e98061ab42', class: classList }, this.documents.map(this.renderDocument))));
+        return (h("div", { key: '4c82e58e1125c690d0bd51d03b9bbe09b51789bb', class: "search-box" }, h("input", { key: '5be989a15423d662bc8de697bbbb64fa169a07ee', type: "search", autoFocus: true, placeholder: "Search", onInput: this.handleChangeInput }), h("ul", { key: 'a3742d729c7572fe2a27312033badb503005b328', class: classList }, this.documents.map(this.renderDocument))));
     }
     search(query) {
         const index = this.index;
@@ -73,4 +73,3 @@ export class Search {
     }
     static get elementRef() { return "host"; }
 }
-//# sourceMappingURL=search.js.map

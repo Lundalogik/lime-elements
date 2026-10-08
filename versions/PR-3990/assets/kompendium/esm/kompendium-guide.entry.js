@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './index-9UrzenzW.js';
+import { r as registerInstance, h } from './index-26EzvxF0.js';
 
 const Guide = class {
     constructor(hostRef) {
@@ -17,7 +17,7 @@ const Guide = class {
     }
     render() {
         this.findGuide();
-        return h("kompendium-markdown", { key: '8df12c70deaae9f377a9e0674b7f274bc62076df', text: this.text });
+        return h("kompendium-markdown", { key: '134a1e05112b69474df22dbcbd198aaad6d16fbf', text: this.text });
     }
     findGuide() {
         const guide = this.data.guides.find((g) => g.data.path + '/' === this.route);
@@ -28,4 +28,3 @@ const Guide = class {
 };
 
 export { Guide as kompendium_guide };
-//# sourceMappingURL=kompendium-guide.entry.js.map

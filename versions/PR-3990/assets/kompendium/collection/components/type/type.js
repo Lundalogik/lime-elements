@@ -50,7 +50,8 @@ export class Type {
                         "TypeDescription": {
                             "location": "import",
                             "path": "../../types",
-                            "id": "src/types.ts::TypeDescription"
+                            "id": "src/types.ts::TypeDescription",
+                            "referenceLocation": "TypeDescription"
                         }
                     }
                 },
@@ -73,7 +74,8 @@ export class Type {
                         "MatchResults": {
                             "location": "import",
                             "path": "@limetech/stencil-router",
-                            "id": "node_modules::MatchResults"
+                            "id": "node_modules::MatchResults",
+                            "referenceLocation": "MatchResults"
                         }
                     }
                 },
@@ -94,4 +96,3 @@ export class Type {
         };
     }
 }
-//# sourceMappingURL=type.js.map

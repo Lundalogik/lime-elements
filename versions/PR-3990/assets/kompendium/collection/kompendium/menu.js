@@ -146,4 +146,3 @@ export function getTypeMenu(type) {
         children: [],
     };
 }
-//# sourceMappingURL=menu.js.map

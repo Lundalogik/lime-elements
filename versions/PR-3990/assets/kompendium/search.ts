@@ -17,7 +17,7 @@ import {
 
 export function createIndex(data: KompendiumData): any {
     const docs = createDocs(data);
-    const keys: Fuse.FuseOptionKey[] = [
+    const keys: Array<Fuse.FuseOptionKey<KompendiumDocument>> = [
         'tags',
         'title',
         'path',

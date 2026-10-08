@@ -34,6 +34,7 @@ graph TD;
   limel-color-picker --> limel-input-field
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-popover --> limel-portal
   limel-popover --> limel-popover-surface
   limel-color-picker-palette --> limel-input-field

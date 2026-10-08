@@ -21,6 +21,7 @@ result, you can add the `has-tabs-with-equal-width` class to the tab bar.
 graph TD;
   limel-example-tab-bar-with-equal-tab-width --> limel-tab-bar
   limel-example-tab-bar-with-equal-tab-width --> limel-example-value
+  limel-tab-bar --> limel-scroller
   limel-tab-bar --> limel-icon
   limel-tab-bar --> limel-badge
   style limel-example-tab-bar-with-equal-tab-width fill:#f9f,stroke:#333,stroke-width:4px

@@ -20,6 +20,7 @@ graph TD;
   limel-example-do-do-not --> limel-markdown
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-button --> limel-icon
   limel-button --> limel-spinner
   style limel-example-tooltip-declutter fill:#f9f,stroke:#333,stroke-width:4px
