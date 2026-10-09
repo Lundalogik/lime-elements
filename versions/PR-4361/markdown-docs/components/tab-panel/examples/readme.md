@@ -14,21 +14,6 @@ to it keeps its place when a label or a badge changes. Try the vote button:
 the badge it adds takes room from the label, not from the content. Set
 `--tab-bar-vertical-width` on the panel to change the width.
 
-:::tip
-Decide on the width once for the whole app, by setting it on `:root`, and
-change it there in media queries for different screen sizes. A tab panel
-that needs another width can still set its own.
-```css
-:root {
-    --tab-bar-vertical-width: 12rem;
-}
-
-.settings limel-tab-panel {
-    --tab-bar-vertical-width: 16rem;
-}
-```
-:::
-
 ## Dependencies
 
 ### Depends on
