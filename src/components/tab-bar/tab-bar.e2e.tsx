@@ -404,6 +404,98 @@ describe('limel-tab-bar', () => {
         });
     });
 
+    describe('the width of a tab in a horizontal bar', () => {
+        const longLabel =
+            'A label that goes on and on, far beyond any reasonable length';
+
+        const widthsOf = (bar: HTMLLimelTabBarElement) =>
+            tabButtons(bar).map((tab) => tab.getBoundingClientRect().width);
+
+        it('is at most 16rem, and a longer label is cut off', async () => {
+            const { root, waitForChanges } = await render(
+                <div style={{ width: '60rem' }}>
+                    <limel-tab-bar
+                        tabs={[{ id: 'long', text: longLabel, active: true }]}
+                    ></limel-tab-bar>
+                </div>
+            );
+            await waitForChanges();
+            const bar = root.querySelector('limel-tab-bar');
+            const text = bar.shadowRoot.querySelector('span.text');
+
+            expect(widthsOf(bar)).toEqual([256]);
+            expect(text.scrollWidth).toBeGreaterThan(text.clientWidth);
+        });
+
+        it('stays within the limit that is set', async () => {
+            const { root, waitForChanges } = await render(
+                <div
+                    style={{
+                        width: '60rem',
+                        '--tab-bar-horizontal-tab-max-width': '12rem',
+                    }}
+                >
+                    <limel-tab-bar
+                        tabs={[
+                            { id: 'short', text: 'Up', active: true },
+                            { id: 'long', text: longLabel },
+                        ]}
+                    ></limel-tab-bar>
+                </div>
+            );
+            await waitForChanges();
+            const [short, long] = widthsOf(root.querySelector('limel-tab-bar'));
+
+            expect(short).toBeLessThan(192);
+            expect(long).toBe(192);
+        });
+
+        it('leaves the tabs of a vertical bar as wide as the bar', async () => {
+            const { root, waitForChanges } = await render(
+                <div
+                    style={{
+                        '--tab-bar-horizontal-tab-max-width': '8rem',
+                        '--tab-bar-vertical-width': '20rem',
+                    }}
+                >
+                    <limel-tab-bar
+                        orientation="vertical"
+                        tabs={[{ id: 'long', text: longLabel, active: true }]}
+                    ></limel-tab-bar>
+                </div>
+            );
+            await waitForChanges();
+
+            expect(widthsOf(root.querySelector('limel-tab-bar'))).toEqual([
+                316,
+            ]);
+        });
+
+        it('has no upper limit for tabs with equal width, unless one is set', async () => {
+            const { root, waitForChanges } = await render(
+                <div style={{ width: '60rem' }}>
+                    <limel-tab-bar
+                        class="has-tabs-with-equal-width"
+                        tabs={tabs}
+                    ></limel-tab-bar>
+                </div>
+            );
+            await waitForChanges();
+            const bar = root.querySelector('limel-tab-bar');
+
+            for (const width of widthsOf(bar)) {
+                expect(width).toBeGreaterThan(256);
+            }
+
+            root.style.setProperty(
+                '--tab-bar-horizontal-tab-max-width',
+                '10rem'
+            );
+
+            expect(widthsOf(bar)).toEqual([160, 160, 160]);
+        });
+    });
+
     describe('a vertical bar with the class for tabs of equal width', () => {
         it('keeps its tabs as tall as in any other vertical bar', async () => {
             const { root, waitForChanges } = await render(

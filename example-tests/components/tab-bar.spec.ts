@@ -19,6 +19,7 @@ const BASIC = 'limel-example-tab-bar-basic';
 const DYNAMIC_WIDTH = 'limel-example-tab-bar-with-dynamic-tab-width';
 const EQUAL_WIDTH = 'limel-example-tab-bar-with-equal-tab-width';
 const VERTICAL = 'limel-example-tab-bar-vertical';
+const TAB_WIDTH = 'limel-example-tab-bar-tab-width';
 
 const BASIC_TABS = [
     'Joker',
@@ -900,6 +901,19 @@ test.describe('limel-tab-bar', () => {
 
             await expect(tabBar(page)).toHaveScreenshot(
                 'tab-bar-vertical-end.png'
+            );
+        });
+
+        test('with limits on the width of the tabs', async ({ page }) => {
+            await page.goto(`/#/debug/${TAB_WIDTH}`);
+            await expect(tabBar(page)).toHaveCount(2);
+            const bars = await tabBar(page).all();
+            for (const bar of bars) {
+                await expect(bar).toHaveClass(/hydrated/);
+            }
+
+            await expect(page.locator(TAB_WIDTH)).toHaveScreenshot(
+                'tab-bar-tab-width.png'
             );
         });
 
