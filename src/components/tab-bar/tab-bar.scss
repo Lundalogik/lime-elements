@@ -1,6 +1,7 @@
 @use '../../style/mixins';
 
 /**
+ * @prop --tab-bar-horizontal-tab-max-width: The largest width of a tab in a horizontal tab bar. Defaults to `16rem`, and to no limit for tabs with equal width. Set it to `none` for no limit.
  * @prop --tab-bar-vertical-width: The width of a vertical tab bar. Defaults to `10rem`.
  */
 
@@ -35,6 +36,7 @@ limel-scroller {
 :host(.has-tabs-with-equal-width:not([orientation='vertical'])) {
     button {
         flex: 1 0 auto;
+        max-width: var(--tab-bar-horizontal-tab-max-width, none);
     }
 }
 
@@ -60,11 +62,14 @@ button {
             var(--contrast-800)
         ); // inactive tab's icon color, unless defined by tab item itself
         margin-left: -0.25rem;
+        flex-shrink: 0;
     }
 
     span.text {
         transition: color 0.2s ease;
-        line-height: 1;
+        line-height: 1.25;
+        overflow: hidden;
+        text-overflow: ellipsis;
         color: var(--limel-theme-on-surface-color);
     }
 
@@ -78,6 +83,7 @@ button {
         margin-right: -0.25rem;
         box-shadow: 0 0 0 1px rgb(var(--contrast-600));
         pointer-events: none;
+        flex-shrink: 0;
     }
 }
 
@@ -113,6 +119,7 @@ span.content {
     transition: box-shadow 0.2s ease;
     display: flex;
     flex-grow: 1;
+    min-width: 0;
     align-items: center;
     justify-content: center;
     gap: 0.375rem;
@@ -129,6 +136,8 @@ span.content {
 
 :host(limel-tab-bar:not([orientation='vertical'])) {
     button {
+        max-width: var(--tab-bar-horizontal-tab-max-width, 16rem);
+
         &:not([aria-selected='true']) {
             &:after {
                 content: '';
@@ -209,18 +218,9 @@ span.content {
 
     span.content {
         justify-content: flex-start;
-        min-width: 0;
-    }
-
-    limel-icon,
-    limel-badge {
-        flex-shrink: 0;
     }
 
     span.text {
         flex-grow: 1;
-        line-height: 1.25;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
 }

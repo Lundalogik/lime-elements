@@ -1,0 +1,10 @@
+:host(limel-example-tab-bar-tab-width) {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+limel-tab-bar {
+    --tab-bar-horizontal-tab-max-width: 10rem;
+    --tab-bar-vertical-width: 13rem;
+}

@@ -110,6 +110,28 @@ describe('limel-tab-panel', () => {
             expect(bar.getBoundingClientRect().width).toBe(192);
         });
 
+        it('are no wider than the panel says, in a horizontal panel', async () => {
+            const { panel, waitForChanges } = await renderPanel();
+            panel.tabs = [
+                {
+                    id: 'foo',
+                    active: true,
+                    text: 'A label that goes on and on, far beyond any reasonable length',
+                },
+            ];
+
+            panel.style.setProperty(
+                '--tab-bar-horizontal-tab-max-width',
+                '8rem'
+            );
+            await waitForChanges();
+
+            const tab = panel.shadowRoot
+                .querySelector('limel-tab-bar')
+                .shadowRoot.querySelector('button[role="tab"]');
+            expect(tab.getBoundingClientRect().width).toBe(128);
+        });
+
         it('follow when the orientation changes', async () => {
             const { panel, bar, waitForChanges } = await renderPanel();
 

@@ -41,6 +41,7 @@ import {
  * @exampleComponent limel-example-tab-bar-with-dynamic-tab-width
  * @exampleComponent limel-example-tab-bar-with-equal-tab-width
  * @exampleComponent limel-example-tab-bar-vertical
+ * @exampleComponent limel-example-tab-bar-tab-width
  */
 @Component({
     tag: 'limel-tab-bar',
