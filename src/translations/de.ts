@@ -28,6 +28,8 @@ export default {
     'date-picker.month.heading': 'Monat',
     'date-picker.quarter.heading': 'Quartal',
     'date-picker.year.heading': 'Jahr',
+    'date-picker.invalid-format':
+        'Geben Sie ein gültiges Datum ein ({ format })',
     'drag-handle.drag-handle': 'Ziehgriff',
     'drag-handle.drag-to-reorder': 'Zum Neuordnen ziehen',
     'chip-set.clear-all': 'Alles löschen',

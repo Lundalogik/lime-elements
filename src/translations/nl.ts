@@ -27,6 +27,7 @@ export default {
     'date-picker.month.heading': 'Maand',
     'date-picker.quarter.heading': 'Kwartaal',
     'date-picker.year.heading': 'Jaar',
+    'date-picker.invalid-format': 'Voer een geldige datum in ({ format })',
     'drag-handle.drag-handle': 'Sleepgreep',
     'drag-handle.drag-to-reorder': 'Slepen om opnieuw te ordenen',
     'chip-set.clear-all': 'Alles wissen',
