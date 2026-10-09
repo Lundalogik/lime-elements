@@ -1,5 +1,9 @@
 @use '../../style/mixins';
 
+/**
+ * @prop --tab-bar-vertical-width: The width of a vertical tab bar. Defaults to `10rem`.
+ */
+
 :host(limel-tab-bar) {
     --limel-tab-background-color: var(--contrast-300);
     --limel-tab-border-radius: 0.625rem;
@@ -28,7 +32,7 @@ limel-scroller {
     background-color: rgb(var(--limel-tab-background-color));
 }
 
-:host(.has-tabs-with-equal-width) {
+:host(.has-tabs-with-equal-width:not([orientation='vertical'])) {
     button {
         flex: 1 0 auto;
     }
@@ -49,28 +53,6 @@ button {
     cursor: pointer;
     white-space: nowrap;
     font-size: var(--limel-theme-default-font-size);
-
-    &:not([aria-selected='true']) {
-        &:after {
-            content: '';
-            display: block;
-            background-color: var(--limel-tab-separator-background-color);
-            width: var(--limel-tab-separator-width);
-            height: 1rem;
-            margin: auto;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            border-radius: 1rem;
-            right: calc(-1 * var(--limel-tab-separator-width));
-        }
-
-        &:last-of-type {
-            &:after {
-                display: none;
-            }
-        }
-    }
 
     limel-icon {
         transition: color 0.2s ease;
@@ -100,8 +82,6 @@ button {
 }
 
 button[aria-selected='true'] {
-    border-radius: var(--limel-tab-border-radius) var(--limel-tab-border-radius)
-        0 0;
     background-color: var(--limel-active-tab-background-color);
     z-index: 2;
 
@@ -112,19 +92,10 @@ button[aria-selected='true'] {
         width: var(--limel-tab-active-outer-edge-curve-size);
         height: var(--limel-tab-active-outer-edge-curve-size);
         position: absolute;
-        bottom: 0;
         background-color: var(--limel-active-tab-background-color);
 
         -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20fill-rule='evenodd'%20stroke-linejoin='round'%20stroke-miterlimit='2'%20clip-rule='evenodd'%20viewBox='0%200%2050%2050'%3E%3Cdefs/%3E%3Cpath%20d='M0%200c0%2027.594%2022.406%2050%2050%2050H0V0z'/%3E%3C/svg%3E"); //For chrome and Safari the browser prefix is needed. (last checked Apr 2020)
         mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20fill-rule='evenodd'%20stroke-linejoin='round'%20stroke-miterlimit='2'%20clip-rule='evenodd'%20viewBox='0%200%2050%2050'%3E%3Cdefs/%3E%3Cpath%20d='M0%200c0%2027.594%2022.406%2050%2050%2050H0V0z'/%3E%3C/svg%3E");
-    }
-
-    &:before {
-        left: calc(-1 * var(--limel-tab-active-outer-edge-curve-size));
-        transform: rotateY(180deg);
-    }
-    &:after {
-        right: calc(-1 * var(--limel-tab-active-outer-edge-curve-size));
     }
 
     limel-icon {
@@ -153,5 +124,103 @@ span.content {
     button:focus-visible & {
         transition-duration: 0.3s;
         box-shadow: var(--shadow-depth-8-focused);
+    }
+}
+
+:host(limel-tab-bar:not([orientation='vertical'])) {
+    button {
+        &:not([aria-selected='true']) {
+            &:after {
+                content: '';
+                display: block;
+                background-color: var(--limel-tab-separator-background-color);
+                width: var(--limel-tab-separator-width);
+                height: 1rem;
+                margin: auto;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                border-radius: 1rem;
+                right: calc(-1 * var(--limel-tab-separator-width));
+            }
+
+            &:last-of-type {
+                &:after {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    button[aria-selected='true'] {
+        border-radius: var(--limel-tab-border-radius)
+            var(--limel-tab-border-radius) 0 0;
+
+        &:before,
+        &:after {
+            bottom: 0;
+        }
+
+        &:before {
+            left: calc(-1 * var(--limel-tab-active-outer-edge-curve-size));
+            transform: rotateY(180deg);
+        }
+
+        &:after {
+            right: calc(-1 * var(--limel-tab-active-outer-edge-curve-size));
+        }
+    }
+}
+
+:host(limel-tab-bar[orientation='vertical']) {
+    width: var(--tab-bar-vertical-width, 10rem);
+
+    div[role='tablist'] {
+        height: 100%;
+    }
+
+    limel-scroller {
+        --limel-scroller-content-padding: var(
+                --limel-tab-active-outer-edge-curve-size
+            )
+            0 var(--limel-tab-active-outer-edge-curve-size) 0.25rem;
+        height: 100%;
+    }
+
+    button[aria-selected='true'] {
+        border-radius: var(--limel-tab-border-radius) 0 0
+            var(--limel-tab-border-radius);
+
+        &:before,
+        &:after {
+            right: 0;
+        }
+
+        &:before {
+            bottom: 100%;
+            transform: rotateY(180deg);
+        }
+
+        &:after {
+            top: 100%;
+            transform: rotate(180deg);
+        }
+    }
+
+    span.content {
+        justify-content: flex-start;
+        min-width: 0;
+    }
+
+    limel-icon,
+    limel-badge {
+        flex-shrink: 0;
+    }
+
+    span.text {
+        flex-grow: 1;
+        line-height: 1.25;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }

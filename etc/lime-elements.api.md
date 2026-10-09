@@ -903,6 +903,7 @@ export namespace Components {
         "value": boolean;
     }
     export interface LimelTabBar {
+        "orientation": 'horizontal' | 'vertical';
         "tabs": Tab[];
     }
     // (undocumented)
@@ -1616,7 +1617,7 @@ export namespace JSX {
         // (undocumented)
         "limel-switch": Omit<LimelSwitch, keyof LimelSwitchAttributes> & { [K in keyof LimelSwitch & keyof LimelSwitchAttributes]?: LimelSwitch[K] } & { [K in keyof LimelSwitch & keyof LimelSwitchAttributes as `attr:${K}`]?: LimelSwitchAttributes[K] } & { [K in keyof LimelSwitch & keyof LimelSwitchAttributes as `prop:${K}`]?: LimelSwitch[K] };
         // (undocumented)
-        "limel-tab-bar": LimelTabBar;
+        "limel-tab-bar": Omit<LimelTabBar, keyof LimelTabBarAttributes> & { [K in keyof LimelTabBar & keyof LimelTabBarAttributes]?: LimelTabBar[K] } & { [K in keyof LimelTabBar & keyof LimelTabBarAttributes as `attr:${K}`]?: LimelTabBarAttributes[K] } & { [K in keyof LimelTabBar & keyof LimelTabBarAttributes as `prop:${K}`]?: LimelTabBar[K] };
         // (undocumented)
         "limel-tab-panel": LimelTabPanel;
         // (undocumented)
@@ -3656,7 +3657,14 @@ export namespace JSX {
 
     export interface LimelTabBar {
         "onChangeTab"?: (event: LimelTabBarCustomEvent<Tab>) => void;
+        "orientation"?: 'horizontal' | 'vertical';
         "tabs"?: Tab[];
+    }
+
+    // (undocumented)
+    export interface LimelTabBarAttributes {
+        // (undocumented)
+        "orientation": 'horizontal' | 'vertical';
     }
 
     // (undocumented)

@@ -64,6 +64,7 @@
   "limel-profile-picture": ["button-name"],
   "limel-progress-flow-item": ["color-contrast"],
   "limel-prosemirror-adapter": ["aria-valid-attr-value"],
+  "limel-scroller": ["color-contrast"],
   "limel-shortcut": ["aria-prohibited-attr"],
   "limel-switch": ["button-name"],
   "limel-table": [
