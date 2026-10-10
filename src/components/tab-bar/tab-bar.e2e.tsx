@@ -22,7 +22,9 @@ const isActiveTabInView = (bar: HTMLLimelTabBarElement) => {
     return (
         areaBox.width > 0 &&
         tabBox.left >= areaBox.left &&
-        tabBox.right <= areaBox.right
+        tabBox.right <= areaBox.right &&
+        tabBox.top >= areaBox.top &&
+        tabBox.bottom <= areaBox.bottom
     );
 };
 
@@ -30,6 +32,9 @@ const showsActiveTab = (bar: HTMLLimelTabBarElement) =>
     vi.waitFor(() => expect(isActiveTabInView(bar)).toBe(true), {
         timeout: 3000,
     });
+
+const tablistOf = (bar: HTMLLimelTabBarElement) =>
+    bar.shadowRoot.querySelector('[role="tablist"]');
 
 const tabButtons = (bar: HTMLLimelTabBarElement) => [
     ...bar.shadowRoot.querySelectorAll<HTMLButtonElement>('button[role="tab"]'),
@@ -219,6 +224,325 @@ describe('limel-tab-bar', () => {
         });
     });
 
+    describe('when the bar is vertical, and too short for its tabs', () => {
+        it('scrolls down to the active tab', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar
+                    orientation="vertical"
+                    style={{ height: '10rem' }}
+                    tabs={manyTabs(8)}
+                ></limel-tab-bar>
+            );
+            await waitForChanges();
+
+            await showsActiveTab(root);
+            expect(scrollAreaOf(root).scrollTop).toBeGreaterThan(0);
+        });
+    });
+
+    describe('a label that is too long for a vertical bar', () => {
+        const renderLongLabel = async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar
+                    orientation="vertical"
+                    tabs={[
+                        {
+                            id: 'long',
+                            text: 'A label that goes on and on, far beyond any reasonable length',
+                            active: true,
+                        },
+                    ]}
+                ></limel-tab-bar>
+            );
+            await waitForChanges();
+
+            return {
+                bar: root,
+                text: root.shadowRoot.querySelector<HTMLElement>('span.text'),
+            };
+        };
+
+        it('is cut off, instead of making the bar wider than 10rem', async () => {
+            const { bar, text } = await renderLongLabel();
+
+            expect(bar.getBoundingClientRect().width).toBe(160);
+            expect(text.scrollWidth).toBeGreaterThan(text.clientWidth);
+        });
+
+        it('keeps its letters whole from top to bottom', async () => {
+            const { text } = await renderLongLabel();
+
+            expect(text.scrollHeight).toBeLessThanOrEqual(text.clientHeight);
+        });
+    });
+
+    describe('the width of a vertical bar', () => {
+        it('stays the same when a tab gets a badge', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar
+                    orientation="vertical"
+                    tabs={[{ id: 'short', text: 'Up', active: true }]}
+                ></limel-tab-bar>
+            );
+            await waitForChanges();
+            const before = root.getBoundingClientRect().width;
+
+            root.tabs = [{ id: 'short', text: 'Up', active: true, badge: 99 }];
+            await waitForChanges();
+
+            expect(root.getBoundingClientRect().width).toBe(before);
+        });
+
+        it('can be set, also to follow the width of what is around the bar', async () => {
+            const { root, waitForChanges } = await render(
+                <div
+                    style={{
+                        width: '40rem',
+                        '--tab-bar-vertical-width': 'clamp(5rem, 50%, 30rem)',
+                    }}
+                >
+                    <limel-tab-bar
+                        orientation="vertical"
+                        tabs={tabs}
+                    ></limel-tab-bar>
+                </div>
+            );
+            await waitForChanges();
+
+            expect(
+                root.querySelector('limel-tab-bar').getBoundingClientRect()
+                    .width
+            ).toBe(320);
+        });
+    });
+
+    describe('when the orientation changes', () => {
+        it('shows the active tab, wherever it ends up', async () => {
+            const { root, waitForChanges } = await render(
+                <div style={{ width: '22rem', height: '10rem' }}>
+                    <limel-tab-bar
+                        style={{ height: '100%' }}
+                        tabs={manyTabs(8)}
+                    ></limel-tab-bar>
+                </div>
+            );
+            await waitForChanges();
+            const bar = root.querySelector('limel-tab-bar');
+            await showsActiveTab(bar);
+
+            bar.orientation = 'vertical';
+            await waitForChanges();
+
+            await showsActiveTab(bar);
+        });
+
+        it('shows the active tab, also when it has focus', async () => {
+            const { root, waitForChanges } = await render(
+                <div style={{ width: '22rem', height: '10rem' }}>
+                    <limel-tab-bar
+                        style={{ height: '100%' }}
+                        tabs={manyTabs(8)}
+                    ></limel-tab-bar>
+                </div>
+            );
+            await waitForChanges();
+            const bar = root.querySelector('limel-tab-bar');
+            await showsActiveTab(bar);
+            tabButtons(bar)[8].focus();
+
+            bar.orientation = 'vertical';
+            await waitForChanges();
+
+            await showsActiveTab(bar);
+        });
+
+        it('jumps to the active tab, since everything moved at once', async () => {
+            const { root, waitForChanges } = await render(
+                <div style={{ width: '22rem', height: '10rem' }}>
+                    <limel-tab-bar
+                        style={{ height: '100%' }}
+                        tabs={manyTabs(8)}
+                    ></limel-tab-bar>
+                </div>
+            );
+            await waitForChanges();
+            const bar = root.querySelector('limel-tab-bar');
+            await showsActiveTab(bar);
+            const scroller = bar.shadowRoot.querySelector('limel-scroller');
+            const reveal = vi.spyOn(scroller, 'reveal');
+
+            bar.orientation = 'vertical';
+            await vi.waitFor(() => expect(reveal).toHaveBeenCalled());
+
+            expect(reveal.mock.calls[0][1]).toBe('auto');
+        });
+
+        it('offers scrolling, once the tabs no longer fit', async () => {
+            const { root, waitForChanges } = await render(
+                <div style={{ width: '22rem', height: '5rem' }}>
+                    <limel-tab-bar
+                        style={{ height: '100%' }}
+                        tabs={tabs.map((tab) => ({ ...tab, text: tab.id }))}
+                    ></limel-tab-bar>
+                </div>
+            );
+            await waitForChanges();
+            const bar = root.querySelector('limel-tab-bar');
+            const scroller = bar.shadowRoot
+                .querySelector('limel-scroller')
+                .shadowRoot.querySelector('div.scroller');
+            await new Promise((resolve) => requestAnimationFrame(resolve));
+            await new Promise((resolve) => requestAnimationFrame(resolve));
+            expect(scroller).not.toHaveClass('can-scroll-to-end');
+
+            bar.orientation = 'vertical';
+            await waitForChanges();
+
+            await vi.waitFor(() =>
+                expect(scroller).toHaveClass('can-scroll-to-end')
+            );
+        });
+    });
+
+    describe('the width of a tab in a horizontal bar', () => {
+        const longLabel =
+            'A label that goes on and on, far beyond any reasonable length';
+
+        const widthsOf = (bar: HTMLLimelTabBarElement) =>
+            tabButtons(bar).map((tab) => tab.getBoundingClientRect().width);
+
+        it('is at most 16rem, and a longer label is cut off', async () => {
+            const { root, waitForChanges } = await render(
+                <div style={{ width: '60rem' }}>
+                    <limel-tab-bar
+                        tabs={[{ id: 'long', text: longLabel, active: true }]}
+                    ></limel-tab-bar>
+                </div>
+            );
+            await waitForChanges();
+            const bar = root.querySelector('limel-tab-bar');
+            const text = bar.shadowRoot.querySelector('span.text');
+
+            expect(widthsOf(bar)).toEqual([256]);
+            expect(text.scrollWidth).toBeGreaterThan(text.clientWidth);
+        });
+
+        it('stays within the limit that is set', async () => {
+            const { root, waitForChanges } = await render(
+                <div
+                    style={{
+                        width: '60rem',
+                        '--tab-bar-horizontal-tab-max-width': '12rem',
+                    }}
+                >
+                    <limel-tab-bar
+                        tabs={[
+                            { id: 'short', text: 'Up', active: true },
+                            { id: 'long', text: longLabel },
+                        ]}
+                    ></limel-tab-bar>
+                </div>
+            );
+            await waitForChanges();
+            const [short, long] = widthsOf(root.querySelector('limel-tab-bar'));
+
+            expect(short).toBeLessThan(192);
+            expect(long).toBe(192);
+        });
+
+        it('leaves the tabs of a vertical bar as wide as the bar', async () => {
+            const { root, waitForChanges } = await render(
+                <div
+                    style={{
+                        '--tab-bar-horizontal-tab-max-width': '8rem',
+                        '--tab-bar-vertical-width': '20rem',
+                    }}
+                >
+                    <limel-tab-bar
+                        orientation="vertical"
+                        tabs={[{ id: 'long', text: longLabel, active: true }]}
+                    ></limel-tab-bar>
+                </div>
+            );
+            await waitForChanges();
+
+            expect(widthsOf(root.querySelector('limel-tab-bar'))).toEqual([
+                316,
+            ]);
+        });
+
+        it('has no upper limit for tabs with equal width, unless one is set', async () => {
+            const { root, waitForChanges } = await render(
+                <div style={{ width: '60rem' }}>
+                    <limel-tab-bar
+                        class="has-tabs-with-equal-width"
+                        tabs={tabs}
+                    ></limel-tab-bar>
+                </div>
+            );
+            await waitForChanges();
+            const bar = root.querySelector('limel-tab-bar');
+
+            for (const width of widthsOf(bar)) {
+                expect(width).toBeGreaterThan(256);
+            }
+
+            root.style.setProperty(
+                '--tab-bar-horizontal-tab-max-width',
+                '10rem'
+            );
+
+            expect(widthsOf(bar)).toEqual([160, 160, 160]);
+        });
+    });
+
+    describe('a vertical bar with the class for tabs of equal width', () => {
+        it('keeps its tabs as tall as in any other vertical bar', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar
+                    class="has-tabs-with-equal-width"
+                    orientation="vertical"
+                    style={{ height: '20rem' }}
+                    tabs={tabs}
+                ></limel-tab-bar>
+            );
+            await waitForChanges();
+
+            for (const tab of tabButtons(root)) {
+                expect(tab.getBoundingClientRect().height).toBe(40);
+            }
+        });
+    });
+
+    describe('the list of tabs', () => {
+        it('tells assistive technologies that the tabs are in a row, unless asked otherwise', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar tabs={tabs}></limel-tab-bar>
+            );
+            await waitForChanges();
+
+            expect(tablistOf(root)).toHaveAttribute(
+                'aria-orientation',
+                'horizontal'
+            );
+        });
+
+        it('tells assistive technologies that the tabs are in a column, in a vertical bar', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar
+                    orientation="vertical"
+                    tabs={tabs}
+                ></limel-tab-bar>
+            );
+            await waitForChanges();
+
+            expect(tablistOf(root)).toHaveAttribute(
+                'aria-orientation',
+                'vertical'
+            );
+        });
+    });
+
     describe('when the selection is cleared, and later given to the same tab again', () => {
         it('shows the tab, wherever the bar was scrolled to in between', async () => {
             const { root, waitForChanges } = await render(
@@ -393,9 +717,15 @@ describe('limel-tab-bar', () => {
     });
 
     describe('when a key is pressed on a tab', () => {
-        const renderBar = async (barTabs: typeof tabs = tabs) => {
+        const renderBar = async (
+            barTabs: typeof tabs = tabs,
+            orientation: 'horizontal' | 'vertical' = 'horizontal'
+        ) => {
             const { root, waitForChanges, spyOnEvent } = await render(
-                <limel-tab-bar tabs={barTabs}></limel-tab-bar>
+                <limel-tab-bar
+                    tabs={barTabs}
+                    orientation={orientation}
+                ></limel-tab-bar>
             );
             const changeTabSpy = spyOnEvent('changeTab');
             await waitForChanges();
@@ -529,6 +859,82 @@ describe('limel-tab-bar', () => {
                     tabButtons(bar)[selectedIndex]
                 );
                 expect(changeTabSpy).not.toHaveReceivedEvent();
+            }
+        );
+
+        describe('in a vertical tab bar', () => {
+            const selected = [
+                { id: 'foo' },
+                { id: 'bar', active: true },
+                { id: 'baz' },
+            ];
+
+            it.each([
+                ['ArrowUp', 0],
+                ['ArrowDown', 2],
+            ])(
+                'selects the tab that %s moves to, and gives it focus',
+                async (key, expectedIndex) => {
+                    const { bar, waitForChanges, changeTabSpy } =
+                        await renderBar(selected, 'vertical');
+
+                    const event = pressKey(tabButtons(bar)[1], { key: key });
+                    await waitForChanges();
+
+                    expect(event.defaultPrevented).toBe(true);
+                    expect(activatedIds(changeTabSpy)).toEqual([
+                        ['foo', 'bar', 'baz'][expectedIndex],
+                    ]);
+                    expect(bar.shadowRoot.activeElement).toBe(
+                        tabButtons(bar)[expectedIndex]
+                    );
+                }
+            );
+
+            it.each([['ArrowLeft'], ['ArrowRight']])(
+                'leaves "%s" alone',
+                async (key) => {
+                    const { bar, waitForChanges, changeTabSpy } =
+                        await renderBar(selected, 'vertical');
+
+                    const event = pressKey(tabButtons(bar)[1], { key: key });
+                    await waitForChanges();
+
+                    expect(event.defaultPrevented).toBe(false);
+                    expect(changeTabSpy).not.toHaveReceivedEvent();
+                }
+            );
+        });
+
+        it.each([
+            [
+                'without an orientation',
+                (bar: HTMLLimelTabBarElement) =>
+                    bar.removeAttribute('orientation'),
+            ],
+            [
+                'with an orientation that is misspelled',
+                (bar: HTMLLimelTabBarElement) =>
+                    bar.setAttribute('orientation', 'Vertical'),
+            ],
+        ])(
+            'moves between the tabs with the left and right arrow keys, %s',
+            async (_, changeOrientation) => {
+                const { bar, waitForChanges, changeTabSpy } = await renderBar();
+
+                changeOrientation(bar);
+                await waitForChanges();
+                const event = pressKey(tabButtons(bar)[0], {
+                    key: 'ArrowRight',
+                });
+                await waitForChanges();
+
+                expect(event.defaultPrevented).toBe(true);
+                expect(activatedIds(changeTabSpy)).toEqual(['bar']);
+                expect(tablistOf(bar)).toHaveAttribute(
+                    'aria-orientation',
+                    'horizontal'
+                );
             }
         );
 

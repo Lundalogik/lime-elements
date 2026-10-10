@@ -903,6 +903,7 @@ export namespace Components {
         "value": boolean;
     }
     export interface LimelTabBar {
+        "orientation": 'horizontal' | 'vertical';
         "tabs": Tab[];
     }
     // (undocumented)
@@ -928,6 +929,7 @@ export namespace Components {
         "totalRows": number;
     }
     export interface LimelTabPanel {
+        "orientation": 'horizontal' | 'vertical';
         "tabs": Tab[];
     }
     // @beta
@@ -1616,9 +1618,9 @@ export namespace JSX {
         // (undocumented)
         "limel-switch": Omit<LimelSwitch, keyof LimelSwitchAttributes> & { [K in keyof LimelSwitch & keyof LimelSwitchAttributes]?: LimelSwitch[K] } & { [K in keyof LimelSwitch & keyof LimelSwitchAttributes as `attr:${K}`]?: LimelSwitchAttributes[K] } & { [K in keyof LimelSwitch & keyof LimelSwitchAttributes as `prop:${K}`]?: LimelSwitch[K] };
         // (undocumented)
-        "limel-tab-bar": LimelTabBar;
+        "limel-tab-bar": Omit<LimelTabBar, keyof LimelTabBarAttributes> & { [K in keyof LimelTabBar & keyof LimelTabBarAttributes]?: LimelTabBar[K] } & { [K in keyof LimelTabBar & keyof LimelTabBarAttributes as `attr:${K}`]?: LimelTabBarAttributes[K] } & { [K in keyof LimelTabBar & keyof LimelTabBarAttributes as `prop:${K}`]?: LimelTabBar[K] };
         // (undocumented)
-        "limel-tab-panel": LimelTabPanel;
+        "limel-tab-panel": Omit<LimelTabPanel, keyof LimelTabPanelAttributes> & { [K in keyof LimelTabPanel & keyof LimelTabPanelAttributes]?: LimelTabPanel[K] } & { [K in keyof LimelTabPanel & keyof LimelTabPanelAttributes as `attr:${K}`]?: LimelTabPanelAttributes[K] } & { [K in keyof LimelTabPanel & keyof LimelTabPanelAttributes as `prop:${K}`]?: LimelTabPanel[K] };
         // (undocumented)
         "limel-table": Omit<LimelTable, keyof LimelTableAttributes> & { [K in keyof LimelTable & keyof LimelTableAttributes]?: LimelTable[K] } & { [K in keyof LimelTable & keyof LimelTableAttributes as `attr:${K}`]?: LimelTableAttributes[K] } & { [K in keyof LimelTable & keyof LimelTableAttributes as `prop:${K}`]?: LimelTable[K] };
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-text-editor"" is marked as @public, but its signature references "JSX" which is marked as @beta
@@ -3656,7 +3658,14 @@ export namespace JSX {
 
     export interface LimelTabBar {
         "onChangeTab"?: (event: LimelTabBarCustomEvent<Tab>) => void;
+        "orientation"?: 'horizontal' | 'vertical';
         "tabs"?: Tab[];
+    }
+
+    // (undocumented)
+    export interface LimelTabBarAttributes {
+        // (undocumented)
+        "orientation": 'horizontal' | 'vertical';
     }
 
     // (undocumented)
@@ -3722,7 +3731,14 @@ export namespace JSX {
 
     export interface LimelTabPanel {
         "onChangeTab"?: (event: LimelTabPanelCustomEvent<Tab>) => void;
+        "orientation"?: 'horizontal' | 'vertical';
         "tabs"?: Tab[];
+    }
+
+    // (undocumented)
+    export interface LimelTabPanelAttributes {
+        // (undocumented)
+        "orientation": 'horizontal' | 'vertical';
     }
 
     // @beta

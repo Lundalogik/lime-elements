@@ -10,12 +10,16 @@ import { test, expect, type Locator, type Page } from '@playwright/test';
 //      reflects the last activated one in a `limel-example-value`;
 //   2. the dynamic-width and equal-width examples have three tabs (Cats, Dogs,
 //      Birds);
-//   3. the scroll buttons are hidden from assistive technology, so they are
+//   3. `limel-example-tab-bar-vertical` has more tabs than fit in its height,
+//      the first two of them Joker and Parasite, and the last one Inception;
+//   4. the scroll buttons are hidden from assistive technology, so they are
 //      located by where the scroller puts them.
 
 const BASIC = 'limel-example-tab-bar-basic';
 const DYNAMIC_WIDTH = 'limel-example-tab-bar-with-dynamic-tab-width';
 const EQUAL_WIDTH = 'limel-example-tab-bar-with-equal-tab-width';
+const VERTICAL = 'limel-example-tab-bar-vertical';
+const TAB_WIDTH = 'limel-example-tab-bar-tab-width';
 
 const BASIC_TABS = [
     'Joker',
@@ -98,6 +102,13 @@ const leftOf = async (locator: Locator) => {
     return x;
 };
 
+// Where the element is, along both axes, to see whether it has moved.
+const positionOf = async (locator: Locator) => {
+    const { x, y } = await boxOf(locator);
+
+    return `${x},${y}`;
+};
+
 const boxesOf = async (locator: Locator) => {
     const all = await locator.all();
 
@@ -115,13 +126,13 @@ const tabsWithin = (boxes: Span[], region: Span) =>
 // Resolves once the element has stopped moving, which is how a smooth scroll is
 // known to be over.
 const settled = async (locator: Locator) => {
-    let previous: number | undefined;
+    let previous: string | undefined;
     await expect
         .poll(
             async () => {
-                const x = await leftOf(locator);
-                const unchanged = x === previous;
-                previous = x;
+                const position = await positionOf(locator);
+                const unchanged = position === previous;
+                previous = position;
 
                 return unchanged;
             },
@@ -137,9 +148,9 @@ const settled = async (locator: Locator) => {
 // Clicks a scroll button and waits for the scroll it starts to finish.
 const scrollByClicking = async (page: Page, button: Locator) => {
     const first = tabs(page).first();
-    const before = await leftOf(first);
+    const before = await positionOf(first);
     await button.click();
-    await expect.poll(() => leftOf(first)).not.toBe(before);
+    await expect.poll(() => positionOf(first)).not.toBe(before);
     await settled(first);
 };
 
@@ -718,6 +729,57 @@ test.describe('limel-tab-bar', () => {
         }
     });
 
+    test.describe('a vertical tab bar', () => {
+        test.beforeEach(async ({ page }) => {
+            await open(page, VERTICAL);
+        });
+
+        test('moves focus and selection with the up and down arrow keys', async ({
+            page,
+        }) => {
+            await tab(page, 'Joker').focus();
+
+            await page.keyboard.press('ArrowDown');
+            await expectActive(page, 'Parasite');
+
+            await page.keyboard.press('ArrowUp');
+            await expectActive(page, 'Joker');
+        });
+
+        test('scrolls down to the tabs that do not fit, and back up', async ({
+            page,
+        }) => {
+            await expectCanScroll(page, 'end', true);
+
+            await scrollToTheEnd(page);
+            await expectCanScroll(page, 'start', true);
+
+            const bar = await boxOf(tabBar(page));
+            const last = await boxOf(tab(page, 'Inception'));
+            expect(last.y + last.height).toBeLessThanOrEqual(
+                bar.y + bar.height + 1
+            );
+
+            await scrollByClicking(page, scrollButton(page, 'start'));
+            await expectCanScroll(page, 'end', true);
+        });
+
+        test('reveals the tab that the keyboard moves to', async ({ page }) => {
+            await tab(page, 'Joker').focus();
+
+            await page.keyboard.press('End');
+            await expectActive(page, 'Inception');
+            await settled(tab(page, 'Inception'));
+
+            const bar = await boxOf(tabBar(page));
+            const last = await boxOf(tab(page, 'Inception'));
+            expect(last.y).toBeGreaterThanOrEqual(bar.y - 1);
+            expect(last.y + last.height).toBeLessThanOrEqual(
+                bar.y + bar.height + 1
+            );
+        });
+    });
+
     test.describe('when the tabs fit', () => {
         test('offers no scrolling', async ({ page }) => {
             await open(page, DYNAMIC_WIDTH);
@@ -820,6 +882,38 @@ test.describe('limel-tab-bar', () => {
 
             await expect(tabBar(page)).toHaveScreenshot(
                 'tab-bar-hovering-tab.png'
+            );
+        });
+
+        test('vertical, at the start', async ({ page }) => {
+            await open(page, VERTICAL);
+            await expectCanScroll(page, 'end', true);
+
+            await expect(tabBar(page)).toHaveScreenshot(
+                'tab-bar-vertical-start.png'
+            );
+        });
+
+        test('vertical, scrolled to the end', async ({ page }) => {
+            await open(page, VERTICAL);
+            await scrollToTheEnd(page);
+            await page.mouse.move(0, 0);
+
+            await expect(tabBar(page)).toHaveScreenshot(
+                'tab-bar-vertical-end.png'
+            );
+        });
+
+        test('with limits on the width of the tabs', async ({ page }) => {
+            await page.goto(`/#/debug/${TAB_WIDTH}`);
+            await expect(tabBar(page)).toHaveCount(2);
+            const bars = await tabBar(page).all();
+            for (const bar of bars) {
+                await expect(bar).toHaveClass(/hydrated/);
+            }
+
+            await expect(page.locator(TAB_WIDTH)).toHaveScreenshot(
+                'tab-bar-tab-width.png'
             );
         });
 
