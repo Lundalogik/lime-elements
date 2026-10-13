@@ -20,9 +20,10 @@ inside the actual tab, e.g. to change the icon, color or badge.
 
 ## Properties
 
-| Property | Attribute | Description                      | Type    | Default |
-| -------- | --------- | -------------------------------- | ------- | ------- |
-| `tabs`   | --        | The tabs to display in the panel | `Tab[]` | `[]`    |
+| Property      | Attribute     | Description                                                                                   | Type                         | Default        |
+| ------------- | ------------- | --------------------------------------------------------------------------------------------- | ---------------------------- | -------------- |
+| `orientation` | `orientation` | Whether the tabs are laid out in a row, above the content, or in a column, to the left of it. | `"horizontal" \| "vertical"` | `'horizontal'` |
+| `tabs`        | --            | The tabs to display in the panel                                                              | `Tab[]`                      | `[]`           |
 
 
 ## Events
@@ -44,6 +45,7 @@ inside the actual tab, e.g. to change the icon, color or badge.
 ### Used by
 
  - [limel-example-tab-panel-basic](examples)
+ - [limel-example-tab-panel-vertical](examples)
 
 ### Depends on
 
@@ -57,6 +59,7 @@ graph TD;
   limel-tab-bar --> limel-icon
   limel-tab-bar --> limel-badge
   limel-example-tab-panel-basic --> limel-tab-panel
+  limel-example-tab-panel-vertical --> limel-tab-panel
   style limel-tab-panel fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -166,6 +166,7 @@ The component automatically formats different value types:
  - [limel-example-switch-helper-text](../components/switch/examples)
  - [limel-example-switch-readonly](../components/switch/examples)
  - [limel-example-tab-bar-basic](../components/tab-bar/examples)
+ - [limel-example-tab-bar-vertical](../components/tab-bar/examples)
  - [limel-example-tab-bar-with-dynamic-tab-width](../components/tab-bar/examples)
  - [limel-example-tab-bar-with-equal-tab-width](../components/tab-bar/examples)
  - [limel-example-table-activate-row](../components/table/examples)
@@ -314,6 +315,7 @@ graph TD;
   limel-example-switch-helper-text --> limel-example-value
   limel-example-switch-readonly --> limel-example-value
   limel-example-tab-bar-basic --> limel-example-value
+  limel-example-tab-bar-vertical --> limel-example-value
   limel-example-tab-bar-with-dynamic-tab-width --> limel-example-value
   limel-example-tab-bar-with-equal-tab-width --> limel-example-value
   limel-example-table-activate-row --> limel-example-value

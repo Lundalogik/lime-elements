@@ -40,6 +40,9 @@ The user can resize the panel by dragging its left edge. The panel then emits
 To keep it, for example across sessions, store the value and set it with
 `--side-panel-width`.
 
+The user can also resize the panel with the keyboard. When the handle has
+focus, ArrowLeft makes the panel wider and ArrowRight makes it narrower.
+
 The emitted width is clamped to the width the panel can actually have, as
 limited by `--side-panel-min-width` and the available space.
 
@@ -48,9 +51,10 @@ To use a default width until the user has resized the panel, set a fallback:
 
 ## Properties
 
-| Property     | Attribute     | Description                                                                    | Type     | Default   |
-| ------------ | ------------- | ------------------------------------------------------------------------------ | -------- | --------- |
-| `closeLabel` | `close-label` | Label of the close button. Shown as a tooltip and used as the accessible name. | `string` | `'Close'` |
+| Property      | Attribute      | Description                                                                    | Type     | Default    |
+| ------------- | -------------- | ------------------------------------------------------------------------------ | -------- | ---------- |
+| `closeLabel`  | `close-label`  | Label of the close button. Shown as a tooltip and used as the accessible name. | `string` | `'Close'`  |
+| `resizeLabel` | `resize-label` | Label of the resize handle. Used as the accessible name.                       | `string` | `'Resize'` |
 
 
 ## Events
