@@ -1,3 +1,12 @@
+## [40.7.0](https://github.com/Lundalogik/lime-elements/compare/v40.6.3...v40.7.0) (2026-10-13)
+
+### Features
+
+
+* **tab-bar:** add a vertical orientation ([2a8461e](https://github.com/Lundalogik/lime-elements/commit/2a8461e38ba9bb5193a6fe9e56675f9fd50f46e8))
+* **tab-bar:** limit how wide a horizontal tab can get, to 16rem by default ([21d258f](https://github.com/Lundalogik/lime-elements/commit/21d258fec12c740b714c5c1f9344ba4c551fbf29))
+* **tab-panel:** add a vertical orientation ([a17b636](https://github.com/Lundalogik/lime-elements/commit/a17b636f42d81bf5c0309f00b3f491cb5560257c))
+
 ## [40.6.3](https://github.com/Lundalogik/lime-elements/compare/v40.6.2...v40.6.3) (2026-10-08)
 
 ### Bug Fixes
