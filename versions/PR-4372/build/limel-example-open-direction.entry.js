@@ -1,0 +1,1 @@
+import{r as e,h as r}from"./index-BU9IJqli.js";const i=class{constructor(r){e(this,r)}render(){return r("limel-help",{key:"2830e15b29c4a3ecbe43e1fed1fb48b1c3b19784",openDirection:"right",value:"This popover is opened on the right side of the trigger."})}};export{i as limel_example_open_direction}
