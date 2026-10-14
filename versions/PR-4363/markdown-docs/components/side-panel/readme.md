@@ -35,19 +35,19 @@ emitted by the panel.
 
 ## Width
 
-The user can resize the panel by dragging its left edge. The panel then emits
-`changeWidth` with the new width in pixels. The panel does not keep the width.
-To keep it, for example across sessions, store the value and set it with
-`--side-panel-width`.
+The panel starts with the width from `--side-panel-width`. The user can
+resize the panel by dragging its left edge. The user can also use the
+keyboard. When the handle has focus, ArrowLeft makes the panel wider and
+ArrowRight makes it narrower.
 
-The user can also resize the panel with the keyboard. When the handle has
-focus, ArrowLeft makes the panel wider and ArrowRight makes it narrower.
+The panel keeps the new width itself. While the panel exists, this width wins
+over `--side-panel-width`. The width is limited by `--side-panel-min-width`
+and the available space.
 
-The emitted width is clamped to the width the panel can actually have, as
-limited by `--side-panel-min-width` and the available space.
-
-To use a default width until the user has resized the panel, set a fallback:
-`--side-panel-width: var(--stored-width, 30rem)`.
+After each resize, the panel emits `changeWidth` with the new width in
+pixels. The consumer does not have to handle the event. To keep the width
+for the next time the panel opens, for example across sessions, store the
+value. Then set it with `--side-panel-width` before the panel opens.
 
 ## Properties
 
@@ -59,10 +59,10 @@ To use a default width until the user has resized the panel, set a fallback:
 
 ## Events
 
-| Event         | Description                                                                           | Type                  |
-| ------------- | ------------------------------------------------------------------------------------- | --------------------- |
-| `changeWidth` | Emitted when the panel is resized by the user. The detail is the new width in pixels. | `CustomEvent<number>` |
-| `close`       | Emitted when the close button is clicked, or when Escape is pressed.                  | `CustomEvent<void>`   |
+| Event         | Description                                                                                                                                                                                                             | Type                  |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| `changeWidth` | Emitted when the user has resized the panel. The detail is the new width in pixels. The panel already uses the new width. Store the value to restore the width with `--side-panel-width` the next time the panel opens. | `CustomEvent<number>` |
+| `close`       | Emitted when the close button is clicked, or when Escape is pressed.                                                                                                                                                    | `CustomEvent<void>`   |
 
 
 ## Dependencies
@@ -76,12 +76,14 @@ To use a default width until the user has resized the panel, set a fallback:
 
 - [limel-icon](../icon)
 - [limel-tooltip](../tooltip)
+- [limel-resize-handle](../resize-handle)
 
 ### Graph
 ```mermaid
 graph TD;
   limel-side-panel --> limel-icon
   limel-side-panel --> limel-tooltip
+  limel-side-panel --> limel-resize-handle
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-tooltip-content --> limel-hotkey

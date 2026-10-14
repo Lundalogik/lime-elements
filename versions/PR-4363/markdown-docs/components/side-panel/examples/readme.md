@@ -31,6 +31,7 @@ graph TD;
   limel-button --> limel-spinner
   limel-side-panel --> limel-icon
   limel-side-panel --> limel-tooltip
+  limel-side-panel --> limel-resize-handle
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-tooltip-content --> limel-hotkey

@@ -16,7 +16,7 @@ npm install @limetech/lime-elements
 <limel-button primary label="Hello World"></limel-button>
 ```
 
-## Components (72)
+## Components (73)
 
 | [3d Hover Effect Glow](components/3d-hover-effect-glow/readme.md) | [Action Bar](components/action-bar/readme.md) | [Ai Avatar](components/ai-avatar/readme.md) |
 | --- | --- | --- | 
@@ -38,11 +38,12 @@ npm install @limetech/lime-elements
 | [Menu Surface](components/menu-surface/readme.md) | [Notched Outline](components/notched-outline/readme.md) | [Pagination](components/pagination/readme.md) |
 | [Picker](components/picker/readme.md) | [Popover](components/popover/readme.md) | [Popover Surface](components/popover-surface/readme.md) |
 | [Portal](components/portal/readme.md) | [Profile Picture](components/profile-picture/readme.md) | [Progress Flow](components/progress-flow/readme.md) |
-| [Radio Button Group](components/radio-button-group/readme.md) | [Scroller](components/scroller/readme.md) | [Select](components/select/readme.md) |
-| [Shortcut](components/shortcut/readme.md) | [Side Panel](components/side-panel/readme.md) | [Slider](components/slider/readme.md) |
-| [Snackbar](components/snackbar/readme.md) | [Spinner](components/spinner/readme.md) | [Split Button](components/split-button/readme.md) |
-| [Switch](components/switch/readme.md) | [Tab Bar](components/tab-bar/readme.md) | [Tab Panel](components/tab-panel/readme.md) |
-| [Table](components/table/readme.md) | [Text Editor](components/text-editor/readme.md) | [Tooltip](components/tooltip/readme.md) |
+| [Radio Button Group](components/radio-button-group/readme.md) | [Resize Handle](components/resize-handle/readme.md) | [Scroller](components/scroller/readme.md) |
+| [Select](components/select/readme.md) | [Shortcut](components/shortcut/readme.md) | [Side Panel](components/side-panel/readme.md) |
+| [Slider](components/slider/readme.md) | [Snackbar](components/snackbar/readme.md) | [Spinner](components/spinner/readme.md) |
+| [Split Button](components/split-button/readme.md) | [Switch](components/switch/readme.md) | [Tab Bar](components/tab-bar/readme.md) |
+| [Tab Panel](components/tab-panel/readme.md) | [Table](components/table/readme.md) | [Text Editor](components/text-editor/readme.md) |
+| [Tooltip](components/tooltip/readme.md) |
 
 
 ## Design Guidelines
