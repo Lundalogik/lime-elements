@@ -26,6 +26,10 @@ $header-background-color: rgb(var(--contrast-200));
 $heading-line-height: 1.25rem;
 $subheading-line-height: 1rem;
 $header-padding-block: 0.125rem;
+// The headings are always as tall as a heading with a subheading, so the
+// header always has this height.
+$header-height: $heading-line-height + $subheading-line-height + 2 *
+    $header-padding-block;
 // Room inside the clipped header actions for the focus rings and hover shadows
 // of the controls.
 $header-actions-padding: 0.25rem;
@@ -82,17 +86,14 @@ $max-width: min(calc(100% - 2 * $margin - #{$peek-behind}), 60%);
 //
 // No `overflow: hidden` here, because the resize handle extends outside the left
 // edge. `.content` clips the content instead.
-section {
+//
+// A back of the stack is the same box as the panel, so it uses the same mixin.
+@mixin panel-box {
     position: absolute;
-    z-index: var(--_side-panel-z-index);
     top: var(--_side-panel-top-inset);
     right: var(--_side-panel-right-inset);
     bottom: var(--_side-panel-bottom-inset);
     margin: $margin;
-
-    display: flex;
-    flex-direction: column;
-    isolation: isolate;
 
     width: var(--_side-panel-width);
     min-width: $min-width;
@@ -100,6 +101,16 @@ section {
     max-height: 100%;
 
     border-radius: $border-radius;
+}
+
+section {
+    @include panel-box;
+    z-index: var(--_side-panel-z-index);
+
+    display: flex;
+    flex-direction: column;
+    isolation: isolate;
+
     box-shadow: var(--shadow-depth-64);
 
     transform-origin: left center;
@@ -121,14 +132,14 @@ section {
     }
 }
 
-// The background is set here and not on `section`, so that it is clipped to the
-// border radius together with the toolbar.
 // Dropdowns, popovers and tooltips are in portals outside the panel. They read
 // their z-index from these properties, which have no default, so without them
 // the panel covers them. `.content` holds the toolbar and the slots, so the
 // properties are inherited by everything in the panel. A value that the
-// consumer sets on the panel or an ancestor wins.
-.content {
+// consumer sets on the panel or an ancestor wins. The tooltips of the backs
+// in `.stack` are also displayed above the panel.
+.content,
+.stack {
     --dropdown-z-index: var(
         --_side-panel-dropdown-z-index,
         calc(var(--_side-panel-z-index) + 1)
@@ -141,7 +152,30 @@ section {
         --_side-panel-tooltip-z-index,
         calc(var(--_side-panel-z-index) + 1)
     );
+}
 
+// In full screen, the panel keeps the top and bottom insets, but not the right
+// inset, because nothing is visible next to the panel. A box with `left`,
+// `right` and `width` ignores `right`. The corners are not rounded, because
+// there is nothing behind them to show.
+:host([full-screen]) {
+    section {
+        left: 0;
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    section,
+    .content {
+        border-radius: 0;
+    }
+}
+
+// The background is set here and not on `section`, so that it is clipped to the
+// border radius together with the toolbar.
+.content {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -340,10 +374,7 @@ section {
     // As tall as a heading with a subheading. Then the header has the same
     // height with or without a subheading, and the header actions, which can
     // be that tall, never make it grow.
-    min-height: calc(
-        #{$heading-line-height} + #{$subheading-line-height} + 2 *
-            #{$header-padding-block}
-    );
+    min-height: $header-height;
     padding: $header-padding-block 0.75rem $header-padding-block 0.25rem;
     background-color: var(
         --header-background-color,
@@ -430,4 +461,99 @@ section {
 
 [data-limit='max'] {
     width: $max-width;
+}
+
+// Covers the positioned ancestor, so that percentages in the backs resolve
+// against the same width as in the panel. Only the backs take pointer events.
+.stack {
+    position: absolute;
+    inset: 0;
+    z-index: calc(var(--_side-panel-z-index) - 1);
+    pointer-events: none;
+}
+
+.back {
+    @include mixins.reset-button-user-agent-styles;
+    @include panel-box;
+    @include mixins.visualize-keyboard-focus;
+    pointer-events: auto;
+    cursor: pointer;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: $background-color;
+    box-shadow: var(--shadow-depth-16);
+
+    transform-origin: left center;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease,
+        right 0.2s ease;
+
+    @media (prefers-reduced-motion) {
+        transition: none;
+    }
+
+    &:nth-last-child(1) {
+        transform: translate3d(-1.4rem, 0, 0) scale(0.98);
+    }
+
+    &:nth-last-child(2) {
+        transform: translate3d(-2.3rem, 0, 0) scale(0.96);
+    }
+
+    &:nth-last-child(3) {
+        transform: translate3d(-3rem, 0, 0) scale(0.94);
+    }
+
+    &:nth-last-child(n + 4) {
+        transform: translate3d(-3.4rem, 0, 0) scale(0.92);
+    }
+
+    &:hover {
+        box-shadow: var(--shadow-depth-64);
+    }
+
+    &:hover,
+    &:focus-visible {
+        right: calc(var(--_side-panel-right-inset) + 0.25rem);
+        background-color: var(--lime-elevated-surface-background-color);
+    }
+}
+
+// The backs spread out when the user points at one, so that it is easier to
+// see which back is under the pointer.
+.stack:has(.back:hover) {
+    .back:nth-last-child(2) {
+        transform: translate3d(-2.6rem, 0, 0) scale(0.96);
+    }
+
+    .back:nth-last-child(3) {
+        transform: translate3d(-3.8rem, 0, 0) scale(0.94);
+    }
+
+    .back:nth-last-child(n + 4) {
+        transform: translate3d(-4.9rem, 0, 0) scale(0.92);
+    }
+}
+
+// A back has no room for text or icons. It shows only the toolbar and the
+// header of its panel, without content.
+.back-toolbar,
+.back-band {
+    flex-shrink: 0;
+}
+
+.back-toolbar {
+    height: $toolbar-height;
+    background-color: $toolbar-background-color;
+}
+
+.back-band {
+    height: $header-height;
+    background-color: $header-background-color;
 }

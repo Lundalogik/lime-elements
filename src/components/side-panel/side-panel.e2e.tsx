@@ -492,6 +492,262 @@ test('limel-side-panel: shows tooltips in the header actions above the panel', a
     expect(zIndexOfPortalFor(tooltip)).toBe('21');
 });
 
+test('limel-side-panel: shows a back for each stack entry except the last, labeled with its heading', async () => {
+    await renderPanel({
+        stack: [
+            { heading: 'Start page' },
+            { heading: 'Sales pipe' },
+            { heading: 'Rules' },
+        ],
+    });
+
+    expect(getBacks().map((back) => back.getAttribute('aria-label'))).toEqual([
+        'Start page',
+        'Sales pipe',
+    ]);
+});
+
+test('limel-side-panel: emits selectStackEntry with the index of the clicked back', async () => {
+    await renderPanel({
+        stack: [
+            { heading: 'Start page' },
+            { heading: 'Sales pipe' },
+            { heading: 'Rules' },
+        ],
+    });
+    const selected = listenFor('selectStackEntry');
+
+    getBacks()[1].click();
+
+    expect(selected).toEqual([1]);
+});
+
+test('limel-side-panel: moves focus to the close button when the focused back is removed', async () => {
+    const panel = await renderPanel({ stack: THREE_PANELS });
+    goBackOnSelectStackEntry(panel);
+
+    getBacks()[1].focus();
+    getBacks()[1].click();
+    await getPage().waitForChanges();
+
+    expect(panel.shadowRoot!.activeElement).toBe(getCloseButton());
+});
+
+test('limel-side-panel: does not move focus when the stack is emptied and no back has focus', async () => {
+    const panel = (await renderPanel({
+        stack: THREE_PANELS,
+    })) as HTMLLimelSidePanelElement;
+    const content = getGivenContent();
+    content.tabIndex = 0;
+    content.focus();
+
+    panel.stack = [];
+    await getPage().waitForChanges();
+
+    expect(document.activeElement).toBe(content);
+});
+
+// A back has no room for text, so the color of its band tells the backs apart.
+test('limel-side-panel: paints the band of a back with the color of its entry', async () => {
+    await renderPanel({
+        stack: [
+            { heading: 'Start page', color: 'rgb(0, 128, 128)' },
+            { heading: 'Sales pipe' },
+        ],
+    });
+    const band = getBacks()[0].querySelector('.back-band')!;
+
+    expect(getComputedStyle(band).backgroundColor).toBe('rgb(0, 128, 128)');
+});
+
+test('limel-side-panel: shows the heading and subheading of a back in a tooltip', async () => {
+    await renderPanel({
+        stack: [
+            { heading: 'Start page', subheading: 'Lime CRM' },
+            { heading: 'Sales pipe' },
+        ],
+    });
+    const back = getBacks()[0];
+    const tooltip = back.querySelector('limel-tooltip')!;
+
+    expect(tooltip.elementId).toBe(back.id);
+    expect(tooltip.label).toBe('Start page');
+    expect(tooltip.helperLabel).toBe('Lime CRM');
+});
+
+// Only the left edge of a back is visible, so a tooltip above the middle of
+// the back would be far from the pointer.
+test('limel-side-panel: opens the tooltip of a back to the left', async () => {
+    await renderPanel({ stack: THREE_PANELS });
+
+    for (const back of getBacks()) {
+        expect(back.querySelector('limel-tooltip')!.openDirection).toBe('left');
+    }
+});
+
+const THREE_PANELS: SidePanelEntry[] = [
+    { heading: 'Start page' },
+    { heading: 'Sales pipe' },
+    { heading: 'Rules' },
+];
+
+// `offsetWidth`, because the backs are scaled with a transform.
+test('limel-side-panel: gives each back the width of the panel', async () => {
+    const panel = await renderSizedPanel(THREE_PANELS);
+
+    expect(getBacks().map((back) => back.offsetWidth)).toEqual([400, 400]);
+    expect(widthOf(panel)).toBe(400);
+});
+
+test('limel-side-panel: gives each back the width that the user resized the panel to', async () => {
+    await renderSizedPanel(THREE_PANELS);
+    const edge = getHandle().getBoundingClientRect().left;
+
+    await dragHandleTo(edge, edge - 60);
+
+    expect(getBacks().map((back) => back.offsetWidth)).toEqual([460, 460]);
+});
+
+// The test browser is 414px wide, and `elementFromPoint` only finds elements
+// inside the viewport.
+test('limel-side-panel: shows the backs behind the panel, further to the left the further back they are', async () => {
+    const page = await render(
+        <div style={{ position: 'relative', width: '400px', height: '400px' }}>
+            <limel-side-panel
+                style={{
+                    '--side-panel-width': '200px',
+                    '--side-panel-min-width': '100px',
+                }}
+                stack={THREE_PANELS}
+            />
+        </div>
+    );
+    pages.push(page);
+    finishOpeningAnimation();
+    const panelBox = getPanel().getBoundingClientRect();
+    const [first, second] = getBacks().map((back) =>
+        back.getBoundingClientRect()
+    );
+
+    expect(first.left).toBeLessThan(second.left);
+    expect(second.left).toBeLessThan(panelBox.left);
+    const inFront = getHost().shadowRoot!.elementFromPoint(
+        panelBox.left + 1,
+        centerOf(panelBox)
+    );
+    expect(getPanel().contains(inFront)).toBe(true);
+});
+
+// `offsetTop` and `offsetHeight`, because the backs are scaled with a transform.
+test('limel-side-panel: draws the band of a back where the panel has its header', async () => {
+    await renderSizedPanel(THREE_PANELS);
+    const header = getHeader();
+    const band = getBacks()[0].querySelector<HTMLElement>('.back-band')!;
+
+    expect([band.offsetTop, band.offsetHeight]).toEqual([
+        header.offsetTop,
+        header.offsetHeight,
+    ]);
+});
+
+test('limel-side-panel: shows the tooltips of the backs above the panel', async () => {
+    await renderPanel({
+        style: { '--side-panel-z-index': '20' },
+        stack: THREE_PANELS,
+    });
+
+    for (const back of getBacks()) {
+        expect(zIndexOfPortalFor(back.querySelector('limel-tooltip')!)).toBe(
+            '21'
+        );
+    }
+});
+
+test('limel-side-panel: has no resize handle in full screen', async () => {
+    await renderPanel({ fullScreen: true });
+
+    expect(getHandle()).toBeNull();
+});
+
+test('limel-side-panel: does not show the backs in full screen', async () => {
+    await renderPanel({ fullScreen: true, stack: THREE_PANELS });
+
+    expect(getBacks()).toEqual([]);
+});
+
+test('limel-side-panel: moves focus to the close button when full screen removes the focused back', async () => {
+    const panel = (await renderPanel({
+        stack: THREE_PANELS,
+    })) as HTMLLimelSidePanelElement;
+    getBacks()[1].focus();
+
+    panel.fullScreen = true;
+    await getPage().waitForChanges();
+
+    expect(panel.shadowRoot!.activeElement).toBe(getCloseButton());
+});
+
+// A consumer that builds `stack` on each render sets a new array of the same
+// length together with `fullScreen`.
+test('limel-side-panel: moves focus to the close button when full screen and a new stack of the same length are set together', async () => {
+    const panel = (await renderPanel({
+        stack: THREE_PANELS,
+    })) as HTMLLimelSidePanelElement;
+    getBacks()[1].focus();
+
+    panel.fullScreen = true;
+    panel.stack = [...THREE_PANELS];
+    await getPage().waitForChanges();
+
+    expect(panel.shadowRoot!.activeElement).toBe(getCloseButton());
+});
+
+test('limel-side-panel: covers the full width of the positioned ancestor in full screen, below the top inset', async () => {
+    const page = await render(
+        <div style={{ position: 'relative', width: '400px', height: '400px' }}>
+            <limel-side-panel
+                fullScreen={true}
+                style={{
+                    '--side-panel-top-inset': '40px',
+                    '--side-panel-right-inset': '50px',
+                    '--side-panel-bottom-inset': '30px',
+                }}
+            />
+        </div>
+    );
+    pages.push(page);
+    const panel = getPanel();
+
+    expect([
+        panel.offsetLeft,
+        panel.offsetTop,
+        panel.offsetWidth,
+        panel.offsetHeight,
+    ]).toEqual([0, 40, 400, 330]);
+});
+
+test('limel-side-panel: has no rounded corners in full screen', async () => {
+    await renderPanel({ fullScreen: true });
+
+    for (const element of [
+        getPanel(),
+        getHost().shadowRoot!.querySelector('.content')!,
+    ]) {
+        expect(getComputedStyle(element).borderTopLeftRadius).toBe('0px');
+    }
+});
+
+test('limel-side-panel: covers the full width in full screen after the user resized it', async () => {
+    const panel = await renderSizedPanel();
+    const edge = getHandle().getBoundingClientRect().left;
+    await dragHandleTo(edge, edge - 60);
+
+    (panel as HTMLLimelSidePanelElement).fullScreen = true;
+    await getPage().waitForChanges();
+
+    expect(widthOf(panel)).toBe(1000);
+});
+
 const LONG_HEADING = 'A heading that is far too long '.repeat(5);
 
 const PORTAL_Z_INDEXES = [
@@ -1138,9 +1394,12 @@ async function renderPanelWithHeaderActions(
  * Renders a panel that starts 400px wide, in a 1000px wide positioned
  * ancestor. The panel can be between 300px and 600px wide.
  *
+ * @param stack - the stack of the panel
  * @returns the host
  */
-async function renderSizedPanel(): Promise<HTMLElement> {
+async function renderSizedPanel(
+    stack: SidePanelEntry[] = []
+): Promise<HTMLElement> {
     const page = await render(
         <div style={{ position: 'relative', width: '1000px', height: '400px' }}>
             <limel-side-panel
@@ -1148,6 +1407,7 @@ async function renderSizedPanel(): Promise<HTMLElement> {
                     '--side-panel-width': '400px',
                     '--side-panel-min-width': '300px',
                 }}
+                stack={stack}
             />
         </div>
     );
@@ -1491,8 +1751,35 @@ function getActionButtons(): HTMLElement[] {
     ];
 }
 
+function finishOpeningAnimation() {
+    for (const animation of getPanel().getAnimations()) {
+        animation.finish();
+    }
+}
+
+function goBackOnSelectStackEntry(panel: HTMLElement) {
+    panel.addEventListener(
+        'selectStackEntry',
+        (event: CustomEvent<number>) => {
+            (panel as HTMLLimelSidePanelElement).stack = THREE_PANELS.slice(
+                0,
+                event.detail + 1
+            );
+        },
+        { signal: listenUntilTheTestEnds() }
+    );
+}
+
+function getBacks(): HTMLButtonElement[] {
+    return [
+        ...getHost().shadowRoot!.querySelectorAll<HTMLButtonElement>(
+            '.stack > .back'
+        ),
+    ];
+}
+
 function getHeader(): HTMLLimelHeaderElement {
-    return getPage().root!.shadowRoot!.querySelector<HTMLLimelHeaderElement>(
+    return getHost().shadowRoot!.querySelector<HTMLLimelHeaderElement>(
         '.header'
     )!;
 }
