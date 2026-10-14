@@ -1,0 +1,102 @@
+// Matches the resize handle in the Lime CRM web client. The consumer places
+// the handle and sets its size.
+:host(limel-resize-handle) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 100vh;
+    cursor: col-resize;
+    touch-action: none;
+}
+
+:host::before,
+:host::after {
+    pointer-events: none;
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    border-radius: 100vh;
+    margin: auto;
+}
+
+// Hover highlight.
+:host::before {
+    transition:
+        scale 0.3s ease,
+        opacity 0.3s ease;
+    transition-delay: 0.2s;
+    opacity: 0;
+    scale: 0.9 1;
+}
+
+// Vertical line.
+:host::after {
+    transition: background-color 0.4s ease;
+    transition-delay: 0.2s;
+    width: 0.125rem;
+    background-color: rgb(var(--contrast-600));
+}
+
+:host(:focus-visible) {
+    outline: none;
+}
+
+:host(:hover)::before,
+:host(:focus-visible)::before {
+    transition-duration: 0.46s;
+    transition-timing-function: ease-in;
+    opacity: 1;
+    scale: 1 1;
+    background-color: rgb(var(--color-sky-light), 0.4);
+}
+
+:host(:hover)::after,
+:host(:focus-visible)::after {
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in;
+    background-color: rgb(var(--color-sky-default));
+}
+
+.grip {
+    pointer-events: none;
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+    padding: 0.1875rem 0.25rem;
+    margin: auto;
+    border-radius: 100vh;
+    rotate: 90deg;
+
+    background-color: var(--lime-elevated-surface-background-color);
+    box-shadow: var(--button-shadow-pressed);
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.16s ease;
+}
+
+.grip span {
+    width: 0.25rem;
+    height: 0.125rem;
+    border-radius: 0.125rem;
+    background-color: rgb(var(--contrast-700));
+    transition: background-color 0.2s ease;
+}
+
+:host(:hover) .grip,
+:host(:focus-visible) .grip {
+    transform: translate3d(0, -0.04rem, 0);
+    box-shadow: var(--button-shadow-normal);
+}
+
+:host(:hover) .grip span,
+:host(:focus-visible) .grip span {
+    background-color: var(--mdc-theme-primary);
+}

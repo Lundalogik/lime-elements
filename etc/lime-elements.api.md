@@ -828,6 +828,13 @@ export namespace Components {
         "selectedItem"?: ListItem<string | number>;
     }
     // @internal
+    export interface LimelResizeHandle {
+        "label": string;
+        "max"?: number;
+        "min"?: number;
+        "value"?: number;
+    }
+    // @internal
     export interface LimelScroller {
         "orientation": 'horizontal' | 'vertical';
         "reveal": (item: HTMLElement, behavior?: ScrollBehavior) => Promise<void>;
@@ -1599,6 +1606,10 @@ export namespace JSX {
         //
         // (undocumented)
         "limel-radio-button-group": Omit<LimelRadioButtonGroup, keyof LimelRadioButtonGroupAttributes> & { [K in keyof LimelRadioButtonGroup & keyof LimelRadioButtonGroupAttributes]?: LimelRadioButtonGroup[K] } & { [K in keyof LimelRadioButtonGroup & keyof LimelRadioButtonGroupAttributes as `attr:${K}`]?: LimelRadioButtonGroupAttributes[K] } & { [K in keyof LimelRadioButtonGroup & keyof LimelRadioButtonGroupAttributes as `prop:${K}`]?: LimelRadioButtonGroup[K] };
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-resize-handle"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
+        // (undocumented)
+        "limel-resize-handle": Omit<LimelResizeHandle, keyof LimelResizeHandleAttributes> & { [K in keyof LimelResizeHandle & keyof LimelResizeHandleAttributes]?: LimelResizeHandle[K] } & { [K in keyof LimelResizeHandle & keyof LimelResizeHandleAttributes as `attr:${K}`]?: LimelResizeHandleAttributes[K] } & { [K in keyof LimelResizeHandle & keyof LimelResizeHandleAttributes as `prop:${K}`]?: LimelResizeHandle[K] };
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-scroller"" is marked as @public, but its signature references "JSX" which is marked as @internal
         //
         // (undocumented)
@@ -3445,6 +3456,27 @@ export namespace JSX {
     }
 
     // @internal
+    export interface LimelResizeHandle {
+        "label"?: string;
+        "max"?: number;
+        "min"?: number;
+        "onChangeSize"?: (event: LimelResizeHandleCustomEvent<number>) => void;
+        "value"?: number;
+    }
+
+    // (undocumented)
+    export interface LimelResizeHandleAttributes {
+        // (undocumented)
+        "label": string;
+        // (undocumented)
+        "max": number;
+        // (undocumented)
+        "min": number;
+        // (undocumented)
+        "value": number;
+    }
+
+    // @internal
     export interface LimelScroller {
         "orientation"?: 'horizontal' | 'vertical';
     }
@@ -4316,6 +4348,16 @@ export interface LimelRadioButtonGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelRadioButtonGroupElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelResizeHandleCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelResizeHandleCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelResizeHandleElement;
 }
 
 // Warning: (ae-missing-release-tag) "LimelSelectCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
