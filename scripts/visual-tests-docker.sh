@@ -11,10 +11,10 @@
 set -euo pipefail
 
 # Keep this digest in lockstep with the @playwright/test version in package.json.
-# The tag (v1.63.0-jammy) is the human-readable handle; the digest is what we
+# The tag (v1.64.0-jammy) is the human-readable handle; the digest is what we
 # actually pull, for supply-chain integrity. To rebump: docker pull <tag> then
 # `docker inspect --format='{{index .RepoDigests 0}}' <tag>`.
-IMAGE="mcr.microsoft.com/playwright@sha256:167d0506cfbe3c294fb214b2d11737326eeee028aa611fa1ba538e5057675847"
+IMAGE="mcr.microsoft.com/playwright@sha256:c064e7f355d2dda32f669801a1b09e86a1e9252395c844d2cfbbe5c44acb9b79"
 
 # We run as root inside the container (the image default) so the anonymous
 # node_modules volume and npm's HOME stay writable. The downside is that files
