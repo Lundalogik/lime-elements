@@ -1,0 +1,29 @@
+@use '../../../style/mixins';
+
+:host(limel-example-resize-handle-grab-area) {
+    display: flex;
+    align-items: flex-end;
+    box-sizing: border-box;
+    height: 12.5rem;
+    background-color: rgb(var(--contrast-200));
+    @include mixins.add-chessboard-background;
+}
+
+section {
+    position: relative;
+    isolation: isolate;
+    flex-grow: 1;
+    box-sizing: border-box;
+    padding: 2.5rem 1rem 1rem;
+    border-radius: 0.5rem;
+    background-color: rgb(var(--contrast-300));
+}
+
+limel-resize-handle {
+    --limel-resize-handle-thickness: 2rem;
+    --limel-resize-handle-visual-length: 2rem;
+
+    width: 8rem;
+    margin: 0 auto;
+    background-color: rgb(var(--color-sky-light), 0.3);
+}

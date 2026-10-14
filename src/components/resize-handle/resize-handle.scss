@@ -1,0 +1,199 @@
+/**
+ * @prop --limel-resize-handle-thickness: Size of the grab area of a handle with `location="top"` or `location="bottom"`, measured in the direction of the drag. Has no effect on a handle with `location="left"` or `location="right"`. Defaults to `0.5rem`, which is the size of the visible strip. Increase it to give touch pointers a larger target. The grab area grows away from the edge that is dragged, and the visible strip stays at the edge.
+ * @prop --limel-resize-handle-visual-length: Length of the visible strip of a handle with `location="top"` or `location="bottom"`, measured along the edge. Has no effect on a handle with `location="left"` or `location="right"`. Defaults to `auto`, so the strip spans the whole grab area. Set it when the grab area is longer than the strip should appear.
+ */
+
+@use '../../style/mixins';
+
+$visual-thickness: 0.5rem;
+$line-thickness: 0.125rem;
+
+:host(limel-resize-handle) {
+    position: absolute;
+    z-index: 1;
+    touch-action: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 100vh;
+}
+
+:host::before,
+:host::after {
+    pointer-events: none;
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    border-radius: 100vh;
+    margin: auto;
+}
+
+// Hover highlight.
+:host::before {
+    transition:
+        scale 0.3s ease,
+        opacity 0.3s ease;
+    transition-delay: 0.2s;
+    opacity: 0;
+}
+
+// The line.
+:host::after {
+    transition: background-color 0.4s ease;
+    transition-delay: 0.2s;
+    background-color: rgb(var(--contrast-600));
+}
+
+:host([location='top']),
+:host([location='bottom']) {
+    cursor: row-resize;
+    height: var(--limel-resize-handle-thickness, $visual-thickness) !important;
+    right: 0;
+    left: 0;
+
+    &::before {
+        scale: 1 0.9;
+        height: $visual-thickness;
+        width: var(--limel-resize-handle-visual-length, auto);
+    }
+
+    &::after {
+        height: $line-thickness;
+        width: var(--limel-resize-handle-visual-length, auto);
+    }
+}
+
+:host([location='top']) {
+    top: 0;
+
+    &::before {
+        top: 0;
+        bottom: auto;
+    }
+
+    &::after {
+        top: calc((#{$visual-thickness} - #{$line-thickness}) / 2);
+        bottom: auto;
+    }
+}
+
+:host([location='bottom']) {
+    bottom: 0;
+
+    &::before {
+        top: auto;
+        bottom: 0;
+    }
+
+    &::after {
+        top: auto;
+        bottom: calc((#{$visual-thickness} - #{$line-thickness}) / 2);
+    }
+}
+
+:host([location='left']),
+:host([location='right']) {
+    cursor: col-resize;
+    width: $visual-thickness;
+    top: 0;
+    bottom: 0;
+
+    &::before {
+        scale: 0.9 1;
+    }
+
+    &::after {
+        width: $line-thickness;
+    }
+}
+
+:host([location='left']) {
+    left: 0;
+}
+
+:host([location='right']) {
+    right: 0;
+}
+
+:host(:focus-visible) {
+    outline: none;
+}
+
+:host(:hover)::before,
+:host(:focus-visible)::before {
+    transition-duration: 0.46s;
+    transition-timing-function: ease-in;
+    opacity: 1;
+    scale: 1 1;
+    background-color: rgb(var(--color-sky-light), 0.4);
+}
+
+:host(:hover)::after,
+:host(:focus-visible)::after {
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in;
+    background-color: rgb(var(--color-sky-default));
+}
+
+div {
+    transition: mixins.$clickable-normal-state-transitions;
+    pointer-events: none;
+
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+    padding: 0.1875rem 0.25rem;
+    border-radius: 100vh;
+    margin: auto;
+
+    background-color: var(--lime-elevated-surface-background-color);
+    box-shadow: var(--button-shadow-pressed);
+
+    span {
+        transition: mixins.$clickable-normal-state-transitions;
+        border-radius: 0.125rem;
+        width: 0.25rem;
+        height: 0.125rem;
+        background-color: rgb(var(--contrast-700));
+    }
+
+    :host([location='top']) & {
+        margin-top: 0;
+        margin-bottom: auto;
+    }
+
+    :host([location='bottom']) & {
+        margin-top: auto;
+        margin-bottom: 0;
+    }
+
+    :host([aria-orientation='vertical']) & {
+        rotate: 90deg;
+    }
+}
+
+:host(:hover),
+:host(:focus-visible) {
+    --limel-clickable-transition-speed: 0.2s;
+    --limel-clickable-transform-speed: 0.16s;
+
+    div {
+        will-change: background-color, box-shadow, transform;
+        transform: translate3d(0, -0.04rem, 0);
+        box-shadow: var(--button-shadow-normal);
+    }
+
+    span {
+        will-change: background-color;
+        background-color: var(--mdc-theme-primary);
+    }
+}
