@@ -1,6 +1,7 @@
 import { render, h } from '@stencil/vitest';
 import { afterEach, expect, test, vi } from 'vitest';
 import { ESCAPE } from '../../util/keycodes';
+import type { SidePanelEntry } from './side-panel.types';
 
 const OWN_EVENTS = ['close', 'changeWidth'];
 
@@ -131,6 +132,400 @@ test('limel-side-panel: uses closeLabel as the label of the close button', async
     expect(getCloseButton().querySelector('limel-tooltip')!.label).toBe(
         'Stäng'
     );
+});
+
+test('limel-side-panel: shows the heading of the last stack entry', async () => {
+    await renderPanel({
+        stack: [{ heading: 'Start page' }, { heading: 'Sales pipe' }],
+    });
+
+    expect(getHeader().querySelector('.heading')!.textContent).toBe(
+        'Sales pipe'
+    );
+});
+
+test('limel-side-panel: shows the subheading of the last stack entry', async () => {
+    await renderPanel({
+        stack: [{ heading: 'Sales pipe', subheading: 'Start page widget' }],
+    });
+
+    expect(getHeader().querySelector('.subheading')!.textContent).toBe(
+        'Start page widget'
+    );
+});
+
+test('limel-side-panel: shows the icon of the last stack entry', async () => {
+    await renderPanel({
+        stack: [{ heading: 'Sales pipe', icon: 'sales_performance' }],
+    });
+
+    expect(getHeader().querySelector('limel-icon')!.name).toBe(
+        'sales_performance'
+    );
+});
+
+test('limel-side-panel: uses the colors of the icon of the last stack entry', async () => {
+    await renderPanel({
+        stack: [
+            {
+                heading: 'Sales pipe',
+                icon: {
+                    name: 'sales_performance',
+                    color: 'rgb(255, 0, 0)',
+                    backgroundColor: 'rgb(0, 0, 255)',
+                },
+            },
+        ],
+    });
+
+    const icon = getHeader().querySelector('limel-icon')!;
+
+    expect(icon.name).toBe('sales_performance');
+    expect(icon.style.color).toBe('rgb(255, 0, 0)');
+    expect(icon.style.backgroundColor).toBe('rgb(0, 0, 255)');
+});
+
+test('limel-side-panel: paints the header with the color of the last stack entry', async () => {
+    await renderPanel({
+        stack: [{ heading: 'Sales pipe', color: 'rgb(0, 128, 128)' }],
+    });
+
+    expect(getComputedStyle(getHeader()).backgroundColor).toBe(
+        'rgb(0, 128, 128)'
+    );
+});
+
+// The test page does not load the theme, which defines `--color-black`.
+test('limel-side-panel: adds a text shadow to the headings on a painted header', async () => {
+    await renderPanel({
+        style: { '--color-black': '0, 0, 0' },
+        stack: [
+            {
+                heading: 'Sales pipe',
+                subheading: 'Start page widget',
+                color: 'rgb(0, 128, 128)',
+            },
+        ],
+    });
+
+    for (const heading of getHeader().querySelectorAll('h1, h2')) {
+        expect(getComputedStyle(heading).textShadow).not.toBe('none');
+    }
+});
+
+test('limel-side-panel: shows the headings in white on a painted header', async () => {
+    await renderPanel({
+        style: { '--color-white': '255, 255, 255' },
+        stack: [
+            {
+                heading: 'Sales pipe',
+                subheading: 'Start page widget',
+                color: 'rgb(0, 128, 128)',
+            },
+        ],
+    });
+
+    for (const heading of getHeader().querySelectorAll('h1, h2')) {
+        expect(getComputedStyle(heading).color).toBe('rgb(255, 255, 255)');
+    }
+});
+
+test('limel-side-panel: does not add a text shadow to the headings on a header without a color', async () => {
+    await renderPanel({
+        style: { '--color-black': '0, 0, 0' },
+        stack: [{ heading: 'Sales pipe' }],
+    });
+
+    expect(
+        getComputedStyle(getHeader().querySelector('.heading')!).textShadow
+    ).toBe('none');
+});
+
+test('limel-side-panel: does not show a header when the stack is empty', async () => {
+    await renderPanel();
+
+    expect(getHeader()).toBeNull();
+});
+
+test('limel-side-panel: shows a button for each action, labeled with its label', async () => {
+    await renderPanel({
+        actions: [
+            { type: 'expand', label: 'Expand' },
+            { type: 'newTab', label: 'Open in a new tab' },
+        ],
+    });
+
+    expect(
+        getActionButtons().map((button) => button.getAttribute('aria-label'))
+    ).toEqual(['Expand', 'Open in a new tab']);
+});
+
+test('limel-side-panel: shows the icon of the type of each action', async () => {
+    await renderPanel({
+        actions: [
+            { type: 'expand', label: 'Expand' },
+            { type: 'newTab', label: 'Open in a new tab' },
+        ],
+    });
+
+    expect(
+        getActionButtons().map(
+            (button) => button.querySelector('limel-icon')!.name
+        )
+    ).toEqual(['expand', 'up_right_arrow']);
+});
+
+test('limel-side-panel: emits selectAction with the id of the clicked action and the click event', async () => {
+    await renderPanel({
+        actions: [
+            { type: 'expand', label: 'Expand', id: 'expand-widget' },
+            { type: 'newTab', label: 'Open in a new tab', id: 'open-widget' },
+        ],
+    });
+    const selected = listenFor('selectAction');
+    const click = new MouseEvent('click', { cancelable: true });
+
+    getActionButtons()[1].dispatchEvent(click);
+
+    expect(selected).toEqual([{ id: 'open-widget', event: click }]);
+});
+
+test('limel-side-panel: emits selectAction with the type of a clicked action that has no id', async () => {
+    await renderPanel({ actions: [{ type: 'expand', label: 'Expand' }] });
+    const selected = listenFor<{ id: string }>('selectAction');
+
+    getActionButtons()[0].click();
+
+    expect(selected.map((detail) => detail.id)).toEqual(['expand']);
+});
+
+test('limel-side-panel: shows the label and helperLabel of an action in a tooltip', async () => {
+    await renderPanel({
+        actions: [
+            {
+                type: 'newTab',
+                label: 'Open in a new tab',
+                helperLabel: 'Sales pipe',
+            },
+        ],
+    });
+    const button = getActionButtons()[0];
+    const tooltip = button.querySelector('limel-tooltip')!;
+
+    expect(tooltip.elementId).toBe(button.id);
+    expect(tooltip.label).toBe('Open in a new tab');
+    expect(tooltip.helperLabel).toBe('Sales pipe');
+});
+
+test('limel-side-panel: shows an action with an href as a link', async () => {
+    await renderPanel({
+        actions: [
+            { type: 'expand', label: 'Expand', href: 'https://example.com/' },
+        ],
+    });
+    const link = getActionButtons()[0];
+
+    expect(link.tagName).toBe('A');
+    expect(link.getAttribute('href')).toBe('https://example.com/');
+});
+
+test('limel-side-panel: opens a newTab action with an href in a new tab', async () => {
+    await renderPanel({
+        actions: [
+            { type: 'newTab', label: 'Open', href: 'https://example.com/' },
+            { type: 'expand', label: 'Expand', href: 'https://example.com/' },
+        ],
+    });
+
+    expect(
+        getActionButtons().map((link) => link.getAttribute('target'))
+    ).toEqual(['_blank', null]);
+});
+
+test('limel-side-panel: marks each action with its type, for its hover animation', async () => {
+    await renderPanel({
+        actions: [
+            { type: 'expand', label: 'Expand' },
+            { type: 'newTab', label: 'Open in a new tab' },
+        ],
+    });
+
+    expect(
+        getActionButtons().map((button) => button.classList.contains('expand'))
+    ).toEqual([true, false]);
+    expect(
+        getActionButtons().map((button) => button.classList.contains('newTab'))
+    ).toEqual([false, true]);
+});
+
+// `limel-tooltip` reads `--tooltip-z-index` from its host and sets it as the
+// z-index of its portal container, which is outside the panel.
+test('limel-side-panel: shows the toolbar tooltips above the panel', async () => {
+    await renderPanel({
+        style: { '--side-panel-z-index': '20' },
+        actions: [{ type: 'expand', label: 'Expand' }],
+    });
+    const tooltips = getPage().root!.shadowRoot!.querySelectorAll(
+        '.toolbar limel-tooltip'
+    );
+
+    expect(tooltips).toHaveLength(2);
+    for (const tooltip of tooltips) {
+        expect(zIndexOfPortalFor(tooltip)).toBe('21');
+    }
+});
+
+test('limel-side-panel: shows the header-actions slot in the header', async () => {
+    await renderPanel({ stack: [{ heading: 'Sales pipe' }] });
+
+    expect(getHeader().contains(getGivenHeaderAction().assignedSlot)).toBe(
+        true
+    );
+});
+
+test('limel-side-panel: tells the header actions to use white text on a painted header', async () => {
+    await renderPanel({
+        style: { '--color-white': '255, 255, 255' },
+        stack: [{ heading: 'Sales pipe', color: 'rgb(0, 128, 128)' }],
+    });
+    const probe = document.createElement('span');
+    probe.style.color = 'var(--side-panel-header-text-color)';
+    getGivenHeaderAction().append(probe);
+
+    expect(getComputedStyle(probe).color).toBe('rgb(255, 255, 255)');
+});
+
+test('limel-side-panel: places the header actions at the right end of the header, centered vertically', async () => {
+    const header = await renderPanelWithHeaderActions({
+        heading: 'Sales pipe',
+    });
+    const headerBox = header.getBoundingClientRect();
+    const actionsBox = getGivenHeaderAction().getBoundingClientRect();
+
+    expect(headerBox.right - actionsBox.right).toBeCloseTo(12, 0);
+    expect(centerOf(actionsBox)).toBeCloseTo(centerOf(headerBox), 0);
+});
+
+test('limel-side-panel: truncates a long heading before the header actions', async () => {
+    const header = await renderPanelWithHeaderActions({
+        heading: LONG_HEADING,
+    });
+    const heading = header.querySelector('.heading')!;
+
+    expect(heading.scrollWidth).toBeGreaterThan(heading.clientWidth);
+    expect(heading.getBoundingClientRect().right).toBeLessThanOrEqual(
+        getGivenHeaderAction().getBoundingClientRect().left
+    );
+});
+
+test('limel-side-panel: keeps space for the headings when the header actions are wide', async () => {
+    const header = await renderPanelWithHeaderActions(
+        { heading: LONG_HEADING },
+        { width: 2000, height: 24 }
+    );
+    const headerWidth = header.getBoundingClientRect().width;
+
+    expect(
+        header.querySelector('.headings')!.getBoundingClientRect().width
+    ).toBeGreaterThan(headerWidth * 0.4);
+    expect(header.scrollWidth).toBe(header.clientWidth);
+});
+
+test('limel-side-panel: does not make the header taller when the header actions are tall', async () => {
+    const entry = { heading: 'Sales pipe', subheading: 'Start page widget' };
+    // `offsetHeight`, because the opening animation scales the panel.
+    const normalHeader = await renderPanelWithHeaderActions(entry);
+    const normalHeight = normalHeader.offsetHeight;
+
+    const header = await renderPanelWithHeaderActions(entry, {
+        width: 80,
+        height: 300,
+    });
+
+    expect(header.offsetHeight).toBe(normalHeight);
+});
+
+test('limel-side-panel: does not make the header taller when the header actions are tall and there is no subheading', async () => {
+    const entry = { heading: 'Sales pipe' };
+    const withTinyAction = await renderPanelWithHeaderActions(entry, {
+        width: 1,
+        height: 1,
+    });
+    const normalHeight = withTinyAction.offsetHeight;
+
+    const header = await renderPanelWithHeaderActions(entry, {
+        width: 80,
+        height: 300,
+    });
+
+    expect(header.offsetHeight).toBe(normalHeight);
+});
+
+test('limel-side-panel: does not show the header actions when the stack is empty', async () => {
+    await renderPanel();
+
+    expect(getGivenHeaderAction().assignedSlot).toBeNull();
+    expect(getGivenHeaderAction().getClientRects()).toHaveLength(0);
+});
+
+test('limel-side-panel: shows tooltips in the header actions above the panel', async () => {
+    await renderPanel({
+        style: { '--side-panel-z-index': '20' },
+        stack: [{ heading: 'Sales pipe' }],
+    });
+    const tooltip = document.createElement('limel-tooltip');
+    getGivenHeaderAction().append(tooltip);
+
+    expect(zIndexOfPortalFor(tooltip)).toBe('21');
+});
+
+const LONG_HEADING = 'A heading that is far too long '.repeat(5);
+
+const PORTAL_Z_INDEXES = [
+    '--dropdown-z-index',
+    '--popover-z-index',
+    '--tooltip-z-index',
+];
+
+test('limel-side-panel: shows dropdowns, popovers and tooltips in the content above the panel', async () => {
+    await renderPanel({ style: { '--side-panel-z-index': '20' } });
+
+    expect(
+        PORTAL_Z_INDEXES.map((property) =>
+            zIndexOfPortalFor(getGivenContent(), property)
+        )
+    ).toEqual(['21', '21', '21']);
+});
+
+test('limel-side-panel: uses the z-indexes of dropdowns, popovers and tooltips that the consumer sets', async () => {
+    const panel = await renderPanel({
+        style: { '--side-panel-z-index': '20' },
+    });
+    panel.parentElement!.style.setProperty('--dropdown-z-index', '100');
+    panel.parentElement!.style.setProperty('--popover-z-index', '101');
+    panel.style.setProperty('--tooltip-z-index', '102');
+
+    expect(
+        PORTAL_Z_INDEXES.map((property) =>
+            zIndexOfPortalFor(getGivenContent(), property)
+        )
+    ).toEqual(['100', '101', '102']);
+});
+
+test('limel-side-panel: shows the subheading smaller than the heading, without margins', async () => {
+    await renderPanel({
+        stack: [{ heading: 'Sales pipe', subheading: 'Start page widget' }],
+    });
+    const heading = getComputedStyle(getHeader().querySelector('.heading')!);
+    const subheading = getComputedStyle(
+        getHeader().querySelector('.subheading')!
+    );
+
+    expect(subheading.fontSize).toBe('12px');
+    expect(heading.fontSize).toBe('16px');
+    for (const style of [heading, subheading]) {
+        expect([style.marginTop, style.marginBottom]).toEqual(['0px', '0px']);
+    }
 });
 
 test('limel-side-panel: emits close when Escape is pressed', async () => {
@@ -424,6 +819,37 @@ test('limel-side-panel: can be resized after it is moved in the DOM', async () =
     expect(widths).toEqual([460]);
 });
 
+// A consumer often renders again during a drag, with new arrays for `stack`
+// and `actions`, so the panel renders between the moves.
+test('limel-side-panel: keeps resizing when the consumer renders again during a drag', async () => {
+    const panel = (await renderPanel({
+        stack: [{ heading: 'Sales pipe' }],
+    })) as HTMLLimelSidePanelElement;
+    const widths = listenFor('changeWidth');
+    layOutThePanel({});
+    const handle = getHandle();
+    handle.setPointerCapture = vi.fn();
+
+    handle.dispatchEvent(
+        new PointerEvent('pointerdown', { clientX: 1000, pointerId: 1 })
+    );
+    for (const clientX of [990, 980, 970]) {
+        panel.stack = [{ heading: `Sales pipe ${clientX}` }];
+        await getPage().waitForChanges();
+        getHandle().dispatchEvent(
+            new PointerEvent('pointermove', { clientX: clientX, pointerId: 1 })
+        );
+    }
+
+    getHandle().dispatchEvent(new PointerEvent('pointerup', { pointerId: 1 }));
+    await getPage().waitForChanges();
+
+    expect(widths).toEqual([430]);
+    expect(getHeader().querySelector('.heading')!.textContent).toBe(
+        'Sales pipe 970'
+    );
+});
+
 test('limel-side-panel: emits a wider changeWidth when ArrowLeft is pressed on the resize handle', async () => {
     await renderPanel();
     const widths = listenFor('changeWidth');
@@ -570,10 +996,24 @@ test('limel-side-panel: does not propagate close or changeWidth from the content
 // Tests the listeners inside the panel without the fallback listener on the host.
 test('limel-side-panel: stops close and changeWidth inside the panel', async () => {
     await renderPanel();
-    const heard = listenInsideFor(OWN_EVENTS);
+    const heard = listenInsideForOwnEvents();
 
     for (const event of OWN_EVENTS) {
         await emitFromContentSlot(event);
+    }
+
+    expect(heard).toEqual([]);
+});
+
+// Tests the listeners inside the panel without the fallback listener on the host.
+test('limel-side-panel: stops close and changeWidth from the header actions inside the panel', async () => {
+    await renderPanel({ stack: [{ heading: 'Sales pipe' }] });
+    const heard = listenInsideForOwnEvents();
+
+    for (const event of OWN_EVENTS) {
+        getGivenHeaderAction().assignedSlot!.dispatchEvent(
+            new CustomEvent(event, { bubbles: true, composed: true })
+        );
     }
 
     expect(heard).toEqual([]);
@@ -649,11 +1089,54 @@ async function renderPanel(
     const page = await render(
         <limel-side-panel {...props}>
             <div class="given-content" />
+            <button class="given-header-action" slot="header-actions" />
         </limel-side-panel>
     );
     pages.push(page);
 
     return page.root!;
+}
+
+interface Size {
+    width: number;
+    height: number;
+}
+
+const SMALL_HEADER_ACTION: Size = { width: 80, height: 24 };
+
+/**
+ * Renders a 400px wide panel with an element in the `header-actions` slot.
+ *
+ * @param entry - the only entry in the stack
+ * @param size - the size of the element in the slot, in pixels
+ * @returns the header
+ */
+async function renderPanelWithHeaderActions(
+    entry: SidePanelEntry,
+    size: Size = SMALL_HEADER_ACTION
+): Promise<HTMLElement> {
+    const page = await render(
+        <div style={{ position: 'relative', width: '1000px', height: '400px' }}>
+            <limel-side-panel
+                style={{ '--side-panel-width': '400px' }}
+                stack={[entry]}
+            >
+                <div
+                    class="given-header-action"
+                    slot="header-actions"
+                    style={{
+                        width: `${size.width}px`,
+                        height: `${size.height}px`,
+                    }}
+                />
+            </limel-side-panel>
+        </div>
+    );
+    pages.push(page);
+
+    return page
+        .root!.querySelector('limel-side-panel')!
+        .shadowRoot!.querySelector<HTMLElement>('.header')!;
 }
 
 /**
@@ -897,9 +1380,9 @@ function useEscapeOn(target: EventTarget) {
  * @param event - the event name
  * @returns the event details, in the order they were received
  */
-function listenFor(event: string): unknown[] {
-    const details: unknown[] = [];
-    getPage().root!.addEventListener(event, (received: CustomEvent) => {
+function listenFor<T = unknown>(event: string): T[] {
+    const details: T[] = [];
+    getPage().root!.addEventListener(event, (received: CustomEvent<T>) => {
         details.push(received.detail);
     });
 
@@ -944,17 +1427,16 @@ function listenOutsideFor(events: string[]): string[] {
 }
 
 /**
- * Adds listeners on the `section` element in the shadow root, which is an
- * ancestor of the slot.
+ * Adds listeners for the panel's own event names on the `section` element in
+ * the shadow root, which is an ancestor of the slots.
  *
- * @param events - the event names
  * @returns the names of the received events, in order
  */
-function listenInsideFor(events: string[]): string[] {
+function listenInsideForOwnEvents(): string[] {
     const heard: string[] = [];
     const panel = getPanel();
 
-    for (const event of events) {
+    for (const event of OWN_EVENTS) {
         panel.addEventListener(event, () => {
             heard.push(event);
         });
@@ -976,6 +1458,50 @@ function listenUntilTheTestEnds(): AbortSignal {
 
 function getCloseButton(): HTMLButtonElement {
     return getPage().root!.shadowRoot!.querySelector('button.close')!;
+}
+
+/**
+ * Sets a z-index property of an element as the z-index of an element outside
+ * the panel, like `limel-tooltip`, `limel-menu` and `limel-popover` do with
+ * their portal containers.
+ *
+ * @param element - the element that reads the property
+ * @param property - the custom property
+ * @returns the computed z-index of the element outside the panel
+ */
+function zIndexOfPortalFor(
+    element: Element,
+    property = '--tooltip-z-index'
+): string {
+    const container = document.createElement('div');
+    container.style.position = 'absolute';
+    container.style.zIndex =
+        getComputedStyle(element).getPropertyValue(property);
+    document.body.append(container);
+    const zIndex = getComputedStyle(container).zIndex;
+    container.remove();
+
+    return zIndex;
+}
+
+function centerOf(box: DOMRect): number {
+    return box.top + box.height / 2;
+}
+
+function getActionButtons(): HTMLElement[] {
+    return [
+        ...getPage().root!.shadowRoot!.querySelectorAll<HTMLElement>(
+            '.actions > *'
+        ),
+    ];
+}
+
+function getHeader(): HTMLElement {
+    return getPage().root!.shadowRoot!.querySelector<HTMLElement>('.header')!;
+}
+
+function getGivenHeaderAction(): HTMLElement {
+    return getPage().root!.querySelector<HTMLElement>('.given-header-action')!;
 }
 
 function getGivenContent(): HTMLElement {

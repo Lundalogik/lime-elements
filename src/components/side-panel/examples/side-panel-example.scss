@@ -65,3 +65,30 @@ $dock-width: 4rem;
 limel-popover p {
     margin: 0.5rem 1rem;
 }
+
+// Slotted content is styled by the consumer. It uses the text color that the
+// panel sets on its header.
+.follow-button {
+    all: unset;
+    cursor: pointer;
+    padding: 0.125rem 0.5rem;
+    border: 1px solid currentColor;
+    border-radius: 1.5rem;
+    font-size: 0.875rem;
+    color: var(--side-panel-header-text-color);
+
+    &[aria-pressed='true'] {
+        border-color: transparent;
+        background-color: rgb(var(--color-black), 0.15);
+    }
+
+    &:focus-visible {
+        box-shadow: var(--shadow-depth-8-focused);
+    }
+}
+
+// The hover background of `limel-icon-button` is white, which would hide a
+// white icon.
+.menu-trigger {
+    --lime-elevated-surface-background-color: rgb(var(--color-black), 0.15);
+}

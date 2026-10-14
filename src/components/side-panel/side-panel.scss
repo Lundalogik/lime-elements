@@ -6,7 +6,8 @@
  * @prop --side-panel-top-inset: Distance from the top of the positioned ancestor. Defaults to `0px`.
  * @prop --side-panel-right-inset: Distance from the right of the positioned ancestor. Defaults to `0px`.
  * @prop --side-panel-bottom-inset: Distance from the bottom of the positioned ancestor. Defaults to `0px`.
- * @prop --side-panel-z-index: z-index of the panel. Defaults to `6`. Set `--dropdown-z-index` and `--popover-z-index` to higher values, so that dropdowns and popovers inside the panel are displayed on top of it.
+ * @prop --side-panel-header-text-color: Set by the panel on the header, do not set it. Content in the `header-actions` slot can use it to match the text color of the header, which is white when the header has a `color`.
+ * @prop --side-panel-z-index: z-index of the panel. Defaults to `6`. The panel sets `--dropdown-z-index`, `--popover-z-index` and `--tooltip-z-index` to one more than this for everything inside it, so that dropdowns, popovers and tooltips are displayed on top of the panel. To use other values, set these properties on the panel or on an ancestor.
  */
 
 // Part of the page that is always visible to the left of the panel at its
@@ -19,6 +20,20 @@ $background-color: rgb(var(--contrast-100));
 $toolbar-background-color: rgb(var(--contrast-300));
 // The close button, plus 0.25rem padding on each side.
 $toolbar-height: 2.375rem;
+$header-background-color: rgb(var(--contrast-200));
+// The header has the same size as the header of an object card in the Lime CRM
+// web client, `limec-header-information`.
+$heading-line-height: 1.25rem;
+$subheading-line-height: 1rem;
+$header-padding-block: 0.125rem;
+// Room inside the clipped header actions for the focus rings and hover shadows
+// of the controls.
+$header-actions-padding: 0.25rem;
+
+// The same text shadow as on colored headers in the Lime CRM web client, for
+// example in `limec-header-information`.
+$text-shadow-blur: 0.25rem;
+$text-shadow-color: rgba(var(--color-black), 0.2);
 
 $handle-width: 0.5rem;
 $handle-gap: 0.5rem;
@@ -41,6 +56,12 @@ $max-width: min(calc(100% - 2 * $margin - #{$peek-behind}), 60%);
     --_side-panel-right-inset: var(--side-panel-right-inset, 0px);
     --_side-panel-bottom-inset: var(--side-panel-bottom-inset, 0px);
     --_side-panel-z-index: var(--side-panel-z-index, 6);
+
+    // Copies of the consumer's values, read by `.content`. A property cannot
+    // fall back on its own value on the same element.
+    --_side-panel-dropdown-z-index: var(--dropdown-z-index);
+    --_side-panel-popover-z-index: var(--popover-z-index);
+    --_side-panel-tooltip-z-index: var(--tooltip-z-index);
 }
 
 @keyframes show-side-panel {
@@ -102,7 +123,25 @@ section {
 
 // The background is set here and not on `section`, so that it is clipped to the
 // border radius together with the toolbar.
+// Dropdowns, popovers and tooltips are in portals outside the panel. They read
+// their z-index from these properties, which have no default, so without them
+// the panel covers them. `.content` holds the toolbar and the slots, so the
+// properties are inherited by everything in the panel. A value that the
+// consumer sets on the panel or an ancestor wins.
 .content {
+    --dropdown-z-index: var(
+        --_side-panel-dropdown-z-index,
+        calc(var(--_side-panel-z-index) + 1)
+    );
+    --popover-z-index: var(
+        --_side-panel-popover-z-index,
+        calc(var(--_side-panel-z-index) + 1)
+    );
+    --tooltip-z-index: var(
+        --_side-panel-tooltip-z-index,
+        calc(var(--_side-panel-z-index) + 1)
+    );
+
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -126,9 +165,7 @@ section {
     background-color: $toolbar-background-color;
 }
 
-// Same hover animation as the close button of the side panel in the Lime CRM
-// web client.
-.close {
+@mixin toolbar-button {
     @include mixins.reset-button-user-agent-styles;
     @include mixins.is-flat-clickable;
     @include mixins.visualize-keyboard-focus;
@@ -149,6 +186,108 @@ section {
             transform 0.2s ease,
             color 0.2s ease;
     }
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-left: auto;
+
+    > * {
+        @include toolbar-button;
+        // The hover animations draw shapes that must have the same color as
+        // the button. `is-flat-clickable` gives the button this color on hover.
+        --_side-panel-action-background-color: #{$toolbar-background-color};
+
+        &:hover,
+        &:focus-visible {
+            --_side-panel-action-background-color: var(
+                --lime-elevated-surface-background-color
+            );
+        }
+
+        &:hover limel-icon {
+            color: var(--mdc-theme-primary);
+        }
+    }
+}
+
+// The hover animations of `newTab` and `expand` are the same as on the
+// navigation buttons in the Lime CRM web client.
+.newTab {
+    limel-icon {
+        transition: transform 0.2s ease;
+        transform: scale(0.8);
+        z-index: 3;
+    }
+
+    &:before {
+        z-index: 2;
+    }
+
+    &:after {
+        z-index: 1;
+    }
+
+    &:before,
+    &:after {
+        content: '';
+        transition:
+            transform 0.2s ease,
+            outline-color 0.2s ease;
+        position: absolute;
+        width: 0.875rem;
+        height: 0.875rem;
+        outline: 1.5px solid rgb(var(--contrast-900));
+        border-radius: 1px;
+        background-color: var(--_side-panel-action-background-color);
+    }
+
+    &:hover {
+        limel-icon {
+            transform: translate3d(-0.1rem, 0.1rem, 0) scale(1);
+        }
+
+        &:before {
+            transform: translate3d(0.125rem, -0.125rem, 0);
+            outline-color: rgb(var(--contrast-1000));
+            box-shadow: var(--shadow-depth-8);
+        }
+
+        &:after {
+            transform: translate3d(-0.15rem, 0.15rem, 0) scale(0.9);
+            outline-color: rgb(var(--contrast-700));
+        }
+    }
+}
+
+.expand {
+    &:after {
+        transition: transform 0.2s ease;
+        content: '';
+        position: absolute;
+        z-index: 1;
+        background-color: var(--_side-panel-action-background-color);
+        width: 0.75rem;
+        height: 0.75rem;
+    }
+
+    &:hover {
+        &:after {
+            transform: scale(0.5);
+        }
+
+        limel-icon {
+            transform: scale(1.18);
+        }
+    }
+}
+
+// Same hover animation as the close button of the side panel in the Lime CRM
+// web client.
+.close {
+    @include toolbar-button;
 
     &:before,
     &:after {
@@ -190,6 +329,105 @@ section {
             opacity: 0.4;
             transform: scale(0.6);
         }
+    }
+}
+
+.header {
+    --side-panel-header-text-color: var(--limel-theme-on-surface-color);
+
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    padding: $header-padding-block 0.75rem $header-padding-block 0.25rem;
+    background-color: $header-background-color;
+    color: var(--side-panel-header-text-color);
+    font-size: 0.75rem;
+
+    limel-icon {
+        flex-shrink: 0;
+        box-sizing: border-box;
+        width: 2rem;
+        height: 2rem;
+        padding: 0.25rem;
+        margin-left: 0.25rem;
+        border-radius: 0.25rem;
+    }
+}
+
+// The slot is for small controls. Larger content is cut off, so that the
+// headings always keep at least half of the header.
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    min-width: 0;
+    max-width: 50%;
+    overflow: hidden;
+
+    // As tall as the headings with a subheading, so that the header never
+    // grows because of the slot content. The negative margin takes back the
+    // padding, so the padding does not change the layout.
+    box-sizing: border-box;
+    max-height: calc(
+        #{$heading-line-height} + #{$subheading-line-height} + 2 *
+            #{$header-actions-padding}
+    );
+    padding: $header-actions-padding;
+    margin: (-$header-actions-padding) (-$header-actions-padding)
+        (-$header-actions-padding) auto;
+}
+
+// `min-width: 0` lets the headings be narrower than their text, so that they
+// can be truncated.
+//
+// The headings are always as tall as a heading with a subheading. Then the
+// header has the same height with or without a subheading, and the header
+// actions, which can be that tall, never make it grow.
+.headings {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    min-height: calc(#{$heading-line-height} + #{$subheading-line-height});
+}
+
+.heading,
+.subheading {
+    @include mixins.truncate-text;
+    margin: 0;
+}
+
+.heading {
+    font-size: 1rem;
+    line-height: $heading-line-height;
+    font-weight: 500;
+}
+
+// An explicit size, because the browser gives `h2` a size of `1.5em`.
+.subheading {
+    font-size: 0.75rem;
+    line-height: $subheading-line-height;
+    font-weight: 300;
+    color: rgb(var(--contrast-900));
+}
+
+// The headings are truncated with `overflow: hidden`, which would also cut off
+// the shadow at the sides. The padding makes room for the shadow, and the
+// negative margin keeps the text in the same place.
+.has-color {
+    --side-panel-header-text-color: rgb(var(--color-white));
+
+    .heading,
+    .subheading {
+        color: var(--side-panel-header-text-color);
+        padding: 0 $text-shadow-blur;
+        margin-left: -$text-shadow-blur;
+        text-shadow:
+            0 0 1px $text-shadow-color,
+            0 0 $text-shadow-blur $text-shadow-color;
     }
 }
 
