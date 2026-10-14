@@ -1,0 +1,19 @@
+@use '../../../style/mixins';
+
+section {
+    display: flex;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    height: 12rem;
+    background-color: rgb(var(--contrast-200));
+    @include mixins.add-chessboard-background;
+}
+
+aside {
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: rgb(var(--contrast-300));
+}

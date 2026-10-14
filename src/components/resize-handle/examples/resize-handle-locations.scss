@@ -1,0 +1,54 @@
+@use '../../../style/mixins';
+
+:host(limel-example-resize-handle-locations) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+section {
+    display: flex;
+    box-sizing: border-box;
+    height: 14rem;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    background-color: rgb(var(--contrast-200));
+    @include mixins.add-chessboard-background;
+}
+
+section[data-location='left'] {
+    justify-content: flex-end;
+}
+
+section[data-location='top'] {
+    align-items: flex-end;
+}
+
+section[data-location='bottom'] {
+    align-items: flex-start;
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+    padding: 1rem;
+    background-color: rgb(var(--contrast-300));
+}
+
+section[data-location='left'] div,
+section[data-location='right'] div {
+    height: 100%;
+}
+
+section[data-location='top'] div,
+section[data-location='bottom'] div {
+    width: 100%;
+}
+
+p {
+    margin: 0;
+}
