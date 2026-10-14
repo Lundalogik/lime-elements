@@ -857,6 +857,11 @@ export namespace Components {
         "label"?: string;
         "link"?: Link;
     }
+    // @internal
+    export interface LimelSidePanel {
+        "closeLabel": string;
+        "resizeLabel": string;
+    }
     // (undocumented)
     export interface LimelSlider {
         "disabled": boolean;
@@ -1618,6 +1623,10 @@ export namespace JSX {
         "limel-select": Omit<LimelSelect, keyof LimelSelectAttributes> & { [K in keyof LimelSelect & keyof LimelSelectAttributes]?: LimelSelect[K] } & { [K in keyof LimelSelect & keyof LimelSelectAttributes as `attr:${K}`]?: LimelSelectAttributes[K] } & { [K in keyof LimelSelect & keyof LimelSelectAttributes as `prop:${K}`]?: LimelSelect[K] };
         // (undocumented)
         "limel-shortcut": Omit<LimelShortcut, keyof LimelShortcutAttributes> & { [K in keyof LimelShortcut & keyof LimelShortcutAttributes]?: LimelShortcut[K] } & { [K in keyof LimelShortcut & keyof LimelShortcutAttributes as `attr:${K}`]?: LimelShortcutAttributes[K] } & { [K in keyof LimelShortcut & keyof LimelShortcutAttributes as `prop:${K}`]?: LimelShortcut[K] };
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-side-panel"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
+        // (undocumented)
+        "limel-side-panel": Omit<LimelSidePanel, keyof LimelSidePanelAttributes> & { [K in keyof LimelSidePanel & keyof LimelSidePanelAttributes]?: LimelSidePanel[K] } & { [K in keyof LimelSidePanel & keyof LimelSidePanelAttributes as `attr:${K}`]?: LimelSidePanelAttributes[K] } & { [K in keyof LimelSidePanel & keyof LimelSidePanelAttributes as `prop:${K}`]?: LimelSidePanel[K] };
         // (undocumented)
         "limel-slider": Omit<LimelSlider, keyof LimelSliderAttributes> & { [K in keyof LimelSlider & keyof LimelSliderAttributes]?: LimelSlider[K] } & { [K in keyof LimelSlider & keyof LimelSliderAttributes as `attr:${K}`]?: LimelSliderAttributes[K] } & { [K in keyof LimelSlider & keyof LimelSliderAttributes as `prop:${K}`]?: LimelSlider[K] };
         // (undocumented)
@@ -3538,6 +3547,22 @@ export namespace JSX {
         "label": string;
     }
 
+    // @internal
+    export interface LimelSidePanel {
+        "closeLabel"?: string;
+        "onChangeWidth"?: (event: LimelSidePanelCustomEvent<number>) => void;
+        "onClose"?: (event: LimelSidePanelCustomEvent<void>) => void;
+        "resizeLabel"?: string;
+    }
+
+    // (undocumented)
+    export interface LimelSidePanelAttributes {
+        // (undocumented)
+        "closeLabel": string;
+        // (undocumented)
+        "resizeLabel": string;
+    }
+
     // (undocumented)
     export interface LimelSlider {
         "disabled"?: boolean;
@@ -4368,6 +4393,16 @@ export interface LimelSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelSelectElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelSidePanelCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelSidePanelCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelSidePanelElement;
 }
 
 // Warning: (ae-missing-release-tag) "LimelSliderCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
