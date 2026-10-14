@@ -8,6 +8,7 @@ import {
     Listen,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 import { ESCAPE } from '../../util/keycodes';
 import { createRandomString } from '../../util/random-string';
@@ -85,6 +86,22 @@ function stopEvent(event: Event) {
  * to match the text color of the header. It is white when the header has a
  * `color`. It can also be used as the `color` of an `Icon`.
  *
+ * ## Stack
+ *
+ * A panel can open another panel, for example to edit a part of what the first
+ * panel shows. Only one panel is shown at a time. The other panels are shown as
+ * backs behind the left edge of the panel, so the user can go back to them.
+ *
+ * Each entry in `stack` is one panel, outermost first. The last entry is the
+ * panel that is shown, and the other entries are the backs. To open a panel,
+ * add an entry at the end of `stack`, and change the content. A back is too
+ * narrow for text, so it only shows the `color` of its entry. Its heading and
+ * subheading are shown in a tooltip.
+ *
+ * When the user clicks a back, the panel emits `selectStackEntry` with the
+ * index of its entry in `stack`. To go back to that panel, remove all entries
+ * after it, and change the content.
+ *
  * ## Actions
  *
  * The toolbar has a close button on the left. Other buttons are set with
@@ -137,6 +154,14 @@ function stopEvent(event: Event) {
  * past the panel. This prevents a consumer from mistaking them for events
  * emitted by the panel.
  *
+ * ## Full screen
+ *
+ * On a small screen, there is no space for the panel next to the page. Set
+ * `fullScreen` to let the panel cover the full width of the positioned
+ * ancestor. The top and bottom insets are kept. The panel then cannot be
+ * resized, and the backs of the stack are not shown. The header still shows
+ * the last entry of `stack`.
+ *
  * ## Width
  *
  * The panel starts with the width from `--side-panel-width`. The user can
@@ -157,6 +182,7 @@ function stopEvent(event: Event) {
  * @exampleComponent limel-example-side-panel-insets
  * @exampleComponent limel-example-side-panel-actions
  * @exampleComponent limel-example-side-panel-header-actions
+ * @exampleComponent limel-example-side-panel-stacking
  * @slot - Content of the panel
  * @slot header-actions - Small controls at the right end of the header. Content that is larger than half the header width or the height of the headings is cut off.
  * @private
@@ -177,7 +203,7 @@ export class SidePanel {
     /**
      * The panels in the stack, outermost first. The last entry is the panel
      * that is displayed. Its heading, subheading and icon are shown in the
-     * header.
+     * header. The other entries are shown as backs behind the panel.
      */
     @Prop()
     public stack: SidePanelEntry[] = [];
@@ -193,6 +219,15 @@ export class SidePanel {
      */
     @Prop()
     public resizeLabel = 'Resize';
+
+    /**
+     * Set to `true` when the screen is too narrow for the panel to be displayed
+     * on top of the page. The panel then covers the full width of the
+     * positioned ancestor. It cannot be resized, and the backs of the stack are
+     * not shown.
+     */
+    @Prop({ reflect: true })
+    public fullScreen = false;
 
     /**
      * Emitted when the close button is clicked, or when Escape is pressed.
@@ -215,6 +250,13 @@ export class SidePanel {
     @Event()
     public changeWidth: EventEmitter<number>;
 
+    /**
+     * Emitted when a back of the stack is clicked. The detail is the index of
+     * its entry in `stack`.
+     */
+    @Event()
+    public selectStackEntry: EventEmitter<number>;
+
     @Element()
     private host: HTMLElement;
 
@@ -230,7 +272,9 @@ export class SidePanel {
     private panel: HTMLElement;
     private closeButtonId = createRandomString();
     private actionIdPrefix = createRandomString();
+    private backIdPrefix = createRandomString();
     private widthObserver?: ResizeObserver;
+    private focusCloseButtonAfterRender = false;
 
     public connectedCallback() {
         openPanels.push(this);
@@ -242,6 +286,24 @@ export class SidePanel {
         this.stopObservingWidth();
         window.removeEventListener('keydown', this.handleKeyDown);
         this.removeFromOpenPanels();
+    }
+
+    // A removed button takes the focus with it, so a keyboard user that goes
+    // back would lose their place in the page.
+    @Watch('stack')
+    protected handleStackChange(stack: SidePanelEntry[]) {
+        this.focusCloseButtonAfterRender = this.isFocusedBackRemovedBy(stack);
+    }
+
+    public componentDidRender() {
+        if (!this.focusCloseButtonAfterRender) {
+            return;
+        }
+
+        this.focusCloseButtonAfterRender = false;
+        this.host.shadowRoot
+            .querySelector<HTMLButtonElement>('button.close')
+            ?.focus();
     }
 
     public render() {
@@ -258,6 +320,7 @@ export class SidePanel {
                         {this.renderBody()}
                     </div>
                 </aside>
+                {this.renderStack()}
             </Host>
         );
     }
@@ -315,6 +378,47 @@ export class SidePanel {
         );
     };
 
+    private renderStack() {
+        const backs = this.stack.slice(0, -1);
+        if (this.fullScreen || backs.length === 0) {
+            return;
+        }
+
+        return <div class="stack">{backs.map(this.renderBack)}</div>;
+    }
+
+    private isFocusedBackRemovedBy(stack: SidePanelEntry[]): boolean {
+        const backs = [...this.host.shadowRoot.querySelectorAll('.back')];
+        const index = backs.indexOf(this.host.shadowRoot.activeElement);
+
+        return index !== -1 && index >= stack.length - 1;
+    }
+
+    private renderBack = (entry: SidePanelEntry, index: number) => {
+        const id = `${this.backIdPrefix}-${index}`;
+
+        return (
+            <button
+                class="back"
+                id={id}
+                style={this.getPanelStyle()}
+                aria-label={entry.heading}
+                onClick={this.handleClickBack(index)}
+            >
+                <span class="back-toolbar" />
+                <span
+                    class="back-band"
+                    style={{ 'background-color': entry.color }}
+                />
+                <limel-tooltip
+                    elementId={id}
+                    label={entry.heading}
+                    helperLabel={entry.subheading}
+                />
+            </button>
+        );
+    };
+
     private renderHeader() {
         const entry = this.stack.at(-1);
         if (!entry) {
@@ -364,6 +468,10 @@ export class SidePanel {
     }
 
     private renderHandle() {
+        if (this.fullScreen) {
+            return;
+        }
+
         return (
             <limel-resize-handle
                 class="handle"
@@ -476,7 +584,8 @@ export class SidePanel {
     }
 
     // An inline width wins over `--side-panel-width`, and is still limited by
-    // `min-width` and `max-width`.
+    // `min-width` and `max-width`. The backs of the stack use it too, so that
+    // they have the same width as the panel.
     private getPanelStyle(): Record<string, string> {
         if (this.userWidth === undefined) {
             return {};
@@ -538,6 +647,10 @@ export class SidePanel {
                 event: event,
             });
         };
+
+    private handleClickBack = (index: number) => () => {
+        this.selectStackEntry.emit(index);
+    };
 
     private handleClickClose = () => {
         this.close.emit();
