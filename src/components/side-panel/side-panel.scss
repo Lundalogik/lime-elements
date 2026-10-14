@@ -1,0 +1,224 @@
+@use '../../style/mixins';
+
+/**
+ * @prop --side-panel-width: Start width of the panel. Defaults to `37.5rem`. To restore a width that the user resized to, set this to the stored value from `changeWidth` before the panel opens. After the user resizes the panel, the panel keeps the new width and this property no longer has an effect while the panel exists.
+ * @prop --side-panel-min-width: Minimum width of the panel. Defaults to `25rem`.
+ * @prop --side-panel-top-inset: Distance from the top of the positioned ancestor. Defaults to `0px`.
+ * @prop --side-panel-right-inset: Distance from the right of the positioned ancestor. Defaults to `0px`.
+ * @prop --side-panel-bottom-inset: Distance from the bottom of the positioned ancestor. Defaults to `0px`.
+ * @prop --side-panel-z-index: z-index of the panel. Defaults to `6`. Set `--dropdown-z-index` and `--popover-z-index` to higher values, so that dropdowns and popovers inside the panel are displayed on top of it.
+ */
+
+// Part of the page that is always visible to the left of the panel at its
+// maximum width.
+$peek-behind: 3rem;
+
+$margin: 0.5rem;
+$border-radius: 1rem;
+$background-color: rgb(var(--contrast-100));
+$toolbar-background-color: rgb(var(--contrast-300));
+// The close button, plus 0.25rem padding on each side.
+$toolbar-height: 2.375rem;
+
+$handle-width: 0.5rem;
+$handle-gap: 0.5rem;
+
+// `min-width` wins over `max-width`, so it is also limited to the space inside
+// the positioned ancestor.
+$min-width: min(var(--_side-panel-min-width), 100% - 2 * $margin);
+$max-width: min(calc(100% - 2 * $margin - #{$peek-behind}), 60%);
+
+// The public custom properties are not declared on the host. A value declared on
+// the host would override a value that a consumer sets on an ancestor. Instead,
+// each one is read through a `var()` fallback into a private property.
+//
+// The private properties use the component prefix, because they are inherited by
+// child components and slotted content.
+:host(limel-side-panel) {
+    --_side-panel-width: var(--side-panel-width, 37.5rem);
+    --_side-panel-min-width: var(--side-panel-min-width, 25rem);
+    --_side-panel-top-inset: var(--side-panel-top-inset, 0px);
+    --_side-panel-right-inset: var(--side-panel-right-inset, 0px);
+    --_side-panel-bottom-inset: var(--side-panel-bottom-inset, 0px);
+    --_side-panel-z-index: var(--side-panel-z-index, 6);
+}
+
+@keyframes show-side-panel {
+    0% {
+        transform: translate3d(12.5rem, 0, 0) scale(0.95);
+        opacity: 0;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+// `position: absolute` and not `fixed`, because `fixed` does not work when an
+// ancestor has a `transform`.
+//
+// No `overflow: hidden` here, because the resize handle extends outside the left
+// edge. `.content` clips the content instead.
+aside {
+    position: absolute;
+    z-index: var(--_side-panel-z-index);
+    top: var(--_side-panel-top-inset);
+    right: var(--_side-panel-right-inset);
+    bottom: var(--_side-panel-bottom-inset);
+    margin: $margin;
+
+    display: flex;
+    flex-direction: column;
+    isolation: isolate;
+
+    width: var(--_side-panel-width);
+    min-width: $min-width;
+    max-width: $max-width;
+    max-height: 100%;
+
+    border-radius: $border-radius;
+    box-shadow: var(--shadow-depth-64);
+
+    transform-origin: left center;
+    transition:
+        background-color 0.5s ease,
+        transform 0.3s ease,
+        opacity 0.2s ease,
+        right 0.2s ease;
+    animation: show-side-panel 0.46s cubic-bezier(0.08, 0.54, 0.06, 1.11)
+        forwards;
+}
+
+// The background is set here and not on `aside`, so that it is clipped to the
+// border radius together with the toolbar.
+.content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
+    overflow: hidden;
+
+    border-radius: $border-radius;
+    background-color: $background-color;
+}
+
+.toolbar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    // `min-height`, so that the toolbar grows if the button is taller.
+    box-sizing: border-box;
+    min-height: $toolbar-height;
+    padding: 0.25rem 0.125rem;
+    background-color: $toolbar-background-color;
+}
+
+// Same hover animation as the close button of the side panel in the Lime CRM
+// web client.
+.close {
+    @include mixins.reset-button-user-agent-styles;
+    @include mixins.is-flat-clickable;
+    @include mixins.visualize-keyboard-focus;
+
+    isolation: isolate;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 1.875rem;
+    height: 1.875rem;
+    border-radius: 50%;
+
+    limel-icon {
+        width: 1.25rem;
+        transition:
+            transform 0.2s ease,
+            color 0.2s ease;
+    }
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        border-radius: 50%;
+        opacity: 0;
+        transition-delay: 0.1s;
+    }
+
+    &:before {
+        transition:
+            transform 0.3s ease,
+            opacity 0.3s ease;
+        background-color: rgb(var(--color-orange-dark));
+    }
+
+    &:after {
+        transition:
+            transform 0.6s ease,
+            opacity 0.6s ease;
+        background-color: rgb(var(--color-orange-light));
+    }
+
+    &:hover {
+        limel-icon {
+            color: rgb(var(--color-white));
+            transform: scale(0.7) rotate(90deg);
+        }
+
+        &:before {
+            opacity: 1;
+            transform: scale(0.4);
+        }
+
+        &:after {
+            opacity: 0.4;
+            transform: scale(0.6);
+        }
+    }
+}
+
+.body {
+    flex-grow: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden auto;
+}
+
+// `z-index: 1` puts the handle on top of `.content`. Without it, the background
+// of `.content` hides the half of the handle that is inside the panel.
+//
+// The handle is centered on the left edge, and runs between the toolbar and the
+// bottom corner.
+.handle {
+    position: absolute;
+    z-index: 1;
+    top: calc($toolbar-height + #{$handle-gap});
+    bottom: $border-radius;
+    left: calc(#{$handle-width} / -2);
+    width: $handle-width;
+}
+
+// Empty elements that have the widths of the limits of the panel. Reading their
+// widths gives the limits without a layout of the content of the panel.
+[data-limit] {
+    position: absolute;
+    visibility: hidden;
+    pointer-events: none;
+    height: 0;
+}
+
+[data-limit='min'] {
+    width: $min-width;
+}
+
+[data-limit='max'] {
+    width: $max-width;
+}
