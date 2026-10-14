@@ -859,8 +859,10 @@ export namespace Components {
     }
     // @internal
     export interface LimelSidePanel {
+        "actions": SidePanelAction[];
         "closeLabel": string;
         "resizeLabel": string;
+        "stack": SidePanelEntry[];
     }
     // (undocumented)
     export interface LimelSlider {
@@ -3549,10 +3551,13 @@ export namespace JSX {
 
     // @internal
     export interface LimelSidePanel {
+        "actions"?: SidePanelAction[];
         "closeLabel"?: string;
         "onChangeWidth"?: (event: LimelSidePanelCustomEvent<number>) => void;
         "onClose"?: (event: LimelSidePanelCustomEvent<void>) => void;
+        "onSelectAction"?: (event: LimelSidePanelCustomEvent<SidePanelActionSelect>) => void;
         "resizeLabel"?: string;
+        "stack"?: SidePanelEntry[];
     }
 
     // (undocumented)
@@ -4671,6 +4676,32 @@ export interface RowReorderEvent<T> {
 
 // @public
 export type Searcher = (query: string) => Promise<Array<PickerItem | ListSeparator>>;
+
+// @beta
+export interface SidePanelAction {
+    helperLabel?: string;
+    href?: string;
+    id?: string;
+    label: string;
+    type: SidePanelActionType;
+}
+
+// @beta
+export interface SidePanelActionSelect {
+    event: MouseEvent;
+    id: string;
+}
+
+// @beta
+export type SidePanelActionType = 'newTab' | 'expand';
+
+// @beta
+export interface SidePanelEntry {
+    color?: Color;
+    heading: string;
+    icon?: IconName | Icon;
+    subheading?: string;
+}
 
 // @public
 export type SpinnerSize = 'mini' | 'x-small' | 'small' | 'medium' | 'large';
