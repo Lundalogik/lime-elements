@@ -1,6 +1,8 @@
 import React, { CSSProperties } from 'react';
 import { FormSchema } from '../form.types';
 import { isObjectType } from '../schema';
+import { toSchemaPath } from './object-field';
+import { isCustomObjectSchema } from '../fields/field-helpers';
 
 export const FieldTemplate = (props) => {
     let classNames = props.classNames;
@@ -24,10 +26,27 @@ export const FieldTemplate = (props) => {
         {
             className: classNames,
             style: style,
+            'data-schema-path': getFieldSchemaPath(props),
         },
         props.children
     );
 };
+
+// An object marks its own layout wrapper, unless a component or the code
+// editor draws it instead. It lets a host find the element of one field by its path.
+function getFieldSchemaPath(props): string | undefined {
+    if (isObjectType(props.schema) && hasOwnLayout(props.schema)) {
+        return undefined;
+    }
+
+    const path = props.fieldPathId?.path;
+
+    return path ? toSchemaPath(path.map(String)) : undefined;
+}
+
+function hasOwnLayout(schema: FormSchema): boolean {
+    return !schema.lime?.component?.name && !isCustomObjectSchema(schema);
+}
 
 function getColSpan(schema: FormSchema) {
     const layout = schema.lime?.layout;
