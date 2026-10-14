@@ -865,6 +865,7 @@ export namespace Components {
         "actions": SidePanelAction[];
         "closeLabel": string;
         "closeOnEscape": boolean;
+        "fullScreen": boolean;
         "label"?: string;
         "resizeLabel": string;
         "stack": SidePanelEntry[];
@@ -3569,10 +3570,12 @@ export namespace JSX {
         "actions"?: SidePanelAction[];
         "closeLabel"?: string;
         "closeOnEscape"?: boolean;
+        "fullScreen"?: boolean;
         "label"?: string;
         "onChangeWidth"?: (event: LimelSidePanelCustomEvent<number>) => void;
         "onClose"?: (event: LimelSidePanelCustomEvent<void>) => void;
         "onSelectAction"?: (event: LimelSidePanelCustomEvent<SidePanelActionSelect>) => void;
+        "onSelectStackEntry"?: (event: LimelSidePanelCustomEvent<number>) => void;
         "resizeLabel"?: string;
         "stack"?: SidePanelEntry[];
     }
@@ -3583,6 +3586,8 @@ export namespace JSX {
         "closeLabel": string;
         // (undocumented)
         "closeOnEscape": boolean;
+        // (undocumented)
+        "fullScreen": boolean;
         // (undocumented)
         "label": string;
         // (undocumented)
