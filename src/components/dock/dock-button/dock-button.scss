@@ -28,7 +28,7 @@ button.button {
         z-index: 1;
     }
 
-    &.selected {
+    &[aria-current='page'] {
         color: var(--limel-dock-item-text-color--selected);
         background-color: var(
             --dock-item-background-color--selected,
@@ -106,7 +106,7 @@ limel-badge {
         // the consumer defines something.
         content: var(--limel-custom-home-icon-enabler);
 
-        .button.selected & {
+        .button[aria-current='page'] & {
             background-color: var(
                 --dock-item-background-color--selected,
                 rgb(var(--contrast-200))

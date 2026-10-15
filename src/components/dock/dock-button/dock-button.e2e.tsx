@@ -135,4 +135,35 @@ describe('current item', () => {
 
         expect(getButton().element().getAttribute('aria-current')).toBe('page');
     });
+
+    describe('styling', () => {
+        const selectedColor = 'rgb(255, 0, 0)';
+        const style = {
+            '--dock-item-background-color--selected': selectedColor,
+        };
+
+        const getBackground = () =>
+            getComputedStyle(getButton().element()).backgroundColor;
+
+        it('looks selected when it is the current page', async () => {
+            const { waitForChanges } = await render(
+                <limel-dock-button
+                    item={{ ...item, selected: true }}
+                    style={style}
+                />
+            );
+            await waitForChanges();
+
+            expect(getBackground()).toBe(selectedColor);
+        });
+
+        it('does not look selected otherwise', async () => {
+            const { waitForChanges } = await render(
+                <limel-dock-button item={item} style={style} />
+            );
+            await waitForChanges();
+
+            expect(getBackground()).not.toBe(selectedColor);
+        });
+    });
 });
