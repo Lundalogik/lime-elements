@@ -21,6 +21,7 @@
   ],
   "limel-code-diff": ["aria-required-children", "color-contrast"],
   "limel-collapsible-section": ["color-contrast"],
+  "limel-drag-handle": ["label-content-name-mismatch"],
   "limel-email-viewer": ["color-contrast", "image-alt"],
   "limel-example-file-viewer-basic": ["heading-order"],
   "limel-file": ["color-contrast"],
@@ -29,7 +30,12 @@
   "limel-form": ["frame-title"],
   "limel-header": ["color-contrast", "empty-heading"],
   "limel-icon": ["aria-command-name", "aria-prohibited-attr"],
-  "limel-icon-button": ["button-name", "nested-interactive"],
+  "limel-icon-button": [
+    "button-name",
+    "label-content-name-mismatch",
+    "nested-interactive"
+  ],
+  "limel-info-tile": ["label-content-name-mismatch"],
   "limel-list": [
     "aria-input-field-name",
     "aria-required-children",
@@ -40,6 +46,7 @@
     "aria-required-parent",
     "aria-toggle-field-name",
     "color-contrast",
+    "label-content-name-mismatch",
     "nested-interactive"
   ],
   "limel-markdown": [
@@ -59,6 +66,7 @@
     "link-name",
     "scrollable-region-focusable"
   ],
+  "limel-pagination": ["label-content-name-mismatch"],
   "limel-popover": ["button-name", "nested-interactive"],
   "limel-profile-picture": ["button-name"],
   "limel-progress-flow-item": ["color-contrast"],
