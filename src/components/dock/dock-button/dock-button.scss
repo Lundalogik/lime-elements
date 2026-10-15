@@ -1,7 +1,7 @@
 @use '../../../style/mixins';
 @use '../../../style/functions';
 
-button.button {
+limel-dock-button button {
     @include mixins.reset-button-user-agent-styles;
     isolation: isolate;
     position: relative;
@@ -28,7 +28,7 @@ button.button {
         z-index: 1;
     }
 
-    &.selected {
+    &[aria-current='page'] {
         color: var(--limel-dock-item-text-color--selected);
         background-color: var(
             --dock-item-background-color--selected,
@@ -134,7 +134,7 @@ limel-dock-button[use-mobile-layout][expanded] {
         // the consumer defines something.
         content: var(--limel-custom-home-icon-enabler);
 
-        .button.selected & {
+        button[aria-current='page'] & {
             background-color: var(
                 --dock-item-background-color--selected,
                 rgb(var(--contrast-200))

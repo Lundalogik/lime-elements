@@ -125,12 +125,9 @@ export class DockButton {
                 tabindex="0"
                 id={this.tooltipId}
                 type="button"
-                class={{
-                    button: true,
-                    selected: this.item?.selected,
-                }}
                 onClick={handleClick}
                 aria-live="polite"
+                aria-current={this.item?.selected ? 'page' : undefined}
             >
                 {this.renderIcon()}
                 {this.renderLabel()}
