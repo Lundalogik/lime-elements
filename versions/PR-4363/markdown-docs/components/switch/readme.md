@@ -64,6 +64,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-code-editor-composite](../code-editor/examples)
  - [limel-example-code-editor-copy](../code-editor/examples)
  - [limel-example-dialog-nested-close-events](../dialog/examples)
+ - [limel-example-dock-expanded](../dock/examples)
  - [limel-example-dynamic-label-basic](../dynamic-label/examples)
  - [limel-example-dynamic-label-readonly-boolean](../dynamic-label/examples)
  - [limel-example-file-basic](../file/examples)
@@ -148,6 +149,7 @@ graph TD;
   limel-example-code-editor-composite --> limel-switch
   limel-example-code-editor-copy --> limel-switch
   limel-example-dialog-nested-close-events --> limel-switch
+  limel-example-dock-expanded --> limel-switch
   limel-example-dynamic-label-basic --> limel-switch
   limel-example-dynamic-label-readonly-boolean --> limel-switch
   limel-example-file-basic --> limel-switch
