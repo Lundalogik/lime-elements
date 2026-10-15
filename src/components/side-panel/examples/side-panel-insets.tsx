@@ -42,7 +42,7 @@ export class SidePanelInsetsExample {
         }
 
         return (
-            <limel-side-panel onClose={this.closePanel}>
+            <limel-side-panel label="Edit the list" onClose={this.closePanel}>
                 <div class="panel-content">
                     <limel-input-field label="Title" value="Sales pipe" />
                 </div>

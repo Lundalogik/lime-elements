@@ -24,6 +24,25 @@ afterEach(() => {
     }
 });
 
+test('limel-side-panel: is a dialog that does not block the page', async () => {
+    await renderPanel();
+
+    expect(getPanel().getAttribute('role')).toBe('dialog');
+    expect(getPanel().hasAttribute('aria-modal')).toBe(false);
+});
+
+test('limel-side-panel: uses label as the accessible name of the dialog', async () => {
+    await renderPanel({ label: 'Edit the list' });
+
+    expect(getPanel().getAttribute('aria-label')).toBe('Edit the list');
+});
+
+test('limel-side-panel: has no accessible name when label is not set', async () => {
+    await renderPanel();
+
+    expect(getPanel().hasAttribute('aria-label')).toBe(false);
+});
+
 test('limel-side-panel: renders the content in the default slot', async () => {
     await renderPanel();
 
@@ -148,7 +167,7 @@ test('limel-side-panel: is not wider than a positioned ancestor that is narrower
     const panel = page.root!.querySelector('limel-side-panel')!;
 
     const width = panel
-        .shadowRoot!.querySelector('aside')!
+        .shadowRoot!.querySelector('section')!
         .getBoundingClientRect().width;
 
     expect(width).toBeLessThanOrEqual(300);
@@ -262,7 +281,7 @@ test('limel-side-panel: does not emit changeWidth or set a width when the edge i
     await pressAndReleaseHandle();
 
     expect(widths).toEqual([]);
-    expect(panel.shadowRoot!.querySelector('aside')!.style.width).toBe('');
+    expect(panel.shadowRoot!.querySelector('section')!.style.width).toBe('');
 });
 
 test('limel-side-panel: does not emit changeWidth when a drag ends at the same width', async () => {
@@ -618,7 +637,7 @@ async function dragHandleTo(from: number, to: number) {
 
 // `offsetWidth`, because the opening animation scales the panel.
 function widthOf(panel: HTMLElement): number {
-    return panel.shadowRoot!.querySelector<HTMLElement>('aside')!.offsetWidth;
+    return panel.shadowRoot!.querySelector<HTMLElement>('section')!.offsetWidth;
 }
 
 /**
@@ -859,7 +878,7 @@ function listenOutsideFor(events: string[]): string[] {
 }
 
 /**
- * Adds listeners on the `aside` element in the shadow root, which is an
+ * Adds listeners on the `section` element in the shadow root, which is an
  * ancestor of the slot.
  *
  * @param events - the event names
@@ -944,5 +963,5 @@ function getHandle(): HTMLElement {
 }
 
 function getPanel(): HTMLElement {
-    return getHost().shadowRoot!.querySelector('aside')!;
+    return getHost().shadowRoot!.querySelector('section')!;
 }
