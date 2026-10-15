@@ -81,3 +81,58 @@ describe('accessible name', () => {
         expect(rect.width).toBeGreaterThan(0);
     });
 });
+
+describe('current item', () => {
+    const item: DockItem = {
+        id: 'tables',
+        label: 'Tables',
+        icon: 'insert_table',
+    };
+
+    const getButton = () => page.getByRole('button', { name: 'Tables' });
+
+    it('is marked as the current page when it is selected', async () => {
+        const { waitForChanges } = await render(
+            <limel-dock-button item={{ ...item, selected: true }} />
+        );
+        await waitForChanges();
+
+        expect(getButton().element().getAttribute('aria-current')).toBe('page');
+    });
+
+    it('is not marked when it is not selected', async () => {
+        const { waitForChanges } = await render(
+            <limel-dock-button item={item} />
+        );
+        await waitForChanges();
+
+        expect(getButton().element().hasAttribute('aria-current')).toBe(false);
+    });
+
+    it('follows the selected state of the item', async () => {
+        const { waitForChanges, setProps } = await render(
+            <limel-dock-button item={item} />
+        );
+        await waitForChanges();
+
+        await setProps({ item: { ...item, selected: true } });
+        expect(getButton().element().getAttribute('aria-current')).toBe('page');
+
+        await setProps({ item: { ...item, selected: false } });
+        expect(getButton().element().hasAttribute('aria-current')).toBe(false);
+    });
+
+    it('is marked when the item opens a menu', async () => {
+        const menuItem: DockItem = {
+            ...item,
+            selected: true,
+            dockMenu: { componentName: 'my-custom-menu' },
+        };
+        const { waitForChanges } = await render(
+            <limel-dock-button item={menuItem} />
+        );
+        await waitForChanges();
+
+        expect(getButton().element().getAttribute('aria-current')).toBe('page');
+    });
+});
