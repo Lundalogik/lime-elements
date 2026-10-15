@@ -1,11 +1,29 @@
 @use './example-value';
 @use '../style/mixins';
 
-:host(limel-example-event-printer) {
+$header-height: 2rem;
+
+limel-example-event-printer {
     isolation: isolate;
+    display: block;
     max-height: 20rem;
-    overflow-y: auto;
-    padding-bottom: 0.25rem;
+    overflow: hidden auto;
+    border-radius: 0.5rem;
+    border: 1px solid rgb(var(--contrast-400));
+    margin: 1rem 0 0 0;
+    padding: 0 0.5rem 0.5rem 0.5rem;
+}
+
+limel-example-event-printer > header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    height: $header-height;
+    padding-top: 0.5rem;
+    background-color: rgb(var(--kompendium-contrast-100));
 }
 
 details {
@@ -18,7 +36,7 @@ summary {
     padding: 0.25rem 0.5rem;
     margin: 0 0.25rem;
     position: sticky;
-    top: 0;
+    top: $header-height;
     background-color: rgb(var(--kompendium-contrast-100));
 
     details[open] & {
