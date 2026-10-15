@@ -175,9 +175,7 @@ export class DockButton {
     }
 
     private renderLabel() {
-        if (this.expanded) {
-            return <span class="text">{this.item.label}</span>;
-        }
+        return <span class="text">{this.item.label}</span>;
     }
 
     private renderTooltip() {

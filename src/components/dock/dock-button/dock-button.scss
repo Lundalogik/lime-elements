@@ -64,6 +64,10 @@ limel-popover {
     padding-right: 0.75rem;
 }
 
+limel-dock-button:not([expanded]) .text {
+    @include mixins.visually-hidden;
+}
+
 .icon {
     flex-shrink: 0;
     width: calc(var(--dock-item-height) - 1rem);
