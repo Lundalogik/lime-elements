@@ -6,6 +6,7 @@ import {
     Host,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 import { DockItem } from './dock.types';
 import { Languages } from '../date-picker/date.types';
@@ -125,6 +126,11 @@ export class Dock {
     private useMobileLayout = false;
 
     private resizeObserver: ResizeObserver;
+
+    @Watch('mobileBreakPoint')
+    protected watchMobileBreakPoint() {
+        this.handleResize();
+    }
 
     public componentDidLoad() {
         this.resizeObserver = new ResizeObserver(this.handleResize);
