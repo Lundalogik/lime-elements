@@ -1,4 +1,4 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, Host } from '@stencil/core';
 
 /**
  * Using `maxlength` property
@@ -19,27 +19,29 @@ import { Component, h } from '@stencil/core';
 })
 export class TooltipExample {
     public render() {
-        return [
-            <limel-icon-button icon="info" id="tooltip1" />,
-            <limel-icon-button icon="info" id="tooltip2" />,
-            <limel-icon-button icon="info" id="tooltip3" />,
-            <limel-tooltip
-                label="Short text"
-                helperLabel="less than 25ch"
-                elementId="tooltip1"
-                maxlength={25}
-            />,
-            <limel-tooltip
-                label="Long text"
-                helperLabel="The total amount of characters is more than 25"
-                elementId="tooltip2"
-                maxlength={25}
-            />,
-            <limel-tooltip
-                label="Very long text"
-                helperLabel="The total amount of characters is more than default max character length, which is 50ch. Note that there is no max character length specified here."
-                elementId="tooltip3"
-            />,
-        ];
+        return (
+            <Host>
+                <limel-button label="Short" icon="info" id="tooltip1" />
+                <limel-button label="Long" icon="info" id="tooltip2" />
+                <limel-button label="Very long" icon="info" id="tooltip3" />
+                <limel-tooltip
+                    label="Short text"
+                    helperLabel="less than 25ch"
+                    elementId="tooltip1"
+                    maxlength={25}
+                />
+                <limel-tooltip
+                    label="Long text"
+                    helperLabel="The total amount of characters is more than 25"
+                    elementId="tooltip2"
+                    maxlength={25}
+                />
+                <limel-tooltip
+                    label="Very long text"
+                    helperLabel="The total amount of characters is more than default max character length, which is 50ch. Note that there is no max character length specified here."
+                    elementId="tooltip3"
+                />
+            </Host>
+        );
     }
 }

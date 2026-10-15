@@ -1,5 +1,5 @@
 import { FormSchema } from '@limetech/lime-elements';
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Host, Prop, State } from '@stencil/core';
 
 /**
  * Composite
@@ -16,7 +16,7 @@ export class TooltipCompositeExample {
 
     @State()
     private props = {
-        label: 'Search',
+        label: 'Find on this page',
         helperLabel: 'alt + F',
         maxlength: 50,
     };
@@ -34,11 +34,17 @@ export class TooltipCompositeExample {
     }
 
     public render() {
-        return [
-            <limel-button icon="search" id="tooltip-example" />,
-            <limel-tooltip {...this.props} elementId="tooltip-example" />,
-            this.renderForm(),
-        ];
+        return (
+            <Host>
+                <limel-button
+                    label="Search"
+                    icon="search"
+                    id="tooltip-example"
+                />
+                <limel-tooltip {...this.props} elementId="tooltip-example" />
+                {this.renderForm()}
+            </Host>
+        );
     }
 
     private renderForm() {

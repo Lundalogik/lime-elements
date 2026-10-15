@@ -2,6 +2,7 @@ import { Component, Host, Prop, h } from '@stencil/core';
 import { tokenizeHotkeyString } from '../../util/hotkeys';
 import { isAppleDevice } from '../../util/device';
 import { formatDisplayToken } from './format-display-token';
+import { getHotkeyAriaLabel } from './get-hotkey-aria-label';
 
 /**
  * This is a display-only component used to visualize keyboard shortcuts.
@@ -45,10 +46,7 @@ export class Hotkey {
         const displayParts = parts.map((part) =>
             formatDisplayToken(part, this.isApple)
         );
-        const ariaLabel = displayParts
-            .map((p) => p.ariaName)
-            .filter(Boolean)
-            .join(' ');
+        const ariaLabel = getHotkeyAriaLabel(this.value, this.isApple);
 
         return (
             <Host aria-label={ariaLabel || undefined}>
