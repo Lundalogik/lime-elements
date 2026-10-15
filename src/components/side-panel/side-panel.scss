@@ -89,6 +89,10 @@ section {
         right 0.2s ease;
     animation: show-side-panel 0.46s cubic-bezier(0.08, 0.54, 0.06, 1.11)
         forwards;
+
+    &:focus {
+        outline: none;
+    }
 }
 
 // The background is set here and not on `section`, so that it is clipped to the

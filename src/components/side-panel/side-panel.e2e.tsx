@@ -43,6 +43,12 @@ test('limel-side-panel: has no accessible name when label is not set', async () 
     expect(getPanel().hasAttribute('aria-label')).toBe(false);
 });
 
+test('limel-side-panel: moves focus into the panel when it opens', async () => {
+    await renderPanel();
+
+    expect(getHost().shadowRoot!.activeElement).toBe(getPanel());
+});
+
 test('limel-side-panel: renders the content in the default slot', async () => {
     await renderPanel();
 

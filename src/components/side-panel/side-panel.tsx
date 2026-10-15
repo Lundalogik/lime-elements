@@ -40,7 +40,8 @@ function stopEvent(event: Event) {
  * The CSS custom properties can be set on the panel or on any ancestor.
  *
  * The panel is a dialog that does not block the rest of the page. Set `label`
- * to give it an accessible name, which screen readers announce.
+ * to give it an accessible name, which screen readers announce. When the panel
+ * opens, focus moves into it.
  *
  * The panel emits `close` when the user clicks the close button, or presses
  * Escape. It does not remove itself. The consumer must remove it from the DOM.
@@ -130,6 +131,7 @@ export class SidePanel {
 
     public componentDidLoad() {
         this.observeWidth();
+        this.moveFocusIntoPanel();
     }
 
     public disconnectedCallback() {
@@ -146,6 +148,7 @@ export class SidePanel {
                     ref={this.setPanel}
                     role="dialog"
                     aria-label={this.label}
+                    tabindex="-1"
                 >
                     {this.renderHandle()}
                     <div class="content">
@@ -239,6 +242,10 @@ export class SidePanel {
         }
 
         event.stopImmediatePropagation();
+    }
+
+    private moveFocusIntoPanel() {
+        this.panel.focus({ preventScroll: true });
     }
 
     private setPanel = (element: HTMLElement) => {
