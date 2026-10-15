@@ -1,4 +1,4 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, Host } from '@stencil/core';
 
 /**
  * Basic example
@@ -11,8 +11,8 @@ import { Component, h } from '@stencil/core';
  * space in the layout.
  *
  * ```html
- * <limel-button icon="search" id="tooltip-example" />
- * <limel-tooltip label="Search" elementId="tooltip-example" />
+ * <limel-button label="Search" icon="search" id="tooltip-example" />
+ * <limel-tooltip label="Find on this page" elementId="tooltip-example" />
  * ```
  */
 @Component({
@@ -21,13 +21,18 @@ import { Component, h } from '@stencil/core';
 })
 export class TooltipBasicExample {
     public render() {
-        return [
-            <limel-button icon="search" id="tooltip-example" />,
-            <limel-tooltip
-                label="Search"
-                helperLabel="Find on this page"
-                elementId="tooltip-example"
-            />,
-        ];
+        return (
+            <Host>
+                <limel-button
+                    label="Search"
+                    icon="search"
+                    id="tooltip-example"
+                />
+                <limel-tooltip
+                    label="Find on this page"
+                    elementId="tooltip-example"
+                />
+            </Host>
+        );
     }
 }

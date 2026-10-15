@@ -43,16 +43,19 @@ export class TooltipHotkeyExample {
     public render() {
         return (
             <Host>
-                <limel-button icon="save" id="tooltip-hotkey-1" />
+                <limel-button label="Save" icon="save" id="tooltip-hotkey-1" />
                 <limel-tooltip
-                    label="Save"
+                    label="Save the document"
                     hotkey="ctrl+s"
                     elementId="tooltip-hotkey-1"
                 />
-                <limel-button icon="save_all" id="tooltip-hotkey-2" />
-                <limel-tooltip
+                <limel-button
                     label="Save as"
-                    helperLabel="Save with a new name or location"
+                    icon="save_all"
+                    id="tooltip-hotkey-2"
+                />
+                <limel-tooltip
+                    label="Save with a new name or location"
                     hotkey="meta+shift+s"
                     elementId="tooltip-hotkey-2"
                 />

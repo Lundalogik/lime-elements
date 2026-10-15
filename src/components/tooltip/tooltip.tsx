@@ -1,7 +1,10 @@
-import { Component, h, Prop, Element, State } from '@stencil/core';
+import { Component, h, Prop, Element, State, Watch } from '@stencil/core';
 import { JSX } from 'react';
 import { createRandomString } from '../../util/random-string';
 import { OpenDirection } from '../menu/menu.types';
+import { clearDescription, setDescription } from './description-registry';
+import { getDescription } from './get-description';
+import { getFocusTarget } from '../../util/get-focus-target';
 import { getOwnerElement } from './get-owner-element';
 import { TooltipTimer } from './tooltip-timer';
 
@@ -57,18 +60,23 @@ export class Tooltip {
 
     /**
      * Short descriptive text of the owner element.
+     * Screen readers read it as a part of the description of the element,
+     * unless it only repeats the name that the element already has.
      */
     @Prop({ reflect: true })
     public label!: string;
 
     /**
      * Additional helper text for the element.
+     * Screen readers read it as a part of the description of the element.
      */
     @Prop({ reflect: true })
     public helperLabel?: string;
 
     /**
      * Keyboard shortcut to visualize inside the tooltip, e.g. `"ctrl+f"`.
+     * Screen readers read it, written out in words, as a part of the
+     * description of the element.
      * Display-only: the tooltip does not listen for the keystroke.
      * Catching the hotkey is the consumer's responsibility.
      */
@@ -95,27 +103,36 @@ export class Tooltip {
     private open: boolean;
 
     private portalId: string;
-    private tooltipId: string;
     private ownerElement: HTMLElement;
+    private describedElement?: HTMLElement;
+    private latestUpdate = 0;
     private tooltipTimer: TooltipTimer;
 
     public constructor() {
         this.portalId = createRandomString();
-        this.tooltipId = createRandomString();
         this.tooltipTimer = new TooltipTimer(
             () => (this.open = true),
             () => (this.open = false)
         );
     }
 
-    public connectedCallback() {
+    public async connectedCallback() {
         this.ownerElement = getOwnerElement(this.elementId, this.host);
-        this.setOwnerAriaDescribedby();
         this.addListeners();
+        await this.updateDescription();
     }
 
     public disconnectedCallback() {
         this.removeListeners();
+        this.latestUpdate++;
+        this.restoreDescription();
+    }
+
+    @Watch('label')
+    @Watch('helperLabel')
+    @Watch('hotkey')
+    protected async watchDescription() {
+        await this.updateDescription();
     }
 
     public render(): JSX.Element {
@@ -142,15 +159,50 @@ export class Tooltip {
                         maxlength={this.maxlength}
                         role="tooltip"
                         aria-hidden={!this.open}
-                        id={this.tooltipId}
                     />
                 </limel-portal>
             </div>
         );
     }
 
-    private setOwnerAriaDescribedby() {
-        this.ownerElement?.setAttribute('aria-describedby', this.tooltipId);
+    private async updateDescription() {
+        if (!this.ownerElement) {
+            return;
+        }
+
+        const update = ++this.latestUpdate;
+        const element = await getFocusTarget(this.ownerElement);
+        if (!this.host.isConnected || update !== this.latestUpdate) {
+            return;
+        }
+
+        if (element !== this.describedElement) {
+            this.restoreDescription();
+            this.describedElement = element;
+        }
+
+        const description = getDescription(
+            element,
+            this.label,
+            this.helperLabel,
+            this.hotkey
+        );
+
+        if (!description) {
+            this.restoreDescription();
+
+            return;
+        }
+
+        setDescription(element, this, description);
+    }
+
+    private restoreDescription() {
+        if (this.describedElement) {
+            clearDescription(this.describedElement, this);
+        }
+
+        this.describedElement = undefined;
     }
 
     private addListeners() {

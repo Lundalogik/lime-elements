@@ -56,9 +56,72 @@ describe('limel-tooltip', () => {
         expect(tooltip.shadowRoot).toBeTruthy();
     });
 
-    test('aria-describedby is set on the anchor', async () => {
-        const { anchor } = await setup();
-        expect(anchor.getAttribute('aria-describedby')).toBeTruthy();
+    describe('description of the owner element', () => {
+        test('is the label', async () => {
+            const { anchor } = await setup();
+            expect(anchor.getAttribute('aria-description')).toBe('Description');
+        });
+
+        test('includes the helper label', async () => {
+            const { anchor } = await setup({ helperLabel: 'More details' });
+            expect(anchor.getAttribute('aria-description')).toBe(
+                'Description. More details'
+            );
+        });
+
+        test('ends with the hotkey written out in words', async () => {
+            const { anchor } = await setup({ hotkey: 'shift+k' });
+            expect(anchor.getAttribute('aria-description')).toBe(
+                'Description. Shift k'
+            );
+        });
+
+        test('is updated when the hotkey changes', async () => {
+            const { anchor, tooltip, waitForChanges } = await setup({
+                hotkey: 'shift+k',
+            });
+            tooltip.hotkey = 'shift+j';
+            await waitForChanges();
+
+            expect(anchor.getAttribute('aria-description')).toBe(
+                'Description. Shift j'
+            );
+        });
+
+        test('does not refer to an element by id', async () => {
+            const { anchor } = await setup();
+            expect(anchor.hasAttribute('aria-describedby')).toBe(false);
+        });
+
+        test('is updated when the label changes', async () => {
+            const { anchor, tooltip, waitForChanges } = await setup();
+            tooltip.label = 'Other description';
+            await waitForChanges();
+
+            expect(anchor.getAttribute('aria-description')).toBe(
+                'Other description'
+            );
+        });
+
+        test('is updated when the helper label changes', async () => {
+            const { anchor, tooltip, waitForChanges } = await setup();
+            tooltip.helperLabel = 'More details';
+            await waitForChanges();
+
+            expect(anchor.getAttribute('aria-description')).toBe(
+                'Description. More details'
+            );
+        });
+
+        test('is removed when the tooltip is removed', async () => {
+            const { anchor, tooltip, waitForChanges } = await setup();
+            expect(anchor.hasAttribute('aria-description')).toBe(true);
+
+            tooltip.remove();
+            await waitForChanges();
+
+            expect(anchor.hasAttribute('aria-description')).toBe(false);
+        });
     });
 
     test('aria-hidden is set when the owner element is NOT hovered', async () => {
