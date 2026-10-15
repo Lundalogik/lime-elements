@@ -1,1 +1,0 @@
-import{r as e,h as t}from"./index-BU9IJqli.js";const i=class{constructor(t){e(this,t),this.link={href:"https://github.com",title:"Open Github",target:"_blank"}}render(){return t("limel-chip",{key:"d6d37bef51eb6e670d70c9734dcce4165ef2ecba",text:"Github",icon:"github_copyrighted",link:this.link})}};export{i as limel_example_chip_link}
