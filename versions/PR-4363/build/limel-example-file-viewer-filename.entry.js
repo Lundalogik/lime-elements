@@ -1,1 +1,0 @@
-import{r as e,h as r}from"./index-BU9IJqli.js";const i=class{constructor(r){e(this,r)}render(){return r("limel-file-viewer",{key:"287e9c0b7e554ef9ed6e2c3d807c39ca9b81be6d",url:"https://unsplash.it/1280/720/?random",alt:"Some random picture form Unsplash",filename:"random-image.jpg"})}};export{i as limel_example_file_viewer_filename}
