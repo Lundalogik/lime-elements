@@ -44,8 +44,9 @@ The panel keeps the new width itself. While the panel exists, this width wins
 over `--side-panel-width`. The width is limited by `--side-panel-min-width`
 and the available space.
 
-After each resize, the panel emits `changeWidth` with the new width in
-pixels. The consumer does not have to handle the event. To keep the width
+When the user releases the handle, or presses an arrow key, the panel emits
+`changeWidth` with the new width in pixels. It does not emit the event when
+the width did not change. The consumer does not have to handle the event. To keep the width
 for the next time the panel opens, for example across sessions, store the
 value. Then set it with `--side-panel-width` before the panel opens.
 
@@ -59,10 +60,10 @@ value. Then set it with `--side-panel-width` before the panel opens.
 
 ## Events
 
-| Event         | Description                                                                                                                                                                                                             | Type                  |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| `changeWidth` | Emitted when the user has resized the panel. The detail is the new width in pixels. The panel already uses the new width. Store the value to restore the width with `--side-panel-width` the next time the panel opens. | `CustomEvent<number>` |
-| `close`       | Emitted when the close button is clicked, or when Escape is pressed.                                                                                                                                                    | `CustomEvent<void>`   |
+| Event         | Description                                                                                                                                                                                                                                    | Type                  |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| `changeWidth` | Emitted when the user has finished a resize that changed the width. The detail is the new width in pixels. The panel already uses the new width. Store the value to restore the width with `--side-panel-width` the next time the panel opens. | `CustomEvent<number>` |
+| `close`       | Emitted when the close button is clicked, or when Escape is pressed.                                                                                                                                                                           | `CustomEvent<void>`   |
 
 
 ## Dependencies

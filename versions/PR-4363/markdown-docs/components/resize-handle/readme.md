@@ -19,9 +19,10 @@ element.
 
 ## Events
 
-| Event        | Description                                                                                                                                                            | Type                  |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| `changeSize` | Emitted when the user resizes the element. The detail is the width that the user asks for, in pixels. The consumer limits it, uses it, and sets the result as `value`. | `CustomEvent<number>` |
+| Event        | Description                                                                                                                                                                                          | Type                  |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| `changeSize` | Emitted on each pointer move during a drag, and on each arrow key press. The detail is the width that the user asks for, in pixels. The consumer limits it, uses it, and sets the result as `value`. | `CustomEvent<number>` |
+| `endResize`  | Emitted when the user has finished a resize: when the pointer is released, and after `changeSize` for each arrow key press.                                                                          | `CustomEvent<void>`   |
 
 
 ## Dependencies
