@@ -50,13 +50,18 @@ export class Dock {
     public accessibleLabel?: string;
 
     /**
-     * Defines the width of the component, when it loads.
-     * - `true`: shows both icons and labels of the Dock items.
-     * - `false`: only shows icons of the doc items, and displays
-     * their labels as tooltip.
+     * Defines whether the labels of the dock items are shown, when the
+     * component loads.
+     * - `true`: shows both icons and labels of the dock items. In the
+     * vertical layout, the labels are placed beside the icons. In the
+     * horizontal mobile layout, they are placed below the icons, in small
+     * text that is truncated when there is not enough space.
+     * - `false`: only shows icons of the dock items, and displays
+     * their labels as tooltips.
      *
-     * Note: when `useMobileLayout` is `true`, labels will always
-     * be shown as tooltips. Read more below…
+     * In the horizontal mobile layout, there is no room for the button
+     * that expands and shrinks the dock, so end-users cannot change this
+     * there. Set `expanded` yourself, for example from a user setting.
      */
     @Prop({ reflect: true })
     public expanded? = false;
@@ -161,7 +166,7 @@ export class Dock {
                     selected: item.selected,
                 }}
                 item={item}
-                expanded={this.expanded && !this.useMobileLayout}
+                expanded={this.expanded}
                 useMobileLayout={this.useMobileLayout}
             />
         );
