@@ -1,3 +1,10 @@
+## [40.7.1](https://github.com/Lundalogik/lime-elements/compare/v40.7.0...v40.7.1) (2026-10-15)
+
+### Bug Fixes
+
+
+* **dock:** give collapsed dock items an accessible name ([7fc4c5b](https://github.com/Lundalogik/lime-elements/commit/7fc4c5bf08f2f60c70a6b1c5dcebf0cec919d22a)), closes [#4375](https://github.com/Lundalogik/lime-elements/issues/4375)
+
 ## [40.7.0](https://github.com/Lundalogik/lime-elements/compare/v40.6.3...v40.7.0) (2026-10-13)
 
 ### Features
