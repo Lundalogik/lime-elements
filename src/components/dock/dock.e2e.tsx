@@ -86,6 +86,23 @@ describe('limel-dock', () => {
         });
     });
 
+    it('switches layout when mobileBreakPoint changes', async () => {
+        const { root, waitForChanges, setProps } = await render(
+            <limel-dock dockItems={dockItems} mobileBreakPoint={0} />
+        );
+        await waitForChanges();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        expect(root.classList.contains('has-mobile-layout')).toBe(false);
+
+        await setProps({ mobileBreakPoint: 100_000 });
+        await waitForChanges();
+        expect(root.classList.contains('has-mobile-layout')).toBe(true);
+
+        await setProps({ mobileBreakPoint: 0 });
+        await waitForChanges();
+        expect(root.classList.contains('has-mobile-layout')).toBe(false);
+    });
+
     describe('in the mobile layout', () => {
         const items: DockItem[] = [
             { id: 'home', label: 'Home', icon: 'home' },
