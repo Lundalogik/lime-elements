@@ -93,6 +93,11 @@ section {
     &:focus {
         outline: none;
     }
+
+    @media (prefers-reduced-motion) {
+        animation: none;
+        transition: none;
+    }
 }
 
 // The background is set here and not on `section`, so that it is clipped to the
