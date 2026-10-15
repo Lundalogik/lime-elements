@@ -1,3 +1,11 @@
+## [40.8.1](https://github.com/Lundalogik/lime-elements/compare/v40.8.0...v40.8.1) (2026-10-15)
+
+### Bug Fixes
+
+
+* **dock:** expose the selected dock item as the current page ([3c11b18](https://github.com/Lundalogik/lime-elements/commit/3c11b18eb3feb0886723bbed78fb219a57f50860)), closes [#4381](https://github.com/Lundalogik/lime-elements/issues/4381)
+* **popover:** always write a boolean to `aria-expanded` on the trigger ([74e7955](https://github.com/Lundalogik/lime-elements/commit/74e795538d27db4bb84c136ac129518c4bf0f2c2)), closes [#4382](https://github.com/Lundalogik/lime-elements/issues/4382)
+
 ## [40.8.0](https://github.com/Lundalogik/lime-elements/compare/v40.7.1...v40.8.0) (2026-10-15)
 
 ### Features
