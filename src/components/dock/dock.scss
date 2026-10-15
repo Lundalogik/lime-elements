@@ -60,7 +60,7 @@
     }
 }
 
-:host(limel-dock.expanded) {
+:host(limel-dock.expanded:not(.has-mobile-layout)) {
     width: calc(
         var(--dock-expanded-max-width, 10rem) + var(--dock-padding-left, 0px) +
             var(--dock-padding-right, 0px)
