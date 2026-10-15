@@ -1,3 +1,14 @@
+## [40.9.0](https://github.com/Lundalogik/lime-elements/compare/v40.8.1...v40.9.0) (2026-10-15)
+
+### Features
+
+
+* **dock:** show labels below the icons in the mobile layout when expanded ([fd5ce82](https://github.com/Lundalogik/lime-elements/commit/fd5ce82b060651c7f73ce6d25317ad6d6449968b)), closes [#1800](https://github.com/Lundalogik/lime-elements/issues/1800)
+### Bug Fixes
+
+
+* **dock:** update the layout when mobileBreakPoint changes ([b39ed74](https://github.com/Lundalogik/lime-elements/commit/b39ed74d162404fd5a5e139ccbd3e1f7df4cdfde))
+
 ## [40.8.1](https://github.com/Lundalogik/lime-elements/compare/v40.8.0...v40.8.1) (2026-10-15)
 
 ### Bug Fixes
