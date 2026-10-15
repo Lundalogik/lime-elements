@@ -140,4 +140,5 @@ Du kan fortsætte med at blokere billeder (e-mailen kan se ufuldstændig ud) ell
     'pagination.page-number': 'Sidenummer',
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Gå',
+    'dock.show-labels': 'Vis etiketter på navigationsknapper',
 };

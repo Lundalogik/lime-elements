@@ -141,4 +141,5 @@ Sie können Bilder weiterhin blockieren (die E-Mail kann unvollständig aussehen
     'pagination.page-number': 'Seitenzahl',
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Los',
+    'dock.show-labels': 'Beschriftungen der Navigationsschaltflächen anzeigen',
 };

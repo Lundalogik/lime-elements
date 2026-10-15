@@ -425,6 +425,7 @@ export namespace Components {
         "dockFooterItems"?: DockItem[];
         "dockItems": DockItem[];
         "expanded"?: boolean;
+        "language": Languages;
         "mobileBreakPoint"?: number;
     }
     // @internal (undocumented)
@@ -2358,6 +2359,7 @@ export namespace JSX {
         "dockFooterItems"?: DockItem[];
         "dockItems"?: DockItem[];
         "expanded"?: boolean;
+        "language"?: Languages;
         "mobileBreakPoint"?: number;
         "onClose"?: (event: LimelDockCustomEvent<void>) => void;
         "onDockExpanded"?: (event: LimelDockCustomEvent<boolean>) => void;
@@ -2373,6 +2375,8 @@ export namespace JSX {
         "allowResize": boolean;
         // (undocumented)
         "expanded": boolean;
+        // (undocumented)
+        "language": Languages;
         // (undocumented)
         "mobileBreakPoint": number;
     }

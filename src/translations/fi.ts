@@ -139,4 +139,5 @@ Voit pitää kuvat estettyinä (sähköposti voi näyttää puutteelliselta) tai
     'pagination.page-number': 'Sivunumero',
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Siirry',
+    'dock.show-labels': 'Näytä siirtymispainikkeiden nimikkeet',
 };

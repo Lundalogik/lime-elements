@@ -8,6 +8,8 @@ import {
     State,
 } from '@stencil/core';
 import { DockItem } from './dock.types';
+import { Languages } from '../date-picker/date.types';
+import translate from '../../global/translations';
 
 const DEFAULT_MOBILE_BREAKPOINT = 700;
 
@@ -77,6 +79,14 @@ export class Dock {
      */
     @Prop({ reflect: true })
     public mobileBreakPoint?: number = DEFAULT_MOBILE_BREAKPOINT;
+
+    /**
+     * The language used for the label of the button that expands and shrinks
+     * the dock. The labels of the dock items are always the ones you give
+     * them.
+     */
+    @Prop({ reflect: true })
+    public language: Languages = 'en';
 
     /**
      * Fired when a dock item has been selected from the dock.
@@ -176,6 +186,8 @@ export class Dock {
                     'expand-shrink': true,
                     expanded: this.expanded,
                 }}
+                aria-label={translate.get('dock.show-labels', this.language)}
+                aria-pressed={String(this.expanded)}
                 onClick={this.toggleDockWidth}
             >
                 <limel-icon name="angle_right" />

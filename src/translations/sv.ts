@@ -139,4 +139,5 @@ Du kan fortsätta blockera bilder (e-posten kan se ofullständig ut) eller ladda
     'pagination.page-number': 'Sidnummer',
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Gå',
+    'dock.show-labels': 'Visa etiketter på navigeringsknappar',
 };
