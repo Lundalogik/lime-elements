@@ -25,8 +25,9 @@ import { DockItem } from '@limetech/lime-elements';
  * :::
  *
  * :::note
- * Labels are not displayed in horizontal layout, but they will be instead
- * displayed as tooltips.
+ * By default, labels are not displayed in the horizontal layout, but they
+ * will instead be displayed as tooltips. Set `expanded` to place the labels
+ * below the icons. See the example _Showing the labels of the dock items_.
  * :::
  */
 @Component({
