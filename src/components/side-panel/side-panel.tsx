@@ -9,6 +9,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
+import { getDeepActiveElement } from '../../util/get-deep-active-element';
 import { ESCAPE } from '../../util/keycodes';
 import { createRandomString } from '../../util/random-string';
 
@@ -41,7 +42,8 @@ function stopEvent(event: Event) {
  *
  * The panel is a dialog that does not block the rest of the page. Set `label`
  * to give it an accessible name, which screen readers announce. When the panel
- * opens, focus moves into it.
+ * opens, focus moves into it. When the panel is removed, focus returns to the
+ * element that had it before, unless focus is somewhere else by then.
  *
  * The panel emits `close` when the user clicks the close button, or presses
  * Escape. It does not remove itself. The consumer must remove it from the DOM.
@@ -123,9 +125,15 @@ export class SidePanel {
      */
     private widthBeforeResize?: number;
 
+    /**
+     * The element that had focus when the panel was added to the page.
+     */
+    private focusedBefore?: Element;
+
     public connectedCallback() {
         openPanels.push(this);
         window.addEventListener('keydown', this.handleKeyDown);
+        this.rememberFocusedElement();
         this.observeWidth();
     }
 
@@ -139,6 +147,7 @@ export class SidePanel {
         this.stopObservingWidth();
         window.removeEventListener('keydown', this.handleKeyDown);
         this.removeFromOpenPanels();
+        queueMicrotask(this.restoreFocus);
     }
 
     public render() {
@@ -247,6 +256,32 @@ export class SidePanel {
     private moveFocusIntoPanel() {
         this.panel.focus({ preventScroll: true });
     }
+
+    private rememberFocusedElement() {
+        const element = getDeepActiveElement();
+        if (!element || element === document.body) {
+            return;
+        }
+
+        this.focusedBefore = element;
+    }
+
+    // Moving the panel in the DOM also disconnects it. It is then connected
+    // again before the microtask runs. Focus only returns when it was lost with
+    // the panel, and not when the user has moved it to another element.
+    private restoreFocus = () => {
+        const hasLostFocus =
+            !document.activeElement || document.activeElement === document.body;
+        if (this.host.isConnected || !hasLostFocus) {
+            return;
+        }
+
+        const element = this.focusedBefore;
+        this.focusedBefore = undefined;
+        if (element?.isConnected) {
+            (element as HTMLElement).focus();
+        }
+    };
 
     private setPanel = (element: HTMLElement) => {
         this.panel = element;

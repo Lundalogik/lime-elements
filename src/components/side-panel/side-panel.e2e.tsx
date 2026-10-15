@@ -14,9 +14,16 @@ const pages: Page[] = [];
 // each test.
 const listeners: AbortController[] = [];
 
+// Elements that a test adds to the page without `render`.
+const addedElements: HTMLElement[] = [];
+
 afterEach(() => {
     for (const listener of listeners.splice(0)) {
         listener.abort();
+    }
+
+    for (const element of addedElements.splice(0)) {
+        element.remove();
     }
 
     for (const page of pages.splice(0)) {
@@ -47,6 +54,59 @@ test('limel-side-panel: moves focus into the panel when it opens', async () => {
     await renderPanel();
 
     expect(getHost().shadowRoot!.activeElement).toBe(getPanel());
+});
+
+test('limel-side-panel: returns focus to the element that had it before when the panel is removed', async () => {
+    const opener = addButton(document.body);
+    opener.focus();
+    const panel = await addPanel(document.body);
+
+    panel.remove();
+    await waitForMicrotasks();
+
+    expect(document.activeElement).toBe(opener);
+});
+
+test('limel-side-panel: returns focus to an element inside a shadow root', async () => {
+    const container = document.createElement('div');
+    addedElements.push(container);
+    document.body.append(container);
+    const shadowRoot = container.attachShadow({ mode: 'open' });
+    const opener = addButton(shadowRoot);
+    opener.focus();
+    const panel = await addPanel(document.body);
+
+    panel.remove();
+    await waitForMicrotasks();
+
+    expect(shadowRoot.activeElement).toBe(opener);
+});
+
+test('limel-side-panel: does not take focus back when focus is somewhere else when the panel is removed', async () => {
+    const opener = addButton(document.body);
+    const other = addButton(document.body);
+    opener.focus();
+    const panel = await addPanel(document.body);
+    other.focus();
+
+    panel.remove();
+    await waitForMicrotasks();
+
+    expect(document.activeElement).toBe(other);
+});
+
+test('limel-side-panel: does not return focus when the panel is only moved in the DOM', async () => {
+    const opener = addButton(document.body);
+    opener.focus();
+    const panel = await addPanel(document.body);
+    const newParent = document.createElement('div');
+    addedElements.push(newParent);
+    document.body.append(newParent);
+
+    newParent.append(panel);
+    await waitForMicrotasks();
+
+    expect(document.activeElement).not.toBe(opener);
 });
 
 test('limel-side-panel: renders the content in the default slot', async () => {
@@ -939,6 +999,32 @@ function spyOnLimitReads(): () => number {
     return () => {
         return reads.reduce((total, read) => total + read.mock.calls.length, 0);
     };
+}
+
+function addButton(parent: ParentNode): HTMLButtonElement {
+    const button = document.createElement('button');
+    parent.append(button);
+
+    return button;
+}
+
+/**
+ * Adds a panel to the page without `render`, and waits until it is ready.
+ *
+ * @param parent - the element to add the panel to
+ * @returns the panel
+ */
+async function addPanel(parent: HTMLElement): Promise<HTMLElement> {
+    const panel = document.createElement('limel-side-panel');
+    addedElements.push(panel);
+    parent.append(panel);
+    await panel.componentOnReady();
+
+    return panel;
+}
+
+async function waitForMicrotasks() {
+    await new Promise((resolve) => setTimeout(resolve, 0));
 }
 
 /**
