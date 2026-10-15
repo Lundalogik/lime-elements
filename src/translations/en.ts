@@ -138,4 +138,5 @@ You can keep images blocked (the email may look incomplete), or load them if you
     'pagination.page-number': 'Page number',
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Go',
+    'dock.show-labels': 'Show navigation button labels',
 };

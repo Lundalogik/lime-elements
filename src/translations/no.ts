@@ -139,4 +139,5 @@ Du kan fortsette å blokkere bilder (e-posten kan se ufullstendig ut), eller las
     'pagination.page-number': 'Sidenummer',
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Gå',
+    'dock.show-labels': 'Vis etiketter på navigasjonsknapper',
 };

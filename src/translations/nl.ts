@@ -142,4 +142,5 @@ Je kunt afbeeldingen geblokkeerd houden (de e-mail kan er onvolledig uitzien) of
     'pagination.page-number': 'Paginanummer',
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Ga',
+    'dock.show-labels': 'Toon labels van navigatieknoppen',
 };

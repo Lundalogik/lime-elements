@@ -144,4 +144,5 @@ Vous pouvez laisser les images bloquées (l'e-mail peut sembler incomplet) ou le
     'pagination.page-number': 'Numéro de page',
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Aller',
+    'dock.show-labels': 'Afficher les libellés des boutons de navigation',
 };
