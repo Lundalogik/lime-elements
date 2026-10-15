@@ -14,6 +14,11 @@ that element visible, for example a header.
 
 The CSS custom properties can be set on the panel or on any ancestor.
 
+The panel is a dialog that does not block the rest of the page. Set `label`
+to give it an accessible name, which screen readers announce. When the panel
+opens, focus moves into it. When the panel is removed, focus returns to the
+element that had it before, unless focus is somewhere else by then.
+
 The panel emits `close` when the user clicks the close button, or presses
 Escape. It does not remove itself. The consumer must remove it from the DOM.
 The user can resize the panel by dragging its left edge, or with the arrow
@@ -23,11 +28,12 @@ See the examples for how closing and resizing work in detail.
 
 ## Properties
 
-| Property        | Attribute         | Description                                                                                                                                               | Type      | Default    |
-| --------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------- |
-| `closeLabel`    | `close-label`     | Label of the close button. Shown as a tooltip and used as the accessible name.                                                                            | `string`  | `'Close'`  |
-| `closeOnEscape` | `close-on-escape` | Whether pressing Escape emits `close`. Set to `false` to let only the close button emit `close`. The panel then does not prevent the Escape event either. | `boolean` | `true`     |
-| `resizeLabel`   | `resize-label`    | Label of the resize handle. Used as the accessible name.                                                                                                  | `string`  | `'Resize'` |
+| Property        | Attribute         | Description                                                                                                                                               | Type      | Default     |
+| --------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `closeLabel`    | `close-label`     | Label of the close button. Shown as a tooltip and used as the accessible name.                                                                            | `string`  | `'Close'`   |
+| `closeOnEscape` | `close-on-escape` | Whether pressing Escape emits `close`. Set to `false` to let only the close button emit `close`. The panel then does not prevent the Escape event either. | `boolean` | `true`      |
+| `label`         | `label`           | Accessible name of the panel. Screen readers announce it. Set it to something that tells the user what the panel is for.                                  | `string`  | `undefined` |
+| `resizeLabel`   | `resize-label`    | Label of the resize handle. Used as the accessible name.                                                                                                  | `string`  | `'Resize'`  |
 
 
 ## Events
