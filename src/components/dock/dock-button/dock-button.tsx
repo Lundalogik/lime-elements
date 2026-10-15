@@ -131,6 +131,7 @@ export class DockButton {
                 }}
                 onClick={handleClick}
                 aria-live="polite"
+                aria-current={this.item?.selected ? 'page' : undefined}
             >
                 {this.renderIcon()}
                 {this.renderLabel()}
