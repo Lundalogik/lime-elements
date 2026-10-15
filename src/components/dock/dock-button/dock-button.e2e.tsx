@@ -18,7 +18,7 @@ test('emits an event when dock menu is opened', async () => {
     const menuOpenSpy = spyOnEvent('menuOpen');
     await waitForChanges();
 
-    const button = root.querySelector('.button') as HTMLButtonElement;
+    const button = root.querySelector('button') as HTMLButtonElement;
     button.click();
     await waitForChanges();
     expect(menuOpenSpy).toHaveReceivedEventTimes(1);
