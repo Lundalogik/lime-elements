@@ -39,6 +39,9 @@ function stopEvent(event: Event) {
  *
  * The CSS custom properties can be set on the panel or on any ancestor.
  *
+ * The panel is a dialog that does not block the rest of the page. Set `label`
+ * to give it an accessible name, which screen readers announce.
+ *
  * The panel emits `close` when the user clicks the close button, or presses
  * Escape. It does not remove itself. The consumer must remove it from the DOM.
  * The user can resize the panel by dragging its left edge, or with the arrow
@@ -57,6 +60,13 @@ function stopEvent(event: Event) {
     styleUrl: 'side-panel.scss',
 })
 export class SidePanel {
+    /**
+     * Accessible name of the panel. Screen readers announce it. Set it to
+     * something that tells the user what the panel is for.
+     */
+    @Prop()
+    public label?: string;
+
     /**
      * Label of the close button. Shown as a tooltip and used as the accessible
      * name.
@@ -132,13 +142,17 @@ export class SidePanel {
     public render() {
         return (
             <Host>
-                <aside ref={this.setPanel}>
+                <section
+                    ref={this.setPanel}
+                    role="dialog"
+                    aria-label={this.label}
+                >
                     {this.renderHandle()}
                     <div class="content">
                         <div class="toolbar">{this.renderCloseButton()}</div>
                         {this.renderBody()}
                     </div>
-                </aside>
+                </section>
                 <span data-limit="min" ref={this.setMinLimit} />
                 <span data-limit="max" ref={this.setMaxLimit} />
             </Host>

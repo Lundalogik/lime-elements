@@ -863,6 +863,7 @@ export namespace Components {
     export interface LimelSidePanel {
         "closeLabel": string;
         "closeOnEscape": boolean;
+        "label"?: string;
         "resizeLabel": string;
     }
     // (undocumented)
@@ -3561,6 +3562,7 @@ export namespace JSX {
     export interface LimelSidePanel {
         "closeLabel"?: string;
         "closeOnEscape"?: boolean;
+        "label"?: string;
         "onChangeWidth"?: (event: LimelSidePanelCustomEvent<number>) => void;
         "onClose"?: (event: LimelSidePanelCustomEvent<void>) => void;
         "resizeLabel"?: string;
@@ -3572,6 +3574,8 @@ export namespace JSX {
         "closeLabel": string;
         // (undocumented)
         "closeOnEscape": boolean;
+        // (undocumented)
+        "label": string;
         // (undocumented)
         "resizeLabel": string;
     }

@@ -61,7 +61,7 @@ $max-width: min(calc(100% - 2 * $margin - #{$peek-behind}), 60%);
 //
 // No `overflow: hidden` here, because the resize handle extends outside the left
 // edge. `.content` clips the content instead.
-aside {
+section {
     position: absolute;
     z-index: var(--_side-panel-z-index);
     top: var(--_side-panel-top-inset);
@@ -91,7 +91,7 @@ aside {
         forwards;
 }
 
-// The background is set here and not on `aside`, so that it is clipped to the
+// The background is set here and not on `section`, so that it is clipped to the
 // border radius together with the toolbar.
 .content {
     display: flex;

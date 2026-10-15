@@ -76,6 +76,7 @@ export class SidePanelEscapeExample {
 
         return (
             <limel-side-panel
+                label="Settings"
                 closeOnEscape={this.closeOnEscape}
                 onClose={this.closePanel}
             >

@@ -67,6 +67,7 @@ export class SidePanelBasicExample {
 
         return (
             <limel-side-panel
+                label="Edit the list"
                 style={this.getPanelStyle()}
                 onClose={this.closePanel}
                 onChangeWidth={this.handleChangeWidth}
