@@ -1,3 +1,17 @@
+## [40.10.0](https://github.com/Lundalogik/lime-elements/compare/v40.9.0...v40.10.0) (2026-10-15)
+
+### Features
+
+
+* **side-panel:** add a resizable side panel that closes on Escape ([954c0ff](https://github.com/Lundalogik/lime-elements/commit/954c0ff09d7527ce00bf88669b27b63946f30668))
+* **side-panel:** make the panel a dialog with an accessible name ([8ed2e78](https://github.com/Lundalogik/lime-elements/commit/8ed2e78b54ef1ccc6b11beaf1d97d5255339584e))
+* **side-panel:** move focus into the panel when it opens ([121307a](https://github.com/Lundalogik/lime-elements/commit/121307a77072b9dcb7e6ab9b0720e962093567cf))
+* **side-panel:** return focus when the panel is removed ([1e3089e](https://github.com/Lundalogik/lime-elements/commit/1e3089ed580f270326a1553b3ad643446c3c158a))
+### Bug Fixes
+
+
+* **side-panel:** turn off the opening animation for reduced motion ([31761b0](https://github.com/Lundalogik/lime-elements/commit/31761b01a2d1010e2ac17a65a89a73de743cb8f8))
+
 ## [40.9.0](https://github.com/Lundalogik/lime-elements/compare/v40.8.1...v40.9.0) (2026-10-15)
 
 ### Features
