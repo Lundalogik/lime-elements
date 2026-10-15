@@ -30,10 +30,10 @@ the edge that `location` names. Give the element a `position` other than
 
 ## Events
 
-| Event        | Description                                                                                                                                                                                         | Type                  |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| `changeSize` | Emitted on each pointer move during a drag, and on each arrow key press. The detail is the size that the user asks for, in pixels. The consumer limits it, uses it, and sets the result as `value`. | `CustomEvent<number>` |
-| `endResize`  | Emitted when the user has finished a resize: when the pointer is released, and after `changeSize` for each arrow key press.                                                                         | `CustomEvent<void>`   |
+| Event        | Description                                                                                                                                                                                                                  | Type                  |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| `changeSize` | Emitted on each pointer move during a drag, and on each arrow key press. The detail is the size that the user asks for, in pixels. The consumer limits it, uses it, and sets the result as `value`.                          | `CustomEvent<number>` |
+| `endResize`  | Emitted after the last `changeSize` when the user has finished a resize: when the pointer is released after it has moved, and after each arrow key press. Pressing and releasing the handle without moving it emits nothing. | `CustomEvent<void>`   |
 
 
 ## Dependencies
