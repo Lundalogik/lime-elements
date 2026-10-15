@@ -75,6 +75,7 @@ If your content is that big, you should probably be using a Modal instead.
  - [limel-example-popover-styling](examples)
  - [limel-example-popover-trigger-interaction](examples)
  - [limel-example-portal-basic](../portal/examples)
+ - [limel-example-side-panel-escape](../side-panel/examples)
  - [limel-example-text-editor-triggers](../text-editor/examples)
  - [limel-help](../help)
  - [limel-pagination](../pagination)
@@ -96,6 +97,7 @@ graph TD;
   limel-example-popover-styling --> limel-popover
   limel-example-popover-trigger-interaction --> limel-popover
   limel-example-portal-basic --> limel-popover
+  limel-example-side-panel-escape --> limel-popover
   limel-example-text-editor-triggers --> limel-popover
   limel-help --> limel-popover
   limel-pagination --> limel-popover

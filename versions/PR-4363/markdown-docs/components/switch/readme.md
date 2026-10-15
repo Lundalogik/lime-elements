@@ -99,6 +99,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-select-basic](../select/examples)
  - [limel-example-select-multiple](../select/examples)
  - [limel-example-select-with-empty-option](../select/examples)
+ - [limel-example-side-panel-escape](../side-panel/examples)
  - [limel-example-slider-basic](../slider/examples)
  - [limel-example-slider-multiplier-percentage-colors](../slider/examples)
  - [limel-example-snackbar-persistent-non-dismissible](../snackbar/examples)
@@ -184,6 +185,7 @@ graph TD;
   limel-example-select-basic --> limel-switch
   limel-example-select-multiple --> limel-switch
   limel-example-select-with-empty-option --> limel-switch
+  limel-example-side-panel-escape --> limel-switch
   limel-example-slider-basic --> limel-switch
   limel-example-slider-multiplier-percentage-colors --> limel-switch
   limel-example-snackbar-persistent-non-dismissible --> limel-switch
