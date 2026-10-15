@@ -1,0 +1,36 @@
+@use '../../../style/mixins';
+
+:host {
+    --popover-surface-width: min(100vw, 40rem);
+
+    @include mixins.is-resizable(
+        $direction: horizontal,
+        $width: 100%,
+        $min-width: 18rem,
+        $height: auto,
+        $min-height: 0
+    );
+    display: block;
+}
+
+.application {
+    position: relative;
+    background-color: rgb(var(--contrast-400));
+    border: 1px solid rgb(var(--contrast-500));
+    overflow: hidden;
+    border-radius: 0.5rem;
+    height: 24rem;
+}
+
+limel-dock {
+    position: absolute;
+    inset: 0 auto 0 0;
+
+    &.has-mobile-layout {
+        inset: auto 0 0 0;
+    }
+}
+
+limel-example-controls {
+    --example-controls-column-layout: auto-fit;
+}
