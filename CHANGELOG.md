@@ -1,3 +1,10 @@
+## [40.8.0](https://github.com/Lundalogik/lime-elements/compare/v40.7.1...v40.8.0) (2026-10-15)
+
+### Features
+
+
+* **dock:** give the expand/shrink button an accessible name ([0a8d3f3](https://github.com/Lundalogik/lime-elements/commit/0a8d3f335ff30ef41252c3659340efbba177e650)), closes [#4380](https://github.com/Lundalogik/lime-elements/issues/4380)
+
 ## [40.7.1](https://github.com/Lundalogik/lime-elements/compare/v40.7.0...v40.7.1) (2026-10-15)
 
 ### Bug Fixes
