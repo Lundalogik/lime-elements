@@ -18,6 +18,7 @@ import {
     EditorImage,
     EditorMetadata,
     InlineImages,
+    EditorRegion,
 } from './text-editor.types';
 import { EditorUiType } from './types';
 
@@ -43,6 +44,7 @@ import { EditorUiType } from './types';
  * @exampleComponent limel-example-text-editor-ui
  * @exampleComponent limel-example-text-editor-custom-element
  * @exampleComponent limel-example-text-editor-triggers
+ * @exampleComponent limel-example-text-editor-regions
  * @exampleComponent limel-example-text-editor-composite
  * @beta
  */
@@ -140,6 +142,20 @@ export class TextEditor implements FormComponent<string> {
      */
     @Prop()
     public inlineImages?: InlineImages;
+
+    /**
+     * Named block-level regions the editor should recognise in its value,
+     * each written as `<div data-lime-region="name">`. A region keeps its
+     * identity through the editor, so it can be replaced on its own with
+     * `replaceRegion` without disturbing the rest of the document.
+     *
+     * Only available in `html` mode.
+     *
+     * @private
+     * @alpha
+     */
+    @Prop()
+    public regions?: EditorRegion[];
 
     /**
      * A set of trigger characters
@@ -301,6 +317,25 @@ export class TextEditor implements FormComponent<string> {
         await this.adapterElement?.clear();
     }
 
+    /**
+     * Replace the content of a named region, leaving the rest of the
+     * document untouched.
+     *
+     * A region is a `<div data-lime-region="name">` in the editor's value.
+     * When the document has no such region yet, one is appended.
+     *
+     * Emits a `change` event, so a consumer mirroring the content stays in
+     * sync. A region that was not declared on `regions` is a silent no-op,
+     * as is readonly mode, where no editor is rendered.
+     *
+     * @param name - the region to replace
+     * @param html - the region's new content
+     */
+    @Method()
+    public async replaceRegion(name: string, html: string): Promise<void> {
+        await this.adapterElement?.replaceRegion(name, html);
+    }
+
     public render() {
         return (
             <Host>
@@ -348,6 +383,7 @@ export class TextEditor implements FormComponent<string> {
                 onMetadataChange={this.handleMetadataChange}
                 customElements={this.customElements}
                 inlineImages={this.inlineImages}
+                regions={this.regions}
                 value={this.value}
                 aria-controls={this.helperText ? this.helperTextId : undefined}
                 id={this.editorId}
