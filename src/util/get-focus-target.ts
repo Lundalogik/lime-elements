@@ -14,66 +14,102 @@ const DISABLED = CONTROLS.map(
     (selector) => `${selector}[disabled]:not([tabindex="-1"])`
 ).join(', ');
 
+type StencilComponent = HTMLElement & { componentOnReady(): Promise<unknown> };
+
+type Walk = Generator<StencilComponent, HTMLElement | undefined>;
+
 interface Search {
     disabled?: HTMLElement;
 }
 
 /**
- * Get the element that a screen reader describes for the owner element of a
- * tooltip. That is the owner itself if it can be focused, otherwise the first
- * element that can be focused inside it, also inside shadow roots. A disabled
- * control is only used when there is nothing that can be focused, and if
- * there is no control at all, the owner itself is used.
+ * Get the element that gets the focus when a user moves to `owner`. That is
+ * the owner itself if it can be focused, otherwise the first element that can
+ * be focused inside it, also inside shadow roots. A disabled control is only
+ * used when there is nothing that can be focused, and if there is no control
+ * at all, the owner itself is used.
  *
  * An element that passes the focus on to an element in its shadow root is
- * never used itself, since the screen reader lands on the element inside.
+ * never used itself, since the focus lands on the element inside.
  *
+ * Waits for the components in the way to render, so use this for an owner
+ * that may not have rendered yet.
+ *
+ * @see findFocusTarget for an owner that has already rendered
  * @param owner
  */
 export async function getFocusTarget(owner: HTMLElement): Promise<HTMLElement> {
-    const search: Search = {};
-
-    return (await find(owner, search)) ?? search.disabled ?? owner;
+    return runWalk(findTarget(owner));
 }
 
-async function find(
-    element: HTMLElement,
-    search: Search
+async function runWalk(
+    walk: Walk,
+    step = walk.next()
 ): Promise<HTMLElement | undefined> {
+    if (step.done) {
+        return step.value as HTMLElement | undefined;
+    }
+
+    await (step.value as StencilComponent).componentOnReady();
+
+    const found = await runWalk(walk, walk.next());
+
+    return found;
+}
+
+/**
+ * Same as `getFocusTarget`, for an owner that has already rendered, without
+ * waiting for any component.
+ *
+ * @see getFocusTarget for an owner that may not have rendered yet
+ * @param owner
+ */
+export function findFocusTarget(owner: HTMLElement): HTMLElement {
+    const walk = findTarget(owner);
+
+    for (let step = walk.next(); ; step = walk.next()) {
+        if (step.done) {
+            return step.value;
+        }
+    }
+}
+
+function* findTarget(owner: HTMLElement): Walk {
+    const search: Search = {};
+    const found = yield* find(owner, search);
+
+    return found ?? search.disabled ?? owner;
+}
+
+function* find(element: HTMLElement, search: Search): Walk {
     if (isFocusable(element)) {
         return element;
     }
 
     rememberDisabled(element, search);
 
-    return findInside(element, search);
+    return yield* findInside(element, search);
 }
 
-async function findInside(
-    element: HTMLElement,
-    search: Search
-): Promise<HTMLElement | undefined> {
+function* findInside(element: HTMLElement, search: Search): Walk {
     if (isStencilComponent(element)) {
-        await element.componentOnReady();
+        yield element;
     }
 
     const inShadowRoot = element.shadowRoot
-        ? await findAmong(element.shadowRoot.children, search)
+        ? yield* findAmong(element.shadowRoot.children, search)
         : undefined;
 
-    return inShadowRoot ?? findAmong(element.children, search);
+    return inShadowRoot ?? (yield* findAmong(element.children, search));
 }
 
-async function findAmong(
-    elements: HTMLCollection,
-    search: Search
-): Promise<HTMLElement | undefined> {
+function* findAmong(elements: HTMLCollection, search: Search): Walk {
     for (const element of elements) {
         if (element.localName === 'limel-tooltip') {
             continue;
         }
 
-        const found = await find(element as HTMLElement, search);
+        const found = yield* find(element as HTMLElement, search);
         if (found) {
             return found;
         }
@@ -92,9 +128,7 @@ function rememberDisabled(element: Element, search: Search) {
     }
 }
 
-function isStencilComponent(
-    element: Element
-): element is Element & { componentOnReady(): Promise<unknown> } {
+function isStencilComponent(element: Element): element is StencilComponent {
     return (
         'componentOnReady' in element &&
         typeof element.componentOnReady === 'function'
