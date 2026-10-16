@@ -1,0 +1,15 @@
+:host {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-around;
+}
+
+button,
+input,
+select,
+[role='button'] {
+    font: inherit;
+    color: inherit;
+}

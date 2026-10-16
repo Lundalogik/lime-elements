@@ -1,4 +1,4 @@
-import { Component, h, Host } from '@stencil/core';
+import { Component, Fragment, h, Host } from '@stencil/core';
 
 /**
  * Accessibility & the accessible name
@@ -32,8 +32,10 @@ import { Component, h, Host } from '@stencil/core';
  * The three triggers below show how different lime-elements components get
  * their accessible name:
  *
- * 1. **`limel-icon`** — the host is what the user focuses, so `aria-label`
- *    on the host is the name.
+ * 1. **`limel-icon`** — the host is what the user focuses. An `aria-label`
+ *    only counts on an element that has a role, so the host gets
+ *    `role="img"`, and then `aria-label` is the name. Without the role, a
+ *    screen reader announces an empty group.
  * 2. **`limel-icon-button`** — the required `label` prop is rendered as
  *    `aria-label` on the inner `<button>`, which makes it the accessible
  *    name. The same prop also drives the component's built-in tooltip on
@@ -47,6 +49,14 @@ import { Component, h, Host } from '@stencil/core';
  * 3. **`limel-button`** — the visible `label` prop is rendered as text
  *    inside the inner `<button>`, so the name is computed automatically from
  *    that text content.
+ *
+ * #### Native elements
+ *
+ * The tooltip works the same on native elements, like `<button>`, `<a href>`,
+ * `<input>` and `<select>`, as long as they are in the same document or shadow
+ * root as the tooltip. A `div` that is made to act as a button needs a `role`
+ * and a `tabindex` to be a control for assistive technology; the tooltip can
+ * not do that for it.
  *
  * #### Rules of thumb
  *
@@ -62,12 +72,13 @@ import { Component, h, Host } from '@stencil/core';
  *    hide it behind hover.
  *
  * _Inspect the triggers below in the browser's DevTools Accessibility panel
- * to see the computed name and description._
+ * to see the computed name and description, or move focus to them with a
+ * screen reader running._
  */
 @Component({
     tag: 'limel-example-tooltip-accessibility',
     shadow: true,
-    styleUrl: 'tooltip-max-character.scss',
+    styleUrl: 'tooltip-accessibility.scss',
 })
 export class TooltipAccessibilityExample {
     public render() {
@@ -75,6 +86,7 @@ export class TooltipAccessibilityExample {
             <Host>
                 <limel-icon
                     tabIndex={0}
+                    role="img"
                     size="small"
                     name="search"
                     aria-label="Search"
@@ -98,7 +110,61 @@ export class TooltipAccessibilityExample {
                     hotkey="meta+s"
                     elementId="tooltip-a11y-2"
                 />
+                {this.renderNativeElements()}
             </Host>
+        );
+    }
+
+    private renderNativeElements() {
+        return (
+            <Fragment>
+                <button id="tooltip-a11y-3" type="button">
+                    Save as draft
+                </button>
+                <limel-tooltip
+                    label="Keeps the document unpublished"
+                    elementId="tooltip-a11y-3"
+                />
+                <button id="tooltip-a11y-4" type="button" aria-label="Delete">
+                    <limel-icon name="trash" size="small" aria-hidden="true" />
+                </button>
+                <limel-tooltip
+                    label="Delete"
+                    helperLabel="Moves the item to the trash"
+                    elementId="tooltip-a11y-4"
+                />
+                <a id="tooltip-a11y-5" href="#tooltip-a11y-5">
+                    Release notes
+                </a>
+                <limel-tooltip
+                    label="Opens the list of changes"
+                    elementId="tooltip-a11y-5"
+                />
+                <input
+                    id="tooltip-a11y-6"
+                    type="text"
+                    aria-label="Project name"
+                />
+                <limel-tooltip
+                    label="Use a short and unique name"
+                    elementId="tooltip-a11y-6"
+                />
+                <select id="tooltip-a11y-7" aria-label="Language">
+                    <option>English</option>
+                    <option>Svenska</option>
+                </select>
+                <limel-tooltip
+                    label="Sets the language of the interface"
+                    elementId="tooltip-a11y-7"
+                />
+                <div id="tooltip-a11y-8" role="button" tabIndex={0}>
+                    Custom button
+                </div>
+                <limel-tooltip
+                    label="Acts as a button, but is not a native one"
+                    elementId="tooltip-a11y-8"
+                />
+            </Fragment>
         );
     }
 }
