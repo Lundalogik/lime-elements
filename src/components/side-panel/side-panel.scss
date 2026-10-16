@@ -352,13 +352,14 @@ section {
 }
 
 // The slot is for small controls. Larger content is cut off, so that the
-// headings always keep at least half of the header.
+// headings always keep at least half of the header. Smaller content keeps its
+// width, and the headings are truncated instead.
 .header-actions {
     display: flex;
     align-items: center;
     gap: 0.25rem;
 
-    min-width: 0;
+    flex-shrink: 0;
     max-width: 50%;
     overflow: hidden;
 

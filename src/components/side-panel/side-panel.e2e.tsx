@@ -423,6 +423,13 @@ test('limel-side-panel: shows the full heading and subheading as a tooltip when 
     );
 });
 
+test('limel-side-panel: does not make small header actions narrower when the heading is long', async () => {
+    await renderPanelWithHeaderActions({ heading: LONG_HEADING });
+
+    // `offsetWidth`, because the opening animation scales the panel.
+    expect(getGivenHeaderAction().offsetWidth).toBe(SMALL_HEADER_ACTION.width);
+});
+
 test('limel-side-panel: keeps space for the headings when the header actions are wide', async () => {
     const header = await renderPanelWithHeaderActions(
         { heading: LONG_HEADING },
