@@ -14,6 +14,18 @@ that element visible, for example a header.
 
 The CSS custom properties can be set on the panel or on any ancestor.
 
+The panel is a dialog that does not block the rest of the page. Set `label`
+to give it an accessible name, which screen readers announce. When the panel
+opens, focus moves into it. When the panel is removed, focus returns to the
+element that had it before, unless focus is somewhere else by then.
+
+The panel emits `close` when the user clicks the close button, or presses
+Escape. It does not remove itself. The consumer must remove it from the DOM.
+The user can resize the panel by dragging its left edge, or with the arrow
+keys. The panel emits `changeWidth` when a resize is finished.
+
+See the examples for how closing and resizing work in detail.
+
 ## Header
 
 The header shows the heading, subheading and icon of the last entry in
@@ -69,58 +81,25 @@ function handleSelectAction(event: CustomEvent<SidePanelActionSelect>) {
 }
 ```
 
-## Closing
-
-The `close` event is emitted when the user clicks the close button, or presses
-Escape anywhere on the page. The panel does not remove itself. The consumer
-must remove it from the DOM.
-
-An Escape keydown event with `defaultPrevented` set does not emit `close`.
-This lets a popover or dropdown inside the panel handle Escape without
-closing the panel. `limel-dialog` does not prevent the event yet, so Escape in
-a dialog inside the panel also closes the panel. The panel listens on `window`, so it receives the
-event after all listeners on elements and on `document`.
-
-When more than one side panel is open, Escape closes only the panel that was
-opened last.
-
-`close` and `changeWidth` events from the slotted content do not propagate
-past the panel. This prevents a consumer from mistaking them for events
-emitted by the panel.
-
-## Width
-
-The panel starts with the width from `--side-panel-width`. The user can
-resize the panel by dragging its left edge. The user can also use the
-keyboard. When the handle has focus, ArrowLeft makes the panel wider and
-ArrowRight makes it narrower.
-
-The panel keeps the new width itself. While the panel exists, this width wins
-over `--side-panel-width`. The width is limited by `--side-panel-min-width`
-and the available space.
-
-After each resize, the panel emits `changeWidth` with the new width in
-pixels. The consumer does not have to handle the event. To keep the width
-for the next time the panel opens, for example across sessions, store the
-value. Then set it with `--side-panel-width` before the panel opens.
-
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                                                        | Type                | Default    |
-| ------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ---------- |
-| `actions`     | --             | Buttons in the toolbar, to the right of the close button.                                                                                          | `SidePanelAction[]` | `[]`       |
-| `closeLabel`  | `close-label`  | Label of the close button. Shown as a tooltip and used as the accessible name.                                                                     | `string`            | `'Close'`  |
-| `resizeLabel` | `resize-label` | Label of the resize handle. Used as the accessible name.                                                                                           | `string`            | `'Resize'` |
-| `stack`       | --             | The panels in the stack, outermost first. The last entry is the panel that is displayed. Its heading, subheading and icon are shown in the header. | `SidePanelEntry[]`  | `[]`       |
+| Property        | Attribute         | Description                                                                                                                                               | Type                | Default     |
+| --------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ----------- |
+| `actions`       | --                | Buttons in the toolbar, to the right of the close button.                                                                                                 | `SidePanelAction[]` | `[]`        |
+| `closeLabel`    | `close-label`     | Label of the close button. Shown as a tooltip and used as the accessible name.                                                                            | `string`            | `'Close'`   |
+| `closeOnEscape` | `close-on-escape` | Whether pressing Escape emits `close`. Set to `false` to let only the close button emit `close`. The panel then does not prevent the Escape event either. | `boolean`           | `true`      |
+| `label`         | `label`           | Accessible name of the panel. Screen readers announce it. Set it to something that tells the user what the panel is for.                                  | `string`            | `undefined` |
+| `resizeLabel`   | `resize-label`    | Label of the resize handle. Used as the accessible name.                                                                                                  | `string`            | `'Resize'`  |
+| `stack`         | --                | The panels in the stack, outermost first. The last entry is the panel that is displayed. Its heading, subheading and icon are shown in the header.        | `SidePanelEntry[]`  | `[]`        |
 
 
 ## Events
 
-| Event          | Description                                                                                                                                                                                                             | Type                                 |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| `changeWidth`  | Emitted when the user has resized the panel. The detail is the new width in pixels. The panel already uses the new width. Store the value to restore the width with `--side-panel-width` the next time the panel opens. | `CustomEvent<number>`                |
-| `close`        | Emitted when the close button is clicked, or when Escape is pressed.                                                                                                                                                    | `CustomEvent<void>`                  |
-| `selectAction` | Emitted when an action in the toolbar is clicked. The detail has the `id` of the action, or its `type` if it has no `id`, and the click event.                                                                          | `CustomEvent<SidePanelActionSelect>` |
+| Event          | Description                                                                                                                                                                                                                                    | Type                                 |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `changeWidth`  | Emitted when the user has finished a resize that changed the width. The detail is the new width in pixels. The panel already uses the new width. Store the value to restore the width with `--side-panel-width` the next time the panel opens. | `CustomEvent<number>`                |
+| `close`        | Emitted when the close button is clicked, or when Escape is pressed and `closeOnEscape` is `true`.                                                                                                                                             | `CustomEvent<void>`                  |
+| `selectAction` | Emitted when an action in the toolbar is clicked. The detail has the `id` of the action, or its `type` if it has no `id`, and the click event.                                                                                                 | `CustomEvent<SidePanelActionSelect>` |
 
 
 ## Slots
@@ -137,6 +116,7 @@ value. Then set it with `--side-panel-width` before the panel opens.
 
  - [limel-example-side-panel-actions](examples)
  - [limel-example-side-panel-basic](examples)
+ - [limel-example-side-panel-escape](examples)
  - [limel-example-side-panel-header-actions](examples)
  - [limel-example-side-panel-insets](examples)
 
@@ -157,6 +137,7 @@ graph TD;
   limel-tooltip-content --> limel-hotkey
   limel-example-side-panel-actions --> limel-side-panel
   limel-example-side-panel-basic --> limel-side-panel
+  limel-example-side-panel-escape --> limel-side-panel
   limel-example-side-panel-header-actions --> limel-side-panel
   limel-example-side-panel-insets --> limel-side-panel
   style limel-side-panel fill:#f9f,stroke:#333,stroke-width:4px
