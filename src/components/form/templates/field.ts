@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { FormSchema } from '../form.types';
 import { isObjectType } from '../schema';
+import { toSchemaPath } from './object-field';
 
 export const FieldTemplate = (props) => {
     let classNames = props.classNames;
@@ -24,10 +25,23 @@ export const FieldTemplate = (props) => {
         {
             className: classNames,
             style: style,
+            'data-schema-path': getFieldSchemaPath(props),
         },
         props.children
     );
 };
+
+// Objects mark their own layout wrapper, so only the fields they hold get
+// the path here. It lets a host find the element of one field by its path.
+function getFieldSchemaPath(props): string | undefined {
+    if (isObjectType(props.schema)) {
+        return undefined;
+    }
+
+    const path = props.fieldPathId?.path;
+
+    return path ? toSchemaPath(path.map(String)) : undefined;
+}
 
 function getColSpan(schema: FormSchema) {
     const layout = schema.lime?.layout;

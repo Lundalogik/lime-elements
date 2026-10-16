@@ -543,6 +543,22 @@ test('emits data-schema-path on each layout wrapper', async () => {
     ]);
 });
 
+test('emits data-schema-path on each field wrapper', async () => {
+    const { formContent } = await renderForm({
+        schema: nestedSchemaPathSchema,
+    });
+
+    const field = formContent.querySelector<HTMLElement>(
+        '[data-schema-path="/section/details/contact/name"]'
+    );
+
+    expect(field).toBeTruthy();
+    expect(field.querySelector('limel-input-field')).toBeTruthy();
+    expect(
+        formContent.querySelector('.rjsf-field[data-schema-path="/section"]')
+    ).toBeNull();
+});
+
 test('emits data-schema-path on grid and row layout wrappers', async () => {
     const { formContent } = await renderForm({
         schema: nestedLayoutSchemaPathSchema,
