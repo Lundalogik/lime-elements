@@ -1,5 +1,6 @@
 import { Component, h, State } from '@stencil/core';
 const TRIGGER_DELAY = 1000;
+const FOCUS_RESTORE_WINDOW = 300;
 /**
  * Trigger Interaction for Popovers
  *
@@ -25,6 +26,10 @@ const TRIGGER_DELAY = 1000;
  * The popover should remain open even if the user moves the cursor away from
  * the trigger element or navigates away with the keyboard.
  * This allows the user to interact with the popover content without it closing unexpectedly.
+ *
+ * **Focus Returns to the Trigger**:
+ * When the popover closes, for example when the user presses Escape, the focus returns
+ * to the trigger element. Make sure that this does not open the popover again.
  *
  * **Touchscreen Accessibility**:
  * Consider the experience for users on touchscreen devices. Hover interactions might not be available,
@@ -53,6 +58,8 @@ export class PopoverTriggerInteractionExample {
     private isOpen = false;
 
     private hoverTimeout: number;
+
+    private ignoreFocus = false;
 
     public render() {
         const chipImage = {
@@ -108,6 +115,11 @@ Smooth Operations
 
     private openPopoverWithDelay = (event: FocusEvent | MouseEvent) => {
         event.stopPropagation();
+
+        if (event.type === 'focus' && this.ignoreFocus) {
+            return;
+        }
+
         console.log('opening popover with delay');
 
         clearTimeout(this.hoverTimeout);
@@ -130,6 +142,11 @@ Smooth Operations
         event.stopPropagation();
         console.log('closing popover instantly');
         this.isOpen = false;
+
+        this.ignoreFocus = true;
+        window.setTimeout(() => {
+            this.ignoreFocus = false;
+        }, FOCUS_RESTORE_WINDOW);
     };
 
     private handleClick = (event: MouseEvent) => {
