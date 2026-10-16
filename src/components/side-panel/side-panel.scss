@@ -334,26 +334,21 @@ section {
 
 .header {
     --side-panel-header-text-color: var(--limel-theme-on-surface-color);
+    --header-top-right-left-border-radius: 0;
 
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
+    // As tall as a heading with a subheading. Then the header has the same
+    // height with or without a subheading, and the header actions, which can
+    // be that tall, never make it grow.
+    min-height: calc(
+        #{$heading-line-height} + #{$subheading-line-height} + 2 *
+            #{$header-padding-block}
+    );
     padding: $header-padding-block 0.75rem $header-padding-block 0.25rem;
-    background-color: $header-background-color;
-    color: var(--side-panel-header-text-color);
-    font-size: 0.75rem;
-
-    limel-icon {
-        flex-shrink: 0;
-        box-sizing: border-box;
-        width: 2rem;
-        height: 2rem;
-        padding: 0.25rem;
-        margin-left: 0.25rem;
-        border-radius: 0.25rem;
-    }
+    background-color: var(
+        --header-background-color,
+        #{$header-background-color}
+    );
 }
 
 // The slot is for small controls. Larger content is cut off, so that the
@@ -378,57 +373,23 @@ section {
     padding: $header-actions-padding;
     margin: (-$header-actions-padding) (-$header-actions-padding)
         (-$header-actions-padding) auto;
+
+    color: var(--side-panel-header-text-color);
+    // The text shadow of a painted header is inherited. Slotted content keeps
+    // its own look.
+    text-shadow: none;
 }
 
-// `min-width: 0` lets the headings be narrower than their text, so that they
-// can be truncated.
-//
-// The headings are always as tall as a heading with a subheading. Then the
-// header has the same height with or without a subheading, and the header
-// actions, which can be that tall, never make it grow.
-.headings {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 0;
-    min-height: calc(#{$heading-line-height} + #{$subheading-line-height});
-}
-
-.heading,
-.subheading {
-    @include mixins.truncate-text;
-    margin: 0;
-}
-
-.heading {
-    font-size: 1rem;
-    line-height: $heading-line-height;
-    font-weight: 500;
-}
-
-// An explicit size, because the browser gives `h2` a size of `1.5em`.
-.subheading {
-    font-size: 0.75rem;
-    line-height: $subheading-line-height;
-    font-weight: 300;
-    color: rgb(var(--contrast-900));
-}
-
-// The headings are truncated with `overflow: hidden`, which would also cut off
-// the shadow at the sides. The padding makes room for the shadow, and the
-// negative margin keeps the text in the same place.
+// `text-shadow` is inherited, so it reaches the headings in the shadow root of
+// `limel-header`.
 .has-color {
     --side-panel-header-text-color: rgb(var(--color-white));
+    --header-heading-color: var(--side-panel-header-text-color);
+    --header-subheading-color: var(--side-panel-header-text-color);
 
-    .heading,
-    .subheading {
-        color: var(--side-panel-header-text-color);
-        padding: 0 $text-shadow-blur;
-        margin-left: -$text-shadow-blur;
-        text-shadow:
-            0 0 1px $text-shadow-color,
-            0 0 $text-shadow-blur $text-shadow-color;
-    }
+    text-shadow:
+        0 0 1px $text-shadow-color,
+        0 0 $text-shadow-blur $text-shadow-color;
 }
 
 .body {

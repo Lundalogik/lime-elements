@@ -13,12 +13,6 @@ import { getDeepActiveElement } from '../../util/get-deep-active-element';
 import { ESCAPE } from '../../util/keycodes';
 import { createRandomString } from '../../util/random-string';
 import {
-    getIconBackgroundColor,
-    getIconColor,
-    getIconName,
-} from '../icon/get-icon-props';
-import { Icon, IconName } from '../../global/shared-types/icon.types';
-import {
     SidePanelAction,
     SidePanelActionSelect,
     SidePanelActionType,
@@ -345,45 +339,22 @@ export class SidePanel {
         }
 
         return (
-            <div
+            <limel-header
                 class={{ header: true, 'has-color': !!entry.color }}
-                style={{ 'background-color': entry.color }}
+                style={{ '--header-background-color': entry.color }}
+                icon={entry.icon}
+                heading={entry.heading}
+                subheading={entry.subheading}
             >
-                {this.renderHeaderIcon(entry.icon)}
-                <div class="headings">
-                    <h1 class="heading">{entry.heading}</h1>
-                    {this.renderSubheading(entry.subheading)}
-                </div>
-                <div class="header-actions" ref={this.stopContentEvents}>
+                <div
+                    class="header-actions"
+                    slot="actions"
+                    ref={this.stopContentEvents}
+                >
                     <slot name="header-actions" />
                 </div>
-            </div>
+            </limel-header>
         );
-    }
-
-    private renderHeaderIcon(icon?: IconName | Icon) {
-        const name = getIconName(icon);
-        if (!name) {
-            return;
-        }
-
-        return (
-            <limel-icon
-                name={name}
-                style={{
-                    color: getIconColor(icon),
-                    'background-color': getIconBackgroundColor(icon),
-                }}
-            />
-        );
-    }
-
-    private renderSubheading(subheading?: string) {
-        if (!subheading) {
-            return;
-        }
-
-        return <h2 class="subheading">{subheading}</h2>;
     }
 
     private renderHandle() {

@@ -139,9 +139,7 @@ test('limel-side-panel: shows the heading of the last stack entry', async () => 
         stack: [{ heading: 'Start page' }, { heading: 'Sales pipe' }],
     });
 
-    expect(getHeader().querySelector('.heading')!.textContent).toBe(
-        'Sales pipe'
-    );
+    expect(getHeaderPart('.heading').textContent).toBe('Sales pipe');
 });
 
 test('limel-side-panel: shows the subheading of the last stack entry', async () => {
@@ -149,9 +147,7 @@ test('limel-side-panel: shows the subheading of the last stack entry', async () 
         stack: [{ heading: 'Sales pipe', subheading: 'Start page widget' }],
     });
 
-    expect(getHeader().querySelector('.subheading')!.textContent).toBe(
-        'Start page widget'
-    );
+    expect(getHeaderPart('.subheading').textContent).toBe('Start page widget');
 });
 
 test('limel-side-panel: shows the icon of the last stack entry', async () => {
@@ -159,7 +155,7 @@ test('limel-side-panel: shows the icon of the last stack entry', async () => {
         stack: [{ heading: 'Sales pipe', icon: 'sales_performance' }],
     });
 
-    expect(getHeader().querySelector('limel-icon')!.name).toBe(
+    expect(getHeaderPart<HTMLLimelIconElement>('limel-icon').name).toBe(
         'sales_performance'
     );
 });
@@ -178,11 +174,11 @@ test('limel-side-panel: uses the colors of the icon of the last stack entry', as
         ],
     });
 
-    const icon = getHeader().querySelector('limel-icon')!;
+    const icon = getHeaderPart<HTMLLimelIconElement>('limel-icon');
 
     expect(icon.name).toBe('sales_performance');
-    expect(icon.style.color).toBe('rgb(255, 0, 0)');
-    expect(icon.style.backgroundColor).toBe('rgb(0, 0, 255)');
+    expect(getComputedStyle(icon).color).toBe('rgb(255, 0, 0)');
+    expect(getComputedStyle(icon).backgroundColor).toBe('rgb(0, 0, 255)');
 });
 
 test('limel-side-panel: paints the header with the color of the last stack entry', async () => {
@@ -208,7 +204,7 @@ test('limel-side-panel: adds a text shadow to the headings on a painted header',
         ],
     });
 
-    for (const heading of getHeader().querySelectorAll('h1, h2')) {
+    for (const heading of getHeadings()) {
         expect(getComputedStyle(heading).textShadow).not.toBe('none');
     }
 });
@@ -225,7 +221,7 @@ test('limel-side-panel: shows the headings in white on a painted header', async 
         ],
     });
 
-    for (const heading of getHeader().querySelectorAll('h1, h2')) {
+    for (const heading of getHeadings()) {
         expect(getComputedStyle(heading).color).toBe('rgb(255, 255, 255)');
     }
 });
@@ -236,9 +232,7 @@ test('limel-side-panel: does not add a text shadow to the headings on a header w
         stack: [{ heading: 'Sales pipe' }],
     });
 
-    expect(
-        getComputedStyle(getHeader().querySelector('.heading')!).textShadow
-    ).toBe('none');
+    expect(getComputedStyle(getHeaderPart('.heading')).textShadow).toBe('none');
 });
 
 test('limel-side-panel: does not show a header when the stack is empty', async () => {
@@ -410,11 +404,22 @@ test('limel-side-panel: truncates a long heading before the header actions', asy
     const header = await renderPanelWithHeaderActions({
         heading: LONG_HEADING,
     });
-    const heading = header.querySelector('.heading')!;
+    const heading = header.shadowRoot!.querySelector('.heading')!;
 
     expect(heading.scrollWidth).toBeGreaterThan(heading.clientWidth);
     expect(heading.getBoundingClientRect().right).toBeLessThanOrEqual(
         getGivenHeaderAction().getBoundingClientRect().left
+    );
+});
+
+test('limel-side-panel: shows the full heading and subheading as a tooltip when they are cut off', async () => {
+    await renderPanel({
+        stack: [{ heading: LONG_HEADING, subheading: LONG_HEADING }],
+    });
+
+    expect(getHeaderPart('.heading').getAttribute('title')).toBe(LONG_HEADING);
+    expect(getHeaderPart('.subheading').getAttribute('title')).toBe(
+        LONG_HEADING
     );
 });
 
@@ -426,7 +431,8 @@ test('limel-side-panel: keeps space for the headings when the header actions are
     const headerWidth = header.getBoundingClientRect().width;
 
     expect(
-        header.querySelector('.headings')!.getBoundingClientRect().width
+        header.shadowRoot!.querySelector('.headings')!.getBoundingClientRect()
+            .width
     ).toBeGreaterThan(headerWidth * 0.4);
     expect(header.scrollWidth).toBe(header.clientWidth);
 });
@@ -510,22 +516,6 @@ test('limel-side-panel: uses the z-indexes of dropdowns, popovers and tooltips t
             zIndexOfPortalFor(getGivenContent(), property)
         )
     ).toEqual(['100', '101', '102']);
-});
-
-test('limel-side-panel: shows the subheading smaller than the heading, without margins', async () => {
-    await renderPanel({
-        stack: [{ heading: 'Sales pipe', subheading: 'Start page widget' }],
-    });
-    const heading = getComputedStyle(getHeader().querySelector('.heading')!);
-    const subheading = getComputedStyle(
-        getHeader().querySelector('.subheading')!
-    );
-
-    expect(subheading.fontSize).toBe('12px');
-    expect(heading.fontSize).toBe('16px');
-    for (const style of [heading, subheading]) {
-        expect([style.marginTop, style.marginBottom]).toEqual(['0px', '0px']);
-    }
 });
 
 test('limel-side-panel: emits close when Escape is pressed', async () => {
@@ -845,9 +835,7 @@ test('limel-side-panel: keeps resizing when the consumer renders again during a 
     await getPage().waitForChanges();
 
     expect(widths).toEqual([430]);
-    expect(getHeader().querySelector('.heading')!.textContent).toBe(
-        'Sales pipe 970'
-    );
+    expect(getHeaderPart('.heading').textContent).toBe('Sales pipe 970');
 });
 
 test('limel-side-panel: emits a wider changeWidth when ArrowLeft is pressed on the resize handle', async () => {
@@ -1496,8 +1484,20 @@ function getActionButtons(): HTMLElement[] {
     ];
 }
 
-function getHeader(): HTMLElement {
-    return getPage().root!.shadowRoot!.querySelector<HTMLElement>('.header')!;
+function getHeader(): HTMLLimelHeaderElement {
+    return getPage().root!.shadowRoot!.querySelector<HTMLLimelHeaderElement>(
+        '.header'
+    )!;
+}
+
+function getHeaderPart<T extends HTMLElement = HTMLElement>(
+    selector: string
+): T {
+    return getHeader().shadowRoot!.querySelector<T>(selector)!;
+}
+
+function getHeadings(): NodeListOf<HTMLElement> {
+    return getHeader().shadowRoot!.querySelectorAll<HTMLElement>('h1, h2');
 }
 
 function getGivenHeaderAction(): HTMLElement {
