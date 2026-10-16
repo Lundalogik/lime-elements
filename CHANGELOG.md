@@ -1,3 +1,10 @@
+## [40.10.1](https://github.com/Lundalogik/lime-elements/compare/v40.10.0...v40.10.1) (2026-10-16)
+
+### Bug Fixes
+
+
+* **tooltip:** describe the focusable element with aria-description ([f9cbe28](https://github.com/Lundalogik/lime-elements/commit/f9cbe28a06daef5c5b00bd7199177f443e9170f9)), closes [#4376](https://github.com/Lundalogik/lime-elements/issues/4376)
+
 ## [40.10.0](https://github.com/Lundalogik/lime-elements/compare/v40.9.0...v40.10.0) (2026-10-15)
 
 ### Features
