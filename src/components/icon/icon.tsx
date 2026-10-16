@@ -1,4 +1,11 @@
-import { Component, Element, h, Prop, Watch } from '@stencil/core';
+import {
+    AttachInternals,
+    Component,
+    Element,
+    h,
+    Prop,
+    Watch,
+} from '@stencil/core';
 import { globalConfig } from '../../global/config';
 import iconCache from '../../global/icon-cache/factory';
 import { IconSize } from './icon.types';
@@ -10,6 +17,12 @@ import { IconSize } from './icon.types';
  *
  * The size and color of the icon is normally set in CSS, however there are a few
  * standard sizes defined that can be used with the `size` property.
+ *
+ * ## Accessibility
+ * An icon with an `aria-label` or an `aria-labelledby` is an image for assistive
+ * technology, and the label is its name. An icon with neither is decorative,
+ * and is hidden from assistive technology. To change that, set `role` or
+ * `aria-hidden` on the icon yourself.
  *
  * @exampleComponent limel-example-icon-name
  * @exampleComponent limel-example-icon-size
@@ -59,12 +72,41 @@ export class Icon {
     @Element()
     private host: HTMLLimelIconElement;
 
+    @AttachInternals()
+    private internals: ElementInternals;
+
+    private nameObserver?: MutationObserver;
+
+    public connectedCallback() {
+        this.updateAccessibility();
+        this.nameObserver = new MutationObserver(() =>
+            this.updateAccessibility()
+        );
+        this.nameObserver.observe(this.host, {
+            attributes: true,
+            attributeFilter: ['aria-label', 'aria-labelledby'],
+        });
+    }
+
+    public disconnectedCallback() {
+        this.nameObserver?.disconnect();
+    }
+
     public componentDidLoad() {
         this.loadIcon(this.name);
     }
 
     public render() {
         return <div class="container" />;
+    }
+
+    private updateAccessibility() {
+        const hasName = ['aria-label', 'aria-labelledby'].some((attribute) =>
+            this.host.getAttribute(attribute)?.trim()
+        );
+
+        this.internals.role = hasName ? 'img' : null;
+        this.internals.ariaHidden = hasName ? null : 'true';
     }
 
     @Watch('name')

@@ -182,4 +182,30 @@ describe('limel-button', () => {
             expect(innerButton.classList.contains('just-failed')).toBe(true);
         });
     });
+
+    describe('the icon', () => {
+        it('is an image with the title as its name when it has a title', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-button icon={{ name: 'search', title: 'Search' }} />
+            );
+            await waitForChanges();
+
+            const icon = root.shadowRoot.querySelector('limel-icon');
+            expect(icon.getAttribute('role')).toBe('img');
+            expect(icon.getAttribute('aria-label')).toBe('Search');
+            expect(icon.hasAttribute('aria-hidden')).toBe(false);
+        });
+
+        it('is hidden from assistive technology when it has no title', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-button label="Search" icon="search" />
+            );
+            await waitForChanges();
+
+            const icon = root.shadowRoot.querySelector('limel-icon');
+            expect(icon.getAttribute('role')).toBe('presentation');
+            expect(icon.getAttribute('aria-hidden')).toBe('true');
+            expect(icon.hasAttribute('aria-label')).toBe(false);
+        });
+    });
 });
