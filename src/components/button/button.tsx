@@ -189,7 +189,7 @@ export class Button {
         }
 
         const iconProps = {
-            role: 'presentation',
+            role: title ? 'img' : 'presentation',
             name: iconName,
             'aria-label': title,
             'aria-hidden': title ? null : 'true', // Use null instead of 'false' to remove attribute
