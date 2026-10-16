@@ -124,6 +124,7 @@ function handleSelectAction(event: CustomEvent<SidePanelActionSelect>) {
 
 - [limel-icon](../icon)
 - [limel-tooltip](../tooltip)
+- [limel-header](../header)
 - [limel-resize-handle](../resize-handle)
 
 ### Graph
@@ -131,10 +132,12 @@ function handleSelectAction(event: CustomEvent<SidePanelActionSelect>) {
 graph TD;
   limel-side-panel --> limel-icon
   limel-side-panel --> limel-tooltip
+  limel-side-panel --> limel-header
   limel-side-panel --> limel-resize-handle
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-tooltip-content --> limel-hotkey
+  limel-header --> limel-icon
   limel-example-side-panel-actions --> limel-side-panel
   limel-example-side-panel-basic --> limel-side-panel
   limel-example-side-panel-escape --> limel-side-panel
