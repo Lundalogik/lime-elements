@@ -3,6 +3,22 @@ import { globalConfig } from '../../global/config';
 import iconCache from '../../global/icon-cache/factory';
 import { IconSize } from './icon.types';
 
+const NAME_ATTRIBUTES = ['aria-label', 'aria-labelledby', 'title'];
+
+const internalsOfHost = new WeakMap<HTMLElement, ElementInternals>();
+
+function attachInternalsOnce(host: HTMLElement): ElementInternals | undefined {
+    if (!internalsOfHost.has(host) && 'attachInternals' in host) {
+        internalsOfHost.set(host, host.attachInternals());
+    }
+
+    return internalsOfHost.get(host);
+}
+
+function hasValue(host: HTMLElement, attributes: string[]): boolean {
+    return attributes.some((attribute) => host.getAttribute(attribute)?.trim());
+}
+
 /**
  * :::important
  * To install your icon set correctly, please read the [documentation here](#/).
@@ -10,6 +26,12 @@ import { IconSize } from './icon.types';
  *
  * The size and color of the icon is normally set in CSS, however there are a few
  * standard sizes defined that can be used with the `size` property.
+ *
+ * ## Accessibility
+ * An icon with an `aria-label`, an `aria-labelledby` or a `title` is an image
+ * for assistive technology, and that is its name. An icon with none of them is
+ * decorative, and is hidden from assistive technology. To change that, set
+ * `role` or `aria-hidden` on the icon yourself.
  *
  * @exampleComponent limel-example-icon-name
  * @exampleComponent limel-example-icon-size
@@ -59,12 +81,44 @@ export class Icon {
     @Element()
     private host: HTMLLimelIconElement;
 
+    private internals?: ElementInternals;
+
+    private nameObserver?: MutationObserver;
+
+    public connectedCallback() {
+        this.internals ??= attachInternalsOnce(this.host);
+        this.updateAccessibility();
+        this.nameObserver = new MutationObserver(() =>
+            this.updateAccessibility()
+        );
+        this.nameObserver.observe(this.host, {
+            attributes: true,
+            attributeFilter: [...NAME_ATTRIBUTES, 'role'],
+        });
+    }
+
+    public disconnectedCallback() {
+        this.nameObserver?.disconnect();
+    }
+
     public componentDidLoad() {
         this.loadIcon(this.name);
     }
 
     public render() {
         return <div class="container" />;
+    }
+
+    private updateAccessibility() {
+        if (!this.internals) {
+            return;
+        }
+
+        const hasName = hasValue(this.host, NAME_ATTRIBUTES);
+        const hasRole = hasValue(this.host, ['role']);
+
+        this.internals.role = hasName ? 'img' : null;
+        this.internals.ariaHidden = hasName || hasRole ? null : 'true';
     }
 
     @Watch('name')
