@@ -27,6 +27,7 @@ export default {
     'date-picker.month.heading': 'Month',
     'date-picker.quarter.heading': 'Quarter',
     'date-picker.year.heading': 'Year',
+    'date-picker.invalid-format': 'Enter a valid date ({ format })',
     'drag-handle.drag-handle': 'Drag handle',
     'drag-handle.drag-to-reorder': 'Drag to reorder',
     'chip-set.clear-all': 'Clear all',
