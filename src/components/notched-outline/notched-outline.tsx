@@ -70,6 +70,15 @@ export class NotchedOutline {
     public labelId?: string;
 
     /**
+     * The `id` of the label element itself.
+     * Use it in `aria-labelledby` on the input element, when something else
+     * would otherwise end up in the name of the input element. For example,
+     * another `<label>` that wraps it, or the selected value of a `limel-select`.
+     */
+    @Prop({ reflect: true })
+    public labelElementId?: string;
+
+    /**
      * Set to `true` when the user has entered a value for the input element,
      * shrinking the label in size, and visually rendering it above the entered value.
      */
@@ -117,7 +126,9 @@ export class NotchedOutline {
 
         return (
             <span class="limel-notched-outline--notch">
-                <label htmlFor={this.labelId}>{this.label}</label>
+                <label id={this.labelElementId} htmlFor={this.labelId}>
+                    {this.label}
+                </label>
             </span>
         );
     }

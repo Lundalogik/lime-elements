@@ -260,14 +260,16 @@ export class InputField {
     private completionsList: ListItem[] = [];
     private portalId: string;
     private helperTextId: string;
-    private labelId: string;
+    private inputId: string;
+    private labelElementId: string;
 
     private changeWaiting = false;
 
     constructor() {
         this.portalId = createRandomString();
         this.helperTextId = createRandomString();
-        this.labelId = createRandomString();
+        this.inputId = createRandomString();
+        this.labelElementId = createRandomString();
     }
 
     public connectedCallback() {
@@ -351,7 +353,13 @@ export class InputField {
 
     public render() {
         const properties = this.getAdditionalProps();
-        properties['aria-labelledby'] = this.labelId;
+        properties.id = this.inputId;
+        if (this.label) {
+            properties['aria-labelledby'] = this.labelElementId;
+        } else if (this.placeholder) {
+            properties['aria-label'] = this.placeholder;
+        }
+
         properties.class = 'mdc-text-field__input';
         properties.ref = this.setInputElement;
         properties.onInput = this.handleInput;
@@ -384,7 +392,8 @@ export class InputField {
         return (
             <Host>
                 <limel-notched-outline
-                    labelId={this.labelId}
+                    labelId={this.inputId}
+                    labelElementId={this.labelElementId}
                     label={this.label}
                     required={this.required}
                     invalid={this.invalid || this.isInvalid()}

@@ -699,6 +699,7 @@ export namespace Components {
         "hasValue": boolean;
         "invalid": boolean;
         "label"?: string;
+        "labelElementId"?: string;
         "labelId"?: string;
         "readonly": boolean;
         "required": boolean;
@@ -3117,6 +3118,7 @@ export namespace JSX {
         "hasValue"?: boolean;
         "invalid"?: boolean;
         "label"?: string;
+        "labelElementId"?: string;
         "labelId"?: string;
         "readonly"?: boolean;
         "required"?: boolean;
@@ -3136,6 +3138,8 @@ export namespace JSX {
         "invalid": boolean;
         // (undocumented)
         "label": string;
+        // (undocumented)
+        "labelElementId": string;
         // (undocumented)
         "labelId": string;
         // (undocumented)
