@@ -1,4 +1,5 @@
 import { render, h } from '@stencil/vitest';
+import { getAccessibleNodes } from '../../util/test/accessibility-tree';
 
 describe('limel-checkbox (events)', () => {
     async function setup(props: Record<string, any> = {}) {
@@ -51,5 +52,21 @@ describe('limel-checkbox (events)', () => {
         // invalid state applied to wrapper div
         const wrapper = root.shadowRoot?.querySelector('.checkbox');
         expect(wrapper?.classList.contains('invalid')).toBe(true);
+    });
+});
+
+describe('limel-checkbox accessible description', () => {
+    it('is the helper text', async () => {
+        const { waitForChanges } = await render(
+            <limel-checkbox
+                label="Accept the terms"
+                helperText="Needed to continue"
+            />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNodes('checkbox')).toEqual([
+            { name: 'Accept the terms', description: 'Needed to continue' },
+        ]);
     });
 });
