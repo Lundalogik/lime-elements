@@ -109,7 +109,7 @@ jobs:
     - uses: ./.github/actions/install-dependencies
     - run: npm run build
     - name: Semantic Release
-      uses: cycjimmy/semantic-release-action@1989a0fefc4aea321e07f717680ed8e345925dc1 # v7.1.2
+      uses: cycjimmy/semantic-release-action@9e1f8a3ef91f1097285028e799a5fb8bb90e8899 # v8.1.0
       id: semantic # Need an `id` for output variables
       with:
         semantic_version: 25.0.2
