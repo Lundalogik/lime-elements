@@ -11,9 +11,6 @@ input field.
 We created this to keep the visual styles the same everywhere
 and to avoid importing styles separately.
 
-Also this enables us to open the helper line in limel-portal,
-more easily without having to send the styles to the portal.
-
 :::note
 The component has `shadow: false`, so that the helper text is part of the
 DOM of the consumer. This way, the `id` of the helper text can be used in
