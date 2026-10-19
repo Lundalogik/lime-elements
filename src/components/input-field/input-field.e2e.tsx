@@ -1,4 +1,5 @@
 import { render, h } from '@stencil/vitest';
+import { getAccessibleNames } from '../../util/test/accessibility-tree';
 
 describe('limel-input-field', () => {
     const types = [
@@ -218,4 +219,85 @@ describe('limel-input-field', () => {
             });
         });
     }
+});
+
+describe('limel-input-field accessible name', () => {
+    it('is the label of a text field', async () => {
+        const { waitForChanges } = await render(
+            <limel-input-field label="Full name" />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('textbox')).toEqual(['Full name']);
+    });
+
+    it('is the label of a textarea', async () => {
+        const { waitForChanges } = await render(
+            <limel-input-field type="textarea" label="Notes" />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('textbox')).toEqual(['Notes']);
+    });
+
+    it('is the label of a search field', async () => {
+        const { waitForChanges } = await render(
+            <limel-input-field type="search" label="Find a person" />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('searchbox')).toEqual([
+            'Find a person',
+        ]);
+    });
+
+    it('is the label, not the value and suffix of a number field', async () => {
+        const { waitForChanges } = await render(
+            <limel-input-field
+                type="number"
+                label="Weight"
+                suffix="kg"
+                value="70"
+            />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('spinbutton')).toEqual(['Weight']);
+    });
+
+    it('is the label, not the prefix, of a text field', async () => {
+        const { waitForChanges } = await render(
+            <limel-input-field label="Price" prefix="$" value="12" />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('textbox')).toEqual(['Price']);
+    });
+
+    it('is the label, and not the placeholder, when there are both', async () => {
+        const { waitForChanges } = await render(
+            <limel-input-field label="Full name" placeholder="Jane Doe" />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('textbox')).toEqual(['Full name']);
+    });
+
+    it('is the placeholder when there is no label', async () => {
+        const { waitForChanges } = await render(
+            <limel-input-field placeholder="Search" leadingIcon="search" />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('textbox')).toEqual(['Search']);
+    });
+
+    it('is the label of the field inside a date picker', async () => {
+        const { waitForChanges } = await render(
+            <limel-date-picker label="Birthday" />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('textbox')).toEqual(['Birthday']);
+    });
 });
