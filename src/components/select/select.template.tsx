@@ -4,6 +4,10 @@ import { FunctionalComponent, h, VNode } from '@stencil/core';
 import { isMultiple } from '../../util/multiple';
 import { renderListComponent } from '../../util/render-list-component';
 import { getIconColor, getIconName } from '../icon/get-icon-props';
+const TRIGGER_ID = 's-trigger';
+const LABEL_ID = 's-label';
+const SELECTED_TEXT_ID = 's-selected-text';
+
 interface SelectTemplateProps {
     disabled?: boolean;
     readonly?: boolean;
@@ -72,7 +76,8 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
         <div class={fieldClassList}>
             <limel-notched-outline
                 class={classList}
-                labelId="s-label"
+                labelId={TRIGGER_ID}
+                labelElementId={LABEL_ID}
                 label={props.label}
                 required={props.required}
                 invalid={!isValid}
@@ -125,6 +130,7 @@ const SelectValue: FunctionalComponent<
 
     return (
         <button
+            id={TRIGGER_ID}
             slot="content"
             class={anchorClassList}
             onClick={props.open}
@@ -132,7 +138,11 @@ const SelectValue: FunctionalComponent<
             aria-haspopup="listbox"
             aria-expanded={props.isOpen}
             aria-controls={props.id}
-            aria-labelledby="s-label s-selected-text"
+            aria-labelledby={
+                props.label
+                    ? `${LABEL_ID} ${SELECTED_TEXT_ID}`
+                    : SELECTED_TEXT_ID
+            }
             aria-required={props.required}
             disabled={props.disabled || props.readonly}
         >
@@ -140,7 +150,7 @@ const SelectValue: FunctionalComponent<
                 {getSelectedIcon(props.value)}
                 {getSelectedPrimaryComponent(props.value)}
                 <span
-                    id="s-selected-text"
+                    id={SELECTED_TEXT_ID}
                     class="mdc-select__selected-text limel-select__selected-option__text"
                 >
                     {getSelectedText(props.value)}
@@ -242,6 +252,7 @@ const NativeDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
     return (
         <select
             required={props.required}
+            aria-labelledby={props.label ? LABEL_ID : undefined}
             aria-disabled={props.disabled}
             aria-required={props.required}
             onChange={props.onNativeChange}
