@@ -5,7 +5,9 @@ import { Component, h, State } from '@stencil/core';
  *
  * Set `fullScreen` when the screen is too narrow for the panel to be displayed
  * on top of the page. The panel then covers the full width of the positioned
- * ancestor. It cannot be resized, and the backs of the stack are not shown.
+ * ancestor. The top and bottom insets are kept. The panel cannot be resized,
+ * and the backs of the stack are not shown. The header still shows the last
+ * entry of `stack`.
  *
  * The panel does not decide this itself. The consumer sets `fullScreen`, for
  * example from a media query.

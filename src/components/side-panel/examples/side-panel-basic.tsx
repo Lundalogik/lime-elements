@@ -6,6 +6,11 @@ import { Component, h, State } from '@stencil/core';
  * The panel is positioned relative to its nearest positioned ancestor, which
  * has `position: relative` in this example.
  *
+ * The panel is a dialog that does not block the rest of the page. Set `label`
+ * to give it an accessible name, which screen readers announce. When the panel
+ * opens, focus moves into it. When the panel is removed, focus returns to the
+ * element that had it before, unless focus is somewhere else by then.
+ *
  * The panel emits `close` when the close button is clicked or Escape is
  * pressed. The panel does not remove itself. In this example, the page removes
  * it when it gets the event.

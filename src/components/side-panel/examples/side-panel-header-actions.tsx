@@ -17,11 +17,17 @@ const MENU_ITEMS: MenuItem[] = [
  * Header actions
  *
  * Controls in the `header-actions` slot are shown at the right end of the
- * header. In this example, they are a follow button and a menu.
+ * header. In this example, they are a follow button and a menu. When `stack`
+ * is empty, there is no header, and the slot content is not shown.
+ *
+ * The slot is for small controls. It is at most half as wide as the header,
+ * and at most as tall as the heading and subheading together. Larger content
+ * is cut off, so that the header keeps its size.
  *
  * The slot content keeps its own colors. Here it uses
  * `--side-panel-header-text-color`, which is white when the header has a
- * `color`. Turn off the color of the header to see the difference.
+ * `color`. It can also be used as the `color` of an `Icon`. Turn off the
+ * color of the header to see the difference.
  *
  * The slot content is not tied to the entries in `stack`. When the last entry
  * changes, change the slot content too.
