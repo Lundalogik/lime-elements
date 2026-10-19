@@ -1,3 +1,10 @@
+## [40.11.0](https://github.com/Lundalogik/lime-elements/compare/v40.10.1...v40.11.0) (2026-10-19)
+
+### Features
+
+
+* **side-panel:** add a header band, toolbar actions and a header-actions slot ([b4816ea](https://github.com/Lundalogik/lime-elements/commit/b4816ea9536468b37b9e4d5b92a6bc2d10c97af1))
+
 ## [40.10.1](https://github.com/Lundalogik/lime-elements/compare/v40.10.0...v40.10.1) (2026-10-16)
 
 ### Bug Fixes
