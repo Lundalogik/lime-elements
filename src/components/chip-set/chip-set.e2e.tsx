@@ -1,4 +1,5 @@
 import { render, h } from '@stencil/vitest';
+import { getAccessibleNodes } from '../../util/test/accessibility-tree';
 
 describe('limel-chip-set', () => {
     describe('basic chip set', () => {
@@ -379,5 +380,40 @@ describe('limel-chip-set', () => {
                 expect(input.value).toEqual('pending');
             });
         });
+    });
+});
+
+describe('limel-chip-set accessible description', () => {
+    it('of an input chip set is the helper text', async () => {
+        const { waitForChanges } = await render(
+            <limel-chip-set
+                type="input"
+                label="Tags"
+                helperText="Press enter to add a tag"
+                value={[]}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNodes('textbox')).toEqual([
+            { name: 'Tags', description: 'Press enter to add a tag' },
+        ]);
+    });
+
+    it('of a filter chip set is the helper text', async () => {
+        const { waitForChanges } = await render(
+            <limel-chip-set
+                type="filter"
+                label="Fruit"
+                helperText="Pick the ones you like"
+                value={[{ id: '1', text: 'Lime' }]}
+            />
+        );
+        await waitForChanges();
+
+        const grids = await getAccessibleNodes('grid');
+        expect(grids.map((grid) => grid.description)).toEqual([
+            'Pick the ones you like',
+        ]);
     });
 });
