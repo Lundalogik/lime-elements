@@ -2,6 +2,7 @@ import { render, h } from '@stencil/vitest';
 import {
     getAccessibleNames,
     getAccessibleNodes,
+    getInvalidStates,
 } from '../../util/test/accessibility-tree';
 
 describe('limel-input-field', () => {
@@ -375,5 +376,39 @@ describe('limel-input-field aria-controls', () => {
         const input = root.shadowRoot.querySelector('input');
         const portal = root.shadowRoot.querySelector('limel-portal');
         expect(input.getAttribute('aria-controls')).toBe(portal.containerId);
+    });
+});
+
+describe('limel-input-field invalid state', () => {
+    it('is not announced as invalid by default', async () => {
+        const { waitForChanges } = await render(
+            <limel-input-field label="Full name" />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('textbox')).toEqual([false]);
+    });
+
+    it('is announced when the invalid property is set', async () => {
+        const { waitForChanges } = await render(
+            <limel-input-field label="Full name" invalid />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('textbox')).toEqual([true]);
+    });
+
+    it('is announced when the value does not pass validation', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-input-field label="Email" type="email" value="not-valid" />
+        );
+        await waitForChanges();
+
+        const input = root.shadowRoot.querySelector('input');
+        input.dispatchEvent(new Event('blur'));
+        await waitForChanges();
+
+        expect(input.getAttribute('aria-invalid')).toBe('true');
+        expect(await getInvalidStates('textbox')).toEqual([true]);
     });
 });
