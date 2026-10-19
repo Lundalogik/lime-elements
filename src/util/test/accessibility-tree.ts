@@ -5,6 +5,25 @@ export interface AccessibleNode {
     description: string;
 }
 
+async function getNodesWithRole(role: string) {
+    const session = cdp();
+    await session.send('Accessibility.enable');
+    const { frameTree } = await session.send('Page.getFrameTree');
+    const childFrame = frameTree.childFrames?.[0];
+    if (!childFrame) {
+        throw new Error(
+            'No child frame found. Render the component before reading the accessibility tree.'
+        );
+    }
+
+    const frameId = childFrame.frame.id;
+    const { nodes } = await session.send('Accessibility.getFullAXTree', {
+        frameId,
+    });
+
+    return nodes.filter((node) => !node.ignored && node.role?.value === role);
+}
+
 /**
  * Get the nodes with a given role from the accessibility tree of the page that
  * an end-to-end test renders into. This is what assistive technology is
@@ -17,27 +36,12 @@ export interface AccessibleNode {
 export async function getAccessibleNodes(
     role: string
 ): Promise<AccessibleNode[]> {
-    const session = cdp();
-    await session.send('Accessibility.enable');
-    const { frameTree } = await session.send('Page.getFrameTree');
-    const childFrame = frameTree.childFrames?.[0];
-    if (!childFrame) {
-        throw new Error(
-            'getAccessibleNodes: no child frame found. Render the component before calling this helper.'
-        );
-    }
+    const nodes = await getNodesWithRole(role);
 
-    const frameId = childFrame.frame.id;
-    const { nodes } = await session.send('Accessibility.getFullAXTree', {
-        frameId,
-    });
-
-    return nodes
-        .filter((node) => !node.ignored && node.role?.value === role)
-        .map((node) => ({
-            name: String(node.name?.value ?? ''),
-            description: String(node.description?.value ?? ''),
-        }));
+    return nodes.map((node) => ({
+        name: String(node.name?.value ?? ''),
+        description: String(node.description?.value ?? ''),
+    }));
 }
 
 /**
@@ -50,4 +54,23 @@ export async function getAccessibleNames(role: string): Promise<string[]> {
     const nodes = await getAccessibleNodes(role);
 
     return nodes.map((node) => node.name);
+}
+
+/**
+ * Get whether the nodes with a given role are announced as invalid, in the
+ * same way as `getAccessibleNodes`.
+ *
+ * @param role - the role of the nodes to get, for example `textbox`
+ */
+export async function getInvalidStates(role: string): Promise<boolean[]> {
+    const nodes = await getNodesWithRole(role);
+
+    return nodes.map(
+        (node) =>
+            node.properties?.some(
+                (property) =>
+                    property.name === 'invalid' &&
+                    property.value?.value === 'true'
+            ) ?? false
+    );
 }

@@ -374,6 +374,10 @@ export class InputField {
             properties['aria-describedby'] = this.helperTextId;
         }
 
+        if (this.isInvalid()) {
+            properties['aria-invalid'] = 'true';
+        }
+
         if (this.renderAutocompleteList()) {
             properties['aria-controls'] = this.portalId;
         }
