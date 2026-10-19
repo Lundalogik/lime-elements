@@ -166,7 +166,7 @@ export class Slider {
     @State()
     private isUnset: boolean;
 
-    private labelId: string;
+    private inputId: string;
     private helperTextId: string;
     private readonly clearButtonId: string;
     private inputElement?: HTMLInputElement;
@@ -187,7 +187,7 @@ export class Slider {
     private valueIsCommitted = false;
 
     public constructor() {
-        this.labelId = createRandomString();
+        this.inputId = createRandomString();
         this.helperTextId = createRandomString();
         this.clearButtonId = createRandomString();
     }
@@ -213,7 +213,7 @@ export class Slider {
         return (
             <Host class={this.getContainerClassList()}>
                 <limel-notched-outline
-                    labelId={this.labelId}
+                    labelId={this.inputId}
                     label={this.label}
                     required={this.required}
                     invalid={this.invalid}
@@ -228,11 +228,11 @@ export class Slider {
                             style={{ '--slider-fraction': `${fraction}` }}
                         >
                             <input
+                                id={this.inputId}
                                 type="range"
                                 min={min}
                                 max={max}
                                 value={this.displayValue}
-                                aria-labelledby={this.labelId}
                                 aria-describedby={
                                     this.helperText
                                         ? this.helperTextId
