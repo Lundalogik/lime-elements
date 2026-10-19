@@ -45,7 +45,10 @@ export class ColorPicker implements FormComponent {
     public label: string;
 
     /**
-     * Helper text of the input field
+     * Optional helper text to display below the input field when it has focus.
+     * Screen readers read it as the description of the field, so use it for
+     * what the user needs to know, such as the format of the value or a
+     * requirement.
      */
     @Prop({ reflect: true })
     public helperText: string;
@@ -87,8 +90,12 @@ export class ColorPicker implements FormComponent {
     public invalid = false;
 
     /**
-     * The placeholder text shown inside the input field,
-     * when the field is focused and empty.
+     * A hint about what to type, such as an example or the format of the
+     * value. It is shown inside the field when the field is focused and empty.
+     *
+     * Do not use it instead of a `label`, and do not put anything in it that
+     * the user needs to know. It disappears when the user starts to type, and
+     * some screen readers do not read it. Use `helperText` for that.
      */
     @Prop({ reflect: true })
     public placeholder: string;
