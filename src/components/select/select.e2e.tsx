@@ -1,6 +1,9 @@
 import { render, h } from '@stencil/vitest';
 import { Option } from './option.types';
-import { getAccessibleNames } from '../../util/test/accessibility-tree';
+import {
+    getAccessibleNames,
+    getAccessibleNodes,
+} from '../../util/test/accessibility-tree';
 
 async function openSelect(root: any, waitForChanges: () => Promise<void>) {
     const nativeSelect = root.shadowRoot.querySelector('select');
@@ -874,5 +877,45 @@ describe('limel-select accessible name', () => {
         await waitForChanges();
 
         expect(await getAccessibleNames('combobox')).toEqual(['Country']);
+    });
+});
+
+describe('limel-select accessible description', () => {
+    const options: Option[] = [
+        { text: 'One', value: 'one' },
+        { text: 'Two', value: 'two' },
+    ];
+
+    it('of the trigger is the helper text', async () => {
+        const { waitForChanges } = await render(
+            <limel-select
+                label="Country"
+                helperText="Where you live"
+                options={options}
+                value={options[0]}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNodes('button')).toEqual([
+            { name: 'Country One', description: 'Where you live' },
+        ]);
+    });
+
+    it('of the native select is the helper text', async () => {
+        const { waitForChanges } = await render(
+            <limel-select
+                data-native
+                label="Country"
+                helperText="Where you live"
+                options={options}
+                value={options[0]}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNodes('combobox')).toEqual([
+            { name: 'Country', description: 'Where you live' },
+        ]);
     });
 });
