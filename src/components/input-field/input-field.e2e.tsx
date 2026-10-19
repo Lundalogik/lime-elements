@@ -347,3 +347,33 @@ describe('limel-input-field accessible description', () => {
         ]);
     });
 });
+
+describe('limel-input-field aria-controls', () => {
+    it('does not point at the helper text', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-input-field
+                label="Full name"
+                helperText="As on your passport"
+            />
+        );
+        await waitForChanges();
+
+        const input = root.shadowRoot.querySelector('input');
+        expect(input.hasAttribute('aria-controls')).toBe(false);
+    });
+
+    it('points at the list of completions', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-input-field
+                label="Fruit"
+                helperText="Pick one"
+                completions={['Apple', 'Banana']}
+            />
+        );
+        await waitForChanges();
+
+        const input = root.shadowRoot.querySelector('input');
+        const portal = root.shadowRoot.querySelector('limel-portal');
+        expect(input.getAttribute('aria-controls')).toBe(portal.containerId);
+    });
+});

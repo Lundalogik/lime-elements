@@ -370,23 +370,12 @@ export class InputField {
         properties.readonly = this.readonly;
         properties.disabled = this.disabled || this.readonly;
 
-        let ariaControls = '';
-
         if (this.hasHelperText()) {
-            ariaControls += this.helperTextId;
             properties['aria-describedby'] = this.helperTextId;
         }
 
         if (this.renderAutocompleteList()) {
-            if (ariaControls) {
-                ariaControls += ' ';
-            }
-
-            ariaControls += this.portalId;
-        }
-
-        if (ariaControls) {
-            properties['aria-controls'] = ariaControls;
+            properties['aria-controls'] = this.portalId;
         }
 
         return (
