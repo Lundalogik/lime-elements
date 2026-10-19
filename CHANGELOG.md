@@ -1,3 +1,12 @@
+## [40.11.2](https://github.com/Lundalogik/lime-elements/compare/v40.11.1...v40.11.2) (2026-10-19)
+
+### Bug Fixes
+
+
+* **input-field:** name the input by its label ([269d03b](https://github.com/Lundalogik/lime-elements/commit/269d03b235bd87f5c53ed32931f4f6e723847a3d))
+* **select:** name the trigger by its label and the selected option ([3396479](https://github.com/Lundalogik/lime-elements/commit/339647963418da4bdc892faff6c66aa6761c559e)), closes [#4398](https://github.com/Lundalogik/lime-elements/issues/4398)
+* **slider:** name the range input by its label ([8218463](https://github.com/Lundalogik/lime-elements/commit/8218463882c1bd1fed6c974f4672d8fb9b284e22))
+
 ## [40.11.1](https://github.com/Lundalogik/lime-elements/compare/v40.11.0...v40.11.1) (2026-10-19)
 
 ### Bug Fixes
