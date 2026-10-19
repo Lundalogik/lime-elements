@@ -70,3 +70,18 @@ describe('limel-checkbox accessible description', () => {
         ]);
     });
 });
+
+describe('limel-checkbox aria-controls', () => {
+    it('does not point at the helper text', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-checkbox
+                label="Accept the terms"
+                helperText="Needed to continue"
+            />
+        );
+        await waitForChanges();
+
+        const input = root.shadowRoot.querySelector('input');
+        expect(input.hasAttribute('aria-controls')).toBe(false);
+    });
+});
