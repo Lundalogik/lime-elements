@@ -1,3 +1,11 @@
+## [40.11.1](https://github.com/Lundalogik/lime-elements/compare/v40.11.0...v40.11.1) (2026-10-19)
+
+### Bug Fixes
+
+
+* **button:** give an icon with a title the img role ([d59ca4d](https://github.com/Lundalogik/lime-elements/commit/d59ca4d017449ebd9f24cc3acd6da3faa814f02e))
+* **icon:** make an icon with a name an image, and hide one without ([595dbbb](https://github.com/Lundalogik/lime-elements/commit/595dbbbf6f231097a3c12952a23d64bdf87f910c)), closes [#4396](https://github.com/Lundalogik/lime-elements/issues/4396)
+
 ## [40.11.0](https://github.com/Lundalogik/lime-elements/compare/v40.10.1...v40.11.0) (2026-10-19)
 
 ### Features
