@@ -23,17 +23,17 @@ describe('limel-helper-line', () => {
         });
 
         it('displays the correct helper text', () => {
-            const helperText = root.shadowRoot.querySelector('.helper-text');
+            const helperText = root.querySelector('.helper-text');
             expect(helperText.textContent).toEqual('Help');
         });
 
         it('displays correct counter', () => {
-            const counter = root.shadowRoot.querySelector('.counter');
+            const counter = root.querySelector('.counter');
             expect(counter.textContent).toEqual('10 / 20');
         });
 
         it('the component gets the correct id', () => {
-            const helperText = root.shadowRoot.querySelector('.helper-text');
+            const helperText = root.querySelector('.helper-text');
             expect(helperText.getAttribute('id')).toEqual('Identify');
         });
 
@@ -48,7 +48,7 @@ describe('limel-helper-line', () => {
             });
 
             it('displays the new counter', () => {
-                const counter = root.shadowRoot.querySelector('.counter');
+                const counter = root.querySelector('.counter');
                 expect(counter.textContent).toEqual('12 / 20');
             });
         });

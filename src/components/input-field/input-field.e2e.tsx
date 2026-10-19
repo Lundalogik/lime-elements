@@ -1,5 +1,8 @@
 import { render, h } from '@stencil/vitest';
-import { getAccessibleNames } from '../../util/test/accessibility-tree';
+import {
+    getAccessibleNames,
+    getAccessibleNodes,
+} from '../../util/test/accessibility-tree';
 
 describe('limel-input-field', () => {
     const types = [
@@ -299,5 +302,48 @@ describe('limel-input-field accessible name', () => {
         await waitForChanges();
 
         expect(await getAccessibleNames('textbox')).toEqual(['Birthday']);
+    });
+});
+
+describe('limel-input-field accessible description', () => {
+    it('is the helper text', async () => {
+        const { waitForChanges } = await render(
+            <limel-input-field
+                label="Full name"
+                helperText="As on your passport"
+            />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNodes('textbox')).toEqual([
+            { name: 'Full name', description: 'As on your passport' },
+        ]);
+    });
+
+    it('is empty when there is no helper text', async () => {
+        const { waitForChanges } = await render(
+            <limel-input-field label="Full name" />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNodes('textbox')).toEqual([
+            { name: 'Full name', description: '' },
+        ]);
+    });
+
+    it('is the validation message when the value is not valid', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-input-field label="Email" type="email" value="not-valid" />
+        );
+        await waitForChanges();
+
+        const input = root.shadowRoot.querySelector('input');
+        input.dispatchEvent(new Event('blur'));
+        await waitForChanges();
+
+        expect(input.validationMessage).not.toBe('');
+        expect(await getAccessibleNodes('textbox')).toEqual([
+            { name: 'Email', description: input.validationMessage },
+        ]);
     });
 });

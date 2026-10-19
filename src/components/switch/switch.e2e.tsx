@@ -1,4 +1,5 @@
 import { render, h } from '@stencil/vitest';
+import { getAccessibleNodes } from '../../util/test/accessibility-tree';
 
 describe('limel-switch', () => {
     describe('with a label', () => {
@@ -124,5 +125,18 @@ describe('limel-switch', () => {
             const switchEl = root.shadowRoot.querySelector('button');
             expect(switchEl.hasAttribute('disabled')).toBe(false);
         });
+    });
+});
+
+describe('limel-switch accessible description', () => {
+    it('is the helper text', async () => {
+        const { waitForChanges } = await render(
+            <limel-switch label="Active" helperText="Visible to everyone" />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNodes('switch')).toEqual([
+            { name: 'Active', description: 'Visible to everyone' },
+        ]);
     });
 });

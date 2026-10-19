@@ -1,5 +1,8 @@
 import { render, h } from '@stencil/vitest';
-import { getAccessibleNames } from '../../util/test/accessibility-tree';
+import {
+    getAccessibleNames,
+    getAccessibleNodes,
+} from '../../util/test/accessibility-tree';
 
 describe('limel-slider', () => {
     describe('accessible name', () => {
@@ -24,5 +27,22 @@ describe('limel-slider', () => {
 
             expect(await getAccessibleNames('slider')).toEqual(['Volume']);
         });
+    });
+});
+
+describe('limel-slider accessible description', () => {
+    it('is the helper text', async () => {
+        const { waitForChanges } = await render(
+            <limel-slider
+                label="Volume"
+                helperText="Between 0 and 100"
+                value={30}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNodes('slider')).toEqual([
+            { name: 'Volume', description: 'Between 0 and 100' },
+        ]);
     });
 });
