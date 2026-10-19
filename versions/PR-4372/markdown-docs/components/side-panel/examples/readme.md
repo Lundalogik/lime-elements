@@ -32,10 +32,12 @@ graph TD;
   limel-button --> limel-spinner
   limel-side-panel --> limel-icon
   limel-side-panel --> limel-tooltip
+  limel-side-panel --> limel-header
   limel-side-panel --> limel-resize-handle
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-tooltip-content --> limel-hotkey
+  limel-header --> limel-icon
   style limel-example-side-panel-stacking fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

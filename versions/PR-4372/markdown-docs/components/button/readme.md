@@ -106,6 +106,7 @@ primary and secondary actions, see our
  - [limel-example-select-dialog](../select/examples)
  - [limel-example-side-panel-actions](../side-panel/examples)
  - [limel-example-side-panel-basic](../side-panel/examples)
+ - [limel-example-side-panel-escape](../side-panel/examples)
  - [limel-example-side-panel-header-actions](../side-panel/examples)
  - [limel-example-side-panel-insets](../side-panel/examples)
  - [limel-example-side-panel-stacking](../side-panel/examples)
@@ -125,6 +126,7 @@ primary and secondary actions, see our
  - [limel-example-tooltip-composite](../tooltip/examples)
  - [limel-example-tooltip-declutter](../../design-guidelines/declutter/examples)
  - [limel-example-tooltip-hotkey](../tooltip/examples)
+ - [limel-example-tooltip-max-character](../tooltip/examples)
  - [limel-pagination-jump](../pagination/jump)
  - [limel-snackbar](../snackbar)
  - [limel-split-button](../split-button)
@@ -212,6 +214,7 @@ graph TD;
   limel-example-select-dialog --> limel-button
   limel-example-side-panel-actions --> limel-button
   limel-example-side-panel-basic --> limel-button
+  limel-example-side-panel-escape --> limel-button
   limel-example-side-panel-header-actions --> limel-button
   limel-example-side-panel-insets --> limel-button
   limel-example-side-panel-stacking --> limel-button
@@ -231,6 +234,7 @@ graph TD;
   limel-example-tooltip-composite --> limel-button
   limel-example-tooltip-declutter --> limel-button
   limel-example-tooltip-hotkey --> limel-button
+  limel-example-tooltip-max-character --> limel-button
   limel-pagination-jump --> limel-button
   limel-snackbar --> limel-button
   limel-split-button --> limel-button
