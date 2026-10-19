@@ -32,7 +32,6 @@
  - [limel-example-menu-hotkeys](../menu/examples)
  - [limel-example-menu-notification](../menu/examples)
  - [limel-example-tooltip-accessibility](../tooltip/examples)
- - [limel-example-tooltip-max-character](../tooltip/examples)
  - [limel-list-item](../list-item)
  - [limel-profile-picture](../profile-picture)
  - [limel-snackbar](../snackbar)
@@ -65,7 +64,6 @@ graph TD;
   limel-example-menu-hotkeys --> limel-icon-button
   limel-example-menu-notification --> limel-icon-button
   limel-example-tooltip-accessibility --> limel-icon-button
-  limel-example-tooltip-max-character --> limel-icon-button
   limel-list-item --> limel-icon-button
   limel-profile-picture --> limel-icon-button
   limel-snackbar --> limel-icon-button

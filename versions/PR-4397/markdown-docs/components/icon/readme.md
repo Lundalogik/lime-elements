@@ -12,10 +12,10 @@ The size and color of the icon is normally set in CSS, however there are a few
 standard sizes defined that can be used with the `size` property.
 
 ## Accessibility
-An icon with an `aria-label` or an `aria-labelledby` is an image for assistive
-technology, and the label is its name. An icon with neither is decorative,
-and is hidden from assistive technology. To change that, set `role` or
-`aria-hidden` on the icon yourself.
+An icon with an `aria-label`, an `aria-labelledby` or a `title` is an image
+for assistive technology, and that is its name. An icon with none of them is
+decorative, and is hidden from assistive technology. To change that, set
+`role` or `aria-hidden` on the icon yourself.
 
 ## Properties
 
