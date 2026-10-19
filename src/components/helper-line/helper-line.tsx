@@ -59,7 +59,7 @@ export class HelperLine {
     public invalid?: boolean = false;
 
     /**
-     * Used by `aria-controls` and `aria-describedby` in the parent component.
+     * Used by `aria-describedby` in the parent component.
      */
     @Prop({ reflect: true })
     public helperTextId?: string;
