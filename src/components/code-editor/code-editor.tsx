@@ -494,12 +494,11 @@ export class CodeEditor {
 
         inputField.id = this.labelId;
 
+        // eslint-disable-next-line unicorn/prefer-toggle-attribute -- the value is the id of the helper text
         if (this.helperText) {
             inputField.setAttribute('aria-describedby', this.helperTextId);
-            inputField.setAttribute('aria-controls', this.helperTextId);
         } else {
             inputField.removeAttribute('aria-describedby');
-            inputField.removeAttribute('aria-controls');
         }
 
         // eslint-disable-next-line unicorn/prefer-toggle-attribute -- ARIA needs the value "true"; an empty value means false
