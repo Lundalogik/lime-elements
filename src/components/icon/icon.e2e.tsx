@@ -1,5 +1,5 @@
 import { render, h } from '@stencil/vitest';
-import { cdp } from 'vitest/browser';
+import { getAccessibleNames } from '../../util/test/accessibility-tree';
 
 const SVG =
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><g><path d="M0 0h10v10z"/></g></svg>';
@@ -18,20 +18,6 @@ async function renderWithSvg(vnode: any) {
     }
 
     return result;
-}
-
-async function getAccessibleNodes(role: string): Promise<string[]> {
-    const session = cdp();
-    await session.send('Accessibility.enable');
-    const { frameTree } = await session.send('Page.getFrameTree');
-    const frameId = frameTree.childFrames![0].frame.id;
-    const { nodes } = await session.send('Accessibility.getFullAXTree', {
-        frameId,
-    });
-
-    return nodes
-        .filter((node) => !node.ignored && node.role?.value === role)
-        .map((node) => String(node.name?.value ?? ''));
 }
 
 describe('limel-icon', () => {
@@ -68,7 +54,7 @@ describe('limel-icon', () => {
 
     describe('accessibility', () => {
         async function getNames(role: string) {
-            const names = await getAccessibleNodes(role);
+            const names = await getAccessibleNames(role);
 
             return names.filter(Boolean);
         }
@@ -99,13 +85,13 @@ describe('limel-icon', () => {
         it('is hidden when it has no name', async () => {
             await renderWithSvg(<limel-icon name="x" />);
 
-            expect(await getAccessibleNodes('image')).toEqual([]);
+            expect(await getAccessibleNames('image')).toEqual([]);
         });
 
         it('is hidden when its aria-label is blank', async () => {
             await renderWithSvg(<limel-icon name="x" aria-label="  " />);
 
-            expect(await getAccessibleNodes('image')).toEqual([]);
+            expect(await getAccessibleNames('image')).toEqual([]);
         });
 
         it('becomes an image when an aria-label is added, and is hidden again when it is removed', async () => {
@@ -118,7 +104,7 @@ describe('limel-icon', () => {
 
             root.removeAttribute('aria-label');
             await vi.waitFor(async () => {
-                expect(await getAccessibleNodes('image')).toEqual([]);
+                expect(await getAccessibleNames('image')).toEqual([]);
             });
         });
 
@@ -132,7 +118,7 @@ describe('limel-icon', () => {
 
             root.removeAttribute('title');
             await vi.waitFor(async () => {
-                expect(await getAccessibleNodes('image')).toEqual([]);
+                expect(await getAccessibleNames('image')).toEqual([]);
             });
         });
 
@@ -157,7 +143,7 @@ describe('limel-icon', () => {
         it('is not hidden when the consumer sets a role and there is no name', async () => {
             await renderWithSvg(<limel-icon name="x" role="img" />);
 
-            expect(await getAccessibleNodes('image')).not.toEqual([]);
+            expect(await getAccessibleNames('image')).not.toEqual([]);
         });
 
         it('is hidden again when the role of an icon without a name is removed', async () => {
@@ -167,7 +153,7 @@ describe('limel-icon', () => {
 
             root.removeAttribute('role');
             await vi.waitFor(async () => {
-                expect(await getAccessibleNodes('image')).toEqual([]);
+                expect(await getAccessibleNames('image')).toEqual([]);
             });
         });
 
@@ -176,7 +162,7 @@ describe('limel-icon', () => {
                 <limel-icon name="x" aria-label="Search" aria-hidden="true" />
             );
 
-            expect(await getAccessibleNodes('image')).toEqual([]);
+            expect(await getAccessibleNames('image')).toEqual([]);
         });
 
         it('still renders in a browser without attachInternals', async () => {
