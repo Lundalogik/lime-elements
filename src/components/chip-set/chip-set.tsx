@@ -273,9 +273,11 @@ export class ChipSet {
     private mdcTextField: MDCTextField;
     private readonly handleKeyDown = handleKeyboardEvent;
     private labelId: string;
+    private helperTextId: string;
 
     constructor() {
         this.labelId = createRandomString();
+        this.helperTextId = createRandomString();
         this.renderChip = this.renderChip.bind(this);
         this.renderInputChip = this.renderInputChip.bind(this);
         this.isFull = this.isFull.bind(this);
@@ -427,7 +429,12 @@ export class ChipSet {
 
         return {
             role: 'grid',
+            'aria-describedby': this.getDescribedBy(),
         };
+    }
+
+    private getDescribedBy() {
+        return this.helperText ? this.helperTextId : undefined;
     }
 
     private renderContent = (value: Chip[]) => {
@@ -466,6 +473,7 @@ export class ChipSet {
                 tabIndex={this.disabled || this.readonly ? -1 : 0}
                 type={this.inputType}
                 id={this.labelId}
+                aria-describedby={this.getDescribedBy()}
                 disabled={this.readonly || this.disabled}
                 class={{
                     'mdc-text-field__input': true,
@@ -623,6 +631,7 @@ export class ChipSet {
                 length={this.value.length}
                 maxLength={maxItems}
                 helperText={this.helperText}
+                helperTextId={this.helperTextId}
                 invalid={this.isInvalid()}
             />
         );
