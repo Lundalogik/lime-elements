@@ -1,3 +1,10 @@
+## [40.11.3](https://github.com/Lundalogik/lime-elements/compare/v40.11.2...v40.11.3) (2026-10-19)
+
+### Bug Fixes
+
+
+* **util:** return focus to the trigger with the shared focus lookup ([985f596](https://github.com/Lundalogik/lime-elements/commit/985f596b818d91b07c8d33f4fd85c458916acf6f))
+
 ## [40.11.2](https://github.com/Lundalogik/lime-elements/compare/v40.11.1...v40.11.2) (2026-10-19)
 
 ### Bug Fixes
