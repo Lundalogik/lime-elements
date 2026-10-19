@@ -1,1 +1,0 @@
-import{r as s,h as c}from"./index-BU9IJqli.js";const e=class{constructor(c){s(this,c)}render(){return c("limel-icon",{key:"5cb5ecf3d4728c87641a7dcc70d67317b691928a",name:"ok",svgClass:"my-custom-state"})}};export{e as limel_example_icon_svg_class}
