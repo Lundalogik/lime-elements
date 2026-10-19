@@ -7,6 +7,7 @@ import { getIconColor, getIconName } from '../icon/get-icon-props';
 const TRIGGER_ID = 's-trigger';
 const LABEL_ID = 's-label';
 const SELECTED_TEXT_ID = 's-selected-text';
+const HELPER_TEXT_ID = 's-helper-text';
 
 interface SelectTemplateProps {
     disabled?: boolean;
@@ -99,6 +100,10 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
     ];
 };
 
+const getDescribedBy = (props: SelectTemplateProps) => {
+    return props.helperText?.trim() ? HELPER_TEXT_ID : undefined;
+};
+
 const floatLabelAbove = (props: SelectTemplateProps) => {
     if (props.isOpen) {
         return true;
@@ -143,6 +148,7 @@ const SelectValue: FunctionalComponent<
                     ? `${LABEL_ID} ${SELECTED_TEXT_ID}`
                     : SELECTED_TEXT_ID
             }
+            aria-describedby={getDescribedBy(props)}
             aria-required={props.required}
             disabled={props.disabled || props.readonly}
         >
@@ -198,6 +204,7 @@ const HelperText: FunctionalComponent<{ text: string; isValid: boolean }> = (
     return (
         <limel-helper-line
             helperText={props.text.trim()}
+            helperTextId={HELPER_TEXT_ID}
             invalid={!props.isValid}
         />
     );
@@ -253,6 +260,7 @@ const NativeDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
         <select
             required={props.required}
             aria-labelledby={props.label ? LABEL_ID : undefined}
+            aria-describedby={getDescribedBy(props)}
             aria-disabled={props.disabled}
             aria-required={props.required}
             onChange={props.onNativeChange}
