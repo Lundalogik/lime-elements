@@ -28,9 +28,36 @@ const ACTIONS: SidePanelAction[] = [
  * The header shows the last entry of `stack`. The `color` of the entry is the
  * background color of the header.
  *
- * The buttons on the right side of the toolbar come from `actions`. The panel
- * emits `selectAction` when one of them is clicked. The example shows which
- * one was clicked.
+ * The toolbar has a close button on the left. The buttons on the right side
+ * come from `actions`. The `type` of an action decides its icon. The panel
+ * emits `selectAction` with the `id` of the action and the click event when
+ * one of them is clicked. You decide what the action does. The example shows
+ * which one was clicked.
+ *
+ * An action with an `href` is a link, so the user can open it in a new tab.
+ * To handle the navigation in another way, for example with the router of the
+ * application, call `preventDefault` on the click event in `selectAction`. Do
+ * this only for a plain click with the primary button. Let the browser handle
+ * all other clicks, so that Ctrl-click and Cmd-click still open the link in a
+ * new tab:
+ *
+ * ```ts
+ * function handleSelectAction(event: CustomEvent<SidePanelActionSelect>) {
+ *     const click = event.detail.event;
+ *     const isPlainClick =
+ *         click.button === 0 &&
+ *         !click.metaKey &&
+ *         !click.ctrlKey &&
+ *         !click.shiftKey &&
+ *         !click.altKey;
+ *     if (!isPlainClick) {
+ *         return;
+ *     }
+ *
+ *     click.preventDefault();
+ *     router.navigate(event.detail.id);
+ * }
+ * ```
  *
  * The second action has an `href`, so it is a link. Try to open it in a new
  * tab with the context menu.

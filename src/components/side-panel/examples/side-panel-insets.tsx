@@ -6,6 +6,7 @@ import { Component, h, State } from '@stencil/core';
  * By default, the panel covers the full height of its positioned ancestor,
  * along the right edge. Use `--side-panel-top-inset`, `--side-panel-right-inset`
  * and `--side-panel-bottom-inset` to keep parts of that element visible.
+ * You can set them on the panel or on any ancestor.
  *
  * In this example, the insets keep the header and the dock visible while the
  * panel is open.
