@@ -1,5 +1,6 @@
 import { render, h } from '@stencil/vitest';
 import { Option } from './option.types';
+import { getAccessibleNames } from '../../util/test/accessibility-tree';
 
 async function openSelect(root: any, waitForChanges: () => Promise<void>) {
     const nativeSelect = root.shadowRoot.querySelector('select');
@@ -821,5 +822,57 @@ describe('limel-select (menu)', () => {
                 expect(isOpen(root)).toBe(true);
             });
         });
+    });
+});
+
+describe('limel-select accessible name', () => {
+    const options: Option[] = [
+        { text: 'One', value: '1' },
+        { text: 'Two', value: '2' },
+    ];
+
+    it('is the label and the selected option', async () => {
+        const { waitForChanges } = await render(
+            <limel-select
+                label="Country"
+                options={options}
+                value={options[0]}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('button')).toEqual(['Country One']);
+    });
+
+    it('is only the label when nothing is selected', async () => {
+        const { waitForChanges } = await render(
+            <limel-select label="Country" options={options} />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('button')).toEqual(['Country']);
+    });
+
+    it('is only the selected option when there is no label', async () => {
+        const { waitForChanges } = await render(
+            <limel-select options={options} value={options[1]} />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('button')).toEqual(['Two']);
+    });
+
+    it('of the native select is the label', async () => {
+        const { waitForChanges } = await render(
+            <limel-select
+                data-native
+                label="Country"
+                options={options}
+                value={options[0]}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('combobox')).toEqual(['Country']);
     });
 });
