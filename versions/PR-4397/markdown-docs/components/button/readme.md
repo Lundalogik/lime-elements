@@ -104,8 +104,10 @@ primary and secondary actions, see our
  - [limel-example-scroller-vertical](../scroller/examples)
  - [limel-example-select-change-options](../select/examples)
  - [limel-example-select-dialog](../select/examples)
+ - [limel-example-side-panel-actions](../side-panel/examples)
  - [limel-example-side-panel-basic](../side-panel/examples)
  - [limel-example-side-panel-escape](../side-panel/examples)
+ - [limel-example-side-panel-header-actions](../side-panel/examples)
  - [limel-example-side-panel-insets](../side-panel/examples)
  - [limel-example-snackbar-basic](../snackbar/examples)
  - [limel-example-snackbar-dismissible](../snackbar/examples)
@@ -209,8 +211,10 @@ graph TD;
   limel-example-scroller-vertical --> limel-button
   limel-example-select-change-options --> limel-button
   limel-example-select-dialog --> limel-button
+  limel-example-side-panel-actions --> limel-button
   limel-example-side-panel-basic --> limel-button
   limel-example-side-panel-escape --> limel-button
+  limel-example-side-panel-header-actions --> limel-button
   limel-example-side-panel-insets --> limel-button
   limel-example-snackbar-basic --> limel-button
   limel-example-snackbar-dismissible --> limel-button
