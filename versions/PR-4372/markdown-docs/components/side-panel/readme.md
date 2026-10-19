@@ -143,6 +143,7 @@ the last entry of `stack`.
  - [limel-example-side-panel-actions](examples)
  - [limel-example-side-panel-basic](examples)
  - [limel-example-side-panel-escape](examples)
+ - [limel-example-side-panel-full-screen](examples)
  - [limel-example-side-panel-header-actions](examples)
  - [limel-example-side-panel-insets](examples)
  - [limel-example-side-panel-stacking](examples)
@@ -168,6 +169,7 @@ graph TD;
   limel-example-side-panel-actions --> limel-side-panel
   limel-example-side-panel-basic --> limel-side-panel
   limel-example-side-panel-escape --> limel-side-panel
+  limel-example-side-panel-full-screen --> limel-side-panel
   limel-example-side-panel-header-actions --> limel-side-panel
   limel-example-side-panel-insets --> limel-side-panel
   limel-example-side-panel-stacking --> limel-side-panel

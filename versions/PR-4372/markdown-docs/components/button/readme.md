@@ -107,6 +107,7 @@ primary and secondary actions, see our
  - [limel-example-side-panel-actions](../side-panel/examples)
  - [limel-example-side-panel-basic](../side-panel/examples)
  - [limel-example-side-panel-escape](../side-panel/examples)
+ - [limel-example-side-panel-full-screen](../side-panel/examples)
  - [limel-example-side-panel-header-actions](../side-panel/examples)
  - [limel-example-side-panel-insets](../side-panel/examples)
  - [limel-example-side-panel-stacking](../side-panel/examples)
@@ -215,6 +216,7 @@ graph TD;
   limel-example-side-panel-actions --> limel-button
   limel-example-side-panel-basic --> limel-button
   limel-example-side-panel-escape --> limel-button
+  limel-example-side-panel-full-screen --> limel-button
   limel-example-side-panel-header-actions --> limel-button
   limel-example-side-panel-insets --> limel-button
   limel-example-side-panel-stacking --> limel-button
