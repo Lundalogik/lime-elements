@@ -15,4 +15,17 @@ describe('limel-code-editor accessible description', () => {
             ]);
         });
     });
+
+    it('is not pointed at by aria-controls', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-code-editor label="Query" helperText="Written in SQL" />
+        );
+        await waitForChanges();
+
+        await vi.waitFor(() => {
+            const input = root.shadowRoot.querySelector('.editor textarea');
+            expect(input.getAttribute('aria-describedby')).not.toBeNull();
+            expect(input.hasAttribute('aria-controls')).toBe(false);
+        });
+    });
 });
