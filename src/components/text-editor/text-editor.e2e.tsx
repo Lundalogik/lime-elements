@@ -170,6 +170,16 @@ describe('limel-text-editor', () => {
         expect(adapter.getAttribute('id')).toBe(labelId);
     });
 
+    describe('helper text', () => {
+        it('is not pointed at by aria-controls', async () => {
+            const { root } = await createComponent({
+                helperText: 'Keep it short',
+            });
+
+            expect(getAdapter(root).hasAttribute('aria-controls')).toBe(false);
+        });
+    });
+
     describe('toolbar translations', () => {
         test('a menu-state update keeps the labels in the configured language', async () => {
             const { root, waitForChanges } = await render(
