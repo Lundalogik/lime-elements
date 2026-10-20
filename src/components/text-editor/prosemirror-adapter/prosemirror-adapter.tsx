@@ -130,6 +130,21 @@ export class ProsemirrorAdapter {
     @Prop()
     public ui: EditorUiType = 'standard';
 
+    /**
+     * The name of the editable area, read by assistive technology.
+     * Ids cannot be referenced across a shadow root, so a label that is
+     * rendered outside of the adapter cannot name the editable area.
+     */
+    @Prop()
+    public accessibleLabel?: string;
+
+    /**
+     * The description of the editable area, read by assistive technology
+     * after its name.
+     */
+    @Prop()
+    public accessibleDescription?: string;
+
     @Element()
     private host: HTMLLimelTextEditorElement;
 
@@ -262,6 +277,12 @@ export class ProsemirrorAdapter {
         }
 
         await this.updateView('');
+    }
+
+    @Watch('accessibleLabel')
+    @Watch('accessibleDescription')
+    protected watchEditableAttributes() {
+        this.view?.setProps({ attributes: this.getEditableAttributes() });
     }
 
     @Watch('value')
@@ -471,6 +492,7 @@ export class ProsemirrorAdapter {
             {
                 state: this.createEditorState(initialDoc),
                 dispatchTransaction: this.handleTransaction,
+                attributes: this.getEditableAttributes(),
             }
         );
 
@@ -486,6 +508,23 @@ export class ProsemirrorAdapter {
             this.view,
             this.schema
         );
+    }
+
+    private getEditableAttributes() {
+        const attributes: Record<string, string> = {
+            role: 'textbox',
+            'aria-multiline': 'true',
+        };
+
+        if (this.accessibleLabel) {
+            attributes['aria-label'] = this.accessibleLabel;
+        }
+
+        if (this.accessibleDescription) {
+            attributes['aria-description'] = this.accessibleDescription;
+        }
+
+        return attributes;
     }
 
     private initializeSchema() {

@@ -793,6 +793,8 @@ export namespace Components {
     //
     // @beta
     export interface LimelProsemirrorAdapter {
+        "accessibleDescription"?: string;
+        "accessibleLabel"?: string;
         "clear": () => Promise<void>;
         "contentType": ContentType;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
@@ -3387,6 +3389,8 @@ export namespace JSX {
     //
     // @beta
     export interface LimelProsemirrorAdapter {
+        "accessibleDescription"?: string;
+        "accessibleLabel"?: string;
         "contentType"?: ContentType;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
@@ -3421,6 +3425,10 @@ export namespace JSX {
 
     // (undocumented)
     export interface LimelProsemirrorAdapterAttributes {
+        // (undocumented)
+        "accessibleDescription": string;
+        // (undocumented)
+        "accessibleLabel": string;
         // Warning: (ae-incompatible-release-tags) The symbol "contentType" is marked as @public, but its signature references "ContentType" which is marked as @beta
         //
         // (undocumented)
