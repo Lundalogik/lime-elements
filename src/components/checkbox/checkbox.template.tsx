@@ -75,6 +75,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
                 required={props.required}
                 onChange={props.onChange}
                 aria-describedby={props.helperTextId}
+                aria-invalid={props.invalid ? 'true' : undefined}
                 {...inputProps}
             />
             <div class="box">

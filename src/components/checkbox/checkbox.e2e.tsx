@@ -1,5 +1,8 @@
 import { render, h } from '@stencil/vitest';
-import { getAccessibleNodes } from '../../util/test/accessibility-tree';
+import {
+    getAccessibleNodes,
+    getInvalidStates,
+} from '../../util/test/accessibility-tree';
 
 describe('limel-checkbox (events)', () => {
     async function setup(props: Record<string, any> = {}) {
@@ -83,5 +86,45 @@ describe('limel-checkbox aria-controls', () => {
 
         const input = root.shadowRoot.querySelector('input');
         expect(input.hasAttribute('aria-controls')).toBe(false);
+    });
+});
+
+describe('limel-checkbox invalid state', () => {
+    it('is not invalid by default', async () => {
+        const { waitForChanges } = await render(
+            <limel-checkbox label="Accept" />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('checkbox')).toEqual([false]);
+    });
+
+    it('is invalid when the checkbox is', async () => {
+        const { waitForChanges } = await render(
+            <limel-checkbox label="Accept" invalid={true} />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('checkbox')).toEqual([true]);
+    });
+
+    it('is marked invalid when a required checkbox has been used and is unchecked again', async () => {
+        // Chromium reports a required, unchecked checkbox as invalid by
+        // itself, so the attribute is what shows that the component marks it.
+        const { root, waitForChanges } = await render(
+            <limel-checkbox label="Accept" required={true} />
+        );
+        await waitForChanges();
+        const input = root.shadowRoot.querySelector('input');
+        expect(input.hasAttribute('aria-invalid')).toBe(false);
+
+        input.click();
+        (root as HTMLLimelCheckboxElement).checked = true;
+        await waitForChanges();
+        expect(input.hasAttribute('aria-invalid')).toBe(false);
+
+        (root as HTMLLimelCheckboxElement).checked = false;
+        await waitForChanges();
+        expect(input.getAttribute('aria-invalid')).toBe('true');
     });
 });
