@@ -1,5 +1,8 @@
 import { render, h } from '@stencil/vitest';
-import { getAccessibleNodes } from '../../util/test/accessibility-tree';
+import {
+    getAccessibleNodes,
+    getInvalidStates,
+} from '../../util/test/accessibility-tree';
 
 describe('limel-chip-set', () => {
     describe('basic chip set', () => {
@@ -415,5 +418,87 @@ describe('limel-chip-set accessible description', () => {
         expect(grids.map((grid) => grid.description)).toEqual([
             'Pick the ones you like',
         ]);
+    });
+});
+
+describe('limel-chip-set invalid state', () => {
+    it('of an input chip set is not invalid by default', async () => {
+        const { waitForChanges } = await render(
+            <limel-chip-set type="input" label="Tags" value={[]} />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('textbox')).toEqual([false]);
+    });
+
+    it('of an input chip set is invalid when the chip set is', async () => {
+        const { waitForChanges } = await render(
+            <limel-chip-set
+                type="input"
+                label="Tags"
+                value={[]}
+                invalid={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('textbox')).toEqual([true]);
+    });
+
+    it('of an input chip set is invalid when it is required, empty and has lost the focus', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-chip-set
+                type="input"
+                label="Tags"
+                value={[]}
+                required={true}
+            />
+        );
+        await waitForChanges();
+        expect(await getInvalidStates('textbox')).toEqual([false]);
+        const input = root.shadowRoot.querySelector('input');
+
+        input.focus();
+        input.blur();
+        await waitForChanges();
+
+        expect(await getInvalidStates('textbox')).toEqual([true]);
+    });
+
+    it('of an input chip set is not invalid when it becomes read-only', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-chip-set
+                type="input"
+                label="Tags"
+                value={[]}
+                required={true}
+            />
+        );
+        await waitForChanges();
+        const input = root.shadowRoot.querySelector('input');
+        input.focus();
+        input.blur();
+        await waitForChanges();
+        expect(await getInvalidStates('textbox')).toEqual([true]);
+
+        (root as HTMLLimelChipSetElement).readonly = true;
+        await waitForChanges();
+
+        expect(await getInvalidStates('textbox')).toEqual([false]);
+    });
+
+    it('of a read-only input chip set is invalid when the chip set is', async () => {
+        const { waitForChanges } = await render(
+            <limel-chip-set
+                type="input"
+                label="Tags"
+                value={[]}
+                readonly={true}
+                invalid={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('textbox')).toEqual([true]);
     });
 });

@@ -1,5 +1,6 @@
 import { render, h } from '@stencil/vitest';
 import { PickerItem } from './picker-item.types';
+import { getInvalidStates } from '../../util/test/accessibility-tree';
 
 const allItems = [
     { text: 'Apple', value: 1 },
@@ -592,5 +593,20 @@ describe('limel-picker', () => {
 
             expect(queries).toEqual([]);
         });
+    });
+});
+
+describe('limel-picker invalid state', () => {
+    it('is invalid when the picker is', async () => {
+        const { waitForChanges } = await render(
+            <limel-picker
+                label="Fruit"
+                searcher={async () => allItems}
+                invalid={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('searchbox')).toEqual([true]);
     });
 });
