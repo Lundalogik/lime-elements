@@ -400,7 +400,7 @@ export class ChipSet {
                     labelId={this.labelId}
                     label={this.label}
                     required={this.required}
-                    invalid={this.invalid || this.isInvalid()}
+                    invalid={this.isOutlineInvalid()}
                     disabled={this.disabled}
                     readonly={this.readonly}
                     hasValue={!!this.value?.length}
@@ -474,6 +474,7 @@ export class ChipSet {
                 type={this.inputType}
                 id={this.labelId}
                 aria-describedby={this.getDescribedBy()}
+                aria-invalid={this.isOutlineInvalid() ? 'true' : undefined}
                 disabled={this.readonly || this.disabled}
                 class={{
                     'mdc-text-field__input': true,
@@ -509,6 +510,10 @@ export class ChipSet {
 
     private isFull(): boolean {
         return !!this.maxItems && this.value.length >= this.maxItems;
+    }
+
+    private isOutlineInvalid() {
+        return this.invalid || this.isInvalid();
     }
 
     private isInvalid() {
