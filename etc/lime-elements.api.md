@@ -795,6 +795,7 @@ export namespace Components {
     export interface LimelProsemirrorAdapter {
         "accessibleDescription"?: string;
         "accessibleLabel"?: string;
+        "accessiblePlaceholder"?: string;
         "clear": () => Promise<void>;
         "contentType": ContentType;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
@@ -807,7 +808,9 @@ export namespace Components {
         //
         // @alpha
         "inlineImages"?: InlineImages;
+        "invalid"?: boolean;
         "language": Languages;
+        "required"?: boolean;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
         // @alpha
@@ -3391,6 +3394,7 @@ export namespace JSX {
     export interface LimelProsemirrorAdapter {
         "accessibleDescription"?: string;
         "accessibleLabel"?: string;
+        "accessiblePlaceholder"?: string;
         "contentType"?: ContentType;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
@@ -3401,6 +3405,7 @@ export namespace JSX {
         //
         // @alpha
         "inlineImages"?: InlineImages;
+        "invalid"?: boolean;
         "language"?: Languages;
         "onChange"?: (event: LimelProsemirrorAdapterCustomEvent<string>) => void;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
@@ -3415,6 +3420,7 @@ export namespace JSX {
         //
         // @alpha
         "onMetadataChange"?: (event: LimelProsemirrorAdapterCustomEvent<EditorMetadata>) => void;
+        "required"?: boolean;
         // Warning: (ae-extra-release-tag) The doc comment should not contain more than one release tag
         //
         // @alpha
@@ -3429,6 +3435,8 @@ export namespace JSX {
         "accessibleDescription": string;
         // (undocumented)
         "accessibleLabel": string;
+        // (undocumented)
+        "accessiblePlaceholder": string;
         // Warning: (ae-incompatible-release-tags) The symbol "contentType" is marked as @public, but its signature references "ContentType" which is marked as @beta
         //
         // (undocumented)
@@ -3436,7 +3444,11 @@ export namespace JSX {
         // (undocumented)
         "disabled": boolean;
         // (undocumented)
+        "invalid": boolean;
+        // (undocumented)
         "language": Languages;
+        // (undocumented)
+        "required": boolean;
         // Warning: (ae-incompatible-release-tags) The symbol "ui" is marked as @public, but its signature references "EditorUiType" which is marked as @beta
         //
         // (undocumented)

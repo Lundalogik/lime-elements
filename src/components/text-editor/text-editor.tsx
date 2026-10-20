@@ -42,6 +42,7 @@ import { EditorUiType } from './types';
  * @exampleComponent limel-example-text-editor-ui
  * @exampleComponent limel-example-text-editor-custom-element
  * @exampleComponent limel-example-text-editor-triggers
+ * @exampleComponent limel-example-text-editor-accessibility
  * @exampleComponent limel-example-text-editor-composite
  * @beta
  */
@@ -322,8 +323,7 @@ export class TextEditor implements FormComponent<string> {
             <limel-prosemirror-adapter
                 ref={(el) => (this.adapterElement = el)}
                 slot="content"
-                aria-placeholder={this.placeholder}
-                accessibleLabel={this.label}
+                accessibleLabel={this.label || this.placeholder}
                 accessibleDescription={this.helperText}
                 contentType={this.contentType}
                 onChange={this.handleChange}
@@ -333,9 +333,9 @@ export class TextEditor implements FormComponent<string> {
                 customElements={this.customElements}
                 inlineImages={this.inlineImages}
                 value={this.value}
-                aria-disabled={this.disabled}
-                aria-invalid={this.invalid}
-                aria-required={this.required}
+                accessiblePlaceholder={this.placeholder}
+                required={this.required}
+                invalid={this.invalid}
                 language={this.language}
                 triggerCharacters={this.triggers}
                 disabled={this.disabled}
