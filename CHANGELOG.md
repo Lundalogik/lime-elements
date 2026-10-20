@@ -1,3 +1,10 @@
+## [40.12.0](https://github.com/Lundalogik/lime-elements/compare/v40.11.3...v40.12.0) (2026-10-20)
+
+### Features
+
+
+* **side-panel:** show the stack as backs behind the panel and add full screen ([1e426ee](https://github.com/Lundalogik/lime-elements/commit/1e426ee135000a577a7e6536042789fa771babaf))
+
 ## [40.11.3](https://github.com/Lundalogik/lime-elements/compare/v40.11.2...v40.11.3) (2026-10-19)
 
 ### Bug Fixes
