@@ -4,14 +4,24 @@
 
 ## Overview
 
-Keeping parts of the page visible
+Stacking
 
-By default, the panel covers the full height of its positioned ancestor,
-along the right edge. Use `--side-panel-top-inset`, `--side-panel-right-inset`
-and `--side-panel-bottom-inset` to keep parts of that element visible.
+A panel can open another panel, for example to edit a part of what the first
+panel shows. Only one panel is shown at a time. The other panels are shown as
+backs behind the left edge of the panel, so the user can go back to them.
 
-In this example, the insets keep the header and the dock visible while the
-panel is open.
+Each entry in `stack` is one panel, outermost first. The last entry is the
+panel that is shown, and the other entries are the backs. To open a panel,
+add an entry at the end of `stack`, and change the content. A back is too
+narrow for text, so it only shows the `color` of its entry. Point at a back
+to see its heading and subheading in a tooltip.
+
+Click a back to go back to it. The panel emits `selectStackEntry` with the
+index of the entry in `stack`. To go back to that panel, remove all entries
+after it, and change the content. The example does this.
+
+In this example, `close` goes back one step. Another application could close
+all panels instead.
 
 ## Dependencies
 
@@ -19,14 +29,12 @@ panel is open.
 
 - [limel-button](../../button)
 - [limel-side-panel](..)
-- [limel-input-field](../../input-field)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-side-panel-insets --> limel-button
-  limel-example-side-panel-insets --> limel-side-panel
-  limel-example-side-panel-insets --> limel-input-field
+  limel-example-side-panel-stacking --> limel-button
+  limel-example-side-panel-stacking --> limel-side-panel
   limel-button --> limel-icon
   limel-button --> limel-spinner
   limel-side-panel --> limel-icon
@@ -37,13 +45,7 @@ graph TD;
   limel-tooltip --> limel-tooltip-content
   limel-tooltip-content --> limel-hotkey
   limel-header --> limel-icon
-  limel-input-field --> limel-helper-line
-  limel-input-field --> limel-icon
-  limel-input-field --> limel-portal
-  limel-input-field --> limel-menu-surface
-  limel-input-field --> limel-list
-  limel-input-field --> limel-notched-outline
-  style limel-example-side-panel-insets fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-side-panel-stacking fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
