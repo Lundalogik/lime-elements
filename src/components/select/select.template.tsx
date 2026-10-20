@@ -96,7 +96,7 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
             </limel-notched-outline>
             <HelperText text={props.helperText} isValid={isValid} />
         </div>,
-        <SelectDropdown {...props} />,
+        <SelectDropdown {...props} isValid={isValid} />,
     ];
 };
 
@@ -210,7 +210,9 @@ const HelperText: FunctionalComponent<{ text: string; isValid: boolean }> = (
     );
 };
 
-const SelectDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
+const SelectDropdown: FunctionalComponent<
+    SelectTemplateProps & { isValid: boolean }
+> = (props) => {
     if (props.native) {
         return <NativeDropdown {...props} />;
     }
@@ -251,7 +253,9 @@ const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
     );
 };
 
-const NativeDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
+const NativeDropdown: FunctionalComponent<
+    SelectTemplateProps & { isValid: boolean }
+> = (props) => {
     const options = props.options
         .filter((option): option is Option => !('separator' in option))
         .map(renderOption(props.value));
@@ -263,6 +267,7 @@ const NativeDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
             aria-describedby={getDescribedBy(props)}
             aria-disabled={props.disabled}
             aria-required={props.required}
+            aria-invalid={props.isValid ? undefined : 'true'}
             onChange={props.onNativeChange}
             onFocus={props.open}
             onBlur={props.close}

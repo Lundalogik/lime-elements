@@ -3,6 +3,7 @@ import { Option } from './option.types';
 import {
     getAccessibleNames,
     getAccessibleNodes,
+    getInvalidStates,
 } from '../../util/test/accessibility-tree';
 
 async function openSelect(root: any, waitForChanges: () => Promise<void>) {
@@ -917,5 +918,62 @@ describe('limel-select accessible description', () => {
         expect(await getAccessibleNodes('combobox')).toEqual([
             { name: 'Country', description: 'Where you live' },
         ]);
+    });
+});
+
+describe('limel-select invalid state', () => {
+    const options: Option[] = [
+        { text: 'One', value: 'one' },
+        { text: 'Two', value: 'two' },
+    ];
+
+    it('of the native select is not invalid by default', async () => {
+        const { waitForChanges } = await render(
+            <limel-select
+                data-native
+                label="Country"
+                options={options}
+                value={options[0]}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('combobox')).toEqual([false]);
+    });
+
+    it('of the native select is invalid when the select is', async () => {
+        const { waitForChanges } = await render(
+            <limel-select
+                data-native
+                label="Country"
+                options={options}
+                value={options[0]}
+                invalid={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('combobox')).toEqual([true]);
+    });
+
+    it('of the native select is invalid when it is required and has no value after it was opened and closed', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-select
+                data-native
+                label="Country"
+                options={options}
+                required={true}
+            />
+        );
+        await waitForChanges();
+        expect(await getInvalidStates('combobox')).toEqual([false]);
+
+        const nativeSelect = root.shadowRoot.querySelector('select');
+        nativeSelect.dispatchEvent(new Event('focus'));
+        await waitForChanges();
+        nativeSelect.dispatchEvent(new Event('blur'));
+        await waitForChanges();
+
+        expect(await getInvalidStates('combobox')).toEqual([true]);
     });
 });
