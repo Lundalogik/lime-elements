@@ -1,3 +1,17 @@
+## [40.12.1](https://github.com/Lundalogik/lime-elements/compare/v40.12.0...v40.12.1) (2026-10-20)
+
+### Bug Fixes
+
+
+* **checkbox:** stop pointing aria-controls at the helper text ([c3d6800](https://github.com/Lundalogik/lime-elements/commit/c3d68000968fadbaad4ec57663295aa0eed561a6))
+* **chip-set:** describe the input by its helper text ([1cfe392](https://github.com/Lundalogik/lime-elements/commit/1cfe39224ef638e55de30426c6bda66f231a064a))
+* **code-editor:** stop pointing aria-controls at the helper text ([289fdef](https://github.com/Lundalogik/lime-elements/commit/289fdef54d13e7f617b08d239716f75b105f4c5e))
+* **helper-line:** render the helper text in the DOM of its parent ([6376424](https://github.com/Lundalogik/lime-elements/commit/6376424c2146b65030cdfd41ab59d532665ea7fd))
+* **input-field:** stop pointing aria-controls at the helper text ([3ecc92a](https://github.com/Lundalogik/lime-elements/commit/3ecc92a6e2f531c39e821549e81867de50af5a80))
+* **input-field:** tell assistive technology when the field is invalid ([e50dfeb](https://github.com/Lundalogik/lime-elements/commit/e50dfeb29343cac4d690b00b0fb438ec0eda4172))
+* **select:** describe the trigger by its helper text ([8f1299b](https://github.com/Lundalogik/lime-elements/commit/8f1299be6a544ad9abb291a27c1b85a263ca62fa))
+* **text-editor:** stop pointing aria-controls at the helper text ([c4119c8](https://github.com/Lundalogik/lime-elements/commit/c4119c81d28e2cf87376a087693b1b16924c34a4))
+
 ## [40.12.0](https://github.com/Lundalogik/lime-elements/compare/v40.11.3...v40.12.0) (2026-10-20)
 
 ### Features
