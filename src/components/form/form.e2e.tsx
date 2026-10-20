@@ -686,6 +686,40 @@ test('displays server errors passed via errors prop', async () => {
     );
 });
 
+test('keeps showing server errors when the value is changed from outside', async () => {
+    const { formContent, root, waitForChanges, setProps } = await renderForm({
+        schema: serverErrorsSchema,
+        value: { name: 'test' },
+        errors: { name: ['Name is already taken'] },
+    });
+
+    await setProps({ value: { name: 'taken' } });
+    await waitForReactRender(root, waitForChanges);
+
+    const inputField = formContent.querySelector('limel-input-field');
+    expect(inputField.getAttribute('helper-text')).toContain(
+        'Name is already taken'
+    );
+});
+
+test('shows server errors that arrive together with a new value', async () => {
+    const { formContent, root, waitForChanges, setProps } = await renderForm({
+        schema: serverErrorsSchema,
+        value: { name: 'test' },
+    });
+
+    await setProps({
+        value: { name: 'taken' },
+        errors: { name: ['Name is already taken'] },
+    });
+    await waitForReactRender(root, waitForChanges);
+
+    const inputField = formContent.querySelector('limel-input-field');
+    expect(inputField.getAttribute('helper-text')).toContain(
+        'Name is already taken'
+    );
+});
+
 test('emits valid=false when server errors are present', async () => {
     const onValidate = vi.fn();
     await renderForm({

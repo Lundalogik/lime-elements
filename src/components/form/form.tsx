@@ -8,7 +8,7 @@ import {
 } from '@stencil/core';
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
-import JSONSchemaForm, { IChangeEvent } from '@rjsf/core';
+import { IChangeEvent } from '@rjsf/core';
 import { RJSFValidationError } from '@rjsf/utils';
 import {
     FormError,
@@ -27,6 +27,7 @@ import { ArrayField as CustomArrayField } from './fields/array-field';
 import { ObjectField as CustomObjectField } from './fields/object-field';
 import { widgets } from './widgets';
 import { rjsfValidator } from './validator';
+import { ExtraErrorsForm } from './extra-errors-form';
 import { mapValues } from 'lodash-es';
 
 /**
@@ -174,7 +175,7 @@ export class Form {
 
         this.root.render(
             React.createElement(
-                JSONSchemaForm,
+                ExtraErrorsForm,
                 {
                     schema: this.prepareSchema(this.schema),
                     formData: this.value,
