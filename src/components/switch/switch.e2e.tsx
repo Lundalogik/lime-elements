@@ -1,5 +1,8 @@
 import { render, h } from '@stencil/vitest';
-import { getAccessibleNodes } from '../../util/test/accessibility-tree';
+import {
+    getAccessibleNodes,
+    getInvalidStates,
+} from '../../util/test/accessibility-tree';
 
 describe('limel-switch', () => {
     describe('with a label', () => {
@@ -138,5 +141,25 @@ describe('limel-switch accessible description', () => {
         expect(await getAccessibleNodes('switch')).toEqual([
             { name: 'Active', description: 'Visible to everyone' },
         ]);
+    });
+});
+
+describe('limel-switch invalid state', () => {
+    it('is not invalid by default', async () => {
+        const { waitForChanges } = await render(
+            <limel-switch label="Notifications" />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('switch')).toEqual([false]);
+    });
+
+    it('is invalid when the switch is', async () => {
+        const { waitForChanges } = await render(
+            <limel-switch label="Notifications" invalid={true} />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('switch')).toEqual([true]);
     });
 });

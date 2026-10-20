@@ -149,6 +149,7 @@ export class Switch {
                     disabled={this.disabled}
                     onClick={this.handleClick}
                     aria-describedby={this.ariaDescribedBy}
+                    aria-invalid={this.invalid ? 'true' : undefined}
                 >
                     <span class="handle" />
                 </button>
