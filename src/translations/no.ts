@@ -28,6 +28,7 @@ export default {
     'date-picker.month.heading': 'Måned',
     'date-picker.quarter.heading': 'Kvartal',
     'date-picker.year.heading': 'År',
+    'date-picker.invalid-format': 'Skriv inn en gyldig dato ({ format })',
     'drag-handle.drag-handle': 'Dra-håndtak',
     'drag-handle.drag-to-reorder': 'Dra for å omorganisere',
     'chip-set.clear-all': 'Fjern alle',

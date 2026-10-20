@@ -494,11 +494,10 @@ export namespace Components {
     // @internal
     export interface LimelFlatpickrAdapter {
         "format": string;
-        // (undocumented)
-        "formatter": (date: Date) => string;
         "inputElement": HTMLElement;
         "isOpen": boolean;
         "language": Languages;
+        "previewValue"?: Date;
         "type": DateType;
         "value": Date;
     }
@@ -2328,7 +2327,7 @@ export namespace JSX {
         "invalid"?: boolean;
         "label"?: string;
         "language"?: Languages;
-        "onChange"?: (event: LimelDatePickerCustomEvent<Date>) => void;
+        "onChange"?: (event: LimelDatePickerCustomEvent<Date | null>) => void;
         "placeholder"?: string;
         "readonly"?: boolean;
         "required"?: boolean;
@@ -2589,12 +2588,11 @@ export namespace JSX {
     // @internal
     export interface LimelFlatpickrAdapter {
         "format"?: string;
-        // (undocumented)
-        "formatter": (date: Date) => string;
         "inputElement"?: HTMLElement;
         "isOpen"?: boolean;
         "language"?: Languages;
-        "onChange"?: (event: LimelFlatpickrAdapterCustomEvent<Date>) => void;
+        "onChange"?: (event: LimelFlatpickrAdapterCustomEvent<Date | null>) => void;
+        "previewValue"?: Date;
         "type"?: DateType;
         "value"?: Date;
     }
@@ -3997,7 +3995,7 @@ export type LabelValue = string | number | boolean | null | undefined;
 export type Language = 'css' | 'html' | 'javascript' | 'jinja2' | 'json' | 'typescript';
 
 // @public
-export type Languages = 'da' | 'de' | 'en' | 'fi' | 'fr' | 'nb' | 'no' | 'nl' | 'sv';
+export type Languages = 'da' | 'de' | 'en' | 'en-gb' | 'fi' | 'fr' | 'nb' | 'no' | 'nl' | 'sv';
 
 // @public
 export type Layout = 'default' | 'stretchLastColumn' | 'stretchColumns' | 'lowDensity';

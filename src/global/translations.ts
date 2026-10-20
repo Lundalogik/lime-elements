@@ -12,6 +12,7 @@ const allTranslations = {
     da: da,
     de: de,
     en: en,
+    'en-gb': en,
     fi: fi,
     fr: fr,
     no: no,

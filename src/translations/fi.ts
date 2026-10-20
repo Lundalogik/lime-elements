@@ -28,6 +28,7 @@ export default {
     'date-picker.month.heading': 'Kuukausi',
     'date-picker.quarter.heading': 'Vuosineljännes',
     'date-picker.year.heading': 'Vuosi',
+    'date-picker.invalid-format': 'Anna kelvollinen päivämäärä ({ format })',
     'drag-handle.drag-handle': 'Raahauskahva',
     'drag-handle.drag-to-reorder': 'Raahaa järjestelläksesi',
     'chip-set.clear-all': 'Tyhjennä kaikki',

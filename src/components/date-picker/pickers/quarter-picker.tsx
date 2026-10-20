@@ -15,7 +15,7 @@ export class QuarterPicker extends Picker {
 
     public constructor(
         language: string,
-        protected change: EventEmitter<Date>,
+        protected change: EventEmitter<Date | null>,
         private translations: Translations,
         dateFormat: string = '[Q]Q YYYY'
     ) {
@@ -27,8 +27,13 @@ export class QuarterPicker extends Picker {
         this.prevYear = this.prevYear.bind(this);
     }
 
-    public init(element: HTMLElement, container: HTMLElement, value?: Date) {
-        super.init(element, container, value);
+    public init(
+        element: HTMLElement,
+        container: HTMLElement,
+        value?: Date,
+        focusTarget?: HTMLElement
+    ) {
+        super.init(element, container, value, focusTarget);
         if (this.nativePicker) {
             return;
         }
@@ -77,6 +82,10 @@ export class QuarterPicker extends Picker {
 
     protected async handleClose(selectedDates) {
         await super.handleClose(selectedDates);
+        this.redrawSelection();
+    }
+
+    protected redrawSelection() {
         this.selectQuarter(
             this.flatpickr.selectedDates,
             this.flatpickr.input.value,
