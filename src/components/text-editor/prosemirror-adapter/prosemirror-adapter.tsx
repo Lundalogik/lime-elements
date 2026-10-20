@@ -145,6 +145,26 @@ export class ProsemirrorAdapter {
     @Prop()
     public accessibleDescription?: string;
 
+    /**
+     * A hint about what to type, which is exposed as the placeholder of the
+     * editable area. It is not shown by the adapter.
+     */
+    @Prop()
+    public accessiblePlaceholder?: string;
+
+    /**
+     * Set to `true` to indicate that the editable area is required.
+     */
+    @Prop()
+    public required?: boolean = false;
+
+    /**
+     * Set to `true` to indicate that the current value of the editable area
+     * is invalid.
+     */
+    @Prop()
+    public invalid?: boolean = false;
+
     @Element()
     private host: HTMLLimelTextEditorElement;
 
@@ -187,6 +207,7 @@ export class ProsemirrorAdapter {
     private transactionFired = false;
     private lastClickedPos: number | null = null;
     private focusRestoreTimeout: ReturnType<typeof setTimeout> | null = null;
+    private hadFocusWhenDisabled = false;
     private metadata: EditorMetadata = { images: [], links: [] };
 
     /**
@@ -281,8 +302,25 @@ export class ProsemirrorAdapter {
 
     @Watch('accessibleLabel')
     @Watch('accessibleDescription')
+    @Watch('accessiblePlaceholder')
+    @Watch('required')
+    @Watch('invalid')
     protected watchEditableAttributes() {
-        this.view?.setProps({ attributes: this.getEditableAttributes() });
+        this.updateEditableProps();
+    }
+
+    @Watch('disabled')
+    protected watchDisabled(disabled: boolean) {
+        if (disabled) {
+            this.hadFocusWhenDisabled = !!this.view?.hasFocus();
+            this.closeLinkMenu();
+        }
+
+        this.updateEditableProps();
+
+        if (!disabled) {
+            this.restoreFocus();
+        }
     }
 
     @Watch('value')
@@ -388,10 +426,20 @@ export class ProsemirrorAdapter {
                         'editor-menu.toolbar',
                         this.language
                     )}
-                    actions={this.actionBarItems}
+                    actions={this.getToolbarItems()}
                     onItemSelected={this.handleActionBarItem}
                 />
             </div>
+        );
+    }
+
+    private getToolbarItems() {
+        if (!this.disabled) {
+            return this.actionBarItems;
+        }
+
+        return this.actionBarItems.map((item) =>
+            isItem(item) ? { ...item, disabled: true } : item
         );
     }
 
@@ -493,6 +541,7 @@ export class ProsemirrorAdapter {
                 state: this.createEditorState(initialDoc),
                 dispatchTransaction: this.handleTransaction,
                 attributes: this.getEditableAttributes(),
+                editable: this.isEditable,
             }
         );
 
@@ -510,6 +559,26 @@ export class ProsemirrorAdapter {
         );
     }
 
+    private readonly isEditable = () => !this.disabled;
+
+    private updateEditableProps() {
+        this.view?.setProps({
+            attributes: this.getEditableAttributes(),
+            editable: this.isEditable,
+        });
+    }
+
+    private restoreFocus() {
+        const shouldRestore =
+            this.hadFocusWhenDisabled &&
+            document.activeElement === document.body;
+        this.hadFocusWhenDisabled = false;
+
+        if (shouldRestore) {
+            this.view?.focus();
+        }
+    }
+
     private getEditableAttributes() {
         const attributes: Record<string, string> = {
             role: 'textbox',
@@ -522,6 +591,22 @@ export class ProsemirrorAdapter {
 
         if (this.accessibleDescription) {
             attributes['aria-description'] = this.accessibleDescription;
+        }
+
+        if (this.accessiblePlaceholder) {
+            attributes['aria-placeholder'] = this.accessiblePlaceholder;
+        }
+
+        if (this.required) {
+            attributes['aria-required'] = 'true';
+        }
+
+        if (this.invalid) {
+            attributes['aria-invalid'] = 'true';
+        }
+
+        if (this.disabled) {
+            attributes['aria-disabled'] = 'true';
         }
 
         return attributes;
@@ -702,9 +787,13 @@ export class ProsemirrorAdapter {
         event.preventDefault();
         event.stopPropagation();
 
+        this.closeLinkMenu();
+    };
+
+    private closeLinkMenu() {
         this.isLinkMenuOpen = false;
         this.link = { text: '', href: 'https://' };
-    };
+    }
 
     private handleSaveLinkMenu = () => {
         this.isLinkMenuOpen = false;

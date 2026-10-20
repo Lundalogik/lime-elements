@@ -68,10 +68,7 @@
   "limel-popover": ["button-name", "nested-interactive"],
   "limel-profile-picture": ["button-name"],
   "limel-progress-flow-item": ["color-contrast"],
-  "limel-prosemirror-adapter": [
-    "aria-input-field-name",
-    "aria-valid-attr-value"
-  ],
+  "limel-prosemirror-adapter": ["aria-input-field-name"],
   "limel-scroller": ["color-contrast"],
   "limel-shortcut": ["aria-prohibited-attr"],
   "limel-switch": ["button-name"],

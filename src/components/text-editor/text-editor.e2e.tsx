@@ -1,6 +1,11 @@
 import { render, h } from '@stencil/vitest';
 import { vi } from 'vitest';
-import { getAccessibleNodes } from '../../util/test/accessibility-tree';
+import { userEvent } from 'vitest/browser';
+import {
+    getAccessibleNodes,
+    getAccessibleProperties,
+    getInvalidStates,
+} from '../../util/test/accessibility-tree';
 
 describe('limel-text-editor', () => {
     async function createComponent(props: any = {}) {
@@ -90,38 +95,6 @@ describe('limel-text-editor', () => {
         expect((adapter as any).value).toBe('<p>test</p>');
     });
 
-    test('placeholder is rendered as aria-placeholder on adapter', async () => {
-        const { root } = await createComponent({
-            value: 'test',
-            placeholder: 'test placeholder',
-        });
-        const adapter = getAdapter(root);
-        expect(adapter).not.toBeNull();
-        expect(adapter.getAttribute('aria-placeholder')).toBe(
-            'test placeholder'
-        );
-    });
-
-    test('disabled sets aria-disabled on adapter', async () => {
-        const { root } = await createComponent({
-            value: 'test',
-            disabled: true,
-        });
-        const adapter = getAdapter(root);
-        expect(adapter).not.toBeNull();
-        expect(adapter.hasAttribute('aria-disabled')).toBe(true);
-    });
-
-    test('not disabled does not set aria-disabled on adapter', async () => {
-        const { root } = await createComponent({
-            value: 'test',
-            disabled: false,
-        });
-        const adapter = getAdapter(root);
-        expect(adapter).not.toBeNull();
-        expect(adapter.hasAttribute('aria-disabled')).toBe(false);
-    });
-
     test('emits a change event when a programmatically seeded value is cleared by the user', async () => {
         // Regression: seeding `value` AFTER the editor has initialised (e.g.
         // "AI Assist" placing a prompt into an already-open chat) goes through
@@ -174,12 +147,34 @@ describe('limel-text-editor', () => {
             expect(textbox.name).toBe('Description');
         });
 
-        it('has no name when there is no label', async () => {
+        it('has no name when there is neither a label nor a placeholder', async () => {
             const { root } = await createComponent();
             await getContentEditable(root);
 
             const [textbox] = await getAccessibleNodes('textbox');
             expect(textbox.name).toBe('');
+        });
+
+        it('is named by the placeholder when there is no label', async () => {
+            const { root } = await createComponent({
+                placeholder: 'Write a comment',
+            });
+            const editable = await getContentEditable(root);
+
+            const [textbox] = await getAccessibleNodes('textbox');
+            expect(textbox.name).toBe('Write a comment');
+            expect(editable.getAttribute('aria-label')).toBe('Write a comment');
+        });
+
+        it('is named by the label, not the placeholder, when there is both', async () => {
+            const { root } = await createComponent({
+                label: 'Comment',
+                placeholder: 'Write a comment',
+            });
+            await getContentEditable(root);
+
+            const [textbox] = await getAccessibleNodes('textbox');
+            expect(textbox.name).toBe('Comment');
         });
 
         it('follows a change of the label', async () => {
@@ -225,6 +220,259 @@ describe('limel-text-editor', () => {
 
             const [textbox] = await getAccessibleNodes('textbox');
             expect(textbox.description).toBe('Keep it brief');
+        });
+    });
+
+    describe('editable area state', () => {
+        async function getProperties(root: HTMLElement) {
+            await getContentEditable(root);
+            const [properties] = await getAccessibleProperties('textbox');
+
+            return properties;
+        }
+
+        it('is not required, disabled or invalid by default', async () => {
+            const { root } = await createComponent();
+
+            const properties = await getProperties(root);
+            expect(properties.required).toBe(false);
+            expect(properties.disabled).toBe(false);
+            expect(properties.invalid).toBe(false);
+        });
+
+        it('is required when the editor is', async () => {
+            const { root } = await createComponent({ required: true });
+            const properties = await getProperties(root);
+
+            expect(properties.required).toBe(true);
+        });
+
+        it('is disabled when the editor is', async () => {
+            const { root } = await createComponent({ disabled: true });
+            const editable = await getContentEditable(root);
+            const properties = await getProperties(root);
+
+            expect(properties.disabled).toBe(true);
+            expect(editable.getAttribute('aria-disabled')).toBe('true');
+        });
+
+        it('is invalid when the editor is', async () => {
+            const { root } = await createComponent({ invalid: true });
+            await getContentEditable(root);
+
+            expect(await getInvalidStates('textbox')).toEqual([true]);
+        });
+
+        it('follows a change of the invalid state', async () => {
+            const { root, waitForChanges } = await createComponent({
+                invalid: true,
+            });
+            await getContentEditable(root);
+
+            root.invalid = false;
+            await waitForChanges();
+
+            expect(await getInvalidStates('textbox')).toEqual([false]);
+        });
+
+        it('follows a change of the required state', async () => {
+            const { root, waitForChanges } = await createComponent({
+                required: true,
+            });
+            await getContentEditable(root);
+
+            root.required = false;
+            await waitForChanges();
+
+            const [properties] = await getAccessibleProperties('textbox');
+            expect(properties.required).toBe(false);
+        });
+
+        it('follows a change of the disabled state', async () => {
+            const { root, waitForChanges } = await createComponent();
+            const editable = await getContentEditable(root);
+
+            root.disabled = true;
+            await waitForChanges();
+            expect(editable.getAttribute('aria-disabled')).toBe('true');
+            expect(editable.getAttribute('contenteditable')).toBe('false');
+
+            root.disabled = false;
+            await waitForChanges();
+            expect(editable.hasAttribute('aria-disabled')).toBe(false);
+            expect(editable.getAttribute('contenteditable')).toBe('true');
+        });
+
+        it('follows a change of the placeholder', async () => {
+            const { root, waitForChanges } = await createComponent({
+                label: 'Description',
+                placeholder: 'Write here',
+            });
+            const editable = await getContentEditable(root);
+
+            root.placeholder = 'Write there';
+            await waitForChanges();
+
+            expect(editable.getAttribute('aria-placeholder')).toBe(
+                'Write there'
+            );
+        });
+
+        it('has the placeholder', async () => {
+            const { root } = await createComponent({
+                placeholder: 'Write here',
+            });
+            const editable = await getContentEditable(root);
+
+            expect(editable.getAttribute('aria-placeholder')).toBe(
+                'Write here'
+            );
+        });
+
+        it('is not set on the adapter', async () => {
+            const { root } = await createComponent({
+                disabled: true,
+                invalid: true,
+                placeholder: 'Write here',
+                required: true,
+            });
+            await getContentEditable(root);
+
+            const ariaAttributes = getAdapter(root)
+                .getAttributeNames()
+                .filter((name) => name.startsWith('aria-'));
+            expect(ariaAttributes).toEqual([]);
+        });
+    });
+
+    async function typeInto(root: HTMLElement) {
+        const editable = await getContentEditable(root);
+        editable.focus();
+        await userEvent.keyboard('abc');
+
+        return editable.textContent;
+    }
+
+    async function getToolbarButtons() {
+        const buttons = await getAccessibleProperties('button');
+
+        // The button that opens the menu of the items that do not fit is not
+        // an item of the toolbar.
+        return buttons.filter((button) => !button.hasPopup);
+    }
+
+    describe('when disabled', () => {
+        it('does not accept typing', async () => {
+            const { root } = await createComponent({ disabled: true });
+
+            expect(await typeInto(root)).toBe('');
+        });
+
+        it('closes the link menu', async () => {
+            const { root, waitForChanges } = await createComponent();
+            await getContentEditable(root);
+            getAdapter(root).dispatchEvent(
+                new CustomEvent('open-editor-link-menu', {
+                    detail: { href: 'https://example.com', text: 'Example' },
+                })
+            );
+            await waitForChanges();
+            await vi.waitFor(() => {
+                expect(
+                    document.querySelector('limel-text-editor-link-menu')
+                ).not.toBeNull();
+            });
+
+            root.disabled = true;
+            await waitForChanges();
+
+            await vi.waitFor(() => {
+                expect(
+                    document.querySelector('limel-text-editor-link-menu')
+                ).toBeNull();
+            });
+        });
+
+        it('has a toolbar of disabled buttons', async () => {
+            const { root } = await createComponent({ disabled: true });
+            await getContentEditable(root);
+
+            const buttons = await getToolbarButtons();
+            expect(buttons.length).toBeGreaterThan(0);
+            expect(buttons.every((button) => button.disabled)).toBe(true);
+        });
+    });
+
+    describe('when enabled', () => {
+        it('accepts typing', async () => {
+            const { root } = await createComponent();
+
+            expect(await typeInto(root)).toBe('abc');
+        });
+
+        it('has a toolbar with buttons that are not disabled', async () => {
+            const { root } = await createComponent();
+            await getContentEditable(root);
+
+            const buttons = await getToolbarButtons();
+            expect(buttons.some((button) => !button.disabled)).toBe(true);
+        });
+    });
+
+    describe('focus while the disabled state changes', () => {
+        function getFocusedElement(root: HTMLElement) {
+            return getAdapter(root).shadowRoot.activeElement;
+        }
+
+        it('is given back when the editor is enabled again', async () => {
+            const { root, waitForChanges } = await createComponent();
+            const editable = await getContentEditable(root);
+            editable.focus();
+            expect(getFocusedElement(root)).toBe(editable);
+
+            root.disabled = true;
+            await waitForChanges();
+            await vi.waitFor(() => {
+                expect(getFocusedElement(root)).toBeNull();
+            });
+
+            root.disabled = false;
+            await waitForChanges();
+
+            expect(getFocusedElement(root)).toBe(editable);
+        });
+
+        it('is not taken when the editor did not have it', async () => {
+            const { root, waitForChanges } = await createComponent();
+            await getContentEditable(root);
+
+            root.disabled = true;
+            await waitForChanges();
+            root.disabled = false;
+            await waitForChanges();
+
+            expect(getFocusedElement(root)).toBeNull();
+        });
+
+        it('is not taken from the element that has it when the editor is enabled again', async () => {
+            const { root, waitForChanges } = await createComponent();
+            const editable = await getContentEditable(root);
+            editable.focus();
+            root.disabled = true;
+            await waitForChanges();
+            const button = document.createElement('button');
+            document.body.append(button);
+
+            try {
+                button.focus();
+
+                root.disabled = false;
+                await waitForChanges();
+
+                expect(document.activeElement).toBe(button);
+            } finally {
+                button.remove();
+            }
         });
     });
 

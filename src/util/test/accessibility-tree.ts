@@ -5,6 +5,13 @@ export interface AccessibleNode {
     description: string;
 }
 
+export interface AccessibleProperties {
+    required: boolean;
+    disabled: boolean;
+    invalid: boolean;
+    hasPopup: boolean;
+}
+
 async function getNodesWithRole(role: string) {
     const session = cdp();
     await session.send('Accessibility.enable');
@@ -57,20 +64,42 @@ export async function getAccessibleNames(role: string): Promise<string[]> {
 }
 
 /**
+ * Get the properties of the nodes with a given role that a screen reader
+ * announces, in the same way as `getAccessibleNodes`. A property that a node
+ * does not have is `false`.
+ *
+ * @param role - the role of the nodes to get, for example `textbox`
+ */
+export async function getAccessibleProperties(
+    role: string
+): Promise<AccessibleProperties[]> {
+    const nodes = await getNodesWithRole(role);
+
+    return nodes.map((node) => {
+        const values = new Map(
+            (node.properties ?? []).map((property) => [
+                property.name,
+                property.value?.value,
+            ])
+        );
+
+        return {
+            required: values.get('required') === true,
+            disabled: values.get('disabled') === true,
+            invalid: values.has('invalid') && values.get('invalid') !== 'false',
+            hasPopup: values.has('hasPopup'),
+        };
+    });
+}
+
+/**
  * Get whether the nodes with a given role are announced as invalid, in the
  * same way as `getAccessibleNodes`.
  *
  * @param role - the role of the nodes to get, for example `textbox`
  */
 export async function getInvalidStates(role: string): Promise<boolean[]> {
-    const nodes = await getNodesWithRole(role);
+    const properties = await getAccessibleProperties(role);
 
-    return nodes.map(
-        (node) =>
-            node.properties?.some(
-                (property) =>
-                    property.name === 'invalid' &&
-                    property.value?.value === 'true'
-            ) ?? false
-    );
+    return properties.map((node) => node.invalid);
 }
