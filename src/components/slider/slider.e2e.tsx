@@ -2,6 +2,7 @@ import { render, h } from '@stencil/vitest';
 import {
     getAccessibleNames,
     getAccessibleNodes,
+    getInvalidStates,
 } from '../../util/test/accessibility-tree';
 
 describe('limel-slider', () => {
@@ -44,5 +45,37 @@ describe('limel-slider accessible description', () => {
         expect(await getAccessibleNodes('slider')).toEqual([
             { name: 'Volume', description: 'Between 0 and 100' },
         ]);
+    });
+});
+
+describe('limel-slider invalid state', () => {
+    it('is not invalid by default', async () => {
+        const { waitForChanges } = await render(
+            <limel-slider label="Volume" value={30} />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('slider')).toEqual([false]);
+    });
+
+    it('is invalid when the slider is', async () => {
+        const { waitForChanges } = await render(
+            <limel-slider label="Volume" value={30} invalid={true} />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('slider')).toEqual([true]);
+    });
+
+    it('follows a change of the invalid state', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-slider label="Volume" value={30} invalid={true} />
+        );
+        await waitForChanges();
+
+        (root as HTMLLimelSliderElement).invalid = false;
+        await waitForChanges();
+
+        expect(await getInvalidStates('slider')).toEqual([false]);
     });
 });
