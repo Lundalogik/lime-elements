@@ -238,6 +238,7 @@ export class Slider {
                                         ? this.helperTextId
                                         : undefined
                                 }
+                                aria-invalid={this.invalid ? 'true' : undefined}
                                 aria-valuetext={
                                     this.isUnset
                                         ? translate.get(
