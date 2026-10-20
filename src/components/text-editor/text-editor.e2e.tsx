@@ -1,5 +1,6 @@
 import { render, h } from '@stencil/vitest';
 import { vi } from 'vitest';
+import { getAccessibleNodes } from '../../util/test/accessibility-tree';
 
 describe('limel-text-editor', () => {
     async function createComponent(props: any = {}) {
@@ -156,18 +157,75 @@ describe('limel-text-editor', () => {
         expect(changes).toContain('');
     });
 
-    test('label-to-editor id linkage is correct', async () => {
-        const { root } = await createComponent();
+    describe('editable area', () => {
+        it('is a multiline textbox', async () => {
+            const { root } = await createComponent();
+            const editable = await getContentEditable(root);
 
-        const notchedOutline = root.shadowRoot.querySelector(
-            'limel-notched-outline'
-        ) as any;
-        const adapter = getAdapter(root);
-        expect(adapter).not.toBeNull();
+            expect(await getAccessibleNodes('textbox')).toHaveLength(1);
+            expect(editable.getAttribute('aria-multiline')).toBe('true');
+        });
 
-        const labelId = notchedOutline.labelId;
-        expect(labelId).toBeTruthy();
-        expect(adapter.getAttribute('id')).toBe(labelId);
+        it('is named by the label', async () => {
+            const { root } = await createComponent({ label: 'Description' });
+            await getContentEditable(root);
+
+            const [textbox] = await getAccessibleNodes('textbox');
+            expect(textbox.name).toBe('Description');
+        });
+
+        it('has no name when there is no label', async () => {
+            const { root } = await createComponent();
+            await getContentEditable(root);
+
+            const [textbox] = await getAccessibleNodes('textbox');
+            expect(textbox.name).toBe('');
+        });
+
+        it('follows a change of the label', async () => {
+            const { root, waitForChanges } = await createComponent({
+                label: 'Description',
+            });
+            await getContentEditable(root);
+
+            root.label = 'Summary';
+            await waitForChanges();
+
+            const [textbox] = await getAccessibleNodes('textbox');
+            expect(textbox.name).toBe('Summary');
+        });
+
+        it('is described by the helper text', async () => {
+            const { root } = await createComponent({
+                label: 'Description',
+                helperText: 'Keep it short',
+            });
+            await getContentEditable(root);
+
+            const [textbox] = await getAccessibleNodes('textbox');
+            expect(textbox.description).toBe('Keep it short');
+        });
+
+        it('has no description when there is no helper text', async () => {
+            const { root } = await createComponent({ label: 'Description' });
+            await getContentEditable(root);
+
+            const [textbox] = await getAccessibleNodes('textbox');
+            expect(textbox.description).toBe('');
+        });
+
+        it('follows a change of the helper text', async () => {
+            const { root, waitForChanges } = await createComponent({
+                helperText: 'Keep it short',
+            });
+            await getContentEditable(root);
+
+            root.helperText = 'Keep it brief';
+            await waitForChanges();
+
+            const [textbox] = await getAccessibleNodes('textbox');
+            expect(textbox.description).toBe('Keep it brief');
+        });
     });
 
     describe('helper text', () => {

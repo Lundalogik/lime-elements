@@ -9,7 +9,6 @@ import {
 } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
 import { Languages } from '../date-picker/date.types';
-import { createRandomString } from '../../util/random-string';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 import {
     TriggerCharacter,
@@ -257,14 +256,7 @@ export class TextEditor implements FormComponent<string> {
     @Event()
     public triggerChange: EventEmitter<TriggerEventDetail>;
 
-    private readonly helperTextId: string;
-    private readonly editorId: string;
     private adapterElement?: HTMLLimelProsemirrorAdapterElement;
-
-    public constructor() {
-        this.helperTextId = createRandomString();
-        this.editorId = createRandomString();
-    }
 
     /**
      * Emits any pending `change` event immediately, instead of waiting
@@ -305,7 +297,6 @@ export class TextEditor implements FormComponent<string> {
         return (
             <Host>
                 <limel-notched-outline
-                    labelId={this.editorId}
                     label={this.label}
                     required={this.required}
                     invalid={this.invalid}
@@ -324,13 +315,7 @@ export class TextEditor implements FormComponent<string> {
 
     private renderEditor() {
         if (this.readonly) {
-            return (
-                <limel-markdown
-                    slot="content"
-                    value={this.value}
-                    id={this.editorId}
-                />
-            );
+            return <limel-markdown slot="content" value={this.value} />;
         }
 
         return (
@@ -338,6 +323,8 @@ export class TextEditor implements FormComponent<string> {
                 ref={(el) => (this.adapterElement = el)}
                 slot="content"
                 aria-placeholder={this.placeholder}
+                accessibleLabel={this.label}
+                accessibleDescription={this.helperText}
                 contentType={this.contentType}
                 onChange={this.handleChange}
                 onImagePasted={this.handleImagePasted}
@@ -346,7 +333,6 @@ export class TextEditor implements FormComponent<string> {
                 customElements={this.customElements}
                 inlineImages={this.inlineImages}
                 value={this.value}
-                id={this.editorId}
                 aria-disabled={this.disabled}
                 aria-invalid={this.invalid}
                 aria-required={this.required}
@@ -378,7 +364,6 @@ export class TextEditor implements FormComponent<string> {
         return (
             <limel-helper-line
                 helperText={this.helperText}
-                helperTextId={this.helperTextId}
                 invalid={this.isInvalid()}
             />
         );
