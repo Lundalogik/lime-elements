@@ -1,0 +1,1 @@
+import{r as e,h as t}from"./index-BU9IJqli.js";const c=class{constructor(t){e(this,t)}render(){return t("limel-callout",{key:"cf4050dce7d7361898c29f8d4de86b24cc8c0acc",type:"note"},"You might read this, you might not.")}};export{c as limel_example_callout_note}
