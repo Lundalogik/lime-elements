@@ -1,4 +1,7 @@
 import { render, h } from '@stencil/vitest';
+import type Sortable from 'sortablejs';
+import { userEvent } from 'vitest/browser';
+import { Tab } from './tab.types';
 
 // More tabs than fit in a bar that is 22rem wide.
 const manyTabs = (active?: number) =>
@@ -52,6 +55,41 @@ const pressKey = (target: Element, init: KeyboardEventInit) => {
     target.dispatchEvent(event);
 
     return event;
+};
+
+const dragHandlesOf = (bar: HTMLLimelTabBarElement) => [
+    ...bar.shadowRoot.querySelectorAll<HTMLLimelDragHandleElement>(
+        'limel-drag-handle'
+    ),
+];
+
+const dragHandleButtonOf = (bar: HTMLLimelTabBarElement, index: number) =>
+    dragHandlesOf(bar)[index]?.querySelector<HTMLElement>(
+        ':scope [data-drag-handle]'
+    );
+
+// The bar has its own copy of SortableJS, which keeps its instance on the
+// element, under a name that only that copy knows.
+const sortableOf = (bar: HTMLLimelTabBarElement) => {
+    const scroller = bar.shadowRoot.querySelector('limel-scroller');
+    const entry = Object.entries(scroller).find(([name]) =>
+        name.startsWith('Sortable')
+    );
+
+    return entry?.[1] as Sortable | null | undefined;
+};
+
+const sortableDirectionOf = (bar: HTMLLimelTabBarElement) =>
+    sortableOf(bar).option('direction');
+
+const canReorder = (bar: HTMLLimelTabBarElement) =>
+    vi.waitFor(() => expect(sortableOf(bar)).toBeTruthy());
+
+const moveTab = (tabs: Tab[], fromIndex: number, toIndex: number) => {
+    const moved = [...tabs];
+    moved.splice(toIndex, 0, ...moved.splice(fromIndex, 1));
+
+    return moved;
 };
 
 describe('limel-tab-bar', () => {
@@ -965,6 +1003,333 @@ describe('limel-tab-bar', () => {
             await waitForChanges();
 
             expect(activatedIds(changeTabSpy)).toEqual(['qux']);
+        });
+    });
+    describe('when `allowTabReorder` is set', () => {
+        const renderBar = async (attributes: Record<string, unknown> = {}) => {
+            const { root, waitForChanges, spyOnEvent } = await render(
+                <limel-tab-bar
+                    tabs={tabs}
+                    allowTabReorder={true}
+                    {...attributes}
+                ></limel-tab-bar>
+            );
+            const reorderTabSpy = spyOnEvent('reorderTab');
+            const changeTabSpy = spyOnEvent('changeTab');
+            await waitForChanges();
+            if (root.allowTabReorder && root.tabs.length > 1) {
+                await canReorder(root);
+            }
+
+            return { bar: root, waitForChanges, reorderTabSpy, changeTabSpy };
+        };
+
+        const reorderedTo = (spy: { events: CustomEvent[] }) =>
+            spy.events.map((event) => ({
+                id: event.detail.tab.id,
+                fromIndex: event.detail.fromIndex,
+                toIndex: event.detail.toIndex,
+            }));
+
+        const hasDragHandle = (bar: HTMLLimelTabBarElement, index = 0) =>
+            vi.waitFor(() =>
+                expect(dragHandleButtonOf(bar, index)).toBeTruthy()
+            );
+
+        it('gives every tab a drag handle', async () => {
+            const { bar } = await renderBar();
+
+            expect(dragHandlesOf(bar)).toHaveLength(3);
+        });
+
+        it('leaves the tab buttons directly in the list of tabs, as far as assistive technology is concerned', async () => {
+            const { bar } = await renderBar();
+
+            const wrappers = [
+                ...bar.shadowRoot.querySelectorAll(
+                    'limel-scroller > [data-reorder-id]'
+                ),
+            ];
+            expect(wrappers.map((wrapper) => wrapper.role)).toEqual([
+                'presentation',
+                'presentation',
+                'presentation',
+            ]);
+        });
+
+        it('hides the drag handles from assistive technology, as a list of tabs contains nothing but tabs', async () => {
+            const { bar } = await renderBar();
+
+            expect(
+                dragHandlesOf(bar).map((handle) =>
+                    handle.getAttribute('aria-hidden')
+                )
+            ).toEqual(['true', 'true', 'true']);
+        });
+
+        it('has no drag handles when it is not set', async () => {
+            const { bar } = await renderBar({ allowTabReorder: false });
+
+            expect(dragHandlesOf(bar)).toHaveLength(0);
+        });
+
+        it('has no drag handle for a single tab', async () => {
+            const { bar } = await renderBar({ tabs: [tabs[0]] });
+
+            expect(dragHandlesOf(bar)).toHaveLength(0);
+        });
+
+        it('goes back to plain tabs when the setting is turned off, and lets the user reorder again when it is turned on', async () => {
+            const { bar, waitForChanges, reorderTabSpy } = await renderBar();
+
+            bar.allowTabReorder = false;
+            await waitForChanges();
+            expect(dragHandlesOf(bar)).toHaveLength(0);
+            expect(sortableOf(bar)).toBeFalsy();
+
+            bar.allowTabReorder = true;
+            await waitForChanges();
+            await canReorder(bar);
+            await hasDragHandle(bar);
+            expect(dragHandlesOf(bar)).toHaveLength(3);
+            await userEvent.dragAndDrop(
+                dragHandleButtonOf(bar, 0),
+                tabButtons(bar)[2]
+            );
+
+            await vi.waitFor(() =>
+                expect(reorderTabSpy).toHaveReceivedEventTimes(1)
+            );
+        });
+
+        it('has no drag handle when the bar is down to a single tab, and gets them back with a second tab', async () => {
+            const { bar, waitForChanges } = await renderBar();
+
+            bar.tabs = [tabs[0]];
+            await waitForChanges();
+            expect(dragHandlesOf(bar)).toHaveLength(0);
+            expect(sortableOf(bar)).toBeFalsy();
+
+            bar.tabs = [tabs[0], tabs[1]];
+            await waitForChanges();
+            await canReorder(bar);
+            expect(dragHandlesOf(bar)).toHaveLength(2);
+        });
+
+        it('keeps the focus on the tab that has it, when the bar gets a second tab', async () => {
+            const { bar, waitForChanges } = await renderBar({
+                tabs: [tabs[0]],
+            });
+            tabButtons(bar)[0].focus();
+            expect(bar.shadowRoot.activeElement).toBe(tabButtons(bar)[0]);
+
+            bar.tabs = [tabs[0], tabs[1]];
+            await waitForChanges();
+
+            expect(bar.shadowRoot.activeElement).toBe(tabButtons(bar)[0]);
+        });
+
+        it('keeps the focus on the tab that has it, when the setting is turned off', async () => {
+            const { bar, waitForChanges } = await renderBar();
+            tabButtons(bar)[1].focus();
+
+            bar.allowTabReorder = false;
+            await waitForChanges();
+
+            expect(bar.shadowRoot.activeElement).toBe(tabButtons(bar)[1]);
+        });
+
+        it('keeps the focus on the tab that has it, when the setting is turned on', async () => {
+            const { bar, waitForChanges } = await renderBar({
+                allowTabReorder: false,
+            });
+            tabButtons(bar)[2].focus();
+
+            bar.allowTabReorder = true;
+            await waitForChanges();
+
+            expect(bar.shadowRoot.activeElement).toBe(tabButtons(bar)[2]);
+        });
+
+        it('does not take the focus, when no tab has it', async () => {
+            const { bar, waitForChanges } = await renderBar({
+                tabs: [tabs[0]],
+            });
+
+            bar.tabs = [tabs[0], tabs[1]];
+            await waitForChanges();
+
+            expect(bar.shadowRoot.activeElement).toBeNull();
+        });
+
+        it('has the drag handles drag in the direction of the bar', async () => {
+            const { bar, waitForChanges } = await renderBar();
+            const directions = () =>
+                dragHandlesOf(bar).map((handle) => handle.dragDirection);
+            expect(directions()).toEqual([
+                'horizontal',
+                'horizontal',
+                'horizontal',
+            ]);
+
+            bar.orientation = 'vertical';
+            await waitForChanges();
+
+            expect(directions()).toEqual(['vertical', 'vertical', 'vertical']);
+        });
+
+        it.each(['horizontal', 'vertical'] as const)(
+            'emits which tab was moved, and where to, when it is dragged in a %s bar',
+            async (orientation) => {
+                const { bar, reorderTabSpy } = await renderBar({
+                    orientation: orientation,
+                });
+                await hasDragHandle(bar);
+
+                await userEvent.dragAndDrop(
+                    dragHandleButtonOf(bar, 0),
+                    tabButtons(bar)[2]
+                );
+
+                await vi.waitFor(() =>
+                    expect(reorderTabSpy).toHaveReceivedEventTimes(1)
+                );
+                expect(reorderedTo(reorderTabSpy)).toEqual([
+                    { id: 'foo', fromIndex: 0, toIndex: 2 },
+                ]);
+            }
+        );
+
+        it.each(['horizontal', 'vertical'] as const)(
+            'has the drag library drag in the direction of a %s bar',
+            async (orientation) => {
+                const { bar } = await renderBar({ orientation: orientation });
+
+                expect(sortableDirectionOf(bar)).toBe(orientation);
+            }
+        );
+
+        it('has the drag library follow a change of orientation', async () => {
+            const { bar, waitForChanges } = await renderBar({
+                orientation: 'vertical',
+            });
+
+            bar.orientation = 'horizontal';
+            await waitForChanges();
+
+            await vi.waitFor(() =>
+                expect(sortableDirectionOf(bar)).toBe('horizontal')
+            );
+        });
+
+        it('lets the user reorder the tabs again, when the bar has been moved to another place in the page', async () => {
+            const { bar, reorderTabSpy } = await renderBar();
+
+            bar.parentElement.append(bar);
+            await canReorder(bar);
+            await hasDragHandle(bar);
+            await userEvent.dragAndDrop(
+                dragHandleButtonOf(bar, 0),
+                tabButtons(bar)[2]
+            );
+
+            await vi.waitFor(() =>
+                expect(reorderTabSpy).toHaveReceivedEventTimes(1)
+            );
+        });
+
+        it('keeps the tab where it was until `tabs` is changed', async () => {
+            const { bar, waitForChanges, reorderTabSpy } = await renderBar();
+            await hasDragHandle(bar);
+            const [foo, barTab, baz] = tabButtons(bar);
+
+            await userEvent.dragAndDrop(dragHandleButtonOf(bar, 0), baz);
+            await vi.waitFor(() =>
+                expect(reorderTabSpy).toHaveReceivedEventTimes(1)
+            );
+
+            expect(tabButtons(bar)).toEqual([foo, barTab, baz]);
+
+            bar.tabs = moveTab(tabs, 0, 2);
+            await waitForChanges();
+
+            expect(tabButtons(bar)).toEqual([barTab, baz, foo]);
+        });
+
+        it('stays where the user scrolled it, when the user has moved a tab', async () => {
+            const { bar, waitForChanges } = await renderBar({
+                tabs: manyTabs(0),
+                style: { width: '22rem' },
+            });
+            bar.addEventListener('reorderTab', (event: CustomEvent) => {
+                bar.tabs = moveTab(
+                    bar.tabs,
+                    event.detail.fromIndex,
+                    event.detail.toIndex
+                );
+            });
+            const area = scrollAreaOf(bar);
+            area.scrollTo({ left: area.scrollWidth, behavior: 'instant' });
+            await waitForChanges();
+            await hasDragHandle(bar, 8);
+            const scrolledTo = area.scrollLeft;
+            expect(scrolledTo).toBeGreaterThan(0);
+
+            await userEvent.dragAndDrop(
+                dragHandleButtonOf(bar, 8),
+                tabButtons(bar)[9]
+            );
+            await vi.waitFor(() =>
+                expect(bar.tabs.map((tab) => tab.id).slice(-2)).toEqual([9, 8])
+            );
+            await new Promise((resolve) => setTimeout(resolve, 600));
+
+            expect(area.scrollLeft).toBe(scrolledTo);
+        });
+
+        it('stays where the user scrolled it, when the app redraws its tabs before it applies the new order', async () => {
+            const { bar, waitForChanges } = await renderBar({
+                tabs: manyTabs(0),
+                style: { width: '22rem' },
+            });
+            bar.addEventListener('reorderTab', (event: CustomEvent) => {
+                bar.tabs = bar.tabs.map((tab) => ({ ...tab }));
+                bar.tabs = moveTab(
+                    bar.tabs,
+                    event.detail.fromIndex,
+                    event.detail.toIndex
+                );
+            });
+            const area = scrollAreaOf(bar);
+            area.scrollTo({ left: area.scrollWidth, behavior: 'instant' });
+            await waitForChanges();
+            await hasDragHandle(bar, 8);
+            const scrolledTo = area.scrollLeft;
+            expect(scrolledTo).toBeGreaterThan(0);
+
+            await userEvent.dragAndDrop(
+                dragHandleButtonOf(bar, 8),
+                tabButtons(bar)[9]
+            );
+            await vi.waitFor(() =>
+                expect(bar.tabs.map((tab) => tab.id).slice(-2)).toEqual([9, 8])
+            );
+            await new Promise((resolve) => setTimeout(resolve, 600));
+
+            expect(area.scrollLeft).toBe(scrolledTo);
+        });
+
+        it('does not let the arrow keys on a drag handle move between the tabs', async () => {
+            const { bar, waitForChanges, changeTabSpy } = await renderBar();
+            await hasDragHandle(bar);
+
+            const event = pressKey(dragHandleButtonOf(bar, 1), {
+                key: 'ArrowRight',
+            });
+            await waitForChanges();
+
+            expect(event.defaultPrevented).toBe(false);
+            expect(changeTabSpy).not.toHaveReceivedEvent();
         });
     });
 });

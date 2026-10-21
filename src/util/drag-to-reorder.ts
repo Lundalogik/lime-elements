@@ -7,11 +7,19 @@ const ELEVATION_DURATION_MS = 1000;
 const TOUCH_DRAG_DELAY_MS = 200;
 const ANIMATION_DURATION_MS = 150;
 
+export type ReorderDirection = 'vertical' | 'horizontal';
+
 export interface DragToReorderOptions {
     /**
      * Selector for the children of the list that the user can drag.
      */
     draggable: string;
+
+    /**
+     * Put the dragged child back where it was when it is dropped, for a list
+     * whose owner renders the new order itself.
+     */
+    revertDrop?: boolean;
 
     /**
      * Called when a drop has changed the order of the list.
@@ -44,14 +52,22 @@ export interface ReorderEvent {
  */
 export class DragToReorder {
     private container?: HTMLElement;
+    private direction?: ReorderDirection;
     private sortable?: Sortable;
     private orderBeforeDrag: string[] = [];
+    private nextSiblingBeforeDrag?: Element;
     private elevatedItem?: HTMLElement;
     private elevationTimeout?: ReturnType<typeof setTimeout>;
 
     constructor(private readonly options: DragToReorderOptions) {}
 
-    public setup(container: HTMLElement) {
+    /**
+     * @param container - the list
+     * @param direction - the way the children are laid out. Leave it out to
+     * let SortableJS find out. Setting up the same list again without it keeps
+     * the direction that the list has.
+     */
+    public setup(container: HTMLElement, direction?: ReorderDirection) {
         if (this.getDraggableItems(container).length < 2) {
             this.teardown();
 
@@ -59,17 +75,21 @@ export class DragToReorder {
         }
 
         if (this.sortable && this.container === container) {
+            this.changeDirection(direction);
+
             return;
         }
 
         this.teardown();
         this.container = container;
+        this.direction = direction;
         this.sortable = Sortable.create(container, {
             animation: ANIMATION_DURATION_MS,
             handle: DRAG_HANDLE_SELECTOR,
             draggable: this.options.draggable,
             delay: TOUCH_DRAG_DELAY_MS,
             delayOnTouchOnly: true,
+            ...(direction && { direction: direction }),
             onStart: this.handleStart,
             onEnd: this.handleEnd,
         });
@@ -81,11 +101,14 @@ export class DragToReorder {
         this.removeElevation();
         this.container?.classList.remove(DRAGGING_CONTAINER_CLASS);
         this.container = undefined;
+        this.direction = undefined;
         this.orderBeforeDrag = [];
+        this.nextSiblingBeforeDrag = undefined;
     }
 
     private readonly handleStart = (event: SortableEvent) => {
         this.orderBeforeDrag = this.readOrder();
+        this.nextSiblingBeforeDrag = event.item.nextElementSibling ?? undefined;
         this.container?.classList.add(DRAGGING_CONTAINER_CLASS);
         this.elevate(event.item);
     };
@@ -98,14 +121,34 @@ export class DragToReorder {
         const id = event.item.dataset.reorderId;
         const fromIndex = this.orderBeforeDrag.indexOf(id);
         const toIndex = order.indexOf(id);
+        const nextSibling = this.nextSiblingBeforeDrag;
         this.orderBeforeDrag = [];
+        this.nextSiblingBeforeDrag = undefined;
 
         if (fromIndex === -1 || toIndex === -1 || fromIndex === toIndex) {
             return;
         }
 
+        if (this.options.revertDrop) {
+            this.putBack(event.item, nextSibling);
+        }
+
         this.options.onReorder({ order, fromIndex, toIndex });
     };
+
+    private putBack(item: HTMLElement, nextSibling?: Element) {
+        const isStillInList = nextSibling?.parentNode === this.container;
+        this.container.insertBefore(item, isStillInList ? nextSibling : null);
+    }
+
+    private changeDirection(direction?: ReorderDirection) {
+        if (!direction || direction === this.direction) {
+            return;
+        }
+
+        this.direction = direction;
+        this.sortable.option('direction', direction);
+    }
 
     private getDraggableItems(container: HTMLElement): Element[] {
         return [...container.children].filter((child) =>

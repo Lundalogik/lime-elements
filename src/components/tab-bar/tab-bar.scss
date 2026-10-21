@@ -34,13 +34,39 @@ limel-scroller {
 }
 
 :host(.has-tabs-with-equal-width:not([orientation='vertical'])) {
-    button {
+    button[role='tab'],
+    limel-scroller > div {
         flex: 1 0 auto;
         max-width: var(--tab-bar-horizontal-tab-max-width, none);
     }
 }
 
-button {
+limel-scroller > div {
+    @include mixins.is-draggable-item();
+
+    position: relative;
+    display: flex;
+    flex: 0 0 auto;
+
+    button[role='tab'] {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    span.content {
+        padding-right: 2rem;
+    }
+
+    limel-drag-handle {
+        position: absolute;
+        z-index: 3;
+        top: 0;
+        bottom: 0;
+        right: 0.25rem;
+    }
+}
+
+button[role='tab'] {
     @include mixins.reset-button-user-agent-styles;
     position: relative;
     display: flex;
@@ -87,7 +113,7 @@ button {
     }
 }
 
-button[aria-selected='true'] {
+button[role='tab'][aria-selected='true'] {
     background-color: var(--limel-active-tab-background-color);
     z-index: 2;
 
@@ -128,14 +154,14 @@ span.content {
         var(--limel-tab-border-radius) - var(--limel-tab-content-inset)
     );
 
-    button:focus-visible & {
+    button[role='tab']:focus-visible & {
         transition-duration: 0.3s;
         box-shadow: var(--shadow-depth-8-focused);
     }
 }
 
 :host(limel-tab-bar:not([orientation='vertical'])) {
-    button {
+    button[role='tab'] {
         max-width: var(--tab-bar-horizontal-tab-max-width, 16rem);
 
         &:not([aria-selected='true']) {
@@ -152,16 +178,17 @@ span.content {
                 border-radius: 1rem;
                 right: calc(-1 * var(--limel-tab-separator-width));
             }
-
-            &:last-of-type {
-                &:after {
-                    display: none;
-                }
-            }
         }
     }
 
-    button[aria-selected='true'] {
+    limel-scroller > :last-child {
+        &:not([aria-selected='true']):after,
+        > button[role='tab']:not([aria-selected='true']):after {
+            display: none;
+        }
+    }
+
+    button[role='tab'][aria-selected='true'] {
         border-radius: var(--limel-tab-border-radius)
             var(--limel-tab-border-radius) 0 0;
 
@@ -196,7 +223,7 @@ span.content {
         height: 100%;
     }
 
-    button[aria-selected='true'] {
+    button[role='tab'][aria-selected='true'] {
         border-radius: var(--limel-tab-border-radius) 0 0
             var(--limel-tab-border-radius);
 
