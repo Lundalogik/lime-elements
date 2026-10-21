@@ -5,6 +5,7 @@ import {
     EventEmitter,
     h,
     Prop,
+    Watch,
 } from '@stencil/core';
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
@@ -27,7 +28,8 @@ import { ArrayField as CustomArrayField } from './fields/array-field';
 import { ObjectField as CustomObjectField } from './fields/object-field';
 import { widgets } from './widgets';
 import { rjsfValidator } from './validator';
-import { mapValues } from 'lodash-es';
+import { isEqual, mapValues } from 'lodash-es';
+import { showField } from './show-field';
 
 /**
  * @exampleComponent limel-example-form
@@ -46,6 +48,7 @@ import { mapValues } from 'lodash-es';
  * @exampleComponent limel-example-form-row-layout
  * @exampleComponent limel-example-builtin-field-types-form
  * @exampleComponent limel-example-code-editor-form
+ * @exampleComponent limel-example-form-highlighted-field
  */
 @Component({
     tag: 'limel-form',
@@ -106,6 +109,20 @@ export class Form {
     public revealErrors: boolean = false;
 
     /**
+     * The path in the value of a field to take the user to, such as
+     * `['heroes', 2, 'name']`. When it changes, the form opens the sections
+     * and list items the field is in, scrolls it into view, focuses it and
+     * briefly highlights it.
+     *
+     * If the path goes further than the form can show, such as into a custom
+     * component, the closest field above the end of the path is shown. To show
+     * the same field again, set it to `undefined` first.
+     * @beta
+     */
+    @Prop()
+    public highlightedField?: Array<string | number>;
+
+    /**
      * Emitted when a change is made within the form
      */
     @Event()
@@ -136,6 +153,18 @@ export class Form {
 
     public componentDidLoad() {
         this.initialize();
+        this.showHighlightedField();
+    }
+
+    @Watch('highlightedField')
+    protected handleHighlightedFieldChange(
+        newPath?: Array<string | number>,
+        oldPath?: Array<string | number>
+    ) {
+        // A host that renders again passes an equal path in a new array.
+        if (!isEqual(newPath, oldPath)) {
+            this.showHighlightedField();
+        }
     }
 
     private initialize() {
@@ -217,6 +246,15 @@ export class Form {
                 []
             )
         );
+    }
+
+    private showHighlightedField() {
+        if (!this.highlightedField) {
+            return;
+        }
+
+        const root = this.host.shadowRoot.querySelector<HTMLElement>('.root');
+        void showField(root, this.highlightedField);
     }
 
     private handleChange(event: IChangeEvent) {

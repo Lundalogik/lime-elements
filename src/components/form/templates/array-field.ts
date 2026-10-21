@@ -1,5 +1,6 @@
 import React from 'react';
 import { renderDescription, renderTitle } from './common';
+import { toSchemaPath } from './object-field';
 import { ArrayFieldTemplateProps } from './types';
 import { FormSchema } from '../form.types';
 import { DragToReorder, ReorderEvent } from '../../../util/drag-to-reorder';
@@ -22,6 +23,7 @@ export class ArrayFieldTemplate extends React.Component<
     private cachedContextValue: ArrayFieldOptions | null = null;
     private cachedSchema?: FormSchema;
     private cachedFormData?: any[];
+    private cachedPath?: string;
 
     public constructor(props: ArrayFieldTemplateProps) {
         super(props);
@@ -210,18 +212,22 @@ export class ArrayFieldTemplate extends React.Component<
     private getContextValue(): ArrayFieldOptions {
         const schema = this.props.schema as FormSchema;
         const formData = (this.props.formData ?? []) as any[];
+        const schemaPath = (this.props.fieldPathId?.path ?? []).map(String);
+        const path = toSchemaPath(schemaPath);
 
         if (
             this.cachedContextValue &&
             this.cachedSchema === schema &&
-            this.cachedFormData === formData
+            this.cachedFormData === formData &&
+            this.cachedPath === path
         ) {
             return this.cachedContextValue;
         }
 
         this.cachedSchema = schema;
         this.cachedFormData = formData;
-        this.cachedContextValue = { arraySchema: schema, formData };
+        this.cachedPath = path;
+        this.cachedContextValue = { arraySchema: schema, formData, schemaPath };
 
         return this.cachedContextValue;
     }

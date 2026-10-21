@@ -513,6 +513,8 @@ export namespace Components {
     export interface LimelForm {
         "disabled": boolean;
         "errors": ValidationError;
+        // @beta
+        "highlightedField"?: Array<string | number>;
         "propsFactory"?: (schema: FormSchema) => Record<string, any>;
         "revealErrors": boolean;
         "schema": FormSchema;
@@ -2642,6 +2644,8 @@ export namespace JSX {
     export interface LimelForm {
         "disabled"?: boolean;
         "errors"?: ValidationError;
+        // @beta
+        "highlightedField"?: Array<string | number>;
         "onChange"?: (event: LimelFormCustomEvent<object>) => void;
         "onValidate"?: (event: LimelFormCustomEvent<ValidationStatus>) => void;
         "propsFactory"?: (schema: FormSchema) => Record<string, any>;

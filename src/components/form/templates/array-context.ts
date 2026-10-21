@@ -5,6 +5,11 @@ import { FormSchema } from '../form.types';
 export interface ArrayFieldOptions {
     arraySchema: FormSchema;
     formData: any[];
+
+    /**
+     * The path of the array in the value, such as `['heroes']`
+     */
+    schemaPath: string[];
 }
 
 export const ArrayFieldContext = createContext<ArrayFieldOptions | null>(null);

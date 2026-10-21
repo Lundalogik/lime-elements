@@ -560,6 +560,142 @@ test('emits data-schema-path on each field wrapper', async () => {
     ).toBeNull();
 });
 
+test('highlightedField opens the collapsed section a field is in and focuses it', async () => {
+    const { root, formContent } = await renderForm({
+        schema: collapsibleSchema,
+        highlightedField: ['details', 'info'],
+    });
+
+    await vi.waitFor(() => expect(focusedLabel(root)).toBe('Info'));
+    expect(formContent.querySelector('limel-collapsible-section').isOpen).toBe(
+        true
+    );
+});
+
+test('highlightedField opens the collapsed list item a field is in', async () => {
+    const { root, formContent, setProps } = await renderForm({
+        schema: arrayOfObjectsSchema,
+        value: { heroes: [{ name: 'Batman' }, { name: 'Robin' }] },
+    });
+    const items = formContent.querySelectorAll('limel-collapsible-section');
+    expect(formContent.querySelector('limel-input-field')).toBeNull();
+
+    await setProps({ highlightedField: ['heroes', 1, 'name'] });
+
+    await vi.waitFor(() => {
+        const focused = root.shadowRoot
+            .activeElement as HTMLLimelInputFieldElement;
+        expect(focused?.value).toBe('Robin');
+    });
+    expect([...items].map((item) => item.isOpen)).toEqual([false, true]);
+});
+
+test('highlightedField shows the closest field above a path the form cannot show', async () => {
+    const { root } = await renderForm({
+        schema: collapsibleSchema,
+        highlightedField: ['details', 'info', 'deeper'],
+    });
+
+    await vi.waitFor(() => expect(focusedLabel(root)).toBe('Info'));
+});
+
+test('highlightedField shows an object field that a custom component draws', async () => {
+    const { root } = await renderForm({
+        schema: {
+            type: 'object',
+            properties: {
+                card: {
+                    type: 'object',
+                    title: 'Card',
+                    properties: { title: { type: 'string' } },
+                    lime: { component: { name: 'limel-input-field' } },
+                },
+            },
+        },
+        highlightedField: ['card', 'title'],
+    });
+
+    await vi.waitFor(() =>
+        expect(root.shadowRoot.activeElement?.tagName).toBe('LIMEL-INPUT-FIELD')
+    );
+});
+
+test('highlightedField shows a free-form object that the code editor draws', async () => {
+    const { root, formContent } = await renderForm({
+        schema: {
+            type: 'object',
+            properties: {
+                meta: {
+                    type: 'object',
+                    title: 'Meta',
+                    additionalProperties: true,
+                },
+            },
+        },
+        highlightedField: ['meta', 'anything'],
+    });
+
+    const meta = formContent.querySelector('[data-schema-path="/meta"]');
+    expect(meta.querySelector('limel-code-editor')).toBeTruthy();
+    await vi.waitFor(() =>
+        expect(meta.classList).toContain('limel-form-field--highlighted')
+    );
+    expect(root.shadowRoot.activeElement?.tagName).toBe('LIMEL-CODE-EDITOR');
+});
+
+test('highlightedField waits for a schema given at the same time', async () => {
+    const { root, setProps } = await renderForm({ schema: stringSchema });
+
+    await setProps({
+        schema: collapsibleSchema,
+        highlightedField: ['details', 'info'],
+    });
+
+    await vi.waitFor(() => expect(focusedLabel(root)).toBe('Info'));
+});
+
+test('highlightedField does nothing for a path the form does not have', async () => {
+    const { root } = await renderForm({
+        schema: collapsibleSchema,
+        highlightedField: ['missing'],
+    });
+
+    await new Promise((resolve) => setTimeout(resolve, 600));
+    expect(root.shadowRoot.activeElement).toBeNull();
+});
+
+test('highlightedField highlights the field', async () => {
+    const { formContent } = await renderForm({
+        schema: stringSchema,
+        highlightedField: ['name'],
+    });
+    const field = formContent.querySelector<HTMLElement>(
+        '[data-schema-path="/name"]'
+    );
+
+    await vi.waitFor(() =>
+        expect(field.classList).toContain('limel-form-field--highlighted')
+    );
+});
+
+test('highlightedField shows an equal path again only after it was cleared', async () => {
+    const { root, setProps } = await renderForm({
+        schema: stringSchema,
+        highlightedField: ['name'],
+    });
+    await vi.waitFor(() => expect(focusedLabel(root)).toBe('Name'));
+    const blur = () => (root.shadowRoot.activeElement as HTMLElement).blur();
+
+    blur();
+    await setProps({ highlightedField: ['name'] });
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    expect(root.shadowRoot.activeElement).toBeNull();
+
+    await setProps({ highlightedField: undefined });
+    await setProps({ highlightedField: ['name'] });
+    await vi.waitFor(() => expect(focusedLabel(root)).toBe('Name'));
+});
+
 test('emits data-schema-path on grid and row layout wrappers', async () => {
     const { formContent } = await renderForm({
         schema: nestedLayoutSchemaPathSchema,
@@ -1129,6 +1265,10 @@ function changeField(formContent: Element, label: string, value: unknown) {
             composed: true,
         })
     );
+}
+
+function focusedLabel(root: HTMLElement): string | null {
+    return root.shadowRoot.activeElement?.getAttribute('label') ?? null;
 }
 
 async function waitForReactRender(
