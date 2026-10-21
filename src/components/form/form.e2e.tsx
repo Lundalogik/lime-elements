@@ -1,5 +1,6 @@
 import { render, h } from '@stencil/vitest';
 import { vi } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import {
     stringSchema,
     numberSchema,
@@ -670,6 +671,28 @@ test('hides drag handle and remove button when array item controls are disabled'
     );
     expect(dragHandle).toBeNull();
     expect(removeButton).toBeNull();
+});
+
+test('reorders array items when an item is dragged by its drag handle', async () => {
+    const onChange = vi.fn();
+    const { formContent } = await renderForm({
+        schema: arraySchema,
+        value: { tags: ['one', 'two', 'three'] },
+        onChange,
+    });
+    const [first, , third] = formContent.querySelectorAll<HTMLElement>(
+        ':scope .array-items > .array-item'
+    );
+
+    await userEvent.dragAndDrop(
+        first.querySelector(':scope [data-drag-handle]'),
+        third
+    );
+
+    await vi.waitFor(() => expect(onChange).toHaveBeenCalled());
+    expect(onChange.mock.lastCall[0].detail).toEqual({
+        tags: ['two', 'three', 'one'],
+    });
 });
 
 test('displays server errors passed via errors prop', async () => {
