@@ -1,3 +1,11 @@
+## [40.12.2](https://github.com/Lundalogik/lime-elements/compare/v40.12.1...v40.12.2) (2026-10-21)
+
+### Bug Fixes
+
+
+* **text-editor:** announce and enforce the state of the editable area ([c6a57a8](https://github.com/Lundalogik/lime-elements/commit/c6a57a8a4388f73551949a7782133aef544519bd)), closes [#4400](https://github.com/Lundalogik/lime-elements/issues/4400)
+* **text-editor:** name and describe the editable area ([6dfac0e](https://github.com/Lundalogik/lime-elements/commit/6dfac0ec4175b3cb182235960583cfb092b2483c)), closes [#4400](https://github.com/Lundalogik/lime-elements/issues/4400)
+
 ## [40.12.1](https://github.com/Lundalogik/lime-elements/compare/v40.12.0...v40.12.1) (2026-10-20)
 
 ### Bug Fixes
