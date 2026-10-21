@@ -58,6 +58,11 @@ export interface CollapsibleItemProps {
      * errors when this is `true`, keeping a freshly loaded form silent.
      */
     revealErrors?: boolean;
+
+    /**
+     * The schema path of the item, such as `/heroes/0`
+     */
+    schemaPath?: string;
 }
 
 export class CollapsibleItemTemplate extends React.Component<
@@ -122,6 +127,7 @@ export class CollapsibleItemTemplate extends React.Component<
                     this.section = section;
                 },
                 'is-open': this.state.isOpen,
+                'data-schema-path': this.props.schemaPath,
                 'data-reorder-id': String(this.props.index),
                 'data-reorderable': this.props.allowItemReorder
                     ? 'true'

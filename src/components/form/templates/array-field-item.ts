@@ -5,6 +5,7 @@ import { FormSchema } from '../form.types';
 import { CollapsibleItemTemplate } from './array-field-collapsible-item';
 import { SimpleItemTemplate } from './array-field-simple-item';
 import { ArrayFieldContext, ArrayItemErrorsContext } from './array-context';
+import { toSchemaPath } from './object-field';
 
 export const ArrayFieldItemTemplate = (props: ArrayFieldItemTemplateProps) => {
     const arrayContext = useContext(ArrayFieldContext);
@@ -33,6 +34,10 @@ export const ArrayFieldItemTemplate = (props: ArrayFieldItemTemplateProps) => {
                 allowItemReorder: allowItemReorder,
                 errorSchema: itemErrors?.[props.index],
                 revealErrors: formContext?.revealErrors === true,
+                schemaPath: toSchemaPath([
+                    ...arrayContext.schemaPath,
+                    String(props.index),
+                ]),
             },
             props.children
         );

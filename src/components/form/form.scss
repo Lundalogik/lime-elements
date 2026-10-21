@@ -302,3 +302,82 @@ limel-markdown {
         }
     }
 }
+
+.limel-form-field--highlighted {
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: -0.25rem;
+        border-radius: 0.5rem;
+        pointer-events: none;
+        animation-name: highlight-field-background, highlight-field-shadow;
+        animation-duration: 6s;
+        animation-delay: 0.1s, 0.3s;
+        animation-timing-function: ease-in-out;
+    }
+
+    @media (prefers-reduced-motion) {
+        &::after {
+            animation-duration: 4s;
+            animation-delay: 0s;
+        }
+    }
+}
+
+@keyframes highlight-field-background {
+    0% {
+        background-color: transparent;
+    }
+
+    12.5% {
+        background-color: color-mix(
+            in srgb,
+            var(--lime-primary-color, var(--limel-theme-primary-color)),
+            transparent 65%
+        );
+    }
+
+    45%,
+    100% {
+        background-color: transparent;
+    }
+}
+
+@keyframes highlight-field-shadow {
+    0%,
+    25%,
+    50% {
+        box-shadow: none;
+    }
+
+    12.5%,
+    37.5% {
+        box-shadow: var(--shadow-depth-8-focused);
+    }
+
+    62.5%,
+    72.5% {
+        box-shadow: var(--shadow-depth-8-focused);
+        animation-timing-function: ease-out;
+    }
+
+    100% {
+        box-shadow: none;
+    }
+}
+
+@media (prefers-reduced-motion) {
+    @keyframes highlight-field-shadow {
+        0%,
+        25% {
+            box-shadow: var(--shadow-depth-8-focused);
+            animation-timing-function: ease-out;
+        }
+
+        100% {
+            box-shadow: none;
+        }
+    }
+}
