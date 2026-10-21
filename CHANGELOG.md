@@ -1,3 +1,14 @@
+## [40.12.3](https://github.com/Lundalogik/lime-elements/compare/v40.12.2...v40.12.3) (2026-10-21)
+
+### Bug Fixes
+
+
+* **checkbox:** tell assistive technology when the checkbox is invalid ([49888df](https://github.com/Lundalogik/lime-elements/commit/49888df58a6827e0d2ea3bb52d626995f9ecc1d6)), closes [#4411](https://github.com/Lundalogik/lime-elements/issues/4411)
+* **chip-set:** tell assistive technology when an input chip set is invalid ([64a2a17](https://github.com/Lundalogik/lime-elements/commit/64a2a17e1b81bdb646bc93dbd58a791e06b6d4b7)), closes [#4411](https://github.com/Lundalogik/lime-elements/issues/4411)
+* **select:** tell assistive technology when the native select is invalid ([a499bb3](https://github.com/Lundalogik/lime-elements/commit/a499bb3deeb9139c90f479e4c7bcd35b79a5e361)), closes [#4411](https://github.com/Lundalogik/lime-elements/issues/4411)
+* **slider:** tell assistive technology when the slider is invalid ([d9b12fc](https://github.com/Lundalogik/lime-elements/commit/d9b12fc0ce053567ad160578cd52ae57ff7a974e)), closes [#4411](https://github.com/Lundalogik/lime-elements/issues/4411)
+* **switch:** tell assistive technology when the switch is invalid ([405273c](https://github.com/Lundalogik/lime-elements/commit/405273caae6f949879de94a0dacb31ae91321568)), closes [#4411](https://github.com/Lundalogik/lime-elements/issues/4411)
+
 ## [40.12.2](https://github.com/Lundalogik/lime-elements/compare/v40.12.1...v40.12.2) (2026-10-21)
 
 ### Bug Fixes
