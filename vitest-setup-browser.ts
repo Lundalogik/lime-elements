@@ -3,7 +3,6 @@
 // but in the test environment the icon URLs don't resolve, causing
 // "Failed to execute 'add' on 'Cache': Request failed" errors.
 // The icons still render (via in-memory fallback), so these are harmless.
-
 window.addEventListener('unhandledrejection', (event) => {
     if (
         event.reason instanceof TypeError &&
