@@ -295,7 +295,7 @@ for (const tag of TAGS) {
                     observed.set(key, rules);
                 }
             }
-            // eslint-disable-next-line unicorn/no-top-level-assignment-in-function -- module-level counter read by afterAll
+
             scannedExamples++;
             return;
         }
