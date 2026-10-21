@@ -1,0 +1,1 @@
+import{r as e,h as t}from"./index-BU9IJqli.js";const a=class{constructor(t){e(this,t)}render(){return t("limel-callout",{key:"3a04711a5ea88ebc2683fb6df55505fd21813ea3",type:"tip"},"You want to read this.")}};export{a as limel_example_callout_tip}
