@@ -269,6 +269,7 @@ export class TabBar {
     private renderTab(tab: Tab, index: number, isTabStop: boolean) {
         return (
             <button
+                key={tab.id}
                 role="tab"
                 aria-selected={tab.active ? 'true' : 'false'}
                 tabindex={isTabStop ? 0 : -1}

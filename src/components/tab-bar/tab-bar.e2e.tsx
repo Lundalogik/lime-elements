@@ -97,6 +97,24 @@ describe('limel-tab-bar', () => {
         });
     });
 
+    describe('when the order of `tabs` changes', () => {
+        it('moves the buttons of the tabs instead of rewriting them', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-tab-bar tabs={tabs}></limel-tab-bar>
+            );
+            await waitForChanges();
+            const [foo, bar, baz] = tabButtons(root);
+
+            root.tabs = [tabs[1], tabs[2], tabs[0]];
+            await waitForChanges();
+
+            const buttons = tabButtons(root);
+            expect(buttons[0]).toBe(bar);
+            expect(buttons[1]).toBe(baz);
+            expect(buttons[2]).toBe(foo);
+        });
+    });
+
     describe('when tab clicked is to the left of the active one', () => {
         it('emits the inactive tab before the active tab', async () => {
             const newTabs = [
