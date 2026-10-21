@@ -8,7 +8,7 @@ import {
     Host,
     Watch,
 } from '@stencil/core';
-import { Tab } from '../tab-bar/tab.types';
+import { Tab, TabReorderEvent } from '../tab-bar/tab.types';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 
 /**
@@ -26,10 +26,16 @@ import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
  * The slotted components can also emit the `changeTab` event to update anything
  * inside the actual tab, e.g. to change the icon, color or badge.
  *
+ * Set `allowTabReorder` to let the user reorder the tabs by dragging them. The
+ * panel does not change `tabs` itself. Listen for `reorderTab`, and give the
+ * panel the tabs in their new order. The tabs can be reordered with a mouse
+ * and a touch screen, but not yet with the keyboard.
+ *
  * @slot - Content to put inside the `limel-tab-panel`. Each slotted element
  * must have the `id` attribute equal to the id of the tab it belongs to.
  * @exampleComponent limel-example-tab-panel-basic
  * @exampleComponent limel-example-tab-panel-vertical
+ * @exampleComponent limel-example-tab-panel-reorder
  */
 @Component({
     tag: 'limel-tab-panel',
@@ -51,10 +57,25 @@ export class TabPanel {
     public orientation: 'horizontal' | 'vertical' = 'horizontal';
 
     /**
+     * Set to `true` to let the user reorder the tabs by dragging them. Listen
+     * for `reorderTab` and give the panel the tabs in their new order.
+     */
+    @Prop({ reflect: true })
+    public allowTabReorder: boolean = false;
+
+    /**
      * Emitted when a tab has been changed
      */
     @Event()
     protected changeTab: EventEmitter<Tab>;
+
+    /**
+     * Emitted when the user has dragged a tab to a new place. The panel does
+     * not change `tabs` itself. The tab stays where it was until `tabs` is set
+     * to the tabs in their new order.
+     */
+    @Event()
+    protected reorderTab: EventEmitter<TabReorderEvent>;
 
     @Element()
     private host: HTMLLimelTabPanelElement;
@@ -108,6 +129,7 @@ export class TabPanel {
                     <limel-tab-bar
                         tabs={this.tabs}
                         orientation={this.orientation}
+                        allowTabReorder={this.allowTabReorder}
                     />
                     <div class="tab-content">
                         <slot />

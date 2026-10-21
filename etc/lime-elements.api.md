@@ -955,6 +955,7 @@ export namespace Components {
         "totalRows": number;
     }
     export interface LimelTabPanel {
+        "allowTabReorder": boolean;
         "orientation": 'horizontal' | 'vertical';
         "tabs": Tab[];
     }
@@ -3843,13 +3844,17 @@ export namespace JSX {
     }
 
     export interface LimelTabPanel {
+        "allowTabReorder"?: boolean;
         "onChangeTab"?: (event: LimelTabPanelCustomEvent<Tab>) => void;
+        "onReorderTab"?: (event: LimelTabPanelCustomEvent<TabReorderEvent>) => void;
         "orientation"?: 'horizontal' | 'vertical';
         "tabs"?: Tab[];
     }
 
     // (undocumented)
     export interface LimelTabPanelAttributes {
+        // (undocumented)
+        "allowTabReorder": boolean;
         // (undocumented)
         "orientation": 'horizontal' | 'vertical';
     }
