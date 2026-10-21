@@ -195,7 +195,6 @@ async function getSuggestion(
 }
 
 async function pickSuggestion(
-    // eslint-disable-next-line unicorn/no-unnecessary-parameters -- generic helper; the tests just happen to pick the same item
     text: string,
     waitForChanges: () => Promise<void>
 ) {
