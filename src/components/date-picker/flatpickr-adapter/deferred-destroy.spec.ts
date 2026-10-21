@@ -5,7 +5,6 @@ let deferredDestroy: DeferredDestroy;
 
 beforeEach(() => {
     vi.useFakeTimers();
-
     deferredDestroy = new DeferredDestroy();
 });
 

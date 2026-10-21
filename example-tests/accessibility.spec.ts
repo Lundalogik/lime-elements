@@ -295,7 +295,6 @@ for (const tag of TAGS) {
                     observed.set(key, rules);
                 }
             }
-
             scannedExamples++;
             return;
         }
