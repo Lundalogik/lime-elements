@@ -1,5 +1,9 @@
 import Sortable, { SortableEvent } from 'sortablejs';
-import { DragToReorder, ReorderEvent } from './drag-to-reorder';
+import {
+    DragToReorder,
+    DragToReorderOptions,
+    ReorderEvent,
+} from './drag-to-reorder';
 
 vi.mock('sortablejs', () => ({
     default: { create: vi.fn() },
@@ -26,13 +30,14 @@ afterEach(() => {
     vi.useRealTimers();
 });
 
-function createDragToReorder() {
-    const sortable = { destroy: vi.fn() };
+function createDragToReorder(options?: Partial<DragToReorderOptions>) {
+    const sortable = { destroy: vi.fn(), option: vi.fn() };
     vi.mocked(Sortable.create).mockReturnValue(sortable as unknown as Sortable);
     const onReorder = vi.fn<(event: ReorderEvent) => void>();
     const dragToReorder = new DragToReorder({
         draggable: DRAGGABLE,
         onReorder: onReorder,
+        ...options,
     });
     created.push(dragToReorder);
 
@@ -132,6 +137,52 @@ describe('DragToReorder', () => {
             expect(sortable.destroy).not.toHaveBeenCalled();
         });
 
+        it('tells SortableJS which way the items are laid out', () => {
+            const { dragToReorder } = createDragToReorder();
+            const [list] = createList('a', 'b');
+
+            dragToReorder.setup(list, 'horizontal');
+
+            expect(sortableOptions()).toMatchObject({
+                direction: 'horizontal',
+            });
+        });
+
+        it('lets SortableJS find out the direction when it is not given', () => {
+            const { dragToReorder } = createDragToReorder();
+            const [list] = createList('a', 'b');
+
+            dragToReorder.setup(list);
+
+            expect(sortableOptions()).not.toHaveProperty('direction');
+        });
+
+        it('follows a change of direction without starting over', () => {
+            const { dragToReorder, sortable } = createDragToReorder();
+            const [list] = createList('a', 'b');
+            dragToReorder.setup(list, 'horizontal');
+
+            dragToReorder.setup(list, 'horizontal');
+            expect(sortable.option).not.toHaveBeenCalled();
+
+            dragToReorder.setup(list, 'vertical');
+            expect(sortable.option).toHaveBeenCalledExactlyOnceWith(
+                'direction',
+                'vertical'
+            );
+            expect(Sortable.create).toHaveBeenCalledOnce();
+        });
+
+        it('keeps the direction when set up again without one', () => {
+            const { dragToReorder, sortable } = createDragToReorder();
+            const [list] = createList('a', 'b');
+            dragToReorder.setup(list, 'horizontal');
+
+            dragToReorder.setup(list);
+
+            expect(sortable.option).not.toHaveBeenCalled();
+        });
+
         it('moves the drag to another list', () => {
             const { dragToReorder, sortable } = createDragToReorder();
             const [list] = createList('a', 'b');
@@ -158,6 +209,33 @@ describe('DragToReorder', () => {
                 fromIndex: 0,
                 toIndex: 2,
             });
+        });
+
+        it('puts the item back when asked to, and still reports the new order', () => {
+            const { dragToReorder, onReorder } = createDragToReorder({
+                revertDrop: true,
+            });
+            const [list, a, b, c] = createList('a', 'b', 'c');
+            dragToReorder.setup(list);
+
+            drag(list, a, [b, c, a]);
+
+            expect([...list.children]).toEqual([a, b, c]);
+            expect(onReorder).toHaveBeenCalledExactlyOnceWith({
+                order: ['b', 'c', 'a'],
+                fromIndex: 0,
+                toIndex: 2,
+            });
+        });
+
+        it('leaves the item where it was dropped otherwise', () => {
+            const { dragToReorder } = createDragToReorder();
+            const [list, a, b, c] = createList('a', 'b', 'c');
+            dragToReorder.setup(list);
+
+            drag(list, a, [b, c, a]);
+
+            expect([...list.children]).toEqual([b, c, a]);
         });
 
         it('counts the items that cannot be dragged', () => {

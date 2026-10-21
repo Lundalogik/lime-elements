@@ -7,9 +7,9 @@ import {
     Event,
     Watch,
 } from '@stencil/core';
-import { Tab } from './tab.types';
+import { Tab, TabReorderEvent } from './tab.types';
 import { isEqual, difference } from 'lodash-es';
-import { setActiveTab } from './tabs';
+import { getTabReorder, setActiveTab } from './tabs';
 import { getIconColor, getIconName } from '../icon/get-icon-props';
 import {
     findNavigationTarget,
@@ -18,6 +18,7 @@ import {
     NavigationOptions,
     NO_NAVIGATION_TARGET,
 } from '../../util/keyboard-navigation';
+import { DragToReorder, ReorderEvent } from '../../util/drag-to-reorder';
 
 /**
  * Tabs are great to organize information hierarchically in the interface and divide it into distinct categories. Using tabs, you can create groups of content that are related and at the same level in the hierarchy.
@@ -29,6 +30,7 @@ import {
  * A tab bar can contain an unlimited number of tabs. However, depending on the device width and width of the tabs, the number of tabs that are visible at the same time will vary. When there is limited horizontal space, the component shows a left-arrow and/or right-arrow button, which scrolls and reveals the additional tabs. The tab bar can also be swiped left and right on a touch-device. A vertical tab bar does the same, upwards and downwards.
  * The arrows are only a shortcut for people who use a mouse or a touch screen. Screen readers do not announce them, and the Tab key skips them. People who use a keyboard or a screen reader move between the tabs, and the tab bar keeps the selected tab in view.
  * The left and right arrow keys move to the previous and the next tab, and select it. In a vertical tab bar, the up and down arrow keys do that instead. Home and End move to the first and the last tab. Moving past the last tab continues at the first one, and the other way around. The Tab key moves on to what comes after the tab bar, and moving back with Shift and Tab lands on the selected tab, or on the first tab when none is selected.
+ * Set `allowTabReorder` to let the user drag the tabs into the order they want. Every tab then gets a drag handle, and the tab bar emits `reorderTab` when the user drops a tab in a new place. The tab bar does not change `tabs` itself, so the component that uses it decides the new order, and can save it for the user. A tab that the component does not move, stays where it was. The tabs can be reordered with a mouse and a touch screen, but not yet with the keyboard.
  * :::tip Other things to consider
  * Never divide the content of a tab using a nested tab bar.
  * Never place two tab bars within the same screen.
@@ -42,6 +44,8 @@ import {
  * @exampleComponent limel-example-tab-bar-with-equal-tab-width
  * @exampleComponent limel-example-tab-bar-vertical
  * @exampleComponent limel-example-tab-bar-tab-width
+ * @exampleComponent limel-example-tab-bar-reorder
+ * @exampleComponent limel-example-tab-bar-reorder-vertical
  */
 @Component({
     tag: 'limel-tab-bar',
@@ -63,10 +67,25 @@ export class TabBar {
     public orientation: 'horizontal' | 'vertical' = 'horizontal';
 
     /**
+     * Set to `true` to let the user reorder the tabs by dragging them. Listen
+     * for `reorderTab` and give the tab bar the tabs in their new order.
+     */
+    @Prop({ reflect: true })
+    public allowTabReorder: boolean = false;
+
+    /**
      * Emitted when a tab has been changed
      */
     @Event()
     private changeTab: EventEmitter<Tab>;
+
+    /**
+     * Emitted when the user has dragged a tab to a new place. The tab bar does
+     * not change `tabs` itself. The tab stays where it was until `tabs` is set
+     * to the tabs in their new order.
+     */
+    @Event()
+    private reorderTab: EventEmitter<TabReorderEvent>;
 
     @Element()
     private host: HTMLLimelTabBarElement;
@@ -74,6 +93,10 @@ export class TabBar {
     private revealedTabId?: Tab['id'];
     private hasLoaded = false;
     private isLaidOutAgain = false;
+    private tabIdsAfterReorder?: Array<Tab['id']>;
+    private dragToReorder?: DragToReorder;
+    private renderedTabs: Tab[] = [];
+    private tabWithFocus?: { id: Tab['id']; button: HTMLElement };
 
     constructor() {
         this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -87,7 +110,12 @@ export class TabBar {
         }
 
         this.revealedTabId = undefined;
+        this.setUpReordering();
         await this.revealActiveTab('auto');
+    }
+
+    public disconnectedCallback() {
+        this.dragToReorder?.teardown();
     }
 
     public componentDidLoad() {
@@ -95,7 +123,23 @@ export class TabBar {
         this.triggerIconColorWarning();
     }
 
+    public componentWillRender() {
+        const index = this.getTabElements().indexOf(
+            this.host.shadowRoot.activeElement as HTMLElement
+        );
+        this.tabWithFocus =
+            index === -1
+                ? undefined
+                : {
+                      id: this.renderedTabs[index]?.id,
+                      button: this.getTabElements()[index],
+                  };
+    }
+
     public async componentDidRender() {
+        this.restoreFocus();
+        this.renderedTabs = this.tabs;
+        this.setUpReordering();
         const isLaidOutAgain = this.isLaidOutAgain;
         this.isLaidOutAgain = false;
         await this.revealActiveTab(
@@ -119,7 +163,11 @@ export class TabBar {
             >
                 <limel-scroller orientation={this.getOrientation()}>
                     {this.tabs.map((tab, index) =>
-                        this.renderTab(tab, index, index === tabStop)
+                        this.renderTabOrMovableTab(
+                            tab,
+                            index,
+                            index === tabStop
+                        )
                     )}
                 </limel-scroller>
             </div>
@@ -132,6 +180,13 @@ export class TabBar {
         const oldIds = oldTabs.map((tab) => tab.id);
 
         if (isEqual(newIds, oldIds)) {
+            return;
+        }
+
+        const idsAfterReorder = this.tabIdsAfterReorder;
+        this.tabIdsAfterReorder = undefined;
+
+        if (isEqual(newIds, idsAfterReorder)) {
             return;
         }
 
@@ -152,6 +207,17 @@ export class TabBar {
         return { orientation: this.getOrientation(), wrap: true };
     }
 
+    private restoreFocus() {
+        const tabWithFocus = this.tabWithFocus;
+        this.tabWithFocus = undefined;
+        if (!tabWithFocus || tabWithFocus.button.isConnected) {
+            return;
+        }
+
+        const index = this.tabs.findIndex((tab) => tab.id === tabWithFocus.id);
+        this.getTabElements()[index]?.focus();
+    }
+
     private getTabElements(): HTMLElement[] {
         return [
             ...this.host.shadowRoot.querySelectorAll<HTMLElement>(
@@ -159,6 +225,42 @@ export class TabBar {
             ),
         ];
     }
+
+    private canReorderTabs(): boolean {
+        return this.allowTabReorder && this.tabs.length > 1;
+    }
+
+    private setUpReordering() {
+        if (!this.canReorderTabs()) {
+            this.dragToReorder?.teardown();
+
+            return;
+        }
+
+        const scroller = this.host.shadowRoot.querySelector('limel-scroller');
+        if (!scroller) {
+            return;
+        }
+
+        this.dragToReorder ??= new DragToReorder({
+            draggable: '[data-reorder-id]',
+            revertDrop: true,
+            onReorder: this.handleReorder,
+        });
+        this.dragToReorder.setup(scroller, this.getOrientation());
+    }
+
+    private readonly handleReorder = (event: ReorderEvent) => {
+        const reorder = getTabReorder(this.tabs, event);
+        if (!reorder) {
+            return;
+        }
+
+        const ids = this.tabs.map(({ id }) => id);
+        ids.splice(reorder.toIndex, 0, ...ids.splice(reorder.fromIndex, 1));
+        this.tabIdsAfterReorder = ids;
+        this.reorderTab.emit(reorder);
+    };
 
     /**
      * A tab that is activated by the user receives focus, and the scroller
@@ -205,10 +307,14 @@ export class TabBar {
             return;
         }
 
-        event.preventDefault();
         const current = this.getTabElements().indexOf(
             event.target as HTMLElement
         );
+        if (current === -1) {
+            return;
+        }
+
+        event.preventDefault();
         this.activateTab(
             findNavigationTarget(this.tabs, event.key, current, options)
         );
@@ -263,6 +369,27 @@ export class TabBar {
                 size="small"
                 aria-hidden="true"
             />
+        );
+    }
+
+    private renderTabOrMovableTab(tab: Tab, index: number, isTabStop: boolean) {
+        if (!this.canReorderTabs()) {
+            return this.renderTab(tab, index, isTabStop);
+        }
+
+        return (
+            <div key={tab.id} role="presentation" data-reorder-id={tab.id}>
+                {this.renderTab(tab, index, isTabStop)}
+                <limel-drag-handle
+                    aria-hidden="true"
+                    dragDirection={this.getOrientation()}
+                    tooltipOpenDirection={
+                        this.getOrientation() === 'vertical'
+                            ? 'right'
+                            : 'bottom'
+                    }
+                />
+            </div>
         );
     }
 

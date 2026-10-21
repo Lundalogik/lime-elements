@@ -928,6 +928,7 @@ export namespace Components {
         "value": boolean;
     }
     export interface LimelTabBar {
+        "allowTabReorder": boolean;
         "orientation": 'horizontal' | 'vertical';
         "tabs": Tab[];
     }
@@ -3765,13 +3766,17 @@ export namespace JSX {
     }
 
     export interface LimelTabBar {
+        "allowTabReorder"?: boolean;
         "onChangeTab"?: (event: LimelTabBarCustomEvent<Tab>) => void;
+        "onReorderTab"?: (event: LimelTabBarCustomEvent<TabReorderEvent>) => void;
         "orientation"?: 'horizontal' | 'vertical';
         "tabs"?: Tab[];
     }
 
     // (undocumented)
     export interface LimelTabBarAttributes {
+        // (undocumented)
+        "allowTabReorder": boolean;
         // (undocumented)
         "orientation": 'horizontal' | 'vertical';
     }
@@ -4793,6 +4798,13 @@ export interface TableParams {
 export interface TabPanelComponent {
     changeTab?: EventEmitter<Tab>;
     tab: Tab;
+}
+
+// @public
+export interface TabReorderEvent {
+    fromIndex: number;
+    tab: Tab;
+    toIndex: number;
 }
 
 // @alpha (undocumented)

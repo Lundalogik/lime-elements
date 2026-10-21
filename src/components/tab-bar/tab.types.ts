@@ -46,3 +46,24 @@ export interface Tab {
      */
     badge?: number | string;
 }
+
+/**
+ * Describes a tab that the user has moved to a new place.
+ * @public
+ */
+export interface TabReorderEvent {
+    /**
+     * The tab that was moved
+     */
+    tab: Tab;
+
+    /**
+     * The position that the tab had in `tabs` before it was moved
+     */
+    fromIndex: number;
+
+    /**
+     * The position that the tab gets in `tabs` after it has been moved
+     */
+    toIndex: number;
+}
