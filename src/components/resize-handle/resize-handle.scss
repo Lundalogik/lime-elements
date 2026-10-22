@@ -12,16 +12,22 @@ $line-thickness: 0.125rem;
     position: absolute;
     z-index: 1;
     touch-action: none;
+}
+
+div[role='separator'] {
+    position: absolute;
+    inset: 0;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
     border-radius: 100vh;
+    outline: none;
 }
 
-:host::before,
-:host::after {
+div[role='separator']::before,
+div[role='separator']::after {
     pointer-events: none;
     content: '';
     display: block;
@@ -32,7 +38,7 @@ $line-thickness: 0.125rem;
 }
 
 // Hover highlight.
-:host::before {
+div[role='separator']::before {
     transition:
         scale 0.3s ease,
         opacity 0.3s ease;
@@ -41,7 +47,7 @@ $line-thickness: 0.125rem;
 }
 
 // The line.
-:host::after {
+div[role='separator']::after {
     transition: background-color 0.4s ease;
     transition-delay: 0.2s;
     background-color: rgb(var(--contrast-600));
@@ -54,13 +60,13 @@ $line-thickness: 0.125rem;
     right: 0;
     left: 0;
 
-    &::before {
+    div[role='separator']::before {
         scale: 1 0.9;
         height: $visual-thickness;
         width: var(--limel-resize-handle-visual-length, auto);
     }
 
-    &::after {
+    div[role='separator']::after {
         height: $line-thickness;
         width: var(--limel-resize-handle-visual-length, auto);
     }
@@ -69,12 +75,12 @@ $line-thickness: 0.125rem;
 :host([location='top']) {
     top: 0;
 
-    &::before {
+    div[role='separator']::before {
         top: 0;
         bottom: auto;
     }
 
-    &::after {
+    div[role='separator']::after {
         top: calc((#{$visual-thickness} - #{$line-thickness}) / 2);
         bottom: auto;
     }
@@ -83,12 +89,12 @@ $line-thickness: 0.125rem;
 :host([location='bottom']) {
     bottom: 0;
 
-    &::before {
+    div[role='separator']::before {
         top: auto;
         bottom: 0;
     }
 
-    &::after {
+    div[role='separator']::after {
         top: auto;
         bottom: calc((#{$visual-thickness} - #{$line-thickness}) / 2);
     }
@@ -101,11 +107,11 @@ $line-thickness: 0.125rem;
     top: 0;
     bottom: 0;
 
-    &::before {
+    div[role='separator']::before {
         scale: 0.9 1;
     }
 
-    &::after {
+    div[role='separator']::after {
         width: $line-thickness;
     }
 }
@@ -118,12 +124,8 @@ $line-thickness: 0.125rem;
     right: 0;
 }
 
-:host(:focus-visible) {
-    outline: none;
-}
-
-:host(:hover)::before,
-:host(:focus-visible)::before {
+:host(:hover) div[role='separator']::before,
+:host div[role='separator']:focus-visible::before {
     transition-duration: 0.46s;
     transition-timing-function: ease-in;
     opacity: 1;
@@ -131,14 +133,14 @@ $line-thickness: 0.125rem;
     background-color: rgb(var(--color-sky-light), 0.4);
 }
 
-:host(:hover)::after,
-:host(:focus-visible)::after {
+:host(:hover) div[role='separator']::after,
+:host div[role='separator']:focus-visible::after {
     transition-duration: 0.2s;
     transition-timing-function: ease-in;
     background-color: rgb(var(--color-sky-default));
 }
 
-div {
+div[role='presentation'] {
     transition: mixins.$clickable-normal-state-transitions;
     pointer-events: none;
 
@@ -176,17 +178,17 @@ div {
         margin-bottom: 0;
     }
 
-    :host([aria-orientation='vertical']) & {
+    div[role='separator'][aria-orientation='vertical'] > & {
         rotate: 90deg;
     }
 }
 
 :host(:hover),
-:host(:focus-visible) {
+:host div[role='separator']:focus-visible {
     --limel-clickable-transition-speed: 0.2s;
     --limel-clickable-transform-speed: 0.16s;
 
-    div {
+    div[role='presentation'] {
         will-change: background-color, box-shadow, transform;
         transform: translate3d(0, -0.04rem, 0);
         box-shadow: var(--button-shadow-normal);

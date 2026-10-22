@@ -1148,8 +1148,8 @@ test('limel-side-panel: prevents the default action of the arrow keys on the res
 test('limel-side-panel: makes the resize handle focusable with resizeLabel as its name', async () => {
     await renderPanel({ resizeLabel: 'Ändra bredd' });
 
-    expect(getHandle().tabIndex).toBe(0);
-    expect(getHandle().getAttribute('aria-label')).toBe('Ändra bredd');
+    expect(getSeparator().tabIndex).toBe(0);
+    expect(getSeparator().getAttribute('aria-label')).toBe('Ändra bredd');
 });
 
 test('limel-side-panel: sets the current, minimum and maximum width on the resize handle', async () => {
@@ -1164,15 +1164,12 @@ test('limel-side-panel: sets the current, minimum and maximum width on the resiz
         </div>
     );
     pages.push(page);
-    const handle = page
-        .root!.querySelector('limel-side-panel')!
-        .shadowRoot!.querySelector('.handle')!;
-
     await waitForLayout();
+    const separator = getSeparator();
 
-    expect(handle.getAttribute('aria-valuenow')).toBe('400');
-    expect(handle.getAttribute('aria-valuemin')).toBe('300');
-    expect(handle.getAttribute('aria-valuemax')).toBe('600');
+    expect(separator.getAttribute('aria-valuenow')).toBe('400');
+    expect(separator.getAttribute('aria-valuemin')).toBe('300');
+    expect(separator.getAttribute('aria-valuemax')).toBe('600');
 });
 
 test('limel-side-panel: updates the maximum width when the positioned ancestor gets wider', async () => {
@@ -1182,7 +1179,7 @@ test('limel-side-panel: updates the maximum width when the positioned ancestor g
     host.parentElement!.style.width = '1400px';
     await waitForLayout();
 
-    expect(getHandle().getAttribute('aria-valuemax')).toBe('840');
+    expect(getSeparator().getAttribute('aria-valuemax')).toBe('840');
 });
 
 test('limel-side-panel: does not change the style of the panel to measure the width limits', async () => {
@@ -1201,7 +1198,7 @@ test('limel-side-panel: does not change the style of the panel to measure the wi
     await waitForLayout();
     observer.disconnect();
 
-    expect(getHandle().getAttribute('aria-valuenow')).toBe('500');
+    expect(getSeparator().getAttribute('aria-valuenow')).toBe('500');
     expect(styleChanges).toEqual([]);
 });
 
@@ -1872,6 +1869,12 @@ function getHost(): HTMLElement {
 
 function getHandle(): HTMLElement {
     return getHost().shadowRoot!.querySelector<HTMLElement>('.handle')!;
+}
+
+function getSeparator(): HTMLElement {
+    return getHandle().shadowRoot!.querySelector<HTMLElement>(
+        '[role="separator"]'
+    )!;
 }
 
 function getPanel(): HTMLElement {

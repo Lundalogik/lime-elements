@@ -27,13 +27,14 @@ test('limel-resize-handle: is a focusable vertical separator with the given labe
         max: 600,
     });
 
-    expect(handle.getAttribute('role')).toBe('separator');
-    expect(handle.getAttribute('aria-orientation')).toBe('vertical');
-    expect(handle.tabIndex).toBe(0);
-    expect(handle.getAttribute('aria-label')).toBe('Resize');
+    const separator = getSeparator(handle);
+
+    expect(separator.getAttribute('aria-orientation')).toBe('vertical');
+    expect(separator.tabIndex).toBe(0);
+    expect(separator.getAttribute('aria-label')).toBe('Resize');
     expect(
         ['aria-valuenow', 'aria-valuemin', 'aria-valuemax'].map((name) =>
-            handle.getAttribute(name)
+            separator.getAttribute(name)
         )
     ).toEqual(['400', '300', '600']);
 });
@@ -54,7 +55,9 @@ test.each([
     async (location, orientation) => {
         const handle = await renderHandle({ location: location });
 
-        expect(handle.getAttribute('aria-orientation')).toBe(orientation);
+        expect(getSeparator(handle).getAttribute('aria-orientation')).toBe(
+            orientation
+        );
     }
 );
 
@@ -186,7 +189,7 @@ test.each([
             location: location,
             style: { '--limel-resize-handle-thickness': '1.5rem' },
         });
-        const grip = handle.shadowRoot!.querySelector('div')!;
+        const grip = handle.shadowRoot!.querySelector('[role="presentation"]')!;
         await userEvent.hover(handle);
         grip.style.transition = 'none';
         grip.style.transform = 'none';
@@ -207,7 +210,34 @@ test.each(['top', 'bottom'])(
             style: { '--limel-resize-handle-visual-length': '2rem' },
         });
 
-        expect(getComputedStyle(handle, '::after').width).toBe('32px');
+        expect(getComputedStyle(getSeparator(handle), '::after').width).toBe(
+            '32px'
+        );
+    }
+);
+
+test.each(['left', 'bottom'])(
+    'limel-resize-handle: highlights the strip of a handle at the %s when the pointer is over it',
+    async (location) => {
+        const handle = await renderHandle({ location: location });
+        removeTransitions(handle);
+
+        await userEvent.hover(handle);
+
+        expect(getHighlight(handle)).toEqual({ opacity: '1', scale: '1' });
+    }
+);
+
+test.each(['left', 'bottom'])(
+    'limel-resize-handle: highlights the strip of a handle at the %s when it has keyboard focus',
+    async (location) => {
+        const handle = await renderHandle({ location: location });
+        removeTransitions(handle);
+
+        await userEvent.hover(handle.parentElement!);
+        await userEvent.tab();
+
+        expect(getHighlight(handle)).toEqual({ opacity: '1', scale: '1' });
     }
 );
 
@@ -219,7 +249,9 @@ test('limel-resize-handle: follows a change of location', async () => {
     await pages.at(-1)!.waitForChanges();
     pressKey(handle, 'ArrowDown');
 
-    expect(handle.getAttribute('aria-orientation')).toBe('horizontal');
+    expect(getSeparator(handle).getAttribute('aria-orientation')).toBe(
+        'horizontal'
+    );
     expect(sizes).toEqual([208]);
 });
 
@@ -378,6 +410,23 @@ function drag(
             })
         );
     }
+}
+
+function removeTransitions(handle: HTMLElement) {
+    const style = document.createElement('style');
+    style.textContent =
+        '*, *::before, *::after { transition: none !important; }';
+    handle.shadowRoot!.append(style);
+}
+
+function getHighlight(handle: HTMLElement) {
+    const style = getComputedStyle(getSeparator(handle), '::before');
+
+    return { opacity: style.opacity, scale: style.scale };
+}
+
+function getSeparator(handle: HTMLElement): HTMLElement {
+    return handle.shadowRoot!.querySelector<HTMLElement>('[role="separator"]')!;
 }
 
 function pressKey(handle: HTMLElement, key: string): KeyboardEvent {
