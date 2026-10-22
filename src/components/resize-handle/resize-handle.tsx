@@ -35,7 +35,7 @@ import {
  */
 @Component({
     tag: 'limel-resize-handle',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'resize-handle.scss',
 })
 export class ResizeHandle {
@@ -107,20 +107,21 @@ export class ResizeHandle {
 
     public render() {
         return (
-            <Host
-                role="separator"
-                aria-orientation={getOrientation(this.location)}
-                aria-label={this.label}
-                aria-valuenow={this.value}
-                aria-valuemin={this.min}
-                aria-valuemax={this.max}
-                tabindex="0"
-                onKeyDown={this.handleKeyDown}
-            >
-                <div role="presentation">
-                    <span />
-                    <span />
-                    <span />
+            <Host onKeyDown={this.handleKeyDown}>
+                <div
+                    role="separator"
+                    tabindex="0"
+                    aria-orientation={getOrientation(this.location)}
+                    aria-label={this.label}
+                    aria-valuenow={this.value}
+                    aria-valuemin={this.min}
+                    aria-valuemax={this.max}
+                >
+                    <div role="presentation">
+                        <span />
+                        <span />
+                        <span />
+                    </div>
                 </div>
             </Host>
         );
