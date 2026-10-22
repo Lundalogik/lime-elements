@@ -1,5 +1,6 @@
 import { render, h } from '@stencil/vitest';
 import { afterEach, expect, test, vi } from 'vitest';
+import { userEvent } from 'vitest/browser';
 
 type Page = Awaited<ReturnType<typeof render>>;
 
@@ -179,13 +180,16 @@ test.each([
     ['top', 0, 24],
     ['bottom', 16, 24],
 ])(
-    'limel-resize-handle: the grip of a handle at the %s stays at the edge when the grab area is larger',
+    'limel-resize-handle: the grip of a handle at the %s stays at the edge when the grab area is larger, wherever the pointer is',
     async (location, gripTop, handleHeight) => {
         const handle = await renderHandle({
             location: location,
             style: { '--limel-resize-handle-thickness': '1.5rem' },
         });
         const grip = handle.shadowRoot!.querySelector('div')!;
+        await userEvent.hover(handle);
+        grip.style.transition = 'none';
+        grip.style.transform = 'none';
 
         expect(handle.getBoundingClientRect().height).toBe(handleHeight);
         expect(
