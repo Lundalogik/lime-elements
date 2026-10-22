@@ -28,7 +28,12 @@ graph TD;
   limel-example-tab-bar-with-equal-tab-width --> limel-example-value
   limel-tab-bar --> limel-scroller
   limel-tab-bar --> limel-icon
+  limel-tab-bar --> limel-drag-handle
   limel-tab-bar --> limel-badge
+  limel-drag-handle --> limel-tooltip
+  limel-tooltip --> limel-portal
+  limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   style limel-example-tab-bar-with-equal-tab-width fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

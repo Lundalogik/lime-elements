@@ -29,7 +29,12 @@ graph TD;
   limel-tab-panel --> limel-tab-bar
   limel-tab-bar --> limel-scroller
   limel-tab-bar --> limel-icon
+  limel-tab-bar --> limel-drag-handle
   limel-tab-bar --> limel-badge
+  limel-drag-handle --> limel-tooltip
+  limel-tooltip --> limel-portal
+  limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-example-tab-panel-content --> limel-spinner
   limel-example-tab-panel-content --> limel-icon
   limel-example-tab-panel-content --> limel-button

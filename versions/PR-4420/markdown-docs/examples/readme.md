@@ -166,9 +166,12 @@ The component automatically formats different value types:
  - [limel-example-switch-helper-text](../components/switch/examples)
  - [limel-example-switch-readonly](../components/switch/examples)
  - [limel-example-tab-bar-basic](../components/tab-bar/examples)
+ - [limel-example-tab-bar-reorder](../components/tab-bar/examples)
+ - [limel-example-tab-bar-reorder-vertical](../components/tab-bar/examples)
  - [limel-example-tab-bar-vertical](../components/tab-bar/examples)
  - [limel-example-tab-bar-with-dynamic-tab-width](../components/tab-bar/examples)
  - [limel-example-tab-bar-with-equal-tab-width](../components/tab-bar/examples)
+ - [limel-example-tab-panel-reorder](../components/tab-panel/examples)
  - [limel-example-table-activate-row](../components/table/examples)
  - [limel-example-table-local](../components/table/examples)
  - [limel-example-table-movable-columns](../components/table/examples)
@@ -315,9 +318,12 @@ graph TD;
   limel-example-switch-helper-text --> limel-example-value
   limel-example-switch-readonly --> limel-example-value
   limel-example-tab-bar-basic --> limel-example-value
+  limel-example-tab-bar-reorder --> limel-example-value
+  limel-example-tab-bar-reorder-vertical --> limel-example-value
   limel-example-tab-bar-vertical --> limel-example-value
   limel-example-tab-bar-with-dynamic-tab-width --> limel-example-value
   limel-example-tab-bar-with-equal-tab-width --> limel-example-value
+  limel-example-tab-panel-reorder --> limel-example-value
   limel-example-table-activate-row --> limel-example-value
   limel-example-table-local --> limel-example-value
   limel-example-table-movable-columns --> limel-example-value

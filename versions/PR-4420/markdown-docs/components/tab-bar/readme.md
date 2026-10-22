@@ -13,6 +13,7 @@ An exception for using tab bars in a high level of hierarchy is their usage in m
 A tab bar can contain an unlimited number of tabs. However, depending on the device width and width of the tabs, the number of tabs that are visible at the same time will vary. When there is limited horizontal space, the component shows a left-arrow and/or right-arrow button, which scrolls and reveals the additional tabs. The tab bar can also be swiped left and right on a touch-device. A vertical tab bar does the same, upwards and downwards.
 The arrows are only a shortcut for people who use a mouse or a touch screen. Screen readers do not announce them, and the Tab key skips them. People who use a keyboard or a screen reader move between the tabs, and the tab bar keeps the selected tab in view.
 The left and right arrow keys move to the previous and the next tab, and select it. In a vertical tab bar, the up and down arrow keys do that instead. Home and End move to the first and the last tab. Moving past the last tab continues at the first one, and the other way around. The Tab key moves on to what comes after the tab bar, and moving back with Shift and Tab lands on the selected tab, or on the first tab when none is selected.
+Set `allowTabReorder` to let the user drag the tabs into the order they want. Every tab then gets a drag handle, and the tab bar emits `reorderTab` when the user drops a tab in a new place. The tab bar does not change `tabs` itself, so the component that uses it decides the new order, and can save it for the user. A tab that the component does not move, stays where it was. The tabs can be reordered with a mouse and a touch screen, but not yet with the keyboard.
 :::tip Other things to consider
 Never divide the content of a tab using a nested tab bar.
 Never place two tab bars within the same screen.
@@ -23,17 +24,19 @@ A tab will never be removed or get disabled, even if there is no content under i
 
 ## Properties
 
-| Property      | Attribute     | Description                                                                                           | Type                         | Default        |
-| ------------- | ------------- | ----------------------------------------------------------------------------------------------------- | ---------------------------- | -------------- |
-| `orientation` | `orientation` | Whether the tabs are laid out in a row, above the content they belong to, or in a column, next to it. | `"horizontal" \| "vertical"` | `'horizontal'` |
-| `tabs`        | --            | List of tabs to display                                                                               | `Tab[]`                      | `[]`           |
+| Property          | Attribute           | Description                                                                                                                                | Type                         | Default        |
+| ----------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------- | -------------- |
+| `allowTabReorder` | `allow-tab-reorder` | Set to `true` to let the user reorder the tabs by dragging them. Listen for `reorderTab` and give the tab bar the tabs in their new order. | `boolean`                    | `false`        |
+| `orientation`     | `orientation`       | Whether the tabs are laid out in a row, above the content they belong to, or in a column, next to it.                                      | `"horizontal" \| "vertical"` | `'horizontal'` |
+| `tabs`            | --                  | List of tabs to display                                                                                                                    | `Tab[]`                      | `[]`           |
 
 
 ## Events
 
-| Event       | Description                         | Type               |
-| ----------- | ----------------------------------- | ------------------ |
-| `changeTab` | Emitted when a tab has been changed | `CustomEvent<Tab>` |
+| Event        | Description                                                                                                                                                                       | Type                           |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `changeTab`  | Emitted when a tab has been changed                                                                                                                                               | `CustomEvent<Tab>`             |
+| `reorderTab` | Emitted when the user has dragged a tab to a new place. The tab bar does not change `tabs` itself. The tab stays where it was until `tabs` is set to the tabs in their new order. | `CustomEvent<TabReorderEvent>` |
 
 
 ## Dependencies
@@ -41,6 +44,8 @@ A tab will never be removed or get disabled, even if there is no content under i
 ### Used by
 
  - [limel-example-tab-bar-basic](examples)
+ - [limel-example-tab-bar-reorder](examples)
+ - [limel-example-tab-bar-reorder-vertical](examples)
  - [limel-example-tab-bar-tab-width](examples)
  - [limel-example-tab-bar-vertical](examples)
  - [limel-example-tab-bar-with-dynamic-tab-width](examples)
@@ -51,6 +56,7 @@ A tab will never be removed or get disabled, even if there is no content under i
 
 - [limel-scroller](../scroller)
 - [limel-icon](../icon)
+- [limel-drag-handle](../drag-handle)
 - [limel-badge](../badge)
 
 ### Graph
@@ -58,8 +64,15 @@ A tab will never be removed or get disabled, even if there is no content under i
 graph TD;
   limel-tab-bar --> limel-scroller
   limel-tab-bar --> limel-icon
+  limel-tab-bar --> limel-drag-handle
   limel-tab-bar --> limel-badge
+  limel-drag-handle --> limel-tooltip
+  limel-tooltip --> limel-portal
+  limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-example-tab-bar-basic --> limel-tab-bar
+  limel-example-tab-bar-reorder --> limel-tab-bar
+  limel-example-tab-bar-reorder-vertical --> limel-tab-bar
   limel-example-tab-bar-tab-width --> limel-tab-bar
   limel-example-tab-bar-vertical --> limel-tab-bar
   limel-example-tab-bar-with-dynamic-tab-width --> limel-tab-bar
