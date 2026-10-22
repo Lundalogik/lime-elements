@@ -1,3 +1,13 @@
+## [40.13.0](https://github.com/Lundalogik/lime-elements/compare/v40.12.3...v40.13.0) (2026-10-22)
+
+### Features
+
+
+* **form:** add highlightedField to take the user to a field ([c2cfc8e](https://github.com/Lundalogik/lime-elements/commit/c2cfc8e27fbc7e05dfd9c0bda1d84c76ca09d4bf))
+* **form:** mark each field wrapper with its schema path ([d18aceb](https://github.com/Lundalogik/lime-elements/commit/d18acebb2179b4b16a34058f365424392ffcfec4))
+* **tab-bar:** let the user reorder the tabs by dragging them ([999f59d](https://github.com/Lundalogik/lime-elements/commit/999f59d5c3a76d54db5237ef96c94655a4f882d0))
+* **tab-panel:** let the user reorder the tabs by dragging them ([01aa623](https://github.com/Lundalogik/lime-elements/commit/01aa62337eddc8a5e6785bfbc0c736008cf64b5e))
+
 ## [40.12.3](https://github.com/Lundalogik/lime-elements/compare/v40.12.2...v40.12.3) (2026-10-21)
 
 ### Bug Fixes
