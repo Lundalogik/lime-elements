@@ -19,6 +19,8 @@ import {
     dynamicSchema,
     dynamicSchemaUpdated,
     helpSchema,
+    arrayHelpSchema,
+    arrayOfObjectsHelpSchema,
     gridLayoutSchema,
     collapsibleSchema,
     collapsibleSchemaWithRequired,
@@ -511,6 +513,37 @@ test('renders help icons when schema has lime.help', async () => {
 
     const help = formContent.querySelector('limel-help');
     expect(help).toBeTruthy();
+});
+
+test('renders help on an array of simple items when the schema has lime.help', async () => {
+    const { formContent } = await renderForm({
+        schema: arrayHelpSchema,
+        value: { tags: ['first', 'second'] },
+    });
+
+    const helps = formContent.querySelectorAll('limel-help');
+    expect(helps).toHaveLength(1);
+    expect(helps[0].value).toEqual('Words that describe the post');
+});
+
+test('renders help once on an array of objects, whatever the number of items', async () => {
+    const { formContent } = await renderForm({
+        schema: arrayOfObjectsHelpSchema,
+        value: { heroes: [{ name: 'Batman' }, { name: 'Robin' }] },
+    });
+
+    const helps = formContent.querySelectorAll('limel-help');
+    expect(helps).toHaveLength(1);
+    expect(helps[0].value).toEqual('The heroes of the team');
+});
+
+test('renders no help on an array when the schema has no lime.help', async () => {
+    const { formContent } = await renderForm({
+        schema: arrayOfObjectsSchema,
+        value: { heroes: [{ name: 'Batman' }] },
+    });
+
+    expect(formContent.querySelector('limel-help')).toBeNull();
 });
 
 test('renders grid layout when schema has lime.layout.type grid', async () => {

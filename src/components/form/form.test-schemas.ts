@@ -224,6 +224,42 @@ export const helpSchema: FormSchema = {
     },
 };
 
+export const arrayHelpSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        tags: {
+            type: 'array',
+            title: 'Tags',
+            items: { type: 'string' },
+            lime: {
+                help: {
+                    value: 'Words that describe the post',
+                },
+            },
+        },
+    },
+};
+
+export const arrayOfObjectsHelpSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        heroes: {
+            type: 'array',
+            title: 'Heroes',
+            items: {
+                type: 'object',
+                title: 'Hero',
+                properties: {
+                    name: { type: 'string', title: 'Name' },
+                },
+            },
+            lime: {
+                help: 'The heroes of the team',
+            },
+        },
+    },
+};
+
 export const gridLayoutSchema: FormSchema = {
     type: 'object',
     properties: {

@@ -12,6 +12,10 @@ export interface HelpFormData {
         phone?: string;
         jobTitle?: string;
         teamSize?: number;
+        colleagues?: Array<{
+            name?: string;
+            email?: string;
+        }>;
     };
 }
 
@@ -130,6 +134,30 @@ export const schema: FormSchema<HelpFormData> = {
                     lime: {
                         help: {
                             value: 'This helps us understand the scale of your organization and recommend the right plan.',
+                        },
+                    },
+                },
+                colleagues: {
+                    type: 'array',
+                    title: 'Colleagues joining the demo',
+                    items: {
+                        type: 'object',
+                        title: 'Colleague',
+                        properties: {
+                            name: {
+                                type: 'string',
+                                title: 'Name',
+                            },
+                            email: {
+                                type: 'string',
+                                title: 'Work Email',
+                                format: 'email',
+                            },
+                        },
+                    },
+                    lime: {
+                        help: {
+                            value: 'Everyone you add here will receive the **calendar invitation** too.',
                         },
                     },
                 },

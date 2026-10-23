@@ -3,6 +3,7 @@ import { renderDescription, renderTitle } from './common';
 import { toSchemaPath } from './object-field';
 import { ArrayFieldTemplateProps } from './types';
 import { FormSchema } from '../form.types';
+import { getHelpComponent } from '../help';
 import { DragToReorder, ReorderEvent } from '../../../util/drag-to-reorder';
 import { ArrayFieldContext, ArrayFieldOptions } from './array-context';
 
@@ -83,6 +84,7 @@ export class ArrayFieldTemplate extends React.Component<
                 'div',
                 {},
                 renderTitle(this.props.title),
+                getHelpComponent(this.props.schema as FormSchema),
                 renderDescription(this.props.schema.description),
                 React.createElement(
                     'div',
