@@ -1,3 +1,11 @@
+## [40.13.1](https://github.com/Lundalogik/lime-elements/compare/v40.13.0...v40.13.1) (2026-10-23)
+
+### Bug Fixes
+
+
+* **side-panel:** name the resize handle after the panel ([d91eb52](https://github.com/Lundalogik/lime-elements/commit/d91eb52e8dd09d368484324374df0b48e08bf6ea)), closes [#4424](https://github.com/Lundalogik/lime-elements/issues/4424)
+* **side-panel:** tell how to resize the panel in a tooltip ([a075b4c](https://github.com/Lundalogik/lime-elements/commit/a075b4cc77223ac54d3f73502561f4f0a6e0048b)), closes [#4424](https://github.com/Lundalogik/lime-elements/issues/4424)
+
 ## [40.13.0](https://github.com/Lundalogik/lime-elements/compare/v40.12.3...v40.13.0) (2026-10-22)
 
 ### Features
