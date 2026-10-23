@@ -29,6 +29,10 @@ export default {
     'date-picker.year.heading': 'Year',
     'drag-handle.drag-handle': 'Drag handle',
     'drag-handle.drag-to-reorder': 'Drag to reorder',
+    'resize-handle.resize': 'Resize { region }',
+    'resize-handle.resize-this-region': 'Resize this region',
+    'side-panel.resize-region': 'side panel',
+    'side-panel.resize-region.named': '{ label } panel',
     'chip-set.clear-all': 'Clear all',
     'snackbar.dismiss': 'Dismiss',
     'file.drag-and-drop-tips':

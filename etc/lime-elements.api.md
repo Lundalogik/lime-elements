@@ -838,10 +838,11 @@ export namespace Components {
     }
     // @internal
     export interface LimelResizeHandle {
-        "label": string;
+        "language": Languages;
         "location": 'left' | 'right' | 'top' | 'bottom';
         "max"?: number;
         "min"?: number;
+        "resizableRegionLabel"?: string;
         "value"?: number;
     }
     // @internal
@@ -874,7 +875,7 @@ export namespace Components {
         "closeOnEscape": boolean;
         "fullScreen": boolean;
         "label"?: string;
-        "resizeLabel": string;
+        "language": Languages;
         "stack": SidePanelEntry[];
     }
     // (undocumented)
@@ -3506,25 +3507,28 @@ export namespace JSX {
 
     // @internal
     export interface LimelResizeHandle {
-        "label"?: string;
+        "language"?: Languages;
         "location"?: 'left' | 'right' | 'top' | 'bottom';
         "max"?: number;
         "min"?: number;
         "onChangeSize"?: (event: LimelResizeHandleCustomEvent<number>) => void;
         "onEndResize"?: (event: LimelResizeHandleCustomEvent<void>) => void;
+        "resizableRegionLabel"?: string;
         "value"?: number;
     }
 
     // (undocumented)
     export interface LimelResizeHandleAttributes {
         // (undocumented)
-        "label": string;
+        "language": Languages;
         // (undocumented)
         "location": 'left' | 'right' | 'top' | 'bottom';
         // (undocumented)
         "max": number;
         // (undocumented)
         "min": number;
+        // (undocumented)
+        "resizableRegionLabel": string;
         // (undocumented)
         "value": number;
     }
@@ -3598,11 +3602,11 @@ export namespace JSX {
         "closeOnEscape"?: boolean;
         "fullScreen"?: boolean;
         "label"?: string;
+        "language"?: Languages;
         "onChangeWidth"?: (event: LimelSidePanelCustomEvent<number>) => void;
         "onClose"?: (event: LimelSidePanelCustomEvent<void>) => void;
         "onSelectAction"?: (event: LimelSidePanelCustomEvent<SidePanelActionSelect>) => void;
         "onSelectStackEntry"?: (event: LimelSidePanelCustomEvent<number>) => void;
-        "resizeLabel"?: string;
         "stack"?: SidePanelEntry[];
     }
 
@@ -3617,7 +3621,7 @@ export namespace JSX {
         // (undocumented)
         "label": string;
         // (undocumented)
-        "resizeLabel": string;
+        "language": Languages;
     }
 
     // (undocumented)

@@ -27,7 +27,7 @@ export class ResizeHandleGrabAreaExample {
         return (
             <section style={{ height: `${this.height}px` }}>
                 <limel-resize-handle
-                    label="Resize the sheet"
+                    resizableRegionLabel="sheet"
                     location="top"
                     value={this.height}
                     min={MIN_HEIGHT}

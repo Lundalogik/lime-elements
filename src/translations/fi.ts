@@ -30,6 +30,10 @@ export default {
     'date-picker.year.heading': 'Vuosi',
     'drag-handle.drag-handle': 'Raahauskahva',
     'drag-handle.drag-to-reorder': 'Raahaa järjestelläksesi',
+    'resize-handle.resize': 'Muuta { region } kokoa',
+    'resize-handle.resize-this-region': 'Muuta tämän alueen kokoa',
+    'side-panel.resize-region': 'sivupaneelin',
+    'side-panel.resize-region.named': 'paneelin { label }',
     'chip-set.clear-all': 'Tyhjennä kaikki',
     'snackbar.dismiss': 'Sulje',
     'file.drag-and-drop-tips':
