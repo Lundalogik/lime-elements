@@ -1,7 +1,10 @@
 import { render, h } from '@stencil/vitest';
 import { afterEach, expect, test, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { getAccessibleNames } from '../../util/test/accessibility-tree';
+import {
+    getAccessibleNames,
+    getAccessibleNodes,
+} from '../../util/test/accessibility-tree';
 
 type Page = Awaited<ReturnType<typeof render>>;
 
@@ -74,6 +77,134 @@ test('limel-resize-handle: follows a change of the region and the language', asy
     expect(await getAccessibleNames('separator')).toEqual([
         'Ändra storlek på panel',
     ]);
+});
+
+test.each([
+    ['left', 'Press the left and right arrow keys'],
+    ['right', 'Press the left and right arrow keys'],
+    ['top', 'Press the up and down arrow keys'],
+    ['bottom', 'Press the up and down arrow keys'],
+])(
+    'limel-resize-handle: a handle at the %s is described as "%s"',
+    async (location, description) => {
+        await renderHandle({
+            location: location,
+            resizableRegionLabel: 'sheet',
+        });
+
+        expect(await getAccessibleNodes('separator')).toEqual([
+            { name: 'Resize sheet', description: description },
+        ]);
+    }
+);
+
+test('limel-resize-handle: is described in the language that is set', async () => {
+    await renderHandle({ language: 'sv' });
+
+    expect(await getAccessibleNodes('separator')).toEqual([
+        {
+            name: 'Ändra storlek på den här regionen',
+            description: 'Tryck på vänster- och högerpiltangenterna',
+        },
+    ]);
+});
+
+test('limel-resize-handle: follows a change of location and language in its description', async () => {
+    const handle = await renderHandle();
+
+    handle.setAttribute('location', 'top');
+    handle.setAttribute('language', 'sv');
+    await pages.at(-1)!.waitForChanges();
+
+    await expect
+        .poll(async () => getAccessibleNodes('separator'))
+        .toEqual([
+            {
+                name: 'Ändra storlek på den här regionen',
+                description: 'Tryck på upp- och nedpiltangenterna',
+            },
+        ]);
+});
+
+test('limel-resize-handle: tells to drag it while the pointer is over it', async () => {
+    const handle = await renderHandle();
+
+    await userEvent.hover(handle);
+
+    await expect
+        .poll(async () => getAccessibleNodes('separator'))
+        .toEqual([
+            {
+                name: 'Resize this region',
+                description: 'Drag to resize',
+            },
+        ]);
+});
+
+test('limel-resize-handle: tells which arrow keys to press again when the pointer has left it', async () => {
+    const handle = await renderHandle();
+
+    await userEvent.hover(handle);
+    await userEvent.hover(handle.parentElement!);
+
+    await expect
+        .poll(async () => getAccessibleNodes('separator'))
+        .toEqual([
+            {
+                name: 'Resize this region',
+                description: 'Press the left and right arrow keys',
+            },
+        ]);
+});
+
+test('limel-resize-handle: tells to drag it while the pointer is over it and it has focus that does not come from the keyboard', async () => {
+    await renderHandleWithFocusFromScript();
+
+    expect(await getAccessibleNodes('separator')).toEqual([
+        {
+            name: 'Resize this region',
+            description: 'Drag to resize',
+        },
+    ]);
+});
+
+test('limel-resize-handle: tells which arrow keys to press when an arrow key resizes it after focus that did not come from the keyboard', async () => {
+    const handle = await renderHandleWithFocusFromScript();
+
+    await userEvent.keyboard('{ArrowLeft}');
+    await pages.at(-1)!.waitForChanges();
+
+    expect(getSeparator(handle).matches(':focus-visible')).toBe(true);
+    expect(await getAccessibleNodes('separator')).toEqual([
+        {
+            name: 'Resize this region',
+            description: 'Press the left and right arrow keys',
+        },
+    ]);
+});
+
+test('limel-resize-handle: tells which arrow keys to press while it has keyboard focus, also when the pointer is over it', async () => {
+    const handle = await renderHandle();
+
+    await userEvent.tab();
+    await userEvent.hover(handle);
+
+    await expect
+        .poll(async () => getAccessibleNodes('separator'))
+        .toEqual([
+            {
+                name: 'Resize this region',
+                description: 'Press the left and right arrow keys',
+            },
+        ]);
+});
+
+test('limel-resize-handle: shows its name and how to resize in a tooltip', async () => {
+    const handle = await renderHandle({ resizableRegionLabel: 'sheet' });
+    const tooltip = handle.shadowRoot!.querySelector('limel-tooltip')!;
+
+    expect(tooltip.label).toBe('Resize sheet');
+    expect(tooltip.helperLabel).toBe('Press the left and right arrow keys');
 });
 
 test('limel-resize-handle: is on the left by default', async () => {
@@ -271,7 +402,6 @@ test.each(['left', 'bottom'])(
         const handle = await renderHandle({ location: location });
         removeTransitions(handle);
 
-        await userEvent.hover(handle.parentElement!);
         await userEvent.tab();
 
         expect(getHighlight(handle)).toEqual({ opacity: '1', scale: '1' });
@@ -382,7 +512,9 @@ test('limel-resize-handle: does not let endResize bubble', async () => {
 });
 
 /**
- * Renders a handle in a 400px wide element, which is the element it resizes.
+ * Renders a handle in a 400px wide element, which is the element it resizes,
+ * and moves the pointer to the middle of that element, so that no handle is
+ * under a pointer that an earlier test left behind.
  *
  * @param props - the props of the handle
  * @returns the handle
@@ -396,6 +528,7 @@ async function renderHandle(
         </div>
     );
     pages.push(page);
+    await userEvent.hover(page.root!);
 
     return page.root!.querySelector('limel-resize-handle')!;
 }
@@ -447,6 +580,34 @@ function drag(
             })
         );
     }
+}
+
+/**
+ * Renders a handle that has focus without the keyboard, and the pointer over
+ * it. A mouse click on another element comes first, because Chromium counts a
+ * script focus as keyboard focus after earlier keyboard input.
+ *
+ * @returns the handle
+ */
+async function renderHandleWithFocusFromScript(): Promise<HTMLElement> {
+    const page = await render(
+        <div style={{ position: 'relative', width: '400px', height: '200px' }}>
+            <button style={{ margin: '4rem' }}>Other</button>
+            <limel-resize-handle />
+        </div>
+    );
+    pages.push(page);
+    const handle = page.root!.querySelector('limel-resize-handle')!;
+
+    await userEvent.click(page.root!.querySelector('button')!);
+    await userEvent.hover(handle);
+    getSeparator(handle).focus();
+    await page.waitForChanges();
+
+    expect(handle.shadowRoot!.activeElement).toBe(getSeparator(handle));
+    expect(getSeparator(handle).matches(':focus-visible')).toBe(false);
+
+    return handle;
 }
 
 function removeTransitions(handle: HTMLElement) {

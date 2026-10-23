@@ -20,11 +20,17 @@ const REGION_LABELS: Record<string, string> = {
  * this region". Set it to what the handle resizes, so that a screen reader user
  * can tell handles apart.
  *
- * The name is translated into the language that is set in `language`. Write
- * `resizableRegionLabel` in the same language.
+ * A tooltip shows the name and how to resize. While the pointer is over the
+ * handle, it says to drag the handle. While the handle has keyboard focus, it
+ * says which arrow keys to press. Screen readers read the arrow keys as the
+ * description of the handle.
  *
- * In this example, change the language and switch off the region name. A screen
- * reader announces the new name of the handle.
+ * The name and the tooltip are translated into the language that is set in
+ * `language`. Write `resizableRegionLabel` in the same language.
+ *
+ * In this example, change the language and switch off the region name, then
+ * hover the handle or reach it with <kbd>Tab</kbd>, to see how the name and the
+ * tooltip change.
  */
 @Component({
     tag: 'limel-example-resize-handle-accessibility',

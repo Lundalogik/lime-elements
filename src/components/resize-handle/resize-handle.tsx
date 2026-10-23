@@ -6,6 +6,7 @@ import {
     h,
     Host,
     Prop,
+    State,
 } from '@stencil/core';
 import translate from '../../global/translations';
 import { dragToResize } from '../../util/drag-to-resize';
@@ -15,6 +16,8 @@ import {
     measureSize,
 } from '../../util/resize-location';
 import { Languages } from '../date-picker/date.types';
+
+const SEPARATOR_ID = 'separator';
 
 /**
  * A handle on an edge of an element. The user drags the handle, or presses an
@@ -29,6 +32,14 @@ import { Languages } from '../date-picker/date.types';
  * the edge that `location` names. Give the element a `position` other than
  * `static`. If other content covers the handle, also give the element
  * `isolation: isolate`.
+ *
+ * ## Accessibility
+ * The user reaches the handle with the <kbd>Tab</kbd> key. The handle is named
+ * "Resize" followed by `resizableRegionLabel`, for example "Resize side
+ * panel". A tooltip shows the name and how to resize. While the pointer is
+ * over the handle, it says to drag the handle. While the handle has keyboard
+ * focus, it says which arrow keys to press, which fit `location`. Screen
+ * readers read the arrow keys as the description of the handle.
  *
  * @exampleComponent limel-example-resize-handle-basic
  * @exampleComponent limel-example-resize-handle-locations
@@ -102,6 +113,12 @@ export class ResizeHandle {
     @Event({ bubbles: false, composed: false })
     public endResize: EventEmitter<void>;
 
+    @State()
+    private isPointerOver = false;
+
+    @State()
+    private hasKeyboardFocus = false;
+
     @Element()
     private host: HTMLElement;
 
@@ -122,16 +139,25 @@ export class ResizeHandle {
     }
 
     public render() {
+        const name = this.getName();
+
         return (
-            <Host onKeyDown={this.handleKeyDown}>
+            <Host
+                onKeyDown={this.handleKeyDown}
+                onPointerEnter={this.handlePointerEnter}
+                onPointerLeave={this.handlePointerLeave}
+            >
                 <div
                     role="separator"
+                    id={SEPARATOR_ID}
                     tabindex="0"
                     aria-orientation={getOrientation(this.location)}
-                    aria-label={this.getName()}
+                    aria-label={name}
                     aria-valuenow={this.value}
                     aria-valuemin={this.min}
                     aria-valuemax={this.max}
+                    onFocus={this.handleFocus}
+                    onBlur={this.handleBlur}
                 >
                     <div role="presentation">
                         <span />
@@ -139,6 +165,12 @@ export class ResizeHandle {
                         <span />
                     </div>
                 </div>
+                <limel-tooltip
+                    elementId={SEPARATOR_ID}
+                    label={name}
+                    helperLabel={this.getHint()}
+                    openDirection={this.location}
+                />
             </Host>
         );
     }
@@ -156,6 +188,37 @@ export class ResizeHandle {
         });
     }
 
+    private getHint(): string {
+        if (this.isPointerOver && !this.hasKeyboardFocus) {
+            return translate.get('resize-handle.drag', this.language);
+        }
+
+        const key =
+            getOrientation(this.location) === 'vertical'
+                ? 'resize-handle.keys-left-right'
+                : 'resize-handle.keys-up-down';
+
+        return translate.get(key, this.language);
+    }
+
+    private handlePointerEnter = () => {
+        this.isPointerOver = true;
+    };
+
+    private handlePointerLeave = () => {
+        this.isPointerOver = false;
+    };
+
+    private handleFocus = (event: FocusEvent) => {
+        this.hasKeyboardFocus = (event.currentTarget as HTMLElement).matches(
+            ':focus-visible'
+        );
+    };
+
+    private handleBlur = () => {
+        this.hasKeyboardFocus = false;
+    };
+
     private handleKeyDown = (event: KeyboardEvent) => {
         const change = getKeyboardSizeChange(this.location, event.key);
         if (change === undefined) {
@@ -163,6 +226,7 @@ export class ResizeHandle {
         }
 
         event.preventDefault();
+        this.hasKeyboardFocus = true;
         this.changeSize.emit(this.elementSize() + change);
         this.endResize.emit();
     };
