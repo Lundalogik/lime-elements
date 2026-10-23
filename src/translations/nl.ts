@@ -29,6 +29,10 @@ export default {
     'date-picker.year.heading': 'Jaar',
     'drag-handle.drag-handle': 'Sleepgreep',
     'drag-handle.drag-to-reorder': 'Slepen om opnieuw te ordenen',
+    'resize-handle.resize': 'Grootte van { region } wijzigen',
+    'resize-handle.resize-this-region': 'Grootte van dit gebied wijzigen',
+    'side-panel.resize-region': 'het zijpaneel',
+    'side-panel.resize-region.named': 'het paneel { label }',
     'chip-set.clear-all': 'Alles wissen',
     'snackbar.dismiss': 'Sluiten',
     'file.drag-and-drop-tips':

@@ -1,6 +1,7 @@
 import { render, h } from '@stencil/vitest';
 import { afterEach, expect, test, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import { getAccessibleNames } from '../../util/test/accessibility-tree';
 
 type Page = Awaited<ReturnType<typeof render>>;
 
@@ -19,9 +20,8 @@ afterEach(() => {
     }
 });
 
-test('limel-resize-handle: is a focusable vertical separator with the given label and values', async () => {
+test('limel-resize-handle: is a focusable vertical separator with the given values', async () => {
     const handle = await renderHandle({
-        label: 'Resize',
         value: 400,
         min: 300,
         max: 600,
@@ -31,12 +31,49 @@ test('limel-resize-handle: is a focusable vertical separator with the given labe
 
     expect(separator.getAttribute('aria-orientation')).toBe('vertical');
     expect(separator.tabIndex).toBe(0);
-    expect(separator.getAttribute('aria-label')).toBe('Resize');
     expect(
         ['aria-valuenow', 'aria-valuemin', 'aria-valuemax'].map((name) =>
             separator.getAttribute(name)
         )
     ).toEqual(['400', '300', '600']);
+});
+
+test('limel-resize-handle: is named after the region that it resizes', async () => {
+    await renderHandle({ resizableRegionLabel: 'sheet' });
+
+    expect(await getAccessibleNames('separator')).toEqual(['Resize sheet']);
+});
+
+test('limel-resize-handle: is named "Resize this region" when it is not told what it resizes', async () => {
+    await renderHandle();
+
+    expect(await getAccessibleNames('separator')).toEqual([
+        'Resize this region',
+    ]);
+});
+
+test.each([
+    ['sheet', 'Ändra storlek på sheet'],
+    [undefined, 'Ändra storlek på den här regionen'],
+])(
+    'limel-resize-handle: is named in the language that is set, with the region %s',
+    async (resizableRegionLabel, name) => {
+        await renderHandle({ resizableRegionLabel, language: 'sv' });
+
+        expect(await getAccessibleNames('separator')).toEqual([name]);
+    }
+);
+
+test('limel-resize-handle: follows a change of the region and the language', async () => {
+    const handle = await renderHandle({ resizableRegionLabel: 'sheet' });
+
+    handle.setAttribute('resizable-region-label', 'panel');
+    handle.setAttribute('language', 'sv');
+    await pages.at(-1)!.waitForChanges();
+
+    expect(await getAccessibleNames('separator')).toEqual([
+        'Ändra storlek på panel',
+    ]);
 });
 
 test('limel-resize-handle: is on the left by default', async () => {

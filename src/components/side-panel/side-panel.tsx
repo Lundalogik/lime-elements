@@ -10,9 +10,11 @@ import {
     State,
     Watch,
 } from '@stencil/core';
+import translate from '../../global/translations';
 import { getDeepActiveElement } from '../../util/get-deep-active-element';
 import { ESCAPE } from '../../util/keycodes';
 import { createRandomString } from '../../util/random-string';
+import { Languages } from '../date-picker/date.types';
 import {
     SidePanelAction,
     SidePanelActionSelect,
@@ -72,6 +74,7 @@ function stopEvent(event: Event) {
  * @exampleComponent limel-example-side-panel-header-actions
  * @exampleComponent limel-example-side-panel-stacking
  * @exampleComponent limel-example-side-panel-full-screen
+ * @exampleComponent limel-example-side-panel-accessibility
  * @slot - Content of the panel
  * @slot header-actions - Small controls at the right end of the header. Content that is larger than half the header width or the height of the headings is cut off.
  * @private
@@ -85,9 +88,19 @@ export class SidePanel {
     /**
      * Accessible name of the panel. Screen readers announce it. Set it to
      * something that tells the user what the panel is for.
+     *
+     * The resize handle is named after it, for example "Resize Customer
+     * details panel". When no label is set, the handle is named "Resize side
+     * panel".
      */
     @Prop()
     public label?: string;
+
+    /**
+     * Defines the language for translations.
+     */
+    @Prop({ reflect: true })
+    public language: Languages = 'en';
 
     /**
      * Label of the close button. Shown as a tooltip and used as the accessible
@@ -109,12 +122,6 @@ export class SidePanel {
      */
     @Prop()
     public actions: SidePanelAction[] = [];
-
-    /**
-     * Label of the resize handle. Used as the accessible name.
-     */
-    @Prop()
-    public resizeLabel = 'Resize';
 
     /**
      * Whether pressing Escape emits `close`. Set to `false` to let only the
@@ -396,7 +403,8 @@ export class SidePanel {
         return (
             <limel-resize-handle
                 class="handle"
-                label={this.resizeLabel}
+                resizableRegionLabel={this.getRegionLabel()}
+                language={this.language}
                 value={this.widthRange?.now}
                 min={this.widthRange?.min}
                 max={this.widthRange?.max}
@@ -404,6 +412,16 @@ export class SidePanel {
                 onEndResize={this.handleEndResize}
             />
         );
+    }
+
+    private getRegionLabel(): string {
+        if (!this.label) {
+            return translate.get('side-panel.resize-region', this.language);
+        }
+
+        return translate.get('side-panel.resize-region.named', this.language, {
+            label: this.label,
+        });
     }
 
     private renderBody() {

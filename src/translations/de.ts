@@ -30,6 +30,10 @@ export default {
     'date-picker.year.heading': 'Jahr',
     'drag-handle.drag-handle': 'Ziehgriff',
     'drag-handle.drag-to-reorder': 'Zum Neuordnen ziehen',
+    'resize-handle.resize': 'Größe von { region } ändern',
+    'resize-handle.resize-this-region': 'Größe dieses Bereichs ändern',
+    'side-panel.resize-region': 'der Seitenleiste',
+    'side-panel.resize-region.named': 'dem Panel { label }',
     'chip-set.clear-all': 'Alles löschen',
     'snackbar.dismiss': 'Schließen',
     'file.drag-and-drop-tips':

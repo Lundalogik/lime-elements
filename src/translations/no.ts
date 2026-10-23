@@ -30,6 +30,10 @@ export default {
     'date-picker.year.heading': 'År',
     'drag-handle.drag-handle': 'Dra-håndtak',
     'drag-handle.drag-to-reorder': 'Dra for å omorganisere',
+    'resize-handle.resize': 'Endre størrelsen på { region }',
+    'resize-handle.resize-this-region': 'Endre størrelsen på denne regionen',
+    'side-panel.resize-region': 'sidepanelet',
+    'side-panel.resize-region.named': 'panelet { label }',
     'chip-set.clear-all': 'Fjern alle',
     'file.drag-and-drop-tips':
         'Dra & slipp filen her, eller klikk for å bla gjennom.',

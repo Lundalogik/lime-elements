@@ -1,6 +1,7 @@
 import { render, h } from '@stencil/vitest';
 import { afterEach, expect, test, vi } from 'vitest';
 import { ESCAPE } from '../../util/keycodes';
+import { getAccessibleNames } from '../../util/test/accessibility-tree';
 import type { SidePanelEntry } from './side-panel.types';
 
 const OWN_EVENTS = ['close', 'changeWidth'];
@@ -1145,12 +1146,39 @@ test('limel-side-panel: prevents the default action of the arrow keys on the res
     expect(event.defaultPrevented).toBe(true);
 });
 
-test('limel-side-panel: makes the resize handle focusable with resizeLabel as its name', async () => {
-    await renderPanel({ resizeLabel: 'Ändra bredd' });
+test('limel-side-panel: makes the resize handle focusable', async () => {
+    await renderPanel();
 
     expect(getSeparator().tabIndex).toBe(0);
-    expect(getSeparator().getAttribute('aria-label')).toBe('Ändra bredd');
 });
+
+test('limel-side-panel: names the resize handle after its label', async () => {
+    await renderPanel({ label: 'Customer details' });
+
+    expect(await getAccessibleNames('separator')).toEqual([
+        'Resize Customer details panel',
+    ]);
+});
+
+test('limel-side-panel: names the resize handle after the side panel when it has no label', async () => {
+    await renderPanel();
+
+    expect(await getAccessibleNames('separator')).toEqual([
+        'Resize side panel',
+    ]);
+});
+
+test.each([
+    [undefined, 'Ändra storlek på sidopanelen'],
+    ['Kunddetaljer', 'Ändra storlek på panelen Kunddetaljer'],
+])(
+    'limel-side-panel: names the resize handle in the language that is set, with the label %s',
+    async (label, name) => {
+        await renderPanel({ label, language: 'sv' });
+
+        expect(await getAccessibleNames('separator')).toEqual([name]);
+    }
+);
 
 test('limel-side-panel: sets the current, minimum and maximum width on the resize handle', async () => {
     const page = await render(

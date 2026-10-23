@@ -47,7 +47,7 @@ export class ResizeHandleLocationsExample {
             <section data-location={location}>
                 <div style={{ [dimension]: `${size}px` }}>
                     <limel-resize-handle
-                        label={`Resize from the ${location}`}
+                        resizableRegionLabel={`element with its handle at the ${location}`}
                         location={location}
                         value={size}
                         min={MIN_SIZE}

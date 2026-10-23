@@ -32,7 +32,7 @@ export class ResizeHandleBasicExample {
             <section>
                 <aside style={{ width: `${this.width}px` }}>
                     <limel-resize-handle
-                        label="Resize the panel"
+                        resizableRegionLabel="panel"
                         location="left"
                         value={this.width}
                         min={MIN_WIDTH}

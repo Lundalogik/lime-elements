@@ -7,12 +7,14 @@ import {
     Host,
     Prop,
 } from '@stencil/core';
+import translate from '../../global/translations';
 import { dragToResize } from '../../util/drag-to-resize';
 import {
     getKeyboardSizeChange,
     getOrientation,
     measureSize,
 } from '../../util/resize-location';
+import { Languages } from '../date-picker/date.types';
 
 /**
  * A handle on an edge of an element. The user drags the handle, or presses an
@@ -31,6 +33,7 @@ import {
  * @exampleComponent limel-example-resize-handle-basic
  * @exampleComponent limel-example-resize-handle-locations
  * @exampleComponent limel-example-resize-handle-grab-area
+ * @exampleComponent limel-example-resize-handle-accessibility
  * @private
  */
 @Component({
@@ -46,10 +49,23 @@ export class ResizeHandle {
     public location: 'left' | 'right' | 'top' | 'bottom' = 'left';
 
     /**
-     * The accessible name of the handle.
+     * The name of the region that the handle resizes, for example
+     * `side panel`. The accessible name of the handle is "Resize" followed by
+     * this name, for example "Resize side panel". When no name is set, the
+     * handle is named "Resize this region".
+     *
+     * Write the name in the language that is set in `language`, in the form
+     * that reads right after "Resize", for example `side panel` in English
+     * and `sidopanelen` in Swedish.
      */
     @Prop({ reflect: true })
-    public label: string;
+    public resizableRegionLabel?: string;
+
+    /**
+     * Defines the language for translations.
+     */
+    @Prop({ reflect: true })
+    public language: Languages = 'en';
 
     /**
      * The size of the element, in pixels: the width when `location` is `left`
@@ -112,7 +128,7 @@ export class ResizeHandle {
                     role="separator"
                     tabindex="0"
                     aria-orientation={getOrientation(this.location)}
-                    aria-label={this.label}
+                    aria-label={this.getName()}
                     aria-valuenow={this.value}
                     aria-valuemin={this.min}
                     aria-valuemax={this.max}
@@ -125,6 +141,19 @@ export class ResizeHandle {
                 </div>
             </Host>
         );
+    }
+
+    private getName(): string {
+        if (!this.resizableRegionLabel) {
+            return translate.get(
+                'resize-handle.resize-this-region',
+                this.language
+            );
+        }
+
+        return translate.get('resize-handle.resize', this.language, {
+            region: this.resizableRegionLabel,
+        });
     }
 
     private handleKeyDown = (event: KeyboardEvent) => {
