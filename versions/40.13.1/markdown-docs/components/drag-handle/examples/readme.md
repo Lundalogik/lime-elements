@@ -1,0 +1,29 @@
+
+<!-- Auto Generated Below -->
+
+
+## Overview
+
+Basic example
+The component is designed to be working both by mouse, pointer devices, and touch.
+
+## Dependencies
+
+### Depends on
+
+- [limel-drag-handle](..)
+
+### Graph
+```mermaid
+graph TD;
+  limel-example-drag-handle-basic --> limel-drag-handle
+  limel-drag-handle --> limel-tooltip
+  limel-tooltip --> limel-portal
+  limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
+  style limel-example-drag-handle-basic fill:#f9f,stroke:#333,stroke-width:4px
+```
+
+----------------------------------------------
+
+*Built with [StencilJS](https://stenciljs.com/)*
