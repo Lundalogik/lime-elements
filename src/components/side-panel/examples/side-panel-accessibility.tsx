@@ -16,11 +16,17 @@ const LABELS: Record<string, string> = {
  * named "Resize Customer details panel". A panel without a label has a handle
  * named "Resize side panel".
  *
- * `language` sets the language of the name of the handle. Write `label` in the
- * same language.
+ * A tooltip shows the name of the handle and how to resize. While the pointer
+ * is over the handle, it says to drag the handle. While the handle has keyboard
+ * focus, it says which arrow keys to press. Screen readers read the arrow keys
+ * as the description of the handle.
+ *
+ * `language` sets the language of the name and the tooltip of the handle. Write
+ * `label` in the same language.
  *
  * In this example, open the panel, then change the language or switch off the
- * label. A screen reader announces the new name of the handle.
+ * label. Hover the handle on the left edge of the panel, or reach it with
+ * <kbd>Tab</kbd>, to see the name and the tooltip of the handle change.
  */
 @Component({
     tag: 'limel-example-side-panel-accessibility',

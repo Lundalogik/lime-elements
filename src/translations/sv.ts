@@ -32,6 +32,10 @@ export default {
     'drag-handle.drag-to-reorder': 'Dra för att ändra ordning',
     'resize-handle.resize': 'Ändra storlek på { region }',
     'resize-handle.resize-this-region': 'Ändra storlek på den här regionen',
+    'resize-handle.drag': 'Dra för att ändra storlek',
+    'resize-handle.keys-left-right':
+        'Tryck på vänster- och högerpiltangenterna',
+    'resize-handle.keys-up-down': 'Tryck på upp- och nedpiltangenterna',
     'side-panel.resize-region': 'sidopanelen',
     'side-panel.resize-region.named': 'panelen { label }',
     'chip-set.clear-all': 'Rensa alla',

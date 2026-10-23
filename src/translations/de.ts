@@ -32,6 +32,10 @@ export default {
     'drag-handle.drag-to-reorder': 'Zum Neuordnen ziehen',
     'resize-handle.resize': 'Größe von { region } ändern',
     'resize-handle.resize-this-region': 'Größe dieses Bereichs ändern',
+    'resize-handle.drag': 'Zum Ändern der Größe ziehen',
+    'resize-handle.keys-left-right':
+        'Pfeiltasten nach links und rechts drücken',
+    'resize-handle.keys-up-down': 'Pfeiltasten nach oben und unten drücken',
     'side-panel.resize-region': 'der Seitenleiste',
     'side-panel.resize-region.named': 'dem Panel { label }',
     'chip-set.clear-all': 'Alles löschen',
