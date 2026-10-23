@@ -29,6 +29,20 @@ import { CustomComponentFormData, schema } from './custom-component-schema';
  * components should implement the [FormComponent](#/type/FormComponent/)
  * interface.
  *
+ * A custom component that takes over a list or an object, and shows
+ * its own title, can give the title the same style as the headings of
+ * the form. Use the `form-heading` mixin on the title. The size, the
+ * weight and the colored bar then depend on how deep the component is
+ * in the form, as they do for the headings of the form.
+ *
+ * ```scss
+ * @use '@limetech/lime-elements' as lime-elements;
+ *
+ * .title {
+ *     @include lime-elements.form-heading;
+ * }
+ * ```
+ *
  * @sourceFile custom-component-schema.ts
  * @sourceFile custom-component-picker.tsx
  */
