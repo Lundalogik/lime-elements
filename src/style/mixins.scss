@@ -684,6 +684,51 @@ $clickable-normal-state-transitions: (
 }
 
 /**
+ * Gives a heading the style of a heading in `limel-form`.
+ *
+ * Use it in a custom form component that shows its own title,
+ * such as a component that takes over a list or an object.
+ * `limel-form` sets the size, the weight and the colored bar
+ * on each field, by how deep the field is in the form.
+ * So the title gets the same style as the headings around it.
+ */
+@mixin form-heading {
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+    word-break: break-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    text-wrap: balance;
+
+    color: rgb(var(--contrast-1400), 0.8);
+    font-size: var(--limel-form-heading-font-size);
+    line-height: calc(var(--limel-form-heading-font-size) * 1.42857);
+    letter-spacing: -0.01rem;
+    font-weight: var(--limel-form-heading-font-weight);
+
+    &:before {
+        content: '';
+        display: var(--limel-form-heading-bar-display, none);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        left: -0.75rem;
+
+        background-color: var(
+            --lime-primary-color,
+            var(--limel-theme-primary-color)
+        );
+        width: 0.125rem;
+        height: 1.5rem;
+        border-radius: 0.125rem;
+
+        opacity: 0.6;
+    }
+}
+
+/**
  * The breakpoints below are used to create responsive designs
  * in Lime's products. Therefore, they are here to get distributed
  * to all components in other private repos, which rely on this `mixins`

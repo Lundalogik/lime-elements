@@ -198,18 +198,7 @@ limel-collapsible-section.is-being-dragged {
 }
 
 h1 {
-    position: relative;
-    margin-top: 0;
-    margin-bottom: 0;
-    word-break: break-word;
-    hyphens: auto;
-    -webkit-hyphens: auto;
-    text-wrap: balance;
-
-    font-size: var(--limel-form-h1-font-size);
-    line-height: calc(var(--limel-form-h1-font-size) * 1.42857);
-    letter-spacing: -0.01rem;
-    font-weight: 500;
+    @include mixins.form-heading;
 }
 
 limel-markdown {
@@ -218,6 +207,9 @@ limel-markdown {
 }
 
 .rjsf-field {
+    --limel-form-heading-font-size: 1.476rem;
+    --limel-form-heading-font-weight: 800;
+    --limel-form-heading-bar-display: none;
     position: relative;
 
     limel-help {
@@ -226,76 +218,24 @@ limel-markdown {
         left: calc(var(--form-column-gap, 1rem) * -0.5);
     }
 
-    h1 {
-        color: rgb(var(--contrast-1400), 0.8);
-    }
-
-    h1 {
-        --limel-form-h1-font-size: 1.476rem;
-        font-weight: 800;
-    }
-
     .rjsf-field {
-        h1 {
-            --limel-form-h1-font-size: 1.383rem;
-            font-weight: 700;
-
-            &:before {
-                content: '';
-                display: block;
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                margin: auto;
-                left: -0.75rem;
-
-                background-color: var(
-                    --lime-primary-color,
-                    var(--limel-theme-primary-color)
-                );
-                width: 0.125rem;
-                height: 1.5rem;
-                border-radius: 0.125rem;
-
-                opacity: 0.6;
-            }
-        }
+        --limel-form-heading-font-size: 1.383rem;
+        --limel-form-heading-font-weight: 700;
+        --limel-form-heading-bar-display: block;
 
         .rjsf-field {
-            h1 {
-                --limel-form-h1-font-size: 1.296rem;
-                font-weight: 600;
-
-                &:before {
-                    display: none;
-                }
-            }
+            --limel-form-heading-font-size: 1.296rem;
+            --limel-form-heading-font-weight: 600;
+            --limel-form-heading-bar-display: none;
 
             .rjsf-field {
-                h1 {
-                    --limel-form-h1-font-size: 1.215rem;
+                --limel-form-heading-font-size: 1.215rem;
 
-                    &:before {
-                        display: none;
-                    }
-                }
                 .rjsf-field {
-                    h1 {
-                        --limel-form-h1-font-size: 1.138rem;
-
-                        &:before {
-                            display: none;
-                        }
-                    }
+                    --limel-form-heading-font-size: 1.138rem;
 
                     .rjsf-field {
-                        h1 {
-                            --limel-form-h1-font-size: 1.067rem;
-
-                            &:before {
-                                display: none;
-                            }
-                        }
+                        --limel-form-heading-font-size: 1.067rem;
                     }
                 }
             }

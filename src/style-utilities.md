@@ -176,6 +176,20 @@ Truncates text after a given number of lines:
 
 ---
 
+### Form utilities
+
+#### `form-heading`
+
+Gives the title of a custom form component the style of a heading in `limel-form`. The size, the weight and the colored bar depend on how deep the component is in the form:
+
+```scss
+.title {
+    @include lime-elements.form-heading;
+}
+```
+
+---
+
 ## All available utilities
 
 For the complete list of available mixins, variables,

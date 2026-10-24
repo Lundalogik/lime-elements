@@ -696,3 +696,33 @@ export const requiredCheckboxSchema: FormSchema = {
     },
     required: ['accept'],
 };
+
+export const HEADING_COMPONENT = 'test-form-heading-component';
+
+const listWithCustomComponent = (title: string): FormSchema => ({
+    type: 'array',
+    title,
+    items: { type: 'string' },
+    lime: { component: { name: HEADING_COMPONENT } },
+});
+
+export const customComponentHeadingSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        section: {
+            type: 'object',
+            title: 'Section',
+            properties: {
+                subsection: {
+                    type: 'object',
+                    title: 'Subsection',
+                    properties: {
+                        name: { type: 'string', title: 'Name' },
+                    },
+                },
+                nestedList: listWithCustomComponent('Nested list'),
+            },
+        },
+        list: listWithCustomComponent('List'),
+    },
+};

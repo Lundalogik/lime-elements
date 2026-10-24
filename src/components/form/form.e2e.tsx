@@ -46,7 +46,11 @@ import {
     getConditionalCustomComponentSchema,
     arrayItemWithEnumAndDefaultSchema,
     requiredCheckboxSchema,
+    customComponentHeadingSchema,
+    HEADING_COMPONENT,
 } from './form.test-schemas';
+
+defineHeadingComponent();
 
 const fieldTypeTests = [
     {
@@ -801,6 +805,36 @@ test('renders custom component when schema has lime.component', async () => {
     expect(checkbox).toBeNull();
 });
 
+test('draws smaller headings deeper in the form, with a bar only on the first level of sections', async () => {
+    const { formContent } = await renderForm({
+        schema: customComponentHeadingSchema,
+    });
+
+    expect(headingStyle(formHeading(formContent, 'Section'))).toEqual({
+        fontSize: '22.128px',
+        fontWeight: '700',
+        bar: 'block',
+    });
+    expect(headingStyle(formHeading(formContent, 'Subsection'))).toEqual({
+        fontSize: '20.736px',
+        fontWeight: '600',
+        bar: 'none',
+    });
+});
+
+test('gives a custom component the heading style of a form heading at the same depth', async () => {
+    const { formContent } = await renderForm({
+        schema: customComponentHeadingSchema,
+    });
+
+    expect(headingStyle(customHeading(formContent, '/list'))).toEqual(
+        headingStyle(formHeading(formContent, 'Section'))
+    );
+    expect(
+        headingStyle(customHeading(formContent, '/section/nestedList'))
+    ).toEqual(headingStyle(formHeading(formContent, 'Subsection')));
+});
+
 test('falls back to default widget when custom component is not defined', async () => {
     const { formContent } = await renderForm({
         schema: undefinedComponentSchema,
@@ -1230,6 +1264,54 @@ describe('number fields, when the browser formats decimals with a comma', () => 
         expect(field.value).toBe('1.5');
     });
 });
+
+const HEADING_STYLE = `
+    h2 {
+        font-size: var(--limel-form-heading-font-size);
+        font-weight: var(--limel-form-heading-font-weight);
+    }
+    h2::before {
+        content: '';
+        display: var(--limel-form-heading-bar-display);
+    }
+`;
+
+function defineHeadingComponent() {
+    customElements.define(
+        HEADING_COMPONENT,
+        class extends HTMLElement {
+            public constructor() {
+                super();
+                this.attachShadow({ mode: 'open' }).innerHTML =
+                    `<style>${HEADING_STYLE}</style><h2>Heading</h2>`;
+            }
+        }
+    );
+}
+
+function customHeading(formContent: Element, schemaPath: string): Element {
+    return formContent
+        .querySelector(
+            `[data-schema-path="${schemaPath}"] ${HEADING_COMPONENT}`
+        )
+        .shadowRoot.querySelector('h2');
+}
+
+function formHeading(formContent: Element, title: string): Element {
+    return [...formContent.querySelectorAll('h1')].find(
+        (heading) => heading.textContent === title
+    );
+}
+
+function headingStyle(heading: Element) {
+    const { fontSize, fontWeight } = getComputedStyle(heading);
+
+    return {
+        fontSize,
+        fontWeight,
+        bar: getComputedStyle(heading, '::before').display,
+    };
+}
 
 async function renderForm(props: Record<string, any> = {}) {
     const { value = {}, ...rest } = props;
