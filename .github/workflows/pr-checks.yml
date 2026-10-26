@@ -9,7 +9,7 @@ concurrency:
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - uses: ./.github/actions/set-up-node
@@ -18,7 +18,7 @@ jobs:
 
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - uses: ./.github/actions/set-up-node
@@ -273,7 +273,7 @@ jobs:
   commitlint:
     name: Commitlint
     if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -293,7 +293,7 @@ jobs:
       github.actor != 'lime-dependabot-automerge[bot]' &&
       github.event_name != 'merge_group' &&
       github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
       contents: read
@@ -347,7 +347,7 @@ jobs:
           key: ${{ steps.sonar-cache.outputs.cache-primary-key }}
   autosquash:
     name: Block Autosquash Commits
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Block Autosquash Commits
         if:  github.event_name != 'merge_group'
