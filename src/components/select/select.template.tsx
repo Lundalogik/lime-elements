@@ -152,6 +152,7 @@ const SelectValue: FunctionalComponent<
             }
             aria-describedby={getDescribedBy(props)}
             aria-required={isCombobox && props.required ? 'true' : undefined}
+            aria-invalid={isCombobox && !props.isValid ? 'true' : undefined}
             disabled={props.disabled || props.readonly}
         >
             <span class="mdc-select__selected-text-container limel-select__selected-option">

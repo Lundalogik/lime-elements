@@ -1066,6 +1066,70 @@ describe('limel-select invalid state', () => {
         { text: 'Two', value: 'two' },
     ];
 
+    it('of the trigger is not invalid by default', async () => {
+        const { waitForChanges } = await render(
+            <limel-select
+                label="Country"
+                options={options}
+                value={options[0]}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('combobox')).toEqual([false]);
+    });
+
+    it('of the trigger is invalid when the select is', async () => {
+        const { waitForChanges } = await render(
+            <limel-select
+                label="Country"
+                options={options}
+                value={options[0]}
+                invalid={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getInvalidStates('combobox')).toEqual([true]);
+    });
+
+    it('of the trigger is invalid when it is required and has no value after it was opened and closed', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-select label="Country" options={options} required={true} />
+        );
+        await waitForChanges();
+        expect(await getInvalidStates('combobox')).toEqual([false]);
+
+        root.shadowRoot
+            .querySelector<HTMLElement>('.limel-select-trigger')
+            .click();
+        await waitForChanges();
+        document
+            .querySelector('limel-menu-surface')
+            .dispatchEvent(new CustomEvent('dismiss'));
+        await waitForChanges();
+
+        expect(await getInvalidStates('combobox')).toEqual([true]);
+    });
+
+    it('of the trigger next to a native select is not set, because a button cannot be invalid', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-select
+                data-native
+                label="Country"
+                options={options}
+                invalid={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(
+            root.shadowRoot
+                .querySelector('.limel-select-trigger')
+                .hasAttribute('aria-invalid')
+        ).toBe(false);
+    });
+
     it('of the native select is not invalid by default', async () => {
         const { waitForChanges } = await render(
             <limel-select
