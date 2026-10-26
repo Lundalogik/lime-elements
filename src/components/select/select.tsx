@@ -254,7 +254,7 @@ export class Select {
         return (
             <SelectTemplate
                 id={this.portalId}
-                disabled={this.disabled || this.readonly}
+                disabled={this.disabled}
                 readonly={this.readonly}
                 required={this.required}
                 invalid={this.invalid}
@@ -524,6 +524,10 @@ export class Select {
     private readonly handleMenuTriggerKeyDown = (
         event: KeyboardEvent
     ): void => {
+        if (this.readonly) {
+            return;
+        }
+
         // Typeahead runs first, so that a space extends an ongoing typeahead
         // instead of just opening the dropdown. A *bare* space is declined by
         // `handleTypeaheadKey`, and keeps its usual meaning below.
