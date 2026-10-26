@@ -655,6 +655,22 @@ describe('limel-picker readonly state', () => {
         expect(getSearchInput(root).disabled).toBe(false);
     });
 
+    it('closes the suggestions when the picker becomes read only while the user is searching', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-picker label="Fruit" searcher={async () => allItems} />
+        );
+        await waitForChanges();
+        await focusAndType(root, 'a', waitForChanges);
+        await waitForSuggestions(waitForChanges);
+        expect(getSuggestions().length).toBeGreaterThan(0);
+
+        root.readonly = true;
+        await waitForChanges();
+        await waitForChanges();
+
+        expect(getSuggestions()).toHaveLength(0);
+    });
+
     it('is in the tab order, and a disabled picker is not', async () => {
         const readonlyPicker = await render(
             <limel-picker
