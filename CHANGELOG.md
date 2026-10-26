@@ -1,3 +1,10 @@
+## [40.14.5](https://github.com/Lundalogik/lime-elements/compare/v40.14.4...v40.14.5) (2026-10-26)
+
+### Bug Fixes
+
+
+* **select:** show the focus of the trigger with the notched outline ([337faae](https://github.com/Lundalogik/lime-elements/commit/337faae84ae5b03e1489656880cd6cadfc95ce33)), closes [#4442](https://github.com/Lundalogik/lime-elements/issues/4442)
+
 ## [40.14.4](https://github.com/Lundalogik/lime-elements/compare/v40.14.3...v40.14.4) (2026-10-26)
 
 ### Bug Fixes
