@@ -1,3 +1,13 @@
+## [40.14.3](https://github.com/Lundalogik/lime-elements/compare/v40.14.2...v40.14.3) (2026-10-26)
+
+### Bug Fixes
+
+
+* **select:** make the trigger a combobox ([335e0ad](https://github.com/Lundalogik/lime-elements/commit/335e0adb44094c5b6bae58f0ccacc3f6cf64208a)), closes [#4436](https://github.com/Lundalogik/lime-elements/issues/4436)
+* **select:** open the dropdown with the arrow keys ([77db339](https://github.com/Lundalogik/lime-elements/commit/77db33999718dff2a6626aeb347e7e8272eaa9c2)), closes [#4436](https://github.com/Lundalogik/lime-elements/issues/4436)
+* **select:** tell assistive technology when the select is required ([76899f8](https://github.com/Lundalogik/lime-elements/commit/76899f82dd7f461a8b1d31b6031cf07e0905164a)), closes [#4436](https://github.com/Lundalogik/lime-elements/issues/4436)
+* **select:** tell assistive technology when the trigger is invalid ([3e73876](https://github.com/Lundalogik/lime-elements/commit/3e73876d7fcb0b0a5d8a8b063711d87370f3e652)), closes [#4436](https://github.com/Lundalogik/lime-elements/issues/4436)
+
 ## [40.14.2](https://github.com/Lundalogik/lime-elements/compare/v40.14.1...v40.14.2) (2026-10-26)
 
 ### Bug Fixes
