@@ -13,7 +13,7 @@ import {
     Watch,
 } from '@stencil/core';
 import { isMobileDevice } from '../../util/device';
-import { ENTER, SPACEBAR } from '../../util/keycodes';
+import { ARROW_DOWN, ARROW_UP, ENTER, SPACEBAR } from '../../util/keycodes';
 import { isMultiple } from '../../util/multiple';
 import { createRandomString } from '../../util/random-string';
 import {
@@ -533,8 +533,14 @@ export class Select {
 
         const isEnter = event.key === ENTER;
         const isSpace = event.key === SPACEBAR;
+        const isArrow =
+            !this.shouldRenderNative() &&
+            (event.key === ARROW_DOWN || event.key === ARROW_UP) &&
+            !event.ctrlKey &&
+            !event.metaKey &&
+            !event.shiftKey;
 
-        if (this.menuOpen || !(isSpace || isEnter)) {
+        if (this.menuOpen || !(isSpace || isEnter || isArrow)) {
             return;
         }
 
