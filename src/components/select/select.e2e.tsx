@@ -1,4 +1,5 @@
 import { render, h } from '@stencil/vitest';
+import { userEvent } from 'vitest/browser';
 import { Option } from './option.types';
 import {
     getAccessibleNames,
@@ -966,6 +967,104 @@ describe('limel-select (menu)', () => {
                 }
             );
         });
+    });
+});
+
+describe('limel-select focus', () => {
+    const options: Option[] = [
+        { text: 'One', value: 'one' },
+        { text: 'Two', value: 'two' },
+    ];
+
+    const renderSelect = (props: Record<string, unknown> = {}) =>
+        render(
+            <limel-select
+                label="Country"
+                options={options}
+                style={{
+                    '--lime-primary-color': 'rgb(1, 2, 3)',
+                    '--shadow-depth-8-focused': '0 0 0 2px rgb(255, 0, 0)',
+                    '--button-shadow-hovered': 'none',
+                }}
+                {...props}
+            />
+        );
+
+    const getLeadingOutline = (root: HTMLElement) =>
+        root.shadowRoot.querySelector<HTMLElement>(
+            '.limel-notched-outline--leading-outline'
+        );
+
+    // The border color has a transition, which would be half way when read.
+    const getBorderColor = (root: HTMLElement) => {
+        getLeadingOutline(root).style.transition = 'none';
+
+        return getComputedStyle(getLeadingOutline(root)).borderTopColor;
+    };
+
+    it('has no border around the field when the trigger has no focus', async () => {
+        const { root, waitForChanges } = await renderSelect();
+        await waitForChanges();
+
+        expect(getBorderColor(root)).toBe('rgba(0, 0, 0, 0)');
+    });
+
+    it('shows the border of the notched outline in the accent color while the trigger has keyboard focus', async () => {
+        const { root, waitForChanges } = await renderSelect();
+        await waitForChanges();
+
+        await userEvent.tab();
+        await waitForChanges();
+
+        expect(getBorderColor(root)).toBe('rgb(1, 2, 3)');
+    });
+
+    it('shows the border of the notched outline in the accent color while a read only trigger has keyboard focus', async () => {
+        const { root, waitForChanges } = await renderSelect({
+            readonly: true,
+        });
+        await waitForChanges();
+
+        await userEvent.tab();
+        await waitForChanges();
+
+        expect(getBorderColor(root)).toBe('rgb(1, 2, 3)');
+    });
+
+    it.each([
+        ['a select', {}],
+        ['a read only select', { readonly: true }],
+    ])(
+        'does not draw a ring, or a browser outline, around the trigger of %s, which would run through the label',
+        async (_name, props) => {
+            const { root, waitForChanges } = await renderSelect(props);
+            await waitForChanges();
+            const trigger = root.shadowRoot.querySelector<HTMLElement>(
+                '.limel-select-trigger'
+            );
+            trigger.style.transition = 'none';
+
+            await userEvent.tab();
+            await waitForChanges();
+
+            expect(root.shadowRoot.activeElement).toBe(trigger);
+            expect(getComputedStyle(trigger).boxShadow).toBe('none');
+            expect(getComputedStyle(trigger).outlineStyle).toBe('none');
+        }
+    );
+
+    it('keeps the border of an invalid select, whether or not it has focus', async () => {
+        const { root, waitForChanges } = await renderSelect({
+            invalid: true,
+        });
+        await waitForChanges();
+        const borderWithoutFocus = getBorderColor(root);
+
+        await userEvent.tab();
+        await waitForChanges();
+
+        expect(borderWithoutFocus).not.toBe('rgba(0, 0, 0, 0)');
+        expect(getBorderColor(root)).not.toBe('rgba(0, 0, 0, 0)');
     });
 });
 
