@@ -654,4 +654,27 @@ describe('limel-picker readonly state', () => {
         expect(getSearchInput(root).readOnly).toBe(true);
         expect(getSearchInput(root).disabled).toBe(false);
     });
+
+    it('is in the tab order, and a disabled picker is not', async () => {
+        const readonlyPicker = await render(
+            <limel-picker
+                label="Fruit"
+                searcher={async () => allItems}
+                readonly={true}
+            />
+        );
+        await readonlyPicker.waitForChanges();
+        expect(readonlyPicker.root.getAttribute('tabindex')).toBe('0');
+        readonlyPicker.unmount();
+
+        const disabledPicker = await render(
+            <limel-picker
+                label="Fruit"
+                searcher={async () => allItems}
+                disabled={true}
+            />
+        );
+        await disabledPicker.waitForChanges();
+        expect(disabledPicker.root.getAttribute('tabindex')).toBe('-1');
+    });
 });
