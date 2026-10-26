@@ -41,6 +41,12 @@ export class CustomPickerExample implements FormComponent<number> {
     public disabled: boolean;
 
     /**
+     * {@inheritdoc FormComponent.invalid}
+     */
+    @Prop({ reflect: true })
+    public invalid: boolean;
+
+    /**
      * {@inheritdoc FormComponent.helperText}
      */
     @Prop({ reflect: true })
@@ -110,6 +116,7 @@ export class CustomPickerExample implements FormComponent<number> {
                 disabled={this.disabled}
                 readonly={this.readonly}
                 required={this.required}
+                invalid={this.invalid}
                 onChange={this.handleChange}
                 searcher={this.search}
                 helperText={this.helperText}
