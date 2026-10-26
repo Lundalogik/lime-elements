@@ -308,7 +308,7 @@ export class InputField {
             this.mdcTextField.valid = true;
         }
 
-        this.mdcTextField.disabled = this.disabled || this.readonly;
+        this.mdcTextField.disabled = this.disabled;
     }
 
     /**
@@ -376,7 +376,7 @@ export class InputField {
         properties.onBlur = this.onBlur;
         properties.required = this.required;
         properties.readonly = this.readonly;
-        properties.disabled = this.disabled || this.readonly;
+        properties.disabled = this.disabled;
 
         if (this.hasHelperText()) {
             properties['aria-describedby'] = this.helperTextId;
@@ -484,7 +484,7 @@ export class InputField {
             'mdc-text-field': true,
             'mdc-text-field--outlined': true,
             'mdc-text-field--invalid': this.isInvalid(),
-            'mdc-text-field--disabled': this.disabled || this.readonly,
+            'mdc-text-field--disabled': this.disabled,
             'lime-text-field--readonly': this.readonly,
             'mdc-text-field--required': this.required,
             'lime-text-field--empty': this.isEmpty(),
@@ -857,7 +857,10 @@ export class InputField {
         }
 
         return (
-            <span class="lime-formatted-input lime-looks-like-input-value">
+            <span
+                class="lime-formatted-input lime-looks-like-input-value"
+                aria-hidden={this.readonly ? 'true' : undefined}
+            >
                 {renderValue}
             </span>
         );
@@ -935,7 +938,11 @@ export class InputField {
     };
 
     private renderAutocompleteList = () => {
-        if (this.type === 'textarea' || this.completions.length === 0) {
+        if (
+            this.readonly ||
+            this.type === 'textarea' ||
+            this.completions.length === 0
+        ) {
             return;
         }
 

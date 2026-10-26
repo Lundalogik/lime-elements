@@ -86,7 +86,7 @@ $height-of-mdc-text-field: 2.5rem; //This is written directly in `rem`, becurse 
                     var(--lime-primary-color, var(--limel-theme-primary-color)) !important; // has to be `!important` since we're using `box-shadow` insted of `outline` which is also used in `hover` mode
             }
         }
-        &:not(.mdc-text-field--disabled):hover {
+        &:not(.mdc-text-field--disabled):not(.lime-text-field--readonly):hover {
             .mdc-text-field__icon--trailing {
                 box-shadow: var(--button-shadow-normal);
                 background-color: rgba(var(--contrast-100), 0.4);
@@ -113,7 +113,7 @@ $height-of-mdc-text-field: 2.5rem; //This is written directly in `rem`, becurse 
 }
 
 @mixin readonly-overrides {
-    .mdc-text-field.mdc-text-field--disabled.lime-text-field--readonly {
+    .mdc-text-field.lime-text-field--readonly {
         .mdc-text-field__input {
             background-color: transparent;
             color: $input-text-color;
