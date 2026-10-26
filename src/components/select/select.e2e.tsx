@@ -4,6 +4,7 @@ import {
     getAccessibleNames,
     getAccessibleNodes,
     getInvalidStates,
+    getRequiredStates,
 } from '../../util/test/accessibility-tree';
 
 async function openSelect(root: any, waitForChanges: () => Promise<void>) {
@@ -1182,5 +1183,77 @@ describe('limel-select trigger', () => {
         await waitForChanges();
 
         expect(getTrigger(root).getAttribute('aria-expanded')).toBe('true');
+    });
+});
+
+describe('limel-select required state', () => {
+    const options: Option[] = [
+        { text: 'One', value: 'one' },
+        { text: 'Two', value: 'two' },
+    ];
+
+    it('of the trigger is not required by default', async () => {
+        const { waitForChanges } = await render(
+            <limel-select label="Country" options={options} />
+        );
+        await waitForChanges();
+
+        expect(await getRequiredStates('combobox')).toEqual([false]);
+    });
+
+    it('of the trigger is required when the select is', async () => {
+        const { waitForChanges } = await render(
+            <limel-select label="Country" options={options} required={true} />
+        );
+        await waitForChanges();
+
+        expect(await getRequiredStates('combobox')).toEqual([true]);
+    });
+
+    it('of the trigger is not required anymore when the select stops being', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-select label="Country" options={options} required={true} />
+        );
+        await waitForChanges();
+        expect(await getRequiredStates('combobox')).toEqual([true]);
+
+        (root as HTMLLimelSelectElement).required = false;
+        await waitForChanges();
+
+        expect(await getRequiredStates('combobox')).toEqual([false]);
+    });
+
+    it('of the trigger next to a native select is not set, because a button cannot be required', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-select
+                data-native
+                label="Country"
+                options={options}
+                required={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(
+            root.shadowRoot
+                .querySelector('.limel-select-trigger')
+                .hasAttribute('aria-required')
+        ).toBe(false);
+    });
+
+    it('of the native select is the attribute, with no empty aria-required', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-select
+                data-native
+                label="Country"
+                options={options}
+                required={true}
+            />
+        );
+        await waitForChanges();
+        const nativeSelect = root.shadowRoot.querySelector('select');
+
+        expect(nativeSelect.required).toBe(true);
+        expect(nativeSelect.hasAttribute('aria-required')).toBe(false);
     });
 });
