@@ -1,4 +1,5 @@
 import { render, h } from '@stencil/vitest';
+import { getAccessibleProperties } from '../../util/test/accessibility-tree';
 import { brightnesses, colors } from './swatches';
 
 /**
@@ -237,5 +238,22 @@ describe('limel-color-picker', () => {
             expect(changeSpy).toHaveReceivedEventTimes(1);
             expect(changeSpy).toHaveReceivedEventDetail('#abcdef');
         });
+    });
+});
+
+describe('limel-color-picker readonly state', () => {
+    it('is announced as read only, and not as disabled', async () => {
+        const { waitForChanges } = await render(
+            <limel-color-picker
+                label="Colour"
+                value="#ff0000"
+                readonly={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleProperties('textbox')).toEqual([
+            expect.objectContaining({ readonly: true, disabled: false }),
+        ]);
     });
 });

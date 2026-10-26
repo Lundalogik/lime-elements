@@ -197,8 +197,11 @@ limel-notched-outline {
     }
 
     &[readonly]:not([readonly='false']) {
-        --limel-notched-outline-border-color: transparent !important;
         --limel-notched-outline-background-color: transparent !important;
+
+        &:not(:has([slot='content']:is(:focus-visible, :focus-within))) {
+            --limel-notched-outline-border-color: transparent !important;
+        }
 
         .limel-notched-outline--notch {
             label {

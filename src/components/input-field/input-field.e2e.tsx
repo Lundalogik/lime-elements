@@ -1,7 +1,9 @@
 import { render, h } from '@stencil/vitest';
+import { userEvent } from 'vitest/browser';
 import {
     getAccessibleNames,
     getAccessibleNodes,
+    getAccessibleProperties,
     getInvalidStates,
 } from '../../util/test/accessibility-tree';
 
@@ -410,5 +412,223 @@ describe('limel-input-field invalid state', () => {
 
         expect(input.getAttribute('aria-invalid')).toBe('true');
         expect(await getInvalidStates('textbox')).toEqual([true]);
+    });
+});
+
+describe('limel-input-field readonly state', () => {
+    const getControl = (root: HTMLElement) =>
+        root.shadowRoot.querySelector<HTMLInputElement | HTMLTextAreaElement>(
+            'input, textarea'
+        );
+
+    it.each(['text', 'textarea'])(
+        'of the %s field is announced as read only, and not as disabled',
+        async (type) => {
+            const { waitForChanges } = await render(
+                <limel-input-field
+                    label="Notes"
+                    type={type}
+                    value="Hello"
+                    readonly={true}
+                />
+            );
+            await waitForChanges();
+
+            expect(await getAccessibleProperties('textbox')).toEqual([
+                expect.objectContaining({ readonly: true, disabled: false }),
+            ]);
+        }
+    );
+
+    it.each(['text', 'textarea', 'number'])(
+        'of the %s field can be reached with the keyboard',
+        async (type) => {
+            const { root, waitForChanges } = await render(
+                <limel-input-field
+                    label="Notes"
+                    type={type}
+                    value="12"
+                    readonly={true}
+                />
+            );
+            await waitForChanges();
+
+            await userEvent.tab();
+
+            expect(root.shadowRoot.activeElement).toBe(getControl(root));
+        }
+    );
+
+    it('cannot be edited', async () => {
+        const { root, waitForChanges, spyOnEvent } = await render(
+            <limel-input-field label="Name" value="Ada" readonly={true} />
+        );
+        const changeSpy = spyOnEvent('change');
+        await waitForChanges();
+
+        getControl(root).focus();
+        await userEvent.keyboard('abc');
+        await waitForChanges();
+
+        expect(getControl(root).value).toBe('Ada');
+        expect(changeSpy).not.toHaveReceivedEvent();
+    });
+
+    it('does not offer completions when it has focus', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-input-field
+                label="Name"
+                value="A"
+                completions={['Ada', 'Alan']}
+                readonly={true}
+            />
+        );
+        await waitForChanges();
+
+        getControl(root).focus();
+        await waitForChanges();
+
+        expect(root.shadowRoot.querySelector('limel-portal')).toBeNull();
+    });
+
+    it('offers completions when it is not read only', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-input-field
+                label="Name"
+                value="A"
+                completions={['Ada', 'Alan']}
+            />
+        );
+        await waitForChanges();
+
+        getControl(root).focus();
+        await waitForChanges();
+
+        expect(root.shadowRoot.querySelector('limel-portal')).not.toBeNull();
+    });
+
+    it('of a number field is read once, as a field with a name', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-input-field
+                label="Age"
+                type="number"
+                value="1234"
+                formatNumber={true}
+                readonly={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('spinbutton')).toEqual(['Age']);
+        expect(
+            root.shadowRoot
+                .querySelector('.lime-formatted-input')
+                .getAttribute('aria-hidden')
+        ).toBe('true');
+    });
+
+    it('shows the border of the field only while it has focus', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-input-field label="Name" value="Ada" readonly={true} />
+        );
+        await waitForChanges();
+        const outline = root.shadowRoot.querySelector('limel-notched-outline');
+        const getBorderColor = () =>
+            getComputedStyle(outline)
+                .getPropertyValue('--limel-notched-outline-border-color')
+                .trim();
+        expect(getBorderColor()).toBe('transparent');
+
+        getControl(root).focus();
+        await waitForChanges();
+
+        expect(getBorderColor()).not.toBe('transparent');
+    });
+
+    it('keeps showing the formatted number while a number field has focus', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-input-field
+                label="Age"
+                type="number"
+                value="1234"
+                formatNumber={true}
+                readonly={true}
+            />
+        );
+        await waitForChanges();
+
+        getControl(root).focus();
+        await waitForChanges();
+
+        expect(
+            getComputedStyle(
+                root.shadowRoot.querySelector('.lime-formatted-input')
+            ).display
+        ).toBe('block');
+        expect(getComputedStyle(getControl(root)).color).toBe(
+            'rgba(0, 0, 0, 0)'
+        );
+    });
+
+    describe('with a trailing link', () => {
+        const getLinkBackground = async (readonly: boolean) => {
+            const { root, waitForChanges } = await render(
+                <limel-input-field
+                    label="Mail"
+                    type="email"
+                    value="ada@example.com"
+                    showLink={true}
+                    readonly={readonly}
+                    style={{ '--contrast-100': '10, 20, 30' }}
+                />
+            );
+            await waitForChanges();
+            const link = root.shadowRoot.querySelector<HTMLElement>(
+                'a.lime-trailing-icon-for-link'
+            );
+            link.style.transition = 'none';
+
+            await userEvent.hover(root);
+
+            return getComputedStyle(link).backgroundColor;
+        };
+
+        it('does not cover the value with a background when the pointer is over a read only field', async () => {
+            expect(await getLinkBackground(true)).toBe('rgba(0, 0, 0, 0)');
+        });
+
+        it('gets a background when the pointer is over a field that is not read only', async () => {
+            expect(await getLinkBackground(false)).not.toBe('rgba(0, 0, 0, 0)');
+        });
+    });
+
+    it('stays disabled when it is both disabled and read only', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-input-field
+                label="Name"
+                value="Ada"
+                readonly={true}
+                disabled={true}
+            />
+        );
+        await waitForChanges();
+
+        getControl(root).focus();
+
+        expect(await getAccessibleProperties('textbox')).toEqual([
+            expect.objectContaining({ disabled: true }),
+        ]);
+        expect(root.shadowRoot.activeElement).toBeNull();
+    });
+
+    it('is disabled, and not read only, when it is disabled', async () => {
+        const { waitForChanges } = await render(
+            <limel-input-field label="Name" value="Ada" disabled={true} />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleProperties('textbox')).toEqual([
+            expect.objectContaining({ readonly: false, disabled: true }),
+        ]);
     });
 });

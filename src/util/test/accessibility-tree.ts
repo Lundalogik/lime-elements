@@ -7,6 +7,7 @@ export interface AccessibleNode {
 
 export interface AccessibleProperties {
     required: boolean;
+    readonly: boolean;
     disabled: boolean;
     invalid: boolean;
     hasPopup: boolean;
@@ -85,6 +86,7 @@ export async function getAccessibleProperties(
 
         return {
             required: values.get('required') === true,
+            readonly: values.get('readonly') === true,
             disabled: values.get('disabled') === true,
             invalid: values.has('invalid') && values.get('invalid') !== 'false',
             hasPopup: values.has('hasPopup'),

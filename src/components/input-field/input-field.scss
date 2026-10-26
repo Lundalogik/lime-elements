@@ -81,13 +81,14 @@ limel-notched-outline {
 .mdc-text-field {
     width: 100%;
 
-    &:not(.mdc-text-field--disabled) {
+    &:not(.mdc-text-field--disabled):not(.lime-text-field--readonly) {
         .mdc-text-field__affix,
         .mdc-text-field__icon {
             color: rgb(var(--contrast-900));
         }
     }
-    &.mdc-text-field--disabled {
+    &.mdc-text-field--disabled,
+    &.lime-text-field--readonly {
         .mdc-text-field__affix,
         .mdc-text-field__icon {
             color: rgb(var(--contrast-700));
@@ -103,7 +104,8 @@ limel-notched-outline {
     pointer-events: none;
 
     .mdc-text-field:not(.mdc-text-field--focused):not(.mdc-text-field--invalid)
-        & {
+        &,
+    .mdc-text-field.lime-text-field--readonly & {
         display: block;
     }
 
@@ -117,24 +119,13 @@ limel-notched-outline {
         color: transparent;
         -webkit-text-fill-color: transparent;
     }
+}
 
-    &.lime-text-field--readonly {
-        .mdc-text-field__input[type='number'] {
-            visibility: hidden;
-            // Not having `visibility: hidden;` makes the unformatted
-            // value selectable; which is not so nice when users
-            // click drag to select content on the screen.
-            // The reason to have it only on `readonly` mode is
-            // 1. This is the use case where it makes most sense
-            // 2. We don't want to repeat the same thing in the
-            // accessibility tree, and make it readable for assistive
-            // technologies.
-            // 3. When not readonly, clicking on the `<input />`
-            // element sets the focus and activates the edit mode.
-            // So we cannot always have it `hidden` on.
-            // which is why we have instead
-            // `color: transparent` a few lines before this.
-        }
+.mdc-text-field.lime-text-field--readonly {
+    .mdc-text-field__input[type='number'] {
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        user-select: none;
     }
 }
 
@@ -160,10 +151,14 @@ limel-notched-outline {
     font-size: var(--limel-theme-default-font-size) !important;
     font-family: inherit !important;
 
-    .mdc-text-field:not(.mdc-text-field--disabled) & {
+    .mdc-text-field:not(.mdc-text-field--disabled):not(
+            .lime-text-field--readonly
+        )
+        & {
         color: shared_input-select-picker.$input-text-color;
     }
-    .mdc-text-field.mdc-text-field--disabled & {
+    .mdc-text-field.mdc-text-field--disabled &,
+    .mdc-text-field.lime-text-field--readonly & {
         color: shared_input-select-picker.$input-text-color-disabled;
     }
 }
