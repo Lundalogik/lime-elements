@@ -15,6 +15,10 @@ import {
  
  */
 export function handleKeyboardEvent(this: any, event: KeyboardEvent) {
+    if (this.readonly) {
+        return;
+    }
+
     if (this.textValue.length > 0) {
         // If there is any text in the input field, keyboard input should
         // navigate the text, not the chips.

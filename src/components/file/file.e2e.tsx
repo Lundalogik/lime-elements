@@ -2,6 +2,7 @@ import { render, h } from '@stencil/vitest';
 import { FileInfo } from '../../global/shared-types/file.types';
 import { ResizeOptions } from '../../util/image-resize';
 import {
+    getAccessibleProperties,
     getInvalidStates,
     getRequiredStates,
 } from '../../util/test/accessibility-tree';
@@ -171,5 +172,18 @@ describe('limel-file required state', () => {
         await waitForChanges();
 
         expect(await getRequiredStates('textbox')).toEqual([true]);
+    });
+});
+
+describe('limel-file readonly state', () => {
+    it('is announced as read only, and not as disabled', async () => {
+        const { waitForChanges } = await render(
+            <limel-file label="Document" readonly={true} />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleProperties('textbox')).toEqual([
+            expect.objectContaining({ readonly: true, disabled: false }),
+        ]);
     });
 });
