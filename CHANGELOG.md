@@ -1,3 +1,10 @@
+## [40.14.0](https://github.com/Lundalogik/lime-elements/compare/v40.13.1...v40.14.0) (2026-10-26)
+
+### Features
+
+
+* **form:** add invalid to the FormComponent interface ([17844ec](https://github.com/Lundalogik/lime-elements/commit/17844ec6d8dcda125bad84e113372005fe036226)), closes [Lundalogik/crm-client#1441](https://github.com/Lundalogik/crm-client/issues/1441)
+
 ## [40.13.1](https://github.com/Lundalogik/lime-elements/compare/v40.13.0...v40.13.1) (2026-10-23)
 
 ### Bug Fixes
