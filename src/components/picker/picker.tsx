@@ -444,7 +444,7 @@ export class Picker {
     }
 
     private shouldShowDropDownContent() {
-        if (this.isFull()) {
+        if (this.readonly || this.isFull()) {
             return false;
         }
 
