@@ -140,8 +140,9 @@ const SelectValue: FunctionalComponent<
             class={anchorClassList}
             onClick={props.open}
             onKeyDown={props.onTriggerKeyDown}
+            role={props.native ? undefined : 'combobox'}
             aria-haspopup="listbox"
-            aria-expanded={props.isOpen}
+            aria-expanded={props.native ? undefined : String(props.isOpen)}
             aria-controls={props.id}
             aria-labelledby={
                 props.label

@@ -637,13 +637,10 @@ describe('limel-select (menu)', () => {
             return event;
         };
 
-        // Read from the class rather than `aria-expanded`, which the trigger
-        // renders as a boolean attribute — empty when open, absent when
-        // closed — and so cannot be told apart from a missing attribute.
         const isOpen = (root: any) =>
             root.shadowRoot
                 .querySelector('.limel-select-trigger')
-                .classList.contains('limel-select--focused');
+                .getAttribute('aria-expanded') === 'true';
 
         // Note that there is no test for `disabled`. A disabled trigger never
         // receives key events in a browser, but a dispatched event still
@@ -986,7 +983,7 @@ describe('limel-select accessible name', () => {
         );
         await waitForChanges();
 
-        expect(await getAccessibleNames('button')).toEqual(['Country One']);
+        expect(await getAccessibleNames('combobox')).toEqual(['Country One']);
     });
 
     it('is only the label when nothing is selected', async () => {
@@ -995,7 +992,7 @@ describe('limel-select accessible name', () => {
         );
         await waitForChanges();
 
-        expect(await getAccessibleNames('button')).toEqual(['Country']);
+        expect(await getAccessibleNames('combobox')).toEqual(['Country']);
     });
 
     it('is only the selected option when there is no label', async () => {
@@ -1004,7 +1001,7 @@ describe('limel-select accessible name', () => {
         );
         await waitForChanges();
 
-        expect(await getAccessibleNames('button')).toEqual(['Two']);
+        expect(await getAccessibleNames('combobox')).toEqual(['Two']);
     });
 
     it('of the native select is the label', async () => {
@@ -1039,7 +1036,7 @@ describe('limel-select accessible description', () => {
         );
         await waitForChanges();
 
-        expect(await getAccessibleNodes('button')).toEqual([
+        expect(await getAccessibleNodes('combobox')).toEqual([
             { name: 'Country One', description: 'Where you live' },
         ]);
     });
@@ -1116,5 +1113,74 @@ describe('limel-select invalid state', () => {
         await waitForChanges();
 
         expect(await getInvalidStates('combobox')).toEqual([true]);
+    });
+});
+
+describe('limel-select trigger', () => {
+    const options: Option[] = [
+        { text: 'One', value: 'one' },
+        { text: 'Two', value: 'two' },
+    ];
+
+    const getTrigger = (root: HTMLElement) =>
+        root.shadowRoot.querySelector('.limel-select-trigger');
+
+    it('is a combobox, and not a button', async () => {
+        const { waitForChanges } = await render(
+            <limel-select label="Country" options={options} />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('combobox')).toEqual(['Country']);
+        expect(await getAccessibleNames('button')).toEqual([]);
+    });
+
+    it('stays a button next to a native select', async () => {
+        const { waitForChanges } = await render(
+            <limel-select data-native label="Country" options={options} />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('button')).toEqual(['Country']);
+        expect(await getAccessibleNames('combobox')).toEqual(['Country']);
+    });
+
+    it('says nothing about being expanded next to a native select', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-select data-native label="Country" options={options} />
+        );
+        await waitForChanges();
+
+        expect(getTrigger(root).hasAttribute('aria-expanded')).toBe(false);
+    });
+
+    it('says that it opens a listbox', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-select label="Country" options={options} />
+        );
+        await waitForChanges();
+
+        expect(getTrigger(root).getAttribute('aria-haspopup')).toBe('listbox');
+    });
+
+    it('says that it is collapsed while the dropdown is closed', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-select label="Country" options={options} />
+        );
+        await waitForChanges();
+
+        expect(getTrigger(root).getAttribute('aria-expanded')).toBe('false');
+    });
+
+    it('says that it is expanded while the dropdown is open', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-select label="Country" options={options} />
+        );
+        await waitForChanges();
+
+        (getTrigger(root) as HTMLElement).click();
+        await waitForChanges();
+
+        expect(getTrigger(root).getAttribute('aria-expanded')).toBe('true');
     });
 });
