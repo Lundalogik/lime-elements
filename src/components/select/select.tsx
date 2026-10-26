@@ -70,10 +70,10 @@ export class Select {
     public disabled = false;
 
     /**
-     * Set to `true` to make the field read-only.
-     * This visualizes the component slightly differently.
-     * But shows no visual sign indicating that the component is disabled
-     * or can ever become interactable.
+     * Set to `true` to make the select read-only.
+     * Use `readonly` when the select is only there to present the data it holds,
+     * and will not become possible for the current user to edit.
+     * It is then drawn without any sign that it could be interacted with.
      */
     @Prop({ reflect: true })
     public readonly = false;

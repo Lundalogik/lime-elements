@@ -54,9 +54,10 @@ export class Slider {
     public disabled = false;
 
     /**
-     * Disables the slider when `true`. This visualizes the slider slightly differently.
-     * But shows no visual sign indicating that the slider field
-     * is disabled or can ever become interactable.
+     * Set to `true` to make the slider read-only.
+     * Use `readonly` when the slider is only there to present the data it holds,
+     * and will not become possible for the current user to edit.
+     * It is then drawn without any sign that it could be interacted with.
      */
     @Prop({ reflect: true })
     public readonly = false;

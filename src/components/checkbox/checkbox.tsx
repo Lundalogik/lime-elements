@@ -44,16 +44,19 @@ import { Label } from '../dynamic-label/label.types';
 })
 export class Checkbox {
     /**
-     * Disables the checkbox when `true`. Works exactly the same as `readonly`.
-     * If either property is `true`, the checkbox will be disabled.
+     * Disables the checkbox when `true`,
+     * and visually shows that the checkbox is editable but disabled.
+     * This tells the users that if certain requirements are met,
+     * the checkbox may become interactable.
      */
     @Prop({ reflect: true })
     public disabled = false;
 
     /**
-     * Disables the checkbox when `true`. This visualizes the checkbox slightly differently.
-     * But shows no visual sign indicating that the checkbox is disabled
-     * or can ever become interactable.
+     * Set to `true` to make the checkbox read-only.
+     * Use `readonly` when the checkbox is only there to present the data it holds,
+     * and will not become possible for the current user to edit.
+     * It is then drawn without any sign that it could be interacted with.
      */
     @Prop({ reflect: true })
     public readonly = false;
