@@ -109,6 +109,14 @@ export interface FormComponent<T = any> {
     disabled?: boolean;
 
     /**
+     * Whether or not the current property is invalid. The form sets this
+     * when the property has validation errors that should be shown. Use it
+     * to show the error state of the component, instead of working it out
+     * from `formInfo.errorSchema`
+     */
+    invalid?: boolean;
+
+    /**
      * The label of the current property
      */
     label?: string;

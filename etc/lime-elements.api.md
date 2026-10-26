@@ -1222,6 +1222,7 @@ export interface FormComponent<T = any> {
     disabled?: boolean;
     formInfo?: FormInfo;
     helperText?: string;
+    invalid?: boolean;
     label?: string;
     readonly?: boolean;
     required?: boolean;
