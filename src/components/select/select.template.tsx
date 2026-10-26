@@ -62,7 +62,7 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
     const classList = {
         'limel-select': true,
         'mdc-select': true,
-        'mdc-select--disabled': props.disabled,
+        'mdc-select--disabled': props.disabled || props.readonly,
         'limel-select--readonly': props.readonly,
         'limel-select--invalid': !isValid,
         'limel-select--with-helper-text': typeof props.helperText === 'string',
@@ -139,7 +139,7 @@ const SelectValue: FunctionalComponent<
             id={TRIGGER_ID}
             slot="content"
             class={anchorClassList}
-            onClick={props.open}
+            onClick={props.readonly ? undefined : props.open}
             onKeyDown={props.onTriggerKeyDown}
             role={isCombobox ? 'combobox' : undefined}
             aria-haspopup="listbox"
@@ -153,7 +153,8 @@ const SelectValue: FunctionalComponent<
             aria-describedby={getDescribedBy(props)}
             aria-required={isCombobox && props.required ? 'true' : undefined}
             aria-invalid={isCombobox && !props.isValid ? 'true' : undefined}
-            disabled={props.disabled || props.readonly}
+            aria-readonly={isCombobox && props.readonly ? 'true' : undefined}
+            disabled={props.disabled || (props.native && props.readonly)}
         >
             <span class="mdc-select__selected-text-container limel-select__selected-option">
                 {getSelectedIcon(props.value)}
@@ -274,7 +275,7 @@ const NativeDropdown: FunctionalComponent<
             onFocus={props.open}
             onBlur={props.close}
             class="limel-select__native-control"
-            disabled={props.disabled}
+            disabled={props.disabled || props.readonly}
             multiple={props.multiple}
         >
             {options}

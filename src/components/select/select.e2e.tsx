@@ -3,6 +3,7 @@ import { Option } from './option.types';
 import {
     getAccessibleNames,
     getAccessibleNodes,
+    getAccessibleProperties,
     getInvalidStates,
     getRequiredStates,
 } from '../../util/test/accessibility-tree';
@@ -1319,5 +1320,126 @@ describe('limel-select required state', () => {
 
         expect(nativeSelect.required).toBe(true);
         expect(nativeSelect.hasAttribute('aria-required')).toBe(false);
+    });
+});
+
+describe('limel-select readonly state', () => {
+    const options: Option[] = [
+        { text: 'One', value: 'one' },
+        { text: 'Two', value: 'two' },
+    ];
+
+    const getTrigger = (root: HTMLElement) =>
+        root.shadowRoot.querySelector<HTMLButtonElement>(
+            '.limel-select-trigger'
+        );
+
+    const pressKey = (root: HTMLElement, key: string) => {
+        const event = new KeyboardEvent('keydown', {
+            key: key,
+            bubbles: true,
+            cancelable: true,
+            composed: true,
+        });
+        getTrigger(root).dispatchEvent(event);
+
+        return event;
+    };
+
+    const renderReadonlySelect = () =>
+        render(
+            <limel-select
+                label="Country"
+                options={options}
+                value={options[0]}
+                readonly={true}
+            />
+        );
+
+    it('has a trigger that says it is read only, and is not disabled', async () => {
+        const { root, waitForChanges } = await renderReadonlySelect();
+        await waitForChanges();
+
+        expect(getTrigger(root).getAttribute('aria-readonly')).toBe('true');
+        expect(getTrigger(root).disabled).toBe(false);
+        expect(await getAccessibleProperties('combobox')).toEqual([
+            expect.objectContaining({ disabled: false }),
+        ]);
+    });
+
+    it('has a trigger that is not read only by default', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-select label="Country" options={options} />
+        );
+        await waitForChanges();
+
+        expect(getTrigger(root).hasAttribute('aria-readonly')).toBe(false);
+    });
+
+    it('can be reached with the keyboard', async () => {
+        const { root, waitForChanges } = await renderReadonlySelect();
+        await waitForChanges();
+
+        getTrigger(root).focus();
+
+        expect(root.shadowRoot.activeElement).toBe(getTrigger(root));
+    });
+
+    it.each(['Enter', ' ', 'ArrowDown', 'ArrowUp', 'o'])(
+        'does not open when %j is pressed',
+        async (key) => {
+            const { root, waitForChanges, spyOnEvent } =
+                await renderReadonlySelect();
+            const changeSpy = spyOnEvent('change');
+            await waitForChanges();
+
+            const event = pressKey(root, key);
+            await waitForChanges();
+
+            expect(getTrigger(root).getAttribute('aria-expanded')).toBe(
+                'false'
+            );
+            expect(event.defaultPrevented).toBe(false);
+            expect(changeSpy).not.toHaveReceivedEvent();
+        }
+    );
+
+    it('does not open when it is clicked', async () => {
+        const { root, waitForChanges } = await renderReadonlySelect();
+        await waitForChanges();
+
+        getTrigger(root).click();
+        await waitForChanges();
+
+        expect(getTrigger(root).getAttribute('aria-expanded')).toBe('false');
+    });
+
+    it('stays disabled when it is both disabled and read only', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-select
+                label="Country"
+                options={options}
+                readonly={true}
+                disabled={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(getTrigger(root).disabled).toBe(true);
+    });
+
+    it('stays disabled next to a native select, which has no read only state', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-select
+                data-native
+                label="Country"
+                options={options}
+                readonly={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(root.shadowRoot.querySelector('select').disabled).toBe(true);
+        expect(getTrigger(root).disabled).toBe(true);
     });
 });
