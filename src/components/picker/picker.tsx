@@ -272,7 +272,7 @@ export class Picker {
     }
 
     private updateTabIndex() {
-        if (this.disabled || this.readonly) {
+        if (this.disabled) {
             this.host.setAttribute('tabindex', '-1');
             return;
         }
