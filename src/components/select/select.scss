@@ -22,7 +22,9 @@ $border-radius: 0.375rem;
     display: none;
 }
 
-limel-notched-outline:not([invalid]:not([invalid='false'])) {
+limel-notched-outline:not([invalid]:not([invalid='false'])):not(
+        :has([slot='content']:focus-visible)
+    ) {
     .limel-notched-outline--outlines {
         --limel-notched-outline-border-color: transparent;
     }
@@ -110,6 +112,11 @@ limel-notched-outline:not([invalid]:not([invalid='false'])) {
         align-items: center;
 
         border-radius: $border-radius;
+
+        &:focus,
+        &:focus-visible {
+            outline: none;
+        }
     }
 
     .limel-select-trigger,
@@ -143,7 +150,6 @@ limel-notched-outline:not([invalid]:not([invalid='false'])) {
 
         .limel-select-trigger {
             @include mixins.is-elevated-clickable;
-            @include mixins.visualize-keyboard-focus;
 
             &.limel-select--focused {
                 background-color: shared_input-select-picker.$background-color-focused;
