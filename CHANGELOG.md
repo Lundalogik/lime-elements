@@ -1,3 +1,14 @@
+## [40.14.4](https://github.com/Lundalogik/lime-elements/compare/v40.14.3...v40.14.4) (2026-10-26)
+
+### Bug Fixes
+
+
+* **chip-set:** announce a readonly input chip set as read only ([5c894f6](https://github.com/Lundalogik/lime-elements/commit/5c894f67a6b22f2d75f84791f95d2882e7e55633)), closes [#4439](https://github.com/Lundalogik/lime-elements/issues/4439)
+* **input-field:** announce a readonly field as read only ([395f617](https://github.com/Lundalogik/lime-elements/commit/395f6171874e730108b7de8db2d5ae3f6406fe36)), closes [#4439](https://github.com/Lundalogik/lime-elements/issues/4439)
+* **picker:** close the dropdown when the picker becomes readonly ([abed850](https://github.com/Lundalogik/lime-elements/commit/abed850c7b8c2ef69d061b3cb3bc9ccf96eddf05)), closes [#4439](https://github.com/Lundalogik/lime-elements/issues/4439)
+* **picker:** keep a readonly picker in the tab order ([6c6a5b0](https://github.com/Lundalogik/lime-elements/commit/6c6a5b08abc3bb424a42f5db8acce42b9039f786)), closes [#4439](https://github.com/Lundalogik/lime-elements/issues/4439)
+* **select:** announce a readonly select as read only ([5c1a3dc](https://github.com/Lundalogik/lime-elements/commit/5c1a3dcbe532d19e9b7d167b017775815b89c639)), closes [#4439](https://github.com/Lundalogik/lime-elements/issues/4439)
+
 ## [40.14.3](https://github.com/Lundalogik/lime-elements/compare/v40.14.2...v40.14.3) (2026-10-26)
 
 ### Bug Fixes
