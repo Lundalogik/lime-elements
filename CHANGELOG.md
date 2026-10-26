@@ -1,3 +1,10 @@
+## [40.14.1](https://github.com/Lundalogik/lime-elements/compare/v40.14.0...v40.14.1) (2026-10-26)
+
+### Bug Fixes
+
+
+* **form:** show help on array fields ([63ebb8a](https://github.com/Lundalogik/lime-elements/commit/63ebb8a8ea714a7adbf4285b67e7e15849df19ff))
+
 ## [40.14.0](https://github.com/Lundalogik/lime-elements/compare/v40.13.1...v40.14.0) (2026-10-26)
 
 ### Features
