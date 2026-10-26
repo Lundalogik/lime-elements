@@ -44,7 +44,7 @@ jobs:
 
   build-docs:
     name: Build Docs
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - name: Validate version input
       # `version` is used as the published docs directory name. Reject
