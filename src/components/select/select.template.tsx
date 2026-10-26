@@ -127,6 +127,7 @@ const SelectValue: FunctionalComponent<
         hasEmptyText: boolean;
     }
 > = (props) => {
+    const isCombobox = !props.native;
     const anchorClassList = {
         'mdc-select__anchor': true,
         'limel-select-trigger': true,
@@ -140,9 +141,9 @@ const SelectValue: FunctionalComponent<
             class={anchorClassList}
             onClick={props.open}
             onKeyDown={props.onTriggerKeyDown}
-            role={props.native ? undefined : 'combobox'}
+            role={isCombobox ? 'combobox' : undefined}
             aria-haspopup="listbox"
-            aria-expanded={props.native ? undefined : String(props.isOpen)}
+            aria-expanded={isCombobox ? String(props.isOpen) : undefined}
             aria-controls={props.id}
             aria-labelledby={
                 props.label
@@ -150,7 +151,7 @@ const SelectValue: FunctionalComponent<
                     : SELECTED_TEXT_ID
             }
             aria-describedby={getDescribedBy(props)}
-            aria-required={props.required}
+            aria-required={isCombobox && props.required ? 'true' : undefined}
             disabled={props.disabled || props.readonly}
         >
             <span class="mdc-select__selected-text-container limel-select__selected-option">
@@ -267,7 +268,6 @@ const NativeDropdown: FunctionalComponent<
             aria-labelledby={props.label ? LABEL_ID : undefined}
             aria-describedby={getDescribedBy(props)}
             aria-disabled={props.disabled}
-            aria-required={props.required}
             aria-invalid={props.isValid ? undefined : 'true'}
             onChange={props.onNativeChange}
             onFocus={props.open}
