@@ -1,3 +1,10 @@
+## [40.14.2](https://github.com/Lundalogik/lime-elements/compare/v40.14.1...v40.14.2) (2026-10-26)
+
+### Bug Fixes
+
+
+* **chip-set:** tell assistive technology when an input chip set is required ([e5de144](https://github.com/Lundalogik/lime-elements/commit/e5de1446f29804e9303421bcc8e1c0960d81f282)), closes [#4434](https://github.com/Lundalogik/lime-elements/issues/4434)
+
 ## [40.14.1](https://github.com/Lundalogik/lime-elements/compare/v40.14.0...v40.14.1) (2026-10-26)
 
 ### Bug Fixes
