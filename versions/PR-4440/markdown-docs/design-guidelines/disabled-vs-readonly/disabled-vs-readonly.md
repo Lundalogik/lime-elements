@@ -14,7 +14,7 @@ Many other products which are built using Lime Elements can benefit from it too.
 
     The `readonly` state is set solely for the purpose of "data visualization" for the end-users. This is why a `readonly` component is drawn without any sign that it could be interacted with: it has no outline, and no hover or pressed state.
 
-    A readonly field that holds text (an input field, a date picker, a color picker, a picker or a file field) can still be focused, so that its value can be read, selected and copied with the keyboard. Assistive technologies announce it as read only.
+    A readonly field that holds text (an input field, a date picker, a color picker, a picker or a file field) can still be focused, so that its value can be read, selected and copied with the keyboard. So can a select, which does not open. Assistive technologies announce them as read only.
 
 -   On the other hand, the `disabled` is a standard state for input elements. When an input component such as a checkbox or input field is `disabled` we maintain its original look and feel, but add some visual cues to indicate that the component is _currently_ or _temporarily_ disabled for some reason, and cannot be interacted with right now.
 
