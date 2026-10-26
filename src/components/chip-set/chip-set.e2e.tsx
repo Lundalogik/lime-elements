@@ -2,6 +2,7 @@ import { render, h } from '@stencil/vitest';
 import {
     getAccessibleNodes,
     getInvalidStates,
+    getRequiredStates,
 } from '../../util/test/accessibility-tree';
 
 describe('limel-chip-set', () => {
@@ -500,5 +501,62 @@ describe('limel-chip-set invalid state', () => {
         await waitForChanges();
 
         expect(await getInvalidStates('textbox')).toEqual([true]);
+    });
+});
+
+describe('limel-chip-set required state', () => {
+    it('of an input chip set is not required by default', async () => {
+        const { waitForChanges } = await render(
+            <limel-chip-set type="input" label="Tags" value={[]} />
+        );
+        await waitForChanges();
+
+        expect(await getRequiredStates('textbox')).toEqual([false]);
+    });
+
+    it('of an input chip set is required when the chip set is', async () => {
+        const { waitForChanges } = await render(
+            <limel-chip-set
+                type="input"
+                label="Tags"
+                value={[]}
+                required={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getRequiredStates('textbox')).toEqual([true]);
+    });
+
+    it('of an input chip set that has chips is required when the chip set is', async () => {
+        const { waitForChanges } = await render(
+            <limel-chip-set
+                type="input"
+                label="Tags"
+                value={[{ id: 'one', text: 'One' }]}
+                required={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getRequiredStates('textbox')).toEqual([true]);
+    });
+
+    it('of an input chip set is not required anymore when the chip set stops being', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-chip-set
+                type="input"
+                label="Tags"
+                value={[]}
+                required={true}
+            />
+        );
+        await waitForChanges();
+        expect(await getRequiredStates('textbox')).toEqual([true]);
+
+        (root as HTMLLimelChipSetElement).required = false;
+        await waitForChanges();
+
+        expect(await getRequiredStates('textbox')).toEqual([false]);
     });
 });

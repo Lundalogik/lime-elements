@@ -609,3 +609,33 @@ describe('limel-picker invalid state', () => {
         expect(await getInvalidStates('searchbox')).toEqual([true]);
     });
 });
+
+describe('limel-picker required state', () => {
+    function getInput(root: HTMLElement) {
+        return root.shadowRoot
+            .querySelector('limel-chip-set')
+            .shadowRoot.querySelector('input');
+    }
+
+    it('has no aria-required on its input by default', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-picker label="Fruit" searcher={async () => allItems} />
+        );
+        await waitForChanges();
+
+        expect(getInput(root).hasAttribute('aria-required')).toBe(false);
+    });
+
+    it('has aria-required on its input when the picker is required', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-picker
+                label="Fruit"
+                searcher={async () => allItems}
+                required={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(getInput(root).getAttribute('aria-required')).toBe('true');
+    });
+});
