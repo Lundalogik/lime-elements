@@ -639,3 +639,19 @@ describe('limel-picker required state', () => {
         expect(getInput(root).getAttribute('aria-required')).toBe('true');
     });
 });
+
+describe('limel-picker readonly state', () => {
+    it('has an input that is read only, and not disabled', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-picker
+                label="Fruit"
+                searcher={async () => allItems}
+                readonly={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(getSearchInput(root).readOnly).toBe(true);
+        expect(getSearchInput(root).disabled).toBe(false);
+    });
+});

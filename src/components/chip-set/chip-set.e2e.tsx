@@ -1,6 +1,8 @@
 import { render, h } from '@stencil/vitest';
+import { userEvent } from 'vitest/browser';
 import {
     getAccessibleNodes,
+    getAccessibleProperties,
     getInvalidStates,
     getRequiredStates,
 } from '../../util/test/accessibility-tree';
@@ -558,5 +560,161 @@ describe('limel-chip-set required state', () => {
         await waitForChanges();
 
         expect(await getRequiredStates('textbox')).toEqual([false]);
+    });
+});
+
+describe('limel-chip-set readonly state', () => {
+    const chips = [
+        { id: 'one', text: 'One' },
+        { id: 'two', text: 'Two' },
+    ];
+
+    const renderReadonlyChipSet = () =>
+        render(
+            <limel-chip-set
+                type="input"
+                label="Tags"
+                value={chips}
+                readonly={true}
+            />
+        );
+
+    const getInput = (root: HTMLElement) =>
+        root.shadowRoot.querySelector('input');
+
+    it('of an input chip set is announced as read only, and not as disabled', async () => {
+        const { waitForChanges } = await renderReadonlyChipSet();
+        await waitForChanges();
+
+        expect(await getAccessibleProperties('textbox')).toEqual([
+            expect.objectContaining({ readonly: true, disabled: false }),
+        ]);
+    });
+
+    it('of an input chip set can be reached with the keyboard', async () => {
+        const { root, waitForChanges } = await renderReadonlyChipSet();
+        await waitForChanges();
+
+        getInput(root).focus();
+
+        expect(getInput(root).tabIndex).toBe(0);
+        expect(root.shadowRoot.activeElement).toBe(getInput(root));
+    });
+
+    it('of an input chip set ends the editing when it becomes read only while the user is editing', async () => {
+        const { root, waitForChanges, spyOnEvent } = await render(
+            <limel-chip-set type="input" label="Tags" value={chips} />
+        );
+        const stopEditSpy = spyOnEvent('stopEdit');
+        await waitForChanges();
+        getInput(root).focus();
+        await waitForChanges();
+        expect(await root.getEditMode()).toBe(true);
+
+        root.readonly = true;
+        await waitForChanges();
+
+        expect(await root.getEditMode()).toBe(false);
+        expect(stopEditSpy).toHaveReceivedEventTimes(1);
+    });
+
+    it('of an input chip set starts editing when it stops being read only while the input has focus', async () => {
+        const { root, waitForChanges, spyOnEvent } =
+            await renderReadonlyChipSet();
+        const startEditSpy = spyOnEvent('startEdit');
+        await waitForChanges();
+        getInput(root).focus();
+        await waitForChanges();
+        expect(await root.getEditMode()).toBe(false);
+
+        root.readonly = false;
+        await waitForChanges();
+
+        expect(await root.getEditMode()).toBe(true);
+        expect(startEditSpy).toHaveReceivedEventTimes(1);
+    });
+
+    it('of an input chip set does not pull the focus back after it became read only', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-chip-set type="input" label="Tags" value={chips} />
+        );
+        await waitForChanges();
+        getInput(root).focus();
+        await waitForChanges();
+        root.readonly = true;
+        await waitForChanges();
+        getInput(root).blur();
+
+        root.label = 'Labels';
+        await waitForChanges();
+
+        expect(root.shadowRoot.activeElement).toBeNull();
+    });
+
+    it('of an input chip set cannot be typed in', async () => {
+        const { root, waitForChanges, spyOnEvent } =
+            await renderReadonlyChipSet();
+        const inputSpy = spyOnEvent('input');
+        await waitForChanges();
+
+        getInput(root).focus();
+        await userEvent.keyboard('abc');
+        await waitForChanges();
+
+        expect(getInput(root).value).toBe('');
+        expect(inputSpy).not.toHaveReceivedEvent();
+    });
+
+    it.each(['{Backspace}{Backspace}', '{ArrowLeft}{Delete}'])(
+        'of an input chip set does not remove a chip when %s is pressed',
+        async (keys) => {
+            const { root, waitForChanges, spyOnEvent } =
+                await renderReadonlyChipSet();
+            const changeSpy = spyOnEvent('change');
+            await waitForChanges();
+
+            getInput(root).focus();
+            await userEvent.keyboard(keys);
+            await waitForChanges();
+
+            expect(changeSpy).not.toHaveReceivedEvent();
+            expect(root.shadowRoot.querySelectorAll('limel-chip')).toHaveLength(
+                2
+            );
+        }
+    );
+
+    it('of an input chip set does not start or stop editing when it gets and loses focus', async () => {
+        const { root, waitForChanges, spyOnEvent } =
+            await renderReadonlyChipSet();
+        const startEditSpy = spyOnEvent('startEdit');
+        const stopEditSpy = spyOnEvent('stopEdit');
+        await waitForChanges();
+
+        getInput(root).focus();
+        getInput(root).blur();
+        await waitForChanges();
+
+        expect(startEditSpy).not.toHaveReceivedEvent();
+        expect(stopEditSpy).not.toHaveReceivedEvent();
+    });
+
+    it('of an input chip set stays disabled when it is disabled', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-chip-set
+                type="input"
+                label="Tags"
+                value={chips}
+                disabled={true}
+            />
+        );
+        await waitForChanges();
+
+        getInput(root).focus();
+
+        expect(await getAccessibleProperties('textbox')).toEqual([
+            expect.objectContaining({ readonly: false, disabled: true }),
+        ]);
+        expect(root.shadowRoot.activeElement).toBeNull();
     });
 });

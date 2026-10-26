@@ -454,6 +454,37 @@ export class ChipSet {
         }));
     };
 
+    @Watch('readonly')
+    protected handleReadonlyChange(isReadonly: boolean) {
+        if (isReadonly) {
+            this.endEditing();
+
+            return;
+        }
+
+        const input = this.host.shadowRoot.querySelector('input');
+        if (
+            this.disabled ||
+            !input ||
+            this.host.shadowRoot.activeElement !== input
+        ) {
+            return;
+        }
+
+        this.editMode = true;
+        this.startEdit.emit();
+    }
+
+    private endEditing() {
+        if (!this.editMode) {
+            return;
+        }
+
+        this.editMode = false;
+        this.inputChipIndexSelected = null;
+        this.stopEdit.emit();
+    }
+
     @Watch('value')
     protected handleChangeChips(newValue: Chip[], oldValue: Chip[]) {
         if (isEqual(newValue, oldValue)) {
@@ -470,13 +501,13 @@ export class ChipSet {
         return [
             this.value.map(this.renderInputChip),
             <input
-                tabIndex={this.disabled || this.readonly ? -1 : 0}
+                tabIndex={this.disabled ? -1 : 0}
                 type={this.inputType}
                 id={this.labelId}
                 aria-describedby={this.getDescribedBy()}
                 aria-invalid={this.isOutlineInvalid() ? 'true' : undefined}
                 aria-required={this.required ? 'true' : undefined}
-                disabled={this.readonly || this.disabled}
+                disabled={this.disabled}
                 class={{
                     'mdc-text-field__input': true,
                     hidden: this.inputHidden(),
@@ -490,7 +521,7 @@ export class ChipSet {
                 // that event from propagating since we are emitting our own change event
                 onChange={this.inputFieldOnChange}
                 placeholder={this.isFull() ? '' : this.searchLabel}
-                readonly={this.isFull()}
+                readonly={this.readonly || this.isFull()}
                 autocomplete={this.autocomplete}
             />,
             this.renderLeadingIcon(),
@@ -565,6 +596,10 @@ export class ChipSet {
      * additional space when the user it not typing anything
      */
     private handleInputBlur() {
+        if (this.readonly) {
+            return;
+        }
+
         if (this.emptyInputOnBlur) {
             this.syncEmptyInput();
         }
