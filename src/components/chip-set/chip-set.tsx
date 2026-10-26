@@ -475,6 +475,7 @@ export class ChipSet {
                 id={this.labelId}
                 aria-describedby={this.getDescribedBy()}
                 aria-invalid={this.isOutlineInvalid() ? 'true' : undefined}
+                aria-required={this.required ? 'true' : undefined}
                 disabled={this.readonly || this.disabled}
                 class={{
                     'mdc-text-field__input': true,

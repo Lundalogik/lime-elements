@@ -93,6 +93,18 @@ export async function getAccessibleProperties(
 }
 
 /**
+ * Get whether the nodes with a given role are announced as required, in the
+ * same way as `getAccessibleNodes`.
+ *
+ * @param role - the role of the nodes to get, for example `textbox`
+ */
+export async function getRequiredStates(role: string): Promise<boolean[]> {
+    const properties = await getAccessibleProperties(role);
+
+    return properties.map((node) => node.required);
+}
+
+/**
  * Get whether the nodes with a given role are announced as invalid, in the
  * same way as `getAccessibleNodes`.
  *

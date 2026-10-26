@@ -1,7 +1,10 @@
 import { render, h } from '@stencil/vitest';
 import { FileInfo } from '../../global/shared-types/file.types';
 import { ResizeOptions } from '../../util/image-resize';
-import { getInvalidStates } from '../../util/test/accessibility-tree';
+import {
+    getInvalidStates,
+    getRequiredStates,
+} from '../../util/test/accessibility-tree';
 
 // Browser tests: a real canvas / `createImageBitmap` is available here, so the
 // actual client-side resize runs. These cover the two behaviors that cannot be
@@ -157,5 +160,16 @@ describe('limel-file invalid state', () => {
         await waitForChanges();
 
         expect(await getInvalidStates('textbox')).toEqual([true]);
+    });
+});
+
+describe('limel-file required state', () => {
+    it('is required when the file component is', async () => {
+        const { waitForChanges } = await render(
+            <limel-file label="Document" required={true} />
+        );
+        await waitForChanges();
+
+        expect(await getRequiredStates('textbox')).toEqual([true]);
     });
 });
