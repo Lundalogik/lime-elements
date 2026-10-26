@@ -679,7 +679,7 @@ describe('limel-select (menu)', () => {
             );
             await waitForChanges();
 
-            expect(pressKey(root, 'ArrowDown').defaultPrevented).toBe(false);
+            expect(pressKey(root, 'ArrowLeft').defaultPrevented).toBe(false);
         });
 
         it('does not change the value while typing', async () => {
@@ -825,6 +825,147 @@ describe('limel-select (menu)', () => {
 
                 expect(isOpen(root)).toBe(true);
             });
+        });
+
+        describe('opens the dropdown with an arrow key', () => {
+            it.each(['ArrowDown', 'ArrowUp'])('%s', async (key) => {
+                const { root, waitForChanges } = await render(
+                    <limel-select
+                        label="Doctor"
+                        options={doctors}
+                    ></limel-select>
+                );
+                await waitForChanges();
+
+                pressKey(root, key);
+                await waitForChanges();
+
+                expect(isOpen(root)).toBe(true);
+            });
+
+            it('and also with Alt held', async () => {
+                const { root, waitForChanges } = await render(
+                    <limel-select
+                        label="Doctor"
+                        options={doctors}
+                    ></limel-select>
+                );
+                await waitForChanges();
+
+                pressKey(root, 'ArrowDown', { altKey: true });
+                await waitForChanges();
+
+                expect(isOpen(root)).toBe(true);
+            });
+
+            it('and keeps the page from scrolling', async () => {
+                const { root, waitForChanges } = await render(
+                    <limel-select
+                        label="Doctor"
+                        options={doctors}
+                    ></limel-select>
+                );
+                await waitForChanges();
+
+                expect(pressKey(root, 'ArrowDown').defaultPrevented).toBe(true);
+            });
+
+            it('and moves the focus into the dropdown', async () => {
+                const { root, waitForChanges } = await render(
+                    <limel-select
+                        label="Doctor"
+                        options={doctors}
+                    ></limel-select>
+                );
+                await waitForChanges();
+
+                pressKey(root, 'ArrowDown');
+                await waitForChanges();
+
+                await vi.waitFor(() => {
+                    const list = document.querySelector(
+                        'limel-menu-surface limel-list'
+                    );
+                    const focused = list?.shadowRoot
+                        ?.activeElement as HTMLElement;
+
+                    expect(focused?.dataset.index).toBe('0');
+                });
+            });
+
+            it('but not when the dropdown is the native one on mobile', async () => {
+                const { root, waitForChanges, spyOnEvent } = await render(
+                    <limel-select
+                        data-native
+                        label="Doctor"
+                        options={doctors}
+                    ></limel-select>
+                );
+                const changeSpy = spyOnEvent('change');
+                await waitForChanges();
+
+                const event = pressKey(root, 'ArrowDown');
+                await waitForChanges();
+
+                expect(
+                    root.shadowRoot
+                        .querySelector('.limel-select-trigger')
+                        .classList.contains('limel-select--focused')
+                ).toBe(false);
+                expect(event.defaultPrevented).toBe(false);
+                expect(changeSpy).not.toHaveReceivedEvent();
+            });
+
+            it('when the dropdown on mobile is not the native one', async () => {
+                const { root, waitForChanges } = await render(
+                    <limel-select
+                        data-native
+                        label="Doctor"
+                        options={doctorsWithIcons}
+                    ></limel-select>
+                );
+                await waitForChanges();
+
+                pressKey(root, 'ArrowDown');
+                await waitForChanges();
+
+                expect(isOpen(root)).toBe(true);
+            });
+
+            it('without changing the value', async () => {
+                const { root, waitForChanges, spyOnEvent } = await render(
+                    <limel-select
+                        label="Doctor"
+                        options={doctors}
+                    ></limel-select>
+                );
+                const changeSpy = spyOnEvent('change');
+                await waitForChanges();
+
+                pressKey(root, 'ArrowDown');
+                await waitForChanges();
+
+                expect(changeSpy).not.toHaveReceivedEvent();
+            });
+
+            it.each([{ ctrlKey: true }, { metaKey: true }, { shiftKey: true }])(
+                'but not with %o held',
+                async (modifiers) => {
+                    const { root, waitForChanges } = await render(
+                        <limel-select
+                            label="Doctor"
+                            options={doctors}
+                        ></limel-select>
+                    );
+                    await waitForChanges();
+
+                    const event = pressKey(root, 'ArrowDown', modifiers);
+                    await waitForChanges();
+
+                    expect(isOpen(root)).toBe(false);
+                    expect(event.defaultPrevented).toBe(false);
+                }
+            );
         });
     });
 });
