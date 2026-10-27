@@ -757,3 +757,44 @@ export const nestedTitlesSchema: FormSchema = {
         },
     },
 };
+
+export const titledRowLayoutSchema: FormSchema = {
+    type: 'object',
+    title: 'Form',
+    properties: {
+        first: { type: 'string', title: 'First' },
+        second: { type: 'string', title: 'Second' },
+    },
+    lime: {
+        layout: {
+            type: 'row',
+        },
+    },
+};
+
+export const untitledRootSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        section: {
+            type: 'object',
+            title: 'Section',
+            properties: {
+                name: { type: 'string', title: 'Name' },
+            },
+        },
+    },
+};
+
+export const untitledRowSchema: FormSchema = {
+    type: 'object',
+    title: 'Form',
+    properties: {
+        first: { type: 'string', title: 'First' },
+        second: { type: 'string' },
+    },
+    lime: {
+        layout: {
+            type: 'row',
+        },
+    },
+};

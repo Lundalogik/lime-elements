@@ -5,6 +5,7 @@ import { FormSchema } from '../form.types';
 import { JSONSchema7 } from 'json-schema';
 import { ErrorSchema } from '@rjsf/utils';
 import { Help } from '../../help/help.types';
+import { BelowHeading, Header } from './heading-level';
 
 /**
  * Render the title of a field, with its description and help, as a
@@ -23,11 +24,30 @@ export function renderHeader(
         return;
     }
 
-    return React.createElement('limel-form-header', {
-        heading: title,
-        description: description,
-        help: help,
-    });
+    return React.createElement(Header, { title, description, help });
+}
+
+/**
+ * Render a field with its header, followed by its content. The headings in
+ * the content are one level below the heading of the field.
+ *
+ * @param title - the title of the field
+ * @param description - the description of the field, in markdown
+ * @param help - the help of the field, as in `lime.help` of the schema
+ * @param content - the content of the field
+ */
+export function renderSection(
+    title: string,
+    description: string | undefined,
+    help: string | Partial<Help> | undefined,
+    ...content: React.ReactNode[]
+) {
+    return React.createElement(
+        React.Fragment,
+        {},
+        renderHeader(title, description, help),
+        React.createElement(BelowHeading, { hasHeading: !!title }, ...content)
+    );
 }
 
 /**

@@ -2,6 +2,8 @@
 @use '../../style/mixins';
 @use '../../style/internal/shared_input-select-picker';
 
+$headings: ':is(h1, h2, h3, h4, h5, h6)';
+
 /**
  * @prop --form-body-padding: space around content of the form. Defaults to `1rem`.
  * @prop --form-column-gap: defines the vertical space between elements of the form with `grid` and `default` layouts. Defaults to `1rem`.
@@ -197,7 +199,7 @@ limel-collapsible-section.is-being-dragged {
     width: 100%;
 }
 
-h1 {
+#{$headings} {
     position: relative;
     margin-top: 0;
     margin-bottom: 0;
@@ -206,8 +208,8 @@ h1 {
     -webkit-hyphens: auto;
     text-wrap: balance;
 
-    font-size: var(--limel-form-h1-font-size);
-    line-height: calc(var(--limel-form-h1-font-size) * 1.42857);
+    font-size: var(--limel-form-heading-font-size);
+    line-height: calc(var(--limel-form-heading-font-size) * 1.42857);
     letter-spacing: -0.01rem;
     font-weight: 500;
 }
@@ -226,18 +228,18 @@ limel-markdown {
         left: calc(var(--form-column-gap, 1rem) * -0.5);
     }
 
-    h1 {
+    #{$headings} {
         color: rgb(var(--contrast-1400), 0.8);
     }
 
-    h1 {
-        --limel-form-h1-font-size: 1.476rem;
+    #{$headings} {
+        --limel-form-heading-font-size: 1.476rem;
         font-weight: 800;
     }
 
     .rjsf-field {
-        h1 {
-            --limel-form-h1-font-size: 1.383rem;
+        #{$headings} {
+            --limel-form-heading-font-size: 1.383rem;
             font-weight: 700;
 
             &:before {
@@ -262,8 +264,8 @@ limel-markdown {
         }
 
         .rjsf-field {
-            h1 {
-                --limel-form-h1-font-size: 1.296rem;
+            #{$headings} {
+                --limel-form-heading-font-size: 1.296rem;
                 font-weight: 600;
 
                 &:before {
@@ -272,16 +274,16 @@ limel-markdown {
             }
 
             .rjsf-field {
-                h1 {
-                    --limel-form-h1-font-size: 1.215rem;
+                #{$headings} {
+                    --limel-form-heading-font-size: 1.215rem;
 
                     &:before {
                         display: none;
                     }
                 }
                 .rjsf-field {
-                    h1 {
-                        --limel-form-h1-font-size: 1.138rem;
+                    #{$headings} {
+                        --limel-form-heading-font-size: 1.138rem;
 
                         &:before {
                             display: none;
@@ -289,8 +291,8 @@ limel-markdown {
                     }
 
                     .rjsf-field {
-                        h1 {
-                            --limel-form-h1-font-size: 1.067rem;
+                        #{$headings} {
+                            --limel-form-heading-font-size: 1.067rem;
 
                             &:before {
                                 display: none;
