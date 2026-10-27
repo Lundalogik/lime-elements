@@ -48,6 +48,7 @@ import {
     getConditionalCustomComponentSchema,
     arrayItemWithEnumAndDefaultSchema,
     requiredCheckboxSchema,
+    nestedTitlesSchema,
 } from './form.test-schemas';
 
 const fieldTypeTests = [
@@ -419,6 +420,34 @@ test('renders nested object fields', async () => {
     const labels = [...inputFields].map((el) => el.getAttribute('label'));
     expect(labels).toContain('Street');
     expect(labels).toContain('City');
+});
+
+test('draws the titles smaller and lighter the deeper they are', async () => {
+    const { formContent } = await renderForm({ schema: nestedTitlesSchema });
+
+    expect(headingStyle(formContent, 'Form')).toEqual({
+        fontSize: '23.616px',
+        fontWeight: '800',
+        hasBar: false,
+    });
+    expect(headingStyle(formContent, 'Section')).toEqual({
+        fontSize: '22.128px',
+        fontWeight: '700',
+        hasBar: true,
+    });
+    expect(headingStyle(formContent, 'Subsection')).toEqual({
+        fontSize: '20.736px',
+        fontWeight: '600',
+        hasBar: false,
+    });
+});
+
+test('draws the title of a list like the title of a section', async () => {
+    const { formContent } = await renderForm({ schema: nestedTitlesSchema });
+
+    expect(headingStyle(formContent, 'List')).toEqual(
+        headingStyle(formContent, 'Section')
+    );
 });
 
 test('renders array of objects as collapsible items', async () => {
@@ -1263,6 +1292,20 @@ describe('number fields, when the browser formats decimals with a comma', () => 
         expect(field.value).toBe('1.5');
     });
 });
+
+function headingStyle(formContent: Element, title: string) {
+    const heading = [
+        ...formContent.querySelectorAll('h1, h2, h3, h4, h5, h6'),
+    ].find((element) => element.textContent === title);
+    const { fontSize, fontWeight } = getComputedStyle(heading);
+    const bar = getComputedStyle(heading, '::before');
+
+    return {
+        fontSize,
+        fontWeight,
+        hasBar: bar.content !== 'none' && bar.display !== 'none',
+    };
+}
 
 async function renderForm(props: Record<string, any> = {}) {
     const { value = {}, ...rest } = props;

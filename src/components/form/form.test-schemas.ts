@@ -732,3 +732,28 @@ export const requiredCheckboxSchema: FormSchema = {
     },
     required: ['accept'],
 };
+
+export const nestedTitlesSchema: FormSchema = {
+    type: 'object',
+    title: 'Form',
+    properties: {
+        section: {
+            type: 'object',
+            title: 'Section',
+            properties: {
+                subsection: {
+                    type: 'object',
+                    title: 'Subsection',
+                    properties: {
+                        name: { type: 'string', title: 'Name' },
+                    },
+                },
+            },
+        },
+        list: {
+            type: 'array',
+            title: 'List',
+            items: { type: 'string' },
+        },
+    },
+};
