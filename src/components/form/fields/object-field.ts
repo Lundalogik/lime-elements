@@ -2,7 +2,7 @@ import React from 'react';
 import { getDefaultRegistry } from '@rjsf/core';
 import { FieldProps } from '@rjsf/utils';
 import { CodeEditor } from '../widgets/code-editor';
-import { renderDescription, renderTitle } from '../templates/common';
+import { renderHeader } from '../templates/common';
 import { isCustomObjectSchema } from './field-helpers';
 import { FormSchema } from '../form.types';
 
@@ -18,8 +18,10 @@ export class ObjectField extends React.Component<FieldProps, any> {
         return React.createElement(
             React.Fragment,
             {},
-            renderTitle(this.props.schema.title),
-            renderDescription(this.props.schema.description),
+            renderHeader(
+                this.props.schema.title,
+                this.props.schema.description
+            ),
             React.createElement(CodeEditor, this.props)
         );
     }
