@@ -4,21 +4,30 @@ import { isArrayType, isObjectType } from '../schema';
 import { FormSchema } from '../form.types';
 import { JSONSchema7 } from 'json-schema';
 import { ErrorSchema } from '@rjsf/utils';
+import { Help } from '../../help/help.types';
 
 /**
+ * Render the title of a field, with its description and help, as a
+ * heading.
  *
- * @param title
+ * @param title - the title of the field
+ * @param description - the description of the field, in markdown
+ * @param help - the help of the field, as in `lime.help` of the schema
  */
-export function renderTitle(title: string) {
-    if (!title) {
+export function renderHeader(
+    title: string,
+    description?: string,
+    help?: string | Partial<Help>
+) {
+    if (!title && !description && !help) {
         return;
     }
 
-    return React.createElement(
-        'h1',
-        { className: 'mdc-typography mdc-typography--headline1' },
-        title
-    );
+    return React.createElement('limel-form-header', {
+        heading: title,
+        description: description,
+        help: help,
+    });
 }
 
 /**

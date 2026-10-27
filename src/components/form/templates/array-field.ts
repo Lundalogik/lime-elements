@@ -1,9 +1,8 @@
 import React from 'react';
-import { renderDescription, renderTitle } from './common';
+import { renderHeader } from './common';
 import { toSchemaPath } from './object-field';
 import { ArrayFieldTemplateProps } from './types';
 import { FormSchema } from '../form.types';
-import { getHelpComponent } from '../help';
 import { DragToReorder, ReorderEvent } from '../../../util/drag-to-reorder';
 import { ArrayFieldContext, ArrayFieldOptions } from './array-context';
 
@@ -83,9 +82,11 @@ export class ArrayFieldTemplate extends React.Component<
             React.createElement(
                 'div',
                 {},
-                renderTitle(this.props.title),
-                getHelpComponent(this.props.schema as FormSchema),
-                renderDescription(this.props.schema.description),
+                renderHeader(
+                    this.props.title,
+                    this.props.schema.description,
+                    (this.props.schema as FormSchema).lime?.help
+                ),
                 React.createElement(
                     'div',
                     {
