@@ -522,6 +522,13 @@ export namespace Components {
         "transformErrors"?: (errors: FormError[]) => FormError[];
         "value": object;
     }
+    // @internal
+    export interface LimelFormHeader {
+        "description"?: string;
+        "heading"?: string;
+        "headingLevel": 1 | 2 | 3 | 4 | 5 | 6;
+        "help"?: string | Partial<Help>;
+    }
     // @internal @deprecated
     export interface LimelGrid {
     }
@@ -1529,6 +1536,10 @@ export namespace JSX {
         "limel-flex-container": Omit<LimelFlexContainer, keyof LimelFlexContainerAttributes> & { [K in keyof LimelFlexContainer & keyof LimelFlexContainerAttributes]?: LimelFlexContainer[K] } & { [K in keyof LimelFlexContainer & keyof LimelFlexContainerAttributes as `attr:${K}`]?: LimelFlexContainerAttributes[K] } & { [K in keyof LimelFlexContainer & keyof LimelFlexContainerAttributes as `prop:${K}`]?: LimelFlexContainer[K] };
         // (undocumented)
         "limel-form": Omit<LimelForm, keyof LimelFormAttributes> & { [K in keyof LimelForm & keyof LimelFormAttributes]?: LimelForm[K] } & { [K in keyof LimelForm & keyof LimelFormAttributes as `attr:${K}`]?: LimelFormAttributes[K] } & { [K in keyof LimelForm & keyof LimelFormAttributes as `prop:${K}`]?: LimelForm[K] };
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-form-header"" is marked as @public, but its signature references "JSX" which is marked as @internal
+        //
+        // (undocumented)
+        "limel-form-header": Omit<LimelFormHeader, keyof LimelFormHeaderAttributes> & { [K in keyof LimelFormHeader & keyof LimelFormHeaderAttributes]?: LimelFormHeader[K] } & { [K in keyof LimelFormHeader & keyof LimelFormHeaderAttributes as `attr:${K}`]?: LimelFormHeaderAttributes[K] } & { [K in keyof LimelFormHeader & keyof LimelFormHeaderAttributes as `prop:${K}`]?: LimelFormHeader[K] };
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-grid"" is marked as @public, but its signature references "JSX" which is marked as @internal
         //
         // (undocumented)
@@ -2667,6 +2678,26 @@ export namespace JSX {
         "disabled": boolean;
         // (undocumented)
         "revealErrors": boolean;
+    }
+
+    // @internal
+    export interface LimelFormHeader {
+        "description"?: string;
+        "heading"?: string;
+        "headingLevel"?: 1 | 2 | 3 | 4 | 5 | 6;
+        "help"?: string | Partial<Help>;
+    }
+
+    // (undocumented)
+    export interface LimelFormHeaderAttributes {
+        // (undocumented)
+        "description": string;
+        // (undocumented)
+        "heading": string;
+        // (undocumented)
+        "headingLevel": 1 | 2 | 3 | 4 | 5 | 6;
+        // (undocumented)
+        "help": string | Partial<Help>;
     }
 
     // @internal @deprecated
