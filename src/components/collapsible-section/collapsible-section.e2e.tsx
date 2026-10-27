@@ -186,4 +186,100 @@ describe('limel-collapsible-section', () => {
             expect(actionSpy).toHaveReceivedEventDetail(actions[0]);
         });
     });
+
+    describe('heading level', () => {
+        const renderSection = async (props: Record<string, unknown> = {}) => {
+            const result = await render(
+                <limel-collapsible-section header="Header text" {...props}>
+                    Body text
+                </limel-collapsible-section>
+            );
+            await result.waitForChanges();
+
+            return result;
+        };
+
+        const findHeading = (root: HTMLElement) =>
+            root.shadowRoot.querySelector('.title');
+
+        it('draws the header as an h2 by default', async () => {
+            const { root } = await renderSection();
+
+            expect(findHeading(root).localName).toBe('h2');
+        });
+
+        it('draws the header with the element of the heading level', async () => {
+            const { root } = await renderSection({ headingLevel: 4 });
+
+            expect(findHeading(root).localName).toBe('h4');
+        });
+
+        it('draws the header again when the heading level changes', async () => {
+            const { root, setProps, waitForChanges } = await renderSection();
+
+            await setProps({ headingLevel: 3 });
+            await waitForChanges();
+
+            expect(findHeading(root).localName).toBe('h3');
+        });
+
+        it('draws the header in the same place and size whatever the heading level', async () => {
+            const rects = [];
+
+            for (const headingLevel of [1, 2, 3, 4, 5, 6]) {
+                const { root } = await renderSection({ headingLevel });
+                const { left, top, width, height } =
+                    findHeading(root).getBoundingClientRect();
+                rects.push({ left, top, width, height });
+            }
+
+            expect(rects).toEqual(rects.map(() => rects[0]));
+        });
+
+        describe('that is not a whole number from 1 to 6', () => {
+            let warn: ReturnType<typeof vi.spyOn>;
+
+            beforeEach(() => {
+                warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+            });
+
+            afterEach(() => {
+                warn.mockRestore();
+            });
+
+            it('draws an h2 and warns when it is too high', async () => {
+                const { root } = await renderSection({ headingLevel: 7 });
+
+                expect(findHeading(root).localName).toBe('h2');
+                expect(warn).toHaveBeenCalledTimes(1);
+            });
+
+            it('draws an h2 and warns when it is not a whole number', async () => {
+                const { root } = await renderSection({ headingLevel: 2.5 });
+
+                expect(findHeading(root).localName).toBe('h2');
+                expect(warn).toHaveBeenCalledTimes(1);
+            });
+
+            it('warns when the heading level changes to one that is not valid', async () => {
+                const { root, setProps, waitForChanges } = await renderSection({
+                    headingLevel: 3,
+                });
+
+                await setProps({ headingLevel: 0 });
+                await waitForChanges();
+
+                expect(findHeading(root).localName).toBe('h2');
+                expect(warn).toHaveBeenCalledTimes(1);
+            });
+
+            it('says what the heading level is and what is drawn instead', async () => {
+                await renderSection({ headingLevel: 7 });
+
+                expect(warn).toHaveBeenCalledWith(
+                    'limel-collapsible-section: headingLevel must be a whole number from 1 to 6, but it is 7. The heading is drawn as an h2 instead.'
+                );
+            });
+        });
+    });
 });

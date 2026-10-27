@@ -362,6 +362,7 @@ export namespace Components {
     export interface LimelCollapsibleSection {
         "actions": Action[];
         "header": string;
+        "headingLevel": 1 | 2 | 3 | 4 | 5 | 6;
         "icon"?: IconName | Icon;
         "invalid": boolean;
         "isOpen": boolean;
@@ -2226,6 +2227,7 @@ export namespace JSX {
     export interface LimelCollapsibleSection {
         "actions"?: Action[];
         "header"?: string;
+        "headingLevel"?: 1 | 2 | 3 | 4 | 5 | 6;
         "icon"?: IconName | Icon;
         "invalid"?: boolean;
         "isOpen"?: boolean;
@@ -2239,6 +2241,8 @@ export namespace JSX {
     export interface LimelCollapsibleSectionAttributes {
         // (undocumented)
         "header": string;
+        // (undocumented)
+        "headingLevel": 1 | 2 | 3 | 4 | 5 | 6;
         // (undocumented)
         "icon": IconName | Icon;
         // (undocumented)
