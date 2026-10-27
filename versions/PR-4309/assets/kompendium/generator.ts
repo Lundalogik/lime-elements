@@ -1,3 +1,4 @@
+import { unlinkSync } from 'fs';
 import { JsonDocs, Config, Logger } from '@stencil/core/internal';
 import { defaultConfig } from './config';
 import { addSources } from './source';
@@ -73,11 +74,23 @@ export function kompendiumGenerator(
 async function initialize(config: Partial<KompendiumConfig>) {
     const path = `${config.publicPath}/kompendium.json`;
 
+    removeStaleKompendiumJson(path);
+
     if (isWatcher()) {
         createWatcher(path, 'unlink', onUnlink(config));
     }
 
     await createOutputDirs(config);
+}
+
+function removeStaleKompendiumJson(path: string) {
+    try {
+        unlinkSync(path);
+    } catch (error) {
+        if (error.code !== 'ENOENT') {
+            throw error;
+        }
+    }
 }
 
 const onUnlink = (config: Partial<KompendiumConfig>) => () => {

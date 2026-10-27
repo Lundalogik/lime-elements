@@ -56,6 +56,7 @@ Using this component can help to:
  - [limel-example-collapsible-section-with-slider](examples)
  - [limel-example-dialog-nested-close-events](../dialog/examples)
  - [limel-example-tooltip-composite](../tooltip/examples)
+ - [limel-form](../form)
 
 ### Depends on
 
@@ -83,6 +84,7 @@ graph TD;
   limel-example-collapsible-section-with-slider --> limel-collapsible-section
   limel-example-dialog-nested-close-events --> limel-collapsible-section
   limel-example-tooltip-composite --> limel-collapsible-section
+  limel-form --> limel-collapsible-section
   style limel-collapsible-section fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

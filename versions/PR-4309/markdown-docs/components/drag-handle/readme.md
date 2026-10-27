@@ -37,6 +37,7 @@ design conventions.
 
  - [limel-example-drag-handle-basic](examples)
  - [limel-example-drag-handle-horizontal](examples)
+ - [limel-tab-bar](../tab-bar)
 
 ### Depends on
 
@@ -51,6 +52,7 @@ graph TD;
   limel-tooltip-content --> limel-hotkey
   limel-example-drag-handle-basic --> limel-drag-handle
   limel-example-drag-handle-horizontal --> limel-drag-handle
+  limel-tab-bar --> limel-drag-handle
   style limel-drag-handle fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

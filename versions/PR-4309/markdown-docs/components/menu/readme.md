@@ -62,6 +62,7 @@
  - [limel-example-menu-sub-menu-lazy-loading-infinite](examples)
  - [limel-example-menu-sub-menus](examples)
  - [limel-example-menu-surface-width](examples)
+ - [limel-example-side-panel-header-actions](../side-panel/examples)
  - [limel-file-viewer](../file-viewer)
  - [limel-list-item](../list-item)
  - [limel-split-button](../split-button)
@@ -119,6 +120,7 @@ graph TD;
   limel-example-menu-sub-menu-lazy-loading-infinite --> limel-menu
   limel-example-menu-sub-menus --> limel-menu
   limel-example-menu-surface-width --> limel-menu
+  limel-example-side-panel-header-actions --> limel-menu
   limel-file-viewer --> limel-menu
   limel-list-item --> limel-menu
   limel-split-button --> limel-menu

@@ -4,15 +4,16 @@
 
 ## Properties
 
-| Property          | Attribute       | Description                                                                                                                                                                                                                                                                                                                                                                                          | Type                                               | Default     |
-| ----------------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | ----------- |
-| `disabled`        | `disabled`      | Set to `true` to disable the whole form.                                                                                                                                                                                                                                                                                                                                                             | `boolean`                                          | `false`     |
-| `errors`          | --              | Extra errors to display in the form. Typical use case is asynchronous errors generated server side.                                                                                                                                                                                                                                                                                                  | `{ [key: string]: string[] \| ValidationError; }`  | `undefined` |
-| `propsFactory`    | --              | Factory for creating properties for custom form components  When using custom components in the form some properties might have to be set dynamically. If this factory is set, it will be called with the current schema for the field for each custom component in the form. The factory must return an object where each key is the name of the property that should be set, along with its value. | `(schema: FormSchema<any>) => Record<string, any>` | `undefined` |
-| `revealErrors`    | `reveal-errors` | Set to `true` to render every field with a validation error as invalid, even untouched ones, and to reflect that on each containing collapsible section's header. Defaults to `false`, which keeps untouched required-empty fields silent.                                                                                                                                                           | `boolean`                                          | `false`     |
-| `schema`          | --              | The schema used to render the form                                                                                                                                                                                                                                                                                                                                                                   | `FormSchema<any>`                                  | `{}`        |
-| `transformErrors` | --              | Custom function to customize the default error messages                                                                                                                                                                                                                                                                                                                                              | `(errors: FormError[]) => FormError[]`             | `undefined` |
-| `value`           | --              | Value of the form                                                                                                                                                                                                                                                                                                                                                                                    | `object`                                           | `undefined` |
+| Property           | Attribute       | Description                                                                                                                                                                                                                                                                                                                                                                                                                         | Type                                               | Default     |
+| ------------------ | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | ----------- |
+| `disabled`         | `disabled`      | Set to `true` to disable the whole form.                                                                                                                                                                                                                                                                                                                                                                                            | `boolean`                                          | `false`     |
+| `errors`           | --              | Extra errors to display in the form. Typical use case is asynchronous errors generated server side.                                                                                                                                                                                                                                                                                                                                 | `{ [key: string]: string[] \| ValidationError; }`  | `undefined` |
+| `highlightedField` | --              | The path in the value of a field to take the user to, such as `['heroes', 2, 'name']`. When it changes, the form opens the sections and list items the field is in, scrolls it into view, focuses it and briefly highlights it.  If the path goes further than the form can show, such as into a custom component, the closest field above the end of the path is shown. To show the same field again, set it to `undefined` first. | `(string \| number)[]`                             | `undefined` |
+| `propsFactory`     | --              | Factory for creating properties for custom form components  When using custom components in the form some properties might have to be set dynamically. If this factory is set, it will be called with the current schema for the field for each custom component in the form. The factory must return an object where each key is the name of the property that should be set, along with its value.                                | `(schema: FormSchema<any>) => Record<string, any>` | `undefined` |
+| `revealErrors`     | `reveal-errors` | Set to `true` to render every field with a validation error as invalid, even untouched ones, and to reflect that on each containing collapsible section's header. Defaults to `false`, which keeps untouched required-empty fields silent.                                                                                                                                                                                          | `boolean`                                          | `false`     |
+| `schema`           | --              | The schema used to render the form                                                                                                                                                                                                                                                                                                                                                                                                  | `FormSchema<any>`                                  | `{}`        |
+| `transformErrors`  | --              | Custom function to customize the default error messages                                                                                                                                                                                                                                                                                                                                                                             | `(errors: FormError[]) => FormError[]`             | `undefined` |
+| `value`            | --              | Value of the form                                                                                                                                                                                                                                                                                                                                                                                                                   | `object`                                           | `undefined` |
 
 
 ## Events
@@ -40,6 +41,7 @@
  - [limel-example-file-composite](../file/examples)
  - [limel-example-form](examples)
  - [limel-example-form-array-item-controls](examples)
+ - [limel-example-form-highlighted-field](examples)
  - [limel-example-form-invalid-section](examples)
  - [limel-example-form-layout](examples)
  - [limel-example-form-row-layout](examples)
@@ -58,11 +60,20 @@
 ### Depends on
 
 - [limel-markdown](../markdown)
+- [limel-collapsible-section](../collapsible-section)
 
 ### Graph
 ```mermaid
 graph TD;
   limel-form --> limel-markdown
+  limel-form --> limel-collapsible-section
+  limel-collapsible-section --> limel-icon
+  limel-collapsible-section --> limel-icon-button
+  limel-icon-button --> limel-icon
+  limel-icon-button --> limel-tooltip
+  limel-tooltip --> limel-portal
+  limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-example-builtin-field-types-form --> limel-form
   limel-example-button-group-composite --> limel-form
   limel-example-callout-composite --> limel-form
@@ -76,6 +87,7 @@ graph TD;
   limel-example-file-composite --> limel-form
   limel-example-form --> limel-form
   limel-example-form-array-item-controls --> limel-form
+  limel-example-form-highlighted-field --> limel-form
   limel-example-form-invalid-section --> limel-form
   limel-example-form-layout --> limel-form
   limel-example-form-row-layout --> limel-form

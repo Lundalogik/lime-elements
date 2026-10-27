@@ -95,6 +95,7 @@ The component automatically formats different value types:
  - [limel-example-list-item-radio](../components/list-item/examples)
  - [limel-example-list-radio-button-icons](../components/list/examples)
  - [limel-example-list-selectable](../components/list/examples)
+ - [limel-example-markdown-to-markdown](../components/markdown/examples)
  - [limel-example-menu-basic](../components/menu/examples)
  - [limel-example-menu-hotkeys](../components/menu/examples)
  - [limel-example-menu-keep-open](../components/menu/examples)
@@ -165,8 +166,12 @@ The component automatically formats different value types:
  - [limel-example-switch-helper-text](../components/switch/examples)
  - [limel-example-switch-readonly](../components/switch/examples)
  - [limel-example-tab-bar-basic](../components/tab-bar/examples)
+ - [limel-example-tab-bar-reorder](../components/tab-bar/examples)
+ - [limel-example-tab-bar-reorder-vertical](../components/tab-bar/examples)
+ - [limel-example-tab-bar-vertical](../components/tab-bar/examples)
  - [limel-example-tab-bar-with-dynamic-tab-width](../components/tab-bar/examples)
  - [limel-example-tab-bar-with-equal-tab-width](../components/tab-bar/examples)
+ - [limel-example-tab-panel-reorder](../components/tab-panel/examples)
  - [limel-example-table-activate-row](../components/table/examples)
  - [limel-example-table-local](../components/table/examples)
  - [limel-example-table-movable-columns](../components/table/examples)
@@ -242,6 +247,7 @@ graph TD;
   limel-example-list-item-radio --> limel-example-value
   limel-example-list-radio-button-icons --> limel-example-value
   limel-example-list-selectable --> limel-example-value
+  limel-example-markdown-to-markdown --> limel-example-value
   limel-example-menu-basic --> limel-example-value
   limel-example-menu-hotkeys --> limel-example-value
   limel-example-menu-keep-open --> limel-example-value
@@ -312,8 +318,12 @@ graph TD;
   limel-example-switch-helper-text --> limel-example-value
   limel-example-switch-readonly --> limel-example-value
   limel-example-tab-bar-basic --> limel-example-value
+  limel-example-tab-bar-reorder --> limel-example-value
+  limel-example-tab-bar-reorder-vertical --> limel-example-value
+  limel-example-tab-bar-vertical --> limel-example-value
   limel-example-tab-bar-with-dynamic-tab-width --> limel-example-value
   limel-example-tab-bar-with-equal-tab-width --> limel-example-value
+  limel-example-tab-panel-reorder --> limel-example-value
   limel-example-table-activate-row --> limel-example-value
   limel-example-table-local --> limel-example-value
   limel-example-table-movable-columns --> limel-example-value

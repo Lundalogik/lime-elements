@@ -17,17 +17,17 @@ the option is picked with `Enter` or a click.
 
 ## Properties
 
-| Property     | Attribute     | Description                                                                                                                                                                                                          | Type                                  | Default     |
-| ------------ | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- | ----------- |
-| `disabled`   | `disabled`    | Set to `true` to make the field disabled. and visually shows that the `select` component is editable but disabled. This tells the users that if certain requirements are met, the component may become interactable. | `boolean`                             | `false`     |
-| `helperText` | `helper-text` | Optional helper text to display below the input field when it has focus.                                                                                                                                             | `string`                              | `undefined` |
-| `invalid`    | `invalid`     | Set to `true` to indicate that the current value of the select is invalid.                                                                                                                                           | `boolean`                             | `undefined` |
-| `label`      | `label`       | Text to display next to the select.                                                                                                                                                                                  | `string`                              | `undefined` |
-| `multiple`   | `multiple`    | Set to `true` to allow multiple values to be selected.                                                                                                                                                               | `boolean`                             | `false`     |
-| `options`    | --            | List of options.                                                                                                                                                                                                     | `(ListSeparator \| Option<string>)[]` | `[]`        |
-| `readonly`   | `readonly`    | Set to `true` to make the field read-only. This visualizes the component slightly differently. But shows no visual sign indicating that the component is disabled or can ever become interactable.                   | `boolean`                             | `false`     |
-| `required`   | `required`    | True if the control requires a value.                                                                                                                                                                                | `boolean`                             | `false`     |
-| `value`      | --            | Currently selected value or values. If `multiple` is `true`, this must be an array. Otherwise it must be a single value.                                                                                             | `Option<string> \| Option<string>[]`  | `undefined` |
+| Property     | Attribute     | Description                                                                                                                                                                                                                                           | Type                                  | Default     |
+| ------------ | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- | ----------- |
+| `disabled`   | `disabled`    | Set to `true` to make the field disabled. and visually shows that the `select` component is editable but disabled. This tells the users that if certain requirements are met, the component may become interactable.                                  | `boolean`                             | `false`     |
+| `helperText` | `helper-text` | Optional helper text to display below the input field when it has focus.                                                                                                                                                                              | `string`                              | `undefined` |
+| `invalid`    | `invalid`     | Set to `true` to indicate that the current value of the select is invalid.                                                                                                                                                                            | `boolean`                             | `undefined` |
+| `label`      | `label`       | Text to display next to the select.                                                                                                                                                                                                                   | `string`                              | `undefined` |
+| `multiple`   | `multiple`    | Set to `true` to allow multiple values to be selected.                                                                                                                                                                                                | `boolean`                             | `false`     |
+| `options`    | --            | List of options.                                                                                                                                                                                                                                      | `(ListSeparator \| Option<string>)[]` | `[]`        |
+| `readonly`   | `readonly`    | Set to `true` to make the select read-only. Use `readonly` when the select is only there to present the data it holds, and will not become possible for the current user to edit. It is then drawn without any sign that it could be interacted with. | `boolean`                             | `false`     |
+| `required`   | `required`    | True if the control requires a value.                                                                                                                                                                                                                 | `boolean`                             | `false`     |
+| `value`      | --            | Currently selected value or values. If `multiple` is `true`, this must be an array. Otherwise it must be a single value.                                                                                                                              | `Option<string> \| Option<string>[]`  | `undefined` |
 
 
 ## Events
@@ -73,6 +73,7 @@ the option is picked with `Enter` or a click.
  - [limel-example-picker-static-actions](../picker/examples)
  - [limel-example-profile-picture-image-fit](../profile-picture/examples)
  - [limel-example-radio-button-group-multiple-lines](../radio-button-group/examples)
+ - [limel-example-resize-handle-accessibility](../resize-handle/examples)
  - [limel-example-select-basic](examples)
  - [limel-example-select-change-options](examples)
  - [limel-example-select-dialog](examples)
@@ -84,6 +85,7 @@ the option is picked with `Enter` or a click.
  - [limel-example-select-with-primary-component](examples)
  - [limel-example-select-with-secondary-text](examples)
  - [limel-example-select-with-separators](examples)
+ - [limel-example-side-panel-accessibility](../side-panel/examples)
  - [limel-example-table-pagination](../table/examples)
  - [limel-example-text-editor-composite](../text-editor/examples)
  - [limel-example-text-editor-ui](../text-editor/examples)
@@ -138,6 +140,7 @@ graph TD;
   limel-example-picker-static-actions --> limel-select
   limel-example-profile-picture-image-fit --> limel-select
   limel-example-radio-button-group-multiple-lines --> limel-select
+  limel-example-resize-handle-accessibility --> limel-select
   limel-example-select-basic --> limel-select
   limel-example-select-change-options --> limel-select
   limel-example-select-dialog --> limel-select
@@ -149,6 +152,7 @@ graph TD;
   limel-example-select-with-primary-component --> limel-select
   limel-example-select-with-secondary-text --> limel-select
   limel-example-select-with-separators --> limel-select
+  limel-example-side-panel-accessibility --> limel-select
   limel-example-table-pagination --> limel-select
   limel-example-text-editor-composite --> limel-select
   limel-example-text-editor-ui --> limel-select

@@ -28,6 +28,28 @@ removed (with a console warning) to prevent script injection.
 | `whitelist`             | --                        | Additional whitelisted custom elements to render inside markdown.  A built-in set of lime-elements components (such as `limel-chip`, `limel-icon`, `limel-badge`, `limel-callout`, etc.) is always allowed by default. Any entries provided here are **merged** with those defaults — if both define the same `tagName`, their attributes are combined.  Can also be set via `limel-config`. Setting this property will override the global config.  JSON attribute values that contain URL-bearing properties (`href`, `src`, `cite`, `longDesc`) are automatically sanitized using the same protocol allowlists as rehype-sanitize. URLs with dangerous schemes (e.g. `javascript:`, `data:`) are removed (with a console warning). | `CustomElementDefinition[]` | `globalConfig.markdownWhitelist` |
 
 
+## Methods
+
+### `toMarkdown() => Promise<string>`
+
+Returns the content as markdown, with every whitelisted custom
+element replaced by the markdown it describes itself as.
+
+Use this to hand the content to a target that cannot render custom
+elements, such as the clipboard. An element describes itself by
+implementing `MarkdownDescribable`; elements that do not keep
+their child content, or are removed if they have none.
+
+The markdown is generated from the rendered content, so it may be
+formatted differently from `value`.
+
+#### Returns
+
+Type: `Promise<string>`
+
+The content as markdown.
+
+
 ## Dependencies
 
 ### Used by
@@ -55,6 +77,7 @@ removed (with a console warning) to prevent script injection.
  - [limel-example-markdown-nested-lists](examples)
  - [limel-example-markdown-remove-empty-paragraphs](examples)
  - [limel-example-markdown-tables](examples)
+ - [limel-example-markdown-to-markdown](examples)
  - [limel-example-popover-trigger-interaction](../popover/examples)
  - [limel-form](../form)
  - [limel-help-content](../help)
@@ -88,6 +111,7 @@ graph TD;
   limel-example-markdown-nested-lists --> limel-markdown
   limel-example-markdown-remove-empty-paragraphs --> limel-markdown
   limel-example-markdown-tables --> limel-markdown
+  limel-example-markdown-to-markdown --> limel-markdown
   limel-example-popover-trigger-interaction --> limel-markdown
   limel-form --> limel-markdown
   limel-help-content --> limel-markdown

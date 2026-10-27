@@ -29,6 +29,10 @@ The popover should remain open even if the user moves the cursor away from
 the trigger element or navigates away with the keyboard.
 This allows the user to interact with the popover content without it closing unexpectedly.
 
+**Focus Returns to the Trigger**:
+When the popover closes, for example when the user presses Escape, the focus returns
+to the trigger element. Make sure that this does not open the popover again.
+
 **Touchscreen Accessibility**:
 Consider the experience for users on touchscreen devices. Hover interactions might not be available,
 so ensure the design is accessible to them.
