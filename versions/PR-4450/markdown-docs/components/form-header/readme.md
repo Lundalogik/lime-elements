@@ -32,6 +32,9 @@ of the form that depend on how deep a field is reach them directly.
 
 ### Used by
 
+ - [limel-example-form-header-basic](examples)
+ - [limel-example-form-header-heading-level](examples)
+ - [limel-example-form-header-help](examples)
  - [limel-form](../form)
 
 ### Depends on
@@ -49,6 +52,9 @@ graph TD;
   limel-popover --> limel-portal
   limel-popover --> limel-popover-surface
   limel-help-content --> limel-markdown
+  limel-example-form-header-basic --> limel-form-header
+  limel-example-form-header-heading-level --> limel-form-header
+  limel-example-form-header-help --> limel-form-header
   limel-form --> limel-form-header
   style limel-form-header fill:#f9f,stroke:#333,stroke-width:4px
 ```

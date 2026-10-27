@@ -1,1 +1,1 @@
-import{r as e,h as l}from"./index-BU9IJqli.js";const t=class{constructor(l){e(this,l)}render(){return l("limel-button",{key:"8c9bc70339b72d09270d3e16dee78f9e968432ee",label:"Click me!",onClick:this.onClick})}onClick(){console.log("Button clicked.")}};export{t as limel_example_button_basic}
+import{r as e,h as c}from"./index-BU9IJqli.js";const l=class{constructor(c){e(this,c)}render(){return c("limel-button",{key:"4d6e98b56ffc8ef17bf602bc16ee18c0d59684b7",label:"Click me!",onClick:this.onClick})}onClick(){console.log("Button clicked.")}};export{l as limel_example_button_basic}
