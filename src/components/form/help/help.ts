@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormSchema } from '../form.types';
+import { getHelpProps } from '../../form-header/help-props';
 
 /**
  *
@@ -16,14 +17,8 @@ export function getHelpComponent(
         return;
     }
 
-    if (typeof help === 'string') {
-        return React.createElement('limel-help', {
-            value: help,
-            ...extraProps,
-        });
-    }
-
-    const helpProps = help;
-
-    return React.createElement('limel-help', { ...helpProps, ...extraProps });
+    return React.createElement('limel-help', {
+        ...getHelpProps(help),
+        ...extraProps,
+    });
 }
