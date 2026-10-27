@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderHeader } from './common';
+import { renderSection } from './common';
 import { toSchemaPath } from './object-field';
 import { ArrayFieldTemplateProps } from './types';
 import { FormSchema } from '../form.types';
@@ -82,20 +82,20 @@ export class ArrayFieldTemplate extends React.Component<
             React.createElement(
                 'div',
                 {},
-                renderHeader(
+                renderSection(
                     this.props.title,
                     this.props.schema.description,
-                    (this.props.schema as FormSchema).lime?.help
-                ),
-                React.createElement(
-                    'div',
-                    {
-                        className: 'array-items',
-                        ref: this.setContainer,
-                    },
-                    orderedItems
-                ),
-                this.renderAddButton()
+                    (this.props.schema as FormSchema).lime?.help,
+                    React.createElement(
+                        'div',
+                        {
+                            className: 'array-items',
+                            ref: this.setContainer,
+                        },
+                        orderedItems
+                    ),
+                    this.renderAddButton()
+                )
             )
         );
     }

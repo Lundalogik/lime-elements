@@ -49,6 +49,9 @@ import {
     arrayItemWithEnumAndDefaultSchema,
     requiredCheckboxSchema,
     nestedTitlesSchema,
+    titledRowLayoutSchema,
+    untitledRootSchema,
+    untitledRowSchema,
 } from './form.test-schemas';
 
 const fieldTypeTests = [
@@ -440,6 +443,61 @@ test('draws the titles smaller and lighter the deeper they are', async () => {
         fontWeight: '600',
         hasBar: false,
     });
+});
+
+test('gives the titles heading levels that follow how deep they are', async () => {
+    const { formContent } = await renderForm({ schema: nestedTitlesSchema });
+
+    expect(findHeading(formContent, 'Form').localName).toBe('h1');
+    expect(findHeading(formContent, 'Section').localName).toBe('h2');
+    expect(findHeading(formContent, 'Subsection').localName).toBe('h3');
+    expect(findHeading(formContent, 'List').localName).toBe('h2');
+});
+
+test('gives the title of a row the heading level of a section in the same place', async () => {
+    const { formContent } = await renderForm({ schema: titledRowLayoutSchema });
+
+    expect(findHeading(formContent, 'Form').localName).toBe('h1');
+    expect(findHeading(formContent, 'First').localName).toBe('h2');
+    expect(findHeading(formContent, 'Second').localName).toBe('h2');
+});
+
+test('starts the heading levels at h1 when the form has no title', async () => {
+    const { formContent } = await renderForm({ schema: untitledRootSchema });
+
+    expect(findHeading(formContent, 'Section').localName).toBe('h1');
+});
+
+test('does not count a collapsible item of a list as a heading level', async () => {
+    const { formContent } = await renderForm({
+        schema: nestedArrayObjectSchema,
+        value: { people: [{}] },
+    });
+
+    expect(findHeading(formContent, 'People').localName).toBe('h1');
+    expect(findHeading(formContent, 'Address').localName).toBe('h2');
+});
+
+test('draws no heading for the row of a field without a title', async () => {
+    const { formContent } = await renderForm({ schema: untitledRowSchema });
+
+    const emptyHeadings = [
+        ...formContent.querySelectorAll('h1, h2, h3, h4, h5, h6'),
+    ].filter((heading) => !heading.textContent);
+
+    expect(emptyHeadings).toHaveLength(0);
+});
+
+test('keeps the fields when the title of the form is removed', async () => {
+    const { formContent, root, waitForChanges, setProps } = await renderForm({
+        schema: nestedTitlesSchema,
+    });
+    const field = formContent.querySelector('limel-input-field');
+
+    await setProps({ schema: { ...nestedTitlesSchema, title: undefined } });
+    await waitForReactRender(root, waitForChanges);
+
+    expect(formContent.querySelector('limel-input-field')).toBe(field);
 });
 
 test('draws the title of a list like the title of a section', async () => {
@@ -1293,10 +1351,14 @@ describe('number fields, when the browser formats decimals with a comma', () => 
     });
 });
 
+function findHeading(formContent: Element, title: string) {
+    return [...formContent.querySelectorAll('h1, h2, h3, h4, h5, h6')].find(
+        (element) => element.textContent === title
+    );
+}
+
 function headingStyle(formContent: Element, title: string) {
-    const heading = [
-        ...formContent.querySelectorAll('h1, h2, h3, h4, h5, h6'),
-    ].find((element) => element.textContent === title);
+    const heading = findHeading(formContent, title);
     const { fontSize, fontWeight } = getComputedStyle(heading);
     const bar = getComputedStyle(heading, '::before');
 

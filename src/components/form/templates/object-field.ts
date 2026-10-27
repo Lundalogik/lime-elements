@@ -5,7 +5,7 @@ import {
     FormLayoutOptions,
     FormSchema,
 } from '../form.types';
-import { hasNestedErrors, renderDescription, renderHeader } from './common';
+import { hasNestedErrors, renderDescription, renderSection } from './common';
 import { GridLayout } from './grid-layout';
 import { RowLayout } from './row-layout';
 import { LimeObjectFieldTemplateProps, ObjectFieldProperty } from './types';
@@ -38,14 +38,10 @@ export const ObjectFieldTemplate = (props: LimeObjectFieldTemplateProps) => {
 };
 
 function renderFieldWithTitle(props: LimeObjectFieldTemplateProps) {
-    return React.createElement(
-        React.Fragment,
-        {},
-        renderHeader(
-            props.title,
-            props.description as string,
-            (props.schema as FormSchema).lime?.help
-        ),
+    return renderSection(
+        props.title,
+        props.description as string,
+        (props.schema as FormSchema).lime?.help,
         renderProperties(
             props.properties,
             props.schema,

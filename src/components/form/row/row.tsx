@@ -1,8 +1,12 @@
 import React from 'react';
 import { RowProps } from '../templates/types';
 import { RowLayoutContext } from './row-context';
+import { HeadingLevelContext } from '../templates/heading-level';
 
 export class Row extends React.Component<RowProps> {
+    public static readonly contextType = HeadingLevelContext;
+    declare context: React.ContextType<typeof HeadingLevelContext>;
+
     constructor(public props: RowProps) {
         super(props);
     }
@@ -41,10 +45,12 @@ export class Row extends React.Component<RowProps> {
         );
     }
     private renderTitle() {
+        const title = this.schema?.title;
+
         return React.createElement(
-            'h1',
+            title ? `h${this.context}` : 'div',
             { className: 'title' },
-            this.schema?.title
+            title
         );
     }
 
