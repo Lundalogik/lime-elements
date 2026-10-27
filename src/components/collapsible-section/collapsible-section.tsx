@@ -5,6 +5,7 @@ import {
     EventEmitter,
     h,
     Prop,
+    Watch,
 } from '@stencil/core';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { Action } from './action';
@@ -21,6 +22,19 @@ import {
 } from '../icon/get-icon-props';
 import translate from '../../global/translations';
 import { Languages } from '../date-picker/date.types';
+
+type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
+
+const DEFAULT_HEADING_LEVEL: HeadingLevel = 2;
+
+function isHeadingLevel(level: unknown): level is HeadingLevel {
+    return (
+        typeof level === 'number' &&
+        Number.isSafeInteger(level) &&
+        level >= 1 &&
+        level <= 6
+    );
+}
 
 /**
  * A collapsible section can be used to group related content together
@@ -42,6 +56,7 @@ import { Languages } from '../date-picker/date.types';
  * @exampleComponent limel-example-collapsible-section-invalid
  * @exampleComponent limel-example-collapsible-section-icon
  * @exampleComponent limel-example-collapsible-section-css-props
+ * @exampleComponent limel-example-collapsible-section-heading-level
  */
 @Component({
     tag: 'limel-collapsible-section',
@@ -60,6 +75,17 @@ export class CollapsibleSection {
      */
     @Prop({ reflect: true })
     public header: string;
+
+    /**
+     * The level of the heading that the `header` is drawn with,
+     * from `1` for an `h1` to `6` for an `h6`.
+     *
+     * Set it so that the heading fits below the headings around the section.
+     * For example, when the section is below an `h2`, set it to `3`.
+     * It does not change how the heading looks.
+     */
+    @Prop()
+    public headingLevel: 1 | 2 | 3 | 4 | 5 | 6 = DEFAULT_HEADING_LEVEL;
 
     /**
      * Icon to display in the header of the section
@@ -110,6 +136,15 @@ export class CollapsibleSection {
 
     private bodyId = createRandomString();
     private headingId = createRandomString();
+
+    public componentWillLoad() {
+        this.warnIfHeadingLevelIsInvalid();
+    }
+
+    @Watch('headingLevel')
+    protected handleHeadingLevelChange() {
+        this.warnIfHeadingLevelIsInvalid();
+    }
 
     public componentDidRender() {
         const button = this.host.shadowRoot.querySelector(
@@ -216,15 +251,31 @@ export class CollapsibleSection {
             return;
         }
 
+        const Heading = `h${this.getHeadingLevel()}` as const;
+
         return (
-            <h2
+            <Heading
                 class="title mdc-typography mdc-typography--headline2"
                 id={this.headingId}
             >
                 {this.header}
-            </h2>
+            </Heading>
         );
     };
+
+    private getHeadingLevel(): HeadingLevel {
+        return isHeadingLevel(this.headingLevel)
+            ? this.headingLevel
+            : DEFAULT_HEADING_LEVEL;
+    }
+
+    private warnIfHeadingLevelIsInvalid() {
+        if (!isHeadingLevel(this.headingLevel)) {
+            console.warn(
+                `limel-collapsible-section: headingLevel must be a whole number from 1 to 6, but it is ${this.headingLevel}. The heading is drawn as an h${DEFAULT_HEADING_LEVEL} instead.`
+            );
+        }
+    }
 
     private renderActions = () => {
         if (!this.actions) {
