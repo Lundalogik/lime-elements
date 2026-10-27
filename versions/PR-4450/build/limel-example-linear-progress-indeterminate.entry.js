@@ -1,1 +1,1 @@
-import{r as e,h as r}from"./index-BU9IJqli.js";const i=class{constructor(r){e(this,r)}render(){return r("limel-linear-progress",{key:"e4328de269eeeb604026bbd12f9ac940f0e5e943",indeterminate:!0})}};export{i as limel_example_linear_progress_indeterminate}
+import{r as e,h as r}from"./index-BU9IJqli.js";const a=class{constructor(r){e(this,r)}render(){return r("limel-linear-progress",{key:"155926198c650725b1cd4faf8d1a207651a4da41",indeterminate:!0})}};export{a as limel_example_linear_progress_indeterminate}
