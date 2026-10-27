@@ -14,6 +14,7 @@ import { RJSFValidationError } from '@rjsf/utils';
 import {
     FormError,
     FormSchema,
+    HeadingLevel,
     ValidationError,
     ValidationStatus,
 } from './form.types';
@@ -30,6 +31,7 @@ import { widgets } from './widgets';
 import { rjsfValidator } from './validator';
 import { isEqual, mapValues } from 'lodash-es';
 import { showField } from './show-field';
+import { HeadingLevelContext, isHeadingLevel } from './templates/heading-level';
 
 /**
  * @exampleComponent limel-example-form
@@ -49,6 +51,7 @@ import { showField } from './show-field';
  * @exampleComponent limel-example-builtin-field-types-form
  * @exampleComponent limel-example-code-editor-form
  * @exampleComponent limel-example-form-highlighted-field
+ * @exampleComponent limel-example-form-heading-level
  */
 @Component({
     tag: 'limel-form',
@@ -98,6 +101,18 @@ export class Form {
      */
     @Prop()
     public errors: ValidationError;
+
+    /**
+     * The level, from `1` to `6`, of the topmost headings in the form.
+     * The headings of the sections inside them get one level more for each
+     * level of nesting, down to `6`.
+     *
+     * Set it so that the headings of the form fit below the headings of
+     * the page around it. For example, when the form is in a section with
+     * an `h2` heading, set it to `3`.
+     */
+    @Prop()
+    public headingLevel: HeadingLevel = 1;
 
     /**
      * Set to `true` to render every field with a validation error as
@@ -151,9 +166,26 @@ export class Form {
         this.initialize();
     }
 
+    public componentWillLoad() {
+        this.warnIfHeadingLevelIsInvalid();
+    }
+
     public componentDidLoad() {
         this.initialize();
         this.showHighlightedField();
+    }
+
+    @Watch('headingLevel')
+    protected handleHeadingLevelChange() {
+        this.warnIfHeadingLevelIsInvalid();
+    }
+
+    private warnIfHeadingLevelIsInvalid() {
+        if (!isHeadingLevel(this.headingLevel)) {
+            console.warn(
+                `limel-form: headingLevel must be a number from 1 to 6, but it is ${this.headingLevel}. The headings start at level 1 instead.`
+            );
+        }
     }
 
     @Watch('highlightedField')
@@ -203,47 +235,55 @@ export class Form {
 
         this.root.render(
             React.createElement(
-                JSONSchemaForm,
+                HeadingLevelContext.Provider,
                 {
-                    schema: this.prepareSchema(this.schema),
-                    formData: this.value,
-                    onChange: this.handleChange,
-                    widgets: widgets,
-                    validator: rjsfValidator,
-                    liveValidate: 'onChange',
-                    // `@rjsf/core` v6 treats a `const` inside `oneOf`/`anyOf`
-                    // as a default and auto-selects the first option, so an
-                    // optional enum can never be left empty (clearing it just
-                    // gets repopulated on the next render). `skipOneOf` keeps
-                    // this off for enums while still applying genuine
-                    // `default` values, matching the pre-v6 behavior.
-                    experimental_defaultFormStateBehavior: {
-                        constAsDefaults: 'skipOneOf',
-                        requiredBooleanDefault: 'skip',
-                    },
-                    showErrorList: false,
-                    extraErrors: this.getExtraErrors(this.errors),
-                    templates: {
-                        FieldTemplate: FieldTemplate,
-                        ArrayFieldTemplate: ArrayFieldTemplate,
-                        ArrayFieldItemTemplate: ArrayFieldItemTemplate,
-                        ObjectFieldTemplate: ObjectFieldTemplate,
-                    },
-                    disabled: this.disabled,
-                    transformErrors: this.getCustomErrorMessages,
-                    formContext: {
-                        schema: this.schema,
-                        rootValue: this.value,
-                        propsFactory: this.propsFactory,
-                        revealErrors: this.revealErrors,
-                    },
-                    fields: {
-                        SchemaField: CustomSchemaField,
-                        ArrayField: CustomArrayField,
-                        ObjectField: CustomObjectField,
-                    },
+                    value: isHeadingLevel(this.headingLevel)
+                        ? this.headingLevel
+                        : 1,
                 },
-                []
+                React.createElement(
+                    JSONSchemaForm,
+                    {
+                        schema: this.prepareSchema(this.schema),
+                        formData: this.value,
+                        onChange: this.handleChange,
+                        widgets: widgets,
+                        validator: rjsfValidator,
+                        liveValidate: 'onChange',
+                        // `@rjsf/core` v6 treats a `const` inside `oneOf`/`anyOf`
+                        // as a default and auto-selects the first option, so an
+                        // optional enum can never be left empty (clearing it just
+                        // gets repopulated on the next render). `skipOneOf` keeps
+                        // this off for enums while still applying genuine
+                        // `default` values, matching the pre-v6 behavior.
+                        experimental_defaultFormStateBehavior: {
+                            constAsDefaults: 'skipOneOf',
+                            requiredBooleanDefault: 'skip',
+                        },
+                        showErrorList: false,
+                        extraErrors: this.getExtraErrors(this.errors),
+                        templates: {
+                            FieldTemplate: FieldTemplate,
+                            ArrayFieldTemplate: ArrayFieldTemplate,
+                            ArrayFieldItemTemplate: ArrayFieldItemTemplate,
+                            ObjectFieldTemplate: ObjectFieldTemplate,
+                        },
+                        disabled: this.disabled,
+                        transformErrors: this.getCustomErrorMessages,
+                        formContext: {
+                            schema: this.schema,
+                            rootValue: this.value,
+                            propsFactory: this.propsFactory,
+                            revealErrors: this.revealErrors,
+                        },
+                        fields: {
+                            SchemaField: CustomSchemaField,
+                            ArrayField: CustomArrayField,
+                            ObjectField: CustomObjectField,
+                        },
+                    },
+                    []
+                )
             )
         );
     }

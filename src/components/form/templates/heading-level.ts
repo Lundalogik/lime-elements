@@ -1,7 +1,19 @@
 import React, { PropsWithChildren, useContext } from 'react';
 import { Help } from '../../help/help.types';
+import { HeadingLevel } from '../form.types';
 
-export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
+/**
+ * @param level - any value
+ * @returns whether the value is a heading level, from `1` to `6`
+ */
+export function isHeadingLevel(level: unknown): level is HeadingLevel {
+    return (
+        typeof level === 'number' &&
+        Number.isSafeInteger(level) &&
+        level >= 1 &&
+        level <= 6
+    );
+}
 
 /**
  * The heading level that a title at the current depth in the form gets.

@@ -514,6 +514,7 @@ export namespace Components {
     export interface LimelForm {
         "disabled": boolean;
         "errors": ValidationError;
+        "headingLevel": HeadingLevel;
         // @beta
         "highlightedField"?: Array<string | number>;
         "propsFactory"?: (schema: FormSchema) => Record<string, any>;
@@ -526,7 +527,7 @@ export namespace Components {
     export interface LimelFormHeader {
         "description"?: string;
         "heading"?: string;
-        "headingLevel": 1 | 2 | 3 | 4 | 5 | 6;
+        "headingLevel": HeadingLevel;
         "help"?: string | Partial<Help>;
     }
     // @internal @deprecated
@@ -1327,6 +1328,9 @@ export interface GridLayoutOptions extends FormLayoutOptions<FormLayoutType | `$
     dense?: boolean;
     rowSpan?: number;
 }
+
+// @public
+export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 
 // @public
 export interface Help {
@@ -2661,6 +2665,7 @@ export namespace JSX {
     export interface LimelForm {
         "disabled"?: boolean;
         "errors"?: ValidationError;
+        "headingLevel"?: HeadingLevel;
         // @beta
         "highlightedField"?: Array<string | number>;
         "onChange"?: (event: LimelFormCustomEvent<object>) => void;
@@ -2677,6 +2682,8 @@ export namespace JSX {
         // (undocumented)
         "disabled": boolean;
         // (undocumented)
+        "headingLevel": HeadingLevel;
+        // (undocumented)
         "revealErrors": boolean;
     }
 
@@ -2684,7 +2691,7 @@ export namespace JSX {
     export interface LimelFormHeader {
         "description"?: string;
         "heading"?: string;
-        "headingLevel"?: 1 | 2 | 3 | 4 | 5 | 6;
+        "headingLevel"?: HeadingLevel;
         "help"?: string | Partial<Help>;
     }
 
@@ -2695,7 +2702,7 @@ export namespace JSX {
         // (undocumented)
         "heading": string;
         // (undocumented)
-        "headingLevel": 1 | 2 | 3 | 4 | 5 | 6;
+        "headingLevel": HeadingLevel;
         // (undocumented)
         "help": string | Partial<Help>;
     }

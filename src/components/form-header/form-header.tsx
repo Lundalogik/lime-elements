@@ -1,5 +1,6 @@
 import { Component, Host, Prop, h } from '@stencil/core';
 import { Help } from '../help/help.types';
+import { HeadingLevel } from '../form/form.types';
 import { getHelpProps } from './help-props';
 
 /**
@@ -39,7 +40,7 @@ export class FormHeader {
      * the `heading` with.
      */
     @Prop()
-    public headingLevel: 1 | 2 | 3 | 4 | 5 | 6 = 1;
+    public headingLevel: HeadingLevel = 1;
 
     /**
      * Text, in markdown, that describes what the `heading` is about.
