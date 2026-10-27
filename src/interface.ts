@@ -27,6 +27,7 @@ export {
     FormComponent,
     FormInfo,
     FormSchema,
+    HeadingLevel,
     LimeSchemaOptions,
     LimeLayoutOptions,
     FormComponentOptions,

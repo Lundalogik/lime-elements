@@ -454,6 +454,75 @@ test('gives the titles heading levels that follow how deep they are', async () =
     expect(findHeading(formContent, 'List').localName).toBe('h2');
 });
 
+test('starts the heading levels at the heading level of the form', async () => {
+    const { formContent } = await renderForm({
+        schema: nestedTitlesSchema,
+        headingLevel: 3,
+    });
+
+    expect(findHeading(formContent, 'Form').localName).toBe('h3');
+    expect(findHeading(formContent, 'Section').localName).toBe('h4');
+    expect(findHeading(formContent, 'Subsection').localName).toBe('h5');
+});
+
+test('starts the heading levels at the heading level of the form when it has no title', async () => {
+    const { formContent } = await renderForm({
+        schema: untitledRootSchema,
+        headingLevel: 3,
+    });
+
+    expect(findHeading(formContent, 'Section').localName).toBe('h3');
+});
+
+test('warns and starts the heading levels at h1 when the heading level is not from 1 to 6', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const { formContent } = await renderForm({
+        schema: nestedTitlesSchema,
+        headingLevel: 7,
+    });
+
+    expect(findHeading(formContent, 'Form').localName).toBe('h1');
+    expect(warn).toHaveBeenCalledTimes(1);
+
+    warn.mockRestore();
+});
+
+test('warns when the heading level changes to one that is not from 1 to 6', async () => {
+    const { setProps, waitForChanges } = await renderForm({
+        schema: nestedTitlesSchema,
+    });
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+    await setProps({ headingLevel: 0 });
+    await waitForChanges();
+
+    expect(warn).toHaveBeenCalledTimes(1);
+
+    warn.mockRestore();
+});
+
+test('draws no heading below h6', async () => {
+    const { formContent } = await renderForm({
+        schema: nestedTitlesSchema,
+        headingLevel: 6,
+    });
+
+    expect(findHeading(formContent, 'Form').localName).toBe('h6');
+    expect(findHeading(formContent, 'Subsection').localName).toBe('h6');
+});
+
+test('draws the headings again when the heading level changes', async () => {
+    const { formContent, setProps, waitForChanges } = await renderForm({
+        schema: nestedTitlesSchema,
+    });
+
+    await setProps({ headingLevel: 2 });
+    await waitForChanges();
+
+    expect(findHeading(formContent, 'Form').localName).toBe('h2');
+    expect(findHeading(formContent, 'Section').localName).toBe('h3');
+});
+
 test('gives the title of a row the heading level of a section in the same place', async () => {
     const { formContent } = await renderForm({ schema: titledRowLayoutSchema });
 
