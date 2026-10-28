@@ -83,6 +83,99 @@ describe('limel-popover', () => {
         }
     );
 
+    describe('the reference from the trigger to the popup', () => {
+        const getControlled = (trigger: Element): Element[] =>
+            (trigger as any).ariaControlsElements ?? [];
+
+        const renderInShadowRoot = async (open: boolean) => {
+            const { root, waitForChanges } = await render(<div />);
+            const shadowRoot = root.attachShadow({ mode: 'open' });
+            shadowRoot.innerHTML = `
+                <limel-popover ${open ? 'open' : ''}>
+                    <button slot="trigger">Trigger</button>
+                    <button>Inside</button>
+                </limel-popover>
+            `;
+            await waitForChanges();
+
+            return {
+                popover: shadowRoot.querySelector('limel-popover'),
+                trigger: shadowRoot.querySelector('button[slot="trigger"]'),
+                waitForChanges,
+            };
+        };
+
+        it('points at the popup when the trigger is inside a shadow root', async () => {
+            const { trigger } = await renderInShadowRoot(true);
+
+            const controlled = getControlled(trigger);
+            expect(controlled).toHaveLength(1);
+            expect(controlled[0].matches('.limel-portal--container')).toBe(
+                true
+            );
+            expect(document.body.contains(controlled[0])).toBe(true);
+        });
+
+        it('points at the popup of its own popover', async () => {
+            const { popover, trigger } = await renderInShadowRoot(true);
+
+            const [popup] = getControlled(trigger);
+            expect((popup as any).portalSource).toBe(
+                popover.shadowRoot.querySelector('limel-portal')
+            );
+        });
+
+        it('points at nothing before the popover has been opened', async () => {
+            const { trigger } = await renderInShadowRoot(false);
+
+            expect(getControlled(trigger)).toHaveLength(0);
+        });
+
+        it('points at the popup once a closed popover is opened', async () => {
+            const { popover, trigger, waitForChanges } =
+                await renderInShadowRoot(false);
+
+            (popover as any).open = true;
+            await waitForChanges();
+
+            const controlled = getControlled(trigger);
+            expect(controlled).toHaveLength(1);
+            expect(controlled[0].matches('.limel-portal--container')).toBe(
+                true
+            );
+        });
+
+        it('keeps pointing at the popup after the popover is closed and opened again', async () => {
+            const { popover, trigger, waitForChanges } =
+                await renderInShadowRoot(true);
+
+            (popover as any).open = false;
+            await waitForChanges();
+            expect(getControlled(trigger)).toHaveLength(1);
+
+            (popover as any).open = true;
+            await waitForChanges();
+            expect(getControlled(trigger)).toHaveLength(1);
+        });
+
+        it('points at the popup when the trigger is in the document', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-popover open={true}>
+                    <button slot="trigger">Trigger</button>
+                    <button>Inside</button>
+                </limel-popover>
+            );
+            await waitForChanges();
+
+            const trigger = root.querySelector('button[slot="trigger"]');
+            const controlled = getControlled(trigger);
+            expect(controlled).toHaveLength(1);
+            expect(controlled[0].matches('.limel-portal--container')).toBe(
+                true
+            );
+        });
+    });
+
     describe('the document click listener', () => {
         const clickOutside = () => {
             const outside = document.createElement('button');

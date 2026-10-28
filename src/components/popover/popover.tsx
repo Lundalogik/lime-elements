@@ -236,7 +236,19 @@ export class Popover {
         // `aria-expanded` is needed even when the popover is closed. Without
         // it, the trigger reads as an ordinary button to a screen reader.
         element.setAttribute('aria-expanded', this.open ? 'true' : 'false');
-        element.setAttribute('aria-controls', this.portalId);
+        this.setControlledPopup(element);
         element.setAttribute('role', 'button');
     };
+
+    private setControlledPopup(element: HTMLElement) {
+        const popup = document.querySelector(`#${this.portalId}`);
+
+        if ('ariaControlsElements' in element) {
+            element.ariaControlsElements = popup ? [popup] : null;
+
+            return;
+        }
+
+        element.setAttribute('aria-controls', this.portalId);
+    }
 }
