@@ -4,11 +4,13 @@
 
 ## Overview
 
-Text editor in markdown mode.
+Text editor with tables (HTML mode only).
 
-When using the text editor in markdown mode the `value` property is expected to contain
-a markdown formatted string and the output will likewise be markdown. This is the default
-if no value for `contentType` is provided.
+Basic table support is available when using the text editor in `HTML` mode.
+This allows you to paste and display tables in the text editor.
+Complex operations are not supported, adding and removing columns are not supported.
+
+Tables will only appear as expected in text-editor fields that are in `HTML` mode.
 
 ## Dependencies
 
@@ -22,10 +24,10 @@ if no value for `contentType` is provided.
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-text-editor-with-markdown --> limel-text-editor
-  limel-example-text-editor-with-markdown --> limel-example-controls
-  limel-example-text-editor-with-markdown --> limel-switch
-  limel-example-text-editor-with-markdown --> limel-example-value
+  limel-example-text-editor-with-tables --> limel-text-editor
+  limel-example-text-editor-with-tables --> limel-example-controls
+  limel-example-text-editor-with-tables --> limel-switch
+  limel-example-text-editor-with-tables --> limel-example-value
   limel-text-editor --> limel-helper-line
   limel-text-editor --> limel-notched-outline
   limel-text-editor --> limel-markdown
@@ -63,7 +65,7 @@ graph TD;
   limel-switch --> limel-dynamic-label
   limel-switch --> limel-helper-line
   limel-dynamic-label --> limel-icon
-  style limel-example-text-editor-with-markdown fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-text-editor-with-tables fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
