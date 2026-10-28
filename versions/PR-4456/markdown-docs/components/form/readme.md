@@ -8,6 +8,7 @@
 | ------------------ | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | ----------- |
 | `disabled`         | `disabled`      | Set to `true` to disable the whole form.                                                                                                                                                                                                                                                                                                                                                                                            | `boolean`                                          | `false`     |
 | `errors`           | --              | Extra errors to display in the form. Typical use case is asynchronous errors generated server side.                                                                                                                                                                                                                                                                                                                                 | `{ [key: string]: string[] \| ValidationError; }`  | `undefined` |
+| `headingLevel`     | `heading-level` | The level, from `1` to `6`, of the topmost headings in the form. The headings of the sections inside them get one level more for each level of nesting, down to `6`.  Set it so that the headings of the form fit below the headings of the page around it. For example, when the form is in a section with an `h2` heading, set it to `3`.                                                                                         | `1 \| 2 \| 3 \| 4 \| 5 \| 6`                       | `1`         |
 | `highlightedField` | --              | The path in the value of a field to take the user to, such as `['heroes', 2, 'name']`. When it changes, the form opens the sections and list items the field is in, scrolls it into view, focuses it and briefly highlights it.  If the path goes further than the form can show, such as into a custom component, the closest field above the end of the path is shown. To show the same field again, set it to `undefined` first. | `(string \| number)[]`                             | `undefined` |
 | `propsFactory`     | --              | Factory for creating properties for custom form components  When using custom components in the form some properties might have to be set dynamically. If this factory is set, it will be called with the current schema for the field for each custom component in the form. The factory must return an object where each key is the name of the property that should be set, along with its value.                                | `(schema: FormSchema<any>) => Record<string, any>` | `undefined` |
 | `revealErrors`     | `reveal-errors` | Set to `true` to render every field with a validation error as invalid, even untouched ones, and to reflect that on each containing collapsible section's header. Defaults to `false`, which keeps untouched required-empty fields silent.                                                                                                                                                                                          | `boolean`                                          | `false`     |
@@ -41,6 +42,7 @@
  - [limel-example-file-composite](../file/examples)
  - [limel-example-form](examples)
  - [limel-example-form-array-item-controls](examples)
+ - [limel-example-form-heading-level](examples)
  - [limel-example-form-highlighted-field](examples)
  - [limel-example-form-invalid-section](examples)
  - [limel-example-form-layout](examples)
@@ -60,13 +62,22 @@
 ### Depends on
 
 - [limel-markdown](../markdown)
+- [limel-form-header](../form-header)
 - [limel-collapsible-section](../collapsible-section)
 
 ### Graph
 ```mermaid
 graph TD;
   limel-form --> limel-markdown
+  limel-form --> limel-form-header
   limel-form --> limel-collapsible-section
+  limel-form-header --> limel-help
+  limel-form-header --> limel-markdown
+  limel-help --> limel-popover
+  limel-help --> limel-help-content
+  limel-popover --> limel-portal
+  limel-popover --> limel-popover-surface
+  limel-help-content --> limel-markdown
   limel-collapsible-section --> limel-icon
   limel-collapsible-section --> limel-icon-button
   limel-icon-button --> limel-icon
@@ -87,6 +98,7 @@ graph TD;
   limel-example-file-composite --> limel-form
   limel-example-form --> limel-form
   limel-example-form-array-item-controls --> limel-form
+  limel-example-form-heading-level --> limel-form
   limel-example-form-highlighted-field --> limel-form
   limel-example-form-invalid-section --> limel-form
   limel-example-form-layout --> limel-form

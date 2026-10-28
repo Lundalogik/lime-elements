@@ -80,6 +80,7 @@ The content as markdown.
  - [limel-example-markdown-to-markdown](examples)
  - [limel-example-popover-trigger-interaction](../popover/examples)
  - [limel-form](../form)
+ - [limel-form-header](../form-header)
  - [limel-help-content](../help)
  - [limel-showcase-card](../../examples/whats-new)
  - [limel-snackbar](../snackbar)
@@ -114,6 +115,7 @@ graph TD;
   limel-example-markdown-to-markdown --> limel-markdown
   limel-example-popover-trigger-interaction --> limel-markdown
   limel-form --> limel-markdown
+  limel-form-header --> limel-markdown
   limel-help-content --> limel-markdown
   limel-showcase-card --> limel-markdown
   limel-snackbar --> limel-markdown
