@@ -1,3 +1,15 @@
+## [40.16.0](https://github.com/Lundalogik/lime-elements/compare/v40.15.0...v40.16.0) (2026-10-28)
+
+### Features
+
+
+* **form:** add a prop for the level of the headings ([4b654be](https://github.com/Lundalogik/lime-elements/commit/4b654be14e658c14e81d9d25c187fca17e9a4f88))
+### Bug Fixes
+
+
+* **form:** give limel-help only the properties of a help ([36228dd](https://github.com/Lundalogik/lime-elements/commit/36228dda1513bb18e1d46b0d2c8b3b9d2b2ac001))
+* **form:** give the titles heading levels that follow how deep they are ([68160af](https://github.com/Lundalogik/lime-elements/commit/68160af48627ee954f16e843684ebf953f8d652a))
+
 ## [40.15.0](https://github.com/Lundalogik/lime-elements/compare/v40.14.5...v40.15.0) (2026-10-28)
 
 ### Features
