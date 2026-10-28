@@ -1,5 +1,6 @@
 import { render, h } from '@stencil/vitest';
-import { vi } from 'vitest';
+import { vi, type MockInstance } from 'vitest';
+import { getAccessibleNodes } from '../../util/test/accessibility-tree';
 
 describe('limel-popover', () => {
     // Focus restoration and dismiss-on-Escape/outside-click tests require
@@ -173,6 +174,142 @@ describe('limel-popover', () => {
             expect(controlled[0].matches('.limel-portal--container')).toBe(
                 true
             );
+        });
+    });
+
+    describe('the role and the name of the popup', () => {
+        const renderPopover = (props: Record<string, unknown> = {}) =>
+            render(
+                <limel-popover open={true} {...props}>
+                    <button slot="trigger">Trigger</button>
+                    <button>Inside</button>
+                </limel-popover>
+            );
+
+        it('says only that the trigger opens a popup when no role is set', async () => {
+            const { root, waitForChanges } = await renderPopover();
+            await waitForChanges();
+
+            const trigger = root.querySelector('button[slot="trigger"]');
+            expect(trigger.getAttribute('aria-haspopup')).toBe('true');
+            expect(await getAccessibleNodes('dialog')).toEqual([]);
+            expect(await getAccessibleNodes('menu')).toEqual([]);
+        });
+
+        it.each(['dialog', 'menu', 'listbox', 'tree', 'grid'])(
+            'gives the popup the role `%s` and a name, and the trigger the matching `aria-haspopup`',
+            async (popupRole) => {
+                const { root, waitForChanges } = await renderPopover({
+                    popupRole,
+                    accessibleLabel: 'Popup name',
+                });
+                await waitForChanges();
+
+                const trigger = root.querySelector('button[slot="trigger"]');
+                expect(trigger.getAttribute('aria-haspopup')).toBe(popupRole);
+                expect(await getAccessibleNodes(popupRole)).toEqual([
+                    expect.objectContaining({ name: 'Popup name' }),
+                ]);
+            }
+        );
+
+        it('follows a change of the role and the name', async () => {
+            const { root, waitForChanges, setProps } = await renderPopover({
+                popupRole: 'dialog',
+                accessibleLabel: 'First name',
+            });
+            await waitForChanges();
+
+            await setProps({ popupRole: 'menu', accessibleLabel: 'Second' });
+            await waitForChanges();
+
+            const trigger = root.querySelector('button[slot="trigger"]');
+            expect(trigger.getAttribute('aria-haspopup')).toBe('menu');
+            expect(await getAccessibleNodes('dialog')).toEqual([]);
+            expect(await getAccessibleNodes('menu')).toEqual([
+                expect.objectContaining({ name: 'Second' }),
+            ]);
+        });
+
+        describe.each([undefined, ''])(
+            'when the role has no name (%j)',
+            (accessibleLabel) => {
+                let warn: MockInstance;
+
+                beforeEach(() => {
+                    warn = vi
+                        .spyOn(console, 'warn')
+                        .mockImplementation(() => {});
+                });
+
+                afterEach(() => {
+                    warn.mockRestore();
+                });
+
+                it('does not give the popup the role, and the trigger says only that it opens a popup', async () => {
+                    const { root, waitForChanges } = await renderPopover({
+                        popupRole: 'dialog',
+                        accessibleLabel,
+                    });
+                    await waitForChanges();
+
+                    const trigger = root.querySelector(
+                        'button[slot="trigger"]'
+                    );
+                    expect(trigger.getAttribute('aria-haspopup')).toBe('true');
+                    expect(await getAccessibleNodes('dialog')).toEqual([]);
+                });
+
+                it('warns once, and not again at every render', async () => {
+                    const { waitForChanges, setProps } = await renderPopover({
+                        popupRole: 'dialog',
+                        accessibleLabel,
+                    });
+                    await waitForChanges();
+
+                    await setProps({ openDirection: 'top' });
+                    await waitForChanges();
+
+                    expect(warn).toHaveBeenCalledTimes(1);
+                    expect(warn.mock.calls[0][0]).toContain('limel-popover');
+                });
+
+                it('uses the role once the popup gets a name', async () => {
+                    const { root, waitForChanges, setProps } =
+                        await renderPopover({ popupRole: 'dialog' });
+                    await waitForChanges();
+
+                    await setProps({ accessibleLabel: 'Popup name' });
+                    await waitForChanges();
+
+                    const trigger = root.querySelector(
+                        'button[slot="trigger"]'
+                    );
+                    expect(trigger.getAttribute('aria-haspopup')).toBe(
+                        'dialog'
+                    );
+                    expect(await getAccessibleNodes('dialog')).toEqual([
+                        expect.objectContaining({ name: 'Popup name' }),
+                    ]);
+                });
+            }
+        );
+
+        it('does not warn when the role has a name, or when there is no role', async () => {
+            const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+            const named = await renderPopover({
+                popupRole: 'dialog',
+                accessibleLabel: 'Popup name',
+            });
+            await named.waitForChanges();
+            await named.unmount();
+
+            const plain = await renderPopover();
+            await plain.waitForChanges();
+
+            expect(warn).not.toHaveBeenCalled();
+            warn.mockRestore();
         });
     });
 

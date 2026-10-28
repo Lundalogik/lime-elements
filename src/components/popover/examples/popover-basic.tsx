@@ -13,6 +13,11 @@ import { Component, h, State } from '@stencil/core';
  * which is both accessible with mouse and keyboard.
  * :::
  *
+ * :::note
+ * Tell assistive technology what kind of popup the trigger opens, and name it,
+ * with `popupRole` and `accessibleLabel`. This example opens a `dialog`.
+ * :::
+ *
  * :::warning
  * The component is emitting a close event when you click outside its container
  * or press the <kbd>Esc</kbd> key. However, it’s up to you as consumer to react
@@ -31,7 +36,12 @@ export class PopoverBasicExample {
 
     public render() {
         return [
-            <limel-popover open={this.isOpen} onClose={this.onPopoverClose}>
+            <limel-popover
+                open={this.isOpen}
+                popupRole="dialog"
+                accessibleLabel="Example popover"
+                onClose={this.onPopoverClose}
+            >
                 <limel-button
                     slot="trigger"
                     primary={true}
