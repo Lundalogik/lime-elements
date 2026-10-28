@@ -351,6 +351,96 @@ export const customComponentSchema: FormSchema = {
     },
 };
 
+export const customComponentWithHeaderSchema: FormSchema = {
+    type: 'object',
+    title: 'Form',
+    properties: {
+        enabled: {
+            type: 'boolean',
+            title: 'Enabled',
+            description: 'Turns the feature on',
+            lime: {
+                help: 'Read more about the feature',
+                component: {
+                    name: 'limel-switch',
+                    showHeader: true,
+                },
+            },
+        },
+        section: {
+            type: 'object',
+            title: 'Section',
+            properties: {
+                nested: {
+                    type: 'boolean',
+                    title: 'Nested',
+                    lime: {
+                        component: {
+                            name: 'limel-switch',
+                            showHeader: true,
+                        },
+                    },
+                },
+            },
+        },
+    },
+};
+
+export const requiredCustomComponentWithHeaderSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        name: { type: 'string', title: 'Name' },
+        enabled: {
+            type: 'boolean',
+            title: 'Enabled',
+            description: 'Turns the feature on',
+            lime: {
+                component: {
+                    name: 'limel-switch',
+                    showHeader: true,
+                },
+            },
+        },
+    },
+    required: ['name', 'enabled'],
+};
+
+export const customComponentWithHelpSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        enabled: {
+            type: 'boolean',
+            title: 'Enabled',
+            lime: {
+                help: 'Read more about the feature',
+                component: { name: 'limel-switch' },
+            },
+        },
+    },
+};
+
+export const rowLayoutWithCustomComponentHeaderSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        active: {
+            type: 'boolean',
+            title: 'Active',
+            description: 'Active description',
+            lime: {
+                component: {
+                    name: 'limel-switch',
+                    showHeader: true,
+                },
+            },
+        },
+    },
+    lime: {
+        layout: {
+            type: 'row',
+        },
+    },
+};
+
 export const undefinedComponentSchema: FormSchema = {
     type: 'object',
     properties: {

@@ -1246,6 +1246,7 @@ export interface FormComponent<T = any> {
 export interface FormComponentOptions {
     name?: string;
     props?: Record<string, any>;
+    showHeader?: boolean;
 }
 
 // @public (undocumented)

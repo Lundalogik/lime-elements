@@ -40,6 +40,7 @@ import { HeadingLevelContext } from './templates/heading-level';
  * @exampleComponent limel-example-list-form
  * @exampleComponent limel-example-dynamic-form
  * @exampleComponent limel-example-custom-component-form
+ * @exampleComponent limel-example-custom-component-header-form
  * @exampleComponent limel-example-props-factory-form
  * @exampleComponent limel-example-form-layout
  * @exampleComponent limel-example-form-span-fields
