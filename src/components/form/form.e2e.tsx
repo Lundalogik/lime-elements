@@ -29,6 +29,10 @@ import {
     serverErrorsSchema,
     transformErrorsSchema,
     customComponentSchema,
+    customComponentWithHeaderSchema,
+    requiredCustomComponentWithHeaderSchema,
+    customComponentWithHelpSchema,
+    rowLayoutWithCustomComponentHeaderSchema,
     undefinedComponentSchema,
     emptySchema,
     hiddenFieldSchema,
@@ -1245,6 +1249,87 @@ test('suppresses label and description for custom components in row layout', asy
     expect(switchEl).toBeTruthy();
     expect(switchEl.getAttribute('label')).toEqual('');
     expect(switchEl.getAttribute('helper-text')).toEqual('');
+});
+
+test('draws the header of a custom component with the form header when asked', async () => {
+    const { formContent } = await renderForm({
+        schema: customComponentWithHeaderSchema,
+    });
+
+    const header = findHeading(formContent, 'Enabled').closest(
+        'limel-form-header'
+    );
+    const markdown = header.querySelector('limel-markdown');
+    expect(markdown.value).toBe('Turns the feature on');
+    expect(formContent.querySelectorAll('limel-help')).toHaveLength(1);
+    expect(header.querySelector('limel-help')).toBeTruthy();
+});
+
+test('gives the header of a custom component the heading level of its depth', async () => {
+    const { formContent } = await renderForm({
+        schema: customComponentWithHeaderSchema,
+    });
+
+    expect(findHeading(formContent, 'Enabled').localName).toBe('h2');
+    expect(findHeading(formContent, 'Nested').localName).toBe('h3');
+});
+
+test('gives a custom component with a header from the form the same label and helper text as without one', async () => {
+    const { formContent } = await renderForm({
+        schema: customComponentWithHeaderSchema,
+    });
+
+    const switchEl = formContent.querySelector('limel-switch');
+    expect(switchEl.getAttribute('label')).toBe('Enabled');
+    expect(switchEl.getAttribute('helper-text')).toBe('Turns the feature on');
+});
+
+test('still gives a custom component with a header from the form its validation error', async () => {
+    const { formContent, change, root, waitForChanges, setProps } =
+        await renderForm({
+            schema: requiredCustomComponentWithHeaderSchema,
+            value: {},
+        });
+
+    // A change first, so RJSF has propagated its per-field error state.
+    await change('Name', 'Alice');
+    await setProps({ revealErrors: true });
+    await waitForReactRender(root, waitForChanges);
+
+    const switchEl = formContent.querySelector('limel-switch');
+    expect(switchEl.invalid).toBe(true);
+    expect(switchEl.getAttribute('helper-text')).not.toBe(
+        'Turns the feature on'
+    );
+});
+
+test('draws the help of a custom component after it unless the form draws the header', async () => {
+    const { formContent } = await renderForm({
+        schema: customComponentWithHelpSchema,
+    });
+
+    const switchEl = formContent.querySelector('limel-switch');
+    expect(switchEl.nextElementSibling.localName).toBe('limel-help');
+    expect(formContent.querySelector('limel-form-header')).toBeNull();
+});
+
+test('does not draw a header for a custom component unless asked', async () => {
+    const { formContent } = await renderForm({
+        schema: customComponentSchema,
+    });
+
+    const switchEl = formContent.querySelector('limel-switch');
+    expect(formContent.querySelector('limel-form-header')).toBeNull();
+    expect(switchEl.getAttribute('label')).toBe('Enabled');
+});
+
+test('does not draw a header for a custom component in a row layout', async () => {
+    const { formContent } = await renderForm({
+        schema: rowLayoutWithCustomComponentHeaderSchema,
+    });
+
+    expect(formContent.querySelector('limel-form-header')).toBeNull();
+    expect(findHeading(formContent, 'Active')).toBeTruthy();
 });
 
 test('renders collapsible section with correct id from field path', async () => {

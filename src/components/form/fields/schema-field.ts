@@ -10,6 +10,7 @@ import {
 } from '../validation-display';
 import { resetDependentFields, schemaAllowsNull } from './field-helpers';
 import { FieldTemplate } from '../templates';
+import { renderHeader } from '../templates/common';
 import { getHelpComponent } from '../help';
 import { FormComponent, FormSchema } from '../form.types';
 import { TimePicker } from '../widgets/time-picker';
@@ -142,6 +143,10 @@ export class SchemaField extends React.Component<FieldProps> {
         return getErrorText(errors, schema.description, fallbackText);
     }
 
+    private hasHeaderFromForm(schema: FormSchema): boolean {
+        return schema.lime?.component?.showHeader === true && !this.context;
+    }
+
     private handleCustomComponentChange(
         event: React.SyntheticEvent<Element, CustomEvent>
     ) {
@@ -248,14 +253,22 @@ export class SchemaField extends React.Component<FieldProps> {
             onChange: this.handleCustomComponentChange,
         });
 
+        const hasHeader = this.hasHeaderFromForm(schema);
+
         return React.createElement(
             FieldTemplate,
             {
                 ...this.props,
                 classNames: 'rjsf-field rjsf-field-custom',
             },
+            hasHeader &&
+                renderHeader(
+                    schema.title,
+                    schema.description,
+                    schema.lime.help
+                ),
             component,
-            getHelpComponent(schema)
+            !hasHeader && getHelpComponent(schema)
         );
     }
 

@@ -1,0 +1,30 @@
+:host {
+    display: block;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: rgb(var(--contrast-200));
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.25rem 0.25rem 0.25rem 1rem;
+    color: rgb(var(--contrast-1100));
+
+    &:not(:last-child) {
+        border-bottom: 0.0625rem solid rgb(var(--contrast-400));
+    }
+}
+
+p {
+    margin: 0;
+    padding: 1rem;
+    color: rgb(var(--contrast-900));
+}

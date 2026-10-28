@@ -122,7 +122,8 @@ export interface FormComponent<T = any> {
     label?: string;
 
     /**
-     * The helper text for the current property
+     * The helper text for the current property. While the property has a
+     * validation error to show, this is the error.
      */
     helperText?: string;
 
@@ -263,6 +264,22 @@ export interface FormComponentOptions {
      * specified on the `FormComponent` interface
      */
     props?: Record<string, any>;
+
+    /**
+     * Let the form draw the title, the description and the help of the field
+     * above the component, as a heading that fits how deep the field is.
+     *
+     * The component still gets `label` and `helperText`, so a component that
+     * draws its own title or description should read this option in
+     * `formInfo.schema` and leave them out. It should still show `helperText`
+     * while `invalid` is `true`, because that is where the form puts a
+     * validation error.
+     *
+     * A row layout draws its own header, so the option has no effect there.
+     *
+     * Defaults to `false`.
+     */
+    showHeader?: boolean;
 }
 
 /**
