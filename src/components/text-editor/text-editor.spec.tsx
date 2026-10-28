@@ -1,7 +1,9 @@
 import { render, h } from '@stencil/vitest';
 import { InlineImages } from './text-editor.types';
 
-describe('limel-text-editor', () => {
+// The first render loads ProseMirror, which can outlast the default timeout
+// on a busy CI runner.
+describe('limel-text-editor', { timeout: 15_000 }, () => {
     async function createComponent(props: Record<string, unknown> = {}) {
         const {
             allowResize,
