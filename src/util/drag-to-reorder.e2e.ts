@@ -88,6 +88,10 @@ const dragWithPointer = async (handle: HTMLElement, target: HTMLElement) => {
     const from = centerOf(handle);
     const to = centerOf(target);
     const steps = 8;
+    const list = target.parentElement;
+    const item = handle.closest('[data-reorder-id]');
+    const indexOf = (element: Element) => [...list.children].indexOf(element);
+    const targetIndex = indexOf(target);
 
     firePointer(handle, 'pointerdown', from);
     for (let step = 1; step <= steps; step++) {
@@ -97,6 +101,10 @@ const dragWithPointer = async (handle: HTMLElement, target: HTMLElement) => {
         });
         await nextFrame();
     }
+
+    // With its own ghost, SortableJS only checks where the pointer is every
+    // 50 ms, so hold still until it has moved the item there.
+    await vi.waitFor(() => expect(indexOf(item)).toBe(targetIndex));
 
     firePointer(document, 'pointerup', to);
     await nextFrame();
