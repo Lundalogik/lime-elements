@@ -4,17 +4,15 @@
 
 ## Overview
 
-Locations
+Larger grab area
 
-The handle can be on any edge of the element that it resizes. Set the
-location with `location`. The handle resizes the width when it is on the
-left or the right, and the height when it is at the top or the bottom. In
-this example, each element shows the `location` of its handle, and the
-`value` of the handle, which is the width or the height in pixels.
+A handle at the top or the bottom can have a larger grab area, which is
+easier to hit with a finger. Set the size of the grab area with
+`--limel-resize-handle-thickness`, and the length of the visible strip with
+`--limel-resize-handle-visual-length`. The grab area grows away from the
+edge, and the visible strip stays at the edge.
 
-Arrow keys move the handle in the same way as the pointer does. For example,
-<kbd>↑</kbd> makes the element higher when the handle is at the top, and
-<kbd>↓</kbd> makes it lower.
+The background of the handle in this example shows the grab area.
 
 ## Dependencies
 
@@ -25,12 +23,12 @@ Arrow keys move the handle in the same way as the pointer does. For example,
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-resize-handle-locations --> limel-resize-handle
+  limel-example-resize-handle-grab-area --> limel-resize-handle
   limel-resize-handle --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-tooltip-content --> limel-hotkey
-  style limel-example-resize-handle-locations fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-resize-handle-grab-area fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
