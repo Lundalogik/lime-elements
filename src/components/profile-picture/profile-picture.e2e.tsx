@@ -1,4 +1,5 @@
 import { render, h } from '@stencil/vitest';
+import { getAccessibleNodes } from '../../util/test/accessibility-tree';
 
 describe('limel-profile-picture', () => {
     const imgSrc =
@@ -20,6 +21,26 @@ describe('limel-profile-picture', () => {
         expect(
             imgEl?.style.getPropertyValue('--limel-profile-picture-object-fit')
         ).toEqual('contain');
+    });
+
+    it('names the popover that explains why the image cannot be shown', async () => {
+        const file = new File([''], 'photo.heic', { type: 'image/heic' });
+        const { root, waitForChanges } = await render(
+            <limel-profile-picture
+                value={{ filename: 'photo.heic', fileContent: file } as any}
+                resize={{}}
+            ></limel-profile-picture>
+        );
+        await waitForChanges();
+
+        root.shadowRoot.querySelector('img')?.dispatchEvent(new Event('error'));
+        await waitForChanges();
+        root.shadowRoot.querySelector<HTMLElement>('limel-icon-button').click();
+        await waitForChanges();
+
+        expect(await getAccessibleNodes('dialog')).toEqual([
+            expect.objectContaining({ name: 'Unsupported image format' }),
+        ]);
     });
 
     it('flags the host with has-image-error when the image fails to load', async () => {
