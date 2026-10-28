@@ -514,6 +514,7 @@ export namespace Components {
     export interface LimelForm {
         "disabled": boolean;
         "errors": ValidationError;
+        "fillDefaults": boolean;
         "headingLevel": HeadingLevel;
         // @beta
         "highlightedField"?: Array<string | number>;
@@ -2669,6 +2670,7 @@ export namespace JSX {
     export interface LimelForm {
         "disabled"?: boolean;
         "errors"?: ValidationError;
+        "fillDefaults"?: boolean;
         "headingLevel"?: HeadingLevel;
         // @beta
         "highlightedField"?: Array<string | number>;
@@ -2685,6 +2687,8 @@ export namespace JSX {
     export interface LimelFormAttributes {
         // (undocumented)
         "disabled": boolean;
+        // (undocumented)
+        "fillDefaults": boolean;
         // (undocumented)
         "headingLevel": HeadingLevel;
         // (undocumented)

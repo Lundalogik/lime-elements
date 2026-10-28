@@ -10,7 +10,10 @@ import {
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import JSONSchemaForm, { IChangeEvent } from '@rjsf/core';
-import { RJSFValidationError } from '@rjsf/utils';
+import {
+    Experimental_DefaultFormStateBehavior,
+    RJSFValidationError,
+} from '@rjsf/utils';
 import {
     FormError,
     FormSchema,
@@ -34,6 +37,23 @@ import { isEqual, mapValues } from 'lodash-es';
 import { showField } from './show-field';
 import { HeadingLevelContext } from './templates/heading-level';
 
+// `@rjsf/core` v6 treats a `const` inside `oneOf`/`anyOf` as a default and
+// auto-selects the first option, so an optional enum can never be left empty
+// (clearing it just gets repopulated on the next render). `skipOneOf` keeps this
+// off for enums while still applying genuine `default` values, matching the
+// pre-v6 behavior.
+const FILL_DEFAULTS: Experimental_DefaultFormStateBehavior = {
+    constAsDefaults: 'skipOneOf',
+    requiredBooleanDefault: 'skip',
+};
+
+// `skipDefaults` still fills in a `const`.
+const LEAVE_OUT_DEFAULTS: Experimental_DefaultFormStateBehavior = {
+    ...FILL_DEFAULTS,
+    constAsDefaults: 'never',
+    emptyObjectFields: 'skipDefaults',
+};
+
 /**
  * @exampleComponent limel-example-form
  * @exampleComponent limel-example-nested-form
@@ -53,6 +73,7 @@ import { HeadingLevelContext } from './templates/heading-level';
  * @exampleComponent limel-example-code-editor-form
  * @exampleComponent limel-example-form-highlighted-field
  * @exampleComponent limel-example-form-heading-level
+ * @exampleComponent limel-example-form-fill-defaults
  */
 @Component({
     tag: 'limel-form',
@@ -124,6 +145,14 @@ export class Form {
      */
     @Prop()
     public revealErrors: boolean = false;
+
+    /**
+     * Set to `false` to leave the defaults of the schema out of the value.
+     * The form then never changes the value by itself, and a field with a
+     * default shows what the value holds, which can be nothing.
+     */
+    @Prop()
+    public fillDefaults: boolean = true;
 
     /**
      * The path in the value of a field to take the user to, such as
@@ -252,16 +281,8 @@ export class Form {
                         widgets: widgets,
                         validator: rjsfValidator,
                         liveValidate: 'onChange',
-                        // `@rjsf/core` v6 treats a `const` inside `oneOf`/`anyOf`
-                        // as a default and auto-selects the first option, so an
-                        // optional enum can never be left empty (clearing it just
-                        // gets repopulated on the next render). `skipOneOf` keeps
-                        // this off for enums while still applying genuine
-                        // `default` values, matching the pre-v6 behavior.
-                        experimental_defaultFormStateBehavior: {
-                            constAsDefaults: 'skipOneOf',
-                            requiredBooleanDefault: 'skip',
-                        },
+                        experimental_defaultFormStateBehavior:
+                            this.getDefaultFormStateBehavior(),
                         showErrorList: false,
                         extraErrors: this.getExtraErrors(this.errors),
                         templates: {
@@ -277,6 +298,8 @@ export class Form {
                             rootValue: this.value,
                             propsFactory: this.propsFactory,
                             revealErrors: this.revealErrors,
+                            defaultFormStateBehavior:
+                                this.getDefaultFormStateBehavior(),
                         },
                         fields: {
                             SchemaField: CustomSchemaField,
@@ -288,6 +311,10 @@ export class Form {
                 )
             )
         );
+    }
+
+    private getDefaultFormStateBehavior() {
+        return this.fillDefaults ? FILL_DEFAULTS : LEAVE_OUT_DEFAULTS;
     }
 
     private showHighlightedField() {

@@ -136,6 +136,26 @@ test('does not auto-select a const from an optional oneOf, but keeps real defaul
     });
 });
 
+test('leaves out the defaults of the schema when told not to fill them in', async () => {
+    const onChange = vi.fn();
+    const { change } = await renderForm({
+        schema: {
+            ...optionalOneOfSchema,
+            properties: {
+                ...optionalOneOfSchema.properties,
+                fixed: { type: 'string', title: 'Fixed', const: 'fixed' },
+            },
+        },
+        fillDefaults: false,
+        onChange,
+    });
+    expect(onChange).not.toHaveBeenCalled();
+
+    await change('Name', 'Alice');
+
+    expect(onChange.mock.lastCall[0].detail).toEqual({ name: 'Alice' });
+});
+
 test('maps icon, description and readOnly of a `oneOf` onto select options', async () => {
     const { formContent } = await renderForm({
         schema: selectWithOptionMetadataSchema,
