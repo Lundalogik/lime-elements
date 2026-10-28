@@ -14,14 +14,15 @@ Using this component can help to:
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                                                                      | Type                                                                   | Default     |
-| ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------- |
-| `actions`  | --         | Actions to place to the far right inside the header                                                                              | `Action[]`                                                             | `undefined` |
-| `header`   | `header`   | Text to display in the header of the section                                                                                     | `string`                                                               | `undefined` |
-| `icon`     | `icon`     | Icon to display in the header of the section                                                                                     | `Icon \| string`                                                       | `undefined` |
-| `invalid`  | `invalid`  | `true` if the section is invalid, `false` if valid. This can be used to indicate that the content inside the section is invalid. | `boolean`                                                              | `false`     |
-| `isOpen`   | `is-open`  | `true` if the section is expanded, `false` if collapsed.                                                                         | `boolean`                                                              | `false`     |
-| `language` | `language` | Defines the language for translations. Will translate the translatable strings on the components.                                | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`      |
+| Property       | Attribute       | Description                                                                                                                                                                                                                                                                         | Type                                                                   | Default     |
+| -------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------- |
+| `actions`      | --              | Actions to place to the far right inside the header                                                                                                                                                                                                                                 | `Action[]`                                                             | `undefined` |
+| `header`       | `header`        | Text to display in the header of the section                                                                                                                                                                                                                                        | `string`                                                               | `undefined` |
+| `headingLevel` | `heading-level` | The level of the heading that the `header` is drawn with, from `1` for an `h1` to `6` for an `h6`.  Set it so that the heading fits below the headings around the section. For example, when the section is below an `h2`, set it to `3`. It does not change how the heading looks. | `1 \| 2 \| 3 \| 4 \| 5 \| 6`                                           | `2`         |
+| `icon`         | `icon`          | Icon to display in the header of the section                                                                                                                                                                                                                                        | `Icon \| string`                                                       | `undefined` |
+| `invalid`      | `invalid`       | `true` if the section is invalid, `false` if valid. This can be used to indicate that the content inside the section is invalid.                                                                                                                                                    | `boolean`                                                              | `false`     |
+| `isOpen`       | `is-open`       | `true` if the section is expanded, `false` if collapsed.                                                                                                                                                                                                                            | `boolean`                                                              | `false`     |
+| `language`     | `language`      | Defines the language for translations. Will translate the translatable strings on the components.                                                                                                                                                                                   | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`      |
 
 
 ## Events
@@ -50,6 +51,7 @@ Using this component can help to:
  - [limel-example-collapsible-section-basic](examples)
  - [limel-example-collapsible-section-css-props](examples)
  - [limel-example-collapsible-section-external-control](examples)
+ - [limel-example-collapsible-section-heading-level](examples)
  - [limel-example-collapsible-section-icon](examples)
  - [limel-example-collapsible-section-invalid](examples)
  - [limel-example-collapsible-section-with-custom-header-component](examples)
@@ -78,6 +80,7 @@ graph TD;
   limel-example-collapsible-section-basic --> limel-collapsible-section
   limel-example-collapsible-section-css-props --> limel-collapsible-section
   limel-example-collapsible-section-external-control --> limel-collapsible-section
+  limel-example-collapsible-section-heading-level --> limel-collapsible-section
   limel-example-collapsible-section-icon --> limel-collapsible-section
   limel-example-collapsible-section-invalid --> limel-collapsible-section
   limel-example-collapsible-section-with-custom-header-component --> limel-collapsible-section
