@@ -43,6 +43,7 @@
  - [limel-example-file-composite](../file/examples)
  - [limel-example-form](examples)
  - [limel-example-form-array-item-controls](examples)
+ - [limel-example-form-fill-defaults](examples)
  - [limel-example-form-heading-level](examples)
  - [limel-example-form-highlighted-field](examples)
  - [limel-example-form-invalid-section](examples)
@@ -99,6 +100,7 @@ graph TD;
   limel-example-file-composite --> limel-form
   limel-example-form --> limel-form
   limel-example-form-array-item-controls --> limel-form
+  limel-example-form-fill-defaults --> limel-form
   limel-example-form-heading-level --> limel-form
   limel-example-form-highlighted-field --> limel-form
   limel-example-form-invalid-section --> limel-form

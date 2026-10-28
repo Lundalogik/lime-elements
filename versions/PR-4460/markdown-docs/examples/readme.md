@@ -80,6 +80,7 @@ The component automatically formats different value types:
  - [limel-example-file-size-badge](../components/file/examples)
  - [limel-example-form](../components/form/examples)
  - [limel-example-form-array-item-controls](../components/form/examples)
+ - [limel-example-form-fill-defaults](../components/form/examples)
  - [limel-example-form-heading-level](../components/form/examples)
  - [limel-example-form-with-help](../components/form/examples)
  - [limel-example-input-field-autocomplete](../components/input-field/examples)
@@ -233,6 +234,7 @@ graph TD;
   limel-example-file-size-badge --> limel-example-value
   limel-example-form --> limel-example-value
   limel-example-form-array-item-controls --> limel-example-value
+  limel-example-form-fill-defaults --> limel-example-value
   limel-example-form-heading-level --> limel-example-value
   limel-example-form-with-help --> limel-example-value
   limel-example-input-field-autocomplete --> limel-example-value
