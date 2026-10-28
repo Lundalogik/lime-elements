@@ -1,5 +1,6 @@
 import { render, h } from '@stencil/vitest';
 import { GoToPageEvent } from './pagination.types';
+import { getAccessibleNodes } from '../../util/test/accessibility-tree';
 
 // A popover carries the field it holds into a container of its own on the
 // page, so that it can escape anything that clips. That only happens in a
@@ -90,6 +91,14 @@ describe('limel-pagination, jumping to a page', () => {
         expect(jumpField()).toBeTruthy();
         expect(jumpField().pageCount).toBe(LAST_PAGE);
         expect(jumpField().page).toBe(50);
+    });
+
+    test('names the popover that holds the field', async () => {
+        await open();
+
+        expect(await getAccessibleNodes('dialog')).toEqual([
+            expect.objectContaining({ name: 'Jump to a page' }),
+        ]);
     });
 
     test('carries a page typed in the popover out as a page to go to', async () => {

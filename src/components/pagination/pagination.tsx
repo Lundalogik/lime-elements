@@ -471,18 +471,22 @@ export class Pagination {
             return;
         }
 
+        const jumpLabel = this.translate('pagination.jump-to-a-page');
+
         return (
             <limel-popover
                 key={`gap-${index}`}
                 open={this.openGap === index}
                 openDirection="bottom"
+                popupRole="dialog"
+                accessibleLabel={jumpLabel}
                 onClose={this.closeJump}
             >
                 <button
                     slot="trigger"
                     class="gap"
                     id={this.slotId(index)}
-                    aria-label={this.translate('pagination.jump-to-a-page')}
+                    aria-label={jumpLabel}
                     aria-disabled={this.loading ? 'true' : null}
                     data-index={index}
                     onClick={this.openJump}
