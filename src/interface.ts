@@ -27,7 +27,6 @@ export {
     FormComponent,
     FormInfo,
     FormSchema,
-    HeadingLevel,
     LimeSchemaOptions,
     LimeLayoutOptions,
     FormComponentOptions,
@@ -67,6 +66,7 @@ export * from './global/shared-types/separator.types';
 export * from './global/shared-types/icon.types';
 export * from './global/shared-types/image.types';
 export * from './global/shared-types/color.types';
+export * from './global/shared-types/heading-level.types';
 export * from './components/text-editor/text-editor.types';
 export * from './components/text-editor/types';
 export * from './components/text-editor/prosemirror-adapter/menu/types';

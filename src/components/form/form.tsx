@@ -14,10 +14,11 @@ import { RJSFValidationError } from '@rjsf/utils';
 import {
     FormError,
     FormSchema,
-    HeadingLevel,
     ValidationError,
     ValidationStatus,
 } from './form.types';
+import { HeadingLevel } from '../../global/shared-types/heading-level.types';
+import { isHeadingLevel } from '../../util/heading-level';
 import {
     ArrayFieldTemplate,
     ArrayFieldItemTemplate,
@@ -31,7 +32,7 @@ import { widgets } from './widgets';
 import { rjsfValidator } from './validator';
 import { isEqual, mapValues } from 'lodash-es';
 import { showField } from './show-field';
-import { HeadingLevelContext, isHeadingLevel } from './templates/heading-level';
+import { HeadingLevelContext } from './templates/heading-level';
 
 /**
  * @exampleComponent limel-example-form

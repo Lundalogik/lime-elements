@@ -1,6 +1,6 @@
 import { Component, Host, Prop, h } from '@stencil/core';
 import { Help } from '../help/help.types';
-import { HeadingLevel } from '../form/form.types';
+import { HeadingLevel } from '../../global/shared-types/heading-level.types';
 import { getHelpProps } from './help-props';
 
 /**

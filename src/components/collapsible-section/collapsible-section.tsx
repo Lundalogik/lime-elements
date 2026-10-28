@@ -22,19 +22,10 @@ import {
 } from '../icon/get-icon-props';
 import translate from '../../global/translations';
 import { Languages } from '../date-picker/date.types';
-
-type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
+import { HeadingLevel } from '../../global/shared-types/heading-level.types';
+import { isHeadingLevel } from '../../util/heading-level';
 
 const DEFAULT_HEADING_LEVEL: HeadingLevel = 2;
-
-function isHeadingLevel(level: unknown): level is HeadingLevel {
-    return (
-        typeof level === 'number' &&
-        Number.isSafeInteger(level) &&
-        level >= 1 &&
-        level <= 6
-    );
-}
 
 /**
  * A collapsible section can be used to group related content together
@@ -85,7 +76,7 @@ export class CollapsibleSection {
      * It does not change how the heading looks.
      */
     @Prop()
-    public headingLevel: 1 | 2 | 3 | 4 | 5 | 6 = DEFAULT_HEADING_LEVEL;
+    public headingLevel: HeadingLevel = DEFAULT_HEADING_LEVEL;
 
     /**
      * Icon to display in the header of the section
