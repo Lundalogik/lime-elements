@@ -1,1 +1,0 @@
-const t=()=>{var t;return"crypto"in window&&"function"==typeof(null===(t=window.crypto)||void 0===t?void 0:t.randomUUID)?"a_"+crypto.randomUUID():String.fromCharCode(97+Math.floor(26*Math.random()))+Math.random().toString(36).slice(Math.max(0,2))+Math.random().toString(36).slice(Math.max(0,2))};export{t as c}
