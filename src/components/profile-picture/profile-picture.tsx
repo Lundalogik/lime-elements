@@ -365,9 +365,15 @@ export class ProfilePicture {
             maxWidth: '20rem',
             borderRadius: '0.75rem',
         };
+        const title = this.getTranslation(
+            'profile-picture.unsupported-preview.title'
+        );
+
         return (
             <limel-popover
                 open={this.isErrorMessagePopoverOpen}
+                popupRole="dialog"
+                accessibleLabel={title}
                 onClick={this.openPopover}
                 onClose={this.onPopoverClose}
             >
@@ -376,16 +382,12 @@ export class ProfilePicture {
                     elevated={true}
                     icon={errorIcon}
                     aria-live="polite"
-                    label={this.getTranslation(
-                        'profile-picture.unsupported-preview.title'
-                    )}
+                    label={title}
                 />
                 <limel-callout
                     type="warning"
                     style={errorMessageStyles}
-                    heading={this.getTranslation(
-                        'profile-picture.unsupported-preview.title'
-                    )}
+                    heading={title}
                 >
                     {this.getTranslation(
                         'profile-picture.unsupported-preview.description'
