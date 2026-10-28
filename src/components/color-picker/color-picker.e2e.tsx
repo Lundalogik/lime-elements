@@ -1,5 +1,8 @@
 import { render, h } from '@stencil/vitest';
-import { getAccessibleProperties } from '../../util/test/accessibility-tree';
+import {
+    getAccessibleNodes,
+    getAccessibleProperties,
+} from '../../util/test/accessibility-tree';
 import { brightnesses, colors } from './swatches';
 
 /**
@@ -91,6 +94,32 @@ describe('limel-color-picker', () => {
             const buttons =
                 palette.shadowRoot.querySelectorAll('button.swatch');
             expect(buttons.length).toEqual(colors.length * brightnesses.length);
+        });
+    });
+
+    describe('the popup of the palette', () => {
+        it('is a dialog named by the label', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-color-picker label="Hair color"></limel-color-picker>
+            );
+            await waitForChanges();
+
+            await openAndFindPalette(root, waitForChanges);
+
+            expect(await getAccessibleNodes('dialog')).toEqual([
+                expect.objectContaining({ name: 'Hair color' }),
+            ]);
+        });
+
+        it('is not given a role without a label, which it could not be named by', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-color-picker></limel-color-picker>
+            );
+            await waitForChanges();
+
+            await openAndFindPalette(root, waitForChanges);
+
+            expect(await getAccessibleNodes('dialog')).toEqual([]);
         });
     });
 
