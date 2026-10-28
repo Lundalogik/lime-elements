@@ -11,6 +11,7 @@ import { isEmpty, isEqual } from 'lodash-es';
 import { rjsfValidator } from '../validator';
 import { FormSchema } from '../form.types';
 import { JSONSchema7 } from 'json-schema';
+import { BelowHeading, HeadingLevelContext } from './heading-level';
 
 export interface CollapsibleItemProps {
     buttonsProps: ArrayFieldItemButtonsTemplateProps;
@@ -68,6 +69,9 @@ export interface CollapsibleItemProps {
 export class CollapsibleItemTemplate extends React.Component<
     PropsWithChildren<CollapsibleItemProps>
 > {
+    public static readonly contextType = HeadingLevelContext;
+    declare context: React.ContextType<typeof HeadingLevelContext>;
+
     state = {
         isOpen: false,
     };
@@ -104,9 +108,14 @@ export class CollapsibleItemTemplate extends React.Component<
     public render() {
         const { data, schema, formSchema, errorSchema, revealErrors } =
             this.props;
+        const header = findTitle(data, schema, formSchema) || 'New item';
         let children: ReactNode;
         if (this.state.isOpen) {
-            children = this.props.children;
+            children = React.createElement(
+                BelowHeading,
+                { hasHeading: !!header },
+                this.props.children
+            );
         }
 
         const dragHandle = this.props.allowItemReorder
@@ -121,7 +130,8 @@ export class CollapsibleItemTemplate extends React.Component<
         return React.createElement(
             'limel-collapsible-section',
             {
-                header: findTitle(data, schema, formSchema) || 'New item',
+                header: header,
+                headingLevel: this.context,
                 class: 'array-item limel-form-array-item--object',
                 ref: (section: HTMLLimelCollapsibleSectionElement) => {
                     this.section = section;

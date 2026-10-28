@@ -11,11 +11,14 @@ import { RowLayout } from './row-layout';
 import { LimeObjectFieldTemplateProps, ObjectFieldProperty } from './types';
 import { JSONSchema7 } from 'json-schema';
 import { FieldPathId } from '@rjsf/utils';
+import { HeadingLevel } from '../../../global/shared-types/heading-level.types';
 import { getHelpComponent } from '../help';
 import { ArrayFieldContext } from './array-context';
+import { BelowHeading, HeadingLevelContext } from './heading-level';
 
 export const ObjectFieldTemplate = (props: LimeObjectFieldTemplateProps) => {
     const arrayContext = useContext(ArrayFieldContext);
+    const headingLevel = useContext(HeadingLevelContext);
     const id = props.fieldPathId.$id;
 
     if (arrayContext && id !== 'root') {
@@ -34,7 +37,7 @@ export const ObjectFieldTemplate = (props: LimeObjectFieldTemplateProps) => {
         return renderFieldWithTitle(props);
     }
 
-    return renderCollapsibleField(props);
+    return renderCollapsibleField(props, headingLevel);
 };
 
 function renderFieldWithTitle(props: LimeObjectFieldTemplateProps) {
@@ -50,7 +53,10 @@ function renderFieldWithTitle(props: LimeObjectFieldTemplateProps) {
     );
 }
 
-function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
+function renderCollapsibleField(
+    props: LimeObjectFieldTemplateProps,
+    headingLevel: HeadingLevel
+) {
     const defaultOpen = !isCollapsed(props.schema);
     const helpElement = getHelpComponent(props.schema as FormSchema, {
         slot: 'header',
@@ -62,6 +68,7 @@ function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
         'limel-collapsible-section',
         {
             header: props.title,
+            headingLevel: headingLevel,
             id: getSchemaObjectPropertyPath(
                 props.registry.formContext.schema,
                 props.fieldPathId
@@ -71,10 +78,14 @@ function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
         },
         helpElement,
         renderDescription(props.description as string),
-        renderProperties(
-            props.properties,
-            props.schema,
-            props.fieldPathId.path.map(String)
+        React.createElement(
+            BelowHeading,
+            { hasHeading: !!props.title },
+            renderProperties(
+                props.properties,
+                props.schema,
+                props.fieldPathId.path.map(String)
+            )
         )
     );
 }

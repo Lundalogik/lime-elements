@@ -785,6 +785,56 @@ export const untitledRootSchema: FormSchema = {
     },
 };
 
+export const nestedCollapsibleSchema: FormSchema = {
+    type: 'object',
+    title: 'Form',
+    properties: {
+        details: {
+            type: 'object',
+            title: 'Details',
+            lime: { collapsible: true },
+            properties: {
+                address: {
+                    type: 'object',
+                    title: 'Address',
+                    lime: { collapsible: true },
+                    properties: {
+                        street: { type: 'string', title: 'Street' },
+                        position: {
+                            type: 'object',
+                            title: 'Position',
+                            properties: {
+                                latitude: { type: 'number', title: 'Latitude' },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    },
+};
+
+export const untitledCollapsibleSchema: FormSchema = {
+    type: 'object',
+    title: 'Form',
+    properties: {
+        details: {
+            type: 'object',
+            title: '',
+            lime: { collapsible: true },
+            properties: {
+                section: {
+                    type: 'object',
+                    title: 'Section',
+                    properties: {
+                        name: { type: 'string', title: 'Name' },
+                    },
+                },
+            },
+        },
+    },
+};
+
 export const untitledRowSchema: FormSchema = {
     type: 'object',
     title: 'Form',
