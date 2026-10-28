@@ -1,3 +1,17 @@
+## [40.17.0](https://github.com/Lundalogik/lime-elements/compare/v40.16.0...v40.17.0) (2026-10-28)
+
+### Features
+
+
+* **popover:** let the consumer say what the popup is and name it ([d8f6fce](https://github.com/Lundalogik/lime-elements/commit/d8f6fce1813656cfc235795036398ca7514c3568)), closes [#4379](https://github.com/Lundalogik/lime-elements/issues/4379)
+### Bug Fixes
+
+
+* **color-picker:** name the popup of the palette by the label ([ecdaca3](https://github.com/Lundalogik/lime-elements/commit/ecdaca37cfe634f838cf24ee5fe3b440514a14ad)), closes [#4379](https://github.com/Lundalogik/lime-elements/issues/4379)
+* **pagination:** name the popup that opens from a gap ([397ce6b](https://github.com/Lundalogik/lime-elements/commit/397ce6b7cf9ca5cae6e6b8a1aeeca6a2ab61a6d7)), closes [#4379](https://github.com/Lundalogik/lime-elements/issues/4379)
+* **popover:** point `aria-controls` at the popup from any DOM tree ([421b969](https://github.com/Lundalogik/lime-elements/commit/421b9695c7ded6dd99c5dad815132c6ef250bc66)), closes [#4379](https://github.com/Lundalogik/lime-elements/issues/4379)
+* **profile-picture:** name the popup that explains the image error ([4ca34b0](https://github.com/Lundalogik/lime-elements/commit/4ca34b09d2d76a307d50e27409bfd68cd0d093a9)), closes [#4379](https://github.com/Lundalogik/lime-elements/issues/4379)
+
 ## [40.16.0](https://github.com/Lundalogik/lime-elements/compare/v40.15.0...v40.16.0) (2026-10-28)
 
 ### Features
