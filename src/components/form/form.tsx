@@ -106,7 +106,8 @@ export class Form {
     /**
      * The level, from `1` to `6`, of the topmost headings in the form.
      * The headings of the sections inside them get one level more for each
-     * level of nesting, down to `6`.
+     * level of nesting, down to `6`. A collapsible section, and each item
+     * of a list that is shown as one, counts as a level too.
      *
      * Set it so that the headings of the form fit below the headings of
      * the page around it. For example, when the form is in a section with

@@ -49,6 +49,8 @@ import {
     arrayItemWithEnumAndDefaultSchema,
     requiredCheckboxSchema,
     nestedTitlesSchema,
+    nestedCollapsibleSchema,
+    untitledCollapsibleSchema,
     titledRowLayoutSchema,
     untitledRootSchema,
     untitledRowSchema,
@@ -537,14 +539,55 @@ test('starts the heading levels at h1 when the form has no title', async () => {
     expect(findHeading(formContent, 'Section').localName).toBe('h1');
 });
 
-test('does not count a collapsible item of a list as a heading level', async () => {
-    const { formContent } = await renderForm({
+test('counts a collapsible item of a list as a heading level', async () => {
+    const { formContent, waitForChanges } = await renderForm({
         schema: nestedArrayObjectSchema,
         value: { people: [{}] },
     });
+    await waitForChanges();
 
     expect(findHeading(formContent, 'People').localName).toBe('h1');
-    expect(findHeading(formContent, 'Address').localName).toBe('h2');
+    expect(findSectionHeading(formContent, 'New item').localName).toBe('h2');
+    expect(findHeading(formContent, 'Address').localName).toBe('h3');
+});
+
+test('gives a collapsible section the heading level of its depth', async () => {
+    const { formContent, waitForChanges } = await renderForm({
+        schema: nestedCollapsibleSchema,
+    });
+    await waitForChanges();
+
+    expect(findHeading(formContent, 'Form').localName).toBe('h1');
+    expect(findSectionHeading(formContent, 'Details').localName).toBe('h2');
+    expect(findSectionHeading(formContent, 'Address').localName).toBe('h3');
+    expect(findHeading(formContent, 'Position').localName).toBe('h4');
+});
+
+test('does not count a collapsible section without a title as a heading level', async () => {
+    const { formContent } = await renderForm({
+        schema: untitledCollapsibleSchema,
+    });
+
+    expect(findHeading(formContent, 'Section').localName).toBe('h2');
+});
+
+test('starts the collapsible sections at h1 when the form has no title', async () => {
+    const { formContent, waitForChanges } = await renderForm({
+        schema: collapsibleSchema,
+    });
+    await waitForChanges();
+
+    expect(findSectionHeading(formContent, 'Details').localName).toBe('h1');
+});
+
+test('starts the collapsible sections at the heading level of the form', async () => {
+    const { formContent, waitForChanges } = await renderForm({
+        schema: collapsibleSchema,
+        headingLevel: 3,
+    });
+    await waitForChanges();
+
+    expect(findSectionHeading(formContent, 'Details').localName).toBe('h3');
 });
 
 test('draws no heading for the row of a field without a title', async () => {
@@ -1424,6 +1467,14 @@ function findHeading(formContent: Element, title: string) {
     return [...formContent.querySelectorAll('h1, h2, h3, h4, h5, h6')].find(
         (element) => element.textContent === title
     );
+}
+
+function findSectionHeading(formContent: Element, header: string) {
+    const section = [
+        ...formContent.querySelectorAll('limel-collapsible-section'),
+    ].find((element) => element.getAttribute('header') === header);
+
+    return section.shadowRoot.querySelector('.title');
 }
 
 function headingStyle(formContent: Element, title: string) {
