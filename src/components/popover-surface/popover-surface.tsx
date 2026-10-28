@@ -17,6 +17,18 @@ export class PopoverSurface {
     @Prop()
     public contentCollection: HTMLCollection;
 
+    /**
+     * The role of the surface, for assistive technology
+     */
+    @Prop()
+    public popupRole?: string;
+
+    /**
+     * The name of the surface, for assistive technology
+     */
+    @Prop()
+    public accessibleLabel?: string;
+
     @Element()
     private host: HTMLLimelPopoverSurfaceElement;
 
@@ -25,7 +37,14 @@ export class PopoverSurface {
     }
 
     public render() {
-        return <div class="limel-popover-surface" tabindex="0" />;
+        return (
+            <div
+                class="limel-popover-surface"
+                tabindex="0"
+                role={this.popupRole}
+                aria-label={this.accessibleLabel}
+            />
+        );
     }
 
     private appendElement() {

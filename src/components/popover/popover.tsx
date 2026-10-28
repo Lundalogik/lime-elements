@@ -78,6 +78,29 @@ export class Popover {
     public openDirection: OpenDirection;
 
     /**
+     * Says what kind of popup the trigger opens, so that a screen reader can
+     * announce it. Use the one that fits what you put in the popover: `dialog`
+     * for a form, a message or other content, and `menu`, `listbox`, `tree`
+     * or `grid` when the content is one of those widgets.
+     *
+     * A popup with one of these roles needs a name, so the role is used only
+     * together with `accessibleLabel`. Without one, the popover warns in the
+     * console.
+     *
+     * When the role is not set or not used, the trigger only says that it
+     * opens a popup.
+     */
+    @Prop()
+    public popupRole?: 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
+
+    /**
+     * The name of the popup, which a screen reader announces when the focus
+     * moves into it. Used together with `popupRole`.
+     */
+    @Prop()
+    public accessibleLabel?: string;
+
+    /**
      * Emits an event when the component is closing
      */
     @Event()
@@ -89,6 +112,7 @@ export class Popover {
     private portalId: string;
     private triggerSlot: HTMLSlotElement;
     private shouldRestoreFocusOnClose = false;
+    private hasWarnedAboutMissingName = false;
 
     constructor() {
         this.portalId = createRandomString();
@@ -113,6 +137,10 @@ export class Popover {
 
     public disconnectedCallback() {
         this.teardownGlobalHandlers();
+    }
+
+    public componentWillRender() {
+        this.warnIfRoleHasNoName();
     }
 
     public componentDidRender() {
@@ -171,6 +199,8 @@ export class Popover {
                 >
                     <limel-popover-surface
                         contentCollection={this.host.children}
+                        popupRole={this.getNamedPopupRole()}
+                        accessibleLabel={this.accessibleLabel}
                         style={cssProperties}
                     />
                 </limel-portal>
@@ -232,13 +262,32 @@ export class Popover {
     };
 
     private setTriggerAttributes = (element: HTMLElement) => {
-        element.setAttribute('aria-haspopup', 'true');
+        element.setAttribute(
+            'aria-haspopup',
+            this.getNamedPopupRole() ?? 'true'
+        );
         // `aria-expanded` is needed even when the popover is closed. Without
         // it, the trigger reads as an ordinary button to a screen reader.
         element.setAttribute('aria-expanded', this.open ? 'true' : 'false');
         this.setControlledPopup(element);
         element.setAttribute('role', 'button');
     };
+
+    private getNamedPopupRole() {
+        return this.accessibleLabel ? this.popupRole : undefined;
+    }
+
+    private warnIfRoleHasNoName() {
+        const hasNoName = !!this.popupRole && !this.accessibleLabel;
+
+        if (hasNoName && !this.hasWarnedAboutMissingName) {
+            console.warn(
+                `limel-popover: popupRole is "${this.popupRole}", but there is no accessibleLabel to name the popup. The role is not used until the popup has a name.`
+            );
+        }
+
+        this.hasWarnedAboutMissingName = hasNoName;
+    }
 
     private setControlledPopup(element: HTMLElement) {
         const popup = document.querySelector(`#${this.portalId}`);

@@ -754,12 +754,16 @@ export namespace Components {
         "value": PickerItem | PickerItem[];
     }
     export interface LimelPopover {
+        "accessibleLabel"?: string;
         "open": boolean;
         "openDirection": OpenDirection;
+        "popupRole"?: 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
     }
     // @internal (undocumented)
     export interface LimelPopoverSurface {
+        "accessibleLabel"?: string;
         "contentCollection": HTMLCollection;
+        "popupRole"?: string;
     }
     // @internal
     export interface LimelPortal {
@@ -1619,7 +1623,7 @@ export namespace JSX {
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-popover-surface"" is marked as @public, but its signature references "JSX" which is marked as @internal
         //
         // (undocumented)
-        "limel-popover-surface": LimelPopoverSurface;
+        "limel-popover-surface": Omit<LimelPopoverSurface, keyof LimelPopoverSurfaceAttributes> & { [K in keyof LimelPopoverSurface & keyof LimelPopoverSurfaceAttributes]?: LimelPopoverSurface[K] } & { [K in keyof LimelPopoverSurface & keyof LimelPopoverSurfaceAttributes as `attr:${K}`]?: LimelPopoverSurfaceAttributes[K] } & { [K in keyof LimelPopoverSurface & keyof LimelPopoverSurfaceAttributes as `prop:${K}`]?: LimelPopoverSurface[K] };
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-portal"" is marked as @public, but its signature references "JSX" which is marked as @internal
         //
         // (undocumented)
@@ -3313,22 +3317,38 @@ export namespace JSX {
     }
 
     export interface LimelPopover {
+        "accessibleLabel"?: string;
         "onClose"?: (event: LimelPopoverCustomEvent<void>) => void;
         "open"?: boolean;
         "openDirection"?: OpenDirection;
+        "popupRole"?: 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
     }
 
     // (undocumented)
     export interface LimelPopoverAttributes {
         // (undocumented)
+        "accessibleLabel": string;
+        // (undocumented)
         "open": boolean;
         // (undocumented)
         "openDirection": OpenDirection;
+        // (undocumented)
+        "popupRole": 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
     }
 
     // @internal (undocumented)
     export interface LimelPopoverSurface {
+        "accessibleLabel"?: string;
         "contentCollection"?: HTMLCollection;
+        "popupRole"?: string;
+    }
+
+    // (undocumented)
+    export interface LimelPopoverSurfaceAttributes {
+        // (undocumented)
+        "accessibleLabel": string;
+        // (undocumented)
+        "popupRole": string;
     }
 
     // @internal
