@@ -959,3 +959,55 @@ export const untitledRowSchema: FormSchema = {
         },
     },
 };
+
+export const dependencyWithDefaultsSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        columns: { type: 'integer', title: 'Columns', default: 5 },
+        limetype: { type: 'string', title: 'Limetype' },
+    },
+    dependencies: {
+        limetype: {
+            properties: {
+                propertyName: {
+                    type: 'string',
+                    title: 'Name property',
+                    default: 'name',
+                },
+            },
+        },
+    },
+};
+
+export const dependencyWithChangingDefaultSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        limetype: { type: 'string', title: 'Limetype' },
+    },
+    dependencies: {
+        limetype: {
+            oneOf: [
+                {
+                    properties: {
+                        limetype: { const: 'person' },
+                        propertyName: {
+                            type: 'string',
+                            title: 'Name property',
+                            default: 'name',
+                        },
+                    },
+                },
+                {
+                    properties: {
+                        limetype: { const: 'company' },
+                        propertyName: {
+                            type: 'string',
+                            title: 'Name property',
+                            default: 'companyName',
+                        },
+                    },
+                },
+            ],
+        },
+    },
+};

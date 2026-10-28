@@ -10,7 +10,11 @@ import {
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import JSONSchemaForm, { IChangeEvent } from '@rjsf/core';
-import { RJSFValidationError } from '@rjsf/utils';
+import {
+    Experimental_DefaultFormStateBehavior,
+    getDefaultFormState,
+    RJSFValidationError,
+} from '@rjsf/utils';
 import {
     FormError,
     FormSchema,
@@ -32,7 +36,32 @@ import { widgets } from './widgets';
 import { rjsfValidator } from './validator';
 import { isEqual, mapValues } from 'lodash-es';
 import { showField, stopShowingField } from './show-field';
+import { withoutFilledDefaults } from './filled-defaults';
 import { HeadingLevelContext } from './templates/heading-level';
+
+// `@rjsf/core` v6 treats a `const` inside `oneOf`/`anyOf` as a default and
+// auto-selects the first option, so an optional enum can never be left empty
+// (clearing it just gets repopulated on the next render). `skipOneOf` keeps this
+// off for enums while still applying genuine `default` values, matching the
+// pre-v6 behavior.
+const FILL_DEFAULTS: Experimental_DefaultFormStateBehavior = {
+    constAsDefaults: 'skipOneOf',
+    requiredBooleanDefault: 'skip',
+};
+
+/**
+ * The value the form was given, and what the form made of it
+ */
+interface GivenValue {
+    /** The id of the schema the defaults came from */
+    schemaId: string;
+    /** The value as the host gave it, without the defaults it left out */
+    given: unknown;
+    /** `given` with the defaults of the schema filled in */
+    filled: unknown;
+    /** What the form holds now: `filled` until the user changes something */
+    held: unknown;
+}
 
 /**
  * @exampleComponent limel-example-form
@@ -54,6 +83,7 @@ import { HeadingLevelContext } from './templates/heading-level';
  * @exampleComponent limel-example-code-editor-form
  * @exampleComponent limel-example-form-highlighted-field
  * @exampleComponent limel-example-form-heading-level
+ * @exampleComponent limel-example-form-include-defaults
  */
 @Component({
     tag: 'limel-form',
@@ -127,6 +157,20 @@ export class Form {
     public revealErrors: boolean = false;
 
     /**
+     * Set to `false` to leave the defaults of the schema out of the value,
+     * so that it stays as it was given until the user changes something. The
+     * form still shows the defaults. A default the user changes is in the
+     * value from then on, and so are the defaults that a change brings in,
+     * such as those of a new list item or of fields that depend on the
+     * changed one. Pass the value the form emits back in as `value`.
+     * The form validates what it shows, defaults included. When the user
+     * changes everything back, the value is what the form was given, also
+     * when that is `null` or `undefined`.
+     */
+    @Prop()
+    public includeDefaults: boolean = true;
+
+    /**
      * The path in the value of a field to take the user to, such as
      * `['heroes', 2, 'name']`. When it changes, the form opens the sections
      * and list items the field is in, scrolls it into view, focuses it and
@@ -157,6 +201,8 @@ export class Form {
     private host: HTMLLimelFormElement;
 
     private isValid = true;
+    private currentValue: object;
+    private givenValue?: GivenValue;
     private root: Root;
     private initialized = false;
 
@@ -170,7 +216,19 @@ export class Form {
     }
 
     public componentWillLoad() {
+        this.currentValue = this.value;
         this.warnIfHeadingLevelIsInvalid();
+    }
+
+    @Watch('value')
+    protected handleValueChange() {
+        // The host usually hands back the value the form emitted, as a new
+        // object, which is not a new value to leave the defaults out of
+        if (!isEqual(this.value, this.currentValue)) {
+            this.givenValue = undefined;
+        }
+
+        this.currentValue = this.value;
     }
 
     public componentDidLoad() {
@@ -252,21 +310,12 @@ export class Form {
                     JSONSchemaForm,
                     {
                         schema: this.prepareSchema(this.schema),
-                        formData: this.value,
+                        formData: this.currentValue,
                         onChange: this.handleChange,
                         widgets: widgets,
                         validator: rjsfValidator,
                         liveValidate: 'onChange',
-                        // `@rjsf/core` v6 treats a `const` inside `oneOf`/`anyOf`
-                        // as a default and auto-selects the first option, so an
-                        // optional enum can never be left empty (clearing it just
-                        // gets repopulated on the next render). `skipOneOf` keeps
-                        // this off for enums while still applying genuine
-                        // `default` values, matching the pre-v6 behavior.
-                        experimental_defaultFormStateBehavior: {
-                            constAsDefaults: 'skipOneOf',
-                            requiredBooleanDefault: 'skip',
-                        },
+                        experimental_defaultFormStateBehavior: FILL_DEFAULTS,
                         showErrorList: false,
                         extraErrors: this.getExtraErrors(this.errors),
                         templates: {
@@ -308,12 +357,56 @@ export class Form {
     }
 
     private handleChange(event: IChangeEvent) {
-        this.change.emit(event.formData);
+        if (this.includeDefaults) {
+            this.currentValue = event.formData;
+            this.change.emit(event.formData);
+
+            return;
+        }
+
+        const { given, filled } = this.getGivenValue();
+        this.givenValue.held = event.formData;
+        const value = withoutFilledDefaults(event.formData, filled, given);
+        if (isEqual(value, this.currentValue)) {
+            // What the form holds changed, even though the value did not
+            this.emitValidationStatus(event.errors);
+
+            return;
+        }
+
+        this.currentValue = value as object;
+        this.change.emit(this.currentValue);
+    }
+
+    private getGivenValue(): GivenValue {
+        const schema = this.prepareSchema(this.schema);
+        if (this.givenValue?.schemaId !== schema.$id) {
+            const filled = getDefaultFormState(
+                rjsfValidator,
+                schema,
+                this.currentValue,
+                schema,
+                false,
+                FILL_DEFAULTS
+            );
+            this.givenValue = {
+                schemaId: schema.$id,
+                given: this.currentValue,
+                filled,
+                held: filled,
+            };
+        }
+
+        return this.givenValue;
     }
 
     private validateFormData() {
+        // With the defaults left out of the value, the form holds more than it
+        const value = this.includeDefaults
+            ? this.value
+            : this.getGivenValue().held;
         const { errors } = rjsfValidator.validateFormData(
-            this.value ?? {},
+            value ?? {},
             this.prepareSchema(this.schema)
         );
         this.emitValidationStatus(errors);
