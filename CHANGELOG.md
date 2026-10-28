@@ -1,3 +1,10 @@
+## [40.15.0](https://github.com/Lundalogik/lime-elements/compare/v40.14.5...v40.15.0) (2026-10-28)
+
+### Features
+
+
+* **collapsible-section:** add a prop for the level of the heading ([7ea93b1](https://github.com/Lundalogik/lime-elements/commit/7ea93b13af2adee249f6241016dad8377c23cb95))
+
 ## [40.14.5](https://github.com/Lundalogik/lime-elements/compare/v40.14.4...v40.14.5) (2026-10-26)
 
 ### Bug Fixes
