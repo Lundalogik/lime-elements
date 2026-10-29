@@ -31,7 +31,7 @@ import { ObjectField as CustomObjectField } from './fields/object-field';
 import { widgets } from './widgets';
 import { rjsfValidator } from './validator';
 import { isEqual, mapValues } from 'lodash-es';
-import { showField } from './show-field';
+import { showField, stopShowingField } from './show-field';
 import { HeadingLevelContext } from './templates/heading-level';
 
 /**
@@ -197,9 +197,12 @@ export class Form {
         oldPath?: Array<string | number>
     ) {
         // A host that renders again passes an equal path in a new array.
-        if (!isEqual(newPath, oldPath)) {
-            this.showHighlightedField();
+        if (isEqual(newPath, oldPath)) {
+            return;
         }
+
+        stopShowingField(this.rootElement);
+        this.showHighlightedField();
     }
 
     private initialize() {
@@ -218,6 +221,7 @@ export class Form {
     }
 
     public disconnectedCallback() {
+        stopShowingField(this.rootElement);
         if (this.root) {
             this.root.unmount();
             this.root = undefined;
@@ -296,8 +300,11 @@ export class Form {
             return;
         }
 
-        const root = this.host.shadowRoot.querySelector<HTMLElement>('.root');
-        void showField(root, this.highlightedField);
+        void showField(this.rootElement, this.highlightedField);
+    }
+
+    private get rootElement() {
+        return this.host.shadowRoot.querySelector<HTMLElement>('.root');
     }
 
     private handleChange(event: IChangeEvent) {

@@ -5,7 +5,11 @@ import { getFocusTarget } from '../../util/get-focus-target';
 const HIGHLIGHT_CLASS = 'limel-form-field--highlighted';
 const STABLE_FRAMES = 3;
 const MAX_SETTLE_MS = 2000;
+const FOLLOW_MS = 3000;
 const MAX_RENDER_FRAMES = 30;
+const USER_INPUT_EVENTS = ['wheel', 'touchmove', 'pointerdown', 'keydown'];
+
+const stopFollowing = new WeakMap<HTMLElement, () => void>();
 
 /**
  * Open what is closed above a field, scroll it into view, focus it and
@@ -43,14 +47,55 @@ export async function showField(
     const focusTarget = await getFocusTarget(target);
     await waitForLayoutToSettle(target);
 
-    target.scrollIntoView({
-        block: 'center',
-        behavior: prefersReducedMotion() ? 'instant' : 'smooth',
-    });
+    const scrollToTarget = () =>
+        target.scrollIntoView({
+            block: 'center',
+            behavior: prefersReducedMotion() ? 'instant' : 'smooth',
+        });
+    scrollToTarget();
     focusTarget?.focus({ preventScroll: true });
+    keepInViewWhileFormGrows(root, scrollToTarget);
 
     await waitForLayoutToSettle(target);
     highlight(target);
+}
+
+// What the form draws a while later, such as a custom component that loads
+// its code, can move the field after it was scrolled to. Follow the field for
+// a while, until the user takes over.
+function keepInViewWhileFormGrows(
+    root: HTMLElement,
+    scrollToTarget: () => void
+) {
+    stopShowingField(root);
+    const observer = new ResizeObserver(scrollToTarget);
+    const stop = () => {
+        observer.disconnect();
+        clearTimeout(deadline);
+        stopFollowing.delete(root);
+        for (const type of USER_INPUT_EVENTS) {
+            window.removeEventListener(type, stop, true);
+        }
+    };
+    const deadline = setTimeout(stop, FOLLOW_MS);
+    stopFollowing.set(root, stop);
+
+    for (const type of USER_INPUT_EVENTS) {
+        window.addEventListener(type, stop, { capture: true, passive: true });
+    }
+
+    observer.observe(root);
+}
+
+/**
+ * Stop keeping the field that was shown last in view.
+ *
+ * @param root - the element the form is rendered in
+ */
+export function stopShowingField(root: HTMLElement | null) {
+    if (root) {
+        stopFollowing.get(root)?.();
+    }
 }
 
 function findByPath(
