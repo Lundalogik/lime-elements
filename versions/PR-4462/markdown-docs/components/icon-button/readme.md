@@ -19,6 +19,7 @@
 
  - [limel-code-diff](../code-diff)
  - [limel-collapsible-section](../collapsible-section)
+ - [limel-example-custom-card-list](../form/examples)
  - [limel-example-dialog-heading-actions](../dialog/examples)
  - [limel-example-header-colors](../header/examples)
  - [limel-example-header-responsive](../header/examples)
@@ -52,6 +53,7 @@ graph TD;
   limel-tooltip-content --> limel-hotkey
   limel-code-diff --> limel-icon-button
   limel-collapsible-section --> limel-icon-button
+  limel-example-custom-card-list --> limel-icon-button
   limel-example-dialog-heading-actions --> limel-icon-button
   limel-example-header-colors --> limel-icon-button
   limel-example-header-responsive --> limel-icon-button
