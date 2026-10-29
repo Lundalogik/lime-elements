@@ -1,8 +1,8 @@
-import { isPlainObject } from 'lodash-es';
+import { isEmpty, isEqual, isPlainObject } from 'lodash-es';
 
 /**
- * The value with the defaults that a change made apply, such as those of a
- * new list item or of fields that depend on the changed one
+ * The value with the defaults that a change made apply or changed, such as
+ * those of a new list item or of fields that depend on the changed one
  *
  * @param value - the value after the change
  * @param before - the defaults of the value before the change
@@ -15,7 +15,7 @@ export function withNewDefaults(
     after: unknown
 ): unknown {
     if (value === undefined) {
-        return before === undefined ? after : undefined;
+        return getChangedDefaults(before, after);
     }
 
     if (isPlainObject(value) && isPlainObject(after)) {
@@ -38,6 +38,20 @@ export function withNewDefaults(
     }
 
     return value;
+}
+
+function getChangedDefaults(before: unknown, after: unknown): unknown {
+    if (isPlainObject(before) && isPlainObject(after)) {
+        const changed = withNewDefaultsInObject(
+            {},
+            before as Record<string, unknown>,
+            after as Record<string, unknown>
+        );
+
+        return isEmpty(changed) ? undefined : changed;
+    }
+
+    return isEqual(before, after) ? undefined : after;
 }
 
 function withNewDefaultsInObject(

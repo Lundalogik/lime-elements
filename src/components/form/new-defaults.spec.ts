@@ -20,6 +20,26 @@ it('leaves out a default that applied before the change', () => {
     ).toEqual({ name: 'Alice' });
 });
 
+it('adds a default that the change changed', () => {
+    expect(
+        withNewDefaults(
+            { limetype: 'company' },
+            { propertyName: 'name' },
+            { limetype: 'company', propertyName: 'companyName' }
+        )
+    ).toEqual({ limetype: 'company', propertyName: 'companyName' });
+});
+
+it('adds only the defaults that changed inside an object', () => {
+    expect(
+        withNewDefaults(
+            { name: 'Alice' },
+            { layout: { columns: 5, dense: true } },
+            { name: 'Alice', layout: { columns: 5, dense: false } }
+        )
+    ).toEqual({ name: 'Alice', layout: { dense: false } });
+});
+
 it('adds the defaults of a new list item', () => {
     expect(
         withNewDefaults(

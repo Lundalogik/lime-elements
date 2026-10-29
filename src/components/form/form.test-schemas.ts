@@ -888,3 +888,36 @@ export const dependencyWithDefaultsSchema: FormSchema = {
         },
     },
 };
+
+export const dependencyWithChangingDefaultSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        limetype: { type: 'string', title: 'Limetype' },
+    },
+    dependencies: {
+        limetype: {
+            oneOf: [
+                {
+                    properties: {
+                        limetype: { const: 'person' },
+                        propertyName: {
+                            type: 'string',
+                            title: 'Name property',
+                            default: 'name',
+                        },
+                    },
+                },
+                {
+                    properties: {
+                        limetype: { const: 'company' },
+                        propertyName: {
+                            type: 'string',
+                            title: 'Name property',
+                            default: 'companyName',
+                        },
+                    },
+                },
+            ],
+        },
+    },
+};

@@ -49,6 +49,7 @@ import {
     getConditionalCustomComponentSchema,
     arrayItemWithEnumAndDefaultSchema,
     dependencyWithDefaultsSchema,
+    dependencyWithChangingDefaultSchema,
     requiredCheckboxSchema,
     nestedTitlesSchema,
     nestedCollapsibleSchema,
@@ -177,6 +178,23 @@ test('fills in the defaults of fields that a change brings in, when told not to 
     expect(onChange.mock.lastCall[0].detail).toEqual({
         limetype: 'person',
         propertyName: '',
+    });
+});
+
+test('fills in a default that a change changes, when told not to fill in defaults', async () => {
+    const onChange = vi.fn();
+    const { change } = await renderForm({
+        schema: dependencyWithChangingDefaultSchema,
+        value: { limetype: 'person' },
+        fillDefaults: false,
+        onChange,
+    });
+
+    await change('Limetype', 'company');
+
+    expect(onChange.mock.lastCall[0].detail).toEqual({
+        limetype: 'company',
+        propertyName: 'companyName',
     });
 });
 
