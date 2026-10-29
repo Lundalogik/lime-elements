@@ -945,6 +945,56 @@ test('highlightedField shows an equal path again only after it was cleared', asy
     await vi.waitFor(() => expect(focusedLabel(root)).toBe('Name'));
 });
 
+// Custom components can be drawn a while after the form, and push the field
+// down after the form has started to scroll to it.
+test('highlightedField keeps the field in view while the form above it grows', async () => {
+    const { scroller, form, formContent, spacer } = await renderTallForm();
+
+    form.highlightedField = ['nickname'];
+    await vi.waitFor(() => expect(scroller.scrollTop).toBeGreaterThan(0));
+    spacer.style.height = '1200px';
+
+    const nickname = formContent.querySelector(
+        '[data-schema-path="/nickname"]'
+    );
+    await vi.waitFor(
+        () => {
+            const field = nickname.getBoundingClientRect();
+            const visible = scroller.getBoundingClientRect();
+            expect(field.top).toBeGreaterThanOrEqual(visible.top);
+            expect(field.bottom).toBeLessThanOrEqual(visible.bottom);
+        },
+        { timeout: 3000 }
+    );
+});
+
+test('highlightedField leaves the scrolling to the user once they scroll', async () => {
+    const { scroller, form, spacer } = await renderTallForm();
+
+    form.highlightedField = ['nickname'];
+    await scrollEnd(scroller);
+    scroller.dispatchEvent(new WheelEvent('wheel', { bubbles: true }));
+    scroller.scrollTo({ top: 0, behavior: 'instant' });
+    spacer.style.height = '1200px';
+
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    expect(scroller.scrollTop).toBe(0);
+});
+
+test('highlightedField stops following the field once it is cleared', async () => {
+    const { scroller, form, spacer, waitForChanges } = await renderTallForm();
+
+    form.highlightedField = ['nickname'];
+    await scrollEnd(scroller);
+    form.highlightedField = undefined;
+    await waitForChanges();
+    scroller.scrollTo({ top: 0, behavior: 'instant' });
+    spacer.style.height = '1200px';
+
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    expect(scroller.scrollTop).toBe(0);
+});
+
 test('emits data-schema-path on grid and row layout wrappers', async () => {
     const { formContent } = await renderForm({
         schema: nestedLayoutSchemaPathSchema,
@@ -1585,6 +1635,30 @@ function headingStyle(formContent: Element, title: string) {
         fontWeight,
         hasBar: bar.content !== 'none' && bar.display !== 'none',
     };
+}
+
+// A form in a box too short to show it all, with room above the last field
+// that a test can grow.
+async function renderTallForm() {
+    const { root: scroller, waitForChanges } = await render(
+        <div style={{ height: '200px', overflow: 'auto' }}>
+            <limel-form value={{}} schema={twoRequiredFieldsSchema} />
+        </div>
+    );
+    const form = scroller.querySelector('limel-form');
+    await waitForReactRender(form, waitForChanges);
+    const formContent = form.shadowRoot.querySelector('.root');
+    const spacer = document.createElement('div');
+    spacer.style.height = '400px';
+    formContent.querySelector('[data-schema-path="/name"]').append(spacer);
+
+    return { scroller, form, formContent, spacer, waitForChanges };
+}
+
+function scrollEnd(element: Element): Promise<void> {
+    return new Promise((resolve) =>
+        element.addEventListener('scrollend', () => resolve(), { once: true })
+    );
 }
 
 async function renderForm(props: Record<string, any> = {}) {
