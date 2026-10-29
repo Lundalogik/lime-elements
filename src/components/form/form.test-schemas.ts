@@ -493,6 +493,27 @@ export const nestedArrayObjectSchema: FormSchema = {
     },
 };
 
+export const arrayItemWithEmptyListSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        people: {
+            type: 'array',
+            title: 'People',
+            items: {
+                type: 'object',
+                properties: {
+                    tags: {
+                        type: 'array',
+                        title: 'Tags',
+                        items: { type: 'string' },
+                    },
+                    role: { type: 'string', title: 'Role' },
+                },
+            },
+        },
+    },
+};
+
 export const topLevelStringCustomComponentSchema: FormSchema = {
     type: 'object',
     properties: {
