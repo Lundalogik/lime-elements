@@ -4,7 +4,6 @@ import { findTitle, hasNestedErrors } from './common';
 import {
     ArrayFieldItemButtonsTemplateProps,
     ErrorSchema,
-    Experimental_DefaultFormStateBehavior,
     getDefaultFormState,
 } from '@rjsf/utils';
 import { Runnable } from './types';
@@ -65,11 +64,6 @@ export interface CollapsibleItemProps {
      * The schema path of the item, such as `/heroes/0`
      */
     schemaPath?: string;
-
-    /**
-     * How the form fills in defaults
-     */
-    defaultFormStateBehavior?: Experimental_DefaultFormStateBehavior;
 }
 
 export class CollapsibleItemTemplate extends React.Component<
@@ -216,15 +210,16 @@ function getItemDefaults(props: CollapsibleItemProps): unknown {
         return;
     }
 
-    // The same behavior the form fills in defaults with, or the comparison
-    // above compares with data the form never writes.
+    // Must match the `experimental_defaultFormStateBehavior` that `limel-form`
+    // passes to `@rjsf/core`. Computing defaults under different options gives
+    // data the form never writes, and the comparison above then fails.
     return getDefaultFormState(
         rjsfValidator,
         itemSchema,
         undefined,
         (props.formSchema ?? itemSchema) as FormSchema,
         false,
-        props.defaultFormStateBehavior
+        { constAsDefaults: 'skipOneOf', requiredBooleanDefault: 'skip' }
     );
 }
 

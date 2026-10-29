@@ -869,3 +869,22 @@ export const untitledRowSchema: FormSchema = {
         },
     },
 };
+
+export const dependencyWithDefaultsSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        columns: { type: 'integer', title: 'Columns', default: 5 },
+        limetype: { type: 'string', title: 'Limetype' },
+    },
+    dependencies: {
+        limetype: {
+            properties: {
+                propertyName: {
+                    type: 'string',
+                    title: 'Name property',
+                    default: 'name',
+                },
+            },
+        },
+    },
+};

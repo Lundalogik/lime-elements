@@ -48,6 +48,7 @@ import {
     stringWithDefaultCustomComponentSchema,
     getConditionalCustomComponentSchema,
     arrayItemWithEnumAndDefaultSchema,
+    dependencyWithDefaultsSchema,
     requiredCheckboxSchema,
     nestedTitlesSchema,
     nestedCollapsibleSchema,
@@ -154,6 +155,49 @@ test('leaves out the defaults of the schema when told not to fill them in', asyn
     await change('Name', 'Alice');
 
     expect(onChange.mock.lastCall[0].detail).toEqual({ name: 'Alice' });
+});
+
+test('fills in the defaults of fields that a change brings in, when told not to fill in defaults', async () => {
+    const onChange = vi.fn();
+    const { change } = await renderForm({
+        schema: dependencyWithDefaultsSchema,
+        fillDefaults: false,
+        onChange,
+    });
+
+    await change('Limetype', 'person');
+
+    expect(onChange.mock.lastCall[0].detail).toEqual({
+        limetype: 'person',
+        propertyName: 'name',
+    });
+
+    await change('Name property', '');
+
+    expect(onChange.mock.lastCall[0].detail).toEqual({
+        limetype: 'person',
+        propertyName: '',
+    });
+});
+
+test('fills in the defaults of a new list item, when told not to fill in defaults', async () => {
+    const onChange = vi.fn();
+    const { formContent, root, waitForChanges } = await renderForm({
+        schema: arrayItemWithEnumAndDefaultSchema,
+        value: { entries: [{}] },
+        fillDefaults: false,
+        onChange,
+    });
+
+    const addButton = formContent.querySelector(
+        'limel-button.button-add-new'
+    ) as HTMLElement;
+    addButton.click();
+    await waitForReactRender(root, waitForChanges);
+
+    expect(onChange.mock.lastCall[0].detail).toEqual({
+        entries: [{}, { plain: 'preset' }],
+    });
 });
 
 test('maps icon, description and readOnly of a `oneOf` onto select options', async () => {

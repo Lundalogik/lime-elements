@@ -34,7 +34,6 @@ export const ArrayFieldItemTemplate = (props: ArrayFieldItemTemplateProps) => {
                 allowItemReorder: allowItemReorder,
                 errorSchema: itemErrors?.[props.index],
                 revealErrors: formContext?.revealErrors === true,
-                defaultFormStateBehavior: formContext?.defaultFormStateBehavior,
                 schemaPath: toSchemaPath([
                     ...arrayContext.schemaPath,
                     String(props.index),

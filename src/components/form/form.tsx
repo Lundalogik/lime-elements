@@ -12,6 +12,7 @@ import { createRoot, Root } from 'react-dom/client';
 import JSONSchemaForm, { IChangeEvent } from '@rjsf/core';
 import {
     Experimental_DefaultFormStateBehavior,
+    getDefaultFormState,
     RJSFValidationError,
 } from '@rjsf/utils';
 import {
@@ -35,6 +36,7 @@ import { widgets } from './widgets';
 import { rjsfValidator } from './validator';
 import { isEqual, mapValues } from 'lodash-es';
 import { showField } from './show-field';
+import { withNewDefaults } from './new-defaults';
 import { HeadingLevelContext } from './templates/heading-level';
 
 // `@rjsf/core` v6 treats a `const` inside `oneOf`/`anyOf` as a default and
@@ -147,9 +149,11 @@ export class Form {
     public revealErrors: boolean = false;
 
     /**
-     * Set to `false` to leave the defaults of the schema out of the value.
-     * The form then never changes the value by itself, and a field with a
-     * default shows what the value holds, which can be nothing.
+     * Set to `false` to leave the defaults of the schema out of the value
+     * it is given. The form then does not change the value by itself, and a
+     * field with a default shows what the value holds, which can be nothing.
+     * Defaults that a change by the user brings in are still filled in, such
+     * as those of a new list item or of fields that depend on the changed one.
      */
     @Prop()
     public fillDefaults: boolean = true;
@@ -185,6 +189,7 @@ export class Form {
     private host: HTMLLimelFormElement;
 
     private isValid = true;
+    private currentValue: object;
     private root: Root;
     private initialized = false;
 
@@ -198,7 +203,13 @@ export class Form {
     }
 
     public componentWillLoad() {
+        this.currentValue = this.value;
         this.warnIfHeadingLevelIsInvalid();
+    }
+
+    @Watch('value')
+    protected handleValueChange() {
+        this.currentValue = this.value;
     }
 
     public componentDidLoad() {
@@ -276,7 +287,7 @@ export class Form {
                     JSONSchemaForm,
                     {
                         schema: this.prepareSchema(this.schema),
-                        formData: this.value,
+                        formData: this.currentValue,
                         onChange: this.handleChange,
                         widgets: widgets,
                         validator: rjsfValidator,
@@ -298,8 +309,6 @@ export class Form {
                             rootValue: this.value,
                             propsFactory: this.propsFactory,
                             revealErrors: this.revealErrors,
-                            defaultFormStateBehavior:
-                                this.getDefaultFormStateBehavior(),
                         },
                         fields: {
                             SchemaField: CustomSchemaField,
@@ -327,7 +336,33 @@ export class Form {
     }
 
     private handleChange(event: IChangeEvent) {
-        this.change.emit(event.formData);
+        const value = this.fillDefaults
+            ? event.formData
+            : (withNewDefaults(
+                  event.formData,
+                  this.getDefaults(this.currentValue),
+                  this.getDefaults(event.formData)
+              ) as object);
+
+        this.currentValue = value;
+        if (value !== event.formData) {
+            this.reactRender();
+        }
+
+        this.change.emit(value);
+    }
+
+    private getDefaults(value: object) {
+        const schema = this.prepareSchema(this.schema);
+
+        return getDefaultFormState(
+            rjsfValidator,
+            schema,
+            value,
+            schema,
+            false,
+            FILL_DEFAULTS
+        );
     }
 
     private validateFormData() {
