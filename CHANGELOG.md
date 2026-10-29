@@ -1,3 +1,10 @@
+## [40.18.0](https://github.com/Lundalogik/lime-elements/compare/v40.17.1...v40.18.0) (2026-10-29)
+
+### Features
+
+
+* **form:** let the form draw the header of a custom component ([4933ff8](https://github.com/Lundalogik/lime-elements/commit/4933ff81471f0e2cb2a695eb4941d56c632eb2ec))
+
 ## [40.17.1](https://github.com/Lundalogik/lime-elements/compare/v40.17.0...v40.17.1) (2026-10-29)
 
 ### Bug Fixes
