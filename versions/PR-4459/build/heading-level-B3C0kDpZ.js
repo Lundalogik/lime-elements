@@ -1,1 +1,0 @@
-function e(e){return"number"==typeof e&&Number.isSafeInteger(e)&&e>=1&&e<=6}export{e as i}
