@@ -1,3 +1,11 @@
+## [40.17.1](https://github.com/Lundalogik/lime-elements/compare/v40.17.0...v40.17.1) (2026-10-29)
+
+### Bug Fixes
+
+
+* **form:** count collapsible sections as a level of the headings ([41991b2](https://github.com/Lundalogik/lime-elements/commit/41991b28c5b040723014cb81f0d42bf931f9dee8))
+* **form:** name a list item "New item" when its title is an empty list ([7c1ad67](https://github.com/Lundalogik/lime-elements/commit/7c1ad67ce25e3b2d1f035f910fb44acf2be6ccad))
+
 ## [40.17.0](https://github.com/Lundalogik/lime-elements/compare/v40.16.0...v40.17.0) (2026-10-28)
 
 ### Features
