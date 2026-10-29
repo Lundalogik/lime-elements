@@ -106,9 +106,8 @@ export class CollapsibleItemTemplate extends React.Component<
     }
 
     public render() {
-        const { data, schema, formSchema, errorSchema, revealErrors } =
-            this.props;
-        const header = findTitle(data, schema, formSchema) || 'New item';
+        const { errorSchema, revealErrors } = this.props;
+        const header = getItemHeader(this.props);
         let children: ReactNode;
         if (this.state.isOpen) {
             children = React.createElement(
@@ -175,6 +174,14 @@ export class CollapsibleItemTemplate extends React.Component<
             isOpen: true,
         });
     };
+}
+
+function getItemHeader(props: CollapsibleItemProps): string {
+    const { data, schema, formSchema } = props;
+    const title = findTitle(data, schema, formSchema);
+    const text = Array.isArray(title) ? title.join(', ') : title;
+
+    return text ? String(text) : 'New item';
 }
 
 /**

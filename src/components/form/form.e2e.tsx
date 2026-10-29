@@ -38,6 +38,7 @@ import {
     rowLayoutSchema,
     rowLayoutWithCustomComponentSchema,
     nestedArrayObjectSchema,
+    arrayItemWithEmptyListSchema,
     topLevelStringCustomComponentSchema,
     nestedStringCustomComponentSchema,
     arrayItemWithDependenciesSchema,
@@ -549,6 +550,18 @@ test('counts a collapsible item of a list as a heading level', async () => {
     expect(findHeading(formContent, 'People').localName).toBe('h1');
     expect(findSectionHeading(formContent, 'New item').localName).toBe('h2');
     expect(findHeading(formContent, 'Address').localName).toBe('h3');
+});
+
+test('names a collapsible list item "New item" when its title is an empty list', async () => {
+    const { formContent, waitForChanges } = await renderForm({
+        schema: arrayItemWithEmptyListSchema,
+        value: { people: [{ tags: [] }] },
+    });
+    await waitForChanges();
+
+    expect(findSectionHeading(formContent, 'New item').textContent).toBe(
+        'New item'
+    );
 });
 
 test('gives a collapsible section the heading level of its depth', async () => {
