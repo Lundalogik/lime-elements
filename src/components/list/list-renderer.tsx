@@ -42,6 +42,7 @@ export class ListRenderer {
             <ul
                 class="mdc-deprecated-list"
                 role={role}
+                aria-label={this.config.accessibleLabel}
                 aria-orientation={this.getAriaOrientation(role)}
             >
                 {items.map(this.renderListItem)}
