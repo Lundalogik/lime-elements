@@ -1,3 +1,10 @@
+## [40.18.2](https://github.com/Lundalogik/lime-elements/compare/v40.18.1...v40.18.2) (2026-10-30)
+
+### Bug Fixes
+
+
+* **callout:** outline the callout so it stands out from its background ([f07f9f6](https://github.com/Lundalogik/lime-elements/commit/f07f9f67bb217c957a9c55f2587df246e6d91072))
+
 ## [40.18.1](https://github.com/Lundalogik/lime-elements/compare/v40.18.0...v40.18.1) (2026-10-30)
 
 ### Bug Fixes
