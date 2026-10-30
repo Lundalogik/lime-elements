@@ -749,11 +749,6 @@ export class Picker {
      * @param event - event
      */
     private handleInputKeyDown(event: KeyboardEvent) {
-        const isForwardTab =
-            event.key === TAB &&
-            !event.altKey &&
-            !event.metaKey &&
-            !event.shiftKey;
         const isUp = event.key === ARROW_UP;
         const isDown = event.key === ARROW_DOWN;
         const isEscape = event.key === ESCAPE;
@@ -766,7 +761,7 @@ export class Picker {
             return;
         }
 
-        if (!isForwardTab && !isUp && !isDown) {
+        if (!isUp && !isDown) {
             return;
         }
 
@@ -775,7 +770,7 @@ export class Picker {
             return;
         }
 
-        if (isForwardTab || isDown) {
+        if (isDown) {
             // Match by class only (not `:first-child`) so a leading
             // `ListSeparator` doesn't shadow the first focusable item.
             const listElement: HTMLElement = list.shadowRoot.querySelector(
@@ -788,10 +783,6 @@ export class Picker {
             event.preventDefault();
             listElement.focus();
 
-            return;
-        }
-
-        if (!isUp) {
             return;
         }
 

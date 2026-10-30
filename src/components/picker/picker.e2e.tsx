@@ -1,5 +1,7 @@
 import { render, h } from '@stencil/vitest';
+import { userEvent } from 'vitest/browser';
 import { PickerItem } from './picker-item.types';
+import { getDeepActiveElement } from '../../util/get-deep-active-element';
 import { getInvalidStates } from '../../util/test/accessibility-tree';
 
 const allItems = [
@@ -260,6 +262,56 @@ async function removeFirstChip(
     removeButton.click();
     await waitForChanges();
 }
+
+describe('limel-picker keyboard use of the suggestions', () => {
+    const renderPicker = async () => {
+        const { searcher } = recordingSearcher();
+        const { root, waitForChanges } = await render(
+            <div>
+                <limel-picker label="Pick" searcher={searcher} />
+                <button id="next">Next</button>
+            </div>
+        );
+        await waitForChanges();
+
+        const picker = root.querySelector('limel-picker');
+        await focusAndType(picker, 'berry', waitForChanges);
+        await waitForSuggestions(waitForChanges);
+
+        return { input: getSearchInput(picker), waitForChanges };
+    };
+
+    const focusedSuggestion = () => getDeepActiveElement()?.textContent?.trim();
+
+    it('moves to the first suggestion with the down arrow', async () => {
+        await renderPicker();
+
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(focusedSuggestion()).toContain('Blueberry');
+    });
+
+    it('moves to the last suggestion with the up arrow', async () => {
+        await renderPicker();
+
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(focusedSuggestion()).toContain('Blackberry');
+    });
+
+    it('does not take Tab into the list, and closes it when the focus moves on', async () => {
+        const { waitForChanges } = await renderPicker();
+
+        await userEvent.tab();
+
+        expect(getDeepActiveElement()?.tagName).not.toBe('LIMEL-LIST-ITEM');
+        await pollUntil(
+            'the suggestions to close',
+            () => getSuggestions().length === 0,
+            waitForChanges
+        );
+    });
+});
 
 describe('limel-picker', () => {
     describe('when no items match the typed query', () => {
