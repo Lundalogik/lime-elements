@@ -317,6 +317,10 @@ export namespace Components {
         "required": boolean;
         "searchLabel": string;
         "setFocus": (emptyInput?: boolean) => Promise<void>;
+        // @internal
+        "suggestionListId"?: string;
+        // @internal
+        "suggestionListOpen"?: boolean;
         "type"?: 'choice' | 'filter' | 'input';
         "value": Chip[];
     }
@@ -2087,6 +2091,10 @@ export namespace JSX {
         "readonly"?: boolean;
         "required"?: boolean;
         "searchLabel"?: string;
+        // @internal
+        "suggestionListId"?: string;
+        // @internal
+        "suggestionListOpen"?: boolean;
         "type"?: 'choice' | 'filter' | 'input';
         "value"?: Chip[];
     }
@@ -2125,6 +2133,10 @@ export namespace JSX {
         "required": boolean;
         // (undocumented)
         "searchLabel": string;
+        // (undocumented)
+        "suggestionListId": string;
+        // (undocumented)
+        "suggestionListOpen": boolean;
         // (undocumented)
         "type": 'choice' | 'filter' | 'input';
     }
