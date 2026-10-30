@@ -3,7 +3,7 @@
 @forward '../../../node_modules/tabulator-tables/src/scss/tabulator';
 @forward './partial-styles/table-main-layout';
 @forward './partial-styles/tabulator-arrow';
-@forward './partial-styles/tabulator-paginator';
+@forward './partial-styles/pagination';
 @forward './partial-styles/tabulator-loader';
 @forward './partial-styles/tabulator-custom-styles';
 @forward './partial-styles/header-component';
@@ -23,6 +23,7 @@
     --limel-table-row-selector-z-index: 1;
     --limel-table-drag-handle-width: 2rem;
     --limel-table-height-of-aggregations-row: 1.5rem;
+    --limel-table-pagination-height: 2.25rem;
     isolation: isolate;
     display: block;
     --table-header-background-color: var(--contrast-500);

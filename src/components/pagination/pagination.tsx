@@ -515,7 +515,9 @@ export class Pagination {
         this.openGap = Number(index);
     };
 
-    private readonly closeJump = () => {
+    private readonly closeJump = (event: CustomEvent) => {
+        event.stopPropagation();
+
         this.openGap = undefined;
     };
 
