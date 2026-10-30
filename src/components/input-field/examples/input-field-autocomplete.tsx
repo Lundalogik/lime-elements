@@ -1,7 +1,16 @@
 import { Component, h, State, Watch } from '@stencil/core';
+import {
+    Languages,
+    LimelSelectCustomEvent,
+    Option,
+} from '@limetech/lime-elements';
 
 /**
  * Input Field with Completions
+ *
+ * When the list of suggestions opens, a screen reader speaks how many there
+ * are, and how to reach them. `language` sets the language of that message.
+ * It is English unless you set it.
  */
 @Component({
     tag: 'limel-example-input-field-autocomplete',
@@ -24,6 +33,20 @@ export class InputFieldAutocompleteExample {
     private value: string;
 
     @State()
+    private language: Languages = 'en';
+
+    private readonly languages: Option[] = [
+        { text: 'English', value: 'en' },
+        { text: 'Svenska', value: 'sv' },
+        { text: 'Dansk', value: 'da' },
+        { text: 'Norsk', value: 'no' },
+        { text: 'Suomi', value: 'fi' },
+        { text: 'Deutsch', value: 'de' },
+        { text: 'Français', value: 'fr' },
+        { text: 'Nederlands', value: 'nl' },
+    ];
+
+    @State()
     private completions: string[] = [
         'Lundalogik AB',
         'Lundalogik AS',
@@ -42,6 +65,7 @@ export class InputFieldAutocompleteExample {
                 label="Autocomplete"
                 value={this.value}
                 completions={this.completions}
+                language={this.language}
                 required={this.required}
                 invalid={this.invalid}
                 disabled={this.disabled}
@@ -63,6 +87,14 @@ export class InputFieldAutocompleteExample {
                     value={this.required}
                     label="Required"
                     onChange={this.setRequired}
+                />
+                <limel-select
+                    label="Language"
+                    value={this.languages.find(
+                        (option) => option.value === this.language
+                    )}
+                    options={this.languages}
+                    onChange={this.setLanguage}
                 />
             </limel-example-controls>,
             <limel-example-value value={this.value} />,
@@ -91,5 +123,10 @@ export class InputFieldAutocompleteExample {
     private setRequired = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.required = event.detail;
+    };
+
+    private readonly setLanguage = (event: LimelSelectCustomEvent<Option>) => {
+        event.stopPropagation();
+        this.language = event.detail.value as Languages;
     };
 }
