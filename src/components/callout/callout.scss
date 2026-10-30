@@ -17,6 +17,8 @@
     display: flex;
     border-radius: 0.5rem;
     overflow: hidden;
+    border: 0.0625rem solid
+        color-mix(in srgb, var(--limel-callout-tint-color), transparent 70%);
 
     --limel-callout-tint-color: var(
         --callout-color,
