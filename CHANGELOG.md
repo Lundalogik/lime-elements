@@ -1,3 +1,10 @@
+## [40.18.1](https://github.com/Lundalogik/lime-elements/compare/v40.18.0...v40.18.1) (2026-10-30)
+
+### Bug Fixes
+
+
+* **form:** keep a highlighted field in view while the form grows ([41055e0](https://github.com/Lundalogik/lime-elements/commit/41055e0782a19bb7eed1de450ea93b950741d222))
+
 ## [40.18.0](https://github.com/Lundalogik/lime-elements/compare/v40.17.1...v40.18.0) (2026-10-29)
 
 ### Features
