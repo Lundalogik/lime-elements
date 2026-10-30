@@ -3,6 +3,8 @@
   * @prop --dropdown-z-index: z-index of the dropdown menu.
   */
 
+@use '../../style/mixins';
+
 :host {
     position: relative;
     display: block;
@@ -10,4 +12,8 @@
 
 :host([hidden]) {
     display: none;
+}
+
+.suggestions-message {
+    @include mixins.visually-hidden;
 }
