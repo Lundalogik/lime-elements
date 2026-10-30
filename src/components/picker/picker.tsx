@@ -20,6 +20,7 @@ import {
 import { isDescendant } from '../../util/dom';
 import { ARROW_DOWN, ARROW_UP, ENTER, ESCAPE, TAB } from '../../util/keycodes';
 import { createRandomString } from '../../util/random-string';
+import { isTextEditingKey } from '../../util/typeahead';
 import {
     LimelChipSetCustomEvent,
     LimelListCustomEvent,
@@ -429,6 +430,7 @@ export class Picker {
                 badgeIcons={true}
                 type={'selectable'}
                 onChange={this.handleActionListChange}
+                onKeyDown={this.onListKeyDown}
                 items={this.actions.map(this.removeUnusedPropertiesOnAction)}
             />,
         ];
@@ -541,7 +543,7 @@ export class Picker {
 
             return;
         }
-        if ([TAB, ENTER].includes(event.key)) {
+        if ([TAB, ENTER].includes(event.key) || isTextEditingKey(event)) {
             this.chipSet.setFocus();
         }
     }

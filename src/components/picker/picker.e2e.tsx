@@ -264,19 +264,24 @@ async function removeFirstChip(
 }
 
 describe('limel-picker keyboard use of the suggestions', () => {
-    const renderPicker = async () => {
+    const renderPicker = async (
+        props: Record<string, unknown> = {},
+        query = 'berry'
+    ) => {
         const { searcher } = recordingSearcher();
         const { root, waitForChanges } = await render(
             <div>
-                <limel-picker label="Pick" searcher={searcher} />
+                <limel-picker label="Pick" searcher={searcher} {...props} />
                 <button id="next">Next</button>
             </div>
         );
         await waitForChanges();
 
         const picker = root.querySelector('limel-picker');
-        await focusAndType(picker, 'berry', waitForChanges);
-        await waitForSuggestions(waitForChanges);
+        await focusAndType(picker, query, waitForChanges);
+        if (query === 'berry') {
+            await waitForSuggestions(waitForChanges);
+        }
 
         return { input: getSearchInput(picker), waitForChanges };
     };
@@ -310,6 +315,55 @@ describe('limel-picker keyboard use of the suggestions', () => {
             () => getSuggestions().length === 0,
             waitForChanges
         );
+    });
+
+    it('types in the field when a character is typed on a suggestion', async () => {
+        const { input } = await renderPicker();
+        await userEvent.keyboard('{ArrowDown}');
+
+        await userEvent.keyboard('x');
+
+        expect(getDeepActiveElement()).toBe(input);
+        expect(input.value).toBe('berryx');
+    });
+
+    it('types in the field when a character is typed on an action', async () => {
+        const { input, waitForChanges } = await renderPicker(
+            { actions: [{ text: 'Create new' }] },
+            'xyz'
+        );
+        await waitForText('No results matching "xyz"', waitForChanges);
+        await userEvent.keyboard('{ArrowDown}');
+        expect(focusedSuggestion()).toContain('Create new');
+
+        await userEvent.keyboard('x');
+
+        expect(getDeepActiveElement()).toBe(input);
+        expect(input.value).toBe('xyzx');
+    });
+
+    it('gives the focus back to the field when Esc is pressed on an action', async () => {
+        const { input, waitForChanges } = await renderPicker(
+            { actions: [{ text: 'Create new' }] },
+            'xyz'
+        );
+        await waitForText('No results matching "xyz"', waitForChanges);
+        await userEvent.keyboard('{ArrowDown}');
+        expect(focusedSuggestion()).toContain('Create new');
+
+        await userEvent.keyboard('{Escape}');
+
+        expect(getDeepActiveElement()).toBe(input);
+    });
+
+    it('deletes in the field when Backspace is pressed on a suggestion', async () => {
+        const { input } = await renderPicker();
+        await userEvent.keyboard('{ArrowDown}');
+
+        await userEvent.keyboard('{Backspace}');
+
+        expect(getDeepActiveElement()).toBe(input);
+        expect(input.value).toBe('berr');
     });
 });
 
