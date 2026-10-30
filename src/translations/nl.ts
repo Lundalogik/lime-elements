@@ -150,4 +150,6 @@ Je kunt afbeeldingen geblokkeerd houden (de e-mail kan er onvolledig uitzien) of
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Ga',
     'dock.show-labels': 'Toon labels van navigatieknoppen',
+    'suggestions.available':
+        'Suggesties beschikbaar: { count }. Druk op de pijl omlaag om ernaartoe te gaan.',
 };

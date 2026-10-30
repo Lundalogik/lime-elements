@@ -150,4 +150,6 @@ Sie können Bilder weiterhin blockieren (die E-Mail kann unvollständig aussehen
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Los',
     'dock.show-labels': 'Beschriftungen der Navigationsschaltflächen anzeigen',
+    'suggestions.available':
+        'Vorschläge verfügbar: { count }. Drücken Sie die Pfeiltaste nach unten, um dorthin zu wechseln.',
 };

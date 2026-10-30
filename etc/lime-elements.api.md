@@ -604,6 +604,7 @@ export namespace Components {
         "helperText": string;
         "invalid": boolean;
         "label": string;
+        "language": Languages;
         "leadingIcon": IconName;
         "locale": string;
         "max": number;
@@ -2893,6 +2894,7 @@ export namespace JSX {
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
+        "language"?: Languages;
         "leadingIcon"?: IconName;
         "locale"?: string;
         "max"?: number;
@@ -2926,6 +2928,8 @@ export namespace JSX {
         "invalid": boolean;
         // (undocumented)
         "label": string;
+        // (undocumented)
+        "language": Languages;
         // (undocumented)
         "leadingIcon": IconName;
         // (undocumented)

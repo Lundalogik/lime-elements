@@ -152,4 +152,6 @@ Vous pouvez laisser les images bloquées (l'e-mail peut sembler incomplet) ou le
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Aller',
     'dock.show-labels': 'Afficher les libellés des boutons de navigation',
+    'suggestions.available':
+        'Suggestions disponibles : { count }. Appuyez sur la flèche du bas pour y accéder.',
 };

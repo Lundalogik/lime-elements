@@ -147,4 +147,6 @@ Voit pitää kuvat estettyinä (sähköposti voi näyttää puutteelliselta) tai
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Siirry',
     'dock.show-labels': 'Näytä siirtymispainikkeiden nimikkeet',
+    'suggestions.available':
+        'Ehdotuksia saatavilla: { count }. Siirry niihin painamalla nuolta alas.',
 };
