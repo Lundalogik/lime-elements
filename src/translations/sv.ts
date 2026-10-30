@@ -148,4 +148,6 @@ Du kan fortsätta blockera bilder (e-posten kan se ofullständig ut) eller ladda
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Gå',
     'dock.show-labels': 'Visa etiketter på navigeringsknappar',
+    'suggestions.available':
+        'Förslag tillgängliga: { count }. Tryck på nedåtpil för att gå till dem.',
 };

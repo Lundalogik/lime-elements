@@ -148,4 +148,6 @@ Du kan fortsætte med at blokere billeder (e-mailen kan se ufuldstændig ud) ell
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Gå',
     'dock.show-labels': 'Vis etiketter på navigationsknapper',
+    'suggestions.available':
+        'Forslag tilgængelige: { count }. Tryk på pil ned for at gå til dem.',
 };

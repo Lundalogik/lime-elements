@@ -505,6 +505,15 @@ describe('limel-input-field suggestions', () => {
             expect(getMessage(root)).toBe('');
         });
     });
+
+    it('speaks in the language it is given', async () => {
+        const { root, waitForChanges } = await renderField({ language: 'sv' });
+        await focusInput(root, waitForChanges);
+
+        await vi.waitFor(() => {
+            expect(getMessage(root)).toContain('Förslag tillgängliga: 3.');
+        });
+    });
 });
 
 describe('limel-input-field keyboard use of the suggestions', () => {

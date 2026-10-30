@@ -28,6 +28,7 @@ import { createRandomString } from '../../util/random-string';
 import { isTextEditingKey } from '../../util/typeahead';
 import { setControlledElement } from '../../util/controlled-element';
 import { createLiveMessage } from '../../util/live-message';
+import { Languages } from '../date-picker/date.types';
 import translate from '../../global/translations';
 import { LimelListCustomEvent } from '../../components';
 import { globalConfig } from '../../global/config';
@@ -235,6 +236,13 @@ export class InputField {
      */
     @Prop()
     public completions: string[] = [];
+
+    /**
+     * Defines the language for translations. Used for the message that a
+     * screen reader speaks about the suggestions.
+     */
+    @Prop()
+    public language: Languages = 'en';
 
     /**
      * For inputs of type `email`, `tel`, `url`, and `urlAsText`, set this to
@@ -1044,7 +1052,7 @@ export class InputField {
             return '';
         }
 
-        return translate.get('suggestions.available', 'en', {
+        return translate.get('suggestions.available', this.language, {
             count: this.filterCompletions(this.getCurrentValue()).length,
         });
     };
