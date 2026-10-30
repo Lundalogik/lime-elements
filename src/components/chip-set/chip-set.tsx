@@ -19,6 +19,7 @@ import { getHref, getTarget } from '../../util/link-helper';
 import { isEqual } from 'lodash-es';
 import { LimelChipCustomEvent } from '../../components';
 import { createRandomString } from '../../util/random-string';
+import { setControlledElement } from '../../util/controlled-element';
 import { IconName } from '../../global/shared-types/icon.types';
 
 type ChipAnnotatedEvent = Event & { Lime: { chip: Chip } };
@@ -157,6 +158,23 @@ export class ChipSet {
      */
     @Prop({ reflect: true })
     public required: boolean = false;
+
+    /**
+     * The id of the list of suggestions that the input of a chip set of the
+     * type `input` opens. Used by `limel-picker`.
+     *
+     * @private
+     */
+    @Prop()
+    public suggestionListId?: string;
+
+    /**
+     * Whether the list of suggestions is open. Used by `limel-picker`.
+     *
+     * @private
+     */
+    @Prop()
+    public suggestionListOpen?: boolean;
 
     /**
      * Search label to display when type is `input` and component is in search mode
@@ -356,6 +374,13 @@ export class ChipSet {
         }
     }
 
+    public componentDidRender() {
+        const input = this.host.shadowRoot.querySelector('input');
+        if (input) {
+            setControlledElement(input, this.suggestionListId ?? null);
+        }
+    }
+
     public componentDidUpdate() {
         const input = this.host.shadowRoot.querySelector('input');
         if (input && this.editMode) {
@@ -523,10 +548,24 @@ export class ChipSet {
                 placeholder={this.isFull() ? '' : this.searchLabel}
                 readonly={this.readonly || this.isFull()}
                 autocomplete={this.autocomplete}
+                {...this.getSuggestionListProps()}
             />,
             this.renderLeadingIcon(),
             this.renderClearAllChipsButton(),
         ];
+    }
+
+    private getSuggestionListProps() {
+        if (!this.suggestionListId) {
+            return {};
+        }
+
+        return {
+            role: 'combobox',
+            'aria-autocomplete': 'list',
+            'aria-haspopup': 'listbox',
+            'aria-expanded': String(!!this.suggestionListOpen),
+        };
     }
 
     private readonly floatLabelAbove = () => {
