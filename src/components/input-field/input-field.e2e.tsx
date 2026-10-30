@@ -1,5 +1,7 @@
 import { render, h } from '@stencil/vitest';
+import { vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import { getDeepActiveElement } from '../../util/get-deep-active-element';
 import {
     getAccessibleNames,
     getAccessibleNodes,
@@ -378,6 +380,165 @@ describe('limel-input-field aria-controls', () => {
         const input = root.shadowRoot.querySelector('input');
         const portal = root.shadowRoot.querySelector('limel-portal');
         expect(input.getAttribute('aria-controls')).toBe(portal.containerId);
+    });
+});
+
+describe('limel-input-field keyboard use of the suggestions', () => {
+    const completions = ['Batman', 'Superman', 'Spiderman'];
+
+    const renderField = async (props: Record<string, unknown> = {}) => {
+        const { root, waitForChanges } = await render(
+            <div>
+                <limel-input-field
+                    label="Hero"
+                    completions={completions}
+                    {...props}
+                />
+                <button id="next">Next</button>
+            </div>
+        );
+        await waitForChanges();
+
+        const field = root.querySelector('limel-input-field');
+        const input = field.shadowRoot.querySelector('input');
+        input.focus();
+        await waitForChanges();
+        await vi.waitFor(() => {
+            expect(isListShown()).toBe(true);
+        });
+
+        return { root, input, waitForChanges };
+    };
+
+    const isListOpen = () =>
+        (document.querySelector('limel-menu-surface') as any)?.open === true;
+
+    const isListShown = () =>
+        document.querySelector('.limel-portal--container.is-visible') !== null;
+
+    let portalStyles: HTMLStyleElement;
+
+    beforeEach(() => {
+        portalStyles = document.createElement('style');
+        portalStyles.textContent = `
+            .limel-portal--container { display: none; }
+            .limel-portal--container.is-visible { display: inline-block; }
+        `;
+        document.head.append(portalStyles);
+    });
+
+    afterEach(() => {
+        portalStyles.remove();
+    });
+
+    const focusedOption = () => getDeepActiveElement()?.textContent?.trim();
+
+    it('moves on to the next control with Tab, and closes the list', async () => {
+        const { root } = await renderField();
+
+        await userEvent.tab();
+
+        expect(document.activeElement).toBe(root.querySelector('#next'));
+        await vi.waitFor(() => {
+            expect(isListOpen()).toBe(false);
+        });
+    });
+
+    it('moves to the first option with the down arrow', async () => {
+        await renderField();
+
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(focusedOption()).toBe('Batman');
+    });
+
+    it('moves to the last option with the up arrow', async () => {
+        await renderField();
+
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(focusedOption()).toBe('Spiderman');
+    });
+
+    it('closes the list with Esc and keeps the focus in the field', async () => {
+        const { input } = await renderField();
+
+        await userEvent.keyboard('{Escape}');
+
+        await vi.waitFor(() => {
+            expect(isListOpen()).toBe(false);
+        });
+        expect(getDeepActiveElement()).toBe(input);
+    });
+
+    it('lets Esc through only when the list is already closed', async () => {
+        await renderField();
+        const onKeyDown = vi.fn();
+        document.addEventListener('keydown', onKeyDown);
+
+        await userEvent.keyboard('{Escape}');
+        expect(onKeyDown).not.toHaveBeenCalled();
+
+        await vi.waitFor(() => {
+            expect(isListOpen()).toBe(false);
+        });
+        await userEvent.keyboard('{Escape}');
+        expect(onKeyDown).toHaveBeenCalledTimes(1);
+
+        document.removeEventListener('keydown', onKeyDown);
+    });
+
+    it('lets Esc through when the field is read only, since there is no list to close', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-input-field
+                label="Hero"
+                completions={completions}
+                readonly={true}
+            />
+        );
+        await waitForChanges();
+        root.shadowRoot.querySelector('input').focus();
+        await waitForChanges();
+        const onKeyDown = vi.fn();
+        document.addEventListener('keydown', onKeyDown);
+
+        await userEvent.keyboard('{Escape}');
+
+        expect(onKeyDown).toHaveBeenCalledTimes(1);
+        document.removeEventListener('keydown', onKeyDown);
+    });
+
+    it.each([
+        ['down', '{ArrowDown}', 'Batman'],
+        ['up', '{ArrowUp}', 'Spiderman'],
+    ])(
+        'opens the list again with the %s arrow after Esc, and moves into it',
+        async (_, key, option) => {
+            await renderField();
+            await userEvent.keyboard('{Escape}');
+            await vi.waitFor(() => {
+                expect(isListShown()).toBe(false);
+            });
+
+            await userEvent.keyboard(key);
+
+            await vi.waitFor(() => {
+                expect(focusedOption()).toBe(option);
+            });
+            expect(isListShown()).toBe(true);
+        }
+    );
+
+    it('closes the list with Esc on an option, and gives the focus back to the field', async () => {
+        const { input } = await renderField();
+        await userEvent.keyboard('{ArrowDown}');
+
+        await userEvent.keyboard('{Escape}');
+
+        await vi.waitFor(() => {
+            expect(isListOpen()).toBe(false);
+        });
+        expect(getDeepActiveElement()).toBe(input);
     });
 });
 
