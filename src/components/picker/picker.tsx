@@ -523,6 +523,7 @@ export class Picker {
     private renderListResult() {
         return (
             <limel-list
+                data-suggestions=""
                 badgeIcons={this.badgeIcons}
                 onChange={this.handleListChange}
                 onKeyDown={this.onListKeyDown}
@@ -767,7 +768,10 @@ export class Picker {
             return;
         }
 
-        const list = document.querySelector(` #${this.portalId} limel-list`);
+        const list =
+            document.querySelector(
+                ` #${this.portalId} limel-list[data-suggestions]`
+            ) ?? document.querySelector(` #${this.portalId} limel-list`);
         if (!list) {
             return;
         }
