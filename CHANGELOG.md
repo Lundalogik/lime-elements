@@ -1,3 +1,15 @@
+## [40.18.3](https://github.com/Lundalogik/lime-elements/compare/v40.18.2...v40.18.3) (2026-10-30)
+
+### Bug Fixes
+
+
+* **input-field:** let Tab leave the field and Esc close the list ([aa83c1d](https://github.com/Lundalogik/lime-elements/commit/aa83c1d93d3acb1c22456fdceff0e22247b94320)), closes [#4468](https://github.com/Lundalogik/lime-elements/issues/4468)
+* **input-field:** type in the field when a key is pressed on an option ([83611ae](https://github.com/Lundalogik/lime-elements/commit/83611aefe9b92aa3d512688a74a33ba5db6dd597)), closes [#4468](https://github.com/Lundalogik/lime-elements/issues/4468)
+* **list:** leave the typed characters to the browser ([d831b6c](https://github.com/Lundalogik/lime-elements/commit/d831b6c1d861cfc8e6844b7793fd36bfa841cf78)), closes [#4468](https://github.com/Lundalogik/lime-elements/issues/4468)
+* **picker:** let Tab leave the field while the list is open ([3be6096](https://github.com/Lundalogik/lime-elements/commit/3be6096c9a8a879a8dfeaacc00703f4c00e27e62)), closes [#4468](https://github.com/Lundalogik/lime-elements/issues/4468)
+* **picker:** move to the suggestions with the down arrow, not to the actions ([7dba41d](https://github.com/Lundalogik/lime-elements/commit/7dba41da0922c252d464450fae31cdb0197466c8)), closes [#4468](https://github.com/Lundalogik/lime-elements/issues/4468)
+* **picker:** type in the field when a key is pressed on a suggestion ([670db45](https://github.com/Lundalogik/lime-elements/commit/670db4592a4e2482543700f0c19404e8f5b4dd34)), closes [#4468](https://github.com/Lundalogik/lime-elements/issues/4468)
+
 ## [40.18.2](https://github.com/Lundalogik/lime-elements/compare/v40.18.1...v40.18.2) (2026-10-30)
 
 ### Bug Fixes
