@@ -1,5 +1,6 @@
 import {
     findTypeaheadMatch,
+    isTextEditingKey,
     isTypeaheadKey,
     NO_TYPEAHEAD_MATCH,
     TypeaheadBuffer,
@@ -259,5 +260,47 @@ describe('TypeaheadBuffer', () => {
 
         vi.advanceTimersByTime(50);
         expect(buffer.value).toBe('');
+    });
+});
+
+describe('isTextEditingKey', () => {
+    const keyboardEvent = (init: KeyboardEventInit): KeyboardEvent =>
+        new KeyboardEvent('keydown', init);
+
+    it.each([['a'], ['A'], ['1'], ['å'], ['Backspace'], ['Delete']])(
+        'accepts "%s"',
+        (key: string) => {
+            expect(isTextEditingKey(keyboardEvent({ key: key }))).toBe(true);
+        }
+    );
+
+    it.each([[' '], ['Enter'], ['Tab'], ['Escape'], ['ArrowDown'], ['Shift']])(
+        'rejects "%s"',
+        (key: string) => {
+            expect(isTextEditingKey(keyboardEvent({ key: key }))).toBe(false);
+        }
+    );
+
+    it('rejects a shortcut', () => {
+        expect(
+            isTextEditingKey(keyboardEvent({ key: 'a', ctrlKey: true }))
+        ).toBe(false);
+        expect(
+            isTextEditingKey(keyboardEvent({ key: 'a', metaKey: true }))
+        ).toBe(false);
+    });
+
+    it('accepts a character typed with Option', () => {
+        expect(
+            isTextEditingKey(keyboardEvent({ key: '@', altKey: true }))
+        ).toBe(true);
+    });
+
+    it('accepts a character typed with AltGr, which is Ctrl and Alt', () => {
+        expect(
+            isTextEditingKey(
+                keyboardEvent({ key: '@', ctrlKey: true, altKey: true })
+            )
+        ).toBe(true);
     });
 });
