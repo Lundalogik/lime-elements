@@ -208,26 +208,16 @@ export class List {
 
         this.mdcList = new MDCList(element);
 
-        // NOTE: This has no effect. It is kept as a marker rather than
-        // removed, so that its absence isn't mistaken for an oversight.
+        // MDC's typeahead (`hasTypeahead`) is left off, so that typed
+        // characters are not taken from a field with a list under it. The list
+        // test in `list.e2e.tsx` fails if it is turned on. `limel-select` has
+        // its own typeahead, see `src/util/typeahead.ts`.
         //
-        // MDC indexes each row for typeahead by looking for
-        // `.mdc-deprecated-list-item__primary-text` inside it, while
-        // `limel-list-item` renders its label as `<span class="label">`. MDC
-        // therefore builds an empty index, and typing does nothing.
-        //
-        // Do not "fix" this by adding MDC's class name to `limel-list-item`.
-        // That revives MDC's typeahead along with three behaviors that cannot
-        // be configured from the outside: a hard coded 300ms buffer, `Enter`
-        // being ignored for as long as that buffer lives (its `notifyAction`
-        // is guarded by `isTypeaheadInProgress`), and the space bar being
-        // excluded from matches. It would also collide with `limel-menu`,
-        // where single characters are used as item hotkeys.
-        //
-        // `limel-select` implements its own typeahead instead, see
-        // `src/util/typeahead.ts`. It intercepts typed characters in the
-        // capture phase on this very element, so they never reach MDC.
-        this.mdcList.hasTypeahead = true;
+        // Adding MDC's class name to `limel-list-item` does nothing while it is
+        // off. Turning it on as well would bring its 300ms buffer, `Enter`
+        // being ignored while the buffer lives and the space bar being left out
+        // of matches, none of which can be configured, and it would collide
+        // with the single characters that `limel-menu` uses as hotkeys.
     };
 
     /**
