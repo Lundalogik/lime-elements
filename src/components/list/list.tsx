@@ -68,6 +68,13 @@ export class List {
     public type: ListType;
 
     /**
+     * The name of the list, which a screen reader announces when the focus
+     * moves into it.
+     */
+    @Prop()
+    public accessibleLabel?: string;
+
+    /**
      * By default, lists will display 3 lines of text, and then truncate the rest.
      * Consumers can increase or decrease this number by specifying
      * `maxLinesSecondaryText`. If consumer enters zero or negative
@@ -124,6 +131,7 @@ export class List {
             badgeIcons: this.badgeIcons,
             type: this.type,
             iconSize: this.iconSize,
+            accessibleLabel: this.accessibleLabel,
         };
         let maxLinesSecondaryText = +this.maxLinesSecondaryText?.toFixed(0);
         if (this.maxLinesSecondaryText < 1) {

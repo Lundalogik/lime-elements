@@ -630,6 +630,7 @@ export namespace Components {
     }
     // (undocumented)
     export interface LimelList {
+        "accessibleLabel"?: string;
         "badgeIcons": boolean;
         "iconSize": IconSize;
         "items": Array<ListItem | ListSeparator>;
@@ -2982,6 +2983,7 @@ export namespace JSX {
 
     // (undocumented)
     export interface LimelList {
+        "accessibleLabel"?: string;
         "badgeIcons"?: boolean;
         "iconSize"?: IconSize;
         "items"?: Array<ListItem | ListSeparator>;
@@ -2994,6 +2996,8 @@ export namespace JSX {
 
     // (undocumented)
     export interface LimelListAttributes {
+        // (undocumented)
+        "accessibleLabel": string;
         // (undocumented)
         "badgeIcons": boolean;
         // (undocumented)

@@ -6,4 +6,5 @@ export interface ListRendererConfig {
     badgeIcons?: boolean;
     type?: ListType;
     iconSize?: IconSize;
+    accessibleLabel?: string;
 }
