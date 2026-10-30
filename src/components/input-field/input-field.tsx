@@ -26,6 +26,9 @@ import { getHref, getTarget, getRel } from '../../util/link-helper';
 import { JSXBase } from '@stencil/core/internal';
 import { createRandomString } from '../../util/random-string';
 import { isTextEditingKey } from '../../util/typeahead';
+import { setControlledElement } from '../../util/controlled-element';
+import { createLiveMessage } from '../../util/live-message';
+import translate from '../../global/translations';
 import { LimelListCustomEvent } from '../../components';
 import { globalConfig } from '../../global/config';
 import { IconName } from '../../global/shared-types/icon.types';
@@ -39,6 +42,14 @@ interface LinkProperties {
 const CHANGE_EVENT_DEBOUNCE_TIMEOUT = 300;
 const RESIZE_HANDLER_DEBOUNCE_TIMEOUT = 100;
 const MAX_FRAMES_TO_WAIT_FOR_LIST = 20;
+const TEXT_INPUT_TYPES = new Set<InputType>([
+    'email',
+    'search',
+    'tel',
+    'text',
+    'url',
+    'urlAsText',
+]);
 
 /**
  * @exampleComponent limel-example-input-field-text
@@ -266,6 +277,9 @@ export class InputField {
     public showCompletions: boolean = false;
 
     private inputElement?: HTMLInputElement | HTMLTextAreaElement;
+    private readonly suggestionsMessage = createLiveMessage(() =>
+        this.getSuggestionsMessage()
+    );
     private mdcTextField: MDCTextField;
     private completionsList: ListItem[] = [];
     private portalId: string;
@@ -290,12 +304,18 @@ export class InputField {
         this.initialize();
     }
 
+    public componentDidRender() {
+        this.pointAtSuggestionList();
+        this.suggestionsMessage.update();
+    }
+
     public disconnectedCallback() {
         if (this.mdcTextField) {
             this.mdcTextField.destroy();
         }
 
         this.restyleCompletionsDropDown.cancel();
+        this.suggestionsMessage.update.cancel();
         window.removeEventListener('resize', this.layout);
         this.limelInputField.removeEventListener('focus', this.setFocus);
     }
@@ -388,8 +408,11 @@ export class InputField {
             properties['aria-invalid'] = 'true';
         }
 
-        if (this.hasSuggestions()) {
-            properties['aria-controls'] = this.portalId;
+        if (this.isCombobox()) {
+            properties.role = 'combobox';
+            properties['aria-autocomplete'] = 'list';
+            properties['aria-haspopup'] = 'listbox';
+            properties['aria-expanded'] = String(this.isSuggestionListOpen());
         }
 
         return (
@@ -417,6 +440,7 @@ export class InputField {
                 </limel-notched-outline>
                 {this.renderHelperLine()}
                 {this.renderAutocompleteList()}
+                {this.renderSuggestionsMessage()}
             </Host>
         );
     }
@@ -978,12 +1002,51 @@ export class InputField {
         );
     };
 
+    private readonly isCombobox = (): boolean => {
+        return this.hasSuggestions() && TEXT_INPUT_TYPES.has(this.type);
+    };
+
     private readonly isSuggestionListOpen = (): boolean => {
         return (
             this.hasSuggestions() &&
             this.showCompletions &&
             this.filterCompletions(this.getCurrentValue()).length > 0
         );
+    };
+
+    private readonly pointAtSuggestionList = () => {
+        if (!this.inputElement) {
+            return;
+        }
+
+        setControlledElement(
+            this.inputElement,
+            this.isCombobox() ? this.portalId : null
+        );
+    };
+
+    private readonly renderSuggestionsMessage = () => {
+        if (!this.isCombobox()) {
+            return;
+        }
+
+        return (
+            <span
+                class="suggestions-message"
+                aria-live="polite"
+                ref={this.suggestionsMessage.setElement}
+            />
+        );
+    };
+
+    private readonly getSuggestionsMessage = (): string => {
+        if (!this.isSuggestionListOpen()) {
+            return '';
+        }
+
+        return translate.get('suggestions.available', 'en', {
+            count: this.filterCompletions(this.getCurrentValue()).length,
+        });
     };
 
     private renderAutocompleteList = () => {
@@ -1028,6 +1091,7 @@ export class InputField {
 
         return (
             <limel-list
+                accessibleLabel={this.label || this.placeholder}
                 onChange={this.handleCompletionChange}
                 onKeyDown={this.handleKeyDownInDropdown}
                 type="selectable"

@@ -11,6 +11,7 @@ export interface AccessibleProperties {
     disabled: boolean;
     invalid: boolean;
     hasPopup: boolean;
+    expanded: boolean | undefined;
 }
 
 async function getNodesWithRole(role: string) {
@@ -90,6 +91,9 @@ export async function getAccessibleProperties(
             disabled: values.get('disabled') === true,
             invalid: values.has('invalid') && values.get('invalid') !== 'false',
             hasPopup: values.has('hasPopup'),
+            expanded: values.has('expanded')
+                ? values.get('expanded') === true
+                : undefined,
         };
     });
 }

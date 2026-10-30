@@ -367,7 +367,7 @@ describe('limel-input-field aria-controls', () => {
         expect(input.hasAttribute('aria-controls')).toBe(false);
     });
 
-    it('points at the list of completions', async () => {
+    it('points at the list of completions once it has been opened', async () => {
         const { root, waitForChanges } = await render(
             <limel-input-field
                 label="Fruit"
@@ -377,9 +377,133 @@ describe('limel-input-field aria-controls', () => {
         );
         await waitForChanges();
 
-        const input = root.shadowRoot.querySelector('input');
+        const input = root.shadowRoot.querySelector('input') as any;
+        expect(input.ariaControlsElements ?? []).toHaveLength(0);
+
+        input.focus();
+        await waitForChanges();
+
         const portal = root.shadowRoot.querySelector('limel-portal');
-        expect(input.getAttribute('aria-controls')).toBe(portal.containerId);
+        await vi.waitFor(() => {
+            expect(input.ariaControlsElements).toHaveLength(1);
+        });
+        expect(input.ariaControlsElements[0].id).toBe(portal.containerId);
+    });
+});
+
+describe('limel-input-field suggestions', () => {
+    const completions = ['Batman', 'Superman', 'Spiderman'];
+
+    const renderField = async (props: Record<string, unknown> = {}) => {
+        const result = await render(
+            <limel-input-field
+                label="Hero"
+                completions={completions}
+                {...props}
+            />
+        );
+        await result.waitForChanges();
+
+        return result;
+    };
+
+    const focusInput = async (
+        root: HTMLElement,
+        waitForChanges: () => Promise<void>
+    ) => {
+        root.shadowRoot.querySelector('input').focus();
+        await waitForChanges();
+    };
+
+    const getMessage = (root: HTMLElement) =>
+        root.shadowRoot.querySelector('.suggestions-message')?.textContent;
+
+    it('is a combobox with a closed list before it has focus', async () => {
+        await renderField();
+
+        expect(await getAccessibleNames('combobox')).toEqual(['Hero']);
+        const [combobox] = await getAccessibleProperties('combobox');
+        expect(combobox.hasPopup).toBe(true);
+        expect(combobox.expanded).toBe(false);
+    });
+
+    it('says that the list is open when the field has focus', async () => {
+        const { root, waitForChanges } = await renderField();
+        await focusInput(root, waitForChanges);
+
+        const [combobox] = await getAccessibleProperties('combobox');
+        expect(combobox.expanded).toBe(true);
+    });
+
+    it('says that the list is closed when nothing matches the text', async () => {
+        const { root, waitForChanges, setProps } = await renderField();
+        await focusInput(root, waitForChanges);
+
+        await setProps({ value: 'zzz' });
+        await waitForChanges();
+
+        const [combobox] = await getAccessibleProperties('combobox');
+        expect(combobox.expanded).toBe(false);
+    });
+
+    it('names the list by the label of the field', async () => {
+        const { root, waitForChanges } = await renderField();
+        await focusInput(root, waitForChanges);
+
+        expect(await getAccessibleNames('listbox')).toEqual(['Hero']);
+    });
+
+    it.each([
+        ['has no completions', { completions: [] }],
+        ['is read only', { readonly: true }],
+        ['is a number field', { type: 'number' }],
+    ])('stays as it was when the field %s', async (_, props) => {
+        await renderField(props);
+
+        expect(await getAccessibleNodes('combobox')).toEqual([]);
+    });
+
+    it('speaks how many suggestions there are, and how to reach them', async () => {
+        const { root, waitForChanges } = await renderField();
+        expect(getMessage(root)).toBe('');
+
+        await focusInput(root, waitForChanges);
+
+        await vi.waitFor(() => {
+            expect(getMessage(root)).toBe(
+                'Suggestions available: 3. Press the down arrow to move to them.'
+            );
+        });
+    });
+
+    it('speaks the new number when the text narrows the list', async () => {
+        const { root, waitForChanges, setProps } = await renderField();
+        await focusInput(root, waitForChanges);
+        await vi.waitFor(() => {
+            expect(getMessage(root)).toContain('3');
+        });
+
+        await setProps({ value: 'super' });
+        await waitForChanges();
+
+        await vi.waitFor(() => {
+            expect(getMessage(root)).toContain('Suggestions available: 1.');
+        });
+    });
+
+    it('speaks nothing when the list closes', async () => {
+        const { root, waitForChanges, setProps } = await renderField();
+        await focusInput(root, waitForChanges);
+        await vi.waitFor(() => {
+            expect(getMessage(root)).not.toBe('');
+        });
+
+        await setProps({ value: 'zzz' });
+        await waitForChanges();
+
+        await vi.waitFor(() => {
+            expect(getMessage(root)).toBe('');
+        });
     });
 });
 
