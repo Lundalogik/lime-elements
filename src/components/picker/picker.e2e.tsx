@@ -296,6 +296,17 @@ describe('limel-picker keyboard use of the suggestions', () => {
         expect(focusedSuggestion()).toContain('Blueberry');
     });
 
+    it('moves to the first suggestion, and not to an action, when the actions are on top', async () => {
+        await renderPicker({
+            actions: [{ text: 'Create new' }],
+            actionPosition: 'top',
+        });
+
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(focusedSuggestion()).toContain('Blueberry');
+    });
+
     it('moves to the last suggestion with the up arrow', async () => {
         await renderPicker();
 
