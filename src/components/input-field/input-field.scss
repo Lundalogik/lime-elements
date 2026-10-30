@@ -210,3 +210,7 @@ input.mdc-text-field__input {
 a.lime-trailing-icon-for-link {
     @extend .mdc-text-field__icon--trailing;
 }
+
+.suggestions-message {
+    @include mixins.visually-hidden;
+}

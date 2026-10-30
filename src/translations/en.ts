@@ -146,4 +146,6 @@ You can keep images blocked (the email may look incomplete), or load them if you
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Go',
     'dock.show-labels': 'Show navigation button labels',
+    'suggestions.available':
+        'Suggestions available: { count }. Press the down arrow to move to them.',
 };
