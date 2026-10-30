@@ -1,1 +1,0 @@
-import{h as o}from"./index-BU9IJqli.js";function i(i,n){var r;if(!(null===(r=null==i?void 0:i.name)||void 0===r?void 0:r.includes("-")))return;const l=i.name,t=i.props||{},e=[n,t.class].filter(Boolean).join(" ")||void 0;return o(l,Object.assign({},t,{class:e}))}export{i as r}
