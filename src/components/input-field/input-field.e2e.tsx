@@ -540,6 +540,27 @@ describe('limel-input-field keyboard use of the suggestions', () => {
         });
         expect(getDeepActiveElement()).toBe(input);
     });
+
+    it('types in the field when a character is typed on an option', async () => {
+        const { input } = await renderField();
+        await userEvent.keyboard('{ArrowDown}');
+
+        await userEvent.keyboard('x');
+
+        expect(getDeepActiveElement()).toBe(input);
+        expect(input.value).toBe('x');
+    });
+
+    it('deletes in the field when Backspace is pressed on an option', async () => {
+        const { input } = await renderField({ value: 'ma' });
+        input.setSelectionRange(2, 2);
+        await userEvent.keyboard('{ArrowDown}');
+
+        await userEvent.keyboard('{Backspace}');
+
+        expect(getDeepActiveElement()).toBe(input);
+        expect(input.value).toBe('m');
+    });
 });
 
 describe('limel-input-field invalid state', () => {

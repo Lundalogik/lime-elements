@@ -1,3 +1,5 @@
+import { BACKSPACE, DELETE, SPACEBAR } from './keycodes';
+
 /**
  * These helpers implement "type to jump", the behavior a native `<select>` has:
  * typing characters moves to the option whose text starts with those
@@ -7,6 +9,9 @@
  * The matching itself is pure and stateless — all the state lives in a
  * `TypeaheadBuffer`, which owns the timer that discards the buffer once the
  * user stops typing.
+ *
+ * `isTextEditingKey` is for the other side of a list: a field with a list
+ * under it uses it to tell which keys belong to the field.
  */
 
 /**
@@ -202,4 +207,30 @@ export class TypeaheadBuffer {
         clearTimeout(this.resetTimeoutId);
         this.resetTimeoutId = undefined;
     }
+}
+
+/**
+ * Whether a keyboard event edits text: a typed character, or Backspace or
+ * Delete. A bare space is left out, since on an option of a list it selects
+ * the option.
+ *
+ * A character typed with Option, or with AltGr, which is reported as Ctrl and
+ * Alt together, counts, since many layouts type `@` and `$` that way. A
+ * shortcut with Ctrl or Meta does not.
+ *
+ * @param event - the keyboard event to inspect
+ * @returns `true` when the event edits text
+ */
+export function isTextEditingKey(event: KeyboardEvent): boolean {
+    if (event.key === BACKSPACE || event.key === DELETE) {
+        return true;
+    }
+
+    const isCharacter =
+        event.key.length === 1 &&
+        event.key !== SPACEBAR &&
+        !event.metaKey &&
+        !event.isComposing;
+
+    return isCharacter && (!event.ctrlKey || event.altKey);
 }

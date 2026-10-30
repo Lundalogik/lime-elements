@@ -25,6 +25,7 @@ import { ListItem } from '../list-item/list-item.types';
 import { getHref, getTarget, getRel } from '../../util/link-helper';
 import { JSXBase } from '@stencil/core/internal';
 import { createRandomString } from '../../util/random-string';
+import { isTextEditingKey } from '../../util/typeahead';
 import { LimelListCustomEvent } from '../../components';
 import { globalConfig } from '../../global/config';
 import { IconName } from '../../global/shared-types/icon.types';
@@ -1045,7 +1046,7 @@ export class InputField {
             return;
         }
 
-        if ([TAB, ENTER].includes(event.key)) {
+        if ([TAB, ENTER].includes(event.key) || isTextEditingKey(event)) {
             this.setFocus();
         }
     };
