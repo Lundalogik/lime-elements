@@ -13,6 +13,7 @@ import { portalContains } from '../portal/contains';
 import { ESCAPE } from '../../util/keycodes';
 import { OpenDirection } from '../menu/menu.types';
 import { focusTriggerElement } from '../../util/focus-trigger-element';
+import { setControlledElement } from '../../util/controlled-element';
 
 /**
  * A popover is an impermanent layer that is displayed on top of other content
@@ -269,7 +270,7 @@ export class Popover {
         // `aria-expanded` is needed even when the popover is closed. Without
         // it, the trigger reads as an ordinary button to a screen reader.
         element.setAttribute('aria-expanded', this.open ? 'true' : 'false');
-        this.setControlledPopup(element);
+        setControlledElement(element, this.portalId);
         element.setAttribute('role', 'button');
     };
 
@@ -287,17 +288,5 @@ export class Popover {
         }
 
         this.hasWarnedAboutMissingName = hasNoName;
-    }
-
-    private setControlledPopup(element: HTMLElement) {
-        const popup = document.querySelector(`#${this.portalId}`);
-
-        if ('ariaControlsElements' in element) {
-            element.ariaControlsElements = popup ? [popup] : null;
-
-            return;
-        }
-
-        element.setAttribute('aria-controls', this.portalId);
     }
 }
