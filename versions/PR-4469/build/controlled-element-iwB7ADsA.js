@@ -1,0 +1,1 @@
+const n=(n,o)=>{if("ariaControlsElements"in n){const l=o?document.querySelector(`#${o}`):null;n.ariaControlsElements=l?[l]:null}else o?n.setAttribute("aria-controls",o):n.removeAttribute("aria-controls")};export{n as s}
