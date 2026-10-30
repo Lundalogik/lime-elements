@@ -37,6 +37,7 @@ interface LinkProperties {
 
 const CHANGE_EVENT_DEBOUNCE_TIMEOUT = 300;
 const RESIZE_HANDLER_DEBOUNCE_TIMEOUT = 100;
+const MAX_FRAMES_TO_WAIT_FOR_LIST = 20;
 
 /**
  * @exampleComponent limel-example-input-field-text
@@ -386,7 +387,7 @@ export class InputField {
             properties['aria-invalid'] = 'true';
         }
 
-        if (this.renderAutocompleteList()) {
+        if (this.hasSuggestions()) {
             properties['aria-controls'] = this.portalId;
         }
 
@@ -866,55 +867,86 @@ export class InputField {
         );
     };
 
-    /**
-     * Key handler for the input field
-     * Will change focus to the first/last item in the dropdown list to enable selection with the keyboard
-     *
-     * @param event - event
-     */
-
     private onKeyDown = (event: KeyboardEvent): void => {
-        this.showCompletions = true;
-        const isForwardTab =
-            event.key === TAB &&
-            !event.altKey &&
-            !event.metaKey &&
-            !event.shiftKey;
-        const isUp = event.key === ARROW_UP;
-        const isDown = event.key === ARROW_DOWN;
+        if (event.key === ESCAPE) {
+            this.closeListWithEscape(event);
 
-        if (event.key === TAB && event.shiftKey) {
-            this.showCompletions = false;
-        }
-
-        if (!isForwardTab && !isUp && !isDown) {
             return;
         }
 
-        const list = document.querySelector(` #${this.portalId} limel-list`);
+        const isTab =
+            event.key === TAB &&
+            !event.altKey &&
+            !event.metaKey &&
+            !event.ctrlKey;
 
-        if (!list) {
+        if (isTab) {
+            this.showCompletions = false;
+
+            return;
+        }
+
+        const wasOpen = this.isSuggestionListOpen();
+        this.showCompletions = true;
+        if (event.key === ARROW_DOWN || event.key === ARROW_UP) {
+            this.moveIntoList(event, wasOpen);
+        }
+    };
+
+    private readonly moveIntoList = (
+        event: KeyboardEvent,
+        wasOpen: boolean
+    ) => {
+        if (!this.isSuggestionListOpen()) {
             return;
         }
 
         event.preventDefault();
-        if (isForwardTab || isDown) {
-            const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:first-child'
-            );
-            listElement.focus();
+        const position = event.key === ARROW_DOWN ? 'first' : 'last';
+        if (wasOpen) {
+            this.getListOption(position)?.focus();
 
             return;
         }
 
-        if (!isUp) {
-            return;
-        }
+        this.focusOptionWhenShown(position);
+    };
 
-        const listElement: HTMLElement = list.shadowRoot.querySelector(
-            '.mdc-deprecated-list-item:last-child'
+    private readonly getListOption = (position: 'first' | 'last') => {
+        const list = document.querySelector(` #${this.portalId} limel-list`);
+
+        return list?.shadowRoot.querySelector<HTMLElement>(
+            `.mdc-deprecated-list-item:${position}-child`
         );
-        listElement.focus();
+    };
+
+    private readonly focusOptionWhenShown = (position: 'first' | 'last') => {
+        let frames = 0;
+        const focusOption = () => {
+            const option = this.getListOption(position);
+            if (option?.getClientRects().length > 0) {
+                option.focus();
+
+                return;
+            }
+
+            frames += 1;
+            if (frames < MAX_FRAMES_TO_WAIT_FOR_LIST) {
+                requestAnimationFrame(focusOption);
+            }
+        };
+
+        requestAnimationFrame(focusOption);
+    };
+
+    private readonly closeListWithEscape = (event: KeyboardEvent) => {
+        if (!this.isSuggestionListOpen()) {
+            return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+        this.showCompletions = false;
     };
 
     private handleCompletionChange = (
@@ -937,12 +969,24 @@ export class InputField {
         this.changeEmitter.flush();
     };
 
+    private readonly hasSuggestions = (): boolean => {
+        return (
+            !this.readonly &&
+            this.type !== 'textarea' &&
+            this.completions.length > 0
+        );
+    };
+
+    private readonly isSuggestionListOpen = (): boolean => {
+        return (
+            this.hasSuggestions() &&
+            this.showCompletions &&
+            this.filterCompletions(this.getCurrentValue()).length > 0
+        );
+    };
+
     private renderAutocompleteList = () => {
-        if (
-            this.readonly ||
-            this.type === 'textarea' ||
-            this.completions.length === 0
-        ) {
+        if (!this.hasSuggestions()) {
             return;
         }
 
@@ -992,8 +1036,16 @@ export class InputField {
     };
 
     private handleKeyDownInDropdown = (event: KeyboardEvent) => {
-        const keyFound = [TAB, ESCAPE, ENTER].includes(event.key);
-        if (keyFound) {
+        if (event.key === ESCAPE) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.setFocus();
+            this.showCompletions = false;
+
+            return;
+        }
+
+        if ([TAB, ENTER].includes(event.key)) {
             this.setFocus();
         }
     };
