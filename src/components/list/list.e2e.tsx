@@ -21,6 +21,29 @@ describe('limel-list', () => {
         });
     });
 
+    describe('typed characters', () => {
+        it('are left to the browser on an option', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-list
+                    type="selectable"
+                    items={[{ text: 'First', value: 1 }]}
+                />
+            );
+            await waitForChanges();
+            const option = root.shadowRoot.querySelector('limel-list-item');
+            const keydown = new KeyboardEvent('keydown', {
+                key: 'x',
+                bubbles: true,
+                composed: true,
+                cancelable: true,
+            });
+
+            option.dispatchEvent(keydown);
+
+            expect(keydown.defaultPrevented).toBe(false);
+        });
+    });
+
     describe('with an item', () => {
         it('renders the item', async () => {
             const { root, waitForChanges } = await render(
