@@ -1,5 +1,6 @@
 import { render, h } from '@stencil/vitest';
 import { IconSize } from '../icon/icon.types';
+import { getAccessibleNames } from '../../util/test/accessibility-tree';
 
 describe('limel-list', () => {
     describe('without items', () => {
@@ -41,6 +42,30 @@ describe('limel-list', () => {
             option.dispatchEvent(keydown);
 
             expect(keydown.defaultPrevented).toBe(false);
+        });
+    });
+
+    describe('accessibleLabel', () => {
+        const items = [{ text: 'First', value: 1 }];
+
+        it('names the list for a screen reader', async () => {
+            const { waitForChanges } = await render(
+                <limel-list items={items} accessibleLabel="Suggestions" />
+            );
+            await waitForChanges();
+
+            expect(await getAccessibleNames('listbox')).toEqual([
+                'Suggestions',
+            ]);
+        });
+
+        it('leaves the list without a name when it is not set', async () => {
+            const { waitForChanges } = await render(
+                <limel-list items={items} />
+            );
+            await waitForChanges();
+
+            expect(await getAccessibleNames('listbox')).toEqual(['']);
         });
     });
 
