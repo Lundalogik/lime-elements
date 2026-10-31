@@ -5,9 +5,9 @@ import { chartItems } from './chart-items-with-negative-values';
 /**
  * Using the `axisIncrement` prop
  * The `axisIncrement` prop specifies the incremental
- * values of the axis lines. By default the component tries to
- * smartly calculate a proper axis increment, to render meaningful
- * axis lines, based on the maximum value provided in the dataset.
+ * values of the axis lines. By default the component works out
+ * a step that divides the whole axis, from its lowest to its
+ * highest value, into about ten parts.
  *
  * However, you can set the `axisIncrement` to a
  * different custom value if needed.

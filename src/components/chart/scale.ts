@@ -91,8 +91,8 @@ export function getYValue(item: ChartItem): number {
  * The value axis of a `bar`, `dot`, `area` or `line` chart. It reaches from
  * zero, or from the smallest value when that is below zero, up to `maxValue`
  * or the largest value. Both ends are rounded outwards to a whole step.
- * Without an `axisIncrement` above zero, the step divides the largest value
- * into about ten.
+ * Without an `axisIncrement` above zero, the step divides the axis into
+ * about ten.
  * @param items - the items in the chart
  * @param maxValue - the requested upper bound, if any
  * @param axisIncrement - the requested step, if any
@@ -108,7 +108,7 @@ export function getAxisRange(
     const increment =
         axisIncrement > 0
             ? axisIncrement
-            : getNiceStep(Math.max(...maximumValues));
+            : getNiceStep(finalMaxRange - minRange);
 
     return roundOutwards(minRange, finalMaxRange, increment);
 }
