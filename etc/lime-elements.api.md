@@ -317,6 +317,10 @@ export namespace Components {
         "required": boolean;
         "searchLabel": string;
         "setFocus": (emptyInput?: boolean) => Promise<void>;
+        // @internal
+        "suggestionListId"?: string;
+        // @internal
+        "suggestionListOpen"?: boolean;
         "type"?: 'choice' | 'filter' | 'input';
         "value": Chip[];
     }
@@ -604,6 +608,7 @@ export namespace Components {
         "helperText": string;
         "invalid": boolean;
         "label": string;
+        "language": Languages;
         "leadingIcon": IconName;
         "locale": string;
         "max": number;
@@ -630,6 +635,7 @@ export namespace Components {
     }
     // (undocumented)
     export interface LimelList {
+        "accessibleLabel"?: string;
         "badgeIcons": boolean;
         "iconSize": IconSize;
         "items": Array<ListItem | ListSeparator>;
@@ -2085,6 +2091,10 @@ export namespace JSX {
         "readonly"?: boolean;
         "required"?: boolean;
         "searchLabel"?: string;
+        // @internal
+        "suggestionListId"?: string;
+        // @internal
+        "suggestionListOpen"?: boolean;
         "type"?: 'choice' | 'filter' | 'input';
         "value"?: Chip[];
     }
@@ -2123,6 +2133,10 @@ export namespace JSX {
         "required": boolean;
         // (undocumented)
         "searchLabel": string;
+        // (undocumented)
+        "suggestionListId": string;
+        // (undocumented)
+        "suggestionListOpen": boolean;
         // (undocumented)
         "type": 'choice' | 'filter' | 'input';
     }
@@ -2892,6 +2906,7 @@ export namespace JSX {
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
+        "language"?: Languages;
         "leadingIcon"?: IconName;
         "locale"?: string;
         "max"?: number;
@@ -2925,6 +2940,8 @@ export namespace JSX {
         "invalid": boolean;
         // (undocumented)
         "label": string;
+        // (undocumented)
+        "language": Languages;
         // (undocumented)
         "leadingIcon": IconName;
         // (undocumented)
@@ -2982,6 +2999,7 @@ export namespace JSX {
 
     // (undocumented)
     export interface LimelList {
+        "accessibleLabel"?: string;
         "badgeIcons"?: boolean;
         "iconSize"?: IconSize;
         "items"?: Array<ListItem | ListSeparator>;
@@ -2994,6 +3012,8 @@ export namespace JSX {
 
     // (undocumented)
     export interface LimelListAttributes {
+        // (undocumented)
+        "accessibleLabel": string;
         // (undocumented)
         "badgeIcons": boolean;
         // (undocumented)

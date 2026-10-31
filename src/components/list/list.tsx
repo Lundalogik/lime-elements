@@ -20,6 +20,7 @@ const { ACTION_EVENT } = listStrings;
 
 /**
  * @exampleComponent limel-example-list-basic
+ * @exampleComponent limel-example-list-accessible-label
  * @exampleComponent limel-example-list-secondary
  * @exampleComponent limel-example-list-separator
  * @exampleComponent limel-example-list-icons
@@ -66,6 +67,13 @@ export class List {
      */
     @Prop()
     public type: ListType;
+
+    /**
+     * The name of the list, which a screen reader announces when the focus
+     * moves into it.
+     */
+    @Prop()
+    public accessibleLabel?: string;
 
     /**
      * By default, lists will display 3 lines of text, and then truncate the rest.
@@ -124,6 +132,7 @@ export class List {
             badgeIcons: this.badgeIcons,
             type: this.type,
             iconSize: this.iconSize,
+            accessibleLabel: this.accessibleLabel,
         };
         let maxLinesSecondaryText = +this.maxLinesSecondaryText?.toFixed(0);
         if (this.maxLinesSecondaryText < 1) {

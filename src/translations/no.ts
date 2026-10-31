@@ -147,4 +147,6 @@ Du kan fortsette å blokkere bilder (e-posten kan se ufullstendig ut), eller las
     'pagination.page-range': '{ first }–{ last }',
     'pagination.go': 'Gå',
     'dock.show-labels': 'Vis etiketter på navigasjonsknapper',
+    'suggestions.available':
+        'Forslag tilgjengelig: { count }. Trykk på pil ned for å gå til dem.',
 };

@@ -13,12 +13,14 @@ import {
     Event,
     EventEmitter,
     h,
+    Host,
     Prop,
     State,
     Watch,
 } from '@stencil/core';
 import { isDescendant } from '../../util/dom';
 import { ARROW_DOWN, ARROW_UP, ENTER, ESCAPE, TAB } from '../../util/keycodes';
+import { createLiveMessage } from '../../util/live-message';
 import { createRandomString } from '../../util/random-string';
 import { isTextEditingKey } from '../../util/typeahead';
 import {
@@ -236,6 +238,9 @@ export class Picker {
 
     private debouncedSearch: DebouncedFunc<(query: string) => Promise<void>>;
     private chipSet: HTMLLimelChipSetElement;
+    private readonly suggestionsMessage = createLiveMessage(() =>
+        this.getSuggestionsMessage()
+    );
     private portalId: string;
 
     constructor() {
@@ -263,8 +268,13 @@ export class Picker {
         this.updateTabIndex();
     }
 
+    public componentDidRender() {
+        this.suggestionsMessage.update();
+    }
+
     public disconnectedCallback() {
         this.debouncedSearch.cancel();
+        this.suggestionsMessage.update.cancel();
     }
 
     @Watch('disabled')
@@ -292,39 +302,51 @@ export class Picker {
         const props: {
             maxItems?: number;
         } = {};
+        const dropdownContent = this.getDropdownContentList();
 
         if (!this.multiple) {
             props.maxItems = 1;
         }
 
-        return [
-            <limel-chip-set
-                type="input"
-                inputType="search"
-                label={this.label}
-                helperText={this.helperText}
-                leadingIcon={this.leadingIcon}
-                value={this.chips}
-                disabled={this.disabled}
-                invalid={this.invalid}
-                delimiter={this.renderDelimiter()}
-                readonly={this.readonly}
-                required={this.required}
-                searchLabel={this.searchLabel}
-                language={this.language}
-                onInput={this.handleTextInput}
-                onKeyDown={this.handleInputKeyDown}
-                onChange={this.handleChange}
-                onInteract={this.handleInteract}
-                onStartEdit={this.handleInputFieldFocus}
-                onStopEdit={this.handleStopEditAndBlur}
-                emptyInputOnBlur={false}
-                emptyInputOnChange={false}
-                clearAllButton={this.multiple && !this.chipSetEditMode}
-                {...props}
-            />,
-            this.renderDropdown(),
-        ];
+        return (
+            <Host>
+                <limel-chip-set
+                    type="input"
+                    inputType="search"
+                    label={this.label}
+                    helperText={this.helperText}
+                    leadingIcon={this.leadingIcon}
+                    value={this.chips}
+                    disabled={this.disabled}
+                    invalid={this.invalid}
+                    delimiter={this.renderDelimiter()}
+                    readonly={this.readonly}
+                    required={this.required}
+                    searchLabel={this.searchLabel}
+                    language={this.language}
+                    onInput={this.handleTextInput}
+                    onKeyDown={this.handleInputKeyDown}
+                    onChange={this.handleChange}
+                    onInteract={this.handleInteract}
+                    onStartEdit={this.handleInputFieldFocus}
+                    onStopEdit={this.handleStopEditAndBlur}
+                    emptyInputOnBlur={false}
+                    emptyInputOnChange={false}
+                    clearAllButton={this.multiple && !this.chipSetEditMode}
+                    suggestionListId={
+                        this.canOpenList() ? this.portalId : undefined
+                    }
+                    suggestionListOpen={dropdownContent.length > 0}
+                    {...props}
+                />
+                {this.renderPortal(dropdownContent)}
+                <span
+                    class="suggestions-message"
+                    aria-live="polite"
+                    ref={this.suggestionsMessage.setElement}
+                />
+            </Host>
+        );
     }
 
     @Watch('value')
@@ -384,19 +406,20 @@ export class Picker {
     };
 
     /**
-     * Renders the dropdown with the items to pick from, or a spinner if the picker
-     * is waiting for items to be received
+     * Collects what the dropdown shows: the items to pick from, or a spinner
+     * if the picker is waiting for items to be received, and the actions. The
+     * dropdown is open when there is anything to show.
      *
-     * @returns picker dropdown
+     * @returns the pieces of the dropdown
      */
-    private renderDropdown() {
+    private getDropdownContentList() {
         const dropDownContent = this.getDropdownContent();
 
         const content = [];
 
         if (this.shouldShowDropDownContent()) {
             const actionContent = this.getActionContent();
-            if (this.actionPosition === 'top') {
+            if (actionContent && this.actionPosition === 'top') {
                 content.push(actionContent);
             }
 
@@ -404,12 +427,34 @@ export class Picker {
                 content.push(dropDownContent);
             }
 
-            if (this.actionPosition === 'bottom') {
+            if (actionContent && this.actionPosition === 'bottom') {
                 content.push(actionContent);
             }
         }
 
-        return this.renderPortal(content);
+        return content;
+    }
+
+    private getSuggestionsMessage(): string {
+        if (!this.shouldShowDropDownContent()) {
+            return '';
+        }
+
+        if (this.loading) {
+            return translate.get('loading', this.language);
+        }
+
+        if (!this.items?.length) {
+            return this.textValue === '' ? '' : this.getEmptyResultMessage();
+        }
+
+        const count = this.items.filter(
+            (item) => !('separator' in item)
+        ).length;
+
+        return count
+            ? translate.get('suggestions.available', this.language, { count })
+            : '';
     }
 
     private getActionContent() {
@@ -445,12 +490,12 @@ export class Picker {
         };
     }
 
-    private shouldShowDropDownContent() {
-        if (this.readonly || this.isFull()) {
-            return false;
-        }
+    private canOpenList() {
+        return !this.readonly && !this.isFull();
+    }
 
-        return !!this.chipSetEditMode;
+    private shouldShowDropDownContent() {
+        return this.canOpenList() && !!this.chipSetEditMode;
     }
 
     private getDropdownContent() {
@@ -503,12 +548,17 @@ export class Picker {
         );
     }
 
-    private renderEmptyMessage() {
-        const text =
+    private getEmptyResultMessage(): string {
+        return (
             this.emptyResultMessage ||
             translate.get('picker.no-matching-results', this.language, {
                 query: this.textValue,
-            });
+            })
+        );
+    }
+
+    private renderEmptyMessage() {
+        const text = this.getEmptyResultMessage();
 
         const style = {
             color: 'rgb(var(--contrast-1100))',
@@ -524,6 +574,7 @@ export class Picker {
         return (
             <limel-list
                 data-suggestions=""
+                accessibleLabel={this.label || this.searchLabel}
                 badgeIcons={this.badgeIcons}
                 onChange={this.handleListChange}
                 onKeyDown={this.onListKeyDown}

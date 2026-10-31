@@ -2,7 +2,13 @@ import { render, h } from '@stencil/vitest';
 import { userEvent } from 'vitest/browser';
 import { PickerItem } from './picker-item.types';
 import { getDeepActiveElement } from '../../util/get-deep-active-element';
-import { getInvalidStates } from '../../util/test/accessibility-tree';
+import { vi } from 'vitest';
+import {
+    getAccessibleNames,
+    getAccessibleNodes,
+    getAccessibleProperties,
+    getInvalidStates,
+} from '../../util/test/accessibility-tree';
 
 const allItems = [
     { text: 'Apple', value: 1 },
@@ -378,6 +384,174 @@ describe('limel-picker keyboard use of the suggestions', () => {
     });
 });
 
+describe('limel-picker suggestions', () => {
+    const getMessage = (root: HTMLLimelPickerElement) =>
+        root.shadowRoot.querySelector('.suggestions-message').textContent;
+
+    const renderPicker = async (props: Record<string, unknown> = {}) => {
+        const { searcher } = recordingSearcher();
+        const result = await render(
+            <limel-picker label="Pick" searcher={searcher} {...props} />
+        );
+        await result.waitForChanges();
+
+        return result;
+    };
+
+    it('is a combobox with a closed list before the user searches', async () => {
+        await renderPicker();
+
+        expect(await getAccessibleNames('combobox')).toEqual(['Pick']);
+        const [combobox] = await getAccessibleProperties('combobox');
+        expect(combobox.hasPopup).toBe(true);
+        expect(combobox.expanded).toBe(false);
+    });
+
+    it('says that the list is open while the user searches', async () => {
+        const { root, waitForChanges } = await renderPicker();
+        await focusAndType(root, 'berry', waitForChanges);
+        await waitForSuggestions(waitForChanges);
+
+        const [combobox] = await getAccessibleProperties('combobox');
+        expect(combobox.expanded).toBe(true);
+    });
+
+    it.each([
+        ['is read only', { readonly: true }],
+        ['is full', { value: { text: 'Blueberry', value: 1 } }],
+    ])('is not a combobox when the picker %s', async (_, props) => {
+        await renderPicker(props);
+
+        expect(await getAccessibleNodes('combobox')).toEqual([]);
+    });
+
+    it('says that the list is closed when the search finds nothing for an empty text', async () => {
+        const { root, waitForChanges } = await renderPicker({
+            searcher: async () => [],
+        });
+        getSearchInput(root).focus();
+        await waitOutDebounce(waitForChanges);
+
+        const [combobox] = await getAccessibleProperties('combobox');
+        expect(combobox.expanded).toBe(false);
+    });
+
+    it('says that the list is closed after Esc has closed it', async () => {
+        const { root, waitForChanges } = await renderPicker();
+        await focusAndType(root, 'berry', waitForChanges);
+        await waitForSuggestions(waitForChanges);
+
+        await userEvent.keyboard('{Escape}{Escape}');
+        await waitOutDebounce(waitForChanges);
+
+        const [combobox] = await getAccessibleProperties('combobox');
+        expect(combobox.expanded).toBe(false);
+    });
+
+    it('speaks that it is loading while a slow search is pending', async () => {
+        const { root, waitForChanges } = await renderPicker({
+            searcher: async () => {
+                await new Promise((resolve) => setTimeout(resolve, 2500));
+
+                return berries;
+            },
+        });
+        await focusAndType(root, 'berry', waitForChanges);
+
+        await vi.waitFor(
+            () => {
+                expect(getMessage(root)).toBe('Loading…');
+            },
+            { timeout: 2000 }
+        );
+    });
+
+    it('names the list by the label of the picker', async () => {
+        const { root, waitForChanges } = await renderPicker();
+        await focusAndType(root, 'berry', waitForChanges);
+        await waitForSuggestions(waitForChanges);
+
+        expect(await getAccessibleNames('listbox')).toEqual(['Pick']);
+    });
+
+    it('points at the list once it has been opened', async () => {
+        const { root, waitForChanges } = await renderPicker();
+        await focusAndType(root, 'berry', waitForChanges);
+        await waitForSuggestions(waitForChanges);
+
+        const input = getSearchInput(root) as any;
+        const container =
+            document.querySelector('limel-menu-surface').parentElement;
+        await vi.waitFor(() => {
+            expect(input.ariaControlsElements).toEqual([container]);
+        });
+    });
+
+    it('speaks how many suggestions there are, and how to reach them', async () => {
+        const { root, waitForChanges } = await renderPicker();
+        expect(getMessage(root)).toBe('');
+
+        await focusAndType(root, 'berry', waitForChanges);
+        await waitForSuggestions(waitForChanges);
+
+        await vi.waitFor(() => {
+            expect(getMessage(root)).toBe(
+                'Suggestions available: 2. Press the down arrow to move to them.'
+            );
+        });
+    });
+
+    it('speaks the empty-result message when nothing matches', async () => {
+        const { root, waitForChanges } = await renderPicker();
+        await focusAndType(root, 'xyz', waitForChanges);
+
+        await vi.waitFor(
+            () => {
+                expect(getMessage(root)).toBe('No results matching "xyz"');
+            },
+            { timeout: 2000 }
+        );
+    });
+
+    it('speaks the message of the consumer when nothing matches', async () => {
+        const { root, waitForChanges } = await renderPicker({
+            emptyResultMessage: 'No participants found',
+        });
+        await focusAndType(root, 'xyz', waitForChanges);
+
+        await vi.waitFor(
+            () => {
+                expect(getMessage(root)).toBe('No participants found');
+            },
+            { timeout: 2000 }
+        );
+    });
+
+    it('speaks nothing when the result has only separators', async () => {
+        const { root, waitForChanges } = await renderPicker({
+            searcher: async () => [{ separator: true, text: 'Recent' }],
+        });
+        await focusAndType(root, 'xyz', waitForChanges);
+        await waitOutDebounce(waitForChanges);
+
+        await new Promise((resolve) => setTimeout(resolve, 800));
+
+        expect(getMessage(root)).toBe('');
+    });
+
+    it('speaks in the language it is given', async () => {
+        const { root, waitForChanges } = await renderPicker({
+            language: 'sv',
+        });
+        await focusAndType(root, 'berry', waitForChanges);
+        await waitForSuggestions(waitForChanges);
+
+        await vi.waitFor(() => {
+            expect(getMessage(root)).toContain('Förslag tillgängliga: 2.');
+        });
+    });
+});
+
 describe('limel-picker', () => {
     describe('when no items match the typed query', () => {
         it('shows the default translated empty-result message', async () => {
@@ -723,7 +897,7 @@ describe('limel-picker invalid state', () => {
         );
         await waitForChanges();
 
-        expect(await getInvalidStates('searchbox')).toEqual([true]);
+        expect(await getInvalidStates('combobox')).toEqual([true]);
     });
 });
 
