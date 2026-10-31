@@ -126,7 +126,7 @@ export function getAxisRange(
 ): AxisRange {
     const maximumValues = items.map((item) => getMaximumValue(item));
     const minRange = Math.min(0, ...items.map((item) => getMinimumValue(item)));
-    const finalMaxRange = maxValue ?? Math.max(...maximumValues);
+    const finalMaxRange = maxValue ?? Math.max(minRange, ...maximumValues);
     const span = finalMaxRange - minRange;
     const increment = isUsableStep(axisIncrement, span)
         ? axisIncrement

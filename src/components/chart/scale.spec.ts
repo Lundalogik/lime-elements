@@ -60,6 +60,21 @@ test('an axis without items reaches up to maxValue in about ten steps', () => {
     });
 });
 
+test.each([
+    [undefined, 1],
+    [10, 10],
+])(
+    'an axis without items or maxValue ends at zero, with an axisIncrement of %s',
+    (axisIncrement, increment) => {
+        expect(getAxisRange([], undefined, axisIncrement)).toEqual({
+            minValue: 0,
+            maxValue: 0,
+            totalRange: 0,
+            increment: increment,
+        });
+    }
+);
+
 test('axisIncrement is used as the axis step', () => {
     expect(getAxisRange(items(25, 75), undefined, 20)).toEqual({
         minValue: 0,

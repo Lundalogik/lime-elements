@@ -34,11 +34,3 @@ limel-example-controls {
     height: fit-content;
     min-width: 40%;
 }
-
-:host(.creative-styling) {
-    gap: 4rem;
-
-    limel-chart[type='stacked-bar'] {
-        height: 6rem;
-    }
-}
