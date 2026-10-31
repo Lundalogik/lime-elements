@@ -30,6 +30,7 @@
  - [limel-example-action-bar-as-primary-component](../action-bar/examples)
  - [limel-example-action-bar-icon-title](../action-bar/examples)
  - [limel-example-boolean-radio-buttons](../../design-guidelines/boolean/examples)
+ - [limel-example-list-accessible-label](examples)
  - [limel-example-list-action](examples)
  - [limel-example-list-badge-icons](examples)
  - [limel-example-list-badge-icons-with-multiple-lines](examples)
@@ -57,6 +58,7 @@ graph TD;
   limel-example-action-bar-as-primary-component --> limel-list
   limel-example-action-bar-icon-title --> limel-list
   limel-example-boolean-radio-buttons --> limel-list
+  limel-example-list-accessible-label --> limel-list
   limel-example-list-action --> limel-list
   limel-example-list-badge-icons --> limel-list
   limel-example-list-badge-icons-with-multiple-lines --> limel-list
