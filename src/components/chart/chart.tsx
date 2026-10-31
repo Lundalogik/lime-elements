@@ -1,26 +1,63 @@
-import { Component, Event, EventEmitter, h, Prop, Watch } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    h,
+    Host,
+    Prop,
+    Watch,
+} from '@stencil/core';
+import {
+    BarChart,
+    GaugeChart,
+    LineChart,
+    PieChart,
+    ScatterChart,
+} from 'echarts/charts';
+import {
+    GridComponent,
+    PolarComponent,
+    TooltipComponent,
+} from 'echarts/components';
+import { init, use, type ECElementEvent, type ECharts } from 'echarts/core';
+import { SVGRenderer } from 'echarts/renderers';
 import { Languages } from '../date-picker/date.types';
 import translate from '../../global/translations';
-import { createRandomString } from '../../util/random-string';
 import { ChartItem, ChartType } from './chart.types';
 import {
-    AxisRange,
+    ChartDrawing,
+    ChartSettings,
+    drawChart,
+    fitItemTexts,
+    getItemIndex,
+    getItemLabel,
+    locateItem,
+} from './options';
+import {
     formatValue,
     getAxisRange,
-    getMaximumValue,
-    getMinimumValue,
-    getScatterRanges,
-    getShare,
-    getWholeRange,
-    getXValue,
-    getYValue,
-    isPartOfWhole,
-    isRangeItem,
     MAX_AXIS_STEPS,
     usesAxisIncrement,
 } from './scale';
+import {
+    ChartTheme,
+    createThemeReader,
+    ThemeReader,
+    watchTheme,
+} from './theme';
 
-const PERCENT = 100;
+const extensions = [
+    BarChart,
+    GaugeChart,
+    LineChart,
+    PieChart,
+    ScatterChart,
+    GridComponent,
+    PolarComponent,
+    TooltipComponent,
+    SVGRenderer,
+];
 
 /**
  * A chart is a graphical representation of data, in which
@@ -50,7 +87,6 @@ const PERCENT = 100;
  * @exampleComponent limel-example-chart-accessibility
  * @exampleComponent limel-example-chart-axis-labels
  * @exampleComponent limel-example-chart-styling
- * @exampleComponent limel-example-chart-creative-styling
  * @beta
  */
 
@@ -175,316 +211,47 @@ export class Chart {
     public loading: boolean = false;
 
     /**
-     * Range of the value axis. For most chart types this is the single value
-     * axis. For `scatter` it is the range of each point's second value
-     * (`value[1]`); the shared axis-line rendering always draws its grid and
-     * badges from this range. Whether it runs vertically (landscape) or
-     * horizontally (portrait) is decided by `orientation`.
-     */
-    private range: AxisRange;
-
-    private axisIncrementWarning?: string;
-
-    /**
-     * Range of each scatter point's first value (`value[0]`). Only used by the
-     * `scatter` type, where both values are plotted on value axes. It is laid
-     * out on the opposite screen edge to `range` — horizontally in landscape,
-     * vertically in portrait.
-     */
-    private secondaryAxisRange: AxisRange;
-
-    /**
      * Fired when a chart item with `clickable` set to `true` is clicked
      */
     @Event()
     public interact: EventEmitter<ChartItem>;
 
+    @Element()
+    private readonly host: HTMLLimelChartElement;
+
+    private plot?: HTMLElement;
+    private chart?: ECharts;
+    private drawing?: ChartDrawing;
+    private drawnSettings?: string;
+    private drawnTheme?: string;
+    private themeMayHaveChanged = false;
+    private itemSpace?: number;
+    private axisIncrementWarning?: string;
+    private readonly invalidColors = new Set<string>();
+    private themeReader?: ThemeReader;
+    private resizeObserver?: ResizeObserver;
+    private stopWatchingTheme?: () => void;
+
     public componentWillLoad() {
-        this.recalculateRangeData();
         this.warnAboutAxisIncrement();
     }
 
-    public render() {
-        if (this.loading) {
-            return <limel-spinner limeBranded={false} />;
-        }
-
-        return (
-            <table
-                aria-busy={this.loading ? 'true' : 'false'}
-                aria-live="polite"
-                style={{
-                    '--limel-chart-number-of-items':
-                        this.items.length.toString(),
-                }}
-            >
-                {this.renderCaption()}
-                {this.renderTableHeader()}
-                {this.renderAxises()}
-                <tbody class="chart">{this.renderItems()}</tbody>
-            </table>
-        );
+    public connectedCallback() {
+        this.draw();
     }
 
-    private renderCaption() {
-        if (!this.accessibleLabel) {
-            return;
-        }
-
-        return <caption>{this.accessibleLabel}</caption>;
+    public componentDidRender() {
+        this.draw();
     }
 
-    private renderTableHeader() {
-        return (
-            <thead>
-                <tr>
-                    <th scope="col">
-                        {this.accessibleItemsLabel ??
-                            translate.get('items', this.language)}
-                    </th>
-                    <th scope="col">
-                        {this.accessibleValuesLabel ??
-                            translate.get('value', this.language)}
-                    </th>
-                </tr>
-            </thead>
-        );
-    }
-
-    private renderAxises() {
-        if (!['bar', 'dot', 'area', 'line', 'scatter'].includes(this.type)) {
-            return;
-        }
-
-        if (this.type === 'scatter') {
-            return this.renderScatterAxises();
-        }
-
-        return this.renderAxisLines(this.range);
-    }
-
-    // Two value axes, so a full grid: horizontal lines for the vertical axis,
-    // vertical lines for the horizontal one. Which range maps to which flips
-    // with `orientation`, like the points.
-    private renderScatterAxises() {
-        const portrait = this.orientation === 'portrait';
-        const horizontalLines = portrait ? this.secondaryAxisRange : this.range;
-        const verticalLines = portrait ? this.range : this.secondaryAxisRange;
-
-        return [
-            this.renderAxisLines(horizontalLines, 'horizontal-lines'),
-            this.renderAxisLines(verticalLines, 'vertical-lines'),
-        ];
-    }
-
-    private renderAxisLines(range: AxisRange, direction?: string) {
-        const { minValue, maxValue, increment } = range;
-        const lines = [];
-
-        for (let value = minValue; value <= maxValue; value += increment) {
-            lines.push(
-                <div
-                    class={{
-                        'axis-line': true,
-                        'zero-line': value === 0,
-                    }}
-                    role="presentation"
-                >
-                    <limel-badge label={value} />
-                </div>
-            );
-        }
-
-        const cssClass: Record<string, boolean> = { axises: true };
-        if (direction) {
-            cssClass[direction] = true;
-        }
-
-        return (
-            <div class={cssClass} role="presentation" key={direction}>
-                {lines}
-            </div>
-        );
-    }
-
-    private renderItems() {
-        if (!this.items?.length) {
-            return;
-        }
-
-        let cumulativeOffset = 0;
-
-        return this.items.map((item, index) => {
-            const itemId = createRandomString();
-            const sizeAndOffset = this.calculateSizeAndOffset(item);
-            const size = sizeAndOffset.size;
-            let offset = sizeAndOffset.offset;
-
-            if (this.type === 'pie' || this.type === 'doughnut') {
-                offset = cumulativeOffset;
-                cumulativeOffset += size;
-            }
-
-            return (
-                <tr
-                    style={this.getItemStyle(item, index, size, offset)}
-                    class={this.getItemClass(item)}
-                    key={itemId}
-                    id={itemId}
-                    data-index={index}
-                    tabIndex={0}
-                    role={item.clickable ? 'button' : null}
-                    onClick={this.handleClick}
-                    onKeyDown={this.handleKeyDown}
-                >
-                    <td class="text">{item.text}</td>
-                    <td class="value">{formatValue(item, this.type)}</td>
-                    {this.renderTooltip(item, itemId, size)}
-                </tr>
-            );
-        });
-    }
-
-    private getItemStyle(
-        item: ChartItem,
-        index: number,
-        size: number,
-        offset: number
-    ): Record<string, string> {
-        if (this.type === 'scatter') {
-            return this.getScatterItemStyle(item, index);
-        }
-
-        const style: Record<string, string> = {
-            '--limel-chart-item-offset': `${offset}`,
-            '--limel-chart-item-size': `${size}`,
-            '--limel-chart-item-index': `${index}`,
-            '--limel-chart-item-value': `${item.value}`,
-        };
-
-        if (item.color) {
-            style['--limel-chart-item-color'] = item.color;
-        }
-
-        if (this.type === 'line' || this.type === 'area') {
-            const nextItem = this.calculateSizeAndOffset(this.items[index + 1]);
-
-            style['--limel-chart-next-item-size'] = `${nextItem.size}`;
-            style['--limel-chart-next-item-offset'] = `${nextItem.offset}`;
-        }
-
-        return style;
-    }
-
-    private getScatterItemStyle(
-        item: ChartItem,
-        index: number
-    ): Record<string, string> {
-        const style: Record<string, string> = {
-            '--limel-chart-item-offset-x': `${this.normalize(
-                getXValue(item),
-                this.secondaryAxisRange
-            )}`,
-            '--limel-chart-item-offset-y': `${this.normalize(
-                getYValue(item),
-                this.range
-            )}`,
-            '--limel-chart-item-index': `${index}`,
-        };
-
-        if (item.color) {
-            style['--limel-chart-item-color'] = item.color;
-        }
-
-        return style;
-    }
-
-    private getItemClass(item: ChartItem) {
-        return {
-            item: true,
-            'has-start-value':
-                this.type !== 'scatter' && Array.isArray(item.value),
-            'has-negative-value-only':
-                getMaximumValue(item) < 0 && !isRangeItem(item),
-            // Scatter coordinates are independent values, so "value is zero"
-            // (which hides the value label elsewhere) must not apply.
-            'has-value-zero':
-                this.type !== 'scatter' && getMaximumValue(item) === 0,
-        };
-    }
-
-    private calculateSizeAndOffset(item?: ChartItem) {
-        const { minValue, totalRange } = this.range;
-        if (!item) {
-            return {
-                size: 0,
-                offset: 0,
-            };
-        }
-
-        if (isPartOfWhole(this.type)) {
-            return {
-                size: getShare(item, this.range),
-                offset: 0,
-            };
-        }
-
-        let startValue = 0;
-        if (isRangeItem(item)) {
-            startValue = getMinimumValue(item);
-        }
-
-        const normalizedStart =
-            ((startValue - minValue) / totalRange) * PERCENT;
-        const normalizedEnd =
-            ((getMaximumValue(item) - minValue) / totalRange) * PERCENT;
-
-        return {
-            size: normalizedEnd - normalizedStart,
-            offset: normalizedStart,
-        };
-    }
-
-    private renderTooltip(item: ChartItem, itemId: string, size: number) {
-        const PERCENT_DECIMAL = 2;
-        const formattedValue = formatValue(item, this.type);
-
-        const tooltipProps: any = {
-            label: item.text,
-            helperLabel: formattedValue,
-            elementId: itemId,
-        };
-
-        if (this.displayItemPercentage && isPartOfWhole(this.type)) {
-            tooltipProps.label = `${item.text} (${size.toFixed(PERCENT_DECIMAL)}%)`;
-        }
-
-        return (
-            <limel-tooltip
-                {...tooltipProps}
-                openDirection={
-                    this.orientation === 'portrait' ? 'right' : 'top'
-                }
-            />
-        );
-    }
-
-    private normalize(value: number, range: AxisRange): number {
-        if (range.totalRange === 0) {
-            // Degenerate axis (every value is zero): center the point so it
-            // stays visible instead of dividing by zero.
-            return PERCENT / 2;
-        }
-
-        return ((value - range.minValue) / range.totalRange) * PERCENT;
-    }
-
-    @Watch('items')
-    @Watch('axisIncrement')
-    @Watch('maxValue')
-    @Watch('type')
-    handleChange() {
-        this.recalculateRangeData();
+    public disconnectedCallback() {
+        this.disposeChart();
+        this.resizeObserver?.disconnect();
+        this.resizeObserver = undefined;
+        this.stopWatchingTheme?.();
+        this.stopWatchingTheme = undefined;
+        this.themeReader?.dispose();
+        this.themeReader = undefined;
     }
 
     @Watch('axisIncrement')
@@ -520,37 +287,367 @@ export class Chart {
         }
     }
 
-    private recalculateRangeData() {
-        if (this.type === 'scatter') {
-            const { x, y } = getScatterRanges(this.items);
-            this.range = y;
-            this.secondaryAxisRange = x;
-
-            return;
+    public render() {
+        if (this.loading) {
+            return <limel-spinner limeBranded={false} />;
         }
 
-        this.secondaryAxisRange = null;
-        this.range = isPartOfWhole(this.type)
-            ? getWholeRange(this.items, this.maxValue)
-            : getAxisRange(this.items, this.maxValue, this.axisIncrement);
+        return (
+            <Host>
+                <div class="plot" aria-hidden="true" ref={this.setPlot} />
+                <table aria-live="polite">
+                    {this.renderCaption()}
+                    {this.renderTableHeader()}
+                    <tbody>{this.renderItems()}</tbody>
+                </table>
+            </Host>
+        );
     }
 
-    private getClickableItem(target: HTMLElement): ChartItem | undefined {
-        const index = target.dataset.index;
-        if (index === undefined) {
+    private renderCaption() {
+        if (!this.accessibleLabel) {
             return;
         }
 
-        const item = this.items[Number(index)];
-        if (!item.clickable) {
+        return <caption>{this.accessibleLabel}</caption>;
+    }
+
+    private renderTableHeader() {
+        return (
+            <thead>
+                <tr>
+                    <th scope="col">{this.itemsLabel}</th>
+                    <th scope="col">{this.valuesLabel}</th>
+                </tr>
+            </thead>
+        );
+    }
+
+    private get itemsLabel() {
+        return (
+            this.accessibleItemsLabel ?? translate.get('items', this.language)
+        );
+    }
+
+    private get valuesLabel() {
+        return (
+            this.accessibleValuesLabel ?? translate.get('value', this.language)
+        );
+    }
+
+    private renderItems() {
+        return this.items?.map((item, index) => (
+            <tr
+                data-index={index}
+                aria-description={this.getRowDescription(index)}
+                tabIndex={0}
+                role={item.clickable ? 'button' : null}
+                onClick={this.handleClick}
+                onKeyDown={this.handleKeyDown}
+                onFocus={this.handleFocus}
+                onBlur={this.handleBlur}
+            >
+                <td>{item.text}</td>
+                <td>{formatValue(item, this.type)}</td>
+            </tr>
+        ));
+    }
+
+    private getRowDescription(index: number): string | undefined {
+        const label = getItemLabel(
+            {
+                items: this.items,
+                type: this.type,
+                maxValue: this.maxValue,
+                displayItemPercentage: this.displayItemPercentage,
+            },
+            index
+        );
+
+        return label === this.items[index].text ? undefined : label;
+    }
+
+    private draw() {
+        if (!this.plot?.isConnected) {
+            this.disposeChart();
+
+            return;
+        }
+
+        this.observeSize();
+        const { clientWidth: width, clientHeight: height } = this.plot;
+        if (!width || !height) {
+            return;
+        }
+
+        this.createChart();
+        if (
+            width !== this.chart.getWidth() ||
+            height !== this.chart.getHeight()
+        ) {
+            this.chart.resize();
+        }
+
+        this.updateChart();
+        this.fitItemTextsToSize();
+    }
+
+    private createChart() {
+        if (this.chart?.getDom() === this.plot) {
+            return;
+        }
+
+        this.disposeChart();
+        /*!
+         * Apache ECharts
+         * Copyright 2017-2026 The Apache Software Foundation
+         *
+         * This product includes software developed at
+         * The Apache Software Foundation (https://www.apache.org/).
+         *
+         * Licensed under the Apache License, Version 2.0
+         * (https://www.apache.org/licenses/LICENSE-2.0).
+         *
+         *
+         * ZRender
+         * Copyright (c) 2017, Baidu Inc.
+         * All rights reserved.
+         *
+         * Redistribution and use in source and binary forms, with or without
+         * modification, are permitted provided that the following conditions are met:
+         *
+         * * Redistributions of source code must retain the above copyright notice, this
+         *   list of conditions and the following disclaimer.
+         *
+         * * Redistributions in binary form must reproduce the above copyright notice,
+         *   this list of conditions and the following disclaimer in the documentation
+         *   and/or other materials provided with the distribution.
+         *
+         * * Neither the name of the copyright holder nor the names of its
+         *   contributors may be used to endorse or promote products derived from
+         *   this software without specific prior written permission.
+         *
+         * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+         * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+         * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+         * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+         * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+         * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+         * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+         * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+         * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+         * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+         */
+        use(extensions);
+        this.chart = init(this.plot, null, { renderer: 'svg' });
+        this.chart.on('click', this.handleChartClick);
+        this.chart.on('mouseover', this.handleChartOver);
+        this.chart.on('mouseout', this.handleChartOut);
+    }
+
+    private updateChart() {
+        const settings = this.getSettings();
+        const drawnSettings = JSON.stringify(settings);
+        if (drawnSettings === this.drawnSettings && !this.themeMayHaveChanged) {
+            return;
+        }
+
+        this.themeMayHaveChanged = false;
+        this.themeReader ??= createThemeReader(this.host.shadowRoot);
+        this.stopWatchingTheme ??= watchTheme(
+            this.host,
+            this.handleThemeChange
+        );
+        const theme = this.themeReader.theme();
+        const coloredSettings = this.withItemColors(settings, theme);
+        const drawnTheme = JSON.stringify({
+            theme: theme,
+            itemColors: coloredSettings.items.map((item) => item.color),
+        });
+        if (
+            drawnSettings === this.drawnSettings &&
+            drawnTheme === this.drawnTheme
+        ) {
+            return;
+        }
+
+        this.drawnSettings = drawnSettings;
+        this.drawnTheme = drawnTheme;
+        this.drawing = drawChart(coloredSettings, theme, this.itemSpace);
+        this.chart.setOption(this.drawing.option, { notMerge: true });
+
+        const focusedRow = this.host.shadowRoot.activeElement;
+        if (focusedRow instanceof HTMLElement && focusedRow.dataset.index) {
+            this.showItem(focusedRow, true);
+        }
+    }
+
+    private fitItemTextsToSize() {
+        const axis = this.drawing?.itemTextAxis;
+        if (!axis) {
+            return;
+        }
+
+        const finder = { [`${axis}Index`]: 0 };
+        const itemSpace = Math.floor(
+            Math.abs(
+                this.chart.convertToPixel(finder, 1) -
+                    this.chart.convertToPixel(finder, 0)
+            )
+        );
+        if (itemSpace === this.itemSpace) {
+            return;
+        }
+
+        this.itemSpace = itemSpace;
+        this.chart.setOption(fitItemTexts(this.drawing, itemSpace));
+    }
+
+    private getSettings(): ChartSettings {
+        return {
+            items: (this.items ?? []).map((item) => ({
+                text: item.text,
+                value: item.value,
+                formattedValue: item.formattedValue,
+                color: item.color,
+                clickable: item.clickable,
+            })),
+            type: this.type,
+            orientation: this.orientation,
+            maxValue: this.maxValue,
+            axisIncrement: this.axisIncrement,
+            displayAxisLabels: this.displayAxisLabels,
+            itemsLabel: this.itemsLabel,
+            valuesLabel: this.valuesLabel,
+            displayItemText: this.displayItemText,
+            displayItemValue: this.displayItemValue,
+            displayItemPercentage: this.displayItemPercentage,
+        };
+    }
+
+    private withItemColors(
+        settings: ChartSettings,
+        theme: ChartTheme
+    ): ChartSettings {
+        return {
+            ...settings,
+            items: settings.items.map((item) => ({
+                ...item,
+                color: this.getItemColor(item, theme),
+            })),
+        };
+    }
+
+    private getItemColor(item: ChartItem, theme: ChartTheme): string {
+        if (!item.color) {
+            return theme.itemColor;
+        }
+
+        const color = this.themeReader.color(item.color);
+        if (color) {
+            return color;
+        }
+
+        if (!this.invalidColors.has(item.color)) {
+            this.invalidColors.add(item.color);
+            const hint = item.color.includes('var(')
+                ? ' Check that its variables are set, and that they make a color.'
+                : '';
+            console.warn(
+                `limel-chart: the color of an item must be a CSS color, but was \`${item.color}\`.${hint} Using the default item color instead.`
+            );
+        }
+
+        return theme.itemColor;
+    }
+
+    private observeSize() {
+        if (this.resizeObserver || typeof ResizeObserver === 'undefined') {
+            return;
+        }
+
+        this.resizeObserver = new ResizeObserver(this.handleResize);
+        this.resizeObserver.observe(this.host);
+    }
+
+    private disposeChart() {
+        this.chart?.dispose();
+        this.chart = undefined;
+        this.drawing = undefined;
+        this.drawnSettings = undefined;
+        this.drawnTheme = undefined;
+        this.itemSpace = undefined;
+    }
+
+    private readonly setPlot = (element?: HTMLElement) => {
+        this.plot = element;
+    };
+
+    private readonly handleResize = () => {
+        this.draw();
+    };
+
+    private readonly handleThemeChange = () => {
+        this.themeMayHaveChanged = true;
+        this.draw();
+    };
+
+    private readonly handleChartClick = (event: ECElementEvent) => {
+        if (!this.drawing) {
+            return;
+        }
+
+        const item = this.getClickableItem(getItemIndex(this.drawing, event));
+        if (!item) {
+            return;
+        }
+
+        event.event?.event?.stopPropagation();
+        this.interact.emit(item);
+    };
+
+    private readonly handleChartOver = (event: ECElementEvent) => {
+        this.highlightItemAt(event, true);
+    };
+
+    private readonly handleChartOut = (event: ECElementEvent) => {
+        this.highlightItemAt(event, false);
+    };
+
+    private highlightItemAt(event: ECElementEvent, highlight: boolean) {
+        if (!this.drawing) {
+            return;
+        }
+
+        const location = locateItem(
+            this.drawing,
+            getItemIndex(this.drawing, event)
+        );
+        if (location.seriesIndex === event.seriesIndex) {
+            return;
+        }
+
+        this.chart.dispatchAction({
+            type: highlight ? 'highlight' : 'downplay',
+            ...location,
+        });
+    }
+
+    private getClickableItem(index: number): ChartItem | undefined {
+        const item = this.items[index];
+        if (!item?.clickable) {
             return;
         }
 
         return item;
     }
 
+    private getRowIndex(event: Event): number {
+        return Number((event.currentTarget as HTMLElement).dataset.index);
+    }
+
     private readonly handleClick = (event: MouseEvent) => {
-        const item = this.getClickableItem(event.currentTarget as HTMLElement);
+        const item = this.getClickableItem(this.getRowIndex(event));
         if (!item) {
             return;
         }
@@ -564,7 +661,7 @@ export class Chart {
             return;
         }
 
-        const item = this.getClickableItem(event.currentTarget as HTMLElement);
+        const item = this.getClickableItem(this.getRowIndex(event));
         if (!item) {
             return;
         }
@@ -572,4 +669,28 @@ export class Chart {
         event.preventDefault();
         this.interact.emit(item);
     };
+
+    private readonly handleFocus = (event: FocusEvent) => {
+        this.showItem(event.currentTarget as HTMLElement, true);
+    };
+
+    private readonly handleBlur = (event: FocusEvent) => {
+        this.showItem(event.currentTarget as HTMLElement, false);
+    };
+
+    private showItem(row: HTMLElement, show: boolean) {
+        if (!this.chart || !this.drawing) {
+            return;
+        }
+
+        const location = locateItem(this.drawing, Number(row.dataset.index));
+        this.chart.dispatchAction({
+            type: show ? 'highlight' : 'downplay',
+            ...location,
+        });
+        this.chart.dispatchAction({
+            type: show ? 'showTip' : 'hideTip',
+            ...location,
+        });
+    }
 }

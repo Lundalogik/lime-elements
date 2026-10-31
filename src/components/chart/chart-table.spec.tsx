@@ -67,6 +67,38 @@ test('each item is a row with its text and its value', async () => {
     ]);
 });
 
+test('each row of a chart of parts is described by its share of the whole', async () => {
+    const shadow = await renderChart(
+        <limel-chart type="doughnut" items={items} />
+    );
+    const rows = [...shadow.querySelector('tbody').children];
+
+    expect(rows.map((row) => row.getAttribute('aria-description'))).toEqual([
+        'Applications (25.00%)',
+        'Photos (75.00%)',
+    ]);
+});
+
+test('without displayItemPercentage, the rows have no description', async () => {
+    const shadow = await renderChart(
+        <limel-chart
+            type="doughnut"
+            items={items}
+            displayItemPercentage={false}
+        />
+    );
+    const row = shadow.querySelector('tr[data-index]');
+
+    expect(row.hasAttribute('aria-description')).toBe(false);
+});
+
+test('the rows of a chart that is not of parts have no description', async () => {
+    const shadow = await renderChart(<limel-chart type="bar" items={items} />);
+    const row = shadow.querySelector('tr[data-index]');
+
+    expect(row.hasAttribute('aria-description')).toBe(false);
+});
+
 test('a scatter point is a row with its coordinates', async () => {
     const shadow = await renderChart(
         <limel-chart

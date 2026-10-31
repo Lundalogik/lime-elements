@@ -1,330 +1,116 @@
 import { render, h } from '@stencil/vitest';
 import { ChartItem } from './chart.types';
 
-const items: ChartItem[] = [
-    { text: 'Applications', value: 25 },
-    { text: 'Photos', value: 75 },
-];
+const items: ChartItem[] = [{ text: 'Photos', value: 75 }];
+const largeItems: ChartItem[] = [{ text: 'Revenue', value: 1_000_000 }];
 
-type Props = Partial<
-    Pick<
-        HTMLLimelChartElement,
-        'type' | 'items' | 'maxValue' | 'displayItemPercentage'
-    >
->;
-
-async function setup(props: Props = {}) {
+test('an axis step worked out from the items leaves axisIncrement unset', async () => {
     const { root, waitForChanges } = await render(
-        <limel-chart items={items} {...props} />
+        <limel-chart type="bar" items={items} />
     );
     await waitForChanges();
 
-    const shadow = root.shadowRoot;
-    const tooltips = [
-        ...shadow.querySelectorAll('limel-tooltip'),
-    ] as HTMLLimelTooltipElement[];
-    const rows = [...shadow.querySelectorAll('tr.item')];
-    const sizes = rows.map((row) =>
-        Number(
-            (row as HTMLElement).style.getPropertyValue(
-                '--limel-chart-item-size'
-            )
-        )
+    expect(root.axisIncrement).toBeUndefined();
+});
+
+test.each([0, -10, NaN])(
+    'an axisIncrement of %s makes the chart warn',
+    async (axisIncrement) => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+        const { waitForChanges } = await render(
+            <limel-chart
+                type="bar"
+                items={items}
+                axisIncrement={axisIncrement}
+            />
+        );
+        await waitForChanges();
+
+        expect(warn).toHaveBeenCalledExactlyOnceWith(
+            `limel-chart: \`axisIncrement\` must be above 0, but was ${axisIncrement}. Working out a step from the values instead.`
+        );
+        warn.mockRestore();
+    }
+);
+
+test.each([undefined, 25])(
+    'an axisIncrement of %s does not make the chart warn',
+    async (axisIncrement) => {
+        const warn = vi.spyOn(console, 'warn');
+
+        const { waitForChanges } = await render(
+            <limel-chart
+                type="bar"
+                items={items}
+                axisIncrement={axisIncrement}
+            />
+        );
+        await waitForChanges();
+
+        expect(warn).not.toHaveBeenCalled();
+        warn.mockRestore();
+    }
+);
+
+test('an axisIncrement that would draw too many axis lines makes the chart warn', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+    const { waitForChanges } = await render(
+        <limel-chart type="bar" items={largeItems} axisIncrement={1} />
     );
+    await waitForChanges();
 
-    return {
-        labels: tooltips.map((tooltip) => tooltip.label),
-        values: tooltips.map((tooltip) => tooltip.helperLabel),
-        sizes,
-        offsets: rows.map((row) =>
-            Number(
-                (row as HTMLElement).style.getPropertyValue(
-                    '--limel-chart-item-offset'
-                )
-            )
-        ),
-    };
-}
+    expect(warn).toHaveBeenCalledExactlyOnceWith(
+        'limel-chart: `axisIncrement` 1 would divide the axis into more than 100 steps. Working out a step from the values instead.'
+    );
+    warn.mockRestore();
+});
 
-describe('limel-chart', () => {
-    describe('items that are parts of a whole', () => {
-        test('a stacked bar sizes its items as shares of their sum', async () => {
-            const { labels, sizes } = await setup();
+test('items that grow too large for axisIncrement make the chart warn', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const { root, waitForChanges } = await render(
+        <limel-chart
+            type="bar"
+            items={[{ text: 'Revenue', value: 50 }]}
+            axisIncrement={1}
+        />
+    );
+    await waitForChanges();
 
-            expect(sizes).toEqual([25, 75]);
-            expect(labels).toEqual([
-                'Applications (25.00%)',
-                'Photos (75.00%)',
-            ]);
-        });
+    root.items = largeItems;
+    await waitForChanges();
 
-        test('maxValue is the whole, and is not rounded to an axis step', async () => {
-            const { labels, sizes } = await setup({ maxValue: 210 });
+    expect(warn).toHaveBeenCalledExactlyOnceWith(
+        'limel-chart: `axisIncrement` 1 would divide the axis into more than 100 steps. Working out a step from the values instead.'
+    );
+    warn.mockRestore();
+});
 
-            expect(sizes[0]).toBeCloseTo(11.9, 1);
-            expect(labels[0]).toBe('Applications (11.90%)');
-        });
+test('a chart without a value axis does not warn about axisIncrement', async () => {
+    const warn = vi.spyOn(console, 'warn');
 
-        test('a pie fills the whole circle', async () => {
-            const { sizes } = await setup({ type: 'pie' });
+    const { waitForChanges } = await render(
+        <limel-chart type="pie" items={largeItems} axisIncrement={1} />
+    );
+    await waitForChanges();
 
-            expect(sizes[0] + sizes[1]).toBe(100);
-        });
+    expect(warn).not.toHaveBeenCalled();
+    warn.mockRestore();
+});
 
-        test('a ring shows each item as its share of maxValue', async () => {
-            const { labels, sizes } = await setup({
-                type: 'ring',
-                maxValue: 250,
-            });
+test('changing axisIncrement to one that is not above 0 makes the chart warn', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const { root, waitForChanges } = await render(
+        <limel-chart type="bar" items={items} axisIncrement={25} />
+    );
+    await waitForChanges();
 
-            expect(sizes).toEqual([10, 30]);
-            expect(labels[0]).toBe('Applications (10.00%)');
-        });
+    root.axisIncrement = -10;
+    await waitForChanges();
 
-        test('changing the type recalculates the range', async () => {
-            const { root, waitForChanges } = await render(
-                <limel-chart items={items} type="bar" />
-            );
-            await waitForChanges();
-
-            root.type = 'ring';
-            await waitForChanges();
-
-            const sizes = [...root.shadowRoot.querySelectorAll('tr.item')].map(
-                (row) =>
-                    Number(
-                        (row as HTMLElement).style.getPropertyValue(
-                            '--limel-chart-item-size'
-                        )
-                    )
-            );
-
-            expect(sizes).toEqual([25, 75]);
-        });
-
-        test('range items use their extents as shares', async () => {
-            const rangeItems: ChartItem[] = [
-                { text: 'Planning', value: [10, 40] },
-                { text: 'Delivery', value: [40, 100] },
-            ];
-            const { labels, sizes } = await setup({ items: rangeItems });
-
-            expect(sizes[0]).toBeCloseTo(100 / 3);
-            expect(sizes[1]).toBeCloseTo((100 * 2) / 3);
-            expect(labels).toEqual(['Planning (33.33%)', 'Delivery (66.67%)']);
-        });
-
-        test('ring range items start at zero', async () => {
-            const rangeItems: ChartItem[] = [
-                { text: 'Planning', value: [10, 40] },
-                { text: 'Delivery', value: [40, 100] },
-            ];
-            const { offsets, sizes } = await setup({
-                type: 'ring',
-                items: rangeItems,
-                maxValue: 90,
-            });
-
-            expect(offsets).toEqual([0, 0]);
-            expect(sizes[0]).toBeCloseTo(100 / 3);
-            expect(sizes[1]).toBeCloseTo((100 * 2) / 3);
-        });
-
-        test('negative items are not inverted into positive shares', async () => {
-            const negativeItems: ChartItem[] = [
-                { text: 'First', value: -5 },
-                { text: 'Second', value: -10 },
-                { text: 'Third', value: -15 },
-            ];
-            const { sizes } = await setup({ items: negativeItems });
-
-            expect(sizes.every((size) => size < 0)).toBe(true);
-        });
-    });
-
-    describe('displayItemPercentage', () => {
-        test('set to false, the tooltip shows the text alone', async () => {
-            const { labels } = await setup({ displayItemPercentage: false });
-
-            expect(labels).toEqual(['Applications', 'Photos']);
-        });
-
-        test('set to false, the tooltip still shows the value', async () => {
-            const { values } = await setup({ displayItemPercentage: false });
-
-            expect(values).toEqual(['25', '75']);
-        });
-    });
-
-    describe('items on an axis', () => {
-        test.each(['bar', 'dot', 'line', 'area'] as const)(
-            'a %s chart shows no percentage',
-            async (type) => {
-                const { labels } = await setup({ type });
-
-                expect(labels).toEqual(['Applications', 'Photos']);
-            }
-        );
-
-        test('new items get an axis step of their own', async () => {
-            const { root, waitForChanges } = await render(
-                <limel-chart
-                    type="bar"
-                    items={[{ text: 'Small', value: 100 }]}
-                />
-            );
-            await waitForChanges();
-
-            root.items = [{ text: 'Large', value: 10_000 }];
-            await waitForChanges();
-
-            const axisLabels = [
-                ...root.shadowRoot.querySelectorAll('limel-badge'),
-            ].map((badge) => badge.label);
-            expect(axisLabels).toEqual([
-                0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10_000,
-            ]);
-        });
-
-        test('maxValue sets the top of the axis, and axisIncrement the step between its lines', async () => {
-            const { root, waitForChanges } = await render(
-                <limel-chart
-                    type="bar"
-                    items={items}
-                    maxValue={100}
-                    axisIncrement={25}
-                />
-            );
-            await waitForChanges();
-
-            const axisLabels = [
-                ...root.shadowRoot.querySelectorAll('limel-badge'),
-            ].map((badge) => badge.label);
-            expect(axisLabels).toEqual([0, 25, 50, 75, 100]);
-        });
-
-        test('an axis step worked out from the items leaves axisIncrement unset', async () => {
-            const { root, waitForChanges } = await render(
-                <limel-chart type="bar" items={items} />
-            );
-            await waitForChanges();
-
-            expect(root.axisIncrement).toBeUndefined();
-        });
-
-        test.each([0, -10, NaN])(
-            'an axisIncrement of %s makes the chart warn',
-            async (axisIncrement) => {
-                const warn = vi
-                    .spyOn(console, 'warn')
-                    .mockImplementation(() => {});
-
-                const { waitForChanges } = await render(
-                    <limel-chart
-                        type="bar"
-                        items={items}
-                        axisIncrement={axisIncrement}
-                    />
-                );
-                await waitForChanges();
-
-                expect(warn).toHaveBeenCalledExactlyOnceWith(
-                    `limel-chart: \`axisIncrement\` must be above 0, but was ${axisIncrement}. Working out a step from the values instead.`
-                );
-                warn.mockRestore();
-            }
-        );
-
-        test.each([undefined, 25])(
-            'an axisIncrement of %s does not make the chart warn',
-            async (axisIncrement) => {
-                const warn = vi.spyOn(console, 'warn');
-
-                const { waitForChanges } = await render(
-                    <limel-chart
-                        type="bar"
-                        items={items}
-                        axisIncrement={axisIncrement}
-                    />
-                );
-                await waitForChanges();
-
-                expect(warn).not.toHaveBeenCalled();
-                warn.mockRestore();
-            }
-        );
-
-        test('an axisIncrement that would draw too many axis lines is ignored, with a warning', async () => {
-            const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-
-            const { root, waitForChanges } = await render(
-                <limel-chart
-                    type="bar"
-                    items={[{ text: 'Revenue', value: 1_000_000 }]}
-                    axisIncrement={1}
-                />
-            );
-            await waitForChanges();
-
-            expect(
-                root.shadowRoot.querySelectorAll('limel-badge')
-            ).toHaveLength(11);
-            expect(warn).toHaveBeenCalledExactlyOnceWith(
-                'limel-chart: `axisIncrement` 1 would divide the axis into more than 100 steps. Working out a step from the values instead.'
-            );
-            warn.mockRestore();
-        });
-
-        test('items that grow too large for axisIncrement make the chart warn', async () => {
-            const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-            const { root, waitForChanges } = await render(
-                <limel-chart
-                    type="bar"
-                    items={[{ text: 'Revenue', value: 50 }]}
-                    axisIncrement={1}
-                />
-            );
-            await waitForChanges();
-
-            root.items = [{ text: 'Revenue', value: 1_000_000 }];
-            await waitForChanges();
-
-            expect(warn).toHaveBeenCalledExactlyOnceWith(
-                'limel-chart: `axisIncrement` 1 would divide the axis into more than 100 steps. Working out a step from the values instead.'
-            );
-            warn.mockRestore();
-        });
-
-        test('a chart without a value axis does not warn about axisIncrement', async () => {
-            const warn = vi.spyOn(console, 'warn');
-
-            const { waitForChanges } = await render(
-                <limel-chart
-                    type="pie"
-                    items={[{ text: 'Revenue', value: 1_000_000 }]}
-                    axisIncrement={1}
-                />
-            );
-            await waitForChanges();
-
-            expect(warn).not.toHaveBeenCalled();
-            warn.mockRestore();
-        });
-
-        test('changing axisIncrement to one that is not above 0 makes the chart warn', async () => {
-            const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-            const { root, waitForChanges } = await render(
-                <limel-chart type="bar" items={items} axisIncrement={25} />
-            );
-            await waitForChanges();
-
-            root.axisIncrement = -10;
-            await waitForChanges();
-
-            expect(warn).toHaveBeenCalledExactlyOnceWith(
-                'limel-chart: `axisIncrement` must be above 0, but was -10. Working out a step from the values instead.'
-            );
-            warn.mockRestore();
-        });
-    });
+    expect(warn).toHaveBeenCalledExactlyOnceWith(
+        'limel-chart: `axisIncrement` must be above 0, but was -10. Working out a step from the values instead.'
+    );
+    warn.mockRestore();
 });
