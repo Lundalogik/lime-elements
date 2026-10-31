@@ -6,6 +6,7 @@ import {
     h,
     Host,
     Prop,
+    State,
     Watch,
 } from '@stencil/core';
 import {
@@ -24,6 +25,13 @@ import { init, use, type ECElementEvent, type ECharts } from 'echarts/core';
 import { SVGRenderer } from 'echarts/renderers';
 import { Languages } from '../date-picker/date.types';
 import translate from '../../global/translations';
+import {
+    findNavigationTarget,
+    findTabStop,
+    isNavigationKey,
+    NavigationOrientation,
+    NO_NAVIGATION_TARGET,
+} from '../../util/keyboard-navigation';
 import { ChartItem, ChartType } from './chart.types';
 import {
     ChartDrawing,
@@ -46,6 +54,8 @@ import {
     ThemeReader,
     watchTheme,
 } from './theme';
+
+const orientations: NavigationOrientation[] = ['horizontal', 'vertical'];
 
 const extensions = [
     BarChart,
@@ -219,6 +229,12 @@ export class Chart {
     @Element()
     private readonly host: HTMLLimelChartElement;
 
+    /**
+     * The item that last had focus, which is the one that Tab returns to.
+     */
+    @State()
+    private focusedIndex = 0;
+
     private plot?: HTMLElement;
     private chart?: ECharts;
     private drawing?: ChartDrawing;
@@ -336,11 +352,13 @@ export class Chart {
     }
 
     private renderItems() {
+        const tabStop = findTabStop(this.items ?? [], this.focusedIndex);
+
         return this.items?.map((item, index) => (
             <tr
                 data-index={index}
                 aria-description={this.getRowDescription(index)}
-                tabIndex={0}
+                tabIndex={index === tabStop ? 0 : -1}
                 role={item.clickable ? 'button' : null}
                 onClick={this.handleClick}
                 onKeyDown={this.handleKeyDown}
@@ -614,6 +632,23 @@ export class Chart {
     };
 
     private readonly handleKeyDown = (event: KeyboardEvent) => {
+        const orientation = orientations.find((option) =>
+            isNavigationKey(event, { orientation: option })
+        );
+        if (orientation) {
+            event.preventDefault();
+            this.focusItem(
+                findNavigationTarget(
+                    this.items,
+                    event.key,
+                    this.getRowIndex(event),
+                    { orientation: orientation }
+                )
+            );
+
+            return;
+        }
+
         if (event.key !== 'Enter' && event.key !== ' ') {
             return;
         }
@@ -628,12 +663,23 @@ export class Chart {
     };
 
     private readonly handleFocus = (event: FocusEvent) => {
-        this.showItem(event.currentTarget as HTMLElement, true);
+        const row = event.currentTarget as HTMLElement;
+        this.focusedIndex = Number(row.dataset.index);
+        this.showItem(row, true);
     };
 
     private readonly handleBlur = (event: FocusEvent) => {
         this.showItem(event.currentTarget as HTMLElement, false);
     };
+
+    private focusItem(index: number) {
+        if (index === NO_NAVIGATION_TARGET) {
+            return;
+        }
+
+        const rows = this.host.shadowRoot.querySelectorAll('tbody tr');
+        (rows[index] as HTMLElement).focus();
+    }
 
     private showItem(row: HTMLElement, show: boolean) {
         if (!this.chart || !this.drawing) {
