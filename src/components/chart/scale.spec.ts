@@ -11,7 +11,7 @@ import {
 const items = (...values: Array<ChartItem['value']>): ChartItem[] =>
     values.map((value, index) => ({ text: `Item ${index}`, value: value }));
 
-test('the axis step divides the largest value into about ten steps', () => {
+test('the axis step divides the axis into about ten steps', () => {
     expect(getAxisRange(items(25, 75))).toEqual({
         minValue: 0,
         maxValue: 80,
@@ -21,11 +21,29 @@ test('the axis step divides the largest value into about ten steps', () => {
 });
 
 test('maxValue on an axis is rounded up to the next step', () => {
-    expect(getAxisRange(items(25, 75), 210)).toEqual({
+    expect(getAxisRange(items(25, 75), 230)).toEqual({
         minValue: 0,
-        maxValue: 216,
-        totalRange: 216,
-        increment: 8,
+        maxValue: 240,
+        totalRange: 240,
+        increment: 30,
+    });
+});
+
+test('the axis step divides an axis up to maxValue into about ten steps', () => {
+    expect(getAxisRange(items(0, 0), 1_000_000)).toEqual({
+        minValue: 0,
+        maxValue: 1_000_000,
+        totalRange: 1_000_000,
+        increment: 100_000,
+    });
+});
+
+test('an axis without items reaches up to maxValue in about ten steps', () => {
+    expect(getAxisRange([], 50)).toEqual({
+        minValue: 0,
+        maxValue: 50,
+        totalRange: 50,
+        increment: 5,
     });
 });
 
@@ -44,10 +62,10 @@ test.each([0, -20, NaN])('an axisIncrement of %d is ignored', (step) => {
 
 test('negative values extend the axis below zero to a whole step', () => {
     expect(getAxisRange(items(-15, 38))).toEqual({
-        minValue: -16,
-        maxValue: 40,
-        totalRange: 56,
-        increment: 4,
+        minValue: -18,
+        maxValue: 42,
+        totalRange: 60,
+        increment: 6,
     });
 });
 
