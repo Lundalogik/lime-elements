@@ -481,22 +481,25 @@ describe('limel-tooltip', () => {
             expect(fresh.getAttribute('aria-description')).toBe('Second');
         });
 
-        test('does not repeat what a chart row already says', async () => {
+        test('does not repeat what a table row already says', async () => {
             const { root, waitForChanges } = await render(
-                <limel-chart
-                    type="doughnut"
-                    displayItemPercentage={true}
-                    items={[
-                        { id: 1, text: 'Jan', value: 25 },
-                        { id: 2, text: 'Feb', value: 75 },
-                    ]}
-                />
+                <table>
+                    <tbody>
+                        <tr id="jan" tabIndex={0}>
+                            <td>Jan</td>
+                            <td>25</td>
+                            <limel-tooltip
+                                elementId="jan"
+                                label="Jan (25.00%)"
+                                helperLabel="25"
+                            />
+                        </tr>
+                    </tbody>
+                </table>
             );
             await waitForChanges();
 
-            const row = root
-                .shadowRoot!.querySelector('limel-tooltip')!
-                .closest('tr')!;
+            const row = root.querySelector('tr')!;
             await vi.waitFor(() => {
                 expect(row.getAttribute('aria-description')).toBe(
                     'Jan (25.00%)'

@@ -1,119 +1,96 @@
-@forward './partial-styles/layout-for-charts-with-x-y-axises';
-@forward './partial-styles/display-item-text';
-@forward './partial-styles/layout-for-charts-with-circular-shape';
-@forward './partial-styles/bar-gantt-dot';
-@forward './partial-styles/area_line';
-@forward './partial-styles/pie-doughnut';
-@forward './partial-styles/ring';
-@forward './partial-styles/stacked-bar';
-@forward './partial-styles/nps';
-@forward './partial-styles/scatter';
-@forward './partial-styles/axises';
 @use '../../style/mixins';
 
 /**
 * @prop --chart-background-color: Defines the background color of the chart. Defaults to `transparent` for _most_ chart types.
 * @prop --chart-item-color: If no color is defined for chart items, this color will be use. Defaults to `rgb(var(--contrast-1100), 0.8)`.
 * @prop --chart-item-divider-color: Defines the color that visually separates items in some charts, such as `stacked-bar` chart items. Defaults to `rgb(var(--color-white), 0.6)`.
-* @prop --chart-axis-line-color: Defines color of the axis lines. Defaults to `--contrast-900`. Note that lines have opacity as well, and get opaque on hover.
-* @prop --chart-item-border-radius: Defines the roundness of corners of items in a chart. Defaults to different values depending on the chart type. Does not have any effect on `pie` and `doughnut` types.
+* @prop --chart-axis-line-color: Defines color of the axis lines. Defaults to `rgb(var(--contrast-900), 0.4)`.
+* @prop --chart-item-border-radius: Defines the roundness of corners of items in `bar` and `stacked-bar` charts.
 * @prop --chart-scatter-item-size: Defines the diameter of the dots in a `scatter` chart. Defaults to `0.5rem`.
 */
 
 :host(limel-chart) {
-    --limel-chart-min-item-size: 0.5rem;
-    --limel-chart-default-item-color: var(
+    --limel-chart-item-color: var(
         --chart-item-color,
         rgb(var(--contrast-1100), 0.8)
     );
-
-    --chart-axis-line-color: var(
-        --limel-chart-axis-line-color,
-        rgb(var(--contrast-900))
+    --limel-chart-axis-line-color: var(
+        --chart-axis-line-color,
+        rgb(var(--contrast-900), 0.4)
     );
-    box-sizing: border-box;
-    isolation: isolate;
+    --limel-chart-background-color: var(--chart-background-color, transparent);
+    --limel-chart-item-divider-color: var(
+        --chart-item-divider-color,
+        rgb(var(--color-white), 0.6)
+    );
+    --limel-chart-item-border-radius: var(--chart-item-border-radius, 0);
+    --limel-chart-scatter-item-size: var(--chart-scatter-item-size, 0.5rem);
+    --limel-chart-text-color: rgb(var(--contrast-1000));
+    --limel-chart-line-color: rgb(var(--contrast-900));
+    --limel-chart-surface-color: rgb(var(--contrast-100));
+    --limel-chart-nps-detractors-color: rgb(var(--color-coral-default));
+    --limel-chart-nps-passives-color: rgb(var(--color-amber-light));
+    --limel-chart-nps-good-color: rgb(var(--color-lime-light));
+    --limel-chart-nps-excellent-color: rgb(var(--color-lime-default));
 
+    box-sizing: border-box;
+    position: relative;
     display: flex;
     width: 100%;
     height: 100%;
     min-width: 0;
     min-height: 0;
-    padding: var(--limel-chart-padding);
+}
+
+:host(limel-chart[type='bar']) {
+    --limel-chart-item-border-radius: var(--chart-item-border-radius, 0.125rem);
+}
+
+:host(limel-chart[type='stacked-bar']) {
+    --limel-chart-background-color: var(
+        --chart-background-color,
+        rgb(var(--contrast-800), 0.2)
+    );
+}
+
+:host(limel-chart[type='stacked-bar'][orientation='landscape']) {
+    min-height: 0.5rem;
+}
+
+:host(limel-chart[type='stacked-bar'][orientation='portrait']) {
+    min-width: 0.5rem;
+}
+
+:host(limel-chart[type='pie']),
+:host(limel-chart[type='doughnut']),
+:host(limel-chart[type='ring']) {
+    --limel-chart-background-color: var(
+        --chart-background-color,
+        rgb(var(--contrast-200))
+    );
+}
+
+:host(limel-chart[type='nps']) {
+    --limel-chart-background-color: var(
+        --chart-background-color,
+        rgb(var(--contrast-100))
+    );
+}
+
+:host(limel-chart[type='pie']),
+:host(limel-chart[type='doughnut']),
+:host(limel-chart[type='ring']),
+:host(limel-chart[type='nps']) {
+    aspect-ratio: 1;
+}
+
+.plot {
+    position: absolute;
+    inset: 0;
 }
 
 table {
-    // Since these are mainly "resets", no styles should be before them.
-    all: unset;
-    border-collapse: collapse;
-    border-spacing: 0;
-    empty-cells: show;
-
-    position: relative;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    min-width: 0;
-    min-height: 0;
-
-    colgroup,
-    thead,
-    tbody,
-    tr,
-    th,
-    td {
-        all: unset;
-    }
-
-    caption,
-    colgroup,
-    thead,
-    tfoot,
-    th,
-    td {
-        @include mixins.visually-hidden;
-    }
-}
-
-*,
-*:before,
-*:after {
-    box-sizing: border-box;
-}
-
-.chart {
-    position: relative;
-    flex-grow: 1;
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    min-width: 0;
-
-    &:has(.item:hover),
-    &:has(.item:focus-visible) {
-        .item {
-            opacity: 0.4;
-        }
-    }
-}
-
-.item {
-    @include mixins.visualize-keyboard-focus;
-    transition:
-        background-color 0.2s ease,
-        box-shadow 0.2s ease,
-        filter 0.2s ease,
-        opacity 0.4s ease;
-    cursor: help;
-
-    &:focus-visible,
-    &:hover {
-        opacity: 1 !important;
-    }
-
-    &[role='button'] {
-        cursor: pointer;
-    }
+    @include mixins.visually-hidden;
 }
 
 limel-spinner {
