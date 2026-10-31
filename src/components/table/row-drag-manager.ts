@@ -59,13 +59,23 @@ export class RowDragManager {
     /**
      * Returns the Tabulator rowHeader config that renders
      * a limel-drag-handle and restricts dragging to that cell
+     *
+     * @param width - width of the column in pixels. The CSS clamps the
+     * rendered cells to `--limel-table-drag-handle-width`, so Tabulator must
+     * reserve the same width in its layout. Otherwise width-distributing
+     * layouts such as `fitColumns` hand the handle a full flex share and the
+     * difference shows up as a blank filler column.
      */
-    public getRowHeaderDefinition(): Partial<TabulatorColumnDefinition> {
+    public getRowHeaderDefinition(
+        width: number
+    ): Partial<TabulatorColumnDefinition> {
         return {
             headerSort: false,
             resizable: false,
             frozen: true,
             rowHandle: true,
+            width: width,
+            minWidth: width,
             formatter: this.getDragHandleFormatter(),
             cssClass: 'limel-table-drag-handle',
             cellClick: this.handleCellClick,
