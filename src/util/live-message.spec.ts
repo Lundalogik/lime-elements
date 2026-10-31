@@ -62,21 +62,24 @@ describe('createLiveMessage', () => {
     });
 
     it('does not write a message that is already there', () => {
+        const write = vi.fn();
+        let text = '';
+        Object.defineProperty(element, 'textContent', {
+            get: () => text,
+            set: (value: string) => {
+                write(value);
+                text = value;
+            },
+        });
         const { update } = setUp();
         message = 'Three suggestions';
         update();
         vi.advanceTimersByTime(500);
-        const observer = vi.fn();
-        new MutationObserver(observer).observe(element, {
-            childList: true,
-            characterData: true,
-            subtree: true,
-        });
 
         update();
         vi.advanceTimersByTime(500);
 
-        expect(observer).not.toHaveBeenCalled();
+        expect(write).toHaveBeenCalledTimes(1);
     });
 
     it('does nothing when there is no element', () => {
