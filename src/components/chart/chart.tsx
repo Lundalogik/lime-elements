@@ -3,28 +3,22 @@ import { Languages } from '../date-picker/date.types';
 import translate from '../../global/translations';
 import { createRandomString } from '../../util/random-string';
 import { ChartItem, ChartType } from './chart.types';
+import {
+    AxisRange,
+    formatValue,
+    getAxisRange,
+    getMaximumValue,
+    getMinimumValue,
+    getScatterRanges,
+    getShare,
+    getWholeRange,
+    getXValue,
+    getYValue,
+    isPartOfWhole,
+    isRangeItem,
+} from './scale';
 
 const PERCENT = 100;
-const DEFAULT_INCREMENT_SIZE = 10;
-
-/**
- * Types whose items are parts of one whole. They draw no axis, and an item's
- * value or range extent is its share of `maxValue`, or of the combined items.
- */
-const WHOLE_TYPES: ReadonlySet<string> = new Set([
-    'stacked-bar',
-    'pie',
-    'doughnut',
-    'ring',
-]);
-
-interface AxisRange {
-    minValue: number;
-    maxValue: number;
-    totalRange: number;
-    /** Step between adjacent axis lines, used to render the grid. */
-    increment: number;
-}
 
 /**
  * A chart is a graphical representation of data, in which
@@ -338,8 +332,8 @@ export class Chart {
                     onClick={this.handleClick}
                     onKeyDown={this.handleKeyDown}
                 >
-                    <td class="text">{this.getItemText(item)}</td>
-                    <td class="value">{this.getFormattedValue(item)}</td>
+                    <td class="text">{item.text}</td>
+                    <td class="value">{formatValue(item, this.type)}</td>
                     {this.renderTooltip(item, itemId, size)}
                 </tr>
             );
@@ -383,11 +377,11 @@ export class Chart {
     ): Record<string, string> {
         const style: Record<string, string> = {
             '--limel-chart-item-offset-x': `${this.normalize(
-                this.getXValue(item),
+                getXValue(item),
                 this.secondaryAxisRange
             )}`,
             '--limel-chart-item-offset-y': `${this.normalize(
-                this.getYValue(item),
+                getYValue(item),
                 this.range
             )}`,
             '--limel-chart-item-index': `${index}`,
@@ -406,11 +400,11 @@ export class Chart {
             'has-start-value':
                 this.type !== 'scatter' && Array.isArray(item.value),
             'has-negative-value-only':
-                this.getMaximumValue(item) < 0 && !this.isRangeItem(item),
+                getMaximumValue(item) < 0 && !isRangeItem(item),
             // Scatter coordinates are independent values, so "value is zero"
             // (which hides the value label elsewhere) must not apply.
             'has-value-zero':
-                this.type !== 'scatter' && this.getMaximumValue(item) === 0,
+                this.type !== 'scatter' && getMaximumValue(item) === 0,
         };
     }
 
@@ -423,22 +417,22 @@ export class Chart {
             };
         }
 
-        if (this.isPartOfWhole()) {
+        if (isPartOfWhole(this.type)) {
             return {
-                size: (this.getValueSpan(item) / totalRange) * PERCENT,
+                size: getShare(item, this.range),
                 offset: 0,
             };
         }
 
         let startValue = 0;
-        if (this.isRangeItem(item)) {
-            startValue = this.getMinimumValue(item);
+        if (isRangeItem(item)) {
+            startValue = getMinimumValue(item);
         }
 
         const normalizedStart =
             ((startValue - minValue) / totalRange) * PERCENT;
         const normalizedEnd =
-            ((this.getMaximumValue(item) - minValue) / totalRange) * PERCENT;
+            ((getMaximumValue(item) - minValue) / totalRange) * PERCENT;
 
         return {
             size: normalizedEnd - normalizedStart,
@@ -446,41 +440,18 @@ export class Chart {
         };
     }
 
-    private getFormattedValue(item: ChartItem): string {
-        const { value, formattedValue } = item;
-
-        if (formattedValue) {
-            return formattedValue;
-        }
-
-        if (Array.isArray(value)) {
-            if (this.type === 'scatter') {
-                return `(${value[0]}, ${value[1]})`;
-            }
-
-            return `${value[0]} — ${value[1]}`;
-        }
-
-        return `${value}`;
-    }
-
-    private getItemText(item: ChartItem): string {
-        return item.text;
-    }
-
     private renderTooltip(item: ChartItem, itemId: string, size: number) {
-        const text = this.getItemText(item);
         const PERCENT_DECIMAL = 2;
-        const formattedValue = this.getFormattedValue(item);
+        const formattedValue = formatValue(item, this.type);
 
         const tooltipProps: any = {
-            label: text,
+            label: item.text,
             helperLabel: formattedValue,
             elementId: itemId,
         };
 
-        if (this.displayItemPercentage && this.isPartOfWhole()) {
-            tooltipProps.label = `${text} (${size.toFixed(PERCENT_DECIMAL)}%)`;
+        if (this.displayItemPercentage && isPartOfWhole(this.type)) {
+            tooltipProps.label = `${item.text} (${size.toFixed(PERCENT_DECIMAL)}%)`;
         }
 
         return (
@@ -493,111 +464,6 @@ export class Chart {
         );
     }
 
-    private calculateRange(): AxisRange {
-        if (this.range) {
-            return this.range;
-        }
-
-        if (this.isPartOfWhole()) {
-            return this.calculateWholeRange();
-        }
-
-        const minRange = Math.min(0, ...this.items.map(this.getMinimumValue));
-        const maxRange = Math.max(...this.items.map(this.getMaximumValue));
-        const finalMaxRange = this.maxValue ?? maxRange;
-        const increment =
-            this.axisIncrement > 0
-                ? this.axisIncrement
-                : this.calculateAxisIncrement(
-                      this.items.map((item) => this.getMaximumValue(item))
-                  );
-
-        const visualMaxValue = Math.ceil(finalMaxRange / increment) * increment;
-        const visualMinValue = Math.floor(minRange / increment) * increment;
-        const totalRange = visualMaxValue - visualMinValue;
-
-        return {
-            minValue: visualMinValue,
-            maxValue: visualMaxValue,
-            totalRange: totalRange,
-            increment: increment,
-        };
-    }
-
-    /**
-     * The range of a chart whose items are parts of one whole: `maxValue`
-     * when set, otherwise the combined item values or range extents. The value
-     * is a scale, not a cap, so the combined size can exceed it. The whole is
-     * not rounded to an axis step, since these types draw no axis and an item's
-     * size has to be its exact share.
-     */
-    private calculateWholeRange(): AxisRange {
-        const sum = this.items.reduce(
-            (total, item) => total + this.getValueSpan(item),
-            0
-        );
-        const inferredWhole = sum > 0 ? sum : 1;
-        // An explicit zero also falls back to 1, so normalization stays finite.
-        const whole = (this.maxValue ?? inferredWhole) || 1;
-
-        return {
-            minValue: 0,
-            maxValue: whole,
-            totalRange: whole,
-            increment: whole,
-        };
-    }
-
-    private isPartOfWhole(): boolean {
-        return WHOLE_TYPES.has(this.type);
-    }
-
-    private calculateAxisIncrement(
-        values: number[],
-        steps: number = DEFAULT_INCREMENT_SIZE
-    ) {
-        return this.calculateNiceStep(Math.max(...values), steps);
-    }
-
-    // A "nice" step (…× 10ⁿ) dividing `span` into ~`steps` intervals. Takes the
-    // axis length, not a raw max, so it's sign-safe (a negative max would make
-    // `Math.log10` return `NaN`).
-    private calculateNiceStep(
-        span: number,
-        steps: number = DEFAULT_INCREMENT_SIZE
-    ): number {
-        if (span <= 0) {
-            // Every value is identical (e.g. all zero); any positive step works.
-            return 1;
-        }
-
-        const roughStep = span / steps;
-        const magnitude = 10 ** Math.floor(Math.log10(roughStep));
-
-        return Math.ceil(roughStep / magnitude) * magnitude;
-    }
-
-    // Axis length measured through zero, so the origin is always included.
-    private axisSpan(values: number[]): number {
-        return Math.max(0, ...values) - Math.min(0, ...values);
-    }
-
-    // A "nice" rounded range for one scatter axis. Both bounds include zero, so
-    // a fully-negative axis still shows its origin (and zero line).
-    private calculateAxisRange(values: number[], increment: number): AxisRange {
-        const minValue =
-            Math.floor(Math.min(0, ...values) / increment) * increment;
-        const maxValue =
-            Math.ceil(Math.max(0, ...values) / increment) * increment;
-
-        return {
-            minValue: minValue,
-            maxValue: maxValue,
-            totalRange: maxValue - minValue,
-            increment: increment,
-        };
-    }
-
     private normalize(value: number, range: AxisRange): number {
         if (range.totalRange === 0) {
             // Degenerate axis (every value is zero): center the point so it
@@ -608,45 +474,11 @@ export class Chart {
         return ((value - range.minValue) / range.totalRange) * PERCENT;
     }
 
-    private getXValue(item: ChartItem): number {
-        return Array.isArray(item.value) ? item.value[0] : item.value;
-    }
-
-    private getYValue(item: ChartItem): number {
-        return Array.isArray(item.value) ? item.value[1] : item.value;
-    }
-
-    private getMinimumValue(item: ChartItem): number {
-        const value = item.value;
-
-        return Array.isArray(value) ? Math.min(...value) : value;
-    }
-
-    private getMaximumValue(item: ChartItem): number {
-        const value = item.value;
-
-        return Array.isArray(value) ? Math.max(...value) : value;
-    }
-
-    private getValueSpan(item: ChartItem): number {
-        const startValue = this.isRangeItem(item)
-            ? this.getMinimumValue(item)
-            : 0;
-
-        return this.getMaximumValue(item) - startValue;
-    }
-
-    private isRangeItem(item: ChartItem): item is ChartItem<[number, number]> {
-        return Array.isArray(item.value);
-    }
-
     @Watch('items')
     @Watch('axisIncrement')
     @Watch('maxValue')
     @Watch('type')
     handleChange() {
-        this.range = null;
-        this.secondaryAxisRange = null;
         this.recalculateRangeData();
     }
 
@@ -664,30 +496,17 @@ export class Chart {
 
     private recalculateRangeData() {
         if (this.type === 'scatter') {
-            this.recalculateScatterRanges();
+            const { x, y } = getScatterRanges(this.items);
+            this.range = y;
+            this.secondaryAxisRange = x;
 
             return;
         }
 
-        this.range = this.calculateRange();
-    }
-
-    // Each axis derives its own range and step from its own zero-anchored span
-    // (positive, negative, and zero-crossing data all grid sensibly). The single
-    // `axisIncrement` prop can't describe two independent axes, so scatter
-    // ignores it and auto-derives both, like it does `maxValue`.
-    private recalculateScatterRanges() {
-        const xValues = this.items.map((item) => this.getXValue(item));
-        const yValues = this.items.map((item) => this.getYValue(item));
-
-        this.range = this.calculateAxisRange(
-            yValues,
-            this.calculateNiceStep(this.axisSpan(yValues))
-        );
-        this.secondaryAxisRange = this.calculateAxisRange(
-            xValues,
-            this.calculateNiceStep(this.axisSpan(xValues))
-        );
+        this.secondaryAxisRange = null;
+        this.range = isPartOfWhole(this.type)
+            ? getWholeRange(this.items, this.maxValue)
+            : getAxisRange(this.items, this.maxValue, this.axisIncrement);
     }
 
     private getClickableItem(target: HTMLElement): ChartItem | undefined {

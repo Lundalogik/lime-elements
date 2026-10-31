@@ -186,6 +186,23 @@ describe('limel-chart', () => {
             ]);
         });
 
+        test('maxValue sets the top of the axis, and axisIncrement the step between its lines', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-chart
+                    type="bar"
+                    items={items}
+                    maxValue={100}
+                    axisIncrement={25}
+                />
+            );
+            await waitForChanges();
+
+            const axisLabels = [
+                ...root.shadowRoot.querySelectorAll('limel-badge'),
+            ].map((badge) => badge.label);
+            expect(axisLabels).toEqual([0, 25, 50, 75, 100]);
+        });
+
         test('an axis step worked out from the items leaves axisIncrement unset', async () => {
             const { root, waitForChanges } = await render(
                 <limel-chart type="bar" items={items} />
