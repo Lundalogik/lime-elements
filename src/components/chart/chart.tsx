@@ -174,6 +174,8 @@ export class Chart {
 
     /**
      * Sets the axis increment for `bar`, `dot`, `area`, and `line` charts.
+     * When it is not set, or not above zero, the chart works out a step
+     * from the values.
      * Has no effect on other chart types.
      */
     @Prop({ reflect: true })
@@ -210,6 +212,7 @@ export class Chart {
 
     public componentWillLoad() {
         this.recalculateRangeData();
+        this.warnAboutAxisIncrement();
     }
 
     public render() {
@@ -512,24 +515,22 @@ export class Chart {
         const minRange = Math.min(0, ...this.items.map(this.getMinimumValue));
         const maxRange = Math.max(...this.items.map(this.getMaximumValue));
         const finalMaxRange = this.maxValue ?? maxRange;
+        const increment =
+            this.axisIncrement > 0
+                ? this.axisIncrement
+                : this.calculateAxisIncrement(
+                      this.items.map((item) => this.getMaximumValue(item))
+                  );
 
-        if (!this.axisIncrement) {
-            this.axisIncrement = this.calculateAxisIncrement(
-                this.items.map(this.getMaximumValue)
-            );
-        }
-
-        const visualMaxValue =
-            Math.ceil(finalMaxRange / this.axisIncrement) * this.axisIncrement;
-        const visualMinValue =
-            Math.floor(minRange / this.axisIncrement) * this.axisIncrement;
+        const visualMaxValue = Math.ceil(finalMaxRange / increment) * increment;
+        const visualMinValue = Math.floor(minRange / increment) * increment;
         const totalRange = visualMaxValue - visualMinValue;
 
         return {
             minValue: visualMinValue,
             maxValue: visualMaxValue,
             totalRange: totalRange,
-            increment: this.axisIncrement,
+            increment: increment,
         };
     }
 
@@ -657,6 +658,18 @@ export class Chart {
         this.range = null;
         this.secondaryAxisRange = null;
         this.recalculateRangeData();
+    }
+
+    @Watch('axisIncrement')
+    protected warnAboutAxisIncrement() {
+        const increment = this.axisIncrement;
+        if (increment === undefined || increment === null || increment > 0) {
+            return;
+        }
+
+        console.warn(
+            `limel-chart: \`axisIncrement\` must be above 0, but was ${increment}. Working out a step from the values instead.`
+        );
     }
 
     private recalculateRangeData() {
