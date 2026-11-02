@@ -4,12 +4,7 @@
 
 ## Overview
 
-How to style the shortcut
-
-The component offers different CSS variables for styling
-the color of the shortcut, and it's icon; as well as
-radius of it's rounded corners, and colors of the notification badge
-and its text.
+Example with click handler
 
 ## Dependencies
 
@@ -20,11 +15,11 @@ and its text.
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-shortcut-styling --> limel-shortcut
+  limel-example-shortcut-with-click-handler --> limel-shortcut
   limel-shortcut --> limel-badge
   limel-shortcut --> limel-icon
   limel-shortcut --> limel-3d-hover-effect-glow
-  style limel-example-shortcut-styling fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-shortcut-with-click-handler fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
