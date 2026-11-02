@@ -596,6 +596,7 @@ function drawPie(settings: ChartSettings, theme: ChartTheme): ChartDrawing {
             value: whole - sum,
             itemStyle: { color: theme.backgroundColor },
             emphasis: { disabled: true },
+            cursor: getCursor(false),
         });
     }
 
