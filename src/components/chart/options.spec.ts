@@ -17,7 +17,7 @@ const theme: ChartTheme = {
     backgroundColor: 'rgb(3, 3, 3)',
     dividerColor: 'rgb(4, 4, 4)',
     surfaceColor: 'rgb(5, 5, 5)',
-    itemBorderRadius: 2,
+    itemBorderRadius: [2, 2, 2, 2],
     scatterItemSize: 8,
     fontFamily: 'Inter',
     npsColors: ['rgb(6, 6, 6)', 'rgb(7, 7, 7)', 'rgb(8, 8, 8)', 'rgb(9, 9, 9)'],

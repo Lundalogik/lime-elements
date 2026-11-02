@@ -12,8 +12,8 @@ export interface ChartTheme {
     backgroundColor: string;
     dividerColor: string;
     surfaceColor: string;
-    /** In pixels. */
-    itemBorderRadius: number;
+    /** In pixels, clockwise from the top left corner. */
+    itemBorderRadius: [number, number, number, number];
     /** In pixels. */
     scatterItemSize: number;
     fontFamily: string;
@@ -120,6 +120,22 @@ export function createThemeReader(root: ShadowRoot): ThemeReader {
         return Number.isFinite(pixels) ? pixels : 0;
     };
 
+    const resolveCorners = (value: string): ChartTheme['itemBorderRadius'] => {
+        probe.style.borderRadius = value;
+        const style = getComputedStyle(probe);
+        const corners = [
+            style.borderTopLeftRadius,
+            style.borderTopRightRadius,
+            style.borderBottomRightRadius,
+            style.borderBottomLeftRadius,
+        ];
+        probe.style.borderRadius = '';
+
+        return corners.map((corner) =>
+            resolveLength(corner)
+        ) as ChartTheme['itemBorderRadius'];
+    };
+
     return {
         color: (value) => (isColor(value) ? resolveColor(value) : undefined),
         theme: () => ({
@@ -134,7 +150,7 @@ export function createThemeReader(root: ShadowRoot): ThemeReader {
                 '--limel-chart-item-divider-color'
             ),
             surfaceColor: resolveColor('var(--limel-chart-surface-color)'),
-            itemBorderRadius: resolveLength(
+            itemBorderRadius: resolveCorners(
                 'var(--limel-chart-item-border-radius)'
             ),
             scatterItemSize: resolveLength(
