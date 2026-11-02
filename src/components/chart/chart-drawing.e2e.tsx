@@ -102,6 +102,14 @@ function findStroke(chart: HTMLLimelChartElement, stroke: string) {
     return chart.shadowRoot.querySelector(`.plot path[stroke="${stroke}"]`);
 }
 
+function getCornerRadii(path: SVGElement) {
+    const [topRight, bottomRight, bottomLeft, topLeft] = [
+        ...path.getAttribute('d').matchAll(/A([\d.]+)/g),
+    ].map((arc) => Number(arc[1]));
+
+    return [topLeft, topRight, bottomRight, bottomLeft];
+}
+
 function addStyles(css: string) {
     const style = document.createElement('style');
     style.textContent = css;
@@ -320,6 +328,28 @@ test('the dots of a scatter chart are as wide as --chart-scatter-item-size', asy
     const dot = await drawn(chart, RED);
 
     expect(dot.getBoundingClientRect().width).toBeCloseTo(20, 0);
+});
+
+test('each corner of a bar is rounded by its own --chart-item-border-radius length', async () => {
+    const { chart } = await setup({
+        items: [reports],
+        style: { '--chart-item-border-radius': '4px 8px 12px 16px' },
+    });
+
+    const bar = await drawn(chart, RED);
+
+    expect(getCornerRadii(bar)).toEqual([4, 8, 12, 16]);
+});
+
+test('a percentage --chart-item-border-radius is a share of the width of the chart', async () => {
+    const { chart } = await setup({
+        items: [reports],
+        style: { '--chart-item-border-radius': '5%' },
+    });
+
+    const bar = await drawn(chart, RED);
+
+    expect(getCornerRadii(bar)).toEqual([15, 15, 15, 15]);
 });
 
 test('the chart is drawn again in the colors of the theme when the page switches theme', async () => {
