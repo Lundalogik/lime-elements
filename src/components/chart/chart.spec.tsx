@@ -254,6 +254,63 @@ describe('limel-chart', () => {
             }
         );
 
+        test('an axisIncrement that would draw too many axis lines is ignored, with a warning', async () => {
+            const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+            const { root, waitForChanges } = await render(
+                <limel-chart
+                    type="bar"
+                    items={[{ text: 'Revenue', value: 1_000_000 }]}
+                    axisIncrement={1}
+                />
+            );
+            await waitForChanges();
+
+            expect(
+                root.shadowRoot.querySelectorAll('limel-badge')
+            ).toHaveLength(11);
+            expect(warn).toHaveBeenCalledExactlyOnceWith(
+                'limel-chart: `axisIncrement` 1 would divide the axis into more than 100 steps. Working out a step from the values instead.'
+            );
+            warn.mockRestore();
+        });
+
+        test('items that grow too large for axisIncrement make the chart warn', async () => {
+            const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+            const { root, waitForChanges } = await render(
+                <limel-chart
+                    type="bar"
+                    items={[{ text: 'Revenue', value: 50 }]}
+                    axisIncrement={1}
+                />
+            );
+            await waitForChanges();
+
+            root.items = [{ text: 'Revenue', value: 1_000_000 }];
+            await waitForChanges();
+
+            expect(warn).toHaveBeenCalledExactlyOnceWith(
+                'limel-chart: `axisIncrement` 1 would divide the axis into more than 100 steps. Working out a step from the values instead.'
+            );
+            warn.mockRestore();
+        });
+
+        test('a chart without a value axis does not warn about axisIncrement', async () => {
+            const warn = vi.spyOn(console, 'warn');
+
+            const { waitForChanges } = await render(
+                <limel-chart
+                    type="pie"
+                    items={[{ text: 'Revenue', value: 1_000_000 }]}
+                    axisIncrement={1}
+                />
+            );
+            await waitForChanges();
+
+            expect(warn).not.toHaveBeenCalled();
+            warn.mockRestore();
+        });
+
         test('changing axisIncrement to one that is not above 0 makes the chart warn', async () => {
             const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
             const { root, waitForChanges } = await render(

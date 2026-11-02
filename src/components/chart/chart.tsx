@@ -16,6 +16,8 @@ import {
     getYValue,
     isPartOfWhole,
     isRangeItem,
+    MAX_AXIS_STEPS,
+    usesAxisIncrement,
 } from './scale';
 
 const PERCENT = 100;
@@ -159,7 +161,8 @@ export class Chart {
     /**
      * Sets the axis increment for `bar`, `dot`, `area`, and `line` charts.
      * When it is not set, or not above zero, the chart works out a step
-     * from the values.
+     * from the values. It also does that when the step would divide the
+     * axis into more than 100 parts, so that it does not draw too many lines.
      * Has no effect on other chart types.
      */
     @Prop({ reflect: true })
@@ -179,6 +182,8 @@ export class Chart {
      * horizontally (portrait) is decided by `orientation`.
      */
     private range: AxisRange;
+
+    private axisIncrementWarning?: string;
 
     /**
      * Range of each scatter point's first value (`value[0]`). Only used by the
@@ -483,15 +488,36 @@ export class Chart {
     }
 
     @Watch('axisIncrement')
+    @Watch('items')
+    @Watch('maxValue')
+    @Watch('type')
     protected warnAboutAxisIncrement() {
+        const warning = this.getAxisIncrementWarning();
+        if (warning && warning !== this.axisIncrementWarning) {
+            console.warn(warning);
+        }
+
+        this.axisIncrementWarning = warning;
+    }
+
+    private getAxisIncrementWarning(): string | undefined {
         const increment = this.axisIncrement;
-        if (increment === undefined || increment === null || increment > 0) {
+        if (increment === undefined || increment === null) {
             return;
         }
 
-        console.warn(
-            `limel-chart: \`axisIncrement\` must be above 0, but was ${increment}. Working out a step from the values instead.`
-        );
+        if (increment <= 0 || Number.isNaN(increment)) {
+            return `limel-chart: \`axisIncrement\` must be above 0, but was ${increment}. Working out a step from the values instead.`;
+        }
+
+        if (!usesAxisIncrement(this.type)) {
+            return;
+        }
+
+        const range = getAxisRange(this.items ?? [], this.maxValue, increment);
+        if (range.increment !== increment) {
+            return `limel-chart: \`axisIncrement\` ${increment} would divide the axis into more than ${MAX_AXIS_STEPS} steps. Working out a step from the values instead.`;
+        }
     }
 
     private recalculateRangeData() {
