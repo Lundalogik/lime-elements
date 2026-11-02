@@ -4,6 +4,11 @@ const PERCENT = 100;
 const STEP_COUNT = 10;
 
 /**
+ * The most steps that an `axisIncrement` may divide a value axis into.
+ */
+export const MAX_AXIS_STEPS = 100;
+
+/**
  * Types whose items are parts of one whole. They draw no axis, and an item's
  * value or range extent is its share of `maxValue`, or of the combined items.
  */
@@ -12,6 +17,13 @@ const WHOLE_TYPES: ReadonlySet<ChartType> = new Set([
     'pie',
     'doughnut',
     'ring',
+]);
+
+const AXIS_INCREMENT_TYPES: ReadonlySet<ChartType> = new Set([
+    'bar',
+    'dot',
+    'area',
+    'line',
 ]);
 
 export interface AxisRange {
@@ -28,6 +40,15 @@ export interface AxisRange {
  */
 export function isPartOfWhole(type: ChartType): boolean {
     return WHOLE_TYPES.has(type);
+}
+
+/**
+ * Whether a chart of this type draws its value axis in steps of
+ * `axisIncrement`.
+ * @param type - the chart type
+ */
+export function usesAxisIncrement(type: ChartType): boolean {
+    return AXIS_INCREMENT_TYPES.has(type);
 }
 
 /**
@@ -91,7 +112,8 @@ export function getYValue(item: ChartItem): number {
  * The value axis of a `bar`, `dot`, `area` or `line` chart. It reaches from
  * zero, or from the smallest value when that is below zero, up to `maxValue`
  * or the largest value. Both ends are rounded outwards to a whole step.
- * Without an `axisIncrement` above zero, the step divides the axis into
+ * Without an `axisIncrement` above zero, or with one that would divide the
+ * axis into more than `MAX_AXIS_STEPS` steps, the step divides the axis into
  * about ten.
  * @param items - the items in the chart
  * @param maxValue - the requested upper bound, if any
@@ -105,10 +127,10 @@ export function getAxisRange(
     const maximumValues = items.map((item) => getMaximumValue(item));
     const minRange = Math.min(0, ...items.map((item) => getMinimumValue(item)));
     const finalMaxRange = maxValue ?? Math.max(...maximumValues);
-    const increment =
-        axisIncrement > 0
-            ? axisIncrement
-            : getNiceStep(finalMaxRange - minRange);
+    const span = finalMaxRange - minRange;
+    const increment = isUsableStep(axisIncrement, span)
+        ? axisIncrement
+        : getNiceStep(span);
 
     return roundOutwards(minRange, finalMaxRange, increment);
 }
@@ -187,6 +209,10 @@ export function formatValue(item: ChartItem, type: ChartType): string {
     }
 
     return `${value}`;
+}
+
+function isUsableStep(step: number | undefined, span: number): boolean {
+    return step > 0 && span / step <= MAX_AXIS_STEPS;
 }
 
 function getNiceStep(span: number): number {

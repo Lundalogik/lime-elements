@@ -20,6 +20,19 @@ test('the axis step divides the axis into about ten steps', () => {
     });
 });
 
+test('an axisIncrement that divides the axis into 100 steps is used', () => {
+    expect(getAxisRange(items(100), undefined, 1).increment).toBe(1);
+});
+
+test('an axisIncrement that would divide the axis into more than 100 steps is ignored', () => {
+    expect(getAxisRange(items(1_000_000), undefined, 1)).toEqual({
+        minValue: 0,
+        maxValue: 1_000_000,
+        totalRange: 1_000_000,
+        increment: 100_000,
+    });
+});
+
 test('maxValue on an axis is rounded up to the next step', () => {
     expect(getAxisRange(items(25, 75), 230)).toEqual({
         minValue: 0,
