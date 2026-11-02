@@ -383,6 +383,39 @@ test('a portrait stacked bar keeps the height it is given, however small', async
     expect(chart.getBoundingClientRect().height).toBe(2);
 });
 
+test('the chart is drawn inside its padding', async () => {
+    const { chart } = await setup({ style: { padding: '20px' } });
+    await drawn(chart, RED);
+
+    const host = chart.getBoundingClientRect();
+    const drawing = chart.shadowRoot
+        .querySelector('.plot svg')
+        .getBoundingClientRect();
+
+    expect([
+        drawing.left - host.left,
+        drawing.top - host.top,
+        drawing.width,
+        drawing.height,
+    ]).toEqual([20, 20, 260, 160]);
+});
+
+test('a stacked bar with a padding and no height draws its items', async () => {
+    const rendered = await render(
+        <div style={{ width: '300px' }}>
+            <limel-chart
+                type="stacked-bar"
+                items={[reports, archive]}
+                style={{ padding: '0.25rem' }}
+            />
+        </div>
+    );
+    unmount = rendered.unmount;
+    const chart = rendered.root.querySelector('limel-chart');
+
+    expect(await drawn(chart, RED)).toBeTruthy();
+});
+
 test('an item color that ECharts cannot read is converted to one it can', async () => {
     const { chart } = await setup({
         items: [
