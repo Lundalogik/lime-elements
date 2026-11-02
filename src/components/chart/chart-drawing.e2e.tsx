@@ -383,6 +383,44 @@ test('a portrait stacked bar keeps the height it is given, however small', async
     expect(chart.getBoundingClientRect().height).toBe(2);
 });
 
+test.each(['bar', 'dot', 'line', 'area', 'scatter'] as const)(
+    '%s charts in a container without a height are half as tall as they are wide',
+    async (type) => {
+        const rendered = await render(
+            <div style={{ width: '300px' }}>
+                <limel-chart type={type} items={[reports, archive]} />
+            </div>
+        );
+        unmount = rendered.unmount;
+        const chart = rendered.root.querySelector('limel-chart');
+
+        await expect.poll(() => chart.getBoundingClientRect().height).toBe(150);
+    }
+);
+
+test('an axis chart keeps the height its container gives it', async () => {
+    const { chart } = await setup();
+
+    expect(chart.getBoundingClientRect().height).toBe(200);
+});
+
+test('an axis chart keeps its min-height in a container without a height', async () => {
+    const rendered = await render(
+        <div style={{ width: '300px' }}>
+            <limel-chart
+                type="bar"
+                items={[reports, archive]}
+                style={{ minHeight: '100px' }}
+            />
+        </div>
+    );
+    unmount = rendered.unmount;
+    const chart = rendered.root.querySelector('limel-chart');
+    await drawn(chart, RED);
+
+    expect(chart.getBoundingClientRect().height).toBe(100);
+});
+
 test('the chart is drawn inside its padding', async () => {
     const { chart } = await setup({ style: { padding: '20px' } });
     await drawn(chart, RED);
