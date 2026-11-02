@@ -1,3 +1,19 @@
+## [40.20.0](https://github.com/Lundalogik/lime-elements/compare/v40.19.0...v40.20.0) (2026-11-02)
+
+### Features
+
+
+* **chart:** name the chart types `ChartType` ([2a04be6](https://github.com/Lundalogik/lime-elements/commit/2a04be64e460dce922a4742fb18c7bfa016ce7e0))
+### Bug Fixes
+
+
+* **chart:** divide the whole axis into steps ([7c05103](https://github.com/Lundalogik/lime-elements/commit/7c051034b929f37c1a01a51dcbffdfb7c827ed77))
+* **chart:** draw the charts with ECharts ([94be8bd](https://github.com/Lundalogik/lime-elements/commit/94be8bdd2ffdb8a565041f5637633c68534ebc83))
+* **chart:** draw the lines between items in a color that follows dark mode ([055f0ae](https://github.com/Lundalogik/lime-elements/commit/055f0ae927bee98f8bcf284949f23d6d12b25a74))
+* **chart:** give new items an axis step of their own ([d483a02](https://github.com/Lundalogik/lime-elements/commit/d483a02388516ce91d6e5502d1af10386e16fbaf))
+* **chart:** ignore an axisIncrement that would draw too many axis lines ([50fef28](https://github.com/Lundalogik/lime-elements/commit/50fef2819ca0c3a46964dd7e602931b3f9522405))
+* **chart:** move between the items with the arrow keys ([051db44](https://github.com/Lundalogik/lime-elements/commit/051db4494ec33b92088dfad690c9e81b4d6f5d5d))
+
 ## [40.19.0](https://github.com/Lundalogik/lime-elements/compare/v40.18.3...v40.19.0) (2026-11-02)
 
 ### Features
