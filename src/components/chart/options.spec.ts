@@ -572,3 +572,14 @@ test('the empty part of a pie is not an item', () => {
 
     expect(getTooltip(chart, index)).toBe('');
 });
+
+test('the empty part of a pie keeps the default cursor when items are clickable', () => {
+    const { series } = draw({
+        type: 'pie',
+        maxValue: 250,
+        items: [{ text: 'Photos', value: 75, clickable: true }],
+    });
+
+    expect(series[0].cursor).toBe('pointer');
+    expect(series[0].data[1].cursor).toBe('default');
+});
