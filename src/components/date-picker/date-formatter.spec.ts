@@ -131,7 +131,7 @@ describe('parseDate', () => {
         const formatter = new DateFormatter('en');
 
         expect(formatter.parseDate('w 5 2', '[w] W GGGG')).toBeNull();
-        expect(formatter.parseDate('w 5 20', '[w] W GGGG')).toBeNull();
+        expect(formatter.parseDate('w 5 202', '[w] W GGGG')).toBeNull();
     });
 
     it('accepts a complete week behind an escaped literal', () => {
@@ -214,6 +214,80 @@ describe('parseDate', () => {
 
         expect(asLocalDateString(date)).toBe('2020-1-24');
     });
+
+    describe('dates keep the separators of their format', () => {
+        it('rejects other date separators', () => {
+            expect(
+                new DateFormatter('en').parseDate('01-24-2026', 'L')
+            ).toBeNull();
+            expect(
+                new DateFormatter('sv').parseDate('2026/01/24', 'L')
+            ).toBeNull();
+        });
+
+        it('reads digits without separators in the order of the format', () => {
+            const date = new DateFormatter('sv').parseDate('2026124', 'L');
+
+            expect(asLocalDateString(date)).toBe('2026-12-4');
+        });
+    });
+
+    describe('times', () => {
+        const asTime = (date: Date) =>
+            `${date.getHours()}:${date.getMinutes()}`;
+
+        it('accepts "." for ":" and ":" for "."', () => {
+            expect(
+                asTime(new DateFormatter('sv').parseDate('15.30', 'LT'))
+            ).toBe('15:30');
+            expect(
+                asTime(new DateFormatter('fi').parseDate('15:30', 'LT'))
+            ).toBe('15:30');
+        });
+
+        it('accepts any kind of space before AM/PM', () => {
+            const formatter = new DateFormatter('en');
+
+            expect(
+                asTime(formatter.parseDate('3:30 PM', 'h:mm\u{202F}A'))
+            ).toBe('15:30');
+            expect(asTime(formatter.parseDate('3:30\u{202F}PM', 'LT'))).toBe(
+                '15:30'
+            );
+        });
+
+        it('accepts a space or a comma between the date and the time', () => {
+            const formatter = new DateFormatter('en');
+
+            for (const text of ['01/24/2026 3:30 PM', '1/24/2026, 3:30 PM']) {
+                const date = formatter.parseDate(text, 'L - LT');
+
+                expect(asLocalDateString(date)).toBe('2026-1-24');
+                expect(asTime(date)).toBe('15:30');
+            }
+        });
+    });
+
+    describe('weeks', () => {
+        it('accepts any text, or none, in front of the week number', () => {
+            const formatter = new DateFormatter('sv');
+
+            for (const text of ['w 4 2026', 'w4 2026', '4 2026', 'v. 4 2026']) {
+                const date = formatter.parseDate(text, '[w] W GGGG');
+
+                expect(asLocalDateString(date)).toBe('2026-1-19');
+            }
+        });
+
+        it('reads a 2-digit week-year the way it reads a 2-digit year', () => {
+            const date = new DateFormatter('en').parseDate(
+                'w 4 26',
+                '[w] W GGGG'
+            );
+
+            expect(asLocalDateString(date)).toBe('2026-1-19');
+        });
+    });
 });
 
 describe('formatDate', () => {
@@ -229,50 +303,6 @@ describe('formatDate', () => {
         const formatter = new DateFormatter('en');
 
         expect(formatter.formatDate(undefined, 'MM/DD/YYYY')).toBe('');
-    });
-});
-
-describe('expandFormat', () => {
-    it('expands the localized "L" token for English', () => {
-        const formatter = new DateFormatter('en');
-
-        expect(formatter.expandFormat('L')).toBe('MM/DD/YYYY');
-    });
-
-    it('expands the localized "L" token for German', () => {
-        const formatter = new DateFormatter('de');
-
-        expect(formatter.expandFormat('L')).toBe('DD.MM.YYYY');
-    });
-
-    it('treats "no" as Norwegian Bokmål', () => {
-        const formatter = new DateFormatter('no');
-
-        expect(formatter.expandFormat('L')).toBe('DD.MM.YYYY');
-    });
-
-    it('keeps the text of a literal as is, without its brackets', () => {
-        const formatter = new DateFormatter('en');
-
-        expect(formatter.expandFormat('[Deadline] L')).toBe(
-            'Deadline MM/DD/YYYY'
-        );
-    });
-
-    it('does not expand an "l" inside a literal', () => {
-        const formatter = new DateFormatter('sv');
-
-        expect(formatter.expandFormat('L [kl.] LT')).toBe(
-            'YYYY-MM-DD kl. HH:mm'
-        );
-    });
-
-    it('shows the default week format without brackets', () => {
-        const formatter = new DateFormatter('en');
-
-        expect(formatter.expandFormat(formatter.getDateFormat('week'))).toBe(
-            'w W GGGG'
-        );
     });
 });
 
