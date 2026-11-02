@@ -77,6 +77,9 @@ export interface ChartItem<T extends number | [number, number] = number | [numbe
     value: T;
 }
 
+// @beta
+export type ChartType = 'area' | 'bar' | 'doughnut' | 'line' | 'nps' | 'pie' | 'ring' | 'dot' | 'scatter' | 'stacked-bar';
+
 // @public (undocumented)
 export interface Chip<T = any> {
     badge?: number | string;
@@ -256,16 +259,7 @@ export namespace Components {
         "loading": boolean;
         "maxValue"?: number;
         "orientation"?: 'landscape' | 'portrait';
-        "type"?: | 'area'
-        | 'bar'
-        | 'doughnut'
-        | 'line'
-        | 'nps'
-        | 'pie'
-        | 'ring'
-        | 'dot'
-        | 'scatter'
-        | 'stacked-bar';
+        "type"?: ChartType;
     }
     export interface LimelCheckbox {
         "checked": boolean;
@@ -1931,16 +1925,7 @@ export namespace JSX {
         "maxValue"?: number;
         "onInteract"?: (event: LimelChartCustomEvent<ChartItem>) => void;
         "orientation"?: 'landscape' | 'portrait';
-        "type"?: | 'area'
-        | 'bar'
-        | 'doughnut'
-        | 'line'
-        | 'nps'
-        | 'pie'
-        | 'ring'
-        | 'dot'
-        | 'scatter'
-        | 'stacked-bar';
+        "type"?: ChartType;
     }
 
     // (undocumented)
@@ -1969,17 +1954,10 @@ export namespace JSX {
         "maxValue": number;
         // (undocumented)
         "orientation": 'landscape' | 'portrait';
+        // Warning: (ae-incompatible-release-tags) The symbol "type" is marked as @public, but its signature references "ChartType" which is marked as @beta
+        //
         // (undocumented)
-        "type": | 'area'
-        | 'bar'
-        | 'doughnut'
-        | 'line'
-        | 'nps'
-        | 'pie'
-        | 'ring'
-        | 'dot'
-        | 'scatter'
-        | 'stacked-bar';
+        "type": ChartType;
     }
 
     export interface LimelCheckbox {
