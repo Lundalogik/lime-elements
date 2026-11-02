@@ -15,7 +15,7 @@ each data point, in comparison to others.
 | `accessibleItemsLabel`  | `accessible-items-label`  | Helps users of assistive technologies to understand what the items in the chart represent. Defaults to the translation for "items" in the current language.                                                                                                                                                                                                                                                                                       | `string`                                                                                                     | `undefined`     |
 | `accessibleLabel`       | `accessible-label`        | Helps users of assistive technologies to understand the context of the chart, and what is being displayed.                                                                                                                                                                                                                                                                                                                                        | `string`                                                                                                     | `undefined`     |
 | `accessibleValuesLabel` | `accessible-values-label` | Helps users of assistive technologies to understand what the values in the chart represent. Defaults to the translation for "value" in the current language.                                                                                                                                                                                                                                                                                      | `string`                                                                                                     | `undefined`     |
-| `axisIncrement`         | `axis-increment`          | Sets the axis increment for `bar`, `dot`, `area`, and `line` charts. Has no effect on other chart types.                                                                                                                                                                                                                                                                                                                                          | `number`                                                                                                     | `undefined`     |
+| `axisIncrement`         | `axis-increment`          | Sets the axis increment for `bar`, `dot`, `area`, and `line` charts. When it is not set, or not above zero, the chart works out a step from the values. It also does that when the step would divide the axis into more than 100 parts, so that it does not draw too many lines. Has no effect on other chart types.                                                                                                                              | `number`                                                                                                     | `undefined`     |
 | `displayAxisLabels`     | `display-axis-labels`     | When set to true, renders visible labels for X and Y axes. Only affects chart types with X and Y axes, such as area, bar, and line charts.                                                                                                                                                                                                                                                                                                        | `boolean`                                                                                                    | `false`         |
 | `displayItemPercentage` | `display-item-percentage` | Set to `false` to hide the percentage in item tooltips. The percentage is an item's value or range extent as a share of the whole. The whole is `maxValue` when set and the combined items otherwise. Applies to `stacked-bar`, `pie`, `doughnut`, and `ring` charts.                                                                                                                                                                             | `boolean`                                                                                                    | `true`          |
 | `displayItemText`       | `display-item-text`       | Makes the `text` of chart items constantly visible, By default, item texts are displayed in a tooltip, when the item is hovered or focused. Only affects chart types with X and Y axes, such as area, bar, and line charts.                                                                                                                                                                                                                       | `boolean`                                                                                                    | `false`         |
@@ -43,7 +43,6 @@ each data point, in comparison to others.
  - [limel-example-chart-axis-increment](examples)
  - [limel-example-chart-axis-labels](examples)
  - [limel-example-chart-clickable-items](examples)
- - [limel-example-chart-creative-styling](examples)
  - [limel-example-chart-display-item-percentage](examples)
  - [limel-example-chart-max-value](examples)
  - [limel-example-chart-multi-axis](examples)
@@ -68,23 +67,15 @@ each data point, in comparison to others.
 ### Depends on
 
 - [limel-spinner](../spinner)
-- [limel-badge](../badge)
-- [limel-tooltip](../tooltip)
 
 ### Graph
 ```mermaid
 graph TD;
   limel-chart --> limel-spinner
-  limel-chart --> limel-badge
-  limel-chart --> limel-tooltip
-  limel-tooltip --> limel-portal
-  limel-tooltip --> limel-tooltip-content
-  limel-tooltip-content --> limel-hotkey
   limel-example-chart-accessibility --> limel-chart
   limel-example-chart-axis-increment --> limel-chart
   limel-example-chart-axis-labels --> limel-chart
   limel-example-chart-clickable-items --> limel-chart
-  limel-example-chart-creative-styling --> limel-chart
   limel-example-chart-display-item-percentage --> limel-chart
   limel-example-chart-max-value --> limel-chart
   limel-example-chart-multi-axis --> limel-chart
