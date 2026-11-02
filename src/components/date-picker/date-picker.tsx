@@ -529,6 +529,8 @@ export class DatePicker {
         const mdcTextField = new MDCTextField(root);
         mdcTextField.getDefaultFoundation().deactivateFocus();
         mdcTextField.valid = !(this.invalid || this.parseError);
+        // Removes the listeners but keeps the classes set above.
+        mdcTextField.destroy();
     }
 
     private documentClickListener = (event: MouseEvent) => {
