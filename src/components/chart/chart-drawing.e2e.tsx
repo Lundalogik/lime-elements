@@ -454,6 +454,18 @@ test('a stacked bar with a padding and no height draws its items', async () => {
     expect(await drawn(chart, RED)).toBeTruthy();
 });
 
+test('a stacked bar is drawn with round ends', async () => {
+    const { chart } = await setup({ type: 'stacked-bar' });
+    await drawn(chart, RED);
+
+    const plot = getComputedStyle(chart.shadowRoot.querySelector('.plot'));
+
+    expect([plot.borderTopLeftRadius, plot.overflow]).toEqual([
+        '4px',
+        'hidden',
+    ]);
+});
+
 test('an item color that ECharts cannot read is converted to one it can', async () => {
     const { chart } = await setup({
         items: [

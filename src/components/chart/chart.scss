@@ -103,6 +103,11 @@
     contain: size;
 }
 
+:host(limel-chart[type='stacked-bar']) .plot {
+    border-radius: 0.25rem;
+    overflow: hidden;
+}
+
 table {
     @include mixins.visually-hidden;
 }
