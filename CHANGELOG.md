@@ -1,3 +1,16 @@
+## [40.19.0](https://github.com/Lundalogik/lime-elements/compare/v40.18.3...v40.19.0) (2026-11-02)
+
+### Features
+
+
+* **input-field:** speak the suggestions in the language it is given ([98051b9](https://github.com/Lundalogik/lime-elements/commit/98051b97e5457f647b218f099ad33334dff38a0a)), closes [#4467](https://github.com/Lundalogik/lime-elements/issues/4467)
+* **list:** let the list be given a name ([8d3e563](https://github.com/Lundalogik/lime-elements/commit/8d3e5639575286261cf7ff4fd82f024c2cc9d1b6)), closes [#4467](https://github.com/Lundalogik/lime-elements/issues/4467)
+### Bug Fixes
+
+
+* **input-field:** say that the input has suggestions, and how many ([86980c1](https://github.com/Lundalogik/lime-elements/commit/86980c173fbf9b1dccbab881fc6b3c69f352f2f4)), closes [#4467](https://github.com/Lundalogik/lime-elements/issues/4467)
+* **picker:** say that the search has suggestions, and how many ([219c193](https://github.com/Lundalogik/lime-elements/commit/219c193e8897892a03d789a12b026bfadb3228c6)), closes [#4467](https://github.com/Lundalogik/lime-elements/issues/4467)
+
 ## [40.18.3](https://github.com/Lundalogik/lime-elements/compare/v40.18.2...v40.18.3) (2026-10-30)
 
 ### Bug Fixes
