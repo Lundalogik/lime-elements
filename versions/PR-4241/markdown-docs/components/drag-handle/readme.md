@@ -27,7 +27,7 @@ design conventions.
 | Property               | Attribute                | Description                                                                                                                                                                   | Type                                                                                                                                                                 | Default      |
 | ---------------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
 | `dragDirection`        | `drag-direction`         | The direction in which the drag handle can be used to reorder items.                                                                                                          | `"horizontal" \| "vertical"`                                                                                                                                         | `'vertical'` |
-| `language`             | `language`               | Language to use for translations.                                                                                                                                             | `"da" \| "de" \| "en" \| "en-gb" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"`                                                                                    | `'en'`       |
+| `language`             | `language`               | Language to use for translations.                                                                                                                                             | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"`                                                                                               | `'en'`       |
 | `tooltipOpenDirection` | `tooltip-open-direction` | The preferred direction for the tooltip to open. Defaults to 'left', as our recommended placement for a drag handle in the UI is on the far right side of draggable elements. | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'left'`     |
 
 
@@ -37,6 +37,7 @@ design conventions.
 
  - [limel-example-drag-handle-basic](examples)
  - [limel-example-drag-handle-horizontal](examples)
+ - [limel-tab-bar](../tab-bar)
 
 ### Depends on
 
@@ -51,6 +52,7 @@ graph TD;
   limel-tooltip-content --> limel-hotkey
   limel-example-drag-handle-basic --> limel-drag-handle
   limel-example-drag-handle-horizontal --> limel-drag-handle
+  limel-tab-bar --> limel-drag-handle
   style limel-drag-handle fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

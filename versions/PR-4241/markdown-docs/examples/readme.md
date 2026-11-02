@@ -55,6 +55,7 @@ The component automatically formats different value types:
  - [limel-example-code-editor-composite](../components/code-editor/examples)
  - [limel-example-code-editor-form](../components/form/examples)
  - [limel-example-custom-component-form](../components/form/examples)
+ - [limel-example-custom-component-header-form](../components/form/examples)
  - [limel-example-date-picker-custom-formatter](../components/date-picker/examples)
  - [limel-example-date-picker-date](../components/date-picker/examples)
  - [limel-example-date-picker-datetime](../components/date-picker/examples)
@@ -81,6 +82,7 @@ The component automatically formats different value types:
  - [limel-example-file-size-badge](../components/file/examples)
  - [limel-example-form](../components/form/examples)
  - [limel-example-form-array-item-controls](../components/form/examples)
+ - [limel-example-form-heading-level](../components/form/examples)
  - [limel-example-form-with-help](../components/form/examples)
  - [limel-example-input-field-autocomplete](../components/input-field/examples)
  - [limel-example-input-field-number](../components/input-field/examples)
@@ -167,8 +169,12 @@ The component automatically formats different value types:
  - [limel-example-switch-helper-text](../components/switch/examples)
  - [limel-example-switch-readonly](../components/switch/examples)
  - [limel-example-tab-bar-basic](../components/tab-bar/examples)
+ - [limel-example-tab-bar-reorder](../components/tab-bar/examples)
+ - [limel-example-tab-bar-reorder-vertical](../components/tab-bar/examples)
+ - [limel-example-tab-bar-vertical](../components/tab-bar/examples)
  - [limel-example-tab-bar-with-dynamic-tab-width](../components/tab-bar/examples)
  - [limel-example-tab-bar-with-equal-tab-width](../components/tab-bar/examples)
+ - [limel-example-tab-panel-reorder](../components/tab-panel/examples)
  - [limel-example-table-activate-row](../components/table/examples)
  - [limel-example-table-local](../components/table/examples)
  - [limel-example-table-movable-columns](../components/table/examples)
@@ -204,6 +210,7 @@ graph TD;
   limel-example-code-editor-composite --> limel-example-value
   limel-example-code-editor-form --> limel-example-value
   limel-example-custom-component-form --> limel-example-value
+  limel-example-custom-component-header-form --> limel-example-value
   limel-example-date-picker-custom-formatter --> limel-example-value
   limel-example-date-picker-date --> limel-example-value
   limel-example-date-picker-datetime --> limel-example-value
@@ -230,6 +237,7 @@ graph TD;
   limel-example-file-size-badge --> limel-example-value
   limel-example-form --> limel-example-value
   limel-example-form-array-item-controls --> limel-example-value
+  limel-example-form-heading-level --> limel-example-value
   limel-example-form-with-help --> limel-example-value
   limel-example-input-field-autocomplete --> limel-example-value
   limel-example-input-field-number --> limel-example-value
@@ -316,8 +324,12 @@ graph TD;
   limel-example-switch-helper-text --> limel-example-value
   limel-example-switch-readonly --> limel-example-value
   limel-example-tab-bar-basic --> limel-example-value
+  limel-example-tab-bar-reorder --> limel-example-value
+  limel-example-tab-bar-reorder-vertical --> limel-example-value
+  limel-example-tab-bar-vertical --> limel-example-value
   limel-example-tab-bar-with-dynamic-tab-width --> limel-example-value
   limel-example-tab-bar-with-equal-tab-width --> limel-example-value
+  limel-example-tab-panel-reorder --> limel-example-value
   limel-example-table-activate-row --> limel-example-value
   limel-example-table-local --> limel-example-value
   limel-example-table-movable-columns --> limel-example-value

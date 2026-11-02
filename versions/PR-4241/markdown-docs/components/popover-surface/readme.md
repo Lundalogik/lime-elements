@@ -4,9 +4,11 @@
 
 ## Properties
 
-| Property            | Attribute | Description       | Type             | Default     |
-| ------------------- | --------- | ----------------- | ---------------- | ----------- |
-| `contentCollection` | --        | Content to render | `HTMLCollection` | `undefined` |
+| Property            | Attribute          | Description                                       | Type             | Default     |
+| ------------------- | ------------------ | ------------------------------------------------- | ---------------- | ----------- |
+| `accessibleLabel`   | `accessible-label` | The name of the surface, for assistive technology | `string`         | `undefined` |
+| `contentCollection` | --                 | Content to render                                 | `HTMLCollection` | `undefined` |
+| `popupRole`         | `popup-role`       | The role of the surface, for assistive technology | `string`         | `undefined` |
 
 
 ## Slots
