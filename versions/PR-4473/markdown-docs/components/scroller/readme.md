@@ -48,7 +48,7 @@ when the scroller is shown.
 | Name       | Type                              | Description                                                                                                              |
 | ---------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `item`     | `HTMLElement`                     | - one of the items of the scroller, or something inside one                                                              |
-| `behavior` | `"auto" \| "instant" \| "smooth"` | - `auto` jumps to the item, and `smooth` glides there. Defaults to `smooth`, unless the user has asked to reduce motion. |
+| `behavior` | `"auto" \| "smooth" \| "instant"` | - `auto` jumps to the item, and `smooth` glides there. Defaults to `smooth`, unless the user has asked to reduce motion. |
 
 #### Returns
 

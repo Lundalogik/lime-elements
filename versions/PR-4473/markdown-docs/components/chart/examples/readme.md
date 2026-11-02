@@ -28,11 +28,6 @@ graph TD;
   limel-example-chart-type-scatter-negative --> limel-example-controls
   limel-example-chart-type-scatter-negative --> limel-select
   limel-chart --> limel-spinner
-  limel-chart --> limel-badge
-  limel-chart --> limel-tooltip
-  limel-tooltip --> limel-portal
-  limel-tooltip --> limel-tooltip-content
-  limel-tooltip-content --> limel-hotkey
   limel-select --> limel-notched-outline
   limel-select --> limel-icon
   limel-select --> limel-helper-line

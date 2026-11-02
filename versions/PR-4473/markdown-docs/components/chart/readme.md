@@ -43,7 +43,6 @@ each data point, in comparison to others.
  - [limel-example-chart-axis-increment](examples)
  - [limel-example-chart-axis-labels](examples)
  - [limel-example-chart-clickable-items](examples)
- - [limel-example-chart-creative-styling](examples)
  - [limel-example-chart-display-item-percentage](examples)
  - [limel-example-chart-max-value](examples)
  - [limel-example-chart-multi-axis](examples)
@@ -68,23 +67,15 @@ each data point, in comparison to others.
 ### Depends on
 
 - [limel-spinner](../spinner)
-- [limel-badge](../badge)
-- [limel-tooltip](../tooltip)
 
 ### Graph
 ```mermaid
 graph TD;
   limel-chart --> limel-spinner
-  limel-chart --> limel-badge
-  limel-chart --> limel-tooltip
-  limel-tooltip --> limel-portal
-  limel-tooltip --> limel-tooltip-content
-  limel-tooltip-content --> limel-hotkey
   limel-example-chart-accessibility --> limel-chart
   limel-example-chart-axis-increment --> limel-chart
   limel-example-chart-axis-labels --> limel-chart
   limel-example-chart-clickable-items --> limel-chart
-  limel-example-chart-creative-styling --> limel-chart
   limel-example-chart-display-item-percentage --> limel-chart
   limel-example-chart-max-value --> limel-chart
   limel-example-chart-multi-axis --> limel-chart
