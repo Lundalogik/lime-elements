@@ -275,6 +275,26 @@ test('the item values are shown on the items when displayItemValue is set', () =
     expect(series[0].label.formatter({ dataIndex: 0 })).toBe('75 GB');
 });
 
+test.each(['bar', 'dot', 'line', 'area', 'scatter'] as const)(
+    'the item values of a %s chart are drawn in the text color, without an outline',
+    (type) => {
+        const drawing = drawChart(
+            settings({
+                type: type,
+                displayItemValue: true,
+                items: type === 'scatter' ? points : items,
+            }),
+            theme
+        );
+        const series = drawing.option.series as any[];
+
+        expect(series[drawing.seriesIndex].label).toMatchObject({
+            color: 'rgb(2, 2, 2)',
+            textBorderWidth: 0,
+        });
+    }
+);
+
 test('each bar has the color of its item', () => {
     const { series } = draw();
 

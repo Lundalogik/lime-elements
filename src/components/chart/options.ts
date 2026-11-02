@@ -379,7 +379,7 @@ function getAxisSeries(
     }
 
     if (settings.type === 'dot') {
-        return getDotSeries(settings);
+        return getDotSeries(settings, theme);
     }
 
     return getBarSeries(settings, theme);
@@ -399,7 +399,7 @@ function getBarSeries(
                 borderRadius: theme.itemBorderRadius,
             },
         })),
-        label: getValueLabel(settings),
+        label: getValueLabel(settings, theme),
         cursor: getSeriesCursor(items),
         emphasis: emphasis,
         blur: blur,
@@ -418,10 +418,10 @@ function getBarSeries(
     };
 }
 
-function getDotSeries(settings: ChartSettings): {
-    series: SeriesOption[];
-    seriesIndex: number;
-} {
+function getDotSeries(
+    settings: ChartSettings,
+    theme: ChartTheme
+): { series: SeriesOption[]; seriesIndex: number } {
     const { items, orientation } = settings;
     const point = (index: number, value: number) =>
         orientation === 'landscape' ? [index, value] : [value, index];
@@ -432,7 +432,7 @@ function getDotSeries(settings: ChartSettings): {
             value: point(index, getMaximumValue(item)),
             itemStyle: { color: item.color },
         })),
-        label: getValueLabel(settings),
+        label: getValueLabel(settings, theme),
         cursor: getSeriesCursor(items),
         emphasis: emphasis,
         blur: blur,
@@ -492,7 +492,7 @@ function getLineSeries(
             itemStyle: { color: item.color },
         })),
         areaStyle: area ? { color: color, opacity: AREA_OPACITY } : undefined,
-        label: getValueLabel(settings),
+        label: getValueLabel(settings, theme),
         cursor: getSeriesCursor(items),
         emphasis: emphasis,
         blur: blur,
@@ -560,6 +560,7 @@ function drawScatter(settings: ChartSettings, theme: ChartTheme): ChartDrawing {
         label: {
             show: settings.displayItemText || settings.displayItemValue,
             position: 'top',
+            ...getLabelStyle(theme),
             formatter: ({ dataIndex }) =>
                 getPointLabel(settings, items[dataIndex]),
         },
@@ -816,13 +817,18 @@ function getAxisName(settings: ChartSettings, name: string, theme: ChartTheme) {
     };
 }
 
-function getValueLabel(settings: ChartSettings) {
+function getValueLabel(settings: ChartSettings, theme: ChartTheme) {
     return {
         show: settings.displayItemValue,
         position: settings.orientation === 'landscape' ? 'top' : 'right',
+        ...getLabelStyle(theme),
         formatter: ({ dataIndex }: { dataIndex: number }) =>
             formatValue(settings.items[dataIndex], settings.type),
     } as const;
+}
+
+function getLabelStyle(theme: ChartTheme) {
+    return { color: theme.textColor, textBorderWidth: 0 };
 }
 
 function getPointLabel(settings: ChartSettings, item: ChartItem): string {
