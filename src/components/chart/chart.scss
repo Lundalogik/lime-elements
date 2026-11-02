@@ -54,11 +54,17 @@
 }
 
 :host(limel-chart[type='stacked-bar'][orientation='landscape']) {
-    min-height: 0.5rem;
+    &,
+    .plot {
+        min-height: 0.5rem;
+    }
 }
 
 :host(limel-chart[type='stacked-bar'][orientation='portrait']) {
-    min-width: 0.5rem;
+    &,
+    .plot {
+        min-width: 0.5rem;
+    }
 }
 
 :host(limel-chart[type='pie']),
@@ -85,8 +91,8 @@
 }
 
 .plot {
-    position: absolute;
-    inset: 0;
+    flex-grow: 1;
+    contain: size;
 }
 
 table {
