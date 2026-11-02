@@ -1,6 +1,22 @@
 import { Color } from '../../global/shared-types/color.types';
 
 /**
+ * The kinds of chart that `limel-chart` can draw.
+ * @beta
+ */
+export type ChartType =
+    | 'area'
+    | 'bar'
+    | 'doughnut'
+    | 'line'
+    | 'nps'
+    | 'pie'
+    | 'ring'
+    | 'dot'
+    | 'scatter'
+    | 'stacked-bar';
+
+/**
  * Chart component props.
  * @beta
  */

@@ -2,7 +2,7 @@ import { Component, Event, EventEmitter, h, Prop, Watch } from '@stencil/core';
 import { Languages } from '../date-picker/date.types';
 import translate from '../../global/translations';
 import { createRandomString } from '../../util/random-string';
-import { ChartItem } from './chart.types';
+import { ChartItem, ChartType } from './chart.types';
 
 const PERCENT = 100;
 const DEFAULT_INCREMENT_SIZE = 10;
@@ -140,17 +140,7 @@ export class Chart {
      * Defines how items are visualized in the chart.
      */
     @Prop({ reflect: true })
-    public type?:
-        | 'area'
-        | 'bar'
-        | 'doughnut'
-        | 'line'
-        | 'nps'
-        | 'pie'
-        | 'ring'
-        | 'dot'
-        | 'scatter'
-        | 'stacked-bar' = 'stacked-bar';
+    public type?: ChartType = 'stacked-bar';
 
     /**
      * Defines whether the chart is intended to be displayed wide or tall.
