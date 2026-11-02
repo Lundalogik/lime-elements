@@ -10,7 +10,10 @@ import { chartItems } from './chart-items-stack';
  *
  * :::note
  * Charts are responsive and stretch inside their containers.
- * You need to set ensure that there space for them to get rendered in.
+ * When neither the container nor the chart's own styles give it a
+ * height, a `bar`, `dot`, `line`, `area` or `scatter` chart is half as
+ * tall as it is wide, and a `pie`, `doughnut`, `ring` or `nps` chart is
+ * square. A `stacked-bar` is always at least `0.5rem` thick.
  * :::
  * @sourceFile chart-items-stack.ts
  */

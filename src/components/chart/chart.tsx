@@ -394,6 +394,10 @@ export class Chart {
 
         this.observeSize();
         const { clientWidth: width, clientHeight: height } = this.plot;
+        if (width && !height) {
+            this.host.toggleAttribute('data-fallback-height', true);
+        }
+
         if (!width || !height) {
             return;
         }

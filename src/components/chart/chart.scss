@@ -90,6 +90,14 @@
     aspect-ratio: 1;
 }
 
+:host(limel-chart[type='bar'][data-fallback-height]),
+:host(limel-chart[type='dot'][data-fallback-height]),
+:host(limel-chart[type='line'][data-fallback-height]),
+:host(limel-chart[type='area'][data-fallback-height]),
+:host(limel-chart[type='scatter'][data-fallback-height]) {
+    aspect-ratio: 2;
+}
+
 .plot {
     flex-grow: 1;
     contain: size;
