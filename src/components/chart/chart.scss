@@ -3,7 +3,7 @@
 /**
 * @prop --chart-background-color: Defines the background color of the chart. Defaults to `transparent` for _most_ chart types.
 * @prop --chart-item-color: If no color is defined for chart items, this color will be use. Defaults to `rgb(var(--contrast-1100), 0.8)`.
-* @prop --chart-item-divider-color: Defines the color that visually separates items in some charts, such as `stacked-bar` chart items. Defaults to `rgb(var(--color-white), 0.6)`.
+* @prop --chart-item-divider-color: Defines the color that visually separates items in some charts, such as `stacked-bar` chart items. Defaults to `rgb(var(--contrast-100), 0.6)`, which is light in light mode and dark in dark mode.
 * @prop --chart-axis-line-color: Defines color of the axis lines. Defaults to `rgb(var(--contrast-900), 0.4)`.
 * @prop --chart-item-border-radius: Defines the roundness of corners of items in `bar` and `stacked-bar` charts.
 * @prop --chart-scatter-item-size: Defines the diameter of the dots in a `scatter` chart. Defaults to `0.5rem`.
@@ -21,7 +21,7 @@
     --limel-chart-background-color: var(--chart-background-color, transparent);
     --limel-chart-item-divider-color: var(
         --chart-item-divider-color,
-        rgb(var(--color-white), 0.6)
+        rgb(var(--contrast-100), 0.6)
     );
     --limel-chart-item-border-radius: var(--chart-item-border-radius, 0);
     --limel-chart-scatter-item-size: var(--chart-scatter-item-size, 0.5rem);
