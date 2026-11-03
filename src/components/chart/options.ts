@@ -11,9 +11,10 @@ import type {
     TooltipComponentOption,
 } from 'echarts/components';
 import { format, type ComposeOption } from 'echarts/core';
-import { ChartItem, ChartType } from './chart.types';
+import { ChartItem } from './chart.types';
 import {
     AxisRange,
+    DrawnChartType,
     formatValue,
     getAxisRange,
     getMaximumValue,
@@ -49,7 +50,7 @@ export type ChartOption = ComposeOption<
 export interface ChartSettings {
     /** The items, each with its color resolved by the theme. */
     items: ChartItem[];
-    type: ChartType;
+    type: DrawnChartType;
     orientation: 'landscape' | 'portrait';
     maxValue?: number;
     axisIncrement?: number;
@@ -259,7 +260,7 @@ function drawSeries(
         case 'doughnut': {
             return drawPie(settings, theme);
         }
-        case 'stacked-bar': {
+        case 'proportion-bar': {
             return drawStackedBar(settings, theme);
         }
         case 'ring': {

@@ -115,7 +115,7 @@ test('an axis of zeros gets a step of one', () => {
     });
 });
 
-test.each(['stacked-bar', 'pie', 'doughnut', 'ring'] as const)(
+test.each(['proportion-bar', 'pie', 'doughnut', 'ring'] as const)(
     'the items of a %s chart are parts of a whole',
     (type) => {
         expect(isPartOfWhole(type)).toBe(true);

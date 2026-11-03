@@ -16,8 +16,8 @@ export class ChartStackedBarExample {
     public render() {
         return (
             <Host>
-                <h4>Stacked-bar Chart</h4>
-                <limel-chart items={chartItems} type="stacked-bar" />
+                <h4>Proportion-bar Chart</h4>
+                <limel-chart items={chartItems} type="proportion-bar" />
                 <div role="separator" />
                 <h4>Bar Chart</h4>
                 <limel-chart items={chartItems} axisIncrement={1} type="bar" />

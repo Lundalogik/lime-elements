@@ -114,3 +114,48 @@ test('changing axisIncrement to one that is not above 0 makes the chart warn', a
     );
     warn.mockRestore();
 });
+
+test('a stacked-bar chart warns that the type is now called proportion-bar', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+    const { waitForChanges } = await render(
+        <limel-chart type="stacked-bar" items={items} />
+    );
+    await waitForChanges();
+
+    expect(warn).toHaveBeenCalledExactlyOnceWith(
+        'limel-chart: the type `stacked-bar` is now called `proportion-bar`. It draws the same chart, but please use the new name.'
+    );
+    warn.mockRestore();
+});
+
+test('changing the type to stacked-bar makes the chart warn', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const { root, waitForChanges } = await render(
+        <limel-chart type="bar" items={items} />
+    );
+    await waitForChanges();
+
+    root.type = 'stacked-bar';
+    await waitForChanges();
+
+    expect(warn).toHaveBeenCalledExactlyOnceWith(
+        'limel-chart: the type `stacked-bar` is now called `proportion-bar`. It draws the same chart, but please use the new name.'
+    );
+    warn.mockRestore();
+});
+
+test.each([undefined, 'proportion-bar'] as const)(
+    'a chart of type %s does not warn about its type',
+    async (type) => {
+        const warn = vi.spyOn(console, 'warn');
+
+        const { waitForChanges } = await render(
+            <limel-chart type={type} items={items} />
+        );
+        await waitForChanges();
+
+        expect(warn).not.toHaveBeenCalled();
+        warn.mockRestore();
+    }
+);

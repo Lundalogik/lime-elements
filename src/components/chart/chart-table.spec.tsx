@@ -79,6 +79,20 @@ test('each row of a chart of parts is described by its share of the whole', asyn
     ]);
 });
 
+test('the rows of a stacked-bar chart are described by their share of the whole', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const shadow = await renderChart(
+        <limel-chart type="stacked-bar" items={items} />
+    );
+    const rows = [...shadow.querySelector('tbody').children];
+
+    expect(rows.map((row) => row.getAttribute('aria-description'))).toEqual([
+        'Applications (25.00%)',
+        'Photos (75.00%)',
+    ]);
+    warn.mockRestore();
+});
+
 test('without displayItemPercentage, the rows have no description', async () => {
     const shadow = await renderChart(
         <limel-chart

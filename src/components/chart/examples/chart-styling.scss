@@ -10,7 +10,7 @@ limel-chart {
         height: 20rem;
     }
 
-    &[type='stacked-bar'] {
+    &[type='proportion-bar'] {
         --chart-item-divider-color: transparent;
         --chart-item-border-radius: 1.5rem;
         --chart-background-color: transparent;
