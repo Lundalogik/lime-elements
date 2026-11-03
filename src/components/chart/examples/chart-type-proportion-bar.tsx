@@ -38,11 +38,11 @@ import { chartItems } from './chart-items-stack';
  * @sourceFile chart-items-stack.ts
  */
 @Component({
-    tag: 'limel-example-chart-stacked-bar',
+    tag: 'limel-example-chart-type-proportion-bar',
     shadow: true,
     styleUrl: 'chart-examples.scss',
 })
-export class ChartStackedBarExample {
+export class ChartProportionBarExample {
     public render() {
         return <limel-chart items={chartItems} />;
     }
