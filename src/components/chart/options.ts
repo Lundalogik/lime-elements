@@ -71,7 +71,7 @@ export interface ChartDrawing {
     option: ChartOption;
     /** The series that draws the items, when they are not series of their own. */
     seriesIndex: number;
-    /** Whether every item is a series of its own, as in a stacked bar. */
+    /** Whether every item is a series of its own, as in a proportion bar. */
     itemsAreSeries: boolean;
     /** The axis that shows the texts of the items, when they are shown on one. */
     itemTextAxis?: 'xAxis' | 'yAxis';
@@ -261,7 +261,7 @@ function drawSeries(
             return drawPie(settings, theme);
         }
         case 'proportion-bar': {
-            return drawStackedBar(settings, theme);
+            return drawProportionBar(settings, theme);
         }
         case 'ring': {
             return drawRing(settings, theme);
@@ -628,7 +628,7 @@ function drawPie(settings: ChartSettings, theme: ChartTheme): ChartDrawing {
     };
 }
 
-function drawStackedBar(
+function drawProportionBar(
     settings: ChartSettings,
     theme: ChartTheme
 ): ChartDrawing {
