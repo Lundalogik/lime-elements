@@ -44,11 +44,11 @@ import {
 } from './options';
 import {
     DrawnChartType,
-    formatValue,
     getAxisRange,
     MAX_AXIS_STEPS,
     usesAxisIncrement,
 } from './scale';
+import { formatValue } from './format';
 import {
     ChartTheme,
     createThemeReader,
