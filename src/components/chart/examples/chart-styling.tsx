@@ -12,7 +12,7 @@ import { chartItems } from './chart-items-ring';
     shadow: true,
     styleUrl: 'chart-styling.scss',
 })
-export class ChartStackedBarExample {
+export class ChartStylingExample {
     public render() {
         return (
             <Host>

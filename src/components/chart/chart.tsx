@@ -75,7 +75,7 @@ const extensions = [
  * visual symbols such as such bars, dots, lines, or slices, represent
  * each data point, in comparison to others.
  *
- * @exampleComponent limel-example-chart-stacked-bar
+ * @exampleComponent limel-example-chart-type-proportion-bar
  * @exampleComponent limel-example-chart-orientation
  * @exampleComponent limel-example-chart-max-value
  * @exampleComponent limel-example-chart-display-item-percentage
