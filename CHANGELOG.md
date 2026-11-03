@@ -1,3 +1,15 @@
+## [40.20.1](https://github.com/Lundalogik/lime-elements/compare/v40.20.0...v40.20.1) (2026-11-03)
+
+### Bug Fixes
+
+
+* **chart:** draw the chart inside its padding ([ba55f00](https://github.com/Lundalogik/lime-elements/commit/ba55f009a6cba072cf0b1855229aa32341c8e15e))
+* **chart:** draw the item values in the color of the text ([9a04f53](https://github.com/Lundalogik/lime-elements/commit/9a04f5357fab50d46252ddf173bfbee0fce35c75))
+* **chart:** give axis charts a height when their container has none ([bea5f33](https://github.com/Lundalogik/lime-elements/commit/bea5f33bf2d4ef09dd875dd4228ff17831adbd7b))
+* **chart:** round each corner that --chart-item-border-radius gives ([c30f688](https://github.com/Lundalogik/lime-elements/commit/c30f688f70e084a3e8fc1217434f253e7ea730c1))
+* **chart:** round the ends of a stacked bar ([c24bb9d](https://github.com/Lundalogik/lime-elements/commit/c24bb9d5d7cc706f2415e63e5b900e4f7d7f89ac))
+* **chart:** show the pointer cursor only on the items of a pie ([dc7df44](https://github.com/Lundalogik/lime-elements/commit/dc7df44794ced3f95259621a8cd555fd2ff2b28f))
+
 ## [40.20.0](https://github.com/Lundalogik/lime-elements/compare/v40.19.0...v40.20.0) (2026-11-02)
 
 ### Features
