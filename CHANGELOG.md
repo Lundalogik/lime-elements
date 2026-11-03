@@ -1,3 +1,10 @@
+## [40.21.0](https://github.com/Lundalogik/lime-elements/compare/v40.20.1...v40.21.0) (2026-11-03)
+
+### Features
+
+
+* **chart:** rename the stacked-bar type to proportion-bar ([6767156](https://github.com/Lundalogik/lime-elements/commit/67671568318fcec763fbdd154c0033023d22ccb5)), closes [#4482](https://github.com/Lundalogik/lime-elements/issues/4482)
+
 ## [40.20.1](https://github.com/Lundalogik/lime-elements/compare/v40.20.0...v40.20.1) (2026-11-03)
 
 ### Bug Fixes
