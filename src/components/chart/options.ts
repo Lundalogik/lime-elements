@@ -15,7 +15,6 @@ import { ChartItem } from './chart.types';
 import {
     AxisRange,
     DrawnChartType,
-    formatValue,
     getAxisRange,
     getMaximumValue,
     getMinimumValue,
@@ -28,6 +27,7 @@ import {
     isPartOfWhole,
     isRangeItem,
 } from './scale';
+import { formatValue } from './format';
 import { ChartTheme } from './theme';
 
 type SeriesOption =
