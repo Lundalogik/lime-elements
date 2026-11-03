@@ -14,7 +14,6 @@ import { format, type ComposeOption } from 'echarts/core';
 import { ChartItem } from './chart.types';
 import {
     AxisRange,
-    DrawnChartType,
     getAxisRange,
     getMaximumValue,
     getMinimumValue,
@@ -27,7 +26,12 @@ import {
     isPartOfWhole,
     isRangeItem,
 } from './scale';
-import { formatValue } from './format';
+import {
+    formatShare,
+    formatValue,
+    getAxisValueFormatter,
+    ValueStyle,
+} from './format';
 import { ChartTheme } from './theme';
 
 type SeriesOption =
@@ -47,10 +51,9 @@ export type ChartOption = ComposeOption<
 /**
  * What the chart draws, from the props of `limel-chart`.
  */
-export interface ChartSettings {
+export interface ChartSettings extends ValueStyle {
     /** The items, each with its color resolved by the theme. */
     items: ChartItem[];
-    type: DrawnChartType;
     orientation: 'landscape' | 'portrait';
     maxValue?: number;
     axisIncrement?: number;
@@ -91,7 +94,6 @@ const CONNECTOR_WIDTH = 2;
 const DIMMED_OPACITY = 0.4;
 const AREA_OPACITY = 0.4;
 const PADDING = 8;
-const PERCENT_DECIMALS = 2;
 const NPS_MIN = -100;
 const NPS_MAX = 100;
 const NPS_START_ANGLE = 200;
@@ -219,7 +221,7 @@ function getItemTextLayout(
 export function getItemLabel(
     settings: Pick<
         ChartSettings,
-        'items' | 'type' | 'maxValue' | 'displayItemPercentage'
+        'items' | 'type' | 'maxValue' | 'displayItemPercentage' | 'language'
     >,
     index: number
 ): string {
@@ -229,9 +231,9 @@ export function getItemLabel(
     }
 
     const whole = getWholeRange(settings.items, settings.maxValue);
-    const share = getShare(item, whole).toFixed(PERCENT_DECIMALS);
+    const share = formatShare(getShare(item, whole), settings.language);
 
-    return `${item.text} (${share}%)`;
+    return `${item.text} (${share})`;
 }
 
 /**
@@ -245,7 +247,7 @@ export function getTooltip(settings: ChartSettings, index: number): string {
         return '';
     }
 
-    return [getItemLabel(settings, index), formatValue(item, settings.type)]
+    return [getItemLabel(settings, index), formatValue(item, settings)]
         .map((text) => format.encodeHTML(text))
         .join('<br/>');
 }
@@ -306,6 +308,7 @@ function drawOnAxes(
     const valueAxis = getValueAxis(
         range,
         getAxisName(settings, settings.valuesLabel, theme),
+        settings,
         theme
     );
     const { series, seriesIndex } = getAxisSeries(settings, theme);
@@ -539,11 +542,13 @@ function drawScatter(settings: ChartSettings, theme: ChartTheme): ChartDrawing {
     const firstAxis = getValueAxis(
         ranges.x,
         getAxisName(settings, settings.itemsLabel, theme),
+        settings,
         theme
     );
     const secondAxis = getValueAxis(
         ranges.y,
         getAxisName(settings, settings.valuesLabel, theme),
+        settings,
         theme
     );
     const scatter: ScatterSeriesOption = {
@@ -793,6 +798,7 @@ function getGrid(theme: ChartTheme): GridComponentOption {
 function getValueAxis(
     range: AxisRange,
     name: ReturnType<typeof getAxisName>,
+    settings: ChartSettings,
     theme: ChartTheme
 ) {
     return {
@@ -800,7 +806,11 @@ function getValueAxis(
         min: range.minValue,
         max: range.maxValue,
         interval: range.increment,
-        axisLabel: { show: true, color: theme.textColor },
+        axisLabel: {
+            show: true,
+            color: theme.textColor,
+            formatter: getAxisValueFormatter(range, settings),
+        },
         axisLine: { lineStyle: { color: theme.axisLineColor } },
         splitLine: { lineStyle: { color: theme.axisLineColor } },
         ...name,
@@ -825,7 +835,7 @@ function getValueLabel(settings: ChartSettings, theme: ChartTheme) {
         position: settings.orientation === 'landscape' ? 'top' : 'right',
         ...getLabelStyle(theme),
         formatter: ({ dataIndex }: { dataIndex: number }) =>
-            formatValue(settings.items[dataIndex], settings.type),
+            formatValue(settings.items[dataIndex], settings),
     } as const;
 }
 
@@ -840,7 +850,7 @@ function getPointLabel(settings: ChartSettings, item: ChartItem): string {
     }
 
     if (settings.displayItemValue) {
-        parts.push(formatValue(item, settings.type));
+        parts.push(formatValue(item, settings));
     }
 
     return parts.join(' ');

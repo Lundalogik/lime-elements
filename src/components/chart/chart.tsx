@@ -48,7 +48,7 @@ import {
     MAX_AXIS_STEPS,
     usesAxisIncrement,
 } from './scale';
-import { formatValue } from './format';
+import { canWriteIn, formatValue } from './format';
 import {
     ChartTheme,
     createThemeReader,
@@ -108,8 +108,8 @@ const extensions = [
 })
 export class Chart {
     /**
-     * Defines the language for translations.
-     * Will translate the translatable strings on the components.
+     * Defines the language for translations, and for the way values are
+     * written, such as `1 234,5` in Swedish.
      */
     @Prop({ reflect: true })
     public language: Languages = 'en';
@@ -246,6 +246,7 @@ export class Chart {
     private themeMayHaveChanged = false;
     private itemSpace?: number;
     private axisIncrementWarning?: string;
+    private languageWarning?: string;
     private readonly invalidColors = new Set<string>();
     private themeReader?: ThemeReader;
     private resizeObserver?: ResizeObserver;
@@ -254,6 +255,10 @@ export class Chart {
     public componentWillLoad() {
         this.warnAboutAxisIncrement();
         this.warnAboutOldTypeName();
+    }
+
+    public componentWillRender() {
+        this.warnAboutLanguage();
     }
 
     public connectedCallback() {
@@ -294,6 +299,17 @@ export class Chart {
                 'limel-chart: the type `stacked-bar` is now called `proportion-bar`. It draws the same chart, but please use the new name.'
             );
         }
+    }
+
+    private warnAboutLanguage() {
+        const warning = canWriteIn(this.language)
+            ? undefined
+            : `limel-chart: \`language\` must be one that this browser can write values in, such as \`sv\`, but was ${JSON.stringify(this.language)}. Writing the values in English instead.`;
+        if (warning && warning !== this.languageWarning) {
+            console.warn(warning);
+        }
+
+        this.languageWarning = warning;
     }
 
     private get chartType(): DrawnChartType {
@@ -383,7 +399,12 @@ export class Chart {
                 onBlur={this.handleBlur}
             >
                 <td>{item.text}</td>
-                <td>{formatValue(item, this.chartType)}</td>
+                <td>
+                    {formatValue(item, {
+                        type: this.chartType,
+                        language: this.language,
+                    })}
+                </td>
             </tr>
         ));
     }
@@ -395,6 +416,7 @@ export class Chart {
                 type: this.chartType,
                 maxValue: this.maxValue,
                 displayItemPercentage: this.displayItemPercentage,
+                language: this.language,
             },
             index
         );
@@ -561,6 +583,7 @@ export class Chart {
             displayItemText: this.displayItemText,
             displayItemValue: this.displayItemValue,
             displayItemPercentage: this.displayItemPercentage,
+            language: this.language,
         };
     }
 
