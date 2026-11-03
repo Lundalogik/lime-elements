@@ -44,6 +44,7 @@ function settings(overrides: Partial<ChartSettings> = {}): ChartSettings {
         displayItemText: false,
         displayItemValue: false,
         displayItemPercentage: true,
+        language: 'en',
         ...overrides,
         items: chartItems,
     };
@@ -53,6 +54,12 @@ const points: ChartItem[] = [{ text: 'Deal', value: [4, 32] }];
 
 const draw = (overrides: Partial<ChartSettings> = {}) =>
     drawChart(settings(overrides), theme).option as any;
+
+test('the share of an item is written in the language of the chart', () => {
+    const chart = settings({ type: 'proportion-bar', language: 'sv' });
+
+    expect(getTooltip(chart, 0)).toBe('Applications (25,00\u{A0}%)<br/>25');
+});
 
 test('a proportion bar shows each item as its share of their sum', () => {
     const chart = settings({ type: 'proportion-bar' });
@@ -147,6 +154,28 @@ test('without an axisIncrement, the step is worked out from the items', () => {
 
 test('the value axis always shows its numbers', () => {
     expect(draw().yAxis.axisLabel.show).toBe(true);
+});
+
+test('the value axis writes its values in the language of the chart', () => {
+    const { yAxis } = draw({
+        items: [{ text: 'Revenue', value: 1_200_000 }],
+        language: 'sv',
+    });
+
+    expect(yAxis.axisLabel.formatter(1_200_000)).toBe('1,2\u{A0}mn');
+});
+
+test('both axes of a scatter chart write their values in the language of the chart', () => {
+    const { xAxis, yAxis } = draw({
+        type: 'scatter',
+        items: [{ text: 'Deal', value: [1500, 2500] }],
+        language: 'sv',
+    });
+
+    expect([
+        xAxis.axisLabel.formatter(1500),
+        yAxis.axisLabel.formatter(2500),
+    ]).toEqual(['1\u{A0}500', '2\u{A0}500']);
 });
 
 test('the axes have no names unless displayAxisLabels is set', () => {

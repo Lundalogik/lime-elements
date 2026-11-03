@@ -159,3 +159,31 @@ test.each([undefined, 'proportion-bar'] as const)(
         warn.mockRestore();
     }
 );
+
+test('a language this browser cannot write values in makes the chart warn once', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const { root, waitForChanges } = await render(
+        <limel-chart type="bar" items={items} language={'sv_SE' as any} />
+    );
+    await waitForChanges();
+
+    root.items = [...items];
+    await waitForChanges();
+
+    expect(warn).toHaveBeenCalledExactlyOnceWith(
+        'limel-chart: `language` must be one that this browser can write values in, such as `sv`, but was "sv_SE". Writing the values in English instead.'
+    );
+    warn.mockRestore();
+});
+
+test('a language this browser can write values in does not make the chart warn', async () => {
+    const warn = vi.spyOn(console, 'warn');
+
+    const { waitForChanges } = await render(
+        <limel-chart type="bar" items={items} language="sv" />
+    );
+    await waitForChanges();
+
+    expect(warn).not.toHaveBeenCalled();
+    warn.mockRestore();
+});
