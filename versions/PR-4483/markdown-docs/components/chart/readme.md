@@ -49,7 +49,6 @@ each data point, in comparison to others.
  - [limel-example-chart-multi-axis-area-with-negative-start-values](examples)
  - [limel-example-chart-multi-axis-with-negative-start-values](examples)
  - [limel-example-chart-orientation](examples)
- - [limel-example-chart-proportion-bar](examples)
  - [limel-example-chart-styling](examples)
  - [limel-example-chart-type-area](examples)
  - [limel-example-chart-type-bar](examples)
@@ -59,6 +58,7 @@ each data point, in comparison to others.
  - [limel-example-chart-type-line](examples)
  - [limel-example-chart-type-nps](examples)
  - [limel-example-chart-type-pie](examples)
+ - [limel-example-chart-type-proportion-bar](examples)
  - [limel-example-chart-type-ring](examples)
  - [limel-example-chart-type-scatter](examples)
  - [limel-example-chart-type-scatter-negative](examples)
@@ -82,7 +82,6 @@ graph TD;
   limel-example-chart-multi-axis-area-with-negative-start-values --> limel-chart
   limel-example-chart-multi-axis-with-negative-start-values --> limel-chart
   limel-example-chart-orientation --> limel-chart
-  limel-example-chart-proportion-bar --> limel-chart
   limel-example-chart-styling --> limel-chart
   limel-example-chart-type-area --> limel-chart
   limel-example-chart-type-bar --> limel-chart
@@ -92,6 +91,7 @@ graph TD;
   limel-example-chart-type-line --> limel-chart
   limel-example-chart-type-nps --> limel-chart
   limel-example-chart-type-pie --> limel-chart
+  limel-example-chart-type-proportion-bar --> limel-chart
   limel-example-chart-type-ring --> limel-chart
   limel-example-chart-type-scatter --> limel-chart
   limel-example-chart-type-scatter-negative --> limel-chart
