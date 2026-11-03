@@ -4,7 +4,7 @@ import { chartItems } from './chart-items-stack';
 /**
  * Using the `maxValue` prop
  *
- * For `stacked-bar`, `pie`, `doughnut`, and `ring`, `maxValue` is the
+ * For `proportion-bar`, `pie`, `doughnut`, and `ring`, `maxValue` is the
  * denominator used as the whole. An item with value `10` occupies 10% when
  * `maxValue` is `100`. The combined item size can exceed `maxValue`, producing
  * a total above 100%. Without `maxValue`, the chart uses the combined item

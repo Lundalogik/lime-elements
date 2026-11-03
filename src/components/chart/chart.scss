@@ -3,9 +3,9 @@
 /**
 * @prop --chart-background-color: Defines the background color of the chart. Defaults to `transparent` for _most_ chart types.
 * @prop --chart-item-color: If no color is defined for chart items, this color will be use. Defaults to `rgb(var(--contrast-1100), 0.8)`.
-* @prop --chart-item-divider-color: Defines the color that visually separates items in some charts, such as `stacked-bar` chart items. Defaults to `rgb(var(--contrast-100), 0.6)`, which is light in light mode and dark in dark mode.
+* @prop --chart-item-divider-color: Defines the color that visually separates items in some charts, such as `proportion-bar` chart items. Defaults to `rgb(var(--contrast-100), 0.6)`, which is light in light mode and dark in dark mode.
 * @prop --chart-axis-line-color: Defines color of the axis lines. Defaults to `rgb(var(--contrast-900), 0.4)`.
-* @prop --chart-item-border-radius: Defines the roundness of corners of items in `bar` and `stacked-bar` charts. Takes one to four lengths, like `border-radius`.
+* @prop --chart-item-border-radius: Defines the roundness of corners of items in `bar` and `proportion-bar` charts. Takes one to four lengths, like `border-radius`.
 * @prop --chart-scatter-item-size: Defines the diameter of the dots in a `scatter` chart. Defaults to `0.5rem`.
 */
 
@@ -46,6 +46,7 @@
     --limel-chart-item-border-radius: var(--chart-item-border-radius, 0.125rem);
 }
 
+:host(limel-chart[type='proportion-bar']),
 :host(limel-chart[type='stacked-bar']) {
     --limel-chart-background-color: var(
         --chart-background-color,
@@ -53,6 +54,7 @@
     );
 }
 
+:host(limel-chart[type='proportion-bar'][orientation='landscape']),
 :host(limel-chart[type='stacked-bar'][orientation='landscape']) {
     &,
     .plot {
@@ -60,6 +62,7 @@
     }
 }
 
+:host(limel-chart[type='proportion-bar'][orientation='portrait']),
 :host(limel-chart[type='stacked-bar'][orientation='portrait']) {
     &,
     .plot {
@@ -103,6 +106,7 @@
     contain: size;
 }
 
+:host(limel-chart[type='proportion-bar']) .plot,
 :host(limel-chart[type='stacked-bar']) .plot {
     border-radius: 0.25rem;
     overflow: hidden;

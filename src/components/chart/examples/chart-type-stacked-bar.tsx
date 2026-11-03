@@ -2,31 +2,37 @@ import { Component, h } from '@stencil/core';
 import { chartItems } from './chart-items-stack';
 
 /**
- * Stacked bar (default)
+ * Proportion bar (default)
  *
  * You can simply provide a list of items to the chart component,
  * and it will visualize them the way you want. For the default
- * visualization, the component uses the `stacked-bar` `type`,
- * as this is the most compact form of date visualization.
+ * visualization, the component uses the `proportion-bar` `type`,
+ * as this is the most compact form of data visualization.
  *
- * The only thing each item needs is a `text`, a `value`, and a your
+ * The only thing each item needs is a `text`, a `value`, and your
  * choice of `color`.
  *
- * A stacked bar chart builds creates a data visualization
- * by stacking multiple data series in each bar.
+ * A proportion bar draws all items in a single bar, where each item
+ * takes up its share of the whole. It is like a `pie` chart, drawn
+ * as a straight bar.
  *
  * It's good for:
- * - Showing the composition of categories across multiple groups.
- * - Highlighting cumulative values while breaking down individual contributions.
+ * - Showing how parts make up a whole, such as the storage used by each kind of file.
+ * - Showing progress towards a total, together with `maxValue`.
  *
  * :::tip
  * **Use:**
- * - When you want to show both the total and individual values in each category.
- * - For data with sub-categories or components that need visualization.
+ * - When the items add up to a meaningful total.
+ * - When space is limited, since the bar can be very thin.
  *
  * **Avoid:**
- * - If precise individual comparisons between subcategories are necessary.
- * - When there are too many categories, making the chart crowded.
+ * - If precise comparisons between the items are necessary.
+ * - When there are too many items, making the bar crowded.
+ * :::
+ *
+ * :::note
+ * This `type` used to be called `stacked-bar`. The old name still
+ * works, but logs a warning.
  * :::
  *
  * @sourceFile chart-items-stack.ts

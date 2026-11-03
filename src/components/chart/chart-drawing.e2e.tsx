@@ -1,7 +1,7 @@
 import { render, h } from '@stencil/vitest';
 import { onTestFinished } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { ChartItem } from './chart.types';
+import { ChartItem, ChartType } from './chart.types';
 
 const RED = 'rgb(255, 0, 0)';
 const GREEN = 'rgb(0, 128, 0)';
@@ -92,6 +92,16 @@ async function drawn(chart: HTMLLimelChartElement, fill: string) {
 
 function getDrawing(chart: HTMLLimelChartElement) {
     return chart.shadowRoot.querySelector('.plot svg')?.outerHTML;
+}
+
+async function getDrawingOf(type: ChartType) {
+    const { chart } = await setup({ type });
+    await drawn(chart, RED);
+    const drawing = getDrawing(chart);
+    unmount();
+    unmount = undefined;
+
+    return drawing;
 }
 
 function getOpacity(chart: HTMLLimelChartElement, fill: string) {
@@ -403,9 +413,9 @@ test('an item color made of variables is drawn again when they change', async ()
     expect(await drawn(chart, GREEN)).toBeTruthy();
 });
 
-test('a portrait stacked bar keeps the height it is given, however small', async () => {
+test('a portrait proportion bar keeps the height it is given, however small', async () => {
     const { chart } = await setup({
-        type: 'stacked-bar',
+        type: 'proportion-bar',
         orientation: 'portrait',
         style: { height: '2px' },
     });
@@ -468,33 +478,48 @@ test('the chart is drawn inside its padding', async () => {
     ]).toEqual([20, 20, 260, 160]);
 });
 
-test('a stacked bar with a padding and no height draws its items', async () => {
-    const rendered = await render(
-        <div style={{ width: '300px' }}>
-            <limel-chart
-                type="stacked-bar"
-                items={[reports, archive]}
-                style={{ padding: '0.25rem' }}
-            />
-        </div>
-    );
-    unmount = rendered.unmount;
-    const chart = rendered.root.querySelector('limel-chart');
+test('a stacked-bar chart is drawn exactly like a proportion-bar chart', async () => {
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const proportionBar = await getDrawingOf('proportion-bar');
 
-    expect(await drawn(chart, RED)).toBeTruthy();
+    expect(await getDrawingOf('stacked-bar')).toBe(proportionBar);
 });
 
-test('a stacked bar is drawn with round ends', async () => {
-    const { chart } = await setup({ type: 'stacked-bar' });
-    await drawn(chart, RED);
+test.each(['proportion-bar', 'stacked-bar'] as const)(
+    'a %s chart with a padding and no height draws its items',
+    async (type) => {
+        vi.spyOn(console, 'warn').mockImplementation(() => {});
+        const rendered = await render(
+            <div style={{ width: '300px' }}>
+                <limel-chart
+                    type={type}
+                    items={[reports, archive]}
+                    style={{ padding: '0.25rem' }}
+                />
+            </div>
+        );
+        unmount = rendered.unmount;
+        const chart = rendered.root.querySelector('limel-chart');
 
-    const plot = getComputedStyle(chart.shadowRoot.querySelector('.plot'));
+        expect(await drawn(chart, RED)).toBeTruthy();
+    }
+);
 
-    expect([plot.borderTopLeftRadius, plot.overflow]).toEqual([
-        '4px',
-        'hidden',
-    ]);
-});
+test.each(['proportion-bar', 'stacked-bar'] as const)(
+    'a %s chart is drawn with round ends',
+    async (type) => {
+        vi.spyOn(console, 'warn').mockImplementation(() => {});
+        const { chart } = await setup({ type });
+        await drawn(chart, RED);
+
+        const plot = getComputedStyle(chart.shadowRoot.querySelector('.plot'));
+
+        expect([plot.borderTopLeftRadius, plot.overflow]).toEqual([
+            '4px',
+            'hidden',
+        ]);
+    }
+);
 
 test('an item color that ECharts cannot read is converted to one it can', async () => {
     const { chart } = await setup({

@@ -4,7 +4,7 @@ import { chartItems } from './chart-items-stack';
 /**
  * Hiding the percentage in tooltips
  *
- * The tooltip of an item in a `stacked-bar`, `pie`, `doughnut`, or `ring`
+ * The tooltip of an item in a `proportion-bar`, `pie`, `doughnut`, or `ring`
  * chart shows the item's share of the whole next to its `text`.
  * Set `displayItemPercentage` to `false` to show the `text` and the value alone.
  *

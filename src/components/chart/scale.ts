@@ -9,17 +9,23 @@ const STEP_COUNT = 10;
 export const MAX_AXIS_STEPS = 100;
 
 /**
+ * The chart types that are drawn. `stacked-bar` is only an old name, which
+ * `limel-chart` turns into `proportion-bar` before drawing.
+ */
+export type DrawnChartType = Exclude<ChartType, 'stacked-bar'>;
+
+/**
  * Types whose items are parts of one whole. They draw no axis, and an item's
  * value or range extent is its share of `maxValue`, or of the combined items.
  */
-const WHOLE_TYPES: ReadonlySet<ChartType> = new Set([
-    'stacked-bar',
+const WHOLE_TYPES: ReadonlySet<DrawnChartType> = new Set([
+    'proportion-bar',
     'pie',
     'doughnut',
     'ring',
 ]);
 
-const AXIS_INCREMENT_TYPES: ReadonlySet<ChartType> = new Set([
+const AXIS_INCREMENT_TYPES: ReadonlySet<DrawnChartType> = new Set([
     'bar',
     'dot',
     'area',
@@ -38,7 +44,7 @@ export interface AxisRange {
  * Whether the items of a chart of this type are parts of one whole.
  * @param type - the chart type
  */
-export function isPartOfWhole(type: ChartType): boolean {
+export function isPartOfWhole(type: DrawnChartType): boolean {
     return WHOLE_TYPES.has(type);
 }
 
@@ -47,7 +53,7 @@ export function isPartOfWhole(type: ChartType): boolean {
  * `axisIncrement`.
  * @param type - the chart type
  */
-export function usesAxisIncrement(type: ChartType): boolean {
+export function usesAxisIncrement(type: DrawnChartType): boolean {
     return AXIS_INCREMENT_TYPES.has(type);
 }
 
@@ -193,7 +199,7 @@ export function getShare(item: ChartItem, whole: AxisRange): number {
  * @param item - the item
  * @param type - the chart type
  */
-export function formatValue(item: ChartItem, type: ChartType): string {
+export function formatValue(item: ChartItem, type: DrawnChartType): string {
     const { value, formattedValue } = item;
 
     if (formattedValue) {

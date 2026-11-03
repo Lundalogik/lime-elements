@@ -43,6 +43,7 @@ import {
     locateItem,
 } from './options';
 import {
+    DrawnChartType,
     formatValue,
     getAxisRange,
     MAX_AXIS_STEPS,
@@ -166,7 +167,7 @@ export class Chart {
      * Set to `false` to hide the percentage in item tooltips.
      * The percentage is an item's value or range extent as a share of the
      * whole. The whole is `maxValue` when set and the combined items otherwise.
-     * Applies to `stacked-bar`, `pie`, `doughnut`, and `ring` charts.
+     * Applies to `proportion-bar`, `pie`, `doughnut`, and `ring` charts.
      */
     @Prop({ reflect: true })
     public displayItemPercentage = true;
@@ -180,9 +181,11 @@ export class Chart {
 
     /**
      * Defines how items are visualized in the chart.
+     * `stacked-bar` is the old name of `proportion-bar`. It still works, but
+     * logs a warning.
      */
     @Prop({ reflect: true })
-    public type?: ChartType = 'stacked-bar';
+    public type?: ChartType = 'proportion-bar';
 
     /**
      * Defines whether the chart is intended to be displayed wide or tall.
@@ -193,7 +196,7 @@ export class Chart {
 
     /**
      * Sets the value used to scale item values.
-     * For `stacked-bar`, `pie`, `doughnut`, and `ring`, it is the denominator
+     * For `proportion-bar`, `pie`, `doughnut`, and `ring`, it is the denominator
      * used as the whole. It defaults to the combined item values or range
      * extents. The combined size can exceed `maxValue` and produce a total
      * above 100%.
@@ -250,6 +253,7 @@ export class Chart {
 
     public componentWillLoad() {
         this.warnAboutAxisIncrement();
+        this.warnAboutOldTypeName();
     }
 
     public connectedCallback() {
@@ -283,6 +287,19 @@ export class Chart {
         this.axisIncrementWarning = warning;
     }
 
+    @Watch('type')
+    protected warnAboutOldTypeName() {
+        if (this.type === 'stacked-bar') {
+            console.warn(
+                'limel-chart: the type `stacked-bar` is now called `proportion-bar`. It draws the same chart, but please use the new name.'
+            );
+        }
+    }
+
+    private get chartType(): DrawnChartType {
+        return this.type === 'stacked-bar' ? 'proportion-bar' : this.type;
+    }
+
     private getAxisIncrementWarning(): string | undefined {
         const increment = this.axisIncrement;
         if (increment === undefined || increment === null) {
@@ -293,7 +310,7 @@ export class Chart {
             return `limel-chart: \`axisIncrement\` must be above 0, but was ${increment}. Working out a step from the values instead.`;
         }
 
-        if (!usesAxisIncrement(this.type)) {
+        if (!usesAxisIncrement(this.chartType)) {
             return;
         }
 
@@ -366,7 +383,7 @@ export class Chart {
                 onBlur={this.handleBlur}
             >
                 <td>{item.text}</td>
-                <td>{formatValue(item, this.type)}</td>
+                <td>{formatValue(item, this.chartType)}</td>
             </tr>
         ));
     }
@@ -375,7 +392,7 @@ export class Chart {
         const label = getItemLabel(
             {
                 items: this.items,
-                type: this.type,
+                type: this.chartType,
                 maxValue: this.maxValue,
                 displayItemPercentage: this.displayItemPercentage,
             },
@@ -534,7 +551,7 @@ export class Chart {
                 color: item.color,
                 clickable: item.clickable,
             })),
-            type: this.type,
+            type: this.chartType,
             orientation: this.orientation,
             maxValue: this.maxValue,
             axisIncrement: this.axisIncrement,

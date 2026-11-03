@@ -78,7 +78,7 @@ export interface ChartItem<T extends number | [number, number] = number | [numbe
 }
 
 // @beta
-export type ChartType = 'area' | 'bar' | 'doughnut' | 'line' | 'nps' | 'pie' | 'ring' | 'dot' | 'scatter' | 'stacked-bar';
+export type ChartType = 'area' | 'bar' | 'doughnut' | 'line' | 'nps' | 'pie' | 'ring' | 'dot' | 'scatter' | 'proportion-bar' | 'stacked-bar';
 
 // @public (undocumented)
 export interface Chip<T = any> {

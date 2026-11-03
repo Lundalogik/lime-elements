@@ -2,6 +2,9 @@ import { Color } from '../../global/shared-types/color.types';
 
 /**
  * The kinds of chart that `limel-chart` can draw.
+ *
+ * `stacked-bar` is the old name of `proportion-bar`. It still works, but
+ * logs a warning.
  * @beta
  */
 export type ChartType =
@@ -14,6 +17,7 @@ export type ChartType =
     | 'ring'
     | 'dot'
     | 'scatter'
+    | 'proportion-bar'
     | 'stacked-bar';
 
 /**

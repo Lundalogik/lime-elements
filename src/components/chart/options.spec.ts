@@ -54,14 +54,14 @@ const points: ChartItem[] = [{ text: 'Deal', value: [4, 32] }];
 const draw = (overrides: Partial<ChartSettings> = {}) =>
     drawChart(settings(overrides), theme).option as any;
 
-test('a stacked bar shows each item as its share of their sum', () => {
-    const chart = settings({ type: 'stacked-bar' });
+test('a proportion bar shows each item as its share of their sum', () => {
+    const chart = settings({ type: 'proportion-bar' });
 
     expect(getTooltip(chart, 0)).toBe('Applications (25.00%)<br/>25');
 });
 
-test('maxValue is the whole of a stacked bar, and is not rounded', () => {
-    const chart = settings({ type: 'stacked-bar', maxValue: 210 });
+test('maxValue is the whole of a proportion bar, and is not rounded', () => {
+    const chart = settings({ type: 'proportion-bar', maxValue: 210 });
 
     expect(getTooltip(chart, 0)).toBe('Applications (11.90%)<br/>25');
 });
@@ -86,7 +86,7 @@ test('range items use their extents as shares', () => {
 
 test('with displayItemPercentage set to false, the tooltip has no share', () => {
     const chart = settings({
-        type: 'stacked-bar',
+        type: 'proportion-bar',
         displayItemPercentage: false,
     });
 
@@ -437,8 +437,8 @@ test('a doughnut has a hole, and a pie does not', () => {
     expect(draw({ type: 'pie' }).series[0].radius[0]).toBe(0);
 });
 
-test('a stacked bar draws each item as a series of its own', () => {
-    const drawing = drawChart(settings({ type: 'stacked-bar' }), theme);
+test('a proportion bar draws each item as a series of its own', () => {
+    const drawing = drawChart(settings({ type: 'proportion-bar' }), theme);
     const series = drawing.option.series as any[];
 
     expect(drawing.itemsAreSeries).toBe(true);
@@ -446,15 +446,15 @@ test('a stacked bar draws each item as a series of its own', () => {
     expect(series.map((bar) => bar.stack)).toEqual(['whole', 'whole']);
 });
 
-test('the stacked bar spans maxValue', () => {
-    const { xAxis } = draw({ type: 'stacked-bar', maxValue: 250 });
+test('the proportion bar spans maxValue', () => {
+    const { xAxis } = draw({ type: 'proportion-bar', maxValue: 250 });
 
     expect(xAxis.max).toBe(250);
 });
 
-test('negative items in a stacked bar are not turned into positive ones', () => {
+test('negative items in a proportion bar are not turned into positive ones', () => {
     const { series } = draw({
-        type: 'stacked-bar',
+        type: 'proportion-bar',
         items: [
             { text: 'First', value: -5 },
             { text: 'Second', value: -10 },
@@ -529,7 +529,7 @@ test('an nps chart fills its gauge with the background color', () => {
 });
 
 test('an item drawn as a series of its own is found by its series', () => {
-    const drawing = drawChart(settings({ type: 'stacked-bar' }), theme);
+    const drawing = drawChart(settings({ type: 'proportion-bar' }), theme);
 
     expect(locateItem(drawing, 1)).toEqual({ seriesIndex: 1, dataIndex: 0 });
     expect(getItemIndex(drawing, { seriesIndex: 1, dataIndex: 0 })).toBe(1);
