@@ -160,6 +160,58 @@ test.each([undefined, 'proportion-bar'] as const)(
     }
 );
 
+test('a currency that is not a three-letter code makes the chart warn', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+    const { waitForChanges } = await render(
+        <limel-chart
+            type="bar"
+            items={items}
+            valueFormat="currency"
+            currency="kronor"
+        />
+    );
+    await waitForChanges();
+
+    expect(warn).toHaveBeenCalledExactlyOnceWith(
+        'limel-chart: `currency` must be a three-letter code such as `SEK` when `valueFormat` is `currency`, but was "kronor". Writing the values as numbers instead.'
+    );
+    warn.mockRestore();
+});
+
+test('changing valueFormat to currency without a currency makes the chart warn', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const { root, waitForChanges } = await render(
+        <limel-chart type="bar" items={items} />
+    );
+    await waitForChanges();
+
+    root.valueFormat = 'currency';
+    await waitForChanges();
+
+    expect(warn).toHaveBeenCalledExactlyOnceWith(
+        'limel-chart: `currency` must be a three-letter code such as `SEK` when `valueFormat` is `currency`, but was undefined. Writing the values as numbers instead.'
+    );
+    warn.mockRestore();
+});
+
+test('a chart of amounts with a currency code does not warn', async () => {
+    const warn = vi.spyOn(console, 'warn');
+
+    const { waitForChanges } = await render(
+        <limel-chart
+            type="bar"
+            items={items}
+            valueFormat="currency"
+            currency="SEK"
+        />
+    );
+    await waitForChanges();
+
+    expect(warn).not.toHaveBeenCalled();
+    warn.mockRestore();
+});
+
 test('a language this browser cannot write values in makes the chart warn once', async () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const { root, waitForChanges } = await render(
@@ -182,6 +234,21 @@ test('a language this browser can write values in does not make the chart warn',
     const { waitForChanges } = await render(
         <limel-chart type="bar" items={items} language="sv" />
     );
+    await waitForChanges();
+
+    expect(warn).not.toHaveBeenCalled();
+    warn.mockRestore();
+});
+
+test('setting valueFormat and currency together does not make the chart warn', async () => {
+    const warn = vi.spyOn(console, 'warn');
+    const { root, waitForChanges } = await render(
+        <limel-chart type="bar" items={items} />
+    );
+    await waitForChanges();
+
+    root.valueFormat = 'currency';
+    root.currency = 'SEK';
     await waitForChanges();
 
     expect(warn).not.toHaveBeenCalled();

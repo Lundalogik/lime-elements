@@ -32,7 +32,7 @@ import {
     NavigationOrientation,
     NO_NAVIGATION_TARGET,
 } from '../../util/keyboard-navigation';
-import { ChartItem, ChartType } from './chart.types';
+import { ChartItem, ChartType, ChartValueFormat } from './chart.types';
 import {
     ChartDrawing,
     ChartSettings,
@@ -48,7 +48,7 @@ import {
     MAX_AXIS_STEPS,
     usesAxisIncrement,
 } from './scale';
-import { canWriteIn, formatValue } from './format';
+import { canWriteIn, formatValue, isCurrencyCode, ValueStyle } from './format';
 import {
     ChartTheme,
     createThemeReader,
@@ -79,6 +79,7 @@ const extensions = [
  * @exampleComponent limel-example-chart-orientation
  * @exampleComponent limel-example-chart-max-value
  * @exampleComponent limel-example-chart-display-item-percentage
+ * @exampleComponent limel-example-chart-value-format
  * @exampleComponent limel-example-chart-type-bar
  * @exampleComponent limel-example-chart-type-dot
  * @exampleComponent limel-example-chart-type-area
@@ -218,6 +219,24 @@ export class Chart {
     public axisIncrement?: number;
 
     /**
+     * Defines how values are written: as numbers, as percentages where
+     * `0.25` is `25 %`, or as amounts of `currency`. The axes, the values
+     * shown with `displayItemValue`, the tooltips, and the screen reader
+     * table all follow it, in the chart's `language`. An item's
+     * `formattedValue` is shown as it is.
+     */
+    @Prop({ reflect: true })
+    public valueFormat: ChartValueFormat = 'number';
+
+    /**
+     * The currency of the values when `valueFormat` is `currency`, as a
+     * three-letter code such as `SEK`. Without one, the values are written
+     * as numbers.
+     */
+    @Prop({ reflect: true })
+    public currency?: string;
+
+    /**
      * Indicates whether the chart is in a loading state.
      */
     @Prop({ reflect: true })
@@ -247,6 +266,7 @@ export class Chart {
     private itemSpace?: number;
     private axisIncrementWarning?: string;
     private languageWarning?: string;
+    private currencyWarning?: string;
     private readonly invalidColors = new Set<string>();
     private themeReader?: ThemeReader;
     private resizeObserver?: ResizeObserver;
@@ -259,6 +279,7 @@ export class Chart {
 
     public componentWillRender() {
         this.warnAboutLanguage();
+        this.warnAboutCurrency();
     }
 
     public connectedCallback() {
@@ -310,6 +331,27 @@ export class Chart {
         }
 
         this.languageWarning = warning;
+    }
+
+    private warnAboutCurrency() {
+        const warning =
+            this.valueFormat !== 'currency' || isCurrencyCode(this.currency)
+                ? undefined
+                : `limel-chart: \`currency\` must be a three-letter code such as \`SEK\` when \`valueFormat\` is \`currency\`, but was ${JSON.stringify(this.currency)}. Writing the values as numbers instead.`;
+        if (warning && warning !== this.currencyWarning) {
+            console.warn(warning);
+        }
+
+        this.currencyWarning = warning;
+    }
+
+    private get valueStyle(): ValueStyle {
+        return {
+            type: this.chartType,
+            language: this.language,
+            valueFormat: this.valueFormat,
+            currency: this.currency,
+        };
     }
 
     private get chartType(): DrawnChartType {
@@ -399,12 +441,7 @@ export class Chart {
                 onBlur={this.handleBlur}
             >
                 <td>{item.text}</td>
-                <td>
-                    {formatValue(item, {
-                        type: this.chartType,
-                        language: this.language,
-                    })}
-                </td>
+                <td>{formatValue(item, this.valueStyle)}</td>
             </tr>
         ));
     }
@@ -412,11 +449,10 @@ export class Chart {
     private getRowDescription(index: number): string | undefined {
         const label = getItemLabel(
             {
+                ...this.valueStyle,
                 items: this.items,
-                type: this.chartType,
                 maxValue: this.maxValue,
                 displayItemPercentage: this.displayItemPercentage,
-                language: this.language,
             },
             index
         );
@@ -573,7 +609,7 @@ export class Chart {
                 color: item.color,
                 clickable: item.clickable,
             })),
-            type: this.chartType,
+            ...this.valueStyle,
             orientation: this.orientation,
             maxValue: this.maxValue,
             axisIncrement: this.axisIncrement,
@@ -583,7 +619,6 @@ export class Chart {
             displayItemText: this.displayItemText,
             displayItemValue: this.displayItemValue,
             displayItemPercentage: this.displayItemPercentage,
-            language: this.language,
         };
     }
 

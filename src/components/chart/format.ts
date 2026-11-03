@@ -1,5 +1,5 @@
 import { getPrimarySubtag } from '../../util/language';
-import { ChartItem } from './chart.types';
+import { ChartItem, ChartValueFormat } from './chart.types';
 import { AxisRange, DrawnChartType } from './scale';
 
 const FALLBACK_LOCALE = 'en';
@@ -48,6 +48,16 @@ const NUMBERS: NumberStyle = {
     smallBelow: 1,
 };
 
+/**
+ * Up to one decimal, and two significant digits below 1 %, so `0.0004` is
+ * written as `0.04%` rather than `0%`.
+ */
+const PERCENTAGES: NumberStyle = {
+    options: { style: 'percent', maximumFractionDigits: 1 },
+    small: { style: 'percent', maximumSignificantDigits: 2 },
+    smallBelow: 0.01,
+};
+
 const SHARE_OPTIONS: NumberOptions = {
     style: 'percent',
     minimumFractionDigits: 2,
@@ -56,6 +66,7 @@ const SHARE_OPTIONS: NumberOptions = {
 
 const locales = new Map<string, string>();
 const numberFormats = new Map<string, Intl.NumberFormat>();
+const currencyCodes = new Map<string, boolean>();
 
 /**
  * What decides how the values of a chart are written.
@@ -64,11 +75,15 @@ export interface ValueStyle {
     type: DrawnChartType;
     /** The language of the chart, which values are written in. */
     language: string;
+    valueFormat: ChartValueFormat;
+    /** The currency of the values, for the `currency` format. */
+    currency?: string;
 }
 
 /**
  * The item's value as text: its `formattedValue` when set, otherwise its
- * value, range, or scatter point, written in the chart's language.
+ * value, range, or scatter point, written in the chart's language and
+ * value format.
  * @param item - the item
  * @param style - how the chart writes values
  */
@@ -79,7 +94,7 @@ export function formatValue(item: ChartItem, style: ValueStyle): string {
         return formattedValue;
     }
 
-    const numbers = getNumberWriter(getLocale(style.language), NUMBERS);
+    const numbers = getValueFormat(style);
     if (!Array.isArray(value)) {
         return numbers.format(value);
     }
@@ -93,10 +108,11 @@ export function formatValue(item: ChartItem, style: ValueStyle): string {
 }
 
 /**
- * Writes the values of an axis in the chart's language, with as many
- * decimals as the step between them has. On an axis that reaches 10 000 or
- * more, every value is shortened, such as `1.2M`, so the values stay short
- * and alike.
+ * Writes the values of an axis in the chart's language and value format,
+ * with as many decimals as the step between them has. Amounts leave out
+ * their currency, which the item values and tooltips show. On an axis
+ * that reaches 10 000 or more, every number is shortened, such as `1.2M`,
+ * so the values stay short and alike.
  * @param range - the range of the axis
  * @param style - how the chart writes values
  */
@@ -104,12 +120,22 @@ export function getAxisValueFormatter(
     range: Pick<AxisRange, 'minValue' | 'maxValue' | 'increment'>,
     style: ValueStyle
 ): (value: number) => string {
+    const locale = getLocale(style.language);
+    if (style.valueFormat === 'percent') {
+        const percentages = getNumberFormat(locale, {
+            style: 'percent',
+            maximumFractionDigits: countDecimals(range.increment * PERCENT),
+        });
+
+        return (value) => percentages.format(value);
+    }
+
     const largest = Math.max(
         Math.abs(range.minValue),
         Math.abs(range.maxValue)
     );
     const numbers = getNumberFormat(
-        getLocale(style.language),
+        locale,
         largest >= SHORTEN_FROM
             ? {
                   notation: 'compact',
@@ -137,6 +163,31 @@ export function formatShare(share: number, language: string): string {
 }
 
 /**
+ * Whether `currency` can be written as one: a three-letter code such as
+ * `SEK`.
+ * @param currency - the currency of the chart
+ */
+export function isCurrencyCode(currency: string): boolean {
+    let valid = currencyCodes.get(currency);
+    if (valid === undefined) {
+        valid = canWriteAmountsIn(currency);
+        currencyCodes.set(currency, valid);
+    }
+
+    return valid;
+}
+
+function canWriteAmountsIn(currency: string): boolean {
+    try {
+        getNumberFormat(FALLBACK_LOCALE, { style: 'currency', currency });
+
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+/**
  * Whether values can be written in `language`. When they cannot, they are
  * written in English.
  * @param language - the language of the chart
@@ -146,6 +197,23 @@ export function canWriteIn(language: string): boolean {
         getLocale(language) !== FALLBACK_LOCALE ||
         getPrimarySubtag(language) === FALLBACK_LOCALE
     );
+}
+
+function getValueFormat(style: ValueStyle): Pick<Intl.NumberFormat, 'format'> {
+    const locale = getLocale(style.language);
+    if (style.valueFormat === 'percent') {
+        return getNumberWriter(locale, PERCENTAGES);
+    }
+
+    if (style.valueFormat === 'currency' && isCurrencyCode(style.currency)) {
+        return getNumberFormat(locale, {
+            style: 'currency',
+            currency: style.currency,
+            trailingZeroDisplay: 'stripIfInteger',
+        });
+    }
+
+    return getNumberWriter(locale, NUMBERS);
 }
 
 /**

@@ -78,6 +78,21 @@ test('the values in the table are written in the language of the chart', async (
     expect(shadow.querySelectorAll('td')[1]).toHaveTextContent('1\u{A0}234,5');
 });
 
+test('the values in the table follow the value format of the chart', async () => {
+    const shadow = await renderChart(
+        <limel-chart
+            items={[{ text: 'Revenue', value: 1234.5 }]}
+            language="sv"
+            valueFormat="currency"
+            currency="SEK"
+        />
+    );
+
+    expect(shadow.querySelectorAll('td')[1]).toHaveTextContent(
+        '1\u{A0}234,50\u{A0}kr'
+    );
+});
+
 test('each row of a chart of parts is described by its share of the whole', async () => {
     const shadow = await renderChart(
         <limel-chart type="doughnut" items={items} />
