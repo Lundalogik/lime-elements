@@ -45,6 +45,7 @@ function settings(overrides: Partial<ChartSettings> = {}): ChartSettings {
         displayItemValue: false,
         displayItemPercentage: true,
         language: 'en',
+        valueFormat: 'number',
         ...overrides,
         items: chartItems,
     };

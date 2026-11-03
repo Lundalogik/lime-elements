@@ -1,6 +1,12 @@
-import { canWriteIn, formatValue, getAxisValueFormatter } from './format';
+import {
+    canWriteIn,
+    formatValue,
+    getAxisValueFormatter,
+    isCurrencyCode,
+} from './format';
 
-const english = { type: 'bar', language: 'en' } as const;
+const english = { type: 'bar', language: 'en', valueFormat: 'number' } as const;
+const swedish = { ...english, language: 'sv' } as const;
 
 test('formattedValue is shown instead of the value', () => {
     const item = { text: 'Photos', value: 18, formattedValue: '18 GB' };
@@ -26,7 +32,7 @@ test('a scatter point is shown as coordinates', () => {
     expect(
         formatValue(
             { text: 'Deal', value: [4, 32] },
-            { type: 'scatter', language: 'en' }
+            { ...english, type: 'scatter' }
         )
     ).toBe('(4, 32)');
 });
@@ -34,9 +40,7 @@ test('a scatter point is shown as coordinates', () => {
 test('a value is written the way its language writes numbers', () => {
     const item = { text: 'Photos', value: 1234.5 };
 
-    expect(formatValue(item, { type: 'bar', language: 'sv' })).toBe(
-        '1\u{A0}234,5'
-    );
+    expect(formatValue(item, swedish)).toBe('1\u{A0}234,5');
 });
 
 test('a range is written the way its language writes numbers', () => {
@@ -48,9 +52,9 @@ test('a range is written the way its language writes numbers', () => {
 test('a language that cannot be read writes values as in English', () => {
     const item = { text: 'Photos', value: 1234.5 };
 
-    expect(
-        formatValue(item, { type: 'bar', language: 'not a language!' })
-    ).toBe('1,234.5');
+    expect(formatValue(item, { ...english, language: 'not a language!' })).toBe(
+        '1,234.5'
+    );
 });
 
 test('the values of an axis below 10 000 are written in full', () => {
@@ -98,10 +102,99 @@ test('an axis that reaches -10 000 is shortened too', () => {
 test('shortened axis values are written the way their language writes them', () => {
     const write = getAxisValueFormatter(
         { minValue: 0, maxValue: 1_200_000, increment: 250_000 },
-        { type: 'bar', language: 'sv' }
+        swedish
     );
 
     expect(write(1_200_000)).toBe('1,2\u{A0}mn');
+});
+
+test('a percentage is written as one, where 0.25 is 25 %', () => {
+    const item = { text: 'Won', value: 0.255 };
+
+    expect(formatValue(item, { ...swedish, valueFormat: 'percent' })).toBe(
+        '25,5\u{A0}%'
+    );
+});
+
+test('an amount is written in its currency', () => {
+    const item = { text: 'Revenue', value: 1200 };
+
+    expect(
+        formatValue(item, {
+            ...swedish,
+            valueFormat: 'currency',
+            currency: 'SEK',
+        })
+    ).toBe('1\u{A0}200\u{A0}kr');
+});
+
+test('an amount with a fraction keeps its decimals', () => {
+    const item = { text: 'Fee', value: 12.5 };
+
+    expect(
+        formatValue(item, {
+            ...swedish,
+            valueFormat: 'currency',
+            currency: 'SEK',
+        })
+    ).toBe('12,50\u{A0}kr');
+});
+
+test('a range of amounts writes both ends in their currency', () => {
+    const item = { text: 'Deal', value: [1200, 3400] as [number, number] };
+
+    expect(
+        formatValue(item, {
+            ...english,
+            valueFormat: 'currency',
+            currency: 'USD',
+        })
+    ).toBe('$1,200 — $3,400');
+});
+
+test.each([undefined, 'kronor'])(
+    'an amount with the currency %s is written as a number',
+    (currency) => {
+        const item = { text: 'Revenue', value: 1200 };
+
+        expect(
+            formatValue(item, { ...english, valueFormat: 'currency', currency })
+        ).toBe('1,200');
+    }
+);
+
+test('a formattedValue is shown instead of the value format', () => {
+    const item = { text: 'Won', value: 0.25, formattedValue: 'A quarter' };
+
+    expect(formatValue(item, { ...english, valueFormat: 'percent' })).toBe(
+        'A quarter'
+    );
+});
+
+test('the values of a percentage axis are written as percentages', () => {
+    const write = getAxisValueFormatter(
+        { minValue: 0, maxValue: 1, increment: 0.1 },
+        { ...english, valueFormat: 'percent' }
+    );
+
+    expect(write(0.25)).toBe('25%');
+});
+
+test('the values of an amount axis leave out the currency', () => {
+    const write = getAxisValueFormatter(
+        { minValue: 0, maxValue: 1_200_000, increment: 250_000 },
+        { ...english, valueFormat: 'currency', currency: 'USD' }
+    );
+
+    expect(write(1_200_000)).toBe('1.2M');
+});
+
+test.each([
+    ['SEK', true],
+    ['kronor', false],
+    [undefined, false],
+])('%s is a currency code: %s', (currency, expected) => {
+    expect(isCurrencyCode(currency)).toBe(expected);
 });
 
 test('a small value keeps its first digits', () => {
@@ -119,13 +212,13 @@ test('a value keeps up to three decimals', () => {
 test('a language this browser does not know writes values as in English', () => {
     const item = { text: 'Photos', value: 1234.5 };
 
-    expect(formatValue(item, { type: 'bar', language: 'zz' })).toBe('1,234.5');
+    expect(formatValue(item, { ...english, language: 'zz' })).toBe('1,234.5');
 });
 
 test('a scatter point of numbers with commas separates them with a semicolon', () => {
     const item = { text: 'Deal', value: [1.5, 2.5] as [number, number] };
 
-    expect(formatValue(item, { type: 'scatter', language: 'sv' })).toBe(
+    expect(formatValue(item, { ...swedish, type: 'scatter' })).toBe(
         '(1,5; 2,5)'
     );
 });
@@ -171,4 +264,21 @@ test('a large value keeps all its digits', () => {
     expect(formatValue({ text: 'Revenue', value: 1_234_567 }, english)).toBe(
         '1,234,567'
     );
+});
+
+test('a small percentage keeps its first digits', () => {
+    const item = { text: 'Churn', value: 0.0004 };
+
+    expect(formatValue(item, { ...english, valueFormat: 'percent' })).toBe(
+        '0.04%'
+    );
+});
+
+test('the values of a percentage axis have as many decimals as its step', () => {
+    const write = getAxisValueFormatter(
+        { minValue: 0, maxValue: 0.02, increment: 0.005 },
+        { ...english, valueFormat: 'percent' }
+    );
+
+    expect(write(0.015)).toBe('1.5%');
 });

@@ -21,6 +21,15 @@ export type ChartType =
     | 'stacked-bar';
 
 /**
+ * How `limel-chart` writes values.
+ * - `number`: as numbers, such as `1 234,5` in Swedish
+ * - `percent`: as percentages, where `0.25` is `25 %`
+ * - `currency`: as amounts of the chart's `currency`, such as `1 234 kr`
+ * @beta
+ */
+export type ChartValueFormat = 'number' | 'percent' | 'currency';
+
+/**
  * Chart component props.
  * @beta
  */
@@ -42,7 +51,8 @@ export interface ChartItem<
     value: T;
 
     /**
-     * Formatted value of the item
+     * Formatted value of the item. Shown instead of the value, written as
+     * the chart's `valueFormat` would write it.
      */
     formattedValue?: string;
 

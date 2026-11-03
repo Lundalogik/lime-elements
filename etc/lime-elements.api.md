@@ -80,6 +80,9 @@ export interface ChartItem<T extends number | [number, number] = number | [numbe
 // @beta
 export type ChartType = 'area' | 'bar' | 'doughnut' | 'line' | 'nps' | 'pie' | 'ring' | 'dot' | 'scatter' | 'proportion-bar' | 'stacked-bar';
 
+// @beta
+export type ChartValueFormat = 'number' | 'percent' | 'currency';
+
 // @public (undocumented)
 export interface Chip<T = any> {
     badge?: number | string;
@@ -250,6 +253,7 @@ export namespace Components {
         "accessibleLabel"?: string;
         "accessibleValuesLabel"?: string;
         "axisIncrement"?: number;
+        "currency"?: string;
         "displayAxisLabels": boolean;
         "displayItemPercentage": boolean;
         "displayItemText": boolean;
@@ -260,6 +264,7 @@ export namespace Components {
         "maxValue"?: number;
         "orientation"?: 'landscape' | 'portrait';
         "type"?: ChartType;
+        "valueFormat": ChartValueFormat;
     }
     export interface LimelCheckbox {
         "checked": boolean;
@@ -1915,6 +1920,7 @@ export namespace JSX {
         "accessibleLabel"?: string;
         "accessibleValuesLabel"?: string;
         "axisIncrement"?: number;
+        "currency"?: string;
         "displayAxisLabels"?: boolean;
         "displayItemPercentage"?: boolean;
         "displayItemText"?: boolean;
@@ -1926,6 +1932,7 @@ export namespace JSX {
         "onInteract"?: (event: LimelChartCustomEvent<ChartItem>) => void;
         "orientation"?: 'landscape' | 'portrait';
         "type"?: ChartType;
+        "valueFormat"?: ChartValueFormat;
     }
 
     // (undocumented)
@@ -1938,6 +1945,8 @@ export namespace JSX {
         "accessibleValuesLabel": string;
         // (undocumented)
         "axisIncrement": number;
+        // (undocumented)
+        "currency": string;
         // (undocumented)
         "displayAxisLabels": boolean;
         // (undocumented)
@@ -1958,6 +1967,10 @@ export namespace JSX {
         //
         // (undocumented)
         "type": ChartType;
+        // Warning: (ae-incompatible-release-tags) The symbol "valueFormat" is marked as @public, but its signature references "ChartValueFormat" which is marked as @beta
+        //
+        // (undocumented)
+        "valueFormat": ChartValueFormat;
     }
 
     export interface LimelCheckbox {
