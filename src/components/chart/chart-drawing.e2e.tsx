@@ -50,6 +50,7 @@ type Props = Partial<
         | 'accessibleItemsLabel'
         | 'accessibleValuesLabel'
         | 'language'
+        | 'valueFormat'
     >
 > & {
     style?: Record<string, string>;
@@ -560,4 +561,27 @@ test('the item texts are fitted again when the chart gets wider', async () => {
     await expect
         .poll(() => getItemTexts(chart))
         .toEqual(longTexts.map((item) => item.text));
+});
+
+test('a chart of dates draws its ranges and writes the months on its axis, with the year on the first', async () => {
+    const { chart } = await setup({
+        items: [
+            {
+                text: 'Phase 1',
+                value: [
+                    new Date(2026, 0, 12).getTime(),
+                    new Date(2026, 3, 20).getTime(),
+                ],
+                color: RED,
+            },
+        ],
+        valueFormat: 'date',
+    });
+    await drawn(chart, RED);
+
+    const texts = [...chart.shadowRoot.querySelectorAll('.plot svg text')].map(
+        (text) => text.textContent
+    );
+
+    expect(texts).toEqual(expect.arrayContaining(['Feb 2026', 'Mar', 'Apr']));
 });

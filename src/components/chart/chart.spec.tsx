@@ -254,3 +254,78 @@ test('setting valueFormat and currency together does not make the chart warn', a
     expect(warn).not.toHaveBeenCalled();
     warn.mockRestore();
 });
+
+test.each([1, 0])(
+    'a chart of dates does not warn about an axisIncrement of %d',
+    async (axisIncrement) => {
+        const warn = vi.spyOn(console, 'warn');
+
+        const { waitForChanges } = await render(
+            <limel-chart
+                type="bar"
+                items={[{ text: 'Signed', value: Date.UTC(2026, 0, 12) }]}
+                valueFormat="date"
+                axisIncrement={axisIncrement}
+            />
+        );
+        await waitForChanges();
+
+        expect(warn).not.toHaveBeenCalled();
+        warn.mockRestore();
+    }
+);
+
+test('a chart of dates with a value that is not a date warns once', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const { root, waitForChanges } = await render(
+        <limel-chart
+            type="bar"
+            valueFormat="date"
+            items={[
+                { text: 'Signed', value: Date.UTC(2026, 0, 12) },
+                { text: 'Lost', value: 1.7e18 },
+            ]}
+        />
+    );
+    await waitForChanges();
+
+    root.language = 'sv';
+    await waitForChanges();
+
+    expect(warn).toHaveBeenCalledExactlyOnceWith(
+        'limel-chart: with `valueFormat` `date`, each value must be a date in milliseconds since 1970, as `Date.getTime()` gives, but was 1700000000000000000. Showing it as it is.'
+    );
+    warn.mockRestore();
+});
+
+test('a chart of numbers with large values does not warn about dates', async () => {
+    const warn = vi.spyOn(console, 'warn');
+
+    const { waitForChanges } = await render(
+        <limel-chart type="bar" items={[{ text: 'Big', value: 1.7e18 }]} />
+    );
+    await waitForChanges();
+
+    expect(warn).not.toHaveBeenCalled();
+    warn.mockRestore();
+});
+
+test('switching a chart from dates to numbers together with its items does not warn about axisIncrement', async () => {
+    const warn = vi.spyOn(console, 'warn');
+    const { root, waitForChanges } = await render(
+        <limel-chart
+            type="bar"
+            valueFormat="date"
+            axisIncrement={10}
+            items={[{ text: 'Signed', value: Date.UTC(2026, 0, 12) }]}
+        />
+    );
+    await waitForChanges();
+
+    root.valueFormat = 'number';
+    root.items = [{ text: 'Deals', value: 40 }];
+    await waitForChanges();
+
+    expect(warn).not.toHaveBeenCalled();
+    warn.mockRestore();
+});

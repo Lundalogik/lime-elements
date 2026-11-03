@@ -166,6 +166,80 @@ test('the value axis writes its values in the language of the chart', () => {
     expect(yAxis.axisLabel.formatter(1_200_000)).toBe('1,2\u{A0}mn');
 });
 
+test('a chart of dates has an axis that spans its dates', () => {
+    const start = new Date(2026, 0, 12).getTime();
+    const end = new Date(2026, 2, 3).getTime();
+    const { yAxis } = draw({
+        items: [{ text: 'Phase 1', value: [start, end] }],
+        valueFormat: 'date',
+    });
+
+    expect(yAxis).toMatchObject({
+        min: start,
+        max: end,
+        interval: undefined,
+    });
+});
+
+test('the axis of a chart of dates marks the first days of its months', () => {
+    const { yAxis } = draw({
+        items: [
+            {
+                text: 'Phase 1',
+                value: [
+                    new Date(2026, 0, 12).getTime(),
+                    new Date(2026, 3, 20).getTime(),
+                ],
+            },
+        ],
+        valueFormat: 'date',
+    });
+    const months = [1, 2, 3].map((month) => new Date(2026, month, 1).getTime());
+
+    expect([yAxis.axisLabel.customValues, yAxis.axisTick.customValues]).toEqual(
+        [months, months]
+    );
+});
+
+test('the axis of a chart of dates writes the year on its first month only', () => {
+    const { yAxis } = draw({
+        items: [
+            {
+                text: 'Phase 1',
+                value: [
+                    new Date(2026, 0, 12).getTime(),
+                    new Date(2026, 3, 20).getTime(),
+                ],
+            },
+        ],
+        valueFormat: 'date',
+    });
+
+    expect(
+        yAxis.axisLabel.customValues.map((value: number) =>
+            yAxis.axisLabel.formatter(value)
+        )
+    ).toEqual(['Feb 2026', 'Mar', 'Apr']);
+});
+
+test('both axes of a scatter chart of dates mark the days of their dates', () => {
+    const first = new Date(2026, 0, 12).getTime();
+    const second = new Date(2026, 2, 20).getTime();
+    const { xAxis, yAxis } = draw({
+        type: 'scatter',
+        items: [{ text: 'Deal', value: [first, second] }],
+        valueFormat: 'date',
+    });
+
+    expect([
+        xAxis.axisLabel.customValues,
+        yAxis.axisLabel.customValues,
+    ]).toEqual([
+        [first, new Date(2026, 0, 13).getTime()],
+        [second, new Date(2026, 2, 21).getTime()],
+    ]);
+});
+
 test('both axes of a scatter chart write their values in the language of the chart', () => {
     const { xAxis, yAxis } = draw({
         type: 'scatter',

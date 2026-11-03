@@ -15,6 +15,8 @@ import { ChartItem } from './chart.types';
 import {
     AxisRange,
     getAxisRange,
+    getDateRange,
+    getDateTicks,
     getMaximumValue,
     getMinimumValue,
     getScatterRanges,
@@ -286,11 +288,16 @@ function drawOnAxes(
     itemSpace?: number
 ): ChartDrawing {
     const { items, orientation } = settings;
-    const range = getAxisRange(
-        items,
-        settings.maxValue,
-        settings.axisIncrement
-    );
+    const range =
+        settings.valueFormat === 'date'
+            ? getDateRange(
+                  items.flatMap((item) => [
+                      getMinimumValue(item),
+                      getMaximumValue(item),
+                  ]),
+                  settings.maxValue
+              )
+            : getAxisRange(items, settings.maxValue, settings.axisIncrement);
     const itemTextAxis = getItemTextAxis(settings);
     const categoryAxis = {
         ...getCategoryAxis(settings),
@@ -537,7 +544,13 @@ function getRangeStarts(items: ChartItem[]): number[] {
 
 function drawScatter(settings: ChartSettings, theme: ChartTheme): ChartDrawing {
     const { items } = settings;
-    const ranges = getScatterRanges(items);
+    const ranges =
+        settings.valueFormat === 'date'
+            ? {
+                  x: getDateRange(items.map((item) => getXValue(item))),
+                  y: getDateRange(items.map((item) => getYValue(item))),
+              }
+            : getScatterRanges(items);
     const landscape = settings.orientation === 'landscape';
     const firstAxis = getValueAxis(
         ranges.x,
@@ -801,16 +814,25 @@ function getValueAxis(
     settings: ChartSettings,
     theme: ChartTheme
 ) {
+    const dates = settings.valueFormat === 'date' && getDateTicks(range);
+    const ticks = dates && { customValues: dates.values };
+
     return {
         type: 'value' as const,
         min: range.minValue,
         max: range.maxValue,
-        interval: range.increment,
+        interval: dates ? undefined : range.increment,
         axisLabel: {
             show: true,
             color: theme.textColor,
-            formatter: getAxisValueFormatter(range, settings),
+            formatter: getAxisValueFormatter(
+                range,
+                settings,
+                dates || undefined
+            ),
+            ...ticks,
         },
+        ...(ticks && { axisTick: ticks }),
         axisLine: { lineStyle: { color: theme.axisLineColor } },
         splitLine: { lineStyle: { color: theme.axisLineColor } },
         ...name,

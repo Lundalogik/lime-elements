@@ -4,6 +4,7 @@ import {
     getAxisValueFormatter,
     isCurrencyCode,
 } from './format';
+import { DateTicks } from './scale';
 
 const english = { type: 'bar', language: 'en', valueFormat: 'number' } as const;
 const swedish = { ...english, language: 'sv' } as const;
@@ -281,4 +282,125 @@ test('the values of a percentage axis have as many decimals as its step', () => 
     );
 
     expect(write(0.015)).toBe('1.5%');
+});
+
+const dates = { ...swedish, valueFormat: 'date' } as const;
+const day = (month: number, date: number) =>
+    new Date(2026, month, date).getTime();
+
+test('a date is written as one, in the language of the chart', () => {
+    const item = { text: 'Signed', value: day(0, 15) };
+
+    expect(formatValue(item, dates)).toBe('15 jan. 2026');
+});
+
+test('a range of dates is written as one range', () => {
+    const item = {
+        text: 'Phase 1',
+        value: [day(0, 1), day(1, 1)] as [number, number],
+    };
+
+    expect(formatValue(item, dates)).toBe('1 jan.\u{2013}1 feb. 2026');
+});
+
+test('a range of dates that ends before it starts is written in order', () => {
+    const item = {
+        text: 'Phase 1',
+        value: [day(1, 1), day(0, 1)] as [number, number],
+    };
+
+    expect(formatValue(item, dates)).toBe('1 jan.\u{2013}1 feb. 2026');
+});
+
+test('a scatter point of dates writes both dates', () => {
+    const item = {
+        text: 'Deal',
+        value: [day(0, 1), day(1, 1)] as [number, number],
+    };
+
+    expect(formatValue(item, { ...dates, type: 'scatter' })).toBe(
+        '(1 jan. 2026, 1 feb. 2026)'
+    );
+});
+
+test('a scatter point of dates with commas separates them with a semicolon', () => {
+    const item = {
+        text: 'Deal',
+        value: [day(0, 1), day(1, 1)] as [number, number],
+    };
+
+    expect(
+        formatValue(item, { ...dates, language: 'en', type: 'scatter' })
+    ).toBe('(Jan 1, 2026; Feb 1, 2026)');
+});
+
+test.each([NaN, 1e20])('a date of %s is shown as it is', (value) => {
+    expect(formatValue({ text: 'Signed', value: value }, dates)).toBe(
+        `${value}`
+    );
+});
+
+test('a range with a date of NaN shows both ends as they are', () => {
+    const item = {
+        text: 'Phase 1',
+        value: [NaN, day(1, 1)] as [number, number],
+    };
+
+    expect(formatValue(item, dates)).toBe('NaN — 1 feb. 2026');
+});
+
+const writeDateAxis = (ticks: DateTicks) => {
+    const write = getAxisValueFormatter(
+        { minValue: 0, maxValue: 0, increment: 0 },
+        dates,
+        ticks
+    );
+
+    return ticks.values.map((value) => write(value));
+};
+
+test('a date axis of days writes the year on its first date and on each new year', () => {
+    const values = [
+        new Date(2025, 11, 22).getTime(),
+        new Date(2025, 11, 29).getTime(),
+        day(0, 5),
+    ];
+
+    expect(writeDateAxis({ values, unit: 'day' })).toEqual([
+        '22 dec. 2025',
+        '29 dec.',
+        '5 jan. 2026',
+    ]);
+});
+
+test('a date axis of months writes the year on its first month', () => {
+    const values = [day(2, 1), day(3, 1), day(4, 1)];
+
+    expect(writeDateAxis({ values, unit: 'month' })).toEqual([
+        'mars 2026',
+        'apr.',
+        'maj',
+    ]);
+});
+
+test('a date axis of months writes January as its year', () => {
+    const values = [new Date(2025, 11, 1).getTime(), day(0, 1), day(1, 1)];
+
+    expect(writeDateAxis({ values, unit: 'month' })).toEqual([
+        'dec. 2025',
+        '2026',
+        'feb.',
+    ]);
+});
+
+test('a date axis of years writes the years', () => {
+    const values = [day(0, 1), new Date(2027, 0, 1).getTime()];
+
+    expect(writeDateAxis({ values, unit: 'year' })).toEqual(['2026', '2027']);
+});
+
+test('a date given as text is shown as it is', () => {
+    const item = { text: 'Signed', value: '2026-01-15' as unknown as number };
+
+    expect(formatValue(item, dates)).toBe('2026-01-15');
 });

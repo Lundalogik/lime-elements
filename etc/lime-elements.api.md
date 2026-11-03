@@ -81,7 +81,7 @@ export interface ChartItem<T extends number | [number, number] = number | [numbe
 export type ChartType = 'area' | 'bar' | 'doughnut' | 'line' | 'nps' | 'pie' | 'ring' | 'dot' | 'scatter' | 'proportion-bar' | 'stacked-bar';
 
 // @beta
-export type ChartValueFormat = 'number' | 'percent' | 'currency';
+export type ChartValueFormat = 'number' | 'percent' | 'currency' | 'date';
 
 // @public (undocumented)
 export interface Chip<T = any> {

@@ -1,6 +1,9 @@
 import { ChartItem } from './chart.types';
 import {
     getAxisRange,
+    getDateRange,
+    getDateTicks,
+    isDate,
     getScatterRanges,
     getShare,
     getWholeRange,
@@ -198,4 +201,148 @@ test('scatter axes of zeros get a step of one', () => {
         x: { minValue: 0, maxValue: 0, totalRange: 0, increment: 1 },
         y: { minValue: 0, maxValue: 0, totalRange: 0, increment: 1 },
     });
+});
+
+const day = (month: number, date: number, hours = 0) =>
+    new Date(2026, month, date, hours).getTime();
+
+test('an axis of dates runs from the start of the first day to the end of the last', () => {
+    expect(getDateRange([day(0, 15, 10), day(2, 3, 14)])).toMatchObject({
+        minValue: day(0, 15),
+        maxValue: day(2, 4),
+    });
+});
+
+test('an axis of dates that end at midnight ends there', () => {
+    expect(getDateRange([day(0, 15), day(2, 4)]).maxValue).toBe(day(2, 4));
+});
+
+test('an axis of a single date spans that day', () => {
+    expect(getDateRange([day(0, 15)])).toMatchObject({
+        minValue: day(0, 15),
+        maxValue: day(0, 16),
+    });
+});
+
+const inYear = (year: number, month = 0, date = 1) => {
+    const start = new Date(0);
+    start.setFullYear(year, month, date);
+
+    return start.setHours(0, 0, 0, 0);
+};
+
+test('an axis of a single date in the year 50 spans that day', () => {
+    expect(getDateRange([inYear(50, 0, 15)])).toMatchObject({
+        minValue: inYear(50, 0, 15),
+        maxValue: inYear(50, 0, 16),
+    });
+});
+
+test('an axis of years in the first century marks years in that century', () => {
+    const ticks = getDateTicks({ minValue: inYear(20), maxValue: inYear(50) });
+
+    expect(ticks.values).toEqual([20, 30, 40, 50].map((year) => inYear(year)));
+});
+
+test('maxValue extends an axis of dates', () => {
+    expect(getDateRange([day(0, 15)], day(5, 1)).maxValue).toBe(day(5, 1));
+});
+
+const range = (start: number, end: number) => ({
+    minValue: start,
+    maxValue: end,
+});
+
+test.each([
+    ['days', day(0, 12), day(0, 16), [12, 13, 14, 15, 16]],
+    ['every other day', day(0, 12), day(0, 20), [12, 14, 16, 18, 20]],
+    ['Mondays', day(0, 7), day(1, 1), [12, 19, 26]],
+])('an axis of dates in January marks %s', (_, start, end, expected) => {
+    expect(getDateTicks(range(start, end)).values).toEqual(
+        expected.map((date) => day(0, date))
+    );
+});
+
+test.each([
+    ['the first days of months', day(0, 12), day(3, 20), [1, 2, 3]],
+    ['the first days of quarters', day(0, 12), day(11, 20), [3, 6, 9]],
+])('an axis of dates in 2026 marks %s', (_, start, end, expected) => {
+    expect(getDateTicks(range(start, end)).values).toEqual(
+        expected.map((month) => day(month, 1))
+    );
+});
+
+test('an axis of many years marks the first days of every fifth year', () => {
+    const ticks = getDateTicks(
+        range(new Date(2020, 5, 1).getTime(), new Date(2041, 0, 1).getTime())
+    );
+
+    expect(ticks.values.map((tick) => new Date(tick).getFullYear())).toEqual([
+        2025, 2030, 2035, 2040,
+    ]);
+});
+
+test('an axis of centuries marks the first days of whole decades', () => {
+    const ticks = getDateTicks(
+        range(new Date(1900, 0, 1).getTime(), new Date(2026, 0, 1).getTime())
+    );
+
+    expect(ticks.values.map((tick) => new Date(tick).getFullYear())).toEqual([
+        1920, 1950, 1980, 2010,
+    ]);
+});
+
+test.each([
+    ['days', day(0, 12), day(0, 16), 'day'],
+    ['Mondays', day(0, 7), day(1, 1), 'day'],
+    ['months', day(0, 12), day(3, 20), 'month'],
+    ['quarters', day(0, 12), day(11, 20), 'month'],
+    ['years', day(0, 1), new Date(2031, 0, 1).getTime(), 'year'],
+])('an axis of dates that marks %s steps by %s', (_, start, end, unit) => {
+    expect(getDateTicks(range(start, end)).unit).toBe(unit);
+});
+
+test('an axis of dates before 1970 ends at its last date', () => {
+    const dates = [
+        new Date(1955, 3, 1).getTime(),
+        new Date(1962, 8, 30).getTime(),
+    ];
+
+    expect(getDateRange(dates).maxValue).toBe(new Date(1962, 8, 30).getTime());
+});
+
+test('maxValue ends an axis of dates before its last date', () => {
+    expect(getDateRange([day(0, 15), day(5, 1)], day(2, 31)).maxValue).toBe(
+        day(2, 31)
+    );
+});
+
+test('maxValue during a day ends an axis of dates at the end of that day', () => {
+    expect(getDateRange([day(0, 15)], day(2, 3, 12)).maxValue).toBe(day(2, 4));
+});
+
+test('maxValue before the first date gives an axis of dates one day', () => {
+    expect(getDateRange([day(5, 1)], day(0, 1)).maxValue).toBe(day(5, 2));
+});
+
+test('values that are not dates are left out of an axis of dates', () => {
+    expect(getDateRange([day(0, 15), 1e20, NaN, day(2, 3)])).toMatchObject({
+        minValue: day(0, 15),
+        maxValue: day(2, 3),
+    });
+});
+
+test('a maxValue that is not a date is left out of an axis of dates', () => {
+    expect(getDateRange([day(0, 15), day(2, 3)], 1e20).maxValue).toBe(
+        day(2, 3)
+    );
+});
+
+test.each([
+    ['a date in milliseconds', day(0, 15), true],
+    ['a date in nanoseconds', 1.7e18, false],
+    ['NaN', NaN, false],
+    ['a date as text', '2026-01-15', false],
+])('%s is a date: %s', (_, value, expected) => {
+    expect(isDate(value)).toBe(expected);
 });
