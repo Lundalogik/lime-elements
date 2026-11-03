@@ -1,6 +1,13 @@
 import { getPrimarySubtag } from '../../util/language';
 import { ChartItem, ChartValueFormat } from './chart.types';
-import { AxisRange, DrawnChartType } from './scale';
+import {
+    AxisRange,
+    DateTicks,
+    DrawnChartType,
+    getMaximumValue,
+    getMinimumValue,
+    isDate,
+} from './scale';
 
 const FALLBACK_LOCALE = 'en';
 const PERCENT = 100;
@@ -64,9 +71,16 @@ const SHARE_OPTIONS: NumberOptions = {
     maximumFractionDigits: 2,
 };
 
+/**
+ * The ticks of an axis of dates that are not known, whose dates are all
+ * written with their year.
+ */
+const UNKNOWN_DATE_TICKS: DateTicks = { values: [], unit: 'day' };
+
 const locales = new Map<string, string>();
 const numberFormats = new Map<string, Intl.NumberFormat>();
 const currencyCodes = new Map<string, boolean>();
+const dateFormats = new Map<string, Intl.DateTimeFormat>();
 
 /**
  * What decides how the values of a chart are written.
@@ -94,14 +108,19 @@ export function formatValue(item: ChartItem, style: ValueStyle): string {
         return formattedValue;
     }
 
-    const numbers = getValueFormat(style);
+    const write = getValueWriter(style);
     if (!Array.isArray(value)) {
-        return numbers.format(value);
+        return write(value);
     }
 
-    const [first, second] = value.map((part) => numbers.format(part));
+    const [first, second] = value.map((part) => write(part));
     if (style.type === 'scatter') {
         return writePoint(first, second);
+    }
+
+    const [start, end] = [getMinimumValue(item), getMaximumValue(item)];
+    if (style.valueFormat === 'date' && isDate(start) && isDate(end)) {
+        return getDateFormat(style.language).formatRange(start, end);
     }
 
     return `${first} — ${second}`;
@@ -112,15 +131,23 @@ export function formatValue(item: ChartItem, style: ValueStyle): string {
  * with as many decimals as the step between them has. Amounts leave out
  * their currency, which the item values and tooltips show. On an axis
  * that reaches 10 000 or more, every number is shortened, such as `1.2M`,
- * so the values stay short and alike.
+ * so the values stay short and alike. Dates are written by what the axis
+ * steps through: days, months or years, with the year on the first date
+ * and on the first date of each new year.
  * @param range - the range of the axis
  * @param style - how the chart writes values
+ * @param dates - the dates an axis of dates marks
  */
 export function getAxisValueFormatter(
     range: Pick<AxisRange, 'minValue' | 'maxValue' | 'increment'>,
-    style: ValueStyle
+    style: ValueStyle,
+    dates?: DateTicks
 ): (value: number) => string {
     const locale = getLocale(style.language);
+    if (style.valueFormat === 'date') {
+        return getDateAxisFormatter(locale, dates);
+    }
+
     if (style.valueFormat === 'percent') {
         const percentages = getNumberFormat(locale, {
             style: 'percent',
@@ -197,6 +224,76 @@ export function canWriteIn(language: string): boolean {
         getLocale(language) !== FALLBACK_LOCALE ||
         getPrimarySubtag(language) === FALLBACK_LOCALE
     );
+}
+
+function getValueWriter(style: ValueStyle): (value: number) => string {
+    if (style.valueFormat === 'date') {
+        const dates = getDateFormat(style.language);
+
+        return (value) => (isDate(value) ? dates.format(value) : `${value}`);
+    }
+
+    const numbers = getValueFormat(style);
+
+    return (value) => numbers.format(value);
+}
+
+/**
+ * Writes the dates on an axis by what it steps through: day and month for
+ * days and weeks, the month for months, and the year for years. The first
+ * date, and the first date of each new year, also get their year, except
+ * January among months, which is written as its year alone.
+ * @param locale - the locale of the chart
+ * @param ticks - the dates the axis marks
+ */
+function getDateAxisFormatter(
+    locale: string,
+    ticks: DateTicks = UNKNOWN_DATE_TICKS
+): (value: number) => string {
+    const years = getDateTimeFormat(locale, { year: 'numeric' });
+    if (ticks.unit === 'year') {
+        return (value) => years.format(value);
+    }
+
+    const parts: Intl.DateTimeFormatOptions =
+        ticks.unit === 'month'
+            ? { month: 'short' }
+            : { day: 'numeric', month: 'short' };
+    const dates = getDateTimeFormat(locale, parts);
+    const datesWithYear = getDateTimeFormat(locale, {
+        ...parts,
+        year: 'numeric',
+    });
+
+    return (value) => {
+        if (!isFirstOfItsYear(value, ticks.values)) {
+            return dates.format(value);
+        }
+
+        return ticks.unit === 'month' && new Date(value).getMonth() === 0
+            ? years.format(value)
+            : datesWithYear.format(value);
+    };
+}
+
+/**
+ * Whether `value` is the first of `ticks` in its year. A date that is not
+ * one of them counts as the first, so that it gets its year.
+ * @param value - the date
+ * @param ticks - the dates an axis marks
+ */
+function isFirstOfItsYear(value: number, ticks: number[]): boolean {
+    const index = ticks.indexOf(value);
+
+    return (
+        index <= 0 ||
+        new Date(ticks[index - 1]).getFullYear() !==
+            new Date(value).getFullYear()
+    );
+}
+
+function getDateFormat(language: string): Intl.DateTimeFormat {
+    return getDateTimeFormat(getLocale(language), { dateStyle: 'medium' });
 }
 
 function getValueFormat(style: ValueStyle): Pick<Intl.NumberFormat, 'format'> {
@@ -297,6 +394,20 @@ function getNumberFormat(
     if (!format) {
         format = new Intl.NumberFormat(locale, options);
         numberFormats.set(key, format);
+    }
+
+    return format;
+}
+
+function getDateTimeFormat(
+    locale: string,
+    options: Intl.DateTimeFormatOptions
+): Intl.DateTimeFormat {
+    const key = `${locale} ${JSON.stringify(options)}`;
+    let format = dateFormats.get(key);
+    if (!format) {
+        format = new Intl.DateTimeFormat(locale, options);
+        dateFormats.set(key, format);
     }
 
     return format;

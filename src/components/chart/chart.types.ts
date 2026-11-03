@@ -25,9 +25,11 @@ export type ChartType =
  * - `number`: as numbers, such as `1 234,5` in Swedish
  * - `percent`: as percentages, where `0.25` is `25 %`
  * - `currency`: as amounts of the chart's `currency`, such as `1 234 kr`
+ * - `date`: as dates, where each value is a date in milliseconds since
+ *   1970, as `Date.getTime()` gives it
  * @beta
  */
-export type ChartValueFormat = 'number' | 'percent' | 'currency';
+export type ChartValueFormat = 'number' | 'percent' | 'currency' | 'date';
 
 /**
  * Chart component props.
@@ -47,6 +49,9 @@ export interface ChartItem<
      * A `[number, number]` tuple is interpreted according to the chart `type`:
      * for most types it is a value range `[start, end]` (such as a Gantt-style
      * bar), while for the `scatter` type it is an `[x, y]` coordinate pair.
+     *
+     * When the chart's `valueFormat` is `date`, each number is a date in
+     * milliseconds since 1970, as `Date.getTime()` gives it.
      */
     value: T;
 

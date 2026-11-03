@@ -45,6 +45,7 @@ import {
 import {
     DrawnChartType,
     getAxisRange,
+    isDate,
     MAX_AXIS_STEPS,
     usesAxisIncrement,
 } from './scale';
@@ -57,6 +58,8 @@ import {
 } from './theme';
 
 const orientations: NavigationOrientation[] = ['horizontal', 'vertical'];
+
+type WarnedProp = 'axisIncrement' | 'language' | 'currency' | 'items';
 
 const extensions = [
     BarChart,
@@ -80,6 +83,7 @@ const extensions = [
  * @exampleComponent limel-example-chart-max-value
  * @exampleComponent limel-example-chart-display-item-percentage
  * @exampleComponent limel-example-chart-value-format
+ * @exampleComponent limel-example-chart-value-format-date
  * @exampleComponent limel-example-chart-type-bar
  * @exampleComponent limel-example-chart-type-dot
  * @exampleComponent limel-example-chart-type-area
@@ -202,7 +206,8 @@ export class Chart {
      * extents. The combined size can exceed `maxValue` and produce a total
      * above 100%.
      * For `bar`, `dot`, `area`, and `line`, it is the requested upper bound.
-     * The chart can round that bound up to the next `axisIncrement`.
+     * The chart can round that bound up to the next `axisIncrement`, or to
+     * the end of its day when `valueFormat` is `date`.
      * Has no effect on `nps` or `scatter`.
      */
     @Prop({ reflect: true })
@@ -213,14 +218,17 @@ export class Chart {
      * When it is not set, or not above zero, the chart works out a step
      * from the values. It also does that when the step would divide the
      * axis into more than 100 parts, so that it does not draw too many lines.
-     * Has no effect on other chart types.
+     * Has no effect on other chart types, or when `valueFormat` is `date`,
+     * where the axis steps through days, weeks, months or years by itself.
      */
     @Prop({ reflect: true })
     public axisIncrement?: number;
 
     /**
      * Defines how values are written: as numbers, as percentages where
-     * `0.25` is `25 %`, or as amounts of `currency`. The axes, the values
+     * `0.25` is `25 %`, as amounts of `currency`, or as dates. With `date`,
+     * each value is a date in milliseconds since 1970, and the value axis
+     * steps through days, weeks, months or years. The axes, the values
      * shown with `displayItemValue`, the tooltips, and the screen reader
      * table all follow it, in the chart's `language`. An item's
      * `formattedValue` is shown as it is.
@@ -264,22 +272,21 @@ export class Chart {
     private drawnTheme?: string;
     private themeMayHaveChanged = false;
     private itemSpace?: number;
-    private axisIncrementWarning?: string;
-    private languageWarning?: string;
-    private currencyWarning?: string;
+    private readonly warnings = new Map<WarnedProp, string>();
     private readonly invalidColors = new Set<string>();
     private themeReader?: ThemeReader;
     private resizeObserver?: ResizeObserver;
     private stopWatchingTheme?: () => void;
 
     public componentWillLoad() {
-        this.warnAboutAxisIncrement();
         this.warnAboutOldTypeName();
     }
 
     public componentWillRender() {
-        this.warnAboutLanguage();
-        this.warnAboutCurrency();
+        this.warnOnChange('axisIncrement', this.getAxisIncrementWarning());
+        this.warnOnChange('language', this.getLanguageWarning());
+        this.warnOnChange('currency', this.getCurrencyWarning());
+        this.warnOnChange('items', this.getDateWarning());
     }
 
     public connectedCallback() {
@@ -300,17 +307,12 @@ export class Chart {
         this.themeReader = undefined;
     }
 
-    @Watch('axisIncrement')
-    @Watch('items')
-    @Watch('maxValue')
-    @Watch('type')
-    protected warnAboutAxisIncrement() {
-        const warning = this.getAxisIncrementWarning();
-        if (warning && warning !== this.axisIncrementWarning) {
+    private warnOnChange(prop: WarnedProp, warning?: string) {
+        if (warning && warning !== this.warnings.get(prop)) {
             console.warn(warning);
         }
 
-        this.axisIncrementWarning = warning;
+        this.warnings.set(prop, warning);
     }
 
     @Watch('type')
@@ -322,27 +324,37 @@ export class Chart {
         }
     }
 
-    private warnAboutLanguage() {
-        const warning = canWriteIn(this.language)
-            ? undefined
-            : `limel-chart: \`language\` must be one that this browser can write values in, such as \`sv\`, but was ${JSON.stringify(this.language)}. Writing the values in English instead.`;
-        if (warning && warning !== this.languageWarning) {
-            console.warn(warning);
+    private getLanguageWarning(): string | undefined {
+        if (canWriteIn(this.language)) {
+            return;
         }
 
-        this.languageWarning = warning;
+        return `limel-chart: \`language\` must be one that this browser can write values in, such as \`sv\`, but was ${JSON.stringify(this.language)}. Writing the values in English instead.`;
     }
 
-    private warnAboutCurrency() {
-        const warning =
-            this.valueFormat !== 'currency' || isCurrencyCode(this.currency)
-                ? undefined
-                : `limel-chart: \`currency\` must be a three-letter code such as \`SEK\` when \`valueFormat\` is \`currency\`, but was ${JSON.stringify(this.currency)}. Writing the values as numbers instead.`;
-        if (warning && warning !== this.currencyWarning) {
-            console.warn(warning);
+    private getCurrencyWarning(): string | undefined {
+        if (this.valueFormat !== 'currency' || isCurrencyCode(this.currency)) {
+            return;
         }
 
-        this.currencyWarning = warning;
+        return `limel-chart: \`currency\` must be a three-letter code such as \`SEK\` when \`valueFormat\` is \`currency\`, but was ${JSON.stringify(this.currency)}. Writing the values as numbers instead.`;
+    }
+
+    private getDateWarning(): string | undefined {
+        if (this.valueFormat !== 'date') {
+            return;
+        }
+
+        const wrong = (this.items ?? [])
+            .flatMap((item) => [item.value].flat())
+            .find((value) => !isDate(value));
+        if (wrong === undefined) {
+            return;
+        }
+
+        const shown = typeof wrong === 'number' ? wrong : JSON.stringify(wrong);
+
+        return `limel-chart: with \`valueFormat\` \`date\`, each value must be a date in milliseconds since 1970, as \`Date.getTime()\` gives, but was ${shown}. Showing it as it is.`;
     }
 
     private get valueStyle(): ValueStyle {
@@ -360,7 +372,11 @@ export class Chart {
 
     private getAxisIncrementWarning(): string | undefined {
         const increment = this.axisIncrement;
-        if (increment === undefined || increment === null) {
+        if (
+            increment === undefined ||
+            increment === null ||
+            this.valueFormat === 'date'
+        ) {
             return;
         }
 
