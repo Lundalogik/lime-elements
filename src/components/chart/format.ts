@@ -1,4 +1,4 @@
-import { getPrimarySubtag } from '../../util/language';
+import { getSupportedLocale } from '../../util/language';
 import { ChartItem, ChartValueFormat } from './chart.types';
 import {
     AxisRange,
@@ -77,7 +77,7 @@ const SHARE_OPTIONS: NumberOptions = {
  */
 const UNKNOWN_DATE_TICKS: DateTicks = { values: [], unit: 'day' };
 
-const locales = new Map<string, string>();
+const locales = new Map<string, string | undefined>();
 const numberFormats = new Map<string, Intl.NumberFormat>();
 const currencyCodes = new Map<string, boolean>();
 const dateFormats = new Map<string, Intl.DateTimeFormat>();
@@ -220,10 +220,7 @@ function canWriteAmountsIn(currency: string): boolean {
  * @param language - the language of the chart
  */
 export function canWriteIn(language: string): boolean {
-    return (
-        getLocale(language) !== FALLBACK_LOCALE ||
-        getPrimarySubtag(language) === FALLBACK_LOCALE
-    );
+    return findLocale(language) !== undefined;
 }
 
 function getValueWriter(style: ValueStyle): (value: number) => string {
@@ -414,28 +411,18 @@ function getDateTimeFormat(
 }
 
 /**
- * `Intl` throws on a language it cannot read, and quietly uses the
- * viewer's own locale for one it does not know, such as `zz`. Values are
- * written while the chart renders, so both fall back to English.
+ * The locale to write values in: the chart's language when `Intl` can
+ * write in it, otherwise English.
  * @param language - the language of the chart
  */
 function getLocale(language: string): string {
-    let locale = locales.get(language);
-    if (locale === undefined) {
-        locale = findLocale(language);
-        locales.set(language, locale);
-    }
-
-    return locale;
+    return findLocale(language) ?? FALLBACK_LOCALE;
 }
 
-function findLocale(language: string): string {
-    try {
-        const [locale] = Intl.getCanonicalLocales(language);
-        const [known] = Intl.NumberFormat.supportedLocalesOf(locale ?? []);
-
-        return known ?? FALLBACK_LOCALE;
-    } catch {
-        return FALLBACK_LOCALE;
+function findLocale(language: string): string | undefined {
+    if (!locales.has(language)) {
+        locales.set(language, getSupportedLocale(language));
     }
+
+    return locales.get(language);
 }

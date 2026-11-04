@@ -12,7 +12,7 @@ import {
 import { Languages } from '../date-picker/date.types';
 import translate from '../../global/translations';
 import { createRandomString } from '../../util/random-string';
-import { getPrimarySubtag } from '../../util/language';
+import { getSupportedLocale } from '../../util/language';
 import { GoToPageEvent, GoToPageReason } from './pagination.types';
 import { getPageSlots, PageSlot } from './pagination.util';
 
@@ -945,9 +945,7 @@ export class Pagination {
 
     /**
      * What the jump form is given, so that the one warning about a language
-     * this browser cannot write numbers in describes both of us. A tag it
-     * accepts but does not support, `zz`, resolves to the viewer's own locale
-     * rather than throwing, so asking the formatter is the only way to know.
+     * this browser cannot write numbers in describes both of us.
      */
     private get languageForNumbers(): Languages {
         this.numberFormat ??= this.createNumberFormat();
@@ -956,33 +954,23 @@ export class Pagination {
     }
 
     /**
-     * `Intl.NumberFormat` throws on a language it cannot parse, and this is
-     * called from `render`, so an unusable one would leave the control drawing
-     * nothing at all — the single state a user cannot click their way out of.
-     * `src/util/language.ts` states the rule this keeps.
-     *
-     * A tag it cannot parse throws; a well-formed tag it does not support, like
-     * `zz`, does not — it quietly resolves to whatever locale the machine runs
-     * in. Both end up formatting numbers in something other than what was
-     * asked for, so both are worth saying out loud.
+     * This is called from `render`, so a language that `Intl` cannot write
+     * numbers in must not throw, or the control would draw nothing at all —
+     * the single state a user cannot click their way out of.
+     * `getSupportedLocale` in `src/util/language.ts` decides which languages
+     * those are.
      *
      * @returns a formatter, in the given language where that is possible
      */
     private createNumberFormat(): Intl.NumberFormat {
         const { language } = this;
+        const locale = getSupportedLocale(language);
 
-        try {
-            const format = new Intl.NumberFormat(language);
-            const resolved = format.resolvedOptions().locale;
+        if (locale) {
+            this.warnedAbout.delete('language');
+            this.settledLanguage = language;
 
-            if (getPrimarySubtag(resolved) === getPrimarySubtag(language)) {
-                this.warnedAbout.delete('language');
-                this.settledLanguage = language;
-
-                return format;
-            }
-        } catch {
-            // Fall through to the warning below.
+            return new Intl.NumberFormat(locale);
         }
 
         this.warnOnce(
