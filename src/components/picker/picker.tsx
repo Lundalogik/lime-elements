@@ -34,6 +34,7 @@ import { IconName } from '../../global/shared-types/icon.types';
 const SEARCH_DEBOUNCE = 300;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
 const DEFAULT_SEARCHER_MAX_RESULTS = 20;
+const MAX_FRAMES_TO_WAIT_FOR_LIST = 20;
 
 /**
  * @exampleComponent limel-example-picker-basic
@@ -240,6 +241,7 @@ export class Picker {
     private chipSetEditMode = false;
 
     private debouncedSearch: DebouncedFunc<(query: string) => Promise<void>>;
+    private suggestionToFocusWhenShown?: 'first' | 'last';
     private chipSet: HTMLLimelChipSetElement;
     private readonly suggestionsMessage = createLiveMessage(() =>
         this.getSuggestionsMessage()
@@ -667,6 +669,7 @@ export class Picker {
         }
 
         this.suggestionsEngaged = false;
+        this.suggestionToFocusWhenShown = undefined;
         this.clearInputField();
     }
 
@@ -681,6 +684,7 @@ export class Picker {
         const query = event.detail;
         this.textValue = query;
         this.suggestionsEngaged = true;
+        this.suggestionToFocusWhenShown = undefined;
 
         this.debouncedSearch(query);
         // If the search-query is an empty string, bypass debouncing.
@@ -835,6 +839,7 @@ export class Picker {
         if (isEscape) {
             event.preventDefault();
             event.stopPropagation();
+            this.suggestionToFocusWhenShown = undefined;
             this.handleEscape();
 
             return;
@@ -844,40 +849,54 @@ export class Picker {
             return;
         }
 
+        const position = isDown ? 'first' : 'last';
+        if (this.focusSuggestion(position)) {
+            event.preventDefault();
+
+            return;
+        }
+
+        this.suggestionToFocusWhenShown = position;
+    }
+
+    private focusSuggestion(position: 'first' | 'last'): boolean {
         const list =
             document.querySelector(
                 ` #${this.portalId} limel-list[data-suggestions]`
             ) ?? document.querySelector(` #${this.portalId} limel-list`);
         if (!list) {
-            return;
+            return false;
         }
 
-        if (isDown) {
-            // Match by class only (not `:first-child`) so a leading
-            // `ListSeparator` doesn't shadow the first focusable item.
-            const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item'
-            );
-            if (!listElement) {
+        // Match by class only (not `:first-child`) so a leading
+        // `ListSeparator` doesn't shadow the first focusable item.
+        const items = list.shadowRoot.querySelectorAll<HTMLElement>(
+            '.mdc-deprecated-list-item'
+        );
+        const item = position === 'first' ? items[0] : [...items].at(-1);
+        if (!item) {
+            return false;
+        }
+
+        item.focus();
+
+        return true;
+    }
+
+    private focusSuggestionWhenShown(position: 'first' | 'last') {
+        let frames = 0;
+        const focusSuggestion = () => {
+            if (this.focusSuggestion(position)) {
                 return;
             }
 
-            event.preventDefault();
-            listElement.focus();
+            frames += 1;
+            if (frames < MAX_FRAMES_TO_WAIT_FOR_LIST) {
+                requestAnimationFrame(focusSuggestion);
+            }
+        };
 
-            return;
-        }
-
-        const listItems = list.shadowRoot.querySelectorAll<HTMLElement>(
-            '.mdc-deprecated-list-item'
-        );
-        const listElement = [...listItems].at(-1);
-        if (!listElement) {
-            return;
-        }
-
-        event.preventDefault();
-        listElement.focus();
+        requestAnimationFrame(focusSuggestion);
     }
 
     private handleSearchResult(
@@ -902,6 +921,12 @@ export class Picker {
 
         this.items = this.prependSearchHeader(query, nextItems);
         this.loading = false;
+
+        const position = this.suggestionToFocusWhenShown;
+        this.suggestionToFocusWhenShown = undefined;
+        if (position && this.hasPickableItems(nextItems)) {
+            this.focusSuggestionWhenShown(position);
+        }
     }
 
     private hasPickableItems(

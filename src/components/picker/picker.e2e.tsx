@@ -355,6 +355,34 @@ describe('limel-picker keyboard use of the suggestions', () => {
         expect(getDeepActiveElement()).toBe(input);
     });
 
+    it.each([
+        ['down', '{ArrowDown}', 'Blueberry'],
+        ['up', '{ArrowUp}', 'Blackberry'],
+    ])(
+        'moves into the suggestions when the %s arrow is pressed before they have shown',
+        async (_, key, expected) => {
+            const { waitForChanges } = await renderPicker({}, 'berr');
+            expect(getSuggestions()).toHaveLength(0);
+
+            await userEvent.keyboard(key);
+
+            await pollUntil(
+                'the focus to move into the suggestions',
+                () => focusedSuggestion()?.includes(expected),
+                waitForChanges
+            );
+        }
+    );
+
+    it('keeps the focus in the field when text is typed after the arrow key', async () => {
+        const { input, waitForChanges } = await renderPicker({}, 'berr');
+        await userEvent.keyboard('{ArrowDown}y');
+
+        await waitForSuggestions(waitForChanges);
+
+        expect(getDeepActiveElement()).toBe(input);
+    });
+
     it('does not take Tab into the list, and closes it when the focus moves on', async () => {
         const { waitForChanges } = await renderPicker();
 
