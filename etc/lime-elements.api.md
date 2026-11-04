@@ -271,6 +271,7 @@ export namespace Components {
         "maxValue"?: number;
         "orientation"?: 'landscape' | 'portrait';
         "series"?: ChartSeries[];
+        "stacked": boolean;
         "type"?: ChartType;
         "valueFormat": ChartValueFormat;
     }
@@ -1941,6 +1942,7 @@ export namespace JSX {
         "onInteract"?: (event: LimelChartCustomEvent<ChartItem>) => void;
         "orientation"?: 'landscape' | 'portrait';
         "series"?: ChartSeries[];
+        "stacked"?: boolean;
         "type"?: ChartType;
         "valueFormat"?: ChartValueFormat;
     }
@@ -1973,6 +1975,8 @@ export namespace JSX {
         "maxValue": number;
         // (undocumented)
         "orientation": 'landscape' | 'portrait';
+        // (undocumented)
+        "stacked": boolean;
         // Warning: (ae-incompatible-release-tags) The symbol "type" is marked as @public, but its signature references "ChartType" which is marked as @beta
         //
         // (undocumented)

@@ -15,6 +15,7 @@ import { ChartItem, ChartSeries } from './chart.types';
 import {
     AxisRange,
     canDrawSeries,
+    canStack,
     DrawnChartType,
     getAxisRange,
     getDateRange,
@@ -38,7 +39,8 @@ import {
 } from './format';
 import {
     alignSeries,
-    getAllItems,
+    endsStack,
+    getAxisItems,
     GridSeries,
     ItemPosition,
     SeriesGrid,
@@ -74,6 +76,11 @@ export interface ChartSettings extends ValueStyle {
      * resolved by the theme.
      */
     series?: ChartSeries[];
+    /**
+     * Whether the series are stacked on each other, when the type can stack
+     * them and the values are not dates.
+     */
+    stacked?: boolean;
     orientation: 'landscape' | 'portrait';
     maxValue?: number;
     axisIncrement?: number;
@@ -125,6 +132,7 @@ const CONNECTOR_WIDTH = 2;
 const DIMMED_OPACITY = 0.4;
 const AREA_OPACITY = 0.4;
 const SERIES_AREA_OPACITY = 0.15;
+const SERIES_STACK = { stack: 'series', stackStrategy: 'samesign' } as const;
 const PADDING = 8;
 const NPS_MIN = -100;
 const NPS_MAX = 100;
@@ -279,11 +287,29 @@ export function getDrawnItems(settings: ItemsAndSeries): ChartItem[] {
     return getSeriesOfDrawnItems(settings)?.items ?? settings.items ?? [];
 }
 
+/**
+ * Whether the chart stacks its series on each other. Only the types that
+ * can stack series do, and never with dates, since a sum of dates means
+ * nothing.
+ * @param settings - what the chart is given
+ */
+export function isStacked(
+    settings: Pick<ChartSettings, 'type' | 'series' | 'stacked' | 'valueFormat'>
+): boolean {
+    return Boolean(
+        settings.stacked &&
+        getDrawnSeries(settings) &&
+        canStack(settings.type) &&
+        settings.valueFormat !== 'date'
+    );
+}
+
 function getDrawnSettings(settings: ChartSettings): ChartSettings {
     return {
         ...settings,
         items: getDrawnItems(settings),
         series: getDrawnSeries(settings),
+        stacked: isStacked(settings),
     };
 }
 
@@ -546,7 +572,7 @@ function drawOnAxes(
 }
 
 function getValueRange(settings: ChartSettings, grid: SeriesGrid): AxisRange {
-    const items = getAllItems(grid);
+    const items = getAxisItems(grid, Boolean(settings.stacked));
     if (settings.valueFormat === 'date') {
         return getDateRange(
             items.flatMap((item) => [
@@ -621,8 +647,8 @@ function getAxisSeries(
     const series: SeriesOption[] = [];
     const seriesIndexes: number[] = [];
     const partsOfSeries: number[] = [];
-    for (const [index, current] of grid.series.entries()) {
-        const drawn = drawItemSeries(settings, current, index, theme);
+    for (const index of grid.series.keys()) {
+        const drawn = drawItemSeries(settings, grid, index, theme);
         seriesIndexes.push(series.length + drawn.seriesIndex);
         series.push(...drawn.series);
         partsOfSeries.push(...drawn.series.map(() => index));
@@ -637,10 +663,11 @@ function getAxisSeries(
 
 function drawItemSeries(
     settings: ChartSettings,
-    series: GridSeries,
+    grid: SeriesGrid,
     index: number,
     theme: ChartTheme
 ): { series: SeriesOption[]; seriesIndex: number } {
+    const series = grid.series[index];
     if (settings.type === 'line' || settings.type === 'area') {
         return getLineSeries(settings, series, index, theme);
     }
@@ -649,7 +676,72 @@ function drawItemSeries(
         return getDotSeries(settings, series, index, theme);
     }
 
+    if (settings.stacked) {
+        return {
+            series: [getStackedBars(settings, grid, index, theme)],
+            seriesIndex: 0,
+        };
+    }
+
     return getBarSeries(settings, series, index, theme);
+}
+
+function getStackedBars(
+    settings: ChartSettings,
+    grid: SeriesGrid,
+    index: number,
+    theme: ChartTheme
+): BarSeriesOption {
+    const series = grid.series[index];
+
+    return {
+        type: 'bar',
+        ...SERIES_STACK,
+        data: series.items.map((item, category) =>
+            item
+                ? {
+                      value: getValueSpan(item),
+                      itemStyle: {
+                          color: item.color,
+                          borderRadius: endsStack(grid, {
+                              series: index,
+                              index: category,
+                          })
+                              ? getOuterCorners(settings, item, theme)
+                              : 0,
+                          borderColor: theme.dividerColor,
+                          borderWidth: 1,
+                      },
+                  }
+                : null
+        ),
+        label: {
+            ...getValueLabel(settings, series, theme),
+            position: 'inside',
+            color: undefined,
+        },
+        cursor: getSeriesCursor(series.items),
+        emphasis: emphasis,
+        blur: blur,
+    };
+}
+
+function getOuterCorners(
+    settings: ChartSettings,
+    item: ChartItem,
+    theme: ChartTheme
+): ChartTheme['itemBorderRadius'] {
+    const [topLeft, topRight, bottomRight, bottomLeft] = theme.itemBorderRadius;
+    const positive = getValueSpan(item) >= 0;
+    if (settings.orientation === 'portrait') {
+        return positive
+            ? [0, topRight, bottomRight, 0]
+            : [topLeft, 0, 0, bottomLeft];
+    }
+
+    return positive
+        ? [topLeft, topRight, 0, 0]
+        : [0, 0, bottomRight, bottomLeft];
 }
 
 function getBarSeries(
@@ -801,19 +893,17 @@ function getLineSeries(
                 : null
         ),
         areaStyle: area
-            ? {
-                  color: color,
-                  opacity:
-                      settings.series?.length > 1
-                          ? SERIES_AREA_OPACITY
-                          : AREA_OPACITY,
-              }
+            ? { color: color, opacity: getAreaOpacity(settings) }
             : undefined,
         label: getValueLabel(settings, series, theme),
         cursor: getSeriesCursor(items),
         emphasis: emphasis,
         blur: blur,
     };
+
+    if (settings.stacked) {
+        return { series: [{ ...line, ...SERIES_STACK }], seriesIndex: 0 };
+    }
 
     if (!hasRanges(items)) {
         return { series: [line], seriesIndex: 0 };
@@ -832,6 +922,12 @@ function getLineSeries(
         series: [base, { ...line, ...getRangeStack(index) }],
         seriesIndex: 1,
     };
+}
+
+function getAreaOpacity(settings: ChartSettings): number {
+    return settings.series?.length > 1 && !settings.stacked
+        ? SERIES_AREA_OPACITY
+        : AREA_OPACITY;
 }
 
 function hasClickableItems(items: Array<ChartItem | undefined>): boolean {

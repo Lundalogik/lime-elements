@@ -51,10 +51,12 @@ import {
     getSeriesGrid,
     getSeriesOfDrawnItems,
     getSwatchStyle,
+    isStacked,
     locateItem,
 } from './options';
 import {
     canDrawSeries,
+    canStack,
     DrawnChartType,
     getAxisRange,
     isDate,
@@ -63,6 +65,7 @@ import {
 } from './scale';
 import {
     getAllItems,
+    getAxisItems,
     getItemAt,
     getNearestSeries,
     ItemPosition,
@@ -79,7 +82,7 @@ import {
 const orientations: NavigationOrientation[] = ['horizontal', 'vertical'];
 
 type WarnedProp =
-    'axisIncrement' | 'language' | 'currency' | 'items' | 'series';
+    'axisIncrement' | 'language' | 'currency' | 'items' | 'series' | 'stacked';
 
 const SERIES_COLOR_COUNT = 8;
 
@@ -136,6 +139,7 @@ const extensions = [
  * @exampleComponent limel-example-chart-accessibility
  * @exampleComponent limel-example-chart-axis-labels
  * @exampleComponent limel-example-chart-series
+ * @exampleComponent limel-example-chart-series-stacked
  * @exampleComponent limel-example-chart-styling
  * @beta
  */
@@ -233,6 +237,17 @@ export class Chart {
      */
     @Prop()
     public series?: ChartSeries[];
+
+    /**
+     * Stacks the `series` on each other, so that each place on the axis
+     * shows their total, such as the revenue of each product, which adds up
+     * to the revenue of the month. Positive and negative values are stacked
+     * on their own side of zero, and a range adds its extent to the stack.
+     * Applies to `bar`, `line`, and `area` charts, but not when
+     * `valueFormat` is `date`.
+     */
+    @Prop({ reflect: true })
+    public stacked = false;
 
     /**
      * Defines how items are visualized in the chart.
@@ -348,6 +363,7 @@ export class Chart {
         this.warnOnChange('currency', this.getCurrencyWarning());
         this.warnOnChange('items', this.getDateWarning());
         this.warnOnChange('series', this.getSeriesWarning());
+        this.warnOnChange('stacked', this.getStackedWarning());
     }
 
     public connectedCallback() {
@@ -436,6 +452,33 @@ export class Chart {
         }
     }
 
+    private getStackedWarning(): string | undefined {
+        if (!this.stacked) {
+            return;
+        }
+
+        if (!canStack(this.chartType)) {
+            return `limel-chart: \`stacked\` can only stack the series of \`bar\`, \`line\`, and \`area\` charts, but \`type\` is \`${this.type}\`. Ignoring \`stacked\`.`;
+        }
+
+        if (this.valueFormat === 'date') {
+            return 'limel-chart: `stacked` cannot stack dates. Ignoring `stacked`.';
+        }
+
+        if (!this.drawsSeries) {
+            return 'limel-chart: `stacked` stacks the `series` of a chart, but this chart has none. Ignoring `stacked`.';
+        }
+    }
+
+    private get stacksSeries(): boolean {
+        return isStacked({
+            type: this.chartType,
+            series: this.series,
+            stacked: this.stacked,
+            valueFormat: this.valueFormat,
+        });
+    }
+
     private get drawsSeries(): boolean {
         return Boolean(this.drawnSeries);
     }
@@ -484,7 +527,7 @@ export class Chart {
         }
 
         const range = getAxisRange(
-            getAllItems(this.grid),
+            getAxisItems(this.grid, this.stacksSeries),
             this.maxValue,
             increment
         );
@@ -858,6 +901,7 @@ export class Chart {
                 color: series.color,
                 items: (series.items ?? []).map((item) => copyItem(item)),
             })),
+            stacked: this.stacksSeries,
             ...this.valueStyle,
             orientation: this.orientation,
             maxValue: this.maxValue,
