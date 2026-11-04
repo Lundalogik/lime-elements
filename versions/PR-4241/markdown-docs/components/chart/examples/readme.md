@@ -4,37 +4,33 @@
 
 ## Overview
 
-Scatter chart with negative values
-Because a scatter chart has two value axes, either of them can carry negative
-values — unlike single-axis charts, where only the value axis can. When the
-data spans negative and positive on both axes, the chart draws a zero line on
-each axis and places points in the correct quadrant relative to the origin.
+Dates
+With `valueFormat` set to `date`, each value is a date in milliseconds
+since 1970, as `Date.getTime()` gives it. The value axis then marks days,
+Mondays, or the first days of months, quarters or years, depending on how
+long a time the chart spans, and the tooltips write each date in the
+chart's `language`.
 
-Switching the `orientation` still transposes the whole plot, zero lines and
-negative ranges included.
+Together with ranges, this makes a Gantt chart of real dates.
+The axis starts at the earliest date, not at zero.
+
+:::note
+`axisIncrement` has no effect on dates, since months and years are not
+all equally long.
+:::
 
 ## Dependencies
 
 ### Depends on
 
 - [limel-chart](..)
-- [limel-example-controls](../../../examples)
-- [limel-select](../../select)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-chart-type-scatter-negative --> limel-chart
-  limel-example-chart-type-scatter-negative --> limel-example-controls
-  limel-example-chart-type-scatter-negative --> limel-select
+  limel-example-chart-value-format-date --> limel-chart
   limel-chart --> limel-spinner
-  limel-select --> limel-notched-outline
-  limel-select --> limel-icon
-  limel-select --> limel-helper-line
-  limel-select --> limel-portal
-  limel-select --> limel-menu-surface
-  limel-select --> limel-list
-  style limel-example-chart-type-scatter-negative fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-chart-value-format-date fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

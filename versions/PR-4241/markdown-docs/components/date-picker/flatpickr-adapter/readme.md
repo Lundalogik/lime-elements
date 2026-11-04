@@ -13,7 +13,7 @@ to render the flatpickr calendar in a portal.
 | Property       | Attribute  | Description                                                                                                            | Type                                                                         | Default      |
 | -------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------ |
 | `format`       | `format`   | Format to display the selected date in.                                                                                | `string`                                                                     | `undefined`  |
-| `inputElement` | --         | The input the user types into, focused again when the calendar closes. Setting it creates the calendar.                | `HTMLElement`                                                                | `undefined`  |
+| `inputElement` | --         | The input the user types into. Setting it creates the calendar.                                                        | `HTMLElement`                                                                | `undefined`  |
 | `isOpen`       | `is-open`  | Set to `true` if the calendar should be open.                                                                          | `boolean`                                                                    | `undefined`  |
 | `language`     | `language` | Defines the localisation for translations and date formatting. Property `format` customizes the localized date format. | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"`       | `'en'`       |
 | `previewValue` | --         | Shown as selected instead of `value` while set.                                                                        | `Date`                                                                       | `undefined`  |
@@ -26,6 +26,20 @@ to render the flatpickr calendar in a portal.
 | Event    | Description                                    | Type                |
 | -------- | ---------------------------------------------- | ------------------- |
 | `change` | Emitted when the date picker value is changed. | `CustomEvent<Date>` |
+
+
+## Methods
+
+### `focusDay() => Promise<boolean>`
+
+Moves focus to the selected day, else today, else the first day of
+the month.
+
+#### Returns
+
+Type: `Promise<boolean>`
+
+`false` when the calendar has no day grid
 
 
 ## Dependencies
