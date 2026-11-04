@@ -1128,9 +1128,27 @@ export class InputField {
             return;
         }
 
+        if (event.key === ARROW_UP && this.isKeyPressedOnFirstOption(event)) {
+            event.preventDefault();
+            this.setFocus();
+
+            return;
+        }
+
         if ([TAB, ENTER].includes(event.key) || isTextEditingKey(event)) {
             this.setFocus();
         }
+    };
+
+    private readonly isKeyPressedOnFirstOption = (
+        event: KeyboardEvent
+    ): boolean => {
+        const list = event.currentTarget as HTMLLimelListElement;
+        const firstOption = list.shadowRoot.querySelector(
+            '.mdc-deprecated-list-item'
+        );
+
+        return !!firstOption && event.composedPath().includes(firstOption);
     };
 
     private handleCloseMenu = () => {
