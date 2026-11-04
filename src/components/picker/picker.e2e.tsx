@@ -357,14 +357,28 @@ describe('limel-picker keyboard use of the suggestions', () => {
 
     it.each([
         ['down', '{ArrowDown}', 'Blueberry'],
-        ['up', '{ArrowUp}', 'Blackberry'],
+        ['up', '{ArrowUp}', 'Cherry'],
     ])(
         'moves into the suggestions when the %s arrow is pressed before they have shown',
         async (_, key, expected) => {
-            const { waitForChanges } = await renderPicker({}, 'berr');
-            expect(getSuggestions()).toHaveLength(0);
+            let release!: () => void;
+            const gate = new Promise<void>((resolve) => {
+                release = resolve;
+            });
+            const { waitForChanges } = await renderPicker(
+                {
+                    searcher: async () => {
+                        await gate;
+
+                        return berries;
+                    },
+                },
+                'berr'
+            );
 
             await userEvent.keyboard(key);
+            expect(getSuggestions()).toHaveLength(0);
+            release();
 
             await pollUntil(
                 'the focus to move into the suggestions',
@@ -381,6 +395,76 @@ describe('limel-picker keyboard use of the suggestions', () => {
         await waitForSuggestions(waitForChanges);
 
         expect(getDeepActiveElement()).toBe(input);
+    });
+
+    it('moves to the first suggestion that can take the focus', async () => {
+        const { input } = await renderPicker({
+            searcher: async () => [
+                { text: 'Blueberry', value: 1, disabled: true },
+                { text: 'Blackberry', value: 2 },
+            ],
+        });
+        await userEvent.keyboard('{ArrowDown}');
+        expect(focusedSuggestion()).toContain('Blackberry');
+
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(getDeepActiveElement()).toBe(input);
+    });
+
+    it('keeps the focus in the field when Esc is pressed after the arrow key', async () => {
+        const { input, waitForChanges } = await renderPicker({}, 'berr');
+        await userEvent.keyboard('{ArrowDown}{Escape}');
+
+        await waitForSuggestions(waitForChanges);
+
+        expect(getDeepActiveElement()).toBe(input);
+    });
+
+    it('does not move into the previous suggestions when text is typed as they arrive', async () => {
+        let answer!: (items: unknown[]) => void;
+        const { root, waitForChanges } = await render(
+            <limel-picker
+                label="Pick"
+                searcher={() =>
+                    new Promise((resolve) => {
+                        answer = resolve;
+                    })
+                }
+            />
+        );
+        await waitForChanges();
+        const input = getSearchInput(root);
+        await focusAndType(root, 'berr', waitForChanges);
+        await waitOutDebounce(waitForChanges);
+        await userEvent.keyboard('{ArrowDown}');
+
+        answer(berries);
+        await Promise.resolve();
+        await Promise.resolve();
+        input.value = 'berrx';
+        input.dispatchEvent(
+            new Event('input', { bubbles: true, composed: true })
+        );
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        await waitForChanges();
+
+        expect(getDeepActiveElement()).toBe(input);
+    });
+
+    it('moves to the first suggestion with the down arrow before anything has been typed', async () => {
+        const { searcher } = recordingSearcher();
+        const { root, waitForChanges } = await render(
+            <limel-picker label="Pick" searcher={searcher} />
+        );
+        await waitForChanges();
+        getSearchInput(root).focus();
+        await waitForSuggestions(waitForChanges);
+
+        await userEvent.keyboard('{ArrowDown}');
+        await waitForChanges();
+
+        expect(focusedSuggestion()).toContain('Blueberry');
     });
 
     it('does not take Tab into the list, and closes it when the focus moves on', async () => {
@@ -419,6 +503,28 @@ describe('limel-picker keyboard use of the suggestions', () => {
 
         expect(getDeepActiveElement()).toBe(input);
         expect(input.value).toBe('xyzx');
+    });
+
+    it('closes the suggestions when an action is clicked with the mouse', async () => {
+        const { waitForChanges } = await renderPicker(
+            { actions: [{ text: 'Create new' }] },
+            'xyz'
+        );
+        await waitForText('No results matching "xyz"', waitForChanges);
+        const action = document
+            .querySelector('limel-menu-surface limel-list.static-actions-list')
+            .shadowRoot.querySelector('limel-list-item');
+
+        await userEvent.click(action);
+
+        await pollUntil(
+            'the suggestions to close',
+            () =>
+                (document.querySelector('limel-menu-surface') as any)?.open !==
+                true,
+            waitForChanges
+        );
+        expect(getSuggestions()).toHaveLength(0);
     });
 
     it('gives the focus back to the field when Esc is pressed on an action', async () => {
