@@ -605,6 +605,25 @@ describe('limel-input-field keyboard use of the suggestions', () => {
         expect(focusedOption()).toBe('Spiderman');
     });
 
+    it('gives the focus back to the field with the up arrow on the first option', async () => {
+        const { input } = await renderField();
+        await userEvent.keyboard('{ArrowDown}');
+
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(getDeepActiveElement()).toBe(input);
+    });
+
+    it('moves up through the options with the up arrow', async () => {
+        await renderField();
+        await userEvent.keyboard('{ArrowDown}{ArrowDown}');
+        expect(focusedOption()).toBe('Superman');
+
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(focusedOption()).toBe('Batman');
+    });
+
     it('closes the list with Esc and keeps the focus in the field', async () => {
         const { input } = await renderField();
 
