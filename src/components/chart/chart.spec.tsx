@@ -383,3 +383,59 @@ test('series on a type that can draw them do not make the chart warn', async () 
 
     expect(warnings).toEqual([]);
 });
+
+test('stacked series of a dot chart make the chart warn', async () => {
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="dot" series={series} stacked />
+    );
+
+    expect(warnings).toEqual([
+        'limel-chart: `stacked` can only stack the series of `bar`, `line`, and `area` charts, but `type` is `dot`. Ignoring `stacked`.',
+    ]);
+});
+
+test('stacked series of dates make the chart warn', async () => {
+    const dates = series.map((current) => ({
+        ...current,
+        items: [{ text: 'Jan', value: new Date(2026, 0, 1).getTime() }],
+    }));
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="bar" series={dates} valueFormat="date" stacked />
+    );
+
+    expect(warnings).toEqual([
+        'limel-chart: `stacked` cannot stack dates. Ignoring `stacked`.',
+    ]);
+});
+
+test('stacked on a chart without series makes the chart warn', async () => {
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="bar" items={items} stacked />
+    );
+
+    expect(warnings).toEqual([
+        'limel-chart: `stacked` stacks the `series` of a chart, but this chart has none. Ignoring `stacked`.',
+    ]);
+});
+
+test('stacked series of a bar chart do not make the chart warn', async () => {
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="bar" series={series} stacked />
+    );
+
+    expect(warnings).toEqual([]);
+});
+
+test('an axisIncrement that would divide the stacks into too many steps makes the chart warn', async () => {
+    const tall = series.map((current) => ({
+        ...current,
+        items: [{ text: 'Jan', value: 60 }],
+    }));
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="bar" series={tall} axisIncrement={1} stacked />
+    );
+
+    expect(warnings).toEqual([
+        'limel-chart: `axisIncrement` 1 would divide the axis into more than 100 steps. Working out a step from the values instead.',
+    ]);
+});

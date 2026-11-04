@@ -938,3 +938,140 @@ test('the area of a chart with one series is as strong as the area of a single l
 
     expect(series[0].areaStyle.opacity).toBe(0.4);
 });
+
+const revenue: ChartSeries[] = [
+    {
+        text: 'Licences',
+        color: green,
+        items: [
+            { text: 'Q1', value: 40, color: green },
+            { text: 'Q2', value: 50, color: green },
+        ],
+    },
+    {
+        text: 'Services',
+        color: red,
+        items: [
+            { text: 'Q1', value: 20, color: red },
+            { text: 'Q2', value: -40, color: red },
+        ],
+    },
+];
+
+test.each(['bar', 'line', 'area'] as const)(
+    'stacked series of a %s chart are drawn in one stack',
+    (type) => {
+        const { series } = draw({ type, series: revenue, stacked: true });
+
+        expect(series.map((current) => current.stack)).toEqual([
+            'series',
+            'series',
+        ]);
+    }
+);
+
+test.each(['bar', 'line', 'area'] as const)(
+    'stacked series of a %s chart stack each side of zero on its own',
+    (type) => {
+        const { series } = draw({ type, series: revenue, stacked: true });
+
+        expect(series.map((current) => current.stackStrategy)).toEqual([
+            'samesign',
+            'samesign',
+        ]);
+    }
+);
+
+test('stacked has no effect on the value axis of a dot chart, which cannot stack', () => {
+    const { yAxis } = draw({ type: 'dot', series: revenue, stacked: true });
+
+    expect([yAxis.min, yAxis.max]).toEqual([-45, 54]);
+});
+
+test('stacked has no effect on series of dates', () => {
+    const { series } = draw({
+        valueFormat: 'date',
+        series: revenue,
+        stacked: true,
+    });
+
+    expect(series.map((bars) => bars.stack)).toEqual([undefined, undefined]);
+});
+
+test('the value axis of stacked series reaches the ends of the stacks, on both sides of zero', () => {
+    const { yAxis } = draw({ series: revenue, stacked: true });
+
+    expect([yAxis.min, yAxis.max]).toEqual([-40, 60]);
+});
+
+test('only the outer corners of the end of a stack of bars are rounded', () => {
+    const { series } = draw({ series: revenue, stacked: true });
+
+    expect(series.map((bars) => bars.data[0].itemStyle.borderRadius)).toEqual([
+        0,
+        [2, 2, 0, 0],
+    ]);
+});
+
+test('the end of a stack of bars below zero is rounded at the bottom', () => {
+    const { series } = draw({ series: revenue, stacked: true });
+
+    expect(series[1].data[1].itemStyle.borderRadius).toEqual([0, 0, 2, 2]);
+});
+
+test('the end of a stack of bars in portrait is rounded on its outer side', () => {
+    const { series } = draw({
+        series: revenue,
+        stacked: true,
+        orientation: 'portrait',
+    });
+
+    expect(
+        series.map((bars) => bars.data.map((bar) => bar.itemStyle.borderRadius))
+    ).toEqual([
+        [0, [0, 2, 2, 0]],
+        [
+            [0, 2, 2, 0],
+            [2, 0, 0, 2],
+        ],
+    ]);
+});
+
+test('the parts of a stack of bars are set apart by the divider color', () => {
+    const { series } = draw({ series: revenue, stacked: true });
+
+    expect(series[0].data[0].itemStyle).toMatchObject({
+        borderColor: 'rgb(4, 4, 4)',
+        borderWidth: 1,
+    });
+});
+
+test('the item values of stacked bars are written inside the bars', () => {
+    const { series } = draw({
+        series: revenue,
+        stacked: true,
+        displayItemValue: true,
+    });
+
+    expect(series[0].label.position).toBe('inside');
+});
+
+test('a range in a stack of bars is drawn as its extent', () => {
+    const ranges = [
+        {
+            ...revenue[0],
+            items: [{ text: 'Q1', value: [10, 40] as [number, number] }],
+        },
+        revenue[1],
+    ];
+    const { series } = draw({ series: ranges, stacked: true });
+
+    expect(series[0].data[0].value).toBe(30);
+    expect(series).toHaveLength(2);
+});
+
+test('stacked areas are as strong as the area of a single line', () => {
+    const { series } = draw({ type: 'area', series: revenue, stacked: true });
+
+    expect(series.map((area) => area.areaStyle.opacity)).toEqual([0.4, 0.4]);
+});
