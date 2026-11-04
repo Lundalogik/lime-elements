@@ -1,3 +1,15 @@
+## [40.22.0](https://github.com/Lundalogik/lime-elements/compare/v40.21.1...v40.22.0) (2026-11-04)
+
+### Features
+
+
+* **chart:** draw dates with valueFormat date ([68e7612](https://github.com/Lundalogik/lime-elements/commit/68e761239ec3c0fe8e3c8e3b73ae1f6fd40f9837))
+* **chart:** write values as percentages or amounts with valueFormat ([56368d2](https://github.com/Lundalogik/lime-elements/commit/56368d26b62c5153c127de219fb282ab2a9c1e95))
+### Bug Fixes
+
+
+* **chart:** write values the way the chart's language writes numbers ([b0c74c9](https://github.com/Lundalogik/lime-elements/commit/b0c74c9fd044c3c0d0df76d4a396d7bca17a8fea))
+
 ## [40.21.1](https://github.com/Lundalogik/lime-elements/compare/v40.21.0...v40.21.1) (2026-11-04)
 
 ### Bug Fixes
