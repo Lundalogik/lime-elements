@@ -61,6 +61,7 @@ the option is picked with `Enter` or a click.
  - [limel-example-file-resize-image](../file/examples)
  - [limel-example-file-viewer-office](../file-viewer/examples)
  - [limel-example-header-slot-actions](../header/examples)
+ - [limel-example-input-field-autocomplete](../input-field/examples)
  - [limel-example-input-field-number](../input-field/examples)
  - [limel-example-linear-progress-color](../linear-progress/examples)
  - [limel-example-list-badge-icons-with-multiple-lines](../list/examples)
@@ -128,6 +129,7 @@ graph TD;
   limel-example-file-resize-image --> limel-select
   limel-example-file-viewer-office --> limel-select
   limel-example-header-slot-actions --> limel-select
+  limel-example-input-field-autocomplete --> limel-select
   limel-example-input-field-number --> limel-select
   limel-example-linear-progress-color --> limel-select
   limel-example-list-badge-icons-with-multiple-lines --> limel-select

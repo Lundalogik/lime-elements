@@ -36,6 +36,7 @@
  - [limel-example-chip-set-composite](../chip-set/examples)
  - [limel-example-code-editor-form](examples)
  - [limel-example-custom-component-form](examples)
+ - [limel-example-custom-component-header-form](examples)
  - [limel-example-custom-error-message](examples)
  - [limel-example-date-picker-composite](../date-picker/examples)
  - [limel-example-dialog-form](../dialog/examples)
@@ -93,6 +94,7 @@ graph TD;
   limel-example-chip-set-composite --> limel-form
   limel-example-code-editor-form --> limel-form
   limel-example-custom-component-form --> limel-form
+  limel-example-custom-component-header-form --> limel-form
   limel-example-custom-error-message --> limel-form
   limel-example-date-picker-composite --> limel-form
   limel-example-dialog-form --> limel-form
