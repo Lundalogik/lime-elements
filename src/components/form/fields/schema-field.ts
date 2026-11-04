@@ -16,8 +16,10 @@ import { FormComponent, FormSchema } from '../form.types';
 import { TimePicker } from '../widgets/time-picker';
 import { isIntegerType, isNumberType } from '../schema';
 import { RowLayoutContext } from '../row/row-context';
+import { listenForInvalidInput } from '../invalid-input';
 
 const { fields: defaultFields } = getDefaultRegistry();
+const DATE_FORMATS = new Set(['date', 'date-time', 'time']);
 const BaseSchemaField = defaultFields.SchemaField;
 
 /**
@@ -119,6 +121,21 @@ export class SchemaField extends React.Component<FieldProps> {
         this.handleCustomComponentChange =
             this.handleCustomComponentChange.bind(this);
     }
+
+    public componentWillUnmount() {
+        this.reportInvalidInput(null);
+    }
+
+    // The date picker never emits text it rejects, so the value stays valid
+    // while the field shows an error.
+    private reportInvalidInput = (message: string | null) => {
+        const { registry, fieldPathId } = this.props;
+        if (!fieldPathId) {
+            return;
+        }
+
+        registry.formContext?.setInvalidInput?.(fieldPathId.path, message);
+    };
 
     private isInvalid() {
         const { modified } = this.state;
@@ -225,7 +242,7 @@ export class SchemaField extends React.Component<FieldProps> {
             label: this.context ? '' : schema.title,
             helperText:
                 this.context && !this.isInvalid() ? '' : this.getHelperText(),
-            ref: (element: FormComponent) => {
+            ref: (element: HTMLElement & FormComponent) => {
                 element.formInfo = {
                     schema: schema,
                     rootSchema: registry.formContext.schema,
@@ -235,7 +252,7 @@ export class SchemaField extends React.Component<FieldProps> {
                     schemaPath: fieldPathId?.path?.map(String),
                 };
 
-                return () => {};
+                return listenForInvalidInput(element, this.reportInvalidInput);
             },
         };
     }
@@ -291,6 +308,13 @@ export class SchemaField extends React.Component<FieldProps> {
             fieldProps.uiSchema = {
                 'ui:widget': TimePicker,
                 ...fieldProps.uiSchema,
+            };
+        }
+
+        if (DATE_FORMATS.has(this.props.schema.format)) {
+            fieldProps.uiSchema = {
+                ...fieldProps.uiSchema,
+                'ui:onInvalidInput': this.reportInvalidInput,
             };
         }
 

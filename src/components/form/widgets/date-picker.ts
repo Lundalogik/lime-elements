@@ -3,6 +3,7 @@ import React from 'react';
 import { DateType } from '../../date-picker/date.types';
 import { WidgetProps } from './types';
 import { LimeElementsWidgetAdapter } from '../adapters';
+import { listenForInvalidInput } from '../invalid-input';
 
 type DateWidgetProps = WidgetProps & {
     type?: DateType;
@@ -32,9 +33,15 @@ export class DatePicker extends React.Component<DateWidgetProps> {
             extraProps: {
                 type: type,
                 ...props.schema.lime?.component?.props,
+                ref: this.watchInvalidInput,
             },
         });
     }
+
+    private watchInvalidInput = (element: HTMLElement) =>
+        listenForInvalidInput(element, (message) =>
+            this.props.options?.onInvalidInput?.(message)
+        );
 
     private getValue() {
         if (typeof this.props.value === 'string') {
