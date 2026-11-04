@@ -35,6 +35,8 @@ const SEARCH_DEBOUNCE = 300;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
 const DEFAULT_SEARCHER_MAX_RESULTS = 20;
 const MAX_FRAMES_TO_WAIT_FOR_LIST = 20;
+const ENABLED_LIST_ITEM =
+    '.mdc-deprecated-list-item:not(.mdc-deprecated-list-item--disabled)';
 
 /**
  * @exampleComponent limel-example-picker-basic
@@ -238,10 +240,12 @@ export class Picker {
 
     // Should NOT be decorated with State(), since this
     // should not trigger a re-render by itself.
-    private chipSetEditMode = false;
+    private isEditing = false;
 
     private debouncedSearch: DebouncedFunc<(query: string) => Promise<void>>;
     private suggestionToFocusWhenShown?: 'first' | 'last';
+    private suggestionFocusFrame?: number;
+    private suggestionHasFocus = false;
     private chipSet: HTMLLimelChipSetElement;
     private readonly suggestionsMessage = createLiveMessage(() =>
         this.getSuggestionsMessage()
@@ -278,6 +282,7 @@ export class Picker {
     }
 
     public disconnectedCallback() {
+        this.forgetSuggestionFocus();
         this.debouncedSearch.cancel();
         this.suggestionsMessage.update.cancel();
     }
@@ -297,9 +302,10 @@ export class Picker {
     }
 
     public async componentWillUpdate() {
-        this.chipSetEditMode = false;
+        this.isEditing = false;
         if (this.chipSet) {
-            this.chipSetEditMode = await this.chipSet.getEditMode();
+            this.isEditing =
+                this.suggestionHasFocus || (await this.chipSet.getEditMode());
         }
     }
 
@@ -337,7 +343,7 @@ export class Picker {
                     onStopEdit={this.handleStopEditAndBlur}
                     emptyInputOnBlur={false}
                     emptyInputOnChange={false}
-                    clearAllButton={this.multiple && !this.chipSetEditMode}
+                    clearAllButton={this.multiple && !this.isEditing}
                     suggestionListId={
                         this.canOpenList() ? this.portalId : undefined
                     }
@@ -502,7 +508,7 @@ export class Picker {
     }
 
     private shouldShowDropDownContent() {
-        return this.canOpenList() && !!this.chipSetEditMode;
+        return this.canOpenList() && !!this.isEditing;
     }
 
     private getDropdownContent() {
@@ -617,9 +623,7 @@ export class Picker {
 
     private isKeyPressedOnFirstItem(event: KeyboardEvent): boolean {
         const list = event.currentTarget as HTMLLimelListElement;
-        const firstItem = list.shadowRoot.querySelector(
-            '.mdc-deprecated-list-item'
-        );
+        const firstItem = list.shadowRoot.querySelector(ENABLED_LIST_ITEM);
 
         return !!firstItem && event.composedPath().includes(firstItem);
     }
@@ -669,7 +673,6 @@ export class Picker {
         }
 
         this.suggestionsEngaged = false;
-        this.suggestionToFocusWhenShown = undefined;
         this.clearInputField();
     }
 
@@ -684,7 +687,7 @@ export class Picker {
         const query = event.detail;
         this.textValue = query;
         this.suggestionsEngaged = true;
-        this.suggestionToFocusWhenShown = undefined;
+        this.forgetSuggestionFocus();
 
         this.debouncedSearch(query);
         // If the search-query is an empty string, bypass debouncing.
@@ -778,6 +781,7 @@ export class Picker {
             return;
         }
 
+        this.suggestionHasFocus = false;
         this.action.emit(event.detail.value);
         this.items = [];
     }
@@ -787,6 +791,7 @@ export class Picker {
      * Prevent focus if the picker has a value and does not support multiple values
      */
     private handleInputFieldFocus() {
+        this.forgetSuggestionFocus();
         const query = this.textValue;
         this.debouncedSearch(query);
     }
@@ -839,7 +844,6 @@ export class Picker {
         if (isEscape) {
             event.preventDefault();
             event.stopPropagation();
-            this.suggestionToFocusWhenShown = undefined;
             this.handleEscape();
 
             return;
@@ -870,20 +874,18 @@ export class Picker {
 
         // Match by class only (not `:first-child`) so a leading
         // `ListSeparator` doesn't shadow the first focusable item.
-        const items = list.shadowRoot.querySelectorAll<HTMLElement>(
-            '.mdc-deprecated-list-item'
-        );
+        const items =
+            list.shadowRoot.querySelectorAll<HTMLElement>(ENABLED_LIST_ITEM);
         const item = position === 'first' ? items[0] : [...items].at(-1);
-        if (!item) {
-            return false;
-        }
+        item?.focus();
+        this.suggestionHasFocus =
+            !!item && list.shadowRoot.activeElement === item;
 
-        item.focus();
-
-        return true;
+        return this.suggestionHasFocus;
     }
 
     private focusSuggestionWhenShown(position: 'first' | 'last') {
+        cancelAnimationFrame(this.suggestionFocusFrame);
         let frames = 0;
         const focusSuggestion = () => {
             if (this.focusSuggestion(position)) {
@@ -892,11 +894,18 @@ export class Picker {
 
             frames += 1;
             if (frames < MAX_FRAMES_TO_WAIT_FOR_LIST) {
-                requestAnimationFrame(focusSuggestion);
+                this.suggestionFocusFrame =
+                    requestAnimationFrame(focusSuggestion);
             }
         };
 
-        requestAnimationFrame(focusSuggestion);
+        this.suggestionFocusFrame = requestAnimationFrame(focusSuggestion);
+    }
+
+    private forgetSuggestionFocus() {
+        this.suggestionHasFocus = false;
+        this.suggestionToFocusWhenShown = undefined;
+        cancelAnimationFrame(this.suggestionFocusFrame);
     }
 
     private handleSearchResult(
@@ -959,7 +968,8 @@ export class Picker {
     /**
      * Shared prelude for any flow that ends the current search session:
      * wipe the chip-set's visible text, reset the picker's `textValue`,
-     * and cancel any in-flight debounced search.
+     * cancel any in-flight debounced search, and forget that a suggestion
+     * has the focus, or that an arrow key is waiting for the suggestions.
      *
      * Used by `clearInputField` (which then drops the dropdown
      * entirely) and `resetSearchToDefault` (which re-runs the searcher
@@ -969,6 +979,7 @@ export class Picker {
         this.chipSet.emptyInput();
         this.textValue = '';
         this.debouncedSearch.cancel();
+        this.forgetSuggestionFocus();
     }
 
     private clearInputField() {
