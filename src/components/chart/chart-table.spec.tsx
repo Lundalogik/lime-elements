@@ -1,6 +1,6 @@
 import { VNode } from '@stencil/core';
 import { render, h } from '@stencil/vitest';
-import { ChartItem } from './chart.types';
+import { ChartItem, ChartSeries } from './chart.types';
 
 const items: ChartItem[] = [
     { text: 'Applications', value: 25 },
@@ -166,4 +166,152 @@ test('while loading, a spinner is shown instead of the table', async () => {
 
     expect(shadow.querySelector('limel-spinner')).not.toBeNull();
     expect(shadow.querySelector('table')).toBeNull();
+});
+
+const series: ChartSeries[] = [
+    {
+        text: 'Won',
+        items: [
+            { text: 'Jan', value: 12 },
+            { text: 'Feb', value: 15 },
+        ],
+    },
+    { text: 'Lost', items: [{ text: 'Feb', value: 9 }] },
+];
+
+test('the table of a chart with series has a column for each series', async () => {
+    const shadow = await renderChart(
+        <limel-chart type="bar" series={series} />
+    );
+
+    expect(texts(shadow.querySelectorAll('th[scope="col"]'))).toEqual([
+        'Items',
+        'Won',
+        'Lost',
+    ]);
+});
+
+test('accessibleValuesLabel heads the columns of the series of a chart', async () => {
+    const shadow = await renderChart(
+        <limel-chart type="bar" series={series} accessibleValuesLabel="Deals" />
+    );
+    const group = shadow.querySelector('th[colspan]');
+
+    expect(group).toEqualText('Deals');
+    expect(group).toEqualAttribute('colspan', '2');
+});
+
+test('without accessibleValuesLabel, only the series head the columns of a chart with series', async () => {
+    const shadow = await renderChart(
+        <limel-chart type="bar" series={series} />
+    );
+
+    expect(shadow.querySelector('thead').children).toHaveLength(1);
+});
+
+test('the table of a chart with series has a row for each place on the axis', async () => {
+    const shadow = await renderChart(
+        <limel-chart type="bar" series={series} />
+    );
+    const rows = [...shadow.querySelector('tbody').children];
+
+    expect(rows.map((row) => texts(row.children))).toEqual([
+        ['Jan', '12', ''],
+        ['Feb', '15', '9'],
+    ]);
+});
+
+test('each row of a chart with series is headed by the text of its items', async () => {
+    const shadow = await renderChart(
+        <limel-chart type="bar" series={series} />
+    );
+
+    const header =
+        shadow.querySelector('tbody').firstElementChild.firstElementChild;
+
+    expect(header.tagName).toBe('TH');
+    expect(header).toEqualAttribute('scope', 'row');
+});
+
+test('the first value of a chart with series is the one that Tab lands on', async () => {
+    const shadow = await renderChart(
+        <limel-chart type="bar" series={series} />
+    );
+
+    expect(
+        [...shadow.querySelectorAll('td')].map((cell) => cell.tabIndex)
+    ).toEqual([0, -1, -1, -1]);
+});
+
+test('when the first series has no items, Tab lands on the first value of the next one', async () => {
+    const shadow = await renderChart(
+        <limel-chart
+            type="bar"
+            series={[{ text: 'Open', items: [] }, ...series]}
+        />
+    );
+
+    expect(
+        [...shadow.querySelectorAll<HTMLElement>('td[data-series]')].map(
+            (cell) => [cell.dataset.series, cell.tabIndex]
+        )
+    ).toEqual([
+        ['1', 0],
+        ['1', -1],
+        ['2', -1],
+    ]);
+});
+
+test('a series that leaves out an item has an empty cell that cannot be focused', async () => {
+    const shadow = await renderChart(
+        <limel-chart type="bar" series={series} />
+    );
+    const empty = shadow.querySelectorAll('td')[1];
+
+    expect(empty).toHaveTextContent('');
+    expect(empty).not.toHaveAttribute('tabindex');
+});
+
+test('a chart with two series or more has a legend that names them', async () => {
+    const shadow = await renderChart(
+        <limel-chart type="bar" series={series} />
+    );
+
+    expect(texts(shadow.querySelectorAll('li'))).toEqual(['Won', 'Lost']);
+});
+
+test('the legend is hidden from assistive technology, which reads the table instead', async () => {
+    const shadow = await renderChart(
+        <limel-chart type="bar" series={series} />
+    );
+
+    expect(shadow.querySelector('ul')).toEqualAttribute('aria-hidden', 'true');
+});
+
+test('a chart with a single series has no legend', async () => {
+    const shadow = await renderChart(
+        <limel-chart type="bar" series={[series[0]]} />
+    );
+
+    expect(shadow.querySelector('ul')).toBeNull();
+});
+
+test('a chart without series has no legend', async () => {
+    const shadow = await renderChart(<limel-chart type="bar" items={items} />);
+
+    expect(shadow.querySelector('ul')).toBeNull();
+});
+
+test('a type that cannot draw series shows the items of the first series in its table', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const shadow = await renderChart(
+        <limel-chart type="pie" series={series} />
+    );
+    const rows = [...shadow.querySelector('tbody').children];
+
+    expect(rows.map((row) => texts(row.querySelectorAll('td')))).toEqual([
+        ['Jan', '12'],
+        ['Feb', '15'],
+    ]);
+    warn.mockRestore();
 });

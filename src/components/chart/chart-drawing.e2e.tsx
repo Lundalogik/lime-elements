@@ -140,6 +140,16 @@ function getTooltip() {
     );
 }
 
+function isShown(element?: Element) {
+    const style = element && getComputedStyle(element);
+
+    return (
+        Boolean(style) &&
+        style.display !== 'none' &&
+        style.visibility !== 'hidden'
+    );
+}
+
 test('clicking a drawn item that is clickable emits interact', async () => {
     const { chart, onInteract } = await setup();
 
@@ -236,6 +246,18 @@ test('focusing an item shows its tooltip', async () => {
     chart.shadowRoot.querySelector<HTMLElement>('tbody tr').focus();
 
     await expect.poll(() => getTooltip()?.textContent).toContain('40');
+});
+
+test('the tooltip of an item goes away when focus leaves it', async () => {
+    const { chart } = await setup();
+    await drawn(chart, RED);
+    const row = chart.shadowRoot.querySelector<HTMLElement>('tbody tr');
+    row.focus();
+    await expect.poll(() => isShown(getTooltip())).toBe(true);
+
+    row.blur();
+
+    await expect.poll(() => isShown(getTooltip())).toBe(false);
 });
 
 test('focusing an item fades the other items', async () => {
