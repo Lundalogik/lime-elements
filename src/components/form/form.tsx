@@ -12,6 +12,7 @@ import { createRoot, Root } from 'react-dom/client';
 import JSONSchemaForm, { IChangeEvent } from '@rjsf/core';
 import {
     Experimental_DefaultFormStateBehavior,
+    FieldPathList,
     getDefaultFormState,
     RJSFValidationError,
 } from '@rjsf/utils';
@@ -204,11 +205,15 @@ export class Form {
     private currentValue: object;
     private givenValue?: GivenValue;
     private root: Root;
+
+    // Their value is still the last valid one, so the schema can't tell.
+    private readonly invalidInputErrors = new Map<string, FormError>();
     private initialized = false;
 
     public constructor() {
         this.handleChange = this.handleChange.bind(this);
         this.getCustomErrorMessages = this.getCustomErrorMessages.bind(this);
+        this.setInvalidInput = this.setInvalidInput.bind(this);
     }
 
     public connectedCallback() {
@@ -331,6 +336,7 @@ export class Form {
                             rootValue: this.value,
                             propsFactory: this.propsFactory,
                             revealErrors: this.revealErrors,
+                            setInvalidInput: this.setInvalidInput,
                         },
                         fields: {
                             SchemaField: CustomSchemaField,
@@ -443,14 +449,37 @@ export class Form {
         };
     }
 
+    private setInvalidInput(path: FieldPathList, message: string | null) {
+        const property = `.${path.join('.')}`;
+        const current = this.invalidInputErrors.get(property);
+        if ((current?.message ?? null) === message) {
+            return;
+        }
+
+        if (message === null) {
+            this.invalidInputErrors.delete(property);
+        } else {
+            this.invalidInputErrors.set(property, {
+                name: 'invalidInput',
+                property: property,
+                message: message,
+                schemaPath: '',
+            });
+        }
+
+        this.validateFormData();
+    }
+
     private hasExtraErrors(): boolean {
         return !!this.errors && Object.keys(this.errors).length > 0;
     }
 
     private emitValidationStatus(errors: RJSFValidationError[]) {
-        const valid =
-            (!errors || errors.length === 0) && !this.hasExtraErrors();
-        const formErrors = this.mapErrors(errors ?? []);
+        const formErrors = [
+            ...this.mapErrors(errors ?? []),
+            ...this.invalidInputErrors.values(),
+        ];
+        const valid = formErrors.length === 0 && !this.hasExtraErrors();
         const status: ValidationStatus = { valid: valid, errors: formErrors };
 
         if (this.isValid !== valid || !valid) {

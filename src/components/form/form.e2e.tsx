@@ -25,6 +25,7 @@ import {
     collapsibleSchema,
     collapsibleSchemaWithRequired,
     dateSchema,
+    wrappedDateSchema,
     integerSchema,
     serverErrorsSchema,
     transformErrorsSchema,
@@ -446,6 +447,84 @@ test('emits validate with valid=false on mount when value is invalid', async () 
     expect(detail.valid).toBe(false);
     expect(detail.errors.length).toBeGreaterThan(0);
     expect(detail.errors[0].name).toBe('required');
+});
+
+describe('a date field holding text that is not a date', () => {
+    async function commitText(datePicker: Element, text: string) {
+        const input = datePicker.shadowRoot
+            .querySelector('limel-input-field')
+            .shadowRoot.querySelector('input');
+
+        await userEvent.click(input);
+        await userEvent.clear(input);
+        await userEvent.type(input, text);
+        await userEvent.keyboard('{Enter}');
+    }
+
+    const lastStatus = (onValidate: ReturnType<typeof vi.fn>) =>
+        onValidate.mock.lastCall?.[0].detail;
+
+    test('makes the form invalid with an error for the field, without changing the value', async () => {
+        const onValidate = vi.fn();
+        const onChange = vi.fn();
+        const { formContent } = await renderForm({
+            schema: dateSchema,
+            value: { birthday: '2026-01-24' },
+            onValidate,
+            onChange,
+        });
+        const datePicker = formContent.querySelector('limel-date-picker');
+
+        await commitText(datePicker, 'not a date');
+
+        await expect.poll(() => lastStatus(onValidate)?.valid).toBe(false);
+        expect(lastStatus(onValidate).errors).toEqual([
+            expect.objectContaining({
+                name: 'invalidInput',
+                property: '.birthday',
+                message: expect.stringMatching(/^Enter a valid date/),
+            }),
+        ]);
+        expect(onChange).not.toHaveBeenCalled();
+
+        await commitText(datePicker, '01/25/2026');
+
+        await expect.poll(() => lastStatus(onValidate)?.valid).toBe(true);
+    });
+
+    test('is reported from inside a custom component', async () => {
+        if (!customElements.get('test-wrapped-date-picker')) {
+            customElements.define(
+                'test-wrapped-date-picker',
+                class extends HTMLElement {
+                    connectedCallback() {
+                        this.attachShadow({ mode: 'open' }).innerHTML =
+                            '<limel-date-picker type="date"></limel-date-picker>';
+                    }
+                }
+            );
+        }
+
+        const onValidate = vi.fn();
+        const { formContent } = await renderForm({
+            schema: wrappedDateSchema,
+            onValidate,
+        });
+        const datePicker = formContent
+            .querySelector('test-wrapped-date-picker')
+            .shadowRoot.querySelector('limel-date-picker');
+
+        await commitText(datePicker, 'not a date');
+
+        await expect
+            .poll(() => lastStatus(onValidate)?.errors)
+            .toEqual([
+                expect.objectContaining({
+                    name: 'invalidInput',
+                    property: '.birthday',
+                }),
+            ]);
+    });
 });
 
 test('does not emit validate on mount when value is already valid', async () => {
