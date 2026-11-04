@@ -37,6 +37,12 @@ const AXIS_TYPES: ReadonlySet<DrawnChartType> = new Set([
     'line',
 ]);
 
+const STACK_TYPES: ReadonlySet<DrawnChartType> = new Set([
+    'bar',
+    'area',
+    'line',
+]);
+
 export interface AxisRange {
     minValue: number;
     maxValue: number;
@@ -68,6 +74,14 @@ export function usesAxisIncrement(type: DrawnChartType): boolean {
  */
 export function canDrawSeries(type: DrawnChartType): boolean {
     return AXIS_TYPES.has(type);
+}
+
+/**
+ * Whether a chart of this type can stack its `series` on each other.
+ * @param type - the chart type
+ */
+export function canStack(type: DrawnChartType): boolean {
+    return STACK_TYPES.has(type);
 }
 
 /**

@@ -1,7 +1,9 @@
 import { ChartItem } from './chart.types';
 import {
     alignSeries,
+    endsStack,
     getAllItems,
+    getAxisItems,
     getItemAt,
     getNearestSeries,
 } from './series';
@@ -106,6 +108,59 @@ test('all items are the items of every series', () => {
     ]);
 
     expect(getAllItems(grid)).toEqual([january, february]);
+});
+
+const stackable = alignSeries([
+    {
+        text: 'Licences',
+        items: [
+            { text: 'Q1', value: 40 },
+            { text: 'Q2', value: 50 },
+        ],
+    },
+    {
+        text: 'Refunds',
+        items: [
+            { text: 'Q1', value: -5 },
+            { text: 'Q2', value: -8 },
+        ],
+    },
+    { text: 'Services', items: [{ text: 'Q1', value: 20 }] },
+]);
+
+test('the axis of series that are not stacked reaches every item', () => {
+    expect(getAxisItems(stackable, false)).toEqual(getAllItems(stackable));
+});
+
+test('the axis of stacked series reaches both ends of each stack', () => {
+    expect(getAxisItems(stackable, true)).toEqual([
+        { text: 'Q1', value: 60 },
+        { text: 'Q1', value: -5 },
+        { text: 'Q2', value: 50 },
+        { text: 'Q2', value: -8 },
+    ]);
+});
+
+test('a range adds its extent to a stack', () => {
+    const grid = alignSeries([
+        { text: 'Won', items: [{ text: 'Q1', value: [10, 40] }] },
+        { text: 'Lost', items: [{ text: 'Q1', value: 5 }] },
+    ]);
+
+    expect(getAxisItems(grid, true)[0]).toEqual({ text: 'Q1', value: 35 });
+});
+
+test('the last series with a value on a side of zero ends the stack on that side', () => {
+    expect(endsStack(stackable, { series: 2, index: 0 })).toBe(true);
+    expect(endsStack(stackable, { series: 1, index: 0 })).toBe(true);
+});
+
+test('a series with a later series on the same side of zero does not end the stack', () => {
+    expect(endsStack(stackable, { series: 0, index: 0 })).toBe(false);
+});
+
+test('a series ends the stack where the later series have no item', () => {
+    expect(endsStack(stackable, { series: 0, index: 1 })).toBe(true);
 });
 
 test('the nearest series with an item at a place is the series itself, when it has one there', () => {

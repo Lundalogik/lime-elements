@@ -1,4 +1,5 @@
 import { ChartItem, ChartSeries } from './chart.types';
+import { getValueSpan } from './scale';
 
 /**
  * Series lined up by category, so that the items of each series that belong
@@ -114,4 +115,58 @@ export function getAllItems(grid: SeriesGrid): ChartItem[] {
     return grid.series.flatMap((series) =>
         series.items.filter((item) => item !== undefined)
     );
+}
+
+/**
+ * The items that the value axis has to reach: every item, or, when the
+ * series are stacked, the two ends of the stack at each place on the axis.
+ * Positive and negative values are stacked on their own side of zero, and a
+ * range adds its extent to the stack.
+ * @param grid - the series
+ * @param stacked - whether the series are stacked on each other
+ */
+export function getAxisItems(grid: SeriesGrid, stacked: boolean): ChartItem[] {
+    if (!stacked) {
+        return getAllItems(grid);
+    }
+
+    return grid.categories.flatMap((text, index) => {
+        const values = grid.series
+            .map((series) => series.items[index])
+            .filter((item) => item !== undefined)
+            .map((item) => getValueSpan(item));
+        const sum = (side: (value: number) => boolean) =>
+            values.filter((value) => side(value)).reduce((a, b) => a + b, 0);
+
+        return [
+            { text: text, value: sum((value) => value > 0) },
+            { text: text, value: sum((value) => value < 0) },
+        ];
+    });
+}
+
+/**
+ * Whether the item at a position ends its stack, since no later series has
+ * an item on the same side of zero at that place on the axis.
+ * @param grid - the stacked series
+ * @param position - where the item is
+ */
+export function endsStack(grid: SeriesGrid, position: ItemPosition): boolean {
+    const side = Math.sign(getStackedValue(grid, position));
+
+    return grid.series.slice(position.series + 1).every(
+        (_, offset) =>
+            Math.sign(
+                getStackedValue(grid, {
+                    series: position.series + 1 + offset,
+                    index: position.index,
+                })
+            ) !== side
+    );
+}
+
+function getStackedValue(grid: SeriesGrid, position: ItemPosition): number {
+    const item = getItemAt(grid, position);
+
+    return item ? getValueSpan(item) : 0;
 }
