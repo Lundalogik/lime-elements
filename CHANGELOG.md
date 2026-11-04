@@ -1,3 +1,13 @@
+## [40.21.1](https://github.com/Lundalogik/lime-elements/compare/v40.21.0...v40.21.1) (2026-11-04)
+
+### Bug Fixes
+
+
+* **input-field:** give the focus back to the field with the up arrow ([e706469](https://github.com/Lundalogik/lime-elements/commit/e706469dbab4f84ff171e761aa77ecbf6be52933))
+* **picker:** give the focus back to the field with the up arrow ([d25ca36](https://github.com/Lundalogik/lime-elements/commit/d25ca36e2b2558739a7541d86b3504b1234a2c69))
+* **picker:** keep the suggestions open while one of them has the focus ([552f736](https://github.com/Lundalogik/lime-elements/commit/552f73688f21fc68780fdbfa0c03bf892b9fae7c))
+* **picker:** move into the suggestions when an arrow key comes early ([5bea664](https://github.com/Lundalogik/lime-elements/commit/5bea664878e68bcb4597dd1241ce71d4d96bc792))
+
 ## [40.21.0](https://github.com/Lundalogik/lime-elements/compare/v40.20.1...v40.21.0) (2026-11-03)
 
 ### Features
