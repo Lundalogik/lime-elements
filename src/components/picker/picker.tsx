@@ -600,9 +600,26 @@ export class Picker {
 
             return;
         }
+
+        if (event.key === ARROW_UP && this.isKeyPressedOnFirstItem(event)) {
+            event.preventDefault();
+            this.chipSet.setFocus();
+
+            return;
+        }
+
         if ([TAB, ENTER].includes(event.key) || isTextEditingKey(event)) {
             this.chipSet.setFocus();
         }
+    }
+
+    private isKeyPressedOnFirstItem(event: KeyboardEvent): boolean {
+        const list = event.currentTarget as HTMLLimelListElement;
+        const firstItem = list.shadowRoot.querySelector(
+            '.mdc-deprecated-list-item'
+        );
+
+        return !!firstItem && event.composedPath().includes(firstItem);
     }
 
     private renderPortal(content: any[] = []) {
