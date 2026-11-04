@@ -321,6 +321,40 @@ describe('limel-picker keyboard use of the suggestions', () => {
         expect(focusedSuggestion()).toContain('Blackberry');
     });
 
+    it('gives the focus back to the field with the up arrow on the first suggestion', async () => {
+        const { input } = await renderPicker();
+        await userEvent.keyboard('{ArrowDown}');
+        expect(focusedSuggestion()).toContain('Blueberry');
+
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(getDeepActiveElement()).toBe(input);
+    });
+
+    it('moves up through the suggestions with the up arrow', async () => {
+        await renderPicker();
+        await userEvent.keyboard('{ArrowDown}{ArrowDown}');
+        expect(focusedSuggestion()).not.toContain('Blueberry');
+
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(focusedSuggestion()).toContain('Blueberry');
+    });
+
+    it('gives the focus back to the field with the up arrow on the first action', async () => {
+        const { input, waitForChanges } = await renderPicker(
+            { actions: [{ text: 'Create new' }] },
+            'xyz'
+        );
+        await waitForText('No results matching "xyz"', waitForChanges);
+        await userEvent.keyboard('{ArrowDown}');
+        expect(focusedSuggestion()).toContain('Create new');
+
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(getDeepActiveElement()).toBe(input);
+    });
+
     it('does not take Tab into the list, and closes it when the focus moves on', async () => {
         const { waitForChanges } = await renderPicker();
 
