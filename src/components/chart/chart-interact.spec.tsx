@@ -47,3 +47,61 @@ test('an item that is not clickable is not a button', async () => {
 
     expect(archiveRow).not.toHaveAttribute('role');
 });
+
+test('clicking the value of a clickable item of a series emits interact with the item', async () => {
+    const onInteract = vi.fn();
+    const lostReports = { text: 'Reports', value: 10, clickable: true };
+    const { root, waitForChanges } = await render(
+        <limel-chart
+            type="bar"
+            series={[
+                { text: 'Won', items: [reports] },
+                { text: 'Lost', items: [lostReports] },
+            ]}
+            onInteract={onInteract}
+        />
+    );
+    await waitForChanges();
+
+    const cells = root.shadowRoot.querySelectorAll('td');
+    cells[1].click();
+
+    expect(onInteract).toHaveBeenCalledExactlyOnceWith(
+        expect.objectContaining({ detail: lostReports })
+    );
+});
+
+test('the value of a clickable item of a series is a button to assistive technology', async () => {
+    const { root, waitForChanges } = await render(
+        <limel-chart type="bar" series={[{ text: 'Won', items: [reports] }]} />
+    );
+    await waitForChanges();
+
+    expect(root.shadowRoot.querySelector('td')).toEqualAttribute(
+        'role',
+        'button'
+    );
+});
+
+test('the value of a clickable item of a series is named by its place, its series, and its value', async () => {
+    const { root, waitForChanges } = await render(
+        <limel-chart type="bar" series={[{ text: 'Won', items: [reports] }]} />
+    );
+    await waitForChanges();
+
+    expect(root.shadowRoot.querySelector('td')).toEqualAttribute(
+        'aria-label',
+        'Reports, Won, 40'
+    );
+});
+
+test('the value of an item of a series that is not clickable is named by its table headers', async () => {
+    const { root, waitForChanges } = await render(
+        <limel-chart type="bar" series={[{ text: 'Won', items: [archive] }]} />
+    );
+    await waitForChanges();
+
+    expect(root.shadowRoot.querySelector('td')).not.toHaveAttribute(
+        'aria-label'
+    );
+});

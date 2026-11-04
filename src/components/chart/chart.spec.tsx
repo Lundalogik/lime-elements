@@ -1,3 +1,4 @@
+import { VNode } from '@stencil/core';
 import { render, h } from '@stencil/vitest';
 import { ChartItem } from './chart.types';
 
@@ -328,4 +329,57 @@ test('switching a chart from dates to numbers together with its items does not w
 
     expect(warn).not.toHaveBeenCalled();
     warn.mockRestore();
+});
+
+const series = [
+    { text: 'Won', items: [{ text: 'Jan', value: 12 }] },
+    { text: 'Lost', items: [{ text: 'Jan', value: 7 }] },
+];
+
+async function renderAndCollectWarnings(chart: VNode) {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const { waitForChanges } = await render(chart);
+    await waitForChanges();
+    const warnings = warn.mock.calls.map(([message]) => message);
+    warn.mockRestore();
+
+    return warnings;
+}
+
+test('series on a type that cannot draw them make the chart warn', async () => {
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="pie" series={series} />
+    );
+
+    expect(warnings).toEqual([
+        'limel-chart: `series` can only be drawn by `bar`, `dot`, `line`, and `area` charts, but `type` is `pie`. Drawing the items of the first series instead.',
+    ]);
+});
+
+test('series and items on a type that cannot draw series make the chart warn that it draws the items', async () => {
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="pie" series={series} items={items} />
+    );
+
+    expect(warnings).toEqual([
+        'limel-chart: `series` can only be drawn by `bar`, `dot`, `line`, and `area` charts, but `type` is `pie`. Drawing `items` instead.',
+    ]);
+});
+
+test('series and items together make the chart warn that it draws the series', async () => {
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="bar" series={series} items={items} />
+    );
+
+    expect(warnings).toEqual([
+        'limel-chart: both `items` and `series` are set. Drawing `series`, and leaving out `items`.',
+    ]);
+});
+
+test('series on a type that can draw them do not make the chart warn', async () => {
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="line" series={series} />
+    );
+
+    expect(warnings).toEqual([]);
 });

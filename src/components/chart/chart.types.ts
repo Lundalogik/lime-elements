@@ -75,3 +75,29 @@ export interface ChartItem<
      */
     clickable?: boolean;
 }
+
+/**
+ * A group of items that are drawn in a color of their own, such as the
+ * revenue of each month, next to the costs of each month.
+ * @beta
+ */
+export interface ChartSeries {
+    /**
+     * Name of the series, shown in the legend, the tooltips, and the table
+     * for assistive technology.
+     */
+    text: string;
+
+    /**
+     * Color of the series. Defaults to one of eight colors, by the place of
+     * the series among the others. An item's own `color` is used for that
+     * item instead.
+     */
+    color?: Color;
+
+    /**
+     * Items of the series. Items of different series that have the same
+     * `text` are drawn together, at the same place on the axis.
+     */
+    items: ChartItem[];
+}
