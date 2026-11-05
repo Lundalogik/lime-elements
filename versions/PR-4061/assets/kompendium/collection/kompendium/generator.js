@@ -1,3 +1,4 @@
+import { unlinkSync } from "fs";
 import { defaultConfig } from "./config";
 import { addSources } from "./source";
 import { createMenu } from "./menu";
@@ -50,10 +51,21 @@ export function kompendiumGenerator(config) {
 }
 async function initialize(config) {
     const path = `${config.publicPath}/kompendium.json`;
+    removeStaleKompendiumJson(path);
     if (isWatcher()) {
         createWatcher(path, 'unlink', onUnlink(config));
     }
     await createOutputDirs(config);
+}
+function removeStaleKompendiumJson(path) {
+    try {
+        unlinkSync(path);
+    }
+    catch (error) {
+        if (error.code !== 'ENOENT') {
+            throw error;
+        }
+    }
 }
 const onUnlink = (config) => () => {
     createSymlink(config);

@@ -11,6 +11,12 @@ To install your icon set correctly, please read the [documentation here](#/).
 The size and color of the icon is normally set in CSS, however there are a few
 standard sizes defined that can be used with the `size` property.
 
+## Accessibility
+An icon with an `aria-label`, an `aria-labelledby` or a `title` is an image
+for assistive technology, and that is its name. An icon with none of them is
+decorative, and is hidden from assistive technology. To change that, set
+`role` or `aria-hidden` on the icon yourself.
+
 ## Properties
 
 | Property   | Attribute   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Type                                          | Default     |
@@ -62,6 +68,7 @@ standard sizes defined that can be used with the `size` property.
  - [limel-progress-flow-item](../progress-flow/progress-flow-item)
  - [limel-select](../select)
  - [limel-shortcut](../shortcut)
+ - [limel-side-panel](../side-panel)
  - [limel-tab-bar](../tab-bar)
 
 ### Graph
@@ -104,6 +111,7 @@ graph TD;
   limel-progress-flow-item --> limel-icon
   limel-select --> limel-icon
   limel-shortcut --> limel-icon
+  limel-side-panel --> limel-icon
   limel-tab-bar --> limel-icon
   style limel-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```

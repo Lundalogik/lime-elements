@@ -50,6 +50,7 @@ graph TD;
   limel-example-card-nested-component --> limel-slider
   limel-example-card-nested-component --> limel-action-bar
   limel-slider --> limel-helper-line
+  limel-slider --> limel-tooltip
   limel-slider --> limel-notched-outline
   style limel-example-card-styling fill:#f9f,stroke:#333,stroke-width:4px
 ```

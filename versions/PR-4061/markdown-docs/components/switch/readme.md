@@ -19,15 +19,15 @@ But there is an important difference between the two! Please read our guidelines
 
 ## Properties
 
-| Property         | Attribute     | Description                                                                                                                                                                                  | Type               | Default     |
-| ---------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ----------- |
-| `disabled`       | `disabled`    | Disables the switch when `true`, and visually shows that the switch is editable but disabled. This tells the users that if certain requirements are met, the switch may become interactable. | `boolean`          | `false`     |
-| `helperText`     | `helper-text` | Optional helper text to display below the switch                                                                                                                                             | `string`           | `undefined` |
-| `invalid`        | `invalid`     | Set to `true` to indicate that the current value is invalid.                                                                                                                                 | `boolean`          | `undefined` |
-| `label`          | `label`       | Label to display next to the switch                                                                                                                                                          | `string`           | `undefined` |
-| `readonly`       | `readonly`    | Disables the switch when `true`. This visualizes the switch slightly differently. But shows no visual sign indicating that the switch is disabled or can ever become interactable.           | `boolean`          | `false`     |
-| `readonlyLabels` | --            | The labels to use to clarify what kind of data is being visualized, when the component is `readonly`.                                                                                        | `Label<boolean>[]` | `[]`        |
-| `value`          | `value`       | The value of the switch                                                                                                                                                                      | `boolean`          | `false`     |
+| Property         | Attribute     | Description                                                                                                                                                                                                                                           | Type               | Default     |
+| ---------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ----------- |
+| `disabled`       | `disabled`    | Disables the switch when `true`, and visually shows that the switch is editable but disabled. This tells the users that if certain requirements are met, the switch may become interactable.                                                          | `boolean`          | `false`     |
+| `helperText`     | `helper-text` | Optional helper text to display below the switch                                                                                                                                                                                                      | `string`           | `undefined` |
+| `invalid`        | `invalid`     | Set to `true` to indicate that the current value is invalid.                                                                                                                                                                                          | `boolean`          | `undefined` |
+| `label`          | `label`       | Label to display next to the switch                                                                                                                                                                                                                   | `string`           | `undefined` |
+| `readonly`       | `readonly`    | Set to `true` to make the switch read-only. Use `readonly` when the switch is only there to present the data it holds, and will not become possible for the current user to edit. It is then drawn without any sign that it could be interacted with. | `boolean`          | `false`     |
+| `readonlyLabels` | --            | The labels to use to clarify what kind of data is being visualized, when the component is `readonly`.                                                                                                                                                 | `Label<boolean>[]` | `[]`        |
+| `value`          | `value`       | The value of the switch                                                                                                                                                                                                                               | `boolean`          | `false`     |
 
 
 ## Events
@@ -43,11 +43,13 @@ But there is an important difference between the two! Please read our guidelines
 
  - [limel-example-button-composite](../button/examples)
  - [limel-example-button-group-basic](../button-group/examples)
+ - [limel-example-button-group-disabled-item](../button-group/examples)
  - [limel-example-button-group-icons](../button-group/examples)
  - [limel-example-button-group-mix](../button-group/examples)
  - [limel-example-card-3d-effect](../card/examples)
  - [limel-example-card-selected](../card/examples)
  - [limel-example-chart-axis-labels](../chart/examples)
+ - [limel-example-chart-display-item-percentage](../chart/examples)
  - [limel-example-checkbox-basic](../checkbox/examples)
  - [limel-example-checkbox-readonly](../checkbox/examples)
  - [limel-example-chip-button](../chip/examples)
@@ -62,6 +64,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-code-editor-composite](../code-editor/examples)
  - [limel-example-code-editor-copy](../code-editor/examples)
  - [limel-example-dialog-nested-close-events](../dialog/examples)
+ - [limel-example-dock-expanded](../dock/examples)
  - [limel-example-dynamic-label-basic](../dynamic-label/examples)
  - [limel-example-dynamic-label-readonly-boolean](../dynamic-label/examples)
  - [limel-example-file-basic](../file/examples)
@@ -93,9 +96,14 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-radio-button-group-basic](../radio-button-group/examples)
  - [limel-example-radio-button-group-deselect-selected](../radio-button-group/examples)
  - [limel-example-readonly-props](../../design-guidelines/boolean/examples)
+ - [limel-example-resize-handle-accessibility](../resize-handle/examples)
  - [limel-example-select-basic](../select/examples)
  - [limel-example-select-multiple](../select/examples)
  - [limel-example-select-with-empty-option](../select/examples)
+ - [limel-example-side-panel-accessibility](../side-panel/examples)
+ - [limel-example-side-panel-escape](../side-panel/examples)
+ - [limel-example-side-panel-full-screen](../side-panel/examples)
+ - [limel-example-side-panel-header-actions](../side-panel/examples)
  - [limel-example-slider-basic](../slider/examples)
  - [limel-example-slider-multiplier-percentage-colors](../slider/examples)
  - [limel-example-snackbar-persistent-non-dismissible](../snackbar/examples)
@@ -125,11 +133,13 @@ graph TD;
   limel-dynamic-label --> limel-icon
   limel-example-button-composite --> limel-switch
   limel-example-button-group-basic --> limel-switch
+  limel-example-button-group-disabled-item --> limel-switch
   limel-example-button-group-icons --> limel-switch
   limel-example-button-group-mix --> limel-switch
   limel-example-card-3d-effect --> limel-switch
   limel-example-card-selected --> limel-switch
   limel-example-chart-axis-labels --> limel-switch
+  limel-example-chart-display-item-percentage --> limel-switch
   limel-example-checkbox-basic --> limel-switch
   limel-example-checkbox-readonly --> limel-switch
   limel-example-chip-button --> limel-switch
@@ -144,6 +154,7 @@ graph TD;
   limel-example-code-editor-composite --> limel-switch
   limel-example-code-editor-copy --> limel-switch
   limel-example-dialog-nested-close-events --> limel-switch
+  limel-example-dock-expanded --> limel-switch
   limel-example-dynamic-label-basic --> limel-switch
   limel-example-dynamic-label-readonly-boolean --> limel-switch
   limel-example-file-basic --> limel-switch
@@ -175,9 +186,14 @@ graph TD;
   limel-example-radio-button-group-basic --> limel-switch
   limel-example-radio-button-group-deselect-selected --> limel-switch
   limel-example-readonly-props --> limel-switch
+  limel-example-resize-handle-accessibility --> limel-switch
   limel-example-select-basic --> limel-switch
   limel-example-select-multiple --> limel-switch
   limel-example-select-with-empty-option --> limel-switch
+  limel-example-side-panel-accessibility --> limel-switch
+  limel-example-side-panel-escape --> limel-switch
+  limel-example-side-panel-full-screen --> limel-switch
+  limel-example-side-panel-header-actions --> limel-switch
   limel-example-slider-basic --> limel-switch
   limel-example-slider-multiplier-percentage-colors --> limel-switch
   limel-example-snackbar-persistent-non-dismissible --> limel-switch

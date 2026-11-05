@@ -92,6 +92,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [limel-example-text-editor-accessibility](examples)
  - [limel-example-text-editor-allow-resize](examples)
  - [limel-example-text-editor-basic](examples)
  - [limel-example-text-editor-composite](examples)
@@ -150,6 +151,7 @@ graph TD;
   limel-text-editor-link-menu --> limel-button
   limel-button --> limel-icon
   limel-button --> limel-spinner
+  limel-example-text-editor-accessibility --> limel-text-editor
   limel-example-text-editor-allow-resize --> limel-text-editor
   limel-example-text-editor-basic --> limel-text-editor
   limel-example-text-editor-composite --> limel-text-editor

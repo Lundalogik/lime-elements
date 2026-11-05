@@ -19,6 +19,7 @@
 
  - [limel-code-diff](../code-diff)
  - [limel-collapsible-section](../collapsible-section)
+ - [limel-example-custom-card-list](../form/examples)
  - [limel-example-dialog-heading-actions](../dialog/examples)
  - [limel-example-header-colors](../header/examples)
  - [limel-example-header-responsive](../header/examples)
@@ -31,8 +32,8 @@
  - [limel-example-icon-button-toggle-state](examples)
  - [limel-example-menu-hotkeys](../menu/examples)
  - [limel-example-menu-notification](../menu/examples)
+ - [limel-example-side-panel-header-actions](../side-panel/examples)
  - [limel-example-tooltip-accessibility](../tooltip/examples)
- - [limel-example-tooltip-max-character](../tooltip/examples)
  - [limel-list-item](../list-item)
  - [limel-profile-picture](../profile-picture)
  - [limel-snackbar](../snackbar)
@@ -52,6 +53,7 @@ graph TD;
   limel-tooltip-content --> limel-hotkey
   limel-code-diff --> limel-icon-button
   limel-collapsible-section --> limel-icon-button
+  limel-example-custom-card-list --> limel-icon-button
   limel-example-dialog-heading-actions --> limel-icon-button
   limel-example-header-colors --> limel-icon-button
   limel-example-header-responsive --> limel-icon-button
@@ -64,8 +66,8 @@ graph TD;
   limel-example-icon-button-toggle-state --> limel-icon-button
   limel-example-menu-hotkeys --> limel-icon-button
   limel-example-menu-notification --> limel-icon-button
+  limel-example-side-panel-header-actions --> limel-icon-button
   limel-example-tooltip-accessibility --> limel-icon-button
-  limel-example-tooltip-max-character --> limel-icon-button
   limel-list-item --> limel-icon-button
   limel-profile-picture --> limel-icon-button
   limel-snackbar --> limel-icon-button

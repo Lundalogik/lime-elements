@@ -17,7 +17,11 @@ graph TD;
   limel-whats-new-example-slider --> limel-example-controls
   limel-whats-new-example-slider --> limel-checkbox
   limel-slider --> limel-helper-line
+  limel-slider --> limel-tooltip
   limel-slider --> limel-notched-outline
+  limel-tooltip --> limel-portal
+  limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-checkbox --> limel-dynamic-label
   limel-checkbox --> limel-helper-line
   limel-dynamic-label --> limel-icon

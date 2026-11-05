@@ -11,15 +11,19 @@ input field.
 We created this to keep the visual styles the same everywhere
 and to avoid importing styles separately.
 
-Also this enables us to open the helper line in limel-portal,
-more easily without having to send the styles to the portal.
+:::note
+The component has `shadow: false`, so that the helper text is part of the
+DOM of the consumer. This way, the `id` of the helper text can be used in
+the `aria-describedby` of the input element in the consumer, which is
+not possible across a shadow root.
+:::
 
 ## Properties
 
 | Property       | Attribute        | Description                                                                                                                                                      | Type      | Default     |
 | -------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
 | `helperText`   | `helper-text`    | The helper text that is displayed on the left side.                                                                                                              | `string`  | `undefined` |
-| `helperTextId` | `helper-text-id` | Used by `aria-controls` and `aria-describedby` in the parent component.                                                                                          | `string`  | `undefined` |
+| `helperTextId` | `helper-text-id` | Used by `aria-describedby` in the parent component.                                                                                                              | `string`  | `undefined` |
 | `invalid`      | `invalid`        | Turns `true`, when the parent component is invalid. For example, when the parent component is `required` but is left empty. Or when the input format is invalid. | `boolean` | `false`     |
 | `length`       | `length`         | Length of the current input value, coming from the parent component. Used in the character counter section on the right side.                                    | `number`  | `undefined` |
 | `maxLength`    | `max-length`     | Maximum length of the characters, defined on the parent component. Used in the character counter section on the right side.                                      | `number`  | `undefined` |
@@ -32,6 +36,7 @@ more easily without having to send the styles to the portal.
  - [limel-checkbox](../checkbox)
  - [limel-chip-set](../chip-set)
  - [limel-code-editor](../code-editor)
+ - [limel-example-custom-card-list](../form/examples)
  - [limel-example-helper-line-animation](examples)
  - [limel-example-helper-line-basic](examples)
  - [limel-example-helper-line-character-counter](examples)
@@ -52,6 +57,7 @@ graph TD;
   limel-checkbox --> limel-helper-line
   limel-chip-set --> limel-helper-line
   limel-code-editor --> limel-helper-line
+  limel-example-custom-card-list --> limel-helper-line
   limel-example-helper-line-animation --> limel-helper-line
   limel-example-helper-line-basic --> limel-helper-line
   limel-example-helper-line-character-counter --> limel-helper-line

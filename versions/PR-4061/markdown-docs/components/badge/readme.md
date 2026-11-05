@@ -19,7 +19,6 @@ optionally with a number or a text label.
 ### Used by
 
  - [limel-button-group](../button-group)
- - [limel-chart](../chart)
  - [limel-chip](../chip)
  - [limel-dock-button](../dock/dock-button)
  - [limel-example-badge-basic](examples)
@@ -36,7 +35,6 @@ optionally with a number or a text label.
 ```mermaid
 graph TD;
   limel-button-group --> limel-badge
-  limel-chart --> limel-badge
   limel-chip --> limel-badge
   limel-dock-button --> limel-badge
   limel-example-badge-basic --> limel-badge
