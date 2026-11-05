@@ -51,7 +51,7 @@ const phases: Array<ChartItem<[number, number]>> = [
 export class ChartValueFormatDateExample {
     public render() {
         return (
-            <Host>
+            <Host class="large">
                 <limel-chart
                     type="bar"
                     orientation="portrait"

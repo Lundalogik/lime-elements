@@ -40,7 +40,7 @@ const winRate: ChartItem[] = [
 export class ChartValueFormatExample {
     public render() {
         return (
-            <Host>
+            <Host class="large">
                 <limel-chart
                     type="bar"
                     items={revenue}
