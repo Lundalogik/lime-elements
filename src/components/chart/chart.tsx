@@ -82,8 +82,6 @@ const extensions = [
  * @exampleComponent limel-example-chart-orientation
  * @exampleComponent limel-example-chart-max-value
  * @exampleComponent limel-example-chart-display-item-percentage
- * @exampleComponent limel-example-chart-value-format
- * @exampleComponent limel-example-chart-value-format-date
  * @exampleComponent limel-example-chart-type-bar
  * @exampleComponent limel-example-chart-type-dot
  * @exampleComponent limel-example-chart-type-area
@@ -99,6 +97,8 @@ const extensions = [
  * @exampleComponent limel-example-chart-multi-axis-area-with-negative-start-values
  * @exampleComponent limel-example-chart-type-scatter-negative
  * @exampleComponent limel-example-chart-axis-increment
+ * @exampleComponent limel-example-chart-value-format
+ * @exampleComponent limel-example-chart-value-format-date
  * @exampleComponent limel-example-chart-clickable-items
  * @exampleComponent limel-example-chart-accessibility
  * @exampleComponent limel-example-chart-axis-labels
