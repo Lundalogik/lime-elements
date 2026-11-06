@@ -26,9 +26,19 @@ const WHOLE_TYPES: ReadonlySet<DrawnChartType> = new Set([
     'ring',
 ]);
 
-const AXIS_INCREMENT_TYPES: ReadonlySet<DrawnChartType> = new Set([
+/**
+ * Types that draw their values along an axis, against the texts of the items
+ * along another one.
+ */
+const AXIS_TYPES: ReadonlySet<DrawnChartType> = new Set([
     'bar',
     'dot',
+    'area',
+    'line',
+]);
+
+const STACK_TYPES: ReadonlySet<DrawnChartType> = new Set([
+    'bar',
     'area',
     'line',
 ]);
@@ -55,7 +65,23 @@ export function isPartOfWhole(type: DrawnChartType): boolean {
  * @param type - the chart type
  */
 export function usesAxisIncrement(type: DrawnChartType): boolean {
-    return AXIS_INCREMENT_TYPES.has(type);
+    return AXIS_TYPES.has(type);
+}
+
+/**
+ * Whether a chart of this type can draw `series`.
+ * @param type - the chart type
+ */
+export function canDrawSeries(type: DrawnChartType): boolean {
+    return AXIS_TYPES.has(type);
+}
+
+/**
+ * Whether a chart of this type can stack its `series` on each other.
+ * @param type - the chart type
+ */
+export function canStack(type: DrawnChartType): boolean {
+    return STACK_TYPES.has(type);
 }
 
 /**

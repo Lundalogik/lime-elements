@@ -3,6 +3,7 @@ import {
     Element,
     Event,
     EventEmitter,
+    forceUpdate,
     h,
     Host,
     Prop,
@@ -32,23 +33,44 @@ import {
     NavigationOrientation,
     NO_NAVIGATION_TARGET,
 } from '../../util/keyboard-navigation';
-import { ChartItem, ChartType, ChartValueFormat } from './chart.types';
+import {
+    ChartItem,
+    ChartSeries,
+    ChartType,
+    ChartValueFormat,
+} from './chart.types';
 import {
     ChartDrawing,
     ChartSettings,
     drawChart,
+    findItem,
     fitItemTexts,
-    getItemIndex,
+    getDrawnItems,
+    getDrawnSeries,
     getItemLabel,
+    getSeriesGrid,
+    getSeriesOfDrawnItems,
+    getSwatchStyle,
+    isStacked,
     locateItem,
 } from './options';
 import {
+    canDrawSeries,
+    canStack,
     DrawnChartType,
     getAxisRange,
     isDate,
     MAX_AXIS_STEPS,
     usesAxisIncrement,
 } from './scale';
+import {
+    getAllItems,
+    getAxisItems,
+    getItemAt,
+    getNearestSeries,
+    ItemPosition,
+    SeriesGrid,
+} from './series';
 import { canWriteIn, formatValue, isCurrencyCode, ValueStyle } from './format';
 import {
     ChartTheme,
@@ -59,7 +81,21 @@ import {
 
 const orientations: NavigationOrientation[] = ['horizontal', 'vertical'];
 
-type WarnedProp = 'axisIncrement' | 'language' | 'currency' | 'items';
+type WarnedProp =
+    'axisIncrement' | 'language' | 'currency' | 'items' | 'series' | 'stacked';
+
+const SERIES_COLOR_COUNT = 8;
+
+const getDefaultSeriesColor = (index: number) =>
+    `var(--limel-chart-series-color-${(index % SERIES_COLOR_COUNT) + 1})`;
+
+const copyItem = (item: ChartItem): ChartItem => ({
+    text: item.text,
+    value: item.value,
+    formattedValue: item.formattedValue,
+    color: item.color,
+    clickable: item.clickable,
+});
 
 const extensions = [
     BarChart,
@@ -102,6 +138,8 @@ const extensions = [
  * @exampleComponent limel-example-chart-clickable-items
  * @exampleComponent limel-example-chart-accessibility
  * @exampleComponent limel-example-chart-axis-labels
+ * @exampleComponent limel-example-chart-series
+ * @exampleComponent limel-example-chart-series-stacked
  * @exampleComponent limel-example-chart-styling
  * @beta
  */
@@ -138,6 +176,8 @@ export class Chart {
      * Helps users of assistive technologies to understand
      * what the values in the chart represent.
      * Defaults to the translation for "value" in the current language.
+     * In a chart with series, the series name the columns of values, and
+     * this label, when it is set, heads them all.
      */
     @Prop({ reflect: true })
     public accessibleValuesLabel?: string;
@@ -182,7 +222,32 @@ export class Chart {
      * each representing a data point.
      */
     @Prop()
-    public items!: ChartItem[];
+    public items?: ChartItem[];
+
+    /**
+     * Groups of items that are drawn side by side, each in a color of its
+     * own, such as the revenue and the costs of each month. Items of
+     * different series that have the same `text` are drawn together, at the
+     * same place on the axis. When there are two series or more, a legend
+     * names them.
+     *
+     * `bar`, `dot`, `line`, and `area` charts draw `series` instead of
+     * `items`. Other types draw `items`, or the items of the first series
+     * when `items` is not set.
+     */
+    @Prop()
+    public series?: ChartSeries[];
+
+    /**
+     * Stacks the `series` on each other, so that each place on the axis
+     * shows their total, such as the revenue of each product, which adds up
+     * to the revenue of the month. Positive and negative values are stacked
+     * on their own side of zero, and a range adds its extent to the stack.
+     * Applies to `bar`, `line`, and `area` charts, but not when
+     * `valueFormat` is `date`.
+     */
+    @Prop({ reflect: true })
+    public stacked = false;
 
     /**
      * Defines how items are visualized in the chart.
@@ -251,7 +316,10 @@ export class Chart {
     public loading: boolean = false;
 
     /**
-     * Fired when a chart item with `clickable` set to `true` is clicked
+     * Fired when a chart item with `clickable` set to `true` is clicked.
+     * The detail is the item itself, the same object as in `items` or in
+     * `series`, so a chart with series can tell which series the item
+     * belongs to by comparing it with the items of each series.
      */
     @Event()
     public interact: EventEmitter<ChartItem>;
@@ -263,13 +331,15 @@ export class Chart {
      * The item that last had focus, which is the one that Tab returns to.
      */
     @State()
-    private focusedIndex = 0;
+    private focusedPosition: ItemPosition = { series: 0, index: 0 };
 
     private plot?: HTMLElement;
     private chart?: ECharts;
     private drawing?: ChartDrawing;
     private drawnSettings?: string;
     private drawnTheme?: string;
+    private grid: SeriesGrid = { categories: [], series: [] };
+    private seriesColors: string[] = [];
     private themeMayHaveChanged = false;
     private itemSpace?: number;
     private readonly warnings = new Map<WarnedProp, string>();
@@ -283,10 +353,17 @@ export class Chart {
     }
 
     public componentWillRender() {
+        this.grid = getSeriesGrid({
+            type: this.chartType,
+            items: this.items,
+            series: this.series,
+        });
         this.warnOnChange('axisIncrement', this.getAxisIncrementWarning());
         this.warnOnChange('language', this.getLanguageWarning());
         this.warnOnChange('currency', this.getCurrencyWarning());
         this.warnOnChange('items', this.getDateWarning());
+        this.warnOnChange('series', this.getSeriesWarning());
+        this.warnOnChange('stacked', this.getStackedWarning());
     }
 
     public connectedCallback() {
@@ -345,7 +422,7 @@ export class Chart {
             return;
         }
 
-        const wrong = (this.items ?? [])
+        const wrong = getAllItems(this.grid)
             .flatMap((item) => [item.value].flat())
             .find((value) => !isDate(value));
         if (wrong === undefined) {
@@ -355,6 +432,67 @@ export class Chart {
         const shown = typeof wrong === 'number' ? wrong : JSON.stringify(wrong);
 
         return `limel-chart: with \`valueFormat\` \`date\`, each value must be a date in milliseconds since 1970, as \`Date.getTime()\` gives, but was ${shown}. Showing it as it is.`;
+    }
+
+    private getSeriesWarning(): string | undefined {
+        if (!this.series?.length) {
+            return;
+        }
+
+        if (!canDrawSeries(this.chartType)) {
+            const drawn = this.items?.length
+                ? '`items`'
+                : 'the items of the first series';
+
+            return `limel-chart: \`series\` can only be drawn by \`bar\`, \`dot\`, \`line\`, and \`area\` charts, but \`type\` is \`${this.type}\`. Drawing ${drawn} instead.`;
+        }
+
+        if (this.items?.length) {
+            return 'limel-chart: both `items` and `series` are set. Drawing `series`, and leaving out `items`.';
+        }
+    }
+
+    private getStackedWarning(): string | undefined {
+        if (!this.stacked) {
+            return;
+        }
+
+        if (!canStack(this.chartType)) {
+            return `limel-chart: \`stacked\` can only stack the series of \`bar\`, \`line\`, and \`area\` charts, but \`type\` is \`${this.type}\`. Ignoring \`stacked\`.`;
+        }
+
+        if (this.valueFormat === 'date') {
+            return 'limel-chart: `stacked` cannot stack dates. Ignoring `stacked`.';
+        }
+
+        if (!this.drawsSeries) {
+            return 'limel-chart: `stacked` stacks the `series` of a chart, but this chart has none. Ignoring `stacked`.';
+        }
+    }
+
+    private get stacksSeries(): boolean {
+        return isStacked({
+            type: this.chartType,
+            series: this.series,
+            stacked: this.stacked,
+            valueFormat: this.valueFormat,
+        });
+    }
+
+    private get drawsSeries(): boolean {
+        return Boolean(this.drawnSeries);
+    }
+
+    private get drawnSeries(): ChartSeries[] | undefined {
+        return getDrawnSeries({ type: this.chartType, series: this.series });
+    }
+
+    private get drawnItems(): ChartItem[] {
+        return getDrawnItems({
+            type: this.chartType,
+            items: this.items,
+            series: this.series,
+        });
     }
 
     private get valueStyle(): ValueStyle {
@@ -388,7 +526,11 @@ export class Chart {
             return;
         }
 
-        const range = getAxisRange(this.items ?? [], this.maxValue, increment);
+        const range = getAxisRange(
+            getAxisItems(this.grid, this.stacksSeries),
+            this.maxValue,
+            increment
+        );
         if (range.increment !== increment) {
             return `limel-chart: \`axisIncrement\` ${increment} would divide the axis into more than ${MAX_AXIS_STEPS} steps. Working out a step from the values instead.`;
         }
@@ -401,13 +543,44 @@ export class Chart {
 
         return (
             <Host>
+                {this.renderLegend()}
                 <div class="plot" aria-hidden="true" ref={this.setPlot} />
                 <table aria-live="polite">
                     {this.renderCaption()}
                     {this.renderTableHeader()}
-                    <tbody>{this.renderItems()}</tbody>
+                    <tbody>
+                        {this.drawsSeries
+                            ? this.renderCategories()
+                            : this.renderItems()}
+                    </tbody>
                 </table>
             </Host>
+        );
+    }
+
+    private get hasLegend(): boolean {
+        return (this.drawnSeries?.length ?? 0) > 1;
+    }
+
+    private renderLegend() {
+        if (!this.hasLegend) {
+            return;
+        }
+
+        return (
+            <ul aria-hidden="true">
+                {this.drawnSeries.map((series, index) => (
+                    <li>
+                        <span
+                            style={getSwatchStyle(
+                                this.chartType,
+                                this.seriesColors[index]
+                            )}
+                        />
+                        {series.text}
+                    </li>
+                ))}
+            </ul>
         );
     }
 
@@ -420,13 +593,36 @@ export class Chart {
     }
 
     private renderTableHeader() {
+        const columns = this.drawnSeries?.map((series) => series.text) ?? [
+            this.valuesLabel,
+        ];
+
         return (
             <thead>
+                {this.renderSeriesGroupHeader()}
                 <tr>
                     <th scope="col">{this.itemsLabel}</th>
-                    <th scope="col">{this.valuesLabel}</th>
+                    {columns.map((column) => (
+                        <th scope="col">{column}</th>
+                    ))}
                 </tr>
             </thead>
+        );
+    }
+
+    private renderSeriesGroupHeader() {
+        const allSeries = this.drawnSeries;
+        if (!allSeries || !this.accessibleValuesLabel) {
+            return;
+        }
+
+        return (
+            <tr>
+                <td />
+                <th scope="col" colSpan={allSeries.length}>
+                    {this.accessibleValuesLabel}
+                </th>
+            </tr>
         );
     }
 
@@ -443,9 +639,10 @@ export class Chart {
     }
 
     private renderItems() {
-        const tabStop = findTabStop(this.items ?? [], this.focusedIndex);
+        const items = this.drawnItems;
+        const tabStop = findTabStop(items, this.focusedPosition.index);
 
-        return this.items?.map((item, index) => (
+        return items.map((item, index) => (
             <tr
                 data-index={index}
                 aria-description={this.getRowDescription(index)}
@@ -463,17 +660,91 @@ export class Chart {
     }
 
     private getRowDescription(index: number): string | undefined {
+        const items = this.drawnItems;
         const label = getItemLabel(
             {
                 ...this.valueStyle,
-                items: this.items,
+                items: items,
                 maxValue: this.maxValue,
                 displayItemPercentage: this.displayItemPercentage,
             },
             index
         );
 
-        return label === this.items[index].text ? undefined : label;
+        return label === items[index].text ? undefined : label;
+    }
+
+    private renderCategories() {
+        const grid = this.grid;
+        const tabStop = this.findTabStopInGrid(grid);
+
+        return grid.categories.map((category, index) => (
+            <tr>
+                <th scope="row">{category}</th>
+                {grid.series.map((series, seriesIndex) =>
+                    this.renderCell(
+                        series.items[index],
+                        { series: seriesIndex, index: index },
+                        tabStop
+                    )
+                )}
+            </tr>
+        ));
+    }
+
+    private renderCell(
+        item: ChartItem | undefined,
+        position: ItemPosition,
+        tabStop?: ItemPosition
+    ) {
+        if (!item) {
+            return <td />;
+        }
+
+        const isTabStop =
+            position.series === tabStop?.series &&
+            position.index === tabStop?.index;
+
+        return (
+            <td
+                data-series={position.series}
+                data-index={position.index}
+                tabIndex={isTabStop ? 0 : -1}
+                role={item.clickable ? 'button' : undefined}
+                aria-label={
+                    item.clickable ? this.getButtonLabel(item, position) : null
+                }
+                onClick={this.handleClick}
+                onKeyDown={this.handleKeyDown}
+                onFocus={this.handleFocus}
+                onBlur={this.handleBlur}
+            >
+                {formatValue(item, this.valueStyle)}
+            </td>
+        );
+    }
+
+    private getButtonLabel(item: ChartItem, position: ItemPosition): string {
+        return [
+            this.grid.categories[position.index],
+            this.grid.series[position.series].text,
+            formatValue(item, this.valueStyle),
+        ].join(', ');
+    }
+
+    private findTabStopInGrid(grid: SeriesGrid): ItemPosition | undefined {
+        const focused = this.focusedPosition;
+        if (getItemAt(grid, focused)) {
+            return focused;
+        }
+
+        const first = { series: 0, index: 0 };
+        const series = getNearestSeries(grid, first);
+        if (series === undefined) {
+            return;
+        }
+
+        return { ...first, series: series };
     }
 
     private draw() {
@@ -566,16 +837,19 @@ export class Chart {
         }
 
         this.themeMayHaveChanged = false;
-        this.themeReader ??= createThemeReader(this.host.shadowRoot);
         this.stopWatchingTheme ??= watchTheme(
             this.host,
             this.handleThemeChange
         );
-        const theme = this.themeReader.theme();
+        const theme = this.getThemeReader().theme();
         const coloredSettings = this.withItemColors(settings, theme);
         const drawnTheme = JSON.stringify({
             theme: theme,
             itemColors: coloredSettings.items.map((item) => item.color),
+            seriesColors: coloredSettings.series?.map((series) => [
+                series.color,
+                ...series.items.map((item) => item.color),
+            ]),
         });
         if (
             drawnSettings === this.drawnSettings &&
@@ -588,10 +862,13 @@ export class Chart {
         this.drawnTheme = drawnTheme;
         this.drawing = drawChart(coloredSettings, theme, this.itemSpace);
         this.chart.setOption(this.drawing.option, { notMerge: true });
+        this.showSeriesColors(
+            coloredSettings.series?.map((series) => series.color) ?? []
+        );
 
-        const focusedRow = this.host.shadowRoot.activeElement;
-        if (focusedRow instanceof HTMLElement && focusedRow.dataset.index) {
-            this.showItem(focusedRow, true);
+        const focused = this.host.shadowRoot.activeElement;
+        if (focused instanceof HTMLElement && focused.dataset.index) {
+            this.showItem(focused, true);
         }
     }
 
@@ -618,13 +895,13 @@ export class Chart {
 
     private getSettings(): ChartSettings {
         return {
-            items: (this.items ?? []).map((item) => ({
-                text: item.text,
-                value: item.value,
-                formattedValue: item.formattedValue,
-                color: item.color,
-                clickable: item.clickable,
+            items: this.drawnItems.map((item) => copyItem(item)),
+            series: this.drawnSeries?.map((series) => ({
+                text: series.text,
+                color: series.color,
+                items: (series.items ?? []).map((item) => copyItem(item)),
             })),
+            stacked: this.stacksSeries,
             ...this.valueStyle,
             orientation: this.orientation,
             maxValue: this.maxValue,
@@ -642,36 +919,105 @@ export class Chart {
         settings: ChartSettings,
         theme: ChartTheme
     ): ChartSettings {
+        const seriesOfItems = getSeriesOfDrawnItems({
+            type: this.chartType,
+            items: this.items,
+            series: this.series,
+        });
+        const itemColor = seriesOfItems
+            ? this.getSeriesColor(seriesOfItems, 0, theme)
+            : theme.itemColor;
+        const itemFallback = seriesOfItems
+            ? 'the color of its series'
+            : 'the default item color';
+
         return {
             ...settings,
             items: settings.items.map((item) => ({
                 ...item,
-                color: this.getItemColor(item, theme),
+                color:
+                    this.readColor(item.color, 'item', itemFallback) ??
+                    itemColor,
             })),
+            series: settings.series?.map((series, index) => {
+                const color = this.getSeriesColor(series, index, theme);
+
+                return {
+                    ...series,
+                    color: color,
+                    items: series.items.map((item) => ({
+                        ...item,
+                        color:
+                            this.readColor(
+                                item.color,
+                                'item',
+                                'the color of its series'
+                            ) ?? color,
+                    })),
+                };
+            }),
         };
     }
 
-    private getItemColor(item: ChartItem, theme: ChartTheme): string {
-        if (!item.color) {
-            return theme.itemColor;
+    private getSeriesColor(
+        series: ChartSeries,
+        index: number,
+        theme: ChartTheme
+    ): string {
+        return (
+            this.readColor(
+                series.color,
+                'series',
+                'the default series color'
+            ) ??
+            this.getThemeReader().color(getDefaultSeriesColor(index)) ??
+            theme.itemColor
+        );
+    }
+
+    private showSeriesColors(colors: string[]) {
+        const shown = this.seriesColors;
+        const same =
+            colors.length === shown.length &&
+            colors.every((color, index) => color === shown[index]);
+        if (same) {
+            return;
         }
 
-        const color = this.themeReader.color(item.color);
-        if (color) {
-            return color;
+        this.seriesColors = colors;
+        if (this.hasLegend) {
+            forceUpdate(this);
+        }
+    }
+
+    private readColor(
+        color: string | undefined,
+        owner: 'item' | 'series',
+        fallback: string
+    ): string | undefined {
+        if (!color) {
+            return;
         }
 
-        if (!this.invalidColors.has(item.color)) {
-            this.invalidColors.add(item.color);
-            const hint = item.color.includes('var(')
+        const resolved = this.getThemeReader().color(color);
+        if (!resolved && !this.invalidColors.has(color)) {
+            this.invalidColors.add(color);
+            const hint = color.includes('var(')
                 ? ' Check that its variables are set, and that they make a color.'
                 : '';
+            const article = owner === 'item' ? 'an' : 'a';
             console.warn(
-                `limel-chart: the color of an item must be a CSS color, but was \`${item.color}\`.${hint} Using the default item color instead.`
+                `limel-chart: the color of ${article} ${owner} must be a CSS color, but was \`${color}\`.${hint} Using ${fallback} instead.`
             );
         }
 
-        return theme.itemColor;
+        return resolved;
+    }
+
+    private getThemeReader(): ThemeReader {
+        this.themeReader ??= createThemeReader(this.host.shadowRoot);
+
+        return this.themeReader;
     }
 
     private observeSize() {
@@ -710,7 +1056,7 @@ export class Chart {
             return;
         }
 
-        const item = this.getClickableItem(getItemIndex(this.drawing, event));
+        const item = this.getClickableItem(this.getClickedPosition(event));
         if (!item) {
             return;
         }
@@ -718,6 +1064,25 @@ export class Chart {
         event.event?.event?.stopPropagation();
         this.interact.emit(item);
     };
+
+    private getClickedPosition(event: ECElementEvent): ItemPosition {
+        const position = findItem(this.drawing, event);
+        if (event.seriesType !== 'line' || !event.event) {
+            return position;
+        }
+
+        return { ...position, index: this.getNearestPlace(event.event) };
+    }
+
+    private getNearestPlace(pixel: { offsetX: number; offsetY: number }) {
+        const landscape = this.orientation === 'landscape';
+        const place = this.chart.convertFromPixel(
+            landscape ? { xAxisIndex: 0 } : { yAxisIndex: 0 },
+            landscape ? pixel.offsetX : pixel.offsetY
+        );
+
+        return Math.round(place);
+    }
 
     private readonly handleChartOver = (event: ECElementEvent) => {
         this.highlightItemAt(event, true);
@@ -734,7 +1099,7 @@ export class Chart {
 
         const location = locateItem(
             this.drawing,
-            getItemIndex(this.drawing, event)
+            findItem(this.drawing, event)
         );
         if (location.seriesIndex === event.seriesIndex) {
             return;
@@ -746,8 +1111,8 @@ export class Chart {
         });
     }
 
-    private getClickableItem(index: number): ChartItem | undefined {
-        const item = this.items[index];
+    private getClickableItem(position: ItemPosition): ChartItem | undefined {
+        const item = getItemAt(this.grid, position);
         if (!item?.clickable) {
             return;
         }
@@ -755,12 +1120,19 @@ export class Chart {
         return item;
     }
 
-    private getRowIndex(event: Event): number {
-        return Number((event.currentTarget as HTMLElement).dataset.index);
+    private getPosition(element: HTMLElement): ItemPosition {
+        return {
+            series: Number(element.dataset.series ?? 0),
+            index: Number(element.dataset.index),
+        };
+    }
+
+    private getEventPosition(event: Event): ItemPosition {
+        return this.getPosition(event.currentTarget as HTMLElement);
     }
 
     private readonly handleClick = (event: MouseEvent) => {
-        const item = this.getClickableItem(this.getRowIndex(event));
+        const item = this.getClickableItem(this.getEventPosition(event));
         if (!item) {
             return;
         }
@@ -776,11 +1148,10 @@ export class Chart {
         if (orientation) {
             event.preventDefault();
             this.focusItem(
-                findNavigationTarget(
-                    this.items,
+                this.findTarget(
                     event.key,
-                    this.getRowIndex(event),
-                    { orientation: orientation }
+                    this.getEventPosition(event),
+                    orientation
                 )
             );
 
@@ -791,7 +1162,7 @@ export class Chart {
             return;
         }
 
-        const item = this.getClickableItem(this.getRowIndex(event));
+        const item = this.getClickableItem(this.getEventPosition(event));
         if (!item) {
             return;
         }
@@ -800,38 +1171,111 @@ export class Chart {
         this.interact.emit(item);
     };
 
+    private findTarget(
+        key: string,
+        position: ItemPosition,
+        orientation: NavigationOrientation
+    ): ItemPosition {
+        if (!this.drawsSeries) {
+            const items = this.drawnItems;
+            const index = findNavigationTarget(items, key, position.index, {
+                orientation: orientation,
+            });
+
+            return { series: 0, index: index };
+        }
+
+        const grid = this.grid;
+        if (orientation === 'horizontal') {
+            const items = grid.series.map(
+                (series) => series.items[position.index]
+            );
+            const series = findNavigationTarget(items, key, position.series, {
+                orientation: orientation,
+                isDisabled: (item?: ChartItem) => !item,
+            });
+
+            return { series: series, index: position.index };
+        }
+
+        const index = findNavigationTarget(
+            grid.categories,
+            key,
+            position.index,
+            { orientation: orientation }
+        );
+        const series = getNearestSeries(grid, {
+            series: position.series,
+            index: index,
+        });
+
+        return { series: series ?? NO_NAVIGATION_TARGET, index: index };
+    }
+
     private readonly handleFocus = (event: FocusEvent) => {
-        const row = event.currentTarget as HTMLElement;
-        this.focusedIndex = Number(row.dataset.index);
-        this.showItem(row, true);
+        const element = event.currentTarget as HTMLElement;
+        this.focusedPosition = this.getPosition(element);
+        this.showItem(element, true);
     };
 
     private readonly handleBlur = (event: FocusEvent) => {
         this.showItem(event.currentTarget as HTMLElement, false);
     };
 
-    private focusItem(index: number) {
-        if (index === NO_NAVIGATION_TARGET) {
+    private focusItem(position: ItemPosition) {
+        if (
+            position.series === NO_NAVIGATION_TARGET ||
+            position.index === NO_NAVIGATION_TARGET
+        ) {
             return;
         }
 
-        const rows = this.host.shadowRoot.querySelectorAll('tbody tr');
-        (rows[index] as HTMLElement).focus();
+        const series = this.drawsSeries
+            ? `[data-series="${position.series}"]`
+            : '';
+        const element = this.host.shadowRoot.querySelector<HTMLElement>(
+            `tbody [data-index="${position.index}"]${series}`
+        );
+        element?.focus();
     }
 
-    private showItem(row: HTMLElement, show: boolean) {
+    private showItem(element: HTMLElement, show: boolean) {
         if (!this.chart || !this.drawing) {
             return;
         }
 
-        const location = locateItem(this.drawing, Number(row.dataset.index));
+        const position = this.getPosition(element);
+        const location = locateItem(this.drawing, position);
         this.chart.dispatchAction({
             type: show ? 'highlight' : 'downplay',
             ...location,
         });
+        if (!show) {
+            this.chart.dispatchAction(
+                this.drawsSeries
+                    ? { type: 'updateAxisPointer', currTrigger: 'leave' }
+                    : { type: 'hideTip' }
+            );
+
+            return;
+        }
+
         this.chart.dispatchAction({
-            type: show ? 'showTip' : 'hideTip',
-            ...location,
+            type: 'showTip',
+            ...(this.drawsSeries
+                ? this.getMiddleOfPlace(position.index)
+                : location),
         });
+    }
+
+    private getMiddleOfPlace(index: number): { x: number; y: number } {
+        const { minValue, maxValue } = this.drawing.valueRange;
+        const middle = (minValue + maxValue) / 2;
+        const [x, y] = this.chart.convertToPixel(
+            { gridIndex: 0 },
+            this.orientation === 'landscape' ? [index, middle] : [middle, index]
+        );
+
+        return { x: x, y: y };
     }
 }

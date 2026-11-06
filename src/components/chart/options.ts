@@ -11,9 +11,12 @@ import type {
     TooltipComponentOption,
 } from 'echarts/components';
 import { format, type ComposeOption } from 'echarts/core';
-import { ChartItem } from './chart.types';
+import { ChartItem, ChartSeries } from './chart.types';
 import {
     AxisRange,
+    canDrawSeries,
+    canStack,
+    DrawnChartType,
     getAxisRange,
     getDateRange,
     getDateTicks,
@@ -34,6 +37,14 @@ import {
     getAxisValueFormatter,
     ValueStyle,
 } from './format';
+import {
+    alignSeries,
+    endsStack,
+    getAxisItems,
+    GridSeries,
+    ItemPosition,
+    SeriesGrid,
+} from './series';
 import { ChartTheme } from './theme';
 
 type SeriesOption =
@@ -54,8 +65,22 @@ export type ChartOption = ComposeOption<
  * What the chart draws, from the props of `limel-chart`.
  */
 export interface ChartSettings extends ValueStyle {
-    /** The items, each with its color resolved by the theme. */
+    /**
+     * The items, each with its color resolved by the theme. A chart that
+     * draws series leaves them out.
+     */
     items: ChartItem[];
+    /**
+     * The series, which are drawn instead of the items when the type can
+     * draw series. The color of each series, and of each of its items, is
+     * resolved by the theme.
+     */
+    series?: ChartSeries[];
+    /**
+     * Whether the series are stacked on each other, when the type can stack
+     * them and the values are not dates.
+     */
+    stacked?: boolean;
     orientation: 'landscape' | 'portrait';
     maxValue?: number;
     axisIncrement?: number;
@@ -74,12 +99,23 @@ export interface ChartSettings extends ValueStyle {
  */
 export interface ChartDrawing {
     option: ChartOption;
-    /** The series that draws the items, when they are not series of their own. */
-    seriesIndex: number;
+    /**
+     * The series of ECharts that draws the items of each series, or the
+     * items of a chart without series, when the items are not series of
+     * their own.
+     */
+    seriesIndexes: number[];
+    /**
+     * The series of the chart that each series of ECharts draws a part of.
+     * A series of ECharts that is not in it draws the first series.
+     */
+    partsOfSeries?: number[];
     /** Whether every item is a series of its own, as in a proportion bar. */
     itemsAreSeries: boolean;
     /** The axis that shows the texts of the items, when they are shown on one. */
     itemTextAxis?: 'xAxis' | 'yAxis';
+    /** The range of the value axis, when the items are drawn on axes. */
+    valueRange?: AxisRange;
 }
 
 /**
@@ -95,6 +131,8 @@ const LINE_DOT_SIZE = 6;
 const CONNECTOR_WIDTH = 2;
 const DIMMED_OPACITY = 0.4;
 const AREA_OPACITY = 0.4;
+const SERIES_AREA_OPACITY = 0.15;
+const SERIES_STACK = { stack: 'series', stackStrategy: 'samesign' } as const;
 const PADDING = 8;
 const NPS_MIN = -100;
 const NPS_MAX = 100;
@@ -105,6 +143,16 @@ const NPS_ARC_WIDTH = 16;
 const ITEM_TEXT_MIN_WIDTH = 40;
 const ITEM_TEXT_GAP = 4;
 const ITEM_TEXT_LINE_HEIGHT = 14;
+
+const SWATCH = {
+    width: '0.625rem',
+    height: '0.625rem',
+    'border-radius': '0.125rem',
+};
+const SWATCH_SHAPES: Partial<Record<DrawnChartType, Record<string, string>>> = {
+    line: { height: '0.125rem' },
+    dot: { 'border-radius': '50%' },
+};
 
 const emphasis = { focus: 'self' } as const;
 const blur = { itemStyle: { opacity: DIMMED_OPACITY } };
@@ -122,7 +170,9 @@ export function drawChart(
     theme: ChartTheme,
     itemSpace?: number
 ): ChartDrawing {
-    const drawing = drawSeries(settings, theme, itemSpace);
+    const drawn = getDrawnSettings(settings);
+    const grid = getSeriesGrid(drawn);
+    const drawing = drawSeries(drawn, grid, theme, itemSpace);
 
     return {
         ...drawing,
@@ -130,16 +180,23 @@ export function drawChart(
             animation: theme.animate,
             textStyle: { fontFamily: theme.fontFamily, color: theme.textColor },
             tooltip: {
-                trigger: 'item',
                 appendTo: 'body',
                 backgroundColor: theme.surfaceColor,
                 borderColor: theme.axisLineColor,
                 textStyle: { color: theme.textColor },
-                formatter: (params) =>
-                    getTooltip(
-                        settings,
-                        getItemIndex(drawing, params as Partial<ItemLocation>)
-                    ),
+                ...(drawn.series
+                    ? getCategoryTooltipOption(drawn, grid, theme)
+                    : {
+                          trigger: 'item',
+                          formatter: (params) =>
+                              getTooltip(
+                                  drawn,
+                                  findItem(
+                                      drawing,
+                                      params as Partial<ItemLocation>
+                                  ).index
+                              ),
+                      }),
             },
             ...drawing.option,
         },
@@ -147,31 +204,139 @@ export function drawChart(
 }
 
 /**
- * The index of the item drawn at a position, if an item is drawn there.
+ * The item drawn at a position, if an item is drawn there. A position in a
+ * series of ECharts that draws no items of its own, such as the invisible
+ * column of an item, belongs to the first series.
  * @param drawing - the drawing of the chart
  * @param location - a position within the drawn series
  */
-export function getItemIndex(
+export function findItem(
     drawing: Omit<ChartDrawing, 'option'>,
     location: Partial<ItemLocation>
-): number {
-    return drawing.itemsAreSeries ? location.seriesIndex : location.dataIndex;
+): ItemPosition {
+    if (drawing.itemsAreSeries) {
+        return { series: 0, index: location.seriesIndex };
+    }
+
+    return {
+        series: drawing.partsOfSeries?.[location.seriesIndex] ?? 0,
+        index: location.dataIndex,
+    };
 }
 
 /**
  * Where an item is drawn, for highlighting it and showing its tooltip.
  * @param drawing - the drawing of the chart
- * @param index - the index of the item
+ * @param position - where the item is among the series
  */
 export function locateItem(
     drawing: Omit<ChartDrawing, 'option'>,
-    index: number
+    position: ItemPosition
 ): ItemLocation {
     if (drawing.itemsAreSeries) {
-        return { seriesIndex: index, dataIndex: 0 };
+        return { seriesIndex: position.index, dataIndex: 0 };
     }
 
-    return { seriesIndex: drawing.seriesIndex, dataIndex: index };
+    return {
+        seriesIndex: drawing.seriesIndexes[position.series],
+        dataIndex: position.index,
+    };
+}
+
+type ItemsAndSeries = Pick<ChartSettings, 'type' | 'items' | 'series'>;
+
+/**
+ * The series that the chart draws: its series, when its type can draw them.
+ * @param settings - what the chart is given
+ */
+export function getDrawnSeries(
+    settings: Pick<ChartSettings, 'type' | 'series'>
+): ChartSeries[] | undefined {
+    if (!settings.series?.length || !canDrawSeries(settings.type)) {
+        return;
+    }
+
+    return settings.series;
+}
+
+/**
+ * The series whose items the chart draws as its items: its first series,
+ * when its type cannot draw series and it has no items.
+ * @param settings - what the chart is given
+ */
+export function getSeriesOfDrawnItems(
+    settings: ItemsAndSeries
+): ChartSeries | undefined {
+    if (getDrawnSeries(settings) || settings.items?.length) {
+        return;
+    }
+
+    return settings.series?.[0];
+}
+
+/**
+ * The items that the chart draws when it draws no series: its items, or the
+ * items of its first series when it has no items.
+ * @param settings - what the chart is given
+ */
+export function getDrawnItems(settings: ItemsAndSeries): ChartItem[] {
+    if (getDrawnSeries(settings)) {
+        return [];
+    }
+
+    return getSeriesOfDrawnItems(settings)?.items ?? settings.items ?? [];
+}
+
+/**
+ * Whether the chart stacks its series on each other. Only the types that
+ * can stack series do, and never with dates, since a sum of dates means
+ * nothing.
+ * @param settings - what the chart is given
+ */
+export function isStacked(
+    settings: Pick<ChartSettings, 'type' | 'series' | 'stacked' | 'valueFormat'>
+): boolean {
+    return Boolean(
+        settings.stacked &&
+        getDrawnSeries(settings) &&
+        canStack(settings.type) &&
+        settings.valueFormat !== 'date'
+    );
+}
+
+function getDrawnSettings(settings: ChartSettings): ChartSettings {
+    return {
+        ...settings,
+        items: getDrawnItems(settings),
+        series: getDrawnSeries(settings),
+        stacked: isStacked(settings),
+    };
+}
+
+/**
+ * The series that the chart draws lined up by category, or the items it
+ * draws as the only series when it draws no series.
+ * @param settings - what the chart is given
+ */
+export function getSeriesGrid(settings: ItemsAndSeries): SeriesGrid {
+    return alignSeries(
+        getDrawnSeries(settings) ?? [
+            { text: '', items: getDrawnItems(settings) },
+        ]
+    );
+}
+
+/**
+ * The style of the marker of a series, in the legend and in the tooltip: a
+ * square for bars and areas, a line for lines, and a dot for dots.
+ * @param type - the chart type
+ * @param color - the color of the series
+ */
+export function getSwatchStyle(
+    type: DrawnChartType,
+    color = ''
+): Record<string, string> {
+    return { ...SWATCH, ...SWATCH_SHAPES[type], 'background-color': color };
 }
 
 /**
@@ -254,8 +419,81 @@ export function getTooltip(settings: ChartSettings, index: number): string {
         .join('<br/>');
 }
 
+/**
+ * The tooltip of a category of a chart with series, as HTML: its text, and
+ * the name and value of each series that has an item there.
+ * @param grid - the series of the chart, lined up by category
+ * @param style - how the chart writes values
+ * @param index - the index of the category
+ */
+export function getCategoryTooltip(
+    grid: SeriesGrid,
+    style: ValueStyle,
+    index: number
+): string {
+    const category = grid.categories[index];
+    if (category === undefined) {
+        return '';
+    }
+
+    const lines = grid.series
+        .filter((series) => series.items[index] !== undefined)
+        .map((series) => {
+            const item = series.items[index];
+
+            return getTooltipLine(
+                getSwatch(style.type, item.color ?? series.color),
+                series.text,
+                formatValue(item, style)
+            );
+        });
+
+    return [`<div>${format.encodeHTML(category)}</div>`, ...lines].join('');
+}
+
+function getTooltipLine(swatch: string, name: string, value: string): string {
+    return `<div style="display:flex;justify-content:space-between;gap:1rem"><span>${swatch}${format.encodeHTML(name)}</span><span>${format.encodeHTML(value)}</span></div>`;
+}
+
+function getSwatch(type: DrawnChartType, color = ''): string {
+    const style = {
+        display: 'inline-block',
+        'vertical-align': 'middle',
+        'margin-right': '0.375rem',
+        ...getSwatchStyle(type, format.encodeHTML(color)),
+    };
+    const declarations = Object.entries(style).map(
+        ([property, value]) => `${property}:${value}`
+    );
+
+    return `<span style="${declarations.join(';')}"></span>`;
+}
+
+function getCategoryTooltipOption(
+    settings: ChartSettings,
+    grid: SeriesGrid,
+    theme: ChartTheme
+): TooltipComponentOption {
+    return {
+        trigger: 'axis',
+        axisPointer:
+            settings.type === 'bar'
+                ? {
+                      type: 'shadow',
+                      shadowStyle: { color: theme.axisLineColor, opacity: 0.2 },
+                  }
+                : { type: 'line', lineStyle: { color: theme.axisLineColor } },
+        formatter: (params) => {
+            const [first] = [params].flat();
+
+            return getCategoryTooltip(grid, settings, first?.dataIndex);
+        },
+    };
+}
+
 function drawSeries(
     settings: ChartSettings,
+    grid: SeriesGrid,
     theme: ChartTheme,
     itemSpace?: number
 ): ChartDrawing {
@@ -277,30 +515,22 @@ function drawSeries(
             return drawNps(settings, theme);
         }
         default: {
-            return drawOnAxes(settings, theme, itemSpace);
+            return drawOnAxes(settings, grid, theme, itemSpace);
         }
     }
 }
 
 function drawOnAxes(
     settings: ChartSettings,
+    grid: SeriesGrid,
     theme: ChartTheme,
     itemSpace?: number
 ): ChartDrawing {
-    const { items, orientation } = settings;
-    const range =
-        settings.valueFormat === 'date'
-            ? getDateRange(
-                  items.flatMap((item) => [
-                      getMinimumValue(item),
-                      getMaximumValue(item),
-                  ]),
-                  settings.maxValue
-              )
-            : getAxisRange(items, settings.maxValue, settings.axisIncrement);
-    const itemTextAxis = getItemTextAxis(settings);
+    const { orientation } = settings;
+    const range = getValueRange(settings, grid);
+    const itemTextAxis = getItemTextAxis(settings, grid);
     const categoryAxis = {
-        ...getCategoryAxis(settings),
+        ...getCategoryAxis(settings, grid),
         axisLabel: {
             show: settings.displayItemText,
             color: theme.textColor,
@@ -318,35 +548,57 @@ function drawOnAxes(
         settings,
         theme
     );
-    const { series, seriesIndex } = getAxisSeries(settings, theme);
+    const { series, seriesIndexes, partsOfSeries } = getAxisSeries(
+        settings,
+        grid,
+        theme
+    );
     const option: ChartOption = {
         grid: getGrid(theme),
         xAxis: orientation === 'landscape' ? categoryAxis : valueAxis,
         yAxis: orientation === 'landscape' ? valueAxis : categoryAxis,
         series: series,
     };
+    const hasColumns = settings.type !== 'bar' && !settings.series;
 
     return {
-        seriesIndex: seriesIndex,
+        seriesIndexes: seriesIndexes,
+        partsOfSeries: partsOfSeries,
         itemsAreSeries: false,
         itemTextAxis: itemTextAxis,
-        option:
-            settings.type === 'bar' ? option : withColumns(option, settings),
+        valueRange: range,
+        option: hasColumns ? withColumns(option, settings, grid) : option,
     };
 }
 
-function getCategoryAxis(settings: ChartSettings) {
+function getValueRange(settings: ChartSettings, grid: SeriesGrid): AxisRange {
+    const items = getAxisItems(grid, Boolean(settings.stacked));
+    if (settings.valueFormat === 'date') {
+        return getDateRange(
+            items.flatMap((item) => [
+                getMinimumValue(item),
+                getMaximumValue(item),
+            ]),
+            settings.maxValue
+        );
+    }
+
+    return getAxisRange(items, settings.maxValue, settings.axisIncrement);
+}
+
+function getCategoryAxis(settings: ChartSettings, grid: SeriesGrid) {
     return {
         type: 'category' as const,
-        data: settings.items.map((item) => item.text),
+        data: grid.categories,
         inverse: settings.orientation === 'portrait',
     };
 }
 
 function getItemTextAxis(
-    settings: ChartSettings
+    settings: ChartSettings,
+    grid: SeriesGrid
 ): ChartDrawing['itemTextAxis'] {
-    if (!settings.displayItemText || settings.items.length < 2) {
+    if (!settings.displayItemText || grid.categories.length < 2) {
         return;
     }
 
@@ -357,9 +609,13 @@ function getItemTextAxis(
 // column across the whole plot that shows its tooltip and takes its clicks.
 // The columns have axes of their own, so they are not laid out next to the
 // bars that draw ranges.
-function withColumns(option: ChartOption, settings: ChartSettings) {
+function withColumns(
+    option: ChartOption,
+    settings: ChartSettings,
+    grid: SeriesGrid
+) {
     const { items, orientation } = settings;
-    const categoryAxis = { ...getCategoryAxis(settings), show: false };
+    const categoryAxis = { ...getCategoryAxis(settings, grid), show: false };
     const valueAxis = { type: 'value' as const, min: 0, max: 1, show: false };
     const columns: BarSeriesOption = {
         type: 'bar',
@@ -383,47 +639,149 @@ function withColumns(option: ChartOption, settings: ChartSettings) {
 
 function getAxisSeries(
     settings: ChartSettings,
+    grid: SeriesGrid,
+    theme: ChartTheme
+): Pick<ChartDrawing, 'seriesIndexes' | 'partsOfSeries'> & {
+    series: SeriesOption[];
+} {
+    const series: SeriesOption[] = [];
+    const seriesIndexes: number[] = [];
+    const partsOfSeries: number[] = [];
+    for (const index of grid.series.keys()) {
+        const drawn = drawItemSeries(settings, grid, index, theme);
+        seriesIndexes.push(series.length + drawn.seriesIndex);
+        series.push(...drawn.series);
+        partsOfSeries.push(...drawn.series.map(() => index));
+    }
+
+    return {
+        series: series,
+        seriesIndexes: seriesIndexes,
+        partsOfSeries: partsOfSeries,
+    };
+}
+
+function drawItemSeries(
+    settings: ChartSettings,
+    grid: SeriesGrid,
+    index: number,
     theme: ChartTheme
 ): { series: SeriesOption[]; seriesIndex: number } {
+    const series = grid.series[index];
     if (settings.type === 'line' || settings.type === 'area') {
-        return getLineSeries(settings, theme);
+        return getLineSeries(settings, series, index, theme);
     }
 
     if (settings.type === 'dot') {
-        return getDotSeries(settings, theme);
+        return getDotSeries(settings, series, index, theme);
     }
 
-    return getBarSeries(settings, theme);
+    if (settings.stacked) {
+        return {
+            series: [getStackedBars(settings, grid, index, theme)],
+            seriesIndex: 0,
+        };
+    }
+
+    return getBarSeries(settings, series, index, theme);
+}
+
+function getStackedBars(
+    settings: ChartSettings,
+    grid: SeriesGrid,
+    index: number,
+    theme: ChartTheme
+): BarSeriesOption {
+    const series = grid.series[index];
+
+    return {
+        type: 'bar',
+        ...SERIES_STACK,
+        data: series.items.map((item, category) =>
+            item
+                ? {
+                      value: getValueSpan(item),
+                      itemStyle: {
+                          color: item.color,
+                          borderRadius: endsStack(grid, {
+                              series: index,
+                              index: category,
+                          })
+                              ? getOuterCorners(settings, item, theme)
+                              : 0,
+                          borderColor: theme.dividerColor,
+                          borderWidth: 1,
+                      },
+                  }
+                : null
+        ),
+        label: {
+            ...getValueLabel(settings, series, theme),
+            position: 'inside',
+            color: undefined,
+        },
+        cursor: getSeriesCursor(series.items),
+        emphasis: emphasis,
+        blur: blur,
+    };
+}
+
+function getOuterCorners(
+    settings: ChartSettings,
+    item: ChartItem,
+    theme: ChartTheme
+): ChartTheme['itemBorderRadius'] {
+    const [topLeft, topRight, bottomRight, bottomLeft] = theme.itemBorderRadius;
+    const positive = getValueSpan(item) >= 0;
+    if (settings.orientation === 'portrait') {
+        return positive
+            ? [0, topRight, bottomRight, 0]
+            : [topLeft, 0, 0, bottomLeft];
+    }
+
+    return positive
+        ? [topLeft, topRight, 0, 0]
+        : [0, 0, bottomRight, bottomLeft];
 }
 
 function getBarSeries(
     settings: ChartSettings,
+    series: GridSeries,
+    index: number,
     theme: ChartTheme
 ): { series: SeriesOption[]; seriesIndex: number } {
-    const { items } = settings;
+    const { items } = series;
     const bars: BarSeriesOption = {
         type: 'bar',
-        data: items.map((item) => ({
-            value: getValueSpan(item),
-            itemStyle: {
-                color: item.color,
-                borderRadius: theme.itemBorderRadius,
-            },
-        })),
-        label: getValueLabel(settings, theme),
+        data: items.map((item) =>
+            item
+                ? {
+                      value: getValueSpan(item),
+                      itemStyle: {
+                          color: item.color,
+                          borderRadius: theme.itemBorderRadius,
+                      },
+                  }
+                : null
+        ),
+        label: getValueLabel(settings, series, theme),
         cursor: getSeriesCursor(items),
         emphasis: emphasis,
         blur: blur,
     };
 
-    if (items.every((item) => !isRangeItem(item))) {
+    if (!hasRanges(items)) {
         return { series: [bars], seriesIndex: 0 };
     }
 
     return {
         series: [
-            { type: 'bar', ...rangeBase, data: getRangeStarts(items) },
-            { ...bars, ...stacked },
+            {
+                type: 'bar',
+                ...getRangeBase(index),
+                data: getRangeStarts(items),
+            },
+            { ...bars, ...getRangeStack(index) },
         ],
         seriesIndex: 1,
     };
@@ -431,53 +789,74 @@ function getBarSeries(
 
 function getDotSeries(
     settings: ChartSettings,
+    series: GridSeries,
+    index: number,
     theme: ChartTheme
 ): { series: SeriesOption[]; seriesIndex: number } {
-    const { items, orientation } = settings;
-    const point = (index: number, value: number) =>
-        orientation === 'landscape' ? [index, value] : [value, index];
+    const { items } = series;
+    const { orientation } = settings;
+    const point = (category: number, value: number) =>
+        orientation === 'landscape' ? [category, value] : [value, category];
     const ends: ScatterSeriesOption = {
         type: 'scatter',
         symbolSize: DOT_SIZE,
-        data: items.map((item, index) => ({
-            value: point(index, getMaximumValue(item)),
-            itemStyle: { color: item.color },
-        })),
-        label: getValueLabel(settings, theme),
+        data: items.map((item, category) =>
+            item
+                ? {
+                      value: point(category, getMaximumValue(item)),
+                      itemStyle: { color: item.color },
+                  }
+                : null
+        ),
+        label: getValueLabel(settings, series, theme),
         cursor: getSeriesCursor(items),
         emphasis: emphasis,
         blur: blur,
     };
 
-    if (items.every((item) => !isRangeItem(item))) {
+    if (!hasRanges(items)) {
         return { series: [ends], seriesIndex: 0 };
     }
 
     const connectors: BarSeriesOption = {
         type: 'bar',
-        ...stacked,
-        silent: true,
+        ...getRangeStack(index),
+        cursor: getSeriesCursor(items),
+        emphasis: { disabled: true },
         barWidth: CONNECTOR_WIDTH,
-        data: items.map((item) => ({
-            value: isRangeItem(item) ? getValueSpan(item) : null,
-            itemStyle: { color: item.color },
-        })),
+        barGap: '-100%',
+        data: items.map((item) =>
+            item && isRangeItem(item)
+                ? {
+                      value: getValueSpan(item),
+                      itemStyle: { color: item.color },
+                  }
+                : null
+        ),
     };
     const starts: ScatterSeriesOption = {
         type: 'scatter',
-        silent: true,
+        cursor: getSeriesCursor(items),
+        emphasis: { disabled: true },
         symbolSize: DOT_SIZE,
-        data: items.map((item, index) => ({
-            value: isRangeItem(item)
-                ? point(index, getMinimumValue(item))
-                : [null, null],
-            itemStyle: { color: item.color },
-        })),
+        data: items.map((item, category) =>
+            item && isRangeItem(item)
+                ? {
+                      value: point(category, getMinimumValue(item)),
+                      itemStyle: { color: item.color },
+                  }
+                : null
+        ),
     };
 
     return {
         series: [
-            { type: 'bar', ...rangeBase, data: getRangeStarts(items) },
+            {
+                type: 'bar',
+                ...getRangeBase(index),
+                barGap: '-100%',
+                data: getRangeStarts(items),
+            },
             connectors,
             starts,
             ends,
@@ -488,58 +867,104 @@ function getDotSeries(
 
 function getLineSeries(
     settings: ChartSettings,
+    series: GridSeries,
+    index: number,
     theme: ChartTheme
 ): { series: SeriesOption[]; seriesIndex: number } {
-    const { items } = settings;
-    const color = theme.lineColor;
+    const { items } = series;
+    const color = series.color ?? theme.lineColor;
     const area = settings.type === 'area';
     const line: LineSeriesOption = {
         type: 'line',
         color: color,
         symbol: 'circle',
         symbolSize: LINE_DOT_SIZE,
-        data: items.map((item) => ({
-            value: getValueSpan(item),
-            itemStyle: { color: item.color },
-        })),
-        areaStyle: area ? { color: color, opacity: AREA_OPACITY } : undefined,
-        label: getValueLabel(settings, theme),
+        ...(settings.series &&
+            hasClickableItems(items) && {
+                showAllSymbol: true,
+                labelLayout: { hideOverlap: true },
+            }),
+        data: items.map((item) =>
+            item
+                ? {
+                      value: getValueSpan(item),
+                      itemStyle: { color: item.color },
+                  }
+                : null
+        ),
+        areaStyle: area
+            ? { color: color, opacity: getAreaOpacity(settings) }
+            : undefined,
+        label: getValueLabel(settings, series, theme),
         cursor: getSeriesCursor(items),
         emphasis: emphasis,
         blur: blur,
     };
 
-    if (items.every((item) => !isRangeItem(item))) {
+    if (settings.stacked) {
+        return { series: [{ ...line, ...SERIES_STACK }], seriesIndex: 0 };
+    }
+
+    if (!hasRanges(items)) {
         return { series: [line], seriesIndex: 0 };
     }
 
     const base: LineSeriesOption = {
         type: 'line',
-        ...rangeBase,
+        ...getRangeBase(index),
         symbol: 'none',
         color: color,
         lineStyle: { opacity: area ? 0 : 1 },
         data: getRangeStarts(items),
     };
 
-    return { series: [base, { ...line, ...stacked }], seriesIndex: 1 };
+    return {
+        series: [base, { ...line, ...getRangeStack(index) }],
+        seriesIndex: 1,
+    };
 }
 
-const stacked = { stack: 'range', stackStrategy: 'all' } as const;
+function getAreaOpacity(settings: ChartSettings): number {
+    return settings.series?.length > 1 && !settings.stacked
+        ? SERIES_AREA_OPACITY
+        : AREA_OPACITY;
+}
+
+function hasClickableItems(items: Array<ChartItem | undefined>): boolean {
+    return items.some((item) => item?.clickable);
+}
+
+function hasRanges(items: Array<ChartItem | undefined>): boolean {
+    return items.some((item) => item && isRangeItem(item));
+}
 
 // A range is drawn as a stack of an invisible part from zero to its start,
 // and a visible part from its start to its end. Items that are not ranges
-// start at zero.
-const rangeBase = {
-    ...stacked,
-    silent: true,
-    tooltip: hidden,
-    emphasis: { disabled: true },
-    itemStyle: { color: 'transparent' },
-};
+// start at zero. Each series has a stack of its own.
+function getRangeStack(index: number) {
+    return { stack: `range${index}`, stackStrategy: 'all' } as const;
+}
 
-function getRangeStarts(items: ChartItem[]): number[] {
-    return items.map((item) => (isRangeItem(item) ? getMinimumValue(item) : 0));
+function getRangeBase(index: number) {
+    return {
+        ...getRangeStack(index),
+        silent: true,
+        tooltip: hidden,
+        emphasis: { disabled: true },
+        itemStyle: { color: 'transparent' },
+    };
+}
+
+function getRangeStarts(
+    items: Array<ChartItem | undefined>
+): Array<number | null> {
+    return items.map((item) => {
+        if (!item) {
+            return null;
+        }
+
+        return isRangeItem(item) ? getMinimumValue(item) : 0;
+    });
 }
 
 function drawScatter(settings: ChartSettings, theme: ChartTheme): ChartDrawing {
@@ -589,7 +1014,7 @@ function drawScatter(settings: ChartSettings, theme: ChartTheme): ChartDrawing {
     };
 
     return {
-        seriesIndex: 0,
+        seriesIndexes: [0],
         itemsAreSeries: false,
         option: {
             grid: getGrid(theme),
@@ -622,7 +1047,7 @@ function drawPie(settings: ChartSettings, theme: ChartTheme): ChartDrawing {
     const innerRadius = settings.type === 'doughnut' ? '50%' : 0;
 
     return {
-        seriesIndex: 0,
+        seriesIndexes: [0],
         itemsAreSeries: false,
         option: {
             series: [
@@ -662,7 +1087,7 @@ function drawProportionBar(
     const landscape = settings.orientation === 'landscape';
 
     return {
-        seriesIndex: 0,
+        seriesIndexes: [0],
         itemsAreSeries: true,
         option: {
             backgroundColor: theme.backgroundColor,
@@ -693,7 +1118,7 @@ function drawRing(settings: ChartSettings, theme: ChartTheme): ChartDrawing {
     const whole = getWholeRange(items, settings.maxValue).totalRange;
 
     return {
-        seriesIndex: 0,
+        seriesIndexes: [0],
         itemsAreSeries: false,
         option: {
             polar: { radius: ['20%', '90%'] },
@@ -732,7 +1157,7 @@ function drawNps(settings: ChartSettings, theme: ChartTheme): ChartDrawing {
     const { items } = settings;
 
     return {
-        seriesIndex: 0,
+        seriesIndexes: [0],
         itemsAreSeries: false,
         option: {
             series: [
@@ -851,13 +1276,17 @@ function getAxisName(settings: ChartSettings, name: string, theme: ChartTheme) {
     };
 }
 
-function getValueLabel(settings: ChartSettings, theme: ChartTheme) {
+function getValueLabel(
+    settings: ChartSettings,
+    series: Pick<GridSeries, 'items'>,
+    theme: ChartTheme
+) {
     return {
         show: settings.displayItemValue,
         position: settings.orientation === 'landscape' ? 'top' : 'right',
         ...getLabelStyle(theme),
         formatter: ({ dataIndex }: { dataIndex: number }) =>
-            formatValue(settings.items[dataIndex], settings),
+            formatValue(series.items[dataIndex], settings),
     } as const;
 }
 
@@ -878,8 +1307,8 @@ function getPointLabel(settings: ChartSettings, item: ChartItem): string {
     return parts.join(' ');
 }
 
-function getSeriesCursor(items: ChartItem[]): string {
-    return getCursor(items.some((item) => item.clickable));
+function getSeriesCursor(items: Array<ChartItem | undefined>): string {
+    return getCursor(hasClickableItems(items));
 }
 
 function getCursor(clickable: boolean): string {

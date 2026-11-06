@@ -1,9 +1,11 @@
-import { ChartItem } from './chart.types';
+import { ChartItem, ChartSeries } from './chart.types';
 import {
     ChartSettings,
     drawChart,
+    findItem,
     fitItemTexts,
-    getItemIndex,
+    getCategoryTooltip,
+    getSeriesGrid,
     getTooltip,
     locateItem,
 } from './options';
@@ -392,7 +394,7 @@ test.each(['bar', 'dot', 'line', 'area', 'scatter'] as const)(
         );
         const series = drawing.option.series as any[];
 
-        expect(series[drawing.seriesIndex].label).toMatchObject({
+        expect(series[drawing.seriesIndexes[0]].label).toMatchObject({
             color: 'rgb(2, 2, 2)',
             textBorderWidth: 0,
         });
@@ -623,7 +625,10 @@ test('a bar chart has no invisible columns', () => {
 test('the column of an item is found as that item', () => {
     const drawing = drawChart(settings({ type: 'line' }), theme);
 
-    expect(getItemIndex(drawing, { seriesIndex: 1, dataIndex: 1 })).toBe(1);
+    expect(findItem(drawing, { seriesIndex: 1, dataIndex: 1 })).toEqual({
+        series: 0,
+        index: 1,
+    });
 });
 
 test('an nps chart fills its gauge with the background color', () => {
@@ -635,8 +640,14 @@ test('an nps chart fills its gauge with the background color', () => {
 test('an item drawn as a series of its own is found by its series', () => {
     const drawing = drawChart(settings({ type: 'proportion-bar' }), theme);
 
-    expect(locateItem(drawing, 1)).toEqual({ seriesIndex: 1, dataIndex: 0 });
-    expect(getItemIndex(drawing, { seriesIndex: 1, dataIndex: 0 })).toBe(1);
+    expect(locateItem(drawing, { series: 0, index: 1 })).toEqual({
+        seriesIndex: 1,
+        dataIndex: 0,
+    });
+    expect(findItem(drawing, { seriesIndex: 1, dataIndex: 0 })).toEqual({
+        series: 0,
+        index: 1,
+    });
 });
 
 test('an item of a range bar is found in the series of visible bars', () => {
@@ -645,7 +656,10 @@ test('an item of a range bar is found in the series of visible bars', () => {
         theme
     );
 
-    expect(locateItem(drawing, 0)).toEqual({ seriesIndex: 1, dataIndex: 0 });
+    expect(locateItem(drawing, { series: 0, index: 0 })).toEqual({
+        seriesIndex: 1,
+        dataIndex: 0,
+    });
 });
 
 test('an item of a range dot chart is found in the series of end dots', () => {
@@ -654,7 +668,25 @@ test('an item of a range dot chart is found in the series of end dots', () => {
         theme
     );
 
-    expect(locateItem(drawing, 0)).toEqual({ seriesIndex: 3, dataIndex: 0 });
+    expect(locateItem(drawing, { series: 0, index: 0 })).toEqual({
+        seriesIndex: 3,
+        dataIndex: 0,
+    });
+});
+
+test('the start dots and the lines between the dots of ranges take clicks, as the end dots do', () => {
+    const { series } = draw({
+        type: 'dot',
+        items: [{ text: 'Week 1', value: [-7, 10], clickable: true }],
+    });
+
+    expect(
+        series.slice(1, 4).map((current) => [current.silent, current.cursor])
+    ).toEqual([
+        [undefined, 'pointer'],
+        [undefined, 'pointer'],
+        [undefined, 'pointer'],
+    ]);
 });
 
 test('an item of a range line chart is found in the series of the line', () => {
@@ -666,13 +698,16 @@ test('an item of a range line chart is found in the series of the line', () => {
         theme
     );
 
-    expect(locateItem(drawing, 0)).toEqual({ seriesIndex: 1, dataIndex: 0 });
+    expect(locateItem(drawing, { series: 0, index: 0 })).toEqual({
+        seriesIndex: 1,
+        dataIndex: 0,
+    });
 });
 
 test('the empty part of a pie is not an item', () => {
     const chart = settings({ type: 'pie', maxValue: 250 });
     const drawing = drawChart(chart, theme);
-    const index = getItemIndex(drawing, { seriesIndex: 0, dataIndex: 2 });
+    const { index } = findItem(drawing, { seriesIndex: 0, dataIndex: 2 });
 
     expect(getTooltip(chart, index)).toBe('');
 });
@@ -686,4 +721,357 @@ test('the empty part of a pie keeps the default cursor when items are clickable'
 
     expect(series[0].cursor).toBe('pointer');
     expect(series[0].data[1].cursor).toBe('default');
+});
+
+const green = 'rgb(0, 200, 0)';
+const red = 'rgb(200, 0, 0)';
+
+const won: ChartSeries = {
+    text: 'Won',
+    color: green,
+    items: [
+        { text: 'Jan', value: 12, color: green },
+        { text: 'Feb', value: 15, color: green },
+    ],
+};
+
+const lost: ChartSeries = {
+    text: 'Lost',
+    color: red,
+    items: [{ text: 'Feb', value: 9, color: red }],
+};
+
+test('each series is drawn as bars of its own', () => {
+    const { series } = draw({ series: [won, lost] });
+
+    expect(series.map((bars) => bars.data.map((bar) => bar?.value))).toEqual([
+        [12, 15],
+        [undefined, 9],
+    ]);
+});
+
+test('the axis of a chart with series has the texts of the items of every series', () => {
+    const { xAxis } = draw({ series: [lost, won] });
+
+    expect(xAxis.data).toEqual(['Feb', 'Jan']);
+});
+
+test('the value axis of a chart with series spans the items of every series', () => {
+    const large = { ...lost, items: [{ text: 'Feb', value: 90 }] };
+    const { yAxis } = draw({ series: [won, large] });
+
+    expect(yAxis.max).toBe(90);
+});
+
+test('each line of a chart with series is drawn in the color of its series', () => {
+    const { series } = draw({ type: 'line', series: [won, lost] });
+
+    expect(series.map((line) => line.color)).toEqual([green, red]);
+});
+
+test('a clickable line of a chart with series draws every point, so that each one can be clicked', () => {
+    const clickable = {
+        ...won,
+        items: won.items.map((item) => ({ ...item, clickable: true })),
+    };
+    const { series } = draw({ type: 'line', series: [clickable, lost] });
+
+    expect(series.map((line) => line.showAllSymbol)).toEqual([true, undefined]);
+});
+
+test('the item values of each series are the values of its own items', () => {
+    const { series } = draw({ series: [won, lost], displayItemValue: true });
+
+    expect(series[1].label.formatter({ dataIndex: 1 })).toBe('9');
+});
+
+test('a chart with series has no invisible columns', () => {
+    const { series } = draw({ type: 'line', series: [won, lost] });
+
+    expect(series).toHaveLength(2);
+});
+
+test('a type that cannot draw series and has no items draws the items of the first series', () => {
+    const { series } = draw({ type: 'pie', items: [], series: [won, lost] });
+
+    expect(series[0].data.map((slice) => slice.value)).toEqual([12, 15]);
+});
+
+test('a type that cannot draw series shows the tooltip of an item, not of a place on an axis', () => {
+    expect(draw({ type: 'pie', series: [won, lost] }).tooltip.trigger).toBe(
+        'item'
+    );
+});
+
+test('the tooltip of a chart with series shows everything at the place on the axis', () => {
+    expect(draw({ series: [won, lost] }).tooltip.trigger).toBe('axis');
+});
+
+test('the tooltip of a chart without series shows the item', () => {
+    expect(draw().tooltip.trigger).toBe('item');
+});
+
+function getTooltipAt(
+    series: ChartSeries[],
+    index: number,
+    type: ChartSettings['type'] = 'bar'
+) {
+    const drawn = settings({ type: type, series: series });
+
+    return getCategoryTooltip(getSeriesGrid(drawn), drawn, index);
+}
+
+test('the tooltip of a place on the axis names it, and each series that has an item there', () => {
+    const tooltip = getTooltipAt([won, lost], 0);
+
+    expect(tooltip).toContain('<div>Jan</div>');
+    expect(tooltip).toContain('Won</span><span>12</span>');
+    expect(tooltip).not.toContain('Lost');
+});
+
+test('the tooltip of a place on the axis shows the color of each series', () => {
+    const tooltip = getTooltipAt([won, lost], 1);
+
+    expect(tooltip).toContain(`background-color:${red}`);
+});
+
+test('the tooltip of a dot chart marks each series with a dot, as its legend does', () => {
+    expect(getTooltipAt([won], 0, 'dot')).toContain('border-radius:50%');
+});
+
+test('the tooltip of a line chart marks each series with a line, as its legend does', () => {
+    expect(getTooltipAt([won], 0, 'line')).toContain('height:0.125rem');
+});
+
+test('the tooltip of a place on the axis escapes HTML in the texts', () => {
+    const series = {
+        text: '<b>Won</b>',
+        items: [{ text: '<i>Jan</i>', value: 1 }],
+    };
+    const tooltip = getTooltipAt([series], 0);
+
+    expect(tooltip).toContain('&lt;b&gt;Won&lt;/b&gt;');
+    expect(tooltip).toContain('&lt;i&gt;Jan&lt;/i&gt;');
+});
+
+test('a place outside the axis has no tooltip', () => {
+    expect(getTooltipAt([won], 5)).toBe('');
+});
+
+test('an item of a series is found in the series that draws it', () => {
+    const drawing = drawChart(settings({ series: [won, lost] }), theme);
+
+    expect(findItem(drawing, { seriesIndex: 1, dataIndex: 1 })).toEqual({
+        series: 1,
+        index: 1,
+    });
+    expect(locateItem(drawing, { series: 1, index: 1 })).toEqual({
+        seriesIndex: 1,
+        dataIndex: 1,
+    });
+});
+
+test('the ranges of each series are stacked on invisible bars of their own', () => {
+    const ranges = (series: ChartSeries) => ({
+        ...series,
+        items: [{ text: 'Jan', value: [2, 8] as [number, number] }],
+    });
+    const drawing = drawChart(
+        settings({ series: [ranges(won), ranges(lost)] }),
+        theme
+    );
+    const series = drawing.option.series as any[];
+
+    expect(drawing.seriesIndexes).toEqual([1, 3]);
+    expect(series.map((bars) => bars.stack)).toEqual([
+        'range0',
+        'range0',
+        'range1',
+        'range1',
+    ]);
+});
+
+test('a click on any part of a range of a series is found as the item of that series', () => {
+    const ranges = (series: ChartSeries) => ({
+        ...series,
+        items: [{ text: 'Jan', value: [2, 8] as [number, number] }],
+    });
+    const drawing = drawChart(
+        settings({ type: 'dot', series: [ranges(won), ranges(lost)] }),
+        theme
+    );
+    const secondSeries = [5, 6, 7].map((seriesIndex) =>
+        findItem(drawing, { seriesIndex: seriesIndex, dataIndex: 0 })
+    );
+
+    expect(secondSeries).toEqual([
+        { series: 1, index: 0 },
+        { series: 1, index: 0 },
+        { series: 1, index: 0 },
+    ]);
+});
+
+test('the lines between the dots of ranges are in the middle of their place, whatever their series', () => {
+    const ranges = {
+        ...won,
+        items: [{ text: 'Jan', value: [2, 8] as [number, number] }],
+    };
+    const { series } = draw({ type: 'dot', series: [ranges, ranges] });
+    const bars = series.filter((current) => current.type === 'bar');
+
+    expect(bars.map((current) => current.barGap)).toEqual([
+        '-100%',
+        '-100%',
+        '-100%',
+        '-100%',
+    ]);
+});
+
+test('the areas of a chart with series are fainter, so that they do not hide each other', () => {
+    const { series } = draw({ type: 'area', series: [won, lost] });
+
+    expect(series.map((area) => area.areaStyle.opacity)).toEqual([0.15, 0.15]);
+});
+
+test('the area of a chart with one series is as strong as the area of a single line', () => {
+    const { series } = draw({ type: 'area', series: [won] });
+
+    expect(series[0].areaStyle.opacity).toBe(0.4);
+});
+
+const revenue: ChartSeries[] = [
+    {
+        text: 'Licences',
+        color: green,
+        items: [
+            { text: 'Q1', value: 40, color: green },
+            { text: 'Q2', value: 50, color: green },
+        ],
+    },
+    {
+        text: 'Services',
+        color: red,
+        items: [
+            { text: 'Q1', value: 20, color: red },
+            { text: 'Q2', value: -40, color: red },
+        ],
+    },
+];
+
+test.each(['bar', 'line', 'area'] as const)(
+    'stacked series of a %s chart are drawn in one stack',
+    (type) => {
+        const { series } = draw({ type, series: revenue, stacked: true });
+
+        expect(series.map((current) => current.stack)).toEqual([
+            'series',
+            'series',
+        ]);
+    }
+);
+
+test.each(['bar', 'line', 'area'] as const)(
+    'stacked series of a %s chart stack each side of zero on its own',
+    (type) => {
+        const { series } = draw({ type, series: revenue, stacked: true });
+
+        expect(series.map((current) => current.stackStrategy)).toEqual([
+            'samesign',
+            'samesign',
+        ]);
+    }
+);
+
+test('stacked has no effect on the value axis of a dot chart, which cannot stack', () => {
+    const { yAxis } = draw({ type: 'dot', series: revenue, stacked: true });
+
+    expect([yAxis.min, yAxis.max]).toEqual([-45, 54]);
+});
+
+test('stacked has no effect on series of dates', () => {
+    const { series } = draw({
+        valueFormat: 'date',
+        series: revenue,
+        stacked: true,
+    });
+
+    expect(series.map((bars) => bars.stack)).toEqual([undefined, undefined]);
+});
+
+test('the value axis of stacked series reaches the ends of the stacks, on both sides of zero', () => {
+    const { yAxis } = draw({ series: revenue, stacked: true });
+
+    expect([yAxis.min, yAxis.max]).toEqual([-40, 60]);
+});
+
+test('only the outer corners of the end of a stack of bars are rounded', () => {
+    const { series } = draw({ series: revenue, stacked: true });
+
+    expect(series.map((bars) => bars.data[0].itemStyle.borderRadius)).toEqual([
+        0,
+        [2, 2, 0, 0],
+    ]);
+});
+
+test('the end of a stack of bars below zero is rounded at the bottom', () => {
+    const { series } = draw({ series: revenue, stacked: true });
+
+    expect(series[1].data[1].itemStyle.borderRadius).toEqual([0, 0, 2, 2]);
+});
+
+test('the end of a stack of bars in portrait is rounded on its outer side', () => {
+    const { series } = draw({
+        series: revenue,
+        stacked: true,
+        orientation: 'portrait',
+    });
+
+    expect(
+        series.map((bars) => bars.data.map((bar) => bar.itemStyle.borderRadius))
+    ).toEqual([
+        [0, [0, 2, 2, 0]],
+        [
+            [0, 2, 2, 0],
+            [2, 0, 0, 2],
+        ],
+    ]);
+});
+
+test('the parts of a stack of bars are set apart by the divider color', () => {
+    const { series } = draw({ series: revenue, stacked: true });
+
+    expect(series[0].data[0].itemStyle).toMatchObject({
+        borderColor: 'rgb(4, 4, 4)',
+        borderWidth: 1,
+    });
+});
+
+test('the item values of stacked bars are written inside the bars', () => {
+    const { series } = draw({
+        series: revenue,
+        stacked: true,
+        displayItemValue: true,
+    });
+
+    expect(series[0].label.position).toBe('inside');
+});
+
+test('a range in a stack of bars is drawn as its extent', () => {
+    const ranges = [
+        {
+            ...revenue[0],
+            items: [{ text: 'Q1', value: [10, 40] as [number, number] }],
+        },
+        revenue[1],
+    ];
+    const { series } = draw({ series: ranges, stacked: true });
+
+    expect(series[0].data[0].value).toBe(30);
+    expect(series).toHaveLength(2);
+});
+
+test('stacked areas are as strong as the area of a single line', () => {
+    const { series } = draw({ type: 'area', series: revenue, stacked: true });
+
+    expect(series.map((area) => area.areaStyle.opacity)).toEqual([0.4, 0.4]);
 });

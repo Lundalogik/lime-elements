@@ -78,6 +78,13 @@ export interface ChartItem<T extends number | [number, number] = number | [numbe
 }
 
 // @beta
+export interface ChartSeries {
+    color?: Color;
+    items: ChartItem[];
+    text: string;
+}
+
+// @beta
 export type ChartType = 'area' | 'bar' | 'doughnut' | 'line' | 'nps' | 'pie' | 'ring' | 'dot' | 'scatter' | 'proportion-bar' | 'stacked-bar';
 
 // @beta
@@ -258,11 +265,13 @@ export namespace Components {
         "displayItemPercentage": boolean;
         "displayItemText": boolean;
         "displayItemValue": boolean;
-        "items": ChartItem[];
+        "items"?: ChartItem[];
         "language": Languages;
         "loading": boolean;
         "maxValue"?: number;
         "orientation"?: 'landscape' | 'portrait';
+        "series"?: ChartSeries[];
+        "stacked": boolean;
         "type"?: ChartType;
         "valueFormat": ChartValueFormat;
     }
@@ -1926,12 +1935,14 @@ export namespace JSX {
         "displayItemPercentage"?: boolean;
         "displayItemText"?: boolean;
         "displayItemValue"?: boolean;
-        "items": ChartItem[];
+        "items"?: ChartItem[];
         "language"?: Languages;
         "loading"?: boolean;
         "maxValue"?: number;
         "onInteract"?: (event: LimelChartCustomEvent<ChartItem>) => void;
         "orientation"?: 'landscape' | 'portrait';
+        "series"?: ChartSeries[];
+        "stacked"?: boolean;
         "type"?: ChartType;
         "valueFormat"?: ChartValueFormat;
     }
@@ -1964,6 +1975,8 @@ export namespace JSX {
         "maxValue": number;
         // (undocumented)
         "orientation": 'landscape' | 'portrait';
+        // (undocumented)
+        "stacked": boolean;
         // Warning: (ae-incompatible-release-tags) The symbol "type" is marked as @public, but its signature references "ChartType" which is marked as @beta
         //
         // (undocumented)

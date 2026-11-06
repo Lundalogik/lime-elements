@@ -1,3 +1,4 @@
+import { VNode } from '@stencil/core';
 import { render, h } from '@stencil/vitest';
 import { ChartItem } from './chart.types';
 
@@ -328,4 +329,113 @@ test('switching a chart from dates to numbers together with its items does not w
 
     expect(warn).not.toHaveBeenCalled();
     warn.mockRestore();
+});
+
+const series = [
+    { text: 'Won', items: [{ text: 'Jan', value: 12 }] },
+    { text: 'Lost', items: [{ text: 'Jan', value: 7 }] },
+];
+
+async function renderAndCollectWarnings(chart: VNode) {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const { waitForChanges } = await render(chart);
+    await waitForChanges();
+    const warnings = warn.mock.calls.map(([message]) => message);
+    warn.mockRestore();
+
+    return warnings;
+}
+
+test('series on a type that cannot draw them make the chart warn', async () => {
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="pie" series={series} />
+    );
+
+    expect(warnings).toEqual([
+        'limel-chart: `series` can only be drawn by `bar`, `dot`, `line`, and `area` charts, but `type` is `pie`. Drawing the items of the first series instead.',
+    ]);
+});
+
+test('series and items on a type that cannot draw series make the chart warn that it draws the items', async () => {
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="pie" series={series} items={items} />
+    );
+
+    expect(warnings).toEqual([
+        'limel-chart: `series` can only be drawn by `bar`, `dot`, `line`, and `area` charts, but `type` is `pie`. Drawing `items` instead.',
+    ]);
+});
+
+test('series and items together make the chart warn that it draws the series', async () => {
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="bar" series={series} items={items} />
+    );
+
+    expect(warnings).toEqual([
+        'limel-chart: both `items` and `series` are set. Drawing `series`, and leaving out `items`.',
+    ]);
+});
+
+test('series on a type that can draw them do not make the chart warn', async () => {
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="line" series={series} />
+    );
+
+    expect(warnings).toEqual([]);
+});
+
+test('stacked series of a dot chart make the chart warn', async () => {
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="dot" series={series} stacked />
+    );
+
+    expect(warnings).toEqual([
+        'limel-chart: `stacked` can only stack the series of `bar`, `line`, and `area` charts, but `type` is `dot`. Ignoring `stacked`.',
+    ]);
+});
+
+test('stacked series of dates make the chart warn', async () => {
+    const dates = series.map((current) => ({
+        ...current,
+        items: [{ text: 'Jan', value: new Date(2026, 0, 1).getTime() }],
+    }));
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="bar" series={dates} valueFormat="date" stacked />
+    );
+
+    expect(warnings).toEqual([
+        'limel-chart: `stacked` cannot stack dates. Ignoring `stacked`.',
+    ]);
+});
+
+test('stacked on a chart without series makes the chart warn', async () => {
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="bar" items={items} stacked />
+    );
+
+    expect(warnings).toEqual([
+        'limel-chart: `stacked` stacks the `series` of a chart, but this chart has none. Ignoring `stacked`.',
+    ]);
+});
+
+test('stacked series of a bar chart do not make the chart warn', async () => {
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="bar" series={series} stacked />
+    );
+
+    expect(warnings).toEqual([]);
+});
+
+test('an axisIncrement that would divide the stacks into too many steps makes the chart warn', async () => {
+    const tall = series.map((current) => ({
+        ...current,
+        items: [{ text: 'Jan', value: 60 }],
+    }));
+    const warnings = await renderAndCollectWarnings(
+        <limel-chart type="bar" series={tall} axisIncrement={1} stacked />
+    );
+
+    expect(warnings).toEqual([
+        'limel-chart: `axisIncrement` 1 would divide the axis into more than 100 steps. Working out a step from the values instead.',
+    ]);
 });
