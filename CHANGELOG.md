@@ -1,3 +1,15 @@
+## [40.24.0](https://github.com/Lundalogik/lime-elements/compare/v40.23.0...v40.24.0) (2026-11-06)
+
+### Features
+
+
+* **date-picker:** enter date directly into the input field ([b01a2d2](https://github.com/Lundalogik/lime-elements/commit/b01a2d20895f4f15ffd20574340a1f8bb57bdb31))
+* **form:** report a date field with rejected text as invalid ([e8f2dab](https://github.com/Lundalogik/lime-elements/commit/e8f2dab0129b48234ff364643b4d3ff6243160cd))
+### Bug Fixes
+
+
+* **date-picker:** destroy the MDCTextField created when the calendar closes ([fd46729](https://github.com/Lundalogik/lime-elements/commit/fd46729422cb743bad1d15601cb8356f42325927))
+
 ## [40.23.0](https://github.com/Lundalogik/lime-elements/compare/v40.22.0...v40.23.0) (2026-11-05)
 
 ### Features
