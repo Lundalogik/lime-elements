@@ -34,9 +34,9 @@ each data point, in comparison to others.
 
 ## Events
 
-| Event      | Description                                                       | Type                                                 |
-| ---------- | ----------------------------------------------------------------- | ---------------------------------------------------- |
-| `interact` | Fired when a chart item with `clickable` set to `true` is clicked | `CustomEvent<ChartItem<number \| [number, number]>>` |
+| Event      | Description                                                                                                                                                                                                                                                     | Type                                                 |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `interact` | Fired when a chart item with `clickable` set to `true` is clicked. The detail is the item itself, the same object as in `items` or in `series`, so a chart with series can tell which series the item belongs to by comparing it with the items of each series. | `CustomEvent<ChartItem<number \| [number, number]>>` |
 
 
 ## Dependencies
