@@ -59,6 +59,7 @@ the option is picked with `Enter` or a click.
  - [limel-example-chip-size](../chip/examples)
  - [limel-example-code-diff-interactive](../code-diff/examples)
  - [limel-example-code-diff-line-wrap](../code-diff/examples)
+ - [limel-example-date-picker-typed-input](../date-picker/examples)
  - [limel-example-dialog-heading](../dialog/examples)
  - [limel-example-file-resize-image](../file/examples)
  - [limel-example-file-viewer-office](../file-viewer/examples)
@@ -129,6 +130,7 @@ graph TD;
   limel-example-chip-size --> limel-select
   limel-example-code-diff-interactive --> limel-select
   limel-example-code-diff-line-wrap --> limel-select
+  limel-example-date-picker-typed-input --> limel-select
   limel-example-dialog-heading --> limel-select
   limel-example-file-resize-image --> limel-select
   limel-example-file-viewer-office --> limel-select

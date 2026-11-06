@@ -64,6 +64,7 @@ The component automatically formats different value types:
  - [limel-example-date-picker-programmatic-change](../components/date-picker/examples)
  - [limel-example-date-picker-quarter](../components/date-picker/examples)
  - [limel-example-date-picker-time](../components/date-picker/examples)
+ - [limel-example-date-picker-typed-input](../components/date-picker/examples)
  - [limel-example-date-picker-week](../components/date-picker/examples)
  - [limel-example-date-picker-year](../components/date-picker/examples)
  - [limel-example-dynamic-form](../components/form/examples)
@@ -219,6 +220,7 @@ graph TD;
   limel-example-date-picker-programmatic-change --> limel-example-value
   limel-example-date-picker-quarter --> limel-example-value
   limel-example-date-picker-time --> limel-example-value
+  limel-example-date-picker-typed-input --> limel-example-value
   limel-example-date-picker-week --> limel-example-value
   limel-example-date-picker-year --> limel-example-value
   limel-example-dynamic-form --> limel-example-value
