@@ -1,1 +1,1 @@
-import{r as e,h as c}from"./index-BU9IJqli.js";const t=class{constructor(c){e(this,c)}render(){return c("limel-callout",{key:"6c97235c0ca635d7d1f38dd0131bddcfb3e06cd4",type:"caution"},"I hope you read this.")}};export{t as limel_example_callout_caution}
+import{r as e,h as a}from"./index-BU9IJqli.js";const t=class{constructor(a){e(this,a)}render(){return a("limel-callout",{key:"30b3188f77a0edf27e91225ca9bdaa6f06dd8395",type:"caution"},"I hope you read this.")}};export{t as limel_example_callout_caution}
