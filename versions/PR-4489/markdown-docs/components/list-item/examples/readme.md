@@ -4,26 +4,20 @@
 
 ## Overview
 
-Primary component in a list item
+Radio button list items
 
-This example shows how to render a custom primary component inside
-`limel-list-item` using the `primaryComponent` prop.
+This example shows how list items can be displayed as radio buttons.
+Radio buttons allow users to select only one option from a group.
 
-:::note
-By default, the primary component is rendered after the icon,
-and before the item's text.
-
-Since the list item is a flex box, you can easily change the
-order of the primary component by applying a different `order` as
-a style. This could be done either via the primary component's own
-styles, or via its `props` in the list.
+:::important
+- Set `role="radiogroup"` on the container for accessibility.
+- Only one value is selected at a time; clicks and Enter/Space update
+  `selectedValue` and re-render.
 :::
 
 :::note
-The primary component does not become automatically disabled,
-once the list item is disabled. Clicks on, or interactions with the component
-will still be registered on disabled items.
-The consumer should handle the disabled state of their components accordingly.
+The radio visuals are purely presentational; state comes from the parent.
+In production, prefer using `limel-list type="radio"` to centralize logic.
 :::
 
 ## Dependencies
@@ -31,15 +25,17 @@ The consumer should handle the disabled state of their components accordingly.
 ### Depends on
 
 - [limel-list-item](..)
+- [limel-example-value](../../../examples)
 - [limel-example-controls](../../../examples)
-- [limel-switch](../../switch)
+- [limel-checkbox](../../checkbox)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-list-item-primary-component --> limel-list-item
-  limel-example-list-item-primary-component --> limel-example-controls
-  limel-example-list-item-primary-component --> limel-switch
+  limel-example-list-item-radio --> limel-list-item
+  limel-example-list-item-radio --> limel-example-value
+  limel-example-list-item-radio --> limel-example-controls
+  limel-example-list-item-radio --> limel-checkbox
   limel-list-item --> limel-icon
   limel-list-item --> limel-menu
   limel-list-item --> limel-icon-button
@@ -67,9 +63,9 @@ graph TD;
   limel-icon-button --> limel-icon
   limel-icon-button --> limel-tooltip
   limel-dynamic-label --> limel-icon
-  limel-switch --> limel-dynamic-label
-  limel-switch --> limel-helper-line
-  style limel-example-list-item-primary-component fill:#f9f,stroke:#333,stroke-width:4px
+  limel-checkbox --> limel-dynamic-label
+  limel-checkbox --> limel-helper-line
+  style limel-example-list-item-radio fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
