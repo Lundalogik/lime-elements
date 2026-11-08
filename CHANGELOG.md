@@ -1,3 +1,11 @@
+## [40.25.0](https://github.com/Lundalogik/lime-elements/compare/v40.24.0...v40.25.0) (2026-11-08)
+
+### Features
+
+
+* **chart:** draw several series of items with series ([a019949](https://github.com/Lundalogik/lime-elements/commit/a0199498a69e4567a47f0422aca98a9c7a7371e6))
+* **chart:** stack series on each other with stacked ([2974df1](https://github.com/Lundalogik/lime-elements/commit/2974df111b46f879e453eee2d53369940552d747))
+
 ## [40.24.0](https://github.com/Lundalogik/lime-elements/compare/v40.23.0...v40.24.0) (2026-11-06)
 
 ### Features
