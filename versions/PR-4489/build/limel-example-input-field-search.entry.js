@@ -1,1 +1,0 @@
-import{r as e,h as r}from"./index-D3SUrFhp.js";const s=class{constructor(r){e(this,r),this.handleChange=e=>{this.value=e.detail}}render(){return r("limel-input-field",{key:"9c183f4e42937c6c8d77bd42af2a829dfe95f826",label:"Search",type:"search",leadingIcon:"search",value:this.value,onChange:this.handleChange})}};export{s as limel_example_input_field_search}
