@@ -52,6 +52,8 @@ import {
     stringWithDefaultCustomComponentSchema,
     getConditionalCustomComponentSchema,
     arrayItemWithEnumAndDefaultSchema,
+    dependencyWithDefaultsSchema,
+    dependencyWithChangingDefaultSchema,
     requiredCheckboxSchema,
     nestedTitlesSchema,
     nestedCollapsibleSchema,
@@ -137,6 +139,181 @@ test('does not auto-select a const from an optional oneOf, but keeps real defaul
     expect(onChange.mock.lastCall[0].detail).toEqual({
         name: 'Alice',
         withDefault: 'preset',
+    });
+});
+
+test('leaves out the defaults of the schema when told to leave them out', async () => {
+    const onChange = vi.fn();
+    const { change } = await renderForm({
+        schema: {
+            ...optionalOneOfSchema,
+            properties: {
+                ...optionalOneOfSchema.properties,
+                fixed: { type: 'string', title: 'Fixed', const: 'fixed' },
+            },
+        },
+        includeDefaults: false,
+        onChange,
+    });
+    expect(onChange).not.toHaveBeenCalled();
+
+    await change('Name', 'Alice');
+
+    expect(onChange.mock.lastCall[0].detail).toEqual({ name: 'Alice' });
+});
+
+test('fills in the defaults of fields that a change brings in, when told to leave out the defaults', async () => {
+    const onChange = vi.fn();
+    const { change } = await renderForm({
+        schema: dependencyWithDefaultsSchema,
+        includeDefaults: false,
+        onChange,
+    });
+
+    await change('Limetype', 'person');
+
+    expect(onChange.mock.lastCall[0].detail).toEqual({
+        limetype: 'person',
+        propertyName: 'name',
+    });
+
+    await change('Name property', '');
+
+    expect(onChange.mock.lastCall[0].detail).toEqual({
+        limetype: 'person',
+        propertyName: '',
+    });
+});
+
+test('fills in a default that a change changes, when told to leave out the defaults', async () => {
+    const onChange = vi.fn();
+    const { root, change, waitForChanges } = await renderForm({
+        schema: dependencyWithChangingDefaultSchema,
+        value: { limetype: 'person' },
+        includeDefaults: false,
+        onChange,
+    });
+    // The changed default comes with the value the host hands back
+    root.addEventListener('change', (event: CustomEvent) => {
+        root.value = event.detail;
+    });
+
+    await change('Limetype', 'company');
+    await waitForReactRender(root, waitForChanges);
+
+    expect(onChange.mock.lastCall[0].detail).toEqual({
+        limetype: 'company',
+        propertyName: 'companyName',
+    });
+});
+
+test('keeps leaving out the defaults when the host hands the value back', async () => {
+    const onChange = vi.fn();
+    const { root, change, waitForChanges } = await renderForm({
+        schema: dependencyWithDefaultsSchema,
+        value: { limetype: 'person' },
+        includeDefaults: false,
+        onChange,
+    });
+    root.addEventListener('change', (event: CustomEvent) => {
+        root.value = event.detail;
+    });
+
+    await change('Limetype', 'company');
+    await waitForReactRender(root, waitForChanges);
+    await change('Limetype', 'person');
+    await waitForReactRender(root, waitForChanges);
+
+    // `columns` and `propertyName` were filled in on load, so they stay out
+    // of the value, also after the host handed it back
+    expect(onChange.mock.lastCall[0].detail).toEqual({ limetype: 'person' });
+});
+
+test('leaves out the defaults of a new value the host gives it', async () => {
+    const onChange = vi.fn();
+    const { root, change, waitForChanges } = await renderForm({
+        schema: dependencyWithDefaultsSchema,
+        value: { limetype: 'person' },
+        includeDefaults: false,
+        onChange,
+    });
+
+    await change('Columns', 3);
+    expect(onChange.mock.lastCall[0].detail).toEqual({
+        limetype: 'person',
+        columns: 3,
+    });
+
+    root.value = { limetype: 'company', columns: 3 };
+    await waitForReactRender(root, waitForChanges);
+    onChange.mockClear();
+    await change('Limetype', 'person');
+
+    // `columns` was given this time, so it stays, while `propertyName` was
+    // filled in on load of the new value and stays out
+    expect(onChange.mock.lastCall[0].detail).toEqual({
+        limetype: 'person',
+        columns: 3,
+    });
+});
+
+test('validates with the defaults it shows, when told to leave them out', async () => {
+    const onValidate = vi.fn();
+    await renderForm({
+        schema: {
+            type: 'object',
+            required: ['columns'],
+            properties: {
+                columns: { type: 'integer', title: 'Columns', default: 5 },
+                name: { type: 'string', title: 'Name' },
+            },
+        },
+        value: { name: 'Alice' },
+        includeDefaults: false,
+        onValidate,
+    });
+
+    expect(onValidate).not.toHaveBeenCalled();
+});
+
+test('validates the edited value, when told to leave out the defaults', async () => {
+    const onValidate = vi.fn();
+    const { root, change, waitForChanges } = await renderForm({
+        schema: {
+            type: 'object',
+            required: ['name'],
+            properties: { name: { type: 'string', title: 'Name' } },
+        },
+        includeDefaults: false,
+        onValidate,
+    });
+    root.addEventListener('change', (event: CustomEvent) => {
+        root.value = event.detail;
+    });
+
+    await change('Name', 'Alice');
+    await waitForReactRender(root, waitForChanges);
+
+    expect(onValidate.mock.lastCall[0].detail.valid).toBe(true);
+});
+
+test('fills in the defaults of a new list item, when told to leave out the defaults', async () => {
+    const onChange = vi.fn();
+    const { formContent, root, waitForChanges } = await renderForm({
+        schema: arrayItemWithEnumAndDefaultSchema,
+        value: { entries: [{}] },
+        includeDefaults: false,
+        onChange,
+    });
+
+    const addButton = formContent.querySelector(
+        'limel-button.button-add-new'
+    ) as HTMLElement;
+    addButton.click();
+    await waitForReactRender(root, waitForChanges);
+
+    expect(onChange.mock.lastCall[0].detail).toEqual({
+        entries: [{}, { plain: 'preset' }],
     });
 });
 
