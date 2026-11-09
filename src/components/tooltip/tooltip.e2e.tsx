@@ -1,4 +1,7 @@
 import { render, h } from '@stencil/vitest';
+import { onTestFinished } from 'vitest';
+import { userEvent } from 'vitest/browser';
+import { DEFAULT_DELAY_FOR_SHOWING } from './tooltip-timer';
 
 describe('limel-tooltip', () => {
     async function setup() {
@@ -32,6 +35,50 @@ describe('limel-tooltip', () => {
 
         const portal = tooltip?.shadowRoot?.querySelector('limel-portal');
         expect((portal as any)?.visible).toBeTruthy();
+    });
+
+    describe('when the owner gets the focus', () => {
+        const isShown = (tooltip: HTMLLimelTooltipElement) =>
+            !!(
+                tooltip.shadowRoot?.querySelector(
+                    'limel-portal'
+                ) as HTMLLimelPortalElement | null
+            )?.visible;
+
+        const waitPastShowDelay = () =>
+            new Promise((resolve) =>
+                setTimeout(resolve, DEFAULT_DELAY_FOR_SHOWING + 300)
+            );
+
+        test('opens when the focus comes from the keyboard', async () => {
+            const { anchor, tooltip, waitForChanges } = await setup();
+            anchor!.tabIndex = 0;
+
+            await userEvent.tab();
+            await waitForChanges();
+
+            expect(document.activeElement).toBe(anchor);
+            await vi.waitFor(() => {
+                expect(isShown(tooltip)).toBe(true);
+            });
+        });
+
+        test('stays closed when the focus is given by a script after a click', async () => {
+            const { anchor, tooltip, waitForChanges } = await setup();
+            anchor!.tabIndex = 0;
+            const other = document.createElement('button');
+            other.textContent = 'Other';
+            document.body.append(other);
+            onTestFinished(() => other.remove());
+
+            await userEvent.click(other);
+            anchor!.focus();
+            await waitPastShowDelay();
+            await waitForChanges();
+
+            expect(document.activeElement).toBe(anchor);
+            expect(isShown(tooltip)).toBe(false);
+        });
     });
 
     describe('description of the owner element', () => {

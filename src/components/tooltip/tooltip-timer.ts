@@ -1,4 +1,4 @@
-const DEFAULT_DELAY_FOR_SHOWING = 500;
+export const DEFAULT_DELAY_FOR_SHOWING = 500;
 
 export class TooltipTimer {
     private timerHandle: number | null = null;
