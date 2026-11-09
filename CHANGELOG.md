@@ -1,3 +1,10 @@
+## [40.18.4](https://github.com/Lundalogik/lime-elements/compare/v40.18.3...v40.18.4) (2026-11-09)
+
+### Bug Fixes
+
+
+* **form:** add a property to leave the defaults of the schema out of the value ([582400e](https://github.com/Lundalogik/lime-elements/commit/582400e6ea19f976eaffde6b548453fd27572e78))
+
 ## [40.18.3](https://github.com/Lundalogik/lime-elements/compare/v40.18.2...v40.18.3) (2026-10-30)
 
 ### Bug Fixes
