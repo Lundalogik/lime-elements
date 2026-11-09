@@ -3,6 +3,17 @@ import { vi, onTestFinished, type MockInstance } from 'vitest';
 import { getAccessibleNodes } from '../../util/test/accessibility-tree';
 import { getDeepActiveElement } from '../../util/get-deep-active-element';
 
+const pressEscape = () => {
+    const event = new KeyboardEvent('keydown', {
+        key: 'Escape',
+        bubbles: true,
+        cancelable: true,
+    });
+    document.dispatchEvent(event);
+
+    return event;
+};
+
 class FocusOnConnect extends HTMLElement {
     public connectedCallback() {
         this.tabIndex = 0;
@@ -332,17 +343,6 @@ describe('limel-popover', () => {
             return event;
         };
 
-        const pressEscape = () => {
-            const event = new KeyboardEvent('keydown', {
-                key: 'Escape',
-                bubbles: true,
-                cancelable: true,
-            });
-            document.dispatchEvent(event);
-
-            return event;
-        };
-
         it('swallows a click outside the popover while it is open', async () => {
             const { root, waitForChanges } = await render(
                 <limel-popover open={true}>
@@ -438,7 +438,7 @@ describe('limel-popover', () => {
             const trigger = root.querySelector('#trigger') as HTMLElement;
             trigger.focus();
 
-            return { trigger, waitForChanges, setProps };
+            return { root, trigger, waitForChanges, setProps };
         };
 
         const getSurface = () =>
@@ -626,6 +626,171 @@ describe('limel-popover', () => {
                 await settle();
 
                 expect(document.activeElement).toBe(trigger);
+            });
+        });
+
+        describe('when the popup closes', () => {
+            const openWithFocusInside = async () => {
+                const page = await renderPopover();
+
+                await page.setProps({ open: true });
+                await page.waitForChanges();
+                await vi.waitFor(() => {
+                    expect(document.activeElement).toBe(getSurface());
+                });
+
+                return page;
+            };
+
+            it('goes back to the trigger when it was inside the popup', async () => {
+                const { trigger, setProps, waitForChanges } =
+                    await openWithFocusInside();
+
+                await setProps({ open: false });
+                await waitForChanges();
+
+                await vi.waitFor(() => {
+                    expect(document.activeElement).toBe(trigger);
+                });
+            });
+
+            it('goes back to the trigger when the popup is in a shadow root', async () => {
+                const { popover, trigger } = await renderInShadowRoot(
+                    document.createElement('button')
+                );
+                popover.open = true;
+                await vi.waitFor(() => {
+                    expect(getDeepActiveElement()?.getAttribute('role')).toBe(
+                        'dialog'
+                    );
+                });
+
+                popover.open = false;
+
+                await vi.waitFor(() => {
+                    expect(getDeepActiveElement()).toBe(trigger);
+                });
+            });
+
+            it('does not take the focus to the trigger when the popup is opened again right after closing', async () => {
+                const { root, trigger } = await openWithFocusInside();
+                const popover = root as HTMLLimelPopoverElement;
+                const onTriggerFocus = vi.fn();
+                trigger.addEventListener('focus', onTriggerFocus);
+
+                popover.open = false;
+                popover.open = true;
+                await settle();
+
+                expect(onTriggerFocus).not.toHaveBeenCalled();
+                expect(document.activeElement).toBe(getSurface());
+            });
+
+            it('stays where the app put it right after closing', async () => {
+                const { root } = await openWithFocusInside();
+                const elsewhere = document.createElement('button');
+                document.body.append(elsewhere);
+                onTestFinished(() => elsewhere.remove());
+
+                (root as HTMLLimelPopoverElement).open = false;
+                elsewhere.focus();
+                await settle();
+
+                expect(document.activeElement).toBe(elsewhere);
+            });
+
+            describe('when the popup has no role', () => {
+                const openWithFocusOnContent = async () => {
+                    const page = await renderPopover({});
+
+                    await page.setProps({ open: true });
+                    await page.waitForChanges();
+                    const inside = await vi.waitFor(() => {
+                        const element = getSurface()?.shadowRoot?.querySelector(
+                            '#inside'
+                        ) as HTMLElement | null;
+                        expect(element).not.toBeNull();
+
+                        return element as HTMLElement;
+                    });
+                    inside.focus();
+                    expect(getDeepActiveElement()).toBe(inside);
+
+                    return page;
+                };
+
+                it('goes back to the trigger when it closes with the focus inside it', async () => {
+                    const { trigger, setProps, waitForChanges } =
+                        await openWithFocusOnContent();
+
+                    await setProps({ open: false });
+                    await waitForChanges();
+
+                    await vi.waitFor(() => {
+                        expect(document.activeElement).toBe(trigger);
+                    });
+                });
+
+                it('goes back to the trigger when Escape closes it with the focus inside it', async () => {
+                    const { root, trigger, setProps } =
+                        await openWithFocusOnContent();
+                    root.addEventListener('close', () =>
+                        setProps({ open: false })
+                    );
+
+                    pressEscape();
+
+                    await vi.waitFor(() => {
+                        expect(document.activeElement).toBe(trigger);
+                    });
+                });
+            });
+
+            describe('with Escape', () => {
+                it('goes back to the trigger when it was inside the popup', async () => {
+                    const { root, trigger, setProps } =
+                        await openWithFocusInside();
+                    root.addEventListener('close', () =>
+                        setProps({ open: false })
+                    );
+
+                    pressEscape();
+
+                    await vi.waitFor(() => {
+                        expect(document.activeElement).toBe(trigger);
+                    });
+                });
+
+                it('stays where the user put it when it was not inside the popup', async () => {
+                    const { root, setProps } = await openWithFocusInside();
+                    root.addEventListener('close', () =>
+                        setProps({ open: false })
+                    );
+                    const elsewhere = document.createElement('button');
+                    document.body.append(elsewhere);
+                    onTestFinished(() => elsewhere.remove());
+                    elsewhere.focus();
+
+                    pressEscape();
+                    await settle();
+
+                    expect(document.activeElement).toBe(elsewhere);
+                });
+            });
+
+            it('stays where the user put it when it was not inside the popup', async () => {
+                const { setProps, waitForChanges } =
+                    await openWithFocusInside();
+                const elsewhere = document.createElement('button');
+                document.body.append(elsewhere);
+                onTestFinished(() => elsewhere.remove());
+                elsewhere.focus();
+
+                await setProps({ open: false });
+                await waitForChanges();
+                await settle();
+
+                expect(document.activeElement).toBe(elsewhere);
             });
         });
     });

@@ -56,6 +56,12 @@ import { setControlledElement } from '../../util/controlled-element';
  * If your content is that big, you should probably be using a Modal instead.
  * :::
  *
+ * ## Focus
+ * When the focus is inside a popup as it closes, it goes back to the trigger.
+ * If the user or the app has moved the focus somewhere else, it stays there.
+ * A popup that opens as a named `dialog` also takes the focus when it opens.
+ * See `popupRole`.
+ *
  * @slot - Content to put inside the surface
  * @exampleComponent limel-example-popover-basic
  * @exampleComponent limel-example-popover-trigger-interaction
@@ -121,7 +127,6 @@ export class Popover {
     private triggerSlot: HTMLSlotElement;
     private portal?: HTMLLimelPortalElement;
     private surface?: HTMLLimelPopoverSurfaceElement;
-    private shouldRestoreFocusOnClose = false;
     private focusPending = false;
     private hasWarnedAboutMissingName = false;
 
@@ -135,12 +140,12 @@ export class Popover {
         this.setupGlobalHandlers();
         this.focusPending = this.open;
 
-        if (this.open || !this.shouldRestoreFocusOnClose) {
+        if (this.open || !this.isFocusInPopup()) {
             return;
         }
 
-        this.shouldRestoreFocusOnClose = false;
-        setTimeout(this.focusTrigger, 0);
+        const focusedAtClose = getDeepActiveElement();
+        setTimeout(() => this.restoreFocus(focusedAtClose), 0);
     }
 
     public componentWillLoad() {
@@ -301,11 +306,6 @@ export class Popover {
 
         event.stopPropagation();
         event.preventDefault();
-        this.requestCloseAndRestoreFocus();
-    };
-
-    private readonly requestCloseAndRestoreFocus = () => {
-        this.shouldRestoreFocusOnClose = true;
         this.close.emit();
     };
 
@@ -321,6 +321,19 @@ export class Popover {
         element?: HTMLLimelPopoverSurfaceElement
     ) => {
         this.surface = element;
+    };
+
+    private readonly restoreFocus = (focusedAtClose: Element | null) => {
+        if (this.open) {
+            return;
+        }
+
+        const focused = getDeepActiveElement();
+        if (focused !== focusedAtClose && focused !== document.body) {
+            return;
+        }
+
+        this.focusTrigger();
     };
 
     private readonly focusTrigger = () => {
