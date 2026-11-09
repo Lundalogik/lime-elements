@@ -5,6 +5,7 @@ import { OpenDirection } from '../menu/menu.types';
 import { clearDescription, setDescription } from './description-registry';
 import { getDescription } from './get-description';
 import { getFocusTarget } from '../../util/get-focus-target';
+import { hasVisibleFocus } from './has-visible-focus';
 import { getOwnerElement } from './get-owner-element';
 import { TooltipTimer } from './tooltip-timer';
 
@@ -208,19 +209,28 @@ export class Tooltip {
     private addListeners() {
         this.ownerElement?.addEventListener('mouseover', this.showTooltip);
         this.ownerElement?.addEventListener('mouseout', this.hideTooltip);
-        this.ownerElement?.addEventListener('focus', this.showTooltip);
+        this.ownerElement?.addEventListener('focus', this.showTooltipForFocus);
         this.ownerElement?.addEventListener('blur', this.hideTooltip);
     }
 
     private removeListeners() {
         this.ownerElement?.removeEventListener('mouseover', this.showTooltip);
         this.ownerElement?.removeEventListener('mouseout', this.hideTooltip);
-        this.ownerElement?.removeEventListener('focus', this.showTooltip);
+        this.ownerElement?.removeEventListener(
+            'focus',
+            this.showTooltipForFocus
+        );
         this.ownerElement?.removeEventListener('blur', this.hideTooltip);
     }
 
     private showTooltip = () => {
         this.tooltipTimer.showAfterDelay();
+    };
+
+    private showTooltipForFocus = () => {
+        if (hasVisibleFocus()) {
+            this.showTooltip();
+        }
     };
 
     private hideTooltip = () => {
