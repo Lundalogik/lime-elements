@@ -517,6 +517,7 @@ export namespace Components {
         "headingLevel": HeadingLevel;
         // @beta
         "highlightedField"?: Array<string | number>;
+        "includeDefaults": boolean;
         "propsFactory"?: (schema: FormSchema) => Record<string, any>;
         "revealErrors": boolean;
         "schema": FormSchema;
@@ -2673,6 +2674,7 @@ export namespace JSX {
         "headingLevel"?: HeadingLevel;
         // @beta
         "highlightedField"?: Array<string | number>;
+        "includeDefaults"?: boolean;
         "onChange"?: (event: LimelFormCustomEvent<object>) => void;
         "onValidate"?: (event: LimelFormCustomEvent<ValidationStatus>) => void;
         "propsFactory"?: (schema: FormSchema) => Record<string, any>;
@@ -2688,6 +2690,8 @@ export namespace JSX {
         "disabled": boolean;
         // (undocumented)
         "headingLevel": HeadingLevel;
+        // (undocumented)
+        "includeDefaults": boolean;
         // (undocumented)
         "revealErrors": boolean;
     }
