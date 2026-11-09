@@ -789,6 +789,7 @@ export namespace Components {
         "openDirection": OpenDirection;
         "position": 'fixed' | 'absolute';
         "visible": boolean;
+        "whenShown": () => Promise<void>;
     }
     // @beta
     export interface LimelProfilePicture {

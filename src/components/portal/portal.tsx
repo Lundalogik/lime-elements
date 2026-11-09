@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop, Watch } from '@stencil/core';
+import { Component, Element, h, Method, Prop, Watch } from '@stencil/core';
 import { OpenDirection } from '../menu/menu.types';
 import {
     createPopper,
@@ -119,6 +119,7 @@ export class Portal {
     private observer: ResizeObserver;
     private writtenStyles: Partial<Record<'width' | 'maxHeight', string>> = {};
     private scheduledRestyle: number = null;
+    private readonly shownResolvers: Array<() => void> = [];
 
     constructor() {
         this.parents = new WeakMap();
@@ -163,6 +164,24 @@ export class Portal {
 
         this.createPopper();
         this.showContainer();
+    }
+
+    /**
+     * Resolves when the content is shown. The content is shown at once when
+     * the portal first becomes visible, and one animation frame later when it
+     * becomes visible again.
+     *
+     * @returns a promise that resolves when the content is shown
+     */
+    @Method()
+    public async whenShown(): Promise<void> {
+        if (this.container?.classList.contains(IS_VISIBLE_CLASS)) {
+            return;
+        }
+
+        await new Promise<void>((resolve) => {
+            this.shownResolvers.push(resolve);
+        });
     }
 
     public render() {
@@ -241,6 +260,10 @@ export class Portal {
 
     private showContainer() {
         this.container.classList.add(IS_VISIBLE_CLASS);
+
+        for (const resolve of this.shownResolvers.splice(0)) {
+            resolve();
+        }
     }
 
     private animateHideAndCleanup() {

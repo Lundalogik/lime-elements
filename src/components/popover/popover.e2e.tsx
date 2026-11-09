@@ -1,13 +1,17 @@
 import { render, h } from '@stencil/vitest';
-import { vi, type MockInstance } from 'vitest';
+import { vi, onTestFinished, type MockInstance } from 'vitest';
 import { getAccessibleNodes } from '../../util/test/accessibility-tree';
+import { getDeepActiveElement } from '../../util/get-deep-active-element';
+
+class FocusOnConnect extends HTMLElement {
+    public connectedCallback() {
+        this.tabIndex = 0;
+        this.focus();
+    }
+}
+customElements.define('limel-test-focus-on-connect', FocusOnConnect);
 
 describe('limel-popover', () => {
-    // Focus restoration and dismiss-on-Escape/outside-click tests require
-    // real browser focus management (page.keyboard.press, page.focus, page.click)
-    // which isn't available in the Stencil vitest render API.
-    // These tests verify basic open/close state behavior.
-
     it('renders open when open prop is true', async () => {
         const { root, waitForChanges } = await render(
             <limel-popover open={true}>
@@ -404,6 +408,225 @@ describe('limel-popover', () => {
 
             expect(clickOutside().defaultPrevented).toBe(false);
             expect(closeHandler).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('the focus', () => {
+        const settle = () => new Promise((resolve) => setTimeout(resolve, 100));
+
+        const namedDialog = {
+            popupRole: 'dialog' as const,
+            accessibleLabel: 'Settings',
+        };
+
+        const renderPopover = async (
+            props: {
+                popupRole?: 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
+                accessibleLabel?: string;
+            } = namedDialog
+        ) => {
+            const { root, waitForChanges, setProps } = await render(
+                <limel-popover {...props}>
+                    <button slot="trigger" id="trigger">
+                        Trigger
+                    </button>
+                    <button id="inside">Inside</button>
+                </limel-popover>
+            );
+            await waitForChanges();
+
+            const trigger = root.querySelector('#trigger') as HTMLElement;
+            trigger.focus();
+
+            return { trigger, waitForChanges, setProps };
+        };
+
+        const getSurface = () =>
+            document.querySelector('limel-popover-surface') as HTMLElement;
+
+        const renderInShadowRoot = async (content: HTMLElement) => {
+            const host = document.createElement('div');
+            const portalParent = document.createElement('div');
+            portalParent.className = 'limel-portal--parent';
+            host.attachShadow({ mode: 'open' }).append(portalParent);
+            document.body.append(host);
+            onTestFinished(() => host.remove());
+
+            const trigger = document.createElement('button');
+            trigger.slot = 'trigger';
+            trigger.textContent = 'Trigger';
+            const popover = document.createElement('limel-popover');
+            popover.popupRole = 'dialog';
+            popover.accessibleLabel = 'Settings';
+            popover.append(trigger, content);
+            portalParent.append(popover);
+            await popover.componentOnReady();
+            trigger.focus();
+
+            return { popover, trigger };
+        };
+
+        describe('when the popup opens', () => {
+            it('moves into the popup when it has a role and a name', async () => {
+                const { setProps, waitForChanges } = await renderPopover();
+
+                await setProps({ open: true });
+                await waitForChanges();
+
+                await vi.waitFor(() => {
+                    expect(document.activeElement).toBe(getSurface());
+                });
+                expect(
+                    getSurface().shadowRoot.activeElement?.getAttribute('role')
+                ).toBe('dialog');
+            });
+
+            it('moves into the popup every time it opens', async () => {
+                const portalStyles = document.createElement('style');
+                portalStyles.textContent = `
+                    .limel-portal--container { display: none; }
+                    .limel-portal--container.is-visible { display: inline-block; }
+                `;
+                document.head.append(portalStyles);
+                onTestFinished(() => portalStyles.remove());
+                const { trigger, setProps, waitForChanges } =
+                    await renderPopover();
+                await setProps({ open: true });
+                await waitForChanges();
+                await vi.waitFor(() => {
+                    expect(document.activeElement).toBe(getSurface());
+                });
+
+                trigger.focus();
+                await setProps({ open: false });
+                await waitForChanges();
+                await vi.waitFor(() => {
+                    expect(
+                        document
+                            .querySelector('.limel-portal--container')
+                            ?.classList.contains('is-visible')
+                    ).toBe(false);
+                });
+                await setProps({ open: true });
+                await waitForChanges();
+
+                await vi.waitFor(() => {
+                    expect(document.activeElement).toBe(getSurface());
+                });
+            });
+
+            it('moves into the popup when `open`, the role and the name are set in the same tick', async () => {
+                const popover = document.createElement('limel-popover');
+                const trigger = document.createElement('button');
+                trigger.slot = 'trigger';
+                trigger.textContent = 'Trigger';
+                popover.append(trigger);
+                document.body.append(popover);
+                onTestFinished(() => popover.remove());
+                await popover.componentOnReady();
+                trigger.focus();
+
+                popover.open = true;
+                popover.popupRole = 'dialog';
+                popover.accessibleLabel = 'Settings';
+
+                await vi.waitFor(() => {
+                    expect(getDeepActiveElement()?.getAttribute('role')).toBe(
+                        'dialog'
+                    );
+                });
+            });
+
+            it('moves into a popup that is open from the start', async () => {
+                const { waitForChanges } = await render(
+                    <limel-popover
+                        open={true}
+                        popupRole="dialog"
+                        accessibleLabel="Settings"
+                    >
+                        <button slot="trigger" id="trigger">
+                            Trigger
+                        </button>
+                        <button id="inside">Inside</button>
+                    </limel-popover>
+                );
+                await waitForChanges();
+
+                await vi.waitFor(() => {
+                    expect(document.activeElement).toBe(getSurface());
+                });
+            });
+
+            it('stays where the content put it', async () => {
+                const { setProps, waitForChanges } = await render(
+                    <limel-popover
+                        popupRole="dialog"
+                        accessibleLabel="Settings"
+                    >
+                        <button slot="trigger">Trigger</button>
+                        <limel-test-focus-on-connect />
+                    </limel-popover>
+                );
+                await setProps({ open: true });
+                await waitForChanges();
+                await settle();
+
+                expect(getSurface().shadowRoot.activeElement?.localName).toBe(
+                    'limel-test-focus-on-connect'
+                );
+            });
+
+            it('stays where the content put it when the popup is in a shadow root', async () => {
+                const { popover } = await renderInShadowRoot(
+                    document.createElement('limel-test-focus-on-connect')
+                );
+
+                popover.open = true;
+                await settle();
+
+                expect(getDeepActiveElement()?.localName).toBe(
+                    'limel-test-focus-on-connect'
+                );
+            });
+
+            it('stays on the trigger when the popup has no role', async () => {
+                const { trigger, setProps, waitForChanges } =
+                    await renderPopover({});
+
+                await setProps({ open: true });
+                await waitForChanges();
+                await settle();
+
+                expect(document.activeElement).toBe(trigger);
+            });
+
+            it.each(['menu', 'listbox', 'tree', 'grid'] as const)(
+                'stays on the trigger when the role is %s',
+                async (popupRole) => {
+                    const { trigger, setProps, waitForChanges } =
+                        await renderPopover({
+                            popupRole,
+                            accessibleLabel: 'Settings',
+                        });
+
+                    await setProps({ open: true });
+                    await waitForChanges();
+                    await settle();
+
+                    expect(document.activeElement).toBe(trigger);
+                }
+            );
+
+            it('stays on the trigger when the role has no name', async () => {
+                const { trigger, setProps, waitForChanges } =
+                    await renderPopover({ popupRole: 'dialog' });
+
+                await setProps({ open: true });
+                await waitForChanges();
+                await settle();
+
+                expect(document.activeElement).toBe(trigger);
+            });
         });
     });
 });

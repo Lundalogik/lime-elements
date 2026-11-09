@@ -10,6 +10,7 @@ import {
 import { createRandomString } from '../../util/random-string';
 import { zipObject } from 'lodash-es';
 import { portalContains } from '../portal/contains';
+import { getDeepActiveElement } from '../../util/get-deep-active-element';
 import { ESCAPE } from '../../util/keycodes';
 import { OpenDirection } from '../menu/menu.types';
 import { focusTriggerElement } from '../../util/focus-trigger-element';
@@ -90,6 +91,12 @@ export class Popover {
      *
      * When the role is not set or not used, the trigger only says that it
      * opens a popup.
+     *
+     * A `dialog` with a name takes the focus when it opens, unless something
+     * inside it has taken the focus already. A popup with another role, or
+     * without a role or a name, leaves the focus where it is, so that a
+     * popover that opens on hover does not take the focus away from the user,
+     * and a widget such as a `listbox` keeps the focus on its trigger.
      */
     @Prop()
     public popupRole?: 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
@@ -112,7 +119,10 @@ export class Popover {
 
     private portalId: string;
     private triggerSlot: HTMLSlotElement;
+    private portal?: HTMLLimelPortalElement;
+    private surface?: HTMLLimelPopoverSurfaceElement;
     private shouldRestoreFocusOnClose = false;
+    private focusPending = false;
     private hasWarnedAboutMissingName = false;
 
     constructor() {
@@ -123,6 +133,7 @@ export class Popover {
     @Watch('open')
     protected watchOpen() {
         this.setupGlobalHandlers();
+        this.focusPending = this.open;
 
         if (this.open || !this.shouldRestoreFocusOnClose) {
             return;
@@ -130,6 +141,10 @@ export class Popover {
 
         this.shouldRestoreFocusOnClose = false;
         setTimeout(this.focusTrigger, 0);
+    }
+
+    public componentWillLoad() {
+        this.focusPending = this.open;
     }
 
     public connectedCallback() {
@@ -144,7 +159,12 @@ export class Popover {
         this.warnIfRoleHasNoName();
     }
 
-    public componentDidRender() {
+    public async componentDidRender() {
+        this.updateTriggerAttributes();
+        await this.focusPopupWhenOpened();
+    }
+
+    private updateTriggerAttributes() {
         if (!this.triggerSlot) {
             return;
         }
@@ -152,6 +172,42 @@ export class Popover {
         for (const element of this.triggerSlot.assignedElements()) {
             this.setTriggerAttributes(element as HTMLElement);
         }
+    }
+
+    private async focusPopupWhenOpened() {
+        if (!this.focusPending) {
+            return;
+        }
+
+        this.focusPending = false;
+        if (!this.shouldTakeFocus()) {
+            return;
+        }
+
+        await this.focusSurface();
+    }
+
+    private async focusSurface() {
+        await this.surface?.componentOnReady();
+        await this.portal?.whenShown();
+
+        if (!this.shouldTakeFocus() || this.isFocusInPopup()) {
+            return;
+        }
+
+        this.surface?.focus();
+    }
+
+    private shouldTakeFocus(): boolean {
+        return this.open && this.getNamedPopupRole() === 'dialog';
+    }
+
+    private isFocusInPopup(): boolean {
+        const active = getDeepActiveElement() as HTMLElement | null;
+
+        return (
+            !!active && !!this.surface && portalContains(this.surface, active)
+        );
     }
 
     private setupGlobalHandlers() {
@@ -193,12 +249,14 @@ export class Popover {
             <div class="trigger-anchor">
                 <slot name="trigger" ref={this.setTriggerRef} />
                 <limel-portal
+                    ref={this.setPortalRef}
                     visible={this.open}
                     containerId={this.portalId}
                     containerStyle={{ 'z-index': popoverZIndex }}
                     openDirection={this.openDirection}
                 >
                     <limel-popover-surface
+                        ref={this.setSurfaceRef}
                         contentCollection={this.host.children}
                         popupRole={this.getNamedPopupRole()}
                         accessibleLabel={this.accessibleLabel}
@@ -255,6 +313,16 @@ export class Popover {
         this.triggerSlot = elm;
     };
 
+    private readonly setPortalRef = (element?: HTMLLimelPortalElement) => {
+        this.portal = element;
+    };
+
+    private readonly setSurfaceRef = (
+        element?: HTMLLimelPopoverSurfaceElement
+    ) => {
+        this.surface = element;
+    };
+
     private readonly focusTrigger = () => {
         const trigger = this.triggerSlot?.assignedElements()?.[0] as
             HTMLElement | undefined;
@@ -282,8 +350,12 @@ export class Popover {
         const hasNoName = !!this.popupRole && !this.accessibleLabel;
 
         if (hasNoName && !this.hasWarnedAboutMissingName) {
+            const focusNote =
+                this.popupRole === 'dialog'
+                    ? ' A dialog does not take the focus without one.'
+                    : '';
             console.warn(
-                `limel-popover: popupRole is "${this.popupRole}", but there is no accessibleLabel to name the popup. The role is not used until the popup has a name.`
+                `limel-popover: popupRole is "${this.popupRole}", but there is no accessibleLabel to name the popup. The role is not used until the popup has a name.${focusNote}`
             );
         }
 
