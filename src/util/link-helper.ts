@@ -100,3 +100,35 @@ export function getRel(target?: string | null, explicitRel?: string | null) {
         return 'noopener noreferrer';
     }
 }
+
+const UNSAFE_PROTOCOLS = ['javascript:', 'data:', 'vbscript:'];
+
+/**
+ * Tells whether a URL has a protocol that can run a script when the URL is
+ * opened, such as `javascript:`. Such a URL must not be used as the `href`
+ * of a link, unless it is known where it comes from.
+ *
+ * The check is stricter than a browser. A browser ignores the case of the
+ * protocol, whitespace and control characters around the URL, and tabs and
+ * line breaks inside it. Here, all whitespace and control characters are
+ * ignored, wherever they are.
+ *
+ * A value that is not a string counts as unsafe. JavaScript can pass one,
+ * whatever the type says, and the browser turns it into a string that this
+ * check has not seen. An array of one `javascript:` URL becomes that URL.
+ *
+ * @param url - the URL to check
+ * @returns `true` if the URL has an unsafe protocol, or is not a string
+ */
+export function hasUnsafeProtocol(url: unknown): boolean {
+    if (typeof url !== 'string') {
+        return true;
+    }
+
+    const visibleCharacters = [...url].filter((character) => character > ' ');
+    const normalizedUrl = visibleCharacters.join('').toLowerCase();
+
+    return UNSAFE_PROTOCOLS.some((protocol) =>
+        normalizedUrl.startsWith(protocol)
+    );
+}

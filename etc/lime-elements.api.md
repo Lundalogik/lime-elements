@@ -717,6 +717,15 @@ export namespace Components {
         "allowClicksElement": HTMLElement;
         "open": boolean;
     }
+    export interface LimelNavigationButton {
+        "disabled": boolean;
+        "helperLabel"?: string;
+        "hotkey"?: string;
+        "href"?: string;
+        "label"?: string;
+        "language": Languages;
+        "type": NavigationButtonType;
+    }
     // @internal
     export interface LimelNotchedOutline {
         "disabled": boolean;
@@ -1621,6 +1630,8 @@ export namespace JSX {
         //
         // (undocumented)
         "limel-menu-surface": Omit<LimelMenuSurface, keyof LimelMenuSurfaceAttributes> & { [K in keyof LimelMenuSurface & keyof LimelMenuSurfaceAttributes]?: LimelMenuSurface[K] } & { [K in keyof LimelMenuSurface & keyof LimelMenuSurfaceAttributes as `attr:${K}`]?: LimelMenuSurfaceAttributes[K] } & { [K in keyof LimelMenuSurface & keyof LimelMenuSurfaceAttributes as `prop:${K}`]?: LimelMenuSurface[K] };
+        // (undocumented)
+        "limel-navigation-button": Omit<LimelNavigationButton, keyof LimelNavigationButtonAttributes> & { [K in keyof LimelNavigationButton & keyof LimelNavigationButtonAttributes]?: LimelNavigationButton[K] } & { [K in keyof LimelNavigationButton & keyof LimelNavigationButtonAttributes as `attr:${K}`]?: LimelNavigationButtonAttributes[K] } & { [K in keyof LimelNavigationButton & keyof LimelNavigationButtonAttributes as `prop:${K}`]?: LimelNavigationButton[K] } & OneOf<"type", LimelNavigationButton["type"], LimelNavigationButtonAttributes["type"]>;
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-notched-outline"" is marked as @public, but its signature references "JSX" which is marked as @internal
         //
         // (undocumented)
@@ -3200,6 +3211,34 @@ export namespace JSX {
         "open": boolean;
     }
 
+    export interface LimelNavigationButton {
+        "disabled"?: boolean;
+        "helperLabel"?: string;
+        "hotkey"?: string;
+        "href"?: string;
+        "label"?: string;
+        "language"?: Languages;
+        "type": NavigationButtonType;
+    }
+
+    // (undocumented)
+    export interface LimelNavigationButtonAttributes {
+        // (undocumented)
+        "disabled": boolean;
+        // (undocumented)
+        "helperLabel": string;
+        // (undocumented)
+        "hotkey": string;
+        // (undocumented)
+        "href": string;
+        // (undocumented)
+        "label": string;
+        // (undocumented)
+        "language": Languages;
+        // (undocumented)
+        "type": NavigationButtonType;
+    }
+
     // @internal
     export interface LimelNotchedOutline {
         "disabled"?: boolean;
@@ -4756,6 +4795,9 @@ export const MouseButtons: {
 
 // @beta
 export type MouseButtons = (typeof MouseButtons)[keyof typeof MouseButtons];
+
+// @public
+export type NavigationButtonType = 'close' | 'back' | 'expand' | 'shrink' | 'minimize' | 'maximize' | 'float' | 'newTab';
 
 // @public (undocumented)
 export type OfficeViewer = 'microsoft-office' | 'google-drive';
