@@ -411,10 +411,11 @@ limel-3d-hover-effect-glow {
     @include mixins.parent-of-the-3d-element;
 }
 
-a {
+// Only a tile that is actually a link gets the hover elevation, the tilt and
+// the glow. Without a `link` there is nothing to activate, so signalling
+// interactivity would be a lie — the same reasoning as `limel-card`, which
+// gates these on its `clickable` and `show3dEffect` properties.
+a.is-clickable {
     @include mixins.the-3d-element;
-
-    &.is-clickable {
-        @include mixins.the-3d-element--clickable;
-    }
+    @include mixins.the-3d-element--clickable;
 }
