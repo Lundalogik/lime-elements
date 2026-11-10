@@ -178,7 +178,6 @@ export class SidePanel {
     private panel: HTMLElement;
     private minLimit?: HTMLElement;
     private maxLimit?: HTMLElement;
-    private closeButtonId = createRandomString();
     private actionIdPrefix = createRandomString();
     private backIdPrefix = createRandomString();
     private widthObserver?: ResizeObserver;
@@ -230,10 +229,9 @@ export class SidePanel {
             return;
         }
 
+        // The navigation button delegates focus to the button inside it.
         this.focusCloseButtonAfterRender = false;
-        this.host.shadowRoot
-            .querySelector<HTMLButtonElement>('button.close')
-            ?.focus();
+        this.host.shadowRoot.querySelector<HTMLElement>('.close')?.focus();
     }
 
     public render() {
@@ -262,22 +260,14 @@ export class SidePanel {
         );
     }
 
-    // A native button and not `limel-icon-button`, because the hover animation
-    // styles the icon, which is inside the shadow root of `limel-icon-button`.
     private renderCloseButton() {
         return (
-            <button
+            <limel-navigation-button
                 class="close"
-                id={this.closeButtonId}
-                aria-label={this.closeLabel}
+                type="close"
+                label={this.closeLabel}
                 onClick={this.handleClickClose}
-            >
-                <limel-icon name="multiply" aria-hidden="true" />
-                <limel-tooltip
-                    elementId={this.closeButtonId}
-                    label={this.closeLabel}
-                />
-            </button>
+            />
         );
     }
 

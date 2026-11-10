@@ -199,27 +199,10 @@ section {
     background-color: $toolbar-background-color;
 }
 
-@mixin toolbar-button {
-    @include mixins.reset-button-user-agent-styles;
-    @include mixins.is-flat-clickable;
-    @include mixins.visualize-keyboard-focus;
-
-    isolation: isolate;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 1.875rem;
-    height: 1.875rem;
-    border-radius: 50%;
-
-    limel-icon {
-        width: 1.25rem;
-        transition:
-            transform 0.2s ease,
-            color 0.2s ease;
-    }
+// The close button is flat, like the buttons of the actions, so it has the
+// color of the toolbar.
+.close {
+    --navigation-button-background-color: #{$toolbar-background-color};
 }
 
 .actions {
@@ -229,7 +212,27 @@ section {
     margin-left: auto;
 
     > * {
-        @include toolbar-button;
+        @include mixins.reset-button-user-agent-styles;
+        @include mixins.is-flat-clickable;
+        @include mixins.visualize-keyboard-focus;
+
+        isolation: isolate;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 1.875rem;
+        height: 1.875rem;
+        border-radius: 50%;
+
+        limel-icon {
+            width: 1.25rem;
+            transition:
+                transform 0.2s ease,
+                color 0.2s ease;
+        }
+
         // The hover animations draw shapes that must have the same color as
         // the button. `is-flat-clickable` gives the button this color on hover.
         --_side-panel-action-background-color: #{$toolbar-background-color};
@@ -314,54 +317,6 @@ section {
 
         limel-icon {
             transform: scale(1.18);
-        }
-    }
-}
-
-// Same hover animation as the close button of the side panel in the Lime CRM
-// web client.
-.close {
-    @include toolbar-button;
-
-    &:before,
-    &:after {
-        content: '';
-        position: absolute;
-        z-index: -1;
-        inset: 0;
-        border-radius: 50%;
-        opacity: 0;
-        transition-delay: 0.1s;
-    }
-
-    &:before {
-        transition:
-            transform 0.3s ease,
-            opacity 0.3s ease;
-        background-color: rgb(var(--color-orange-dark));
-    }
-
-    &:after {
-        transition:
-            transform 0.6s ease,
-            opacity 0.6s ease;
-        background-color: rgb(var(--color-orange-light));
-    }
-
-    &:hover {
-        limel-icon {
-            color: rgb(var(--color-white));
-            transform: scale(0.7) rotate(90deg);
-        }
-
-        &:before {
-            opacity: 1;
-            transform: scale(0.4);
-        }
-
-        &:after {
-            opacity: 0.4;
-            transform: scale(0.6);
         }
     }
 }

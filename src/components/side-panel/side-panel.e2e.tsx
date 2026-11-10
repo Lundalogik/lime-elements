@@ -126,13 +126,28 @@ test('limel-side-panel: emits close when the close button is clicked', async () 
     expect(closed).toHaveLength(1);
 });
 
-test('limel-side-panel: uses closeLabel as the label of the close button', async () => {
+test('limel-side-panel: names the close button Close when closeLabel is not set', async () => {
+    await renderPanel();
+
+    expect(await getAccessibleNames('button')).toContain('Close');
+});
+
+test('limel-side-panel: shows Close as the tooltip of the close button when closeLabel is not set', async () => {
+    await renderPanel();
+
+    expect(getCloseTooltip().label).toBe('Close');
+});
+
+test('limel-side-panel: uses closeLabel as the accessible name of the close button', async () => {
     await renderPanel({ closeLabel: 'Stäng' });
 
-    expect(getCloseButton().getAttribute('aria-label')).toBe('Stäng');
-    expect(getCloseButton().querySelector('limel-tooltip')!.label).toBe(
-        'Stäng'
-    );
+    expect(await getAccessibleNames('button')).toContain('Stäng');
+});
+
+test('limel-side-panel: uses closeLabel as the tooltip of the close button', async () => {
+    await renderPanel({ closeLabel: 'Stäng' });
+
+    expect(getCloseTooltip().label).toBe('Stäng');
 });
 
 test('limel-side-panel: shows the heading of the last stack entry', async () => {
@@ -360,9 +375,12 @@ test('limel-side-panel: shows the toolbar tooltips above the panel', async () =>
         style: { '--side-panel-z-index': '20' },
         actions: [{ type: 'expand', label: 'Expand' }],
     });
-    const tooltips = getPage().root!.shadowRoot!.querySelectorAll(
-        '.toolbar limel-tooltip'
-    );
+    const tooltips = [
+        getCloseTooltip(),
+        ...getPage().root!.shadowRoot!.querySelectorAll(
+            '.toolbar limel-tooltip'
+        ),
+    ];
 
     expect(tooltips).toHaveLength(2);
     for (const tooltip of tooltips) {
@@ -1489,7 +1507,7 @@ function getContentSlot(): HTMLSlotElement {
 }
 
 async function pressCloseButton() {
-    getCloseButton().dispatchEvent(new CustomEvent('click'));
+    getCloseButton().click();
 
     await getPage().waitForChanges();
 }
@@ -1736,8 +1754,13 @@ function listenUntilTheTestEnds(): AbortSignal {
     return listener.signal;
 }
 
-function getCloseButton(): HTMLButtonElement {
-    return getPage().root!.shadowRoot!.querySelector('button.close')!;
+function getCloseButton(): HTMLLimelNavigationButtonElement {
+    return getPage().root!.shadowRoot!.querySelector('.close')!;
+}
+
+// The tooltip is inside the shadow root of the navigation button.
+function getCloseTooltip(): HTMLLimelTooltipElement {
+    return getCloseButton().shadowRoot!.querySelector('limel-tooltip')!;
 }
 
 /**
