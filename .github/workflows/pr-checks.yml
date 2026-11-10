@@ -289,8 +289,6 @@ jobs:
   sonarcloud:
     name: SonarCloud
     if: >-
-      github.actor != 'dependabot[bot]' &&
-      github.actor != 'lime-dependabot-automerge[bot]' &&
       github.event_name != 'merge_group' &&
       github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
