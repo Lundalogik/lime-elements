@@ -1,0 +1,23 @@
+:host {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+limel-example-controls {
+    flex-basis: 100%;
+    margin: 0;
+}
+
+figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+figcaption {
+    font-size: 0.75rem;
+    color: rgb(var(--contrast-1100));
+}

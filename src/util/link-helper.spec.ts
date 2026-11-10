@@ -1,4 +1,10 @@
-import { getTarget, getHref, prependProtocol, getRel } from './link-helper';
+import {
+    getTarget,
+    getHref,
+    prependProtocol,
+    getRel,
+    hasUnsafeProtocol,
+} from './link-helper';
 
 describe('limeLinkHelper', () => {
     let element;
@@ -157,5 +163,47 @@ describe('limeLinkHelper', () => {
                 expect(getRel(target, explicitRel)).toBe(expected);
             });
         }
+    });
+});
+
+describe('hasUnsafeProtocol', () => {
+    it.each([
+        'javascript:alert(1)',
+        'JaVaScRiPt:alert(1)',
+        '  javascript:alert(1)',
+        'java\tscript:alert(1)',
+        'java\nscript:alert(1)',
+        '\u{1}javascript:alert(1)',
+        'data:text/html,<script>alert(1)</script>',
+        'vbscript:msgbox(1)',
+    ])('is true for %j', (url) => {
+        expect(hasUnsafeProtocol(url)).toBe(true);
+    });
+
+    it.each([
+        'https://example.com/',
+        'http://example.com/',
+        '//example.com/',
+        '/path',
+        '#section',
+        'mailto:someone@example.com',
+        'tel:+46123456',
+        'm-files://show/123',
+        'https://example.com/?next=javascript:alert(1)',
+        'javascript',
+        '',
+    ])('is false for %j', (url) => {
+        expect(hasUnsafeProtocol(url)).toBe(false);
+    });
+
+    it.each([
+        [[' javascript:alert(1)']],
+        [['https://example.com/']],
+        [{}],
+        [42],
+        [null],
+        [undefined],
+    ])('is true for %j, which is not a string', (url) => {
+        expect(hasUnsafeProtocol(url)).toBe(true);
     });
 });

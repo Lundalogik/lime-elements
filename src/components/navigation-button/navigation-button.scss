@@ -1,0 +1,352 @@
+@use 'sass:math';
+@use '../../style/mixins';
+
+/**
+ * @prop --navigation-button-background-color: Background color of the button. Defaults to `--lime-elevated-surface-background-color`.
+ * @prop --navigation-button-icon-color: Color of the icon. Defaults to the text color of the button.
+ */
+
+$size: 1.875rem;
+$icon-size: 1.25rem;
+$icon-view-box-size: 32;
+$icon-stroke-width: 2;
+$icon-line-width: math.div(
+    $icon-size * $icon-stroke-width,
+    $icon-view-box-size
+);
+
+// Percentages of the `viewBox`, so that they scale with the icon.
+$arrow-travel: math.percentage(math.div(2, $icon-view-box-size));
+$window-travel: math.percentage(math.div(3, $icon-view-box-size));
+
+$background-color: var(
+    --navigation-button-background-color,
+    var(--lime-elevated-surface-background-color)
+);
+
+// `--header-menu-icon-color` is the older name of the property. The headers
+// in Lime CRM set it, so it still works.
+$icon-color: var(--navigation-button-icon-color, var(--header-menu-icon-color));
+
+$disabled: ':disabled, [aria-disabled="true"]';
+// The hover animations also run when the button has keyboard focus.
+$hovered-or-focused: ':is(:hover, :focus-visible):not(#{$disabled})';
+
+.navigation-button {
+    // Not only the reset of a `<button>`, because the component is also
+    // rendered as an `<a>`, and its styles must be reset too.
+    all: unset;
+    isolation: isolate;
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: $size;
+    width: $size;
+
+    border-radius: 50%;
+
+    &:not(#{$disabled}) {
+        @include mixins.is-flat-clickable($background-color: $background-color);
+        @include mixins.visualize-keyboard-focus;
+    }
+
+    &:is(#{$disabled}) {
+        cursor: not-allowed;
+        color: var(--limel-theme-on-surface-color);
+        background-color: $background-color;
+        opacity: 0.5;
+    }
+
+    // The icons are lines, so `currentColor` gives them the color of the text.
+    svg {
+        // Only a positioned element has a `z-index`. The hover animations of
+        // some types draw shapes above and below the icon.
+        position: relative;
+
+        // The tooltip is shown when the pointer enters the control. Without
+        // this, it is shown again each time the pointer moves from one part
+        // of the icon to the next.
+        pointer-events: none;
+
+        width: $icon-size;
+        height: $icon-size;
+
+        fill: none;
+        stroke: currentColor;
+        stroke-width: $icon-stroke-width;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+
+        transition:
+            color 0.2s ease,
+            transform 0.2s cubic-bezier(0.84, 0.15, 0.52, 1.42);
+
+        color: $icon-color;
+    }
+}
+
+// A window with an arrow in it. On hover, the window moves up and to the
+// right, and the outline of a window behind it moves out the other way. The
+// arrow moves with the window in front, and the rest of its shaft is drawn,
+// so that it starts in the window behind.
+.newTab {
+    g {
+        transition:
+            transform 0.2s ease,
+            opacity 0.2s ease;
+    }
+
+    g:first-child {
+        opacity: 0;
+    }
+
+    g:last-child path {
+        transition:
+            stroke 0.2s ease,
+            stroke-dashoffset 0.2s ease;
+    }
+
+    g:last-child path:last-child {
+        stroke-dasharray: 1 2;
+        stroke-dashoffset: 0.5;
+    }
+
+    &#{$hovered-or-focused} {
+        g:first-child {
+            opacity: 0.6;
+            transform: translate(-$window-travel, $window-travel);
+        }
+
+        g:not(:first-child) {
+            transform: translate($window-travel, -$window-travel);
+        }
+
+        g:last-child path {
+            stroke: var(--mdc-theme-primary);
+        }
+
+        g:last-child path:last-child {
+            stroke-dashoffset: 0;
+        }
+    }
+}
+
+// The icon is a chevron. On hover, it slides left, and a line grows from its
+// tip, so that together they look like an arrow.
+.back {
+    svg {
+        transition: transform 0.2s ease;
+    }
+
+    &:after {
+        transition:
+            transform 0.2s ease,
+            opacity 0.2s ease;
+        content: '';
+        position: absolute;
+        inset: 0 auto 0 0.625rem;
+
+        width: 0.75rem;
+        height: $icon-line-width;
+        margin: auto 0;
+        border-radius: 0.5rem;
+
+        background-color: var(
+            --navigation-button-icon-color,
+            var(--header-menu-icon-color, currentColor)
+        );
+        opacity: 0;
+        transform: scaleX(0);
+        transform-origin: right;
+    }
+
+    &#{$hovered-or-focused} {
+        svg {
+            transform: translate3d(-0.15rem, 0, 0);
+        }
+
+        &:after {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+    }
+}
+
+// Only the heads of the arrows are drawn, until the user points at the button.
+// The heads then move, towards the corners for `expand` and towards the center
+// for `shrink`, and the shafts are drawn from their tips.
+.expand,
+.shrink {
+    g {
+        transition: transform 0.2s ease;
+    }
+
+    path:last-child {
+        transition: stroke-dashoffset 0.2s ease;
+        stroke-dasharray: 1 2;
+        stroke-dashoffset: 1;
+    }
+
+    &#{$hovered-or-focused} {
+        svg {
+            color: var(--mdc-theme-primary);
+        }
+
+        path:last-child {
+            stroke-dashoffset: 0;
+        }
+    }
+}
+
+.expand#{$hovered-or-focused} g:first-child,
+.shrink#{$hovered-or-focused} g:last-child {
+    transform: translate($arrow-travel, -$arrow-travel);
+}
+
+.expand#{$hovered-or-focused} g:last-child,
+.shrink#{$hovered-or-focused} g:first-child {
+    transform: translate(-$arrow-travel, $arrow-travel);
+}
+
+.minimize,
+.maximize {
+    &:before,
+    &:after {
+        content: '';
+        transition:
+            transform 0.3s ease-out 0.15s,
+            background-color 0.1s ease;
+    }
+
+    svg {
+        transition:
+            transform 0.2s ease 0.1s,
+            opacity 0.2s ease;
+    }
+}
+
+.minimize:before,
+.maximize:before,
+.maximize:after {
+    z-index: -1;
+    box-sizing: border-box;
+    position: absolute;
+    width: 70%;
+    height: 60%;
+    border-radius: 0.25rem;
+    transform-origin: bottom;
+}
+
+.minimize#{$hovered-or-focused}:before,
+.maximize:before {
+    transform: scaleY(0.3) scaleX(0.7);
+    background-color: rgb(var(--contrast-500));
+}
+
+.maximize#{$hovered-or-focused}:before {
+    transform: none;
+}
+
+.minimize#{$hovered-or-focused} svg,
+.maximize svg {
+    transform: scaleX(0.8) translate3d(0, 0.4rem, 0);
+}
+
+.maximize {
+    svg {
+        opacity: 0.7;
+    }
+
+    &#{$hovered-or-focused} {
+        svg {
+            opacity: 1;
+            transform: scaleX(1.1) translate3d(0, -0.1rem, 0);
+        }
+    }
+
+    &:after {
+        z-index: -2;
+        border: 1px dashed rgb(var(--contrast-800));
+    }
+}
+
+.close {
+    svg {
+        transition:
+            transform 0.2s ease,
+            color 0.2s ease;
+    }
+
+    // Below the icon, so that the icon stays visible on top of the circles.
+    &:before,
+    &:after {
+        transition-delay: 0.1s;
+        content: '';
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        border-radius: 50%;
+        opacity: 0;
+    }
+
+    &:before {
+        transition:
+            transform 0.3s ease,
+            opacity 0.3s ease;
+        background-color: rgb(var(--color-orange-dark));
+    }
+
+    &:after {
+        transition:
+            transform 0.6s ease,
+            opacity 0.6s ease;
+        background-color: rgb(var(--color-orange-light));
+    }
+
+    &#{$hovered-or-focused} {
+        svg {
+            color: rgb(var(--color-white));
+            transform: scale(0.7) rotate(90deg);
+        }
+
+        &:before {
+            opacity: 1;
+            transform: scale(0.4);
+        }
+
+        &:after {
+            opacity: 0.4;
+            transform: scale(0.6);
+        }
+    }
+}
+
+.float {
+    &:after {
+        transition:
+            width 0.2s ease-out,
+            opacity 0.2s ease;
+        content: '';
+        position: absolute;
+        inset: 0 0.5rem 0 auto;
+
+        border-radius: 1px;
+        opacity: 0.8;
+        transform: translate3d(0, 0, 0);
+        background-color: rgb(var(--contrast-800));
+        width: 0.125rem;
+        height: 0.6rem;
+        margin: auto;
+    }
+
+    &#{$hovered-or-focused} {
+        &:after {
+            width: 0.4rem;
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+}
