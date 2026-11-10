@@ -3,6 +3,7 @@ import {
     escapeRegex,
     buildSearchRegex,
     navigateMatchIndex,
+    lineMatchesScope,
 } from './search-utils';
 
 describe('escapeRegex', () => {
@@ -64,5 +65,25 @@ describe('navigateMatchIndex', () => {
 
     it('wraps backward from first to last', () => {
         expect(navigateMatchIndex(0, -1, 5)).toBe(4);
+    });
+});
+
+describe('lineMatchesScope', () => {
+    it('scope "removed" matches only removed lines', () => {
+        expect(lineMatchesScope('removed', 'removed')).toBe(true);
+        expect(lineMatchesScope('added', 'removed')).toBe(false);
+        expect(lineMatchesScope('context', 'removed')).toBe(false);
+    });
+
+    it('scope "added" matches only added lines', () => {
+        expect(lineMatchesScope('added', 'added')).toBe(true);
+        expect(lineMatchesScope('removed', 'added')).toBe(false);
+        expect(lineMatchesScope('context', 'added')).toBe(false);
+    });
+
+    it('scope "changed" matches added and removed lines, never context', () => {
+        expect(lineMatchesScope('removed', 'changed')).toBe(true);
+        expect(lineMatchesScope('added', 'changed')).toBe(true);
+        expect(lineMatchesScope('context', 'changed')).toBe(false);
     });
 });
