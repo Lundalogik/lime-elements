@@ -21,12 +21,17 @@ const LABELS: Record<string, string> = {
  * focus, it says which arrow keys to press. Screen readers read the arrow keys
  * as the description of the handle.
  *
- * `language` sets the language of the name and the tooltip of the handle. Write
- * `label` in the same language.
+ * The close button is named "Close", and has a tooltip with the same text.
+ *
+ * `language` sets the language of the names and the tooltips of the handle and
+ * the close button. Write `label` in the same language. To give the close
+ * button another text, set `closeLabel`. The text then replaces the
+ * translation, so write it in the same language as well.
  *
  * In this example, open the panel, then change the language or switch off the
  * label. Hover the handle on the left edge of the panel, or reach it with
- * <kbd>Tab</kbd>, to see the name and the tooltip of the handle change.
+ * <kbd>Tab</kbd>, to see the name and the tooltip of the handle change. Hover
+ * the close button to see its tooltip change.
  */
 @Component({
     tag: 'limel-example-side-panel-accessibility',

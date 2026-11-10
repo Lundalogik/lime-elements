@@ -150,6 +150,53 @@ test('limel-side-panel: uses closeLabel as the tooltip of the close button', asy
     expect(getCloseTooltip().label).toBe('Stäng');
 });
 
+test.each([
+    ['en', 'Close'],
+    ['sv', 'Stäng'],
+    ['da', 'Luk'],
+    ['de', 'Schließen'],
+    ['fi', 'Sulje'],
+    ['fr', 'Fermer'],
+    ['nl', 'Sluiten'],
+    ['no', 'Lukk'],
+])(
+    'limel-side-panel: names the close button in the language %s',
+    async (language, name) => {
+        await renderPanel({ language });
+
+        expect(await getAccessibleNames('button')).toContain(name);
+    }
+);
+
+test('limel-side-panel: shows the tooltip of the close button in the language that is set', async () => {
+    await renderPanel({ language: 'sv' });
+
+    expect(getCloseTooltip().label).toBe('Stäng');
+});
+
+test('limel-side-panel: uses closeLabel instead of the translation', async () => {
+    await renderPanel({ language: 'de', closeLabel: 'Dismiss' });
+    const names = await getAccessibleNames('button');
+
+    expect(names).toContain('Dismiss');
+    expect(names).not.toContain('Schließen');
+});
+
+test('limel-side-panel: uses the translation when closeLabel is empty', async () => {
+    await renderPanel({ closeLabel: '' });
+
+    expect(await getAccessibleNames('button')).toContain('Close');
+});
+
+test('limel-side-panel: renames the close button when the language changes', async () => {
+    const panel = (await renderPanel()) as HTMLLimelSidePanelElement;
+
+    panel.language = 'sv';
+    await getPage().waitForChanges();
+
+    expect(await getAccessibleNames('button')).toContain('Stäng');
+});
+
 test('limel-side-panel: shows the heading of the last stack entry', async () => {
     await renderPanel({
         stack: [{ heading: 'Start page' }, { heading: 'Sales pipe' }],

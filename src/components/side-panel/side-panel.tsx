@@ -104,10 +104,11 @@ export class SidePanel {
 
     /**
      * Label of the close button. Shown as a tooltip and used as the accessible
-     * name.
+     * name. When no label is set, the button is named "Close" in the
+     * `language` of the panel. Set it to use another text.
      */
     @Prop()
-    public closeLabel = 'Close';
+    public closeLabel?: string;
 
     /**
      * The panels in the stack, outermost first. The last entry is the panel
@@ -266,6 +267,7 @@ export class SidePanel {
                 class="close"
                 type="close"
                 label={this.closeLabel}
+                language={this.language}
                 onClick={this.handleClickClose}
             />
         );
