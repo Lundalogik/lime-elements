@@ -1,3 +1,10 @@
+## [40.25.1](https://github.com/Lundalogik/lime-elements/compare/v40.25.0...v40.25.1) (2026-11-10)
+
+### Bug Fixes
+
+
+* **text-editor:** include the padding in the editor's size ([86f210d](https://github.com/Lundalogik/lime-elements/commit/86f210d61a4295be737af56c88d3a31c4c302d51))
+
 ## [40.25.0](https://github.com/Lundalogik/lime-elements/compare/v40.24.0...v40.25.0) (2026-11-08)
 
 ### Features
