@@ -1,0 +1,1 @@
+import{r as e,h as t}from"./index-D3SUrFhp.js";const o=class{constructor(t){e(this,t)}render(){return t("limel-button",{key:"8074cb2de7e47922543200a2f6df6a843796f698",label:"My Button",outlined:!0})}};export{o as limel_example_button_outlined}

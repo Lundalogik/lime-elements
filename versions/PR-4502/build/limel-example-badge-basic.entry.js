@@ -1,0 +1,1 @@
+import{r as e,h as r}from"./index-D3SUrFhp.js";const a=class{constructor(r){e(this,r)}render(){return r("limel-badge",{key:"8ec24f9763478af1d7113ed482d85786d831dcdf"})}};a.style=":host(limel-example-badge-basic){--badge-background-color:rgb(var(--color-red-default))}";export{a as limel_example_badge_basic}
