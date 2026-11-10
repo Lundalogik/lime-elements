@@ -42,6 +42,7 @@ The icons are embedded in the component, so it needs no icon set.
  - [limel-example-navigation-button-minimize](examples)
  - [limel-example-navigation-button-new-tab](examples)
  - [limel-example-navigation-button-shrink](examples)
+ - [limel-side-panel](../side-panel)
 
 ### Depends on
 
@@ -62,6 +63,7 @@ graph TD;
   limel-example-navigation-button-minimize --> limel-navigation-button
   limel-example-navigation-button-new-tab --> limel-navigation-button
   limel-example-navigation-button-shrink --> limel-navigation-button
+  limel-side-panel --> limel-navigation-button
   style limel-navigation-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

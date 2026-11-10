@@ -25,7 +25,7 @@ Each example shows one feature in detail, and when to use it.
 | Property        | Attribute         | Description                                                                                                                                                                                                                                                                | Type                                                                   | Default     |
 | --------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------- |
 | `actions`       | --                | Buttons in the toolbar, to the right of the close button.                                                                                                                                                                                                                  | `SidePanelAction[]`                                                    | `[]`        |
-| `closeLabel`    | `close-label`     | Label of the close button. Shown as a tooltip and used as the accessible name.                                                                                                                                                                                             | `string`                                                               | `'Close'`   |
+| `closeLabel`    | `close-label`     | Label of the close button. Shown as a tooltip and used as the accessible name. When no label is set, the panel uses the translation for `language`. Set it to use another text.                                                                                            | `string`                                                               | `undefined` |
 | `closeOnEscape` | `close-on-escape` | Whether pressing Escape emits `close`. Set to `false` to let only the close button emit `close`. The panel then does not prevent the Escape event either.                                                                                                                  | `boolean`                                                              | `true`      |
 | `fullScreen`    | `full-screen`     | Set to `true` when the screen is too narrow for the panel to be displayed on top of the page. The panel then covers the full width of the positioned ancestor. It cannot be resized, and the backs of the stack are not shown.                                             | `boolean`                                                              | `false`     |
 | `label`         | `label`           | Accessible name of the panel. Screen readers announce it. Set it to something that tells the user what the panel is for.  The resize handle is named after it, for example "Resize Customer details panel". When no label is set, the handle is named "Resize side panel". | `string`                                                               | `undefined` |
@@ -68,6 +68,7 @@ Each example shows one feature in detail, and when to use it.
 
 - [limel-icon](../icon)
 - [limel-tooltip](../tooltip)
+- [limel-navigation-button](../navigation-button)
 - [limel-header](../header)
 - [limel-resize-handle](../resize-handle)
 
@@ -76,11 +77,13 @@ Each example shows one feature in detail, and when to use it.
 graph TD;
   limel-side-panel --> limel-icon
   limel-side-panel --> limel-tooltip
+  limel-side-panel --> limel-navigation-button
   limel-side-panel --> limel-header
   limel-side-panel --> limel-resize-handle
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-tooltip-content --> limel-hotkey
+  limel-navigation-button --> limel-tooltip
   limel-header --> limel-icon
   limel-resize-handle --> limel-tooltip
   limel-example-side-panel-accessibility --> limel-side-panel
