@@ -50,7 +50,7 @@ describe('RowDragManager', () => {
 
     describe('getRowHeaderDefinition', () => {
         it('returns a column definition with correct properties', () => {
-            const definition = manager.getRowHeaderDefinition() as any;
+            const definition = manager.getRowHeaderDefinition(32) as any;
 
             expect(definition.headerSort).toBe(false);
             expect(definition.resizable).toBe(false);
@@ -59,8 +59,15 @@ describe('RowDragManager', () => {
             expect(definition.cssClass).toEqual('limel-table-drag-handle');
         });
 
+        it('reserves the given width so layouts do not stretch the column', () => {
+            const definition = manager.getRowHeaderDefinition(32) as any;
+
+            expect(definition.width).toBe(32);
+            expect(definition.minWidth).toBe(32);
+        });
+
         it('provides a formatter that uses the element pool', () => {
-            const definition = manager.getRowHeaderDefinition() as any;
+            const definition = manager.getRowHeaderDefinition(32) as any;
             const formatter = definition.formatter as () => HTMLElement;
 
             const element = formatter();
@@ -69,7 +76,7 @@ describe('RowDragManager', () => {
         });
 
         it('sets drag handle properties via setElementProperties', () => {
-            const definition = manager.getRowHeaderDefinition() as any;
+            const definition = manager.getRowHeaderDefinition(32) as any;
             const formatter = definition.formatter as () => HTMLElement;
 
             formatter();
@@ -80,7 +87,7 @@ describe('RowDragManager', () => {
         });
 
         it('reads language lazily so host prop changes propagate', () => {
-            const definition = manager.getRowHeaderDefinition() as any;
+            const definition = manager.getRowHeaderDefinition(32) as any;
             const formatter = definition.formatter as () => HTMLElement;
 
             language = 'sv';
@@ -93,7 +100,7 @@ describe('RowDragManager', () => {
         });
 
         it('provides a cellClick handler that stops propagation', () => {
-            const definition = manager.getRowHeaderDefinition() as any;
+            const definition = manager.getRowHeaderDefinition(32) as any;
             const event = {
                 stopPropagation: vi.fn(),
                 preventDefault: vi.fn(),
