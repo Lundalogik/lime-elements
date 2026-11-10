@@ -909,7 +909,7 @@ export namespace Components {
     // @internal
     export interface LimelSidePanel {
         "actions": SidePanelAction[];
-        "closeLabel": string;
+        "closeLabel"?: string;
         "closeOnEscape": boolean;
         "fullScreen": boolean;
         "label"?: string;
