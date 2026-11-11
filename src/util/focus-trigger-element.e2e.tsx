@@ -81,6 +81,70 @@ describe('focusTriggerElement()', () => {
         );
     });
 
+    it('focuses a control that is slotted into the trigger', async () => {
+        const { root, waitForChanges } = await render(<div />);
+        const host = document.createElement('div');
+        host.innerHTML = '<button type="button">Slotted</button>';
+        host.attachShadow({ mode: 'open' }).innerHTML =
+            '<div role="button"><slot></slot></div>';
+        root.append(host);
+        await waitForChanges();
+        const trigger = host.shadowRoot!.querySelector<HTMLElement>('div')!;
+
+        focusTriggerElement(trigger);
+
+        expect(getFocusedElement()).toBe(host.querySelector('button'));
+    });
+
+    it('focuses a control in the fallback content of an empty slot in the trigger', async () => {
+        const { root, waitForChanges } = await render(<div />);
+        const host = document.createElement('div');
+        host.attachShadow({ mode: 'open' }).innerHTML =
+            '<div role="button"><slot><button type="button">Fallback</button></slot></div>';
+        root.append(host);
+        await waitForChanges();
+        const trigger = host.shadowRoot!.querySelector<HTMLElement>('div')!;
+
+        focusTriggerElement(trigger);
+
+        expect(getFocusedElement()).toBe(
+            host.shadowRoot!.querySelector('button')
+        );
+    });
+
+    it('focuses a control inside a slot that is not in a shadow root', async () => {
+        const { root, waitForChanges } = await render(<div />);
+        const trigger = document.createElement('div');
+        trigger.innerHTML = '<slot><button type="button">Open</button></slot>';
+        root.append(trigger);
+        await waitForChanges();
+
+        focusTriggerElement(trigger);
+
+        expect(getFocusedElement()).toBe(trigger.querySelector('button'));
+    });
+
+    it('looks at slotted content once, however deep the hosts are nested', async () => {
+        const { root, waitForChanges } = await render(<div />);
+        const button = document.createElement('button');
+        button.disabled = true;
+        let trigger: HTMLElement = button;
+        for (let depth = 0; depth < 8; depth++) {
+            const host = document.createElement('div');
+            host.attachShadow({ mode: 'open' }).innerHTML = '<slot></slot>';
+            host.append(trigger);
+            trigger = host;
+        }
+        root.append(trigger);
+        await waitForChanges();
+        const visit = vi.spyOn(button, 'matches');
+
+        focusTriggerElement(trigger);
+
+        expect(visit).toHaveBeenCalled();
+        expect(visit.mock.calls.length).toBeLessThanOrEqual(2);
+    });
+
     it('focuses a trigger that can take focus itself, not the controls inside it', async () => {
         const { root, waitForChanges } = await render(<div />);
         const trigger = document.createElement('div');
