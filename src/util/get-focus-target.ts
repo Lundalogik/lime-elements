@@ -20,6 +20,7 @@ type Walk = Generator<StencilComponent, HTMLElement | undefined>;
 
 interface Search {
     disabled?: HTMLElement;
+    readonly visited: Set<Element>;
 }
 
 /**
@@ -30,7 +31,8 @@ interface Search {
  * at all, the owner itself is used.
  *
  * An element that passes the focus on to an element in its shadow root is
- * never used itself, since the focus lands on the element inside.
+ * never used itself, since the focus lands on the element inside. A `slot`
+ * is searched through the elements that are slotted into it.
  *
  * Waits for the components in the way to render, so use this for an owner
  * that may not have rendered yet.
@@ -75,13 +77,18 @@ export function findFocusTarget(owner: HTMLElement): HTMLElement {
 }
 
 function* findTarget(owner: HTMLElement): Walk {
-    const search: Search = {};
+    const search: Search = { visited: new Set() };
     const found = yield* find(owner, search);
 
     return found ?? search.disabled ?? owner;
 }
 
 function* find(element: HTMLElement, search: Search): Walk {
+    if (search.visited.has(element)) {
+        return undefined;
+    }
+
+    search.visited.add(element);
     if (isFocusable(element)) {
         return element;
     }
@@ -100,10 +107,24 @@ function* findInside(element: HTMLElement, search: Search): Walk {
         ? yield* findAmong(element.shadowRoot.children, search)
         : undefined;
 
-    return inShadowRoot ?? (yield* findAmong(element.children, search));
+    return inShadowRoot ?? (yield* findAmong(childrenOf(element), search));
 }
 
-function* findAmong(elements: HTMLCollection, search: Search): Walk {
+function childrenOf(element: Element): Iterable<Element> {
+    return isSlotInShadowRoot(element)
+        ? element.assignedElements({ flatten: true })
+        : element.children;
+}
+
+function isSlotInShadowRoot(element: Element): element is HTMLSlotElement {
+    return (
+        element.localName === 'slot' &&
+        typeof (element as HTMLSlotElement).assignedElements === 'function' &&
+        'host' in element.getRootNode()
+    );
+}
+
+function* findAmong(elements: Iterable<Element>, search: Search): Walk {
     for (const element of elements) {
         if (element.localName === 'limel-tooltip') {
             continue;
