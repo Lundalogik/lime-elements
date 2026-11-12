@@ -1,30 +1,24 @@
 @use '../../style/mixins';
 @use '../../style/functions';
-@forward '../../../node_modules/tabulator-tables/src/scss/tabulator';
-@forward './partial-styles/table-main-layout';
-@forward './partial-styles/tabulator-arrow';
-@forward './partial-styles/tabulator-paginator';
-@forward './partial-styles/tabulator-loader';
-@forward './partial-styles/tabulator-custom-styles';
-@forward './partial-styles/header-component';
-@forward './partial-styles/movable-columns';
-@forward './partial-styles/tabulator-footer';
-@forward './partial-styles/row-selection';
-@forward './partial-styles/row-drag-handle';
 
 /*
 * @prop --table-max-column-width: defines a maximum width for columns using standard size units, to prevent the table from growing too wide. Set to `auto` if you do not need this limitation. Defaults to `40rem`.
 */
 
 :host(limel-table) {
-    --limel-table-interactive-selectable-row-z-index-hover: 2;
     --limel-table-sorter-arrow-width: 0.5rem;
     --limel-table-table-cell-padding: 0.5rem;
-    --limel-table-row-selector-z-index: 1;
     --limel-table-drag-handle-width: 2rem;
     --limel-table-height-of-aggregations-row: 1.5rem;
-    isolation: isolate;
-    display: block;
+    --limel-table-header-height: 1.75rem;
+    --limel-table-row-height: 2.25rem;
+    --limel-table-pagination-height: 2.25rem;
+    --limel-table-space-after-last-row: 5rem;
+    --limel-table-primary-color: var(
+        --lime-primary-color,
+        var(--limel-theme-primary-color)
+    );
+
     --table-header-background-color: var(--contrast-500);
     --table-header-background-color--hover: var(--contrast-400);
     --table-header-background-color-when-being-dragged: var(--contrast-100);
@@ -37,135 +31,518 @@
     --table-row-background-color--active: var(--mdc-theme-primary);
 
     --table-arrow-color: var(--contrast-800);
-    --table-arrow-color--active: var(
-        --lime-primary-color,
-        var(--limel-theme-primary-color)
-    );
+    --table-arrow-color--active: var(--limel-table-primary-color);
 
     --table-text-color: var(--limel-theme-text-primary-on-background-color);
     --limel-chip-size: 1.25rem;
-}
 
-#tabulator-container {
+    isolation: isolate;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    color: var(--table-text-color);
+    font-size: functions.pxToRem(14);
+    line-height: 1.4;
 }
 
-#tabulator-container,
-#tabulator-table {
-    background-color: transparent;
+* {
+    box-sizing: border-box;
+}
+
+:host > div {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+:host([layout='stretchColumns']) table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+:host(.has-low-density) table {
+    min-width: 0;
+    margin: 0 auto;
+    border-spacing: 0 functions.pxToRem(4);
+}
+
+th,
+td {
+    max-width: var(--table-max-column-width, 40rem);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: start;
+    vertical-align: middle;
+}
+
+thead td:last-child,
+:host([layout='stretchLastColumn']) th:last-child {
+    width: 100%;
+}
+
+// ─── Header ──────────────────────────────────────────────────────────
+
+thead th,
+thead td {
+    position: sticky;
+    z-index: 2;
+    top: 0;
+
+    height: var(--limel-table-header-height);
+    padding: 0;
+
+    font-weight: 500;
+    background-color: rgb(var(--table-header-background-color));
+}
+
+thead th {
+    transition: background-color 0.2s ease;
+    border-right: functions.pxToRem(1) solid rgb(var(--contrast-200));
+
+    &[aria-sort]:hover {
+        background-color: rgb(var(--table-header-background-color--hover));
+    }
+
+    &[data-dragging] {
+        opacity: 0.5;
+        background-color: rgb(
+            var(--table-header-background-color-when-being-dragged)
+        );
+    }
+
+    &[data-drop='before'] {
+        box-shadow: inset 0.125rem 0 0 var(--limel-table-primary-color);
+    }
+
+    &[data-drop='after'] {
+        box-shadow: inset -0.125rem 0 0 var(--limel-table-primary-color);
+    }
+
+    > div {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        height: 100%;
+        padding: 0 var(--limel-table-sorter-arrow-width) 0 0.25rem;
+
+        > * {
+            flex-shrink: 0;
+        }
+
+        > span {
+            @include mixins.truncate-text();
+            flex: 1 1 auto;
+            min-width: 0;
+            padding-left: 0.75rem;
+        }
+    }
+}
+
+:host([movable-columns]:not([movable-columns='false'])) thead th[data-index] {
+    cursor: move;
+}
+
+thead th > div > button {
+    all: unset;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 100%;
+    cursor: pointer;
+
+    &:focus-visible {
+        outline: functions.pxToRem(2) solid var(--limel-table-primary-color);
+        outline-offset: functions.pxToRem(-2);
+        border-radius: functions.pxToRem(4);
+    }
+
+    > span {
+        @include mixins.truncate-text();
+        min-width: 0;
+    }
+
+    :host([movable-columns]:not([movable-columns='false'])) & {
+        cursor: move;
+    }
+}
+
+thead th > div > button > i {
+    flex-shrink: 0;
+    box-sizing: content-box;
+    width: 0;
+    height: 0.25rem;
+
+    transition:
+        opacity 0.2s ease,
+        border-color 0.2s ease;
+    opacity: 0;
+    border: 0.25rem solid transparent;
+    border-top-color: rgb(var(--table-arrow-color));
+    border-bottom-color: rgb(var(--table-arrow-color));
+}
+
+thead th:hover > div > button > i,
+thead th > div > button:focus-visible > i {
+    opacity: 1;
+}
+
+thead th[aria-sort='descending'] > div > button > i {
+    opacity: 1;
+    height: 0;
+    border-top-width: 0;
+    border-bottom-color: var(--table-arrow-color--active);
+}
+
+thead th[aria-sort='ascending'] > div > button > i {
+    opacity: 1;
+    height: 0;
+    border-bottom-width: 0;
+    border-top-color: var(--table-arrow-color--active);
+}
+
+thead th > hr {
+    margin: 0;
     border: none;
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 0.375rem;
+    cursor: col-resize;
+    touch-action: none;
 }
 
-.tabulator {
-    .tabulator-header {
-        color: var(--table-text-color);
-    }
-    .tabulator-tableholder {
-        .tabulator-table {
-            color: var(--table-text-color);
-            background-color: transparent;
-        }
+@media (pointer: coarse) {
+    $handle-width-for-a-finger: 1.5rem;
+
+    :host(limel-table) {
+        --limel-table-header-height: 2.25rem;
     }
 
-    .tabulator-header {
-        border-bottom: 0;
-        background-color: rgb(var(--table-header-background-color));
+    thead th > hr {
+        width: $handle-width-for-a-finger;
+    }
 
-        .tabulator-headers {
-            width: fit-content;
-        }
-
-        .tabulator-col {
-            transition: background-color 0.2s ease;
-            background-color: rgb(var(--table-header-background-color));
-            border-right-color: rgb(var(--contrast-200));
-
-            &.tabulator-sortable.tabulator-col-sorter-element {
-                &:hover {
-                    background-color: rgb(
-                        var(--table-header-background-color--hover)
-                    );
-                }
-            }
-
-            .tabulator-col-content {
-                padding: 0 var(--limel-table-sorter-arrow-width) 0 0.25rem;
-            }
-        }
-
-        .tabulator-col-title-holder {
-            height: 1.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .tabulator-col-sorter {
-            order: 1;
-        }
-        .tabulator-col-title {
-            order: 2;
-            font-weight: 500;
-            padding-right: 0 !important;
-            line-height: functions.pxToRem(20);
-        }
+    thead th > div {
+        padding-right: $handle-width-for-a-finger;
     }
 }
 
-.tabulator-row {
-    height: 2.25rem;
+// ─── Rows ────────────────────────────────────────────────────────────
 
-    .tabulator-cell {
-        border-right: transparent;
-        padding: var(--limel-table-table-cell-padding);
-        padding-left: calc(
+tbody {
+    tr {
+        --limel-table-row-surface: rgb(var(--limel-table-row-background-color));
+        height: var(--limel-table-row-height);
+        background-color: var(--limel-table-row-surface);
+
+        &:nth-child(odd) {
+            --limel-table-row-background-color: var(
+                --table-row-background-color--odd
+            );
+        }
+
+        &:nth-child(even) {
+            --limel-table-row-background-color: var(
+                --table-row-background-color--even
+            );
+        }
+
+        &:focus-visible {
+            outline: functions.pxToRem(2) solid var(--limel-table-primary-color);
+            outline-offset: functions.pxToRem(-2);
+        }
+
+        @include mixins.is-draggable-item();
+
+        &.sortable-chosen {
+            --limel-table-row-surface: var(
+                --lime-elevated-surface-background-color
+            );
+        }
+    }
+
+    td {
+        padding: 0 var(--limel-table-table-cell-padding) 0
+            calc(
+                var(--limel-table-table-cell-padding) +
+                    var(--limel-table-sorter-arrow-width)
+            );
+
+        > * {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    // Leaves room below the last row, so that something floating above the
+    // bottom of the table (such as an action bar) never covers it. In a table
+    // that is shorter than its container, it also takes up the height that is
+    // left, which keeps the aggregates at the bottom and the rows unstretched.
+    &::after {
+        content: '\00a0';
+        display: table-row;
+        height: 100%;
+        line-height: var(--limel-table-space-after-last-row);
+    }
+}
+
+:host(.has-interactive-rows) tbody tr {
+    position: relative;
+    z-index: 0;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+    &:hover {
+        --limel-table-row-surface: var(--table-row-background-color--hover);
+        z-index: 1;
+        box-shadow: var(--button-shadow-hovered);
+    }
+
+    &:active {
+        box-shadow: var(--button-shadow-pressed);
+    }
+
+    &[aria-current] {
+        --limel-table-row-surface: color-mix(
+            in srgb,
+            var(--table-row-background-color--active) 20%,
+            rgb(var(--limel-table-row-background-color))
+        );
+        box-shadow: var(--button-shadow-inset-pressed);
+
+        &:hover {
+            --limel-table-row-surface: color-mix(
+                in srgb,
+                var(--table-row-background-color--active) 30%,
+                rgb(var(--limel-table-row-background-color))
+            );
+        }
+    }
+}
+
+tbody tr[aria-current] > td:first-child {
+    &:not(.select, .drag) {
+        position: relative;
+    }
+
+    &::after {
+        $size: 0.4rem;
+
+        content: '';
+        position: absolute;
+        inset: 0 auto 0 0.125rem;
+
+        width: $size;
+        height: $size;
+        margin: auto 0;
+        border-radius: 50%;
+
+        background-color: var(--limel-table-primary-color);
+        pointer-events: none;
+    }
+}
+
+:host(.has-low-density) {
+    $row-border-radius: 0.5rem;
+
+    thead th:first-child,
+    thead td:first-child {
+        border-radius: functions.pxToRem(6) 0 0 functions.pxToRem(6);
+    }
+
+    thead th:last-child,
+    thead td:last-child {
+        border-radius: 0 functions.pxToRem(6) functions.pxToRem(6) 0;
+    }
+
+    tbody td {
+        height: functions.pxToRem(44);
+
+        &:first-child {
+            border-radius: $row-border-radius 0 0 $row-border-radius;
+        }
+
+        &:last-child {
+            border-radius: 0 $row-border-radius $row-border-radius 0;
+        }
+    }
+}
+
+// ─── Row selection and row drag handle ───────────────────────────────
+
+.select,
+.drag {
+    --limel-checkbox-min-height: 1.25rem;
+    position: sticky;
+    z-index: 1;
+    left: 0;
+
+    padding: 0;
+    text-align: center;
+    text-overflow: clip;
+}
+
+thead .select,
+thead .drag,
+tfoot .select,
+tfoot .drag {
+    z-index: 3;
+    border-right: none;
+}
+
+.select {
+    width: 2rem;
+    min-width: 2rem;
+
+    :host([movable-rows]:not([movable-rows='false'])) & {
+        left: var(--limel-table-drag-handle-width);
+    }
+}
+
+.drag {
+    width: var(--limel-table-drag-handle-width);
+    min-width: var(--limel-table-drag-handle-width);
+    user-select: none;
+    touch-action: none;
+}
+
+// These cells stay in place while the row scrolls sideways. They are
+// painted in the colour of their row, so that what scrolls underneath does
+// not show through the checkbox or handle. The paint fades out to the right,
+// and towards the top and bottom edges, where the shadows of the row are.
+tbody .select::before,
+tbody .drag::before {
+    $edge: 0.375rem;
+
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+
+    transition: background-color 0.2s ease;
+    background-color: var(--limel-table-row-surface);
+    mask-image:
+        linear-gradient(to right, black 70%, transparent),
+        linear-gradient(
+            to bottom,
+            transparent,
+            black $edge,
+            black calc(100% - #{$edge}),
+            transparent
+        );
+    mask-composite: intersect;
+}
+
+tbody .drag limel-drag-handle {
+    display: inline-flex;
+}
+
+.select limel-checkbox {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+tbody .select limel-checkbox {
+    transition: opacity 0.2s ease;
+    opacity: 0.3;
+}
+
+tbody tr:hover .select limel-checkbox,
+:host(.has-selection) tbody .select limel-checkbox {
+    opacity: 1;
+}
+
+// ─── Aggregates ──────────────────────────────────────────────────────
+
+tfoot td {
+    position: sticky;
+    z-index: 2;
+    bottom: 0;
+
+    height: var(--limel-table-height-of-aggregations-row);
+    padding: 0.25rem var(--limel-table-table-cell-padding) 0
+        calc(
             var(--limel-table-table-cell-padding) +
                 var(--limel-table-sorter-arrow-width)
         );
 
-        height: inherit;
+    font-weight: bold;
+    background-color: rgb(var(--contrast-500));
 
-        &[style*='text-align: right;'] {
-            justify-content: flex-end;
-        }
-        &[style*='text-align: center;'] {
-            justify-content: center;
-        }
-    }
-
-    .tabulator-col-resize-handle {
-        display: none;
+    :host(.has-selection) & {
+        // A consumer that gives the totals through `aggregates` can then give
+        // the totals of the selected rows
+        color: var(--table-arrow-color--active);
     }
 }
 
-.tabulator-col,
-.tabulator-cell {
-    max-width: var(--table-max-column-width, 40rem);
-}
+// ─── Pagination ──────────────────────────────────────────────────────
 
-#tabulator-loader,
-#tabulator-empty-text {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+:host > limel-pagination {
+    flex-shrink: 0;
+
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    min-height: var(--limel-table-pagination-height);
+    padding: 0 0.25rem;
 }
 
-#tabulator-loader {
+// @private
+// We use this in the CRM for very particular use cases, such as small
+// explorer widgets with single-page tables on the start pages.
+:host(:not(.has-pagination)) > limel-pagination {
+    display: var(--limel-table-single-page-paginator-display, flex);
+}
+
+:host(.has-pagination-on-top) > limel-pagination {
+    order: -1;
+}
+
+// ─── Loading and empty states ────────────────────────────────────────
+
+:host([loading]:not([loading='false']))::after {
+    content: '';
+    position: absolute;
+    z-index: 4;
+    inset: 0;
     background-color: rgba(var(--contrast-100), 0.6);
     cursor: wait;
 }
 
-#tabulator-empty-text {
+:host > limel-spinner {
+    position: absolute;
+    z-index: 5;
+    inset: 0;
+    margin: auto;
+}
+
+:host > p {
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+
     color: rgb(var(--contrast-800));
     font-weight: bold;
     font-size: functions.pxToRem(20);
     pointer-events: none;
-}
-
-limel-chip {
-    transform: translateY(-0.15rem);
 }

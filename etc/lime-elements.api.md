@@ -4752,9 +4752,6 @@ export { ListSeparator as ListSeparator1 }
 // @public
 export type ListType = 'selectable' | 'radio' | 'checkbox';
 
-// @internal
-export function _mapLayout(layout: Layout): any;
-
 // @alpha
 export interface MarkdownDescribable {
     toMarkdown(): Promise<string>;

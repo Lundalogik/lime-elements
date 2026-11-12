@@ -68,6 +68,18 @@ describe('selection', () => {
         });
     });
 
+    describe('forgetLastToggledIndex', () => {
+        it('makes the next range selection toggle only the item it is made on', () => {
+            data = [{}, {}, {}, {}];
+            selection.toggleSelection(0);
+
+            selection.forgetLastToggledIndex();
+            selection.toggleSelectionFromLastIndex(2);
+
+            expect(selection.items).toEqual([data[0], data[2]]);
+        });
+    });
+
     describe('toggleSelectionFromLastIndex', () => {
         it('initially only toggles the item at the given index', () => {
             const a = {};

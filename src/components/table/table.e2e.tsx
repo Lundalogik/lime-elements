@@ -1,5 +1,6 @@
 import { render, h } from '@stencil/vitest';
-import { cdp } from 'vitest/browser';
+import { cdp, userEvent } from 'vitest/browser';
+import { applyProps } from './cells';
 import { Column } from './table.types';
 
 describe('limel-table', () => {
@@ -46,11 +47,7 @@ describe('limel-table', () => {
 
     async function renderTable(props: Record<string, any>) {
         const result = await render(<limel-table {...props}></limel-table>);
-        Object.assign(result.root.style, {
-            display: 'block',
-            width: '600px',
-            height: '400px',
-        });
+        Object.assign(result.root.style, { width: '600px', height: '400px' });
         await result.waitForChanges();
         await vi.waitFor(() => {
             expect(
@@ -125,9 +122,7 @@ describe('limel-table', () => {
     };
 
     const getHeaders = (root: HTMLElement) => [
-        ...root.shadowRoot.querySelectorAll<HTMLElement>(
-            '.tabulator-headers > .tabulator-col[tabulator-field]'
-        ),
+        ...root.shadowRoot.querySelectorAll<HTMLElement>('th[scope="col"]'),
     ];
 
     const getHeader = (root: HTMLElement, index: number) =>
@@ -135,31 +130,30 @@ describe('limel-table', () => {
 
     const getHeaderTitles = (root: HTMLElement) =>
         getHeaders(root).map((header) =>
-            textOf(
-                found(
-                    header.querySelector('.tabulator-col-title'),
-                    'title in a header'
-                )
-            )
+            textOf(found(header.querySelector('span'), 'title in a header'))
+        );
+
+    const getSortArrow = (root: HTMLElement, index: number) =>
+        found(
+            getHeader(root, index).querySelector('i'),
+            `arrow in the header of column ${index}`
         );
 
     const getSortDirection = (root: HTMLElement, index: number) =>
         getHeader(root, index).getAttribute('aria-sort') ?? 'none';
 
     const getRows = (root: HTMLElement) => [
-        ...root.shadowRoot.querySelectorAll<HTMLElement>(
-            '.tabulator-tableholder .tabulator-row'
-        ),
+        ...root.shadowRoot.querySelectorAll<HTMLElement>('tbody tr'),
     ];
 
     const getRow = (root: HTMLElement, rowIndex: number) =>
         found(getRows(root)[rowIndex], `row ${rowIndex}`);
 
-    const getCells = (row: HTMLElement) => [
-        ...row.querySelectorAll<HTMLElement>(
-            '.tabulator-cell[tabulator-field]'
-        ),
-    ];
+    const getCells = (row: HTMLElement) =>
+        [...row.querySelectorAll<HTMLElement>('td:not(.select, .drag)')].slice(
+            0,
+            row.closest('table').querySelectorAll('th[scope="col"]').length
+        );
 
     const getCell = (root: HTMLElement, rowIndex: number, columnIndex = 0) =>
         found(
@@ -200,7 +194,11 @@ describe('limel-table', () => {
         root: HTMLElement,
         index: number,
         options: MouseEventInit = {}
-    ) => click(getHeader(root, index), options);
+    ) => {
+        const header = getHeader(root, index);
+
+        return click(header.querySelector('button') ?? header, options);
+    };
 
     const clickCell = (
         root: HTMLElement,
@@ -212,7 +210,7 @@ describe('limel-table', () => {
     const getRowCheckbox = (root: HTMLElement, rowIndex: number) =>
         found(
             getRow(root, rowIndex).querySelector<HTMLLimelCheckboxElement>(
-                ':scope .limel-table--row-selector limel-checkbox'
+                ':scope > td.select limel-checkbox'
             ),
             `checkbox in row ${rowIndex}`
         );
@@ -226,13 +224,19 @@ describe('limel-table', () => {
     const getRowCheckboxLabel = (root: HTMLElement, rowIndex: number) =>
         getRowCheckbox(root, rowIndex).label;
 
+    const getCheckboxCell = (root: HTMLElement, rowIndex: number) =>
+        found(
+            getRow(root, rowIndex).querySelector<HTMLElement>('td.select'),
+            `checkbox cell in row ${rowIndex}`
+        );
+
     const getCheckedRows = (root: HTMLElement) =>
         getRows(root).map((_, index) => getRowCheckbox(root, index).checked);
 
     const getSelectAll = (root: HTMLElement) =>
         found(
             root.shadowRoot.querySelector<HTMLLimelCheckboxElement>(
-                '.select-all limel-checkbox'
+                'th.select limel-checkbox'
             ),
             '"select all" checkbox'
         );
@@ -263,25 +267,29 @@ describe('limel-table', () => {
     const getActiveRows = (root: HTMLElement) =>
         getRows(root)
             .map((row, index) =>
-                row.classList.contains('active') ? index : -1
+                row.getAttribute('aria-current') === 'true' ? index : -1
             )
             .filter((index) => index !== -1);
 
     const getRowBackground = (row: HTMLElement) =>
-        getComputedStyle(
-            found(row.querySelector('.interactive-feedback'), 'row background')
-        ).backgroundColor;
+        getComputedStyle(row).backgroundColor;
 
     const getPagination = (root: HTMLElement) =>
-        root.shadowRoot.querySelector<HTMLElement>('.tabulator-paginator');
+        root.shadowRoot.querySelector('limel-pagination');
 
     const getShownPagination = (root: HTMLElement) =>
         found(getPagination(root), 'pagination');
 
+    const getPageButtons = (root: HTMLElement) => [
+        ...getShownPagination(root).shadowRoot.querySelectorAll<HTMLElement>(
+            'button[data-page]'
+        ),
+    ];
+
     const clickPage = (root: HTMLElement, page: number) =>
         found(
-            getShownPagination(root).querySelector<HTMLElement>(
-                `.tabulator-page[data-page="${page}"]`
+            getPageButtons(root).find(
+                (button) => button.dataset.page === String(page)
             ),
             `button for page ${page}`
         ).click();
@@ -289,54 +297,58 @@ describe('limel-table', () => {
     const getCurrentPage = (root: HTMLElement) =>
         Number(
             found(
-                getShownPagination(root).querySelector(
-                    ':scope .tabulator-pages .active'
+                getPageButtons(root).find(
+                    (button) => button.getAttribute('aria-current') === 'page'
                 ),
                 'current page'
             ).textContent
         );
 
-    const getPageCount = (root: HTMLElement) =>
-        getShownPagination(root).querySelectorAll(
-            ':scope .tabulator-pages button'
-        ).length;
+    const getPageCount = (root: HTMLElement) => getPageButtons(root).length;
 
-    const getAggregates = (root: HTMLElement) =>
-        [
-            ...root.shadowRoot.querySelectorAll<HTMLElement>(
-                '.tabulator-calcs-bottom .tabulator-cell[tabulator-field]'
-            ),
-        ].map(textOf);
+    const getAggregateRow = (root: HTMLElement) =>
+        root.shadowRoot.querySelector<HTMLElement>('tfoot tr');
+
+    const getAggregates = (root: HTMLElement) => {
+        const row = getAggregateRow(root);
+
+        return row ? getCells(row).map(textOf) : [];
+    };
 
     const getScrollContainer = (root: HTMLElement) =>
-        root.shadowRoot.querySelector<HTMLElement>('.tabulator-tableholder');
+        root.shadowRoot.querySelector('table')?.parentElement ?? null;
 
     const isShown = (element: HTMLElement) =>
         !!element && getComputedStyle(element).display !== 'none';
 
     const getEmptyMessage = (root: HTMLElement) => {
-        const message = root.shadowRoot.querySelector<HTMLElement>(
-            '#tabulator-empty-text'
-        );
+        const message = root.shadowRoot.querySelector<HTMLElement>('p');
 
         return isShown(message) ? textOf(message) : null;
     };
 
     const isLoading = (root: HTMLElement) =>
-        isShown(root.shadowRoot.querySelector('#tabulator-loader'));
+        isShown(root.shadowRoot.querySelector('limel-spinner'));
 
     const getRowHandle = (root: HTMLElement, rowIndex: number) =>
         found(
             getRow(root, rowIndex).querySelector<HTMLLimelDragHandleElement>(
-                ':scope .limel-table-drag-handle limel-drag-handle'
+                ':scope > td.drag limel-drag-handle'
             ),
             `drag handle in row ${rowIndex}`
         );
 
     const getResizeHandle = (root: HTMLElement, index: number) =>
         found(
-            getHeader(root, index).nextElementSibling as HTMLElement,
+            getHeader(root, index).querySelector<HTMLElement>(':scope > hr'),
             `resize handle for column ${index}`
+        );
+
+    const waitForTransitions = (root: HTMLElement) =>
+        Promise.allSettled(
+            root.shadowRoot
+                .getAnimations()
+                .map((animation) => animation.finished)
         );
 
     const centerOf = (element: Element) => {
@@ -416,19 +428,8 @@ describe('limel-table', () => {
         });
     };
 
-    const dragRow = (
-        root: HTMLElement,
-        from: number,
-        to: number,
-        place: 'above' | 'below'
-    ) => {
-        const target = getRow(root, to).getBoundingClientRect();
-
-        return drag(getRowHandle(root, from), {
-            x: target.left + 5,
-            y: place === 'above' ? target.top + 2 : target.bottom - 2,
-        });
-    };
+    const dragRow = (root: HTMLElement, from: number, to: number) =>
+        userEvent.dragAndDrop(getRowHandle(root, from), getRow(root, to));
 
     describe('columns and headers', () => {
         it('shows the title of each column', async () => {
@@ -437,14 +438,14 @@ describe('limel-table', () => {
             expect(getHeaderTitles(root)).toEqual(['Name', 'Age']);
         });
 
-        it('shows a column title as HTML', async () => {
+        it('shows markup in a column title as plain text', async () => {
             const { root } = await renderTable({
                 data,
                 columns: [{ ...columns[0], title: '<b>Name</b>' }],
             });
 
-            expect(getHeaderTitles(root)).toEqual(['Name']);
-            expect(getHeader(root, 0).querySelector('b')).not.toBeNull();
+            expect(getHeaderTitles(root)).toEqual(['<b>Name</b>']);
+            expect(getHeader(root, 0).querySelector('b')).toBeNull();
         });
 
         it('sorts descending on the first click and ascending on the second', async () => {
@@ -582,7 +583,7 @@ describe('limel-table', () => {
             expect(propsFactory).toHaveBeenCalledTimes(1);
         });
 
-        it('ignores a new order of the same column objects in the `columns` prop', async () => {
+        it('follows a new order of the same column objects in the `columns` prop', async () => {
             const { root, setProps, waitForChanges } = await renderTable({
                 data,
                 columns,
@@ -591,7 +592,7 @@ describe('limel-table', () => {
             setProps({ columns: [columns[1], columns[0]] });
             await waitForChanges();
 
-            expect(getHeaderTitles(root)).toEqual(['Name', 'Age']);
+            expect(getHeaderTitles(root)).toEqual(['Age', 'Name']);
         });
 
         it('follows a new order of new column objects in the `columns` prop', async () => {
@@ -605,6 +606,24 @@ describe('limel-table', () => {
 
             expect(getHeaderTitles(root)).toEqual(['Age', 'Name']);
             expect(getFirstColumn(root)[0]).toBe('30');
+        });
+
+        it('moves the component in a cell with its column when the columns come in a new order', async () => {
+            const withInputs = columns.map((column) => ({
+                ...column,
+                component: { name: 'input' },
+            }));
+            const { root, setProps, waitForChanges } = await renderTable({
+                data,
+                columns: withInputs,
+            });
+            const nameInput = getCellComponent(root, 0, 0, 'input');
+
+            setProps({ columns: [withInputs[1], withInputs[0]] });
+            await waitForChanges();
+
+            expect(getCellComponent(root, 0, 1, 'input')).toBe(nameInput);
+            expect((nameInput as HTMLInputElement).value).toBe('Cid');
         });
 
         it('adds and removes columns given in the `columns` prop', async () => {
@@ -621,6 +640,31 @@ describe('limel-table', () => {
             await waitForChanges();
             expect(getHeaderTitles(root)).toEqual(['Name', 'Age', 'Id']);
             expect(getCellTexts(root)[0]).toEqual(['Cid', '30', '1']);
+        });
+
+        it('shows an arrow in the header of the sorted column', async () => {
+            const { root, waitForChanges } = await renderTable({
+                data,
+                columns,
+            });
+            const getArrow = () => getComputedStyle(getSortArrow(root, 1));
+            const transparent = 'rgba(0, 0, 0, 0)';
+
+            clickHeader(root, 1);
+            await waitForChanges();
+            await waitForTransitions(root);
+
+            expect(getArrow().opacity).toBe('1');
+            expect(getArrow().borderBottomColor).not.toBe(transparent);
+            expect(getArrow().borderTopWidth).toBe('0px');
+
+            clickHeader(root, 1);
+            await waitForChanges();
+            await waitForTransitions(root);
+
+            expect(getArrow().opacity).toBe('1');
+            expect(getArrow().borderTopColor).not.toBe(transparent);
+            expect(getArrow().borderBottomWidth).toBe('0px');
         });
     });
 
@@ -693,13 +737,17 @@ describe('limel-table', () => {
             expect(getFirstColumn(root)).toEqual(['sales,vip']);
         });
 
-        it('shows an object in a cell as "[object Object]"', async () => {
+        it('shows an empty cell, and warns, for an object in a cell', async () => {
+            const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
             const { root } = await renderTable({
                 data: [{ id: 1, name: { first: 'Cid' } }],
                 columns,
             });
 
-            expect(getFirstColumn(root)).toEqual(['[object Object]']);
+            expect(getFirstColumn(root)).toEqual(['']);
+            expect(warn).toHaveBeenCalledTimes(1);
+            expect(warn.mock.calls[0][0]).toContain('"name"');
+            expect(warn.mock.calls[0][0]).not.toContain('Cid');
         });
 
         it('renders a component in a cell with the field, the value, the row and its props', async () => {
@@ -772,6 +820,70 @@ describe('limel-table', () => {
             expect(getComputedStyle(getCell(root, 0, 1)).textAlign).toBe(
                 'right'
             );
+        });
+
+        it('renders a component that is registered after the table was drawn', async () => {
+            vi.spyOn(console, 'warn').mockImplementation(() => {});
+            const name = `limel-test-late-cell-${Date.now()}`;
+            const { root, waitForChanges } = await renderTable({
+                data,
+                columns: [{ ...columns[0], component: { name: name } }],
+            });
+
+            expect(getFirstColumn(root)[0]).toBe('Cid');
+            expect(getCell(root, 0).querySelector(name)).toBeNull();
+
+            customElements.define(name, class extends HTMLElement {});
+            await customElements.whenDefined(name);
+            await waitForChanges();
+
+            const cell: any = getCellComponent(root, 0, 0, name);
+            expect(cell.value).toBe('Cid');
+        });
+
+        it('warns when the name of a component can never be registered', async () => {
+            const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+            const { root, waitForChanges } = await renderTable({
+                data,
+                columns: [{ ...columns[0], component: { name: 'Not-Valid' } }],
+            });
+            await waitForChanges();
+
+            expect(getFirstColumn(root)[0]).toBe('Cid');
+            expect(
+                warn.mock.calls.some(([message]) =>
+                    String(message).includes('not a valid name')
+                )
+            ).toBe(true);
+        });
+
+        it('does not style a component in a cell as its own spinner or empty message', async () => {
+            const { root } = await renderTable({
+                data,
+                columns: [
+                    { ...columns[0], component: { name: 'p' } },
+                    { ...columns[1], component: { name: 'limel-spinner' } },
+                ],
+            });
+
+            expect(
+                getComputedStyle(getCellComponent(root, 0, 0, 'p')).position
+            ).toBe('static');
+            expect(
+                getComputedStyle(getCellComponent(root, 0, 1, 'limel-spinner'))
+                    .position
+            ).not.toBe('absolute');
+        });
+
+        it('takes away the text of a native input when its cell is used again for a row without one', () => {
+            const input = document.createElement('input');
+            input.setAttribute('value', 'seed');
+            applyProps(input, { value: 'first' });
+
+            applyProps(input, {});
+
+            expect(input.value).toBe('');
+            expect(input.hasAttribute('value')).toBe(false);
         });
     });
 
@@ -850,7 +962,7 @@ describe('limel-table', () => {
             );
         });
 
-        it('does not redraw a cell whose formatter or component reads another field that was changed on the row object itself', async () => {
+        it('shows a change on the row object itself that a formatter or a component reads from another field', async () => {
             const rows = data.map((row) => ({ ...row }));
             const { root, waitForChanges, setProps } = await renderTable({
                 data: rows,
@@ -874,11 +986,11 @@ describe('limel-table', () => {
             setProps({ data: [...rows] });
             await waitForChanges();
 
-            expect(getFirstColumn(root)[1]).toBe(`${rows[1].name} (4)`);
-            expect(getCellComponent(root, 1, 1, 'span').title).toBe('4');
+            expect(getFirstColumn(root)[1]).toBe(`${rows[1].name} (99)`);
+            expect(getCellComponent(root, 1, 1, 'span').title).toBe('99');
         });
 
-        it('redraws only the cells whose own field changed, when a row is replaced by a changed copy', async () => {
+        it('redraws every cell of a row that is replaced by a changed copy', async () => {
             const { root, waitForChanges, setProps } = await renderTable({
                 data,
                 columns: [
@@ -898,10 +1010,10 @@ describe('limel-table', () => {
             });
             await waitForChanges();
 
-            expect(getCellTexts(root)[1]).toEqual(['Ann (4)', '99']);
+            expect(getCellTexts(root)[1]).toEqual(['Ann (99)', '99']);
         });
 
-        it('writes the fields of a changed copy into the row object it was given first', async () => {
+        it('leaves the row object it was given first as it is, when the row is replaced by a changed copy', async () => {
             const { waitForChanges, setProps } = await renderTable({
                 data,
                 columns,
@@ -915,7 +1027,7 @@ describe('limel-table', () => {
             });
             await waitForChanges();
 
-            expect(firstRow).toEqual({ id: 3, name: 'Robert', age: undefined });
+            expect(firstRow).toEqual({ id: 3, name: 'Bob', age: 120 });
         });
 
         it('shows rows that were added and leaves out rows that were removed', async () => {
@@ -1081,6 +1193,46 @@ describe('limel-table', () => {
 
             expect(propsFactory.mock.calls).toHaveLength(callsAfterFirstRender);
         });
+
+        it('draws the rows and columns it gets after having none', async () => {
+            const { root, waitForChanges, setProps } = await renderTable({
+                data: null,
+                columns: null,
+            });
+
+            setProps({ data: data, columns: columns });
+            await waitForChanges();
+
+            expect(getHeaderTitles(root)).toEqual(['Name', 'Age']);
+            expect(getRows(root)).toHaveLength(5);
+
+            setProps({ data: null });
+            await waitForChanges();
+
+            expect(getRows(root)).toHaveLength(0);
+        });
+    });
+
+    describe('sorting given as nothing', () => {
+        it('goes back to the given order when `sorting` is set to `null`, and sorts again after that', async () => {
+            const { root, waitForChanges, setProps } = await renderTable({
+                data,
+                columns,
+                sorting: [{ column: columns[0], direction: 'DESC' }],
+            });
+            const unsorted = data.map((row) => row.name);
+            expect(getFirstColumn(root)).not.toEqual(unsorted);
+
+            setProps({ sorting: null });
+            await waitForChanges();
+            expect(getFirstColumn(root)).toEqual(unsorted);
+
+            setProps({ sorting: [{ column: columns[0], direction: 'ASC' }] });
+            await waitForChanges();
+            expect(getFirstColumn(root)).toEqual(
+                unsorted.toSorted((a, b) => a.localeCompare(b))
+            );
+        });
     });
 
     describe('sorting in local mode', () => {
@@ -1119,10 +1271,10 @@ describe('limel-table', () => {
             expect(await sortBy(words, 2)).toEqual(['2', '4', '1', '5', '3']);
         });
 
-        it('sorts text with digits in it as text', async () => {
+        it('sorts text with digits in it by the value of the digits', async () => {
             const rooms = ['Room 10', 'Room 2', 'Room 1'];
 
-            expect(await sortBy(rooms, 2)).toEqual(['3', '1', '2']);
+            expect(await sortBy(rooms, 2)).toEqual(['3', '2', '1']);
         });
 
         it('sorts numbers given as text by their value', async () => {
@@ -1143,7 +1295,7 @@ describe('limel-table', () => {
             expect(await sortBy(dates, 2)).toEqual(['2', '3', '1']);
         });
 
-        it('marks a column of dates as sorted, but leaves the rows in the order they were given', async () => {
+        it('sorts dates by their time', async () => {
             const { root, waitForChanges } = await renderTable({
                 data: [
                     new Date('2024-03-01'),
@@ -1160,13 +1312,13 @@ describe('limel-table', () => {
             await waitForChanges();
 
             expect(getSortDirection(root, 1)).toBe('descending');
-            expect(getFirstColumn(root)).toEqual(['1', '2', '3']);
+            expect(getFirstColumn(root)).toEqual(['1', '3', '2']);
 
             clickHeader(root, 1);
             await waitForChanges();
 
             expect(getSortDirection(root, 1)).toBe('ascending');
-            expect(getFirstColumn(root)).toEqual(['1', '2', '3']);
+            expect(getFirstColumn(root)).toEqual(['2', '3', '1']);
         });
 
         it('puts empty values first in ascending order and last in descending order', async () => {
@@ -1176,19 +1328,19 @@ describe('limel-table', () => {
             expect(await sortBy(values, 1)).toEqual(['1', '5', '3', '2', '4']);
         });
 
-        it('emits `sort` twice when it is created with a sorting', async () => {
+        it('emits `sort` once when it is created with a sorting', async () => {
             const { root, events } = await renderRecordingTable({
                 data,
                 columns,
                 sorting: [{ column: columns[0], direction: 'ASC' }],
             });
 
-            expect(events).toEqual(['sort: name ASC', 'sort: name ASC']);
+            expect(events).toEqual(['sort: name ASC']);
             expect(getFirstColumn(root)[0]).toBe('Ann');
             expect(getSortDirection(root, 0)).toBe('ascending');
         });
 
-        it('sorts numbers as text, also after a click, when it is created with a sorting on their column', async () => {
+        it('sorts numbers by their value, also after a click, when it is created with a sorting on their column', async () => {
             const { root, waitForChanges } = await renderTable({
                 data,
                 columns,
@@ -1196,22 +1348,22 @@ describe('limel-table', () => {
             });
 
             expect(getFirstColumn(root)).toEqual([
-                'Bob',
-                'Cid',
-                'Dee',
                 'Ann',
                 'Eve',
+                'Cid',
+                'Dee',
+                'Bob',
             ]);
 
             clickHeader(root, 1);
             await waitForChanges();
 
             expect(getFirstColumn(root)).toEqual([
-                'Eve',
-                'Ann',
+                'Bob',
                 'Cid',
                 'Dee',
-                'Bob',
+                'Eve',
+                'Ann',
             ]);
         });
 
@@ -1371,18 +1523,35 @@ describe('limel-table', () => {
             expect(events).toEqual(['changePage: 2']);
         });
 
-        it('stays where it is, and emits nothing, when the `page` prop does not exist', async () => {
+        it('shows the first page when `page` is set to nothing', async () => {
+            const { root, events, waitForChanges, setProps } =
+                await renderRecordingTable({
+                    data,
+                    columns,
+                    pageSize: 2,
+                    page: 2,
+                });
+
+            setProps({ page: undefined });
+            await waitForChanges();
+
+            expect(getRows(root)).toHaveLength(2);
+            expect(getCurrentPage(root)).toBe(1);
+            expect(events).toEqual(['changePage: 1']);
+        });
+
+        it('shows the last page, and says so, when the `page` prop does not exist', async () => {
             const { root, events, waitForChanges, setProps } =
                 await renderRecordingTable({ data, columns, pageSize: 2 });
 
             setProps({ page: 9 });
             await waitForChanges();
 
-            expect(events).toEqual([]);
-            expect(getFirstColumn(root)).toEqual(['Cid', 'Ann']);
+            expect(events).toEqual(['changePage: 3']);
+            expect(getFirstColumn(root)).toEqual(['Eve']);
         });
 
-        it('shows the last page when it is created with a page that does not exist', async () => {
+        it('shows the last page, and says so, when it is created with a page that does not exist', async () => {
             const { root, events } = await renderRecordingTable({
                 data,
                 columns,
@@ -1391,10 +1560,10 @@ describe('limel-table', () => {
             });
 
             expect(getFirstColumn(root)).toEqual(['Eve']);
-            expect(events).toEqual([]);
+            expect(events).toEqual(['changePage: 3']);
         });
 
-        it('moves to the last page, without an event, when the rows no longer fill the current one', async () => {
+        it('moves to the last page, and says so, when the rows no longer fill the current one', async () => {
             const { root, events, waitForChanges, setProps } =
                 await renderRecordingTable({
                     data,
@@ -1407,7 +1576,7 @@ describe('limel-table', () => {
             await waitForChanges();
 
             expect(getFirstColumn(root)).toEqual(['Bob']);
-            expect(events).toEqual([]);
+            expect(events).toEqual(['changePage: 2']);
         });
 
         it('stays on the page when the rows are sorted, and only emits `sort`', async () => {
@@ -1441,6 +1610,38 @@ describe('limel-table', () => {
             await waitForChanges();
 
             expect(events).toEqual(['activate: 3', 'select: 4']);
+        });
+
+        it('stays on the page it moved to when the rows come back', async () => {
+            const { root, events, waitForChanges, setProps } =
+                await renderRecordingTable({
+                    data,
+                    columns,
+                    pageSize: 2,
+                    page: 3,
+                });
+
+            setProps({ data: data.slice(0, 3) });
+            await waitForChanges();
+            setProps({ data: data });
+            await waitForChanges();
+
+            expect(getFirstColumn(root)).toEqual(['Bob', 'Dee']);
+            expect(events).toEqual(['changePage: 2']);
+        });
+
+        it('shows all rows and warns when `pageSize` is not a whole number above 0', async () => {
+            const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+            const { root } = await renderTable({
+                data,
+                columns,
+                pageSize: 1.5,
+            });
+
+            expect(getRows(root)).toHaveLength(5);
+            expect(getPagination(root)).toBeNull();
+            expect(warn).toHaveBeenCalledTimes(1);
+            expect(warn.mock.calls[0][0]).toContain('`pageSize`');
         });
     });
 
@@ -1482,7 +1683,7 @@ describe('limel-table', () => {
             expect(getPagination(root)).toBeNull();
         });
 
-        it('asks twice for another page after sorting, first without sorters', async () => {
+        it('asks once for another page after sorting', async () => {
             const { root, events, waitForChanges } =
                 await renderRecordingTable(remote());
             clickHeader(root, 0);
@@ -1494,7 +1695,6 @@ describe('limel-table', () => {
 
             expect(events).toEqual([
                 'changePage: 2',
-                'load: page 2, ',
                 'load: page 2, name DESC',
             ]);
         });
@@ -1533,7 +1733,7 @@ describe('limel-table', () => {
             expect(events).toEqual(['load: page 1, name DESC']);
         });
 
-        it('goes back to the first page when a header is clicked, and asks twice for data, first without sorters', async () => {
+        it('goes back to the first page when a header is clicked, and asks once for sorted data', async () => {
             const { root, events, waitForChanges } = await renderRecordingTable(
                 { ...remote(), page: 2 }
             );
@@ -1544,7 +1744,6 @@ describe('limel-table', () => {
 
             expect(events).toEqual([
                 'changePage: 1',
-                'load: page 1, ',
                 'load: page 1, name DESC',
             ]);
         });
@@ -1572,7 +1771,7 @@ describe('limel-table', () => {
             expect(events).toEqual(['load: page 3, ']);
         });
 
-        it('asks twice for the first page, first without sorters, when the `sorting` prop changes', async () => {
+        it('asks once for the first page when the `sorting` prop changes', async () => {
             const { events, waitForChanges, setProps } =
                 await renderRecordingTable({ ...remote(), page: 2 });
             events.length = 0;
@@ -1582,12 +1781,11 @@ describe('limel-table', () => {
 
             expect(events).toEqual([
                 'changePage: 1',
-                'load: page 1, ',
                 'load: page 1, name DESC',
             ]);
         });
 
-        it('asks twice again, first without sorters, when the `sorting` prop repeats what a click already asked for', async () => {
+        it('does not ask again when the `sorting` prop repeats what a click already asked for', async () => {
             const { root, events, waitForChanges, setProps } =
                 await renderRecordingTable(remote());
             clickHeader(root, 0);
@@ -1597,10 +1795,7 @@ describe('limel-table', () => {
             setProps({ sorting: [{ column: columns[0], direction: 'DESC' }] });
             await waitForChanges();
 
-            expect(events).toEqual([
-                'load: page 1, ',
-                'load: page 1, name DESC',
-            ]);
+            expect(events).toEqual([]);
         });
 
         it('does not ask again when the sorted column is removed', async () => {
@@ -1642,7 +1837,7 @@ describe('limel-table', () => {
             expect(getFirstColumn(root)).toEqual(['Bob', 'Dee']);
         });
 
-        it('goes back to the first page when `totalRows` changes', async () => {
+        it('stays on the page, and emits nothing, when `totalRows` changes', async () => {
             const { root, events, waitForChanges, setProps } =
                 await renderRecordingTable({ ...remote(), page: 2 });
             events.length = 0;
@@ -1650,9 +1845,8 @@ describe('limel-table', () => {
             setProps({ totalRows: 50 });
             await waitForChanges();
 
-            expect(events).toEqual(['changePage: 1', 'load: page 1, ']);
-            expect(getCurrentPage(root)).toBe(1);
-            expect(getPageCount(root)).toBe(5);
+            expect(events).toEqual([]);
+            expect(getCurrentPage(root)).toBe(2);
         });
 
         it('shows as many pages as `totalRows` and `pageSize` give', async () => {
@@ -1661,21 +1855,21 @@ describe('limel-table', () => {
             expect(getPageCount(root)).toBe(4);
         });
 
-        it('counts the rows it was given as the total when `totalRows` is 0', async () => {
+        it('takes a full page as a sign of more pages when `totalRows` is 0', async () => {
             const { root } = await renderTable({ ...remote(), totalRows: 0 });
 
             expect(getPageCount(root)).toBe(1);
-            expect(root.classList.contains('has-pagination')).toBe(false);
+            expect(root.classList.contains('has-pagination')).toBe(true);
         });
 
-        it('counts the rows it was given as the total when `totalRows` is missing', async () => {
+        it('takes a full page as a sign of more pages when `totalRows` is missing', async () => {
             const { root } = await renderTable({
                 ...remote(),
                 totalRows: undefined,
             });
 
             expect(getPageCount(root)).toBe(1);
-            expect(root.classList.contains('has-pagination')).toBe(false);
+            expect(root.classList.contains('has-pagination')).toBe(true);
         });
 
         it('shows a spinner and no empty message while loading', async () => {
@@ -1694,6 +1888,97 @@ describe('limel-table', () => {
 
             expect(isLoading(root)).toBe(false);
             expect(getEmptyMessage(root)).toBe('Nothing here');
+        });
+
+        it('scrolls back to the first row when a header is clicked', async () => {
+            const manyRows = Array.from({ length: 60 }, (_, index) => ({
+                id: index,
+                name: `Row ${index}`,
+                age: index,
+            }));
+            const { root, waitForChanges } = await renderTable({
+                ...remote(),
+                data: manyRows,
+                pageSize: 60,
+                totalRows: 200,
+            });
+            const scrollContainer = getScrollContainer(root);
+            scrollContainer.scrollTop = 500;
+
+            clickHeader(root, 0);
+            await waitForChanges();
+
+            expect(scrollContainer.scrollTop).toBe(0);
+        });
+
+        it('keeps a sorter that has no column, and asks for it with the next page', async () => {
+            const { root, events, waitForChanges, setProps } =
+                await renderRecordingTable({
+                    ...remote(),
+                    sorting: [
+                        {
+                            column: { field: 'city', title: 'City' },
+                            direction: 'ASC',
+                        },
+                    ],
+                });
+            events.length = 0;
+
+            setProps({ columns: [{ ...columns[1] }, { ...columns[0] }] });
+            await waitForChanges();
+            expect(events).toEqual([]);
+
+            clickPage(root, 2);
+            await waitForChanges();
+            expect(events).toEqual(['changePage: 2', 'load: page 2, city ASC']);
+        });
+
+        it('counts the number of rows as unknown and warns when `totalRows` is not a whole number', async () => {
+            const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+            const { root } = await renderTable({ ...remote(), totalRows: -1 });
+
+            expect(getShownPagination(root).totalItems).toBeNull();
+            expect(warn).toHaveBeenCalledTimes(1);
+            expect(warn.mock.calls[0][0]).toContain('`totalRows`');
+        });
+
+        it('leaves a page that no longer exists when `totalRows` shrinks', async () => {
+            const { events, waitForChanges, setProps } =
+                await renderRecordingTable({ ...remote(), page: 3 });
+            events.length = 0;
+
+            setProps({ totalRows: 2 });
+            await waitForChanges();
+
+            expect(events).toEqual(['changePage: 1', 'load: page 1, ']);
+        });
+
+        it('waits until loading is over before it leaves a page that no longer exists', async () => {
+            const { events, waitForChanges, setProps } =
+                await renderRecordingTable({ ...remote(), page: 3 });
+            events.length = 0;
+
+            setProps({ loading: true, totalRows: 2 });
+            await waitForChanges();
+            expect(events).toEqual([]);
+
+            setProps({ loading: false });
+            await waitForChanges();
+            expect(events).toEqual(['changePage: 1', 'load: page 1, ']);
+        });
+
+        it('stays on its page while `totalRows` is 0, which counts as not known yet', async () => {
+            const { events, waitForChanges, setProps } =
+                await renderRecordingTable({ ...remote(), page: 3 });
+            events.length = 0;
+
+            setProps({ loading: true, data: [], totalRows: 0 });
+            await waitForChanges();
+            expect(events).toEqual([]);
+
+            setProps({ loading: false, data: data.slice(4), totalRows: 5 });
+            await waitForChanges();
+            expect(events).toEqual([]);
         });
     });
 
@@ -1895,7 +2180,7 @@ describe('limel-table', () => {
             expect(getActiveRows(root)).toEqual([1]);
         });
 
-        it('sets the selection back to the `selection` prop when the same rows come in another order', async () => {
+        it('keeps the selection when the same rows come in another order', async () => {
             const { root, events, waitForChanges, setProps } =
                 await renderRecordingTable({
                     ...selectable(),
@@ -1912,7 +2197,7 @@ describe('limel-table', () => {
                 false,
                 false,
                 true,
-                false,
+                true,
             ]);
             expect(events).toEqual(['select: 2, 1']);
         });
@@ -1955,6 +2240,176 @@ describe('limel-table', () => {
             const { root } = await renderTable({ ...selectable(), data: [] });
 
             expect(getSelectAllState(root).disabled).toBe(true);
+        });
+
+        it('shows the selection that a `select` listener sets while "select all" is clicked', async () => {
+            const { root, waitForChanges } = await renderTable({
+                ...selectable(),
+                selection: [],
+                onSelect: (event: CustomEvent) => {
+                    (event.target as HTMLLimelTableElement).selection = [];
+                },
+            });
+
+            clickSelectAll(root);
+            await waitForChanges();
+
+            expect(getCheckedRows(root)).toEqual([
+                false,
+                false,
+                false,
+                false,
+                false,
+            ]);
+        });
+
+        it('starts a new range after sorting, where the rows have new places', async () => {
+            const { root, events, waitForChanges } =
+                await renderRecordingTable(selectable());
+            clickCheckbox(root, 0);
+            clickHeader(root, 0);
+            await waitForChanges();
+            events.length = 0;
+
+            clickCheckbox(root, 3, { shiftKey: true });
+            await waitForChanges();
+
+            expect(getFirstColumn(root)[3]).toBe('Bob');
+            expect(events).toEqual(['select: 1, 3']);
+        });
+
+        it('starts a new range after `data` gives the same rows in another order', async () => {
+            const { root, events, waitForChanges, setProps } =
+                await renderRecordingTable(selectable());
+            clickCheckbox(root, 0);
+            setProps({ data: [...data].reverse() });
+            await waitForChanges();
+            events.length = 0;
+
+            clickCheckbox(root, 3, { shiftKey: true });
+            await waitForChanges();
+
+            expect(events).toEqual(['select: 1, 2']);
+        });
+
+        it('starts a new range after new `data` moves a row in a sorted table', async () => {
+            const { root, events, waitForChanges, setProps } =
+                await renderRecordingTable(selectable());
+            clickHeader(root, 0);
+            await waitForChanges();
+            const namesBefore = getFirstColumn(root);
+            clickCheckbox(root, 0);
+            await waitForChanges();
+            const firstRow = data.find((row) => row.name === namesBefore[0]);
+            setProps({
+                data: data.map((row) =>
+                    row === firstRow ? { ...row, name: 'Aaa' } : row
+                ),
+            });
+            await waitForChanges();
+            events.length = 0;
+
+            expect(getFirstColumn(root)[0]).not.toBe('Aaa');
+            clickCheckbox(root, 2, { shiftKey: true });
+            await waitForChanges();
+
+            expect(events).toHaveLength(1);
+            expect(events[0].split(', ')).toHaveLength(2);
+        });
+
+        it('keeps a selected row that is not among the rows it shows', async () => {
+            const { root, events, waitForChanges } = await renderRecordingTable(
+                {
+                    ...selectable(),
+                    mode: 'remote',
+                    selection: [{ id: 99, name: 'Zoe', age: 1 }],
+                }
+            );
+            events.length = 0;
+
+            clickCheckbox(root, 0);
+            await waitForChanges();
+
+            expect(events).toEqual(['select: 99, 1']);
+        });
+
+        it('shows the "select all" checkbox as partly ticked while a row it shows is not selected', async () => {
+            const { root } = await renderTable({
+                ...selectable(),
+                mode: 'remote',
+                data: data.slice(0, 2),
+                selection: [
+                    { id: 98, name: 'Yan' },
+                    { id: 99, name: 'Zoe' },
+                ],
+            });
+
+            expect(getSelectAllState(root)).toMatchObject({
+                checked: true,
+                indeterminate: true,
+            });
+        });
+
+        it('shows the checkboxes in full when the table has a selection', async () => {
+            const { root, setProps, waitForChanges } =
+                await renderTable(selectable());
+
+            setProps({ selection: [data[1]] });
+            await waitForChanges();
+            await waitForTransitions(root);
+
+            expect(getComputedStyle(getRowCheckbox(root, 0)).opacity).toBe('1');
+        });
+
+        it('lines up the "select all" checkbox with the checkboxes in the rows', async () => {
+            const { root } = await renderTable(selectable());
+
+            expect(getSelectAll(root).getBoundingClientRect().left).toBe(
+                getRowCheckbox(root, 0).getBoundingClientRect().left
+            );
+        });
+
+        it('paints the checkbox cell in the colour of its row, also when the row is active', async () => {
+            const { root } = await renderTable({
+                ...selectable(),
+                class: 'has-interactive-rows',
+                activeRow: { id: 2 },
+                style: {
+                    '--contrast-100': '250, 250, 250',
+                    '--contrast-200': '240, 240, 240',
+                    '--mdc-theme-primary': 'rgb(0, 128, 128)',
+                },
+            });
+            await waitForTransitions(root);
+            const getColours = (rowIndex: number) => ({
+                row: getRowBackground(getRow(root, rowIndex)),
+                cell: getComputedStyle(
+                    getCheckboxCell(root, rowIndex),
+                    '::before'
+                ).backgroundColor,
+            });
+            const plain = getColours(0);
+            const active = getColours(1);
+
+            expect(plain.cell).toBe(plain.row);
+            expect(active.cell).toBe(active.row);
+            expect(active.row).not.toBe(plain.row);
+        });
+
+        it('lets the shadows of an active row show at the edges of the checkbox cell', async () => {
+            const { root } = await renderTable({
+                ...selectable(),
+                class: 'has-interactive-rows',
+                activeRow: { id: 2 },
+            });
+            const layer = getComputedStyle(
+                getCheckboxCell(root, 1),
+                '::before'
+            );
+
+            expect(layer.maskImage.match(/linear-gradient/g)).toHaveLength(2);
+            expect(layer.maskComposite).toContain('intersect');
+            expect(layer.boxShadow).not.toContain('rgba(0, 0, 0');
         });
     });
 
@@ -2086,6 +2541,137 @@ describe('limel-table', () => {
         });
     });
 
+    describe('keyboard', () => {
+        const press = (element: HTMLElement, key: string) => {
+            element.dispatchEvent(
+                new KeyboardEvent('keydown', {
+                    key: key,
+                    bubbles: true,
+                    cancelable: true,
+                })
+            );
+        };
+        const getRowsInTabOrder = (root: HTMLElement) =>
+            getRows(root)
+                .map((row, index) => (row.tabIndex === 0 ? index : -1))
+                .filter((index) => index !== -1);
+
+        it('has one row in the tab order, the first one', async () => {
+            const { root } = await renderTable({ data, columns });
+
+            expect(getRowsInTabOrder(root)).toEqual([0]);
+        });
+
+        it('has the active row in the tab order', async () => {
+            const { root } = await renderTable({
+                data,
+                columns,
+                activeRow: { id: 3 },
+            });
+
+            expect(getRowsInTabOrder(root)).toEqual([2]);
+        });
+
+        it('moves the focus between rows with the arrow keys', async () => {
+            const { root, waitForChanges } = await renderTable({
+                data,
+                columns,
+            });
+            getRow(root, 0).focus();
+
+            press(getRow(root, 0), 'ArrowDown');
+            await waitForChanges();
+
+            expect(root.shadowRoot.activeElement).toBe(getRow(root, 1));
+            expect(getRowsInTabOrder(root)).toEqual([1]);
+
+            press(getRow(root, 1), 'ArrowUp');
+            await waitForChanges();
+
+            expect(root.shadowRoot.activeElement).toBe(getRow(root, 0));
+        });
+
+        it('keeps the focused row in the tab order when the table is drawn again', async () => {
+            const { root, waitForChanges, setProps } = await renderTable({
+                data,
+                columns,
+            });
+            getRow(root, 2).focus();
+
+            setProps({ data: [...data] });
+            await waitForChanges();
+
+            expect(getRowsInTabOrder(root)).toEqual([2]);
+        });
+
+        it('puts another row in the tab order when the focused row is removed', async () => {
+            const { root, waitForChanges, setProps } = await renderTable({
+                data,
+                columns,
+            });
+            getRow(root, 2).focus();
+
+            setProps({ data: data.filter((row) => row.id !== 3) });
+            await waitForChanges();
+
+            expect(getRowsInTabOrder(root)).toEqual([0]);
+        });
+
+        it('activates the focused row with Enter, and with Space', async () => {
+            const { root, events, waitForChanges } = await renderRecordingTable(
+                { data, columns }
+            );
+
+            press(getRow(root, 1), 'Enter');
+            await waitForChanges();
+            press(getRow(root, 2), ' ');
+            await waitForChanges();
+
+            expect(events).toEqual(['activate: 2', 'activate: 3']);
+        });
+
+        it('activates the right row with Enter on a later page', async () => {
+            const { root, events, waitForChanges } = await renderRecordingTable(
+                { data, columns, pageSize: 2 }
+            );
+            clickPage(root, 2);
+            await waitForChanges();
+            events.length = 0;
+
+            getRow(root, 1).focus();
+            press(getRow(root, 1), 'Enter');
+            await waitForChanges();
+
+            expect(events).toEqual(['activate: 4']);
+        });
+
+        it('activates the right row with Enter after sorting', async () => {
+            const { root, events, waitForChanges } = await renderRecordingTable(
+                { data, columns }
+            );
+            clickHeader(root, 0);
+            await waitForChanges();
+            events.length = 0;
+
+            getRow(root, 0).focus();
+            press(getRow(root, 0), 'Enter');
+            await waitForChanges();
+
+            expect(events).toEqual(['activate: 5']);
+        });
+
+        it('leaves keys alone that are pressed inside a cell', async () => {
+            const { root, events, waitForChanges } = await renderRecordingTable(
+                { data, columns }
+            );
+
+            press(getCell(root, 1), 'Enter');
+            await waitForChanges();
+
+            expect(events).toEqual([]);
+        });
+    });
+
     describe('aggregates', () => {
         it('shows the values given as `aggregates`', async () => {
             const { root } = await renderTable({
@@ -2114,14 +2700,14 @@ describe('limel-table', () => {
             expect(getAggregates(root)).toEqual(['', '191 years']);
         });
 
-        it('puts an `aggregator` on the column object of a field that has a value in `aggregates`', async () => {
+        it('leaves the column object of a field that has a value in `aggregates` as it is', async () => {
             await renderTable({
                 data,
                 columns,
                 aggregates: [{ field: 'age', value: 191 }],
             });
 
-            expect(typeof columns[1].aggregator).toBe('function');
+            expect(columns[1].aggregator).toBeUndefined();
             expect(columns[0].aggregator).toBeUndefined();
         });
 
@@ -2189,25 +2775,26 @@ describe('limel-table', () => {
                 expect(await aggregate('sum', mixed)).toBe('15');
             });
 
-            it('averages the values, counting an empty cell as 0, and gives NaN for text', async () => {
+            it('averages the numbers, leaving out empty cells and text, with at most two decimals', async () => {
                 expect(await aggregate('avg', numbers)).toBe('38.2');
-                expect(await aggregate('avg', [10, null, 0, '', 5])).toBe('3');
-                expect(await aggregate('avg', mixed)).toBe('NaN');
+                expect(await aggregate('avg', [10, null, 0, '', 5])).toBe('5');
+                expect(await aggregate('avg', mixed)).toBe('5');
+                expect(await aggregate('avg', [1, 1, 2])).toBe('1.33');
             });
 
-            it('finds the smallest value, counting an empty cell as 0', async () => {
+            it('finds the smallest value, leaving out empty cells', async () => {
                 expect(await aggregate('min', numbers)).toBe('4');
-                expect(await aggregate('min', [10, null, 5])).toBe('0');
+                expect(await aggregate('min', [10, null, 5])).toBe('5');
             });
 
-            it('finds the largest value', async () => {
+            it('finds the largest value, leaving out empty cells', async () => {
                 expect(await aggregate('max', numbers)).toBe('120');
-                expect(await aggregate('max', [-10, null, -5])).toBe('0');
+                expect(await aggregate('max', [-10, null, -5])).toBe('-5');
             });
 
-            it('counts the values, leaving out empty cells, 0 and false', async () => {
+            it('counts the values, leaving out empty cells', async () => {
                 expect(await aggregate('count', numbers)).toBe('5');
-                expect(await aggregate('count', [...mixed, false])).toBe('3');
+                expect(await aggregate('count', [...mixed, false])).toBe('5');
             });
 
             it('works out the aggregates over all rows, not only the page it shows', async () => {
@@ -2257,6 +2844,82 @@ describe('limel-table', () => {
 
             expect(root.classList.contains('has-aggregation')).toBe(true);
         });
+
+        it('works out an aggregate once, until the data changes', async () => {
+            const aggregator = vi.fn().mockReturnValue(191);
+            const { root, waitForChanges, setProps } = await renderTable({
+                data,
+                columns: [{ ...columns[1], aggregator: aggregator }],
+            });
+
+            clickCell(root, 1);
+            await waitForChanges();
+            expect(aggregator).toHaveBeenCalledTimes(1);
+
+            setProps({ data: [...data] });
+            await waitForChanges();
+            expect(aggregator).toHaveBeenCalledTimes(2);
+        });
+
+        it('leaves the cell empty and warns when an aggregate is an object', async () => {
+            const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+            const { root } = await renderTable({
+                data,
+                columns: [{ ...columns[1], aggregator: () => ({ sum: 191 }) }],
+            });
+
+            expect(getAggregates(root)).toEqual(['']);
+            expect(warn).toHaveBeenCalledTimes(1);
+            expect(warn.mock.calls[0][0]).toContain('"age"');
+        });
+
+        it('draws the table without a totals row when `aggregates` is null', async () => {
+            const { root } = await renderTable({
+                data,
+                columns,
+                aggregates: null,
+            });
+
+            expect(getRows(root)).toHaveLength(5);
+            expect(getAggregateRow(root)).toBeNull();
+        });
+
+        it('keeps the aggregates at the bottom of a table that is taller than its rows', async () => {
+            const { root } = await renderTable({
+                data,
+                columns,
+                aggregates: [{ field: 'age', value: 191 }],
+            });
+            const heights = getRows(root).map(
+                (row) => row.getBoundingClientRect().height
+            );
+
+            expect(
+                Math.round(getAggregateRow(root).getBoundingClientRect().bottom)
+            ).toBe(
+                Math.round(
+                    getScrollContainer(root).getBoundingClientRect().bottom
+                )
+            );
+            expect(new Set(heights).size).toBe(1);
+        });
+
+        it('keeps the cell below the checkboxes above the aggregates when the table scrolls sideways', async () => {
+            const { root } = await renderTable({
+                data,
+                columns,
+                selectable: true,
+                aggregates: [{ field: 'age', value: 191 }],
+            });
+            const [belowCheckboxes, firstAggregate] =
+                getAggregateRow(root).children;
+            const getZIndex = (cell: Element) =>
+                Number(getComputedStyle(cell).zIndex);
+
+            expect(getZIndex(belowCheckboxes)).toBeGreaterThan(
+                getZIndex(firstAggregate)
+            );
+        });
     });
 
     describe('moving columns', () => {
@@ -2296,13 +2959,26 @@ describe('limel-table', () => {
             expect(getSortDirection(root, 1)).toBe('none');
         });
 
+        it('sorts a movable column when its header is pressed and released almost in place', async () => {
+            const { root, events, waitForChanges } = await renderRecordingTable(
+                { data, columns, movableColumns: true }
+            );
+            const start = centerOf(getHeader(root, 0));
+
+            await drag(getHeader(root, 0), { x: start.x + 2, y: start.y });
+            await waitForChanges();
+
+            expect(events).toEqual(['sort: name DESC']);
+            expect(getSortDirection(root, 0)).toBe('descending');
+        });
+
         it('does not sort a column when a drag ends on the header it started on', async () => {
             const { root, events, waitForChanges } = await renderRecordingTable(
                 { data, columns, movableColumns: true }
             );
             const start = centerOf(getHeader(root, 0));
 
-            await drag(getHeader(root, 0), { x: start.x + 4, y: start.y });
+            await drag(getHeader(root, 0), { x: start.x + 10, y: start.y });
             await waitForChanges();
 
             expect(events.filter((event) => event.startsWith('sort'))).toEqual(
@@ -2352,6 +3028,32 @@ describe('limel-table', () => {
                 events.filter((event) => event.startsWith('change'))
             ).toEqual([]);
             expect(getHeaderTitles(root)).toEqual(['Name', 'Age']);
+        });
+
+        it('ignores another pointer while a column is dragged', async () => {
+            const { root, events, waitForChanges } = await renderRecordingTable(
+                { data, columns, movableColumns: true }
+            );
+            const target = getHeader(root, 1).getBoundingClientRect();
+            const pointer = (type: string, pointerId: number, x: number) =>
+                new PointerEvent(type, {
+                    bubbles: true,
+                    button: 0,
+                    pointerId: pointerId,
+                    clientX: x,
+                    clientY: target.top + 2,
+                });
+
+            getHeader(root, 0).dispatchEvent(
+                pointer('pointerdown', 1, target.left - 20)
+            );
+            globalThis.dispatchEvent(pointer('pointermove', 2, target.right));
+            globalThis.dispatchEvent(pointer('pointerup', 2, target.right));
+            await waitForChanges();
+
+            expect(events).toEqual([]);
+
+            globalThis.dispatchEvent(pointer('pointerup', 1, target.left));
         });
     });
 
@@ -2425,6 +3127,74 @@ describe('limel-table', () => {
 
             expect(getWidth(root, 0)).toBe(resized);
         });
+
+        it('ignores another pointer while a column is resized', async () => {
+            const { root, waitForChanges } = await renderTable({
+                data,
+                columns,
+            });
+            const handle = getResizeHandle(root, 0);
+            const widthBefore = getWidth(root, 0);
+            const edge = handle.getBoundingClientRect();
+            const pointer = (type: string, pointerId: number, x: number) =>
+                new PointerEvent(type, {
+                    bubbles: true,
+                    button: 0,
+                    pointerId: pointerId,
+                    clientX: x,
+                    clientY: edge.top,
+                });
+
+            handle.dispatchEvent(pointer('pointerdown', 1, edge.left));
+            globalThis.dispatchEvent(pointer('pointermove', 2, edge.left + 90));
+            await waitForChanges();
+
+            expect(getWidth(root, 0)).toBe(widthBefore);
+
+            globalThis.dispatchEvent(pointer('pointerup', 1, edge.left));
+        });
+
+        it('has a wider handle in a taller header on a touch device, next to what the header holds', async () => {
+            const measure = async () => {
+                const { root } = await renderTable({
+                    data,
+                    columns: [
+                        { ...columns[0], headerComponent: { name: 'input' } },
+                        columns[1],
+                    ],
+                });
+
+                return {
+                    handle: getResizeHandle(root, 0).getBoundingClientRect(),
+                    content: found(
+                        getHeader(root, 0).querySelector('input'),
+                        'component in the header'
+                    ).getBoundingClientRect(),
+                };
+            };
+            const emulateTouch = (enabled: boolean) =>
+                cdp().send('Emulation.setTouchEmulationEnabled', { enabled });
+
+            const withMouse = await measure();
+            await emulateTouch(true);
+            try {
+                const withFinger = await measure();
+
+                expect(matchMedia('(pointer: coarse)').matches).toBe(true);
+                expect(withFinger.handle.width).toBeGreaterThan(
+                    withMouse.handle.width * 3
+                );
+                expect(withFinger.handle.width).toBeGreaterThanOrEqual(24);
+                expect(withFinger.handle.height).toBeGreaterThan(
+                    withMouse.handle.height
+                );
+                expect(withFinger.content.right).toBeLessThanOrEqual(
+                    withFinger.handle.left
+                );
+            } finally {
+                await emulateTouch(false);
+            }
+        });
     });
 
     describe('moving rows', () => {
@@ -2443,12 +3213,29 @@ describe('limel-table', () => {
             ).toEqual([true, true, true, true, true]);
         });
 
+        it('has the dots of the drag handle in the middle of the row', async () => {
+            const { root } = await renderTable(movable());
+            const middleOf = (element: Element) => {
+                const rect = element.getBoundingClientRect();
+
+                return rect.top + rect.height / 2;
+            };
+            const dots = found(
+                getRowHandle(root, 0).querySelector('.drag-icon'),
+                'dots of the drag handle'
+            );
+
+            expect(
+                Math.abs(middleOf(dots) - middleOf(getRow(root, 0)))
+            ).toBeLessThan(1);
+        });
+
         it('emits where a row was dropped when it is dragged by its handle', async () => {
             const reorder = vi.fn();
             const { root, events, waitForChanges } = await renderRecordingTable(
                 { ...movable(), onReorder: reorder }
             );
-            await dragRow(root, 0, 2, 'below');
+            await dragRow(root, 0, 2);
             await waitForChanges();
 
             expect(events).toEqual([]);
@@ -2463,7 +3250,7 @@ describe('limel-table', () => {
         it('emits that a row was dropped above another one when it is dragged to the top', async () => {
             const { root, events, waitForChanges } =
                 await renderRecordingTable(movable());
-            await dragRow(root, 3, 0, 'above');
+            await dragRow(root, 3, 0);
             await waitForChanges();
 
             expect(events).toEqual(['reorder: 4 above 1']);
@@ -2472,7 +3259,55 @@ describe('limel-table', () => {
         it('does not activate a row after it was dragged', async () => {
             const { root, events, waitForChanges } =
                 await renderRecordingTable(movable());
-            await dragRow(root, 0, 2, 'below');
+            await dragRow(root, 0, 2);
+            await waitForChanges();
+
+            expect(events).toEqual(['reorder: 1 below 3']);
+        });
+
+        it('leaves the rows in the order of `data` after a drop, and shows the order it is given next', async () => {
+            const { root, setProps, waitForChanges } =
+                await renderTable(movable());
+            const names = data.map((row) => row.name);
+
+            await dragRow(root, 0, 2);
+            await waitForChanges();
+            expect(getFirstColumn(root)).toEqual(names);
+
+            const [first, second, third, ...rest] = data;
+            setProps({ data: [second, third, first, ...rest] });
+            await waitForChanges();
+            expect(getFirstColumn(root)).toEqual([
+                names[1],
+                names[2],
+                names[0],
+                ...names.slice(3),
+            ]);
+        });
+
+        it('lets a row be dragged again after a drop', async () => {
+            const { root, events, waitForChanges } =
+                await renderRecordingTable(movable());
+
+            await dragRow(root, 0, 2);
+            await waitForChanges();
+            await dragRow(root, 3, 0);
+            await waitForChanges();
+
+            expect(events).toEqual([
+                'reorder: 1 below 3',
+                'reorder: 4 above 1',
+            ]);
+        });
+
+        it('lets a row be dragged after the table is moved to another place in the page', async () => {
+            const { root, events, waitForChanges } =
+                await renderRecordingTable(movable());
+            const parent = root.parentElement;
+            root.remove();
+            parent.append(root);
+
+            await dragRow(root, 0, 2);
             await waitForChanges();
 
             expect(events).toEqual(['reorder: 1 below 3']);
@@ -2512,6 +3347,20 @@ describe('limel-table', () => {
             });
 
             expect(getRowHandle(root, 0).language).toBe('sv');
+        });
+
+        it('does not activate a row when a drag ends on the row it started on', async () => {
+            const { root, events, waitForChanges } =
+                await renderRecordingTable(movable());
+            const cell = getCell(root, 0).getBoundingClientRect();
+
+            await drag(getRowHandle(root, 0), {
+                x: cell.left + 20,
+                y: cell.top + cell.height / 2 + 8,
+            });
+            await waitForChanges();
+
+            expect(events).toEqual([]);
         });
     });
 
@@ -2733,6 +3582,25 @@ describe('limel-table', () => {
             );
         });
 
+        it('marks the active row with a dot, also without `has-interactive-rows`', async () => {
+            const getDot = (row: Element) =>
+                getComputedStyle(row.querySelector('td'), '::after').content;
+            const props = { data, columns, activeRow: { id: 3 } };
+
+            const plain = await renderTable(props);
+            expect(getDot(getRow(plain.root, 2))).not.toBe('none');
+            expect(getDot(getRow(plain.root, 0))).toBe('none');
+
+            const { root } = await renderTable({
+                ...props,
+                class: 'has-interactive-rows',
+                movableRows: true,
+                selectable: true,
+            });
+            expect(getDot(getRow(root, 2))).not.toBe('none');
+            expect(getDot(getRow(root, 0))).toBe('none');
+        });
+
         it('keeps a column no wider than `--table-max-column-width`', async () => {
             const { root } = await renderTable({
                 data: [
@@ -2748,6 +3616,40 @@ describe('limel-table', () => {
             expect(
                 getCell(root, 0).getBoundingClientRect().width
             ).toBeLessThanOrEqual(160);
+        });
+
+        it('scrolls its rows inside a `max-height`, with the pagination below them', async () => {
+            const { root, waitForChanges } = await renderTable({
+                data: Array.from({ length: 60 }, (_, index) => ({
+                    id: index + 1,
+                    name: `Row ${index + 1}`,
+                })),
+                columns,
+                pageSize: 50,
+            });
+            Object.assign(root.style, { height: '', maxHeight: '300px' });
+            await waitForChanges();
+            const scrollContainer = getScrollContainer(root);
+            const host = root.getBoundingClientRect();
+
+            expect(host.height).toBe(300);
+            expect(scrollContainer.scrollHeight).toBeGreaterThan(
+                scrollContainer.clientHeight
+            );
+            expect(
+                getShownPagination(root).getBoundingClientRect().bottom
+            ).toBeLessThanOrEqual(host.bottom);
+        });
+
+        it('tells the pagination when the table is loading', async () => {
+            const { root } = await renderTable({
+                columns,
+                data,
+                pageSize: 2,
+                loading: true,
+            });
+
+            expect(getShownPagination(root).loading).toBe(true);
         });
     });
 });

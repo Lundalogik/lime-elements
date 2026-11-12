@@ -8,19 +8,3 @@
  */
 export type Layout =
     'default' | 'stretchLastColumn' | 'stretchColumns' | 'lowDensity';
-
-/**
- * Maps a layout to a Tabulator layout
- * @param layout - the layout to map
- * @returns the Tabulator layout
- * @internal
- */
-export function _mapLayout(layout: Layout) {
-    const layouts = {
-        stretchLastColumn: 'fitDataStretch',
-        stretchColumns: 'fitColumns',
-        lowDensity: 'fitData',
-    };
-
-    return layouts[layout] || 'fitDataFill';
-}
