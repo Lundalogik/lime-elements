@@ -6,10 +6,16 @@ class EnterClickable {
 
     constructor(private element: HTMLElement) {}
 
+    // The element can lose focus without a `blur`, for example when it is
+    // disabled while Enter is down. The `keyup` is then missed, so a new
+    // press starts over, also when the last one was never released.
     private handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === 'Enter' && !this.isActive && !event.repeat) {
-            this.isActive = true;
+        if (event.key !== 'Enter' || event.repeat) {
+            return;
         }
+
+        this.isActive = true;
+        this.hasJustReleasedEnter = true;
     };
 
     private handleKeyUp = (event: KeyboardEvent) => {
@@ -26,8 +32,10 @@ class EnterClickable {
         this.hasJustReleasedEnter = true;
     };
 
+    // A click from the keyboard has a `detail` of 0. A click from a pointer
+    // is never a repeat of Enter, so it always passes.
     private handleClick = (event: MouseEvent) => {
-        if (!this.isActive) {
+        if (!this.isActive || event.detail > 0) {
             return;
         }
 
