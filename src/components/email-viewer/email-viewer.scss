@@ -21,6 +21,8 @@
     width: 100%;
     height: 100%;
     box-shadow: var(--shadow-depth-8);
+    background-color: var(--lime-elevated-surface-background-color);
+    color: var(--limel-theme-on-surface-color);
 }
 
 .email-headers {
