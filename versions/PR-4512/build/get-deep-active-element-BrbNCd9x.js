@@ -1,1 +1,0 @@
-function o(){var o;let n=document.activeElement;for(;null===(o=null==n?void 0:n.shadowRoot)||void 0===o?void 0:o.activeElement;)n=n.shadowRoot.activeElement;return n}export{o as g}
