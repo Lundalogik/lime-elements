@@ -13,13 +13,11 @@ import {
 import translate from '../../global/translations';
 import { getDeepActiveElement } from '../../util/get-deep-active-element';
 import { ESCAPE } from '../../util/keycodes';
-import { getRel } from '../../util/link-helper';
 import { createRandomString } from '../../util/random-string';
 import { Languages } from '../date-picker/date.types';
 import {
     SidePanelAction,
     SidePanelActionSelect,
-    SidePanelActionType,
     SidePanelEntry,
 } from './side-panel.types';
 
@@ -29,22 +27,10 @@ import {
  */
 const openPanels: SidePanel[] = [];
 
-// The same icons as the navigation buttons in the Lime CRM web client.
-const ACTION_ICONS: Record<SidePanelActionType, string> = {
-    newTab: 'up_right_arrow',
-    expand: 'expand',
-};
-
 interface WidthRange {
     now: number;
     min: number;
     max: number;
-}
-
-function getLinkTarget(action: SidePanelAction): string | undefined {
-    if (action.href && action.type === 'newTab') {
-        return '_blank';
-    }
 }
 
 function stopEvent(event: Event) {
@@ -180,7 +166,6 @@ export class SidePanel {
     private panel: HTMLElement;
     private minLimit?: HTMLElement;
     private maxLimit?: HTMLElement;
-    private actionIdPrefix = createRandomString();
     private backIdPrefix = createRandomString();
     private widthObserver?: ResizeObserver;
     private focusCloseButtonAfterRender = false;
@@ -281,37 +266,20 @@ export class SidePanel {
 
         return (
             <div class="actions">
-                {this.actions.map((action, index) =>
-                    this.renderAction(action, index)
-                )}
+                {this.actions.map((action) => this.renderAction(action))}
             </div>
         );
     }
 
-    private renderAction = (action: SidePanelAction, index: number) => {
-        const id = `${this.actionIdPrefix}-${index}`;
-        const Tag = action.href ? 'a' : 'button';
-
+    private readonly renderAction = (action: SidePanelAction) => {
         return (
-            <Tag
-                class={action.type}
-                id={id}
+            <limel-navigation-button
+                type={action.type}
                 href={action.href}
-                target={getLinkTarget(action)}
-                rel={getRel(getLinkTarget(action))}
-                aria-label={action.label}
+                label={action.label}
+                helperLabel={action.helperLabel}
                 onClick={this.handleClickAction(action)}
-            >
-                <limel-icon
-                    name={ACTION_ICONS[action.type]}
-                    aria-hidden="true"
-                />
-                <limel-tooltip
-                    elementId={id}
-                    label={action.label}
-                    helperLabel={action.helperLabel}
-                />
-            </Tag>
+            />
         );
     };
 

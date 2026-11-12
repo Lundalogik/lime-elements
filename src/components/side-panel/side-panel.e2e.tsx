@@ -313,11 +313,11 @@ test('limel-side-panel: shows a button for each action, labeled with its label',
     });
 
     expect(
-        getActionButtons().map((button) => button.getAttribute('aria-label'))
+        getActionControls().map((control) => control.getAttribute('aria-label'))
     ).toEqual(['Expand', 'Open in a new tab']);
 });
 
-test('limel-side-panel: shows the icon of the type of each action', async () => {
+test('limel-side-panel: shows a navigation button of the type of each action', async () => {
     await renderPanel({
         actions: [
             { type: 'expand', label: 'Expand' },
@@ -325,11 +325,14 @@ test('limel-side-panel: shows the icon of the type of each action', async () => 
         ],
     });
 
-    expect(
-        getActionButtons().map(
-            (button) => button.querySelector('limel-icon')!.name
-        )
-    ).toEqual(['expand', 'up_right_arrow']);
+    expect(getActionButtons().map((button) => button.tagName)).toEqual([
+        'LIMEL-NAVIGATION-BUTTON',
+        'LIMEL-NAVIGATION-BUTTON',
+    ]);
+    expect(getActionButtons().map((button) => button.type)).toEqual([
+        'expand',
+        'newTab',
+    ]);
 });
 
 test('limel-side-panel: emits selectAction with the id of the clicked action and the click event', async () => {
@@ -366,10 +369,8 @@ test('limel-side-panel: shows the label and helperLabel of an action in a toolti
             },
         ],
     });
-    const button = getActionButtons()[0];
-    const tooltip = button.querySelector('limel-tooltip')!;
+    const tooltip = getActionTooltips()[0];
 
-    expect(tooltip.elementId).toBe(button.id);
     expect(tooltip.label).toBe('Open in a new tab');
     expect(tooltip.helperLabel).toBe('Sales pipe');
 });
@@ -380,7 +381,7 @@ test('limel-side-panel: shows an action with an href as a link', async () => {
             { type: 'expand', label: 'Expand', href: 'https://example.com/' },
         ],
     });
-    const link = getActionButtons()[0];
+    const link = getActionControls()[0];
 
     expect(link.tagName).toBe('A');
     expect(link.getAttribute('href')).toBe('https://example.com/');
@@ -395,7 +396,7 @@ test('limel-side-panel: opens a newTab action with an href in a new tab', async 
     });
 
     expect(
-        getActionButtons().map((link) => link.getAttribute('target'))
+        getActionControls().map((link) => link.getAttribute('target'))
     ).toEqual(['_blank', null]);
 });
 
@@ -407,26 +408,9 @@ test('limel-side-panel: does not pass the referrer on when a newTab action opens
         ],
     });
 
-    expect(getActionButtons().map((link) => link.getAttribute('rel'))).toEqual([
-        'noopener noreferrer',
-        null,
-    ]);
-});
-
-test('limel-side-panel: marks each action with its type, for its hover animation', async () => {
-    await renderPanel({
-        actions: [
-            { type: 'expand', label: 'Expand' },
-            { type: 'newTab', label: 'Open in a new tab' },
-        ],
-    });
-
-    expect(
-        getActionButtons().map((button) => button.classList.contains('expand'))
-    ).toEqual([true, false]);
-    expect(
-        getActionButtons().map((button) => button.classList.contains('newTab'))
-    ).toEqual([false, true]);
+    expect(getActionControls().map((link) => link.getAttribute('rel'))).toEqual(
+        ['noopener noreferrer', null]
+    );
 });
 
 // `limel-tooltip` reads `--tooltip-z-index` from its host and sets it as the
@@ -436,12 +420,7 @@ test('limel-side-panel: shows the toolbar tooltips above the panel', async () =>
         style: { '--side-panel-z-index': '20' },
         actions: [{ type: 'expand', label: 'Expand' }],
     });
-    const tooltips = [
-        getCloseTooltip(),
-        ...getPage().root!.shadowRoot!.querySelectorAll(
-            '.toolbar limel-tooltip'
-        ),
-    ];
+    const tooltips = [getCloseTooltip(), ...getActionTooltips()];
 
     expect(tooltips).toHaveLength(2);
     for (const tooltip of tooltips) {
@@ -1852,12 +1831,26 @@ function centerOf(box: DOMRect): number {
     return box.top + box.height / 2;
 }
 
-function getActionButtons(): HTMLElement[] {
+function getActionButtons(): HTMLLimelNavigationButtonElement[] {
     return [
-        ...getPage().root!.shadowRoot!.querySelectorAll<HTMLElement>(
+        ...getPage().root!.shadowRoot!.querySelectorAll<HTMLLimelNavigationButtonElement>(
             '.actions > *'
         ),
     ];
+}
+
+// The control and the tooltip are inside the shadow root of the navigation
+// button.
+function getActionControls(): HTMLElement[] {
+    return getActionButtons().map((button) =>
+        button.shadowRoot!.querySelector<HTMLElement>('a, button')!
+    );
+}
+
+function getActionTooltips(): HTMLLimelTooltipElement[] {
+    return getActionButtons().map((button) =>
+        button.shadowRoot!.querySelector('limel-tooltip')!
+    );
 }
 
 function finishOpeningAnimation() {
