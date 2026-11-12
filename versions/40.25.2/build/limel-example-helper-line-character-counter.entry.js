@@ -1,0 +1,1 @@
+import{r as e,h as r}from"./index-D3SUrFhp.js";const t=class{constructor(r){e(this,r)}render(){return r("limel-helper-line",{key:"66164c92c67c747837e6a887928f94b5f7ceb110",length:10,maxLength:20,helperTextId:"tf-helper-text"})}};export{t as limel_example_helper_line_character_counter}
