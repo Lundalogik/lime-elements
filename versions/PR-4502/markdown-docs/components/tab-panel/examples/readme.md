@@ -4,20 +4,15 @@
 
 ## Overview
 
-Let the user reorder the tabs
-Set `allowTabReorder` to give every tab a drag handle, so that the user can
-drag the tabs into the order they want. The panel does not change `tabs`
-itself. When the user drops a tab in a new place, the `reorderTab` event
-tells which tab was moved, and from which position to which. The tab stays
-where it was, until the component gives the panel the tabs in their new
-order. That is also the place to save the order, if it should be remembered.
+Vertical tab panel
+Set `orientation` to `vertical` to place the tabs in a column, to the left
+of the content. This suits a view with many sections, such as settings, in
+a container that is wider than it is tall.
 
-The content follows its tab, since each component inside the panel is tied
-to its tab by its `id`.
-
-The tabs can be reordered with a mouse and with a touch screen, where the
-drag handle is pressed and held for a moment before it is dragged. They
-cannot be reordered with the keyboard yet.
+The column is `10rem` wide, whatever its labels, so that the content next
+to it keeps its place when a label or a badge changes. Try the vote button:
+the badge it adds takes room from the label, not from the content. Set
+`--tab-bar-vertical-width` on the panel to change the width.
 
 ## Dependencies
 
@@ -25,14 +20,12 @@ cannot be reordered with the keyboard yet.
 
 - [limel-tab-panel](..)
 - [limel-example-tab-panel-content](.)
-- [limel-example-value](../../../examples)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-tab-panel-reorder --> limel-tab-panel
-  limel-example-tab-panel-reorder --> limel-example-tab-panel-content
-  limel-example-tab-panel-reorder --> limel-example-value
+  limel-example-tab-panel-vertical --> limel-tab-panel
+  limel-example-tab-panel-vertical --> limel-example-tab-panel-content
   limel-tab-panel --> limel-tab-bar
   limel-tab-bar --> limel-scroller
   limel-tab-bar --> limel-icon
@@ -47,7 +40,7 @@ graph TD;
   limel-example-tab-panel-content --> limel-button
   limel-button --> limel-icon
   limel-button --> limel-spinner
-  style limel-example-tab-panel-reorder fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-tab-panel-vertical fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
