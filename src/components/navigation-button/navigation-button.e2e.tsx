@@ -404,6 +404,32 @@ test('limel-navigation-button: lets a click through again after Enter is release
     expect(onClick).toHaveBeenCalledTimes(2);
 });
 
+test('limel-navigation-button: lets a click from a pointer through while Enter is held down', async () => {
+    const onClick = vi.fn();
+    const host = await renderButton({ type: 'close', onClick });
+    const control = getControl(host);
+
+    pressKey(control, 'keydown');
+    control.click();
+    clickWithPointer(control);
+    clickWithPointer(control);
+
+    expect(onClick).toHaveBeenCalledTimes(3);
+});
+
+test('limel-navigation-button: lets a click through on a new press of Enter, when the release of the last press was missed', async () => {
+    const onClick = vi.fn();
+    const host = await renderButton({ type: 'close', onClick });
+    const control = getControl(host);
+
+    pressKey(control, 'keydown');
+    control.click();
+    pressKey(control, 'keydown');
+    control.click();
+
+    expect(onClick).toHaveBeenCalledTimes(2);
+});
+
 test('limel-navigation-button: follows the link when click() is called on the element', async () => {
     const onClick = vi.fn();
     const host = await renderButton({
@@ -891,6 +917,12 @@ async function waitForChanges() {
 function pressKey(element: HTMLElement, type: 'keydown' | 'keyup') {
     element.dispatchEvent(
         new KeyboardEvent(type, { key: 'Enter', bubbles: true, composed: true })
+    );
+}
+
+function clickWithPointer(element: HTMLElement) {
+    element.dispatchEvent(
+        new MouseEvent('click', { bubbles: true, composed: true, detail: 1 })
     );
 }
 
