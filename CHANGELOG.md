@@ -1,3 +1,13 @@
+## [40.25.2](https://github.com/Lundalogik/lime-elements/compare/v40.25.1...v40.25.2) (2026-11-12)
+
+### Bug Fixes
+
+
+* **popover:** give the focus back to the trigger when a popup closes with it inside ([f667a3f](https://github.com/Lundalogik/lime-elements/commit/f667a3f8a404c2b304401a1c51f9cdc1294689c8)), closes [#4457](https://github.com/Lundalogik/lime-elements/issues/4457)
+* **popover:** move the focus into a named dialog when it opens ([23a0953](https://github.com/Lundalogik/lime-elements/commit/23a09531ad7def7177cc03044492f6aae6bb2654)), closes [#4457](https://github.com/Lundalogik/lime-elements/issues/4457)
+* **tooltip:** open on focus only when the focus is visible ([59fd456](https://github.com/Lundalogik/lime-elements/commit/59fd456c91dd3717e53866b6846c3aed24587bbc)), closes [#4457](https://github.com/Lundalogik/lime-elements/issues/4457)
+* **util:** find the focus target through slotted elements ([31b2d6e](https://github.com/Lundalogik/lime-elements/commit/31b2d6ede8f41d3c22644595c6c38b62e4025921))
+
 ## [40.25.1](https://github.com/Lundalogik/lime-elements/compare/v40.25.0...v40.25.1) (2026-11-10)
 
 ### Bug Fixes
