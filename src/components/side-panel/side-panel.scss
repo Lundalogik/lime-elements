@@ -199,9 +199,8 @@ section {
     background-color: $toolbar-background-color;
 }
 
-// The close button is flat, like the buttons of the actions, so it has the
-// color of the toolbar.
-.close {
+// The buttons are flat, so they have the color of the toolbar.
+limel-navigation-button {
     --navigation-button-background-color: #{$toolbar-background-color};
 }
 
@@ -210,115 +209,6 @@ section {
     align-items: center;
     gap: 0.25rem;
     margin-left: auto;
-
-    > * {
-        @include mixins.reset-button-user-agent-styles;
-        @include mixins.is-flat-clickable;
-        @include mixins.visualize-keyboard-focus;
-
-        isolation: isolate;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        width: 1.875rem;
-        height: 1.875rem;
-        border-radius: 50%;
-
-        limel-icon {
-            width: 1.25rem;
-            transition:
-                transform 0.2s ease,
-                color 0.2s ease;
-        }
-
-        // The hover animations draw shapes that must have the same color as
-        // the button. `is-flat-clickable` gives the button this color on hover.
-        --_side-panel-action-background-color: #{$toolbar-background-color};
-
-        &:hover,
-        &:focus-visible {
-            --_side-panel-action-background-color: var(
-                --lime-elevated-surface-background-color
-            );
-        }
-
-        &:hover limel-icon {
-            color: var(--mdc-theme-primary);
-        }
-    }
-}
-
-// The hover animations of `newTab` and `expand` are the same as on the
-// navigation buttons in the Lime CRM web client.
-.newTab {
-    limel-icon {
-        transition: transform 0.2s ease;
-        transform: scale(0.8);
-        z-index: 3;
-    }
-
-    &:before {
-        z-index: 2;
-    }
-
-    &:after {
-        z-index: 1;
-    }
-
-    &:before,
-    &:after {
-        content: '';
-        transition:
-            transform 0.2s ease,
-            outline-color 0.2s ease;
-        position: absolute;
-        width: 0.875rem;
-        height: 0.875rem;
-        outline: 1.5px solid rgb(var(--contrast-900));
-        border-radius: 1px;
-        background-color: var(--_side-panel-action-background-color);
-    }
-
-    &:hover {
-        limel-icon {
-            transform: translate3d(-0.1rem, 0.1rem, 0) scale(1);
-        }
-
-        &:before {
-            transform: translate3d(0.125rem, -0.125rem, 0);
-            outline-color: rgb(var(--contrast-1000));
-            box-shadow: var(--shadow-depth-8);
-        }
-
-        &:after {
-            transform: translate3d(-0.15rem, 0.15rem, 0) scale(0.9);
-            outline-color: rgb(var(--contrast-700));
-        }
-    }
-}
-
-.expand {
-    &:after {
-        transition: transform 0.2s ease;
-        content: '';
-        position: absolute;
-        z-index: 1;
-        background-color: var(--_side-panel-action-background-color);
-        width: 0.75rem;
-        height: 0.75rem;
-    }
-
-    &:hover {
-        &:after {
-            transform: scale(0.5);
-        }
-
-        limel-icon {
-            transform: scale(1.18);
-        }
-    }
 }
 
 .header {
