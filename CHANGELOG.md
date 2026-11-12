@@ -1,3 +1,16 @@
+## [40.26.0](https://github.com/Lundalogik/lime-elements/compare/v40.25.2...v40.26.0) (2026-11-12)
+
+### Features
+
+
+* **navigation-button:** add limel-navigation-button ([d7303ef](https://github.com/Lundalogik/lime-elements/commit/d7303efcf724f87fdd4a9f14fb31c597b9e06cb6))
+* **side-panel:** translate the close button label ([e17d749](https://github.com/Lundalogik/lime-elements/commit/e17d7492ad6e0255134fd932547b3eaebb5e2c17)), closes [#4393](https://github.com/Lundalogik/lime-elements/issues/4393)
+### Bug Fixes
+
+
+* **make-enter-clickable:** do not block clicks after a missed release of Enter ([51093f5](https://github.com/Lundalogik/lime-elements/commit/51093f5512610d584b52f7bb9a5c3c714f07448a))
+* **side-panel:** do not pass the referrer when a newTab action opens in a new tab ([6184d74](https://github.com/Lundalogik/lime-elements/commit/6184d74c2c08d0c658db7698dbfcc94478d17a19))
+
 ## [40.25.2](https://github.com/Lundalogik/lime-elements/compare/v40.25.1...v40.25.2) (2026-11-12)
 
 ### Bug Fixes
