@@ -128,7 +128,7 @@ export class Selection {
         for (let index = lowerBound; index <= upperBound; index++) {
             const data = this.getDataByIndex(index);
 
-            if (!data) {
+            if (data === undefined || data === null) {
                 continue;
             }
 

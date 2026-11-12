@@ -2034,7 +2034,7 @@ describe('limel-table', () => {
             expect(select.mock.calls[0][0].detail[0]).toBe(data[1]);
         });
 
-        it('emits an empty selection, and leaves the checkbox empty, when a row whose id is 0 is selected', async () => {
+        it('selects a row whose id is 0', async () => {
             const { root, events, waitForChanges } = await renderRecordingTable(
                 { ...selectable(), data: [{ id: 0, name: 'Zed' }, ...data] }
             );
@@ -2042,8 +2042,8 @@ describe('limel-table', () => {
             clickCheckbox(root, 0);
             await waitForChanges();
 
-            expect(events).toEqual(['select: ']);
-            expect(getCheckedRows(root)[0]).toBe(false);
+            expect(events).toEqual(['select: 0']);
+            expect(getCheckedRows(root)[0]).toBe(true);
         });
 
         it('selects a range on a shift-click', async () => {
