@@ -1,0 +1,1 @@
+function n(n){return"tagName"in n}export{n as i}
