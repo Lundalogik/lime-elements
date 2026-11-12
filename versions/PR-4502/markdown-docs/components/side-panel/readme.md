@@ -66,24 +66,22 @@ Each example shows one feature in detail, and when to use it.
 
 ### Depends on
 
-- [limel-icon](../icon)
-- [limel-tooltip](../tooltip)
 - [limel-navigation-button](../navigation-button)
+- [limel-tooltip](../tooltip)
 - [limel-header](../header)
 - [limel-resize-handle](../resize-handle)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-side-panel --> limel-icon
-  limel-side-panel --> limel-tooltip
   limel-side-panel --> limel-navigation-button
+  limel-side-panel --> limel-tooltip
   limel-side-panel --> limel-header
   limel-side-panel --> limel-resize-handle
+  limel-navigation-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-tooltip-content --> limel-hotkey
-  limel-navigation-button --> limel-tooltip
   limel-header --> limel-icon
   limel-resize-handle --> limel-tooltip
   limel-example-side-panel-accessibility --> limel-side-panel

@@ -90,6 +90,7 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-list-pictures](../list/examples)
  - [limel-example-list-radio-button-icons](../list/examples)
  - [limel-example-masonry-layout-ordered](../masonry-layout/examples)
+ - [limel-example-navigation-button-disabled](../navigation-button/examples)
  - [limel-example-profile-picture-composite](../profile-picture/examples)
  - [limel-example-profile-picture-loading](../profile-picture/examples)
  - [limel-example-progress-flow-basic](../progress-flow/examples)
@@ -180,6 +181,7 @@ graph TD;
   limel-example-list-pictures --> limel-switch
   limel-example-list-radio-button-icons --> limel-switch
   limel-example-masonry-layout-ordered --> limel-switch
+  limel-example-navigation-button-disabled --> limel-switch
   limel-example-profile-picture-composite --> limel-switch
   limel-example-profile-picture-loading --> limel-switch
   limel-example-progress-flow-basic --> limel-switch

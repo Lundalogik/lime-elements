@@ -68,7 +68,6 @@ decorative, and is hidden from assistive technology. To change that, set
  - [limel-progress-flow-item](../progress-flow/progress-flow-item)
  - [limel-select](../select)
  - [limel-shortcut](../shortcut)
- - [limel-side-panel](../side-panel)
  - [limel-tab-bar](../tab-bar)
 
 ### Graph
@@ -111,7 +110,6 @@ graph TD;
   limel-progress-flow-item --> limel-icon
   limel-select --> limel-icon
   limel-shortcut --> limel-icon
-  limel-side-panel --> limel-icon
   limel-tab-bar --> limel-icon
   style limel-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```

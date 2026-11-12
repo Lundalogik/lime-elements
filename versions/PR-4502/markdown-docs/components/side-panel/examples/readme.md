@@ -37,15 +37,14 @@ graph TD;
   limel-example-side-panel-stacking --> limel-side-panel
   limel-button --> limel-icon
   limel-button --> limel-spinner
-  limel-side-panel --> limel-icon
-  limel-side-panel --> limel-tooltip
   limel-side-panel --> limel-navigation-button
+  limel-side-panel --> limel-tooltip
   limel-side-panel --> limel-header
   limel-side-panel --> limel-resize-handle
+  limel-navigation-button --> limel-tooltip
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-tooltip-content --> limel-hotkey
-  limel-navigation-button --> limel-tooltip
   limel-header --> limel-icon
   limel-resize-handle --> limel-tooltip
   style limel-example-side-panel-stacking fill:#f9f,stroke:#333,stroke-width:4px

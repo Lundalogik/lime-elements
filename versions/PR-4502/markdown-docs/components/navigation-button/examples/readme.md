@@ -5,10 +5,10 @@
 ## Overview
 
 `type="shrink"`
-Indicates that "the thing the button belongs to" can be shown in a smaller view.
-Can be used to indicate that fullscreen mode can be exited, that a "main"
-view can be made into a side-view, or that a larger side-view can be made into
-a smaller side-view.
+Indicates that the content it belongs to can be shown in a smaller view.
+Can be used to indicate that fullscreen mode can be exited, that a main
+view can be made into a side panel, or that a larger side panel can be
+made into a smaller one.
 
 ## Dependencies
 
