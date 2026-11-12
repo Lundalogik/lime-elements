@@ -399,6 +399,20 @@ test('limel-side-panel: opens a newTab action with an href in a new tab', async 
     ).toEqual(['_blank', null]);
 });
 
+test('limel-side-panel: does not pass the referrer on when a newTab action opens in a new tab', async () => {
+    await renderPanel({
+        actions: [
+            { type: 'newTab', label: 'Open', href: 'https://example.com/' },
+            { type: 'expand', label: 'Expand', href: 'https://example.com/' },
+        ],
+    });
+
+    expect(getActionButtons().map((link) => link.getAttribute('rel'))).toEqual([
+        'noopener noreferrer',
+        null,
+    ]);
+});
+
 test('limel-side-panel: marks each action with its type, for its hover animation', async () => {
     await renderPanel({
         actions: [

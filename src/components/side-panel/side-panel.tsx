@@ -13,6 +13,7 @@ import {
 import translate from '../../global/translations';
 import { getDeepActiveElement } from '../../util/get-deep-active-element';
 import { ESCAPE } from '../../util/keycodes';
+import { getRel } from '../../util/link-helper';
 import { createRandomString } from '../../util/random-string';
 import { Languages } from '../date-picker/date.types';
 import {
@@ -297,6 +298,7 @@ export class SidePanel {
                 id={id}
                 href={action.href}
                 target={getLinkTarget(action)}
+                rel={getRel(getLinkTarget(action))}
                 aria-label={action.label}
                 onClick={this.handleClickAction(action)}
             >
