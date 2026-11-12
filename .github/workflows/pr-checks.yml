@@ -47,8 +47,8 @@ jobs:
     # in lockstep with @playwright/test in package.json (same image as the
     # example-test jobs).
     container:
-      # v1.64.0-jammy
-      image: mcr.microsoft.com/playwright@sha256:c064e7f355d2dda32f669801a1b09e86a1e9252395c844d2cfbbe5c44acb9b79
+      # v1.65.0-jammy
+      image: mcr.microsoft.com/playwright@sha256:3abe8253579c7df4f9c4bc1fca6a5ef365120f8e4de818a02a034a54a46564cf
       # Chromium can exhaust Docker's default 64MB /dev/shm and crash; an OOM
       # crash would masquerade as a flaky test. Playwright's Docker guidance
       # recommends host IPC for Chromium in CI.
@@ -105,8 +105,8 @@ jobs:
     # Digest-pinned; keep it in lockstep with @playwright/test in package.json
     # (same image as the accessibility-tests and component-tests jobs).
     container:
-      # v1.64.0-jammy
-      image: mcr.microsoft.com/playwright@sha256:c064e7f355d2dda32f669801a1b09e86a1e9252395c844d2cfbbe5c44acb9b79
+      # v1.65.0-jammy
+      image: mcr.microsoft.com/playwright@sha256:3abe8253579c7df4f9c4bc1fca6a5ef365120f8e4de818a02a034a54a46564cf
       # Chromium can exhaust Docker's default 64MB /dev/shm and crash; an OOM
       # crash would masquerade as a flaky test. Playwright's Docker guidance
       # recommends host IPC for Chromium in CI.
@@ -160,8 +160,8 @@ jobs:
     # Digest-pinned for supply-chain integrity; keep it in lockstep with
     # @playwright/test in package.json (same image as the component-tests job).
     container:
-      # v1.64.0-jammy
-      image: mcr.microsoft.com/playwright@sha256:c064e7f355d2dda32f669801a1b09e86a1e9252395c844d2cfbbe5c44acb9b79
+      # v1.65.0-jammy
+      image: mcr.microsoft.com/playwright@sha256:3abe8253579c7df4f9c4bc1fca6a5ef365120f8e4de818a02a034a54a46564cf
       # Chromium can exhaust Docker's default 64MB /dev/shm and crash; an OOM
       # crash would masquerade as a flaky test. Playwright's Docker guidance
       # recommends host IPC for Chromium in CI.
@@ -214,8 +214,8 @@ jobs:
     # Digest-pinned for supply-chain integrity; the tag in the comment is the
     # human-readable handle for the same image.
     container:
-      # v1.64.0-jammy
-      image: mcr.microsoft.com/playwright@sha256:c064e7f355d2dda32f669801a1b09e86a1e9252395c844d2cfbbe5c44acb9b79
+      # v1.65.0-jammy
+      image: mcr.microsoft.com/playwright@sha256:3abe8253579c7df4f9c4bc1fca6a5ef365120f8e4de818a02a034a54a46564cf
       # Chromium can exhaust Docker's default 64MB /dev/shm and crash; an OOM
       # crash would masquerade as a flaky test. Playwright's Docker guidance
       # recommends host IPC for Chromium in CI.
