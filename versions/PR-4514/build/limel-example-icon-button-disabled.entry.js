@@ -1,1 +1,0 @@
-import{r as e,h as i}from"./index-D3SUrFhp.js";const o=class{constructor(i){e(this,i)}render(){return[i("limel-icon-button",{key:"f8f82b9da757317de9809c5e97fe58b751b98c69",label:"Add favourite",icon:"heart_outlined",disabled:!0,onClick:this.onClick})]}onClick(){console.log("This should never happen, since the button is disabled.")}};export{o as limel_example_icon_button_disabled}
