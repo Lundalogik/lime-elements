@@ -5,7 +5,7 @@ import { invoices, Invoice } from './invoices';
 /**
  * Layout
  * Columns and their content can be decisive factors in how a table is
- * preferred to rendered in the user interface. To set your preferred
+ * preferred to be rendered in the user interface. To set your preferred
  * rendering, choose one of the available `layout` properties.
  *
  *
@@ -16,7 +16,7 @@ import { invoices, Invoice } from './invoices';
  * in a way that each column becomes as wide as the data it holds.
  *
  * :::important
- * Note that be default, table columns have a maximum width of `40rem`.
+ * Note that by default, table columns have a maximum width of `40rem`.
  * This means, they can never grow wider than that, unless you specify
  * another size using the `--table-max-column-width` CSS variable.
  *

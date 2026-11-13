@@ -10,6 +10,11 @@ import { persons, Person } from './persons';
  * used in the header do not replace the entire content of the cell. Instead,
  * they appear in a slot next to the column sorting icon.
  *
+ * Set it with `headerComponent` on the column, in the same way as `component`.
+ * The header component gets everything in its `props`, and everything that its
+ * `propsFactory` returns, which wins over `props` where both have the same
+ * property. Since a header has no row, `propsFactory` is called with `null`.
+ *
  * @sourceFile persons.ts
  * @sourceFile header-menu.tsx
  */

@@ -5,6 +5,15 @@ import { Person, persons } from './persons';
 /**
  * Basic example
  *
+ * A table needs two things: the rows in `data`, and a description of the
+ * columns in `columns`.
+ *
+ * - Each row is a plain object.
+ * - Each column has a `title`, which is shown in its header, and a `field`,
+ * which is the name of the property in the rows that the column shows.
+ * - The rows are shown in the order they have in `data`. The user can sort
+ * them by clicking a column header.
+ *
  * :::note
  * Each object is recommended to expose a stable `id` (string or number).
  * The table relies on that identifier to update rows in place so that

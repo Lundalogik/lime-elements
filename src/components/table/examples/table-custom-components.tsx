@@ -25,6 +25,34 @@ import { capitalize } from 'lodash-es';
  * components should implement the [TableComponent](#/type/TableComponent/)
  * interface.
  *
+ * The component in each cell gets these properties:
+ *
+ * - Everything in the component's `props`.
+ * - Everything that its `propsFactory` returns. `propsFactory` is called with
+ * the row, so it can give each row different properties. Where it returns a
+ * property that is also in `props`, its value is used.
+ * - `field`: the `field` of the column.
+ * - `value`: the value of the cell, after the column's `formatter` if it has
+ * one.
+ * - `data`: the whole row.
+ *
+ * The table always sets `field`, `value` and `data` itself, so the same names
+ * in `props` or from `propsFactory` do not reach the component.
+ *
+ * A function in `props` whose name starts with `on` and a capital letter, such
+ * as `onChange`, is not set as a property. It is added as a listener for the
+ * event with the rest of the name, here `change`. A value that is not a
+ * function is set as a property, whatever its name.
+ *
+ * :::tip
+ * When you only want to change the text in a cell, a `formatter` on the column
+ * is enough. It gets the value and the row, and returns the text to show. The
+ * "Wingspan", "Habitat" and "Nest type" columns in this example use one.
+ *
+ * The same `formatter` also formats the column's value in `aggregates`, and
+ * then it only gets the value, without a row.
+ * :::
+ *
  * @sourceFile birds.ts
  * @sourceFile table-food.tsx
  */

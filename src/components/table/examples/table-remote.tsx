@@ -9,6 +9,39 @@ type BirdRow = Bird & { id: string };
 /**
  * Remote sorting and pagination
  *
+ * Use `mode="remote"` when the rows come from a server, and you only load one
+ * page of them at a time. The table then does not sort or split the rows by
+ * itself. Instead, it emits `load` with the `page` and the `sorters` it needs.
+ * You fetch those rows, and give them to the table as `data`. The table shows
+ * them in the order you give them.
+ *
+ * - `load` is also emitted when the table is created, so you can load the
+ * first page when you get it.
+ * - Set `totalRows` to the number of rows on the server, so that the table
+ * knows how many pages there are.
+ * - Set `loading` to `true` while you fetch the rows, to show a spinner.
+ *
+ * :::important
+ * One click can make the table emit `load` more than once. Always show what
+ * the **last** `load` asked for, and drop the answers to the earlier ones when
+ * they arrive later.
+ * :::
+ *
+ * In this example, a delay pretends to be the server. Each answer reads the
+ * page and the sorting of the last `load` when it arrives, so the last one
+ * wins. Its sorting only compares text, so the number columns are not sorted
+ * correctly. It also only sorts by the first item in `sorters`, so a column
+ * that the user adds to the sorting with <kbd>Shift</kbd>-click is ignored.
+ *
+ * :::note
+ * The table only has the rows of the page it shows, so an `aggregator` only
+ * gets those rows. The average below "Eggs per clutch" is worked out from all
+ * the rows by the example itself. With a real server, ask the server for the
+ * totals, and give them to the table in `aggregates`, as objects with the
+ * `field` of the column and the `value` to show. Then remove the column's own
+ * `aggregator`: a column that has one ignores its value in `aggregates`.
+ * :::
+ *
  * @sourceFile birds.ts
  */
 @Component({

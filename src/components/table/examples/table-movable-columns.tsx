@@ -6,6 +6,13 @@ import { capitalize } from 'lodash-es';
 /**
  * Movable columns
  *
+ * Set `movableColumns` to `true` to let the user change the order of the
+ * columns, by dragging a column header to another place.
+ *
+ * After a move, the table emits `changeColumns` with all the columns, in their
+ * new order. To keep that order, for example the next time the user opens the
+ * same view, save it and give it to the table as `columns`.
+ *
  * @sourceFile birds.ts
  */
 @Component({
