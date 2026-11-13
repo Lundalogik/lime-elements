@@ -10,16 +10,25 @@ import { capitalize } from 'lodash-es';
 /**
  * Movable rows
  *
- * This option is aimed more for managing data, rather than just viewing it.
- * Hence, it is not suitable combining with attributes that affect sorting.
+ * Set `movableRows` to `true` to let the user change the order of the rows.
+ * Each row then gets a handle at its start, which the user drags the row by.
  *
- *  With `mode="remote"` sorting is provided by remote data source, so any user provided sorting is ignored
- *  on data updates.
+ * The table does not move the row by itself. When the user drops a row, the
+ * table emits `reorder`, which says which row was moved (`fromRow`), which row
+ * it was dropped next to (`toRow`), and whether it was dropped `above` that
+ * row or below it. Change the order of the rows in `data` to match. If you do
+ * not, the row goes back to where it was the next time the table is drawn.
  *
- *  Combining with `sortableColumns` makes the data look different from what it is.
- *  It is recommended to set `sortableColumns` to `false` when using movable rows.
- *  Try to reorder the data in this example after sorting by any column, and then
- *  see how the reorder behaves.
+ * This is meant for tables where the user manages the order of the data,
+ * rather than just looking at it. So it does not go well with sorting:
+ *
+ * - When the user sorts by a column, the rows are shown in another order than
+ * they have in `data`, so a moved row does not end up where it looks like it
+ * should. Set `sortableColumns` to `false` when you use movable rows, as this
+ * example does. The table warns in the console when both are on.
+ * - With `mode="remote"`, the table shows the rows in the order you give them.
+ * When the user sorts, you fetch the rows in the new order, and that order
+ * replaces the one the user made by moving rows.
  *
  * @sourceFile birds.ts
  */

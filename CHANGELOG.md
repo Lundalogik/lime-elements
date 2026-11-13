@@ -1,3 +1,10 @@
+## [40.26.1](https://github.com/Lundalogik/lime-elements/compare/v40.26.0...v40.26.1) (2026-11-12)
+
+### Bug Fixes
+
+
+* **pagination:** keep the jump popover's `close` inside the control ([8178e51](https://github.com/Lundalogik/lime-elements/commit/8178e5143b8ba53f4cb637871f46b14062205a8d))
+
 ## [40.26.0](https://github.com/Lundalogik/lime-elements/compare/v40.25.2...v40.26.0) (2026-11-12)
 
 ### Features
