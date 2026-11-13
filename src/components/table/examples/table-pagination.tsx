@@ -10,9 +10,14 @@ import { capitalize } from 'lodash-es';
 /**
  * Pagination
  * By specifying a `pageSize`, you can enable pagination for the table.
+ * The rows are then split into pages of that many rows, and controls to move
+ * between the pages are shown. Set `page` to choose which page is shown.
  *
  * Additionally, you can control the location of the pagination controls
  * by setting the `paginationLocation` property to either `top` or `bottom`.
+ *
+ * To know when the user goes to another page, listen for `changePage`. See
+ * _Local sorting and pagination_ and _Remote sorting and pagination_ below.
  *
  * @sourceFile birds.ts
  */
