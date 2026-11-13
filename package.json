@@ -98,7 +98,7 @@
     "prettier": "^3.9.10",
     "prosemirror-example-setup": "^1.2.3",
     "prosemirror-markdown": "^1.13.9",
-    "prosemirror-model": ">=1.25.12",
+    "prosemirror-model": ">=1.25.13",
     "prosemirror-schema-basic": "^1.2.5",
     "prosemirror-tables": "^1.8.5",
     "prosemirror-test-builder": "^1.1.1",
