@@ -111,6 +111,9 @@ export class Table {
     /**
      * Data to be displayed in the table. Provide a stable `id` on each row to keep
      * scroll position, focus, and selections intact across updates.
+     *
+     * To change a row, give a new object for it. A cell can keep showing
+     * its old content when its row object is changed in place.
      */
     @Prop()
     public data: object[] = [];
@@ -155,7 +158,11 @@ export class Table {
     public totalRows: number;
 
     /**
-     * The initial sorted columns
+     * The columns to sort by. Rows are ordered by the last item first, and
+     * by the items before it where values are equal.
+     *
+     * A table in `remote` mode goes to the first page when this changes,
+     * unless a new `page` is given together with it.
      */
     @Prop()
     public sorting: ColumnSorter[] = [];
@@ -207,7 +214,8 @@ export class Table {
     public emptyMessage: string;
 
     /**
-     * Column aggregates to be displayed in the table
+     * Column aggregates to be displayed in the table. A column that has its
+     * own `aggregator` shows that instead of the value given here.
      */
     @Prop()
     public aggregates: ColumnAggregate[];
@@ -251,14 +259,16 @@ export class Table {
     public changePage: EventEmitter<number>;
 
     /**
-     * Emitted when `mode` is `remote` and the table is loading new data. The
-     * consumer is responsible for giving the table new data
+     * Emitted when `mode` is `remote` and the table is loading new data,
+     * also once when the table is created. The consumer is responsible for
+     * giving the table new data
      */
     @Event()
     public load: EventEmitter<TableParams>;
 
     /**
-     * Emitted when a row is activated
+     * Emitted when a row is activated. A click on the active row deactivates
+     * it, and emits `null`
      */
     @Event()
     public activate: EventEmitter<object>;
