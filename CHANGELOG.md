@@ -1,3 +1,10 @@
+## [40.26.2](https://github.com/Lundalogik/lime-elements/compare/v40.26.1...v40.26.2) (2026-11-13)
+
+### Bug Fixes
+
+
+* **email-viewer:** keep the email readable in fullscreen ([77ea5f8](https://github.com/Lundalogik/lime-elements/commit/77ea5f8df9cad301ce6d83ad73fa2d07a48e32e5))
+
 ## [40.26.1](https://github.com/Lundalogik/lime-elements/compare/v40.26.0...v40.26.1) (2026-11-12)
 
 ### Bug Fixes
