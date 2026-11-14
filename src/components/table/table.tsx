@@ -2,26 +2,14 @@ import {
     Component,
     h,
     Prop,
-    Element,
     Watch,
     EventEmitter,
     Event,
     Host,
+    State,
+    forceUpdate,
 } from '@stencil/core';
-import {
-    TabulatorFull,
-    Tabulator,
-    Options as TabulatorOptions,
-    Sorter as TabulatorSorter,
-    SorterFromTable as TabulatorSorterFromTable,
-    SortDirection as TabulatorSortDirection,
-    ColumnComponent as TabulatorColumnComponent,
-    ColumnDefinition as TabulatorColumnDefinition,
-    RowComponent as TabulatorRowComponent,
-    OptionsData as TabulatorOptionsData,
-    OptionsPagination as TabulatorOptionsPagination,
-    OptionsColumns as TabulatorOptionsColumns,
-} from 'tabulator-tables';
+import { isEqual } from 'lodash-es';
 import {
     Column,
     TableParams,
@@ -30,17 +18,68 @@ import {
     RowData,
     RowReorderEvent,
 } from './table.types';
-import { ColumnDefinitionFactory, createColumnSorter } from './columns';
-import { isEqual, has } from 'lodash-es';
-import { ElementPool } from './element-pool';
-import { RowDragManager } from './row-drag-manager';
-import { TableSelection } from './table-selection';
-import { _mapLayout, Layout } from './layout';
-import { areRowsEqual } from './utils';
+import { Layout } from './layout';
+import { Selection } from './selection';
+import {
+    CellView,
+    ComponentView,
+    createCellView,
+    createHeaderView,
+    readsTheWholeRow,
+    toAggregateText,
+} from './cells';
+import { describeSorting, getNextSorting, sortRows } from './sorting';
+import { getAggregatedValue, hasAggregation } from './aggregation';
+import {
+    createReorderEvent,
+    moveItem,
+    trackDrag,
+    trackPointer,
+} from './reorder';
+import { DragToReorder, ReorderEvent } from '../../util/drag-to-reorder';
 import { Languages } from '../date-picker/date.types';
+import { GoToPageEvent } from '../pagination/pagination.types';
 import translate from '../../global/translations';
 
 const FIRST_PAGE = 1;
+const MIN_COLUMN_WIDTH = 40;
+const DEFAULT_ROOT_FONT_SIZE = 16;
+
+const ARIA_SORT = {
+    ASC: 'ascending',
+    DESC: 'descending',
+} as const;
+
+const getRowId = (row: RowData) => row?.id ?? row;
+
+type CellViewCache = WeakMap<Column, WeakMap<object, CellView>>;
+
+const getViewsOfColumn = (cache: CellViewCache, column: Column) => {
+    let views = cache.get(column);
+    if (!views) {
+        views = new WeakMap();
+        cache.set(column, views);
+    }
+
+    return views;
+};
+
+const toWidthStyle = (
+    width: number | undefined,
+    rootFontSize: number
+): Record<string, string> => {
+    if (!width) {
+        return {};
+    }
+
+    const widthInRem = `${width / rootFontSize}rem`;
+
+    return {
+        width: widthInRem,
+        minWidth: widthInRem,
+        maxWidth: widthInRem,
+    };
+};
 
 /**
  * @exampleComponent limel-example-table-basic
@@ -101,7 +140,8 @@ export class Table {
     public layout: Layout;
 
     /**
-     * Number of rows per page
+     * Number of rows per page. A table in `local` mode without a `pageSize`
+     * draws all its rows, so give a table with many rows a `pageSize`.
      */
     @Prop({ reflect: true })
     public pageSize: number;
@@ -113,7 +153,8 @@ export class Table {
     public totalRows: number;
 
     /**
-     * The initial sorted columns
+     * The columns to sort by. Rows are ordered by the last item first, and
+     * by the items before it where values are equal.
      */
     @Prop()
     public sorting: ColumnSorter[] = [];
@@ -165,7 +206,8 @@ export class Table {
     public emptyMessage: string;
 
     /**
-     * Column aggregates to be displayed in the table
+     * Column aggregates to be displayed in the table. A column that has its
+     * own `aggregator` shows that instead of the value given here.
      */
     @Prop()
     public aggregates: ColumnAggregate[];
@@ -209,14 +251,16 @@ export class Table {
     public changePage: EventEmitter<number>;
 
     /**
-     * Emitted when `mode` is `remote` and the table is loading new data. The
-     * consumer is responsible for giving the table new data
+     * Emitted when `mode` is `remote` and the table is loading new data,
+     * also once when the table is created. The consumer is responsible for
+     * giving the table new data
      */
     @Event()
     public load: EventEmitter<TableParams>;
 
     /**
-     * Emitted when a row is activated
+     * Emitted when a row is activated. A click on the active row deactivates
+     * it, and emits `null`
      */
     @Event()
     public activate: EventEmitter<object>;
@@ -249,238 +293,217 @@ export class Table {
     @Event()
     public selectAll: EventEmitter<boolean>;
 
-    @Element()
-    private host: HTMLLimelTableElement;
+    @State()
+    private currentPage = FIRST_PAGE;
 
-    private currentLoad: { page: number; sorters: ColumnSorter[] };
+    @State()
+    private currentSorting: ColumnSorter[] = [];
 
-    private tabulator: Tabulator;
+    @State()
+    private orderedColumns: Column[] = [];
 
-    private pool: ElementPool;
-    private columnFactory: ColumnDefinitionFactory;
-    private initialized = false;
-    private pendingColumnRefresh = false;
-    private destroyed = false;
-    private resizeObserver: ResizeObserver;
-    private currentSorting: ColumnSorter[];
-    private rowDragManager: RowDragManager;
-    private tableSelection: TableSelection;
-    private shouldSort = false;
+    @State()
+    private columnWidths: Record<string, number> = {};
+
+    private focusedRowId: unknown;
+    private rowSelection: Selection;
+    private currentLoad: TableParams;
+    private scrollContainer: HTMLElement;
+    private rowInTabOrder: RowData;
+    private sortedRows: {
+        data: RowData[];
+        sorting: ColumnSorter[];
+        rows: RowData[];
+    };
+    private aggregatedValues: {
+        data: RowData[];
+        aggregates: ColumnAggregate[];
+        values: WeakMap<Column, unknown>;
+    };
+    private ignoreClick = false;
+    private bodyElement?: HTMLElement;
+    private rowReorder?: DragToReorder;
     private hasWarnedOnConflictingMovableAndSortable = false;
-
-    constructor() {
-        this.handleDataSorting = this.handleDataSorting.bind(this);
-        this.handlePageLoaded = this.handlePageLoaded.bind(this);
-        this.handleRenderComplete = this.handleRenderComplete.bind(this);
-        this.handleAjaxRequesting = this.handleAjaxRequesting.bind(this);
-        this.requestData = this.requestData.bind(this);
-        this.onClickRow = this.onClickRow.bind(this);
-        this.formatRow = this.formatRow.bind(this);
-        this.formatRows = this.formatRows.bind(this);
-        this.updateMaxPage = this.updateMaxPage.bind(this);
-        this.initTabulatorComponent = this.initTabulatorComponent.bind(this);
-        this.setSelection = this.setSelection.bind(this);
-        this.addColumnAggregator = this.addColumnAggregator.bind(this);
-        this.pool = new ElementPool(document);
-        this.columnFactory = new ColumnDefinitionFactory(this.pool);
-    }
+    private cellViews: CellViewCache = new WeakMap();
+    private readonly warnedAbout = new Set<string>();
+    private readonly awaitedComponents = new Set<string>();
+    private readonly headerViews = new WeakMap<Column, ComponentView>();
 
     public componentWillLoad() {
         this.warnOnConflictingMovableAndSortable();
-        this.initRowDragManager();
-        this.initTableSelection();
+        this.currentPage = this.page ?? FIRST_PAGE;
+        this.currentSorting = this.sorting ?? [];
+        this.orderedColumns = this.columns ?? [];
+        this.initSelection();
     }
 
-    public componentDidLoad() {
-        this.destroyed = false;
-        this.init();
+    public componentWillRender() {
+        this.leavePageThatNoLongerExists();
+    }
+
+    public componentDidRender() {
+        this.putOneRowInTabOrder();
+        this.setUpRowReorder();
+    }
+
+    public connectedCallback() {
+        this.setUpRowReorder();
     }
 
     public disconnectedCallback() {
-        this.destroyed = true;
-        this.initialized = false;
-        this.pendingColumnRefresh = false;
-
-        this.rowDragManager?.destroy();
-        this.rowDragManager = null;
-
-        if (this.resizeObserver) {
-            this.resizeObserver.disconnect();
-            this.resizeObserver = null;
-        }
-
-        if (this.tabulator) {
-            this.tabulator.destroy();
-            this.tabulator = null;
-        }
-
-        this.pool.clear();
+        this.rowReorder?.teardown();
     }
 
-    @Watch('totalRows')
-    protected totalRowsChanged() {
-        this.updateMaxPage();
-        this.refreshRemotePaginator();
-    }
+    public componentDidLoad() {
+        if (this.isRemoteMode()) {
+            this.requestLoad();
 
-    @Watch('pageSize')
-    protected pageSizeChanged() {
-        this.updateMaxPage();
-        this.refreshRemotePaginator();
+            return;
+        }
+
+        this.emitSort();
     }
 
     @Watch('page')
     protected pageChanged() {
-        if (!this.tabulator || this.tabulator.getPage() === this.page) {
+        const page = this.page ?? FIRST_PAGE;
+        if (page === this.currentPage) {
             return;
         }
 
-        this.tabulator.setPage(this.page);
-    }
+        this.currentPage = page;
+        this.scrollToTop();
 
-    @Watch('activeRow')
-    protected activeRowChanged() {
-        if (!this.tabulator) {
-            return;
+        if (this.isRemoteMode()) {
+            this.requestLoad();
+        } else if (page === this.getShownPage()) {
+            this.changePage.emit(page);
         }
-
-        this.formatRows();
     }
 
     @Watch('data')
-    protected updateData(newData: RowData[] = [], oldData: RowData[] = []) {
-        const newIds = this.getRowIds(newData);
-        const oldIds = this.getRowIds(oldData);
-        const shouldReplace =
-            !this.areEqualIds(newIds, oldIds) ||
-            !this.isSameOrder(newIds, oldIds);
+    protected dataChanged(newValue: RowData[], oldValue: RowData[]) {
+        const newData = newValue ?? [];
+        const oldData = oldValue ?? [];
+        const oldRows = new Map(oldData.map((row) => [getRowId(row), row]));
 
-        setTimeout(async () => {
-            if (!this.tabulator || !this.initialized) {
-                return;
+        const keptViews: CellViewCache = new WeakMap();
+        for (const row of newData) {
+            const oldRow = oldRows.get(getRowId(row));
+            if (oldRow) {
+                this.keepCellViewsThatStillHold(keptViews, row, oldRow);
             }
+        }
 
-            if (shouldReplace) {
-                this.pool.releaseAll();
-                this.tabulator.replaceData(newData);
-                this.setSelection();
+        this.cellViews = keptViews;
 
-                return;
+        const oldIds = this.getRowsBefore(oldData).map((row) => getRowId(row));
+        const hasSameLength = newData.length === oldData.length;
+        const hasSameOrder =
+            hasSameLength &&
+            this.getRows().every(
+                (row, index) => getRowId(row) === oldIds[index]
+            );
+        if (hasSameOrder) {
+            return;
+        }
+
+        this.rowSelection?.forgetLastToggledIndex();
+
+        const knownIds = new Set(oldIds);
+        const hasSameRows =
+            hasSameLength &&
+            newData.every((row) => knownIds.has(getRowId(row)));
+        if (!hasSameRows) {
+            this.setSelection(this.selection);
+        }
+    }
+
+    private getRowsBefore(oldData: RowData[]): RowData[] {
+        if (this.isRemoteMode()) {
+            return oldData;
+        }
+
+        const isCached =
+            this.sortedRows?.data === oldData &&
+            this.sortedRows.sorting === this.currentSorting;
+
+        return isCached
+            ? this.sortedRows.rows
+            : sortRows(oldData, this.currentSorting);
+    }
+
+    private keepCellViewsThatStillHold(
+        keptViews: CellViewCache,
+        row: RowData,
+        oldRow: RowData
+    ) {
+        const isSameObject = row === oldRow;
+        if (!isSameObject && !isEqual(row, oldRow)) {
+            return;
+        }
+
+        for (const column of this.orderedColumns) {
+            const view = this.cellViews.get(column)?.get(oldRow);
+            const isOutdated =
+                isSameObject &&
+                (readsTheWholeRow(column) ||
+                    !isEqual(row[column.field], view?.rawValue));
+            if (view && !isOutdated) {
+                getViewsOfColumn(keptViews, column).set(row, view);
             }
-
-            if (!areRowsEqual(newData, oldData)) {
-                const patched = this.fillMissingFields(newData, oldData);
-                await this.tabulator.updateData(patched);
-                if (!this.tabulator) {
-                    return;
-                }
-
-                this.reformatChangedRows(newData, oldData);
-                this.setSelection();
-
-                return;
-            }
-
-            if (newData.length > 0) {
-                this.tabulator.updateOrAddData(newData);
-            }
-        }, 0);
+        }
     }
 
     @Watch('columns')
-    protected updateColumns(newColumns: Column[], oldColumns: Column[]) {
-        if (!this.tabulator || !this.initialized) {
-            this.pendingColumnRefresh = true;
-
+    protected columnsChanged(newValue: Column[], oldValue: Column[]) {
+        const newColumns = newValue ?? [];
+        const oldColumns = oldValue ?? [];
+        const isSameAsBefore =
+            newColumns.length === oldColumns.length &&
+            newColumns.every((column, index) => column === oldColumns[index]);
+        if (isSameAsBefore) {
             return;
         }
 
-        if (this.areSameColumns(newColumns, oldColumns)) {
-            return;
-        }
-
-        const columnsInTable = this.tabulator
-            .getColumns()
-            .filter((c) => c.getField());
-
-        const oldColumnsInTable = columnsInTable.map((c) =>
-            oldColumns.find((old) => old.field === c.getField())
-        );
-
-        if (this.areSameColumns(newColumns, oldColumnsInTable)) {
-            return;
-        }
-
-        this.tabulator.setColumns(this.getColumnDefinitions());
-        this.shouldSort = true;
+        this.orderedColumns = newColumns;
     }
 
-    @Watch('aggregates')
-    protected updateAggregates(
-        newAggregates: ColumnAggregate[],
-        oldAggregates: ColumnAggregate[]
+    @Watch('sorting')
+    protected sortingChanged(
+        newValue: ColumnSorter[],
+        oldValue: ColumnSorter[]
     ) {
-        if (!this.tabulator || !this.initialized) {
-            this.pendingColumnRefresh = true;
-
+        const newSorting = newValue ?? [];
+        const sorting = describeSorting(newSorting);
+        const isSameAsBefore = isEqual(
+            sorting,
+            describeSorting(oldValue ?? [])
+        );
+        const isAlreadyApplied = isEqual(
+            sorting,
+            describeSorting(this.currentSorting)
+        );
+        if (isSameAsBefore || isAlreadyApplied) {
             return;
         }
 
-        if (isEqual(newAggregates, oldAggregates)) {
-            return;
-        }
-
-        if (!this.haveSameAggregateFields(newAggregates, oldAggregates)) {
-            this.tabulator.setColumns(this.getColumnDefinitions());
-        }
-
-        this.tabulator.recalc();
-        this.tabulator.rowManager.redraw();
+        this.applySorting(newSorting);
     }
 
     @Watch('selection')
-    protected updateSelection(newSelection: any[]) {
-        if (!this.tableSelection) {
-            return;
-        }
-
-        this.tableSelection.setSelection(newSelection);
+    protected selectionChanged(newSelection: RowData[]) {
+        this.setSelection(newSelection);
     }
 
     @Watch('selectable')
-    protected updateSelectable() {
-        if (this.tableSelection && !this.selectable) {
-            this.tableSelection = null;
-        }
-
-        this.initTableSelection();
-        this.init();
+    protected selectableChanged() {
+        this.initSelection();
     }
 
     @Watch('movableRows')
-    protected updateMovableRows() {
-        this.warnOnConflictingMovableAndSortable();
-        this.pool.releaseAll();
-        this.rowDragManager?.destroy();
-        this.rowDragManager = null;
-        this.initRowDragManager();
-        this.init();
-    }
-
     @Watch('sortableColumns')
-    protected updateSortableColumns() {
-        this.warnOnConflictingMovableAndSortable();
-        if (!this.tabulator || !this.initialized) {
-            this.pendingColumnRefresh = true;
-
-            return;
-        }
-
-        this.tabulator.setColumns(this.getColumnDefinitions());
-        this.shouldSort = true;
-    }
-
-    private warnOnConflictingMovableAndSortable() {
+    protected warnOnConflictingMovableAndSortable() {
         if (this.hasWarnedOnConflictingMovableAndSortable) {
             return;
         }
@@ -495,506 +518,351 @@ export class Table {
         this.hasWarnedOnConflictingMovableAndSortable = true;
     }
 
-    @Watch('sorting')
-    protected updateSorting(
-        newValue: ColumnSorter[],
-        oldValue: ColumnSorter[]
-    ) {
-        if (!this.tabulator || !this.initialized) {
-            this.shouldSort = true;
-
-            return;
-        }
-
-        const newSorting = this.getColumnSorter(newValue);
-        const oldSorting = this.getColumnSorter(oldValue);
-        if (isEqual(newSorting, oldSorting)) {
-            return;
-        }
-
-        this.tabulator.setSort(newSorting);
-    }
-
-    private reformatChangedRows(newData: RowData[], oldData: RowData[]) {
-        for (const [i, newRow] of newData.entries()) {
-            if (!newRow?.id || isEqual(newRow, oldData[i])) {
-                continue;
-            }
-
-            const row = this.tabulator.getRow(newRow.id);
-            if (row) {
-                row.reformat();
-            }
-        }
-    }
-
-    private fillMissingFields(
-        newData: RowData[],
-        oldData: RowData[]
-    ): RowData[] {
-        return newData.map((newRow, index) => {
-            const oldRow = oldData[index];
-            if (!oldRow) {
-                return newRow;
-            }
-
-            const missingKeys = Object.keys(oldRow).filter(
-                // eslint-disable-next-line unicorn/no-computed-property-existence-check -- `in` must also see inherited properties, e.g. getters on class instances
-                (key) => !(key in newRow)
-            );
-
-            if (missingKeys.length === 0) {
-                return newRow;
-            }
-
-            const patched = { ...newRow };
-            for (const key of missingKeys) {
-                patched[key] = undefined;
-            }
-
-            return patched;
-        });
-    }
-
-    private getRowIds(data: RowData[]): Array<string | number> {
-        return data.map((item) => item.id ?? item) as Array<string | number>;
-    }
-
-    private areEqualIds(
-        newIds: Array<string | number>,
-        oldIds: Array<string | number>
-    ): boolean {
-        const newIdSet = new Set(newIds);
-        const oldIdSet = new Set(oldIds);
-
-        return (
-            newIdSet.size === oldIdSet.size &&
-            newIds.every((id) => oldIdSet.has(id))
-        );
-    }
-
-    private isSameOrder(
-        newIds: Array<string | number>,
-        oldIds: Array<string | number>
-    ): boolean {
-        return newIds.every((id, index) => id === oldIds[index]);
-    }
-
-    private areSameColumns(newColumns: Column[], oldColumns: Column[]) {
-        return (
-            newColumns.length === oldColumns.length &&
-            newColumns.every((column) => oldColumns.includes(column))
-        );
-    }
-
-    private haveSameAggregateFields(
-        newAggregates: ColumnAggregate[],
-        oldAggregates: ColumnAggregate[]
-    ) {
-        const oldAggregateFields = oldAggregates?.map((a) => a.field) || [];
-
-        return (
-            newAggregates?.length === oldAggregates?.length &&
-            !!newAggregates?.every((a) => oldAggregateFields.includes(a.field))
-        );
-    }
-
-    private init() {
-        if (this.tabulator) {
-            this.pool.releaseAll();
-            this.tabulator.destroy();
-            this.initialized = false;
-        }
-
-        const table: HTMLElement =
-            this.host.shadowRoot.querySelector('#tabulator-table');
-        this.initTabulatorComponent(table);
-    }
-
-    /*
-     * Tabulator requires that the html element it's rendered inside
-     * has a size before it's created, otherwise it doesn't consider
-     * it self renderedy completely. (the callback "renderComplete"
-     * is never run).
-     *
-     * @param table {HTMLElement}
-     *
-     */
-    private initTabulatorComponent(table: HTMLElement) {
-        // Some browsers do not implement the ResizeObserver API...
-        // If that's the case lets just create the table no
-        // matter if its rendered or not.
-        if (!('ResizeObserver' in window)) {
-            this.tabulator = this.createTabulator(table);
-            this.rowDragManager?.observe(table);
-            this.setSelection();
-
-            return;
-        }
-
-        this.resizeObserver = new ResizeObserver(() => {
-            requestAnimationFrame(() => {
-                if (this.destroyed) {
-                    return;
-                }
-
-                this.tabulator = this.createTabulator(table);
-                this.rowDragManager?.observe(table);
-                this.setSelection();
-                this.resizeObserver?.unobserve(table);
-                this.resizeObserver?.disconnect();
-            });
-        });
-        this.resizeObserver.observe(table);
-    }
-
-    private createTabulator(table: HTMLElement): Tabulator {
-        const tabulator = new TabulatorFull(table, this.getOptions());
-        tabulator.on('rowClick', this.onClickRow);
-        tabulator.on('dataSorting', this.handleDataSorting);
-        tabulator.on('pageLoaded', this.handlePageLoaded);
-        tabulator.on('columnMoved', this.handleMoveColumn);
-        tabulator.on('renderComplete', this.handleRenderComplete);
-
-        if (this.rowDragManager) {
-            const armClickGuard = () =>
-                this.rowDragManager.armPostDropClickGuard(table);
-            tabulator.on('rowMoved', this.rowDragManager.handleRowMoved);
-            tabulator.on('rowMoved', armClickGuard);
-            tabulator.on('rowMoveCancelled', armClickGuard);
-        }
-
-        tabulator.on('tableBuilt', () => {
-            if (this.destroyed) {
-                tabulator.destroy();
-
-                return;
-            }
-            this.initialized = true;
-            this.applyPendingColumnRefresh();
-            if (this.data?.length) {
-                this.updateData(this.data, []);
-
-                if (this.isRemoteMode()) {
-                    this.updateMaxPage();
-                }
-            } else if (this.isRemoteMode()) {
-                this.tabulator.setData();
-            }
-        });
-
-        return tabulator;
-    }
-
-    private applyPendingColumnRefresh() {
-        if (!this.pendingColumnRefresh || !this.tabulator) {
-            return;
-        }
-
-        this.pendingColumnRefresh = false;
-        this.tabulator.setColumns(this.getColumnDefinitions());
-        this.tabulator.recalc();
-    }
-
-    private initRowDragManager() {
-        if (this.movableRows) {
-            this.rowDragManager = new RowDragManager(
-                this.pool,
-                this.reorder,
-                () => this.language
-            );
-        }
-    }
-
-    private initTableSelection() {
-        if (!this.selectable) {
-            return;
-        }
-
-        this.tableSelection = new TableSelection(
-            () => this.tabulator,
-            this.pool,
-            this.select,
-            (key: string) => this.getTranslation(key)
-        );
-        this.tableSelection.setSelection(this.selection);
-    }
-
-    private setSelection() {
-        if (!(this.tabulator && this.tableSelection)) {
-            return;
-        }
-
-        this.tableSelection.setSelection(this.selection);
-    }
-
-    private updateMaxPage() {
-        this.tabulator?.setMaxPage(this.calculatePageCount());
-    }
-
-    /**
-     * In remote mode the visible paginator buttons are rendered from the
-     * `last_page` value returned by `ajaxRequestFunc`, not from
-     * `setMaxPage`. When `totalRows` or `pageSize` change after init, force
-     * Tabulator to re-invoke the ajax callback so the paginator UI picks up
-     * the new page count.
-     *
-     * `replaceData` rather than `setData` because the latter calls
-     * `rowManager.resetScroll()` (visible as the table snapping to
-     * top-left every refresh). `replaceData` still wipes and rebuilds
-     * the row elements as a side-effect of going through the data
-     * pipeline (causing a brief flicker), so save and restore the scroll
-     * position explicitly: Tabulator's `renderInPosition` path doesn't
-     * fully preserve vertical scroll across the row rebuild.
-     */
-    private async refreshRemotePaginator() {
-        if (!this.isRemoteMode() || !this.tabulator || !this.initialized) {
-            return;
-        }
-
-        const scrollContainer = this.getRowScrollContainer();
-        const scrollTop = scrollContainer?.scrollTop ?? 0;
-        const scrollLeft = scrollContainer?.scrollLeft ?? 0;
-
-        // `replaceData` resolves through `requestData`, which rejects when the
-        // component is destroyed, and Tabulator's ajax pipeline can reject too.
-        // Since the watchers call this without awaiting, swallow rejections here
-        // to avoid an unhandled promise rejection.
-        try {
-            await this.tabulator.replaceData();
-        } catch {
-            return;
-        }
-
-        if (!scrollContainer) {
-            return;
-        }
-
-        scrollContainer.scrollTop = scrollTop;
-        scrollContainer.scrollLeft = scrollLeft;
-    }
-
-    /**
-     * Tabulator's scrollable row container, inside `<limel-table>`'s
-     * shadow DOM. The user's vertical/horizontal scroll position within
-     * the table lives on this element's `scrollTop` / `scrollLeft`.
-     */
-    private getRowScrollContainer(): HTMLElement | null {
-        return (this.host.shadowRoot?.querySelector('.tabulator-tableholder') ??
-            null) as HTMLElement | null;
-    }
-
-    private getOptions(): TabulatorOptions {
-        const ajaxOptions = this.getAjaxOptions();
-        const paginationOptions = this.getPaginationOptions();
-        const columnOptions = this.getColumnOptions();
-        const rowDragOptions = this.getRowDragOptions();
-
-        return {
-            data: this.data,
-            layout: _mapLayout(this.layout),
-            columns: this.getColumnDefinitions(),
-            ...ajaxOptions,
-            ...paginationOptions,
-            rowFormatter: this.formatRow,
-            initialSort: this.getInitialSorting(),
-            nestedFieldSeparator: false,
-            ...columnOptions,
-            ...rowDragOptions,
-        };
-    }
-
-    private getInitialSorting(): TabulatorSorter[] {
-        if (this.currentSorting && this.currentSorting.length > 0) {
-            return this.getColumnSorter(this.currentSorting);
-        }
-
-        return this.getColumnSorter(this.sorting);
-    }
-
-    private getColumnSorter(sorting: ColumnSorter[]): TabulatorSorter[] {
-        return sorting.map((sorter: ColumnSorter) => {
-            return {
-                column: String(sorter.column.field),
-                dir: sorter.direction.toLocaleLowerCase() as TabulatorSortDirection,
-            };
-        });
-    }
-
-    private getColumnDefinitions(): TabulatorColumnDefinition[] {
-        const columnDefinitions = this.columns
-            .map(this.addColumnAggregator)
-            .map((column) => {
-                const definition = this.columnFactory.create(column);
-                const columnSortable = column.headerSort ?? true;
-                definition.headerSort = this.sortableColumns && columnSortable;
-
-                return definition;
-            });
-
-        if (this.tableSelection) {
-            return this.tableSelection.getColumnDefinitions(columnDefinitions);
-        }
-
-        return columnDefinitions;
-    }
-
-    private addColumnAggregator(column: Column<any>): Column<any> {
-        if (!this.aggregates?.length || column.aggregator) {
-            return column;
-        }
-
-        const aggregate = this.aggregates.find((a) => a.field === column.field);
-        if (aggregate) {
-            column.aggregator = (col?: Column) => {
-                if (!col) {
-                    return;
-                }
-
-                const value = this.aggregates.find(
-                    (a) => a.field === col.field
-                )?.value;
-
-                if (col.formatter) {
-                    return col.formatter(value);
-                }
-
-                return value;
-            };
-        }
-
-        return column;
-    }
-
-    private getAjaxOptions(): TabulatorOptionsData {
-        if (!this.isRemoteMode()) {
-            return {};
-        }
-
-        // Tabulator needs a URL to be set, even though this one will never be
-        // used since we have our own custom `ajaxRequestFunc`
-        const remoteUrl = 'https://localhost';
-
-        return {
-            sortMode: 'remote',
-            ajaxURL: remoteUrl,
-            ajaxRequestFunc: this.requestData,
-            ajaxRequesting: this.handleAjaxRequesting,
-        };
-    }
-
-    private handleAjaxRequesting() {
-        return !this.destroyed;
-    }
-
-    private getPaginationOptions(): TabulatorOptionsPagination {
-        if (!this.pageSize) {
-            return {};
-        }
-
-        return {
-            pagination: true,
-            paginationMode: this.isRemoteMode() ? 'remote' : 'local',
-            paginationSize: this.pageSize,
-            paginationInitialPage: this.page,
-        };
-    }
-
-    private requestData(_, __, params: any): Promise<object> {
-        if (this.destroyed) {
-            return Promise.reject();
-        }
-
-        const sorters = params.sorters ?? [];
-        const currentPage = params.page ?? FIRST_PAGE;
-
-        if (this.page !== currentPage) {
-            this.changePage.emit(currentPage);
-        }
-
-        const columnSorters = sorters.map(createColumnSorter(this.columns));
-
-        const load = {
-            page: currentPage,
-            sorters: columnSorters,
-        };
-
-        // In order to make limel-table behave more like a controlled component,
-        // we always return the existing data from this function, therefore
-        // relying on the consumer component to handle the loading
-        // state via the loading prop, if it actually decides to load new data.
-        //
-        // When pagination is enabled, Tabulator's pagination module unwraps
-        // the `{last_page, data}` format. Without pagination, Tabulator
-        // expects a plain array directly.
-        const resolveExistingData = this.pageSize
-            ? Promise.resolve({
-                  last_page: this.calculatePageCount(),
-                  data: this.data,
-              })
-            : Promise.resolve(this.data);
-
-        if (!isEqual(this.currentLoad, load)) {
-            this.currentSorting = columnSorters;
-            this.currentLoad = load;
-            this.load.emit(load);
-        }
-
-        return resolveExistingData;
-    }
-
     private isRemoteMode(): boolean {
         return this.mode === 'remote';
     }
 
-    private handleDataSorting(sorters: TabulatorSorterFromTable[]): void {
-        const columnSorters = sorters.map(createColumnSorter(this.columns));
+    private getData(): RowData[] {
+        return this.data ?? [];
+    }
 
+    private getRows(): RowData[] {
+        const data = this.getData();
         if (this.isRemoteMode()) {
-            const tabulatorPage = this.tabulator?.getPage?.();
-            const currentPage =
-                typeof tabulatorPage === 'number' ? tabulatorPage : this.page;
-            const load = {
-                page: currentPage ?? FIRST_PAGE,
-                sorters: columnSorters,
+            return data;
+        }
+
+        const isCached =
+            this.sortedRows?.data === data &&
+            this.sortedRows.sorting === this.currentSorting;
+        if (!isCached) {
+            this.sortedRows = {
+                data: data,
+                sorting: this.currentSorting,
+                rows: sortRows(data, this.currentSorting),
             };
-
-            if (!isEqual(this.currentLoad, load)) {
-                this.currentSorting = columnSorters;
-                this.currentLoad = load;
-                this.load.emit(load);
-            }
-
-            return;
         }
 
-        if (columnSorters.length === 0) {
-            return;
-        }
-
-        this.sort.emit(columnSorters);
+        return this.sortedRows.rows;
     }
 
-    private handlePageLoaded(page: number): void {
+    private warnOnce(key: string, message: string) {
+        if (this.warnedAbout.has(key)) {
+            return;
+        }
+
+        this.warnedAbout.add(key);
+        console.warn(`limel-table: ${message}`);
+    }
+
+    private getPageSize(): number | undefined {
+        if (!this.pageSize) {
+            return;
+        }
+
+        if (Number.isSafeInteger(this.pageSize) && this.pageSize > 0) {
+            return this.pageSize;
+        }
+
+        this.warnOnce(
+            `pageSize:${this.pageSize}`,
+            `\`pageSize\` has to be a whole number above 0, but is ${this.pageSize}. All rows are shown without pages.`
+        );
+    }
+
+    private getTotalRows(): number | undefined {
+        if (this.totalRows === undefined || this.totalRows === null) {
+            return;
+        }
+
+        if (Number.isSafeInteger(this.totalRows) && this.totalRows >= 0) {
+            return this.totalRows;
+        }
+
+        this.warnOnce(
+            `totalRows:${this.totalRows}`,
+            `\`totalRows\` has to be a whole number that is not negative, but is ${this.totalRows}. The number of rows counts as unknown.`
+        );
+    }
+
+    private getRowsOnPage(): { rows: RowData[]; offset: number } {
+        const rows = this.getRows();
+        const pageSize = this.getPageSize();
+        if (this.isRemoteMode() || !pageSize) {
+            return { rows: rows, offset: 0 };
+        }
+
+        const offset = (this.getShownPage() - 1) * pageSize;
+
+        return {
+            rows: rows.slice(offset, offset + pageSize),
+            offset: offset,
+        };
+    }
+
+    /**
+     * @returns how many rows there are in all, when that is known. A remote
+     * table with a total of 0 does not know it yet, because consumers give 0
+     * while they wait for the count
+     */
+    private getKnownTotal(): number | undefined {
+        if (!this.isRemoteMode()) {
+            return this.getData().length;
+        }
+
+        return this.getTotalRows() || undefined;
+    }
+
+    private getLastPage(): number | undefined {
+        const pageSize = this.getPageSize();
+        const total = this.getKnownTotal();
+        if (!pageSize || total === undefined) {
+            return;
+        }
+
+        return Math.max(FIRST_PAGE, Math.ceil(total / pageSize));
+    }
+
+    /**
+     * @returns `true` when there is more than one page. While a remote table
+     * does not know how many rows there are, a full page, or a page after
+     * the first one, counts as a sign of more pages
+     */
+    private hasSeveralPages(): boolean {
+        const lastPage = this.getLastPage();
+        if (lastPage !== undefined) {
+            return lastPage > FIRST_PAGE;
+        }
+
+        const pageSize = this.getPageSize();
+        if (!pageSize) {
+            return false;
+        }
+
+        return (
+            this.currentPage > FIRST_PAGE || this.getData().length >= pageSize
+        );
+    }
+
+    private getShownPage(): number {
         if (this.isRemoteMode()) {
+            return this.currentPage;
+        }
+
+        const lastPage = this.getLastPage() ?? this.currentPage;
+
+        return Math.min(Math.max(this.currentPage, FIRST_PAGE), lastPage);
+    }
+
+    private getTotalItems(): number | null {
+        const total = this.getKnownTotal();
+        if (total !== undefined) {
+            return total;
+        }
+
+        return this.getData().length === 0 ? 0 : null;
+    }
+
+    private leavePageThatNoLongerExists() {
+        const lastPage = this.getLastPage();
+        if (lastPage === undefined || this.currentPage <= lastPage) {
             return;
         }
 
+        const isWaitingForRows = this.isRemoteMode()
+            ? this.loading
+            : this.getData().length === 0;
+        if (!isWaitingForRows) {
+            this.goToPage(lastPage);
+        }
+    }
+
+    private requestLoad() {
+        const load: TableParams = {
+            page: this.currentPage,
+            sorters: this.getSortingToEmit(),
+        };
+        if (isEqual(this.currentLoad, load)) {
+            return;
+        }
+
+        this.currentLoad = load;
+        this.load.emit(load);
+    }
+
+    private getSortingToEmit(): ColumnSorter[] {
+        return this.currentSorting.map((sorter) => ({
+            column:
+                (this.columns ?? []).find(
+                    (column) => column.field === sorter.column.field
+                ) ?? sorter.column,
+            direction: sorter.direction,
+        }));
+    }
+
+    private emitSort() {
+        if (this.currentSorting.length > 0) {
+            this.sort.emit(this.getSortingToEmit());
+        }
+    }
+
+    private applySorting(sorting: ColumnSorter[]) {
+        this.currentSorting = sorting;
+        this.rowSelection?.forgetLastToggledIndex();
+
+        if (!this.isRemoteMode()) {
+            this.emitSort();
+
+            return;
+        }
+
+        const wasOnAnotherPage = this.currentPage !== FIRST_PAGE;
+        this.currentPage = FIRST_PAGE;
+        this.scrollToTop();
+        if (wasOnAnotherPage) {
+            this.changePage.emit(FIRST_PAGE);
+        }
+
+        this.requestLoad();
+    }
+
+    private isSortable(column: Column): boolean {
+        return this.sortableColumns && (column.headerSort ?? true);
+    }
+
+    private readonly handleHeaderClick = (
+        event: MouseEvent,
+        column: Column
+    ) => {
+        if (this.ignoreClick) {
+            return;
+        }
+
+        const keepOtherColumns = event.shiftKey || event.ctrlKey;
+        this.applySorting(
+            getNextSorting(this.currentSorting, column, keepOtherColumns)
+        );
+    };
+
+    private readonly handleGoToPage = (event: CustomEvent<GoToPageEvent>) => {
+        event.stopPropagation();
+        const { page, reason } = event.detail;
+        if (reason === 'user' && page !== this.currentPage) {
+            this.goToPage(page);
+        }
+    };
+
+    private goToPage(page: number) {
+        this.currentPage = page;
+        this.scrollToTop();
         this.changePage.emit(page);
+
+        if (this.isRemoteMode()) {
+            this.requestLoad();
+        }
     }
 
-    private handleRenderComplete(): void {
-        if (!(this.tabulator && this.shouldSort)) {
+    private scrollToTop() {
+        if (this.scrollContainer) {
+            this.scrollContainer.scrollTop = 0;
+        }
+    }
+
+    private initSelection() {
+        if (!this.selectable) {
+            this.rowSelection = undefined;
+            forceUpdate(this);
+
             return;
         }
 
-        this.shouldSort = false;
-        this.tabulator.setSort(this.getInitialSorting());
+        this.rowSelection = new Selection((index) =>
+            getRowId(this.getRows()[index])
+        );
+        this.setSelection(this.selection);
     }
 
-    private onClickRow(event: PointerEvent, row: TabulatorRowComponent): void {
-        if (row.getPosition === undefined) {
-            // Not a data row, probably a CalcComponent
+    private setSelection(rows: RowData[] = []) {
+        if (!this.rowSelection) {
+            return;
+        }
+
+        const items = (rows ?? []).map((row) => getRowId(row));
+        const current = this.rowSelection.items;
+        const isUnchanged =
+            current.length === items.length &&
+            current.every((item, index) => item === items[index]);
+        if (isUnchanged) {
+            return;
+        }
+
+        this.rowSelection.items = items;
+        forceUpdate(this);
+    }
+
+    private getSelectedRows(): RowData[] {
+        const rows = new Map<unknown, RowData>();
+        for (const row of [...(this.selection ?? []), ...this.getData()]) {
+            rows.set(getRowId(row), row);
+        }
+
+        return this.rowSelection.items
+            .map((item) => (typeof item === 'object' ? item : rows.get(item)))
+            .filter((row) => !!row);
+    }
+
+    private isSelected(row: RowData): boolean {
+        return !!this.rowSelection?.has(getRowId(row));
+    }
+
+    private toggleRowSelection(event: MouseEvent, index: number) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        if (event.shiftKey) {
+            this.rowSelection.toggleSelectionFromLastIndex(index);
+        } else {
+            this.rowSelection.toggleSelection(index);
+        }
+
+        forceUpdate(this);
+        this.select.emit(this.getSelectedRows());
+    }
+
+    private readonly handleSelectAll = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        event.preventDefault();
+
+        const selectAll = event.detail;
+        const newSelection = selectAll ? [...this.getRows()] : [];
+        this.setSelection(newSelection);
+        this.select.emit(newSelection);
+        this.selectAll.emit(selectAll);
+    };
+
+    private isActiveRow(row: RowData): boolean {
+        return !!this.activeRow && getRowId(this.activeRow) === getRowId(row);
+    }
+
+    private readonly handleBodyClick = (event: MouseEvent) => {
+        const target = event.target as HTMLElement;
+        const rowElement = target.closest?.('tr');
+        if (this.ignoreClick || !rowElement?.dataset.index) {
+            return;
+        }
+
+        const index = Number(rowElement.dataset.index);
+        const cell = target.closest('td');
+        if (cell?.classList.contains('drag')) {
+            event.stopPropagation();
+            event.preventDefault();
+
+            return;
+        }
+
+        if (cell?.classList.contains('select')) {
+            this.toggleRowSelection(event, index);
+
             return;
         }
 
@@ -1002,236 +870,559 @@ export class Table {
             return;
         }
 
-        if (this.isActiveRow(row)) {
-            this.activeRow = null;
-        } else {
-            this.activeRow = row.getData();
-        }
+        this.toggleActiveRow(this.getRows()[index]);
+    };
 
+    private toggleActiveRow(row: RowData) {
+        this.activeRow = this.isActiveRow(row) ? null : row;
         this.activate.emit(this.activeRow);
     }
 
-    private readonly getActiveRows: () => TabulatorRowComponent[] = () => {
-        if (!this.tabulator) {
-            return [];
-        }
-
-        return this.tabulator.getRows('active');
-    };
-
-    private getActiveRowsData: () => object[] = () => {
-        // Note: Tabulator.getData() creates copies of each data object
-        // and will break this.selection.has checks, hence why this function
-        // intentionally retrieves the data using the row components
-        return this.getActiveRows().map((row) => row.getData());
-    };
-
-    private selectAllOnChange = (ev: CustomEvent<boolean>) => {
-        const selectAll = ev.detail;
-
-        ev.stopPropagation();
-        ev.preventDefault();
-
-        const newSelection = selectAll ? this.getActiveRowsData() : [];
-        this.select.emit(newSelection);
-        this.tableSelection.setSelection(newSelection);
-        this.selectAll.emit(selectAll);
-    };
-
-    private formatRows() {
-        for (const row of this.tabulator.getRows()) {
-            this.formatRow(row);
-        }
-    }
-
-    private formatRow(row: TabulatorRowComponent) {
-        if (this.isActiveRow(row)) {
-            row.getElement().classList.add('active');
-        } else {
-            row.getElement().classList.remove('active');
-        }
-
-        const interactiveFeedbackElement = row
-            .getElement()
-            .querySelectorAll('.interactive-feedback');
-        if (interactiveFeedbackElement.length > 0) {
+    private getRowOfElement(element: HTMLElement): RowData | undefined {
+        if (element.tagName !== 'TR' || !element.dataset.index) {
             return;
         }
 
-        const element = row.getElement().ownerDocument.createElement('div');
-        element.classList.add('interactive-feedback');
-        row.getElement().prepend(element);
+        return this.getRows()[Number(element.dataset.index)];
     }
 
-    private isActiveRow(row: TabulatorRowComponent) {
-        if (!this.activeRow) {
-            return false;
+    private readonly handleBodyFocusIn = (event: FocusEvent) => {
+        const element = event.target as HTMLElement;
+        const row = this.getRowOfElement(element);
+        if (!row) {
+            return;
         }
 
-        const activeRowId = this.activeRow.id ?? null;
+        this.focusedRowId = getRowId(row);
+        this.rowInTabOrder = row;
+        this.putOneRowInTabOrder();
+    };
 
-        if (activeRowId !== null) {
-            return activeRowId === row.getData().id;
+    private putOneRowInTabOrder() {
+        const elements =
+            this.scrollContainer?.querySelectorAll<HTMLElement>(
+                ':scope > table > tbody > tr'
+            ) ?? [];
+        for (const element of elements) {
+            const isInTabOrder =
+                this.getRowOfElement(element) === this.rowInTabOrder;
+            const tabIndex = isInTabOrder ? '0' : '-1';
+            if (element.getAttribute('tabindex') !== tabIndex) {
+                element.setAttribute('tabindex', tabIndex);
+            }
         }
-
-        return this.activeRow === row.getData();
     }
 
-    private calculatePageCount(): number {
-        let total = this.totalRows;
-        if (!total) {
-            total = this.data.length;
+    private readonly handleBodyKeyDown = (event: KeyboardEvent) => {
+        const element = event.target as HTMLElement;
+        const row = this.getRowOfElement(element);
+        if (!row) {
+            return;
         }
 
-        return Math.ceil(total / this.pageSize);
-    }
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+            event.preventDefault();
+            const sibling =
+                event.key === 'ArrowDown'
+                    ? element.nextElementSibling
+                    : element.previousElementSibling;
+            (sibling as HTMLElement)?.focus();
 
-    /**
-     * Whether any of `columns` shows an aggregation — either because the column
-     * carries its own `aggregator`, or because its field has a matching entry in
-     * `aggregates`.
-     *
-     * Deriving from `aggregates` (the source of truth) rather than only from the
-     * `aggregator` that `addColumnAggregator` mutates onto the column keeps this
-     * correct even when the table is re-fed equivalent columns and aggregates
-     * without that mutation being re-applied — e.g. when only the aggregate
-     * values change, `updateAggregates` recalculates without re-running
-     * `getColumnDefinitions`.
-     *
-     * @param columns - the column definitions to inspect.
-     * @returns whether at least one column shows an aggregation.
-     */
-    private hasAggregation(columns: Column[]): boolean {
-        return columns.some(
-            (column) =>
-                has(column, 'aggregator') ||
-                (this.aggregates ?? []).some(
-                    (aggregate) => aggregate.field === column.field
-                )
+            return;
+        }
+
+        if (!(event.key === 'Enter' || event.key === ' ')) {
+            return;
+        }
+
+        event.preventDefault();
+        this.toggleActiveRow(row);
+    };
+
+    private getRowInTabOrder(rows: RowData[]): RowData {
+        return (
+            rows.find((row) => getRowId(row) === this.focusedRowId) ??
+            rows.find((row) => this.isActiveRow(row)) ??
+            rows[0]
         );
     }
 
-    private readonly getColumnOptions = (): TabulatorOptionsColumns => {
-        if (!this.movableColumns) {
-            return {};
+    private readonly handleBodyMouseDown = (event: MouseEvent) => {
+        const target = event.target as HTMLElement;
+        if (event.shiftKey && target.closest?.('td.select')) {
+            event.preventDefault();
         }
-
-        return {
-            movableColumns: true,
-        };
     };
 
-    private readonly getRowDragOptions = (): Partial<TabulatorOptions> => {
-        if (!this.rowDragManager) {
-            return {};
-        }
+    private setUpRowReorder() {
+        if (!this.movableRows || !this.bodyElement) {
+            this.rowReorder?.teardown();
 
-        return {
-            movableRows: true,
-            // Tabulator's `rowHeader` inline type narrows `formatter` to a
-            // string, but the runtime accepts a function (as `ColumnDefinition`
-            // does). Cast bridges the incomplete upstream type.
-            rowHeader:
-                this.rowDragManager.getRowHeaderDefinition() as TabulatorOptions['rowHeader'],
-        };
-    };
-
-    private readonly handleMoveColumn = (
-        _,
-        components: TabulatorColumnComponent[]
-    ) => {
-        if (!this.movableColumns) {
             return;
         }
 
-        const columns = components.map(this.findColumn).filter(Boolean);
-        this.changeColumns.emit(columns);
-    };
-
-    private readonly findColumn = (
-        component: TabulatorColumnComponent
-    ): Column => {
-        return this.columns.find((column) => {
-            return (
-                column.field === component.getField() &&
-                column.title === component.getDefinition().title
-            );
+        this.rowReorder ??= new DragToReorder({
+            draggable: 'tr[data-reorder-id]',
+            revertDrop: true,
+            onReorder: this.handleRowReorder,
         });
+        this.rowReorder.setup(this.bodyElement, 'vertical');
+    }
+
+    private readonly handleRowReorder = ({
+        fromIndex,
+        toIndex,
+    }: ReorderEvent) => {
+        const { rows } = this.getRowsOnPage();
+        const dropIndex = toIndex > fromIndex ? toIndex + 1 : toIndex;
+        const reorder = createReorderEvent(rows, fromIndex, dropIndex);
+        if (reorder) {
+            this.reorder.emit(reorder);
+        }
     };
 
-    render() {
-        const totalRows = this.totalRows ?? this.data.length;
+    private startColumnDrag(event: PointerEvent, column: Column) {
+        const target = event.target as HTMLElement;
+        const isOnTitle = target.matches(
+            'th, th > div, button, button *, span'
+        );
+        if (!isOnTitle || event.button !== 0) {
+            return;
+        }
+
+        const source = event.currentTarget as HTMLElement;
+        const targets = [
+            ...source.parentElement.querySelectorAll<HTMLElement>(
+                'th[data-index]'
+            ),
+        ];
+
+        trackDrag({
+            event: event,
+            axis: 'x',
+            source: source,
+            targets: targets,
+            onDrop: (dropIndex) => {
+                this.ignoreNextClick();
+                this.moveColumn(column, dropIndex);
+            },
+        });
+    }
+
+    private ignoreNextClick() {
+        this.ignoreClick = true;
+        setTimeout(() => {
+            this.ignoreClick = false;
+        }, 0);
+    }
+
+    private moveColumn(column: Column, dropIndex: number) {
+        const columns = moveItem(
+            this.orderedColumns,
+            this.orderedColumns.indexOf(column),
+            dropIndex
+        );
+        if (!columns) {
+            return;
+        }
+
+        this.orderedColumns = columns;
+        this.changeColumns.emit([...columns]);
+    }
+
+    private startColumnResize(event: PointerEvent, column: Column) {
+        if (event.button !== 0) {
+            return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const header = (event.currentTarget as HTMLElement).closest('th');
+        const position = [...header.parentElement.children].indexOf(header) + 1;
+        const cells = this.scrollContainer.querySelectorAll<HTMLElement>(
+            `tr > :nth-child(${position})`
+        );
+        const startWidth = header.getBoundingClientRect().width;
+        const startPosition = event.clientX;
+        const rootFontSize = this.getRootFontSize();
+        let width: number | undefined;
+
+        trackPointer(
+            event,
+            (pointer) => {
+                width = Math.max(
+                    MIN_COLUMN_WIDTH,
+                    startWidth + pointer.clientX - startPosition
+                );
+                const style = toWidthStyle(width, rootFontSize);
+                for (const cell of cells) {
+                    Object.assign(cell.style, style);
+                }
+            },
+            () => {
+                if (width !== undefined) {
+                    this.columnWidths = {
+                        ...this.columnWidths,
+                        [String(column.field)]: width,
+                    };
+                }
+            }
+        );
+    }
+
+    private getRootFontSize(): number {
+        return (
+            Number.parseFloat(
+                getComputedStyle(document.documentElement).fontSize
+            ) || DEFAULT_ROOT_FONT_SIZE
+        );
+    }
+
+    private getWidthStyles(
+        columns: Column[]
+    ): Map<Column, Record<string, string>> {
+        const hasWidths = Object.keys(this.columnWidths).length > 0;
+        const rootFontSize = hasWidths
+            ? this.getRootFontSize()
+            : DEFAULT_ROOT_FONT_SIZE;
+
+        return new Map(
+            columns.map((column) => [
+                column,
+                toWidthStyle(
+                    this.columnWidths[String(column.field)],
+                    rootFontSize
+                ),
+            ])
+        );
+    }
+
+    private getCellView(column: Column, row: RowData): CellView {
+        const views = getViewsOfColumn(this.cellViews, column);
+        let view = views.get(row);
+        if (!view) {
+            view = createCellView(column, row);
+            views.set(row, view);
+        }
+
+        if (view.missingComponent) {
+            this.renderAgainWhenDefined(view.missingComponent);
+        }
+
+        return view;
+    }
+
+    private renderAgainWhenDefined(name: string) {
+        if (this.awaitedComponents.has(name)) {
+            return;
+        }
+
+        this.awaitedComponents.add(name);
+        const table = new WeakRef(this);
+        /* eslint-disable unicorn/prefer-await -- the render that asks for this cannot wait. The table is held weakly, because the promise for a name that is never defined lives as long as the page */
+        customElements
+            .whenDefined(name)
+            .then(() => table.deref()?.forgetCellViews())
+            .catch(() =>
+                console.warn(
+                    `limel-table: "${name}" is not a valid name for a custom element, so the cells that ask for it keep showing text.`
+                )
+            );
+        /* eslint-enable unicorn/prefer-await */
+    }
+
+    private forgetCellViews() {
+        this.cellViews = new WeakMap();
+        forceUpdate(this);
+    }
+
+    private hasFillerColumn(): boolean {
+        return !this.layout || this.layout === 'default';
+    }
+
+    private getTranslation(key: string) {
+        return translate.get(key, this.language);
+    }
+
+    public render() {
+        const columns = this.orderedColumns;
+        const { rows, offset } = this.getRowsOnPage();
+        this.rowInTabOrder = this.getRowInTabOrder(rows);
+        const data = this.getData();
+        const widthStyles = this.getWidthStyles(columns);
+        const showEmptyMessage =
+            !this.loading && data.length === 0 && this.emptyMessage;
 
         return (
             <Host
                 class={{
                     'has-low-density': this.layout === 'lowDensity',
                     'has-pagination-on-top': this.paginationLocation === 'top',
-                    'has-aggregation': this.hasAggregation(this.columns),
-                    'has-pagination': totalRows > this.pageSize,
-                    'has-selection': this.tableSelection?.hasSelection,
+                    'has-aggregation': hasAggregation(columns, this.aggregates),
+                    'has-pagination': this.hasSeveralPages(),
+                    'has-selection': this.rowSelection?.size > 0,
                 }}
             >
-                <div id="tabulator-container">
-                    {/* Toggle style instead of removing the loader
-                    because removing the element will cause a rerender, breaking the
-                    tabulator table */}
-                    <div
-                        id="tabulator-loader"
-                        style={{ display: this.loading ? 'flex' : 'none' }}
-                    >
-                        <limel-spinner size="large" />
-                    </div>
-                    {this.renderEmptyMessage()}
-                    {this.renderSelectAll()}
-                    <div id="tabulator-table" />
+                <div ref={(element) => (this.scrollContainer = element)}>
+                    <table aria-busy={this.loading ? 'true' : undefined}>
+                        <thead>
+                            <tr>
+                                {this.renderUtilityHeaders()}
+                                {columns.map((column, index) =>
+                                    this.renderHeader(
+                                        column,
+                                        index,
+                                        widthStyles.get(column)
+                                    )
+                                )}
+                                {this.hasFillerColumn() && <td />}
+                            </tr>
+                        </thead>
+                        <tbody
+                            onClick={this.handleBodyClick}
+                            onKeyDown={this.handleBodyKeyDown}
+                            onFocusin={this.handleBodyFocusIn}
+                            onMouseDown={
+                                this.rowSelection
+                                    ? this.handleBodyMouseDown
+                                    : undefined
+                            }
+                            ref={(element) => (this.bodyElement = element)}
+                        >
+                            {rows.map((row, index) =>
+                                this.renderRow(
+                                    row,
+                                    offset + index,
+                                    columns,
+                                    widthStyles
+                                )
+                            )}
+                        </tbody>
+                        {this.renderAggregates(columns, widthStyles)}
+                    </table>
                 </div>
+                {this.renderPagination()}
+                {this.loading && <limel-spinner size="large" />}
+                {showEmptyMessage && <p>{this.emptyMessage}</p>}
             </Host>
         );
     }
 
-    private renderSelectAll() {
-        if (!this.selectable) {
+    private renderPagination() {
+        const pageSize = this.getPageSize();
+        if (!pageSize) {
             return;
         }
 
-        const showSelectAll = !this.loading && this.tableSelection;
+        return (
+            <limel-pagination
+                page={this.getShownPage()}
+                pageSize={pageSize}
+                totalItems={this.getTotalItems()}
+                language={this.language}
+                loading={this.loading}
+                onGoToPage={this.handleGoToPage}
+            />
+        );
+    }
+
+    private renderUtilityHeaders() {
+        const size = this.rowSelection?.size ?? 0;
+        const hasUnselectedRow = this.getRows().some(
+            (row) => !this.isSelected(row)
+        );
+
+        return [
+            this.movableRows && <td class="drag" />,
+            this.rowSelection && (
+                <th class="select">
+                    {!this.loading && (
+                        <limel-checkbox
+                            class="hide-label"
+                            onChange={this.handleSelectAll}
+                            disabled={this.getData().length === 0}
+                            checked={size > 0}
+                            indeterminate={size > 0 && hasUnselectedRow}
+                            label={this.getTranslation('table.select-all')}
+                        />
+                    )}
+                </th>
+            ),
+        ];
+    }
+
+    private renderHeader(
+        column: Column,
+        index: number,
+        widthStyle: Record<string, string>
+    ) {
+        const sortable = this.isSortable(column);
+        const sorter = this.currentSorting.find(
+            (item) => item.column.field === column.field
+        );
+        const ariaSort = ARIA_SORT[sorter?.direction] ?? 'none';
 
         return (
-            <div
-                class="select-all"
-                style={{ display: showSelectAll ? 'inline-block' : 'none' }}
+            <th
+                key={`${String(column.field)}:${column.title}`}
+                scope="col"
+                data-index={index}
+                aria-sort={sortable ? ariaSort : undefined}
+                style={widthStyle}
+                onPointerDown={
+                    this.movableColumns
+                        ? (event: PointerEvent) =>
+                              this.startColumnDrag(event, column)
+                        : undefined
+                }
             >
-                <limel-checkbox
-                    class="hide-label"
-                    onChange={this.selectAllOnChange}
-                    disabled={this.data.length === 0}
-                    checked={this.tableSelection?.hasSelection}
-                    indeterminate={
-                        this.tableSelection?.hasSelection &&
-                        this.selection?.length < this.data.length
+                <div>
+                    {sortable ? (
+                        <button
+                            type="button"
+                            onClick={(event) =>
+                                this.handleHeaderClick(event, column)
+                            }
+                        >
+                            <i />
+                            <span>{column.title}</span>
+                        </button>
+                    ) : (
+                        <span>{column.title}</span>
+                    )}
+                    {this.renderHeaderComponent(column)}
+                </div>
+                <hr
+                    aria-orientation="vertical"
+                    onPointerDown={(event) =>
+                        this.startColumnResize(event, column)
                     }
-                    label={this.getTranslation('table.select-all')}
                 />
-            </div>
+            </th>
         );
     }
 
-    private renderEmptyMessage() {
-        const showEmptyMessage =
-            !this.loading && this.data.length === 0 && this.emptyMessage;
+    private renderHeaderComponent(column: Column) {
+        if (!column.headerComponent) {
+            return;
+        }
+
+        let view = this.headerViews.get(column);
+        if (!view) {
+            view = createHeaderView(column);
+            this.headerViews.set(column, view);
+        }
+
+        return h(view.name, { ref: view.ref });
+    }
+
+    private renderRow(
+        row: RowData,
+        index: number,
+        columns: Column[],
+        widthStyles: Map<Column, Record<string, string>>
+    ) {
+        return (
+            <tr
+                key={row.id ?? index}
+                data-index={index}
+                data-reorder-id={this.movableRows ? String(index) : undefined}
+                aria-current={this.isActiveRow(row) ? 'true' : undefined}
+            >
+                {this.movableRows && (
+                    <td class="drag" data-drag-handle>
+                        <limel-drag-handle
+                            dragDirection="vertical"
+                            language={this.language}
+                        />
+                    </td>
+                )}
+                {this.rowSelection && (
+                    <td class="select">
+                        <limel-checkbox
+                            class="hide-label"
+                            checked={this.isSelected(row)}
+                            label={this.getTranslation('table.select-row')}
+                        />
+                    </td>
+                )}
+                {columns.map((column) =>
+                    this.renderCell(column, row, widthStyles.get(column))
+                )}
+                {this.hasFillerColumn() && <td />}
+            </tr>
+        );
+    }
+
+    private renderCell(
+        column: Column,
+        row: RowData,
+        widthStyle: Record<string, string>
+    ) {
+        const view = this.getCellView(column, row);
+        const style = { ...widthStyle, textAlign: column.horizontalAlign };
 
         return (
-            <div
-                id="tabulator-empty-text"
-                style={{ display: showEmptyMessage ? 'flex' : 'none' }}
-            >
-                <span>{this.emptyMessage}</span>
-            </div>
+            <td key={`${String(column.field)}:${column.title}`} style={style}>
+                {view.component
+                    ? h(view.component.name, { ref: view.component.ref })
+                    : view.text}
+            </td>
         );
     }
 
-    private getTranslation = (key: string) => {
-        return translate.get(key, this.language);
-    };
+    private getAggregate(column: Column): unknown {
+        const data = this.getData();
+        const isCached =
+            this.aggregatedValues?.data === data &&
+            this.aggregatedValues.aggregates === this.aggregates;
+        if (!isCached) {
+            this.aggregatedValues = {
+                data: data,
+                aggregates: this.aggregates,
+                values: new WeakMap(),
+            };
+        }
+
+        const values = this.aggregatedValues.values;
+        if (!values.has(column)) {
+            values.set(
+                column,
+                getAggregatedValue(column, data, this.aggregates)
+            );
+        }
+
+        return values.get(column);
+    }
+
+    private renderAggregates(
+        columns: Column[],
+        widthStyles: Map<Column, Record<string, string>>
+    ) {
+        if (!hasAggregation(columns, this.aggregates)) {
+            return;
+        }
+
+        return (
+            <tfoot>
+                <tr>
+                    {this.movableRows && <td class="drag" />}
+                    {this.rowSelection && <td class="select" />}
+                    {columns.map((column) => (
+                        <td
+                            key={`${String(column.field)}:${column.title}`}
+                            style={{
+                                ...widthStyles.get(column),
+                                textAlign: column.horizontalAlign,
+                            }}
+                        >
+                            {toAggregateText(column, this.getAggregate(column))}
+                        </td>
+                    ))}
+                    {this.hasFillerColumn() && <td />}
+                </tr>
+            </tfoot>
+        );
+    }
 }

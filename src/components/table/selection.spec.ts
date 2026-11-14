@@ -56,6 +56,14 @@ describe('selection', () => {
             expect(selection.items).toEqual([a, b]);
         });
 
+        it('selects an item whose value is 0', () => {
+            data.push(0, 1);
+
+            selection.toggleSelection(0);
+
+            expect(selection.items).toEqual([0]);
+        });
+
         it('de-selects a previously selected item', () => {
             const a = {};
             const b = {};
@@ -65,6 +73,18 @@ describe('selection', () => {
             selection.toggleSelection(0);
 
             expect(selection.items).toEqual([b]);
+        });
+    });
+
+    describe('forgetLastToggledIndex', () => {
+        it('makes the next range selection toggle only the item it is made on', () => {
+            data = [{}, {}, {}, {}];
+            selection.toggleSelection(0);
+
+            selection.forgetLastToggledIndex();
+            selection.toggleSelectionFromLastIndex(2);
+
+            expect(selection.items).toEqual([data[0], data[2]]);
         });
     });
 

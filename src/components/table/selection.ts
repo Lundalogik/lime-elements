@@ -99,6 +99,15 @@ export class Selection {
     }
 
     /**
+     * Forgets the last toggled index, so that the next range selection
+     * behaves like `toggleSelection`. Use it when the items have got new
+     * indexes.
+     */
+    public forgetLastToggledIndex() {
+        this.lastToggledIndex = -1;
+    }
+
+    /**
      * Clears the current selection and resets last toggled index
      */
     public clear() {
@@ -119,7 +128,7 @@ export class Selection {
         for (let index = lowerBound; index <= upperBound; index++) {
             const data = this.getDataByIndex(index);
 
-            if (!data) {
+            if (data === undefined || data === null) {
                 continue;
             }
 
