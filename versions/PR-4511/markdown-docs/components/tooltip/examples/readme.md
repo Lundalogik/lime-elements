@@ -4,16 +4,16 @@
 
 ## Overview
 
-Using `maxlength` property
-To present an easy to read content, the tooltip's maximum text
-length is set to 50 characters, including spaces.
-When this threshold is reached, content will be rendered with line breaks.
-However, it is possible to override this value by specifying `maxlength`.
+Composite
 
-:::note
-Tooltips are intended to display very brief information.
-Try not to place large amount of text in them.
-:::
+A place to try different combinations of states.
+
+## Properties
+
+| Property | Attribute | Description | Type              | Default     |
+| -------- | --------- | ----------- | ----------------- | ----------- |
+| `schema` | --        |             | `FormSchema<any>` | `undefined` |
+
 
 ## Dependencies
 
@@ -21,18 +21,36 @@ Try not to place large amount of text in them.
 
 - [limel-button](../../button)
 - [limel-tooltip](..)
+- [limel-collapsible-section](../../collapsible-section)
+- [limel-form](../../form)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-tooltip-max-character --> limel-button
-  limel-example-tooltip-max-character --> limel-tooltip
+  limel-example-tooltip-composite --> limel-button
+  limel-example-tooltip-composite --> limel-tooltip
+  limel-example-tooltip-composite --> limel-collapsible-section
+  limel-example-tooltip-composite --> limel-form
   limel-button --> limel-icon
   limel-button --> limel-spinner
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-tooltip-content --> limel-hotkey
-  style limel-example-tooltip-max-character fill:#f9f,stroke:#333,stroke-width:4px
+  limel-collapsible-section --> limel-icon
+  limel-collapsible-section --> limel-icon-button
+  limel-icon-button --> limel-icon
+  limel-icon-button --> limel-tooltip
+  limel-form --> limel-markdown
+  limel-form --> limel-form-header
+  limel-form --> limel-collapsible-section
+  limel-form-header --> limel-help
+  limel-form-header --> limel-markdown
+  limel-help --> limel-popover
+  limel-help --> limel-help-content
+  limel-popover --> limel-portal
+  limel-popover --> limel-popover-surface
+  limel-help-content --> limel-markdown
+  style limel-example-tooltip-composite fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
