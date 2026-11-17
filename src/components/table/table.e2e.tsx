@@ -311,6 +311,12 @@ describe('limel-table', () => {
     const getScrollContainer = (root: HTMLElement) =>
         root.shadowRoot.querySelector<HTMLElement>('.tabulator-tableholder');
 
+    const getTableBox = (root: HTMLElement) =>
+        found(
+            root.shadowRoot.querySelector<HTMLElement>('#tabulator-container'),
+            'table'
+        ).getBoundingClientRect();
+
     const isShown = (element: HTMLElement) =>
         !!element && getComputedStyle(element).display !== 'none';
 
@@ -2593,6 +2599,28 @@ describe('limel-table', () => {
 
             expect(root.classList.contains('has-low-density')).toBe(true);
             expect(getRowHeight(root)).toBeGreaterThan(normalHeight);
+        });
+
+        it('makes a `lowDensity` table only as wide as its columns, in the middle of its host', async () => {
+            const { root } = await renderTable({
+                data,
+                columns,
+                layout: 'lowDensity',
+            });
+            const host = root.getBoundingClientRect();
+            const headers = getHeaders(root).map((header) =>
+                header.getBoundingClientRect()
+            );
+            const table = getTableBox(root);
+            const spaceOnTheLeft = table.left - host.left;
+            const spaceOnTheRight = host.right - table.right;
+
+            expect(Math.abs(table.left - headers[0].left)).toBeLessThan(2);
+            expect(Math.abs(table.right - headers.at(-1).right)).toBeLessThan(
+                2
+            );
+            expect(spaceOnTheLeft).toBeGreaterThan(100);
+            expect(Math.abs(spaceOnTheLeft - spaceOnTheRight)).toBeLessThan(2);
         });
 
         it('shows the pagination below the rows by default', async () => {
