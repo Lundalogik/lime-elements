@@ -916,6 +916,54 @@ describe('limel-input-field readonly state', () => {
         );
     });
 
+    it.each(['text', 'textarea'])(
+        'of the %s field shows no placeholder while it has focus',
+        async (type) => {
+            const { root, waitForChanges } = await render(
+                <limel-input-field
+                    label="Notes"
+                    type={type}
+                    placeholder="Write a note"
+                    readonly={true}
+                />
+            );
+            await waitForChanges();
+
+            getControl(root).focus();
+            await waitForChanges();
+
+            expect(getControl(root).placeholder).toBe('');
+        }
+    );
+
+    it.each(['text', 'textarea'])(
+        'shows the placeholder of a %s field that is not read only while it has focus',
+        async (type) => {
+            const { root, waitForChanges } = await render(
+                <limel-input-field
+                    label="Notes"
+                    type={type}
+                    placeholder="Write a note"
+                />
+            );
+            await waitForChanges();
+
+            getControl(root).focus();
+            await waitForChanges();
+
+            expect(getControl(root).placeholder).toBe('Write a note');
+        }
+    );
+
+    it('keeps the placeholder as its name when there is no label', async () => {
+        const { waitForChanges } = await render(
+            <limel-input-field placeholder="Search" readonly={true} />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('textbox')).toEqual(['Search']);
+    });
+
     describe('with a trailing link', () => {
         const getLinkBackground = async (readonly: boolean) => {
             const { root, waitForChanges } = await render(

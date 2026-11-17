@@ -109,7 +109,8 @@ export class InputField {
 
     /**
      * A hint about what to type, such as an example or the format of the
-     * value. It is shown inside the field when the field is focused and empty.
+     * value. It is shown inside the field when the field is focused and empty,
+     * and never when the field is `readonly`.
      *
      * Do not use it instead of a `label`, and do not put anything in it that
      * the user needs to know. It disappears when the user starts to type, and
@@ -574,7 +575,7 @@ export class InputField {
                 pattern={this.pattern}
                 onWheel={this.handleWheel}
                 onKeyDown={this.onKeyDown}
-                placeholder={this.placeholder}
+                placeholder={this.getPlaceholder()}
             />
         );
     };
@@ -590,10 +591,18 @@ export class InputField {
             <span class="mdc-text-field__resizer">
                 <textarea
                     {...properties}
-                    placeholder={this.placeholder}
+                    placeholder={this.getPlaceholder()}
                 ></textarea>
             </span>
         );
+    };
+
+    private readonly getPlaceholder = () => {
+        if (this.readonly) {
+            return;
+        }
+
+        return this.placeholder;
     };
 
     private layout = () => {
