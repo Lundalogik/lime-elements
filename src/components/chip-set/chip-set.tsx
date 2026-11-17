@@ -177,7 +177,10 @@ export class ChipSet {
     public suggestionListOpen?: boolean;
 
     /**
-     * Search label to display when type is `input` and component is in search mode
+     * Search label to display when type is `input` and component is in search mode.
+     * It is not shown when the chip set is `readonly`.
+     *
+     * When there is no `label`, it also names the input for assistive technology.
      */
     @Prop({ reflect: true })
     public searchLabel: string;
@@ -545,7 +548,10 @@ export class ChipSet {
                 // Some browsers emit a change event on input elements, we need to stop
                 // that event from propagating since we are emitting our own change event
                 onChange={this.inputFieldOnChange}
-                placeholder={this.isFull() ? '' : this.searchLabel}
+                placeholder={
+                    this.readonly || this.isFull() ? '' : this.searchLabel
+                }
+                aria-label={this.label ? undefined : this.searchLabel}
                 readonly={this.readonly || this.isFull()}
                 autocomplete={this.autocomplete}
                 {...this.getSuggestionListProps()}
