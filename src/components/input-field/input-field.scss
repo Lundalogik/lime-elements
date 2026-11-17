@@ -123,9 +123,7 @@ limel-notched-outline {
 
 .mdc-text-field.lime-text-field--readonly {
     .mdc-text-field__input[type='number'] {
-        color: transparent;
-        -webkit-text-fill-color: transparent;
-        user-select: none;
+        opacity: 0;
     }
 }
 
