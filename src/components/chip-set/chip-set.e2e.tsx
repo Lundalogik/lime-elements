@@ -1,6 +1,7 @@
 import { render, h } from '@stencil/vitest';
 import { userEvent } from 'vitest/browser';
 import {
+    getAccessibleNames,
     getAccessibleNodes,
     getAccessibleProperties,
     getInvalidStates,
@@ -389,6 +390,22 @@ describe('limel-chip-set', () => {
     });
 });
 
+describe('limel-chip-set accessible name', () => {
+    it('of an input chip set is the label, and not the search label, when there are both', async () => {
+        const { waitForChanges } = await render(
+            <limel-chip-set
+                type="input"
+                label="Tags"
+                searchLabel="Search tags"
+                value={[]}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('textbox')).toEqual(['Tags']);
+    });
+});
+
 describe('limel-chip-set accessible description', () => {
     it('of an input chip set is the helper text', async () => {
         const { waitForChanges } = await render(
@@ -403,6 +420,17 @@ describe('limel-chip-set accessible description', () => {
 
         expect(await getAccessibleNodes('textbox')).toEqual([
             { name: 'Tags', description: 'Press enter to add a tag' },
+        ]);
+    });
+
+    it('of an input chip set without a label does not repeat the search label that names it', async () => {
+        const { waitForChanges } = await render(
+            <limel-chip-set type="input" searchLabel="Search tags" value={[]} />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNodes('textbox')).toEqual([
+            { name: 'Search tags', description: '' },
         ]);
     });
 
@@ -697,6 +725,55 @@ describe('limel-chip-set readonly state', () => {
 
         expect(startEditSpy).not.toHaveReceivedEvent();
         expect(stopEditSpy).not.toHaveReceivedEvent();
+    });
+
+    it('of an input chip set shows no search label while it has focus', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-chip-set
+                type="input"
+                label="Tags"
+                searchLabel="Search tags"
+                value={[]}
+                readonly={true}
+            />
+        );
+        await waitForChanges();
+
+        getInput(root).focus();
+        await waitForChanges();
+
+        expect(getInput(root).placeholder).toBe('');
+    });
+
+    it('of an input chip set that is not read only shows the search label while it has focus', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-chip-set
+                type="input"
+                label="Tags"
+                searchLabel="Search tags"
+                value={[]}
+            />
+        );
+        await waitForChanges();
+
+        getInput(root).focus();
+        await waitForChanges();
+
+        expect(getInput(root).placeholder).toBe('Search tags');
+    });
+
+    it('of an input chip set keeps the search label as its name when there is no label', async () => {
+        const { waitForChanges } = await render(
+            <limel-chip-set
+                type="input"
+                searchLabel="Search tags"
+                value={[]}
+                readonly={true}
+            />
+        );
+        await waitForChanges();
+
+        expect(await getAccessibleNames('textbox')).toEqual(['Search tags']);
     });
 
     it('of an input chip set stays disabled when it is disabled', async () => {
