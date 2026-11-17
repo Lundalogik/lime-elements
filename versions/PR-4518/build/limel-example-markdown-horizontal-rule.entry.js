@@ -1,0 +1,1 @@
+import{r as n,h as r}from"./index-D3SUrFhp.js";const e=class{constructor(r){n(this,r)}render(){return r("limel-markdown",{key:"bfbd9afe6c5fd3f918342e272bc110b869a99c6b",value:"\nThree or more of…\n\n---\n\nHyphens,\n\n***\n\nAsterisks,\n\n___\n\nOr Underscores\n"})}};export{e as limel_example_markdown_horizontal_rule}
