@@ -891,7 +891,7 @@ describe('limel-input-field readonly state', () => {
         expect(getBorderColor()).not.toBe('transparent');
     });
 
-    it('keeps showing the formatted number while a number field has focus', async () => {
+    it('shows the number once while a number field has focus and its value is selected', async () => {
         const { root, waitForChanges } = await render(
             <limel-input-field
                 label="Age"
@@ -904,6 +904,7 @@ describe('limel-input-field readonly state', () => {
         await waitForChanges();
 
         getControl(root).focus();
+        getControl(root).select();
         await waitForChanges();
 
         expect(
@@ -911,9 +912,7 @@ describe('limel-input-field readonly state', () => {
                 root.shadowRoot.querySelector('.lime-formatted-input')
             ).display
         ).toBe('block');
-        expect(getComputedStyle(getControl(root)).color).toBe(
-            'rgba(0, 0, 0, 0)'
-        );
+        expect(getComputedStyle(getControl(root)).opacity).toBe('0');
     });
 
     it.each(['text', 'textarea'])(
