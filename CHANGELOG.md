@@ -1,3 +1,12 @@
+## [40.26.3](https://github.com/Lundalogik/lime-elements/compare/v40.26.2...v40.26.3) (2026-11-17)
+
+### Bug Fixes
+
+
+* **chip-set:** show no search label in a readonly input chip set ([efd3ec5](https://github.com/Lundalogik/lime-elements/commit/efd3ec5383441f26dc65cbb7c37b221f52c9c0de)), closes [#4439](https://github.com/Lundalogik/lime-elements/issues/4439)
+* **input-field:** show a readonly number once when it is selected ([85e2e63](https://github.com/Lundalogik/lime-elements/commit/85e2e63113a99c1039717762305b647efbe50a5e)), closes [#4439](https://github.com/Lundalogik/lime-elements/issues/4439)
+* **input-field:** show no placeholder in a readonly field ([02a8902](https://github.com/Lundalogik/lime-elements/commit/02a890208c5f2b5cd63b76e4b8abde900a920443)), closes [#4439](https://github.com/Lundalogik/lime-elements/issues/4439)
+
 ## [40.26.2](https://github.com/Lundalogik/lime-elements/compare/v40.26.1...v40.26.2) (2026-11-13)
 
 ### Bug Fixes
