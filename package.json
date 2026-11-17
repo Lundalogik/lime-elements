@@ -95,7 +95,7 @@
     "number-abbreviate": "^2.0.0",
     "parse-css-color": "^0.2.1",
     "postal-mime": "^4.2.1",
-    "prettier": "^3.10.0",
+    "prettier": "^3.10.1",
     "prosemirror-example-setup": "^1.2.3",
     "prosemirror-markdown": "^1.13.9",
     "prosemirror-model": ">=1.25.13",
