@@ -25,6 +25,7 @@ import {
     collapsibleSchema,
     collapsibleSchemaWithRequired,
     dateSchema,
+    hiddenDateSchema,
     wrappedDateSchema,
     integerSchema,
     serverErrorsSchema,
@@ -488,6 +489,23 @@ describe('a date field holding text that is not a date', () => {
         expect(onChange).not.toHaveBeenCalled();
 
         await commitText(datePicker, '01/25/2026');
+
+        await expect.poll(() => lastStatus(onValidate)?.valid).toBe(true);
+    });
+
+    test('no longer makes the form invalid once the field is hidden', async () => {
+        const onValidate = vi.fn();
+        const { formContent, setProps } = await renderForm({
+            schema: dateSchema,
+            value: { birthday: '2026-01-24' },
+            onValidate,
+        });
+        const datePicker = formContent.querySelector('limel-date-picker');
+
+        await commitText(datePicker, 'not a date');
+        await expect.poll(() => lastStatus(onValidate)?.valid).toBe(false);
+
+        await setProps({ schema: hiddenDateSchema });
 
         await expect.poll(() => lastStatus(onValidate)?.valid).toBe(true);
     });

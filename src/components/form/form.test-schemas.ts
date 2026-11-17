@@ -314,6 +314,18 @@ export const dateSchema: FormSchema = {
     },
 };
 
+export const hiddenDateSchema: FormSchema = {
+    type: 'object',
+    properties: {
+        birthday: {
+            type: 'string',
+            title: 'Birthday',
+            format: 'date',
+            lime: { hidden: true },
+        },
+    },
+};
+
 // Its component renders a `limel-date-picker` in its shadow root.
 export const wrappedDateSchema: FormSchema = {
     type: 'object',

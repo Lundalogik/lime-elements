@@ -122,6 +122,14 @@ export class SchemaField extends React.Component<FieldProps> {
             this.handleCustomComponentChange.bind(this);
     }
 
+    public componentDidUpdate() {
+        // A hidden field stays mounted but shows nothing, so the user
+        // can't see or fix the input it held.
+        if (this.props.schema.lime?.hidden) {
+            this.reportInvalidInput(null);
+        }
+    }
+
     public componentWillUnmount() {
         this.reportInvalidInput(null);
     }
