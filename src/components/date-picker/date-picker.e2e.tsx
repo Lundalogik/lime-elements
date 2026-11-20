@@ -172,3 +172,38 @@ describe('limel-date-picker keyboard', () => {
         await expect.poll(() => focusedElement()).toBe(input);
     });
 });
+
+describe('limel-date-picker hidden attribute', () => {
+    it('hides the date picker', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-date-picker label="When" type="date" hidden={true} />
+        );
+        await waitForChanges();
+
+        expect(getComputedStyle(root).display).toBe('none');
+    });
+});
+
+describe('limel-date-picker calendar', () => {
+    it('opens below the field without covering it', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-date-picker
+                label="When"
+                type="date"
+                value={new Date('2026-01-02T00:00:00')}
+            />
+        );
+        await waitForChanges();
+        const field = root.shadowRoot.querySelector('limel-input-field');
+
+        await userEvent.click(field.shadowRoot.querySelector('input'));
+
+        const calendarTop = () =>
+            document
+                .querySelector('.limel-portal--container.is-visible')
+                ?.getBoundingClientRect().top;
+        await expect
+            .poll(calendarTop)
+            .toBeGreaterThanOrEqual(field.getBoundingClientRect().bottom);
+    });
+});
