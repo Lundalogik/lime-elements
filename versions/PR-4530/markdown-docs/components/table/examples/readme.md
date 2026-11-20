@@ -4,30 +4,19 @@
 
 ## Overview
 
-Selectable rows with updating aggregates
+Disable column sorting
 
-Set `selectable` to `true` to add a checkbox to the start of each row, and
-one in the header that selects all rows.
+By default, all columns can be sorted by end-users, if they click on
+a column header. An arrow icon on the header visualizes the
+direction of sorting, when a column is sorted.
 
-- When the user ticks or unticks a checkbox, the table emits `select` with
-all the rows that are now selected.
-- Holding <kbd>Shift</kbd> while clicking a checkbox selects or unselects
-all the rows between it and the checkbox that was clicked before.
-- The checkbox in the header selects all the rows in `data`, also those on
-other pages, or clears the selection. It emits `select` first, and then
-`selectAll` with `true` or `false`.
+To prevent sorting altogether, set the `sortableColumns` property on
+`limel-table` to `false`. If you only want to disable sorting for a
+specific column, set the column's `headerSort` property to `false`.
 
-Keep the selection in your own state and give it back to the table as
-`selection`. You can also set `selection` yourself, as the buttons below do.
-The table finds the selected rows by their `id`, so give every row one.
-
-A click on a checkbox does not activate the row, so selecting and activating
-work side by side, as in this example.
-
-The row below the others shows the values given in `aggregates`, each one
-under the column with the same `field`. In this example they are worked out
-again every time the selection changes, so they describe the selected rows,
-or all the rows when none is selected.
+The "Reference Person" column below has sorting disabled on the
+column definition, while the control lets you disable sorting for
+the whole table.
 
 ## Dependencies
 
@@ -35,26 +24,20 @@ or all the rows when none is selected.
 
 - [limel-table](..)
 - [limel-example-controls](../../../examples)
-- [limel-button](../../button)
-- [limel-example-value](../../../examples)
-- [limel-example-event-printer](../../../examples)
+- [limel-checkbox](../../checkbox)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-table-selectable-rows --> limel-table
-  limel-example-table-selectable-rows --> limel-example-controls
-  limel-example-table-selectable-rows --> limel-button
-  limel-example-table-selectable-rows --> limel-example-value
-  limel-example-table-selectable-rows --> limel-example-event-printer
+  limel-example-table-sorting-disabled --> limel-table
+  limel-example-table-sorting-disabled --> limel-example-controls
+  limel-example-table-sorting-disabled --> limel-checkbox
   limel-table --> limel-spinner
   limel-table --> limel-checkbox
   limel-checkbox --> limel-dynamic-label
   limel-checkbox --> limel-helper-line
   limel-dynamic-label --> limel-icon
-  limel-button --> limel-icon
-  limel-button --> limel-spinner
-  style limel-example-table-selectable-rows fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-table-sorting-disabled fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
