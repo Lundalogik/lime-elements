@@ -10,6 +10,10 @@
     display: block;
 }
 
+:host([hidden]) {
+    display: none;
+}
+
 limel-input-field[disabled],
 limel-input-field[readonly] {
     pointer-events: none;
