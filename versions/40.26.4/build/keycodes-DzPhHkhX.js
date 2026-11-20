@@ -1,0 +1,1 @@
+const a="Tab",s="Enter",e="Escape",r="Space",o=" ",c="Backspace",t="Delete",p="ArrowUp",w="ArrowDown",A="ArrowLeft",n="ArrowRight",E="Home",D="End";export{p as A,c as B,t as D,s as E,E as H,o as S,a as T,w as a,D as b,A as c,n as d,e,r as f}
