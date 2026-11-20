@@ -173,6 +173,17 @@ describe('limel-date-picker keyboard', () => {
     });
 });
 
+describe('limel-date-picker hidden attribute', () => {
+    it('hides the date picker', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-date-picker label="When" type="date" hidden={true} />
+        );
+        await waitForChanges();
+
+        expect(getComputedStyle(root).display).toBe('none');
+    });
+});
+
 describe('limel-date-picker calendar', () => {
     it('opens below the field without covering it', async () => {
         const { root, waitForChanges } = await render(
