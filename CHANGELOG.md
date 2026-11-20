@@ -1,3 +1,10 @@
+## [40.26.4](https://github.com/Lundalogik/lime-elements/compare/v40.26.3...v40.26.4) (2026-11-20)
+
+### Bug Fixes
+
+
+* **date-picker:** keep the calendar from covering the field ([5216b6f](https://github.com/Lundalogik/lime-elements/commit/5216b6fe7746f15badc6699abb8c14672310a1d6))
+
 ## [40.26.3](https://github.com/Lundalogik/lime-elements/compare/v40.26.2...v40.26.3) (2026-11-17)
 
 ### Bug Fixes
