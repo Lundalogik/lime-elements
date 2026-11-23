@@ -19,16 +19,16 @@ Try not to place large amount of text in them.
 
 ### Depends on
 
-- [limel-icon-button](../../icon-button)
+- [limel-button](../../button)
 - [limel-tooltip](..)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-tooltip-max-character --> limel-icon-button
+  limel-example-tooltip-max-character --> limel-button
   limel-example-tooltip-max-character --> limel-tooltip
-  limel-icon-button --> limel-icon
-  limel-icon-button --> limel-tooltip
+  limel-button --> limel-icon
+  limel-button --> limel-spinner
   limel-tooltip --> limel-portal
   limel-tooltip --> limel-tooltip-content
   limel-tooltip-content --> limel-hotkey

@@ -52,6 +52,21 @@ to do any tear-down, the appropriate setup will have to be done again on
 | `visible`            | `visible`              | True if the content within the portal should be visible.  If the content is from within a dialog for instance, this can be set to true from false when the dialog opens to position the content properly. | `boolean`                                                                                                                                                            | `false`      |
 
 
+## Methods
+
+### `whenShown() => Promise<void>`
+
+Resolves when the content is shown. The content is shown at once when
+the portal first becomes visible, and one animation frame later when it
+becomes visible again.
+
+#### Returns
+
+Type: `Promise<void>`
+
+a promise that resolves when the content is shown
+
+
 ## Slots
 
 | Slot | Description                      |
