@@ -1,4 +1,5 @@
 import { Component, h, Host, State } from '@stencil/core';
+import { Link } from '@limetech/lime-elements';
 
 /**
  * Reducing visual presence
@@ -42,16 +43,19 @@ export class InfoTileReducedPresenceExample {
     @State()
     private reducedPresence = false;
 
+    private readonly link: Link = { href: '#' };
+
     public render() {
         return (
             <Host>
-                <div class="tiles">
+                <div class="tiles" onClick={this.preventNavigation}>
                     <limel-info-tile
                         class="open-bugs"
                         icon="bug"
                         label="Open bugs"
                         value="0"
                         reducedPresence={this.reducedPresence}
+                        link={this.link}
                     />
                     <limel-info-tile
                         class="active-tickets"
@@ -59,12 +63,14 @@ export class InfoTileReducedPresenceExample {
                         label="Active tickets"
                         value="0"
                         reducedPresence={this.reducedPresence}
+                        link={this.link}
                     />
                     <limel-info-tile
                         class="failed-automations"
                         icon="robot"
                         label="Failed automations"
                         value={3}
+                        link={this.link}
                     />
                     <limel-info-tile
                         class="overdue-todos"
@@ -72,12 +78,14 @@ export class InfoTileReducedPresenceExample {
                         label="Overdue todos"
                         value="0"
                         reducedPresence={this.reducedPresence}
+                        link={this.link}
                     />
                     <limel-info-tile
                         class="critical-alerts"
                         icon="fire_alarm"
                         label="Critical alerts"
                         value={7}
+                        link={this.link}
                     />
                     <limel-info-tile
                         class="next-customer-meeting"
@@ -86,6 +94,7 @@ export class InfoTileReducedPresenceExample {
                         prefix="in"
                         value="30 days"
                         reducedPresence={this.reducedPresence}
+                        link={this.link}
                     />
                 </div>
                 <limel-example-controls>
@@ -98,6 +107,10 @@ export class InfoTileReducedPresenceExample {
             </Host>
         );
     }
+
+    private readonly preventNavigation = (event: MouseEvent) => {
+        event.preventDefault();
+    };
 
     private readonly handleToggle = (event: CustomEvent<boolean>) => {
         this.reducedPresence = event.detail;

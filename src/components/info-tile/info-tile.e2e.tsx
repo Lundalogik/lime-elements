@@ -22,6 +22,100 @@ describe('limel-info-tile', () => {
         });
     });
 
+    describe('when a link is supplied', () => {
+        it('is a link, and carries the 3d hover effect', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-info-tile
+                    value="1"
+                    link={{ href: 'https://example.com' }}
+                ></limel-info-tile>
+            );
+            await waitForChanges();
+
+            const anchor = root.shadowRoot!.querySelector('a');
+            expect(anchor.classList.contains('is-clickable')).toBe(true);
+            expect(anchor.getAttribute('tabindex')).toEqual('0');
+            expect(
+                anchor.querySelector('limel-3d-hover-effect-glow')
+            ).not.toBeNull();
+        });
+    });
+
+    describe('when no link is supplied', () => {
+        it('is a plain element, not a link', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-info-tile value="1"></limel-info-tile>
+            );
+            await waitForChanges();
+
+            const tile = root.shadowRoot!.querySelector('.tile');
+            expect(tile.tagName).toEqual('DIV');
+            expect(tile.getAttribute('role')).toBeNull();
+            expect(tile.getAttribute('aria-label')).toBeNull();
+        });
+
+        it('is neither focusable nor given the 3d hover effect', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-info-tile value="1"></limel-info-tile>
+            );
+            await waitForChanges();
+
+            const tile = root.shadowRoot!.querySelector('.tile');
+            expect(tile.classList.contains('is-clickable')).toBe(false);
+            expect(tile.getAttribute('tabindex')).toBeNull();
+            expect(tile.querySelector('limel-3d-hover-effect-glow')).toBeNull();
+        });
+    });
+
+    describe('when a link is supplied but the tile is disabled', () => {
+        it('is neither focusable nor given the 3d hover effect', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-info-tile
+                    value="1"
+                    disabled={true}
+                    link={{ href: 'https://example.com' }}
+                ></limel-info-tile>
+            );
+            await waitForChanges();
+
+            const anchor = root.shadowRoot!.querySelector('a');
+            expect(anchor.classList.contains('is-clickable')).toBe(false);
+            expect(anchor.getAttribute('tabindex')).toBeNull();
+            expect(
+                anchor.querySelector('limel-3d-hover-effect-glow')
+            ).toBeNull();
+        });
+
+        it('has no href, so it cannot be tabbed to or followed', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-info-tile
+                    value="1"
+                    disabled={true}
+                    link={{ href: 'https://example.com' }}
+                ></limel-info-tile>
+            );
+            await waitForChanges();
+
+            const anchor = root.shadowRoot!.querySelector('a');
+            expect(anchor.hasAttribute('href')).toBe(false);
+        });
+
+        it('is announced as a disabled link', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-info-tile
+                    value="1"
+                    disabled={true}
+                    link={{ href: 'https://example.com' }}
+                ></limel-info-tile>
+            );
+            await waitForChanges();
+
+            const anchor = root.shadowRoot!.querySelector('a');
+            expect(anchor.getAttribute('role')).toEqual('link');
+            expect(anchor.getAttribute('aria-disabled')).toEqual('true');
+        });
+    });
+
     describe('when value is empty', () => {
         it('does not crash and renders the label', async () => {
             const { root, waitForChanges } = await render(
@@ -41,7 +135,10 @@ describe('limel-info-tile', () => {
         // tile's `disconnectedCallback` instead.
         it('stops tilting', async () => {
             const { root, waitForChanges, unmount } = await render(
-                <limel-info-tile value="Test value"></limel-info-tile>
+                <limel-info-tile
+                    value="Test value"
+                    link={{ href: 'https://example.com' }}
+                ></limel-info-tile>
             );
             await waitForChanges();
 
@@ -51,6 +148,26 @@ describe('limel-info-tile', () => {
             expect(root.style.getPropertyValue(TILT)).not.toBe('');
 
             unmount();
+            moveMouse();
+
+            expect(root.style.getPropertyValue(TILT)).toBe('');
+        });
+    });
+
+    describe('when the tile is disabled while it is hovered', () => {
+        it('stops tilting once the pointer leaves', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-info-tile
+                    value="1"
+                    link={{ href: 'https://example.com' }}
+                ></limel-info-tile>
+            );
+            await waitForChanges();
+            root.dispatchEvent(new MouseEvent('mouseenter'));
+
+            root.disabled = true;
+            await waitForChanges();
+            root.dispatchEvent(new MouseEvent('mouseleave'));
             moveMouse();
 
             expect(root.style.getPropertyValue(TILT)).toBe('');
