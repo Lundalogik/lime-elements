@@ -1,3 +1,16 @@
+## [40.27.0](https://github.com/Lundalogik/lime-elements/compare/v40.26.4...v40.27.0) (2026-11-23)
+
+### Features
+
+
+* **info-tile:** add a clickable property ([d460a63](https://github.com/Lundalogik/lime-elements/commit/d460a63014d4b6fd519e3eb23b605367cdf79d45))
+### Bug Fixes
+
+
+* **info-tile:** drop the 3d hover effect when the tile is not a link ([be6b080](https://github.com/Lundalogik/lime-elements/commit/be6b0804573f44372c45d2696edb6ae54b4e08d6))
+* **info-tile:** ignore a link whose href can run a script ([e4a9b61](https://github.com/Lundalogik/lime-elements/commit/e4a9b611d56a4d41cfa872cde08def36eed8bb42))
+* **info-tile:** raise the contrast of the label, prefix and suffix ([9645e94](https://github.com/Lundalogik/lime-elements/commit/9645e9453d421d603de203792627d81a2f414be6))
+
 ## [40.26.4](https://github.com/Lundalogik/lime-elements/compare/v40.26.3...v40.26.4) (2026-11-20)
 
 ### Bug Fixes
