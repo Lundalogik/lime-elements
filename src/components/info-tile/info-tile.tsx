@@ -151,27 +151,26 @@ export class InfoTile {
             this.checkProps(this?.progress?.suffix) +
             this.checkProps(this?.link?.title);
 
-        const link = this.disabled ? '#' : this.link?.href;
-        const rel = getRel(this.link?.target, this.link?.rel);
+        const hasLink = !!this.link?.href;
+        const isClickable = hasLink && !this.disabled;
+        const Tag = hasLink ? 'a' : 'div';
+        const linkAttributes = hasLink
+            ? this.getLinkAttributes(isClickable, extendedAriaLabel)
+            : {};
 
         return (
             <Host
-                onMouseEnter={this.handleMouseEnter}
+                onMouseEnter={isClickable ? this.handleMouseEnter : undefined}
                 onMouseLeave={this.handleMouseLeave}
                 class={{ 'has-primary-slot-content': this.hasPrimarySlot }}
             >
-                <a
-                    title={this.link?.title}
-                    href={link}
-                    target={this.link?.target}
-                    rel={rel}
-                    tabindex="0"
-                    aria-label={extendedAriaLabel}
-                    aria-disabled={this.disabled}
+                <Tag
+                    {...linkAttributes}
                     aria-busy={this.loading ? 'true' : 'false'}
                     aria-live="polite"
                     class={{
-                        'is-clickable': !!this.link?.href && !this.disabled,
+                        tile: true,
+                        'is-clickable': isClickable,
                     }}
                 >
                     {this.renderIcon()}
@@ -189,11 +188,24 @@ export class InfoTile {
                         {this.renderSpinner()}
                     </div>
                     {this.renderLabel()}
-                    <limel-3d-hover-effect-glow />
-                </a>
+                    {isClickable && <limel-3d-hover-effect-glow />}
+                </Tag>
                 {this.renderNotification()}
             </Host>
         );
+    }
+
+    private getLinkAttributes(isClickable: boolean, ariaLabel: string) {
+        return {
+            title: this.link.title,
+            href: this.disabled ? undefined : this.link.href,
+            role: this.disabled ? 'link' : undefined,
+            target: this.link.target,
+            rel: getRel(this.link.target, this.link.rel),
+            tabindex: isClickable ? 0 : undefined,
+            'aria-label': ariaLabel,
+            'aria-disabled': this.disabled ? 'true' : 'false',
+        };
     }
 
     private checkProps(propValue) {
