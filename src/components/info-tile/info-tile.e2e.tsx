@@ -1,4 +1,5 @@
 import { render, h } from '@stencil/vitest';
+import { afterEach, vi } from 'vitest';
 
 const TILT = '--limel-3d-hover-effect-rotate3d';
 
@@ -256,6 +257,42 @@ describe('limel-info-tile', () => {
             const anchor = root.shadowRoot!.querySelector('a');
             expect(anchor.getAttribute('href')).toEqual('https://example.com');
             expect(anchor.getAttribute('role')).toBeNull();
+        });
+    });
+
+    describe('when the href of the link can run a script', () => {
+        afterEach(() => {
+            vi.restoreAllMocks();
+        });
+
+        it.each([
+            ['javascript:alert(1)'],
+            [' JavaScript:alert(1)'],
+            ['data:text/html,x'],
+        ])('is not a link for %j', async (href) => {
+            vi.spyOn(console, 'warn').mockImplementation(() => {});
+            const { root, waitForChanges } = await render(
+                <limel-info-tile value="1" link={{ href }}></limel-info-tile>
+            );
+            await waitForChanges();
+
+            const tile = root.shadowRoot!.querySelector('.tile');
+            expect(tile.tagName).toEqual('DIV');
+            expect(tile.hasAttribute('href')).toBe(false);
+            expect(tile.classList.contains('is-clickable')).toBe(false);
+        });
+
+        it('warns once about it', async () => {
+            const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+            const { waitForChanges } = await render(
+                <limel-info-tile
+                    value="1"
+                    link={{ href: 'javascript:alert(1)' }}
+                ></limel-info-tile>
+            );
+            await waitForChanges();
+
+            expect(warn).toHaveBeenCalledTimes(1);
         });
     });
 
