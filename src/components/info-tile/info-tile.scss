@@ -171,7 +171,7 @@ slot[name='primary'] {
 .label {
     z-index: 1;
     color: var(--info-tile-text-color, rgb(var(--contrast-1100)));
-    opacity: 0.8;
+    opacity: 0.9;
 
     line-height: 1.2;
     font-size: clamp(
@@ -224,7 +224,7 @@ limel-linear-progress {
         var(--suffix-prefix-preferred-size),
         var(--suffix-prefix-max-size)
     );
-    opacity: 0.7;
+    opacity: 0.9;
 
     @supports not (container-type: size) {
         font-size: 0.75rem;
