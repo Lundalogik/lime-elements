@@ -18,6 +18,7 @@ import { getRel } from '../../util/link-helper';
  * @exampleComponent limel-example-info-tile-progress
  * @exampleComponent limel-example-info-tile-loading
  * @exampleComponent limel-example-info-tile-primary-slot
+ * @exampleComponent limel-example-info-tile-clickable
  * @exampleComponent limel-example-info-tile-styling
  * @exampleComponent limel-example-info-tile-reduced-presence
  */
@@ -90,14 +91,28 @@ export class InfoTile {
      *
      * Supplying a value also adds an elevated effect using a shadow,
      * as well as `cursor: pointer`, which appears on hover.
-     * While we strongly recommend supplying a link whenever the
-     * component should act as a link, if this is not possible, and
-     * you need to provide interaction through a click handler,
-     * you can still get the correct styling by supplying a `Link`
-     * object with the `href` property set to `'#'`.
+     * If the tile should act on a click but there is no URL to go to,
+     * set `clickable` instead.
      */
     @Prop()
     public link?: Link;
+
+    /**
+     * Set to `true` if the tile should act on a click, but has no URL to
+     * navigate to. For instance, when a click opens a dialog.
+     * Listen for the `click` event on the tile itself.
+     *
+     * The tile then gets the same interactive styling as a tile with a
+     * `link`: a resting shadow, `cursor: pointer`, and on hover the
+     * elevation, the tilt that follows the cursor, and the glow.
+     * It can also be reached with the keyboard, where it is announced as
+     * a button, and pressing `Enter` or `Space` clicks it.
+     *
+     * Has no effect when a `link` is supplied, since the tile then is a
+     * link. Prefer a `link` whenever there is somewhere to go.
+     */
+    @Prop({ reflect: true })
+    public clickable? = false;
 
     /**
      * Properties of the optional circular progress bar.
@@ -152,10 +167,14 @@ export class InfoTile {
             this.checkProps(this?.link?.title);
 
         const hasLink = !!this.link?.href;
-        const isClickable = hasLink && !this.disabled;
+        const isClickable = (hasLink || this.clickable) && !this.disabled;
+        const actsAsButton = this.clickable && !hasLink;
         const Tag = hasLink ? 'a' : 'div';
         const linkAttributes = hasLink
             ? this.getLinkAttributes(isClickable, extendedAriaLabel)
+            : {};
+        const buttonAttributes = actsAsButton
+            ? this.getButtonAttributes(isClickable, extendedAriaLabel)
             : {};
 
         return (
@@ -166,6 +185,8 @@ export class InfoTile {
             >
                 <Tag
                     {...linkAttributes}
+                    {...buttonAttributes}
+                    onClick={this.stopClickWhenDisabled}
                     aria-busy={this.loading ? 'true' : 'false'}
                     aria-live="polite"
                     class={{
@@ -203,6 +224,16 @@ export class InfoTile {
             target: this.link.target,
             rel: getRel(this.link.target, this.link.rel),
             tabindex: isClickable ? 0 : undefined,
+            'aria-label': ariaLabel,
+            'aria-disabled': this.disabled ? 'true' : 'false',
+        };
+    }
+
+    private getButtonAttributes(isClickable: boolean, ariaLabel: string) {
+        return {
+            role: 'button',
+            tabindex: isClickable ? 0 : undefined,
+            onKeyDown: isClickable ? this.handleKeyDown : undefined,
             'aria-label': ariaLabel,
             'aria-disabled': this.disabled ? 'true' : 'false',
         };
@@ -253,6 +284,28 @@ export class InfoTile {
         }
     };
 
+    private readonly stopClickWhenDisabled = (event: MouseEvent) => {
+        if (!this.disabled) {
+            return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+    };
+
+    private readonly handleKeyDown = (event: KeyboardEvent) => {
+        if (event.target !== event.currentTarget) {
+            return;
+        }
+
+        if (event.key !== 'Enter' && event.key !== ' ') {
+            return;
+        }
+
+        event.preventDefault();
+        this.host.click();
+    };
+
     private updateHasPrimarySlotContent = (e?: Event) => {
         const slot =
             (e?.target as HTMLSlotElement) ??
@@ -289,7 +342,12 @@ export class InfoTile {
 
     private renderNotification = () => {
         if (this.badge) {
-            return <limel-badge label={this.badge} />;
+            return (
+                <limel-badge
+                    label={this.badge}
+                    onClick={this.stopClickWhenDisabled}
+                />
+            );
         }
     };
 
