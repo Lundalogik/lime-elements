@@ -26,17 +26,17 @@ But there is an important difference between the two! Please read our guidelines
 
 ## Properties
 
-| Property         | Attribute       | Description                                                                                                                                                                              | Type               | Default     |
-| ---------------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ----------- |
-| `checked`        | `checked`       | The value of the checkbox. Set to `true` to make the checkbox checked.                                                                                                                   | `boolean`          | `false`     |
-| `disabled`       | `disabled`      | Disables the checkbox when `true`. Works exactly the same as `readonly`. If either property is `true`, the checkbox will be disabled.                                                    | `boolean`          | `false`     |
-| `helperText`     | `helper-text`   | Optional helper text to display below the checkbox                                                                                                                                       | `string`           | `undefined` |
-| `indeterminate`  | `indeterminate` | Enables indeterminate state. Set to `true` to signal indeterminate check.                                                                                                                | `boolean`          | `false`     |
-| `invalid`        | `invalid`       | Set to `true` to indicate that the current value is invalid.                                                                                                                             | `boolean`          | `undefined` |
-| `label`          | `label`         | The checkbox label.                                                                                                                                                                      | `string`           | `undefined` |
-| `readonly`       | `readonly`      | Disables the checkbox when `true`. This visualizes the checkbox slightly differently. But shows no visual sign indicating that the checkbox is disabled or can ever become interactable. | `boolean`          | `false`     |
-| `readonlyLabels` | --              | The labels to use to clarify what kind of data is being visualized, when the component is `readonly`.                                                                                    | `Label<boolean>[]` | `[]`        |
-| `required`       | `required`      | Set to `true` to indicate that the checkbox must be checked.                                                                                                                             | `boolean`          | `false`     |
+| Property         | Attribute       | Description                                                                                                                                                                                                                                               | Type               | Default     |
+| ---------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ----------- |
+| `checked`        | `checked`       | The value of the checkbox. Set to `true` to make the checkbox checked.                                                                                                                                                                                    | `boolean`          | `false`     |
+| `disabled`       | `disabled`      | Disables the checkbox when `true`, and visually shows that the checkbox is editable but disabled. This tells the users that if certain requirements are met, the checkbox may become interactable.                                                        | `boolean`          | `false`     |
+| `helperText`     | `helper-text`   | Optional helper text to display below the checkbox                                                                                                                                                                                                        | `string`           | `undefined` |
+| `indeterminate`  | `indeterminate` | Enables indeterminate state. Set to `true` to signal indeterminate check.                                                                                                                                                                                 | `boolean`          | `false`     |
+| `invalid`        | `invalid`       | Set to `true` to indicate that the current value is invalid.                                                                                                                                                                                              | `boolean`          | `undefined` |
+| `label`          | `label`         | The checkbox label.                                                                                                                                                                                                                                       | `string`           | `undefined` |
+| `readonly`       | `readonly`      | Set to `true` to make the checkbox read-only. Use `readonly` when the checkbox is only there to present the data it holds, and will not become possible for the current user to edit. It is then drawn without any sign that it could be interacted with. | `boolean`          | `false`     |
+| `readonlyLabels` | --              | The labels to use to clarify what kind of data is being visualized, when the component is `readonly`.                                                                                                                                                     | `Label<boolean>[]` | `[]`        |
+| `required`       | `required`      | Set to `true` to indicate that the checkbox must be checked.                                                                                                                                                                                              | `boolean`          | `false`     |
 
 
 ## Events
@@ -77,6 +77,9 @@ But there is an important difference between the two! Please read our guidelines
  - [limel-example-list-item-pictures](../list-item/examples)
  - [limel-example-list-item-radio](../list-item/examples)
  - [limel-example-notched-outline-basic](../notched-outline/examples)
+ - [limel-example-pagination-jump-basic](../pagination/jump/examples)
+ - [limel-example-pagination-loading](../pagination/examples)
+ - [limel-example-pagination-single-page](../pagination/examples)
  - [limel-example-placement](../help/examples)
  - [limel-example-readonly-props](../../design-guidelines/boolean/examples)
  - [limel-example-size](../../design-guidelines/size/examples)
@@ -126,6 +129,9 @@ graph TD;
   limel-example-list-item-pictures --> limel-checkbox
   limel-example-list-item-radio --> limel-checkbox
   limel-example-notched-outline-basic --> limel-checkbox
+  limel-example-pagination-jump-basic --> limel-checkbox
+  limel-example-pagination-loading --> limel-checkbox
+  limel-example-pagination-single-page --> limel-checkbox
   limel-example-placement --> limel-checkbox
   limel-example-readonly-props --> limel-checkbox
   limel-example-size --> limel-checkbox

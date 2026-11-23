@@ -6,6 +6,7 @@
 
 | Property                | Attribute                  | Description                                                                                                                                                                                                                                                           | Type                                          | Default     |
 | ----------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ----------- |
+| `accessibleLabel`       | `accessible-label`         | The name of the list, which a screen reader announces when the focus moves into it.                                                                                                                                                                                   | `string`                                      | `undefined` |
 | `badgeIcons`            | `badge-icons`              | Set to `true` if the list should display larger icons with a background                                                                                                                                                                                               | `boolean`                                     | `undefined` |
 | `iconSize`              | `icon-size`                | Size of the icons in the list                                                                                                                                                                                                                                         | `"large" \| "medium" \| "small" \| "x-small"` | `'small'`   |
 | `items`                 | --                         | List of items to display                                                                                                                                                                                                                                              | `(ListSeparator \| ListItem<any>)[]`          | `undefined` |
@@ -29,6 +30,7 @@
  - [limel-example-action-bar-as-primary-component](../action-bar/examples)
  - [limel-example-action-bar-icon-title](../action-bar/examples)
  - [limel-example-boolean-radio-buttons](../../design-guidelines/boolean/examples)
+ - [limel-example-list-accessible-label](examples)
  - [limel-example-list-action](examples)
  - [limel-example-list-badge-icons](examples)
  - [limel-example-list-badge-icons-with-multiple-lines](examples)
@@ -56,6 +58,7 @@ graph TD;
   limel-example-action-bar-as-primary-component --> limel-list
   limel-example-action-bar-icon-title --> limel-list
   limel-example-boolean-radio-buttons --> limel-list
+  limel-example-list-accessible-label --> limel-list
   limel-example-list-action --> limel-list
   limel-example-list-badge-icons --> limel-list
   limel-example-list-badge-icons-with-multiple-lines --> limel-list

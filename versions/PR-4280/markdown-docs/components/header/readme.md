@@ -77,6 +77,7 @@ and take a lot of attention from users.
  - [limel-example-header-responsive](examples)
  - [limel-example-header-slot-actions](examples)
  - [limel-example-markdown-remove-empty-paragraphs](../markdown/examples)
+ - [limel-side-panel](../side-panel)
  - [my-custom-menu](../dock/examples)
  - [my-custom-menu-with-notifications](../dock/examples)
 
@@ -99,6 +100,7 @@ graph TD;
   limel-example-header-responsive --> limel-header
   limel-example-header-slot-actions --> limel-header
   limel-example-markdown-remove-empty-paragraphs --> limel-header
+  limel-side-panel --> limel-header
   my-custom-menu --> limel-header
   my-custom-menu-with-notifications --> limel-header
   style limel-header fill:#f9f,stroke:#333,stroke-width:4px

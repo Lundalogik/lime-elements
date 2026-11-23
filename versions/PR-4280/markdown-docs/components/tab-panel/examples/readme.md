@@ -2,42 +2,45 @@
 <!-- Auto Generated Below -->
 
 
-## Properties
+## Overview
 
-| Property | Attribute | Description                            | Type  | Default     |
-| -------- | --------- | -------------------------------------- | ----- | ----------- |
-| `tab`    | --        | The tab that this component belongs to | `Tab` | `undefined` |
+Vertical tab panel
+Set `orientation` to `vertical` to place the tabs in a column, to the left
+of the content. This suits a view with many sections, such as settings, in
+a container that is wider than it is tall.
 
-
-## Events
-
-| Event       | Description                                                            | Type               |
-| ----------- | ---------------------------------------------------------------------- | ------------------ |
-| `changeTab` | Emitted when the vote button is clicked to update the badge in the tab | `CustomEvent<Tab>` |
-
+The column is `10rem` wide, whatever its labels, so that the content next
+to it keeps its place when a label or a badge changes. Try the vote button:
+the badge it adds takes room from the label, not from the content. Set
+`--tab-bar-vertical-width` on the panel to change the width.
 
 ## Dependencies
 
-### Used by
-
- - [limel-example-tab-panel-basic](.)
-
 ### Depends on
 
-- [limel-spinner](../../spinner)
-- [limel-icon](../../icon)
-- [limel-button](../../button)
+- [limel-tab-panel](..)
+- [limel-example-tab-panel-content](.)
 
 ### Graph
 ```mermaid
 graph TD;
+  limel-example-tab-panel-vertical --> limel-tab-panel
+  limel-example-tab-panel-vertical --> limel-example-tab-panel-content
+  limel-tab-panel --> limel-tab-bar
+  limel-tab-bar --> limel-scroller
+  limel-tab-bar --> limel-icon
+  limel-tab-bar --> limel-drag-handle
+  limel-tab-bar --> limel-badge
+  limel-drag-handle --> limel-tooltip
+  limel-tooltip --> limel-portal
+  limel-tooltip --> limel-tooltip-content
+  limel-tooltip-content --> limel-hotkey
   limel-example-tab-panel-content --> limel-spinner
   limel-example-tab-panel-content --> limel-icon
   limel-example-tab-panel-content --> limel-button
   limel-button --> limel-icon
   limel-button --> limel-spinner
-  limel-example-tab-panel-basic --> limel-example-tab-panel-content
-  style limel-example-tab-panel-content fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-tab-panel-vertical fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
