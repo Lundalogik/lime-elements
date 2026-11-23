@@ -2,6 +2,7 @@ import { Component, Prop, h, Element, Host, State } from '@stencil/core';
 import { InfoTileProgress } from '../info-tile/info-tile.types';
 import { Link } from '../../global/shared-types/link.types';
 import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
+import { clickOnEnterOrSpace } from '../../util/click-on-enter-or-space';
 import { getRel } from '../../util/link-helper';
 
 /**
@@ -294,16 +295,7 @@ export class InfoTile {
     };
 
     private readonly handleKeyDown = (event: KeyboardEvent) => {
-        if (event.target !== event.currentTarget) {
-            return;
-        }
-
-        if (event.key !== 'Enter' && event.key !== ' ') {
-            return;
-        }
-
-        event.preventDefault();
-        this.host.click();
+        clickOnEnterOrSpace(event, this.host);
     };
 
     private updateHasPrimarySlotContent = (e?: Event) => {
