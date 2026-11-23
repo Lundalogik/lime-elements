@@ -30,4 +30,21 @@ describe('limel-card', () => {
             expect(root.style.getPropertyValue(TILT)).toBe('');
         });
     });
+
+    describe('when the card is clickable', () => {
+        it.each([['Enter'], [' ']])('is clicked by the %j key', async (key) => {
+            const { root, waitForChanges } = await render(
+                <limel-card clickable={true}></limel-card>
+            );
+            await waitForChanges();
+            let clicks = 0;
+            root.addEventListener('click', () => clicks++);
+
+            root.shadowRoot!.querySelector('section').dispatchEvent(
+                new KeyboardEvent('keydown', { key, bubbles: true })
+            );
+
+            expect(clicks).toBe(1);
+        });
+    });
 });

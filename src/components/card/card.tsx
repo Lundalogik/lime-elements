@@ -16,6 +16,7 @@ import { getIconName } from '../icon/get-icon-props';
 import { ListSeparator } from '../../global/shared-types/separator.types';
 import { ActionBarItem } from '../action-bar/action-bar.types';
 import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
+import { clickOnEnterOrSpace } from '../../util/click-on-enter-or-space';
 
 /**
  * Card is a component that displays content about a single topic,
@@ -338,17 +339,8 @@ export class Card {
         }
     };
 
-    private handleKeyDown = (event: KeyboardEvent) => {
-        if (event.target !== event.currentTarget) {
-            return;
-        }
-
-        if (!(event.key === 'Enter' || event.key === ' ')) {
-            return;
-        }
-
-        event.preventDefault();
-        this.host.click();
+    private readonly handleKeyDown = (event: KeyboardEvent) => {
+        clickOnEnterOrSpace(event, this.host);
     };
 
     private renderActionBar() {
