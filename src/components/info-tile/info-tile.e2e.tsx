@@ -114,6 +114,149 @@ describe('limel-info-tile', () => {
             expect(anchor.getAttribute('role')).toEqual('link');
             expect(anchor.getAttribute('aria-disabled')).toEqual('true');
         });
+
+        it('does not pass a click on to the host', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-info-tile
+                    value="1"
+                    disabled={true}
+                    link={{ href: 'https://example.com' }}
+                ></limel-info-tile>
+            );
+            await waitForChanges();
+            let clicks = 0;
+            root.addEventListener('click', () => clicks++);
+
+            root.shadowRoot!.querySelector('a').dispatchEvent(
+                new MouseEvent('click', { bubbles: true, composed: true })
+            );
+
+            expect(clicks).toBe(0);
+        });
+    });
+
+    describe('when clickable but no link is supplied', () => {
+        it('is focusable, a button, and given the 3d hover effect', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-info-tile value="1" clickable={true}></limel-info-tile>
+            );
+            await waitForChanges();
+
+            const tile = root.shadowRoot!.querySelector('.tile');
+            expect(tile.tagName).toEqual('DIV');
+            expect(tile.classList.contains('is-clickable')).toBe(true);
+            expect(tile.getAttribute('tabindex')).toEqual('0');
+            expect(tile.getAttribute('role')).toEqual('button');
+            expect(
+                tile.querySelector('limel-3d-hover-effect-glow')
+            ).not.toBeNull();
+        });
+
+        it.each([['Enter'], [' ']])('is clicked by the %j key', async (key) => {
+            const { root, waitForChanges } = await render(
+                <limel-info-tile value="1" clickable={true}></limel-info-tile>
+            );
+            await waitForChanges();
+            let clicks = 0;
+            root.addEventListener('click', () => clicks++);
+
+            root.shadowRoot!.querySelector('.tile').dispatchEvent(
+                new KeyboardEvent('keydown', { key, bubbles: true })
+            );
+
+            expect(clicks).toBe(1);
+        });
+
+        it('is not clicked by other keys', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-info-tile value="1" clickable={true}></limel-info-tile>
+            );
+            await waitForChanges();
+            let clicks = 0;
+            root.addEventListener('click', () => clicks++);
+
+            root.shadowRoot!.querySelector('.tile').dispatchEvent(
+                new KeyboardEvent('keydown', { key: 'a', bubbles: true })
+            );
+
+            expect(clicks).toBe(0);
+        });
+    });
+
+    describe('when clickable but the tile is disabled', () => {
+        it('is a disabled button, neither focusable nor given the 3d hover effect', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-info-tile
+                    value="1"
+                    clickable={true}
+                    disabled={true}
+                ></limel-info-tile>
+            );
+            await waitForChanges();
+
+            const tile = root.shadowRoot!.querySelector('.tile');
+            expect(tile.getAttribute('role')).toEqual('button');
+            expect(tile.getAttribute('aria-disabled')).toEqual('true');
+            expect(tile.classList.contains('is-clickable')).toBe(false);
+            expect(tile.getAttribute('tabindex')).toBeNull();
+            expect(tile.querySelector('limel-3d-hover-effect-glow')).toBeNull();
+        });
+
+        it('does not pass a click on to the host', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-info-tile
+                    value="1"
+                    clickable={true}
+                    disabled={true}
+                ></limel-info-tile>
+            );
+            await waitForChanges();
+            let clicks = 0;
+            root.addEventListener('click', () => clicks++);
+
+            root.shadowRoot!.querySelector('.tile').dispatchEvent(
+                new MouseEvent('click', { bubbles: true, composed: true })
+            );
+
+            expect(clicks).toBe(0);
+        });
+
+        it('does not pass a click on the badge to the host', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-info-tile
+                    value="1"
+                    badge={3}
+                    clickable={true}
+                    disabled={true}
+                ></limel-info-tile>
+            );
+            await waitForChanges();
+            let clicks = 0;
+            root.addEventListener('click', () => clicks++);
+
+            root.shadowRoot!.querySelector('limel-badge').dispatchEvent(
+                new MouseEvent('click', { bubbles: true, composed: true })
+            );
+
+            expect(clicks).toBe(0);
+        });
+    });
+
+    describe('when both a link and clickable are supplied', () => {
+        it('stays a link and is not announced as a button', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-info-tile
+                    value="1"
+                    clickable={true}
+                    link={{ href: 'https://example.com' }}
+                ></limel-info-tile>
+            );
+            await waitForChanges();
+
+            const anchor = root.shadowRoot!.querySelector('a');
+            expect(anchor.getAttribute('href')).toEqual('https://example.com');
+            expect(anchor.getAttribute('role')).toBeNull();
+        });
     });
 
     describe('when value is empty', () => {

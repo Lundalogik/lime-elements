@@ -595,6 +595,7 @@ export namespace Components {
     }
     export interface LimelInfoTile {
         "badge"?: number | string;
+        "clickable"?: boolean;
         "disabled"?: boolean;
         "icon"?: string;
         "label"?: string;
@@ -2884,6 +2885,7 @@ export namespace JSX {
 
     export interface LimelInfoTile {
         "badge"?: number | string;
+        "clickable"?: boolean;
         "disabled"?: boolean;
         "icon"?: string;
         "label"?: string;
@@ -2900,6 +2902,8 @@ export namespace JSX {
     export interface LimelInfoTileAttributes {
         // (undocumented)
         "badge": string;
+        // (undocumented)
+        "clickable": boolean;
         // (undocumented)
         "disabled": boolean;
         // (undocumented)
