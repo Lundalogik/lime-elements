@@ -1,1 +1,0 @@
-import{r as t,h as i}from"./index-D3SUrFhp.js";const e=class{constructor(i){t(this,i),this.link={href:"https://github.com",title:"Open Github",target:"_blank"}}render(){return i("limel-chip",{key:"0d4187570e0f2ddfb6fcb3a9bd5d34dfad147066",text:"Github",icon:"github_copyrighted",link:this.link})}};export{e as limel_example_chip_link}

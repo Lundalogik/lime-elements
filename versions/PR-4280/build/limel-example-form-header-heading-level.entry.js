@@ -1,1 +1,0 @@
-import{r as e,h as r,H as a}from"./index-D3SUrFhp.js";const i=class{constructor(r){e(this,r),this.levels=[1,2,3,4,5,6]}render(){return r(a,{key:"46ce7e0d10e810aff8062e9ab66416d95bcab239"},this.levels.map((e=>r("limel-form-header",{heading:`Heading level ${e}`,headingLevel:e}))))}};export{i as limel_example_form_header_heading_level}
