@@ -1,9 +1,9 @@
-import { Component, Prop, h, Element, Host, State } from '@stencil/core';
+import { Component, Prop, h, Element, Host, State, Watch } from '@stencil/core';
 import { InfoTileProgress } from '../info-tile/info-tile.types';
 import { Link } from '../../global/shared-types/link.types';
 import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
 import { clickOnEnterOrSpace } from '../../util/click-on-enter-or-space';
-import { getRel } from '../../util/link-helper';
+import { getRel, hasUnsafeProtocol } from '../../util/link-helper';
 
 /**
  * This component can be used on places such as a start page or a dashboard.
@@ -94,6 +94,9 @@ export class InfoTile {
      * as well as `cursor: pointer`, which appears on hover.
      * If the tile should act on a click but there is no URL to go to,
      * set `clickable` instead.
+     *
+     * An `href` that can run a script, such as one with the protocol
+     * `javascript:`, is ignored, and the tile is then not a link.
      */
     @Prop()
     public link?: Link;
@@ -140,8 +143,10 @@ export class InfoTile {
     private handleMouseEnter: () => void;
     private handleMouseLeave: () => void;
     private cleanup3dHoverEffect?: () => void;
+    private hrefWarnedAbout?: string;
 
     public componentWillLoad() {
+        this.warnAboutUnsafeHref();
         const { handleMouseEnter, handleMouseLeave, cleanup } =
             getMouseEventHandlers(this.host);
         this.handleMouseEnter = handleMouseEnter;
@@ -167,7 +172,7 @@ export class InfoTile {
             this.checkProps(this?.progress?.suffix) +
             this.checkProps(this?.link?.title);
 
-        const hasLink = !!this.link?.href;
+        const hasLink = !!this.getSafeHref();
         const isClickable = (hasLink || this.clickable) && !this.disabled;
         const actsAsButton = this.clickable && !hasLink;
         const Tag = hasLink ? 'a' : 'div';
@@ -220,7 +225,7 @@ export class InfoTile {
     private getLinkAttributes(isClickable: boolean, ariaLabel: string) {
         return {
             title: this.link.title,
-            href: this.disabled ? undefined : this.link.href,
+            href: this.disabled ? undefined : this.getSafeHref(),
             role: this.disabled ? 'link' : undefined,
             target: this.link.target,
             rel: getRel(this.link.target, this.link.rel),
@@ -238,6 +243,34 @@ export class InfoTile {
             'aria-label': ariaLabel,
             'aria-disabled': this.disabled ? 'true' : 'false',
         };
+    }
+
+    private getSafeHref(): string | undefined {
+        const href = this.link?.href;
+        if (href && !hasUnsafeProtocol(href)) {
+            return href;
+        }
+    }
+
+    // The watcher is active before the component has loaded, so without the
+    // memory of the last warning, a `link` that is set right after the
+    // element is created would be warned about twice.
+    @Watch('link')
+    protected warnAboutUnsafeHref() {
+        const href = this.link?.href;
+        const unsafeHref = href && hasUnsafeProtocol(href) ? href : undefined;
+        if (unsafeHref === this.hrefWarnedAbout) {
+            return;
+        }
+
+        this.hrefWarnedAbout = unsafeHref;
+        if (!unsafeHref) {
+            return;
+        }
+
+        console.warn(
+            'limel-info-tile: the `href` of the `link` is ignored, because it is not a string, or because a URL with its protocol can run a script.'
+        );
     }
 
     private checkProps(propValue) {
