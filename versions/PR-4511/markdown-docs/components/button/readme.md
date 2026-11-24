@@ -80,6 +80,7 @@ primary and secondary actions, see our
  - [limel-example-form-invalid-section](../form/examples)
  - [limel-example-form-layout](../form/examples)
  - [limel-example-form-span-fields](../form/examples)
+ - [limel-example-info-tile-clickable](../info-tile/examples)
  - [limel-example-input-field-focus](../input-field/examples)
  - [limel-example-input-field-selection](../input-field/examples)
  - [limel-example-markdown-to-markdown](../markdown/examples)
@@ -191,6 +192,7 @@ graph TD;
   limel-example-form-invalid-section --> limel-button
   limel-example-form-layout --> limel-button
   limel-example-form-span-fields --> limel-button
+  limel-example-info-tile-clickable --> limel-button
   limel-example-input-field-focus --> limel-button
   limel-example-input-field-selection --> limel-button
   limel-example-markdown-to-markdown --> limel-button
