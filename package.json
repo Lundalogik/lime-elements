@@ -97,7 +97,7 @@
     "postal-mime": "^4.2.1",
     "prettier": "^3.10.1",
     "prosemirror-example-setup": "^1.2.4",
-    "prosemirror-markdown": "^1.13.9",
+    "prosemirror-markdown": "^1.14.0",
     "prosemirror-model": ">=1.25.13",
     "prosemirror-schema-basic": "^1.2.5",
     "prosemirror-tables": "^1.8.5",
