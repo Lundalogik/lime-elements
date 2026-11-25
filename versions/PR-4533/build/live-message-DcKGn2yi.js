@@ -1,0 +1,1 @@
+import{d as e}from"./debounce-CQnI45sX.js";const t=t=>{let n;return{setElement:e=>{n=e},update:e((()=>{if(!n)return;const e=t();n.textContent!==e&&(n.textContent=e)}),500)}};export{t as c}
