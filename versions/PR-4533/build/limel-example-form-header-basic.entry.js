@@ -1,1 +1,0 @@
-import{r as e,h as r}from"./index-D3SUrFhp.js";const a=class{constructor(r){e(this,r)}render(){return r("limel-form-header",{key:"8a7e89ee0e3aa0aaea472955b5704f217d111f24",heading:"Contact",description:"How we reach **you**. Use your work details.",help:"We only use these details to answer your questions."})}};export{a as limel_example_form_header_basic}

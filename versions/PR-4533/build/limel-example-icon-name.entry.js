@@ -1,1 +1,0 @@
-import{r as e,h as r}from"./index-D3SUrFhp.js";const a=class{constructor(r){e(this,r)}render(){return r("limel-icon",{key:"5eea0cb45421e30e2394a2086f3c4f18dcb27a22",name:"happy"})}};export{a as limel_example_icon_name}
