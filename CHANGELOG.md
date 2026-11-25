@@ -1,3 +1,11 @@
+## [40.27.1](https://github.com/Lundalogik/lime-elements/compare/v40.27.0...v40.27.1) (2026-11-25)
+
+### Bug Fixes
+
+
+* **list-item:** keep the border radius until the background has faded ([a33f7cd](https://github.com/Lundalogik/lime-elements/commit/a33f7cd20c8a8ad8f7a17a35908b07329dd5704f))
+* **menu-surface:** make list items transparent inside menus and dropdowns ([62f8c85](https://github.com/Lundalogik/lime-elements/commit/62f8c85c340b2dedb9c23f5fb9a3a6a4add98902))
+
 ## [40.27.0](https://github.com/Lundalogik/lime-elements/compare/v40.26.4...v40.27.0) (2026-11-23)
 
 ### Features
