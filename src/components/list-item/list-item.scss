@@ -32,7 +32,10 @@ limel-list-item {
     gap: 0.5rem;
 
     padding: 0 1rem;
-    background-color: rgb(var(--contrast-100));
+    background-color: var(
+        --limel-list-item-background-color,
+        rgb(var(--contrast-100))
+    );
 
     &:hover {
         z-index: 1;
