@@ -4,13 +4,24 @@
 
 ## Overview
 
-With `helperText`
+Customizing the visualization of the `readonly` state
+It is possible and recommended that you enhance the visualization of a `boolean` field
+in a `readonly` state.
 
-Switch can have a helper text, which is useful when providing
-additional information and can clarify functionality of the
-switch for the user.
+Because depending on the context, the default UI of the `readonly` state may not always
+provide the best way of _visualizing information_, potentially leading to
+confusion and negatively affecting the end-users' experience.
 
-The helper text is displayed when the user interacts with the switch.
+:::important
+Before reading the documentations below, make sure to read
+1. our guides about the difference between
+[Disabled vs. Readonly](#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
+2. our guidelines about [Labeling boolean fields](#/DesignGuidelines/labeling-boolean-fields.md/).
+:::
+
+Using the `readonlyLabels` optional prop, you can override the `label` and
+customize it accordingly. Additionally, by using the `icon` prop, you can
+override the default icons and their colors.
 
 ## Dependencies
 
@@ -23,13 +34,13 @@ The helper text is displayed when the user interacts with the switch.
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-switch-helper-text --> limel-switch
-  limel-example-switch-helper-text --> limel-example-controls
-  limel-example-switch-helper-text --> limel-example-value
+  limel-example-switch-readonly --> limel-switch
+  limel-example-switch-readonly --> limel-example-controls
+  limel-example-switch-readonly --> limel-example-value
   limel-switch --> limel-dynamic-label
   limel-switch --> limel-helper-line
   limel-dynamic-label --> limel-icon
-  style limel-example-switch-helper-text fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-switch-readonly fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
