@@ -16,4 +16,47 @@ describe('limel-chip-set', () => {
         expect(chip).not.toBeFalsy();
         expect(chip.language).toBe('no');
     });
+
+    test('the initials are passed on to the chips it renders', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-chip-set
+                value={[
+                    {
+                        id: 1,
+                        text: 'Northwind Bikes AB',
+                        initials: {
+                            name: 'Northwind Bikes AB',
+                            nameType: 'company',
+                        },
+                    },
+                ]}
+            />
+        );
+        await waitForChanges();
+
+        const chip = root.shadowRoot.querySelector('limel-chip') as any;
+        expect(chip.initials).toEqual({
+            name: 'Northwind Bikes AB',
+            nameType: 'company',
+        });
+    });
+
+    test('the initials are passed on to the chips of an input chip set', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-chip-set
+                type="input"
+                value={[
+                    {
+                        id: 1,
+                        text: 'Elin Berg',
+                        initials: { name: 'Elin Berg' },
+                    },
+                ]}
+            />
+        );
+        await waitForChanges();
+
+        const chip = root.shadowRoot.querySelector('limel-chip') as any;
+        expect(chip.initials).toEqual({ name: 'Elin Berg' });
+    });
 });
