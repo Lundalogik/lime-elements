@@ -1,3 +1,16 @@
+## [40.30.0](https://github.com/Lundalogik/lime-elements/compare/v40.29.0...v40.30.0) (2026-11-26)
+
+### Features
+
+
+* **chip-set:** show initials on chips ([30082aa](https://github.com/Lundalogik/lime-elements/commit/30082aa2d69ec8059cc4e18ccb0198a2792c39de))
+* **chip:** show initials when there is no picture ([c8aaaf2](https://github.com/Lundalogik/lime-elements/commit/c8aaaf22561a1eba2c12bc5f9a2acfd518197d08))
+* **picker:** show initials on the chips of picked items ([a4fae0e](https://github.com/Lundalogik/lime-elements/commit/a4fae0e68439e89017af51b5550844fc1fc00e8a))
+### Bug Fixes
+
+
+* **list-item:** try failed pictures again when back online ([1ee7853](https://github.com/Lundalogik/lime-elements/commit/1ee78531f7e43f2479f799b30316072d16851795))
+
 ## [40.29.0](https://github.com/Lundalogik/lime-elements/compare/v40.28.0...v40.29.0) (2026-11-26)
 
 ### Features
