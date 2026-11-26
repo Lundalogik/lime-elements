@@ -7,15 +7,11 @@ import { Component, h, Host, State } from '@stencil/core';
  * The suggestions in a picker are drawn as a [List](#/component/limel-list/),
  * so they can show `initials` for the items that have no picture. That way,
  * every suggestion starts with something that helps users tell them apart,
- * and all the names line up in one column.
+ * and all the names line up in one column. A picked item is shown as a
+ * [Chip](#/component/limel-chip/), with the same picture or initials.
  *
  * Here, two people have a picture, two have only their initials, and the
  * company is read with `nameType: 'company'`, which skips its legal form.
- *
- * :::note
- * A picked item is shown as a chip, and chips do not show initials yet. So a
- * picked item without a picture shows only its name.
- * :::
  */
 @Component({
     tag: 'limel-example-picker-pictures-and-initials',
