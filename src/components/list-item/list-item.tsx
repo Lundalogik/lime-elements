@@ -1,4 +1,4 @@
-import { Component, Host, Prop, h } from '@stencil/core';
+import { Component, Host, Prop, forceUpdate, h } from '@stencil/core';
 import { getIconName } from '../icon/get-icon-props';
 import type { IconSize } from '../icon/icon.types';
 import { createRandomString } from '../../util/random-string';
@@ -11,6 +11,8 @@ import translate from '../../global/translations';
 import { Languages } from '../date-picker/date.types';
 import { ImageTemplate } from '../../util/image.template';
 import { getInitials } from '../initials/get-initials';
+
+const failedImageSrcs = new Set<string>();
 
 /**
  * This components displays the list item.
@@ -257,12 +259,28 @@ export class ListItemComponent implements ListItem {
     };
 
     private readonly renderImageOrInitials = () => {
-        if (this.image) {
-            return <ImageTemplate image={this.image} />;
+        if (this.image && !this.replacesFailedImage()) {
+            const src = this.image.src;
+
+            return (
+                <ImageTemplate
+                    image={this.image}
+                    onError={() => this.handleImageError(src)}
+                />
+            );
         }
 
         return this.renderInitials();
     };
+
+    private readonly handleImageError = (src: string) => {
+        failedImageSrcs.add(src);
+        forceUpdate(this);
+    };
+
+    private replacesFailedImage(): boolean {
+        return failedImageSrcs.has(this.image.src) && this.hasInitials();
+    }
 
     private renderInitials() {
         if (!this.hasInitials()) {

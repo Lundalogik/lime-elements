@@ -2,6 +2,7 @@ import { render, h } from '@stencil/vitest';
 
 const PIXEL =
     'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+const BROKEN = 'data:image/png;base64,AAAA';
 
 describe('limel-list-item', () => {
     it('renders a default list item with correct role and aria-disabled', async () => {
@@ -262,6 +263,151 @@ describe('limel-list-item', () => {
 
             const checkbox = root.querySelector('.boolean-input');
             expect(getComputedStyle(checkbox).order).toEqual('2');
+        });
+
+        it('shows the initials when the image fails to load', async () => {
+            const { root } = await render(
+                <limel-list-item
+                    text="Elin Berg"
+                    initials={{ name: 'Elin Berg' }}
+                    image={{ src: BROKEN, alt: '', loading: 'eager' }}
+                ></limel-list-item>
+            );
+
+            await vi.waitFor(() => {
+                expect(root.querySelector('limel-initials')).not.toBeNull();
+            });
+            expect(root.querySelector('img')).toBeNull();
+        });
+
+        it('keeps the broken image when there are no initials', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-list-item
+                    text="Elin Berg"
+                    image={{ src: BROKEN, alt: '', loading: 'eager' }}
+                ></limel-list-item>
+            );
+
+            const img = root.querySelector('img');
+            await vi.waitFor(() => {
+                expect(img.complete).toBe(true);
+            });
+            await waitForChanges();
+
+            expect(root.querySelector('img')).toBe(img);
+        });
+
+        it('keeps the initials when the same broken image is given again', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-list-item
+                    text="Elin Berg"
+                    initials={{ name: 'Elin Berg' }}
+                    image={{ src: BROKEN, alt: '', loading: 'eager' }}
+                ></limel-list-item>
+            );
+            await vi.waitFor(() => {
+                expect(root.querySelector('limel-initials')).not.toBeNull();
+            });
+
+            (root as HTMLLimelListItemElement).image = {
+                src: BROKEN,
+                alt: '',
+                loading: 'eager',
+            };
+            await waitForChanges();
+
+            expect(root.querySelector('img')).toBeNull();
+            expect(root.querySelector('limel-initials')).not.toBeNull();
+        });
+
+        it('does not blame a new image for the failure of the one it replaces', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-list-item
+                    text="Elin Berg"
+                    initials={{ name: 'Elin Berg' }}
+                    image={{ src: `${PIXEL}#first`, alt: '' }}
+                ></limel-list-item>
+            );
+            const img = root.querySelector('img');
+
+            (root as HTMLLimelListItemElement).image = { src: PIXEL, alt: '' };
+            img.dispatchEvent(new Event('error'));
+            await waitForChanges();
+
+            expect(root.querySelector('img')?.getAttribute('src')).toEqual(
+                PIXEL
+            );
+            expect(root.querySelector('limel-initials')).toBeNull();
+        });
+
+        it('does not try again any image that failed before', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-list-item
+                    text="Elin Berg"
+                    initials={{ name: 'Elin Berg' }}
+                    image={{ src: BROKEN, alt: '', loading: 'eager' }}
+                ></limel-list-item>
+            );
+            const item = root as HTMLLimelListItemElement;
+            await vi.waitFor(() => {
+                expect(root.querySelector('limel-initials')).not.toBeNull();
+            });
+
+            item.image = { src: `${BROKEN}#second`, alt: '', loading: 'eager' };
+            await waitForChanges();
+            await vi.waitFor(() => {
+                expect(root.querySelector('limel-initials')).not.toBeNull();
+            });
+
+            item.image = { src: BROKEN, alt: '', loading: 'eager' };
+            await waitForChanges();
+
+            expect(root.querySelector('img')).toBeNull();
+            expect(root.querySelector('limel-initials')).not.toBeNull();
+        });
+
+        it('remembers a failed image for every list item', async () => {
+            const src = `${PIXEL}#remembered`;
+            const first = await render(
+                <limel-list-item
+                    text="Elin Berg"
+                    initials={{ name: 'Elin Berg' }}
+                    image={{ src: src, alt: '' }}
+                ></limel-list-item>
+            );
+            first.root.querySelector('img').dispatchEvent(new Event('error'));
+            await first.waitForChanges();
+
+            const second = await render(
+                <limel-list-item
+                    text="Jonas Ek"
+                    initials={{ name: 'Jonas Ek' }}
+                    image={{ src: src, alt: '' }}
+                ></limel-list-item>
+            );
+            await second.waitForChanges();
+
+            expect(second.root.querySelector('img')).toBeNull();
+            expect(second.root.querySelector('limel-initials')).not.toBeNull();
+        });
+
+        it('shows a new image again after an earlier one failed', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-list-item
+                    text="Elin Berg"
+                    initials={{ name: 'Elin Berg' }}
+                    image={{ src: BROKEN, alt: '', loading: 'eager' }}
+                ></limel-list-item>
+            );
+            await vi.waitFor(() => {
+                expect(root.querySelector('limel-initials')).not.toBeNull();
+            });
+
+            (root as HTMLLimelListItemElement).image = { src: PIXEL, alt: '' };
+            await waitForChanges();
+
+            expect(root.querySelector('img')).not.toBeNull();
+            expect(root.querySelector('limel-initials')).toBeNull();
         });
     });
 });

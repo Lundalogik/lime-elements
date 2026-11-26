@@ -18,6 +18,8 @@ import { Component, h } from '@stencil/core';
  *
  * When an item has both `image` and `initials`, the picture is shown. So it is
  * fine to always set `initials`, and to add `image` whenever there is one.
+ * If the picture fails to load, for example because its address no longer
+ * works, the initials are shown instead, as for Jonas Ek below.
  */
 @Component({
     tag: 'limel-example-list-initials',
@@ -49,9 +51,19 @@ export class ListInitialsExample {
             disabled: true,
         },
         {
+            text: 'Jonas Ek',
+            secondaryText: 'Engineer',
+            value: 4,
+            initials: { name: 'Jonas Ek' },
+            image: {
+                src: 'data:image/png;base64,AAAA',
+                alt: '',
+            },
+        },
+        {
             text: 'Northwind Bikes AB',
             secondaryText: 'Customer',
-            value: 4,
+            value: 5,
             initials: { name: 'Northwind Bikes AB', nameType: 'company' },
         },
     ];
