@@ -3,6 +3,18 @@ import { Component, h, State } from '@stencil/core';
 
 /**
  * With pictures
+ *
+ * Give an item an `image` to show a picture in its suggestion, for example a
+ * photo of a person or the logo of a company. Pictures make suggestions
+ * quicker to tell apart than names alone.
+ *
+ * An item can have an `icon` as well. In the list of suggestions, the icon is
+ * then shown as a small badge on the corner of the picture. An item without a
+ * picture shows its icon in the picture's place instead, so that all the
+ * names still line up.
+ *
+ * When an item is picked, its chip shows the picture, or the icon when there
+ * is no picture.
  */
 @Component({
     tag: 'limel-example-picker-pictures',
