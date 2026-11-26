@@ -1,22 +1,4 @@
 /**
- * Contains changes made to a selection
- */
-export interface SelectionChangeSet {
-    /**
-     * Tells whether the items were selected or deselected
-     */
-    selected: boolean;
-    /**
-     * Gets the affected items
-     */
-    items: any[];
-    /**
-     * Gets the indexes of the affected items
-     */
-    indexes: number[];
-}
-
-/**
  * Contains a set of selected data objects with methods for adding and removing
  * items to the selection by referring to them by their index/position.
  * Maintains a memory of the last toggled item which can be used to select or
@@ -74,10 +56,9 @@ export class Selection {
      * Toggles the item at the given index in the selection
      *
      * @param index - The index of the item to toggle
-     * @returns The changes made to the selection
      */
-    public toggleSelection(index: number): SelectionChangeSet {
-        return this.toggleRange(index, index);
+    public toggleSelection(index: number) {
+        this.toggleRange(index, index);
     }
 
     /**
@@ -88,14 +69,24 @@ export class Selection {
      * `toggleSelection`.
      *
      * @param index - The index of the item to toggle
-     * @returns The changes made to the selection
      */
-    public toggleSelectionFromLastIndex(index: number): SelectionChangeSet {
+    public toggleSelectionFromLastIndex(index: number) {
         if (this.lastToggledIndex < 0) {
-            return this.toggleSelection(index);
+            this.toggleSelection(index);
+
+            return;
         }
 
-        return this.toggleRange(this.lastToggledIndex, index);
+        this.toggleRange(this.lastToggledIndex, index);
+    }
+
+    /**
+     * Forgets the last toggled index, so that the next range selection
+     * behaves like `toggleSelection`. Use it when the items have got new
+     * indexes.
+     */
+    public forgetLastToggledIndex() {
+        this.lastToggledIndex = -1;
     }
 
     /**
@@ -106,20 +97,15 @@ export class Selection {
         this.lastToggledIndex = -1;
     }
 
-    private toggleRange = (
-        fromIndex: number,
-        toIndex: number
-    ): SelectionChangeSet => {
+    private readonly toggleRange = (fromIndex: number, toIndex: number) => {
         const select = !this.selectedItems.has(this.getDataByIndex(toIndex));
 
         const lowerBound = Math.min(fromIndex, toIndex);
         const upperBound = Math.max(fromIndex, toIndex);
-        const updatedIndexes = [];
-        const updatedItems = [];
         for (let index = lowerBound; index <= upperBound; index++) {
             const data = this.getDataByIndex(index);
 
-            if (!data) {
+            if (data === undefined || data === null) {
                 continue;
             }
 
@@ -134,17 +120,8 @@ export class Selection {
             } else {
                 this.selectedItems.delete(data);
             }
-
-            updatedIndexes.push(index);
-            updatedItems.push(data);
         }
 
         this.lastToggledIndex = toIndex;
-
-        return {
-            selected: select,
-            items: updatedItems,
-            indexes: updatedIndexes,
-        };
     };
 }
