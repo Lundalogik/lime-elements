@@ -1,0 +1,1 @@
+const n=new Set;function t(t){n.add(t)}function e(t){return n.has(t)}export{e as h,t as r}

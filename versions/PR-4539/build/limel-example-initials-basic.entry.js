@@ -1,0 +1,1 @@
+import{r as e,h as i}from"./index-D3SUrFhp.js";const a=class{constructor(i){e(this,i)}render(){return i("limel-initials",{key:"8199eb2944a7fe10373fe72039be1c315cd58a54",name:"Maja Lindqvist"})}};export{a as limel_example_initials_basic}

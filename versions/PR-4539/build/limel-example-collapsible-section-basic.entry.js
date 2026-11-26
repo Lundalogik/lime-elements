@@ -1,0 +1,1 @@
+import{r as e,h as c}from"./index-D3SUrFhp.js";const a=class{constructor(c){e(this,c)}render(){return c("limel-collapsible-section",{key:"d993541bd4c320eb61a856d7ff2003d67c62dad7",header:"Header"},c("p",{key:"da1b20fc04788c961912c87a36e855394e108eac"},"Body"))}};export{a as limel_example_collapsible_section_basic}
