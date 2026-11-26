@@ -1,3 +1,11 @@
+## [40.28.0](https://github.com/Lundalogik/lime-elements/compare/v40.27.1...v40.28.0) (2026-11-26)
+
+### Features
+
+
+* **initials:** add a tile that shows the initials of a name ([0c73c97](https://github.com/Lundalogik/lime-elements/commit/0c73c979e93262e4f9d7a77a84e0126a21a57017))
+* **initials:** export getInitials ([c744f0c](https://github.com/Lundalogik/lime-elements/commit/c744f0c990d6237d99bb6b491f589fd9462d64ef))
+
 ## [40.27.1](https://github.com/Lundalogik/lime-elements/compare/v40.27.0...v40.27.1) (2026-11-25)
 
 ### Bug Fixes
