@@ -23,7 +23,10 @@ import { countGraphemes, getInitials } from './get-initials';
  *
  * When the name has no letters or digits, for example when it is empty or
  * only contains an emoji, nothing is rendered. The same goes for the name of
- * a company that is only a legal form, such as "AB".
+ * a company that is only a legal form, such as "AB". If you want to show
+ * something else in those cases, such as an icon, call the `getInitials`
+ * function that this library exports. It returns the letters that the tile
+ * would show, or `undefined` when there are none.
  *
  * :::note
  * The tile is hidden from assistive technology, such as screen readers.

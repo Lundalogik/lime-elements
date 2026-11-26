@@ -92,12 +92,15 @@ interface WordRules {
 }
 
 /**
- * Works out the letters to show in the tile.
+ * Works out the letters that `limel-initials` shows for a name. Use it to
+ * find out beforehand whether a name gives any initials at all, for example
+ * to show an icon instead when it does not.
  *
  * @param name - The name to read.
  * @param nameType - How to read the name. Defaults to `default`.
  * @returns One to three uppercase letters or digits, or `undefined` when the
  * name has none.
+ * @public
  */
 export function getInitials(
     name: string | undefined | null,

@@ -1340,6 +1340,9 @@ export type FormSubKeySchema<TObj> = Partial<{
     [Key in Extract<keyof TObj, any>]: FormSchema<TObj[Key]>;
 }>;
 
+// @public
+export function getInitials(name: string | undefined | null, nameType?: InitialsNameType): string | undefined;
+
 // Warning: (ae-missing-release-tag) "globalConfig" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
