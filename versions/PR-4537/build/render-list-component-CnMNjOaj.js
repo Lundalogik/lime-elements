@@ -1,0 +1,1 @@
+import{h as o}from"./index-D3SUrFhp.js";function r(r,n){var i;if(!(null===(i=null==r?void 0:r.name)||void 0===i?void 0:i.includes("-")))return;const t=r.name,e=r.props||{},l=[n,e.class].filter(Boolean).join(" ")||void 0;return o(t,Object.assign({},e,{class:l}))}export{r}

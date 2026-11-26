@@ -1,0 +1,1 @@
+import{r,h as e}from"./index-D3SUrFhp.js";const o=class{constructor(e){r(this,e)}render(){return e("limel-chip",{key:"f0649582b38b74d82895bc5fa3336094fd6a2db6",text:"Delivered",icon:{name:"sent",color:"rgb(var(--color-green-default))"},readonly:!0})}};o.style="limel-chip{--chip-readonly-border-color:rgb(var(--color-green-default))}";export{o as limel_example_chip_readonly_border}
