@@ -1,0 +1,1 @@
+import{r as e,h as t}from"./index-D3SUrFhp.js";const r=class{constructor(t){e(this,t),this.items=[{text:"root"},{text:"src"},{text:"components"},{text:"my-component"}]}render(){return t("limel-breadcrumbs",{key:"ec97ed833c99728427f7e71d062a33e1c18261b0",items:this.items,divider:"/"})}};export{r as limel_example_breadcrumbs_divider}
