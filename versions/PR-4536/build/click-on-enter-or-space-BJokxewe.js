@@ -1,0 +1,1 @@
+import{E as o,S as s}from"./keycodes-DzPhHkhX.js";function a(a,c){a.target===a.currentTarget&&(a.key!==o&&a.key!==s||(a.preventDefault(),c.click()))}export{a as c}
