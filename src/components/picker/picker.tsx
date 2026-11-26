@@ -413,6 +413,7 @@ export class Picker {
             removable: listItem.removable !== false,
             icon: name ? { name: name, color: color } : undefined,
             image: listItem.image,
+            initials: listItem.initials,
             value: listItem,
             menuItems: listItem.actions,
             badge: listItem.badge,

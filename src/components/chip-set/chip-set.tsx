@@ -750,6 +750,7 @@ export class ChipSet {
             text: chip.text,
             icon: chip.icon,
             image: chip.image,
+            initials: chip.initials,
             badge: chip.badge,
             selected: chip.selected,
             disabled: this.disabled,

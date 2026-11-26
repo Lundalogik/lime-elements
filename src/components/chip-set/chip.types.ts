@@ -3,6 +3,7 @@ import { Icon, IconName } from '../../global/shared-types/icon.types';
 import { MenuItem } from '../menu/menu.types';
 import { ListSeparator } from '../list-item/list-item.types';
 import { Color } from '../../global/shared-types/color.types';
+import { InitialsName } from '../initials/initials.types';
 
 /**
  * @public
@@ -27,6 +28,22 @@ export interface Chip<T = any> {
      * A picture to be displayed instead of the icon on the chip.
      */
     image?: Image;
+
+    /**
+     * Initials to show on the chip when there is no picture, for example
+     * for a person who has not uploaded one. They are shown in a round
+     * tile with the same size as a picture, instead of the icon.
+     *
+     * Give the name to read the initials from, such as
+     * `{ name: 'Maja Lindqvist' }`. For the name of a company, add
+     * `nameType: 'company'`. To show letters that you have already picked
+     * yourself, give them as the name with `nameType: 'initials'`, such as
+     * `{ name: 'EB', nameType: 'initials' }`.
+     *
+     * When `image` is also set, the picture is shown instead, unless it
+     * fails to load. When the name gives no letters, the icon is shown.
+     */
+    initials?: InitialsName;
 
     /**
      * Color of the icon. Overrides `--icon-color`.

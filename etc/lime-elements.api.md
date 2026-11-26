@@ -103,6 +103,7 @@ export interface Chip<T = any> {
     iconTitle?: string;
     id: number | string;
     image?: Image_2;
+    initials?: InitialsName;
     invalid?: boolean;
     loading?: boolean;
     menuItems?: Array<MenuItem | ListSeparator>;
@@ -292,6 +293,7 @@ export namespace Components {
         "icon"?: IconName | Icon;
         "identifier"?: number | string;
         "image"?: Image_2;
+        "initials"?: InitialsName;
         "invalid": boolean;
         "language": Languages;
         "link"?: Omit<Link, 'text'>;
@@ -2058,6 +2060,7 @@ export namespace JSX {
         "icon"?: IconName | Icon;
         "identifier"?: number | string;
         "image"?: Image_2;
+        "initials"?: InitialsName;
         "invalid"?: boolean;
         "language"?: Languages;
         "link"?: Omit<Link, 'text'>;

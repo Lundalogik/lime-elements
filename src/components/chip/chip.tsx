@@ -3,6 +3,7 @@ import {
     Element,
     Event,
     EventEmitter,
+    forceUpdate,
     h,
     Host,
     Prop,
@@ -22,6 +23,12 @@ import { BACKSPACE, DELETE } from '../../util/keycodes';
 import { ChipType, Chip as OldChipInterface } from '../chip-set/chip.types';
 import { Image } from '../../global/shared-types/image.types';
 import { isEmpty } from 'lodash-es';
+import { InitialsName } from '../initials/initials.types';
+import { rememberFailedImage } from '../../util/failed-images';
+import {
+    hasInitials,
+    initialsReplaceImage,
+} from '../initials/initials-fallback';
 
 import { ListSeparator } from '../list-item/list-item.types';
 import { LimelMenuCustomEvent, MenuItem } from '../../components';
@@ -74,6 +81,7 @@ interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {
  * @exampleComponent limel-example-chip-link
  * @exampleComponent limel-example-chip-icon-colors
  * @exampleComponent limel-example-chip-image
+ * @exampleComponent limel-example-chip-initials
  * @exampleComponent limel-example-chip-badge
  * @exampleComponent limel-example-chip-filter
  * @exampleComponent limel-example-chip-removable
@@ -114,6 +122,23 @@ export class Chip implements ChipInterface {
      */
     @Prop()
     public image?: Image;
+
+    /**
+     * Initials to show on the chip when there is no picture, for example
+     * for a person who has not uploaded one. They are shown in a round
+     * tile with the same size as a picture, instead of the icon.
+     *
+     * Give the name to read the initials from, such as
+     * `{ name: 'Maja Lindqvist' }`. For the name of a company, add
+     * `nameType: 'company'`. To show letters that you have already picked
+     * yourself, give them as the name with `nameType: 'initials'`, such as
+     * `{ name: 'EB', nameType: 'initials' }`.
+     *
+     * When `image` is also set, the picture is shown instead, unless it
+     * fails to load. When the name gives no letters, the icon is shown.
+     */
+    @Prop()
+    public initials?: InitialsName;
 
     /**
      * If supplied, the chip will become a clickable link.
@@ -289,14 +314,33 @@ export class Chip implements ChipInterface {
     };
 
     private renderPicture() {
-        const icon = getIconName(this.icon);
+        if (
+            !isEmpty(this.image) &&
+            !initialsReplaceImage(this.image, this.initials)
+        ) {
+            const src = this.image.src;
 
-        if (!icon && !this.image) {
-            return;
+            return (
+                <ImageTemplate
+                    image={this.image}
+                    onError={() => this.handleImageError(src)}
+                />
+            );
         }
 
-        if (!isEmpty(this.image)) {
-            return <ImageTemplate image={this.image} />;
+        if (hasInitials(this.initials)) {
+            return (
+                <limel-initials
+                    name={this.initials.name}
+                    nameType={this.initials.nameType}
+                />
+            );
+        }
+
+        const icon = getIconName(this.icon);
+
+        if (!icon) {
+            return;
         }
 
         return (
@@ -312,6 +356,11 @@ export class Chip implements ChipInterface {
             />
         );
     }
+
+    private readonly handleImageError = (src: string) => {
+        rememberFailedImage(src);
+        forceUpdate(this);
+    };
 
     private renderBadge() {
         if (!this.badge) {

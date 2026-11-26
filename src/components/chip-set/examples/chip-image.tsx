@@ -1,9 +1,11 @@
 import { Component, h } from '@stencil/core';
 
 /**
- * Chips with images
+ * Chips with pictures or initials
  *
- * You can use images instead of icons on chips.
+ * You can use images instead of icons on chips. For someone who has no
+ * picture, give `initials` with their name, and the chip shows their initials
+ * in a tile of the same size, as for Elin below.
  *
  * :::note
  * The image will be displayed instead of the icon, if both are provided.
@@ -45,6 +47,11 @@ export class ChipSetImageExample {
                             src: 'https://lundalogik.github.io/lime-elements/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png',
                             alt: 'A picture of Adrian Schmidt, Head of Smooth Operations at Lime Technologies',
                         },
+                    },
+                    {
+                        id: 4,
+                        text: 'Elin',
+                        initials: { name: 'Elin Berg' },
                     },
                 ]}
             />,

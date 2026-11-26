@@ -1162,3 +1162,57 @@ describe('limel-picker readonly state', () => {
         expect(disabledPicker.root.getAttribute('tabindex')).toBe('-1');
     });
 });
+
+describe('limel-picker chips', () => {
+    it('shows the initials of a picked item on its chip', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-picker
+                label="Contact"
+                value={{
+                    text: 'Elin Berg',
+                    value: 1,
+                    initials: { name: 'Elin Berg' },
+                }}
+                searcher={async () => []}
+            />
+        );
+        await waitForChanges();
+
+        const chipSet = root.shadowRoot!.querySelector('limel-chip-set')!;
+        const chip = chipSet.shadowRoot!.querySelector('limel-chip')!;
+        expect(chip.initials).toEqual({ name: 'Elin Berg' });
+    });
+
+    it('shows the initials of every picked item on its chip', async () => {
+        const { root, waitForChanges } = await render(
+            <limel-picker
+                label="Contacts"
+                multiple={true}
+                value={[
+                    {
+                        text: 'Elin Berg',
+                        value: 1,
+                        initials: { name: 'Elin Berg' },
+                    },
+                    {
+                        text: 'Northwind Bikes AB',
+                        value: 2,
+                        initials: {
+                            name: 'Northwind Bikes AB',
+                            nameType: 'company',
+                        },
+                    },
+                ]}
+                searcher={async () => []}
+            />
+        );
+        await waitForChanges();
+
+        const chipSet = root.shadowRoot!.querySelector('limel-chip-set')!;
+        const chips = [...chipSet.shadowRoot!.querySelectorAll('limel-chip')];
+        expect(chips.map((chip) => chip.initials)).toEqual([
+            { name: 'Elin Berg' },
+            { name: 'Northwind Bikes AB', nameType: 'company' },
+        ]);
+    });
+});
