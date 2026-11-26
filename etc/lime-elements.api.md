@@ -292,6 +292,7 @@ export namespace Components {
         "icon"?: IconName | Icon;
         "identifier"?: number | string;
         "image"?: Image_2;
+        "initials"?: InitialsName;
         "invalid": boolean;
         "language": Languages;
         "link"?: Omit<Link, 'text'>;
@@ -2058,6 +2059,7 @@ export namespace JSX {
         "icon"?: IconName | Icon;
         "identifier"?: number | string;
         "image"?: Image_2;
+        "initials"?: InitialsName;
         "invalid"?: boolean;
         "language"?: Languages;
         "link"?: Omit<Link, 'text'>;

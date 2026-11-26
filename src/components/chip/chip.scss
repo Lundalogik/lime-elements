@@ -68,7 +68,8 @@
     padding: 0 0.125rem;
 
     &:has(limel-icon),
-    &:has(img) {
+    &:has(img),
+    &:has(limel-initials) {
         .text {
             padding-left: 0;
         }
@@ -192,6 +193,10 @@ limel-icon {
 img {
     object-fit: cover;
     border-radius: 50%;
+}
+
+limel-initials {
+    --initials-size: calc(var(--limel-chip-height) - 0.25rem);
 }
 
 limel-icon {
