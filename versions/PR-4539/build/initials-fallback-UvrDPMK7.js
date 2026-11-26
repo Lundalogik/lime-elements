@@ -1,0 +1,1 @@
+import{g as n}from"./get-initials-DNSlWiGa.js";const i=new Set,o=()=>i.clear();function t(n){var t;i.add(n),null===(t=globalThis.addEventListener)||void 0===t||t.call(globalThis,"online",o)}function a(i){return!!i&&!!n(i.name,i.nameType)}function l(n,o){return i.has(n.src)&&a(o)}export{a as h,l as i,t as r}
