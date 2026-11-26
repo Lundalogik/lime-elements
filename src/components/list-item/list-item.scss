@@ -20,6 +20,8 @@ $image-box-shadow: 0 0 0 1px rgb(var(--contrast-800), 0.5);
 
 limel-list-item {
     --limel-list-item-image-size: 2rem;
+    --initials-size: var(--limel-list-item-image-size);
+    --initials-border-radius: var(--list-item-image-border-radius, 50%);
     min-height: 2.5rem;
     @include mixins.visualize-keyboard-focus();
 
