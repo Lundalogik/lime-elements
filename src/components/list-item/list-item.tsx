@@ -10,9 +10,11 @@ import { CheckboxTemplate } from '../checkbox/checkbox.template';
 import translate from '../../global/translations';
 import { Languages } from '../date-picker/date.types';
 import { ImageTemplate } from '../../util/image.template';
-import { getInitials } from '../initials/get-initials';
-
-const failedImageSrcs = new Set<string>();
+import { rememberFailedImage } from '../../util/failed-images';
+import {
+    hasInitials,
+    initialsReplaceImage,
+} from '../initials/initials-fallback';
 
 /**
  * This components displays the list item.
@@ -259,7 +261,7 @@ export class ListItemComponent implements ListItem {
     };
 
     private readonly renderImageOrInitials = () => {
-        if (this.image && !this.replacesFailedImage()) {
+        if (this.image && !initialsReplaceImage(this.image, this.initials)) {
             const src = this.image.src;
 
             return (
@@ -274,16 +276,12 @@ export class ListItemComponent implements ListItem {
     };
 
     private readonly handleImageError = (src: string) => {
-        failedImageSrcs.add(src);
+        rememberFailedImage(src);
         forceUpdate(this);
     };
 
-    private replacesFailedImage(): boolean {
-        return failedImageSrcs.has(this.image.src) && this.hasInitials();
-    }
-
     private renderInitials() {
-        if (!this.hasInitials()) {
+        if (!hasInitials(this.initials)) {
             return;
         }
 
@@ -292,13 +290,6 @@ export class ListItemComponent implements ListItem {
                 name={this.initials.name}
                 nameType={this.initials.nameType}
             />
-        );
-    }
-
-    private hasInitials(): boolean {
-        return (
-            !!this.initials &&
-            !!getInitials(this.initials.name, this.initials.nameType)
         );
     }
 
