@@ -3,6 +3,7 @@ import { Icon, IconName } from '../../global/shared-types/icon.types';
 import { MenuItem } from '../menu/menu.types';
 import { Image } from '../../global/shared-types/image.types';
 import { Color } from '../../global/shared-types/color.types';
+import { InitialsName } from '../initials/initials.types';
 
 /**
  * List item.
@@ -69,6 +70,22 @@ export interface ListItem<T = any> {
      * or on its own, in the list item.
      */
     image?: Image;
+
+    /**
+     * Initials to show in the list item when there is no picture, for
+     * example for a person who has not uploaded one. They are shown in a
+     * tile with the same size and shape as the pictures, so that all the
+     * items still line up.
+     *
+     * Give the name to read the initials from, such as
+     * `{ name: 'Maja Lindqvist' }`. For the name of a company, add
+     * `nameType: 'company'`. To show letters that you have already picked
+     * yourself, give them as the name with `nameType: 'initials'`, such as
+     * `{ name: 'EB', nameType: 'initials' }`.
+     *
+     * When `image` is also set, the picture is shown instead.
+     */
+    initials?: InitialsName;
 }
 
 /**

@@ -155,6 +155,7 @@ export class ListRenderer {
                 secondaryText={item.secondaryText}
                 icon={item.icon}
                 image={item.image}
+                initials={item.initials}
                 primaryComponent={item.primaryComponent}
                 badgeIcon={this.config.badgeIcons}
                 iconSize={this.config.iconSize}

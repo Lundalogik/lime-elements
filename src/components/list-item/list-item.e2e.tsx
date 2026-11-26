@@ -1,5 +1,8 @@
 import { render, h } from '@stencil/vitest';
 
+const PIXEL =
+    'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+
 describe('limel-list-item', () => {
     it('renders a default list item with correct role and aria-disabled', async () => {
         const { root, waitForChanges } = await render(
@@ -144,5 +147,121 @@ describe('limel-list-item', () => {
 
         const imgEl = root.querySelector('img');
         expect(imgEl?.getAttribute('loading')).toEqual('eager');
+    });
+
+    describe('with initials', () => {
+        it('renders the initials of the name when there is no image', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-list-item
+                    text="Elin Berg"
+                    initials={{ name: 'Elin Berg' }}
+                ></limel-list-item>
+            );
+            await waitForChanges();
+
+            const tile = root.querySelector('limel-initials');
+            await vi.waitFor(() => {
+                expect(
+                    tile.shadowRoot?.querySelector('.tile')?.textContent
+                ).toEqual('EB');
+            });
+        });
+
+        it('reads a name given with a name type by that type', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-list-item
+                    text="Northwind Bikes AB"
+                    initials={{
+                        name: 'Northwind Bikes AB',
+                        nameType: 'company',
+                    }}
+                ></limel-list-item>
+            );
+            await waitForChanges();
+
+            const tile = root.querySelector('limel-initials');
+            expect(tile?.name).toEqual('Northwind Bikes AB');
+            expect(tile?.nameType).toEqual('company');
+        });
+
+        it('shows the image instead when both are given', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-list-item
+                    text="Elin Berg"
+                    initials={{ name: 'Elin Berg' }}
+                    image={{ src: PIXEL, alt: '' }}
+                ></limel-list-item>
+            );
+            await waitForChanges();
+
+            expect(root.querySelector('img')).not.toBeNull();
+            expect(root.querySelector('limel-initials')).toBeNull();
+        });
+
+        it('renders no tile for a name without letters or digits', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-list-item
+                    text="Party"
+                    initials={{ name: '🎉 ...' }}
+                ></limel-list-item>
+            );
+            await waitForChanges();
+
+            expect(root.querySelector('limel-initials')).toBeNull();
+        });
+
+        it('renders no tile for a company name that is only a legal form', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-list-item
+                    text="AB"
+                    initials={{ name: 'AB', nameType: 'company' }}
+                ></limel-list-item>
+            );
+            await waitForChanges();
+
+            expect(root.querySelector('limel-initials')).toBeNull();
+        });
+
+        it('puts an icon on the corner of the tile, as on an image', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-list-item
+                    text="Elin Berg"
+                    icon="info"
+                    initials={{ name: 'Elin Berg' }}
+                ></limel-list-item>
+            );
+            await waitForChanges();
+
+            const icon = root.querySelector('limel-icon');
+            expect(getComputedStyle(icon).position).toEqual('absolute');
+        });
+
+        it('dims the tile of a disabled item, as an image', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-list-item
+                    text="Elin Berg"
+                    initials={{ name: 'Elin Berg' }}
+                    disabled={true}
+                ></limel-list-item>
+            );
+            await waitForChanges();
+
+            const tile = root.querySelector('limel-initials');
+            expect(getComputedStyle(tile).opacity).toEqual('0.4');
+        });
+
+        it('places a checkbox after the tile, as after an image', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-list-item
+                    text="Elin Berg"
+                    type="checkbox"
+                    initials={{ name: 'Elin Berg' }}
+                ></limel-list-item>
+            );
+            await waitForChanges();
+
+            const checkbox = root.querySelector('.boolean-input');
+            expect(getComputedStyle(checkbox).order).toEqual('2');
+        });
     });
 });

@@ -664,6 +664,7 @@ export namespace Components {
         "icon"?: string | ListItem['icon'];
         "iconSize": IconSize;
         "image"?: ListItem['image'];
+        "initials"?: ListItem['initials'];
         "language": Languages;
         "primaryComponent"?: ListItem['primaryComponent'];
         "secondaryText"?: string;
@@ -3087,6 +3088,7 @@ export namespace JSX {
         "icon"?: string | ListItem['icon'];
         "iconSize"?: IconSize;
         "image"?: ListItem['image'];
+        "initials"?: ListItem['initials'];
         "language"?: Languages;
         "primaryComponent"?: ListItem['primaryComponent'];
         "secondaryText"?: string;
@@ -4769,6 +4771,7 @@ export interface ListItem<T = any> {
     // @deprecated
     iconColor?: Color;
     image?: Image_2;
+    initials?: InitialsName;
     primaryComponent?: ListComponent;
     secondaryText?: string;
     selected?: boolean;

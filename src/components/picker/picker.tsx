@@ -45,6 +45,7 @@ const ENABLED_LIST_ITEM =
  * @exampleComponent limel-example-picker-with-badges
  * @exampleComponent limel-example-picker-icons
  * @exampleComponent limel-example-picker-pictures
+ * @exampleComponent limel-example-picker-pictures-and-initials
  * @exampleComponent limel-example-picker-value-as-object
  * @exampleComponent limel-example-picker-value-as-object-with-actions
  * @exampleComponent limel-example-picker-empty-suggestions
