@@ -1,0 +1,41 @@
+/**
+ * @prop --initials-size: The width and height of the tile. The letters grow and shrink with it, but stay within a readable size. Defaults to `2rem`.
+ * @prop --initials-border-radius: How round the corners of the tile are. Defaults to `50%`, which makes the tile a circle.
+ */
+
+$size: var(--initials-size, 2rem);
+
+:host(limel-initials) {
+    display: flex;
+    flex-shrink: 0;
+}
+
+.tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+    width: $size;
+    height: $size;
+    border-radius: var(--initials-border-radius, 50%);
+
+    color: rgb(var(--contrast-1100));
+
+    font-size: clamp(0.625rem, 0.25rem + #{$size} * 0.25, 1.25rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.02em;
+
+    overflow: hidden;
+    white-space: nowrap;
+    user-select: none;
+
+    background-color: rgb(var(--contrast-400));
+    box-shadow: 0 0 0 1px rgb(var(--contrast-800), 0.5);
+
+    &.long {
+        font-size: clamp(0.5rem, #{$size} * 0.28, 1rem);
+        letter-spacing: -0.02em;
+    }
+}

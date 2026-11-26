@@ -607,6 +607,10 @@ export namespace Components {
         "suffix"?: string;
         "value": number | string;
     }
+    export interface LimelInitials {
+        "name"?: string;
+        "nameType": InitialsNameType;
+    }
     // (undocumented)
     export interface LimelInputField {
         "completions": string[];
@@ -1416,6 +1420,15 @@ export interface InfoTileProgress {
     value: number;
 }
 
+// @public
+export interface InitialsName {
+    name: string;
+    nameType?: InitialsNameType;
+}
+
+// @public
+export type InitialsNameType = 'default' | 'company' | 'initials';
+
 // @alpha
 export type InlineImages = InlineImageTag | InlineImageSrc;
 
@@ -1601,6 +1614,8 @@ export namespace JSX {
         "limel-icon-button": Omit<LimelIconButton, keyof LimelIconButtonAttributes> & { [K in keyof LimelIconButton & keyof LimelIconButtonAttributes]?: LimelIconButton[K] } & { [K in keyof LimelIconButton & keyof LimelIconButtonAttributes as `attr:${K}`]?: LimelIconButtonAttributes[K] } & { [K in keyof LimelIconButton & keyof LimelIconButtonAttributes as `prop:${K}`]?: LimelIconButton[K] };
         // (undocumented)
         "limel-info-tile": Omit<LimelInfoTile, keyof LimelInfoTileAttributes> & { [K in keyof LimelInfoTile & keyof LimelInfoTileAttributes]?: LimelInfoTile[K] } & { [K in keyof LimelInfoTile & keyof LimelInfoTileAttributes as `attr:${K}`]?: LimelInfoTileAttributes[K] } & { [K in keyof LimelInfoTile & keyof LimelInfoTileAttributes as `prop:${K}`]?: LimelInfoTile[K] };
+        // (undocumented)
+        "limel-initials": Omit<LimelInitials, keyof LimelInitialsAttributes> & { [K in keyof LimelInitials & keyof LimelInitialsAttributes]?: LimelInitials[K] } & { [K in keyof LimelInitials & keyof LimelInitialsAttributes as `attr:${K}`]?: LimelInitialsAttributes[K] } & { [K in keyof LimelInitials & keyof LimelInitialsAttributes as `prop:${K}`]?: LimelInitials[K] };
         // (undocumented)
         "limel-input-field": Omit<LimelInputField, keyof LimelInputFieldAttributes> & { [K in keyof LimelInputField & keyof LimelInputFieldAttributes]?: LimelInputField[K] } & { [K in keyof LimelInputField & keyof LimelInputFieldAttributes as `attr:${K}`]?: LimelInputFieldAttributes[K] } & { [K in keyof LimelInputField & keyof LimelInputFieldAttributes as `prop:${K}`]?: LimelInputField[K] };
         // (undocumented)
@@ -2920,6 +2935,19 @@ export namespace JSX {
         "suffix": string;
         // (undocumented)
         "value": string;
+    }
+
+    export interface LimelInitials {
+        "name"?: string;
+        "nameType"?: InitialsNameType;
+    }
+
+    // (undocumented)
+    export interface LimelInitialsAttributes {
+        // (undocumented)
+        "name": string;
+        // (undocumented)
+        "nameType": InitialsNameType;
     }
 
     // (undocumented)

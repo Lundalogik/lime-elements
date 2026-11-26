@@ -1,0 +1,29 @@
+ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: rgb(var(--contrast-1100));
+}
+
+img {
+    width: var(--initials-size);
+    height: var(--initials-size);
+    border-radius: var(--initials-border-radius);
+    object-fit: cover;
+    box-shadow: 0 0 0 1px rgb(var(--contrast-800), 0.5);
+}
+
+code {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: rgb(var(--contrast-1100));
+}

@@ -41,6 +41,7 @@ export {
 export * from './components/help/help.types';
 export * from './components/icon/icon.types';
 export * from './components/info-tile/info-tile.types';
+export * from './components/initials/initials.types';
 export * from './components/input-field/input-field.types';
 export {
     ListComponent,
