@@ -1,1 +1,0 @@
-import{r as e,h as t}from"./index-D3SUrFhp.js";const a=class{constructor(t){e(this,t),this.items=[{text:"King of Tokyo",value:1},{text:"Smash Up!",value:2},{text:"Pandemic",value:3},{text:"Catan",value:4},{text:"Ticket to Ride",value:5}]}render(){return t("limel-list",{key:"7350099dda345720f6b502f7bae57b0a240a7035",items:this.items})}};export{a as limel_example_list_basic}
