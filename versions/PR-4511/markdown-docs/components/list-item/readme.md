@@ -35,6 +35,7 @@ would be visible to MDC.
 | `icon`             | `icon`           | {@inheritdoc ListItem.icon}                                                                                                                                                                                                                                               | `Icon \| string`                                                       | `undefined`  |
 | `iconSize`         | `icon-size`      | Size of the icon displayed for this item.                                                                                                                                                                                                                                 | `"large" \| "medium" \| "small" \| "x-small"`                          | `'small'`    |
 | `image`            | --               | {@inheritdoc ListItem.image}                                                                                                                                                                                                                                              | `Image`                                                                | `undefined`  |
+| `initials`         | --               | {@inheritdoc ListItem.initials}                                                                                                                                                                                                                                           | `InitialsName`                                                         | `undefined`  |
 | `language`         | `language`       | Defines the language for translations. Will translate the translatable strings on the components.                                                                                                                                                                         | `"da" \| "de" \| "en" \| "fi" \| "fr" \| "nb" \| "nl" \| "no" \| "sv"` | `'en'`       |
 | `primaryComponent` | --               | {@inheritdoc ListItem.selected}                                                                                                                                                                                                                                           | `ListComponent`                                                        | `undefined`  |
 | `secondaryText`    | `secondary-text` | {@inheritdoc ListItem.secondaryText}                                                                                                                                                                                                                                      | `string`                                                               | `undefined`  |
@@ -66,6 +67,7 @@ would be visible to MDC.
 - [limel-menu](../menu)
 - [limel-icon-button](../icon-button)
 - [limel-radio-button](../radio-button-group)
+- [limel-initials](../initials)
 - [limel-dynamic-label](../dynamic-label)
 - [limel-helper-line](../helper-line)
 
@@ -76,6 +78,7 @@ graph TD;
   limel-list-item --> limel-menu
   limel-list-item --> limel-icon-button
   limel-list-item --> limel-radio-button
+  limel-list-item --> limel-initials
   limel-list-item --> limel-dynamic-label
   limel-list-item --> limel-helper-line
   limel-menu --> limel-spinner

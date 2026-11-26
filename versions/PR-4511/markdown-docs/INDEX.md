@@ -1,6 +1,6 @@
 # Lime Elements Documentation
 
-**Version 40.27.1**
+**Version 40.29.0**
 
 A comprehensive design system and component library built with Stencil.
 
@@ -16,7 +16,7 @@ npm install @limetech/lime-elements
 <limel-button primary label="Hello World"></limel-button>
 ```
 
-## Components (75)
+## Components (76)
 
 | [3d Hover Effect Glow](components/3d-hover-effect-glow/readme.md) | [Action Bar](components/action-bar/readme.md) | [Ai Avatar](components/ai-avatar/readme.md) |
 | --- | --- | --- | 
@@ -32,18 +32,19 @@ npm install @limetech/lime-elements
 | [Flex Container](components/flex-container/readme.md) | [Form](components/form/readme.md) | [Form Header](components/form-header/readme.md) |
 | [Grid](components/grid/readme.md) | [Header](components/header/readme.md) | [Help](components/help/readme.md) |
 | [Helper Line](components/helper-line/readme.md) | [Hotkey](components/hotkey/readme.md) | [Icon](components/icon/readme.md) |
-| [Icon Button](components/icon-button/readme.md) | [Info Tile](components/info-tile/readme.md) | [Input Field](components/input-field/readme.md) |
-| [Linear Progress](components/linear-progress/readme.md) | [List](components/list/readme.md) | [List Item](components/list-item/readme.md) |
-| [Markdown](components/markdown/readme.md) | [Masonry Layout](components/masonry-layout/readme.md) | [Menu](components/menu/readme.md) |
-| [Menu List](components/menu-list/readme.md) | [Menu Surface](components/menu-surface/readme.md) | [Navigation Button](components/navigation-button/readme.md) |
-| [Notched Outline](components/notched-outline/readme.md) | [Pagination](components/pagination/readme.md) | [Picker](components/picker/readme.md) |
-| [Popover](components/popover/readme.md) | [Popover Surface](components/popover-surface/readme.md) | [Portal](components/portal/readme.md) |
-| [Profile Picture](components/profile-picture/readme.md) | [Progress Flow](components/progress-flow/readme.md) | [Radio Button Group](components/radio-button-group/readme.md) |
-| [Resize Handle](components/resize-handle/readme.md) | [Scroller](components/scroller/readme.md) | [Select](components/select/readme.md) |
-| [Shortcut](components/shortcut/readme.md) | [Side Panel](components/side-panel/readme.md) | [Slider](components/slider/readme.md) |
-| [Snackbar](components/snackbar/readme.md) | [Spinner](components/spinner/readme.md) | [Split Button](components/split-button/readme.md) |
-| [Switch](components/switch/readme.md) | [Tab Bar](components/tab-bar/readme.md) | [Tab Panel](components/tab-panel/readme.md) |
-| [Table](components/table/readme.md) | [Text Editor](components/text-editor/readme.md) | [Tooltip](components/tooltip/readme.md) |
+| [Icon Button](components/icon-button/readme.md) | [Info Tile](components/info-tile/readme.md) | [Initials](components/initials/readme.md) |
+| [Input Field](components/input-field/readme.md) | [Linear Progress](components/linear-progress/readme.md) | [List](components/list/readme.md) |
+| [List Item](components/list-item/readme.md) | [Markdown](components/markdown/readme.md) | [Masonry Layout](components/masonry-layout/readme.md) |
+| [Menu](components/menu/readme.md) | [Menu List](components/menu-list/readme.md) | [Menu Surface](components/menu-surface/readme.md) |
+| [Navigation Button](components/navigation-button/readme.md) | [Notched Outline](components/notched-outline/readme.md) | [Pagination](components/pagination/readme.md) |
+| [Picker](components/picker/readme.md) | [Popover](components/popover/readme.md) | [Popover Surface](components/popover-surface/readme.md) |
+| [Portal](components/portal/readme.md) | [Profile Picture](components/profile-picture/readme.md) | [Progress Flow](components/progress-flow/readme.md) |
+| [Radio Button Group](components/radio-button-group/readme.md) | [Resize Handle](components/resize-handle/readme.md) | [Scroller](components/scroller/readme.md) |
+| [Select](components/select/readme.md) | [Shortcut](components/shortcut/readme.md) | [Side Panel](components/side-panel/readme.md) |
+| [Slider](components/slider/readme.md) | [Snackbar](components/snackbar/readme.md) | [Spinner](components/spinner/readme.md) |
+| [Split Button](components/split-button/readme.md) | [Switch](components/switch/readme.md) | [Tab Bar](components/tab-bar/readme.md) |
+| [Tab Panel](components/tab-panel/readme.md) | [Table](components/table/readme.md) | [Text Editor](components/text-editor/readme.md) |
+| [Tooltip](components/tooltip/readme.md) |
 
 
 ## Design Guidelines

@@ -38,6 +38,7 @@
  - [limel-example-list-checkbox-icons](examples)
  - [limel-example-list-grid](examples)
  - [limel-example-list-icons](examples)
+ - [limel-example-list-initials](examples)
  - [limel-example-list-pictures](examples)
  - [limel-example-list-primary-component](examples)
  - [limel-example-list-radio-button-icons](examples)
@@ -66,6 +67,7 @@ graph TD;
   limel-example-list-checkbox-icons --> limel-list
   limel-example-list-grid --> limel-list
   limel-example-list-icons --> limel-list
+  limel-example-list-initials --> limel-list
   limel-example-list-pictures --> limel-list
   limel-example-list-primary-component --> limel-list
   limel-example-list-radio-button-icons --> limel-list

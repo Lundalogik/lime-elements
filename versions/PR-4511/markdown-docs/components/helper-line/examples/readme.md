@@ -4,7 +4,7 @@
 
 ## Overview
 
-With a long helper text, but no counter
+With a long helper text
 
 ## Dependencies
 
@@ -15,8 +15,8 @@ With a long helper text, but no counter
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-helper-line-long-text-no-counter --> limel-helper-line
-  style limel-example-helper-line-long-text-no-counter fill:#f9f,stroke:#333,stroke-width:4px
+  limel-example-helper-line-long-text --> limel-helper-line
+  style limel-example-helper-line-long-text fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

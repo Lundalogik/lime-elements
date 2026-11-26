@@ -50,6 +50,7 @@
  - [limel-example-picker-multiple](examples)
  - [limel-example-picker-non-removable](examples)
  - [limel-example-picker-pictures](examples)
+ - [limel-example-picker-pictures-and-initials](examples)
  - [limel-example-picker-sections](examples)
  - [limel-example-picker-static-actions](examples)
  - [limel-example-picker-value-as-object](examples)
@@ -109,6 +110,7 @@ graph TD;
   limel-example-picker-multiple --> limel-picker
   limel-example-picker-non-removable --> limel-picker
   limel-example-picker-pictures --> limel-picker
+  limel-example-picker-pictures-and-initials --> limel-picker
   limel-example-picker-sections --> limel-picker
   limel-example-picker-static-actions --> limel-picker
   limel-example-picker-value-as-object --> limel-picker
