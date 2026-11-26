@@ -22,6 +22,7 @@ graph TD;
   limel-example-chip-size --> limel-chip
   limel-example-chip-size --> limel-example-controls
   limel-example-chip-size --> limel-select
+  limel-chip --> limel-initials
   limel-chip --> limel-icon
   limel-chip --> limel-badge
   limel-chip --> limel-menu

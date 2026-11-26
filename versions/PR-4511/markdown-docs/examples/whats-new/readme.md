@@ -36,6 +36,7 @@ graph TD;
   limel-showcase-card --> limel-badge
   limel-showcase-card --> limel-markdown
   limel-showcase-card --> limel-chip
+  limel-chip --> limel-initials
   limel-chip --> limel-icon
   limel-chip --> limel-badge
   limel-chip --> limel-menu

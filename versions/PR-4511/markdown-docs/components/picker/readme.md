@@ -78,6 +78,7 @@ graph TD;
   limel-chip-set --> limel-notched-outline
   limel-chip-set --> limel-chip
   limel-chip-set --> limel-icon
+  limel-chip --> limel-initials
   limel-chip --> limel-icon
   limel-chip --> limel-badge
   limel-chip --> limel-menu

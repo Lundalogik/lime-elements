@@ -28,6 +28,7 @@ graph TD;
   limel-example-file-input-type-filtering --> limel-example-value
   limel-button --> limel-icon
   limel-button --> limel-spinner
+  limel-chip --> limel-initials
   limel-chip --> limel-icon
   limel-chip --> limel-badge
   limel-chip --> limel-menu

@@ -41,6 +41,7 @@ graph TD;
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
+  limel-chip --> limel-initials
   limel-chip --> limel-icon
   limel-chip --> limel-badge
   limel-chip --> limel-menu

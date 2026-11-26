@@ -65,6 +65,7 @@ graph TD;
   limel-example-popover-trigger-interaction --> limel-markdown
   limel-popover --> limel-portal
   limel-popover --> limel-popover-surface
+  limel-chip --> limel-initials
   limel-chip --> limel-icon
   limel-chip --> limel-badge
   limel-chip --> limel-menu

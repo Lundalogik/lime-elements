@@ -49,6 +49,7 @@ text.
 
 ### Used by
 
+ - [limel-chip](../chip)
  - [limel-example-initials-basic](examples)
  - [limel-example-initials-name-types](examples)
  - [limel-example-initials-size](examples)
@@ -57,6 +58,7 @@ text.
 ### Graph
 ```mermaid
 graph TD;
+  limel-chip --> limel-initials
   limel-example-initials-basic --> limel-initials
   limel-example-initials-name-types --> limel-initials
   limel-example-initials-size --> limel-initials
