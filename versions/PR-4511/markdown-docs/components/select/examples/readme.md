@@ -4,18 +4,14 @@
 
 ## Overview
 
-Select with secondary text for options
-Using a `secondaryText` you can provide additional information about
-each option in the list, helping the users to select the right choice.
+Select with separators between options
 
-:::note
-1. The secondary text is only visible in the dropdown list,
-not on the selected option in the input field.
-1. Additionally, on touch screen devices, the secondary text will not
-be visible in the dropdown list, since the component uses the "native"
-select, which does not have support for additional features like this,
-or displaying icons beside the options.
-:::
+Separators are simple yet powerful design elements that can be
+employed in lists of items. They offer significant usability advantages
+by providing valuable visual cues that aid users in perceiving
+and navigating through lists. Read more about advantages of using
+separators in the
+[List component's documentations](#/component/limel-list/).
 
 ## Dependencies
 
@@ -27,15 +23,15 @@ or displaying icons beside the options.
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-select-with-secondary-text --> limel-select
-  limel-example-select-with-secondary-text --> limel-example-value
+  limel-example-select-with-separators --> limel-select
+  limel-example-select-with-separators --> limel-example-value
   limel-select --> limel-notched-outline
   limel-select --> limel-icon
   limel-select --> limel-helper-line
   limel-select --> limel-portal
   limel-select --> limel-menu-surface
   limel-select --> limel-list
-  style limel-example-select-with-secondary-text fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-select-with-separators fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
