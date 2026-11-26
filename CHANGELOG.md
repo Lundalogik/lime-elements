@@ -1,3 +1,11 @@
+## [40.29.0](https://github.com/Lundalogik/lime-elements/compare/v40.28.0...v40.29.0) (2026-11-26)
+
+### Features
+
+
+* **list:** show initials in list items ([524726f](https://github.com/Lundalogik/lime-elements/commit/524726f6b25afa777ff6b046706a09cb7be63e23))
+* **list:** show the initials when a picture fails to load ([b6cfcf0](https://github.com/Lundalogik/lime-elements/commit/b6cfcf0041a5d6c9ce4343397b7e1b2e2403509d))
+
 ## [40.28.0](https://github.com/Lundalogik/lime-elements/compare/v40.27.1...v40.28.0) (2026-11-26)
 
 ### Features
