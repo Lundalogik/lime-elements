@@ -83,7 +83,8 @@ export interface ListItem<T = any> {
      * yourself, give them as the name with `nameType: 'initials'`, such as
      * `{ name: 'EB', nameType: 'initials' }`.
      *
-     * When `image` is also set, the picture is shown instead.
+     * When `image` is also set, the picture is shown instead, unless it
+     * fails to load.
      */
     initials?: InitialsName;
 }
