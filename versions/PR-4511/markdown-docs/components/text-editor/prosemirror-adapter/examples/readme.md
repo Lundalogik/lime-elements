@@ -4,11 +4,7 @@
 
 ## Overview
 
-Basic example
-
-Try typing and editing text, or copy & paste in some rendered HTML code
-from your browser into the editor to see how it is rendered and what you get
-as an output value.
+Example with custom menu
 
 ## Dependencies
 
@@ -20,8 +16,8 @@ as an output value.
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-prosemirror-adapter-basic --> limel-prosemirror-adapter
-  limel-example-prosemirror-adapter-basic --> limel-example-value
+  limel-example-prosemirror-adapter-with-custom-menu --> limel-prosemirror-adapter
+  limel-example-prosemirror-adapter-with-custom-menu --> limel-example-value
   limel-prosemirror-adapter --> limel-action-bar
   limel-prosemirror-adapter --> limel-portal
   limel-prosemirror-adapter --> limel-text-editor-link-menu
@@ -52,7 +48,7 @@ graph TD;
   limel-text-editor-link-menu --> limel-button
   limel-button --> limel-icon
   limel-button --> limel-spinner
-  style limel-example-prosemirror-adapter-basic fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-prosemirror-adapter-with-custom-menu fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
