@@ -4,31 +4,41 @@
 
 ## Overview
 
-File size badge
-When the size of the selected file is known, `limel-file` displays it as a
-badge on the chip, giving end-users a quick sense of how large the file is.
+Resize in a general file picker
 
-The size is picked up automatically when a user chooses a file from their
-device. When a file is provided programmatically, for example when loaded
-from a server, the badge is only shown if the `size` property (in bytes) is
-set on the `FileInfo` object. Toggle the switch below to see the difference.
+The same `resizeImage` options with the default `accept="*"` — the scenario
+unique to a general-purpose picker. Resize degrades gracefully:
+
+- selecting an image resizes and re-encodes it;
+- selecting a PDF, archive, document, or SVG passes through untouched —
+  only decodable raster images are resized;
+- selecting a HEIC/HEIF off Safari emits the original unchanged, because the
+  browser cannot decode it.
+
+Inspect the emitted value below: its `filename`, `contentType` and `size`
+change only when the file was actually resized.
+
+:::note
+HEIC/HEIF images (common from iPhones) cannot be decoded outside Safari, so
+they are emitted unchanged. Detect this in your app — for example from the
+emitted filename extension, as below — and convert or reject server-side if
+needed.
+:::
 
 ## Dependencies
 
 ### Depends on
 
 - [limel-file](..)
-- [limel-example-controls](../../../examples)
-- [limel-switch](../../switch)
 - [limel-example-value](../../../examples)
+- [limel-callout](../../callout)
 
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-file-size-badge --> limel-file
-  limel-example-file-size-badge --> limel-example-controls
-  limel-example-file-size-badge --> limel-switch
-  limel-example-file-size-badge --> limel-example-value
+  limel-example-file-resize-mixed --> limel-file
+  limel-example-file-resize-mixed --> limel-example-value
+  limel-example-file-resize-mixed --> limel-callout
   limel-file --> limel-file-dropzone
   limel-file --> limel-spinner
   limel-file --> limel-chip-set
@@ -60,10 +70,8 @@ graph TD;
   limel-input-field --> limel-menu-surface
   limel-input-field --> limel-list
   limel-input-field --> limel-notched-outline
-  limel-switch --> limel-dynamic-label
-  limel-switch --> limel-helper-line
-  limel-dynamic-label --> limel-icon
-  style limel-example-file-size-badge fill:#f9f,stroke:#333,stroke-width:4px
+  limel-callout --> limel-icon
+  style limel-example-file-resize-mixed fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

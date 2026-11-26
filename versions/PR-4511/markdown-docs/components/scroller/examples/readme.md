@@ -4,16 +4,33 @@
 
 ## Overview
 
-Vertical scroller
-With `orientation` set to `vertical`, the content scrolls up and down, and
-the arrows scroll almost a page of the available height at a time.
-The scroller needs a height to scroll within. Resize the container, to see
-how the scroller follows its height.
+Horizontal scroller
+Content that is wider than the scroller scrolls sideways. An edge that has
+more to reveal fades out, and an arrow appears on it. Clicking the arrow
+scrolls almost a page. Resize the container, to see how the scroller follows
+its width.
 
-Press the Tab key to move between the buttons, and the scroller keeps the
-focused one in view. As in the horizontal scroller, the arrows are only for
-the mouse and touch. The Tab key skips them, and screen readers do not
-announce them. The horizontal example explains why.
+Try it with the keyboard too. Press the Tab key to move between the buttons,
+and the scroller keeps the focused one in view, together with a glimpse of
+the one next to it.
+
+:::note Why the arrows cannot be reached with the keyboard
+The arrows are only a shortcut for people who use a mouse or a touch screen.
+They are not real buttons. Screen readers do not announce them, the Tab key
+skips them, and clicking one does not move the focus away from the item that
+has it.
+
+This is on purpose, because people who use a keyboard or a screen reader do
+not need the arrows. They move between the items, and the scroller keeps
+whatever has focus in view. Screen readers also read the items that are
+scrolled out of sight. If the arrows could be focused, every scroller would
+get two extra stops that these people have no use for, and screen readers
+would announce controls that only repeat what they can already do.
+
+It also means that the content of a scroller must contain something that can
+receive focus, such as a button, a link or a tab. Without it, there is no way
+to scroll with a keyboard.
+:::
 
 ## Dependencies
 
@@ -25,11 +42,11 @@ announce them. The horizontal example explains why.
 ### Graph
 ```mermaid
 graph TD;
-  limel-example-scroller-vertical --> limel-scroller
-  limel-example-scroller-vertical --> limel-button
+  limel-example-scroller-horizontal --> limel-scroller
+  limel-example-scroller-horizontal --> limel-button
   limel-button --> limel-icon
   limel-button --> limel-spinner
-  style limel-example-scroller-vertical fill:#f9f,stroke:#333,stroke-width:4px
+  style limel-example-scroller-horizontal fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
