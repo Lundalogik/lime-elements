@@ -406,4 +406,24 @@ describe('limel-list', () => {
             });
         });
     });
+
+    describe('with initials on some items and only icons on others', () => {
+        it('starts every label in the same column', async () => {
+            const { root, waitForChanges } = await render(
+                <limel-list
+                    items={[
+                        { text: 'Elin Berg', initials: { name: 'Elin Berg' } },
+                        { text: 'Settings', icon: 'settings' },
+                    ]}
+                ></limel-list>
+            );
+            await waitForChanges();
+
+            const labels = [
+                ...root.shadowRoot.querySelectorAll('limel-list-item .text'),
+            ].map((label) => label.getBoundingClientRect().left);
+            expect(labels).toHaveLength(2);
+            expect(labels[1]).toEqual(labels[0]);
+        });
+    });
 });

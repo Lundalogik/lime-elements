@@ -10,6 +10,7 @@ import { CheckboxTemplate } from '../checkbox/checkbox.template';
 import translate from '../../global/translations';
 import { Languages } from '../date-picker/date.types';
 import { ImageTemplate } from '../../util/image.template';
+import { getInitials } from '../initials/get-initials';
 
 /**
  * This components displays the list item.
@@ -125,6 +126,12 @@ export class ListItemComponent implements ListItem {
     public image?: ListItem['image'];
 
     /**
+     * {@inheritdoc ListItem.initials}
+     */
+    @Prop()
+    public initials?: ListItem['initials'];
+
+    /**
      * The semantic role of the list item. This affects the ARIA role
      * and the interaction behavior.
      *
@@ -183,7 +190,7 @@ export class ListItemComponent implements ListItem {
                 {this.renderRadioButton()}
                 {this.renderCheckbox()}
                 {this.renderIcon()}
-                {this.renderImage()}
+                {this.renderImageOrInitials()}
                 {this.renderPrimaryComponent()}
                 <div class="text">
                     {this.renderLabel()}
@@ -249,13 +256,33 @@ export class ListItemComponent implements ListItem {
         return renderListComponent(this.primaryComponent);
     };
 
-    private renderImage = () => {
-        if (!this.image) {
+    private readonly renderImageOrInitials = () => {
+        if (this.image) {
+            return <ImageTemplate image={this.image} />;
+        }
+
+        return this.renderInitials();
+    };
+
+    private renderInitials() {
+        if (!this.hasInitials()) {
             return;
         }
 
-        return <ImageTemplate image={this.image} />;
-    };
+        return (
+            <limel-initials
+                name={this.initials.name}
+                nameType={this.initials.nameType}
+            />
+        );
+    }
+
+    private hasInitials(): boolean {
+        return (
+            !!this.initials &&
+            !!getInitials(this.initials.name, this.initials.nameType)
+        );
+    }
 
     private renderActionMenu = (actions: Array<MenuItem | ListSeparator>) => {
         if (!actions || actions.length === 0) {

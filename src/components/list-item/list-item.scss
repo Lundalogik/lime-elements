@@ -84,6 +84,7 @@ limel-list-item[disabled]:not([disabled='false']) {
     .text,
     limel-icon,
     img,
+    limel-initials,
     .boolean-input {
         opacity: 0.4;
     }
@@ -145,7 +146,7 @@ limel-list-item {
         flex-shrink: 0;
         margin-left: -0.5rem;
 
-        &:has(+ img) {
+        &:has(+ img, + limel-initials) {
             margin-left: 0;
             position: absolute;
             top: 0.125rem;
@@ -176,17 +177,19 @@ limel-list-item {
     }
 }
 
-// A list can mix items that carry an image with items that only carry an
-// icon. Icons are sized differently than images and are pulled to the left,
-// so those items would otherwise start their text somewhere else than their
-// neighbours, leaving the labels in two different columns.
+// A list can mix items that carry an image or initials with items that only
+// carry an icon. Icons are sized differently than images and are pulled to
+// the left, so those items would otherwise start their text somewhere else
+// than their neighbours, leaving the labels in two different columns.
 //
 // Give the lone icons the image's square instead, so that every label lines
 // up regardless of `iconSize` and regardless of whether the icons are badges.
 // `limel-icon` sizes itself with `!important` from inside its own shadow
 // root, where an outer `width` cannot reach it whether it is important or
 // not, so clamp the used size between a matching minimum and maximum.
-:has(> limel-list-item > img) > limel-list-item:not(:has(> img)) > limel-icon {
+:has(> limel-list-item > :is(img, limel-initials))
+    > limel-list-item:not(:has(> :is(img, limel-initials)))
+    > limel-icon {
     margin-left: 0;
     min-width: var(--limel-list-item-image-size);
     max-width: var(--limel-list-item-image-size);
@@ -221,7 +224,8 @@ limel-radio-button {
     }
 
     limel-list-item:has(limel-icon) &,
-    limel-list-item:has(img) & {
+    limel-list-item:has(img) &,
+    limel-list-item:has(limel-initials) & {
         margin-right: -0.25rem;
         margin-left: 0;
         order: 2;
